@@ -352,6 +352,249 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Name of gradual climate change/ climate-related extreme"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28028
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "decreased"
+          },
+          "label_right": {
+            "en": "increased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28030
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "increased"
+          },
+          "label_right": {
+            "en": "decreased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28031
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "hindered"
+          },
+          "label_right": {
+            "en": "simplified"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28032
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "increased"
+          },
+          "label_right": {
+            "en": "reduced"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28033
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28034
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "[Label left]"
+          },
+          "helptext": {
+            "en": "Eg. decreased, reduced"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28035
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "[Measure]"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28036
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "[Label right]"
+          },
+          "helptext": {
+            "en": "Eg. increased, improved"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28037
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "reduced"
+          },
+          "label_right": {
+            "en": "improved"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28038
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "worsened"
+          },
+          "label_right": {
+            "en": "improved"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28039
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "reduced"
+          },
+          "label_right": {
+            "en": "increased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28040
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "weakened"
+          },
+          "label_right": {
+            "en": "strengthened"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28041
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label_left": {
+            "en": "lowered"
+          },
+          "label_right": {
+            "en": "recharge"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28042
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Comments regarding the impact assessment"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28043
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -1906,6 +2149,104 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "-3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29112
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "-2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29113
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "-1"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29114
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "0"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29115
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "1"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29116
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "2"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29117
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "3"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29118
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "cca": {
@@ -2448,6 +2789,1162 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "helptext": {
+            "en": "<p>First, tick relevant impacts (tick boxes on the left, several answers possible). Then for each selected impact, tick the extent.</p><ul><li><strong>-3</strong>: Very negative (- 50-100%)</li><li><strong>-2</strong>: Negative (- 20-50%)</li><li><strong>-1</strong>: Slightly negative (- 5-20%)</li><li><strong>0</strong>: Negligible impact</li><li><strong>1</strong>: Slightly positive (+5-20%)</li><li><strong>2</strong>: Positive (+20-50%)</li><li><strong>3</strong>: Very positive (+50-100%)</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27042
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "crop production"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27043
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "crop quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27044
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "fodder production"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27045
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "fodder quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27046
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "animal production"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27047
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "wood production"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27048
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "forest/ woodland quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27049
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "non-wood forest production"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27050
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "risk of production failure"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27051
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "product diversity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27052
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "production area"
+          },
+          "helptext": {
+            "en": "New land under cultivation/ use"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27053
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "land management"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27054
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "energy generation"
+          },
+          "helptext": {
+            "en": "E.g. hydro, bio"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27055
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "drinking water availability"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27056
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "drinking water quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27057
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "water availability for livestock"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27058
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "water quality for livestock"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27059
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "irrigation water availability"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27060
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "irrigation water quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27061
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "demand for irrigation water"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27062
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "expenses on agricultural inputs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27063
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "farm income"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27064
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "diversity of income sources"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27065
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "economic disparities"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27066
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "workload"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27067
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "food security/ self-sufficiency"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27069
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "health situation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27070
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "land use/ water rights"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27071
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "cultural opportunities"
+          },
+          "helptext": {
+            "en": "E.g. spiritual, religious, aesthetic, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27072
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "recreational opportunities"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27073
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "community institutions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27074
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "national institutions"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27075
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "SLM/ land degradation knowledge"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27076
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "conflict mitigation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27077
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "situation of socially and economically disadvantaged groups"
+          },
+          "helptext": {
+            "en": "Gender, age, status, ethnicity, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27078
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "water quantity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27080
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "water quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27081
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "harvesting/ collection of water"
+          },
+          "helptext": {
+            "en": "Runoff, dew, snow, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27082
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "surface runoff"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27083
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "excess water drainage"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27084
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "groundwater table/ aquifer"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27085
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "evaporation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27086
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil moisture"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27087
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil cover"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27088
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil loss"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27089
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil accumulation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27090
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil crusting/ sealing"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27091
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil compaction"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27092
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "nutrient cycling/ recharge"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27093
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "salinity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27094
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil organic matter/ below ground C"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27095
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "acidity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27096
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "vegetation cover"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27097
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "biomass/ above ground C"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27098
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "plant diversity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27099
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "invasive alien species"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27100
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "animal diversity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27101
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "beneficial species"
+          },
+          "helptext": {
+            "en": "Predators, earthworms, pollinators"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27102
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "harmful species"
+          },
+          "helptext": {
+            "en": "E.g. mosquitoes"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27103
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "habitat diversity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27104
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "pests/ diseases"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27105
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "flood impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27106
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "landslides/ debris flows"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27107
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "drought impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27108
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "impacts of cyclones, rain storms"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27109
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "emission of carbon and greenhouse gases"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27110
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "fire risk"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27111
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "wind velocity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27112
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "micro-climate"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27113
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "water availability"
+          },
+          "helptext": {
+            "en": "groundwater, springs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27115
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "reliable and stable stream flows in dry season"
+          },
+          "helptext": {
+            "en": "Incl. low flows"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27116
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "downstream flooding"
+          },
+          "helptext": {
+            "en": "Downstream flooding and downstream siltation can be desired or undesired. Please specify in comments column and indicate whether an increase is positive or negative."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27117
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "downstream siltation"
+          },
+          "helptext": {
+            "en": "Downstream flooding and downstream siltation can be desired or undesired. Please specify in comments column and indicate whether an increase is positive or negative."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27118
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "groundwater/ river pollution"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27119
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "buffering/ filtering capacity"
+          },
+          "helptext": {
+            "en": "By soil, vegetation, wetlands"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27120
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "wind transported sediments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27121
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "damage on neighbours' fields"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27122
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "damage on public/ private infrastructure"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27123
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "impact of greenhouse gases"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27124
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "cca": {
@@ -2782,6 +4279,230 @@
     },
     "model": "configuration.translation",
     "pk": 23200
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": " "
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23201
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": " "
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23202
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "On-site impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23203
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Off-site impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23204
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Socio-economic impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23210
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Production"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23211
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Water availability and quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23212
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Income and costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23213
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Other socio-economic impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23214
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Socio-cultural impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23220
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Ecological impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23230
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Water cycle/ runoff"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23231
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Soil"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23232
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Biodiversity: vegetation, animals"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23233
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Climate and disaster risk reduction"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23234
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Other ecological impacts"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23235
   },
   {
     "fields": {
@@ -3377,6 +5098,311 @@
     },
     "model": "configuration.key",
     "pk": 28027
+  },
+  {
+    "fields": {
+      "keyword": "change_extreme_name",
+      "translation": 28028,
+      "configuration": {
+        "type": "select_conditional",
+        "form_options": {
+          "display_field": "change_extreme_name_display"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28028
+  },
+  {
+    "fields": {
+      "keyword": "change_extreme_name_display",
+      "translation": 28028,
+      "configuration": {
+        "type": "display_only",
+        "form_options": {
+          "template": "no_label",
+          "helptext_position": "none"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28029
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_decreased_increased",
+      "translation": 28030,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28030
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_increased_decreased",
+      "translation": 28031,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28031
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_hindered_simplified",
+      "translation": 28032,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28032
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_increased_reduced",
+      "translation": 28033,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28033
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_other_specify",
+      "translation": 28034,
+      "configuration": {
+        "type": "char",
+        "form_options": {
+          "template": "no_label",
+          "label_position": "placeholder"
+        },
+        "view_options": {
+          "template": "value_only"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28034
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_other_labelleft",
+      "translation": 28035,
+      "configuration": {
+        "type": "char",
+        "form_options": {
+          "label_position": "placeholder",
+          "field_columns_class": "top-margin",
+          "helptext_position": "field"
+        },
+        "view_options": {
+          "template": "value_only"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28035
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_other_measure",
+      "translation": 28036,
+      "configuration": {
+        "type": "measure",
+        "form_options": {
+          "template": "default",
+          "label_position": "none",
+          "field_columns_class": "top-margin"
+        },
+        "view_options": {
+          "template": "measure_other",
+          "layout": "stacked"
+        }
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28036
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_other_labelright",
+      "translation": 28037,
+      "configuration": {
+        "type": "char",
+        "form_options": {
+          "label_position": "placeholder",
+          "field_columns_class": "top-margin",
+          "helptext_position": "field"
+        },
+        "view_options": {
+          "template": "value_only"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28037
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_reduced_improved",
+      "translation": 28038,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28038
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_worsened_improved",
+      "translation": 28039,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28039
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_reduced_increased",
+      "translation": 28040,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28040
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_weakened_strengthened",
+      "translation": 28041,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28041
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_lowered_recharge",
+      "translation": 28042,
+      "configuration": {
+        "type": "measure"
+      },
+      "values": [
+        29112,
+        29113,
+        29114,
+        29115,
+        29116,
+        29117,
+        29118
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28042
+  },
+  {
+    "fields": {
+      "keyword": "cca_impacts_comments",
+      "translation": 28043,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28043
   },
   {
     "fields": {
@@ -4331,6 +6357,69 @@
   },
   {
     "fields": {
+      "keyword": "cca_decrincr_1",
+      "translation": 29112,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29112
+  },
+  {
+    "fields": {
+      "keyword": "cca_decrincr_2",
+      "translation": 29113,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29113
+  },
+  {
+    "fields": {
+      "keyword": "cca_decrincr_3",
+      "translation": 29114,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29114
+  },
+  {
+    "fields": {
+      "keyword": "cca_decrincr_4",
+      "translation": 29115,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 29115
+  },
+  {
+    "fields": {
+      "keyword": "cca_decrincr_5",
+      "translation": 29116,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 29116
+  },
+  {
+    "fields": {
+      "keyword": "cca_decrincr_6",
+      "translation": 29117,
+      "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 29117
+  },
+  {
+    "fields": {
+      "keyword": "cca_decrincr_7",
+      "translation": 29118,
+      "order_value": 7
+    },
+    "model": "configuration.value",
+    "pk": 29118
+  },
+  {
+    "fields": {
       "keyword": "cca_qg_1",
       "translation": 27001,
       "configuration": {}
@@ -4740,11 +6829,767 @@
   {
     "fields": {
       "keyword": "cca_qg_42",
-      "translation": null,
+      "translation": 27042,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
     "pk": 27042
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_43",
+      "translation": 27043,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27043
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_44",
+      "translation": 27044,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27044
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_45",
+      "translation": 27045,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27045
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_46",
+      "translation": 27046,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27046
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_47",
+      "translation": 27047,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27047
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_48",
+      "translation": 27048,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27048
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_49",
+      "translation": 27049,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27049
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_50",
+      "translation": 27050,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27050
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_51",
+      "translation": 27051,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27051
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_52",
+      "translation": 27052,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27052
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_53",
+      "translation": 27053,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27053
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_54",
+      "translation": 27054,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27054
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_55",
+      "translation": 27055,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27055
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_56",
+      "translation": 27056,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27056
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_57",
+      "translation": 27057,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27057
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_58",
+      "translation": 27058,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27058
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_59",
+      "translation": 27059,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27059
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_60",
+      "translation": 27060,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27060
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_61",
+      "translation": 27061,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27061
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_62",
+      "translation": 27062,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27062
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_63",
+      "translation": 27063,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27063
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_64",
+      "translation": 27064,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27064
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_65",
+      "translation": 27065,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27065
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_66",
+      "translation": 27066,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27066
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_67",
+      "translation": 27067,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27067
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_68",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27068
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_69",
+      "translation": 27069,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27069
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_70",
+      "translation": 27070,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27070
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_71",
+      "translation": 27071,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27071
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_72",
+      "translation": 27072,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27072
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_73",
+      "translation": 27073,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27073
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_74",
+      "translation": 27074,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27074
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_75",
+      "translation": 27075,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27075
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_76",
+      "translation": 27076,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27076
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_77",
+      "translation": 27077,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27077
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_78",
+      "translation": 27078,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27078
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_79",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27079
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_80",
+      "translation": 27080,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27080
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_81",
+      "translation": 27081,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27081
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_82",
+      "translation": 27082,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27082
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_83",
+      "translation": 27083,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27083
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_84",
+      "translation": 27084,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27084
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_85",
+      "translation": 27085,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27085
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_86",
+      "translation": 27086,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27086
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_87",
+      "translation": 27087,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27087
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_88",
+      "translation": 27088,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27088
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_89",
+      "translation": 27089,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27089
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_90",
+      "translation": 27090,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27090
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_91",
+      "translation": 27091,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27091
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_92",
+      "translation": 27092,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27092
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_93",
+      "translation": 27093,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27093
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_94",
+      "translation": 27094,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27094
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_95",
+      "translation": 27095,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27095
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_96",
+      "translation": 27096,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27096
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_97",
+      "translation": 27097,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27097
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_98",
+      "translation": 27098,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27098
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_99",
+      "translation": 27099,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27099
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_100",
+      "translation": 27100,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27100
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_101",
+      "translation": 27101,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27101
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_102",
+      "translation": 27102,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27102
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_103",
+      "translation": 27103,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27103
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_104",
+      "translation": 27104,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27104
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_105",
+      "translation": 27105,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27105
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_106",
+      "translation": 27106,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27106
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_107",
+      "translation": 27107,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27107
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_108",
+      "translation": 27108,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27108
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_109",
+      "translation": 27109,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27109
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_110",
+      "translation": 27110,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27110
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_111",
+      "translation": 27111,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27111
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_112",
+      "translation": 27112,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27112
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_113",
+      "translation": 27113,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27113
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_114",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27114
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_115",
+      "translation": 27115,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27115
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_116",
+      "translation": 27116,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27116
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_117",
+      "translation": 27117,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27117
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_118",
+      "translation": 27118,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27118
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_119",
+      "translation": 27119,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27119
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_120",
+      "translation": 27120,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27120
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_121",
+      "translation": 27121,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27121
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_122",
+      "translation": 27122,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27122
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_123",
+      "translation": 27123,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27123
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_124",
+      "translation": 27124,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27124
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_125",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27125
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_126",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27126
   },
   {
     "fields": {
@@ -4929,6 +7774,134 @@
     },
     "model": "configuration.category",
     "pk": 23200
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__repeat",
+      "translation": 23201
+    },
+    "model": "configuration.category",
+    "pk": 23201
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__change__extreme",
+      "translation": 23202
+    },
+    "model": "configuration.category",
+    "pk": 23202
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__onsite__impacts",
+      "translation": 23203
+    },
+    "model": "configuration.category",
+    "pk": 23203
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__offsite__impacts",
+      "translation": 23204
+    },
+    "model": "configuration.category",
+    "pk": 23204
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__socioeconomic",
+      "translation": 23210
+    },
+    "model": "configuration.category",
+    "pk": 23210
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__socioeconomic_production",
+      "translation": 23211
+    },
+    "model": "configuration.category",
+    "pk": 23211
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__socioeconomic_water",
+      "translation": 23212
+    },
+    "model": "configuration.category",
+    "pk": 23212
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__socioeconomic_income",
+      "translation": 23213
+    },
+    "model": "configuration.category",
+    "pk": 23213
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__socioeconomic_other",
+      "translation": 23214
+    },
+    "model": "configuration.category",
+    "pk": 23214
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__sociocultural",
+      "translation": 23220
+    },
+    "model": "configuration.category",
+    "pk": 23220
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__ecological",
+      "translation": 23230
+    },
+    "model": "configuration.category",
+    "pk": 23230
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__ecological_water",
+      "translation": 23231
+    },
+    "model": "configuration.category",
+    "pk": 23231
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__ecological_soil",
+      "translation": 23232
+    },
+    "model": "configuration.category",
+    "pk": 23232
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__ecological_biodiversity",
+      "translation": 23233
+    },
+    "model": "configuration.category",
+    "pk": 23233
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__ecological_climate",
+      "translation": 23234
+    },
+    "model": "configuration.category",
+    "pk": 23234
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__2__ecological_other",
+      "translation": 23235
+    },
+    "model": "configuration.category",
+    "pk": 23235
   },
   {
     "fields": {
@@ -6805,8 +9778,2021 @@
                     "keyword": "cca__3__2",
                     "form_options": {
                       "numbering": "3.2",
-                      "template": "comingsoon"
-                    }
+                      "template": "has_subcategories"
+                    },
+                    "subcategories": [
+                      {
+                        "keyword": "cca__3__2__repeat",
+                        "form_options": {
+                          "template": "has_subcategories"
+                        },
+                        "view_options": {
+                          "template": "has_subcategories"
+                        },
+                        "subcategories": [
+                          {
+                            "keyword": "cca__3__2__change__extreme",
+                            "form_options": {
+                              "template": "has_subcategories"
+                            },
+                            "view_options": {
+                              "template": "has_subcategories"
+                            },
+                            "questiongroups": [
+                              {
+                                "keyword": "cca_qg_42",
+                                "form_options": {
+                                  "helptext_position": "bottom"
+                                },
+                                "questions": [
+                                  {
+                                    "keyword": "change_extreme_name"
+                                  },
+                                  {
+                                    "keyword": "change_extreme_name_display"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca__3__2__onsite__impacts",
+                            "form_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h2"
+                            },
+                            "view_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h3"
+                            },
+                            "subcategories": [
+                              {
+                                "keyword": "cca__3__2__socioeconomic",
+                                "form_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h3"
+                                },
+                                "view_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h4"
+                                },
+                                "subcategories": [
+                                  {
+                                    "keyword": "cca__3__2__socioeconomic_production",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_43",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_44",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_45",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_46",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_47",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_48",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_49",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_50",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_51",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_52",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_53",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_54",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_hindered_simplified",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_55",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__socioeconomic_water",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_56",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_57",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_58",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_59",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_60",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_61",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_62",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__socioeconomic_income",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_63",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_64",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_65",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_66",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_67",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__socioeconomic_other",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_68",
+                                        "form_options": {
+                                          "template": "checkbox_toggle_other",
+                                          "min_num": 1,
+                                          "max_num": 3
+                                        },
+                                        "view_options": {
+                                          "template": "impacts_other"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_other_specify"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_labelleft"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_measure"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_labelright"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "cca__3__2__sociocultural",
+                                "form_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h3"
+                                },
+                                "view_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h4"
+                                },
+                                "subcategories": [
+                                  {
+                                    "keyword": "cca__3__2__sociocultural",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "empty"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_69",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_70",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_worsened_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_71",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_worsened_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_72",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_73",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_74",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_weakened_strengthened",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_75",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_weakened_strengthened",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_76",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_77",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_worsened_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_78",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_worsened_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_79",
+                                        "form_options": {
+                                          "template": "checkbox_toggle_other",
+                                          "min_num": 1,
+                                          "max_num": 3
+                                        },
+                                        "view_options": {
+                                          "template": "impacts_other"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_other_specify"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_labelleft"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_measure"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_labelright"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "keyword": "cca__3__2__ecological",
+                                "form_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h3"
+                                },
+                                "view_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h4"
+                                },
+                                "subcategories": [
+                                  {
+                                    "keyword": "cca__3__2__ecological_water",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_80",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_81",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_82",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_83",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_84",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_85",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_lowered_recharge",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_86",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__ecological_soil",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_87",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_88",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_reduced_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_89",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_90",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_91",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_92",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_93",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_94",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_95",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_96",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__ecological_biodiversity",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_97",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_98",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_99",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_100",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_101",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_102",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_103",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_104",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_105",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_decreased_increased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__ecological_climate",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_106",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_107",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_108",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_109",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_110",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_111",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_reduced",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_112",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_increased_decreased",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "keyword": "cca_qg_113",
+                                        "form_options": {
+                                          "template": "checkbox_toggle"
+                                        },
+                                        "view_options": {
+                                          "template": "impacts"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_worsened_improved",
+                                            "form_options": {
+                                              "template": "no_label"
+                                            },
+                                            "view_options": {
+                                              "template": "measure_labelled",
+                                              "layout": "stacked"
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca__3__2__ecological_other",
+                                    "form_options": {
+                                      "template": "collapsible",
+                                      "label_tag": "h4"
+                                    },
+                                    "view_options": {
+                                      "template": "has_subcategories",
+                                      "label_tag": "h5"
+                                    },
+                                    "questiongroups": [
+                                      {
+                                        "keyword": "cca_qg_114",
+                                        "form_options": {
+                                          "template": "checkbox_toggle_other",
+                                          "min_num": 1,
+                                          "max_num": 3
+                                        },
+                                        "view_options": {
+                                          "template": "impacts_other"
+                                        },
+                                        "questions": [
+                                          {
+                                            "keyword": "cca_impacts_other_specify"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_labelleft"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_measure"
+                                          },
+                                          {
+                                            "keyword": "cca_impacts_other_labelright"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca__3__2__offsite__impacts",
+                            "form_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h2"
+                            },
+                            "view_options": {
+                              "template": "has_subcategories",
+                              "label_tag": "h3"
+                            },
+                            "subcategories": [
+                              {
+                                "keyword": "cca__3__2__offsite__impacts",
+                                "form_options": {
+                                  "template": "collapsible",
+                                  "label_tag": "h4"
+                                },
+                                "view_options": {
+                                  "template": "has_subcategories",
+                                  "label_tag": "h5"
+                                },
+                                "questiongroups": [
+                                  {
+                                    "keyword": "cca_qg_115",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_decreased_increased",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_116",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_reduced_increased",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_117",
+                                    "form_options": {
+                                      "template": "checkbox_toggle_other_other"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts_other_other"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_other_labelleft"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_measure"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_labelright"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_118",
+                                    "form_options": {
+                                      "template": "checkbox_toggle_other_other"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts_other_other"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_other_labelleft"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_measure"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_labelright"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_119",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_increased_reduced",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_120",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_reduced_improved",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_121",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_increased_reduced",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_122",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_increased_reduced",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_123",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_increased_reduced",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_124",
+                                    "form_options": {
+                                      "template": "checkbox_toggle"
+                                    },
+                                    "view_options": {
+                                      "template": "impacts"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_increased_reduced",
+                                        "form_options": {
+                                          "template": "no_label"
+                                        },
+                                        "view_options": {
+                                          "template": "measure_labelled",
+                                          "layout": "stacked"
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_125",
+                                    "form_options": {
+                                      "template": "checkbox_toggle_other",
+                                      "min_num": 1,
+                                      "max_num": 3
+                                    },
+                                    "view_options": {
+                                      "template": "impacts_other"
+                                    },
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_other_specify"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_labelleft"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_measure"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_other_labelright"
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "keyword": "cca_qg_126",
+                                    "questions": [
+                                      {
+                                        "keyword": "cca_impacts_comments",
+                                        "form_options": {
+                                          "label_class": "top-margin"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
