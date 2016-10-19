@@ -70,7 +70,7 @@
       <p>{% trans "If you reject this SLM Technology / Approach the compiler and the editor(s) will be notified that they have to revise the SLM Technology / Approach before re-submitting it." %}</p>
       <p>
         {% trans "A message for the compiler must be added here:" %}
-        <textarea name="message" form="review_form" required="required"></textarea>
+        <textarea name="reject-message" form="review_form"></textarea>
       </p>
       <button name='reject' value='true' class="button alert" type="submit" form="review_form">{% trans "Reject" %}</button>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>

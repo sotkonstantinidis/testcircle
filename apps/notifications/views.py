@@ -2,15 +2,22 @@ import contextlib
 import logging
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.utils.functional import cached_property
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
 
 from accounts.models import User
+from questionnaire.models import Questionnaire
+from questionnaire.utils import query_questionnaire
+
+from .utils import InformationLog
 from .models import Log, ReadLog
 
 logger = logging.getLogger(__name__)
@@ -228,3 +235,48 @@ class LogQuestionnairesListView(LoginRequiredMixin, View):
             key=self.questionnaire_sort
         )
         return JsonResponse({'questionnaires': questionnaires})
+
+
+class LogInformationUpdateCreateView(LoginRequiredMixin, View):
+    """
+    Create a log indicating that an editor has finished working on a
+    questionnaire.
+    This could be extended to accept multiple receivers.
+    """
+    http_method_names = ['post']
+    status = 200
+
+    def get_compiler(self, questionnaire: Questionnaire) -> User:
+        try:
+            return questionnaire.questionnairemembership_set.get(
+                role='compiler'
+            ).user
+        except (IntegrityError, ObjectDoesNotExist):
+            self.status = 400
+
+    def get_questionnaire(self, identifier: str) -> Questionnaire:
+        questionnaire = query_questionnaire(
+            request=self.request, identifier=identifier
+        )
+        if not questionnaire.exists():
+            raise Http404()
+        return questionnaire.first()
+
+    def post(self, request, *args, **kwargs):
+        questionnaire = self.get_questionnaire(request.POST['identifier'])
+        compiler = self.get_compiler(questionnaire)
+        InformationLog(
+            action=settings.NOTIFICATIONS_FINISH_EDITING,
+            sender=self.request.user,
+            questionnaire=questionnaire,
+            receiver=compiler
+        ).create(
+            info=request.POST['message']
+        )
+
+        return HttpResponse(
+            status=self.status,
+            content=_('{compiler} was informed about your progress.'.format(
+                compiler=compiler.get_display_name())
+            )
+        )

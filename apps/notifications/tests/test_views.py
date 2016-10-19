@@ -12,7 +12,7 @@ from model_mommy import mommy
 from notifications.models import Log, StatusUpdate, MemberUpdate, ReadLog, \
     ActionContextQuerySet
 from notifications.views import LogListView, LogCountView, ReadLogUpdateView, \
-    LogQuestionnairesListView
+    LogQuestionnairesListView, LogInformationUpdateCreateView
 from qcat.tests import TestCase
 
 
@@ -290,4 +290,62 @@ class LogQuestionnairesListViewTest(TestCase):
         self.assertEqual(
             response.content, b'{"questionnaires": ["bar_3", "foo_1", "foo_2"]}'
         )
+
+
+class LogInformationUpdateCreateViewTest(TestCase):
+
+    def setUp(self):
+        super().setUp()
+        self.url = reverse('notification_inform_compiler')
+        self.view = LogInformationUpdateCreateView()
+        self.request = RequestFactory().get(self.url)
+        self.request.user = 'foo'
+        self.view = self.setup_view(view=self.view, request=self.request)
+
+    def test_get_compiler(self):
+        self.view.get_compiler('')
+
+    @mock.patch('notifications.views.query_questionnaire')
+    def test_get_questionnaire(self, mock_query_questionnaire):
+        one_questionnaire = mock.MagicMock()
+        one_questionnaire.first = lambda : 'foo'
+        mock_query_questionnaire.return_value = one_questionnaire
+        self.assertEqual(
+            self.view.get_questionnaire('foo'), 'foo'
+        )
+
+    @mock.patch('notifications.views.query_questionnaire')
+    def test_get_questionnaire_raises(self, mock_query_questionnaire):
+        not_exists = mock.MagicMock()
+        not_exists.exists = lambda : False
+        mock_query_questionnaire.return_value = not_exists
+        with self.assertRaises(Http404):
+            self.view.get_questionnaire('foo')
+
+    @mock.patch('notifications.views.query_questionnaire')
+    def test_get_questionnaire_calls_filter(self, mock_query_questionnaire):
+        self.view.get_questionnaire('foo')
+        mock_query_questionnaire.assert_called_once_with(
+            identifier='foo', request=self.request
+        )
+
+    @override_settings(NOTIFICATIONS_FINISH_EDITING='setting')
+    @mock.patch.object(LogInformationUpdateCreateView, 'get_questionnaire')
+    @mock.patch.object(LogInformationUpdateCreateView, 'get_compiler')
+    def test_post(self, mock_get_compiler, mock_get_questionnaire):
+        compiler = mock.MagicMock()
+        mock_get_questionnaire.return_value = mock.sentinel.questionnaire
+        mock_get_compiler.return_value = compiler
+        request = RequestFactory().post(self.url, data={
+            'identifier': 'foo',
+            'message': 'bar'
+        })
+        with mock.patch('notifications.views.InformationLog') as mock_create:
+            self.setup_view(view=self.view, request=self.request).post(request)
+            mock_create.assert_called_once_with(
+                action='setting',
+                questionnaire=mock.sentinel.questionnaire,
+                receiver=compiler,
+                sender='foo'
+            )
 
