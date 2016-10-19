@@ -595,6 +595,23 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Which are high-risk times during the year and why? (E.g. in terms of growing season)"
+          },
+          "helptext": {
+            "en": "The explanations below should be based on a discussion with and assessment by the land user(s) and SLM specialist(s) considering the answers provided in the previous questions."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28044
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -4510,6 +4527,20 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Experienced high-risk times (during the year)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 23300
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
           },
           "helptext": {
@@ -5403,6 +5434,17 @@
     },
     "model": "configuration.key",
     "pk": 28043
+  },
+  {
+    "fields": {
+      "keyword": "cca_high_risk_times",
+      "translation": 28044,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28044
   },
   {
     "fields": {
@@ -7593,6 +7635,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_127",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27127
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -7902,6 +7953,14 @@
     },
     "model": "configuration.category",
     "pk": 23235
+  },
+  {
+    "fields": {
+      "keyword": "cca__3__3",
+      "translation": 23300
+    },
+    "model": "configuration.category",
+    "pk": 23300
   },
   {
     "fields": {
@@ -11789,6 +11848,22 @@
                                 ]
                               }
                             ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__3__3",
+                    "form_options": {
+                      "numbering": "3.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_127",
+                        "questions": [
+                          {
+                            "keyword": "cca_high_risk_times"
                           }
                         ]
                       }
