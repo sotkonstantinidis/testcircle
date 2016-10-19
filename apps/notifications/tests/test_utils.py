@@ -5,7 +5,8 @@ from model_mommy import mommy
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
-from notifications.utils import CreateLog, ContentLog, StatusLog, MemberLog
+from notifications.utils import CreateLog, ContentLog, StatusLog, MemberLog, \
+    InformationLog
 
 
 class CreateLogTest(TestCase):
@@ -35,9 +36,10 @@ class CreateLogTest(TestCase):
 
     def test_init_questionnaire(self):
         with mock.patch.object(CreateLog, 'create_log') as create:
-            create.return_value = ''
-            log = CreateLog(1, 2, 'questionnaire')
-            self.assertEqual(log.questionnaire, 'questionnaire')
+            create.return_value = mock.MagicMock()
+            questionnaire = mock.MagicMock()
+            log = CreateLog(1, 2, questionnaire)
+            self.assertEqual(log.questionnaire, questionnaire)
 
     def test_init_create_log_action(self):
         self.assertEqual(self.create_log.log.action, 123)
@@ -88,4 +90,15 @@ class MemberLogTest(TestCase):
         MemberLog.create(self=instance, affected='user', role='role')
         mock_create.assert_called_once_with(
             log='log', affected='user', role='role'
+        )
+
+class InformationUpdateTest(TestCase):
+
+    @mock.patch('notifications.utils.InformationUpdate.objects.create')
+    def test_create(self, mock_create):
+        instance = mock.MagicMock()
+        instance.log = 'log'
+        InformationLog.create(self=instance, info='foo')
+        mock_create.assert_called_once_with(
+            log='log', info='foo'
         )

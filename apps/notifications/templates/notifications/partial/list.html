@@ -50,7 +50,7 @@
        data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
        title="{% trans "Click to display only notifications for questionnaires that can be approved by you." %}">
       <svg class="icon is-inline"><use xlink:href="#icon-filter" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
-      {% trans "Approve" %}
+      {% trans "My tasks" %}
     </a>
   </div>
 <!-- read filter -->
@@ -75,13 +75,13 @@
     </div>
     <div class="small-6 medium-7 columns" data-equalizer-watch>
       {{ log.text|safe }}
-      {% if log.next_status_text %} {% trans "Please handle its" %} {{ log.next_status_text }}.{% endif %}
+      {% if log.next_status_text %} {% trans "Please manage its" %} {{ log.next_status_text }}.{% endif %}
     </div>
     <div class="small-2 columns">
       {% if log.is_todo %}
           <svg class="icon alert is-inline has-tip"
                data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
-               title="{% trans "You may approve this questionnaire for the next step on the publication workflow." %}">
+               title="{% trans "You may continue with the next step on the publication workflow." %}">
             <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
           </svg>
       {% endif %}

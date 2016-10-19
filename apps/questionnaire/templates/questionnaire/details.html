@@ -58,6 +58,7 @@
     </main>
   </article>
 
+  {% comment %}Tracking for questionnaire detail view{% endcomment %}
   {% if view_mode != 'edit' %}
     {% addtoblock 'js' %}
       {% compress js %}
@@ -91,6 +92,47 @@
         </script>
       {% endcompress %}
     {% endaddtoblock %}
+
+  {% addtoblock 'js' %}
+    {% compress js %}
+      <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
+      <script>
+        // modal to inform the compiler sends an async. request to create
+        // the message
+        var modalContainer = $('#finish-editing');
+        $('#inform-compiler').on('click', function() {
+          $.ajax('{% url 'notification_inform_compiler' %}', {
+            method: 'post',
+            data: {
+              'message': $('textarea[name="compiler_info_message"]').val(),
+              'identifier': '{{ questionnaire_identifier }}'
+            }
+          }).success(function(data) {
+            displayAndHide(data);
+          }).fail(function() {
+            displayAndHide('error');
+          });
+          return false;
+        });
+
+        // if a questionnaire is rejected, a reason is required
+        $('button[name="reject"]').on('click', function() {
+          var textArea = $('textarea[name="reject-message"]');
+          if($.trim(textArea.val()).length == 0) {
+            textArea.prop('required', 'required');
+          }
+        });
+
+        function displayAndHide(text) {
+          modalContainer.html(text);
+            setTimeout(function() {
+              modalContainer.foundation('reveal', 'close');
+            }, 2000);
+        }
+
+      </script>
+    {% endcompress %}
+  {% endaddtoblock %}
 
 {% endblock %}
 
