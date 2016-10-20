@@ -38,7 +38,7 @@ urlpatterns += i18n_patterns(
         namespace='approaches')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
     url(r'^search/', include('search.urls', namespace='search')),
-    url(r'^api/v1/', include('api.urls')),
+    url(r'^api/', include('api.urls')),
     url(r'^notifications/', include('notifications.urls')),
 )
 

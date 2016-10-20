@@ -203,6 +203,8 @@ class BaseSettings(Configuration):
             'anon': '10/day',
             'user': '2000/day',
         },
+        'DEFAULT_VERSIONING_CLASS':
+            'rest_framework.versioning.NamespaceVersioning',
         'PAGE_SIZE': 25,
     }
     SWAGGER_SETTINGS = {

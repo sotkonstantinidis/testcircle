@@ -82,7 +82,9 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
 
         if self.add_detail_url:
             item['api_url'] = reverse(
-                'questionnaires-api-detail',
+                '{api_version}:questionnaires-api-detail'.format(
+                    api_version=self.request.version
+                ),
                 kwargs={'identifier': item['code']}
             )
         return item
@@ -189,7 +191,8 @@ class QuestionnaireListView(QuestionnaireAPIMixin):
 
 class QuestionnaireDetailView(QuestionnaireAPIMixin):
     """
-    Return a single item from elasticsearch, if object is still valid on the model.
+    Return a single item from elasticsearch, if object is still valid on the
+    model.
     """
     add_detail_url = False
 
@@ -200,7 +203,8 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
 
     def get_elasticsearch_item(self):
         """
-        Get a single element from elasticsearch. As the _id used for elasticsearch is the actual objects id, and not the
+        Get a single element from elasticsearch. As the _id used for
+        elasticsearch is the actual objects id, and not the
         code, resolve the id first.
 
         Returns: dict
@@ -215,8 +219,8 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
 
     def serialize_item(self, item):
         """
-        Serialize the data and get the list values -- the same as executed within advanced_search (get_list_values) in
-        the QuestionnaireListView.
+        Serialize the data and get the list values -- the same as executed
+        within advanced_search (get_list_values) in the QuestionnaireListView.
         """
         serializer = QuestionnaireSerializer(data=item)
 
@@ -224,7 +228,9 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
             serializer.to_list_values(lang=get_language())
             return serializer.validated_data
         else:
-            logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
+            logger.warning('Invalid data on the serializer: {}'.format(
+                serializer.errors)
+            )
             raise Http404()
 
     def get_current_object(self):
