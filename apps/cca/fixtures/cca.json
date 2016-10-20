@@ -702,6 +702,20 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "When were these adaptation measures taken?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28052
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -2478,6 +2492,62 @@
     },
     "model": "configuration.translation",
     "pk": 29126
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "less than 5 years ago"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29127
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "5 to 10 years ago"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29128
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "10 to 30 years ago"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29129
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "over 30 years ago"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29130
   },
   {
     "fields": {
@@ -4823,6 +4893,20 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Timing of adaptation measures"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24300
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
           },
           "helptext": {
@@ -5816,6 +5900,23 @@
     },
     "model": "configuration.key",
     "pk": 28051
+  },
+  {
+    "fields": {
+      "keyword": "measures_timing",
+      "translation": 28052,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        29127,
+        29128,
+        29129,
+        29130
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28052
   },
   {
     "fields": {
@@ -6917,6 +7018,42 @@
     },
     "model": "configuration.value",
     "pk": 29126
+  },
+  {
+    "fields": {
+      "keyword": "less_than_five_years",
+      "translation": 29127,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29127
+  },
+  {
+    "fields": {
+      "keyword": "five_to_ten_years",
+      "translation": 29128,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29128
+  },
+  {
+    "fields": {
+      "keyword": "ten_to_thirty_years",
+      "translation": 29129,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29129
+  },
+  {
+    "fields": {
+      "keyword": "over_thirty_years",
+      "translation": 29130,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 29130
   },
   {
     "fields": {
@@ -8192,6 +8329,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_138",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27138
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -8533,6 +8679,14 @@
     },
     "model": "configuration.category",
     "pk": 24200
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__3",
+      "translation": 24300
+    },
+    "model": "configuration.category",
+    "pk": 24300
   },
   {
     "fields": {
@@ -12603,6 +12757,22 @@
                           },
                           {
                             "keyword": "specify_measures_success"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__3",
+                    "form_options": {
+                      "numbering": "4.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_138",
+                        "questions": [
+                          {
+                            "keyword": "measures_timing"
                           }
                         ]
                       }
