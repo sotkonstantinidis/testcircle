@@ -612,6 +612,68 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Has the Technology been modified to adapt/ further adapt to gradual climate changes and climate-related extremes (disasters)?"
+          },
+          "helptext": {
+            "en": "<p>if it has been introduced as an adaptation measure it might have been further adapted during the course of time</p><br>If <strong>yes</strong>, fill in the table below. If <strong>no</strong>, continue with chapter 4.7"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28045
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "SLM measures comprising the Technology"
+          },
+          "label_view": {
+            "en": "SLM measures"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28046
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Investment made"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28047
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Details (e.g. on design, material/ species)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28048
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -2261,6 +2323,133 @@
     },
     "model": "configuration.translation",
     "pk": 29118
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Agronomic measures"
+          },
+          "helptext": {
+            "en": "<strong>Agronomic measures</strong><ul><li>are usually associated with annual crops</li><li>are repeated routinely each season or in a rotational sequence</li><li>are of short duration and not permanent</li><li>do not lead to changes in slope profile</li><li>are normally independent of slope</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29119
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Vegetative measures"
+          },
+          "helptext": {
+            "en": "<strong>Vegetative measures</strong><ul><li>involve the use of perennial grasses, shrubs or trees</li><li>are of long duration</li><li>often lead to a change in slope profile</li><li>are often aligned along the contour or against the prevailing wind direction</li><li>are often spaced according to slope</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29120
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Structural measures"
+          },
+          "helptext": {
+            "en": "<strong>Structural measures</strong><ul><li>are of long duration or permanent</li><li>often require substantial inputs of labour or money when first installed</li><li>involve major earth movements and/ or construction with wood, stone, concrete, etc. are often carried out to control runoff, erosion and wind velocity and to harvest rainwater</li><li>often lead to a change in slope profile</li><li>are often aligned along the contour/ against prevailing wind direction</li><li>are often spaced according to slope</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29121
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Management measures"
+          },
+          "helptext": {
+            "en": "<strong>Management measures</strong><ul><li>involve a fundamental change in land use</li><li>usually involve no agronomic and structural measures</li><li>often result in improved vegetative cover</li><li>often reduce the intensity of use</li></ul>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29122
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Other measures"
+          },
+          "helptext": {
+            "en": "<strong>Other measures</strong><ul><li>Any measures which do not fit into the above categories</li></ul>Examples: Beekeeping; Smallstock farming (e.g. poultry, rabbits); fish ponds; food storage and processing (incl. post-harvest loss reduction)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29123
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "major"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29124
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "medium"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29125
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "minor"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29126
   },
   {
     "fields": {
@@ -3962,6 +4151,23 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Type of SLM measure (adaptation measure)?"
+          },
+          "helptext": {
+            "en": "<p>Select which SLM measures were introduced (e.g. stabilize bund with grass) or modified (e.g. increase in height of bund) to adapt/ further adapt the Technology to gradual climate changes and climate-related extremes (disasters). List whether major, medium, or minor modifications were needed and describe these adaptation measures in detail.</p><p>Several answers possible</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27129
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "cca": {
@@ -4001,6 +4207,23 @@
     },
     "model": "configuration.translation",
     "pk": 23000
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Adaptive capacity"
+          },
+          "helptext": {
+            "en": "<p><strong>Adaptive capacity</strong> is the ability of systems, intitutions, humans, and other organisms to adjust to potential damage, to take advantage of opportunities, or to respond to consequences (IPCC 2014).</p><p><strong>Experienced adaptive capacity: </strong>Experiences and actions taken by the land user(s) to adapt to gradual climate changes and climate-related extremes (disasters) (WOCAT 2016).</p><p>This chapter focuses solely on the experiences of land users and field-experienced SLM specialists.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24000
   },
   {
     "fields": {
@@ -4534,6 +4757,65 @@
     },
     "model": "configuration.translation",
     "pk": 23300
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Modification of Technology"
+          },
+          "helptext": {
+            "en": "<p>In QT Core question 3.1 the purpose for the introduction of the Technology has been defined. The purpose can either be the introduction of the Technology as an adaptation measure to gradual climate change and climate-related extremes (disasters) or other purposes.</p><p>Reflect on the answer provided in QT Core question 3.1 to answer the following questions.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24100
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": " "
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24101
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": " "
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24102
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Tortte eki"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24200
   },
   {
     "fields": {
@@ -5445,6 +5727,73 @@
     },
     "model": "configuration.key",
     "pk": 28044
+  },
+  {
+    "fields": {
+      "keyword": "technology_modified",
+      "translation": 28045,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28045
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures",
+      "translation": 28046,
+      "configuration": {
+        "type": "image_checkbox"
+      },
+      "values": [
+        29119,
+        29120,
+        29121,
+        29122,
+        29123
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28046
+  },
+  {
+    "fields": {
+      "keyword": "investment_made",
+      "translation": 28047,
+      "configuration": {
+        "type": "select"
+      },
+      "values": [
+        29124,
+        29125,
+        29126
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28047
+  },
+  {
+    "fields": {
+      "keyword": "measure_details",
+      "translation": 28048,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28048
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_comments",
+      "translation": 5004,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28049
   },
   {
     "fields": {
@@ -6459,6 +6808,93 @@
     },
     "model": "configuration.value",
     "pk": 29118
+  },
+    {
+    "fields": {
+      "keyword": "cca_measures_agronomic",
+      "translation": 29119,
+      "order_value": 1,
+      "configuration": {
+        "image_name": "pictos/swc_2_agro.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 29119
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_vegetative",
+      "translation": 29120,
+      "order_value": 2,
+      "configuration": {
+        "image_name": "pictos/swc_3_veg.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 29120
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_structural",
+      "translation": 29121,
+      "order_value": 3,
+      "configuration": {
+        "image_name": "pictos/swc_1_struc.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 29121
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_management",
+      "translation": 29122,
+      "order_value": 4,
+      "configuration": {
+        "image_name": "pictos/swc_4_manag.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 29122
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_indirect",
+      "translation": 29123,
+      "order_value": 5,
+      "configuration": {
+        "image_name": "landuse_empty.png"
+      }
+    },
+    "model": "configuration.value",
+    "pk": 29123
+  },
+  {
+    "fields": {
+      "keyword": "major",
+      "translation": 29124,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29124
+  },
+  {
+    "fields": {
+      "keyword": "medium",
+      "translation": 29125,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29125
+  },
+  {
+    "fields": {
+      "keyword": "minor",
+      "translation": 29126,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29126
   },
   {
     "fields": {
@@ -7644,6 +8080,87 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_128",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27128
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_129",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27129
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_130",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27130
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_131",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27131
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_132",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27132
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_133",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27133
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_134",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27134
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_135",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27135
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_136",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27136
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -7665,6 +8182,14 @@
     },
     "model": "configuration.category",
     "pk": 23000
+  },
+  {
+    "fields": {
+      "keyword": "cca__4",
+      "translation": 24000
+    },
+    "model": "configuration.category",
+    "pk": 24000
   },
   {
     "fields": {
@@ -7961,6 +8486,38 @@
     },
     "model": "configuration.category",
     "pk": 23300
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__1",
+      "translation": 24100
+    },
+    "model": "configuration.category",
+    "pk": 24100
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__1__condition",
+      "translation": 24101
+    },
+    "model": "configuration.category",
+    "pk": 24101
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__1__measures",
+      "translation": 24102
+    },
+    "model": "configuration.category",
+    "pk": 24102
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__2",
+      "translation": 24200
+    },
+    "model": "configuration.category",
+    "pk": 24200
   },
   {
     "fields": {
@@ -11864,6 +12421,154 @@
                         "questions": [
                           {
                             "keyword": "cca_high_risk_times"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "keyword": "cca__4",
+                "form_options": {
+                  "numbering": "4."
+                },
+                "subcategories": [
+                  {
+                    "keyword": "cca__4__1",
+                    "form_options": {
+                      "numbering": "4.1",
+                      "template": "image_questiongroups",
+                      "questiongroup_conditions": [
+                        "=='cca_measures_agronomic'|cca_qg_131",
+                        "=='cca_measures_vegetative'|cca_qg_132",
+                        "=='cca_measures_structural'|cca_qg_133",
+                        "=='cca_measures_management'|cca_qg_134",
+                        "=='cca_measures_indirect'|cca_qg_135"
+                      ]
+                    },
+                    "view_options": {
+                      "template": "image_questiongroups",
+                      "raw_questions": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_130",
+                        "questions": [
+                          {
+                            "keyword": "cca_measures",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "=='cca_measures_agronomic'|cca_qg_131",
+                                "=='cca_measures_vegetative'|cca_qg_132",
+                                "=='cca_measures_structural'|cca_qg_133",
+                                "=='cca_measures_management'|cca_qg_134",
+                                "=='cca_measures_indirect'|cca_qg_135"
+                              ]
+                            },
+                            "view_options": {
+                              "template": "raw",
+                              "filter": true
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_131",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_131"
+                        },
+                        "view_options": {
+                          "conditional_question": "cca_measures_agronomic"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "investment_made"
+                          },
+                          {
+                            "keyword": "measure_details"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_132",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_132"
+                        },
+                        "view_options": {
+                          "conditional_question": "cca_measures_vegetative"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "investment_made"                            
+                          },
+                          {
+                            "keyword": "measure_details"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_133",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_133"
+                        },
+                        "view_options": {
+                          "conditional_question": "cca_measures_structural"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "investment_made"
+                          },
+                          {
+                            "keyword": "measure_details"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_134",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_134"
+                        },
+                        "view_options": {
+                          "conditional_question": "cca_measures_management"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "investment_made"
+                          },
+                          {
+                            "keyword": "measure_details"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_135",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_135"
+                        },
+                        "view_options": {
+                          "conditional_question": "cca_measures_indirect"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "cca_exposure_other_specify",
+                            "form_options": {
+                              "label_position": "placeholder"
+                            }
+                          },
+                          {
+                            "keyword": "investment_made"
+                          },
+                          {
+                            "keyword": "measure_details"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_136",
+                        "questions": [
+                          {
+                            "keyword": "cca_measures_comments"
                           }
                         ]
                       }
