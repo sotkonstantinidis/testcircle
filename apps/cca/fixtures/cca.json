@@ -674,6 +674,34 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Have the adaptation measures been successful?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28050
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify why yes/ no"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28051
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -4781,35 +4809,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": " "
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 24101
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "cca": {
-          "label": {
-            "en": " "
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 24102
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Tortte eki"
+            "en": "Success of adaptation measures"
           }
         }
       }
@@ -5794,6 +5794,28 @@
     },
     "model": "configuration.key",
     "pk": 28049
+  },
+  {
+    "fields": {
+      "keyword": "measures_success",
+      "translation": 28050,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28050
+  },
+  {
+    "fields": {
+      "keyword": "specify_measures_success",
+      "translation": 28051,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28051
   },
   {
     "fields": {
@@ -8161,6 +8183,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_137",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27137
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -8494,22 +8525,6 @@
     },
     "model": "configuration.category",
     "pk": 24100
-  },
-  {
-    "fields": {
-      "keyword": "cca__4__1__condition",
-      "translation": 24101
-    },
-    "model": "configuration.category",
-    "pk": 24101
-  },
-  {
-    "fields": {
-      "keyword": "cca__4__1__measures",
-      "translation": 24102
-    },
-    "model": "configuration.category",
-    "pk": 24102
   },
   {
     "fields": {
@@ -12569,6 +12584,25 @@
                         "questions": [
                           {
                             "keyword": "cca_measures_comments"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__2",
+                    "form_options": {
+                      "numbering": "4.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_137",
+                        "questions": [
+                          {
+                            "keyword": "measures_success"
+                          },
+                          {
+                            "keyword": "specify_measures_success"
                           }
                         ]
                       }
