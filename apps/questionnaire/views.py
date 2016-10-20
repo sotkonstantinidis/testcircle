@@ -20,8 +20,10 @@ from django.shortcuts import (
     get_object_or_404,
 )
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
@@ -220,6 +222,7 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     configuration_code = None
     template_name = ''
 
+    @method_decorator(ensure_csrf_cookie)
     def dispatch(self, request, *args, **kwargs):
         request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
         return super().dispatch(request, *args, **kwargs)
