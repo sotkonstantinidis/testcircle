@@ -2,12 +2,12 @@ import collections
 import contextlib
 from itertools import chain
 
-from braces.views import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Q
+from django.http import FileResponse
 from django.http import (
     Http404,
     HttpResponse,
@@ -24,7 +24,8 @@ from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
-from django.views.generic.base import TemplateResponseMixin
+from django.views.generic.base import TemplateResponseMixin, TemplateView
+from braces.views import LoginRequiredMixin
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
@@ -1329,3 +1330,27 @@ class QuestionnaireDeleteView(DeleteView):
         self.object.is_deleted=True
         self.object.save()
         return HttpResponseRedirect(success_url)
+
+
+class QuestionnaireSummaryExportView(TemplateView):
+    """
+    The summary is created as follows:
+    - All data from questionnaire and configuration is fetched
+    - This view puts this data into its context
+    - Markup is created from this data (json) in the frontend with js
+    - The created markup is then sent to the view: which creates the pdf.
+    """
+    template_name = 'questionnaire/export_summary.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['questionnaire'] = self.kwargs.get('identifier')
+        return context
+
+
+class QuestionnaireSummaryPDFCreateView(View):
+    """
+    This is a dummy, as no pdf lib is chosen yet.
+    """
+    def get(self, request, *args, **kwargs):
+        return FileResponse(streaming_content=['foo'])

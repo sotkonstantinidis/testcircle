@@ -1,6 +1,7 @@
 from django.conf.urls import url, patterns
 
-from questionnaire.views import QuestionnaireDeleteView
+from .views import QuestionnaireDeleteView, QuestionnaireSummaryExportView, \
+    QuestionnaireSummaryPDFCreateView
 
 urlpatterns = patterns(
     '',
@@ -10,5 +11,11 @@ urlpatterns = patterns(
         'questionnaire.views.generic_file_serve', name='file_serve'),
     url(r'^edit/(?P<identifier>[^/]+)/delete/$',
         QuestionnaireDeleteView.as_view(),
-        name='delete_questionnaire')
+        name='delete_questionnaire'),
+    url(r'^view/(?P<identifier>[^/]+)/summary/$',
+        QuestionnaireSummaryExportView.as_view(),
+        name='export_questionnaire_summary'),
+    url(r'^view/(?P<identifier>[^/]+)/summary/pdf$',
+        QuestionnaireSummaryPDFCreateView.as_view(),
+        name='pdf_questionnaire_summary')
 )
