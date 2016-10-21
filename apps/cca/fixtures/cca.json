@@ -772,6 +772,287 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify how costs and inputs were calculated"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28061
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Indicate size and area unit"
+          },
+          "helptext": {
+            "en": "<strong>Example:</strong> 24 acres, 4.5 hectares"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28062
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "If using a local area unit, indicate conversion factor to one hectare"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28063
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify unit"
+          },
+          "helptext": {
+            "en": "<strong>Example:</strong> watering point, energy saving stove, stone line"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28064
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify volume, length, etc. (if relevant)"
+          },
+          "helptext": {
+            "en": "<strong>Example:</strong> stone lines: 250 m, dam: 20’000 m<sup>3</sup>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28065
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify currency used for cost calculations"
+          },
+          "helptext": {
+            "en": "You can use US dollars (USD) or any other national currency. Indicate all costs using the same currency."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28066
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Currency"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28067
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "other/ national currency (specify)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28068
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Indicate exchange rate from USD to local currency (if relevant): 1 USD ="
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28069
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Indicate average wage cost of hired labour per day"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28070
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "If possible, break down the costs for adaptation measures according to the following table, specifying inputs and costs per input. If you are unable to break down the costs, give an estimation of the total costs for the adaptation of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28071
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Specify input"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28072
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Unit"
+          },
+          "helptext": {
+            "en": "<strong>Units</strong>: person-days, kg, litres, pieces, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28073
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Quantity"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28074
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Costs per Unit"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28075
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Total costs per input"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28076
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "% of costs borne by land users"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28077
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Total costs for the adaptation of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28078
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "If not 100% of the costs were borne by land user(s), indicate who funded the remaining costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28079
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -2733,6 +3014,54 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "per Technology area"
+          },
+          "helptext": {
+            "en": "e.g. 24 acres"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29140
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "per Technology unit"
+          },
+          "helptext": {
+            "en": "e.g. watering point, energy saving stove, stone line"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29141
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "US Dollars"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29142
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "cca": {
@@ -4448,6 +4777,85 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Labour"
+          },
+          "helptext": {
+            "en": "<strong>Labour</strong> includes total person days, be they paid or unpaid (e.g. contributed by family members). For “Costs per Unit” indicate daily wage for hired labour. If relevant, differentiate between skilled and unskilled labour."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27146
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Equipment"
+          },
+          "helptext": {
+            "en": "<strong>Equipment</strong> includes tools, machine hours, animal traction, etc. Cost calculation for machine hours and animal traction should be based on hiring costs - even if the machinery/ animals are owned by the land user."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27147
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Agricultural"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27148
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Construction material"
+          },
+          "helptext": {
+            "en": "<strong>Construction material</strong> includes timber, stones, earth, cement, pipes, tanks, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27149
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Other"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27150
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "cca": {
@@ -5110,6 +5518,51 @@
     },
     "model": "configuration.translation",
     "pk": 24500
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Costs and inputs for the adaptation measures"
+          },
+          "helptext": {
+            "en": "<p>QT Core questions 4.5 and 4.7 asked for the overall costs of the Technology. In the table below, list <strong>only costs which were created for adaptation measures</strong> to gradual climate change and climate-related extremes.</p><p><strong>Note:</strong> Costs and inputs specified should refer to the Technology area/ Technology unit defined below.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24600
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": ""
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24601
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": ""
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24602
   },
   {
     "fields": {
@@ -6233,6 +6686,274 @@
     },
     "model": "configuration.key",
     "pk": 28060
+  },
+  {
+    "fields": {
+      "keyword": "cca_cost_calculation_base",
+      "translation": 28061,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        29140,
+        29141
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28061
+  },
+  {
+    "fields": {
+      "keyword": "cca_perarea_size",
+      "translation": 28062,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28062
+  },
+  {
+    "fields": {
+      "keyword": "cca_area_unit_conversion",
+      "translation": 28063,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28063
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_perunit_unit",
+      "translation": 28064,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28064
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_perunit_volume",
+      "translation": 28065,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28065
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_dollar",
+      "translation": 28066,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        29142
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28066
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_currency",
+      "translation": 28067,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28067
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_national_currency",
+      "translation": 28068,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28068
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_exchange_rate",
+      "translation": 28069,
+      "configuration": {
+        "type": "float"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28069
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_average_wage",
+      "translation": 28070,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28070
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_total_estimation",
+      "translation": 28071,
+      "configuration": {
+        "type": "float",
+        "field_options": {
+          "min": 0
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28071
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_specify",
+      "translation": 28072,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28072
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_unit",
+      "translation": 28073,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28073
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_quantity",
+      "translation": 28074,
+      "configuration": {
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0
+          }
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28074
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_costs",
+      "translation": 28075,
+      "configuration": {
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2
+          }
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28075
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_total_costs_pi",
+      "translation": 28076,
+      "configuration": {
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-multiplication": "cca_input_est_quantity|cca_input_est_costs"
+          }
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28076
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_percentage_costs",
+      "translation": 28077,
+      "configuration": {
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "max": 100
+          }
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28077
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_total_costs",
+      "translation": 28078,
+      "configuration": {
+        "type": "float",
+        "form_options": {
+          "label": "placeholder",
+          "field_options": {
+            "min": 0,
+            "decimals": 2,
+            "readonly": "readonly",
+            "data-auto-sum": "cca_input_est_total_costs_pi"
+          }
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28078
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_remaining_costs",
+      "translation": 28079,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28079
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_est_comments",
+      "translation": 5004,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28080
   },
   {
     "fields": {
@@ -7451,6 +8172,33 @@
     },
     "model": "configuration.value",
     "pk": 29139
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_calc_per_area",
+      "translation": 29140,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29140
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_calc_per_unit",
+      "translation": 29141,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29141
+  },
+  {
+    "fields": {
+      "keyword": "cca_input_dollars",
+      "translation": 29142,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29142
   },
   {
     "fields": {
@@ -8753,6 +9501,114 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_141",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27141
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_142",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27142
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_143",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27143
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_144",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27144
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_145",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27145
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_146",
+      "translation": 27146,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27146
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_147",
+      "translation": 27147,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27147
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_148",
+      "translation": 27148,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27148
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_149",
+      "translation": 27149,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27149
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_150",
+      "translation": 27150,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27150
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_151",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27151
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_152",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27152
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -9118,6 +9974,30 @@
     },
     "model": "configuration.category",
     "pk": 24500
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__6",
+      "translation": 24600
+    },
+    "model": "configuration.category",
+    "pk": 24600
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__6_basic",
+      "translation": 24601
+    },
+    "model": "configuration.category",
+    "pk": 24601
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__6_main",
+      "translation": 24602
+    },
+    "model": "configuration.category",
+    "pk": 24602
   },
   {
     "fields": {
@@ -13278,6 +14158,312 @@
                           },
                           {
                             "keyword": "cca_comments"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__6",
+                    "form_options": {
+                      "numbering": "4.6",
+                      "template": "has_subcategories"
+                    },
+                    "subcategories": [
+                      {
+                        "keyword": "cca__4__6_basic",
+                        "form_options": {
+                          "template": "default_no_label"
+                        },
+                        "view_options": {
+                          "template": "default_no_label"
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_141",
+                            "questions": [
+                              {
+                                "keyword": "cca_cost_calculation_base",
+                                "form_options": {
+                                  "questiongroup_conditions": [
+                                    "=='cca_input_calc_per_area'|cca_qg_142",
+                                    "=='cca_input_calc_per_unit'|cca_qg_143"
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_142",
+                            "form_options": {
+                              "questiongroup_condition": "cca_qg_142",
+                              "template": "columns_custom",
+                              "columns_custom": [["6", "6"]]
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_perarea_size",
+                                "form_options": {
+                                  "helptext_position": "tooltip"
+                                },
+                                "view_options": {
+                                  "template": "inline_6"
+                                }
+                              },
+                              {
+                                "keyword": "cca_area_unit_conversion",
+                                "view_options": {
+                                  "template": "inline_6"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_143",
+                            "form_options": {
+                              "questiongroup_condition": "cca_qg_143",
+                              "template": "columns_custom",
+                              "columns_custom": [["6", "6"]]
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_perunit_unit",
+                                "form_options": {
+                                  "helptext_position": "tooltip"
+                                },
+                                "view_options": {
+                                  "template": "inline_6"
+                                }
+                              },
+                              {
+                                "keyword": "cca_input_perunit_volume",
+                                "form_options": {
+                                  "helptext_position": "tooltip"
+                                },
+                                "view_options": {
+                                  "template": "inline_6"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_144",
+                            "questions": [
+                              {
+                                "keyword": "cca_input_dollar",
+                                "form_options": {
+                                  "has_other": "cca_input_currency"
+                                }
+                              },
+                              {
+                                "keyword": "cca_input_national_currency",
+                                "form_options": {
+                                  "template": "radio_other",
+                                  "label_position": "placeholder",
+                                  "other_radio": "cca_input_currency"
+                                }
+                              },
+                              {
+                                "keyword": "cca_input_exchange_rate"
+                              },
+                              {
+                                "keyword": "cca_input_average_wage",
+                                "view_options": {
+                                  "template": "inline_6"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca__4__6_main",
+                        "form_options": {
+                          "template": "table_input_no_label"
+                        },
+                        "view_options": {
+                          "template": "table_input_no_label",
+                          "table_grouping": [
+                            [
+                              "cca_qg_146",
+                              "cca_qg_147",
+                              "cca_qg_148",
+                              "cca_qg_149",
+                              "cca_qg_150"
+                            ],
+                            [
+                              "cca_qg_151"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_145",
+                            "form_options": {
+                              "layout": "before_table"
+                            },
+                            "view_options": {
+                              "layout": "before_table"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_total_estimation"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_146",
+                            "form_options": {
+                              "min_num": 2,
+                              "max_num": 2
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_specify"
+                              },
+                              {
+                                "keyword": "cca_input_est_unit"
+                              },
+                              {
+                                "keyword": "cca_input_est_quantity"
+                              },
+                              {
+                                "keyword": "cca_input_est_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_total_costs_pi"
+                              },
+                              {
+                                "keyword": "cca_input_est_percentage_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_147",
+                            "form_options": {
+                              "min_num": 4,
+                              "max_num": 4
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_specify"
+                              },
+                              {
+                                "keyword": "cca_input_est_unit"
+                              },
+                              {
+                                "keyword": "cca_input_est_quantity"
+                              },
+                              {
+                                "keyword": "cca_input_est_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_total_costs_pi"
+                              },
+                              {
+                                "keyword": "cca_input_est_percentage_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_148",
+                            "form_options": {
+                              "min_num": 4,
+                              "max_num": 4
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_specify"
+                              },
+                              {
+                                "keyword": "cca_input_est_unit"
+                              },
+                              {
+                                "keyword": "cca_input_est_quantity"
+                              },
+                              {
+                                "keyword": "cca_input_est_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_total_costs_pi"
+                              },
+                              {
+                                "keyword": "cca_input_est_percentage_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_149",
+                            "form_options": {
+                              "min_num": 4,
+                              "max_num": 4
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_specify"
+                              },
+                              {
+                                "keyword": "cca_input_est_unit"
+                              },
+                              {
+                                "keyword": "cca_input_est_quantity"
+                              },
+                              {
+                                "keyword": "cca_input_est_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_total_costs_pi"
+                              },
+                              {
+                                "keyword": "cca_input_est_percentage_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_150",
+                            "form_options": {
+                              "min_num": 3,
+                              "max_num": 3
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_specify"
+                              },
+                              {
+                                "keyword": "cca_input_est_unit"
+                              },
+                              {
+                                "keyword": "cca_input_est_quantity"
+                              },
+                              {
+                                "keyword": "cca_input_est_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_total_costs_pi"
+                              },
+                              {
+                                "keyword": "cca_input_est_percentage_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_151",
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_total_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_152",
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_remaining_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_comments"
+                              }
+                            ]
                           }
                         ]
                       }
