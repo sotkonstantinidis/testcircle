@@ -744,6 +744,34 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Did the land user(s) get any technical training on adaptation measures?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28058
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "If yes, by whom?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28059
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -5075,6 +5103,20 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Technical training on adaptation measures"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24500
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
           },
           "helptext": {
@@ -6118,7 +6160,7 @@
   },
   {
     "fields": {
-      "keyword": "cca_measures_motivation_comments",
+      "keyword": "cca_comments",
       "translation": 5004,
       "configuration": {
         "type": "text"
@@ -6153,6 +6195,44 @@
     },
     "model": "configuration.key",
     "pk": 28057
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_training",
+      "translation": 28058,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28058
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_training_by_whom",
+      "translation": 28059,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        29137,
+        29138,
+        29139
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28059
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_training_by_whom_other",
+      "translation": 28004,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28060
   },
   {
     "fields": {
@@ -8664,6 +8744,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_140",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27140
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -9021,6 +9110,14 @@
     },
     "model": "configuration.category",
     "pk": 24400
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__5",
+      "translation": 24500
+    },
+    "model": "configuration.category",
+    "pk": 24500
   },
   {
     "fields": {
@@ -13148,7 +13245,39 @@
                             }
                           },
                           {
-                            "keyword": "cca_measures_motivation_comments"
+                            "keyword": "cca_comments"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__5",
+                    "form_options": {
+                      "numbering": "4.5"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_140",
+                        "questions": [
+                          {
+                            "keyword": "cca_measures_training"
+                          },
+                          {
+                            "keyword": "cca_measures_training_by_whom"
+                          },
+                          {
+                            "keyword": "cca_measures_training_by_whom_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "cca_comments"
                           }
                         ]
                       }
