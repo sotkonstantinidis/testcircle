@@ -716,6 +716,34 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "By whom/ what were (the) land user(s) motivated or inspired to apply these adaptation measures?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28053
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "If SLM specialists involved, were these from:"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28056
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -2548,6 +2576,132 @@
     },
     "model": "configuration.translation",
     "pk": 29130
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "land user(s) alone (self-initiative)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29131
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "other land user(s)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29132
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "mainly land user(s) but supported by SLM specialist(s)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29133
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "mainly input from SLM specialist(s)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29134
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "only SLM specialist(s)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29135
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "media, other communication channels"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29136
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "agricultural advisory services"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29137
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "research"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29138
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "projects and programmes of development cooperation/ international organizations"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29139
   },
   {
     "fields": {
@@ -4907,6 +5061,20 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Motivation to apply adaptation measures"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24400
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
           },
           "helptext": {
@@ -5917,6 +6085,74 @@
     },
     "model": "configuration.key",
     "pk": 28052
+  },
+  {
+    "fields": {
+      "keyword": "cca_who_motivated_land_users",
+      "translation": 28053,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        29131,
+        29132,
+        29133,
+        29134,
+        29135,
+        29136
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28053
+  },
+  {
+    "fields": {
+      "keyword": "cca_who_motivated_land_users_other",
+      "translation": 28004,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28054
+  },
+  {
+    "fields": {
+      "keyword": "cca_measures_motivation_comments",
+      "translation": 5004,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28055
+  },
+  {
+    "fields": {
+      "keyword": "cca_motivated_by_slm_specialists",
+      "translation": 28056,
+      "configuration": {
+        "type": "checkbox"
+      },
+      "values": [
+        29137,
+        29138,
+        29139
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28056
+  },
+  {
+    "fields": {
+      "keyword": "cca_motivated_by_slm_specialists_other",
+      "translation": 28004,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28057
   },
   {
     "fields": {
@@ -7054,6 +7290,87 @@
     },
     "model": "configuration.value",
     "pk": 29130
+  },
+  {
+    "fields": {
+      "keyword": "land_users_alone",
+      "translation": 29131,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29131
+  },
+  {
+    "fields": {
+      "keyword": "other_land_users",
+      "translation": 29132,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29132
+  },
+  {
+    "fields": {
+      "keyword": "mainly_land_users",
+      "translation": 29133,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29133
+  },
+  {
+    "fields": {
+      "keyword": "mainly_slm_specialists",
+      "translation": 29134,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 29134
+  },
+  {
+    "fields": {
+      "keyword": "only_slm_specialists",
+      "translation": 29135,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 29135
+  },
+  {
+    "fields": {
+      "keyword": "media_channels",
+      "translation": 29136,
+      "order_value": 6
+    },
+    "model": "configuration.value",
+    "pk": 29136
+  },
+  {
+    "fields": {
+      "keyword": "agricultural_services",
+      "translation": 29137,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29137
+  },
+  {
+    "fields": {
+      "keyword": "research",
+      "translation": 29138,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29138
+  },
+  {
+    "fields": {
+      "keyword": "cooperation_projects",
+      "translation": 29139,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29139
   },
   {
     "fields": {
@@ -8338,6 +8655,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_139",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27139
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -8687,6 +9013,14 @@
     },
     "model": "configuration.category",
     "pk": 24300
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__4",
+      "translation": 24400
+    },
+    "model": "configuration.category",
+    "pk": 24400
   },
   {
     "fields": {
@@ -12773,6 +13107,48 @@
                         "questions": [
                           {
                             "keyword": "measures_timing"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__4",
+                    "form_options": {
+                      "numbering": "4.4"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_139",
+                        "questions": [
+                          {
+                            "keyword": "cca_who_motivated_land_users"
+                          },
+                          {
+                            "keyword": "cca_who_motivated_land_users_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "cca_motivated_by_slm_specialists"
+                          },
+                          {
+                            "keyword": "cca_motivated_by_slm_specialists_other",
+                            "form_options": {
+                              "template": "checkbox_other",
+                              "label_position": "placeholder"
+                            },
+                            "view_options": {
+                              "template": "checkbox_other"
+                            }
+                          },
+                          {
+                            "keyword": "cca_measures_motivation_comments"
                           }
                         ]
                       }
