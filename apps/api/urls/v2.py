@@ -12,7 +12,7 @@ urlpatterns = patterns(
         name='questionnaires-api-list'
         ),
     url(r'^questionnaires/(?P<identifier>[^/]+)/$',
-        views.QuestionnaireDetailView.as_view(),
+        views.ConfiguredQuestionnaireDetailView.as_view(),
         name='questionnaires-api-detail',
         ),
     url(r'^auth-token/$', ObtainNoteAuthTokenView.as_view(),
