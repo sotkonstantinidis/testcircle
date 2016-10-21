@@ -42,6 +42,7 @@ from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
+from .summary_data_provider import SummaryDataProvider
 from .utils import (
     clean_questionnaire_data,
     get_active_filters,
@@ -1342,9 +1343,29 @@ class QuestionnaireSummaryExportView(TemplateView):
     """
     template_name = 'questionnaire/export_summary.html'
 
+    def get_object(self, code: str) -> Questionnaire:
+        # needs refactor: use id instead of code, as summaries can be created
+        # for drafts / questionnaires with multiple versions.
+        return get_object_or_404(
+            Questionnaire.with_status.public(), code=code
+        )
+
+    def get_prepared_data(self, questionnaire: Questionnaire) -> dict:
+        data = get_questionnaire_data_in_single_language(
+            questionnaire_data=questionnaire.data,
+            locale=get_language(),
+            original_locale=questionnaire.original_locale
+        )
+        config = questionnaire.configurations.filter(active=True).first().code
+        return SummaryDataProvider(
+            config=get_configuration(configuration_code=config), **data
+        ).data
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['questionnaire'] = self.kwargs.get('identifier')
+        questionnaire = self.get_object(code=self.kwargs['identifier'])
+        context['identifier'] = questionnaire.code
+        context['data'] = self.get_prepared_data(questionnaire)
         return context
 
 

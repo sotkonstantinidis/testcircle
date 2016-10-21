@@ -85,12 +85,12 @@
       {% trans "View full content" %}
     </a>
 {#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">#}
-    <button href="#" class="button dropdown" title="{% trans "Print summary" %}" data-tooltip="" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+    <button href="#" class="button dropdown" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
       {% trans "Print summary" %}
     </button>
     <ul id="tech-details-print" data-dropdown-content class="f-dropdown" aria-hidden="true">
-      <li><a href="{% url 'export_questionnaire_summary' metadata.code %}">{% trans "Full summary as PDF" %}</a></li>
+      <li><a href="{% url 'export_questionnaire_summary' metadata.code %}" target="_blank">{% trans "Full summary as PDF" %}</a></li>
     </ul>
 {#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}
 {#    <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}
