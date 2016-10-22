@@ -1053,6 +1053,23 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "What are potential measures that could be taken to further adapt the Technology to gradual climate changes and climate-related extremes?"
+          },
+          "helptext": {
+            "en": "The suggestions below should be based on a discussion with and assessment by the land user(s) and SLM specialist(s)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28081
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -5570,6 +5587,20 @@
       "data": {
         "cca": {
           "label": {
+            "en": "Suggestions regarding future adaptation of the Technology"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24700
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
             "en": "Strengths/ advantages/ opportunities of the Technology"
           },
           "helptext": {
@@ -6954,6 +6985,17 @@
     },
     "model": "configuration.key",
     "pk": 28080
+  },
+  {
+    "fields": {
+      "keyword": "cca_future_adaptation_suggestions",
+      "translation": 28081,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28081
   },
   {
     "fields": {
@@ -9609,6 +9651,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_153",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27153
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -9998,6 +10049,14 @@
     },
     "model": "configuration.category",
     "pk": 24602
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__7",
+      "translation": 24700
+    },
+    "model": "configuration.category",
+    "pk": 24700
   },
   {
     "fields": {
@@ -14464,6 +14523,22 @@
                                 "keyword": "cca_input_est_comments"
                               }
                             ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__7",
+                    "form_options": {
+                      "numbering": "4.7"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "cca_qg_153",
+                        "questions": [
+                          {
+                            "keyword": "cca_future_adaptation_suggestions"
                           }
                         ]
                       }
