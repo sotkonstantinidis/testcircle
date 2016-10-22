@@ -1070,6 +1070,37 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Capital"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28082
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Comments"
+          },
+          "helptext": {
+            "en": "specify, if relevant, if these assets are mainly relevant for gradual climate changes or climate-related extremes (disasters)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28083
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "cca": {
@@ -3079,6 +3110,48 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "low"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29143
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "moderate"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29144
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "high"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29145
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "cca": {
@@ -4873,6 +4946,388 @@
   },
   {
     "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "financial resources from on-farm income"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27154
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "financial resources from off-farm income at household level"
+          },
+          "helptext": {
+            "en": "<strong>Off-farm income:</strong> income other than from the use of cropland, grazing land, forest and mixed land (e.g. business, trade, manufactoring, industry)."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27155
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "remittance income at household level"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27156
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "household savings"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27157
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "loan options"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27158
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "access to market"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27159
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "connection to social networks"
+          },
+          "helptext": {
+            "en": "e.g. associations, village organizations"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27161
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "stability of social environment"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27162
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "access to education and training (advisory service)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27163
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "access to information and knowload on land management"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27164
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "good communication and knowledge sharing mechanisms between land users and other stakeholders"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27165
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "access to reliable weather forecast information"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27166
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "access to early warning systems related to cliamte extremes (disasters)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27167
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "supportive legal framework in place"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27168
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "supportive policies in place"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27169
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "clear institutional responsibilities for climate change adaptation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27170
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "knowledge on adequate and timely adaptation in land management"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27172
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "availability of labour force at household level"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27174
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "level of household and community infrastructure"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27175
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "availability of construction material and equipment"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27176
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "availability of energy supply"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27177
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "soil properties"
+          },
+          "helptext": {
+            "en": "depth, fertility, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27179
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "water availability and quality"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27180
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "plant material and resources"
+          },
+          "helptext": {
+            "en": "diversity, valuable species, varieties"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27181
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "animal resources"
+          },
+          "helptext": {
+            "en": "diversity, breeds"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27182
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "enabling climatic conditions"
+          },
+          "helptext": {
+            "en": "temperature, rainfall, micro-climate"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27183
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "cca": {
@@ -5594,6 +6049,107 @@
     },
     "model": "configuration.translation",
     "pk": 24700
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Assets of land users supporting their capacity to adapt to gradual climate changes and climate-related extremes (disasters)"
+          },
+          "helptext": {
+            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (www.eldis.org/vfile/upload/1/document/0901/section2.pdf) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24800
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Financial capital"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24810
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Social capital"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24820
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Human capital"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24830
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Physical capital"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24840
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Natural capital"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24850
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Comments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 24860
   },
   {
     "fields": {
@@ -6999,6 +7555,47 @@
   },
   {
     "fields": {
+      "keyword": "cca_capital",
+      "translation": 28082,
+      "configuration": {
+        "type": "select"
+      },
+      "values": [
+        29143,
+        29144,
+        29145
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28082
+  },
+  {
+    "fields": {
+      "keyword": "cca_capital_comments",
+      "translation": 28083,
+      "configuration": {
+        "type": "text",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28083
+  },
+  {
+    "fields": {
+      "keyword": "cca_other_specify",
+      "translation": 28004,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 28084
+  },
+  {
+    "fields": {
       "keyword": "cca_decrease",
       "translation": 29001,
       "order_value": 1
@@ -8241,6 +8838,33 @@
     },
     "model": "configuration.value",
     "pk": 29142
+  },
+  {
+    "fields": {
+      "keyword": "cca_low",
+      "translation": 29143,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 29143
+  },
+  {
+    "fields": {
+      "keyword": "cca_moderate",
+      "translation": 29144,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 29144
+  },
+  {
+    "fields": {
+      "keyword": "cca_high",
+      "translation": 29145,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 29145
   },
   {
     "fields": {
@@ -9660,6 +10284,294 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_154",
+      "translation": 27154,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27154
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_155",
+      "translation": 27155,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27155
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_156",
+      "translation": 27156,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27156
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_157",
+      "translation": 27157,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27157
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_158",
+      "translation": 27158,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27158
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_159",
+      "translation": 27159,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27159
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_160",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27160
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_161",
+      "translation": 27161,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27161
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_162",
+      "translation": 27162,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27162
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_163",
+      "translation": 27163,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27163
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_164",
+      "translation": 27164,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27164
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_165",
+      "translation": 27165,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27165
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_166",
+      "translation": 27166,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27166
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_167",
+      "translation": 27167,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27167
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_168",
+      "translation": 27168,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27168
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_169",
+      "translation": 27169,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27169
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_170",
+      "translation": 27170,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27170
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_171",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27171
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_172",
+      "translation": 27172,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27172
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_173",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27173
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_174",
+      "translation": 27174,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27174
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_175",
+      "translation": 27175,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27175
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_176",
+      "translation": 27176,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27176
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_177",
+      "translation": 27177,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27177
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_178",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27178
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_179",
+      "translation": 27179,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27179
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_180",
+      "translation": 27180,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27180
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_181",
+      "translation": 27181,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27181
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_182",
+      "translation": 27182,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27182
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_183",
+      "translation": 27183,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27183
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_184",
+      "translation": 27030,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27184
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_185",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27185
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -10057,6 +10969,62 @@
     },
     "model": "configuration.category",
     "pk": 24700
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8",
+      "translation": 24800
+    },
+    "model": "configuration.category",
+    "pk": 24800
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8__financial",
+      "translation": 24810
+    },
+    "model": "configuration.category",
+    "pk": 24810
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8__social",
+      "translation": 24820
+    },
+    "model": "configuration.category",
+    "pk": 24820
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8__human",
+      "translation": 24830
+    },
+    "model": "configuration.category",
+    "pk": 24830
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8__physical",
+      "translation": 24840
+    },
+    "model": "configuration.category",
+    "pk": 24840
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8__natural",
+      "translation": 24850
+    },
+    "model": "configuration.category",
+    "pk": 24850
+  },
+  {
+    "fields": {
+      "keyword": "cca__4__8__comments",
+      "translation": 24860
+    },
+    "model": "configuration.category",
+    "pk": 24860
   },
   {
     "fields": {
@@ -14539,6 +15507,612 @@
                         "questions": [
                           {
                             "keyword": "cca_future_adaptation_suggestions"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "cca__4__8",
+                    "form_options": {
+                      "numbering": "4.8",
+                      "template": "has_subcategories"
+                    },
+                    "subcategories": [
+                      {
+                        "keyword": "cca__4__8__financial",
+                        "form_options": {
+                          "template": "collapsible",
+                          "label_tag": "h4"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "cca_qg_160",
+                              "cca_qg_154", 
+                              "cca_qg_155",                                 
+                              "cca_qg_156",
+                              "cca_qg_157",
+                              "cca_qg_158",
+                              "cca_qg_159"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_154",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_155",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_156",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_157",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_158",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_159",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_160",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca__4__8__social",
+                        "form_options": {
+                          "template": "collapsible",
+                          "label_tag": "h4"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "cca_qg_171",
+                              "cca_qg_161", 
+                              "cca_qg_162",                                 
+                              "cca_qg_163",
+                              "cca_qg_164",
+                              "cca_qg_165",
+                              "cca_qg_166",
+                              "cca_qg_167",
+                              "cca_qg_168",
+                              "cca_qg_169",
+                              "cca_qg_170"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_161",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_162",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_163",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_164",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_165",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_166",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_167",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_168",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_169",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_170",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_171",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca__4__8__human",
+                        "form_options": {
+                          "template": "collapsible",
+                          "label_tag": "h4"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "cca_qg_173",
+                              "cca_qg_172"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_172",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_173",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca__4__8__physical",
+                        "form_options": {
+                          "template": "collapsible",
+                          "label_tag": "h4"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "cca_qg_178",
+                              "cca_qg_174",
+                              "cca_qg_175",
+                              "cca_qg_176",
+                              "cca_qg_177"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_174",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_175",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_176",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_177",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_178",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca__4__8__natural",
+                        "form_options": {
+                          "template": "collapsible",
+                          "label_tag": "h4"
+                        },
+                        "view_options": {
+                          "template": "table_5",
+                          "table_grouping": [
+                            [
+                              "cca_qg_184",
+                              "cca_qg_179",
+                              "cca_qg_180",
+                              "cca_qg_181",
+                              "cca_qg_182",
+                              "cca_qg_183"
+                            ]
+                          ]
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_179",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_180",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_181",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_182",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_183",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_184",
+                            "form_options": {
+                              "template": "checkbox_toggle"
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_other_specify",
+                                "form_options": {
+                                  "label_position": "placeholder"
+                                }
+                              },
+                              {
+                                "keyword": "cca_capital"
+                              },
+                              {
+                                "keyword": "cca_capital_comments"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca__4__8__comments",
+                        "form_options": {
+                          "template": "empty"
+                        },
+                        "view_options": {
+                          "template": "empty"
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "cca_qg_185",
+                            "questions": [
+                              {
+                                "keyword": "cca_comments",
+                                "form_options": {
+                                  "label_class": "top-margin"
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
