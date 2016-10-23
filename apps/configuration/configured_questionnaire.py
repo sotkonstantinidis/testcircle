@@ -1,7 +1,7 @@
 import collections
 import functools
 
-from .configuration import QuestionnaireConfiguration
+from .configuration import QuestionnaireConfiguration, QuestionnaireQuestion
 
 
 class ConfiguredQuestionnaire:
@@ -78,12 +78,14 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     """
     Get only data which is configured to appear in the summary.
     """
-    data = []
+    data = {}
 
-    def put_question_data(self, child):
+    def put_question_data(self, child: QuestionnaireQuestion):
         if hasattr(child, 'is_in_summary') and child.is_in_summary:
-            self.data.append({
-                'keyword': child.keyword,
-                'label': str(child.label),
-                'value': self.tmp_values.get(child.keyword) or ''
+            self.data.update({
+                '{}.{}'.format(child.questiongroup.keyword, child.keyword): {
+                    'keyword': child.keyword,
+                    'label': str(child.label),
+                    'value': self.tmp_values.get(child.keyword) or ''
+                }
             })

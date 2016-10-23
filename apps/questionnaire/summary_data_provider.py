@@ -31,6 +31,18 @@ class SummaryDataProvider:
         self.data = self.get_data()
 
     def get_data(self):
+        data = []
+        for field in self.fields:
+            data.append({
+                'type': field['type'],
+                'label': self.raw_data[field['key']]['label'],
+                'content': self.raw_data[field['key']]['value'],
+                'position': field['position']
+            })
+        return data
+
+    @property
+    def fields(self):
         raise NotImplementedError
 
 
@@ -39,5 +51,15 @@ class TechnologySummaryProvider(SummaryDataProvider):
     Store configuration for annotation, aggregation, module type and order for
     technology questionnaires.
     """
-    def get_data(self):
-        return self.raw_data
+    fields = [
+        {
+            'type': 'image',
+            'key': 'qg_image.image',
+            'position': '',
+        },
+        {
+            'type': 'text',
+            'key': 'qg_name.name',
+            'position': ''
+        }
+    ]
