@@ -5327,7 +5327,8 @@
       "keyword": "name",
       "translation": 5001,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "is_in_summary": "true"
       }
     },
     "model": "configuration.key",
@@ -5603,7 +5604,8 @@
         "type": "char",
         "form_options": {
           "helptext_position": "tooltip"
-        }
+        },
+        "is_in_summary": "true"
       }
     },
     "model": "configuration.key",
@@ -5647,7 +5649,8 @@
       "keyword": "image",
       "translation": 5007,
       "configuration": {
-        "type": "image"
+        "type": "image",
+        "is_in_summary": "true"
       }
     },
     "model": "configuration.key",

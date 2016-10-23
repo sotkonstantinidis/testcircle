@@ -218,6 +218,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'keyword',
         'view_options',
         'form_options',
+        'is_in_summary',
     ]
     valid_field_types = [
         'bool',
@@ -353,6 +354,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.filterable = self.view_options.get('filter', False) is True
 
+        self.is_in_summary = self.key_config.get('is_in_summary') == 'true'
         self.images = []
         self.choices = ()
         self.choices_helptexts = []

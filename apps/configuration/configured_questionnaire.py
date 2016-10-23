@@ -78,17 +78,12 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     """
     Get only data which is configured to appear in the summary.
     """
-    summary = []
-    get_all_data = True  # flag to check if data is configured for summary.
-
-    def __init__(self, config: QuestionnaireConfiguration, use_all_data: bool, **data):
-        self.use_all_data = use_all_data
-        super().__init__(config, **data)
+    data = []
 
     def put_question_data(self, child):
-        if self.get_all_data or hasattr(child, 'is_in_summary'):
-            self.summary.append({
-                'summary_field': '',
+        if hasattr(child, 'is_in_summary') and child.is_in_summary:
+            self.data.append({
+                'keyword': child.keyword,
                 'label': str(child.label),
                 'value': self.tmp_values.get(child.keyword) or ''
             })
