@@ -1,5 +1,6 @@
 import collections
 import contextlib
+import json
 from itertools import chain
 
 from django.contrib import messages
@@ -42,7 +43,7 @@ from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
-from .summary_data_provider import SummaryDataProvider
+from .summary_data_provider import get_summary_data
 from .utils import (
     clean_questionnaire_data,
     get_active_filters,
@@ -1357,15 +1358,15 @@ class QuestionnaireSummaryExportView(TemplateView):
             original_locale=questionnaire.original_locale
         )
         config = questionnaire.configurations.filter(active=True).first().code
-        return SummaryDataProvider(
+        return get_summary_data(
             config=get_configuration(configuration_code=config), **data
-        ).data
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         questionnaire = self.get_object(code=self.kwargs['identifier'])
         context['identifier'] = questionnaire.code
-        context['data'] = self.get_prepared_data(questionnaire)
+        context['data'] = json.dumps(self.get_prepared_data(questionnaire))
         return context
 
 

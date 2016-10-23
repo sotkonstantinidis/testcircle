@@ -6,7 +6,7 @@
 
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
-  var summaryData = '{{ data }}';
+  var summaryData = '{{ data|safe }}';
   var renderPDFurl = '{% url 'pdf_questionnaire_summary' identifier %}';
 
   $(function () {

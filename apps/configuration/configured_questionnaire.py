@@ -61,11 +61,34 @@ class ConfiguredQuestionnaire:
             if not is_question:
                 self.get_children(child, index + 1)
             else:
-                self.active_child_in_store[child.keyword] = {
-                    'label': str(child.label),
-                    'value': self.tmp_values.get(child.keyword) or ''
-                }
+                self.put_question_data(child)
+
+    def put_question_data(self, child):
+        self.active_child_in_store[child.keyword] = {
+            'label': str(child.label),
+            'value': self.tmp_values.get(child.keyword) or ''
+        }
 
     @property
     def active_child_in_store(self):
         return functools.reduce(dict.get, self.tmp_path, self.store)
+
+
+class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
+    """
+    Get only data which is configured to appear in the summary.
+    """
+    summary = []
+    get_all_data = True  # flag to check if data is configured for summary.
+
+    def __init__(self, config: QuestionnaireConfiguration, use_all_data: bool, **data):
+        self.use_all_data = use_all_data
+        super().__init__(config, **data)
+
+    def put_question_data(self, child):
+        if self.get_all_data or hasattr(child, 'is_in_summary'):
+            self.summary.append({
+                'summary_field': '',
+                'label': str(child.label),
+                'value': self.tmp_values.get(child.keyword) or ''
+            })

@@ -105,7 +105,6 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
                         api_version=self.request.version
                     ), kwargs={'identifier': item['code']}
                 ),
-                'summary': '',
             }
 
 
