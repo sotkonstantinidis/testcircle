@@ -781,7 +781,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
     edit_mode = 'edit'
     template_name = 'form/category.html'
 
-    def set_attributes(self):
+    def set_attributes(self, request_path=None):
         """
         Shared calls (pseudo setup) for get and post
         """
@@ -789,13 +789,13 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         self.category = self.questionnaire_configuration.get_category(self.kwargs['step'])
         if not self.category:
             raise Http404()
-        self.category_config, self.subcategories = self.get_subcategories()
+        self.category_config, self.subcategories = self.get_subcategories(request_path)
 
     def get(self, request, *args, **kwargs):
         """
         Display the form for the selected step,
         """
-        self.set_attributes()
+        self.set_attributes(request.path)
         if self.has_object:
             Questionnaire.lock_questionnaire(self.object.code, self.request.user)
         return self.render_to_response(context=self.get_context_data())
@@ -842,7 +842,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         show_translation = (original_locale is not None and get_language() != original_locale)
         return original_locale, show_translation
 
-    def get_subcategories(self):
+    def get_subcategories(self, request_path):
         """
         Returns: tuple (category_config, subcategories)
         """
@@ -853,12 +853,8 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         )
         initial_links = get_link_data(self.questionnaire_links)
 
-        if hasattr(self.object, 'code'):
-            object_code = self.object.code
-        else:
-            object_code = None
         category_config, subcategories = self.category.get_form(
-            object_code=object_code,
+            request_path=request_path,
             post_data=self.request.POST or None,
             initial_data=initial_data, show_translation=show_translation,
             edit_mode=self.edit_mode,

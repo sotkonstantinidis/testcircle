@@ -4,7 +4,7 @@ import string
 from django.apps import apps
 from django.db.models import Q
 from configuration.cache import get_configuration
-from configuration.models import Project, Key, Questiongroup, Translation
+from configuration.models import Project, Questiongroup, Translation
 from questionnaire.models import Questionnaire, Flag
 
 def get_configuration_query_filter(configuration, only_current=False):
@@ -178,7 +178,7 @@ def get_choices_from_model(model_name, only_active=True):
     return choices
 
 
-def get_choices_from_questionnaire(model_name, object_code, only_active=True):
+def get_choices_from_questionnaire(request_path, only_active=True):
     """
     Return the values of a model as choices to be used in the form.
 
@@ -194,69 +194,48 @@ def get_choices_from_questionnaire(model_name, object_code, only_active=True):
     """
     choices = []
     try:
-        #model = apps.get_model(
-        #    app_label='configuration', model_name=model_name)
-        #if only_active is True:
-        #    objects = model.objects.filter(active=True).all()
-        #else:
-        #    objects = model.objects.all()
-        #for o in objects:
-        #    choices.append((o.id, str(o)))
-        if object_code is None:
-            questiongroups = Questiongroup.objects.all()
-            for questiongroup in questiongroups:
-                a = questiongroup.keyword.split('_')
-                if len(a) == 3 and a[0] == 'cca' and a[1] =='qg':
-                    qg = int(a[2])
-                    if qg>=7 and qg<=30:
-                        #if questiongroup.keyword == keyword:
-                        translation = Translation.objects.get(pk=questiongroup.translation_id)
-                        #print(translation.data['cca']['label']['en'])
-                        choices.append(('cca_change_extreme_'+str(qg), translation.data['cca']['label']['en']))
-            return choices
-        key, value = object_code.split('_')
-        identifier = int(value) + 1
-        #print('identifier')
-        #print(identifier)
-        questionnaire = Questionnaire.objects.get(pk=identifier)
-        data = questionnaire.data
-        #print('data')
-        #print(data)
         questiongroups = Questiongroup.objects.all()
-        #print('questiongroups')
-        #print(questiongroups)
-        for keyword, value in data.items():
-            #print(keyword, value)
-            #print(value[0])            
-            #print(keyword)
-            a = keyword.split('_')
-            if len(a) == 3 and a[0] == 'cca' and a[1] == 'qg':
-                qg = int(a[2])
-                if qg>=2 and qg<=34:
-                    print(qg)
-                    for questiongroup in questiongroups:
-                        if questiongroup.keyword == keyword:
-                            #translation = questiongroup.translation
-                            #if translation:
-                            #    print(translation.get_translation('label', keyword))
-                            #questiongroup1 = Questiongroup.objects.get(keyword=keyword)
-                            #print(questiongroup1.translation.get_translation('helptext', keyword))
-                            translation = Translation.objects.get(pk=questiongroup.translation_id)
-                            #print(translation.data)
-                            print(translation.data['cca']['label']['en'])
-                            #print(Translation.get_translation(translation, keyword=keyword, configuration='cca'))
-                            #print(questiongroup.translation.get_translation(configuration='label', keyword=attr))
-                            choices.append(('cca_change_extreme_'+str(qg), translation.data['cca']['label']['en']))
+        if request_path is not None:
+            arr = request_path.split('/')
+            language = arr[1]
+            mode = 'edit'
+            identifier = 0
+            if arr[5] == 'new':
+                mode = 'new'
+            else:
+                key, value = arr[5].split('_')
+                identifier = int(value) + 1
+            category = arr[6]            
 
-        #for field in data._meta.get_all_field_names():
-            #print(getattr(questionnaire, field))
-            #print(field)
-            #print(getattr(data, field, None))
-        #keys = Key.objects.all()
-        #print('keys')
-        #print(keys)
-        #choices.append((1, object_code))
-        #choices.append((2, questionnaire))
+            if category == 'cca__2':
+                for questiongroup in questiongroups:
+                    qg = questiongroup.keyword.split('_')
+                    if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg':
+                        qg_id = int(qg[2])
+                        if qg_id>=7 and qg_id<=30:
+                            translation = Translation.objects.get(pk=questiongroup.translation_id)
+                            choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label'][language]))
+            elif category == 'cca__3':
+                if mode == 'edit':
+                    questionnaire = Questionnaire.objects.get(pk=identifier)
+                    data = questionnaire.data
+                    for keyword, value in data.items():
+                        qg = keyword.split('_')
+                        if len(qg) == 3 and qg[0] == 'cca' and qg[1] == 'qg':
+                            qg_id = int(qg[2])
+                            if qg_id>=2 and qg_id<=34:
+                                for questiongroup in questiongroups:
+                                    if questiongroup.keyword == keyword:
+                                        translation = Translation.objects.get(pk=questiongroup.translation_id)
+                                        choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label'][language]))
+        else:
+            for questiongroup in questiongroups:
+                qg = questiongroup.keyword.split('_')
+                if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg':
+                    qg_id = int(qg[2])
+                    if qg_id>=2 and qg_id<=34:
+                        translation = Translation.objects.get(pk=questiongroup.translation_id)
+                        choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label']['en']))                                
     except LookupError:
         pass
     return choices

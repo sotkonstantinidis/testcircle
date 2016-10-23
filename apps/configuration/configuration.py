@@ -496,7 +496,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.required = False
 
     def add_form(
-            self, object_code, formfields, templates, options, show_translation=False,
+            self, request_path, formfields, templates, options, show_translation=False,
             edit_mode='edit'):
         """
         Adds one or more fields to a dictionary of formfields.
@@ -724,7 +724,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             widget.searchable = True
             choices = [('', '-')]
             choices.extend(
-                get_choices_from_questionnaire(self.form_options.get('Questionnaire'), object_code))
+                get_choices_from_questionnaire(request_path))
             field = forms.ChoiceField(
                 label=self.label, widget=widget, choices=choices,
                 required=self.required)
@@ -1109,7 +1109,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         self.required = False
 
     def get_form(
-            self, object_code=None, post_data=None, initial_data=None, show_translation=False,
+            self, request_path=None, post_data=None, initial_data=None, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1132,7 +1132,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         options = {}
         for f in self.questions:
             formfields, templates, options = f.add_form(
-                object_code, formfields, templates, options, show_translation,
+                request_path, formfields, templates, options, show_translation,
                 edit_mode=edit_mode)
 
         if self.numbered != '':
@@ -1433,7 +1433,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         self.table_helptexts.append(question.helptext)
 
     def get_form(
-            self, object_code=None, post_data=None, initial_data={}, show_translation=False,
+            self, request_path=None, post_data=None, initial_data={}, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1462,7 +1462,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             questionset_initial_data = initial_data.get(questiongroup.keyword)
             formsets.append(
                 questiongroup.get_form(
-                    object_code=object_code,
+                    request_path=request_path,
                     post_data=post_data, initial_data=questionset_initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -1473,7 +1473,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             formsets.append(
                 subcategory.get_form(
-                    object_code=object_code,
+                    request_path=request_path,
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -1710,7 +1710,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         return qg
 
     def get_form(
-            self, object_code=None, post_data=None, initial_data={}, show_translation=False,
+            self, request_path=None, post_data=None, initial_data={}, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1721,7 +1721,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             subcategory_formsets.append(
                 subcategory.get_form(
-                    object_code=object_code,
+                    request_path=request_path,
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
