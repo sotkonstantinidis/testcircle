@@ -64,6 +64,7 @@
                     {% formrow field using "form/question/no_label.html" %}
                   </td>
                 {% endfor %}
+                {% for field in f.hidden_fields %}{% formfield field %}{% endfor %}
               </tr>
             {% endfor %}
           {% elif questiongroup_config.keyword in config.table_grouping.1 %}
@@ -76,6 +77,7 @@
                     {% formrow field using "form/question/no_label.html" %}
                   </td>
                 {% endfor %}
+                {% for field in f.hidden_fields %}{% formfield field %}{% endfor %}
                 <td></td>
               </tr>
             {% endfor %}
