@@ -49,13 +49,22 @@ function hasContent(element) {
     return content;
 }
 
+/**
+ * Removes the row of table
+ */
 function remove_tr(element) {
     $(element).parent().parent().remove();
 }
+
+/**
+ * The disasters array that stores states of checkboxes of climate-related extremes (disasters)
+ */
 var disasters = [];
-//var previousDisasters = [];
+
+/**
+ * Initializes the disasters array
+ */
 function initializeDisasters() {
-    console.log('initializeDisasters');
     for(var i=7; i<=30; i++) {
         var text = $("input[data-container='cca_qg_"+i+"']").parent().find('span:first').map(function() {
             return $(this).text();
@@ -68,24 +77,35 @@ function initializeDisasters() {
         disasters.push(obj);
     }
 }
+
+/**
+ * Initializing the disasters array happens once on page load
+ */
 initializeDisasters();
+
+/**
+ * Clears up the disasters array at the beginning of each selection of climate-related extremes in cca 2.2
+ */
 function clearDisasters() {
-    console.log('clearDisasters');
-    for(var i=0; i<disasters.length; i++) {
-        //previousDisasters[i] = disasters[i].active;
+    for(var i=0; i<disasters.length; i++)
         disasters[i].active = false;
-    }
 }
+
+/**
+ * Selected climate-related extremes from cca 2.2 are registered in the disasters array
+ */
 function registerDisaster(id) {
-    //console.log(registerDisaster);
     for(var i=0; i<disasters.length; i++) {
         var temp = disasters[i].value.split('_');
         if(id == 'cca_qg_'+temp[3])
             disasters[i].active = true;    
     }
 }
-function activeDisasters(element) {
-    //console.log('activeDisasters');
+
+/**
+ * Checks which climate-related extremes have been selected in cca 2.2
+ */
+function checkDisasters(element) {
     // Textfields
     $(element).find('div.row.single-item input:text').each(function () {
         if ($(this).is(":visible") && $(this).val() != '')
@@ -102,37 +122,14 @@ function activeDisasters(element) {
             registerDisaster($(this).parent().parent().parent().parent().attr('id'));
     });
 }
-function refreshDisasters() {
-    console.log('refreshDisasters');
-    /*var count = 0;
-    for(var i=0; i<disasters.length; i++)
-        if(disasters[i].active==true)
-            count++;
-    if(count==0) {
-        for(var i=0; i<10; i++) {
-            $( "#id_cca_qg_39-"+i+"-climate_related_extreme" ).empty();
-            $( "#id_cca_qg_39-"+i+"-climate_related_extreme" ).append($("<option></option>")
-                            .attr("value","")
-                            .text("-"));
-        }
-    }*/
-    /*
-    var ok=false;
-    for(var i=0; i<disasters.length; i++)
-        if(previousDisasters[i]!=disasters[i].active) {
-            ok=true;
-            break;
-        }
-    console.log('ok='+ok);
-    if(ok==false) return;*/
 
+/**
+ * Refreshes the select element in cca 2.3 based on selected values from cca 2.2
+ */
+function refreshDisasters() {
     for(var j=0; j<24; j++) {
         if($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme")[0])) {
             var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
-            console.log(selectDisasters.val());
-            //console.log($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='cca_change_extreme_14']")[0]));
-            //console.log($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='cca_change_extreme_7']")[0]));
-            //console.log($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='cca_change_extreme_10']")[0]));
             $.each(disasters, function(i, item) {
                 if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
                     selectDisasters.append($('<option>', {
@@ -142,23 +139,11 @@ function refreshDisasters() {
                 else if(disasters[i].active==false && $.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
                     $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']").remove();
             });            
-            /*selectDisasters.empty();
-            selectDisasters.append($("<option></option>")
-                                .attr("value","")
-                                .text("-")); 
-
-            $.each(disasters, function(i, item) {
-                if(disasters[i].active==true)   
-                    selectDisasters.append($('<option>', {
-                        value:  item.value,
-                        text:   item.text
-                    })); 
-            });*/
-
             selectDisasters.trigger("chosen:updated");
         }
     }
 }
+
 /**
  * Updates the process indicators while entering the form. Updates the
  * number of subcategories filled out and the progress bar.
@@ -171,7 +156,7 @@ function watchFormProgress() {
         if (content) {
             completed++;
         }
-        activeDisasters(this);
+        checkDisasters(this);
     });
     var stepsElement = $('.progress-completed');
     stepsElement.html(completed);

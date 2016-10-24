@@ -820,16 +820,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
             })
         elif self.field_type in ['select_conditional']:
-            # template_name = 'textinput'
-            # template_values.update({
-            #     'key': self.label_view,
-            #     'value': values[0],
-            # })
             template_name = 'hidden'
-            # template_values.update({
-            #     'key': self.label_view,
-            #     'value': value,
-            # })
         elif self.field_type in ['measure']:
             template_name = 'measure_bar'
             level = None

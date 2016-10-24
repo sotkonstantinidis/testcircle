@@ -178,19 +178,17 @@ def get_choices_from_model(model_name, only_active=True):
     return choices
 
 
-def get_choices_from_questionnaire(request_path, only_active=True):
+def get_choices_from_questionnaire(request_path):
     """
-    Return the values of a model as choices to be used in the form.
+    Return the values of an object as choices to be used in the form.
 
     Args:
-        model_name: (str) The name of the model inside the ``configuration`` app
-        only_active: (bool) If True, a filter is set to return only instances of
-          the model with "active" = True
+        request_path: (str) The GET request path
 
     Returns:
         list. A list of tuples where
-            [0] The ID of the model instance
-            [1] The string representation of the instance
+            [0] The ID of the questiongroup instance
+            [1] The string representation of the questiongroup instance
     """
     choices = []
     try:
