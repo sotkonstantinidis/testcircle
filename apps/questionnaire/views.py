@@ -222,7 +222,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     configuration_code = None
     template_name = ''
 
-    @method_decorator(ensure_csrf_cookie)
     def dispatch(self, request, *args, **kwargs):
         request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
         return super().dispatch(request, *args, **kwargs)
@@ -618,6 +617,10 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
     http_method_names = ['get']
 
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         """
         Display the questionnaire overview.
@@ -897,6 +900,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         return ctx
 
 
+@ensure_csrf_cookie
 def generic_questionnaire_details(
         request, identifier, configuration_code, url_namespace):
     """
