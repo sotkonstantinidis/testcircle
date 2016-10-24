@@ -153,7 +153,9 @@
                   <input name="next" type="hidden" value="{{ request.path|clean_url }}" />
                   <input id="language_field" name="language" type="hidden" />
                   {% for lang in LANGUAGES %}
-                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{{ lang.1 }}</a></li>
+                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}>
+                      <a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{% language lang.0 %}{{ lang.1 }}{% endlanguage %}</a>
+                    </li>
                   {% endfor %}
                 </form>
                 <li class="lang-switcher-info"><a href="https://www.wocat.net/en/about-wocat/contact.html" target="_blank" data-tooltip="" title="{% trans "Would you like to help us translate the SLM Database? Please contact the WOCAT Secretariat for more information." %}"><svg class="icon-lines is-inline"><use xlink:href="#icon-info"></use></svg></a></li>
@@ -211,7 +213,8 @@
             url: '{% url 'notification_new_count' %}',
             method: 'GET'
           }).done(function(data) {
-            if (data == 'True') {
+            if (data != 0) {
+              notificationIndicator.prepend('<strong>' + data + '</strong>');
               notificationIndicator.addClass('has-unread-messages')
             }
           });

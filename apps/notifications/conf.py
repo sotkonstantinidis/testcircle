@@ -12,6 +12,7 @@ class NotificationsConf(AppConf):
     ADD_MEMBER = 4
     REMOVE_MEMBER = 5
     EDIT_CONTENT = 6
+    FINISH_EDITING = 7
 
     ACTIONS = (
         (CREATE, _('created questionnaire')),
@@ -19,7 +20,8 @@ class NotificationsConf(AppConf):
         (CHANGE_STATUS, _('changed status')),
         (ADD_MEMBER, _('invited member')),
         (REMOVE_MEMBER, _('removed member')),
-        (EDIT_CONTENT, _('edited content'))
+        (EDIT_CONTENT, _('edited content')),
+        (FINISH_EDITING, _('editor finished'))
     )
 
     ACTION_ICON = {
@@ -30,6 +32,7 @@ class NotificationsConf(AppConf):
         ADD_MEMBER: 'icon-member-add',
         REMOVE_MEMBER: 'icon-member-remove',
         EDIT_CONTENT: 'icon-pencil',
+        FINISH_EDITING: 'icon-edit-approve',
     }
 
     # Mapping of user permissions and allowed questionnaire statuses

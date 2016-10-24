@@ -26217,17 +26217,6 @@
                         ]
                       },
                       {
-                        "keyword": "qg_funding_institution",
-                        "questions": [
-                          {
-                            "keyword": "funding_institution"
-                          },
-                          {
-                            "keyword": "funding_institution_display"
-                          }
-                        ]
-                      },
-                      {
                         "keyword": "qg_funding_project",
                         "questions": [
                           {
@@ -26235,6 +26224,17 @@
                           },
                           {
                             "keyword": "funding_project_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_institution",
+                        "questions": [
+                          {
+                            "keyword": "funding_institution"
+                          },
+                          {
+                            "keyword": "funding_institution_display"
                           }
                         ]
                       }

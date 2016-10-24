@@ -1345,7 +1345,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             questionnaire=questionnaire_object,
             user=request.user,
             is_rejected=True,
-            message=request.POST.get('message', '')
+            message=request.POST.get('reject-message', '')
         )
 
         # Query the permissions again, if the user does not have

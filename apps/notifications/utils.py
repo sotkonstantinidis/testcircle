@@ -1,7 +1,8 @@
 from accounts.models import User
 from questionnaire.models import Questionnaire
 
-from .models import Log, StatusUpdate, ContentUpdate, MemberUpdate
+from .models import Log, StatusUpdate, ContentUpdate, MemberUpdate, \
+    InformationUpdate
 
 
 class CreateLog:
@@ -9,23 +10,25 @@ class CreateLog:
     Create a new log an set the required instance variables for status and content updates.
     """
     def __init__(self, action: int, sender: User, questionnaire: Questionnaire, **kwargs):
-        self.log = self.create_log(sender, action, questionnaire)
         self.questionnaire = questionnaire
+        self.log = self.create_log(sender, action)
+        self.add_members(sender=sender)
 
-    def create_log(self, sender: User, action: int, questionnaire: Questionnaire) -> Log:
-        log = Log.objects.create(
+    def create_log(self, sender: User, action: int) -> Log:
+        return Log.objects.create(
             catalyst=sender,
             action=action,
-            questionnaire=questionnaire
+            questionnaire=self.questionnaire
         )
+
+    def add_members(self, sender: User):
         # Add current members as receivers.
-        members = questionnaire.questionnairemembership_set.exclude(
+        members = self.questionnaire.questionnairemembership_set.exclude(
             user=sender
         ).values_list(
             'user_id', flat=True
         )
-        log.subscribers.add(*members)
-        return log
+        self.log.subscribers.add(*members)
 
 
 class ContentLog(CreateLog):
@@ -61,4 +64,25 @@ class MemberLog(CreateLog):
             log=self.log,
             affected=affected,
             role=role
+        )
+
+
+class InformationLog(CreateLog):
+    """
+    Helper to create logs for info messages.
+    """
+
+    def __init__(self, action: int, sender: User, questionnaire: Questionnaire,
+                 receiver: User, *args, **kwargs):
+        self.questionnaire = questionnaire
+        self.log = self.create_log(sender=sender, action=action)
+        self.add_receiver(receiver)
+
+    def add_receiver(self, receiver):
+        self.log.subscribers.add(receiver)
+
+    def create(self, info: str):
+        InformationUpdate.objects.create(
+            log=self.log,
+            info=info
         )

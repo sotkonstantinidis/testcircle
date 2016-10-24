@@ -1,21 +1,5 @@
 $(function () {
 
-    // Overwrite the normal functionality of the datalist to be able to
-    // use internal submit values other than the display values.
-    $('body').on('input', '.js-search-datalist', function () {
-        var input = this;
-        var options = $('#' + $(this).attr('list') + ' option');
-        var hiddenInput = $('#' + input.id + '-hidden');
-        hiddenInput.val(input.value);
-        options.each(function () {
-            var $t = $(this);
-            if ($t.html() === input.value) {
-                hiddenInput.val($t.data('value'));
-                return;
-            }
-        });
-    });
-
     // Button to remove a filter. As the filter buttons are added
     // dynamically, the event needs to be attached to an element which is
     // already there.
@@ -159,6 +143,15 @@ $(function () {
             var qg = $t.data('questiongroup');
             var key = $t.data('key');
             var val = $t.val();
+            if (qg && key && val) {
+                p = addFilter(p, qg, key, val);
+            }
+        });
+        // select
+        search_div.find('select').each(function() {
+            var qg = $(this).data('questiongroup');
+            var key = $(this).data('key');
+            var val = $(this).find('option:selected').val();
             if (qg && key && val) {
                 p = addFilter(p, qg, key, val);
             }

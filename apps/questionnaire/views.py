@@ -21,8 +21,10 @@ from django.shortcuts import (
     get_object_or_404,
 )
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin, TemplateView
@@ -618,6 +620,10 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
     http_method_names = ['get']
 
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         """
         Display the questionnaire overview.
@@ -676,7 +682,8 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             data, permissions=permissions,
             edit_step_route='{}:questionnaire_new_step'.format(
                 self.url_namespace),
-            questionnaire_object=self.object or None, csrf_token=csrf_token,
+            questionnaire_object=self.object or None,
+            csrf_token=csrf_token,
             edited_questiongroups=edited_questiongroups,
             view_mode='edit',
             links=self.get_links(),
@@ -896,6 +903,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         return ctx
 
 
+@ensure_csrf_cookie
 def generic_questionnaire_details(
         request, identifier, configuration_code, url_namespace):
     """

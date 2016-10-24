@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load questionnaire_tags %}
+
 
 <div class="row">
   <div class="medium-12 columns">
@@ -27,10 +29,30 @@
           {% trans "An optional message for the reviewer may be added here:" %}
           <textarea name="message" form="review_form"></textarea>
         </p>
-        <button name='submit' value='true' class="button success" type="submit" form="review_form">{% trans "Submit" %}</button>
+        <button name="submit" value="true" class="button success" type="submit" form="review_form">{% trans "Submit" %}</button>
         <a class="close-reveal-modal" aria-label="Close">&#215;</a>
       </div>
     </div>
+  </div>
+  {% comment %}editors (non compilors) can indicate the compiler that they are finished editing{% endcomment %}
+{% elif review_config.roles|is_editor and 'edit_questionnaire' in review_config.permissions %}
+  <div class="row process-action">
+    <div class="medium-2 columns">
+      <a class="button expand success is-finished-editing" data-reveal-id="finish-editing">{% trans "Editing finished" %}</a>
+    </div>
+    <div class="medium-10 columns">
+      <p>{% trans "Inform the compiler that you have finished editing the questionnaire." %}</p>
+    </div>
+  </div>
+  <div id="finish-editing" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <h2>{% trans "Finish editing." %}</h2>
+    <p>{% trans "By clicking the button below, the compiler gets notified that you have finished editing the data. This is for informational purposes only, you may still edit the data after submitting this." %}</p>
+    <p>
+      {% trans "A personal message for the compiler may be added here:" %}
+      <textarea name="compiler_info_message"></textarea>
+    </p>
+    <button class="button success" id="inform-compiler">{% trans "Inform compiler" %}</button>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
   </div>
 {% endif %}
 

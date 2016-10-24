@@ -53,6 +53,7 @@ class ActionContextQuerySet(models.QuerySet):
         - permitted to see the log as defined by the questionnaire membership
         - the action is either a defined 'list' action, or the current user
           is compiler / editor in which case content edits are listed also
+        - notifications that are sent to the current user
         """
         # construct filters depending on the users permissions.
         status_filters = self.get_questionnaires_for_permissions(user)
@@ -69,7 +70,8 @@ class ActionContextQuerySet(models.QuerySet):
                   settings.QUESTIONNAIRE_COMPILER,
                   settings.QUESTIONNAIRE_EDITOR
               ]
-            )
+            ) |
+            Q(action=settings.NOTIFICATIONS_FINISH_EDITING, subscribers=user)
         ).filter(
             functools.reduce(operator.or_, status_filters)
         ).distinct()
@@ -148,7 +150,7 @@ class ActionContextQuerySet(models.QuerySet):
         """
         return self.filter(action__in=settings.NOTIFICATIONS_EMAIL_ACTIONS)
 
-    def user_has_logs(self, user: User) -> int:
+    def user_log_count(self, user: User) -> int:
         """
         Count all unread logs that the user has to work on.
         """
@@ -156,7 +158,7 @@ class ActionContextQuerySet(models.QuerySet):
             user=user
         ).only(
             'id'
-        ).exists()
+        ).count()
 
     def only_unread_logs(self, user: User):
         """
@@ -286,6 +288,10 @@ class Log(models.Model):
             action_display = _('was edited by: {}'.format(
                 self.catalyst.get_display_name()
             ))
+        if self.action == settings.NOTIFICATIONS_FINISH_EDITING:
+            action_display = _('{compiler} is finished editing'.format(
+                compiler=self.catalyst.get_display_name()
+            ))
 
         return '{questionnaire} {action}'.format(
             questionnaire=self.questionnaire.code,
@@ -331,6 +337,15 @@ class StatusUpdate(models.Model):
     )
     is_rejected = models.BooleanField(default=False)
     message = models.TextField()
+
+
+class InformationUpdate(models.Model):
+    """
+    Store a text containing some information (right now only editors that have
+    finished working on a questionnaire).
+    """
+    log = models.OneToOneField(Log)
+    info = models.TextField()
 
 
 class MemberUpdate(models.Model):
