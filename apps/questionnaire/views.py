@@ -676,7 +676,8 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             data, permissions=permissions,
             edit_step_route='{}:questionnaire_new_step'.format(
                 self.url_namespace),
-            questionnaire_object=self.object or None, csrf_token=csrf_token,
+            questionnaire_object=self.object or None,
+            csrf_token=csrf_token,
             edited_questiongroups=edited_questiongroups,
             view_mode='edit',
             links=self.get_links(),
