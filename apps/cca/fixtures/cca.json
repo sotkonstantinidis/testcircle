@@ -7943,7 +7943,8 @@
   {
     "fields": {
       "keyword": "month_2",
-      "translation": 29041
+      "translation": 29041,
+      "order_value": 2
     },
     "model": "configuration.value",
     "pk": 29041
@@ -7951,7 +7952,8 @@
   {
     "fields": {
       "keyword": "month_3",
-      "translation": 29042
+      "translation": 29042,
+      "order_value": 3
     },
     "model": "configuration.value",
     "pk": 29042
@@ -7959,7 +7961,8 @@
   {
     "fields": {
       "keyword": "month_4",
-      "translation": 29043
+      "translation": 29043,
+      "order_value": 4
     },
     "model": "configuration.value",
     "pk": 29043
@@ -7967,7 +7970,8 @@
   {
     "fields": {
       "keyword": "month_5",
-      "translation": 29044
+      "translation": 29044,
+      "order_value": 5
     },
     "model": "configuration.value",
     "pk": 29044
@@ -7975,7 +7979,8 @@
   {
     "fields": {
       "keyword": "month_6",
-      "translation": 29045
+      "translation": 29045,
+      "order_value": 6
     },
     "model": "configuration.value",
     "pk": 29045
@@ -7983,7 +7988,8 @@
   {
     "fields": {
       "keyword": "month_7",
-      "translation": 29046
+      "translation": 29046,
+      "order_value": 7
     },
     "model": "configuration.value",
     "pk": 29046
@@ -7991,7 +7997,8 @@
   {
     "fields": {
       "keyword": "month_8",
-      "translation": 29047
+      "translation": 29047,
+      "order_value": 8
     },
     "model": "configuration.value",
     "pk": 29047
@@ -7999,7 +8006,8 @@
   {
     "fields": {
       "keyword": "month_9",
-      "translation": 29048
+      "translation": 29048,
+      "order_value": 9
     },
     "model": "configuration.value",
     "pk": 29048
@@ -8007,7 +8015,8 @@
   {
     "fields": {
       "keyword": "month_10",
-      "translation": 29049
+      "translation": 29049,
+      "order_value": 10
     },
     "model": "configuration.value",
     "pk": 29049
@@ -8015,7 +8024,8 @@
   {
     "fields": {
       "keyword": "month_11",
-      "translation": 29050
+      "translation": 29050,
+      "order_value": 11
     },
     "model": "configuration.value",
     "pk": 29050
@@ -8023,7 +8033,8 @@
   {
     "fields": {
       "keyword": "month_12",
-      "translation": 29051
+      "translation": 29051,
+      "order_value": 12
     },
     "model": "configuration.value",
     "pk": 29051
