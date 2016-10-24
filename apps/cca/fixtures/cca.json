@@ -10583,6 +10583,24 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_186",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27186
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_187",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27187
+  },
+  {
+    "fields": {
       "keyword": "cca__1",
       "translation": 21000
     },
@@ -15179,8 +15197,21 @@
                         "keyword": "cca_qg_140",
                         "questions": [
                           {
-                            "keyword": "cca_measures_training"
-                          },
+                            "keyword": "cca_measures_training",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|cca_qg_186"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_186",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_186"
+                        },
+                        "questions": [
                           {
                             "keyword": "cca_measures_training_by_whom"
                           },
@@ -15193,7 +15224,12 @@
                             "view_options": {
                               "template": "checkbox_other"
                             }
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "cca_qg_187",
+                        "questions": [
                           {
                             "keyword": "cca_comments"
                           }
