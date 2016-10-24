@@ -56,6 +56,7 @@
                     {% formrow field using "form/question/no_label.html" %}
                   </td>
                 {% endfor %}
+                {% for field in f.hidden_fields %}{% formfield field %}{% endfor %}
               </tr>
             {% endfor %}
           {% endif %}
