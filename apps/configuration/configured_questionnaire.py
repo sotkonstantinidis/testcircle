@@ -24,7 +24,7 @@ class ConfiguredQuestionnaire:
         children = getattr(config, 'children')
 
         for child in children:
-            # Append current values to the store
+            # Build nested elements while iterating through them.
             self.active_child_in_store[child.keyword] = {
                 'label': str(child.label),
                 'children': {}
@@ -43,12 +43,29 @@ class ConfiguredQuestionnaire:
         # Go back to the parent element.
         self.tmp_path = self.tmp_path[:-2]
 
-    def put_question_data(self, child):
-        value = self.values.get(child.parent_object.keyword)
+    def put_question_data(self, child: QuestionnaireQuestion):
+        """
+        Store the child's data, including the value.
+        """
         self.active_child_in_store[child.keyword] = {
             'label': str(child.label),
-            'value': child.get_details(value[0]) if value else ''
+            'value': self.get_value(child)
         }
+
+    def get_value(self, child):
+        """
+        Get the template values as defined in the QuestionnaireQuestion config.
+        """
+        child.view_options['template'] = 'raw'
+        value = self.values.get(child.parent_object.keyword)
+        # Value may be empty, a list of one element (most of the time) or a list
+        # of dicts for nested questions.
+        if not value:
+            return ''
+        elif len(value) == 1:
+            return child.get_details(data=value[0])
+        else:
+            return [child.get_details(single_value) for single_value in value]
 
     @property
     def active_child_in_store(self):
@@ -68,6 +85,6 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                 '{}.{}'.format(child.questiongroup.keyword, child.keyword): {
                     'keyword': child.keyword,
                     'label': str(child.label),
-                    'value': self.tmp_values.get(child.keyword) or ''
+                    # 'value': self.tmp_values.get(child.keyword) or ''
                 }
             })
