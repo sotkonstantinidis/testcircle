@@ -1,7 +1,6 @@
 from unittest.mock import patch
 
 from rest_framework.reverse import reverse
-from selenium.common.exceptions import NoSuchElementException
 
 from functional_tests.base import FunctionalTest
 
@@ -24,7 +23,8 @@ class BaseTemplateTest(FunctionalTest):
         with self.settings(WARN_HEADER=''):
             self.browser.get(self.live_server_url + reverse('home'))
             # Check if the warning box is not displayed
-            with self.assertRaises(NoSuchElementException):
+            self.assertFalse(
                 self.browser.find_element_by_class_name(
                     'demo-version'
-                )
+                ).is_displayed()
+            )
