@@ -106,21 +106,21 @@ class UserTest(FunctionalTest):
 
         # The questionnaires are grouped by status
         # Draft
-        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[1]'
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[2]'
                              '/h2[text()="Draft"]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 1")]')
 
         # Submitted
-        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[2]'
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[3]'
                              '/h2[text()="Submitted"]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
                      'contains(text(), "Foo 8")]')
 
         # Reviewed
-        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[3]'
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[4]'
                              '/h2[text()="Reviewed"]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
@@ -130,7 +130,7 @@ class UserTest(FunctionalTest):
                      'contains(text(), "Foo 9")]')
 
         # Public
-        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[4]'
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[5]'
                              '/h2[text()="Public"]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[5]//a['
@@ -187,7 +187,7 @@ class UserTest(FunctionalTest):
         # The questionnaires are grouped by status
 
         # Submitted
-        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[1]'
+        self.findBy('xpath', '(//div[contains(@class, "tech-group")])[2]'
                              '/h2[text()="Submitted"]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
