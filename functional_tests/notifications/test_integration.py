@@ -1,3 +1,8 @@
+from unittest.mock import patch
+
+from accounts.client import Typo3Client
+from configuration.models import Configuration
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
@@ -17,9 +22,21 @@ class NotificationsIntegrationTest(FunctionalTest):
 
     def setUp(self):
         super().setUp()
-        self.jay = mommy.make(get_user_model())
-        self.robin = mommy.make(get_user_model())
-        self.questionnaire = Questionnaire.objects.first()
+        self.jay = mommy.make(
+            get_user_model(),
+            firstname='jay'
+        )
+        self.robin = mommy.make(
+            get_user_model(),
+            firstname='robin'
+        )
+        self.questionnaire = mommy.make(
+            model=Questionnaire,
+            status=settings.QUESTIONNAIRE_DRAFT,
+            configurations=[Configuration.objects.filter(
+                code='technology', active=True
+            ).first()]
+        )
         mommy.make(
             model=QuestionnaireMembership,
             user=self.jay,
@@ -41,11 +58,13 @@ class NotificationsIntegrationTest(FunctionalTest):
             self.questionnaire.get_edit_url()
         )
 
-    def test_editor_finished(self):
-        # when jay edits the questionnaire, the 'finish edit' button is not
-        # shown
-        self.doLogin(self.jay)
+    def test_compiler_edit_questionnaire(self):
+        # The compiler logs in and doesn't see the button to finish editing.
+        self.doLogin(user=self.jay)
         self.browser.get(self.questionnaire_edit_url)
+
         self.findBy('id', 'confirm-submit')
         self.findByNot('id', 'finish-editing')
-        # todo: fix problems with doLogin
+
+    def test_create_message(self):
+        pass

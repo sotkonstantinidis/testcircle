@@ -1,4 +1,5 @@
 from unittest import mock
+from unittest.mock import call
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -302,8 +303,22 @@ class LogInformationUpdateCreateViewTest(TestCase):
         self.request.user = 'foo'
         self.view = self.setup_view(view=self.view, request=self.request)
 
+    def test_get_compiler_query(self):
+        questionnaire = mock.MagicMock()
+        self.view.get_compiler(questionnaire)
+        self.assertEqual(
+            questionnaire.method_calls[0],
+            call.questionnairemembership_set.get(role='compiler')
+        )
+
     def test_get_compiler(self):
-        self.view.get_compiler('')
+        sentinel = mock.sentinel
+        questionnaire = mock.MagicMock()
+        questionnaire.questionnairemembership_set.get.return_value = sentinel
+        self.assertEqual(
+            self.view.get_compiler(questionnaire),
+            sentinel.user
+        )
 
     @mock.patch('notifications.views.query_questionnaire')
     def test_get_questionnaire(self, mock_query_questionnaire):

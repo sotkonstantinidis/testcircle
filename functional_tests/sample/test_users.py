@@ -1,3 +1,4 @@
+from accounts.middleware import WocatAuthenticationMiddleware
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
@@ -746,9 +747,12 @@ class UserTest2(FunctionalTest):
             self.assertIn(user_tuple[0], ['compiler', 'landuser'])
             self.assertIn(user_tuple[1].id, [1, 1055, 2365])
 
-    def test_remove_user(self, mock_get_user_id, mock_questionnaire_list):
+    @patch.object(WocatAuthenticationMiddleware, 'process_request')
+    def test_remove_user(self, mock_process_request, mock_get_user_id,
+                         mock_questionnaire_list):
 
         mock_questionnaire_list.return_value = {}
+        mock_process_request.return_value = {}
         # Alice logs in
         self.doLogin()
 

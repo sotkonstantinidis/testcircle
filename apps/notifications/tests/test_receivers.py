@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from unittest.mock import patch, MagicMock
 
@@ -36,7 +35,7 @@ class ReceiverTest(TestCase):
         questionnaire = kwargs.pop('questionnaire', self.questionnaire)
 
         with patch('notifications.receivers.{}.create_log'.format(log_type)) as init:
-            init.return_value = {}
+            init.return_value = MagicMock()
             with patch('notifications.receivers.{}.create'.format(log_type)) as create:
                 getattr(signal, 'send')(
                     sender='sender',

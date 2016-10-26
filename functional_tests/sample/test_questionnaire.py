@@ -22,13 +22,13 @@ from search.tests.test_index import create_temp_indices
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-
+@patch.object(WocatAuthenticationMiddleware, 'process_request')
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
-    def test_translation(self):
+    def test_translation(self, mock_process_request):
 
         # Alice logs in
         self.doLogin()
@@ -281,7 +281,8 @@ class QuestionnaireTest(FunctionalTest):
     #     self.assertIn('Key 17 - 3', res[2].text)
     #     self.assertIn('Key 18 - 3', res[2].text)
 
-    def test_repeating_questiongroups(self):
+    def test_repeating_questiongroups(self, mock_process_request):
+        mock_process_request.return_value = None
 
         initial_button_count = 4
 
@@ -428,7 +429,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('id', 'button-submit').click()
         self.review_action('submit')
 
-    def test_form_progress(self):
+    def test_form_progress(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -523,7 +525,8 @@ class QuestionnaireTest(FunctionalTest):
         total_steps = self.findBy('class_name', 'progress-total')
         self.assertEqual(total_steps.text, '2')
 
-    def test_textarea_maximum_length(self):
+    def test_textarea_maximum_length(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -580,7 +583,8 @@ class QuestionnaireTest(FunctionalTest):
         self.submit_form_step()
         self.review_action('submit')
 
-    def test_textarea_preserves_line_breaks(self):
+    def test_textarea_preserves_line_breaks(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -607,7 +611,8 @@ class QuestionnaireTest(FunctionalTest):
 
         self.review_action('submit')
 
-    def test_nested_subcategories(self):
+    def test_nested_subcategories(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -684,7 +689,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 25")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
 
-    def test_selects_with_chosen(self):
+    def test_selects_with_chosen(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -780,7 +786,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
-    def test_selects_with_chosen_repeating(self):
+    def test_selects_with_chosen_repeating(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -849,7 +856,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Afghanistan")]]')
 
-    def test_checkbox(self):
+    def test_checkbox(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -935,7 +943,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Value 13_2")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Value 13_3")]]')
 
-    def test_checkbox_other(self):
+    def test_checkbox_other(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1023,7 +1032,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
         self.findBy('xpath', '//*[text()[contains(.,"foo bar")]]')
 
-    def test_image_checkbox(self):
+    def test_image_checkbox(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1118,7 +1128,8 @@ class QuestionnaireTest(FunctionalTest):
             'xpath',
             '//div[contains(@class, "output")]/img[@alt="Value 14_3"]')
 
-    def test_measure_conditional(self):
+    def test_measure_conditional(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1211,7 +1222,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 23')
         self.checkOnPage('Bar')
 
-    def test_checkbox_conditional(self):
+    def test_checkbox_conditional(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1293,7 +1305,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 24')
         self.checkOnPage('Foo')
 
-    def test_conditional_chaining(self):
+    def test_conditional_chaining(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1389,7 +1402,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 28')
         self.checkOnPage('Foo')
 
-    def test_conditional_questions(self):
+    def test_conditional_questions(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1653,7 +1667,8 @@ class QuestionnaireTest(FunctionalTest):
     #     self.findBy('xpath', '//img[@alt="Value 16_1"]')
     #     self.findBy('xpath', '//img[@alt="Value 16_2"]')
 
-    def test_measure_selects(self):
+    def test_measure_selects(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1749,7 +1764,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 12")]]')
         self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
 
-    def test_measure_selects_repeating(self):
+    def test_measure_selects_repeating(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1813,7 +1829,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"medium")]]')
         self.findBy('xpath', '//*[text()[contains(.,"low")]]')
 
-    def test_date_picker(self):
+    def test_date_picker(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1929,7 +1946,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(
             selected_date_2))
 
-    def test_radio_selects(self):
+    def test_radio_selects(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -1997,7 +2015,8 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 11")]]')
         self.findBy('xpath', '//*[text()[contains(.,"No")]]')
 
-    def test_radio_other(self):
+    def test_radio_other(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -2105,7 +2124,8 @@ class QuestionnaireTest(FunctionalTest):
         self.review_action('submit')
         self.findBy('xpath', '//*[text()[contains(.,"foo bar")]]')
 
-    def test_plus_questiongroup(self):
+    def test_plus_questiongroup(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -2188,7 +2208,8 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Foo')
         self.checkOnPage('Bar')
 
-    def test_table_entry(self):
+    def test_table_entry(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -2325,7 +2346,8 @@ class QuestionnaireTest(FunctionalTest):
     #     # She sees that she is logged in and was redirected back to the form.
     #     # self.checkOnPage('Category 1')
 
-    def test_header_image(self):
+    def test_header_image(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -2457,8 +2479,10 @@ class QuestionnaireTestIndex(FunctionalTest):
         super(QuestionnaireTestIndex, self).tearDown()
         delete_all_indices()
 
-    def test_enter_questionnaire(self, mock_questionnaire_list):
-
+    @patch.object(WocatAuthenticationMiddleware, 'process_request')
+    def test_enter_questionnaire(self, mock_questionnaire_list,
+                                 mock_process_request):
+        mock_process_request.return_value = {}
         mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
@@ -2593,7 +2617,9 @@ class QuestionnaireLinkTest(FunctionalTest):
         'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
         'sample_samplemulti_questionnaires.json']
 
-    def test_add_questionnaire_link(self):
+    @patch.object(WocatAuthenticationMiddleware, 'process_request')
+    def test_add_questionnaire_link(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()
@@ -2718,8 +2744,9 @@ class QuestionnaireLinkTest(FunctionalTest):
         # There is a link back
         self.findBy('xpath', '//a[contains(@href, "sample/view/")]')
 
-    def test_edit_questionnaire_link(self):
-
+    @patch.object(WocatAuthenticationMiddleware, 'process_request')
+    def test_edit_questionnaire_link(self, mock_process_request):
+        mock_process_request.return_value = None
         # Alice logs in
         user = User.objects.get(pk=101)
         self.doLogin(user=user)
@@ -2774,7 +2801,9 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findByNot(
             'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
 
-    def test_edit_questionnaire_multiple_links(self):
+    @patch.object(WocatAuthenticationMiddleware, 'process_request')
+    def test_edit_questionnaire_multiple_links(self, mock_process_request):
+        mock_process_request.return_value = None
 
         # Alice logs in
         user = User.objects.get(pk=101)
