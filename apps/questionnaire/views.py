@@ -29,6 +29,7 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin, TemplateView
 from braces.views import LoginRequiredMixin
+from wkhtmltopdf.views import PDFTemplateView
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
@@ -1342,15 +1343,21 @@ class QuestionnaireDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
-class QuestionnaireSummaryExportView(TemplateView):
+class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
     """
-    The summary is created as follows:
-    - All data from questionnaire and configuration is fetched
-    - This view puts this data into its context
-    - Markup is created from this data (json) in the frontend with js
-    - The created markup is then sent to the view: which creates the pdf.
+    Put the questionnaire data to the context and return the rendered pdf.
     """
     template_name = 'questionnaire/export_summary.html'
+
+    def get(self, request, *args, **kwargs):
+        self.questionnaire = self.get_object(code=self.kwargs['identifier'])
+        return super().get(request, *args, **kwargs)
+
+    def get_filename(self):
+        return 'wocat-summary-{identifier}-{update}.pdf'.format(
+            identifier=self.kwargs['identifier'],
+            update=self.questionnaire.updated.strftime('%Y-%m-%d')
+        )
 
     def get_object(self, code: str) -> Questionnaire:
         # needs refactor: use id instead of code, as summaries can be created
@@ -1372,15 +1379,5 @@ class QuestionnaireSummaryExportView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        questionnaire = self.get_object(code=self.kwargs['identifier'])
-        context['identifier'] = questionnaire.code
-        context['data'] = json.dumps(self.get_prepared_data(questionnaire))
+        context['data'] = json.dumps(self.get_prepared_data(self.questionnaire))
         return context
-
-
-class QuestionnaireSummaryPDFCreateView(View):
-    """
-    This is a dummy, as no pdf lib is chosen yet.
-    """
-    def get(self, request, *args, **kwargs):
-        return FileResponse(streaming_content=['foo'])

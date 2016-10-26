@@ -79,12 +79,12 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     data = {}
 
     def put_question_data(self, child: QuestionnaireQuestion):
-        # add named 'part' in configuration
-        if hasattr(child, 'is_in_summary') and child.is_in_summary:
+        # todo: add named 'part' in configuration
+        if child.is_in_summary:
             self.data.update({
                 '{}.{}'.format(child.questiongroup.keyword, child.keyword): {
                     'keyword': child.keyword,
                     'label': str(child.label),
-                    # 'value': self.tmp_values.get(child.keyword) or ''
+                    'value': self.get_value(child)
                 }
             })

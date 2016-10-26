@@ -90,7 +90,7 @@
       {% trans "Print summary" %}
     </button>
     <ul id="tech-details-print" data-dropdown-content class="f-dropdown" aria-hidden="true">
-      <li><a href="{% url 'export_questionnaire_summary' metadata.code %}" target="_blank">{% trans "Full summary as PDF" %}</a></li>
+      <li><a href="{% url 'questionnaire_summary' metadata.code %}" target="_blank">{% trans "Full summary as PDF" %}</a></li>
     </ul>
 {#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}
 {#    <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}

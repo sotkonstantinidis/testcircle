@@ -4,12 +4,8 @@
   Template to create the summary's markup based on Json.
 {% endcomment %}
 
+
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script>
-  var summaryData = '{{ data|safe }}';
-  var renderPDFurl = '{% url 'pdf_questionnaire_summary' identifier %}';
-
-  $(function () {
-    $.get(renderPDFurl);
-  });
+  var data = '{{ data|safe }}';
 </script>

@@ -45,6 +45,7 @@ class BaseSettings(Configuration):
         'rest_framework',
         'rest_framework_swagger',
         'sekizai',
+        'wkhtmltopdf',
         # Custom apps
         'accounts',
         'api',
