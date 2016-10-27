@@ -236,6 +236,8 @@ function updateFilterInputs() {
 
     // Empty input fields
     $('#search-advanced input[type=text], #search-advanced input[type=hidden]').val('');
+    $('.chosen-select').val('');
+
 
     for (var k in p) {
         var args = parseKeyParameter(k);
@@ -249,23 +251,22 @@ function updateFilterInputs() {
             el.prop('checked', true).trigger('change');
         }
 
-        // Datalist
+        // chosen-select
         for (var v in values) {
-            var el = $('input[type="hidden"][data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"]');
+            var el = $('select[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"]');
             if (el.length !== 1) continue;
 
             // Set hidden value
             el.val(values[v]);
 
             // Look through the options to set the display value
-            var inputId = el.attr('id').replace('-hidden', '');
+            var inputId = el.attr('id');
             var options = $('#' + inputId + '-list option');
             var optionFound = false;
             options.each(function () {
                 var $t = $(this);
                 if ($t.data('value') == values[v]) {
-                    $('#' + inputId).val($t.html());
-                    optionFound = true;
+                    el.val($t.html());
                     return;
                 }
             });
@@ -316,6 +317,7 @@ function updateFilterInputs() {
     } else {
         search_field.val('')
     }
+    $('.chosen-select').trigger('chosen:updated')
 }
 
 
