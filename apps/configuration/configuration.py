@@ -354,7 +354,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.filterable = self.view_options.get('filter', False) is True
 
-        self.is_in_summary = self.key_config.get('is_in_summary') == 'true'
+        self.is_in_summary = self.key_config.get('is_in_summary')
         self.images = []
         self.choices = ()
         self.choices_helptexts = []

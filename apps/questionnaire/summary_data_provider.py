@@ -14,21 +14,16 @@ def get_summary_data(config: QuestionnaireConfiguration, **data):
 class SummaryDataProvider:
     """
     - Load summary-config according to configuration
-    - load configured questionnaire
-    - select fields
     - annotate and aggregate values
     - add 'module' hint to create markup upon
     - sort data
-
-    key question: where is the summary-config stored?
-    - existing configuration object
-    - new configuration object
-
-    define fields for summary on configuration.
     """
     def __init__(self, config: QuestionnaireConfiguration, **data):
-        self.raw_data = ConfiguredQuestionnaireSummary(config=config, **data).data
-        self.data = self.get_data()
+        # self.raw_data = ConfiguredQuestionnaireSummary(
+        #     config=config, **data
+        # ).data
+        # self.data = self.get_data()
+        self.data = self.get_demo_dict()
 
     def get_data(self):
         data = []
@@ -40,6 +35,66 @@ class SummaryDataProvider:
                 'position': field['position']
             })
         return data
+
+    def get_demo_dict(self) -> dict:
+        """
+        Return static dict during development.
+
+        - 'sections' are defined by the configuration ('is_in_summary' value)
+        - how do we handle i18n for section titles?
+        - sections need metadata (show title bar; columns and position; page breaks)
+        - 'modules' are ordered inside of section
+        - placement of modules? also in section-metadata?
+        """
+        return [
+            {
+                'title': 'header_image',
+                'show_header_bar': False,
+                'css_class': '',
+                'elements': [
+                    {
+                        'type': 'image',
+                        'url': 'foo.jpg'
+                    },
+                    {
+                        'type': 'caption',
+                        'title': '',
+                        'text': ''
+                    }
+                ]
+            },
+            {
+                'title': 'title',
+                'show_header_bar': False,
+                'css_class': '',
+                'elements': [
+                    {
+                        'type': 'h1',
+                        'text': 'Zhuanglang level bench Loess terraces',
+                    },
+                    {
+                        'type': 'h1-addendum',
+                        'text': 'P.R. China'
+                    },
+                    {
+                        'type': 'image',
+                        'url': 'project.jpg'
+                    },
+                    {
+                        'type': 'image',
+                        'url': 'institution.jpg'
+                    }
+                ]
+            },
+            {
+                'title': 'description',
+                'show_header_bar': True,
+                'css_class': 'is-technology',
+                'elements': [
+
+                ]
+            }
+        ]
 
     @property
     def fields(self):
