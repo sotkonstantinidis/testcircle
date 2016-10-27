@@ -1,4 +1,6 @@
 import re
+
+import time
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
 from django.test.utils import override_settings
@@ -267,6 +269,8 @@ class ModerationTestFixture(FunctionalTest):
         # She goes to the edit page and now she sees the buttons as well as a
         # button to view the questionnaire
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        time.sleep(0.5)
+
         self.click_edit_section('cat_0', return_button=True)
         self.review_action('view', exists_only=True)
 

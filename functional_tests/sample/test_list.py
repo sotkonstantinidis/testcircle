@@ -1475,6 +1475,7 @@ class ListTest(FunctionalTest):
         # are filtered
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
+
         self.assertEqual(len(list_entries), 3)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
@@ -1659,6 +1660,10 @@ class ListTestLinks(FunctionalTest):
         self.submit_form_step()
 
         # She also links another questionnaire
+        self.wait_for(
+            'xpath',
+            '//a[contains(@href, "/edit/") and contains(@href, "cat_5")]'
+        )
         self.click_edit_section('cat_5')
         self.findBy(
             'xpath', '//input[contains(@class, "link-search-field")]'
@@ -1700,6 +1705,9 @@ class ListTestLinks(FunctionalTest):
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.submit_form_step()
+        btn = '//a[contains(@href, "/edit/") and contains(@href, "cat_5")]'
+        self.wait_for('xpath', btn)
+
         self.click_edit_section('cat_5')
         self.findBy(
             'xpath', '//input[contains(@class, "link-search-field")]'
