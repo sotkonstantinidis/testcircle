@@ -55,6 +55,8 @@ FILE_CONTENT_MAPPING = {
     'image/x-png': 'image/png',
 }
 
+MAPPING_MESSAGES_FILENAME = 'wocat_import_mapping_messages.txt'
+
 
 def sort_by_key(entry, key, none_value=0):
     """
@@ -89,6 +91,14 @@ class Command(BaseCommand):
             dest='error-list',
             default=False,
             help='Print a list of questionnaires which contain errors.',
+        )
+        parser.add_argument(
+            '--mapping-messages',
+            action='store_true',
+            dest='mapping-messages',
+            default=False,
+            help='Write a file which contains all mapping messages occuring '
+                 'during the import.',
         )
 
     def handle(self, *args, **options):
@@ -178,6 +188,9 @@ class ImportObject(Logger):
         # Mapping messages: Informs about special procedures which took place
         # during mapping of the data.
         self.mapping_messages = []
+
+        # The QCAT questionnaire object once it is created.
+        self.questionnaire_object = None
 
     def __str__(self):
         return '[{} | {}]'.format(self.identifier, self.code_wocat)
@@ -876,6 +889,10 @@ class ImportObject(Logger):
 
             parsed_values.append(v)
 
+        # TODO: Remove this once the data is cleaned again
+        if self.identifier in [1398, 1447]:
+            return {}
+
         for v in parsed_values:
             # Basic coordinates test.
             if not -180 <= float(v) <= 180:
@@ -1531,13 +1548,41 @@ class WOCATImport(Logger):
             inserted = []
             self.output('Starting insert of objects ...', v=1)
             for import_object in self.import_objects:
-                inserted.append(import_object.save(
-                    self.configuration, self.import_user))
+                inserted_object = import_object.save(
+                    self.configuration, self.import_user)
+                import_object.questionnaire_object = inserted_object
+                inserted.append(inserted_object)
             self.output('{} objects inserted.'.format(len(inserted)), v=0, l='success')
         else:
             self.output(
                 'Dry-run mode is on, not importing anything.', v=0, l='warning')
 
+        write_mapping_messages = self.command_options['mapping-messages']
+        if write_mapping_messages:
+            self.write_mapping_messages()
+
+    def write_mapping_messages(self):
+
+        file = open(MAPPING_MESSAGES_FILENAME, 'w')
+
+        print('Mapping messages of WOCAT import on {}\n\n'.format(
+            datetime.now()), file=file)
+
+        for import_object in self.import_objects:
+            if not import_object.mapping_messages:
+                continue
+
+            print('WOCAT Code: {}'.format(import_object.code), file=file)
+            qcat_code = '-'
+            if import_object.questionnaire_object is not None:
+                qcat_code = import_object.questionnaire_object.code
+            print('QCAT ID: {}'.format(qcat_code), file=file)
+            print('Mapping messages:\n{}'.format('\n'.join(import_object.mapping_messages)), file=file)
+
+            print('\n', file=file)
+
+        self.output('Wrote mapping messages to file {}.'.format(
+            MAPPING_MESSAGES_FILENAME), v=1)
 
 class QTImport(WOCATImport):
     """

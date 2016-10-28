@@ -1030,26 +1030,26 @@ tech_qg_5 = {
 # Land use types
 tech_qg_9 = {
     'tech_qg_9': {
-         'questions': {
-             'tech_landuse': {
-                 'mapping': [
-                     {
-                         'wocat_table': 'qt_2_2_2_1',
-                         'wocat_column': 'landuse_sub1'
-                     },
-                     {
-                         'wocat_table': 'qt_2_2_2_1',
-                         'wocat_column': 'landuse_sub2'
-                     },
-                 ],
-                 'type': 'checkbox',
-                 'composite': {
-                     'type': 'checkbox'
-                 },
-                 'value_mapping_list': LANDUSE_MAPPING,
-             }
-         }
-     },
+        'questions': {
+            'tech_landuse': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_2_2_1',
+                        'wocat_column': 'landuse_sub1'
+                    },
+                    {
+                        'wocat_table': 'qt_2_2_2_1',
+                        'wocat_column': 'landuse_sub2'
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                },
+                'value_mapping_list': LANDUSE_MAPPING,
+            }
+        }
+    },
 }
 
 # Cropland subcategories
@@ -2828,7 +2828,7 @@ tech_qg_26 = {
                                     {
                                         'mapping': [
                                             {
-                                                    'wocat_table': 'qt_2_2_2_2',
+                                                'wocat_table': 'qt_2_2_2_2',
                                                 'wocat_column': 'structural_rank',
                                             }
                                         ],
@@ -19036,7 +19036,352 @@ tech_qg_77 = {
 tech_qg_72 = {
     'tech_qg_72': {
         'questions': {
-            # 'tech_land_size': {},
+            'tech_land_size': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a05',
+                        'value_mapping': 'tech_land_size_less_05',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a05',
+                        'value_mapping': 'tech_land_size_less_05',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a05',
+                        'value_mapping': 'tech_land_size_less_05',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a05_1',
+                        'value_mapping': 'tech_land_size_05_1',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a05_1',
+                        'value_mapping': 'tech_land_size_05_1',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a05_1',
+                        'value_mapping': 'tech_land_size_05_1',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a1_2',
+                        'value_mapping': 'tech_land_size_1_2',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a1_2',
+                        'value_mapping': 'tech_land_size_1_2',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a1_2',
+                        'value_mapping': 'tech_land_size_1_2',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a2_5',
+                        'value_mapping': 'tech_land_size_2_5',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a2_5',
+                        'value_mapping': 'tech_land_size_2_5',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a2_5',
+                        'value_mapping': 'tech_land_size_2_5',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a5_15',
+                        'value_mapping': 'tech_land_size_5_15',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a5_15',
+                        'value_mapping': 'tech_land_size_5_15',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a5_15',
+                        'value_mapping': 'tech_land_size_5_15',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a15_50',
+                        'value_mapping': 'tech_land_size_15_50',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a15_50',
+                        'value_mapping': 'tech_land_size_15_50',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a15_50',
+                        'value_mapping': 'tech_land_size_15_50',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a50_100',
+                        'value_mapping': 'tech_land_size_50_100',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a50_100',
+                        'value_mapping': 'tech_land_size_50_100',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a50_100',
+                        'value_mapping': 'tech_land_size_50_100',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a100_500',
+                        'value_mapping': 'tech_land_size_100_500',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a100_500',
+                        'value_mapping': 'tech_land_size_100_500',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a100_500',
+                        'value_mapping': 'tech_land_size_100_500',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a500_1000',
+                        'value_mapping': 'tech_land_size_500_1000',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a500_1000',
+                        'value_mapping': 'tech_land_size_500_1000',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a500_1000',
+                        'value_mapping': 'tech_land_size_500_1000',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a1000_10000',
+                        'value_mapping': 'tech_land_size_1000_10000',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a1000_10000',
+                        'value_mapping': 'tech_land_size_1000_10000',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a1000_10000',
+                        'value_mapping': 'tech_land_size_1000_10000',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_6',
+                        'wocat_column': 'a10000',
+                        'value_mapping': 'tech_land_size_10000_plus',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_9_5',
+                        'wocat_column': 'a10000',
+                        'value_mapping': 'tech_land_size_10000_plus',
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_10_4',
+                        'wocat_column': 'a10000',
+                        'value_mapping': 'tech_land_size_10000_plus',
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                },
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a05',
+                                'value_mapping': 'tech_land_size_less_05',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a05',
+                                'value_mapping': 'tech_land_size_less_05',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a05',
+                                'value_mapping': 'tech_land_size_less_05',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a05_1',
+                                'value_mapping': 'tech_land_size_05_1',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a05_1',
+                                'value_mapping': 'tech_land_size_05_1',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a05_1',
+                                'value_mapping': 'tech_land_size_05_1',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a1_2',
+                                'value_mapping': 'tech_land_size_1_2',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a1_2',
+                                'value_mapping': 'tech_land_size_1_2',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a1_2',
+                                'value_mapping': 'tech_land_size_1_2',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a2_5',
+                                'value_mapping': 'tech_land_size_2_5',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a2_5',
+                                'value_mapping': 'tech_land_size_2_5',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a2_5',
+                                'value_mapping': 'tech_land_size_2_5',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a5_15',
+                                'value_mapping': 'tech_land_size_5_15',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a5_15',
+                                'value_mapping': 'tech_land_size_5_15',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a5_15',
+                                'value_mapping': 'tech_land_size_5_15',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a15_50',
+                                'value_mapping': 'tech_land_size_15_50',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a15_50',
+                                'value_mapping': 'tech_land_size_15_50',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a15_50',
+                                'value_mapping': 'tech_land_size_15_50',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a50_100',
+                                'value_mapping': 'tech_land_size_50_100',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a50_100',
+                                'value_mapping': 'tech_land_size_50_100',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a50_100',
+                                'value_mapping': 'tech_land_size_50_100',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': 'tech_land_size_100_500',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': 'tech_land_size_100_500',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': 'tech_land_size_100_500',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': 'tech_land_size_500_1000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': 'tech_land_size_500_1000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': 'tech_land_size_500_1000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a1000_10000',
+                                'value_mapping': 'tech_land_size_1000_10000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a1000_10000',
+                                'value_mapping': 'tech_land_size_1000_10000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a1000_10000',
+                                'value_mapping': 'tech_land_size_1000_10000',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a10000',
+                                'value_mapping': 'tech_land_size_10000_plus',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a10000',
+                                'value_mapping': 'tech_land_size_10000_plus',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a10000',
+                                'value_mapping': 'tech_land_size_10000_plus',
+                            },
+                        ],
+                        'operator': 'len_lte',
+                        'value': 2
+                    }
+                ]
+            },
             'tech_land_size_relative': {
                 'mapping': [
                     {
@@ -19050,7 +19395,359 @@ tech_qg_72 = {
                     'type': 'checkbox',
                 }
             },
-            # 'tech_land_comments': {},
+            'tech_land_comments': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a05',
+                                'value_mapping': '< 0.5 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a05',
+                                'value_mapping': '< 0.5 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a05',
+                                'value_mapping': '< 0.5 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a05_1',
+                                'value_mapping': '0.5-1 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a05_1',
+                                'value_mapping': '0.5-1 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a05_1',
+                                'value_mapping': '0.5-1 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a1_2',
+                                'value_mapping': '1-2 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a1_2',
+                                'value_mapping': '1-2 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a1_2',
+                                'value_mapping': '1-2 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a2_5',
+                                'value_mapping': '2-5 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a2_5',
+                                'value_mapping': '2-5 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a2_5',
+                                'value_mapping': '2-5 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a5_15',
+                                'value_mapping': '5-15 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a5_15',
+                                'value_mapping': '5-15 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a5_15',
+                                'value_mapping': '5-15 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a15_50',
+                                'value_mapping': '15-50 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a15_50',
+                                'value_mapping': '15-50 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a15_50',
+                                'value_mapping': '15-50 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a50_100',
+                                'value_mapping': '50-100 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a50_100',
+                                'value_mapping': '50-100 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a50_100',
+                                'value_mapping': '50-100 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': '100-500 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': '100-500 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a100_500',
+                                'value_mapping': '100-500 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': '500-1,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': '500-1,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a500_1000',
+                                'value_mapping': '500-1,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a1000_10000',
+                                'value_mapping': '1,000-10,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a1000_10000',
+                                'value_mapping': '1,000-10,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a1000_10000',
+                                'value_mapping': '1,000-10,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_6',
+                                'wocat_column': 'a10000',
+                                'value_mapping': '> 10,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_9_5',
+                                'wocat_column': 'a10000',
+                                'value_mapping': '> 10,000 ha',
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_10_4',
+                                'wocat_column': 'a10000',
+                                'value_mapping': '> 10,000 ha',
+                            },
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Average area of land owned or leased by land users applying the Technology: ',
+                        'composite': {
+                            'separator': ', '
+                        },
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a05',
+                                        'value_mapping': 'tech_land_size_less_05',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a05',
+                                        'value_mapping': 'tech_land_size_less_05',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a05',
+                                        'value_mapping': 'tech_land_size_less_05',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a05_1',
+                                        'value_mapping': 'tech_land_size_05_1',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a05_1',
+                                        'value_mapping': 'tech_land_size_05_1',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a05_1',
+                                        'value_mapping': 'tech_land_size_05_1',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a1_2',
+                                        'value_mapping': 'tech_land_size_1_2',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a1_2',
+                                        'value_mapping': 'tech_land_size_1_2',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a1_2',
+                                        'value_mapping': 'tech_land_size_1_2',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a2_5',
+                                        'value_mapping': 'tech_land_size_2_5',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a2_5',
+                                        'value_mapping': 'tech_land_size_2_5',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a2_5',
+                                        'value_mapping': 'tech_land_size_2_5',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a5_15',
+                                        'value_mapping': 'tech_land_size_5_15',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a5_15',
+                                        'value_mapping': 'tech_land_size_5_15',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a5_15',
+                                        'value_mapping': 'tech_land_size_5_15',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a15_50',
+                                        'value_mapping': 'tech_land_size_15_50',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a15_50',
+                                        'value_mapping': 'tech_land_size_15_50',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a15_50',
+                                        'value_mapping': 'tech_land_size_15_50',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a50_100',
+                                        'value_mapping': 'tech_land_size_50_100',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a50_100',
+                                        'value_mapping': 'tech_land_size_50_100',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a50_100',
+                                        'value_mapping': 'tech_land_size_50_100',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a100_500',
+                                        'value_mapping': 'tech_land_size_100_500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a100_500',
+                                        'value_mapping': 'tech_land_size_100_500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a100_500',
+                                        'value_mapping': 'tech_land_size_100_500',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a500_1000',
+                                        'value_mapping': 'tech_land_size_500_1000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a500_1000',
+                                        'value_mapping': 'tech_land_size_500_1000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a500_1000',
+                                        'value_mapping': 'tech_land_size_500_1000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a1000_10000',
+                                        'value_mapping': 'tech_land_size_1000_10000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a1000_10000',
+                                        'value_mapping': 'tech_land_size_1000_10000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a1000_10000',
+                                        'value_mapping': 'tech_land_size_1000_10000',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_8_6',
+                                        'wocat_column': 'a10000',
+                                        'value_mapping': 'tech_land_size_10000_plus',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_9_5',
+                                        'wocat_column': 'a10000',
+                                        'value_mapping': 'tech_land_size_10000_plus',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_10_4',
+                                        'wocat_column': 'a10000',
+                                        'value_mapping': 'tech_land_size_10000_plus',
+                                    },
+                                ],
+                                'operator': 'len_gte',
+                                'value': 3
+                            }
+                        ],
+                        'condition_message': 'Too many values for checkbox 5.7 "Average area of land owned or leased by land users applying the Technology", using "Comments" of 5.7 for this data."'
+                    },
+                ],
+                'type': 'string',
+            },
         }
     }
 }
