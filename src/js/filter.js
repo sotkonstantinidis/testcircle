@@ -236,7 +236,9 @@ function updateFilterInputs() {
 
     // Empty input fields
     $('#search-advanced input[type=text], #search-advanced input[type=hidden]').val('');
-    $('.chosen-select').val('');
+
+    // Only reset chosen fields of the search (and not those of the form)
+    $('#search-advanced .chosen-select').val('');
 
 
     for (var k in p) {
