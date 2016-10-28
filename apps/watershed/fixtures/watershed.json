@@ -11,6 +11,20 @@
       }
     },
     "model": "configuration.translation",
+    "pk": 32701
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Contact details of resource persons and institutions involved in the assessment and documentation of the watershed / landscape"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
     "pk": 32702
   },
   {
@@ -29,7 +43,24 @@
   },
   {
     "fields": {
+      "keyword": "ws_qg_1",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 31001
+  },
+  {
+    "fields": {
       "keyword": "ws__1__1",
+      "translation": 32701
+    },
+    "model": "configuration.category",
+    "pk": 31001
+  },
+  {
+    "fields": {
+      "keyword": "ws__1__2",
       "translation": 32702
     },
     "model": "configuration.category",
@@ -110,6 +141,138 @@
                             "form_options": {
                               "template": "hidden"
                             }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "ws__1__2",
+                    "form_options": {
+                      "numbering": "1.2"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "ws_qg_1",
+                        "form_options": {
+                          "template": "select_user",
+                          "user_role": "resourceperson",
+                          "max_num": 3,
+                          "row_class": "no-top-margin",
+                          "label_class": "bottom-margin"
+                        },
+                        "view_options": {
+                          "template": "select_user",
+                          "raw_questions": true
+                        },
+                        "questions": [
+                          {
+                            "keyword": "user_resourceperson_type",
+                            "form_options": {
+                              "has_other": "user_resourceperson_type"
+                            },
+                            "view_options": {
+                              "template": "values_as_header"
+                            }
+                          },
+                          {
+                            "keyword": "user_resourceperson_other",
+                            "form_options": {
+                              "template": "radio_other",
+                              "label_position": "placeholder",
+                              "other_radio": "user_resourceperson_type"
+                            },
+                            "view_options": {
+                              "template": "as_header"
+                            }
+                          },
+                          {
+                            "keyword": "user_id",
+                            "form_options": {
+                              "template": "no_label"
+                            }
+                          },
+                          {
+                            "keyword": "person_lastname",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_firstname",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_gender",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_institution_name",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_address",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_phone_1",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_phone_2",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_email_1",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          },
+                          {
+                            "keyword": "person_email_2",
+                            "view_options": {
+                              "template": "value_only"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_project",
+                        "questions": [
+                          {
+                            "keyword": "funding_project"
+                          },
+                          {
+                            "keyword": "funding_project_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_institution",
+                        "questions": [
+                          {
+                            "keyword": "funding_institution"
+                          },
+                          {
+                            "keyword": "funding_institution_display"
                           }
                         ]
                       }

@@ -1,9 +1,24 @@
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.utils.translation import ugettext as _
 
+from accounts.decorators import force_login_check
 from questionnaire.views import generic_questionnaire_list, \
-    generic_questionnaire_details
+    generic_questionnaire_details, generic_questionnaire_view_step
+
+
+@login_required
+@force_login_check
+def questionnaire_view_step(request, identifier, step):
+    """
+    View rendering the form of a single step of a new Watershed
+    questionnaire in read-only mode.
+    """
+    return generic_questionnaire_view_step(
+        request, identifier, step, 'watershed',
+        page_title=_('Watershed'))
 
 
 def questionnaire_details(request, identifier):

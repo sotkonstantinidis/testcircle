@@ -307,6 +307,11 @@
           "label": {
             "en": "User ID"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "User ID"
+          }
         }
       }
     },
@@ -345,6 +350,11 @@
           "label": {
             "en": "Lastname / surname"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Lastname / surname"
+          }
         }
       }
     },
@@ -361,6 +371,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "First name(s)"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "First name(s)"
           }
@@ -383,6 +398,11 @@
           "label": {
             "en": "Gender"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Gender"
+          }
         }
       }
     },
@@ -399,6 +419,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Name of institution"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Name of institution"
           }
@@ -497,6 +522,11 @@
           "label": {
             "en": "Phone no. 1"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Phone no. 1"
+          }
         }
       }
     },
@@ -513,6 +543,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Phone no. 2 (mobile)"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Phone no. 2 (mobile)"
           }
@@ -535,6 +570,11 @@
           "label": {
             "en": "E-mail 1"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "E-mail 1"
+          }
         }
       }
     },
@@ -551,6 +591,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "E-mail 2"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "E-mail 2"
           }
@@ -589,6 +634,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Other (specify)"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Other (specify)"
           }
@@ -1054,6 +1104,11 @@
           "label": {
             "en": "Specify the key resource person"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Specify the key resource person"
+          }
         }
       }
     },
@@ -1079,6 +1134,14 @@
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation of the watershed (if relevant)"
+          },
+          "helptext": {
+            "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
         }
       }
     },
@@ -1100,6 +1163,14 @@
         "technologies": {
           "label": {
             "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        },
+        "watershed": {
+          "label": {
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the watershed (if relevant)"
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
@@ -1278,6 +1349,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Address"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Address"
           }
@@ -5013,6 +5089,11 @@
           "label": {
             "en": "female"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "female"
+          }
         }
       }
     },
@@ -5029,6 +5110,11 @@
           }
         },
         "approaches": {
+          "label": {
+            "en": "male"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "male"
           }
@@ -5209,6 +5295,11 @@
           "label": {
             "en": "SLM specialist"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "SLM specialist"
+          }
         }
       }
     },
@@ -5233,6 +5324,11 @@
           },
           "helptext": {
             "en": "the person/ entity who implements/ maintains the Technology/ Technologies associated with this Approach. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
+        },
+        "watershed": {
+          "label": {
+            "en": "land user"
           }
         }
       }
