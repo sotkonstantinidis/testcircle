@@ -152,9 +152,13 @@ function watchFormProgress() {
     clearDisasters();
     var completed = 0;
     $('fieldset.row').each(function () {
-        var content = hasContent(this);
-        if (content) {
-            completed++;
+        // Check the content only for the parent fieldset.
+        var hasParentFieldset = $(this).parent().closest('fieldset.row');
+        if (!hasParentFieldset.length) {
+            var content = hasContent(this);
+            if (content) {
+                completed++;
+            }
         }
         checkDisasters(this);
     });
@@ -524,6 +528,10 @@ $(function () {
                 }
             }
             if (!lastItem.length) return;
+
+            // Destroy chosen selects before cloning the elements. Recreate the
+            // chosen selects afterwards.
+            lastItem.find('.chosen-select').chosen('destroy');
 
             var newElement = lastItem.clone();
 
@@ -1403,9 +1411,6 @@ function updateFieldsetElement(element, prefix, index, reset) {
             $(this).attr('for', newFor);
         }
     });
-
-    // Remove all selects created by chosen, they will be newly created.
-    element.find('.chosen-container').remove();
 
     if (reset) {
         clearQuestiongroup(element);
