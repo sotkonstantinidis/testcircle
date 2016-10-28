@@ -325,6 +325,7 @@ class QuestionnaireSaveMixin(StepsMixin):
 
     def dispatch(self, request, *args, **kwargs):
         self.errors = []
+        self.form_has_errors = False
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -420,7 +421,7 @@ class QuestionnaireSaveMixin(StepsMixin):
 
         questionnaire_data, errors = clean_questionnaire_data(data, self.questionnaire_configuration)
         if errors:
-            self.errors.append(errors)
+            self.errors.extend(errors)
         return not bool(self.errors), questionnaire_data
 
     def can_lock_object(self):
@@ -520,6 +521,7 @@ class QuestionnaireSaveMixin(StepsMixin):
             is_valid = is_valid and formset.is_valid()
 
             if is_valid is False:
+                self.form_has_errors = True
                 return None, False
 
             for f in formset.forms:
@@ -891,7 +893,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
             'title': _('QCAT Form'),
             'overview_url': self.get_edit_url(self.kwargs['step']),
-            'valid': True,
+            'valid': not self.form_has_errors,
             'configuration_name': self.category_config.get('configuration', self.url_namespace),
             'edit_mode': self.edit_mode,
             'view_url': view_url,
