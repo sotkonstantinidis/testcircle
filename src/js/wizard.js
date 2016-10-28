@@ -50,13 +50,6 @@ function hasContent(element) {
 }
 
 /**
- * Removes the row of table
- */
-function remove_tr(element) {
-    $(element).parent().parent().remove();
-}
-
-/**
  * The disasters array that stores states of checkboxes of climate-related extremes (disasters)
  */
 var disasters = [];

@@ -48,7 +48,7 @@
     </thead>
     <tbody>
       {% for qg_form in formset.forms %}
-        <tr class="list-item">
+        <tr class="list-item{% if formset.max_num > formset.min_num %} is-removable" data-questiongroup-keyword="{{ config.keyword }}{% endif %}">
           {% if config.numbered == 'display' %}
             <td>{{ forloop.counter }}.</td>
           {% endif %}
@@ -65,9 +65,7 @@
               </td>
             {% endif %}
           {% endfor %}
-          {% if forloop.counter != 1 %}
-            <td><a href="#" class="btn btn-link" onclick="remove_tr(this);return false;">{% trans "Remove" %}</a></td>
-          {% endif %}
+          <td><a class="btn btn-link list-item-action" data-remove-this=""{% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %} style="display: none;"{% endif %}>{% trans "Remove" %}</a></td>
         </tr>
       {% endfor %}
     </tbody>
