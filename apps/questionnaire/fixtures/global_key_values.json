@@ -17,6 +17,11 @@
           "label": {
             "en": "Title of best practice"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Name of the watershed / landscape"
+          }
         }
       }
     },
@@ -43,6 +48,11 @@
           }
         },
         "unccd": {
+          "label": {
+            "en": "Country"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Country"
           }
@@ -921,6 +931,14 @@
         "unccd": {
           "label": {
             "en": "Local name"
+          }
+        },
+        "watershed": {
+          "label": {
+            "en": "Local name"
+          },
+          "helptext": {
+            "en": "In latin letters"
           }
         }
       }

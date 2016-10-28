@@ -1,0 +1,131 @@
+[
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Brief identification of the Watershed / Landscape"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32702
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "General information"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32901
+  },
+  {
+    "fields": {
+      "keyword": "ws__1__1",
+      "translation": 32702
+    },
+    "model": "configuration.category",
+    "pk": 31002
+  },
+  {
+    "fields": {
+      "keyword": "ws__1",
+      "translation": 32901
+    },
+    "model": "configuration.category",
+    "pk": 31701
+  },
+  {
+    "fields": {
+      "code": "watershed",
+      "description": "WOCAT Watershed configuration",
+      "active": true,
+      "activated": "2016-10-25T12:00:00.000Z",
+      "data": {
+        "sections": [
+          {
+            "keyword": "section_general_information",
+            "view_options": {
+              "template": "empty"
+            },
+            "categories": [
+              {
+                "keyword": "ws__1",
+                "form_options": {
+                  "numbering": "1."
+                },
+                "view_options": {
+                  "template": "watershed_header",
+                  "with_metadata": true,
+                  "use_raw_data": true
+                },
+                "subcategories": [
+                  {
+                    "keyword": "ws__1__1",
+                    "form_options": {
+                      "numbering": "1.1"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_name",
+                        "questions": [
+                          {
+                            "keyword": "name",
+                            "view_options": {
+                              "in_list": true,
+                              "is_name": true
+                            }
+                          },
+                          {
+                            "keyword": "name_local"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_location",
+                        "questions": [
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "inline_6",
+                              "in_list": true
+                            }
+                          },
+                          {
+                            "keyword": "state_province",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          },
+                          {
+                            "keyword": "further_location",
+                            "form_options": {
+                              "template": "hidden"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "created": "2016-10-28T12:00:00.000Z",
+      "base_code": "",
+      "name": "WOCAT SLM Watershed"
+    },
+    "model": "configuration.configuration",
+    "pk": 30001
+  }
+]

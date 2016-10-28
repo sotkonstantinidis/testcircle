@@ -58,6 +58,7 @@ class BaseSettings(Configuration):
         'search',
         'technologies',
         'unccd',
+        'watershed',
         'wocat',
     )
 

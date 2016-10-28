@@ -13,6 +13,9 @@
     background-color: rgba($color-unccd, 0.8);
     color: #ffffff;
   }
+  &.is-watershed {
+    background-color: rgba($color-watershed, 0.8);
+  }
   &.is-draft {
     background-color: rgba($draft-color, 0.8);
   }

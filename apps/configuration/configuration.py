@@ -2021,6 +2021,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         except Exception as e:
             if isinstance(e, ConfigurationError):
                 self.configuration_error = e
+                print("***")
+                print(e)
             else:
                 raise e
 
