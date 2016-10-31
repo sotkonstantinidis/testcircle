@@ -1352,20 +1352,22 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
     template_name = 'questionnaire/export_summary.html'
 
     def get(self, request, *args, **kwargs):
-        self.questionnaire = self.get_object(code=self.kwargs['identifier'])
+        self.questionnaire = self.get_object(id=self.kwargs['id'])
         return super().get(request, *args, **kwargs)
 
     def get_filename(self):
         return 'wocat-summary-{identifier}-{update}.pdf'.format(
-            identifier=self.kwargs['identifier'],
+            identifier=self.questionnaire.id,
             update=self.questionnaire.updated.strftime('%Y-%m-%d')
         )
 
-    def get_object(self, code: str) -> Questionnaire:
-        # needs refactor: use id instead of code, as summaries can be created
-        # for drafts / questionnaires with multiple versions.
+    def get_object(self, id: int) -> Questionnaire:
+        """
+        Get questionnaire and check status / permissions.
+        """
+        status_filter = get_query_status_filter(self.request)
         return get_object_or_404(
-            Questionnaire.with_status.public(), code=code
+            Questionnaire.objects.filter(status_filter), id=id
         )
 
     def get_prepared_data(self, questionnaire: Questionnaire) -> dict:

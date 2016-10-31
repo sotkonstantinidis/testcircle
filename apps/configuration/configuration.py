@@ -1830,6 +1830,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'edit_step_route': edit_step_route,
                 'configuration_name': configuration,
                 'questionnaire_identifier': questionnaire_identifier,
+                'questionnaire_object': questionnaire_object,
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,

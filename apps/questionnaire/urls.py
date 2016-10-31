@@ -11,7 +11,7 @@ urlpatterns = patterns(
     url(r'^edit/(?P<identifier>[^/]+)/delete/$',
         QuestionnaireDeleteView.as_view(),
         name='delete_questionnaire'),
-    url(r'^view/(?P<identifier>[^/]+)/summary/$',
+    url(r'^view/(?P<id>[\d]+)/summary/$',
         QuestionnaireSummaryPDFCreateView.as_view(),
         name='questionnaire_summary')
 )
