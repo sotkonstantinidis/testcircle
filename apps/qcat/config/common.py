@@ -93,6 +93,9 @@ class BaseSettings(Configuration):
         ('en', _('English')),
         ('es', _('Spanish')),
         ('fr', _('French')),
+        # TODO: Add all languages in which imported Questionnaires are
+        # available.
+        # ('ru', _('Russian')),
     )
 
     TIME_ZONE = 'Europe/Zurich'
@@ -283,6 +286,8 @@ class BaseSettings(Configuration):
 
     # Global switch to prevent sending mails.
     SEND_MAILS = values.BooleanValue(default=False)
+
+    WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

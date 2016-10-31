@@ -58,6 +58,12 @@ function updateNumbering() {
             $(this).html(counter++ + ':');
         });
     });
+    $('.questiongroup-numbered-table').each(function() {
+        var counter = 1;
+        $(this).find('.numbered-cell').each(function() {
+            $(this).html(counter++ + '.');
+        });
+    });
 }
 
 

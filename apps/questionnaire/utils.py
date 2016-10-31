@@ -34,7 +34,8 @@ from .signals import change_status, change_member, delete_questionnaire
 logger = logging.getLogger(__name__)
 
 
-def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
+def clean_questionnaire_data(
+        data, configuration, deep_clean=True, users=[], no_limit_check=False):
     """
     Clean a questionnaire data dictionary so it can be saved to the
     database. This namely removes all empty values and parses measured
@@ -162,6 +163,12 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                                 'questiongroup "{}").'.format(
                                     value, key, qg_keyword))
                             continue
+                    max_cb = question.form_options.get('field_options', {}).get(
+                        'data-cb-max-choices')
+                    if max_cb and len(value) > max_cb:
+                        errors.append('Key "{}" has too many values: {}'.format(
+                            key, value))
+                        continue
                 elif question.field_type in ['char', 'text']:
                     if not isinstance(value, dict):
                         errors.append(
@@ -171,12 +178,21 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     translations = {}
                     for locale, translation in value.items():
                         if translation:
-                            if (question.max_length and
+                            if (not no_limit_check and question.max_length and
                                     len(translation) > question.max_length):
-                                errors.append(
-                                    'Value "{}" of key "{}" exceeds the '
-                                    'max_length of {}.'.format(
-                                        translation, key, question.max_length))
+
+                                subcategory = questiongroup.get_top_subcategory()
+                                subcategory_name = '{} {}'.format(
+                                    subcategory.form_options.get('numbering'),
+                                    subcategory.label)
+                                error_msg = 'Value of question "{}" of ' \
+                                            'subcategory "{}" is too long. It ' \
+                                            'can only contain {} ' \
+                                            'characters.'.format(
+                                                question.label,
+                                                subcategory_name,
+                                                question.max_length)
+                                errors.append(error_msg)
                                 continue
                             translations[locale] = translation
                     value = translations

@@ -35,6 +35,7 @@ class QuestionnaireConf(AppConf):
         'translations',
         'status',
         'flags',
+        'original_locale',
     ]
 
     # Mapping for consistent field names on the API. See
