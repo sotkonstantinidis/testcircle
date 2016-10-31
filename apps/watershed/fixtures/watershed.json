@@ -1,6 +1,233 @@
 [
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "By national standards is the watershed / landscape considered"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31001
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Indicate if the described watershed / landscape is selected as a representative unit of / for a larger watershed, river basin or region."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31002
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "If yes, specify"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31003
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Total watershed / landscape area in km²"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31004
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "If precise area is not known, indicate approximately."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31005
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Key reason(s) for selecting this watershed / landscape for assessment and documentation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31006
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Description of the watershed / landscape"
+          },
+          "helptext": {
+            "en": "<p>This detailed description should provide a concise but comprehensive picture of the watershed / landscape and its management to outsiders. Major differences of the 2-4 zones of the watershed / landscape should be highlighted. It should therefore address key questions such as: <ol><li>Where is the watershed / landscape located (natural and human environment)?</li><li>What are the main problems/challenges and what are the main objectives of the watershed / landscape management?</li><li>Which are the main Technologies applied (technical, social and institutional)?</li><li>Which are the main target groups / beneficiaries?</li><li>Who are the implementing partners and what is their role?</li><li>What are the environmental, social, cultural and economic impacts of watershed / landscape management?</li></ol></p><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents. Fill in the description at the beginning, but revise it when you have completed the questionnaire.</p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31007
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "micro-mini scale"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31501
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "small scale"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31502
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "medium scale"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31503
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "large scale (macro)"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31504
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "1-10 km²"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31505
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "10-100 km²"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31506
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "100-1,000 km²"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31507
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "1,000-10,000 km²"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31508
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": ">10,000 km²"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31509
+  },
+  {
+    "fields": {
       "translation_type": "category",
       "data": {
         "watershed": {
@@ -33,6 +260,90 @@
       "data": {
         "watershed": {
           "label": {
+            "en": "Conditions regarding the use of data documented through WOCAT"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32703
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Define the area of the watershed / landscape"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32704
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Coordinates in latitude and longitude at the outlet and / or centre of the watershed / landscape area"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32705
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Key reason(s) for selecting this watershed / landscape for assessment and documentation"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32706
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Description of the watershed / landscape"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32707
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Provide photos showing an overview and details of the 3 zones of the watershed / landscape"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32708
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
             "en": "General information"
           }
         }
@@ -43,12 +354,229 @@
   },
   {
     "fields": {
+      "translation_type": "category",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Watershed / landscape information "
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 32902
+  },
+  {
+    "fields": {
+      "keyword": "ws_scale_national",
+      "translation": 31001,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        31001,
+        31002,
+        31003,
+        31004
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 31001
+  },
+  {
+    "fields": {
+      "keyword": "ws_representative_unit",
+      "translation": 31002,
+      "configuration": {
+        "type": "bool"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31002
+  },
+  {
+    "fields": {
+      "keyword": "ws_representative_unit_specify",
+      "translation": 31003,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31003
+  },
+  {
+    "fields": {
+      "keyword": "ws_total_area",
+      "translation": 31004,
+      "configuration": {
+        "type": "float",
+        "form_options": {
+          "field_options": {
+            "min": 0
+          }
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31004
+  },
+  {
+    "fields": {
+      "keyword": "ws_approximate_area",
+      "translation": 31005,
+      "configuration": {
+        "type": "radio"
+      },
+      "values": [
+        31005,
+        31006,
+        31007,
+        31008,
+        31009
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 31005
+  },
+  {
+    "fields": {
+      "keyword": "ws_reasons_selection",
+      "translation": 31006,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31006
+  },
+  {
+    "fields": {
+      "keyword": "ws_description",
+      "translation": 31007,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31007
+  },
+  {
+    "fields": {
+      "keyword": "scale_national_micro",
+      "translation": 31501,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 31001
+  },
+  {
+    "fields": {
+      "keyword": "scale_national_small",
+      "translation": 31502,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 31002
+  },
+  {
+    "fields": {
+      "keyword": "scale_national_medium",
+      "translation": 31503,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 31003
+  },
+  {
+    "fields": {
+      "keyword": "scale_national_large",
+      "translation": 31504,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 31004
+  },
+  {
+    "fields": {
+      "keyword": "approximate_area_1_10",
+      "translation": 31505,
+      "order_value": 1
+    },
+    "model": "configuration.value",
+    "pk": 31005
+  },
+  {
+    "fields": {
+      "keyword": "approximate_area_10_100",
+      "translation": 31506,
+      "order_value": 2
+    },
+    "model": "configuration.value",
+    "pk": 31006
+  },
+  {
+    "fields": {
+      "keyword": "approximate_area_100_1000",
+      "translation": 31507,
+      "order_value": 3
+    },
+    "model": "configuration.value",
+    "pk": 31007
+  },
+  {
+    "fields": {
+      "keyword": "approximate_area_1000_10000",
+      "translation": 31508,
+      "order_value": 4
+    },
+    "model": "configuration.value",
+    "pk": 31008
+  },
+  {
+    "fields": {
+      "keyword": "approximate_area_10000_plus",
+      "translation": 31509,
+      "order_value": 5
+    },
+    "model": "configuration.value",
+    "pk": 31009
+  },
+  {
+    "fields": {
       "keyword": "ws_qg_1",
       "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
     "pk": 31001
+  },
+  {
+    "fields": {
+      "keyword": "ws_qg_2",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 31002
+  },
+  {
+    "fields": {
+      "keyword": "ws_qg_3",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 31003
+  },
+  {
+    "fields": {
+      "keyword": "ws_qg_4",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 31004
   },
   {
     "fields": {
@@ -68,11 +596,67 @@
   },
   {
     "fields": {
+      "keyword": "ws__1__3",
+      "translation": 32703
+    },
+    "model": "configuration.category",
+    "pk": 31003
+  },
+  {
+    "fields": {
+      "keyword": "ws__2__1",
+      "translation": 32704
+    },
+    "model": "configuration.category",
+    "pk": 31004
+  },
+  {
+    "fields": {
+      "keyword": "ws__2__2",
+      "translation": 32705
+    },
+    "model": "configuration.category",
+    "pk": 31005
+  },
+  {
+    "fields": {
+      "keyword": "ws__2__3",
+      "translation": 32706
+    },
+    "model": "configuration.category",
+    "pk": 31006
+  },
+  {
+    "fields": {
+      "keyword": "ws__2__4",
+      "translation": 32707
+    },
+    "model": "configuration.category",
+    "pk": 31007
+  },
+  {
+    "fields": {
+      "keyword": "ws__2__5",
+      "translation": 32708
+    },
+    "model": "configuration.category",
+    "pk": 31008
+  },
+  {
+    "fields": {
       "keyword": "ws__1",
       "translation": 32901
     },
     "model": "configuration.category",
     "pk": 31701
+  },
+  {
+    "fields": {
+      "keyword": "ws__2",
+      "translation": 32902
+    },
+    "model": "configuration.category",
+    "pk": 31702
   },
   {
     "fields": {
@@ -273,6 +857,219 @@
                           },
                           {
                             "keyword": "funding_institution_display"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "ws__1__3",
+                    "form_options": {
+                      "numbering": "1.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_accept_conditions",
+                        "form_options": {
+                          "helptext_position": "bottom"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "date_documentation"
+                          },
+                          {
+                            "keyword": "accept_conditions"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "keyword": "ws__2",
+                "form_options": {
+                  "numbering": "2."
+                },
+                "subcategories": [
+                  {
+                    "keyword": "ws__2__1",
+                    "form_options": {
+                      "numbering": "2.1"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_location",
+                        "questions": [
+                          {
+                            "keyword": "country",
+                            "view_options": {
+                              "template": "inline",
+                              "in_list": true
+                            }
+                          },
+                          {
+                            "keyword": "state_province",
+                            "view_options": {
+                              "template": "inline"
+                            }
+                          },
+                          {
+                            "keyword": "further_location",
+                            "view_options": {
+                              "template": "inline"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "ws_qg_2",
+                        "questions": [
+                          {
+                            "keyword": "ws_scale_national"
+                          },
+                          {
+                            "keyword": "ws_representative_unit",
+                            "form_options": {
+                              "question_conditions": [
+                                "=='1'|ws_representative_unit_specify"
+                              ]
+                            }
+                          },
+                          {
+                            "keyword": "ws_representative_unit_specify",
+                            "form_options": {
+                              "question_condition": "ws_representative_unit_specify"
+                            }
+                          },
+                          {
+                            "keyword": "ws_total_area"
+                          },
+                          {
+                            "keyword": "ws_approximate_area"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "ws__2__2",
+                    "form_options": {
+                      "numbering": "2.2"
+                    },
+                    "view_options": {
+                      "template": "map_subcategory"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_location_map",
+                        "questions": [
+                          {
+                            "keyword": "location_map",
+                            "form_options": {
+                              "label_position": "none"
+                            },
+                            "view_options": {
+                              "is_geometry": true,
+                              "configuration": "watershed"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "ws__2__3",
+                    "form_options": {
+                      "numbering": "2.3"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "ws_qg_3",
+                        "questions": [
+                          {
+                            "keyword": "ws_reasons_selection",
+                            "form_options": {
+                              "label_position": "none"
+                            },
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "ws__2__4",
+                    "form_options": {
+                      "numbering": "2.4"
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "ws_qg_4",
+                        "questions": [
+                          {
+                            "keyword": "ws_description",
+                            "form_options": {
+                              "label_position": "none",
+                              "num_rows": 10,
+                              "max_length": 3500
+                            },
+                            "view_options": {
+                              "label_position": "none"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "ws__2__5",
+                    "form_options": {
+                      "numbering": "2.5"
+                    },
+                    "view_options": {
+                      "media_gallery": true
+                    },
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_photos",
+                        "form_options": {
+                          "max_num": 50
+                        },
+                        "view_options": {
+                          "template": "none"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "image",
+                            "view_options": {
+                              "in_list": true
+                            }
+                          },
+                          {
+                            "keyword": "image_caption"
+                          },
+                          {
+                            "keyword": "image_date"
+                          },
+                          {
+                            "keyword": "image_location"
+                          },
+                          {
+                            "keyword": "image_photographer"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_image_remarks",
+                        "view_options": {
+                          "template": "none"
+                        },
+                        "questions": [
+                          {
+                            "keyword": "image_remarks"
                           }
                         ]
                       }
