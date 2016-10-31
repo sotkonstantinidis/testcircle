@@ -137,6 +137,8 @@ class BaseSettings(Configuration):
         # 'large' is the original uploaded image.
     )
 
+    SUMMARY_PDF_PATH = join(MEDIA_ROOT, 'summary-pdf')
+
     TEMPLATE_DIRS = (
         join(BASE_DIR, 'templates'),
     )
