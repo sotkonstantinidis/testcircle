@@ -1376,7 +1376,9 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         )
         config = questionnaire.configurations.filter(active=True).first().code
         return get_summary_data(
-            config=get_configuration(configuration_code=config), **data
+            config=get_configuration(configuration_code=config),
+            summary_type='full',
+            **data
         )
 
     def get_context_data(self, **kwargs):

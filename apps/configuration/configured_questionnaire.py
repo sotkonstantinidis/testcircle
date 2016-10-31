@@ -75,14 +75,19 @@ class ConfiguredQuestionnaire:
 class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     """
     Get only data which is configured to appear in the summary. This is defined
-    by the configuration-field: 'is_in_summary', which specifies the section
-    of the summary for given field.
+    by the configuration-field: 'in_summary', which specifies the section
+    of the summary for given field for the chosen summary-config (e.g. 'full',
+    'one page', 'four page').
     """
-    data = collections.defaultdict(dict)
+    data = []
+
+    def __init__(self, summary_type, *args, **kwargs):
+        self.summary_type = summary_type
+        super().__init__(*args, **kwargs)
 
     def put_question_data(self, child: QuestionnaireQuestion):
-        if child.is_in_summary:
-            self.data[child.is_in_summary].update({
+        if child.in_summary and child.in_summary.get(self.summary_type):
+            self.data.append({
                 '{}.{}'.format(child.questiongroup.keyword, child.keyword): {
                     'keyword': child.keyword,
                     'label': str(child.label),

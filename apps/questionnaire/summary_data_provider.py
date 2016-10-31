@@ -2,12 +2,14 @@ from configuration.configuration import QuestionnaireConfiguration
 from configuration.configured_questionnaire import ConfiguredQuestionnaireSummary
 
 
-def get_summary_data(config: QuestionnaireConfiguration, **data):
+def get_summary_data(config: QuestionnaireConfiguration, summary_type: str, **data):
     """
     Load summary config according to configuration.
     """
-    if config.keyword == 'technologies':
-        return TechnologySummaryProvider(config=config, **data).data
+    if config.keyword == 'technologies' and summary_type == 'full':
+        return TechnologyFullSummaryProvider(
+            config=config, **data
+        ).data
     raise Exception('Summary not configured.')
 
 
@@ -18,21 +20,25 @@ class SummaryDataProvider:
     - add 'module' hint to create markup upon
     - sort data
     """
+
     def __init__(self, config: QuestionnaireConfiguration, **data):
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, **data
-        # ).data
-        # self.data = self.get_data()
-        self.data = self.get_demo_dict()
+        """
+        Load full (raw) data in the same way that it is created for the API and
+        apply data transformations to self.data.
+        """
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type, **data
+        ).data
+        self.data = self.get_data()
+        # self.data = self.get_demo_dict()
 
     def get_data(self):
         data = []
         for field in self.fields:
             data.append({
                 'type': field['type'],
-                'label': self.raw_data[field['key']]['label'],
-                'content': self.raw_data[field['key']]['value'],
-                'position': field['position']
+                # 'label': self.raw_data[field['key']]['label'],
+                # 'content': self.raw_data[field['key']]['value'],
             })
         return data
 
@@ -40,7 +46,7 @@ class SummaryDataProvider:
         """
         Return static dict during development.
 
-        - 'sections' are defined by the configuration ('is_in_summary' value)
+        - 'sections' are defined by the configuration ('in_summary' value)
         - how do we handle i18n for section titles?
         - sections need metadata (show title bar; columns and position; page breaks)
         - 'modules' are ordered inside of section
@@ -97,24 +103,28 @@ class SummaryDataProvider:
         ]
 
     @property
+    def summary_type(self):
+        raise NotImplementedError
+
+    @property
     def fields(self):
         raise NotImplementedError
 
 
-class TechnologySummaryProvider(SummaryDataProvider):
+class TechnologyFullSummaryProvider(SummaryDataProvider):
     """
     Store configuration for annotation, aggregation, module type and order for
     technology questionnaires.
     """
+    summary_type = 'full'
+
     fields = [
         {
             'type': 'image',
             'key': 'qg_image.image',
-            'position': '',
         },
         {
             'type': 'text',
             'key': 'qg_name.name',
-            'position': ''
         }
     ]

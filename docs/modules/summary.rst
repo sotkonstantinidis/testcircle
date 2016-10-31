@@ -48,14 +48,16 @@ Technical workflow
 * The view ```questionnaire.views.QuestionnaireSummaryPDFCreateView``` is called
 * Data for the summary is created with
   ```questionnaire.summary_data_provider.get_summary_data```. This calls the
-  correct class with the summary fields for the config of the questionnaire.
-* In this method, the questionnaire and configuration data is combined with the
-  same class built for the questionnaire detail API resource:
-  ```configuration.configured_questionnaire.ConfiguredQuestionnaire```
+  correct class with the summary fields for the config of the questionnaire and
+  the summary type. As of now, only 'full' exists, but more types (4 page,
+  1 page, etc.) are planned.
+* In the ```get_summary_data method```, the questionnaire and configuration
+  data is combined with the same class built for the questionnaire detail API
+  resource: ```configuration.configured_questionnaire.ConfiguredQuestionnaire```
 * The full data is then reduced in two steps:
 
   * Select only data as defined by the configuration. The attribute:
-    'is_in_summary' defines the section on the summary (e.g. description,
+    'in_summary' defines the section on the summary (e.g. description,
     location)
   * All fields for a section are then aggregated and sorted as defined in the
     summary-class for the respective configuration (e.g.
