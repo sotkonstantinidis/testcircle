@@ -18,7 +18,8 @@
       <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
       <script>
         $('.chosen-select').chosen({
-          allow_single_deselect: true
+          allow_single_deselect: true,
+          search_contains: true
         });
       </script>
     {% endcompress %}
