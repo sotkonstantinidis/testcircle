@@ -200,7 +200,11 @@ def clean_questionnaire_data(data, configuration, deep_clean=True, users=[]):
                     if str(value) not in [str(c[0]) for c in choices]:
                         errors.append('The value is not a valid choice of model'
                                       ' "{}"'.format(model))
-                    value = int(value)
+                        continue
+                    try:
+                        value = int(value)
+                    except TypeError:
+                        value = None
                 elif question.field_type in ['todo']:
                     value = None
                 elif question.field_type in ['image', 'file', 'date']:

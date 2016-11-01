@@ -169,7 +169,10 @@ class Questionnaire(models.Model):
             blocked=None
         )
 
-        self.update_geometry(configuration_code=configuration_code)
+        try:
+            self.update_geometry(configuration_code=configuration_code)
+        except:
+            pass
 
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
