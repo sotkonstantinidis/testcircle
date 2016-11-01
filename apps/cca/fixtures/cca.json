@@ -636,7 +636,7 @@
             "en": "SLM measures comprising the Technology"
           },
           "label_view": {
-            "en": "SLM measures"
+            "en": "Type of SLM measure (adaptation measure)"
           }
         }
       }
@@ -4854,7 +4854,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Type of SLM measure (adaptation measure)?"
+            "en": "Type of SLM measure (adaptation measure)"
           },
           "helptext": {
             "en": "<p>Select which SLM measures were introduced (e.g. stabilize bund with grass) or modified (e.g. increase in height of bund) to adapt/ further adapt the Technology to gradual climate changes and climate-related extremes (disasters). List whether major, medium, or minor modifications were needed and describe these adaptation measures in detail.</p><p>Several answers possible</p>"
@@ -4863,7 +4863,7 @@
       }
     },
     "model": "configuration.translation",
-    "pk": 27129
+    "pk": 27130
   },
   {
     "fields": {
@@ -10080,7 +10080,7 @@
   {
     "fields": {
       "keyword": "cca_qg_130",
-      "translation": null,
+      "translation": 27130,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
@@ -14974,7 +14974,8 @@
                     "keyword": "cca__4__1",
                     "form_options": {
                       "numbering": "4.1",
-                      "template": "image_questiongroups",
+                      "helptext_length": 100,
+                      "template": "image_questiongroups_other",
                       "questiongroup_conditions": [
                         "=='cca_measures_agronomic'|cca_qg_131",
                         "=='cca_measures_vegetative'|cca_qg_132",
@@ -14984,12 +14985,29 @@
                       ]
                     },
                     "view_options": {
-                      "template": "image_questiongroups",
+                      "template": "image_questiongroups_other",
                       "raw_questions": true
                     },
                     "questiongroups": [
                       {
+                        "keyword": "cca_qg_129",
+                        "questions": [
+                          {
+                            "keyword": "technology_modified",
+                            "form_options": {
+                              "questiongroup_conditions": [
+                                "==1|cca_qg_130",
+                                "==1|cca_qg_136"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      {
                         "keyword": "cca_qg_130",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_130"
+                        },
                         "questions": [
                           {
                             "keyword": "cca_measures",
@@ -15102,6 +15120,9 @@
                       },
                       {
                         "keyword": "cca_qg_136",
+                        "form_options": {
+                          "questiongroup_condition": "cca_qg_136"
+                        },
                         "questions": [
                           {
                             "keyword": "cca_measures_comments"
