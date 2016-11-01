@@ -90,6 +90,9 @@ class BaseSettings(Configuration):
         ('en', _('English')),
         ('es', _('Spanish')),
         ('fr', _('French')),
+        ('ru', _('Russian')),
+        ('pt', _('Portuguese')),
+        ('ar', _('Arabic')),
     )
 
     TIME_ZONE = 'Europe/Zurich'
