@@ -5329,7 +5329,7 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "title"
+          "full": "title_name"
         }
       }
     },
@@ -5608,7 +5608,7 @@
           "helptext_position": "tooltip"
         },
         "in_summary": {
-          "full": "title"
+          "full": "title_name_local"
         }
       }
     },
@@ -5655,7 +5655,7 @@
       "configuration": {
         "type": "image",
         "in_summary": {
-          "full": "header_image"
+          "full": "header_image_image"
         }
       }
     },
@@ -5669,7 +5669,7 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "header_image"
+          "full": "header_image_caption"
         }
       }
     },
@@ -5694,7 +5694,7 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "header_image"
+          "full": "header_image_photographer"
         }
       }
     },
@@ -5719,7 +5719,7 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "header_image"
+          "full": "header_image_remarks"
         }
       }
     },
@@ -5736,7 +5736,7 @@
           "model": "Project",
           "display_field": "funding_project_display",
           "in_summary": {
-            "full": "header_image"
+            "full": "header_image_project"
           }
         }
       }

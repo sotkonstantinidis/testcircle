@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.configured_questionnaire import ConfiguredQuestionnaireSummary
 
@@ -26,20 +28,20 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, summary_type=self.summary_type, **data
-        # ).data
-        # self.data = self.get_data()
-        self.data = self.get_demo_dict()
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type, **data
+        ).data
+        self.data = self.get_data()
+        # self.data = self.get_demo_dict()
 
-    def get_data(self):
-        data = []
-        for field in self.fields:
-            data.append({
-                'type': field['type'],
-                # 'label': self.raw_data[field['key']]['label'],
-                # 'content': self.raw_data[field['key']]['value'],
-            })
+    def get_data(self) -> dict:
+        data = {}
+        for section, fields in self.content.items():
+            data[section] = {
+                'has_header_bar': fields.get('has_header_bar', False),
+                'title': str(fields.get('title', '')),
+                'elements': list(self.get_enriched_elements(fields['elements']))
+            }
         return data
 
     def get_demo_dict(self) -> dict:
@@ -281,12 +283,28 @@ class SummaryDataProvider:
             }
         ]
 
+    def get_enriched_elements(self, elements: list):
+        """
+        Prepare the elements, enriching them with the values from raw_values.
+        """
+        for element in elements:
+            yield {
+                'module': element['module'],
+                'field_name': element['raw'],
+                'value': element['use_method'] if element.get('use_method') else self.raw_data[element['raw']]
+            }
+
     @property
     def summary_type(self):
         raise NotImplementedError
 
+    # This is a mapping for the structure of the summary and the fields from
+    # the configuration with the content-types (that are important to generate
+    # the markup in the frontend).
+    # The keys such as 'header_image_image' must be set for the summary_type
+    # in the configuration-json.
     @property
-    def fields(self):
+    def content(self):
         raise NotImplementedError
 
 
@@ -297,13 +315,60 @@ class TechnologyFullSummaryProvider(SummaryDataProvider):
     """
     summary_type = 'full'
 
-    fields = [
-        {
-            'type': 'image',
-            'key': 'qg_image.image',
-        },
-        {
-            'type': 'text',
-            'key': 'qg_name.name',
+    @property
+    def content(self):
+         return {
+             'header': {
+                 'elements': [
+                     {
+                         'module': 'image',
+                         'raw': 'header_image_image'
+                     },
+                     {
+                         'raw': 'header_image_remarks',
+                         'module': 'text'
+                     },
+                     {
+                         'raw': 'header_image_caption',
+                         'module': 'lead'
+                     },
+                     {
+                         'raw': 'header_image_photographer',
+                         'module': 'image'
+                     }
+                 ]
+             },
+             'title': {
+                 'title': _('Title'),
+                 'has_header_bar': True,
+                 'elements': [
+                     {
+                         'module': 'h1',
+                         'raw': 'title_name'
+                     },
+                     {
+                         'module': 'h1-addendum',
+                         'raw': 'title_name_local'
+                     }
+                 ]
+             },
+             'description': {
+                 'title': _('Desciption'),
+                 'has_header_bar': True,
+                 'elements': [
+                     {
+                         'module': 'text',
+                         'use_method': self.combine_fields('definition', 'description'),
+                         'raw': 'definition'
+                     }
+                 ]
+             },
+             'classification_of_the_technology': {
+                 'title': _('Classification of the technology'),
+                 'has_header_bar': True,
+                 'elements': []
+             }
         }
-    ]
+
+    def combine_fields(self, *sections):
+        return '\n'.join([self.raw_data[section]['value'] for section in sections])

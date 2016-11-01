@@ -15115,7 +15115,10 @@
       "keyword": "tech_definition",
       "translation": 1001,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "definition"
+        }
       }
     },
     "model": "configuration.key",
@@ -19393,7 +19396,10 @@
       "keyword": "tech_description",
       "translation": 1279,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "description"
+        }
       }
     },
     "model": "configuration.key",

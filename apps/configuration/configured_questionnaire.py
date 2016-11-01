@@ -1,5 +1,9 @@
 import collections
 import functools
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 from .configuration import QuestionnaireQuestion
 
@@ -79,7 +83,7 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     of the summary for given field for the chosen summary-config (e.g. 'full',
     'one page', 'four page').
     """
-    data = []
+    data = {}
 
     def __init__(self, summary_type, *args, **kwargs):
         self.summary_type = summary_type
@@ -87,10 +91,16 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
 
     def put_question_data(self, child: QuestionnaireQuestion):
         if child.in_summary and child.in_summary.get(self.summary_type):
-            self.data.append({
-                '{}.{}'.format(child.questiongroup.keyword, child.keyword): {
-                    'keyword': child.keyword,
-                    'label': str(child.label),
-                    'value': self.get_value(child)
-                }
-            })
+            field_name = child.in_summary[self.summary_type]
+            if field_name not in self.data:
+                self.data[field_name] = self.get_value(child)
+            else:
+                # This can be intentional, e.g. header_image is a list. In this
+                # case, only the first element is available.
+                logger.warn(
+                    'The field {key} for the summary {summary_type} is defined '
+                    'more than once'.format(
+                        key=child.in_summary[self.summary_type],
+                        summary_type=self.summary_type
+                    )
+                )

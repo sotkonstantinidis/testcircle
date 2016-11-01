@@ -1406,10 +1406,15 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         """
         Get questionnaire and check status / permissions.
         """
+
         status_filter = get_query_status_filter(self.request)
-        return get_object_or_404(
-            Questionnaire.objects.filter(status_filter), id=id
-        )
+        status_filter &= Q(id=id)
+        obj = Questionnaire.with_status.not_deleted().filter(
+            Q(id=id), status_filter
+        ).distinct()
+        if not obj.exists() or obj.count() != 1:
+            raise Http404
+        return obj.first()
 
     def get_prepared_data(self, questionnaire: Questionnaire) -> dict:
         """
