@@ -1381,7 +1381,8 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
     """
     Put the questionnaire data to the context and return the rendered pdf.
     """
-    response_class = CachedPDFTemplateResponse
+    # Activate this as soon as frontend is finished.
+    # response_class = CachedPDFTemplateResponse
     template_name = 'questionnaire/export_summary.html'
     # Refactor this when more than one summary type is available.
     summary_type = 'full'
