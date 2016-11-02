@@ -285,14 +285,23 @@ class SummaryDataProvider:
 
     def get_enriched_elements(self, elements: list):
         """
-        Prepare the elements, enriching them with the values from raw_values.
+        Prepare non-empty elements, enriching them with the values from
+        raw_values or their methods.
         """
         for element in elements:
-            yield {
-                'module': element['module'],
-                'field_name': element['raw'],
-                'value': element['use_method'] if element.get('use_method') else self.raw_data[element['raw']]
-            }
+            if self.raw_data[element['raw']]:
+                if element.get('use_method'):
+                    value = element['use_method']
+                    label = ''
+                else:
+                    label = str(self.raw_data[element['raw']].get('key', ''))
+                    value = self.raw_data[element['raw']].get('value')
+                yield {
+                    'module': element['module'],
+                    'field_name': element['raw'],
+                    'label': label,
+                    'value': value
+                }
 
     @property
     def summary_type(self):
@@ -358,7 +367,9 @@ class TechnologyFullSummaryProvider(SummaryDataProvider):
                  'elements': [
                      {
                          'module': 'text',
-                         'use_method': self.combine_fields('definition', 'description'),
+                         'use_method': self.combine_fields(
+                             'definition', 'description'
+                         ),
                          'raw': 'definition'
                      }
                  ]
