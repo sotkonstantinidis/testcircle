@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url, include
 from rest_framework_swagger.views import get_swagger_view
-from ..views import APIRoot
+from api.views import APIRoot
 
 
 urlpatterns = patterns(

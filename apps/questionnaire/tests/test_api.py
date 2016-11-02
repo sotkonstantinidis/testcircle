@@ -1,7 +1,6 @@
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, sentinel
 
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test import RequestFactory
 from django.test import override_settings
@@ -12,7 +11,9 @@ from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
-from questionnaire.api.views import QuestionnaireListView, QuestionnaireDetailView
+from questionnaire.api.views import QuestionnaireListView, \
+    QuestionnaireDetailView,  QuestionnaireAPIMixin, \
+    ConfiguredQuestionnaireDetailView
 
 
 class QuestionnaireListViewTest(TestCase):
@@ -114,6 +115,39 @@ class QuestionnaireListViewTest(TestCase):
             [{'language': 'a', 'text': 'foo'}]
         )
 
+    @patch.object(QuestionnaireAPIMixin, 'update_dict_keys')
+    def test_v1_filter(self, mock_update_dict_keys):
+        request = self.factory.get(self.url)
+        request.version = 'v1'
+        view = self.setup_view(self.view, request, identifier='sample_1')
+        view.get(self.request)
+        self.assertTrue(mock_update_dict_keys.called)
+
+    @patch.object(QuestionnaireAPIMixin, 'filter_dict')
+    def test_v2_filter(self, mock_filter_dict):
+        request = self.factory.get(self.url)
+        request.version = 'v2'
+        view = self.setup_view(self.view, request, identifier='sample_1')
+        view.get(self.request)
+        self.assertTrue(mock_filter_dict.called)
+
+    def test_api_url_detail_v1(self):
+        items = [{'code': 'spam'}]
+        updated = list(self.view.filter_dict(items))
+        self.assertEqual(
+            updated[0]['details'], '/en/api/v1/questionnaires/spam/'
+        )
+
+    def test_api_url_detail_v2(self):
+        items = [{'code': 'spam'}]
+        request = self.request
+        request.version = 'v2'
+        view = self.setup_view(self.view, request)
+        updated = list(view.filter_dict(items))
+        self.assertEqual(
+            updated[0]['details'], '/en/api/v2/questionnaires/spam/'
+        )
+
 
 class QuestionnaireDetailViewTest(TestCase):
     """
@@ -174,3 +208,40 @@ class QuestionnaireDetailViewTest(TestCase):
         del serialized['status']
         with self.assertRaises(Http404):
             self.view.serialize_item(serialized)
+
+
+class ConfiguredQuestionnaireDetailViewTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.url = '/en/api/v2/questionnaires/sample_1/'
+        self.request = self.factory.get(self.url)
+        self.request.version = 'v2'
+        self.identifier = 'sample_1'
+        self.view = self.setup_view(
+            ConfiguredQuestionnaireDetailView(), self.request,
+            identifier=self.identifier
+        )
+
+    @patch('questionnaire.api.views.get_language')
+    @patch('questionnaire.api.views.get_questionnaire_data_in_single_language')
+    def test_prepare_data_one_language(self, mock_single_language,
+                                       mock_get_language):
+        mock_get_language.return_value = sentinel.language
+        mock_serializer = MagicMock(validated_data={
+            'data': sentinel.data,
+            'original_locale': sentinel.original_locale
+        })
+        self.view.prepare_data(mock_serializer)
+        mock_single_language.assert_called_once_with(
+            locale=sentinel.language,
+            original_locale=sentinel.original_locale,
+            questionnaire_data=sentinel.data
+        )
+
+    @patch('questionnaire.api.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.api.views.ConfiguredQuestionnaire')
+    def test_prepare_data(self, mock_conf, mock_single_language):
+        mock_single_language.return_value = {}
+        self.view.prepare_data(MagicMock())
+        self.assertTrue(mock_conf.called)
