@@ -1,6 +1,7 @@
 from unittest.mock import patch, MagicMock
 
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test import RequestFactory
 from django.test import override_settings
@@ -21,13 +22,16 @@ class QuestionnaireListViewTest(TestCase):
         self.factory = RequestFactory()
         self.url = '/en/api/v1/questionnaires/sample_1/'
         self.request = self.factory.get(self.url)
-        self.view = self.setup_view(QuestionnaireListView(), self.request, identifier='sample_1')
+        self.request.version = 'v1'
+        self.view = self.setup_view(
+            QuestionnaireListView(), self.request, identifier='sample_1'
+        )
 
     @patch('questionnaire.api.views.advanced_search')
     def test_logs_call(self, mock_advanced_search):
         """
-        Use the requestfactory from the rest-framework, as this handles the custom
-        token authentication nicely.
+        Use the requestfactory from the rest-framework, as this handles the
+        custom token authentication nicely.
         """
         user = create_new_user()
         request = APIRequestFactory().get(self.url)
@@ -40,10 +44,13 @@ class QuestionnaireListViewTest(TestCase):
         questionnaire = Questionnaire.objects.get(code='sample_1')
         serialized = QuestionnaireSerializer(questionnaire).data
         item = self.view.replace_keys(serialized)
-        self.assertEqual(item.get('api_url'), '/en/api/v1/questionnaires/sample_1/')
+        self.assertEqual(
+            item.get('api_url'), '/en/api/v1/questionnaires/sample_1/'
+        )
 
     def test_current_page(self):
         request = self.factory.get('{}?page=5'.format(self.url))
+        request.version = 'v1'
         view = self.setup_view(self.view, request, identifier='sample_1')
         view.get_elasticsearch_items()
         self.assertEqual(view.current_page, 5)
@@ -108,19 +115,22 @@ class QuestionnaireListViewTest(TestCase):
         )
 
 
-
-
-
 class QuestionnaireDetailViewTest(TestCase):
+    """
+    Tests for v1
+    """
     fixtures = ['sample', 'sample_questionnaires']
 
     def setUp(self):
         self.factory = RequestFactory()
         self.url = '/en/api/v1/questionnaires/sample_1/'
         self.request = self.factory.get(self.url)
+        self.request.version = 'v1'
         self.invalid_request = self.factory.get('/en/api/v1/questionnaires/foo')
         self.identifier = 'sample_1'
-        self.view = self.setup_view(QuestionnaireDetailView(), self.request, identifier=self.identifier)
+        self.view = self.setup_view(
+            QuestionnaireDetailView(), self.request, identifier=self.identifier
+        )
 
     def get_serialized_data(self):
         questionnaire = Questionnaire.objects.get(code=self.identifier)
@@ -155,10 +165,9 @@ class QuestionnaireDetailViewTest(TestCase):
             foo = item['api_url']  # noqa
 
     def test_serialized_item(self):
-        mock_list_values = MagicMock()
-        with patch.object(QuestionnaireSerializer, 'to_list_values', mock_list_values):
+        with patch.object(QuestionnaireSerializer, 'to_list_values') as values:
             self.view.serialize_item(self.get_serialized_data())
-            mock_list_values.assert_called_once_with(lang='en')
+            values.assert_called_once_with(lang='en')
 
     def test_failed_serialization(self):
         serialized = self.get_serialized_data()
