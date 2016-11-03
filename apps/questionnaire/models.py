@@ -84,11 +84,6 @@ class Questionnaire(models.Model):
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
     geom = models.GeometryField(null=True, blank=True)
-    blocked = models.ForeignKey(
-        settings.AUTH_USER_MODEL, blank=True, null=True,
-        related_name='blocks_questionnaire',
-        help_text=_(u"Set with the method: lock_questionnaire.")
-    )
     is_deleted = models.BooleanField(default=False)
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
@@ -1248,3 +1243,15 @@ class File(models.Model):
         if file_name is None:
             return None
         return get_url_by_file_name(file_name)
+
+
+class Lock(models.Model):
+    """
+    Locks questionnaire for editing. This collects more information than
+    required, but does include info for debugging.
+    This could be extended with a field for the questionnaires section.
+    """
+    questionnaire = models.ForeignKey(Questionnaire)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    start = models.DateTimeField(auto_now_add=True)
+    is_finished = models.BooleanField(default=False)
