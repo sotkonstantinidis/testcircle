@@ -705,6 +705,14 @@
           "helptext": {
             "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the watershed users’ view"
+          },
+          "helptext": {
+            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
         }
       }
     },
@@ -721,6 +729,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the compiler’s or other key resource person’s view"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Strengths/ advantages/ opportunities in the compiler’s or other key resource person’s view"
           }
@@ -749,6 +762,14 @@
           "helptext": {
             "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the land user’s view"
+          },
+          "helptext": {
+            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
         }
       }
     },
@@ -768,6 +789,11 @@
           "label": {
             "en": "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource person’s view"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource person’s view"
+          }
         }
       }
     },
@@ -784,6 +810,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "How can they be overcome?"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "How can they be overcome?"
           }
@@ -1275,6 +1306,11 @@
           "label": {
             "en": "Title, author, year, ISBN"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
         }
       }
     },
@@ -1291,6 +1327,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Available from where? Costs?"
           }
@@ -1313,6 +1354,11 @@
           "label": {
             "en": "Title/ description"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Title/ description"
+          }
         }
       }
     },
@@ -1329,6 +1375,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "URL"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "URL"
           }
