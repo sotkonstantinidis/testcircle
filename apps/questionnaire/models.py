@@ -27,7 +27,7 @@ from configuration.models import Configuration
 
 from .conf import settings
 from .errors import QuestionnaireLockedException
-from .querysets import StatusQuerySet
+from .querysets import StatusQuerySet, LockStatusQuerySet
 
 from questionnaire.upload import (
     create_thumbnails,
@@ -858,19 +858,13 @@ class Questionnaire(models.Model):
         return cls.objects.filter(code=code).exists()
 
     @classmethod
-    def get_editable_questionnaires(cls, code, user=None):
+    def get_editable_questionnaires(cls, code: str, user=None):
         """
         After internal discussion: 'blocking' of questionnaires should happen
         for all items with the same code, not specific questionnaires only.
 
-        Args:
-            code: string
-            user: accounts.models.User
-
-        Returns:
-            queryset
-
         """
+        # todo: refactor
         qs = cls.objects.filter(code=code)
         if user:
             return qs.filter(Q(blocked__isnull=True) | Q(blocked=user))
@@ -878,15 +872,13 @@ class Questionnaire(models.Model):
             return qs.filter(blocked__isnull=True)
 
     @classmethod
-    def lock_questionnaire(cls, code, user):
+    def lock_questionnaire(cls, code: str, user: settings.AUTH_USER_MODEL):
         """
         If the questionnaire is not locked, or locked by given user: lock the
         questionnaire for this user - else raise an error.
 
-        Args:
-            code: string
-            user: accounts.models.User
         """
+        # todo: refactor
         editable_questionnaires = cls.get_editable_questionnaires(
             code, user
         )
@@ -897,24 +889,24 @@ class Questionnaire(models.Model):
                 )
             editable_questionnaires.update(blocked=user)
 
-    def can_edit(self, user):
+    def can_edit(self, user: settings.AUTH_USER_MODEL):
+        # todo: refactor
         return self.has_questionnaires_for_code(
             self.code) and self.get_editable_questionnaires(self.code, user)
 
     def unlock_questionnaire(self):
+        # todo: refactor
         self._meta.model.objects.filter(
             code=self.code
         ).update(
             blocked=None
         )
 
-    def get_blocked_message(self, user):
+    def get_blocked_message(self, user: settings.AUTH_USER_MODEL):
         """
         The user that is locking the draft of the questionnaire.
-
-        Args:
-            user: accounts.models.User
         """
+        # todo: refactor
         editable_questionnaire = self.get_editable_questionnaires(
             self.code, user
         )
@@ -1255,3 +1247,6 @@ class Lock(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     start = models.DateTimeField(auto_now_add=True)
     is_finished = models.BooleanField(default=False)
+
+    objects = models.Manager()
+    with_status = LockStatusQuerySet()
