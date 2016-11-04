@@ -44,6 +44,7 @@ Backend installation
 
 
 #. Creating user 'qcat':: 
+
 	sudo adduser qcat && addgroup qcat:qcat
 
 #. Create the application folder::
