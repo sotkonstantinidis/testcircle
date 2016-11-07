@@ -2,8 +2,8 @@
 
   <header class="tech-output-header row">
 
-    <div class="tech-type is-technologies">
-      <span>{% trans "Technologies" %}</span>
+    <div class="tech-type is-watershed">
+      <span>{% trans "Watershed" %}</span>
     </div>
 
     {% if metadata.status.0 and metadata.status.0 != 'public' %}
@@ -11,12 +11,12 @@
     {% endif %}
 
     {% for flag in metadata.flags %}
-      <span class="label tech-flag is-technologies"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
+      <span class="label tech-flag is-watershed"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
         {{ flag.name }}
       </span>
     {% endfor %}
 
-    {% trans "New SLM Technology" as empty_name %}
+    {% trans "New SLM Watershed" as empty_name %}
     <h1 class="tech-output-title">{{ raw_data.name|default:empty_name }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
 
     <ul class="tech-infos">
@@ -58,7 +58,7 @@
           {% for translation in metadata.translations %}
             <li>
               {% language translation %}
-                <a href="{% url 'technologies:questionnaire_details' metadata.code %}" class="is-tech">{{ translation }}</a>
+                <a href="{% url 'watershed:questionnaire_details' metadata.code %}" class="is-watershed">{{ translation }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
@@ -70,7 +70,7 @@
       {% comment %}
       <ul class="right tech-attached sub-nav-square">
         <li>
-          <a href="" class="is-approach"><svg class="icon"><use xlink:href="#icon-approach"></use></svg> <span class="number">1</span></a>
+          <a href="" class="is-tech"><svg class="icon"><use xlink:href="#icon-technology"></use></svg> <span class="number">1</span></a>
         </li>
       </ul>
       {% endcomment %}
@@ -78,7 +78,7 @@
   </header>
 
   <div class="row tech-output-actions">
-    <svg class="icon right"><use xlink:href="#icon-technology" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+    <svg class="icon right"><use xlink:href="#icon-watershed" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
 {#    <a href="#" class="button{% if not metadata.code %} disabled{% endif %}">#}
     <a href="#" class="button disabled" title="{% trans "Coming soon" %}" data-tooltip="">
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
@@ -110,7 +110,7 @@
   </div>
 
   {% if review_config %}
-    {% trans "SLM Technology" as questionnaire_type %}
+    {% trans "SLM Watershed" as questionnaire_type %}
     {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
   {% endif %}
 
@@ -149,7 +149,7 @@
 
       <div class="output hide tech-section-content" id="{{ keyword }}-content">
         {% for subcategory, subcategory_config in subcategories %}
-          {% if subcategory_config.keyword != 'tech__0__1' and subcategory_config.keyword != 'tech__1__1' %}
+          {% if subcategory_config.keyword != 'app__0__1' and subcategory_config.keyword != 'app__1__1' %}
             {{ subcategory }}
           {% endif %}
         {% empty %}

@@ -17,6 +17,11 @@
           "label": {
             "en": "Title of best practice"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Name of the watershed / landscape"
+          }
         }
       }
     },
@@ -43,6 +48,11 @@
           }
         },
         "unccd": {
+          "label": {
+            "en": "Country"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Country"
           }
@@ -119,6 +129,11 @@
           "label": {
             "en": "Region/ State/ Province"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Region/ State/ Province"
+          }
         }
       }
     },
@@ -144,6 +159,14 @@
           "label_view": {
             "en": "Further specification of location"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Further specification of location (e.g. municipality, town, etc.), if relevant"
+          },
+          "label_view": {
+            "en": "Further specification of location"
+          }
         }
       }
     },
@@ -160,6 +183,11 @@
           }
         },
         "approaches": {
+          "label": {
+            "en": "Image"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Image"
           }
@@ -182,6 +210,11 @@
           "label": {
             "en": "Caption, explanation of photo"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Caption, explanation of photo"
+          }
         }
       }
     },
@@ -201,6 +234,11 @@
           "label": {
             "en": "Date"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Date"
+          }
         }
       }
     },
@@ -217,6 +255,11 @@
           }
         },
         "approaches": {
+          "label": {
+            "en": "Name of photographer"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Name of photographer"
           }
@@ -297,6 +340,11 @@
           "label": {
             "en": "User ID"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "User ID"
+          }
         }
       }
     },
@@ -313,6 +361,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Location"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Location"
           }
@@ -335,6 +388,11 @@
           "label": {
             "en": "Lastname / surname"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Lastname / surname"
+          }
         }
       }
     },
@@ -351,6 +409,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "First name(s)"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "First name(s)"
           }
@@ -373,6 +436,11 @@
           "label": {
             "en": "Gender"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Gender"
+          }
         }
       }
     },
@@ -389,6 +457,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Name of institution"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Name of institution"
           }
@@ -487,6 +560,11 @@
           "label": {
             "en": "Phone no. 1"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Phone no. 1"
+          }
         }
       }
     },
@@ -503,6 +581,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Phone no. 2 (mobile)"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Phone no. 2 (mobile)"
           }
@@ -525,6 +608,11 @@
           "label": {
             "en": "E-mail 1"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "E-mail 1"
+          }
         }
       }
     },
@@ -541,6 +629,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "E-mail 2"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "E-mail 2"
           }
@@ -582,6 +675,11 @@
           "label": {
             "en": "Other (specify)"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Other (specify)"
+          }
         }
       }
     },
@@ -607,6 +705,14 @@
           "helptext": {
             "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the watershed users’ view"
+          },
+          "helptext": {
+            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
         }
       }
     },
@@ -623,6 +729,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Strengths/ advantages/ opportunities in the compiler’s or other key resource person’s view"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Strengths/ advantages/ opportunities in the compiler’s or other key resource person’s view"
           }
@@ -651,6 +762,14 @@
           "helptext": {
             "en": "<strong>Land user</strong>: the person/ entity who implements/ maintains the Technology, including individual small/large scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the land user’s view"
+          },
+          "helptext": {
+            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+          }
         }
       }
     },
@@ -670,6 +789,11 @@
           "label": {
             "en": "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource person’s view"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource person’s view"
+          }
         }
       }
     },
@@ -686,6 +810,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "How can they be overcome?"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "How can they be overcome?"
           }
@@ -922,6 +1051,14 @@
           "label": {
             "en": "Local name"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Local name"
+          },
+          "helptext": {
+            "en": "In latin letters"
+          }
         }
       }
     },
@@ -976,6 +1113,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "General remarks regarding photos"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "General remarks regarding photos"
           }
@@ -1036,6 +1178,11 @@
           "label": {
             "en": "Specify the key resource person"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Specify the key resource person"
+          }
         }
       }
     },
@@ -1061,6 +1208,14 @@
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation of the watershed (if relevant)"
+          },
+          "helptext": {
+            "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
         }
       }
     },
@@ -1082,6 +1237,14 @@
         "technologies": {
           "label": {
             "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+          },
+          "helptext": {
+            "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        },
+        "watershed": {
+          "label": {
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the watershed (if relevant)"
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
@@ -1143,6 +1306,11 @@
           "label": {
             "en": "Title, author, year, ISBN"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Title, author, year, ISBN"
+          }
         }
       }
     },
@@ -1159,6 +1327,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Available from where? Costs?"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Available from where? Costs?"
           }
@@ -1181,6 +1354,11 @@
           "label": {
             "en": "Title/ description"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "Title/ description"
+          }
         }
       }
     },
@@ -1200,6 +1378,11 @@
           "label": {
             "en": "URL"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "URL"
+          }
         }
       }
     },
@@ -1216,6 +1399,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "When were the data compiled (in the field)?"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "When were the data compiled (in the field)?"
           }
@@ -1244,6 +1432,14 @@
           "helptext": {
             "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
+          },
+          "helptext": {
+            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."
+          }
         }
       }
     },
@@ -1260,6 +1456,11 @@
           }
         },
         "technologies": {
+          "label": {
+            "en": "Address"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "Address"
           }
@@ -1281,6 +1482,11 @@
         "technologies": {
           "label": {
             "en": "Map"
+          }
+        },
+        "watershed": {
+          "label": {
+            "en": "Center of the watershed"
           }
         }
       }
@@ -4995,6 +5201,11 @@
           "label": {
             "en": "female"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "female"
+          }
         }
       }
     },
@@ -5011,6 +5222,11 @@
           }
         },
         "approaches": {
+          "label": {
+            "en": "male"
+          }
+        },
+        "watershed": {
           "label": {
             "en": "male"
           }
@@ -5191,6 +5407,11 @@
           "label": {
             "en": "SLM specialist"
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "SLM specialist"
+          }
         }
       }
     },
@@ -5216,6 +5437,11 @@
           "helptext": {
             "en": "the person/ entity who implements/ maintains the Technology/ Technologies associated with this Approach. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
+        },
+        "watershed": {
+          "label": {
+            "en": "land user"
+          }
         }
       }
     },
@@ -5235,6 +5461,11 @@
           "helptext": {
             "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
           }
+        },
+        "watershed": {
+          "helptext": {
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+          }
         }
       }
     },
@@ -5249,11 +5480,40 @@
           "helptext": {
             "en": "Specify the centre of the area in which the Approach has been applied."
           }
+        },
+        "watershed": {
+          "helptext": {
+            "en": "Specify the centre of the watershed."
+          }
         }
       }
     },
     "model": "configuration.translation",
     "pk": 5902
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "approaches": {
+          "helptext": {
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented data.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+          }
+        },
+        "technologies": {
+          "helptext": {
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented data.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+          }
+        },
+        "watershed": {
+          "helptext": {
+            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented data.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5903
   },
   {
     "fields": {
@@ -8518,7 +8778,7 @@
   {
     "fields": {
       "keyword": "qg_accept_conditions",
-      "translation": 5901,
+      "translation": 5903,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
