@@ -515,20 +515,6 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Map of delineated zones of the watershed / landscape"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 32709
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "watershed": {
-          "label": {
             "en": "Map of the delineated major Land Use Types (LUTs), Land Use Sub-Types (LUSTs) and Land Management (LM) for each zone of the watershed / landscape (current situation)"
           }
         }
@@ -557,7 +543,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Describe the best scenario"
+            "en": "Describe a scenario for improved watershed management"
+          },
+          "helptext": {
+            "en": "Describe a scenario for improved watershed management based on different scenario runs in the offline app."
           }
         }
       }
@@ -1093,24 +1082,6 @@
   },
   {
     "fields": {
-      "keyword": "ws_qg_5",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 31005
-  },
-  {
-    "fields": {
-      "keyword": "ws_qg_6",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 31006
-  },
-  {
-    "fields": {
       "keyword": "ws_qg_7",
       "translation": null,
       "configuration": {}
@@ -1248,14 +1219,6 @@
   {
     "fields": {
       "keyword": "ws__3__1",
-      "translation": 32709
-    },
-    "model": "configuration.category",
-    "pk": 31009
-  },
-  {
-    "fields": {
-      "keyword": "ws__3__2",
       "translation": 32710
     },
     "model": "configuration.category",
@@ -1263,7 +1226,7 @@
   },
   {
     "fields": {
-      "keyword": "ws__3__3",
+      "keyword": "ws__3__2",
       "translation": 32711
     },
     "model": "configuration.category",
@@ -1813,42 +1776,6 @@
                     },
                     "questiongroups": [
                       {
-                        "keyword": "ws_qg_5",
-                        "view_options": {
-                          "template": "columns_o4_r8"
-                        },
-                        "questions": [
-                          {
-                            "keyword": "ws_map_image"
-                          },
-                          {
-                            "keyword": "ws_map_caption"
-                          },
-                          {
-                            "keyword": "ws_map_date"
-                          },
-                          {
-                            "keyword": "ws_map_location"
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "ws_qg_6",
-                        "questions": [
-                          {
-                            "keyword": "ws_map_description_results"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "keyword": "ws__3__2",
-                    "form_options": {
-                      "numbering": "3.2"
-                    },
-                    "questiongroups": [
-                      {
                         "keyword": "ws_qg_7",
                         "view_options": {
                           "template": "columns_o4_r8"
@@ -1879,9 +1806,9 @@
                     ]
                   },
                   {
-                    "keyword": "ws__3__3",
+                    "keyword": "ws__3__2",
                     "form_options": {
-                      "numbering": "3.3"
+                      "numbering": "3.2"
                     },
                     "questiongroups": [
                       {
