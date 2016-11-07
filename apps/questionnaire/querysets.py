@@ -1,4 +1,7 @@
+import operator
 from datetime import timedelta
+from functools import reduce
+
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
@@ -8,8 +11,7 @@ from .conf import settings
 
 class StatusQuerySet(models.QuerySet):
     """
-    Helper for verbose queries. Use as:
-    Questionnaire.with_status.published()
+    Helper for verbose queries. Use as: Questionnaire.with_status.published()
     """
 
     def public(self):
@@ -29,15 +31,34 @@ class LockStatusQuerySet(models.QuerySet):
 
     @property
     def expired(self):
-        # Get latest time in which locks are still valid
+        # Latest time in which locks are valid
         return now() - timedelta(minutes=settings.QUESTIONNAIRE_LOCK_TIME)
 
-    def is_blocked(self):
-        return self.filter(
-            Q(is_finished=False), Q(start__gte=self.expired)
-        )
+    def filter_code(self, code: str):
+        return self.filter(questionnaire__code=code)
 
-    def is_editable(self):
-        return self.filter(
-            Q(is_finished=True) | Q(start__lte=self.expired)
+    def is_blocked(self, code: str, for_user=None):
+        """
+        Filters locks that are active
+        """
+        qs = self.filter_code(code=code).filter(
+            is_finished=False, start__gte=self.expired
         )
+        if for_user:
+            qs = qs.exclude(user=for_user)
+        return qs
+
+    def is_editable(self, code: str, for_user=None):
+        """
+
+        """
+        filters = Q(is_finished=True) | Q(start__lte=self.expired)
+        if for_user:
+            filters |= Q(user=for_user)
+
+        return self.filter_code(code=code).filter(filters)
+
+
+# views anpassen
+# receivers anpassen
+# tests anpassen

@@ -289,7 +289,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
 
         return '{url}#{step}'.format(url=url, step=step)
 
-
     def get_context_data(self, **kwargs):
         """
         The context data of the view. The required content is based on the previously existing views and the template

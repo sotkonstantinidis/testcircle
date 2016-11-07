@@ -854,7 +854,7 @@ class Questionnaire(models.Model):
         return json.dumps(self.data)
 
     @classmethod
-    def has_questionnaires_for_code(cls, code):
+    def has_questionnaires_for_code(cls, code: str) -> bool:
         return cls.objects.filter(code=code).exists()
 
     @classmethod
@@ -864,12 +864,17 @@ class Questionnaire(models.Model):
         for all items with the same code, not specific questionnaires only.
 
         """
-        # todo: refactor
-        qs = cls.objects.filter(code=code)
         if user:
-            return qs.filter(Q(blocked__isnull=True) | Q(blocked=user))
+            blocked = Lock.with_status.is_blocked(code=code, for_user=user)
         else:
-            return qs.filter(blocked__isnull=True)
+            blocked = Lock.with_status.is_editable(code=code)
+
+        questionnaire_ids = blocked.only(
+            'questionnaire_id'
+        ).values_list(
+            'questionnaire_id', flat=True
+        )
+        return cls.objects.filter(code=code).exclude(id__in=questionnaire_ids)
 
     @classmethod
     def lock_questionnaire(cls, code: str, user: settings.AUTH_USER_MODEL):
@@ -889,10 +894,12 @@ class Questionnaire(models.Model):
                 )
             editable_questionnaires.update(blocked=user)
 
-    def can_edit(self, user: settings.AUTH_USER_MODEL):
-        # todo: refactor
+    def can_edit(self, user: settings.AUTH_USER_MODEL) -> bool:
         return self.has_questionnaires_for_code(
-            self.code) and self.get_editable_questionnaires(self.code, user)
+            self.code
+        ) and self.get_editable_questionnaires(
+            self.code, user
+        ).exists()
 
     def unlock_questionnaire(self):
         # todo: refactor
@@ -902,23 +909,21 @@ class Questionnaire(models.Model):
             blocked=None
         )
 
-    def get_blocked_message(self, user: settings.AUTH_USER_MODEL):
+    def get_blocked_message(self, user: settings.AUTH_USER_MODEL) -> tuple:
         """
-        The user that is locking the draft of the questionnaire.
+        Get status and message for blocked status (blocked or can be edited).
         """
-        # todo: refactor
-        editable_questionnaire = self.get_editable_questionnaires(
-            self.code, user
-        )
-        if self.has_questionnaires_for_code(self.code) and \
-                editable_questionnaire.exists():
+        locks = Lock.with_status.is_blocked(code=self.code, for_user=user)
+
+        if not locks.exists():
             return SUCCESS, _(u"This questionnaire can be edited.")
         else:
             return WARNING, _(u"This questionnaire is "
-                              u"locked for editing by {}.".format(self.blocked))
+                              u"locked for editing by {user}.".format(
+                user=locks.first().user.get_display_name()
+            ))
 
     # Properties for the get_metadata function.
-
     def _get_role_list(self, role):
         members = []
         for member in self.members.filter(questionnairemembership__role=role):
@@ -1249,4 +1254,4 @@ class Lock(models.Model):
     is_finished = models.BooleanField(default=False)
 
     objects = models.Manager()
-    with_status = LockStatusQuerySet()
+    with_status = LockStatusQuerySet.as_manager()
