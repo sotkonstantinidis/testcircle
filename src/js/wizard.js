@@ -1337,6 +1337,11 @@ function showUploadErrorMessage(message) {
 function toggleButtonBarSelected() {
     var selectedValue = $(this).find('input[type="radio"]:checked').val();
     var item = $(this).closest('.list-item');
+    if (item.is('tr')) {
+        // Do not add class "is-selected" to <tr> elements as this will break
+        // the layout of the table.
+        return;
+    }
     if (selectedValue && selectedValue != 'none' && selectedValue != '') {
         item.addClass('is-selected');
     } else {
