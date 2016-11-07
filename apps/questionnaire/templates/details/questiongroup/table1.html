@@ -27,13 +27,13 @@
         {% for question in questiongroup %}
           {% if forloop.counter != 1 %}
             {% if forloop.counter == 2 %}
-              <td>{{ question|slice:"43:" }}</td>
+              <td>{{ question }}</td>
             {% elif forloop.counter == 3 %}
-              <td>{{ question|slice:"80:" }}</td>
+              <td>{{ question }}</td>
             {% elif forloop.counter == 4 %}
-              <td>{{ question|slice:"63:" }}</td>
+              <td>{{ question }}</td>
             {% elif forloop.counter == 5 %}
-              <td>{{ question|slice:"42:" }}</td>
+              <td>{{ question }}</td>
             {% endif %}
           {% endif %}
         {% endfor %}

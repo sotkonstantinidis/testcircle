@@ -6448,7 +6448,10 @@
       "keyword": "from_year",
       "translation": 28015,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29025,
@@ -6476,7 +6479,10 @@
       "keyword": "from_month",
       "translation": 28016,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29040,
@@ -6501,7 +6507,10 @@
       "keyword": "to_year",
       "translation": 28017,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29025,
@@ -6529,7 +6538,10 @@
       "keyword": "to_month",
       "translation": 28018,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29040,
@@ -6568,7 +6580,10 @@
       "keyword": "comments_specify",
       "translation": 28020,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6579,7 +6594,10 @@
       "keyword": "land_degradation_type",
       "translation": 28021,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29075,
@@ -6624,7 +6642,10 @@
       "keyword": "sensitivity_to_land_degradation_type",
       "translation": 28022,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29107,
@@ -6642,7 +6663,10 @@
       "keyword": "specify_comments",
       "translation": 28023,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "view_options": {
+          "template": "value_only"
+        }
       }
     },
     "model": "configuration.key",
@@ -6653,7 +6677,10 @@
       "keyword": "newly_occurring_land_degradation_type",
       "translation": 28024,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29075,
@@ -6716,6 +6743,9 @@
         "form_options": {
           "template": "no_label",
           "helptext_position": "none"
+        },
+        "view_options": {
+          "template": "value_only"
         }
       }
     },
@@ -6731,6 +6761,9 @@
         "form_options": {
           "template": "no_label",
           "helptext_position": "none"
+        },
+        "view_options": {
+          "template": "value_only"
         }
       }
     },
@@ -6760,6 +6793,9 @@
         "form_options": {
           "template": "no_label",
           "helptext_position": "none"
+        },
+        "view_options": {
+          "template": "value_only"
         }
       }
     },
@@ -7590,7 +7626,10 @@
       "keyword": "cca_production_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29146,
@@ -7616,7 +7655,10 @@
       "keyword": "cca_water_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29159,
@@ -7636,7 +7678,10 @@
       "keyword": "cca_income_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29166,
@@ -7654,7 +7699,10 @@
       "keyword": "cca_socio_cultural_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29171,
@@ -7677,7 +7725,10 @@
       "keyword": "cca_runoff_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29181,
@@ -7697,7 +7748,10 @@
       "keyword": "cca_soil_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29188,
@@ -7720,7 +7774,10 @@
       "keyword": "cca_biodiversity_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29198,
@@ -7742,7 +7799,10 @@
       "keyword": "cca_climate_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29207,
@@ -7763,7 +7823,10 @@
       "keyword": "cca_offsite_impact",
       "translation": 28085,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
       },
       "values": [
         29215,

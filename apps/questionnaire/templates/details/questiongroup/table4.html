@@ -27,7 +27,7 @@
         {% for question in questiongroup %}
           {% if forloop.counter != 1 %}
             {% if forloop.counter == 2 %}
-              <td>{{ question|slice:"43:" }}</td>
+              <td>{{ question }}</td>
             {% elif forloop.counter == 3 %}
               <td>{{ question }}</td>
             {% elif forloop.counter == 4 %}
