@@ -1,4 +1,6 @@
-{% for element in rendered_elements %}
-  {{ element }}
-{% endfor %}
-
+<h1>
+  {{ content.title.text }}
+  {% if content.country.text %}
+    <span>({{ content.country.text }})</span>
+  {% endif %}
+</h1>

@@ -1,0 +1,84 @@
+{
+  "header_image": {
+    "title": "",
+    "partials": {
+      "image": {
+        "url": "foo.jpg"
+      },
+      "caption": {
+        "title": "A nice picture",
+        "text": "with spam and eggs"
+      }
+    }
+  },
+  "title": {
+    "partials": {
+      "title": {
+        "text": "Zhuanglang level bench Loess terraces"
+      },
+      "country": {
+        "text": "P.R. China"
+      }
+    }
+  },
+  "description": {
+    "title": "Description",
+    "partials": {
+      "lead": {
+        "text": "Level bench terraces on the Loess Plateau, converting eroded and degraded sloping land into a series of steps suitable for cultivation."
+      },
+      "text": {
+        "text": "The Loess Plateau in north-central China is characterised by very deep loess parent material (up to 200 m), that is highly erodible and the source of most of the sediment in the lower reaches of the Yellow River. The plateau is highly dissected by deep gullied valleys and gorges. The steep slopes, occupying 30-40% of the plateau area, have been heavily degraded by severe top soil and gully erosion. Over the whole Loess Plateau 73,350 km2 of these erosion prone slopes have been conserved by terraces. In Zhuanglang County the land that is suitable for terracing has been completely covered. The total terraced area is 1,088 km2, accounting for 90% of the hillsides. The terraces were constructed manually, starting at the bottom of the slopes and proceeding from valley to the ridge. The terraces comprise a riser of earth, with vertical or steeply sloping sides and an approximately flat bed (level bench). Depending on farmers preference some terrace beds are edged by a raised lip (a small earth ridge) which retains rainwater, others remain without lip. The semi-arid climate does not require a drainage system. For typical hillside terraces on slopes of 25-35% the bed width is about 3.5-5 metres with a 1-2 metre riser, involving moving about 2,000-2,500 cubic metres of soil (see table of technical specifications). Generally the risers are not specifically protected, but there may be some natural grasses growing on the upper part. The lower part of the riser is cut vertically into the original soil surface, and has no grass cover, being dry and compact. However it is not erosion-prone since it has a stable structure. Over most of the Loess Plateau, the soil is very deep and therefore well suited to terrace construction. In addition to downstream benefits, the purpose is to create a better environment for crop production through improved moisture conservation, and improved ease of farming operations. In an average rainfall year, crop yields on terraced land are more than three times higher than they used to be on unterraced, sloping land. The implication is that terrace construction – though labour intensive – pays back in only three to four years when combined with agronomic improvements (such as applying farm yard manure and planting green manure). Some farmers try to make the best use of the upper part of terrace risers by planting cash trees or forage crops. This is locally termed ‘terrace bund economy’. The plants stabilise the risers and at the same time provide extra benefits. Some farmers try to make the best use of the upper part of terrace risers by planting cash trees or forage crops. This is locally termed ‘terrace bund economy’. The plants stabilise the risers and at the same time provide extra benefits. Some farmers try to make the best use of the upper part of terrace risers by planting cash trees or forage crops. This is locally termed ‘terrace bund economy’. The plants stabilise the risers and at the same time provide extra benefits"
+      }
+    }
+  },
+  "conclusion": {
+    "title": "Conclusion & Comparison",
+    "partials": {
+      "pro": {
+        "label": "Strengths",
+        "items": [
+          {
+            "text": "Diversification of production: terracing makes cultivation of new cash crops possible: flax (for linseed oil), pears, apples, apricots, water melon; all these give high returns and thus make terrace construction profitable."
+          },
+          {
+            "text": "Improvements of farmers’ living standard and decline in poverty stricken population"
+          },
+          {
+            "text": "Reduced erosion, reduced loss of rainwater through runoff (increased in water use efficiency) and reduced fertility loss due to reduced slope angle and length"
+          },
+          {
+            "text": "Increased soil moisture"
+          },
+          {
+            "text": "Increased crop production (before 1983 hunger and starvation in the area)"
+          },
+          {
+            "text": "Easier field operations: the level terrace is easier to cultivate than the original hill slope"
+          }
+        ]
+      },
+      "contra": {
+        "label": "Weaknesses/ disadvantages/ risks and how they can be overcome",
+        "items": [
+          {
+            "text": "Decrease in production in first year",
+            "subtext": "Apply manure and fertilizer."
+          },
+          {
+            "text": "Terrace riser can be destroyed by storms – and, sometimes, rodent holes",
+            "subtext": "Good and timely repair and maintenance: planting upper parts of the risers with grass, bushes or even trees help to stabilise the risers but can lead to competition with the crop for water."
+          },
+          {
+            "text": "High cost/input for construction and establishment",
+            "subtext": "Given the high erodibility of the soil and the steep slopes there is no real alternatives to labour-intensive terracing."
+          },
+          {
+            "text": "High loss of soil moisture due to evaporation from the soil surface. Wind erosion due to tillage",
+            "subtext": "Protect soil surface for example by conservation agriculture – comprising permanent cover, crop rotation, reduced tillage – could be supplementary agronomic and vegetative options."
+          }
+        ]
+      }
+    }
+  }
+}

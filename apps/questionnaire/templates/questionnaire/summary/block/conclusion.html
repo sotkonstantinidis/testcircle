@@ -1,0 +1,10 @@
+{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+<div>
+  {{ content.pro.label }}
+  {% include 'questionnaire/summary/partial/conclusion_list.html' with list_items=content.pro.items %}
+</div>
+
+<div>
+  {{ content.contra.label }}
+  {% include 'questionnaire/summary/partial/conclusion_list.html' with list_items=content.contra.items %}
+</div>

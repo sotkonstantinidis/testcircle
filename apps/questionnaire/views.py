@@ -1443,32 +1443,5 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         library in the frontend.
         """
         context = super().get_context_data(**kwargs)
-        default_block_template = '{}block/default.html'.format(
-            self.base_template_path,
-        )
-        data = self.get_prepared_data(self.questionnaire)
-        rendered_blocks = []
-        for block in data:
-            rendered_elements = []
-            elements = block.pop('elements')
-            for element in elements:
-                rendered_elements.append(
-                    render_to_string(
-                        '{}element/default.html'.format(self.base_template_path),
-                        context=element
-                    )
-                )
-
-            block_template_name = '{}block/{}.html'.format(
-                self.base_template_path,
-                slugify(block['title'])
-            )
-            block.update({'rendered_elements': rendered_elements})
-            rendered_blocks.append(
-                render_to_string(
-                    template_name=[block_template_name, default_block_template],
-                    context=block
-                )
-            )
-        context['rendered_blocks'] = rendered_blocks
+        context['block'] = self.get_prepared_data(self.questionnaire)
         return context
