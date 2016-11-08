@@ -289,6 +289,7 @@ class SummaryDataProvider:
         raw_values or their methods.
         """
         for element in elements:
+            # 'raw' may be empty string, in which case the field is omitted.
             if self.raw_data[element['raw']]:
                 if element.get('use_method'):
                     value = element['use_method']
