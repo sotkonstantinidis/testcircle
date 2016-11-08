@@ -1,0 +1,11 @@
+
+<div class="{{ css_class }}">
+  {% if show_header_bar %}
+    <div>{{ title }}</div>
+  {% endif %}
+</div>
+
+{% for element in rendered_elements %}
+  {{ element }}
+{% endfor %}
+

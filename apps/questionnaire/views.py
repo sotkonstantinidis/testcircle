@@ -23,6 +23,7 @@ from django.shortcuts import (
 )
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
+from django.utils.text import slugify
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -1383,13 +1384,17 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
     """
     # Activate this as soon as frontend is finished.
     # response_class = CachedPDFTemplateResponse
-    template_name = 'questionnaire/export_summary.html'
+
     # Refactor this when more than one summary type is available.
     summary_type = 'full'
+    base_template_path = 'questionnaire/summary/'
 
     def get(self, request, *args, **kwargs):
         self.questionnaire = self.get_object(id=self.kwargs['id'])
         return super().get(request, *args, **kwargs)
+
+    def get_template_names(self):
+        return '{}/layout/{}.html'.format(self.base_template_path, self.code)
 
     def get_filename(self) -> str:
         """
@@ -1425,9 +1430,9 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
             locale=get_language(),
             original_locale=questionnaire.original_locale
         )
-        config = questionnaire.configurations.filter(active=True).first().code
+        self.code = questionnaire.configurations.filter(active=True).first().code
         return get_summary_data(
-            config=get_configuration(configuration_code=config),
+            config=get_configuration(configuration_code=self.code),
             summary_type=self.summary_type,
             **data
         )
@@ -1438,5 +1443,32 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         library in the frontend.
         """
         context = super().get_context_data(**kwargs)
-        context['data'] = json.dumps(self.get_prepared_data(self.questionnaire))
+        default_block_template = '{}block/default.html'.format(
+            self.base_template_path,
+        )
+        data = self.get_prepared_data(self.questionnaire)
+        rendered_blocks = []
+        for block in data:
+            rendered_elements = []
+            elements = block.pop('elements')
+            for element in elements:
+                rendered_elements.append(
+                    render_to_string(
+                        '{}element/default.html'.format(self.base_template_path),
+                        context=element
+                    )
+                )
+
+            block_template_name = '{}block/{}.html'.format(
+                self.base_template_path,
+                slugify(block['title'])
+            )
+            block.update({'rendered_elements': rendered_elements})
+            rendered_blocks.append(
+                render_to_string(
+                    template_name=[block_template_name, default_block_template],
+                    context={**block}
+                )
+            )
+        context['rendered_blocks'] = rendered_blocks
         return context
