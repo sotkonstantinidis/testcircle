@@ -1467,7 +1467,7 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
             rendered_blocks.append(
                 render_to_string(
                     template_name=[block_template_name, default_block_template],
-                    context={**block}
+                    context=block
                 )
             )
         context['rendered_blocks'] = rendered_blocks
