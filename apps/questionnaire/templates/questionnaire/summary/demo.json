@@ -32,6 +32,675 @@
       }
     }
   },
+  "location": {
+    "title": "Location",
+    "partials": {
+      "map": {
+        "url": "map.jpg"
+      },
+      "list": [
+        {
+          "label": "Location",
+          "text": "Zhuanglang County, Gansu Province (Loess Plateau Region), PR China"
+        },
+        {
+          "label": "No. of Technology sites analysed",
+          "text": "not known"
+        },
+        {
+          "label": "Geo-reference",
+          "text": "not available"
+        },
+        {
+          "label": "Spread of the Technology",
+          "text": "Evenly spread over an area (1,088 km 2 )"
+        },
+        {
+          "label": "Date of implementation",
+          "text": "> 50 years ago (since the 1950s)"
+        },
+        {
+          "label": "Type of introduction",
+          "text": "projects/ external interventions (Government-led programme)"
+        }
+      ]
+    }
+  },
+  // this block needs discussion - it's likely we can't crap/arrange the pictures exactly like in the word file
+  "images": {
+    "partials": {
+      "images": [
+        {
+          "url": "picture_1.png",
+          "caption": "A 4 m high terrace riser, where the lower part is vertical and bare – demonstrating the stability of the loess soil at this depth. The upper part is sloping, and stabilised with grasses, bushes and trees. (Hanspeter Liniger)"
+        }
+      ]
+    }
+  },
+  "classification": {
+    "title": "classification of the technology",
+    "partials": {
+      "landuse": {
+        "title": "Land use",
+        "partials": [
+          {
+            "url": "/icon-wheat.png",
+            "label": "Annual cropping",
+            "text": "Main crops: wheat, maize, potato, peas, millet, sorghum"
+          },
+          {
+            "url": "/icon-wood.png",
+            "label": "(Semi-)natural forests/ woodlands",
+            "text": "Selective felling; used for timber, fuelwood, other forest products"
+          }
+        ]
+      },
+      "comments": {
+        "partials": [
+          {
+            "label": "Land use before implementation of the Technology",
+            "text": "Wasteland"
+          },
+          {
+            "label": "Water supply",
+            "text": "Mixed rainfed-irrigated"
+          },
+          {
+            "label": "Number of growing seasons per year",
+            "text": "2"
+          }
+        ]
+      },
+      "main_purpose": {
+        "title": "Main purpose",
+        "partials": [
+          {
+            "text": "reduce, prevent, restore land degradation"
+          },
+          {
+            "text": "conserve ecosystem"
+          },
+          {
+            "text": "protect a watershed / downstream areas"
+          }
+        ]
+      },
+      "degredation": {
+        "title": "Degradation addressed (s.a.p.)",
+        "partials": [
+          {
+            "url": "/icon-water-erosion.png",
+            "label": "",
+            "text": "Soil erosion by water: loss of topsoil, gully erosion"
+          },
+          {
+            "url": "/icon-chemical-degradation.png",
+            "label": "",
+            "text": "Chemical degradation: fertility decline and reduced organic matter content"
+          }
+        ]
+      },
+      "purpose": {
+        "title": "Purpose related to land degradation",
+        "partials": [
+          {
+            "text": "prevent land degradation"
+          },
+          {
+            "text": "reduce land degradation"
+          },
+          {
+            "text": "restore/rehabilitate severely degraded land"
+          },
+          {
+            "text": "adapt to land degradation"
+          },
+          {
+            "text": "not applicable"
+          }
+        ]
+      },
+      "slm_group": {
+        "title": "SLM group",
+        "partials": [
+          {
+            "text": "Cross-slope barriers"
+          },
+          {
+            "text": "Irrigation management"
+          },
+          {
+            "text": "Other: specify"
+          }
+        ]
+      },
+      "measures": {
+        "title": "SLM measures",
+        "partials": [
+          {
+            "url": "/icon-terrace.png",
+            "text": "Structural: Terraces"
+          },
+          {
+            "url": "/icon-vegetative.png",
+            "text": "Vegetative: Grasses and perennial herbaceous plants"
+          },
+          {
+            "url": "/icon-management.png",
+            "text": "Management: traritrara fidirullala jucheissassa"
+          },
+          {
+            "url": "/icon-agronomic.png",
+            "text": "Agronomic : Contour tillage, application of manure"
+          }
+        ]
+      }
+    }
+  },
+  "technical_drawing": {
+    "title": "Technical drawing",
+    "partials": {
+      "title": "Technical specifications",
+      "text": "Layout of level bench terraces on the Loess Plateau: the lower, vertical section is cut into the compacted soil. Natural grasses –or planted grass/ shrub species – protect the more erodible and less steep upper part of the riser. Species used involve: X, Y and Z plants. The low ‘lip’ is optional (0.2-0.3 m high). Terraces are 1-2 m high (vertical interval), the terrace bed is 3.5 – 5 m long (spacing  between terrace risers). In the case study area the original slope is 25-35%. After terracing the slope is 0%. The terrace beds are levelled (no gradient). Insert 1: Method of construction: the volume of soil to be excavated from the hillslope (see table below) equals the volume ‘returned’ to form the outer part of the terrace. Insert 2: Chinese Bench Terrace Technical Specifications. If technical specifications text is very long we can still place it below the technical drawing. If technical specifications text is very long we can still place it below the technical drawing. If technical specifications text is very long we can still place it below the technical drawing. If technical specifications text is very long we can still place it below the technical drawing. If technical specifications text is very long we  can still place it below the technical drawing. If technical specifications text is very long we can still place it below the technical drawing. If technical specifications text is very long we can still place it below the technical drawing.",
+      "url": "technical_drawing.png"
+    }
+  },
+  "establishment_activities": {
+    "title": "Establishment activities, inputs and costs",
+    "partials": {
+      // i decided to 'latten' the list, this needs discussion, but is plain text in the source anyhow...
+      "title": "Establishment activities",
+      "list": [
+        "Contour lines are marked out using pegs to show the location for the base of each terrace wall (after harvest in September).",
+        "A trench is dug out along the marked line to serve as the foundation for the terrace wall",
+        "The topsoil between the pegged lines is removed and put aside.",
+        "Alternative ways of constructing the wall/riser and bed: (a) Subsoil is placed in the trench and compacted to form the base of the terrace wall. Subsoil excavated from the upper portion of the terrace is then placed behind the wall. The wall is progressively built up (by compacting earth) with the excavated soil placed behind until a level terrace has been formed. (b) Terraces may be built without constructing an initial wall: soil excavated from the upper part of the (eventual) terrace bed is simply moved downslope to level the bed, while soil from the terrace below is thrown upwards to help build up the wall/ riser. This is done progressively.",
+        "The wall is raised slightly higher to form a lip to retain rainwater on the terrace bed (optional).",
+        "The set-aside topsoil is then spread over the terrace surface.",
+        "Terrace construction (steps 2-6) usually begins just after harvest (in October) and continues over the winter months, being completed before the start of the next cropping season (January). Terraces were constructed entirely by hand, using shovels and 2-wheel carts move soil from the back of the terrace to the front. Duration of establishment takes 3-4 months"
+      ],
+      "table": {
+        "title": "Establishment inputs and costs per ha",
+        "head": {
+          "0": "Inputs (earth ridge)",
+          "1": "Costs (US$)",
+          "2": "%  l.u."
+        },
+        "partials": [
+          {
+            "head": "Labour",
+            "items": [
+              {
+                "0": "construction: 600 person-days",
+                "1": "1,200",
+                "2": "97%"
+              },
+              {
+                "0": "survey",
+                "1": "60",
+                "2": "0"
+              }
+            ]
+          },
+          {
+            "head": "Equipment",
+            "items": [
+              {
+                "0": "Tools: shovels, 2 wheel carts",
+                "1": "30",
+                "2": "100%"
+              },
+              {
+                "0": "Machine hours",
+                "1": "",
+                "2": ""
+              }
+            ]
+          },
+          {
+            "head": "Plant materials",
+            "items": [
+              {
+                "0": "Fruit tree seedling (250 pc.)",
+                "1": "",
+                "2": ""
+              },
+              {
+                "0": "Grass seeds (4 kg)",
+                "1": "",
+                "2": ""
+              }
+            ]
+          },
+          {
+            "head": "Fertilizers and biocides",
+            "items": [
+              {
+                "0": "Fertilizers (250 kg NPK)",
+                "1": "",
+                "2": ""
+              },
+              {
+                "0": "Biocides (6 kg)",
+                "1": "",
+                "2": ""
+              }
+            ]
+          },
+          {
+            "head": "Fertilizers and biocides",
+            "items": [
+              {
+                "0": "Fertilizers (250 kg NPK)",
+                "1": "",
+                "2": ""
+              },
+              {
+                "0": "Biocides (6 kg)",
+                "1": "",
+                "2": ""
+              },
+              {
+                "0": "Manure (15 tons)",
+                "1": "",
+                "2": ""
+              }
+            ]
+          },
+          {
+            "head": "Construction materials",
+            "items": [
+              {
+                "0": "Earth (2,000 – 2,500 m³)",
+                "1": "0",
+                "2": "0%"
+              },
+              {
+                "0": "Sand (250 m³)",
+                "1": "",
+                "2": ""
+              }
+            ]
+          }
+        ],
+        "total": {
+          "0": "Total",
+          "1": "1290",
+          "2": "93%"
+        },
+        "appendix": "3% of labour costs are paid by the Government"
+      }
+    }
+  },
+  "maintenance": {
+    "title": "Maintenance activities, inputs and costs",
+    "partials": {
+      "activities": {
+        "title": "Maintenance activities",
+        "items": [
+          "Repairing any collapses in the terrace wall – often caused by heavy storms.",
+          "Re-levelling of the terraces where necessary. This work is usually done by hand, using shovels and two-wheel carts. Timing: after the rainy season."
+        ]
+      },
+      "calculation": {
+        "title": "Calculation of inputs and costs",
+        "items": [
+          "Costs are calculated per: 100 m of terrace",
+          "Currency used for cost calculation: USD",
+          "Exchange rate (to USD): n.a.",
+          "Average wage cost of hired labour: n.a."
+        ],
+        "text": "Remarks: Calculations of costs are based on the following situation: slopes of about 25-35%, bed width of 3.5-6 m, and a Most important factors affecting costs: Labour costs are very high. The steeper the slope and the higher the terrace risers, the more soil has to be dug (see insert 2 in technical drawing)"
+      },
+      "table": {
+        "title": "Maintenance inputs and costs per ha",
+        "head": {
+          "0": "Inputs",
+          "1": "Costs (US$)",
+          "2": "%  l.u."
+        },
+        "partials": [
+          {
+            "head": "Labour",
+            "items": [
+              {
+                "0": "12 person days",
+                "1": "25",
+                "2": "97%"
+              }
+            ]
+          },
+          {
+            "head": "Equipment",
+            "items": [
+              {
+                "0": "Tools (shovels, two-wheel carts)",
+                "1": "10",
+                "2": "100%"
+              }
+            ]
+          },
+          {
+            "head": "Materials",
+            "items": [
+              {
+                "0": "Earth (1-2m3)",
+                "1": "0",
+                "2": "0%"
+              }
+            ]
+          }
+        ],
+        "total": {
+          "0": "Total",
+          "1": "35",
+          "2": "98%"
+        }
+      }
+    }
+  },
+  "natural_environment": {
+    // to discuss
+  },
+  "impacts": {
+    "title": "Impacts: Benefits and disadvantages",
+    "partials": {
+      "scales": [
+        {
+          "subtitle": "Impacts",
+          "partials": [
+            {
+              "title": "Socio-economic impacts",
+              "items": [
+                {
+                  "label": "crop production",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                },
+                {
+                  "label": "farm income",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "5"
+                },
+                {
+                  "label": "field operations",
+                  "range": "7",
+                  "min": "hindered",
+                  "max": "simplified",
+                  "selected": "7"
+                }
+              ]
+            },
+            {
+              "title": "Socio-cultural impacts",
+              "items": [
+                {
+                  "label": "community institutions",
+                  "range": "7",
+                  "min": "weakened",
+                  "max": "strengthened",
+                  "selected": "6"
+                },
+                {
+                  "label": "SLM/ land degradation knowledge",
+                  "range": "7",
+                  "min": "reduced",
+                  "max": "improved",
+                  "selected": "6"
+                }
+              ]
+            },
+            {
+              "title": "Ecological impacts",
+              "items": [
+                {
+                  "label": "soil loss",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                },
+                {
+                  "label": "soil moisture",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "5"
+                }
+              ]
+            },
+            {
+              "title": "Off-site impacts",
+              "items": [
+                {
+                  "label": "downstream flooding",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "6"
+                },
+                {
+                  "label": "downstream situation",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                },
+                {
+                  "label": "wind transported sediments",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "subtitle": "Impacts",
+          "partials": [
+            {
+              "title": "Socio-economic impacts",
+              "items": [
+                {
+                  "label": "crop production",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                },
+                {
+                  "label": "farm income",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "5"
+                },
+                {
+                  "label": "field operations",
+                  "range": "7",
+                  "min": "hindered",
+                  "max": "simplified",
+                  "selected": "7"
+                }
+              ]
+            },
+            {
+              "title": "Socio-cultural impacts",
+              "items": [
+                {
+                  "label": "community institutions",
+                  "range": "7",
+                  "min": "weakened",
+                  "max": "strengthened",
+                  "selected": "6"
+                },
+                {
+                  "label": "SLM/ land degradation knowledge",
+                  "range": "7",
+                  "min": "reduced",
+                  "max": "improved",
+                  "selected": "6"
+                }
+              ]
+            },
+            {
+              "title": "Ecological impacts",
+              "items": [
+                {
+                  "label": "soil loss",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                },
+                {
+                  "label": "soil moisture",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "5"
+                }
+              ]
+            },
+            {
+              "title": "Off-site impacts",
+              "items": [
+                {
+                  "label": "downstream flooding",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "6"
+                },
+                {
+                  "label": "downstream situation",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                },
+                {
+                  "label": "wind transported sediments",
+                  "range": "7",
+                  "min": "decreased",
+                  "max": "increased",
+                  "selected": "7"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "comments": "Comments and quantification regarding impacts"
+    }
+  },
+  "climate_change": {
+    "title": "Climate change",
+    "partials": {
+      "introduction": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters) Type of climatic change/ extremeHow does the Technology cope with these changes/ extremes",
+      "scale": {
+        "subtitle": "",
+        "partials": [
+          {
+            "title": "",
+            "items": [
+              {
+                "label": "Annual temperature increase",
+                "range": "5",
+                "min": "not well",
+                "max": "very well",
+                "selected": "4"
+              },
+              {
+                "label": "Seasonal rainfall increase",
+                "range": "5",
+                "min": "not well",
+                "max": "very well",
+                "selected": "5"
+              },
+              {
+                "label": "local rainstorms",
+                "range": "5",
+                "min": "not well",
+                "max": "very well",
+                "selected": "3"
+              },
+              {
+                "label": "local duststorms",
+                "range": "5",
+                "min": "not well",
+                "max": "very well",
+                "selected": "2"
+              },
+              {
+                "label": "Land slides",
+                "range": "5",
+                "min": "not well",
+                "max": "very well",
+                "selected": "4"
+              }
+            ]
+          }
+        ]
+      },
+      "comments": "Adaptation The technology has been modified recently to adapt to climatic changes / extremes: Terrace risers have been stabilized by planting  perennial shrubs."
+    }
+  },
+  "cost_benefit": {
+    "title": "Cost benefit ratio",
+    "partials": {
+      "scale": {
+        "subtitle": "",
+        "partials": [
+          {
+            "title": "Benefits compared with establishment costs",
+            "items": [
+              {
+                "label": "Short-term returns",
+                "range": "7",
+                "min": "negative",
+                "max": "positive",
+                "selected": "2"
+              },
+              {
+                "label": "Short-term returns",
+                "range": "7",
+                "min": "negative",
+                "max": "positive",
+                "selected": "7"
+              }
+            ]
+          },
+          {
+            "title": "Benefits compared with establishment costs",
+            "items": [
+              {
+                "label": "Short-term returns",
+                "range": "7",
+                "min": "negative",
+                "max": "positive",
+                "selected": "2"
+              },
+              {
+                "label": "Short-term returns",
+                "range": "7",
+                "min": "negative",
+                "max": "positive",
+                "selected": "7"
+              }
+            ]
+          }
+        ]
+      },
+      "adoption": "How many land users in the area have adopted/implemented the Technology?: > 50%"
+    }
+  },
   "conclusion": {
     "title": "Conclusion & Comparison",
     "partials": {
@@ -80,5 +749,38 @@
         ]
       }
     }
+  },
+  "references": {
+    "title": "References",
+    "partials": [
+      {
+        "title": "Compiler",
+        "items": [
+          "Mats Gurtner – email – phone – www – etc."
+        ]
+      },
+      {
+        "title": "Resource persons",
+        "items": [
+          "Hanspeter Liniger – email – phone – www – etc.",
+          "Rima Mekdaschi-Studer – email – phone – www – etc."
+        ]
+      },
+      {
+        "title": "Key references",
+        "items": [
+          "Terraces In China. Published By Ministry Of Water Resources Beijing, PRC. 1989",
+          "Conservancy engineering budgetary estimate ration. Issued by Ministry of water resources of PRC, Published by Yellow-river water conservancy publishing company, Zhengzhou, PRC, 2003",
+          "A Great Cause for Centuries – 50 Years in Water and Soil Conservation in China. Published by Department of Soil and Water Conservation, Ministry of Water Resources Beijing, PRC, 2000",
+          "Dongyinglin, Changpiguang, Wangzhihua 1990: Discussion on several questions on increasing production of the terrace with two banks; Soil and Water Conservation Science and Technology in Shanxi. No. 1, p 36–37"
+        ]
+      },
+      {
+        "title": "Videos",
+        "items": [
+          "available on: <a href=''>insert Link / URL</a>"
+        ]
+      }
+    ]
   }
 }
