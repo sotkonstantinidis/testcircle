@@ -35,7 +35,7 @@ class LockStatusQuerySet(models.QuerySet):
         return now() - timedelta(minutes=settings.QUESTIONNAIRE_LOCK_TIME)
 
     def filter_code(self, code: str):
-        return self.filter(questionnaire__code=code)
+        return self.filter(questionnaire_code=code)
 
     def is_blocked(self, code: str, for_user=None):
         """
@@ -57,8 +57,3 @@ class LockStatusQuerySet(models.QuerySet):
             filters |= Q(user=for_user)
 
         return self.filter_code(code=code).filter(filters)
-
-
-# views anpassen
-# receivers anpassen
-# tests anpassen

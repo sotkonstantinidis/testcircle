@@ -45,4 +45,4 @@ class QuestionnaireConf(AppConf):
         'unccd_description': 'definition',
     }
 
-    LOCK_TIME = 5  # Number of minutes that questionnaires are locked.
+    LOCK_TIME = 10  # Number of minutes that questionnaires are locked.

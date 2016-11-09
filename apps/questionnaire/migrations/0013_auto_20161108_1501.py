@@ -16,9 +16,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Lock',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('questionnaire_code', models.CharField(max_length=50)),
                 ('start', models.DateTimeField(auto_now_add=True)),
                 ('is_finished', models.BooleanField(default=False)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.RemoveField(
@@ -29,15 +31,5 @@ class Migration(migrations.Migration):
             model_name='questionnairetranslation',
             name='language',
             field=models.CharField(max_length=63, choices=[('en', 'English'), ('es', 'Spanish'), ('fr', 'French'), ('ru', 'Russian'), ('pt', 'Portuguese'), ('ar', 'Arabic')]),
-        ),
-        migrations.AddField(
-            model_name='lock',
-            name='questionnaire',
-            field=models.ForeignKey(to='questionnaire.Questionnaire'),
-        ),
-        migrations.AddField(
-            model_name='lock',
-            name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
         ),
     ]
