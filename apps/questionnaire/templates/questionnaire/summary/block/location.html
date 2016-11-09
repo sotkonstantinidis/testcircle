@@ -1,6 +1,7 @@
 <div>
 {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
   <div class="output tech-section-content">
+    <img src="{{ content.image.url }}">
     <h5>{{ content.lead.text }}</h5>
     {{ content.text.text }}
 </div>

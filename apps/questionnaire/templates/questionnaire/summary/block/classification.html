@@ -1,0 +1,8 @@
+{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+<div class="output tech-section-content">
+  {#  <h5>{{ content.lead.text }}</h5> #}
+  <div>
+    <h5>{{ content.land_use.label }}</h5>
+    {% include 'questionnaire/summary/partial/image_with_caption.html' with list_items=content.land_use.items %}
+  </div>
+</div>

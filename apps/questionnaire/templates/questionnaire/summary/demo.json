@@ -3,7 +3,7 @@
     "title": "",
     "partials": {
       "image": {
-        "url": "foo.jpg"
+        "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
       },
       "caption": {
         "title": "A nice picture",
@@ -55,6 +55,45 @@
           },
           {
             "text": "Easier field operations: the level terrace is easier to cultivate than the original hill slope"
+          }
+        ]
+      },
+      "contra": {
+        "label": "Weaknesses/ disadvantages/ risks and how they can be overcome",
+        "items": [
+          {
+            "text": "Decrease in production in first year",
+            "subtext": "Apply manure and fertilizer."
+          },
+          {
+            "text": "Terrace riser can be destroyed by storms – and, sometimes, rodent holes",
+            "subtext": "Good and timely repair and maintenance: planting upper parts of the risers with grass, bushes or even trees help to stabilise the risers but can lead to competition with the crop for water."
+          },
+          {
+            "text": "High cost/input for construction and establishment",
+            "subtext": "Given the high erodibility of the soil and the steep slopes there is no real alternatives to labour-intensive terracing."
+          },
+          {
+            "text": "High loss of soil moisture due to evaporation from the soil surface. Wind erosion due to tillage",
+            "subtext": "Protect soil surface for example by conservation agriculture – comprising permanent cover, crop rotation, reduced tillage – could be supplementary agronomic and vegetative options."
+          }
+        ]
+      }
+    }
+  },
+  "classification": {
+    "title": "Classification of the technology",
+    "partials": {
+      "land_use": {
+        "label": "Land Use",
+        "items": [
+          {
+            "img_url":"/static/assets/img/pictos/degra_watererosion.png",
+            "text": "Diversification of production: terracing makes cultivation of new cash crops possible: flax (for linseed oil), pears, apples, apricots, water melon; all these give high returns and thus make terrace construction profitable."
+          },
+          {
+            "img_url":"/static/assets/img/pictos/degra_watererosion.png",
+            "text": "Improvements of farmers’ living standard and decline in poverty stricken population"
           }
         ]
       },

@@ -1,0 +1,11 @@
+{% for list_item in list_items %}
+  <div class="output-has-images">
+    <img class="output-image-cb" src="{{ list_item.img_url }}">
+    <div class="aside-questiongroup">
+        <ul>
+          <li><h5>{{ list_item.title }}</h5>
+            {{ list_item.text }}</li>
+        </ul>
+    </div>
+  </div>
+{% endfor %}
