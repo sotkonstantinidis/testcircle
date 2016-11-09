@@ -1,0 +1,9 @@
+<ul>
+  {% for list_item in list_items %}
+    <li>
+      {% if list_item.title %}<b>{{ list_item.title }}:</b>{% endif %}
+      {{ list_item.text }}
+      {% if list_item.subtext %}<i>{{ list_item.subtext }}</i>{% endif %}
+    </li>
+  {% endfor %}
+</ul>

@@ -14,7 +14,8 @@ module.exports = function(grunt) {
           imagePath: '/assets/img'
         },
         files: {
-          'static/css/app.css': 'src/scss/app.scss'
+          'static/css/app.css': 'src/scss/app.scss',
+          'static/css/summary.css': 'src/scss/summary.scss'
         }
       },
       deploy: {
@@ -23,7 +24,8 @@ module.exports = function(grunt) {
           imagePath: '/static/assets/img'
         },
         files: {
-          'static/css/app.css': 'src/scss/app.scss'
+          'static/css/app.css': 'src/scss/app.scss',
+          'static/css/summary.css': 'src/scss/summary.scss'
         }
       }
     },
