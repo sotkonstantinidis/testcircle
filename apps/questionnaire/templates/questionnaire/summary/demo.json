@@ -32,6 +32,30 @@
       }
     }
   },
+  "location": {
+    "title": "Location",
+    "partials": {
+      "map": {
+          "url": ""
+        },
+      "infos": {
+        "items": [
+          {
+            "title": "Location",
+            "text": "flax (for linseed oil), pears, apples, apricots, water melon; all these give high returns and thus make terrace construction profitable."
+          },
+          {
+            "title": "No. of Technology sites analysed",
+            "text": "Improvements of farmers’ living standard and decline in poverty stricken population"
+          },
+          {
+            "title": "Spread of technology",
+            "text": "Reduced erosion, reduced loss of rainwater through runoff (increased in water use efficiency) and reduced fertility loss due to reduced slope angle and length"
+          }
+        ]
+        }
+    }
+  },
   "conclusion": {
     "title": "Conclusion & Comparison",
     "partials": {
