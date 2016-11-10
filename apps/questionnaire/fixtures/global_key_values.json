@@ -5341,7 +5341,10 @@
       "keyword": "country",
       "translation": 5002,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "in_summary": {
+          "full": "country"
+        }
       },
       "values": [
         1,

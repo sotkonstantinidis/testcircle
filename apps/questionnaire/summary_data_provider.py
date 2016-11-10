@@ -24,6 +24,17 @@ class SummaryDataProvider:
     - annotate and aggregate values
     - add 'module' hint to create markup upon
     - sort data
+
+    Add values / fields by following these steps:
+    - in the config-json, add the summary_type and unique label.
+      e.g. "in_summary": {
+          "full": "definition"
+        }
+      this will add the field 'definition' to the raw_values of the provider
+      'full'
+    - add the field to the 'content' property
+    - add a method called 'definition' to the class, which gets the values
+
     """
 
     def __init__(self, config: QuestionnaireConfiguration, **data):
@@ -38,14 +49,7 @@ class SummaryDataProvider:
         self.data = self.get_demo_dict()
 
     def get_data(self) -> dict:
-        data = {}
-        for section, fields in self.content.items():
-            data[section] = {
-                'has_header_bar': fields.get('has_header_bar', False),
-                'title': str(fields.get('title', '')),
-                'elements': list(self.get_enriched_elements(fields['elements']))
-            }
-        return data
+        return {section: getattr(self, section) for section in self.content}
 
     def get_demo_dict(self) -> dict:
         """
@@ -54,27 +58,6 @@ class SummaryDataProvider:
         pth = '{}/apps/questionnaire/templates/questionnaire/summary/demo.json'
         with open(pth.format(settings.BASE_DIR)) as data:
             return dict(json.load(data))
-
-    def get_enriched_elements(self, elements: list):
-        """
-        Prepare non-empty elements, enriching them with the values from
-        raw_values or their methods.
-        """
-        for element in elements:
-            # 'raw' may be empty string, in which case the field is omitted.
-            if self.raw_data[element['raw']]:
-                if element.get('use_method'):
-                    value = element['use_method']
-                    label = ''
-                else:
-                    label = str(self.raw_data[element['raw']].get('key', ''))
-                    value = self.raw_data[element['raw']].get('value')
-                yield {
-                    'module': element['module'],
-                    'field_name': element['raw'],
-                    'label': label,
-                    'value': value
-                }
 
     @property
     def summary_type(self):
@@ -89,6 +72,12 @@ class SummaryDataProvider:
     def content(self):
         raise NotImplementedError
 
+    def raw_data_getter(self, key):
+        try:
+            return self.raw_data[key]['value']
+        except (AttributeError, TypeError):
+            return ''
+
 
 class TechnologyFullSummaryProvider(SummaryDataProvider):
     """
@@ -99,60 +88,39 @@ class TechnologyFullSummaryProvider(SummaryDataProvider):
 
     @property
     def content(self):
-         return {
-             'header': {
-                 'elements': [
-                     {
-                         'module': 'image',
-                         'raw': 'header_image_image'
-                     },
-                     {
-                         'raw': 'header_image_remarks',
-                         'module': 'text'
-                     },
-                     {
-                         'raw': 'header_image_caption',
-                         'module': 'lead'
-                     },
-                     {
-                         'raw': 'header_image_photographer',
-                         'module': 'image'
-                     }
-                 ]
-             },
-             'title': {
-                 'title': _('Title'),
-                 'has_header_bar': True,
-                 'elements': [
-                     {
-                         'module': 'h1',
-                         'raw': 'title_name'
-                     },
-                     {
-                         'module': 'h1-addendum',
-                         'raw': 'title_name_local'
-                     }
-                 ]
-             },
-             'description': {
-                 'title': _('Desciption'),
-                 'has_header_bar': True,
-                 'elements': [
-                     {
-                         'module': 'text',
-                         'use_method': self.combine_fields(
-                             'definition', 'description'
-                         ),
-                         'raw': 'definition'
-                     }
-                 ]
-             },
-             'classification_of_the_technology': {
-                 'title': _('Classification of the technology'),
-                 'has_header_bar': True,
-                 'elements': []
-             }
+        return ['header_image', 'title', 'description']
+
+    def header_image(self):
+        return {
+            'partials': {
+                'image': {
+                    'url': self.raw_data_getter('header_image_image')
+                },
+                'caption': {
+                    'title': '{}: '.format(_('Title photo')),
+                    'text': '{caption} {remarks}\n{name}'.format(
+                        caption=self.raw_data_getter('header_image_caption'),
+                        remarks=self.raw_data_getter('header_image_remarks'),
+                        name=self.raw_data_getter('header_image_photographer')
+                    )
+                }
+            }
         }
 
-    def combine_fields(self, *sections):
-        return '\n'.join([self.raw_data[section]['value'] for section in sections])
+    def title(self):
+        return {
+            'partials': {
+                'title': self.raw_data_getter('title_name'),
+                'country': self.raw_data_getter('country'),
+                'local_name': self.raw_data_getter('title_name_local'),
+            }
+        }
+
+    def description(self):
+        return {
+            'title': _('Description'),
+            'partials': {
+                'lead': self.raw_data_getter('definition'),
+                'text': self.raw_data_getter('description')
+            }
+        }

@@ -1,8 +1,11 @@
 <div class="row">
   <h1 class="tech-output-title">
-    {{ content.title.text }}
-    {% if content.country.text %}
-      <span>({{ content.country.text }})</span>
+    {{ content.title }}
+    {% if content.country %}
+      <span>({{ content.country }})</span>
     {% endif %}
   </h1>
+  {% if content.local_name %}
+    {{ content.local_name }}
+  {% endif %}
 </div>
