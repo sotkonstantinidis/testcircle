@@ -16,7 +16,7 @@
       </span>
     {% endfor %}
 
-    {% trans "New SLM Watershed" as empty_name %}
+    {% trans "New Watershed" as empty_name %}
     <h1 class="tech-output-title">{{ raw_data.name|default:empty_name }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
 
     <ul class="tech-infos">
@@ -110,7 +110,7 @@
   </div>
 
   {% if review_config %}
-    {% trans "SLM Watershed" as questionnaire_type %}
+    {% trans "Watershed" as questionnaire_type %}
     {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
   {% endif %}
 
