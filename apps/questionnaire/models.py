@@ -863,7 +863,7 @@ class Questionnaire(models.Model):
 
         if qs_locks.exists():
             raise QuestionnaireLockedException(
-                cls.objects.filter(code=code).first().blocked
+                qs_locks.first().user
             )
         else:
             Lock.objects.create(questionnaire_code=code, user=user)
