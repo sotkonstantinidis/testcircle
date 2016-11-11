@@ -5,7 +5,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "By national standards is the watershed / landscape considered"
+            "en": "By national standards is the watershed considered"
           }
         }
       }
@@ -19,7 +19,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Indicate if the described watershed / landscape is selected as a representative unit of / for a larger watershed, river basin or region."
+            "en": "Indicate if the described watershed is selected as a representative unit of / for a larger watershed, river basin or region."
           }
         }
       }
@@ -47,7 +47,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Total watershed / landscape area in km²"
+            "en": "Total watershed area in km²"
           }
         }
       }
@@ -75,7 +75,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Key reason(s) for selecting this watershed / landscape for assessment and documentation"
+            "en": "Key reason(s) for selecting this watershed for assessment and documentation"
           }
         }
       }
@@ -89,10 +89,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Description of the watershed / landscape"
+            "en": "Description of the watershed"
           },
           "helptext": {
-            "en": "<p>This detailed description should provide a concise but comprehensive picture of the watershed / landscape and its management to outsiders. Major differences of the 2-4 zones of the watershed / landscape should be highlighted. It should therefore address key questions such as: <ol><li>Where is the watershed / landscape located (natural and human environment)?</li><li>What are the main problems/challenges and what are the main objectives of the watershed / landscape management?</li><li>Which are the main Technologies applied (technical, social and institutional)?</li><li>Which are the main target groups / beneficiaries?</li><li>Who are the implementing partners and what is their role?</li><li>What are the environmental, social, cultural and economic impacts of watershed / landscape management?</li></ol></p><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents. Fill in the description at the beginning, but revise it when you have completed the questionnaire.</p>"
+            "en": "<p>This detailed description should provide a concise but comprehensive picture of the watershed and its management to outsiders. Major differences of the 3 zones of the watershed should be highlighted. It should therefore address key questions such as:</p><ol><li>Where is the watershed located (natural and human environment)?</li><li>What are the main problems/challenges and what are the main objectives of the watershed management?</li><li>Which are the main Technologies applied (technical, social and institutional)?</li><li>Which are the main target groups / beneficiaries?</li><li>Who are the implementing partners and what is their role?</li><li>What are the environmental, social, cultural and economic impacts of watershed management?</li></ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents.</p>"
           }
         }
       }
@@ -190,7 +190,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there environmental interactions between upstream and downstream areas in the watershed / landscape? (e.g. water flow of rivers, deposition of sediments, ground water recharge)"
+            "en": "Are there environmental interactions between upstream and downstream areas in the watershed?"
+          },
+          "helptext": {
+            "en": "E.g. water flow of rivers, deposition of sediments, ground water recharge"
           }
         }
       }
@@ -218,7 +221,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there socioeconomic interactions between upstream and downstream resource users in the watershed / landscape? (i.e. social includes e.g. regulatory mechanisms for protecting water resources upstream, economic includes e.g. improved access of upstream land users to downstream markets)"
+            "en": "Are there socioeconomic interactions between upstream and downstream resource users in the watershed?"
+          },
+          "helptext": {
+            "en": "I.e. social includes e.g. regulatory mechanisms for protecting water resources upstream, economic includes e.g. improved access of upstream land users to downstream markets"
           }
         }
       }
@@ -246,7 +252,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Do these human-environmental interactions influence watershed / landscape management aspects? (e.g. conflicts between herders upstream and farmers downstream (or vice versa) could lead to degradation of natural resources, demand for biofuels, population pressure on land, market forces leading to specialisation)"
+            "en": "Do these human-environmental interactions influence watershed management aspects?"
+          },
+          "helptext": {
+            "en": "E.g. conflicts between herders upstream and farmers downstream (or vice versa) could lead to degradation of natural resources, demand for biofuels, population pressure on land, market forces leading to specialisation"
           }
         }
       }
@@ -400,7 +409,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Brief identification of the Watershed / Landscape"
+            "en": "Brief identification of the Watershed"
           }
         }
       }
@@ -414,7 +423,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Contact details of resource persons and institutions involved in the assessment and documentation of the watershed / landscape"
+            "en": "Contact details of resource persons and institutions involved in the documentation"
           }
         }
       }
@@ -442,7 +451,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Define the area of the watershed / landscape"
+            "en": "Define the area of the watershed"
           }
         }
       }
@@ -456,7 +465,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Coordinates in latitude and longitude at the outlet and / or centre of the watershed / landscape area"
+            "en": "Coordinates in latitude and longitude at the outlet and / or centre of the watershed area"
           }
         }
       }
@@ -470,7 +479,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Key reason(s) for selecting this watershed / landscape for assessment and documentation"
+            "en": "Key reason(s) for selecting this watershed for assessment and documentation"
           }
         }
       }
@@ -484,7 +493,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Description of the watershed / landscape"
+            "en": "Description of the watershed"
           }
         }
       }
@@ -501,7 +510,7 @@
             "en": "Photos of the watershed"
           },
           "helptext": {
-            "en": "<ul><li>Provide photos showing an overview and details of the 3 zones of the watershed / landscape</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted!</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_1.jpg\"><p class=\"form-example-legend\">Sourakhak watershed (Afghanistan) used for fuel, fodder, grazing and cash crops (photo: S. Bhuchar, Helvetas)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_2.jpg\"><p class=\"form-example-legend\">Structural measures (contour trenches, check dams, water harvesting structures) in combination with management (grazing and shrub cutting management) and vegetative measures applied in Baqa Kushta watershed (Afghanistan; photo: S. Bhuchar, Helvetas)</p></div></div>"
+            "en": "<ul><li>Provide photos showing an overview and details of the 3 zones of the watershed</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted!</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_1.jpg\"><p class=\"form-example-legend\">Sourakhak watershed (Afghanistan) used for fuel, fodder, grazing and cash crops (photo: S. Bhuchar, Helvetas)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_2.jpg\"><p class=\"form-example-legend\">Structural measures (contour trenches, check dams, water harvesting structures) in combination with management (grazing and shrub cutting management) and vegetative measures applied in Baqa Kushta watershed (Afghanistan; photo: S. Bhuchar, Helvetas)</p></div></div>"
           }
         }
       }
@@ -515,7 +524,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Map of the delineated major Land Use Types (LUTs), Land Use Sub-Types (LUSTs) and Land Management (LM) for each zone of the watershed / landscape (current situation)"
+            "en": "Map of the watershed assessment"
+          },
+          "helptext": {
+            "en": "Upload the map of the delineated major Land Use Types (LUTs), Land Use Sub-Types (LUSTs) and Land Management (LM) for each zone of the watershed (current situation) in one map."
           }
         }
       }
@@ -529,7 +541,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "If available provide any other map(s) that support characterization of the watershed / landscape (e.g. altitude, annual rainfall, slopes, soils etc.)"
+            "en": "Additional map(s) that support characterization of the watershed"
+          },
+          "helptext": {
+            "en": "If available provide any other map(s) that support characterization of the watershed (e.g. altitude, annual rainfall, slopes, soils etc.)."
           }
         }
       }
@@ -560,7 +575,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there environmental interactions between upstream and downstream areas in the watershed / landscape?"
+            "en": "Are there environmental interactions between upstream and downstream areas in the watershed?"
           }
         }
       }
@@ -574,7 +589,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there socioeconomic interactions between upstream and downstream resource users in the watershed / landscape?"
+            "en": "Are there socioeconomic interactions between upstream and downstream resource users in the watershed?"
           }
         }
       }
@@ -588,7 +603,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Do these human-environmental interactions influence watershed / landscape management aspects?"
+            "en": "Do these human-environmental interactions influence watershed management aspects?"
           }
         }
       }
@@ -672,7 +687,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Watershed / landscape information"
+            "en": "Watershed information"
           }
         }
       }
@@ -686,7 +701,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Results of the watershed / landscape mapping and assessment"
+            "en": "Results of the watershed mapping and assessment"
+          },
+          "helptext": {
+            "en": "The results are based on the offline watershed assessment tool and uploaded to the online database."
           }
         }
       }
@@ -1888,7 +1906,8 @@
                             "form_options": {
                               "question_conditions": [
                                 "=='1'|ws_environmental_interactions_specify"
-                              ]
+                              ],
+                              "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "label_position": "none"
@@ -1918,7 +1937,8 @@
                             "form_options": {
                               "question_conditions": [
                                 "=='1'|ws_socioeconomic_interactions_specify"
-                              ]
+                              ],
+                              "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "label_position": "none"
@@ -1948,7 +1968,8 @@
                             "form_options": {
                               "question_conditions": [
                                 "=='1'|ws_interactions_influence_specify"
-                              ]
+                              ],
+                              "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "label_position": "none"
