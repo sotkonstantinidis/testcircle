@@ -4952,7 +4952,10 @@
       "keyword": "app_definition",
       "translation": 7104,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "definition"
+        }
       }
     },
     "model": "configuration.key",
@@ -6865,7 +6868,10 @@
       "keyword": "app_description",
       "translation": 7105,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "description"
+        }
       }
     },
     "model": "configuration.key",

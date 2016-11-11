@@ -15,6 +15,12 @@ def get_summary_data(config: QuestionnaireConfiguration, summary_type: str, **da
         return TechnologyFullSummaryProvider(
             config=config, **data
         ).data
+
+    if config.keyword == 'approaches' and summary_type == 'full':
+        return ApproachesSummaryProvider(
+            config=config, **data
+        )
+
     raise Exception('Summary not configured.')
 
 
@@ -72,23 +78,16 @@ class SummaryDataProvider:
     def content(self):
         raise NotImplementedError
 
+
+class GlobalValuesMixin:
+    """
+    Mixin for globally configured values
+    """
     def raw_data_getter(self, key):
         try:
             return self.raw_data[key]['value']
         except (AttributeError, TypeError):
             return ''
-
-
-class TechnologyFullSummaryProvider(SummaryDataProvider):
-    """
-    Store configuration for annotation, aggregation, module type and order for
-    technology questionnaires.
-    """
-    summary_type = 'full'
-
-    @property
-    def content(self):
-        return ['header_image', 'title', 'description']
 
     def header_image(self):
         return {
@@ -124,3 +123,25 @@ class TechnologyFullSummaryProvider(SummaryDataProvider):
                 'text': self.raw_data_getter('description')
             }
         }
+
+
+class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
+    """
+    Configuration for 'full' technology summary.
+    """
+    summary_type = 'full'
+
+    @property
+    def content(self):
+        return ['header_image', 'title', 'description']
+
+
+class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
+    """
+    Configuration for 'full' approaches summary.
+    """
+    summary_type = 'full'
+
+    @property
+    def content(self):
+        return ['header_image', 'title', 'description']
