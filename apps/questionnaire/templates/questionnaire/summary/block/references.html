@@ -1,0 +1,31 @@
+{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+<div class="row">
+  <div class="small-6 columns">
+    <h5>{{ content.0.title }}</h5>
+    <ul>
+    {% for list_item in content.0.items %}
+      <li>{{ list_item }} </li>
+    {% endfor %}
+    </ul>
+    <h5>{{ content.1.title }}</h5>
+    <ul>
+    {% for list_item in content.1.items %}
+      <li>{{ list_item }} </li>
+    {% endfor %}
+    </ul>
+    <h5>{{ content.2.title }}</h5>
+    <ul>
+    {% for list_item in content.2.items %}
+      <li>{{ list_item }} </li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="small-6 columns">
+    <h5>{{ content.3.title }}</h5>
+    <ul>
+    {% for list_item in content.3.items %}
+      <li>{{ list_item }} </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
