@@ -20,7 +20,7 @@
         },
         "watershed": {
           "label": {
-            "en": "Name of the watershed / landscape"
+            "en": "Name of the watershed"
           }
         }
       }
@@ -765,7 +765,7 @@
         },
         "watershed": {
           "label": {
-            "en": "Weaknesses/ disadvantages/ risks in the land user’s view"
+            "en": "Weaknesses/ disadvantages/ risks in the watershed user’s view"
           },
           "helptext": {
             "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
@@ -1054,10 +1054,7 @@
         },
         "watershed": {
           "label": {
-            "en": "Local name"
-          },
-          "helptext": {
-            "en": "In latin letters"
+            "en": "Locally used name"
           }
         }
       }
