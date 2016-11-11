@@ -1,5 +1,4 @@
 {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
-<div class="output tech-section-content row">
 <div class="small-6 columns">
   <h5>{{ content.pro.label }}</h5>
   {% include 'questionnaire/summary/partial/conclusion_list.html' with list_items=content.pro.items %}
@@ -7,5 +6,4 @@
 <div class="small-6 columns">
   <h5>{{ content.contra.label }}</h5>
   {% include 'questionnaire/summary/partial/conclusion_list.html' with list_items=content.contra.items %}
-</div>
 </div>

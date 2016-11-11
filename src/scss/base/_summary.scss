@@ -1,0 +1,46 @@
+body.summary {
+  background-color: white;
+  font-size: 0.75rem;
+
+  h1 {
+    font-size: $h1-font-size;
+    margin-top: 1rem;
+
+  }
+  h2 {
+    font-size: $h2-font-size;
+    text-transform: uppercase;
+  }
+  h5 {
+    font-size: $h5-font-size;
+    font-weight: bold;
+    margin: 1rem 0rem 0.5rem 0rem;
+  }
+
+  ul {
+    margin-left: 0rem;
+  }
+
+  .row {
+    margin-bottom: 1rem;
+  }
+
+  .header-img {
+    max-width: 100%;
+  }
+  .img-caption {
+    background-color: $color-beige-dark;
+    color: white;
+    padding: 0.6rem 0.6rem 0.6rem 1rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+  }
+
+  .tech-section-content {
+    padding: 1rem 0rem 1rem 0rem;
+  }
+
+  .tech-section-header {
+    padding-left: 0.75rem;
+  }
+}
