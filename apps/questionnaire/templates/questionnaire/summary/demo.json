@@ -32,57 +32,52 @@
         "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
       },
       "infos": {
-        "items": [
-          {
-            "title": "Location",
-            "text": "Zhuanglang County, Gansu Province (Loess Plateau Region), PR China"
-          },
-          {
-            "title": "No. of Technology sites analysed",
-            "items": [
-              "coordinates",
-              "coordinates 2",
-              "coordinates 3"
-            ]
-          },
-          {
-            "title": "Geo-reference",
-            "text": "not available"
-          },
-          {
-            "title": "Spread of the Technology",
-            "text": "Evenly spread over an area (1,088 km 2 )"
-          },
-          {
-            "title": "Date of implementation",
-            "text": "> 50 years ago (since the 1950s)"
-          },
-          {
-            "title": "Type of introduction",
-            "items": [
-              {
-                "highlighted": false,
-                "text": "through land users’ innovation"
-              },
-              {
-                "highlighted": false,
-                "text": "as part of a traditional system (> 50 years)"
-              },
-              {
-                "highlighted": false,
-                "text": "during experiments/ research"
-              },
-              {
-                "highlighted": true,
-                "text": "through projects/ external interventions"
-              },
-              {
-                "highlighted": false,
-                "text": "other (specify): ……………."
-              }
-            ]
-          }
-        ]
+        "location": {
+          "title": "Location",
+          "text": "Zhuanglang County, Gansu Province (Loess Plateau Region), PR China"
+        },
+        "sites": {
+          "title": "No. of Technology sites analysed",
+          "text": "valute"
+        },
+        "geo_reference": [
+          "coordinates",
+          "coordinates 2",
+          "coordinates 3"
+        ],
+        "spread": {
+          "title": "Spread of the Technology",
+          "text": "Evenly spread over an area (1,088 km 2 )"
+        },
+        "date": {
+          "title": "Date of implementation",
+          "text": "> 50 years ago (since the 1950s)"
+        },
+        "introduction": {
+          "title": "Type of introduction",
+          "items": [
+            {
+              "highlighted": false,
+              "text": "through land users’ innovation"
+            },
+            {
+              "highlighted": false,
+              "text": "as part of a traditional system (> 50 years)"
+            },
+            {
+              "highlighted": false,
+              "text": "during experiments/ research"
+            },
+            {
+              "highlighted": true,
+              "text": "through projects/ external interventions"
+            },
+            {
+              "highlighted": false,
+              "text": "other (specify): ……………."
+            }
+          ]
+        }
       }
     }
   },
@@ -167,6 +162,35 @@
           }
         ]
       },
+      "water_supply": {
+        "title": "Water supply",
+        "partials": {
+          "list": [
+            {
+              "highlighted": true,
+              "text": "rainfed"
+            },
+            {
+              "highlighted": true,
+              "text": "mixed: rainfed and irrigated"
+            },
+            {
+              "highlighted": true,
+              "text": "full irrigation"
+            }
+          ],
+          "text": [
+            {
+              "title": "Number of growing seasons per year",
+              "text": "2"
+            },
+            {
+              "title": "Land use before implementation of the Technology",
+              "text": "Wasteland"
+            }
+          ]
+        }
+      },
       "purpose": {
         "title": "Purpose related to land degradation",
         "partials": [
@@ -193,7 +217,7 @@
         ]
       },
       "degredation": {
-        "title": "Degradation addressed (s.a.p.)",
+        "title": "Degradation addressed",
         "partials": [
           {
             "url": "/icon-water-erosion.png",
@@ -394,14 +418,15 @@
         }
       },
       "maintenance": {
-        "title": "Maintenance activities, inputs and costs",
+        "title": "Maintenance activities",
         "partials": {
           "activities": {
             "title": "Maintenance activities",
             "items": [
               "Repairing any collapses in the terrace wall – often caused by heavy storms.",
               "Re-levelling of the terraces where necessary. This work is usually done by hand, using shovels and two-wheel carts. Timing: after the rainy season."
-            ]
+            ],
+            "comment": "This work is usually done by hand, using shovels and two-wheel carts. Timing: after the rainy season."
           },
           "calculation": {
             "title": "Calculation of inputs and costs",
@@ -463,307 +488,942 @@
     }
   },
   "natural_environment": {
-
+    "title": "Natural environment",
+    "partials": {
+      "rainfall": {
+        "title": "Average annual rainfall",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "< 250 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "251-500 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "501-750 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "751-1,000 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "1,001-1,500 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "1,501-2,000 mm"
+          },
+          {
+            "highlighted": true,
+            "text": "2,001-3,000 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "3,001-4,000 mm"
+          },
+          {
+            "highlighted": false,
+            "text": "> 4,000 mm"
+          }
+        ]
+      },
+      "zone": {
+        "title": "Agro-climatic zone",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "humid"
+          },
+          {
+            "highlighted": false,
+            "text": "sub-humid"
+          },
+          {
+            "highlighted": true,
+            "text": "semiarid"
+          },
+          {
+            "highlighted": false,
+            "text": "arid"
+          }
+        ]
+      },
+      "specifications": {
+        "title": "Specifications on climate",
+        "text": "Text"
+      },
+      "slope": {
+        "title": "Slope",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "flat (0-2%)"
+          },
+          {
+            "highlighted": false,
+            "text": "gentle (3-5%)"
+          },
+          {
+            "highlighted": false,
+            "text": "moderate (6-10%)"
+          },
+          {
+            "highlighted": false,
+            "text": "rolling (11-15%)"
+          },
+          {
+            "highlighted": false,
+            "text": "hilly (16-30%)"
+          },
+          {
+            "highlighted": false,
+            "text": "steep (31-60%)"
+          },
+          {
+            "highlighted": false,
+            "text": "very steep (> 60%)"
+          }
+        ]
+      },
+      "landforms": {
+        "title": "Landforms",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "plateau/ plains"
+          },
+          {
+            "highlighted": false,
+            "text": "ridges"
+          },
+          {
+            "highlighted": false,
+            "text": "mountain slopes"
+          },
+          {
+            "highlighted": false,
+            "text": "hill slopes"
+          },
+          {
+            "highlighted": false,
+            "text": "footslopes"
+          },
+          {
+            "highlighted": false,
+            "text": "valley floors"
+          }
+        ]
+      },
+      "altitude": {
+        "title": "Altitude",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "< 100 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "101-500 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "501-1,000 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "1,001-1,500 m a.s.l"
+          },
+          {
+            "highlighted": false,
+            "text": "1,501-2,000 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "2,001-2,500 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "2,501-3,000 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "3,001-4,000 m a.s.l."
+          },
+          {
+            "highlighted": false,
+            "text": "> 4,000 m a.s.l."
+          }
+        ]
+      },
+      "soil_depth": {
+        "title": "Soil depth",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "very shallow (0-20 cm)"
+          },
+          {
+            "highlighted": false,
+            "text": "shallow (21-50 cm)"
+          },
+          {
+            "highlighted": false,
+            "text": "moderately deep (51-80 cm)"
+          },
+          {
+            "highlighted": false,
+            "text": "deep (81-120 cm)"
+          },
+          {
+            "highlighted": false,
+            "text": "very deep (> 120 cm)"
+          }
+        ]
+      },
+      "soil_texture": {
+        "title": "Soil texture",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "topsoil"
+          },
+          {
+            "highlighted": false,
+            "text": "shallow"
+          },
+          {
+            "highlighted": false,
+            "text": "moderate"
+          },
+          {
+            "highlighted": false,
+            "text": "deep"
+          },
+          {
+            "highlighted": false,
+            "text": "very deep"
+          }
+        ]
+      },
+      "topsoil": {
+        "title": "Topsoil organic matter content",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "high (> 3%)"
+          },
+          {
+            "highlighted": false,
+            "text": "medium (1-3%)"
+          },
+          {
+            "highlighted": false,
+            "text": "low (< 1%)"
+          }
+        ]
+      },
+      "groundwater": {
+        "title": "Groundwater table",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "on surface"
+          },
+          {
+            "highlighted": false,
+            "text": "< 5 m"
+          },
+          {
+            "highlighted": true,
+            "text": "5-50 m"
+          },
+          {
+            "highlighted": false,
+            "text": "> 50 m"
+          }
+        ]
+      },
+      "surface_water": {
+        "title": "Availability of surface water",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "excess"
+          },
+          {
+            "highlighted": false,
+            "text": "good"
+          },
+          {
+            "highlighted": true,
+            "text": "medium/ not permanent"
+          },
+          {
+            "highlighted": false,
+            "text": "poor/ none"
+          }
+        ]
+      },
+      "water_quality": {
+        "title": "Water quality (untreated)",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "good drinking water"
+          },
+          {
+            "highlighted": false,
+            "text": "poor drinking water"
+          },
+          {
+            "highlighted": true,
+            "text": "for agricultural use only"
+          },
+          {
+            "highlighted": false,
+            "text": "unusable"
+          }
+        ]
+      },
+      "flooding": {
+        "title": "Occurrence of flooding",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "frequently"
+          },
+          {
+            "highlighted": false,
+            "text": "episodically"
+          },
+          {
+            "highlighted": true,
+            "text": "never"
+          }
+        ]
+      },
+      "salinity": {
+        "title": "Is salinity a problem?",
+        "items": [
+          {
+            "highlighted": true,
+            "text": "yes"
+          },
+          {
+            "highlighted": false,
+            "text": "no"
+          }
+        ]
+      },
+      "species": {
+        "title": "Species diversity",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "high"
+          },
+          {
+            "highlighted": false,
+            "text": "medium"
+          },
+          {
+            "highlighted": true,
+            "text": "low"
+          }
+        ]
+      },
+      "habitat": {
+        "title": "Habitat diversity",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "high"
+          },
+          {
+            "highlighted": false,
+            "text": "medium"
+          },
+          {
+            "highlighted": true,
+            "text": "low"
+          }
+        ]
+      }
+    }
+  },
+  "human_environment": {
+    "title": "Characteristics of land users applying the Technology",
+    "partials": {
+      "market": {
+        "title": "Market orientation",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "income": {
+        "title": "Off-farm income",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "wealth": {
+        "title": "Relative level of wealth",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "mechanization": {
+        "title": "Level of mechanization",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "sedentary": {
+        "title": "Sedentary or nomadic",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "individuals": {
+        "title": "Individuals or groups",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "gender": {
+        "title": "Gender",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          }
+        ]
+      },
+      "area": {
+        "title": "Area used per household",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          },
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": false,
+            "title": "but same"
+          },
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": false,
+            "title": "but same"
+          }
+        ]
+      },
+      "scale": {
+        "title": "Scale",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          }
+        ]
+      },
+      "ownership": {
+        "title": "Land ownership",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          },
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": false,
+            "title": "but same"
+          }
+        ]
+      },
+      "land_rights": {
+        "title": "Land use rights",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          },
+          {
+            "highlighted": false,
+            "title": "but same"
+          }
+        ]
+      },
+      "water_rights": {
+        "title": "Water use rights",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "same, same"
+          },
+          {
+            "highlighted": false,
+            "title": "but different"
+          },
+          {
+            "highlighted": true,
+            "title": "but same"
+          },
+          {
+            "highlighted": false,
+            "title": "but same"
+          }
+        ]
+      },
+      "access": {
+        "title": "Access to services and infrastructure",
+        "items": [
+          {
+            "label": "health",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "3"
+          },
+          {
+            "label": "education",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": ""
+          },
+          {
+            "label": "technical assistance",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "2"
+          },
+          {
+            "label": "employment (e.g. off-farm)",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "1"
+          },
+          {
+            "label": "markets",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "3"
+          },
+          {
+            "label": "energy",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "3"
+          },
+          {
+            "label": "roads and transport",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": ""
+          },
+          {
+            "label": "drinking water and sanitation",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "2"
+          },
+          {
+            "label": "financial services",
+            "range": "1",
+            "min": "poor",
+            "max": "good",
+            "selected": "2"
+          },
+          {
+            "label": "other (specify",
+            "range": "3",
+            "min": "poor",
+            "max": "good",
+            "selected": "2"
+          }
+        ]
+      }
+    }
   },
   "impacts": {
     "title": "Impacts: Benefits and disadvantages",
     "partials": {
-      "scales": [
-        {
-          "subtitle": "Impacts",
-          "partials": [
-            {
-              "title": "Socio-economic impacts",
-              "items": [
-                {
-                  "label": "crop production",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                },
-                {
-                  "label": "farm income",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "5"
-                },
-                {
-                  "label": "field operations",
-                  "range": "7",
-                  "min": "hindered",
-                  "max": "simplified",
-                  "selected": "7"
-                }
-              ]
-            },
-            {
-              "title": "Socio-cultural impacts",
-              "items": [
-                {
-                  "label": "community institutions",
-                  "range": "7",
-                  "min": "weakened",
-                  "max": "strengthened",
-                  "selected": "6"
-                },
-                {
-                  "label": "SLM/ land degradation knowledge",
-                  "range": "7",
-                  "min": "reduced",
-                  "max": "improved",
-                  "selected": "6"
-                }
-              ]
-            },
-            {
-              "title": "Ecological impacts",
-              "items": [
-                {
-                  "label": "soil loss",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                },
-                {
-                  "label": "soil moisture",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "5"
-                }
-              ]
-            },
-            {
-              "title": "Off-site impacts",
-              "items": [
-                {
-                  "label": "downstream flooding",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "6"
-                },
-                {
-                  "label": "downstream situation",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                },
-                {
-                  "label": "wind transported sediments",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "subtitle": "Impacts",
-          "partials": [
-            {
-              "title": "Socio-economic impacts",
-              "items": [
-                {
-                  "label": "crop production",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                },
-                {
-                  "label": "farm income",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "5"
-                },
-                {
-                  "label": "field operations",
-                  "range": "7",
-                  "min": "hindered",
-                  "max": "simplified",
-                  "selected": "7"
-                }
-              ]
-            },
-            {
-              "title": "Socio-cultural impacts",
-              "items": [
-                {
-                  "label": "community institutions",
-                  "range": "7",
-                  "min": "weakened",
-                  "max": "strengthened",
-                  "selected": "6"
-                },
-                {
-                  "label": "SLM/ land degradation knowledge",
-                  "range": "7",
-                  "min": "reduced",
-                  "max": "improved",
-                  "selected": "6"
-                }
-              ]
-            },
-            {
-              "title": "Ecological impacts",
-              "items": [
-                {
-                  "label": "soil loss",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                },
-                {
-                  "label": "soil moisture",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "5"
-                }
-              ]
-            },
-            {
-              "title": "Off-site impacts",
-              "items": [
-                {
-                  "label": "downstream flooding",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "6"
-                },
-                {
-                  "label": "downstream situation",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                },
-                {
-                  "label": "wind transported sediments",
-                  "range": "7",
-                  "min": "decreased",
-                  "max": "increased",
-                  "selected": "7"
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      "comments": "Comments and quantification regarding impacts"
+      "economic": {
+        "title": "Socio-economic impacts",
+        "items": [
+          {
+            "label": "crop production",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "7"
+          },
+          {
+            "label": "farm income",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "5"
+          },
+          {
+            "label": "field operations",
+            "range": "7",
+            "min": "hindered",
+            "max": "simplified",
+            "selected": "7"
+          }
+        ]
+      },
+      "cultural": {
+        "title": "Socio-cultural impacts",
+        "items": [
+          {
+            "label": "community institutions",
+            "range": "7",
+            "min": "weakened",
+            "max": "strengthened",
+            "selected": "6"
+          },
+          {
+            "label": "SLM/ land degradation knowledge",
+            "range": "7",
+            "min": "reduced",
+            "max": "improved",
+            "selected": "6"
+          }
+        ]
+      },
+      "ecological": {
+        "title": "Ecological impacts",
+        "items": [
+          {
+            "label": "soil loss",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "7"
+          },
+          {
+            "label": "soil moisture",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "5"
+          }
+        ]
+      },
+      "off_site": {
+        "title": "Off-site impacts",
+        "items": [
+          {
+            "label": "downstream flooding",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "6"
+          },
+          {
+            "label": "downstream situation",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "7"
+          },
+          {
+            "label": "wind transported sediments",
+            "range": "7",
+            "min": "decreased",
+            "max": "increased",
+            "selected": "7"
+          }
+        ]
+      },
+      "benefits_establishment": {
+        "title": "Benefits compared with establishment costs",
+        "items": [
+          {
+            "label": "Short-term returns",
+            "range": "7",
+            "min": "very negative",
+            "max": "very positive",
+            "selected": "2"
+          },
+          {
+            "label": "Long-term returns",
+            "range": "7",
+            "min": "very negative",
+            "max": "very positive",
+            "selected": "7"
+          }
+        ]
+      },
+      "benefits_maintenance": {
+        "title": "Benefits compared with maintenance costs",
+        "items": [
+          {
+            "label": "Short-term returns",
+            "range": "6",
+            "min": "very negative",
+            "max": "very positive",
+            "selected": "2"
+          },
+          {
+            "label": "Long-term returns",
+            "range": "7",
+            "min": "very negative",
+            "max": "very positive",
+            "selected": "7"
+          }
+        ]
+      },
+      "comments": "Comments and quantification regarding impacts: Specifications regarding crop production: production increased by 60% after implementation of the Technolog"
     }
   },
   "climate_change": {
     "title": "Climate change",
     "partials": {
-      "introduction": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters) Type of climatic change/ extremeHow does the Technology cope with these changes/ extremes",
+      "title": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters)",
       "scale": {
-        "subtitle": "",
-        "partials": [
+        "items": [
           {
-            "title": "",
-            "items": [
-              {
-                "label": "Annual temperature increase",
-                "range": "5",
-                "min": "not well",
-                "max": "very well",
-                "selected": "4"
-              },
-              {
-                "label": "Seasonal rainfall increase",
-                "range": "5",
-                "min": "not well",
-                "max": "very well",
-                "selected": "5"
-              },
-              {
-                "label": "local rainstorms",
-                "range": "5",
-                "min": "not well",
-                "max": "very well",
-                "selected": "3"
-              },
-              {
-                "label": "local duststorms",
-                "range": "5",
-                "min": "not well",
-                "max": "very well",
-                "selected": "2"
-              },
-              {
-                "label": "Land slides",
-                "range": "5",
-                "min": "not well",
-                "max": "very well",
-                "selected": "4"
-              }
-            ]
-          }
-        ]
-      },
-      "comments": "Adaptation The technology has been modified recently to adapt to climatic changes / extremes: Terrace risers have been stabilized by planting  perennial shrubs."
-    }
-  },
-  "cost_benefit": {
-    "title": "Cost benefit ratio",
-    "partials": {
-      "scale": {
-        "subtitle": "",
-        "partials": [
-          {
-            "title": "Benefits compared with establishment costs",
-            "items": [
-              {
-                "label": "Short-term returns",
-                "range": "7",
-                "min": "negative",
-                "max": "positive",
-                "selected": "2"
-              },
-              {
-                "label": "Short-term returns",
-                "range": "7",
-                "min": "negative",
-                "max": "positive",
-                "selected": "7"
-              }
-            ]
+            "label": "Annual temperature increase",
+            "range": "5",
+            "min": "very poorly",
+            "max": "very well",
+            "selected": "4"
           },
           {
-            "title": "Benefits compared with establishment costs",
-            "items": [
-              {
-                "label": "Short-term returns",
-                "range": "7",
-                "min": "negative",
-                "max": "positive",
-                "selected": "2"
-              },
-              {
-                "label": "Short-term returns",
-                "range": "7",
-                "min": "negative",
-                "max": "positive",
-                "selected": "7"
-              }
-            ]
+            "label": "Seasonal rainfall increase",
+            "range": "5",
+            "min": "very poorly",
+            "max": "very well",
+            "selected": "5"
+          },
+          {
+            "label": "local rainstorms",
+            "range": "5",
+            "min": "very poorly",
+            "max": "very well",
+            "selected": "3"
+          },
+          {
+            "label": "local duststorms",
+            "range": "5",
+            "min": "very poorly",
+            "max": "very well",
+            "selected": "2"
+          },
+          {
+            "label": "Land slides",
+            "range": "5",
+            "min": "very poorly",
+            "max": "very well",
+            "selected": "4"
           }
         ]
-      },
-      "adoption": "How many land users in the area have adopted/implemented the Technology?: > 50%"
+      }
     }
   },
+ "adoption_adaptation": {
+   "title": "Adoption and adaptation",
+   "partials": {
+     "adopted": {
+       "title": "Percentage of land users in the area who have adopted the Technology",
+       "items": [
+         {
+           "highlighted": false,
+           "title": "single cases/ experimental"
+         },
+         {
+           "highlighted": false,
+           "title": "1 - 10%"
+         },
+         {
+           "highlighted": false,
+           "title": "11 - 50%"
+         },
+         {
+           "highlighted": false,
+           "title": "> 50%"
+         }
+       ]
+     },
+     "adopted_no_incentive": {
+       "title": "Percentage of land users who adopted the Technology without material incentives",
+       "items": [
+         {
+           "highlighted": false,
+           "title": "single cases/ experimental"
+         },
+         {
+           "highlighted": false,
+           "title": "1 - 10%"
+         },
+         {
+           "highlighted": false,
+           "title": "11 - 50%"
+         },
+         {
+           "highlighted": false,
+           "title": "> 50%"
+         }
+       ]
+     },
+     "adaptation": {
+       "title": "Adaptation",
+       "text": "The technology has been modified recently to adapt to",
+       "items": [
+          {
+           "highlighted": false,
+           "title": "climatic change/ extremes"
+         },
+         {
+           "highlighted": false,
+           "title": "changing markets"
+         },
+         {
+           "highlighted": false,
+           "title": "labour availability (e.g. due to migration)"
+         }
+       ]
+     },
+     "comments": "Specifications: Terrace risers have been stabilized by planting perennial shrubs."
+   }
+ },
   "conclusion": {
     "title": "Conclusion & Comparison",
     "partials": {
@@ -845,6 +1505,18 @@
           "A Great Cause for Centuries – 50 Years in Water and Soil Conservation in China. Published by Department of Soil and Water Conservation, Ministry of Water Resources Beijing, PRC, 2000",
           "Dongyinglin, Changpiguang, Wangzhihua 1990: Discussion on several questions on increasing production of the terrace with two banks; Soil and Water Conservation Science and Technology in Shanxi. No. 1, p 36–37"
         ]
+      }
+    ]
+  },
+  "project_insitution": {
+    "items": [
+      {
+        "title": "Food and Agriculture Organization of the United Nations",
+        "logo": "http://www.fao.org/fileadmin/templates/faoweb/images/FAO-logo.png"
+      },
+      {
+        "title": "Caritas",
+        "logo": "https://www.caritas.ch/fileadmin/frontend/common/img/logo.png"
       }
     ]
   }
