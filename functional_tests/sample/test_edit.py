@@ -670,7 +670,7 @@ class LockTest(FunctionalTest):
         self.browser.get(self.questionnaire_edit_url)
         self.findBy('xpath', '//div[contains(@class, "notification") '
                              'and contains(@class, "warning")]')
-        # todo: should the edit buttons be disabled?
+        # maybe: should the edit buttons be disabled?
 
     def test_edit_locked(self, mock_get_user_id):
         # The questionnaire is locked for Jay
@@ -680,10 +680,10 @@ class LockTest(FunctionalTest):
         self.doLogin(user=self.robin)
         # Viewing the questionnaire is fine
         self.browser.get(self.questionnaire_view_url)
-        # When Robin tries to edit a section, an exception is raised
-        # todo: return redirect
-        with self.assertRaises(QuestionnaireLockedException):
-            self.browser.get('{}cat_1'.format(self.questionnaire_edit_url))
+        # When Robin tries to edit a section, the browser gets redirected
+        self.browser.get('{}cat_1'.format(self.questionnaire_edit_url))
+        self.browser.implicitly_wait(3)
+        self.assertEqual(self.browser.current_url, self.questionnaire_view_url)
 
     def test_refresh_lock(self, mock_get_user_id):
         self.doLogin(user=self.jay)

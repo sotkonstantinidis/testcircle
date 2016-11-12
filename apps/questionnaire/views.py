@@ -796,7 +796,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         """
         self.set_attributes()
         if self.has_object:
-            Questionnaire.lock_questionnaire(self.object.code, self.request.user)
+            try:
+                Questionnaire.lock_questionnaire(
+                    self.object.code, self.request.user
+                )
+            except QuestionnaireLockedException:
+                return HttpResponseRedirect(self.object.get_absolute_url())
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
