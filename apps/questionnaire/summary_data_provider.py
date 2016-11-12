@@ -124,6 +124,32 @@ class GlobalValuesMixin:
             }
         }
 
+    def conclusion(self):
+        # 'strengths_compiler', 'strengths_landuser'
+        # 'weaknesses_overcome', 'weaknesses_landuser', 'weaknesses_compiler'
+        return {
+            "title": _("Conclusion & Comparison"),
+            "partials": {
+                "pro": {
+                    "label": _("Strengths"),
+                    "items": [
+                        {
+                            "text": "foo"
+                        }
+                    ]
+                },
+                "contra": {
+                    "label": _("Weaknesses/ disadvantages/ risks and how they can be overcome"),
+                    "items": [
+                        {
+                            "text": "a",
+                            "subtext": "b"
+                        }
+                    ]
+                }
+            }
+        }
+
 
 class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     """
@@ -133,7 +159,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'description']
+        return ['header_image', 'title', 'description', 'conclusion']
 
 
 class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):

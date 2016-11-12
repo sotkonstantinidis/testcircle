@@ -5953,6 +5953,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "strengths_landuser"
         }
       }
     },
@@ -5967,6 +5970,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "strengths_compiler"
         }
       }
     },
@@ -5981,6 +5987,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "weaknesses_landuser"
         }
       }
     },
@@ -5995,6 +6004,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "weaknesses_compiler"
         }
       }
     },
@@ -6009,6 +6021,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "weaknesses_overcome"
         }
       }
     },
