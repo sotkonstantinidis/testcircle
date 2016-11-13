@@ -1,6 +1,7 @@
 import collections
 import functools
 import logging
+from copy import copy
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +70,10 @@ class ConfiguredQuestionnaire:
         elif len(value) == 1:
             return child.get_details(data=value[0])
         else:
-            return [child.get_details(single_value) for single_value in value]
+            # If 'copy' is omitted, the same instance is returned for all values
+            # I don't see why - but at this point, this seems the only
+            # workaround.
+            return [copy(child.get_details(single_value)) for single_value in value]
 
     @property
     def active_child_in_store(self):
