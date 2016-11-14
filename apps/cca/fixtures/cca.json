@@ -373,76 +373,16 @@
             "en": "Extent"
           },
           "label_left": {
-            "en": "decreased"
+            "en": " "
           },
           "label_right": {
-            "en": "increased"
+            "en": " "
           }
         }
       }
     },
     "model": "configuration.translation",
     "pk": 28030
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "increased"
-          },
-          "label_right": {
-            "en": "decreased"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28031
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "hindered"
-          },
-          "label_right": {
-            "en": "simplified"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28032
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "increased"
-          },
-          "label_right": {
-            "en": "reduced"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28033
   },
   {
     "fields": {
@@ -505,106 +445,6 @@
     },
     "model": "configuration.translation",
     "pk": 28037
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "reduced"
-          },
-          "label_right": {
-            "en": "improved"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28038
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "worsened"
-          },
-          "label_right": {
-            "en": "improved"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28039
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "reduced"
-          },
-          "label_right": {
-            "en": "increased"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28040
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "weakened"
-          },
-          "label_right": {
-            "en": "strengthened"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28041
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "Extent"
-          },
-          "label_left": {
-            "en": "lowered"
-          },
-          "label_right": {
-            "en": "recharge"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28042
   },
   {
     "fields": {
@@ -1139,6 +979,20 @@
     },
     "model": "configuration.translation",
     "pk": 28085
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "cca": {
+          "label": {
+            "en": " "
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 28094
   },
   {
     "fields": {
@@ -4299,6 +4153,160 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "decreased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29225
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "increased"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29226
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "hindered"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29227
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "simplified"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29228
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "reduced"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29229
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "improved"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29230
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "worsened"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29231
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "weakened"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29232
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "strengthened"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29233
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "lowered"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29234
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "recharge"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 29235
+  },
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "cca": {
@@ -6804,7 +6812,7 @@
   },
   {
     "fields": {
-      "keyword": "cca_impacts_decreased_increased",
+      "keyword": "cca_impacts_extent",
       "translation": 28030,
       "configuration": {
         "type": "measure"
@@ -6821,66 +6829,6 @@
     },
     "model": "configuration.key",
     "pk": 28030
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_increased_decreased",
-      "translation": 28031,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28031
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_hindered_simplified",
-      "translation": 28032,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28032
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_increased_reduced",
-      "translation": 28033,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28033
   },
   {
     "fields": {
@@ -6966,106 +6914,6 @@
     },
     "model": "configuration.key",
     "pk": 28037
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_reduced_improved",
-      "translation": 28038,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28038
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_worsened_improved",
-      "translation": 28039,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28039
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_reduced_increased",
-      "translation": 28040,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28040
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_weakened_strengthened",
-      "translation": 28041,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28041
-  },
-  {
-    "fields": {
-      "keyword": "cca_impacts_lowered_recharge",
-      "translation": 28042,
-      "configuration": {
-        "type": "measure"
-      },
-      "values": [
-        29112,
-        29113,
-        29114,
-        29115,
-        29116,
-        29117,
-        29118
-      ]
-    },
-    "model": "configuration.key",
-    "pk": 28042
   },
   {
     "fields": {
@@ -7843,6 +7691,60 @@
     },
     "model": "configuration.key",
     "pk": 28093
+  },
+  {
+    "fields": {
+      "keyword": "cca_extent_left_label",
+      "translation": 28094,
+      "configuration": {
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
+      },
+      "values": [
+        29225,
+        29226,
+        29227,
+        29228,
+        29229,
+        29230,
+        29231,
+        29232,
+        29233,
+        29234,
+        29235
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28094
+  },
+  {
+    "fields": {
+      "keyword": "cca_extent_right_label",
+      "translation": 28094,
+      "configuration": {
+        "type": "select_type",
+        "view_options": {
+          "template": "value_only"
+        }
+      },
+      "values": [
+        29225,
+        29226,
+        29227,
+        29228,
+        29229,
+        29230,
+        29231,
+        29232,
+        29233,
+        29234,
+        29235
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 28095
   },
   {
     "fields": {
@@ -9840,6 +9742,94 @@
   },
   {
     "fields": {
+      "keyword": "extent_label_decreased",
+      "translation": 29225
+    },
+    "model": "configuration.value",
+    "pk": 29225
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_increased",
+      "translation": 29226
+    },
+    "model": "configuration.value",
+    "pk": 29226
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_hindered",
+      "translation": 29227
+    },
+    "model": "configuration.value",
+    "pk": 29227
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_simplified",
+      "translation": 29228
+    },
+    "model": "configuration.value",
+    "pk": 29228
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_reduced",
+      "translation": 29229
+    },
+    "model": "configuration.value",
+    "pk": 29229
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_improved",
+      "translation": 29230
+    },
+    "model": "configuration.value",
+    "pk": 29230
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_worsened",
+      "translation": 29231
+    },
+    "model": "configuration.value",
+    "pk": 29231
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_weakened",
+      "translation": 29232
+    },
+    "model": "configuration.value",
+    "pk": 29232
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_strengthened",
+      "translation": 29233
+    },
+    "model": "configuration.value",
+    "pk": 29233
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_lowered",
+      "translation": 29234
+    },
+    "model": "configuration.value",
+    "pk": 29234
+  },
+  {
+    "fields": {
+      "keyword": "extent_label_recharge",
+      "translation": 29235
+    },
+    "model": "configuration.value",
+    "pk": 29235
+  },
+  {
+    "fields": {
       "keyword": "cca_qg_1",
       "translation": 27001,
       "configuration": {}
@@ -10254,13 +10244,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10276,13 +10266,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10298,13 +10288,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10326,7 +10316,7 @@
         },
         "view_options": {
           "template": "table3",
-          "column_widths": ["35%", "25%", "40%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10342,13 +10332,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10370,7 +10360,7 @@
         },
         "view_options": {
           "template": "table3",
-          "column_widths": ["35%", "25%", "40%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10386,13 +10376,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10408,13 +10398,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10430,13 +10420,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10452,13 +10442,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10480,7 +10470,7 @@
         },
         "view_options": {
           "template": "table3",
-          "column_widths": ["35%", "25%", "40%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10496,13 +10486,13 @@
         "form_options": {
           "min_num": 1,
           "max_num": 50,
-          "template": "table1",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "20%", "45%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
       }
@@ -10524,7 +10514,7 @@
         },
         "view_options": {
           "template": "table3",
-          "column_widths": ["35%", "25%", "40%"],
+          "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         } 
       }
@@ -13468,14 +13458,20 @@
                                         "keyword": "cca_production_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_decreased_increased",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13503,14 +13499,20 @@
                                         "keyword": "cca_water_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_decreased_increased",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13538,14 +13540,20 @@
                                         "keyword": "cca_income_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_increased_reduced",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13620,14 +13628,20 @@
                                         "keyword": "cca_socio_cultural_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_reduced_improved",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13702,14 +13716,20 @@
                                         "keyword": "cca_runoff_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_decreased_increased",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13737,14 +13757,20 @@
                                         "keyword": "cca_soil_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_decreased_increased",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13772,14 +13798,20 @@
                                         "keyword": "cca_biodiversity_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_decreased_increased",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13807,14 +13839,20 @@
                                         "keyword": "cca_climate_impact"
                                       },
                                       {
-                                        "keyword": "cca_impacts_increased_decreased",
+                                        "keyword": "cca_extent_left_label"
+                                      },
+                                      {
+                                        "keyword": "cca_impacts_extent",
                                         "form_options": {
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled",
+                                          "template": "measure_labelled_inline",
                                           "layout": "stacked"
                                         }
+                                      },
+                                      {
+                                        "keyword": "cca_extent_right_label"
                                       }
                                     ]
                                   }
@@ -13891,14 +13929,20 @@
                                     "keyword": "cca_offsite_impact"
                                   },
                                   {
-                                    "keyword": "cca_impacts_decreased_increased",
+                                    "keyword": "cca_extent_left_label"
+                                  },
+                                  {
+                                    "keyword": "cca_impacts_extent",
                                     "form_options": {
                                       "template": "no_label"
                                     },
                                     "view_options": {
-                                      "template": "measure_labelled",
+                                      "template": "measure_labelled_inline",
                                       "layout": "stacked"
                                     }
+                                  },
+                                  {
+                                    "keyword": "cca_extent_right_label"
                                   }
                                 ]
                               }

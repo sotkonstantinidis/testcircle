@@ -16,7 +16,7 @@
   {% endfor %}
   <thead>
     {% for key in keys %}
-      {% if forloop.counter != 1 %}
+      {% if forloop.counter != 1 and forloop.counter != 4 and forloop.counter != 6 %}
         <th>{{ key }}</th>
       {% endif %}
     {% endfor %}
@@ -31,7 +31,11 @@
             {% elif forloop.counter == 3 %}
               <td>{{ question }}</td>
             {% elif forloop.counter == 4 %}
-              <td>{{ question }}</td>
+              <td>{{ question }}
+            {% elif forloop.counter == 5 %}
+              {{ question }}
+            {% elif forloop.counter == 6 %}
+              {{ question }}</td>
             {% endif %}
           {% endif %}
         {% endfor %}

@@ -50,6 +50,256 @@ function hasContent(element) {
 }
 
 /**
+ * Refreshes the DOM of the extent labels.
+ */
+function refreshLabel(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").trigger("chosen:updated");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").trigger("chosen:updated");
+}
+
+/**
+ * Sets the extent labels as empty.
+ */
+function setLabelEmpty(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as decreased and increased.
+ */
+function setLabelDecreasedIncreased(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_decreased");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_increased");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as increased and decreased.
+ */
+function setLabelIncreasedDecreased(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_increased");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_decreased");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as hindered and simplified.
+ */
+function setLabelHinderedSimplified(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_hindered");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_simplified");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as increased and reduced.
+ */
+function setLabelIncreasedReduced(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_increased");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_reduced");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as reduced and improved.
+ */
+function setLabelReducedImproved(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_reduced");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_improved");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as worsened and improved.
+ */
+function setLabelWorsenedImproved(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_worsened");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_improved");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as reduced and increased.
+ */
+function setLabelReducedIncreased(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_reduced");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_increased");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as weakened and strengthened.
+ */
+function setLabelWeakenedStrengthened(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_weakened");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_strengthened");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Sets the extent labels as lowered and recharge.
+ */
+function setLabelLoweredRecharge(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_lowered");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_recharge");
+    refreshLabel(temp0, temp1);
+}
+
+/**
+ * Checks if impact is selected in 3.2, and based on its value display proper extent label.
+ */
+function checkImpact(element) {
+    var temp = element.attr('id').split('-');
+    console.log(element.attr('id'));
+    id = element.attr('id');
+    if(temp.length==3 && temp[0]=='id_cca_qg_43') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'crop_production':             setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'crop_quality':                setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'fodder_production':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'fodder_quality':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'animal_production':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'wood_production':             setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'forest_woodland_quality':     setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'non_wood_forest_production':  setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'risk_of_production_failure':  setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'product_diversity':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'production_area':             setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'land_management':             setLabelHinderedSimplified(temp[0], temp[1]); break;
+            case 'energy_generation':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_production_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_56') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'drinking_water_availability':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'drinking_water_quality':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'water_availability_for_livestock':    setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'water_quality_for_livestock':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'irrigation_water_availability':       setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'irrigation_water_quality':            setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'demand_for_irrigation_water':         setLabelIncreasedDecreased(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_water_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_63') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'expenses_on_agricultural_inputs': setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'farm_income':                     setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'diversity_of_income_sources':     setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'economic_disparities':            setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'workload':                        setLabelIncreasedDecreased(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_income_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_69') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'food_security_self_sufficiency':      setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'health_situation':                    setLabelWorsenedImproved(temp[0], temp[1]); break;
+            case 'land_use_water_rights':               setLabelWorsenedImproved(temp[0], temp[1]); break;
+            case 'cultural_opportunities':              setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'recreational_opportunities':          setLabelReducedIncreased(temp[0], temp[1]); break;
+            case 'community_institutions':              setLabelWeakenedStrengthened(temp[0], temp[1]); break;
+            case 'national_institutions':               setLabelWeakenedStrengthened(temp[0], temp[1]); break;
+            case 'slm_land_degradation_knowledge':      setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'conflict_mitigation':                 setLabelWorsenedImproved(temp[0], temp[1]); break;
+            case 'situation_of_disadvantaged_groups':   setLabelWorsenedImproved(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_socio_cultural_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_80') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'water_quantity':                  setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'water_quality':                   setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'harvesting_collection_of_water':  setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'surface_runoff':                  setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'excess_water_drainage':           setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'groundwater_table_aquifer':       setLabelLoweredRecharge(temp[0], temp[1]); break;
+            case 'evaporation':                     setLabelIncreasedDecreased(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_runoff_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_87') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'soil_moisture':               setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'soil_cover':                  setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'soil_loss':                   setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'soil_accumulation':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'soil_crusting_sealing':       setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'soil_compaction':             setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'nutrient_cycling_recharge':   setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'salinity':                    setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'soil_organic_matter':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'acidity':                     setLabelIncreasedReduced(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_soil_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_97') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'vegetation_cover':        setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'biomass':                 setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'plant_diversity':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'invasive_alien_species':  setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'animal_diversity':        setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'beneficial_species':      setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'harmful_species':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'habitat_diversity':       setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'pests_diseases':          setLabelDecreasedIncreased(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_biodiversity_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_106') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'flood_impacts':           setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'landslides_debris_flow':  setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'drought_impacts':         setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'impacts_of_cyclones':     setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'emission_of_carbon':      setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'fire_risk':               setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'wind_velocity':           setLabelIncreasedDecreased(temp[0], temp[1]); break;
+            case 'micro_climate':           setLabelWorsenedImproved(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_climate_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+    else if(temp.length==3 && temp[0]=='id_cca_qg_115') {
+        switch($("#"+id+" option:selected").val()) {
+            case 'water_availability':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
+            case 'stream_flows':                    setLabelReducedIncreased(temp[0], temp[1]); break;
+            case 'downstream_flooding':             break;
+            case 'downstream_siltation':            break;
+            case 'groundwater_river_pollution':     setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'buffering_filtering_capacity':    setLabelReducedImproved(temp[0], temp[1]); break;
+            case 'wind_trasported_sediments':       setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'damage_on_fields':                setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'damage_on_infrastructure':        setLabelIncreasedReduced(temp[0], temp[1]); break;
+            case 'greenhouse_gases':                setLabelIncreasedReduced(temp[0], temp[1]); break;
+        }
+        if(temp[2]=='cca_extent_left_label')
+            if($("#"+temp[0]+"-"+temp[1]+"-cca_offsite_impact option:selected").val()=="")
+                setLabelEmpty(temp[0], temp[1]);
+    }
+
+}
+
+/**
  * The disasters array that stores states of checkboxes of climate-related extremes (disasters)
  */
 var disasters = [];
@@ -111,8 +361,10 @@ function checkDisasters(element) {
     });
     // Select
     $(element).find('div.row.single-item select').each(function () {
-        if ($(this).find(':selected').val())
+        if ($(this).find(':selected').val()) {
             registerDisaster($(this).parent().parent().parent().parent().attr('id'));
+            checkImpact($(this));
+        }
     });
 }
 
