@@ -4044,6 +4044,9 @@
               }
             ]
           }
+        ],
+        "modules": [
+          "samplemodule"
         ]
       },
       "created": "2015-01-08T10:12:59.337Z",

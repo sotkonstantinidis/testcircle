@@ -2001,6 +2001,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     """
     valid_options = [
         'sections',
+        'modules',
     ]
     name_current = '-'
     name_parent = '-'
@@ -2011,6 +2012,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         self.keyword = keyword
         self.configuration_keyword = keyword
         self.sections = []
+        self.modules = []
         self.configuration_object = configuration_object
         if self.configuration_object is None:
             self.configuration_object = Configuration.get_active_by_code(
@@ -2025,6 +2027,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 print(e)
             else:
                 raise e
+
+    def get_modules(self):
+        return self.modules
 
     def get_configuration_errors(self):
         return self.configuration_error
@@ -2459,6 +2464,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         for conf_section in conf_sections:
             self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
+
+        self.modules = self.configuration.get('modules', [])
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

@@ -1339,3 +1339,110 @@ class QuestionnaireDeleteView(DeleteView):
         self.object.is_deleted=True
         self.object.save()
         return HttpResponseRedirect(success_url)
+
+
+class QuestionnaireModuleMixin(LoginRequiredMixin):
+    """
+    Get available modules and check for already existing modules.
+    """
+    request = None
+    questionnaire_object = None
+    questionnaire_configuration = None
+    available_modules = []
+    existing_modules = []
+
+    def get_questionnaire_object(self):
+        try:
+            # The form variable is named similar to the link-creation
+            # action in the questionnaire form.
+            questionnaire_id = int(self.request.POST.get('link_id'))
+        except TypeError:
+            return None
+        try:
+            return Questionnaire.objects.get(pk=questionnaire_id)
+        except Questionnaire.DoesNotExist:
+            return None
+
+    def get_questionnaire_configuration(self):
+        configuration_code = self.request.POST.get('configuration')
+        return get_configuration(configuration_code=configuration_code)
+
+    def get_available_modules(self):
+        return self.questionnaire_configuration.get_modules()
+
+    def get_existing_modules(self):
+        existing_modules = []
+        for link in self.questionnaire_object.links.all():
+            link_configuration = link.configurations.first()
+            if link_configuration.code in self.available_modules:
+                existing_modules.append(link_configuration.code)
+        return existing_modules
+
+
+class QuestionnaireAddModule(QuestionnaireModuleMixin, View):
+
+    http_method_names = ['post']
+    url_namespace = None
+
+    def post(self, request, *args, **kwargs):
+
+        error_redirect = '{}:add_module'.format(self.url_namespace)
+
+        self.questionnaire_object = self.get_questionnaire_object()
+        if self.questionnaire_object is None:
+            messages.error(
+                self.request,
+                'Module cannot be added - Questionnaire not found.')
+            return redirect(error_redirect)
+
+        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.available_modules = self.get_available_modules()
+        self.existing_modules = self.get_existing_modules()
+
+        module_code = request.POST.get('module')
+        if module_code not in self.available_modules:
+            messages.error(
+                self.request, 'Module is not valid for this questionnaire.')
+            return redirect(error_redirect)
+
+        if module_code in self.existing_modules:
+            messages.error(
+                self.request, 'Module exists already for this questionnaire.')
+            return redirect(error_redirect)
+
+        # Create a new questionnaire
+        module_data = {}
+        new_module = Questionnaire.create_new(
+            module_code, module_data, request.user)
+        new_module.add_link(self.questionnaire_object)
+
+        success_redirect = reverse(
+            '{}:questionnaire_edit'.format(module_code),
+            kwargs={'identifier': new_module.code})
+        return redirect(success_redirect)
+
+
+class QuestionnaireCheckModulesView(
+    QuestionnaireModuleMixin, TemplateResponseMixin, View):
+
+    http_method_names = ['post']
+    template_name = 'questionnaire/partial/select_modules.html'
+
+    def post(self, request, *args, **kwargs):
+
+        self.questionnaire_object = self.get_questionnaire_object()
+        if self.questionnaire_object is None:
+            return self.render_to_response(
+                context={
+                    'module_error': 'No modules found for this questionnaire.'})
+
+        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.available_modules = self.get_available_modules()
+        self.existing_modules = self.get_existing_modules()
+
+        context = {
+            'modules': [(module, module in self.existing_modules) for module
+                        in self.available_modules],
+        }
+
+        return self.render_to_response(context=context)
