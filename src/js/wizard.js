@@ -727,6 +727,11 @@ $(function () {
                 'div#' + $(this).data('checkbox-toggle')).slideToggle();
         })
 
+        // Form progress upon input
+        .on('change', 'fieldset.row div.row.single-item', function() {
+            watchFormProgress();
+        })
+
         .on('click', '.cb-toggle-questiongroup', function () {
             var container = $(this).data('container');
             if ($(this).prop('checked')) {
@@ -761,11 +766,6 @@ $(function () {
     checkCheckboxQuestiongroups();
 
     checkAdditionalQuestiongroups();
-
-    // Form progress upon input
-    $('fieldset.row div.row.single-item').on('change', function () {
-        watchFormProgress();
-    });
 
     // Select inputs with chosen
     function updateChosen() {
