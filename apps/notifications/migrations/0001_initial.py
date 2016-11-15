@@ -10,7 +10,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('questionnaire', '0013_auto_20160802_0749'),
+        ('questionnaire', '0013_auto_20161108_1501'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
