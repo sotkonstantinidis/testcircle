@@ -1429,6 +1429,7 @@
     "partials": {
       "pro": {
         "label": "Strengths",
+        "css_class": "bullets",
         "items": [
           {
             "text": "Diversification of production: terracing makes cultivation of new cash crops possible: flax (for linseed oil), pears, apples, apricots, water melon; all these give high returns and thus make terrace construction profitable."
@@ -1452,6 +1453,7 @@
       },
       "contra": {
         "label": "Weaknesses/ disadvantages/ risks and how they can be overcome",
+        "css_class": "bullets",
         "items": [
           {
             "text": "Decrease in production in first year",

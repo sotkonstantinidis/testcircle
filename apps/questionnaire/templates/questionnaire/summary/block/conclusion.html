@@ -2,10 +2,10 @@
 <div class="row">
   <div class="small-6 columns">
     <h5>{{ content.pro.label }}</h5>
-    {% include 'questionnaire/summary/partial/conclusion_list.html' with list_items=content.pro.items %}
+    {% include 'questionnaire/summary/partial/unordered_list.html' with list_items=content.pro.items class=content.pro.css_class %}
   </div>
   <div class="small-6 columns">
     <h5>{{ content.contra.label }}</h5>
-    {% include 'questionnaire/summary/partial/conclusion_list.html' with list_items=content.contra.items %}
+    {% include 'questionnaire/summary/partial/unordered_list.html' with list_items=content.contra.items class=content.contra.css_class %}
   </div>
 </div>
