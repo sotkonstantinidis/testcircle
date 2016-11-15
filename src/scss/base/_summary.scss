@@ -1,6 +1,8 @@
 body.summary {
   background-color: white;
   font-size: 0.75rem;
+  text-rendering: optimizeLegibility;
+
 
   h1 {
     font-size: $h1-font-size;
@@ -19,6 +21,24 @@ body.summary {
 
   ul {
     margin-left: 0rem;
+    li {
+      margin-top: 0.4rem;
+    }
+  }
+
+  .overcome {
+    margin-left: 1.3rem;
+    font-style: italic;
+    &::before {
+      font-size: 1rem;
+      content: '\2192';
+      display: block;
+      height: 0;
+      width: 0;
+      left: -1.25em;
+      top: -0.1rem;
+      position: relative;
+    }
   }
 
   ul.bullets {
@@ -28,19 +48,8 @@ body.summary {
       list-style-type: disc;
       ul {
         li {
-          margin-left: 1.3rem;
-          font-style: italic;
           list-style-type: none;
-          &::before {
-            font-size: 1rem;
-            content: '\2192';
-            display: block;
-            height: 0;
-            width: 0;
-            left: -1.25em;
-            top: -0.1rem;
-            position: relative;
-          }
+          @extend .overcome;
         }
       }
     }
@@ -56,7 +65,7 @@ body.summary {
   .img-caption {
     background-color: $color-beige-dark;
     color: white;
-    padding: 0.6rem 0.6rem 0.6rem 1rem;
+    padding: 0rem 0rem 0.12rem 1rem;
     font-size: 0.8rem;
     font-weight: normal;
   }

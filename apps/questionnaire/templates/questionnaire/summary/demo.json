@@ -1452,7 +1452,8 @@
         ]
       },
       "contra": {
-        "label": "Weaknesses/ disadvantages/ risks and how they can be overcome",
+        "label": "Weaknesses/ disadvantages/ risks",
+        "subtext": "and how they can be overcome",
         "css_class": "bullets",
         "items": [
           {
@@ -1480,32 +1481,56 @@
     "partials": [
       {
         "title": "Compiler",
+        "css_class": "bullets",
         "items": [
-          "Mats Gurtner – email – phone – www – etc."
+          {
+            "text": "Mats Gurtner – email – phone – www – etc."
+          }
         ]
       },
       {
         "title": "Resource persons",
+        "css_class": "bullets",
         "items": [
-          "Hanspeter Liniger – email – phone – www – etc.",
-          "Rima Mekdaschi-Studer – email – phone – www – etc."
+          {
+            "text": "Hanspeter Liniger – email – phone – www – etc."
+          },
+          {
+            "text": "Rima Mekdaschi-Studer – email – phone – www – etc."
+          }
         ]
       },
       {
         "title": "Links",
+        "css_class": "bullets",
         "items": [
-          "Full case study in WOCAT DB: <a href=''>insert Link / URL</a>",
-          "Corresponding approach in WOCAT DB: <a href=''>insert Link / URL</a>",
-          "Video: <a href=''>insert Link / URL</a>"
+          {
+            "text": "Full case study in WOCAT DB: <a href=''>insert Link / URL</a>"
+          },
+          {
+            "text": "Corresponding approach in WOCAT DB: <a href=''>insert Link / URL</a>"
+          },
+          {
+            "text": "Video: <a href=''>insert Link / URL</a>"
+          }
         ]
       },
       {
         "title": "Key references",
+        "css_class": "bullets",
         "items": [
-          "Terraces In China. Published By Ministry Of Water Resources Beijing, PRC. 1989",
-          "Conservancy engineering budgetary estimate ration. Issued by Ministry of water resources of PRC, Published by Yellow-river water conservancy publishing company, Zhengzhou, PRC, 2003",
-          "A Great Cause for Centuries – 50 Years in Water and Soil Conservation in China. Published by Department of Soil and Water Conservation, Ministry of Water Resources Beijing, PRC, 2000",
-          "Dongyinglin, Changpiguang, Wangzhihua 1990: Discussion on several questions on increasing production of the terrace with two banks; Soil and Water Conservation Science and Technology in Shanxi. No. 1, p 36–37"
+          {
+            "text": "Terraces In China. Published By Ministry Of Water Resources Beijing, PRC. 1989"
+          },
+          {
+            "text": "Conservancy engineering budgetary estimate ration. Issued by Ministry of water resources of PRC, Published by Yellow-river water conservancy publishing company, Zhengzhou, PRC, 2003"
+          },
+          {
+            "text": "A Great Cause for Centuries – 50 Years in Water and Soil Conservation in China. Published by Department of Soil and Water Conservation, Ministry of Water Resources Beijing, PRC, 2000"
+          },
+          {
+            "text": "Dongyinglin, Changpiguang, Wangzhihua 1990: Discussion on several questions on increasing production of the terrace with two banks; Soil and Water Conservation Science and Technology in Shanxi. No. 1, p 36–37"
+          }
         ]
       }
     ]
