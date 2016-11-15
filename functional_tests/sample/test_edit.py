@@ -1,11 +1,18 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from unittest.mock import patch
 
 from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_views import accounts_route_questionnaires
+from model_mommy import mommy
+from questionnaire.errors import QuestionnaireLockedException
+
 from functional_tests.base import FunctionalTest
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, QuestionnaireConfiguration, \
+    QuestionnaireMembership, Lock
+from configuration.models import Configuration
 from sample.tests.test_views import (
     get_position_of_category,
     route_home,
@@ -582,3 +589,105 @@ class EditTest(FunctionalTest):
     #     # She edits it again and sees there is no change message
     #     self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
     #     has_no_old_version_overview(self)
+
+
+@patch.object(Typo3Client, 'get_user_id')
+class LockTest(FunctionalTest):
+    """
+    Tests for questionnaire locking.
+    """
+    fixtures = ['sample_global_key_values', 'sample']
+
+    def setUp(self):
+        super().setUp()
+        self.jay = mommy.make(
+            get_user_model(),
+            firstname='jay',
+            email = 'jay@spam.com'
+        )
+        self.robin = mommy.make(
+            get_user_model(),
+            firstname='robin',
+            email='robin@spam.com'
+        )
+        self.questionnaire = mommy.make(
+            model=Questionnaire,
+            data={},
+            code='sample_1',
+            status=settings.QUESTIONNAIRE_DRAFT,
+        )
+        # Create a valid questionnaire with the least required data.
+        mommy.make(
+            model=QuestionnaireConfiguration,
+            questionnaire=self.questionnaire,
+            configuration=Configuration.objects.filter(code='sample').first(),
+            original_configuration=True
+        )
+        mommy.make(
+            model=QuestionnaireMembership,
+            user=self.jay,
+            questionnaire=self.questionnaire,
+            role='compiler'
+        )
+        mommy.make(
+            model=QuestionnaireMembership,
+            user=self.robin,
+            questionnaire=self.questionnaire,
+            role='editor'
+        )
+        self.questionnaire_edit_url = '{}{}'.format(
+            self.live_server_url,
+            reverse('sample:questionnaire_edit', args=['sample_1'])
+        )
+        self.questionnaire_view_url = '{}{}'.format(
+            self.live_server_url,
+            self.questionnaire.get_absolute_url()
+        )
+
+    def test_edit_adds_lock(self, mock_get_user_id):
+        # Jay loggs in and starts editing a section.
+        self.doLogin(user=self.jay)
+        self.browser.get(self.questionnaire_edit_url)
+        self.findManyBy('link_text', 'Edit this section')[0].click()
+
+        # Robin logs in and views the questionnaire
+        self.doLogin(user=self.robin)
+        self.browser.get(self.questionnaire_view_url)
+        # but the questionnaire is locked
+        self.assertTrue(
+            Lock.with_status.is_blocked('sample_1').exists()
+        )
+        # and the edit button has no url, but a message about the locked status
+        edit_button = self.findBy('link_text', 'Edit')
+        self.assertTrue(
+            edit_button.get_attribute('disabled')
+
+        )
+        self.findBy('xpath', '//*[text()[contains(.,"This questionnaire is '
+                             'locked for editing by jay None.")]]')
+
+        # if the url is accessed directly, a notification is shown
+        self.browser.get(self.questionnaire_edit_url)
+        self.findBy('xpath', '//div[contains(@class, "notification") '
+                             'and contains(@class, "warning")]')
+        # maybe: should the edit buttons be disabled?
+
+    def test_edit_locked(self, mock_get_user_id):
+        # The questionnaire is locked for Jay
+        Lock.objects.create(
+            questionnaire_code='sample_1', user=self.jay
+        )
+        self.doLogin(user=self.robin)
+        # Viewing the questionnaire is fine
+        self.browser.get(self.questionnaire_view_url)
+        # When Robin tries to edit a section, the browser gets redirected
+        self.browser.get('{}cat_1'.format(self.questionnaire_edit_url))
+        self.browser.implicitly_wait(3)
+        self.assertEqual(self.browser.current_url, self.questionnaire_view_url)
+
+    def test_refresh_lock(self, mock_get_user_id):
+        self.doLogin(user=self.jay)
+        self.browser.get(self.questionnaire_edit_url)
+        self.findManyBy('link_text', 'Edit this section')[0].click()
+        interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
+        self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(interval))

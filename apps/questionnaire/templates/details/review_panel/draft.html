@@ -35,7 +35,7 @@
           {% endblocktrans %}
         </p>
         {% if review_config.blocked_by %}
-          <p>{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}</p>
+        <p><strong>{% trans "Someone is still editing this questionnaire. If you submit it, these changes will be lost. Are you sure you want to proceed?" %}</strong></p>
         {% endif %}
         <p>
           {% trans "An optional message for the reviewer may be added here:" %}
@@ -71,10 +71,16 @@
 {% if review_config.mode == 'view' and 'edit_questionnaire' in review_config.permissions %}
   <div class="row process-action">
     <div class="medium-2 columns">
-      <a class="button expand success" href="{{ review_config.url }}">{% trans "Edit" %}</a>
+      <a class="button expand success" {% if review_config.is_blocked %}disabled="disabled"{% else %}href="{{ review_config.url }}" {% endif %}>{% trans "Edit" %}</a>
     </div>
     <div class="medium-10 columns">
-      <p>{% trans 'Start editing the questionnaire.' %}</p>
+      <p>
+        {% if review_config.is_blocked %}
+          {{ review_config.blocked_by }}
+        {% else %}
+          {% trans 'Start editing the questionnaire.' %}
+        {% endif %}
+      </p>
     </div>
   </div>
 {% elif review_config.mode == 'edit' %}

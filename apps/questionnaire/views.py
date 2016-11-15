@@ -42,7 +42,7 @@ from questionnaire.upload import (
 from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
 from .utils import (
     clean_questionnaire_data,
     get_active_filters,
@@ -290,7 +290,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
             url = reverse('{}:questionnaire_new'.format(self.url_namespace))
 
         return '{url}#{step}'.format(url=url, step=step)
-
 
     def get_context_data(self, **kwargs):
         """
@@ -801,7 +800,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         """
         self.set_attributes()
         if self.has_object:
-            Questionnaire.lock_questionnaire(self.object.code, self.request.user)
+            try:
+                Questionnaire.lock_questionnaire(
+                    self.object.code, self.request.user
+                )
+            except QuestionnaireLockedException:
+                return HttpResponseRedirect(self.object.get_absolute_url())
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
@@ -887,6 +891,10 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
                                args=[self.identifier, self.kwargs['step']])
 
+        # questionnaire is locked one minute before the lock time is over. time
+        # is expressed in milliseconds, as required for setInterval
+        lock_interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
+
         ctx.update({
             'subcategories': self.subcategories,
             'config': self.category_config,
@@ -898,6 +906,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             'edit_mode': self.edit_mode,
             'view_url': view_url,
             'toc_content': self.get_toc_content(),
+            'lock_interval': lock_interval
         })
         return ctx
 
@@ -1339,3 +1348,18 @@ class QuestionnaireDeleteView(DeleteView):
         self.object.is_deleted=True
         self.object.save()
         return HttpResponseRedirect(success_url)
+
+
+class QuestionnaireLockView(LoginRequiredMixin, View):
+    """
+    Lock the questionnaire for the current user.
+    """
+
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        Lock.objects.create(
+            questionnaire_code=self.kwargs['identifier'],
+            user=self.request.user
+        )
+        return HttpResponse(status=200)
