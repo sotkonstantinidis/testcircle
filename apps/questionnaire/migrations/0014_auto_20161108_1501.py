@@ -32,4 +32,8 @@ class Migration(migrations.Migration):
             name='language',
             field=models.CharField(max_length=63, choices=[('en', 'English'), ('es', 'Spanish'), ('fr', 'French'), ('ru', 'Russian'), ('pt', 'Portuguese'), ('ar', 'Arabic')]),
         ),
+        migrations.RemoveField(
+            model_name='questionnaire',
+            name='data_old',
+        ),
     ]
