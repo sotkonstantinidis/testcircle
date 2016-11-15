@@ -135,9 +135,11 @@
       });
 
       // lock questionnaire while window is open
-      setInterval(function(){
-        $.post('{% url 'lock_questionnaire' view.object.code %}');
-      }, {{ lock_interval }});
+      {% if view.object %}
+        setInterval(function(){
+          $.post('{% url 'lock_questionnaire' view.object.code %}');
+        }, {{ lock_interval }});
+      {% endif %}
 
     })(jQuery);
   </script>
