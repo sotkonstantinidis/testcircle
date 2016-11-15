@@ -1,7 +1,7 @@
 @import 'app';
 
 // The $base-font-size is 100% while $base-line-height is 150%
-$base-line-height: rem-calc(22);
+$base-line-height: 1.2rem;
 
 // We use these to control header font styles
 // $header-font-family: $body-font-family;
@@ -28,7 +28,7 @@ $h3-font-reduction: 0.0875;
 
 $paragraph-font-weight: 400;
 $paragraph-font-size: inherit;
-$paragraph-line-height: rem-calc(22);
+$paragraph-line-height: 1rem;
 $paragraph-margin-bottom: 0;
 
 @import 'base/summary';

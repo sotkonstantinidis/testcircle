@@ -2,6 +2,7 @@ body.summary {
   background-color: white;
   font-size: 0.75rem;
   text-rendering: optimizeLegibility;
+  line-height: $base-line-height;
 
 
   h1 {
@@ -21,6 +22,7 @@ body.summary {
 
   ul {
     margin-left: 0rem;
+    line-height: $base-line-height;
     li {
       margin-top: 0.4rem;
     }
