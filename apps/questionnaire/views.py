@@ -328,7 +328,8 @@ class QuestionnaireSaveMixin(StepsMixin):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('{}:questionnaire_edit'.format(self.url_namespace), kwargs={'identifier': self.object.code})
+        return reverse('{}:questionnaire_edit'.format(self.url_namespace),
+                       kwargs={'identifier': self.object.code})
 
     def validate(self, subcategories, original_locale):
         """
@@ -337,13 +338,15 @@ class QuestionnaireSaveMixin(StepsMixin):
         - Validate given section
         - Validate complete questionnaire, with merged new section
 
-        If either fails, an error is added to request.messages - else the object is saved and a redirect to the
-        success url is returned.
+        If either fails, an error is added to request.messages - else the
+        object is saved and a redirect to the success url is returned.
 
         Returns: tuple (is_valid, data)
 
         """
-        data, is_valid = self._validate_formsets(subcategories, get_language(), original_locale)
+        data, is_valid = self._validate_formsets(
+            subcategories, get_language(), original_locale
+        )
         links = get_link_data(self.questionnaire_links)
 
         # Check if any links were modified.
@@ -425,6 +428,8 @@ class QuestionnaireSaveMixin(StepsMixin):
 
     def can_lock_object(self):
         # Try to lock questionnaire, raise an error if it is locked already.
+        if not self.has_object:
+            return True
         try:
             Questionnaire().lock_questionnaire(self.identifier, self.request.user)
         except QuestionnaireLockedException as e:
@@ -449,8 +454,10 @@ class QuestionnaireSaveMixin(StepsMixin):
         """
         try:
             questionnaire = Questionnaire.create_new(
-                configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
-                previous_version=self.object if self.has_object else None, old_data=None
+                configuration_code=self.get_configuration_code(),
+                data=data,
+                user=self.request.user,
+                previous_version=self.object if self.has_object else None
             )
             self.object = questionnaire
         except ValidationError as e:

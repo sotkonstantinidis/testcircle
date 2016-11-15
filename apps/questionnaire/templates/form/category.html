@@ -122,7 +122,6 @@
 
 {% block bottom %}
   <script src="{% static 'js/dropzone.min.js' %}"></script>
-  <script src="{% static 'qcat/js/ajaxCsrf.js' %}"></script>
   <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
   <script type="text/javascript">
     Dropzone.autoDiscover = false;
@@ -137,7 +136,13 @@
       // lock questionnaire while window is open
       {% if view.object %}
         setInterval(function(){
-          $.post('{% url 'lock_questionnaire' view.object.code %}');
+          $.ajax({
+            url: '{% url 'lock_questionnaire' view.object.code %}',
+            type: 'POST',
+            beforeSend: function (xhr, settings) {
+              xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+            }
+          });
         }, {{ lock_interval }});
       {% endif %}
 
