@@ -132,33 +132,32 @@ $bars-factor: 4;
 
 body.summary
 {
-
-  .wrapper_list_with_highlights
-  {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    width: 100%;
-    min-height: 40px;
-  }
-
-  .chart-measure-labelled .step {
-  display: inline-block;
-  padding: rem-calc(12);
-  margin: 5px 10px 0 0px;
-  border:1px solid black ;
-    @for $i from 1 through 5 {
-      &.is-level-#{$i} {
-        background-color: rgba(green, 0.2 * $i );
+  .highlights_list {
+    margin: 0;
+    padding: 0;
+    li {
+      padding-left: 1.2rem;
+      margin-top: 0rem;
+      position: relative;
+      color: #cccccc;
+      &::before {
+        font-size: 1rem;
+        content: ' ';
+        display: block;
+        height: 15px;
+        width: 15px;
+        background-color: rgba(95, 89, 79, 0.2);
+        left: 0;
+        top: 0.2rem;
+        position: absolute;
+      }
+      &.true {
+        font-weight: bold;
+        color: #3E3B34;
+        &::before {
+          background-color: green;
+        }
       }
     }
   }
-
-  .chart_list_item
-  {
-  flex: 1;
-  }
-
-
-  
 }
