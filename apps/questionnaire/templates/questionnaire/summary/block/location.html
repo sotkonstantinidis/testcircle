@@ -1,5 +1,21 @@
 <div class="small-4 columns">
 {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
     <img src="{{ content.map.url }}">
-    {% include 'questionnaire/summary/partial/unordered_list.html' with list_items=content.infos.items %}
+	<h5>{{ content.infos.location.title }}:</h5>
+	{{ content.infos.location.text }}
+	<h5>{{ content.infos.sites.title }}:</h5>
+	{{ content.infos.sites.text }}
+
+	<h5>Geo-reference</h5>
+	<ul class="bullets">
+		{% for list_item in content.infos.geo_reference  %}
+		<li>
+		 {{ list_item }}
+		</li>
+	  	{% endfor %}
+	</ul>
+
+	<h5>{{ content.infos.introduction.title }}:</h5>
+    {% include 'questionnaire/summary/partial/unordered_list_with_hightlights.html' with list_items=content.infos.introduction.items %}
+
 </div>

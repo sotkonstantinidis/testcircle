@@ -128,3 +128,37 @@ $bars-factor: 4;
 .chart-measure-col-content {
   padding-left: 0;
 }
+
+
+body.summary
+{
+
+  .wrapper_list_with_highlights
+  {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .chart-measure-labelled .step {
+  display: inline-block;
+  padding: rem-calc(12);
+  margin: 5px 10px 0 0px;
+  border:1px solid black ;
+    @for $i from 1 through 5 {
+      &.is-level-#{$i} {
+        background-color: rgba(green, 0.2 * $i );
+      }
+    }
+  }
+
+  .chart_list_item
+  {
+  flex: 1;
+  }
+
+
+  
+}
