@@ -776,7 +776,10 @@ $(function () {
 
             // Destroy chosen selects before cloning the elements. Recreate the
             // chosen selects afterwards.
-            lastItem.find('.chosen-select').chosen('destroy');
+            var lastItemChosen = lastItem.find('.chosen-select');
+            if (lastItemChosen.length) {
+                lastItemChosen.chosen('destroy');
+            }
 
             var newElement = lastItem.clone();
 
