@@ -1394,7 +1394,8 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
-        return '{}/layout/{}.html'.format(self.base_template_path, self.code)
+        template = self.request.GET.get('template', self.code)
+        return '{}/layout/{}.html'.format(self.base_template_path, template)
 
     def get_filename(self) -> str:
         """
