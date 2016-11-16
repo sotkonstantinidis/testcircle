@@ -55,6 +55,7 @@ class BaseSettings(Configuration):
         'notifications',
         'sample',
         'samplemulti',
+        'samplemodule',
         'search',
         'technologies',
         'unccd',

@@ -651,7 +651,7 @@ function removeLinkedQuestionnaire(el) {
     qg.find('[name$=link_id]').val('');
 
     // Empty the preview container
-    qg.find('.link-preview').empty();
+    qg.find('.link-preview').empty().trigger('change');
 
     // Show the search field again
     qg.find('.link-search').show();
@@ -1147,7 +1147,7 @@ $(function () {
                 var qg = $(this).closest('.list-item');
 
                 // Add ID of link
-                qg.find('[name$=link_id]').val(ui.item.value);
+                qg.find('[name$=link_id]').val(ui.item.value).trigger('change');
 
                 // Set the name
                 qg.find('.link-name').data('link-name', ui.item.name);
