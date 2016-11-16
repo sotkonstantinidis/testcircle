@@ -2,7 +2,6 @@ from django.core.urlresolvers import reverse
 from unittest.mock import patch
 
 from accounts.client import Typo3Client
-from accounts.models import User
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire, QuestionnaireLink
 from sample.tests.test_views import route_questionnaire_new

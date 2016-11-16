@@ -566,6 +566,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         attrs.update(self.form_options.get('field_options', {}))
 
+        # Disable inherited questions.
+        if self.parent_object.inherited_configuration:
+            attrs.update({
+                'disabled': 'disabled'
+            })
+
         if self.field_type == 'char':
             max_length = self.max_length
             if max_length is None:
@@ -970,6 +976,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
     name_parent = 'subcategories'
     name_children = 'questions'
     Child = QuestionnaireQuestion
+    inherited_configuration = None
+    inherited_questiongroup = None
 
     def __init__(self, parent_object, configuration):
         """
@@ -1077,6 +1085,11 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             self.numbered = ''
 
         self.detail_level = self.form_options.get('detail_level')
+
+        self.inherited_configuration = self.configuration.get(
+            'inherited_configuration')
+        self.inherited_questiongroup = self.configuration.get(
+            'inherited_questiongroup')
 
         # TODO
         self.required = False
@@ -2013,6 +2026,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         self.configuration_keyword = keyword
         self.sections = []
         self.modules = []
+        self.inherited_data = {}
         self.configuration_object = configuration_object
         if self.configuration_object is None:
             self.configuration_object = Configuration.get_active_by_code(
@@ -2030,6 +2044,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
     def get_modules(self):
         return self.modules
+
+    def get_inherited_data(self):
+        return self.inherited_data
 
     def get_configuration_errors(self):
         return self.configuration_error
@@ -2466,6 +2483,17 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         self.children = self.sections
 
         self.modules = self.configuration.get('modules', [])
+
+        inherited_data = {}
+        for qg in self.get_questiongroups():
+            if qg.inherited_configuration:
+                inherited_by_configuration = inherited_data.get(
+                    qg.inherited_configuration, {})
+                inherited_by_configuration.update(
+                    {qg.inherited_questiongroup: qg.keyword})
+                inherited_data[
+                    qg.inherited_configuration] = inherited_by_configuration
+        self.inherited_data = inherited_data
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

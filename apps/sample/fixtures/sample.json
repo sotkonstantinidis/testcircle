@@ -1088,6 +1088,12 @@
             "en": "Afghanistan",
             "es": "Afghanistan"
           }
+        },
+        "wocat": {
+          "label": {
+            "en": "Afghanistan",
+            "es": "Afghanistan"
+          }
         }
       }
     },
@@ -1099,6 +1105,12 @@
       "translation_type": "value",
       "data": {
         "sample": {
+          "label": {
+            "en": "Germany",
+            "es": "Alemania"
+          }
+        },
+        "wocat": {
           "label": {
             "en": "Germany",
             "es": "Alemania"
@@ -1118,6 +1130,12 @@
             "en": "Cambodia",
             "es": "Cambodia"
           }
+        },
+        "wocat": {
+          "label": {
+            "en": "Cambodia",
+            "es": "Cambodia"
+          }
         }
       }
     },
@@ -1129,6 +1147,12 @@
       "translation_type": "value",
       "data": {
         "sample": {
+          "label": {
+            "en": "Switzerland",
+            "es": "Suiza"
+          }
+        },
+        "wocat": {
           "label": {
             "en": "Switzerland",
             "es": "Suiza"

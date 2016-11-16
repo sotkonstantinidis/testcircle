@@ -97,6 +97,9 @@ def clean_questionnaire_data(
                 'appears {} times'.format(
                     qg_keyword, questiongroup.max_num, len(qg_data_list)))
             continue
+        if questiongroup.inherited_configuration:
+            # Do not store linked questiongroups
+            continue
         cleaned_qg_list = []
         ordered_qg = False
         for qg_data in qg_data_list:

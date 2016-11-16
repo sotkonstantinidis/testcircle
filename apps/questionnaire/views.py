@@ -188,6 +188,7 @@ def generic_questionnaire_view_step(
     initial_data = get_questionnaire_data_for_translation_form(
         data, current_locale, original_locale)
 
+    # TODO: Add inherited data here.
     category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode)
@@ -314,6 +315,46 @@ class StepsMixin:
             (section.categories for section in self.questionnaire_configuration.sections)
         ))
         return [category.keyword for category in categories]
+
+
+class InheritedDataMixin:
+    """
+    Get the inherited data of linked questionnaires. Used to add read-only data
+    of (parent) questionnaires to modules.
+    """
+    def get_inherited_data(self, original_locale=None):
+        """
+        Args:
+            original_locale: If provided, the data is passed to
+                get_questionnaire_data_for_translation_form before it is
+                returned.
+
+        Returns:
+            dict.
+        """
+        data = {}
+        inherited_data = self.questionnaire_configuration.get_inherited_data()
+        for inherited_config, inherited_qgs in inherited_data.items():
+            inherited_obj = self.object.links.filter(
+                configurations__code=inherited_config).first()
+
+            if inherited_obj is None:
+                continue
+
+            additional_qgs = {}
+            for inherited_qg, current_qg in inherited_qgs.items():
+                additional_qgs[current_qg] = inherited_obj.data.get(
+                    inherited_qg, [])
+
+            if original_locale is not None:
+                additional_data = get_questionnaire_data_for_translation_form(
+                    additional_qgs, get_language(), original_locale)
+            else:
+                additional_data = additional_qgs
+
+            data.update(additional_data)
+
+        return data
 
 
 class QuestionnaireSaveMixin(StepsMixin):
@@ -613,7 +654,8 @@ class GenericQuestionnaireMapView(TemplateResponseMixin, View):
         return self.render_to_response(context=context)
 
 
-class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
+class GenericQuestionnaireView(
+        InheritedDataMixin, QuestionnaireEditMixin, StepsMixin, View):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -629,8 +671,13 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         """
         self.object = self.get_object()
 
+        questionnaire_data = self.questionnaire_data
+        if self.has_object:
+            inherited_data = self.get_inherited_data()
+            questionnaire_data.update(inherited_data)
+
         data = get_questionnaire_data_in_single_language(
-            questionnaire_data=self.questionnaire_data, locale=get_language(),
+            questionnaire_data=questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
         )
 
@@ -778,7 +825,9 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         return self.has_object and self.object.has_release
 
 
-class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixin, View):
+class GenericQuestionnaireStepView(
+        InheritedDataMixin, QuestionnaireEditMixin, QuestionnaireSaveMixin,
+        View):
     """
     A section of the questionnaire.
     """
@@ -856,6 +905,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             self.object.data if self.has_object else {}, get_language(), original_locale
         )
         initial_links = get_link_data(self.questionnaire_links)
+
+        # Add inherited data if available.
+        if self.has_object:
+            inherited_data = self.get_inherited_data(
+                original_locale=original_locale)
+            initial_data.update(inherited_data)
 
         category_config, subcategories = self.category.get_form(
             post_data=self.request.POST or None,
