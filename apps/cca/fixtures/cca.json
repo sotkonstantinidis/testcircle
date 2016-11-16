@@ -11849,28 +11849,9 @@
                   {
                     "keyword": "cca__2__1",
                     "form_options": {
+                      "template": "comingsoon",
                       "numbering": "2.1"
-                    },
-                    "questiongroups": [
-                      {
-                        "keyword": "qg_location_map",
-                        "questions": [
-                          {
-                            "keyword": "location_map",
-                            "form_options": {
-                              "template": "no_label",
-                              "field_options": {
-                                "readonly": "readonly"
-                              }
-                            },
-                            "view_options": {
-                              "is_geometry": true,
-                              "configuration": "cca"
-                            }
-                          }
-                        ]
-                      }
-                    ]
+                    }
                   },
                   {
                     "keyword": "cca__2__2",
