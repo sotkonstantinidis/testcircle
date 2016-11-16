@@ -4904,13 +4904,33 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Agricultural"
+            "en": "Plant material"
+          },
+          "helptext": {
+            "en": "<strong>Plant material</strong> includes seeds, seedling, cuttings, etc."
           }
         }
       }
     },
     "model": "configuration.translation",
     "pk": 27148
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "cca": {
+          "label": {
+            "en": "Fertilizers and biocides"
+          },
+          "helptext": {
+            "en": "<strong>Fertilizers and biocides</strong>: compost/ manure, inorganic fertilizer, herbicides, pesticides, etc."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 27124
   },
   {
     "fields": {
@@ -10731,6 +10751,15 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_124",
+      "translation": 27124,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27124
+  },
+  {
+    "fields": {
       "keyword": "cca_qg_149",
       "translation": 27149,
       "configuration": {}
@@ -14415,6 +14444,7 @@
                               "cca_qg_146",
                               "cca_qg_147",
                               "cca_qg_148",
+                              "cca_qg_124",
                               "cca_qg_149",
                               "cca_qg_150"
                             ],
@@ -14494,6 +14524,33 @@
                           },
                           {
                             "keyword": "cca_qg_148",
+                            "form_options": {
+                              "min_num": 4,
+                              "max_num": 4
+                            },
+                            "questions": [
+                              {
+                                "keyword": "cca_input_est_specify"
+                              },
+                              {
+                                "keyword": "cca_input_est_unit"
+                              },
+                              {
+                                "keyword": "cca_input_est_quantity"
+                              },
+                              {
+                                "keyword": "cca_input_est_costs"
+                              },
+                              {
+                                "keyword": "cca_input_est_total_costs_pi"
+                              },
+                              {
+                                "keyword": "cca_input_est_percentage_costs"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "cca_qg_124",
                             "form_options": {
                               "min_num": 4,
                               "max_num": 4
