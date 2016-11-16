@@ -14,6 +14,7 @@ from configuration.models import (
     Key,
     Questiongroup)
 from configuration.utils import get_choices_from_model, get_choices_from_questionnaire
+from notifications.models import Log
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -1260,6 +1261,19 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                 return question
         return None
 
+    def get_top_subcategory(self):
+        """
+        Helper function to get the top subcategory of a questiongroup. This is
+        used to display a nicer error message in the form, also stating the
+        subcategory (with numbering) in which the error occurred.
+        """
+        parent = self.parent_object
+        next_parent = parent.parent_object
+        while not isinstance(next_parent, QuestionnaireCategory):
+            parent = next_parent
+            next_parent = next_parent.parent_object
+        return parent
+
     def get_raw_data(self, data):
         """
         Return only the raw data of a questiongroup. Data belonging to
@@ -1839,6 +1853,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
+                'notifications_href': Log.actions.get_url_for_questionnaire(
+                    user=user,
+                    questionnaire_code=questionnaire_object.code if questionnaire_object else None
+                )
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -2270,6 +2288,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     value = question_data.get(list_entry[1])
                     if list_entry[2] == 'image':
                         key = 'image'
+                        if key in questionnaire_value:
+                            # If there is already an image, do not add it again
+                            continue
                         image_data = File.get_data(uid=value)
                         interchange_list = image_data.get('interchange_list')
                         if interchange_list:

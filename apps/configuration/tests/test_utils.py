@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from django.db.models import Q
 
 from configuration.models import Configuration
@@ -46,9 +48,20 @@ class GetConfigurationQueryFilterTest(TestCase):
 
 class GetConfigurationIndexFilterTest(TestCase):
 
-    def test_returns_single_configuration(self):
+    @patch('configuration.utils.check_aliases')
+    def test_returns_single_configuration(self, mock_check_aliases):
+        mock_check_aliases.return_value = True
         index_filter = get_configuration_index_filter('foo')
         self.assertEqual(index_filter, ['foo'])
+
+    @patch('configuration.utils.check_aliases')
+    def test_calls_check_aliases(self, mock_check_aliases):
+        get_configuration_index_filter('foo')
+        mock_check_aliases.assert_called_once_with(['foo'])
+
+    def test_returns_default_configurations_if_not_valid_alias(self):
+        index_filter = get_configuration_index_filter('foo')
+        self.assertEqual(index_filter, ['unccd', 'technologies', 'approaches'])
 
     def test_unccd_returns_single_configuration(self):
         index_filter = get_configuration_index_filter('unccd')
@@ -62,6 +75,11 @@ class GetConfigurationIndexFilterTest(TestCase):
         index_filter = get_configuration_index_filter(
             'wocat', only_current=True)
         self.assertEqual(index_filter, ['wocat'])
+
+    def test_returns_query_params_lower_case(self):
+        index_filter = get_configuration_index_filter(
+            'foo', query_param_filter=('UNCCD',))
+        self.assertEqual(index_filter, ['unccd'])
 
 
 class CreateNewCodeTest(TestCase):

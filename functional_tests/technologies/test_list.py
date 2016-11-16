@@ -100,15 +100,24 @@ class ListTest(FunctionalTest):
         # Alice goes to the list view and filters by technologies.
         self.browser.get(self.live_server_url + reverse(route_wocat_list))
         self.findBy('id', 'search-type-display').click()
+
+        self.wait_for('xpath', '//li/a[@data-type="technologies"]')
         self.findBy('xpath', '//li/a[@data-type="technologies"]').click()
         self.apply_filter()
 
         # She also filters by country
-        self.findBy('id', 'filter-country').send_keys('Switzerland')
+        self.findBy('xpath', '//div[contains(@class,'
+                             ' "chosen-container")]').click()
+
+        self.findBy(
+            'xpath', '//ul[@class="chosen-results"]/li[contains(text(), '
+                     '"Switzerland")]').click()
         self.apply_filter()
 
         # She sees that she has been redirected to the list view and the filter
         # is set, only 1 entry is visible
+        from nose.tools import set_trace; set_trace()
+
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)

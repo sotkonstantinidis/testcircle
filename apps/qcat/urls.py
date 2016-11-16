@@ -36,10 +36,13 @@ urlpatterns += i18n_patterns(
         namespace='technologies')),
     url(r'^wocat/approaches/', include('approaches.urls',
         namespace='approaches')),
+    url(r'^wocat/watershed/', include(
+        'watershed.urls', namespace='watershed')),
+    url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^api/v1/', include('api.urls')),
-    url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
+    url(r'^notifications/', include('notifications.urls')),
 )
 
 if settings.DEBUG:

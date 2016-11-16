@@ -188,6 +188,9 @@
   &.is-unccd {
     background-color: rgba($color-unccd, 0.8)
   }
+  &.is-watershed {
+    background-color: rgba($color-watershed, 0.8);
+  }
 }
 
 .tech-type > span {
@@ -379,6 +382,9 @@ a:hover .tech-icon {
 .is-map .tech-output-title {
   color: $color-map;
 }
+.is-watershed .tech-output-title {
+  color: $color-watershed;
+}
 .tech-output-infos {
   @include reset-list;
   margin-top: rem-calc(36);
@@ -445,6 +451,17 @@ a:hover .tech-icon {
 .is-unccd .tech-output-actions {
   background-color: rgba($color-unccd, 0.8);
 }
+.is-watershed .tech-output-actions {
+  background-color: rgba($color-watershed, 0.8);
+  .button {
+    background-color: $color-watershed-dark;
+    box-shadow: 0 0 0 0 $color-watershed-dark;
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 $button-shadow-effect $color-watershed-dark;
+    }
+  }
+}
 
 .is-unccd {
   .tech-figure {
@@ -482,6 +499,9 @@ a:hover .tech-icon {
 .is-cca .tech-section-group-title {
   color: $color-cca;
 }
+.is-watershed .tech-section-group-title {
+  color: $color-watershed;
+}
 
 .tech-section-header {
   overflow: hidden;
@@ -498,6 +518,9 @@ a:hover .tech-icon {
 }
 .is-unccd .tech-section-header {
   background-color: rgba($color-unccd, 0.1);
+}
+.is-watershed .tech-section-header {
+  background-color: rgba($color-watershed, 0.1);
 }
 
 .tech-section-main-title {
@@ -564,6 +587,9 @@ a:hover .tech-icon {
 .is-cca .tech-section-progress .meter {
   background-color: rgba($color-cca, 0.3);
 }
+.is-watershed .tech-section-progress .meter {
+  background-color: rgba($color-watershed, 0.3);
+}
 .is-technologies .tech-section-progress .steps {
   color: $color-tech;
 }
@@ -572,6 +598,9 @@ a:hover .tech-icon {
 }
 .is-cca .tech-section-progress .steps {
   color: $color-cca;
+}
+.is-watershed .tech-section-progress .steps {
+  color: $color-watershed;
 }
 
 

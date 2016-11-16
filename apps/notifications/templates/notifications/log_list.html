@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load compress %}
+{% load i18n %}
+{% load sekizai_tags %}
+{% load static %}
+
+
+{% block bodyclass %}layout-wocat{% endblock %}
+{% block navclass %}is-wocat{% endblock %}
+
+{% block content %}
+  <main class="row" role="main">
+    <div class="small-12 columns">
+      <h1 class="is-title">{% trans "Your notifications" %}</h1>
+      <div id="notifications-list"></div>
+    </div>
+  </main>
+  {% addtoblock 'js' %}
+    {% compress js %}
+      <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
+      <script src="{% static 'notifications/js/notificationActions.js' %}"></script>
+      <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+      <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+      <script>
+        $(function() {
+          var notificationList = $('#notifications-list');
+          var spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
+
+          notificationList.html(spinner);
+          notificationList.bindNotificationActions({
+            readUrl: '{% url 'notification_read' %}',
+            notificationsUrl: '{% url 'notification_partial_list' %}',
+            initialParams: {% if request.META.QUERY_STRING %}'?{{ request.META.QUERY_STRING }}'{% else %}''{% endif %},
+            questionnaire: {% if 'questionnaire' in request.GET.keys %}'{{ request.GET.questionnaire }}'{% else %}''{% endif %},
+            questionnairesUrl: '{% url 'notification_questionnaire_logs' %}',
+            user: '{{ request.user.id }}',
+            spinner: spinner
+          });
+
+        });
+      </script>
+    {% endcompress %}
+  {% endaddtoblock %}
+  {% addtoblock 'css' %}
+    {% compress css %}
+      <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
+    {% endcompress %}
+  {% endaddtoblock %}
+{% endblock %}

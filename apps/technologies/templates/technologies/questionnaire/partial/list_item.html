@@ -22,11 +22,10 @@
   </figure>
 
   <div class="tech-item-content">
-    {% for flag in item.flags_property %}
-      <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
-    {% endfor %}
     {% for flag in item.flags %}
-      <span class="tech-status label is-{{ flag.flag }}">{{ flag.name }}</span>
+      <span class="label tech-flag is-technologies"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
+        {{ flag.name }}
+      </span>
     {% endfor %}
     {% if item.status.0 and item.status.0 != 'public' %}
       <span class="tech-status label is-{{ item.status.0 }}">{{ item.status.1 }}</span>

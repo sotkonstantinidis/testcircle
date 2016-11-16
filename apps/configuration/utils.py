@@ -6,6 +6,7 @@ from django.db.models import Q
 from configuration.cache import get_configuration
 from configuration.models import Project, Questiongroup, Translation
 from questionnaire.models import Questionnaire, Flag
+from search.utils import check_aliases
 
 def get_configuration_query_filter(configuration, only_current=False):
     """
@@ -80,22 +81,32 @@ def get_configuration_index_filter(
         ``list``. A list of configuration codes (the index/indices) to
         be searched.
     """
+    default_configurations = [
+        'unccd', 'technologies', 'approaches', 'watershed']
+
     if query_param_filter:
-        configurations = []
+        query_configurations = []
         for q in query_param_filter:
             if q == 'all':
-                configurations.extend(['unccd', 'technologies', 'approaches'])
+                query_configurations.extend(default_configurations)
             else:
-                configurations.append(q)
-        return list(set(configurations))
+                query_configurations.append(q.lower())
+        configurations = list(set(query_configurations))
 
-    if only_current is True:
-        return [configuration]
+        if check_aliases(configurations) is True:
+            return configurations
+        else:
+            return default_configurations
 
-    if configuration == 'wocat':
-        return ['unccd', 'technologies', 'approaches']
+    configurations = [configuration.lower()]
 
-    return [configuration]
+    if only_current is False and configuration == 'wocat':
+        configurations = default_configurations
+
+    if check_aliases(configurations) is True:
+        return configurations
+    else:
+        return default_configurations
 
 
 class ConfigurationList(object):

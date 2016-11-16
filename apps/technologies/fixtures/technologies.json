@@ -26217,17 +26217,6 @@
                         ]
                       },
                       {
-                        "keyword": "qg_funding_institution",
-                        "questions": [
-                          {
-                            "keyword": "funding_institution"
-                          },
-                          {
-                            "keyword": "funding_institution_display"
-                          }
-                        ]
-                      },
-                      {
                         "keyword": "qg_funding_project",
                         "questions": [
                           {
@@ -26235,6 +26224,17 @@
                           },
                           {
                             "keyword": "funding_project_display"
+                          }
+                        ]
+                      },
+                      {
+                        "keyword": "qg_funding_institution",
+                        "questions": [
+                          {
+                            "keyword": "funding_institution"
+                          },
+                          {
+                            "keyword": "funding_institution_display"
                           }
                         ]
                       }
@@ -26385,14 +26385,17 @@
                       {
                         "keyword": "qg_photos",
                         "form_options": {
-                          "max_num": 3
+                          "max_num": 50
                         },
                         "view_options": {
                           "template": "none"
                         },
                         "questions": [
                           {
-                            "keyword": "image"
+                            "keyword": "image",
+                            "view_options": {
+                              "in_list": true
+                            }
                           },
                           {
                             "keyword": "image_caption"
@@ -27610,7 +27613,8 @@
                       {
                         "keyword": "tech_qg_165",
                         "form_options": {
-                          "min_num": 10
+                          "min_num": 10,
+                          "max_num": 30
                         },
                         "questions": [
                           {
@@ -27872,7 +27876,8 @@
                       {
                         "keyword": "tech_qg_43",
                         "form_options": {
-                          "min_num": 10
+                          "min_num": 10,
+                          "max_num": 30
                         },
                         "questions": [
                           {

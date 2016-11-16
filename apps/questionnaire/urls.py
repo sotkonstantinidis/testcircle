@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 
-from questionnaire.views import QuestionnaireDeleteView
+from questionnaire.views import QuestionnaireDeleteView, QuestionnaireLockView
 
 urlpatterns = patterns(
     '',
@@ -10,5 +10,8 @@ urlpatterns = patterns(
         'questionnaire.views.generic_file_serve', name='file_serve'),
     url(r'^edit/(?P<identifier>[^/]+)/delete/$',
         QuestionnaireDeleteView.as_view(),
-        name='delete_questionnaire')
+        name='delete_questionnaire'),
+    url(r'^edit/(?P<identifier>[^/]+)/lock/$',
+        QuestionnaireLockView.as_view(),
+        name='lock_questionnaire'),
 )

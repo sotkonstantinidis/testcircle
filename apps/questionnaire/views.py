@@ -20,8 +20,10 @@ from django.shortcuts import (
     get_object_or_404,
 )
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
+from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
@@ -32,6 +34,7 @@ from configuration.utils import get_filter_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
+from questionnaire.signals import change_questionnaire_data
 from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
@@ -39,10 +42,9 @@ from questionnaire.upload import (
 from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
 from .utils import (
     clean_questionnaire_data,
-    compare_questionnaire_data,
     get_active_filters,
     get_link_data,
     get_list_values,
@@ -289,7 +291,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
 
         return '{url}#{step}'.format(url=url, step=step)
 
-
     def get_context_data(self, **kwargs):
         """
         The context data of the view. The required content is based on the previously existing views and the template
@@ -323,6 +324,7 @@ class QuestionnaireSaveMixin(StepsMixin):
 
     def dispatch(self, request, *args, **kwargs):
         self.errors = []
+        self.form_has_errors = False
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -418,7 +420,7 @@ class QuestionnaireSaveMixin(StepsMixin):
 
         questionnaire_data, errors = clean_questionnaire_data(data, self.questionnaire_configuration)
         if errors:
-            self.errors.append(errors)
+            self.errors.extend(errors)
         return not bool(self.errors), questionnaire_data
 
     def can_lock_object(self):
@@ -441,14 +443,10 @@ class QuestionnaireSaveMixin(StepsMixin):
         else:
             return self.form_valid(data)
 
-    def form_valid(self, data):
-
-        diff_qgs = []
-        # Recalculate difference between the two diffs
-        if self.has_object:
-            q_obj = self.object
-            diff_qgs = compare_questionnaire_data(q_obj.data_old, data)
-
+    def form_valid(self, data: dict):
+        """
+        Save the new questionnaire data and create a log for the change.
+        """
         try:
             questionnaire = Questionnaire.create_new(
                 configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
@@ -462,6 +460,11 @@ class QuestionnaireSaveMixin(StepsMixin):
         self.save_questionnaire_links()
         questionnaire.unlock_questionnaire()
         messages.success(self.request, _('Data successfully saved.'))
+        change_questionnaire_data.send(
+            sender=settings.NOTIFICATIONS_EDIT_CONTENT,
+            questionnaire=questionnaire,
+            user=self.request.user
+        )
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self):
@@ -517,6 +520,7 @@ class QuestionnaireSaveMixin(StepsMixin):
             is_valid = is_valid and formset.is_valid()
 
             if is_valid is False:
+                self.form_has_errors = True
                 return None, False
 
             for f in formset.forms:
@@ -614,6 +618,10 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
     """
     http_method_names = ['get']
 
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         """
         Display the questionnaire overview.
@@ -672,8 +680,9 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             data, permissions=permissions,
             edit_step_route='{}:questionnaire_new_step'.format(
                 self.url_namespace),
-            questionnaire_object=self.object or None, csrf_token=csrf_token,
-            edited_questiongroups=self.get_edited_questiongroups(),
+            questionnaire_object=self.object or None,
+            csrf_token=csrf_token,
+            edited_questiongroups=edited_questiongroups,
             view_mode='edit',
             links=self.get_links(),
             review_config=review_config,
@@ -742,12 +751,6 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
             ]
         )
 
-    def get_edited_questiongroups(self):
-        """
-        ?
-        """
-        return compare_questionnaire_data(self.object.data, self.object.data_old) if self.has_object else []
-
     def get_links(self):
         """
         Prepare links as expected by the template.
@@ -797,7 +800,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         """
         self.set_attributes(request.path)
         if self.has_object:
-            Questionnaire.lock_questionnaire(self.object.code, self.request.user)
+            try:
+                Questionnaire.lock_questionnaire(
+                    self.object.code, self.request.user
+                )
+            except QuestionnaireLockedException:
+                return HttpResponseRedirect(self.object.get_absolute_url())
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
@@ -884,21 +892,27 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
                                args=[self.identifier, self.kwargs['step']])
 
+        # questionnaire is locked one minute before the lock time is over. time
+        # is expressed in milliseconds, as required for setInterval
+        lock_interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
+
         ctx.update({
             'subcategories': self.subcategories,
             'config': self.category_config,
             'content_subcategories_count': len([c for c in self.subcategories if c[1] != []]),
             'title': _('QCAT Form'),
             'overview_url': self.get_edit_url(self.kwargs['step']),
-            'valid': True,
+            'valid': not self.form_has_errors,
             'configuration_name': self.category_config.get('configuration', self.url_namespace),
             'edit_mode': self.edit_mode,
             'view_url': view_url,
             'toc_content': self.get_toc_content(),
+            'lock_interval': lock_interval
         })
         return ctx
 
 
+@ensure_csrf_cookie
 def generic_questionnaire_details(
         request, identifier, configuration_code, url_namespace):
     """
@@ -1012,7 +1026,9 @@ def generic_questionnaire_details(
 
     sections = questionnaire_configuration.get_details(
         data=data, permissions=permissions, review_config=review_config,
-        questionnaire_object=questionnaire_object, links=link_display)
+        questionnaire_object=questionnaire_object, links=link_display,
+        user=request.user if request.user.is_authenticated() else None
+    )
 
     return render(request, 'questionnaire/details.html', {
         'images': images,
@@ -1333,3 +1349,18 @@ class QuestionnaireDeleteView(DeleteView):
         self.object.is_deleted=True
         self.object.save()
         return HttpResponseRedirect(success_url)
+
+
+class QuestionnaireLockView(LoginRequiredMixin, View):
+    """
+    Lock the questionnaire for the current user.
+    """
+
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        Lock.objects.create(
+            questionnaire_code=self.kwargs['identifier'],
+            user=self.request.user
+        )
+        return HttpResponse(status=200)

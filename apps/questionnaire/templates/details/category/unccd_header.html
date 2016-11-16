@@ -52,6 +52,22 @@
     {% if raw_data.unccd_property_rights_description %}
       <p><strong>{% trans "Comments" %}:</strong> {{ raw_data.unccd_property_rights_description }}</p>
     {% endif %}
+
+    <div class="tech-item-footer tech-item-footer-details">
+      {# Translations #}
+      {% if metadata.translations %}
+        <ul class="left tech-lang-list sub-nav-square">
+          {% for translation in metadata.translations %}
+            <li>
+              {% language translation %}
+                <a href="{% url 'unccd:questionnaire_details' metadata.code %}" class="is-unccd">{{ translation }}</a>
+              {% endlanguage %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
   </header>
 
   <div class="row tech-output-actions">
@@ -77,6 +93,12 @@
     <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">
       <li><a href="#">PDF</a></li>
     </ul>
+    {% if notifications_href %}
+      <a href="{{ notifications_href }}" class="button">
+        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
+        {% trans "See history" %}
+      </a>
+    {% endif %}
   </div>
 
   <div class="row tech-section-group">

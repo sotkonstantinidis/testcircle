@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.core import signing
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from django.utils.timezone import now
 from nose.plugins.attrib import attr
 from pyvirtualdisplay import Display
 from selenium import webdriver
@@ -222,6 +224,9 @@ class FunctionalTest(StaticLiveServerTestCase):
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(
                 (By.XPATH, btn_xpath)))
+        if action == 'reject':
+            self.findBy('name', 'reject-message').send_keys("spam")
+
         if exists_only is True:
             self.findBy('xpath', '//div[contains(@class, "reveal-modal") and contains(@class, "open")]//a[contains(@class, "close-reveal-modal")]').click()
             import time; time.sleep(1)
@@ -292,23 +297,51 @@ class FunctionalTest(StaticLiveServerTestCase):
                      '@class, "top-bar-lang")]/a').click()
         self.findBy('xpath', '//a[@data-language="{}"]'.format(locale)).click()
 
+    def doLogin(self, user=None):
+        """
+        A user is required for the login, this is a convenience wrapper to
+        login a non-specified user.
+        """
+        self.doLogout()
+        self._doLogin(user or create_new_user())
+
     @patch.object(Typo3Client, 'get_and_update_django_user')
     @patch.object(WocatAuthenticationBackend, 'authenticate')
+    @patch('django.contrib.auth.authenticate')
     @patch('wocat.views.generic_questionnaire_list')
-    def doLogin(self, mock_questionnaire_list, mock_authenticate,
-                mock_get_and_update_django_user, user=None):
-        self.doLogout()
-        if user is None:
-            user = create_new_user()
+    def _doLogin(self, user, mock_questionnaire_list, mock_django_auth,
+                 mock_authenticate, mock_get_and_update_django_user):
+        """
+        Mock the authentication to return the given user and put it to the
+        session - django.contrib.auth.login handles this.
+        Set the cookie so the custom middleware doesn't force-validate the login
+        against the login API.
+        """
+        mock_questionnaire_list.return_value = {}
+        auth_user = user
+        auth_user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        mock_django_auth.return_value = auth_user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_and_update_django_user.return_value = user
-        mock_questionnaire_list.return_value = {}
-        with patch('accounts.client.typo3_client.get_user_id') as get_user_id:
-            get_user_id.return_value = user.id
-            self.browser.get(self.live_server_url + '/404_no_such_url/')
-            self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
-            self.browser.get(self.live_server_url + reverse(loginRouteName))
+
+        self.client.login(username='spam', password='eggs')
+        # note the difference: self.client != self.browser, copy the cookie.
+        self.browser.add_cookie({
+            'name': 'sessionid',
+            'value': self.client.cookies['sessionid'].value
+        })
+        self.browser.add_cookie({
+            'name': 'fe_typo_user',
+            'value': 'foo'
+        })
+        key = settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME
+        salt = settings.ACCOUNTS_ENFORCE_LOGIN_SALT
+        self.browser.add_cookie({
+            'name': key,
+            'value': signing.get_cookie_signer(salt=key + salt).sign(now())
+        })
+        self.browser.get(self.live_server_url + reverse(loginRouteName))
 
     def doLogout(self):
         self.browser.delete_cookie('fe_typo_user')
