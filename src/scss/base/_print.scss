@@ -144,10 +144,10 @@ $color-print-light: #dddfe3;
   }
 
   .chart-measure-labelled .step {
-    border: 1px solid $color-print-light;
+    border: 10px solid $color-print-light;
 
     +.is-level-5 {
-      border: 1px solid $color-print-dark;
+      border: 10px solid $color-print-dark;
     }
   }
 
