@@ -152,7 +152,6 @@ function setLabelLoweredRecharge(temp0, temp1) {
  */
 function checkImpact(element) {
     var temp = element.attr('id').split('-');
-    console.log(element.attr('id'));
     id = element.attr('id');
     if(temp.length==3 && temp[0]=='id_cca_qg_43') {
         switch($("#"+id+" option:selected").val()) {
