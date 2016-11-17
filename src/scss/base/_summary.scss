@@ -4,6 +4,10 @@ body.summary {
   text-rendering: optimizeLegibility;
   line-height: $base-line-height;
 
+  a,
+  a:active {
+    color: $color-blue;
+  }
 
   h1 {
     font-size: $h1-font-size;
@@ -85,8 +89,7 @@ body.summary {
     position: absolute;
     top:0px;
     right: 0px;
-    background-color: rgb(95, 89, 79);
-    padding:20px;
+    background-color: $color-beige-dark;
+    padding:5px;
   }
-  
 }

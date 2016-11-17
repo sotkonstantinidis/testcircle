@@ -1,12 +1,9 @@
 <div class="small-4 columns">
 {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
     <img src="{{ content.map.url }}">
-	<h5>{{ content.infos.location.title }}:</h5>
-	{{ content.infos.location.text }}
-	<h5>{{ content.infos.sites.title }}:</h5>
-	{{ content.infos.sites.text }}
-
-	<h5>Geo-reference</h5>
+	<p><b>{{ content.infos.location.title }}:</b>  {{ content.infos.location.text }}</p>
+  <p><b>{{ content.infos.sites.title }}:</b>  {{ content.infos.sites.text }}</p>
+  <h5>Geo-reference</h5>
 	<ul class="bullets">
 		{% for list_item in content.infos.geo_reference  %}
 		<li>
@@ -14,8 +11,9 @@
 		</li>
 	  	{% endfor %}
 	</ul>
-
-	<h5>{{ content.infos.introduction.title }}:</h5>
+  <p><b>{{ content.infos.spread.title }}:</b>  {{ content.infos.spread.text }}</p>
+  <p><b>{{ content.infos.date.title }}:</b>  {{ content.infos.date.text }}</p>
+  <h5>{{ content.infos.introduction.title }}</h5>
     {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.introduction.items %}
 
 </div>

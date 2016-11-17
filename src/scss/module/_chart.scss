@@ -155,7 +155,7 @@ body.summary
         font-weight: bold;
         color: #3E3B34;
         &::before {
-          background-color: green;
+          background-color: $color-green;
         }
       }
     }
