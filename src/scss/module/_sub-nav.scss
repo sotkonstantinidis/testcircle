@@ -46,6 +46,9 @@ ul.sub-nav-square {
   a.is-watershed {
     background-color: rgba($color-watershed, 0.8);
   }
+  a.is-cca {
+    background-color: rgba($color-cca, 0.8);
+  }
   a > .icon {
     float: left;
     width: rem-calc(24);

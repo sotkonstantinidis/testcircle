@@ -13,8 +13,8 @@
       <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
     {% endif %}
 
-    {% trans "New SLM Climate Change Adaptation" as empty_name %}
-    <h1 class="tech-output-title">{{ raw_data.name|default:empty_name }} <span class="is-light">{% if additional_data.country.0.0 %}[{{ additional_data.country.0.0}}]{% endif %}</span></h1>
+    <h1 class="tech-output-title">{% trans "Climate Change Adaptation Module" %}</h1>
+    <span class="is-light">{% trans "Technology: " %}{{ raw_data.name|default:'-' }}{% if raw_data.name_local %} ({{ raw_data.name_local }}){% endif %}</span>
 
     <ul class="tech-infos">
       <li>
@@ -44,7 +44,6 @@
       </li>
     </ul>
 
-    <p class="is-large subheader">{{ raw_data.name_local|default:""|linebreaksbr }}</p>
     <p class="tech-output-header-info clearfix"><span class="is-muted left">{% if metadata.code %}{{ metadata.code }}{% endif %}{% if metadata.code and additional_data.country.0.0 %} - {% endif %}{{ additional_data.country.0.0|default:"" }}</span></p>
 
     <div class="tech-item-footer tech-item-footer-details">
@@ -55,7 +54,7 @@
           {% for translation in metadata.translations %}
             <li>
               {% language translation %}
-                <a href="{% url 'cca:questionnaire_details' metadata.code %}" class="is-tech">{{ translation }}</a>
+                <a href="{% url 'cca:questionnaire_details' metadata.code %}" class="is-cca">{{ translation }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
@@ -101,7 +100,8 @@
   </div>
 
   {% if review_config %}
-    {% include 'details/review_panel.html' with review_config=review_config %}
+    {% trans "Climate Change Adaptation Module" as questionnaire_type %}
+    {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
   {% endif %}
 
   <div class="row tech-section-group">

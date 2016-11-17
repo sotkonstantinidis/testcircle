@@ -1,7 +1,10 @@
 from django.conf.urls import url, patterns
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 from questionnaire.views import GenericQuestionnaireView, GenericQuestionnaireStepView, \
-    GenericQuestionnaireMapView
+    GenericQuestionnaireMapView, QuestionnaireAddModule, \
+    QuestionnaireCheckModulesView
 
 urlpatterns = patterns(
     '',
@@ -29,4 +32,13 @@ urlpatterns = patterns(
         name='questionnaire_list'),
     url(r'^list_partial/$', 'technologies.views.questionnaire_list_partial',
         name='questionnaire_list_partial'),
+    url(r'^add_module/$',
+        login_required(
+            TemplateView.as_view(template_name="technologies/add_module.html")),
+        name='add_module'),
+    url(r'^add_module_action/$',
+        QuestionnaireAddModule.as_view(url_namespace=__package__),
+        name='add_module_action'),
+    url(r'^check_modules/$', QuestionnaireCheckModulesView.as_view(),
+        name='check_modules')
 )

@@ -8,6 +8,7 @@
 
 .module-gallery-item {
   margin-top: 1rem;
+  min-height: rem-calc(72);
 }
 
 .module-gallery-icon {
@@ -15,6 +16,7 @@
   transition: border 300ms ease;
   width: rem-calc(72);
   height: rem-calc(72);
+  vertical-align: middle;
 
   &.is-unavailable {
     opacity: 0.5;

@@ -995,8 +995,14 @@ def generic_questionnaire_details(
     if questionnaire_object is None:
         raise Http404()
     questionnaire_configuration = get_configuration(configuration_code)
+
+    initial_data = questionnaire_object.data
+    inherited_data = temp_get_inherited_data(
+        questionnaire_object, questionnaire_configuration)
+    initial_data.update(inherited_data)
+
     data = get_questionnaire_data_in_single_language(
-        questionnaire_object.data, get_language(),
+        initial_data, get_language(),
         original_locale=questionnaire_object.original_locale)
 
     if request.method == 'POST':
@@ -1526,3 +1532,42 @@ class QuestionnaireLockView(LoginRequiredMixin, View):
             user=self.request.user
         )
         return HttpResponse(status=200)
+
+# TODO: This is a copy of the mixin function. Remove this once the views are all
+# class-based.
+def temp_get_inherited_data(
+        questionnaire_object, questionnaire_configuration,
+        original_locale=None):
+    """
+    Args:
+        original_locale: If provided, the data is passed to
+            get_questionnaire_data_for_translation_form before it is
+            returned.
+
+    Returns:
+        dict.
+    """
+    data = {}
+    inherited_data = questionnaire_configuration.get_inherited_data()
+    for inherited_config, inherited_qgs in inherited_data.items():
+        inherited_obj = questionnaire_object.links.filter(
+            configurations__code=inherited_config).first()
+
+        if inherited_obj is None:
+            continue
+
+        additional_qgs = {}
+        for inherited_qg, current_qg in inherited_qgs.items():
+            additional_qgs[current_qg] = inherited_obj.data.get(
+                inherited_qg, [])
+
+        if original_locale is not None:
+            additional_data = get_questionnaire_data_for_translation_form(
+                additional_qgs, get_language(), original_locale)
+
+        else:
+            additional_data = additional_qgs
+
+        data.update(additional_data)
+
+    return data

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-<article role="article" class="tech-item is-tech">
+<article role="article" class="tech-item is-cca">
   <figure class="tech-thumbnail">
     <a href="{% url 'cca:questionnaire_details' item.code %}" title="">
       {% if item.image %}
@@ -34,7 +34,8 @@
     <header>
       <h2 class="tech-item-title">
         <a href="{% url 'cca:questionnaire_details' item.code %}">
-          {% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}{{ item.name|default:""|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
+          {% trans "Climate Change Adaptation Module" as no_title %}
+          {% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}{{ item.name|default:no_title|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
         </a>
       </h2>
     </header>
@@ -54,7 +55,7 @@
           {% for translation in item.translations %}
             <li>
               {% language translation.0 %}
-                <a href="{% url 'cca:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This SLM practice is also available in:" %} {% trans translation.1 %}" data-tooltip="">{{ translation.0 }}</a>
+                <a href="{% url 'cca:questionnaire_details' item.code %}" class="is-cca" title="{% trans "This SLM practice is also available in:" %} {% trans translation.1 %}" data-tooltip="">{{ translation.0 }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
@@ -62,11 +63,11 @@
       {% endif %}
 
       {# Links and modules #}
-      {# TODO: For the time being, this shows all links as Approaches. This should be improved. #}
+      {# For CCA Modules, all links should be to Technologies. #}
       {% if item.links %}
         <ul class="right tech-attached sub-nav-square">
           <li>
-            <a href="{% url 'cca:questionnaire_details' item.code %}" class="is-approach" title="{% trans "This SLM Technology is linked to SLM Approaches" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-approach"></use></svg>
+            <a href="{% url 'cca:questionnaire_details' item.code %}" class="is-tech" title="{% trans "This Module is linked to a SLM Technology" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-technology"></use></svg>
               {% if item.links|length > 1 %}
                 <span class="number">{{ item.links|length }}</span>
               {% endif %}

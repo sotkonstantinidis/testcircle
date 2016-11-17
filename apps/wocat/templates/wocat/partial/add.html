@@ -48,7 +48,7 @@
   </div>
   <div class="small-12 medium-4 columns">
     <div class="card">
-      <a href="{% url 'wocat:add_module' %}">
+      <a href="{% url 'technologies:add_module' %}">
         <div class="card-image-holder">
           <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
           <span class="card-image-overlay-container">
@@ -64,8 +64,8 @@
       <div class="card-well">
         <h2 class="card-title">{% trans "Modules" %}</h2>
         <p class="card-desc" data-equalizer-watch>{% trans "Modules provide in-depth information on specific topics related to SLM Technologies and Approaches" %}</p>
-        <a href="{% url 'wocat:add_module' %}" class="button large expand disabled" title="{% trans "Modules will be added soon to the new database." %}" aria-haspopup="true" data-tooltip="">
-          {% trans "Add" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
+        <a href="{% url 'technologies:add_module' %}" class="button large expand">
+          {% trans "Add" %}
         </a>
       </div>
     </div>

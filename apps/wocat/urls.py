@@ -21,9 +21,6 @@ urlpatterns = patterns(
     url(r'^add/practice/$', TemplateView.as_view(
         template_name='wocat/add_practice.html'),
         name='add_practice'),
-    url(r'^add/module/$', TemplateView.as_view(
-        template_name='wocat/add_module.html'),
-        name='add_module'),
     url(r'^add/landscapes/$', TemplateView.as_view(
         template_name='wocat/add_landscapes.html'),
         name='add_landscapes'),

@@ -9774,6 +9774,30 @@
   },
   {
     "fields": {
+      "keyword": "cca_qg_name",
+      "translation": null,
+      "configuration": {
+        "inherited_configuration": "technologies",
+        "inherited_questiongroup": "qg_name"
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27044
+  },
+  {
+    "fields": {
+      "keyword": "cca_qg_location",
+      "translation": null,
+      "configuration": {
+        "inherited_configuration": "technologies",
+        "inherited_questiongroup": "qg_location"
+      }
+    },
+    "model": "configuration.questiongroup",
+    "pk": 27045
+  },
+  {
+    "fields": {
       "keyword": "cca_qg_56",
       "translation": null,
       "configuration": {
@@ -11136,64 +11160,21 @@
                     },
                     "questiongroups": [
                       {
-                        "keyword": "qg_name",
+                        "keyword": "cca_qg_name",
                         "questions": [
                           {
-                            "keyword": "name",
-                            "form_options": {
-                              "field_options": {
-                                "readonly": "readonly"
-                              }
-                            },
-                            "view_options": {
-                              "in_list": true,
-                              "is_name": true
-                            }
+                            "keyword": "name"
                           },
                           {
-                            "keyword": "name_local",
-                            "form_options": {
-                              "field_options": {
-                                "readonly": "readonly"
-                              }
-                            }
+                            "keyword": "name_local"
                           }
                         ]
                       },
                       {
-                        "keyword": "qg_location",
+                        "keyword": "cca_qg_location",
                         "questions": [
                           {
-                            "keyword": "country",
-                            "form_options": {
-                              "field_options": {
-                                "readonly": "readonly"
-                              }
-                            },
-                            "view_options": {
-                              "template": "inline_6",
-                              "in_list": true
-                            }
-                          },
-                          {
-                            "keyword": "state_province",
-                            "form_options": {
-                              "template": "hidden"
-                            }
-                          },
-                          {
-                            "keyword": "further_location",
-                            "form_options": {
-                              "template": "hidden"
-                            }
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "qg_import",
-                        "questions": [
-                          {
-                            "keyword": "import_old_code"
+                            "keyword": "country"
                           }
                         ]
                       }
