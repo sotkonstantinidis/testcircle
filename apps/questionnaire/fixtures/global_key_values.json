@@ -219,16 +219,25 @@
         "technologies": {
           "label": {
             "en": "Caption, explanation of photo"
+          },
+          "helptext": {
+            "en": "Write one sentence."
           }
         },
         "approaches": {
           "label": {
             "en": "Caption, explanation of photo"
+          },
+          "helptext": {
+            "en": "Write one sentence."
           }
         },
         "watershed": {
           "label": {
             "en": "Caption, explanation of photo"
+          },
+          "helptext": {
+            "en": "Write one sentence."
           }
         }
       }
@@ -778,7 +787,7 @@
         },
         "watershed": {
           "label": {
-            "en": "Strengths/ advantages/ opportunities in the watershed users’ view"
+            "en": "Strengths/ advantages/ opportunities in the watershed user’s view"
           },
           "helptext": {
             "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
@@ -843,7 +852,7 @@
             "en": "Weaknesses/ disadvantages/ risks in the watershed user’s view"
           },
           "helptext": {
-            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the watershed management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
           }
         }
       }
@@ -1679,6 +1688,30 @@
     },
     "model": "configuration.translation",
     "pk": 5065
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "approaches": {
+          "label": {
+            "en": "Further comments"
+          }
+        },
+        "technologies": {
+          "label": {
+            "en": "Further comments"
+          }
+        },
+        "watershed": {
+          "label": {
+            "en": "Further comments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 5066
   },
   {
     "fields": {
@@ -6127,7 +6160,10 @@
       "keyword": "image_caption",
       "translation": 5008,
       "configuration": {
-        "type": "text"
+        "type": "char",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       }
     },
     "model": "configuration.key",
@@ -6748,6 +6784,17 @@
     },
     "model": "configuration.key",
     "pk": 58
+  },
+  {
+    "fields": {
+      "keyword": "image_comments",
+      "translation": 5066,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 59
   },
   {
     "fields": {

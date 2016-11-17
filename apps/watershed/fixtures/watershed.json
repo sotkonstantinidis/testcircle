@@ -5,7 +5,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "By national standards is the watershed considered"
+            "en": "By national standards, is the watershed considered"
           }
         }
       }
@@ -19,7 +19,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Indicate if the described watershed is selected as a representative unit of / for a larger watershed, river basin or region."
+            "en": "Indicate if the described watershed is representative of a larger watershed, river basin, or region."
           }
         }
       }
@@ -92,7 +92,7 @@
             "en": "Description of the watershed"
           },
           "helptext": {
-            "en": "<p>This detailed description should provide a concise but comprehensive picture of the watershed and its management to outsiders. Major differences of the 3 zones of the watershed should be highlighted. It should therefore address key questions such as:</p><ol><li>Where is the watershed located (natural and human environment)?</li><li>What are the main problems/challenges and what are the main objectives of the watershed management?</li><li>Which are the main Technologies applied (technical, social and institutional)?</li><li>Which are the main target groups / beneficiaries?</li><li>Who are the implementing partners and what is their role?</li><li>What are the environmental, social, cultural and economic impacts of watershed management?</li></ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents.</p>"
+            "en": "<p>This detailed description should provide a concise but comprehensive picture of the watershed and its management to outsiders. Major differences of the three zones of the watershed should be highlighted. It should therefore address key questions such as:<ol><li>Where is the watershed located (natural and human environment)?</li><li>What are the main problems/ challenges and what are the main objectives of the watershed management?</li><li>What are the main Technologies applied (technical, social, and institutional)?</li><li>Who are the main target groups/ beneficiaries?</li><li>Who are the implementing partners and what is their role?</li><li>What are the environmental, social, cultural, and economic impacts of watershed management?</li></ol></p><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. More detailed descriptions may be uploaded to the database as separate documents.</p>"
           }
         }
       }
@@ -121,6 +121,9 @@
         "watershed": {
           "label": {
             "en": "Caption of the map"
+          },
+          "helptext": {
+            "en": "Write one sentence."
           }
         }
       }
@@ -176,7 +179,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Describe the best scenario"
+            "en": "Describe a scenario for improved watershed management based on different scenario runs in the offline app."
           }
         }
       }
@@ -190,10 +193,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there environmental interactions between upstream and downstream areas in the watershed?"
+            "en": "Are there conflicts between upstream and downstream land users?"
           },
           "helptext": {
-            "en": "E.g. water flow of rivers, deposition of sediments, ground water recharge"
+            "en": "E.g. water use, forest use"
           }
         }
       }
@@ -221,10 +224,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there socioeconomic interactions between upstream and downstream resource users in the watershed?"
+            "en": "Are there synergies between upstream and downstream land users?"
           },
           "helptext": {
-            "en": "I.e. social includes e.g. regulatory mechanisms for protecting water resources upstream, economic includes e.g. improved access of upstream land users to downstream markets"
+            "en": "E.g. down-stream hydro-power companies invest in SLM upstream"
           }
         }
       }
@@ -252,10 +255,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Do these human-environmental interactions influence watershed management aspects?"
+            "en": "Are there dependencies between upstream and downstream users?"
           },
           "helptext": {
-            "en": "E.g. conflicts between herders upstream and farmers downstream (or vice versa) could lead to degradation of natural resources, demand for biofuels, population pressure on land, market forces leading to specialisation"
+            "en": "E.g. regulated water flow of rivers, groundwater recharge"
           }
         }
       }
@@ -276,6 +279,48 @@
     },
     "model": "configuration.translation",
     "pk": 31019
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Further comments"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31020
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Are there any solutions?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31021
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Can they be maintained in future?"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31022
   },
   {
     "fields": {
@@ -409,7 +454,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Brief identification of the Watershed"
+            "en": "Brief identification of the watershed"
           }
         }
       }
@@ -510,7 +555,7 @@
             "en": "Photos of the watershed"
           },
           "helptext": {
-            "en": "<ul><li>Provide photos showing an overview and details of the 3 zones of the watershed</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted!</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_1.jpg\"><p class=\"form-example-legend\">Sourakhak watershed (Afghanistan) used for fuel, fodder, grazing and cash crops (photo: S. Bhuchar, Helvetas)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_2.jpg\"><p class=\"form-example-legend\">Structural measures (contour trenches, check dams, water harvesting structures) in combination with management (grazing and shrub cutting management) and vegetative measures applied in Baqa Kushta watershed (Afghanistan; photo: S. Bhuchar, Helvetas)</p></div></div>"
+            "en": "<ul><li>Provide photos showing an overview and details of the three zones of the watershed</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films, or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted!</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_1.jpg\"><p class=\"form-example-legend\">Sourakhak watershed, Afghanistan, used for fuel, fodder, grazing, and cash crops (photo: S. Bhuchar, Helvetas)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/watershed_example_2.jpg\"><p class=\"form-example-legend\">Structural measures (contour trenches, check dams, water harvesting structures) in combination with management (grazing and shrub-cutting management) and vegetative measures applied in Baqa Kushta watershed, Afghanistan (photo: S. Bhuchar, Helvetas)</p></div></div>"
           }
         }
       }
@@ -527,7 +572,7 @@
             "en": "Map of the watershed assessment"
           },
           "helptext": {
-            "en": "Upload the map of the delineated major Land Use Types (LUTs), Land Use Sub-Types (LUSTs) and Land Management (LM) for each zone of the watershed (current situation) in one map."
+            "en": "Upload the map of the delineated major Land Use Types (LUTs), Land Use Sub-Types (LUSTs), and Land Management (LM) for each zone of the watershed (current situation) in one map."
           }
         }
       }
@@ -541,10 +586,10 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Additional map(s) that support characterization of the watershed"
+            "en": "Additional map(s) that support(s) characterization of the watershed"
           },
           "helptext": {
-            "en": "If available provide any other map(s) that support characterization of the watershed (e.g. altitude, annual rainfall, slopes, soils etc.)."
+            "en": "If available provide any other map(s) that support(s) characterization of the watershed (e.g. altitude, annual rainfall, slopes, soils etc.)."
           }
         }
       }
@@ -558,10 +603,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Describe a scenario for improved watershed management"
-          },
-          "helptext": {
-            "en": "Describe a scenario for improved watershed management based on different scenario runs in the offline app."
+            "en": "Are there dependencies between upstream and downstream land users?"
           }
         }
       }
@@ -575,7 +617,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there environmental interactions between upstream and downstream areas in the watershed?"
+            "en": "Are there conflicts between upstream and downstream land users?"
           }
         }
       }
@@ -589,7 +631,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Are there socioeconomic interactions between upstream and downstream resource users in the watershed?"
+            "en": "Are there synergies between upstream and downstream land users?"
           }
         }
       }
@@ -603,7 +645,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Do these human-environmental interactions influence watershed management aspects?"
+            "en": "Describe a scenario for improved watershed management"
           }
         }
       }
@@ -659,7 +701,7 @@
       "data": {
         "watershed": {
           "label": {
-            "en": "Links to relevant information which is available online"
+            "en": "Links to relevant information that is available online"
           }
         }
       }
@@ -688,6 +730,9 @@
         "watershed": {
           "label": {
             "en": "Watershed information"
+          },
+          "helptext": {
+            "en": "<p><strong>Definition of a watershed</strong>: A watershed is a topographically limited area from which all water is drained by acommon water course/ outlet. A watershed is also known as a catchment or basin. (NB: take care not to confusewith another use of the term in the US, where “watershed” can mean the actual divide between two catchmentsfrom where water is shed in opposite directions, rather than the area with a common water flow or drainagesystem).</p><p>A watershed captures precipitation, filters and stores water and determines its release (Schreier et al. 1997). Theland, vegetation, and water and resource users (farmers, herders, industries, urban people, livestock, wildlife, etc.)are its main constituents. The human and environmental components are closely connected and interdependent insuch a way that a change in one component impacts the integrity of the other.</p><p><strong>Definition of watershed management</strong>: Watershed management is the integrated use of land, vegetation, andwater in a geographically discrete catchment or drainage area for the benefit of its residents, with the objective ofmaintaining the hydrological and other services that the watershed provides, and of reducing or avoiding negativedownstream or groundwater impacts (adapted from The World Bank, 2008). This implies also monitoring otherecological services such as soil productivity; biodiversity; the carbon cycle; climate change adaptation andmitigation; and sociocultural services such as aesthetics, recreation, tourism, heritage, etc.</p><p>Figure 1: Illustration of a watershed (source: https://dutchesswam.wordpress.com/)</p><img src=\"/static/assets/img/watershed/watershed_illustration.jpg\">"
           }
         }
       }
@@ -865,7 +910,10 @@
       "keyword": "ws_map_caption",
       "translation": 31009,
       "configuration": {
-        "type": "text"
+        "type": "char",
+        "form_options": {
+          "helptext_position": "tooltip"
+        }
       }
     },
     "model": "configuration.key",
@@ -917,7 +965,7 @@
   },
   {
     "fields": {
-      "keyword": "ws_environmental_interactions",
+      "keyword": "ws_conflicts",
       "translation": 31014,
       "configuration": {
         "type": "bool"
@@ -928,7 +976,7 @@
   },
   {
     "fields": {
-      "keyword": "ws_environmental_interactions_specify",
+      "keyword": "ws_conflicts_specify",
       "translation": 31015,
       "configuration": {
         "type": "text"
@@ -939,7 +987,7 @@
   },
   {
     "fields": {
-      "keyword": "ws_socioeconomic_interactions",
+      "keyword": "ws_synergies",
       "translation": 31016,
       "configuration": {
         "type": "bool"
@@ -950,7 +998,7 @@
   },
   {
     "fields": {
-      "keyword": "ws_socioeconomic_interactions_specify",
+      "keyword": "ws_synergies_specify",
       "translation": 31017,
       "configuration": {
         "type": "text"
@@ -961,7 +1009,7 @@
   },
   {
     "fields": {
-      "keyword": "ws_interactions_influence",
+      "keyword": "ws_dependencies",
       "translation": 31018,
       "configuration": {
         "type": "bool"
@@ -972,7 +1020,7 @@
   },
   {
     "fields": {
-      "keyword": "ws_interactions_influence_specify",
+      "keyword": "ws_dependencies_specify",
       "translation": 31019,
       "configuration": {
         "type": "text"
@@ -980,6 +1028,39 @@
     },
     "model": "configuration.key",
     "pk": 31019
+  },
+  {
+    "fields": {
+      "keyword": "ws_map_comments",
+      "translation": 31020,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31020
+  },
+  {
+    "fields": {
+      "keyword": "ws_conflicts_solutions",
+      "translation": 31021,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31021
+  },
+  {
+    "fields": {
+      "keyword": "ws_synergies_maintained",
+      "translation": 31022,
+      "configuration": {
+        "type": "text"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31022
   },
   {
     "fields": {
@@ -1109,30 +1190,12 @@
   },
   {
     "fields": {
-      "keyword": "ws_qg_8",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 31008
-  },
-  {
-    "fields": {
       "keyword": "ws_qg_9",
       "translation": null,
       "configuration": {}
     },
     "model": "configuration.questiongroup",
     "pk": 31009
-  },
-  {
-    "fields": {
-      "keyword": "ws_qg_10",
-      "translation": null,
-      "configuration": {}
-    },
-    "model": "configuration.questiongroup",
-    "pk": 31010
   },
   {
     "fields": {
@@ -1756,6 +1819,9 @@
                             "keyword": "image_caption"
                           },
                           {
+                            "keyword": "image_comments"
+                          },
+                          {
                             "keyword": "image_date"
                           },
                           {
@@ -1806,18 +1872,13 @@
                             "keyword": "ws_map_caption"
                           },
                           {
+                            "keyword": "ws_map_description_results"
+                          },
+                          {
                             "keyword": "ws_map_date"
                           },
                           {
                             "keyword": "ws_map_location"
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "ws_qg_8",
-                        "questions": [
-                          {
-                            "keyword": "ws_map_description_results"
                           }
                         ]
                       }
@@ -1845,18 +1906,13 @@
                             "keyword": "ws_map_caption"
                           },
                           {
+                            "keyword": "ws_map_comments"
+                          },
+                          {
                             "keyword": "ws_map_date"
                           },
                           {
                             "keyword": "ws_map_location"
-                          }
-                        ]
-                      },
-                      {
-                        "keyword": "ws_qg_10",
-                        "questions": [
-                          {
-                            "keyword": "ws_map_description_results"
                           }
                         ]
                       }
@@ -1877,15 +1933,24 @@
                     },
                     "questiongroups": [
                       {
-                        "keyword": "ws_qg_11",
+                        "keyword": "ws_qg_14",
                         "questions": [
                           {
-                            "keyword": "ws_analysis_description",
+                            "keyword": "ws_dependencies",
                             "form_options": {
-                              "label_position": "none"
+                              "question_conditions": [
+                                "=='1'|ws_dependencies_specify"
+                              ],
+                              "helptext_position": "tooltip"
                             },
                             "view_options": {
                               "label_position": "none"
+                            }
+                          },
+                          {
+                            "keyword": "ws_dependencies_specify",
+                            "form_options": {
+                              "question_condition": "ws_dependencies_specify"
                             }
                           }
                         ]
@@ -1902,10 +1967,10 @@
                         "keyword": "ws_qg_12",
                         "questions": [
                           {
-                            "keyword": "ws_environmental_interactions",
+                            "keyword": "ws_conflicts",
                             "form_options": {
                               "question_conditions": [
-                                "=='1'|ws_environmental_interactions_specify"
+                                "=='1'|ws_conflicts_specify"
                               ],
                               "helptext_position": "tooltip"
                             },
@@ -1914,9 +1979,15 @@
                             }
                           },
                           {
-                            "keyword": "ws_environmental_interactions_specify",
+                            "keyword": "ws_conflicts_specify",
                             "form_options": {
-                              "question_condition": "ws_environmental_interactions_specify"
+                              "question_condition": "ws_conflicts_specify"
+                            }
+                          },
+                          {
+                            "keyword": "ws_conflicts_solutions",
+                            "form_options": {
+                              "question_condition": "ws_conflicts_specify"
                             }
                           }
                         ]
@@ -1933,10 +2004,10 @@
                         "keyword": "ws_qg_13",
                         "questions": [
                           {
-                            "keyword": "ws_socioeconomic_interactions",
+                            "keyword": "ws_synergies",
                             "form_options": {
                               "question_conditions": [
-                                "=='1'|ws_socioeconomic_interactions_specify"
+                                "=='1'|ws_synergies_specify"
                               ],
                               "helptext_position": "tooltip"
                             },
@@ -1945,9 +2016,15 @@
                             }
                           },
                           {
-                            "keyword": "ws_socioeconomic_interactions_specify",
+                            "keyword": "ws_synergies_specify",
                             "form_options": {
-                              "question_condition": "ws_socioeconomic_interactions_specify"
+                              "question_condition": "ws_synergies_specify"
+                            }
+                          },
+                          {
+                            "keyword": "ws_synergies_maintained",
+                            "form_options": {
+                              "question_condition": "ws_synergies_specify"
                             }
                           }
                         ]
@@ -1961,25 +2038,10 @@
                     },
                     "questiongroups": [
                       {
-                        "keyword": "ws_qg_14",
+                        "keyword": "ws_qg_11",
                         "questions": [
                           {
-                            "keyword": "ws_interactions_influence",
-                            "form_options": {
-                              "question_conditions": [
-                                "=='1'|ws_interactions_influence_specify"
-                              ],
-                              "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "label_position": "none"
-                            }
-                          },
-                          {
-                            "keyword": "ws_interactions_influence_specify",
-                            "form_options": {
-                              "question_condition": "ws_interactions_influence_specify"
-                            }
+                            "keyword": "ws_analysis_description"
                           }
                         ]
                       }
