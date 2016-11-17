@@ -67,8 +67,8 @@ body.summary {
   .img-caption {
     background-color: $color-beige-dark;
     color: white;
-    padding: 0rem 0rem 0.12rem 1rem;
-    font-size: 0.8rem;
+    padding: 0rem 1rem 0.12rem 1rem;
+    font-size: 0.6rem;
     font-weight: normal;
   }
 
@@ -87,6 +87,22 @@ body.summary {
     right: 0px;
     background-color: rgb(95, 89, 79);
     padding:20px;
+  } 
+
+  .img-column
+  {
+    width:auto;
+    max-height: 290px;
+    position: absolute;
+    bottom:0px;
+  }
+  
+  .img-column-container
+  {
+    height: 290px;
+    width:100%;
+    background-color: rgba(85, 116, 49, 0.1);
+    position: relative;
   }
   
 }

@@ -85,11 +85,11 @@
     "partials": {
       "images": [
         {
-          "url": "picture_1.png",
+          "url": "/static/assets/img/example_vertical.jpg",
           "caption": "A 4 m high terrace riser, where the lower part is vertical and bare – demonstrating the stability of the loess soil at this depth. The upper part is sloping, and stabilised with grasses, bushes and trees. (Hanspeter Liniger)"
         },
         {
-          "url": "picture_2.png",
+          "url": "/static/assets/img/card_climate_change_adaption.jpg",
           "caption": "A 4 m high terrace riser, where the lower part is vertical and bare – demonstrating the stability of the loess soil at this depth. The upper part is sloping, and stabilised with grasses, bushes and trees. (Hanspeter Liniger)"
         }
       ]
