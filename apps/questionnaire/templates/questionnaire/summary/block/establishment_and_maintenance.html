@@ -1,0 +1,18 @@
+{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+<div class="row">
+ <h5>{{ content.introduction.title }}</h5>
+  <div class="small-6 columns">
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="bullets" list_items=content.introduction.items %}
+	</div>
+   <div class="small-6 columns">
+   	{{ content.introduction.comment }}
+   </div>
+ </div>
+<div class="row">
+  <div class="small-6 columns">
+    {% include 'questionnaire/summary/partial/ordered_list.html' with class="numbers" list_items=content.establishment.list %}
+   </div>
+   <div class="small-6 columns">
+   	{{ content.introduction.comment }}
+   </div>
+</div>

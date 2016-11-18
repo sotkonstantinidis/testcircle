@@ -109,4 +109,26 @@ body.summary {
     background-color: rgba(85, 116, 49, 0.1);
     position: relative;
   }
+
+  .img_in_text
+  {
+    float: right;
+    max-width: 66%;
+    margin: 0px 0px 20px 20px;
+  }
+
+  ol.numbers {
+    list-style: decimal !important;
+    margin-left: 1rem;
+        li {
+      list-style-type: decimal;
+      ul {
+        li {
+          list-style-type: decimal;
+          @extend .overcome;
+        }
+      }
+    }
+  }
+
 }
