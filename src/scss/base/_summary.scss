@@ -44,17 +44,20 @@ body.summary {
   }
 
   .overcome {
-    margin-left: 1.3rem;
-    font-style: italic;
-    &::before {
-      font-size: 1rem;
-      content: '\2192';
-      display: block;
-      height: 0;
-      width: 0;
-      left: -1.25em;
-      top: -0.1rem;
-      position: relative;
+    .subtext {
+        margin-left: 0.8rem;
+        font-style: italic;
+        font-weight: normal;
+      &::before {
+        font-size: 1rem;
+        content: '\2192';
+        height: 0;
+        width: 0;
+        left: -0.5em;
+        top: 0.1rem;
+        color: $color-green;
+        position: relative;
+      }
     }
   }
 
@@ -63,12 +66,6 @@ body.summary {
     margin-left: 1rem;
     li {
       list-style-type: disc;
-      ul {
-        li {
-          list-style-type: none;
-          @extend .overcome;
-        }
-      }
     }
   }
 
@@ -85,14 +82,14 @@ body.summary {
 .location {
   p,
   div.paragraph {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid $color-beige;
     margin: 0;
     line-height: 1rem;
     padding-bottom: 0.3rem;
     margin-bottom: 0.3rem;
 
     &.border-top {
-      border-top: 1px solid $color-green-light;
+      border-top: 1px solid $color-beige;
     }
   }
   ul {
@@ -120,6 +117,7 @@ body.summary {
   }
 
   .tech-section-header {
+    background-color: #edf0ea;
     padding-left: 0.75rem;
   }
 

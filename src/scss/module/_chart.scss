@@ -1,4 +1,4 @@
-.chart-horizontal-bars,
+§.chart-horizontal-bars,
 .chart-pyramidal-bars {
   @include reset-list;
 }
@@ -144,17 +144,21 @@ body.summary
         font-size: 1rem;
         content: ' ';
         display: block;
-        height: 15px;
-        width: 15px;
+        height: 14px;
+        width: 14px;
         background-color: rgba(95, 89, 79, 0.2);
         left: 0;
-        top: 0.2rem;
+        top: 0.15rem;
         position: absolute;
       }
       &.true {
         font-weight: bold;
         color: #3E3B34;
         &::before {
+          color: white;
+          line-height: 1em;
+          font-size: 1.2em;
+          content: '\2713 ';
           background-color: $color-green;
         }
       }
