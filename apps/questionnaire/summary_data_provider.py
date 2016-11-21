@@ -115,6 +115,64 @@ class GlobalValuesMixin:
             }
         }
 
+    def location(self):
+        return {
+            "title": _("Location"),
+            "partials": {
+                "map": {
+                    "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+                },
+                "infos": {
+                    "location": {
+                        "title": "Location",
+                        "text": "Zhuanglang County, Gansu Province (Loess Plateau Region), PR China"
+                    },
+                    "sites": {
+                        "title": "No. of Technology sites analysed",
+                        "text": "valute"
+                    },
+                    "geo_reference": [
+                        "coordinates",
+                        "coordinates 2",
+                        "coordinates 3"
+                    ],
+                    "spread": {
+                        "title": "Spread of the Technology",
+                        "text": "Evenly spread over an area (1,088 km 2 )"
+                    },
+                    "date": {
+                        "title": "Date of implementation",
+                        "text": "> 50 years ago (since the 1950s)"
+                    },
+                    "introduction": {
+                        "title": "Type of introduction",
+                        "items": [
+                            {
+                                "highlighted": False,
+                                "text": "through land users’ innovation"
+                            },
+                            {
+                                "highlighted": False,
+                                "text": "as part of a traditional system (> 50 years)"
+                            },
+                            {
+                                "highlighted": False,
+                                "text": "during experiments/ research"
+                            },
+                            {
+                                "highlighted": True,
+                                "text": "through projects/ external interventions"
+                            },
+                            {
+                                "highlighted": False,
+                                "text": "other (specify): ……………."
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+
     def description(self):
         return {
             'title': _('Description'),
@@ -168,7 +226,8 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'description', 'conclusion']
+        return ['header_image', 'title', 'location', 'description',
+                'conclusion']
 
 
 class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
