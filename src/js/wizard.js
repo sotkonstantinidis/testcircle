@@ -368,6 +368,25 @@ function checkDisasters(element) {
 }
 
 /**
+ * Defines the index of select element at which a new option will be inserted
+ */
+function findSelectIndex(j, item_value) {
+    var temp0 = item_value.split('_');
+    var count = -1;
+    var found = false;
+    $("#id_cca_qg_39-"+j+"-climate_related_extreme option").each(function() {
+        if (!found) count++;
+        var temp1 = this.value.split('_');
+        if(!found && temp1.length==4 && parseInt(temp0[3])<parseInt(temp1[3]))
+            found = true;
+    });
+    if(found)
+        return count;
+    else
+        return 0;
+}
+
+/**
  * Refreshes the select element in cca 2.3 based on selected values from cca 2.2
  */
 function refreshDisasters() {
@@ -375,11 +394,16 @@ function refreshDisasters() {
         if($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme")[0])) {
             var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
             $.each(disasters, function(i, item) {
-                if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
-                    selectDisasters.append($('<option>', {
-                        value:  item.value,
-                        text:   item.text
-                    }));
+                if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0])) {
+                    var select_index = findSelectIndex(j, item.value);
+                    if(select_index==0)
+                        selectDisasters.append($('<option>', {
+                            value:  item.value,
+                            text:   item.text
+                        }));
+                    else
+                        $( "#id_cca_qg_39-"+j+"-climate_related_extreme option" ).eq(select_index).before($("<option></option>").val(item.value).text(item.text));
+                }                    
                 else if(disasters[i].active==false && $.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
                     $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']").remove();
             });            

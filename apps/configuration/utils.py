@@ -219,7 +219,7 @@ def get_choices_from_questionnaire(request_path):
             if category == 'cca__2':
                 for questiongroup in questiongroups:
                     qg = questiongroup.keyword.split('_')
-                    if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg':
+                    if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg' and qg[2].isdigit():
                         qg_id = int(qg[2])
                         if qg_id>=7 and qg_id<=30:
                             translation = Translation.objects.get(pk=questiongroup.translation_id)
@@ -230,7 +230,7 @@ def get_choices_from_questionnaire(request_path):
                     data = questionnaire.data
                     for keyword, value in data.items():
                         qg = keyword.split('_')
-                        if len(qg) == 3 and qg[0] == 'cca' and qg[1] == 'qg':
+                        if len(qg) == 3 and qg[0] == 'cca' and qg[1] == 'qg' and qg[2].isdigit():
                             qg_id = int(qg[2])
                             if qg_id>=2 and qg_id<=34:
                                 for questiongroup in questiongroups:
@@ -240,7 +240,7 @@ def get_choices_from_questionnaire(request_path):
         else:
             for questiongroup in questiongroups:
                 qg = questiongroup.keyword.split('_')
-                if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg':
+                if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg' and qg[2].isdigit():
                     qg_id = int(qg[2])
                     if qg_id>=2 and qg_id<=34:
                         translation = Translation.objects.get(pk=questiongroup.translation_id)
