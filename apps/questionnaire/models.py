@@ -952,6 +952,11 @@ class Questionnaire(models.Model):
     def configurations_property(self):
         return list(self.configurations.values_list('code', flat=True))
 
+    def get_original_configuration(self):
+        return self.configurations.filter(
+            questionnaire__questionnaireconfiguration__original_configuration=True
+        ).first()
+
     @cached_property
     def translations(self):
         return list(self.questionnairetranslation_set.values_list(

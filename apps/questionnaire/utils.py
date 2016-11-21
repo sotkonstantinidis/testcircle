@@ -724,6 +724,7 @@ def get_link_data(linked_objects, link_configuration_code=None):
                   "id": 1,
                   "code": "code_of_questionnaire_with_id_1",
                   "name": "Name of Questionnaire with ID 1",
+                  "configuration": "configuration_of_q"
                 }
               ]
             }
@@ -742,12 +743,18 @@ def get_link_data(linked_objects, link_configuration_code=None):
             original_lang = None
         name = name_data.get(get_language(), name_data.get(original_lang, ''))
 
+        configuration = 'unknown'
+        original_configuration = link.get_original_configuration()
+        if original_configuration:
+            configuration = original_configuration.code
+
         link_list = links.get(link_configuration_code, [])
         link_list.append({
             'id': link.id,
             'code': link.code,
             'name': name,
-            'link': get_link_display(link_configuration_code, name, link.code)
+            'link': get_link_display(link_configuration_code, name, link.code),
+            'configuration': configuration,
         })
         links[link_configuration_code] = link_list
 
@@ -1158,15 +1165,17 @@ def get_list_values(
             lang=get_language()
         )
 
-        links = []
-        link_codes = []
+        # Reorder the links: Group them by linked configuration
+        links = {}
         if with_links is True:
             link_data = get_link_data(obj.links.filter(status_filter))
-            for configuration, link_dicts in link_data.items():
-                for link in link_dicts:
-                    if link.get('code') not in link_codes:
-                        link_codes.append(link.get('code'))
-                        links.append(link.get('link'))
+
+            for questionnaire_configuration, link_dicts in link_data.items():
+                for link_dict in link_dicts:
+                    link_configuration = link_dict.get('configuration')
+                    if link_configuration not in links:
+                        links[link_configuration] = []
+                    links[link_configuration].append(link_dict)
 
         template_value.update({
             'links': links,
@@ -1641,7 +1650,17 @@ def prepare_list_values(data, config, **kwargs):
     del data['list_data']
 
     if 'links' in data and isinstance(data['links'], dict):
+        # TODO: Is this ever used anymore?
         data['links'] = data['links'].get(language, original_language)
+
+    # Reorder the links: Group them by linked configuration
+    links = {}
+    for link in data.get('links', []):
+        link_configuration = link.get('configuration')
+        if link_configuration not in links:
+            links[link_configuration] = []
+        links[link_configuration].append(link)
+    data['links'] = links
 
     # 'translations' must not list the currently active language
     if data['translations']:
