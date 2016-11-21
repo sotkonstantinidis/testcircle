@@ -1,19 +1,77 @@
-<div class="small-4 columns">
+<div class="small-4 columns location">
 {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
-    <img src="{{ content.map.url }}">
+    <img src="/static/assets/img/fanyajuu03_full.jpg">
 	<p><b>{{ content.infos.location.title }}:</b>  {{ content.infos.location.text }}</p>
   <p><b>{{ content.infos.sites.title }}:</b>  {{ content.infos.sites.text }}</p>
-  <h5>Geo-reference</h5>
-	<ul class="bullets">
+<div class="paragraph"><b>Geo-reference</b><ul class="bullets">
 		{% for list_item in content.infos.geo_reference  %}
 		<li>
 		 {{ list_item }}
 		</li>
 	  	{% endfor %}
-	</ul>
+	</ul></div>
   <p><b>{{ content.infos.spread.title }}:</b>  {{ content.infos.spread.text }}</p>
   <p><b>{{ content.infos.date.title }}:</b>  {{ content.infos.date.text }}</p>
-  <h5>{{ content.infos.introduction.title }}</h5>
+<b>{{ content.infos.introduction.title }}</b><br>
     {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.introduction.items %}
+    <!-- <b>{{ content.infos.spread.title }}:</b>  {{ content.infos.spread.text }}<br>
+    <b>{{ content.infos.date.title }}:</b>  {{ content.infos.date.text }}<br>
+    <b>{{ content.infos.introduction.title }}</b><br>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.introduction.items %}
+      <table class="table-compact">
+        <tr>
+          <td class="table-label">{{ content.infos.location.title }}:</td>
+          <td>{{ content.infos.location.text }}</td>
+        </tr>
+        <tr>
+          <td class="table-label">{{ content.infos.sites.title }}:</td>
+          <td>{{ content.infos.sites.text }}</td>
+        </tr>
+        <tr>
+          <td class="table-label">{{ content.infos.sites.title }}:</td>
+          <td>{{ content.infos.sites.text }}</td>
+        </tr>
+      </table>
+
+      <div class="row">
+        <div class="small-3 columns">
+          <b>{{ content.infos.location.title }}:</b>
+        </div>
+        <div class="small-9 columns">
+          {{ content.infos.location.text }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <b>{{ content.infos.sites.title }}:</b>
+        </div>
+        <div class="small-9 columns">
+          {{ content.infos.sites.text }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <b>Geo-Reference:</b>
+        </div>
+        <div class="small-9 columns">
+          <ul class="bullets">
+            {% for list_item in content.infos.geo_reference  %}
+            <li>
+             {{ list_item }}
+            </li>
+              {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-3 columns">
+          <b>Geo-Reference:</b>
+        </div>
+        <div class="small-9 columns">
+          {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.introduction.items %}
+        </div>
+      </div>
+  </div>
+ -->
 
 </div>

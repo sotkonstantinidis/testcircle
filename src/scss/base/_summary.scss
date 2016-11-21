@@ -2,6 +2,7 @@ body.summary {
   background-color: white;
   font-size: 0.75rem;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.02rem;
   line-height: $base-line-height;
 
   a,
@@ -11,7 +12,7 @@ body.summary {
 
   h1 {
     font-size: $h1-font-size;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 
   }
   h2 {
@@ -21,15 +22,25 @@ body.summary {
   h5 {
     font-size: $h5-font-size;
     font-weight: bold;
-    margin: 1rem 0rem 0.5rem 0rem;
+    margin: 0.8rem 0rem 0rem 0rem;
   }
 
   ul {
     margin-left: 0rem;
     line-height: $base-line-height;
     li {
-      margin-top: 0.4rem;
+      margin-top: 0rem;
     }
+  }
+
+  .column, .columns {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+
+  .tech-section-header {
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .overcome {
@@ -62,10 +73,38 @@ body.summary {
   }
 
   .row {
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
+    &.tech-section-header {
+      margin-bottom: 0rem;
+    }
+    .location .row {
+      margin-bottom: 0rem;
+    }
   }
 
+.location {
+  p,
+  div.paragraph {
+    border-bottom: 1px solid grey;
+    margin: 0;
+    line-height: 1rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
+
+    &.border-top {
+      border-top: 1px solid $color-green-light;
+    }
+  }
+  ul {
+    margin-top: 0;
+    line-height: 1rem;
+  }
+}
+
   .header-img {
+    height: 350px;
+    width: 100%;
+    background-size: cover;
     max-width: 100%;
   }
   .img-caption {
@@ -87,12 +126,11 @@ body.summary {
    .wocat_logo
   {
     position: absolute;
-    top:0px;
-    right: 0px;
-    background-color: $color-beige-dark;
+    top:7px;
+    right: 5px;
     padding:5px;
 
-  } 
+  }
 
   .img-column
   {
@@ -101,7 +139,7 @@ body.summary {
     position: absolute;
     bottom:0px;
   }
-  
+
   .img-column-container
   {
     height: 290px;
