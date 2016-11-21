@@ -174,7 +174,7 @@ def clean_questionnaire_data(
                         errors.append('Key "{}" has too many values: {}'.format(
                             key, value))
                         continue
-                elif question.field_type in ['char', 'text']:
+                elif question.field_type in ['char', 'text', 'wms_layer']:
                     if not isinstance(value, dict):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a dict.'

@@ -1,0 +1,4 @@
+{% load i18n %}
+{% load static %}
+
+<img src="{% static 'assets/img/ajax-loader.gif' %}" alt="{% trans "Loading" %}" class="js-wms-preview" data-wms-url="{{ wms_url }}" data-wms-layer="{{ layer }}">

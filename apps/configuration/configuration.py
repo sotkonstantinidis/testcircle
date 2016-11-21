@@ -244,6 +244,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'select_model',
         'select_conditional',
         'display_only',
+        'wms_layer',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -573,7 +574,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'disabled': 'disabled'
             })
 
-        if self.field_type == 'char':
+        if self.field_type in ['char', 'wms_layer']:
             max_length = self.max_length
             if max_length is None:
                 max_length = 2000
@@ -933,6 +934,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             })
         elif self.field_type in ['link_id']:
             return '\n'
+        elif self.field_type in ['wms_layer']:
+            template_name = 'wms_layer'
+            template_values.update({
+                'layer': value,
+                'wms_url': self.view_options.get('wms_url'),
+            })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)

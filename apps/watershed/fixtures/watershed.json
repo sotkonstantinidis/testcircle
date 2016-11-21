@@ -324,6 +324,20 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "watershed": {
+          "label": {
+            "en": "Map layer ID"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 31023
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "watershed": {
@@ -1061,6 +1075,20 @@
     },
     "model": "configuration.key",
     "pk": 31022
+  },
+  {
+    "fields": {
+      "keyword": "ws_map_layer_id",
+      "translation": 31023,
+      "configuration": {
+        "type": "wms_layer",
+        "view_options": {
+          "wms_url": "http://qgiscloud.com/wocat/wocat_landscapes/wms"
+        }
+      }
+    },
+    "model": "configuration.key",
+    "pk": 31023
   },
   {
     "fields": {
@@ -1866,7 +1894,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "ws_map_image"
+                            "keyword": "ws_map_layer_id"
                           },
                           {
                             "keyword": "ws_map_caption"
