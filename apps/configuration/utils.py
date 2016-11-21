@@ -228,15 +228,14 @@ def get_choices_from_questionnaire(request_path):
                 if mode == 'edit':
                     questionnaire = Questionnaire.objects.get(pk=identifier)
                     data = questionnaire.data
-                    for keyword, value in data.items():
-                        qg = keyword.split('_')
-                        if len(qg) == 3 and qg[0] == 'cca' and qg[1] == 'qg' and qg[2].isdigit():
-                            qg_id = int(qg[2])
-                            if qg_id>=2 and qg_id<=34:
-                                for questiongroup in questiongroups:
-                                    if questiongroup.keyword == keyword:
-                                        translation = Translation.objects.get(pk=questiongroup.translation_id)
-                                        choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label'][language]))
+                    for questiongroup in questiongroups:
+                        for keyword, value in data.items():
+                            qg = keyword.split('_')
+                            if len(qg) == 3 and qg[0] == 'cca' and qg[1] == 'qg' and qg[2].isdigit():
+                                qg_id = int(qg[2])
+                                if qg_id>=2 and qg_id<=34 and questiongroup.keyword == keyword:
+                                    translation = Translation.objects.get(pk=questiongroup.translation_id)
+                                    choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label'][language]))
         else:
             for questiongroup in questiongroups:
                 qg = questiongroup.keyword.split('_')
