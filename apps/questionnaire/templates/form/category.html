@@ -118,7 +118,6 @@
       {% endif %}
     </main>
   </form>
-
 {% endblock %}
 
 {% block bottom %}
@@ -133,6 +132,20 @@
         $('#goto-next-section').val('true');
         $('#wizard-form').submit();
       });
+
+      // lock questionnaire while window is open
+      {% if view.object %}
+        setInterval(function(){
+          $.ajax({
+            url: '{% url 'lock_questionnaire' view.object.code %}',
+            type: 'POST',
+            beforeSend: function (xhr, settings) {
+              xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+            }
+          });
+        }, {{ lock_interval }});
+      {% endif %}
+
     })(jQuery);
   </script>
   {% compress js %}

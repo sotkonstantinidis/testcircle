@@ -28,7 +28,7 @@ from .signals import change_status, create_questionnaire
 
 from .conf import settings
 from .errors import QuestionnaireLockedException
-from .querysets import StatusQuerySet
+from .querysets import StatusQuerySet, LockStatusQuerySet
 
 from questionnaire.upload import (
     create_thumbnails,
@@ -73,7 +73,7 @@ QUESTIONNAIRE_FLAGS = (
 
 QUESTIONNAIRE_FLAGS_HELPTEXT = (
     (settings.QUESTIONNAIRE_FLAG_UNCCD, _(
-        'Submitted as SLM Best Practice to UNCCD by country focal point')),
+        'Submitted as SLM best practice to UNCCD by the national focal point')),
 )
 
 
@@ -89,11 +89,6 @@ class Questionnaire(models.Model):
     uuid = models.CharField(max_length=64, default=uuid4)
     code = models.CharField(max_length=64, default='')
     geom = models.GeometryField(null=True, blank=True)
-    blocked = models.ForeignKey(
-        settings.AUTH_USER_MODEL, blank=True, null=True,
-        related_name='blocks_questionnaire',
-        help_text=_(u"Set with the method: lock_questionnaire.")
-    )
     is_deleted = models.BooleanField(default=False)
     status = models.IntegerField(choices=STATUSES)
     version = models.IntegerField()
@@ -176,13 +171,16 @@ class Questionnaire(models.Model):
         self.save()
         # Unblock all questionnaires with this code, as all questionnaires with
         # this code are blocked for editing.
-        self._meta.model.objects.filter(
-            code=self.code
+        Lock.objects.filter(
+            questionnaire_code=self.code
         ).update(
-            blocked=None
+            is_finished=True
         )
 
-        self.update_geometry(configuration_code=configuration_code)
+        try:
+            self.update_geometry(configuration_code=configuration_code)
+        except:
+            pass
 
         # Update the users attached to the questionnaire
         self.update_users_from_data(configuration_code)
@@ -243,10 +241,10 @@ class Questionnaire(models.Model):
             uuid = previous_version.uuid
 
             # Unblock all other questionnaires with same code
-            Questionnaire.objects.filter(
-                code=code
+            Lock.objects.filter(
+                questionnaire_code=code
             ).update(
-                blocked=None
+                is_finished=True
             )
 
             if 'edit_questionnaire' not in permissions:
@@ -501,11 +499,6 @@ class Questionnaire(models.Model):
         translated_roles = []
         for role_keyword, role_name in roles:
             translated_roles.append((role_keyword, _(role_name)))
-
-        # If questionnaire is blocked, remove 'edit' permissions.
-        if 'edit_questionnaire' in permissions and \
-                not self.can_edit(current_user):
-            permissions.remove('edit_questionnaire')
 
         return RolesPermissions(roles=translated_roles, permissions=permissions)
 
@@ -885,79 +878,52 @@ class Questionnaire(models.Model):
         return json.dumps(self.data)
 
     @classmethod
-    def has_questionnaires_for_code(cls, code):
+    def has_questionnaires_for_code(cls, code: str) -> bool:
         return cls.objects.filter(code=code).exists()
 
     @classmethod
-    def get_editable_questionnaires(cls, code, user=None):
-        """
-        After internal discussion: 'blocking' of questionnaires should happen
-        for all items with the same code, not specific questionnaires only.
-
-        Args:
-            code: string
-            user: accounts.models.User
-
-        Returns:
-            queryset
-
-        """
-        qs = cls.objects.filter(code=code)
-        if user:
-            return qs.filter(Q(blocked__isnull=True) | Q(blocked=user))
-        else:
-            return qs.filter(blocked__isnull=True)
-
-    @classmethod
-    def lock_questionnaire(cls, code, user):
+    def lock_questionnaire(cls, code: str, user: settings.AUTH_USER_MODEL):
         """
         If the questionnaire is not locked, or locked by given user: lock the
         questionnaire for this user - else raise an error.
 
-        Args:
-            code: string
-            user: accounts.models.User
         """
-        editable_questionnaires = cls.get_editable_questionnaires(
-            code, user
-        )
-        if cls.has_questionnaires_for_code(code):
-            if not editable_questionnaires.exists():
-                raise QuestionnaireLockedException(
-                    cls.objects.filter(code=code).first().blocked
-                )
-            editable_questionnaires.update(blocked=user)
+        qs_locks = Lock.with_status.is_blocked(code, for_user=user)
 
-    def can_edit(self, user):
-        return self.has_questionnaires_for_code(
-            self.code) and self.get_editable_questionnaires(self.code, user)
+        if qs_locks.exists():
+            raise QuestionnaireLockedException(
+                qs_locks.first().user
+            )
+        else:
+            Lock.objects.create(questionnaire_code=code, user=user)
+
+    def can_edit(self, user: settings.AUTH_USER_MODEL) -> bool:
+        has_questionnaires = self.has_questionnaires_for_code(self.code)
+        qs_locks = Lock.with_status.is_blocked(self.code, for_user=user)
+        return has_questionnaires and not qs_locks.exists()
 
     def unlock_questionnaire(self):
-        self._meta.model.objects.filter(
-            code=self.code
+        Lock.objects.filter(
+            questionnaire_code=self.code
         ).update(
-            blocked=None
+            is_finished=True
         )
 
-    def get_blocked_message(self, user):
+    def get_blocked_message(self, user: settings.AUTH_USER_MODEL) -> tuple:
         """
-        The user that is locking the draft of the questionnaire.
+        Get status and message for blocked status (blocked or can be edited).
+        """
+        locks = Lock.with_status.is_blocked(code=self.code, for_user=user)
 
-        Args:
-            user: accounts.models.User
-        """
-        editable_questionnaire = self.get_editable_questionnaires(
-            self.code, user
-        )
-        if self.has_questionnaires_for_code(self.code) and \
-                editable_questionnaire.exists():
+        if not locks.exists():
             return SUCCESS, _(u"This questionnaire can be edited.")
         else:
             return WARNING, _(u"This questionnaire is "
-                              u"locked for editing by {}.".format(self.blocked))
+                              u"locked for editing by {user}.".format(
+                user=locks.first().user.get_display_name()
+            ))
 
     # Properties for the get_metadata function.
-
     def _get_role_list(self, role):
         members = []
         for member in self.members.filter(questionnairemembership__role=role):
@@ -1280,3 +1246,18 @@ class File(models.Model):
         if file_name is None:
             return None
         return get_url_by_file_name(file_name)
+
+
+class Lock(models.Model):
+    """
+    Locks questionnaire for editing. This collects more information than
+    required, but does include info for debugging.
+    This could be extended with a field for the questionnaires section.
+    """
+    questionnaire_code = models.CharField(max_length=50)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    start = models.DateTimeField(auto_now_add=True)
+    is_finished = models.BooleanField(default=False)
+
+    objects = models.Manager()
+    with_status = LockStatusQuerySet.as_manager()

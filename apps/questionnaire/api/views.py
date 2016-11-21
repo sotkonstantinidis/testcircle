@@ -168,6 +168,8 @@ class QuestionnaireListView(QuestionnaireAPIMixin):
             total = es_search_results.get('hits', {}).get('total', 0)
             # If the page is not within the valid total return an empty response
             if total < offset:
+                logger.warn('Potential issue from skbp: Invalid API request '
+                            'with offset {}.'.format(offset))
                 es_search_results = {}
             else:
                 # There really are more results than ES pagination is originally

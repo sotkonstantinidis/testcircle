@@ -59,6 +59,7 @@ class BaseSettings(Configuration):
         'search',
         'technologies',
         'unccd',
+        'watershed',
         'wocat',
     )
 
@@ -93,9 +94,9 @@ class BaseSettings(Configuration):
         ('en', _('English')),
         ('es', _('Spanish')),
         ('fr', _('French')),
-        # TODO: Add all languages in which imported Questionnaires are
-        # available.
-        # ('ru', _('Russian')),
+        ('ru', _('Russian')),
+        ('pt', _('Portuguese')),
+        ('ar', _('Arabic')),
     )
 
     TIME_ZONE = 'Europe/Zurich'
