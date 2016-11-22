@@ -10,6 +10,18 @@
     <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
   </head>
   <body class="summary is-technologies">
-    full technologies
+    {% include 'questionnaire/summary/block/header_image.html' with content=block.header_image.partials %}
+    {% include 'questionnaire/summary/block/title.html' with content=block.title.partials %}
+    <div class="row">
+    {% include 'questionnaire/summary/block/description.html' with content=block.description.partials title=block.description.title %}
+    {% include 'questionnaire/summary/block/location.html' with content=block.location.partials title=block.location.title %}
+    </div>
+    {% include 'questionnaire/summary/block/two_images_with_caption.html' with content=block.images.partials %}
+    {# {% include 'questionnaire/summary/block/classification.html' with content=block.classification.partials title=block.classification.title %} #}
+    {% include 'questionnaire/summary/block/specifications.html' with content=block.technical_drawing.partials title=block.technical_drawing.title %}
+    {% include 'questionnaire/summary/block/establishment_and_maintenance.html' with content=block.establishment_costs.partials title=block.establishment_costs.title %}
+    {% include 'questionnaire/summary/block/conclusion.html' with content=block.conclusion.partials title=block.conclusion.title %}
+    {% include 'questionnaire/summary/block/references.html' with content=block.references.partials title=block.references.title %}
+    <!--  -->
   </body>
 </html>

@@ -2,6 +2,7 @@ body.summary {
   background-color: white;
   font-size: 0.75rem;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.02rem;
   line-height: $base-line-height;
 
   a,
@@ -11,7 +12,7 @@ body.summary {
 
   h1 {
     font-size: $h1-font-size;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
 
   }
   h2 {
@@ -21,29 +22,41 @@ body.summary {
   h5 {
     font-size: $h5-font-size;
     font-weight: bold;
-    margin: 1rem 0rem 0.5rem 0rem;
+    margin: 0.8rem 0rem 0rem 0rem;
   }
 
   ul {
     margin-left: 0rem;
     line-height: $base-line-height;
     li {
-      margin-top: 0.4rem;
+      margin-top: 0rem;
     }
   }
 
+  .column, .columns {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+
+  .tech-section-header {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .overcome {
-    margin-left: 1.3rem;
-    font-style: italic;
-    &::before {
-      font-size: 1rem;
-      content: '\2192';
-      display: block;
-      height: 0;
-      width: 0;
-      left: -1.25em;
-      top: -0.1rem;
-      position: relative;
+    .subtext {
+        margin-left: 0.8rem;
+        font-style: italic;
+        font-weight: normal;
+      &::before {
+        font-size: 1rem;
+        content: '\2192';
+        height: 0;
+        width: 0;
+        left: -0.5em;
+        top: 0.1rem;
+        position: relative;
+      }
     }
   }
 
@@ -52,27 +65,52 @@ body.summary {
     margin-left: 1rem;
     li {
       list-style-type: disc;
-      ul {
-        li {
-          list-style-type: none;
-          @extend .overcome;
-        }
-      }
     }
   }
 
   .row {
-    margin-bottom: 1rem;
+    margin-bottom: 0.6rem;
+    &.tech-section-header {
+      margin-bottom: 0rem;
+    }
+    .small-8 .tech-section-header {
+      margin-left: -0.4rem;
+    }
+    .location .row {
+      margin-bottom: 0rem;
+    }
   }
 
+.location {
+  p,
+  div.paragraph {
+    border-bottom: 1px solid $color-beige;
+    margin: 0;
+    line-height: 1rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
+
+    &.border-top {
+      border-top: 1px solid $color-beige;
+    }
+  }
+  ul {
+    margin-top: 0;
+    line-height: 1rem;
+  }
+}
+
   .header-img {
+    height: 350px;
+    width: 100%;
+    background-size: cover;
     max-width: 100%;
   }
   .img-caption {
     background-color: $color-beige-dark;
     color: white;
-    padding: 0rem 0rem 0.12rem 1rem;
-    font-size: 0.8rem;
+    padding: 0rem 1rem 0.12rem 1rem;
+    font-size: 0.6rem;
     font-weight: normal;
   }
 
@@ -81,15 +119,57 @@ body.summary {
   }
 
   .tech-section-header {
-    padding-left: 0.75rem;
+    background-color: #edf0ea;
+    h2 {
+      padding-left: 0.75rem;
+      width: auto;
+    }
   }
 
    .wocat_logo
   {
     position: absolute;
-    top:0px;
-    right: 0px;
-    background-color: $color-beige-dark;
+    top:7px;
+    right: 5px;
     padding:5px;
+
   }
+
+  .img-column
+  {
+    width:auto;
+    max-height: 290px;
+    position: absolute;
+    bottom:0px;
+  }
+
+  .img-column-container
+  {
+    height: 290px;
+    width:100%;
+    background-color: rgba(85, 116, 49, 0.1);
+    position: relative;
+  }
+
+  .img_in_text
+  {
+    float: right;
+    max-width: 66%;
+    margin: 0px 0px 20px 20px;
+  }
+
+  ol.numbers {
+    list-style: decimal !important;
+    margin-left: 1rem;
+        li {
+      list-style-type: decimal;
+      ul {
+        li {
+          list-style-type: decimal;
+          @extend .overcome;
+        }
+      }
+    }
+  }
+
 }
