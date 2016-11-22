@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-17 21:36+0100\n"
+"POT-Creation-Date: 2016-11-22 08:03+0100\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -216,7 +216,7 @@ msgstr ""
 msgid "This SLM practice is also available in:"
 msgstr ""
 
-#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:68
+#: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:69
 msgid "This SLM Approach is linked to SLM Technologies"
 msgstr ""
 
@@ -261,19 +261,19 @@ msgstr ""
 msgid "No SLM Climate Change Adaptations found."
 msgstr ""
 
-#: apps/cca/templates/cca/questionnaire/partial/list_item.html:70
+#: apps/cca/templates/cca/questionnaire/partial/list_item.html:72
 msgid "This Module is linked to a SLM Technology"
 msgstr ""
 
-#: apps/configuration/configuration.py:362
+#: apps/configuration/configuration.py:363
 msgid "Yes"
 msgstr ""
 
-#: apps/configuration/configuration.py:362
+#: apps/configuration/configuration.py:363
 msgid "No"
 msgstr ""
 
-#: apps/configuration/configuration.py:2408
+#: apps/configuration/configuration.py:2415
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr ""
@@ -12594,7 +12594,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:23201
 msgctxt "cca label"
 msgid ""
-"On- and off-site ipmacts of the Technology under gradual climate changes and "
+"On- and off-site impacts of the Technology under gradual climate changes and "
 "climate-related extremes (disasters)"
 msgstr ""
 
@@ -13255,7 +13255,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:27169
 msgctxt "cca label"
-msgid "access to early warning systems related to cliamte extremes (disasters)"
+msgid "access to early warning systems related to climate extremes (disasters)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:27170
@@ -15030,6 +15030,11 @@ msgctxt "watershed label"
 msgid "Can they be maintained in future?"
 msgstr ""
 
+#: apps/configuration/configuration_translations.py:31028
+msgctxt "watershed label"
+msgid "Map layer ID"
+msgstr ""
+
 #: apps/configuration/configuration_translations.py:31501
 msgctxt "watershed label"
 msgid "micro-mini scale"
@@ -15800,6 +15805,11 @@ msgstr ""
 msgid "Map preview"
 msgstr ""
 
+#: apps/questionnaire/templates/details/field/wms_layer.html:4
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
+msgid "Loading ..."
+msgstr ""
+
 #: apps/questionnaire/templates/details/includes/link_items.html:7
 msgid "Linked Questionnaires:"
 msgstr ""
@@ -16489,7 +16499,7 @@ msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:77
 #: apps/questionnaire/templates/form/category.html:159
-#: apps/questionnaire/templates/questionnaire/details.html:150
+#: apps/questionnaire/templates/questionnaire/details.html:190
 msgid "Close"
 msgstr ""
 
@@ -16517,17 +16527,17 @@ msgid "Save and go to next section"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:160
-#: apps/questionnaire/templates/questionnaire/details.html:151
+#: apps/questionnaire/templates/questionnaire/details.html:191
 msgid "Next"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:161
-#: apps/questionnaire/templates/questionnaire/details.html:152
+#: apps/questionnaire/templates/questionnaire/details.html:192
 msgid "Back"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:162
-#: apps/questionnaire/templates/questionnaire/details.html:153
+#: apps/questionnaire/templates/questionnaire/details.html:193
 msgid "Done"
 msgstr ""
 
@@ -16797,10 +16807,6 @@ msgid ""
 "option \"Non-registered Person\" above.</li></ul>"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
-msgid "Loading ..."
-msgstr ""
-
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:76
 msgid "Search a registered WOCAT user"
 msgstr ""
@@ -16826,25 +16832,25 @@ msgstr ""
 msgid "Photo"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:157
+#: apps/questionnaire/templates/questionnaire/details.html:197
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:160
+#: apps/questionnaire/templates/questionnaire/details.html:200
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:164
+#: apps/questionnaire/templates/questionnaire/details.html:204
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:169
+#: apps/questionnaire/templates/questionnaire/details.html:209
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -16883,60 +16889,60 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1230
+#: apps/questionnaire/utils.py:1239
 msgid "The questionnaire was successfully submitted."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1262
+#: apps/questionnaire/utils.py:1271
 msgid "The questionnaire was successfully reviewed."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1300
+#: apps/questionnaire/utils.py:1309
 msgid "New version was published"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1328
+#: apps/questionnaire/utils.py:1337
 msgid "The questionnaire was successfully set public."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1367
+#: apps/questionnaire/utils.py:1376
 msgid "The questionnaire was successfully rejected."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1457
+#: apps/questionnaire/utils.py:1466
 msgid "Assigned users were successfully updated"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1485
+#: apps/questionnaire/utils.py:1494
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
 "later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1507
+#: apps/questionnaire/utils.py:1516
 msgid "The flag was successfully set."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1531
+#: apps/questionnaire/utils.py:1540
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
 "again later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1552
+#: apps/questionnaire/utils.py:1561
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
 "public version which still shows the flag."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1559
+#: apps/questionnaire/utils.py:1568
 msgid "New version due to unccd flagging"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1565
+#: apps/questionnaire/utils.py:1574
 msgid "The questionnaire was succesfully removed"
 msgstr ""
 
@@ -17054,9 +17060,9 @@ msgstr ""
 msgid "SAMPLE"
 msgstr ""
 
-#: apps/sample/templates/sample/questionnaire/partial/list_item.html:69
-#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:69
-#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:68
+#: apps/sample/templates/sample/questionnaire/partial/list_item.html:71
+#: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:71
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
 msgid "This SLM Technology is linked to SLM Approaches"
 msgstr ""
 
@@ -17109,6 +17115,10 @@ msgstr ""
 msgid "No SLM Technologies found."
 msgstr ""
 
+#: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
+msgid "This SLM Technology has a CCA module"
+msgstr ""
+
 #: apps/unccd/templates/unccd/home.html:11
 msgid "UNCCD SLM portal"
 msgstr ""
@@ -17148,7 +17158,7 @@ msgstr ""
 msgid "No Watershed found."
 msgstr ""
 
-#: apps/watershed/templates/watershed/questionnaire/partial/list_item.html:68
+#: apps/watershed/templates/watershed/questionnaire/partial/list_item.html:69
 msgid "This Watershed is linked to SLM Technologies"
 msgstr ""
 
