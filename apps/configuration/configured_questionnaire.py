@@ -3,10 +3,10 @@ import functools
 import logging
 from copy import copy
 
-logger = logging.getLogger(__name__)
-
-
+from django.conf import settings
 from .configuration import QuestionnaireQuestion
+
+logger = logging.getLogger(__name__)
 
 
 class ConfiguredQuestionnaire:
@@ -61,19 +61,25 @@ class ConfiguredQuestionnaire:
         """
         Get the template values as defined in the QuestionnaireQuestion config.
         """
+        # Copy the original value, so it can be re-applied. This is important
+        # so the other instances of this config get the expected value.
+        original_template_value = child.view_options.get('template', {})
         child.view_options['template'] = 'raw'
         value = self.values.get(child.parent_object.keyword)
         # Value may be empty, a list of one element (most of the time) or a list
         # of dicts for nested questions.
         if not value:
-            return ''
+            val =  ''
         elif len(value) == 1:
-            return child.get_details(data=value[0])
+            val = child.get_details(data=value[0])
         else:
             # If 'copy' is omitted, the same instance is returned for all values
             # I don't see why - but at this point, this seems the only
             # workaround.
-            return [copy(child.get_details(single_value)) for single_value in value]
+            val = [copy(child.get_details(single_value)) for single_value in value]
+
+        child.view_options['template'] = original_template_value
+        return val
 
     @property
     def active_child_in_store(self):
@@ -94,10 +100,28 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         super().__init__(*args, **kwargs)
 
     def put_question_data(self, child: QuestionnaireQuestion):
+        """
+        Put the value to self.data, using the name as defined in the config
+        ('in_summary': {'this_type': <key_name>}}.
+        As some key names are duplicated by virtue (config may use the same
+        question twice), but represent different and important content, some
+        keys are overridden with the help of the questions questiongroup.
+
+        This cannot be solved on the config as the same question is listed
+        twice, so the key-name overriding setting must be ready for versioning.
+
+        """
         if child.in_summary and child.in_summary.get(self.summary_type):
             field_name = child.in_summary[self.summary_type]
-            if field_name not in self.data:
-                self.data[field_name] = self.get_value(child)
+            field_with_qg = '{questiongroup}.{field}'.format(
+                questiongroup=child.questiongroup.keyword,
+                field=field_name
+            )
+            overridden_key = settings.CONFIGURATION_SUMMARY_KEY_OVERRIDE.get(
+                field_with_qg, field_name
+            )
+            if overridden_key not in self.data:
+                self.data[overridden_key] = self.get_value(child)
             else:
                 # This can be intentional, e.g. header_image is a list. In this
                 # case, only the first element is available.

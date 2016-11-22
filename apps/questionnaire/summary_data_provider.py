@@ -83,9 +83,9 @@ class GlobalValuesMixin:
     """
     Mixin for globally configured values
     """
-    def raw_data_getter(self, key):
+    def raw_data_getter(self, key: str, value='value'):
         try:
-            return self.raw_data[key]['value']
+            return self.raw_data[key][value] if value else self.raw_data[key]
         except (AttributeError, TypeError):
             return ''
 
@@ -115,6 +115,64 @@ class GlobalValuesMixin:
             }
         }
 
+    def location(self):
+        return {
+            "title": _("Location"),
+            "partials": {
+                "map": {
+                    "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+                },
+                "infos": {
+                    "location": {
+                        "title": "Location",
+                        "text": "Zhuanglang County, Gansu Province (Loess Plateau Region), PR China"
+                    },
+                    "sites": {
+                        "title": "No. of Technology sites analysed",
+                        "text": "valute"
+                    },
+                    "geo_reference": [
+                        "coordinates",
+                        "coordinates 2",
+                        "coordinates 3"
+                    ],
+                    "spread": {
+                        "title": "Spread of the Technology",
+                        "text": "Evenly spread over an area (1,088 km 2 )"
+                    },
+                    "date": {
+                        "title": "Date of implementation",
+                        "text": "> 50 years ago (since the 1950s)"
+                    },
+                    "introduction": {
+                        "title": "Type of introduction",
+                        "items": [
+                            {
+                                "highlighted": False,
+                                "text": "through land users’ innovation"
+                            },
+                            {
+                                "highlighted": False,
+                                "text": "as part of a traditional system (> 50 years)"
+                            },
+                            {
+                                "highlighted": False,
+                                "text": "during experiments/ research"
+                            },
+                            {
+                                "highlighted": True,
+                                "text": "through projects/ external interventions"
+                            },
+                            {
+                                "highlighted": False,
+                                "text": "other (specify): ……………."
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+
     def description(self):
         return {
             'title': _('Description'),
@@ -125,27 +183,36 @@ class GlobalValuesMixin:
         }
 
     def conclusion(self):
-        # 'strengths_compiler', 'strengths_landuser'
-        # 'weaknesses_overcome', 'weaknesses_landuser', 'weaknesses_compiler'
+        # Combine answers from two questions: strengths compiler and landuser
+        pro_list = [
+            {'text': item['value']} for item in
+            self.raw_data_getter('strengths_compiler', value='') +
+            self.raw_data_getter('strengths_landuser', value='')
+            ]
+
+        # combine answers from two questions: weaknesses compiler + landuser -
+        # and get the 'overcome' value as subtext
+        weaknesses_list = []
+        weaknesses_datasets = {
+            'weaknesses_compiler': 'weaknesses_overcome',
+            'weaknesses_landuser': 'weaknesses_landuser_overcome',
+        }
+        for key_name, overcome_name in weaknesses_datasets.items():
+            for index, item in enumerate(self.raw_data_getter(key_name, value='')):
+                weaknesses_list.append({
+                    'text': item['value'],
+                    'subtext': self.raw_data_getter(overcome_name, value='')[index].get('value')
+                })
         return {
             "title": _("Conclusion & Comparison"),
             "partials": {
                 "pro": {
                     "label": _("Strengths"),
-                    "items": [
-                        {
-                            "text": "foo"
-                        }
-                    ]
+                    "items": pro_list
                 },
                 "contra": {
                     "label": _("Weaknesses/ disadvantages/ risks and how they can be overcome"),
-                    "items": [
-                        {
-                            "text": "a",
-                            "subtext": "b"
-                        }
-                    ]
+                    "items": weaknesses_list
                 }
             }
         }
@@ -159,7 +226,8 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'description', 'conclusion']
+        return ['header_image', 'title', 'location', 'description',
+                'conclusion']
 
 
 class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):

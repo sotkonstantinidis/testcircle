@@ -3,7 +3,7 @@
     <li {% if list_item.highlighted %} class="true"{% endif %}>
       {% if list_item.title %}<b>{{ list_item.title }}:</b>{% endif %}
       {{ list_item.text|safe}}
-      {% if list_item.subtext %}<ul><li>{{ list_item.subtext }}</li></ul>{% endif %}
+      {% if list_item.subtext %}<span class="subtext">{{ list_item.subtext }}</span>{% endif %}
     </li>
   {% endfor %}
 </ul>

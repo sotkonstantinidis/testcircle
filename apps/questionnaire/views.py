@@ -47,8 +47,9 @@ from questionnaire.upload import (
 from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File, QUESTIONNAIRE_ROLES
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
 from .summary_data_provider import get_summary_data
+
 from .utils import (
     clean_questionnaire_data,
     get_active_filters,
@@ -299,7 +300,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
 
         return '{url}#{step}'.format(url=url, step=step)
 
-
     def get_context_data(self, **kwargs):
         """
         The context data of the view. The required content is based on the previously existing views and the template
@@ -337,7 +337,8 @@ class QuestionnaireSaveMixin(StepsMixin):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('{}:questionnaire_edit'.format(self.url_namespace), kwargs={'identifier': self.object.code})
+        return reverse('{}:questionnaire_edit'.format(self.url_namespace),
+                       kwargs={'identifier': self.object.code})
 
     def validate(self, subcategories, original_locale):
         """
@@ -346,13 +347,15 @@ class QuestionnaireSaveMixin(StepsMixin):
         - Validate given section
         - Validate complete questionnaire, with merged new section
 
-        If either fails, an error is added to request.messages - else the object is saved and a redirect to the
-        success url is returned.
+        If either fails, an error is added to request.messages - else the
+        object is saved and a redirect to the success url is returned.
 
         Returns: tuple (is_valid, data)
 
         """
-        data, is_valid = self._validate_formsets(subcategories, get_language(), original_locale)
+        data, is_valid = self._validate_formsets(
+            subcategories, get_language(), original_locale
+        )
         links = get_link_data(self.questionnaire_links)
 
         # Check if any links were modified.
@@ -434,6 +437,8 @@ class QuestionnaireSaveMixin(StepsMixin):
 
     def can_lock_object(self):
         # Try to lock questionnaire, raise an error if it is locked already.
+        if not self.has_object:
+            return True
         try:
             Questionnaire().lock_questionnaire(self.identifier, self.request.user)
         except QuestionnaireLockedException as e:
@@ -458,8 +463,10 @@ class QuestionnaireSaveMixin(StepsMixin):
         """
         try:
             questionnaire = Questionnaire.create_new(
-                configuration_code=self.get_configuration_code(), data=data, user=self.request.user,
-                previous_version=self.object if self.has_object else None, old_data=None
+                configuration_code=self.get_configuration_code(),
+                data=data,
+                user=self.request.user,
+                previous_version=self.object if self.has_object else None
             )
             self.object = questionnaire
         except ValidationError as e:
@@ -809,7 +816,12 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         """
         self.set_attributes()
         if self.has_object:
-            Questionnaire.lock_questionnaire(self.object.code, self.request.user)
+            try:
+                Questionnaire.lock_questionnaire(
+                    self.object.code, self.request.user
+                )
+            except QuestionnaireLockedException:
+                return HttpResponseRedirect(self.object.get_absolute_url())
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
@@ -895,6 +907,10 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
                                args=[self.identifier, self.kwargs['step']])
 
+        # questionnaire is locked one minute before the lock time is over. time
+        # is expressed in milliseconds, as required for setInterval
+        lock_interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
+
         ctx.update({
             'subcategories': self.subcategories,
             'config': self.category_config,
@@ -906,6 +922,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
             'edit_mode': self.edit_mode,
             'view_url': view_url,
             'toc_content': self.get_toc_content(),
+            'lock_interval': lock_interval
         })
         return ctx
 
@@ -1446,3 +1463,18 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         context = super().get_context_data(**kwargs)
         context['block'] = self.get_prepared_data(self.questionnaire)
         return context
+
+
+class QuestionnaireLockView(LoginRequiredMixin, View):
+    """
+    Lock the questionnaire for the current user.
+    """
+
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        Lock.objects.create(
+            questionnaire_code=self.kwargs['identifier'],
+            user=self.request.user
+        )
+        return HttpResponse(status=200)

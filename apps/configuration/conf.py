@@ -258,3 +258,8 @@ class ConfigurationConf(AppConf):
         'ZMB': 'ZM',
         'ZWE': 'ZW',
     }
+
+    SUMMARY_KEY_OVERRIDE = {
+        'qg_weaknesses_landusers.weaknesses_overcome':
+            'weaknesses_landuser_overcome',
+    }
