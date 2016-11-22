@@ -2200,6 +2200,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         images = []
         for image in image_questiongroups:
+            # Maybe it is not a real image (e.g. maps can also be uploaded as
+            # images)
+            if image.get('image') is None:
+                continue
             image_data = File.get_data(uid=image.get('image'))
             images.append({
                 'image': image_data.get('url'),
