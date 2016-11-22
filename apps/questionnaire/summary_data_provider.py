@@ -48,11 +48,11 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        self.raw_data = ConfiguredQuestionnaireSummary(
-            config=config, summary_type=self.summary_type, **data
-        ).data
-        self.data = self.get_data()
-        # self.data = self.get_demo_dict()
+        # self.raw_data = ConfiguredQuestionnaireSummary(
+        #     config=config, summary_type=self.summary_type, **data
+        # ).data
+        # self.data = self.get_data()
+        self.data = self.get_demo_dict()
 
     def get_data(self) -> dict:
         return {section: getattr(self, section) for section in self.content}
