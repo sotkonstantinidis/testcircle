@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-22 08:03+0100\n"
-"PO-Revision-Date: 2016-11-17 20:36+0000\n"
+"POT-Creation-Date: 2016-11-22 09:13+0100\n"
+"PO-Revision-Date: 2016-11-22 07:06+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
@@ -279,7 +279,7 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: apps/configuration/configuration.py:2415
+#: apps/configuration/configuration.py:2419
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "Nombre desconocido"
@@ -14227,18 +14227,11 @@ msgid ""
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23201
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "Exposure and sensitivity of the Technology to gradual climate change and "
-#| "climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid ""
 "On- and off-site impacts of the Technology under gradual climate changes and "
 "climate-related extremes (disasters)"
 msgstr ""
-"Exposición y sensibilidad de la Tecnología al cambio climático gradual y a "
-"extremos relacionados al clima (desastres)  "
 
 #: apps/configuration/configuration_translations.py:23203
 msgctxt "cca label"
@@ -14896,12 +14889,9 @@ msgid "access to reliable weather forecast information"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:27169
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid "access to early warning systems related to climate extremes (disasters)"
-msgstr "Otros extremos (desastres) relacionados al clima"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:27170
 msgctxt "cca label"
@@ -16947,31 +16937,31 @@ msgstr "revisión"
 msgid "publication"
 msgstr "publicación"
 
-#: apps/notifications/models.py:272
+#: apps/notifications/models.py:274
 msgid "was created"
 msgstr "fue creado"
 
-#: apps/notifications/models.py:274
+#: apps/notifications/models.py:276
 msgid "was deleted"
 msgstr "fue borrado"
 
-#: apps/notifications/models.py:276
+#: apps/notifications/models.py:278
 msgid "has a new status: {}"
 msgstr "tiene un nuevo estado: {}"
 
-#: apps/notifications/models.py:280
+#: apps/notifications/models.py:282
 msgid "has a new member: {}"
 msgstr "tiene un nuevo miembro: {}"
 
-#: apps/notifications/models.py:284
+#: apps/notifications/models.py:286
 msgid "removed a member: {}"
 msgstr "eliminó un miembro: {}"
 
-#: apps/notifications/models.py:288
+#: apps/notifications/models.py:290
 msgid "was edited by: {}"
 msgstr "fue editado por: {}"
 
-#: apps/notifications/models.py:292
+#: apps/notifications/models.py:294
 #, python-brace-format
 msgid "{compiler} is finished editing"
 msgstr "{compiler} concluyó la edición"
@@ -17454,7 +17444,7 @@ msgstr ""
 msgid "Map preview"
 msgstr "Previsualización del mapa"
 
-#: apps/questionnaire/templates/details/field/wms_layer.html:4
+#: apps/questionnaire/templates/details/field/wms_layer.html:5
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Loading ..."
 msgstr "Cargando ..."
@@ -18176,7 +18166,7 @@ msgid "Save and next"
 msgstr "Guardar y continuar"
 
 #: apps/questionnaire/templates/form/category.html:77
-#: apps/questionnaire/templates/form/category.html:159
+#: apps/questionnaire/templates/form/category.html:164
 #: apps/questionnaire/templates/questionnaire/details.html:190
 msgid "Close"
 msgstr "Cerrar"
@@ -18205,22 +18195,22 @@ msgstr "Guardar e ir a la visión general"
 msgid "Save and go to next section"
 msgstr "Guardar y continuar a la siguiente sección"
 
-#: apps/questionnaire/templates/form/category.html:160
+#: apps/questionnaire/templates/form/category.html:165
 #: apps/questionnaire/templates/questionnaire/details.html:191
 msgid "Next"
 msgstr "Siguiente"
 
-#: apps/questionnaire/templates/form/category.html:161
+#: apps/questionnaire/templates/form/category.html:166
 #: apps/questionnaire/templates/questionnaire/details.html:192
 msgid "Back"
 msgstr "Retroceder"
 
-#: apps/questionnaire/templates/form/category.html:162
+#: apps/questionnaire/templates/form/category.html:167
 #: apps/questionnaire/templates/questionnaire/details.html:193
 msgid "Done"
 msgstr "Finalizado"
 
-#: apps/questionnaire/templates/form/category.html:167
+#: apps/questionnaire/templates/form/category.html:172
 msgid ""
 "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
 "tour explaining the functions on this page.</p>"
@@ -18229,12 +18219,12 @@ msgstr ""
 "\"Siguiente\" apra hacer un recorrido en el que se explican las funciones de "
 "esta página.</p>"
 
-#: apps/questionnaire/templates/form/category.html:171
+#: apps/questionnaire/templates/form/category.html:176
 msgid ""
 "<p>The bar indicates the name of the section you are currently editing.</p>"
 msgstr "<p>La barra indica el nombre de la sección que actualmente edita.</p>"
 
-#: apps/questionnaire/templates/form/category.html:175
+#: apps/questionnaire/templates/form/category.html:180
 msgid ""
 "<p>Click \"Save and back\" to save your changes and go back to the overview "
 "to view them in the output.</p>"
@@ -18242,7 +18232,7 @@ msgstr ""
 "<p>Haga clic en \"Guardar y regresar\" para guardar sus cambios y regresar a "
 "la visión general en el resultado.</p>"
 
-#: apps/questionnaire/templates/form/category.html:179
+#: apps/questionnaire/templates/form/category.html:184
 msgid ""
 "<p>Click \"Save and next\" to save the current section and directly continue "
 "to the next section.</p>"
@@ -18250,7 +18240,7 @@ msgstr ""
 "<p>Haga clic en \"Guardar y continuar\" para guardar la sección actual y "
 "continuar directamente a la siguiente sección.</p>"
 
-#: apps/questionnaire/templates/form/category.html:183
+#: apps/questionnaire/templates/form/category.html:188
 msgid ""
 "<p>Both options \"save and back to overview\" and \"save and next section\" "
 "are also available on the bottom of the page.</p>"
@@ -18259,7 +18249,7 @@ msgstr ""
 "continuar a la siguiente sección\" también se hallan disponibles al final de "
 "la página.</p>"
 
-#: apps/questionnaire/templates/form/category.html:188
+#: apps/questionnaire/templates/form/category.html:193
 msgid ""
 "<p>Use this link if you want to go back to the output without saving any "
 "changes.</p>"
@@ -18267,7 +18257,7 @@ msgstr ""
 "<p>Use este vínculo si desea regresar al resultado sin guardar los cambios.</"
 "p>"
 
-#: apps/questionnaire/templates/form/category.html:192
+#: apps/questionnaire/templates/form/category.html:197
 msgid ""
 "<p>The progress bar indicates how many questions are already filled out.</p>"
 msgstr ""
@@ -18677,19 +18667,19 @@ msgstr "Nueva versión debido a que se agrego marca unccd"
 msgid "The questionnaire was succesfully removed"
 msgstr "El cuestionario fue eliminado exitosamente"
 
-#: apps/questionnaire/views.py:503
+#: apps/questionnaire/views.py:510
 msgid "Data successfully saved."
 msgstr "Los datos se guardaron con éxito"
 
-#: apps/questionnaire/views.py:958
+#: apps/questionnaire/views.py:965
 msgid "QCAT Form"
 msgstr "Formulario QCAT"
 
-#: apps/questionnaire/views.py:1318
+#: apps/questionnaire/views.py:1325
 msgid "No or multiple files provided."
 msgstr "No se proporcionaron archivos o se proporcionaron múltiples archivos."
 
-#: apps/questionnaire/views.py:1408
+#: apps/questionnaire/views.py:1415
 msgid "Successfully removed questionnaire"
 msgstr "El cuestionario fue exitosamente eliminado"
 
@@ -18812,12 +18802,19 @@ msgid "Note:"
 msgstr "Nota:"
 
 #: apps/search/templates/search/help_text.html:3
+#, fuzzy
+#| msgid ""
+#| "The WOCAT datasets have not been migrated yet. Currently, the database "
+#| "only contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
+#| "Practices still needs to be done in the old database. The migration of "
+#| "the WOCAT data from the old to the new database will take place later "
+#| "this year and is planned to be finalized latest by December 2016."
 msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
 "Practices still needs to be done in the old database. The migration of the "
-"WOCAT data from the old to the new database will take place later this year "
-"and is planned to be finalized latest by December 2016."
+"WOCAT data from the old to the new database will be migrated during first "
+"half of 2017."
 msgstr ""
 "Las series de datos de WOCAT todavía no se transfirieron. Actualmente, la "
 "base de datos solamente contiene los datos UNCCD PRAIS. Por ello, se deben "
@@ -18855,10 +18852,8 @@ msgid "No SLM Technologies found."
 msgstr "No se hallaron Tecnologías MST"
 
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
-#, fuzzy
-#| msgid "This SLM Technology is linked to SLM Approaches"
 msgid "This SLM Technology has a CCA module"
-msgstr "Esta Tecnología MST está vinculada a Enfoques MST"
+msgstr ""
 
 #: apps/unccd/templates/unccd/home.html:11
 msgid "UNCCD SLM portal"

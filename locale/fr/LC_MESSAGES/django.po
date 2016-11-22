@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-22 08:03+0100\n"
-"PO-Revision-Date: 2016-11-22 06:58+0000\n"
+"POT-Creation-Date: 2016-11-22 09:13+0100\n"
+"PO-Revision-Date: 2016-11-22 07:08+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -282,7 +282,7 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: apps/configuration/configuration.py:2415
+#: apps/configuration/configuration.py:2419
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "Nom  inconnu"
@@ -14565,11 +14565,6 @@ msgstr ""
 "liés au climat, vous avez 5 exemplaires de la liste à remplir.</p>"
 
 #: apps/configuration/configuration_translations.py:23201
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid ""
-#| "On- and off-site ipmacts of the Technology under gradual climate changes "
-#| "and climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid ""
 "On- and off-site impacts of the Technology under gradual climate changes and "
@@ -15326,10 +15321,6 @@ msgstr ""
 "accès à des informations fiables en matière de prévisions météorologiques"
 
 #: apps/configuration/configuration_translations.py:27169
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid ""
-#| "access to early warning systems related to cliamte extremes (disasters)"
 msgctxt "cca label"
 msgid "access to early warning systems related to climate extremes (disasters)"
 msgstr ""
@@ -17501,31 +17492,31 @@ msgstr "examen"
 msgid "publication"
 msgstr "publication"
 
-#: apps/notifications/models.py:272
+#: apps/notifications/models.py:274
 msgid "was created"
 msgstr "a été créé"
 
-#: apps/notifications/models.py:274
+#: apps/notifications/models.py:276
 msgid "was deleted"
 msgstr "a été supprimé"
 
-#: apps/notifications/models.py:276
+#: apps/notifications/models.py:278
 msgid "has a new status: {}"
 msgstr "a un nouveau statut: {}"
 
-#: apps/notifications/models.py:280
+#: apps/notifications/models.py:282
 msgid "has a new member: {}"
 msgstr "a un nouveau membre: {}"
 
-#: apps/notifications/models.py:284
+#: apps/notifications/models.py:286
 msgid "removed a member: {}"
 msgstr "supprimé un membre: {}"
 
-#: apps/notifications/models.py:288
+#: apps/notifications/models.py:290
 msgid "was edited by: {}"
 msgstr "a été édité par: {}"
 
-#: apps/notifications/models.py:292
+#: apps/notifications/models.py:294
 #, python-brace-format
 msgid "{compiler} is finished editing"
 msgstr "{compiler} a terminé l'édition"
@@ -18010,7 +18001,7 @@ msgstr ""
 msgid "Map preview"
 msgstr "Aperçu de la carte"
 
-#: apps/questionnaire/templates/details/field/wms_layer.html:4
+#: apps/questionnaire/templates/details/field/wms_layer.html:5
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Loading ..."
 msgstr "Chargement en cours..."
@@ -18728,7 +18719,7 @@ msgid "Save and next"
 msgstr "Enregistrer et poursuivre"
 
 #: apps/questionnaire/templates/form/category.html:77
-#: apps/questionnaire/templates/form/category.html:159
+#: apps/questionnaire/templates/form/category.html:164
 #: apps/questionnaire/templates/questionnaire/details.html:190
 msgid "Close"
 msgstr "Fermer"
@@ -18759,22 +18750,22 @@ msgstr "Enregistrer et aller à l'aperçu"
 msgid "Save and go to next section"
 msgstr "Enregistrer et aller à la section suivante"
 
-#: apps/questionnaire/templates/form/category.html:160
+#: apps/questionnaire/templates/form/category.html:165
 #: apps/questionnaire/templates/questionnaire/details.html:191
 msgid "Next"
 msgstr "Suivant"
 
-#: apps/questionnaire/templates/form/category.html:161
+#: apps/questionnaire/templates/form/category.html:166
 #: apps/questionnaire/templates/questionnaire/details.html:192
 msgid "Back"
 msgstr "Retour"
 
-#: apps/questionnaire/templates/form/category.html:162
+#: apps/questionnaire/templates/form/category.html:167
 #: apps/questionnaire/templates/questionnaire/details.html:193
 msgid "Done"
 msgstr "Terminé"
 
-#: apps/questionnaire/templates/form/category.html:167
+#: apps/questionnaire/templates/form/category.html:172
 msgid ""
 "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
 "tour explaining the functions on this page.</p>"
@@ -18782,12 +18773,12 @@ msgstr ""
 "<p>Bienvenue dans la section d'aide du formulaire! </p> Cliquez sur \"Suivant"
 "\" pour avoir des explications sur les fonctionnalités de cette page.</p>"
 
-#: apps/questionnaire/templates/form/category.html:171
+#: apps/questionnaire/templates/form/category.html:176
 msgid ""
 "<p>The bar indicates the name of the section you are currently editing.</p>"
 msgstr "<p>La barre indique le nom de la section en cours d'édition.</ P>"
 
-#: apps/questionnaire/templates/form/category.html:175
+#: apps/questionnaire/templates/form/category.html:180
 msgid ""
 "<p>Click \"Save and back\" to save your changes and go back to the overview "
 "to view them in the output.</p>"
@@ -18795,7 +18786,7 @@ msgstr ""
 "<p>Cliquer sur \"Enregistrer et retour\" pour sauvegarder vos modifications "
 "et revenir à l'aperçu pour afficher les résultats</p>"
 
-#: apps/questionnaire/templates/form/category.html:179
+#: apps/questionnaire/templates/form/category.html:184
 msgid ""
 "<p>Click \"Save and next\" to save the current section and directly continue "
 "to the next section.</p>"
@@ -18803,7 +18794,7 @@ msgstr ""
 "<p>Cliquer sur \"Enregistrer et suivant\" pour sauvegarder votre section "
 "actuelle et pour continuer directement dans la prochaine section. </p>"
 
-#: apps/questionnaire/templates/form/category.html:183
+#: apps/questionnaire/templates/form/category.html:188
 msgid ""
 "<p>Both options \"save and back to overview\" and \"save and next section\" "
 "are also available on the bottom of the page.</p>"
@@ -18811,7 +18802,7 @@ msgstr ""
 "<p>Les deux options \"Enregistrer et retour à l'aperçu\" et \"Enregistrer et "
 "section suivante\" sont également disponibles en bas de page.</p>"
 
-#: apps/questionnaire/templates/form/category.html:188
+#: apps/questionnaire/templates/form/category.html:193
 msgid ""
 "<p>Use this link if you want to go back to the output without saving any "
 "changes.</p>"
@@ -18819,7 +18810,7 @@ msgstr ""
 "<p>Utilisez ce lien si vous voulez retourner aux résultats sans enregistrer "
 "les modifications.</p>"
 
-#: apps/questionnaire/templates/form/category.html:192
+#: apps/questionnaire/templates/form/category.html:197
 msgid ""
 "<p>The progress bar indicates how many questions are already filled out.</p>"
 msgstr ""
@@ -19232,19 +19223,19 @@ msgstr ""
 msgid "The questionnaire was succesfully removed"
 msgstr "Le questionnaire a été supprimé avec succès."
 
-#: apps/questionnaire/views.py:503
+#: apps/questionnaire/views.py:510
 msgid "Data successfully saved."
 msgstr "Données sauvegardées avec succès."
 
-#: apps/questionnaire/views.py:958
+#: apps/questionnaire/views.py:965
 msgid "QCAT Form"
 msgstr "Formulaire QCAT"
 
-#: apps/questionnaire/views.py:1318
+#: apps/questionnaire/views.py:1325
 msgid "No or multiple files provided."
 msgstr "Non ou plusieurs fichiers fournis."
 
-#: apps/questionnaire/views.py:1408
+#: apps/questionnaire/views.py:1415
 msgid "Successfully removed questionnaire"
 msgstr "Questionnaire supprimé avec succès"
 
@@ -19365,12 +19356,19 @@ msgid "Note:"
 msgstr "Note:"
 
 #: apps/search/templates/search/help_text.html:3
+#, fuzzy
+#| msgid ""
+#| "The WOCAT datasets have not been migrated yet. Currently, the database "
+#| "only contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
+#| "Practices still needs to be done in the old database. The migration of "
+#| "the WOCAT data from the old to the new database will take place later "
+#| "this year and is planned to be finalized latest by December 2016."
 msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
 "Practices still needs to be done in the old database. The migration of the "
-"WOCAT data from the old to the new database will take place later this year "
-"and is planned to be finalized latest by December 2016."
+"WOCAT data from the old to the new database will be migrated during first "
+"half of 2017."
 msgstr ""
 "Les données WOCAT n’ont pas encore été transférées ici. Actuellement, la "
 "présente base de données ne contient que les données de l’initiative PRAIS "
@@ -19409,10 +19407,8 @@ msgid "No SLM Technologies found."
 msgstr "Aucune technologie de GDT trouvée."
 
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
-#, fuzzy
-#| msgid "This SLM Technology is linked to SLM Approaches"
 msgid "This SLM Technology has a CCA module"
-msgstr "Cette technologie de GDT est liée à des Approches de GDT"
+msgstr ""
 
 #: apps/unccd/templates/unccd/home.html:11
 msgid "UNCCD SLM portal"
