@@ -131,4 +131,15 @@ body.summary {
     }
   }
 
+  .technology_table td
+  {
+    border: 0px solid black;
+    line-height: 1rem;
+  }
+
+  .td_category_title
+  {
+    border-top: 2px solid black !important;
+  }
+
 }

@@ -7,12 +7,21 @@
    <div class="small-6 columns">
    	{{ content.introduction.comment }}
    </div>
- </div>
+</div>
 <div class="row">
   <div class="small-6 columns">
     {% include 'questionnaire/summary/partial/ordered_list.html' with class="numbers" list_items=content.establishment.list %}
    </div>
    <div class="small-6 columns">
-   	{{ content.introduction.comment }}
+    {% include 'questionnaire/summary/partial/table_three_columns.html' with class="technology_table" list_items=content.establishment.table %}
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 columns">
+    {% include 'questionnaire/summary/partial/ordered_list.html' with class="numbers" list_items=content.maintenance.partials.activities.items %}
+    {{ content.maintenance.partials.activities.comment }}
    </div>
+   <div class="small-6 columns">
+    {% include 'questionnaire/summary/partial/table_three_columns.html' with class="technology_table" list_items=content.maintenance.partials.table %}
+  </div>
 </div>
