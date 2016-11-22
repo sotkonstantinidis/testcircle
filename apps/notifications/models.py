@@ -39,9 +39,11 @@ class ActionContextQuerySet(models.QuerySet):
         )
         for membership in questionnaire_memberships:
             permissions = settings.NOTIFICATIONS_QUESTIONNAIRE_MEMBERSHIP_PERMISSIONS.get(membership.role)
-            filters.append(
-                Q(statusupdate__status__in=permissions, questionnaire=membership.questionnaire)
-            )
+            if permissions:
+                filters.append(
+                    Q(statusupdate__status__in=permissions,
+                      questionnaire=membership.questionnaire)
+                )
         return filters
 
     def user_log_list(self, user: User):

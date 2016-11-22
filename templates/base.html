@@ -207,7 +207,7 @@
       <script>
       $(function() {
         // load indicator for new pending tasks - if any (not zero) are available.
-        const notificationIndicator = $('.notification-indicator');
+        var notificationIndicator = $('.notification-indicator');
         if (notificationIndicator.length !== 0) {
           $.ajax({
             url: '{% url 'notification_new_count' %}',

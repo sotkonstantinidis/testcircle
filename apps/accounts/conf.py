@@ -16,4 +16,4 @@ class AccountConf(AppConf):
     ENFORCE_LOGIN_NAME = 'force_login_check'
 
     # The name of the UNCCD role as provided by the remote system.
-    UNCCD_ROLE_NAME = 'UNCCD national focal point'
+    UNCCD_ROLE_NAME = 'UNCCD Focal Point'
