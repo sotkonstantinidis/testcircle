@@ -1,29 +1,27 @@
-<table {% if class %}class="{{ class }}"{% endif %}>
+<h5>{{list_items.title}}</h5>	
+<table width="100%" {% if class %}class="{{ class }}"{% endif %}>
     <tr>
-    	<td width="100%">{{list_items.title}}</td>
+    	<td width="60%"><b>{{list_items.head.0}}</b></td>
+    	<td width="20%"><b>{{list_items.head.1}}</b></td>
+    	<td width="20%"><b>{{list_items.head.2}}</b></td>
     </tr>
-    <tr>
-    	<td width="50%">{{list_items.head.0}}</td>
-    	<td width="25%">{{list_items.head.1}}</td>
-    	<td width="25%">{{list_items.head.2}}</td>
-    </tr>
-			{% for table in list_items.partials %}
-			<tr>
-				<td width="100%" colspan="3" class="td_category_title">
-				<b>{{table.head}}</b>
-				</td>
-			</tr>
-			{% for table_item in table.items %}
-			<tr>
-				<td width="60%">{{table_item.0}}</td>
-				<td width="20%">{{table_item.1}}</td>
-				<td width="20%">{{table_item.2}}</td>
-			</tr>
-			{% endfor %}
-			{% endfor %}
-			<tr>
-				<td width="60%"><b>{{list_items.total.0}}</b></td>
-				<td width="20%"><b>{{list_items.total.1}}</b></td>
-				<td width="20%"><b>{{list_items.total.2}}</b></td>
-			</tr>
+	{% for table in list_items.partials %}
+	<tr>
+		<td width="100%" colspan="3" class="td_category_title">
+		<b>{{table.head}}</b>
+		</td>
+	</tr>
+	{% for table_item in table.items %}
+	<tr>
+		<td width="60%">{{table_item.0}}</td>
+		<td width="20%">{{table_item.1}}</td>
+		<td width="20%">{{table_item.2}}</td>
+	</tr>
+	{% endfor %}
+	{% endfor %}
+	<tr class="total_row">
+		<td width="60%"><b>{{list_items.total.0}}</b></td>
+		<td width="20%"><b>{{list_items.total.1}}</b></td>
+		<td width="20%"><b>{{list_items.total.2}}</b></td>
+	</tr>
 </table>
