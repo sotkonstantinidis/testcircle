@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-22 09:13+0100\n"
-"PO-Revision-Date: 2016-11-22 07:08+0000\n"
+"POT-Creation-Date: 2016-11-24 13:35+0100\n"
+"PO-Revision-Date: 2016-11-24 12:35+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -62,7 +62,7 @@ msgstr "Email:"
 
 #: apps/accounts/templates/details.html:38
 msgid "UNCCD national focal point"
-msgstr ""
+msgstr "Point  focal national de l'UNCCD"
 
 #: apps/accounts/templates/details.html:41
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
@@ -73,11 +73,11 @@ msgstr "UNCCD"
 
 #: apps/accounts/templates/details.html:42
 msgid "UNCCD focal point for country:"
-msgstr ""
+msgstr "Point focal de l'UNCCD pour le pays"
 
 #: apps/accounts/templates/details.html:54
 msgid "Public questionnaires"
-msgstr "Questionnaires publiés"
+msgstr "Questionnaires publics"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
 #: apps/questionnaire/tests/test_utils.py:1020
@@ -107,7 +107,7 @@ msgstr "WOCAT"
 
 #: apps/accounts/templates/login.html:36
 msgid " and register for a free account."
-msgstr "et vous s'inscrire en créant un compte gratuitement."
+msgstr "et vous inscrire en créant un compte gratuitement."
 
 #: apps/accounts/templates/login.html:39
 msgid "Forgot your password?"
@@ -141,7 +141,7 @@ msgstr "Toutes les notifications"
 
 #: apps/accounts/templates/questionnaires.html:42
 msgid "No SLM data found."
-msgstr "Aucunes données de GDT trouvées."
+msgstr "Aucune donnée de GDT trouvée."
 
 #: apps/accounts/views.py:61
 msgid "Welcome {}"
@@ -234,7 +234,8 @@ msgid "Approaches"
 msgstr "Approches"
 
 #: apps/cca/templates/cca/base.html:6
-msgid "WOCAT SLM Climate Change Adaptation"
+#: apps/cca/templates/cca/questionnaire/list.html:13
+msgid "SLM Climate Change Adaptation"
 msgstr ""
 
 #: apps/cca/templates/cca/partial/select_module.html:12
@@ -257,18 +258,16 @@ msgstr ""
 "Questionnaire sur l'adaptation des technologies de GDT aux changements "
 "climatiques graduels et aux événements extrêmes liés au climat"
 
-#: apps/cca/templates/cca/questionnaire/list.html:13
-msgid "SLM Climate Change Adaptation"
-msgstr ""
-
 #: apps/cca/templates/cca/questionnaire/partial/link.html:16
 #: apps/cca/views.py:47
 msgid "Climate Change Adaptation"
 msgstr "Adaptation aux changements climatiques"
 
 #: apps/cca/templates/cca/questionnaire/partial/list.html:19
-msgid "No SLM Climate Change Adaptations found."
-msgstr ""
+#, fuzzy
+#| msgid "No SLM data found."
+msgid "No data found."
+msgstr "Aucune donnée de GDT trouvée."
 
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:72
 msgid "This Module is linked to a SLM Technology"
@@ -334,7 +333,7 @@ msgstr "Commentaires (par ex., années précises, type de projet, etc.)"
 #: apps/configuration/configuration_translations.py:1010
 msgctxt "technologies label"
 msgid "Select land use type"
-msgstr "Sélectionnez le type d'utilisation des terres"
+msgstr "Sélectionner le type d'utilisation des terres"
 
 #: apps/configuration/configuration_translations.py:1011
 #: apps/configuration/configuration_translations.py:1013
@@ -347,7 +346,7 @@ msgstr "Type d'utilisation des terres"
 #: apps/configuration/configuration_translations.py:1498
 msgctxt "technologies label"
 msgid "Select category(ies) / code(s)"
-msgstr "Sélectionnez la(les) catégorie(s)/ code(s) "
+msgstr "Sélectionner la(les) catégorie(s)/ code(s) "
 
 #: apps/configuration/configuration_translations.py:1014
 #: apps/configuration/configuration_translations.py:2714
@@ -432,7 +431,7 @@ msgstr "Pratiques de GDT"
 #: apps/configuration/configuration_translations.py:1026
 msgctxt "technologies label"
 msgid "Select degradation type"
-msgstr "Sélectionnez le type de dégradation"
+msgstr "Sélectionner le type de dégradation"
 
 #: apps/configuration/configuration_translations.py:1027
 #: apps/configuration/configuration_translations.py:1499
@@ -6887,8 +6886,8 @@ msgid ""
 "Assign the described Technology to one of the following SLM groups. If this "
 "is not possible, select several (max. 3) groups to represent the Technology"
 msgstr ""
-"Attribuez la Technologie décrite à l'un des groupes de GDT suivants. Si cela "
-"n'est pas possible, sélectionnez plusieurs groupes (maximum 3) pour "
+"Attribuer la Technologie décrite à l'un des groupes de GDT suivants. Si cela "
+"n'est pas possible, sélectionner plusieurs groupes (maximum 3) pour "
 "représenter la Technologie."
 
 #: apps/configuration/configuration_translations.py:2717
@@ -8504,7 +8503,7 @@ msgstr "Titre des bonnes pratiques"
 #: apps/configuration/configuration_translations.py:5005
 msgctxt "watershed label"
 msgid "Name of the watershed"
-msgstr ""
+msgstr "Nom du bassin versant"
 
 #: apps/configuration/configuration_translations.py:5006
 msgctxt "approaches label"
@@ -8860,12 +8859,12 @@ msgstr "Sexe"
 #: apps/configuration/configuration_translations.py:5068
 msgctxt "cca label"
 msgid "Gender"
-msgstr ""
+msgstr "Sexe"
 
 #: apps/configuration/configuration_translations.py:5070
 msgctxt "watershed label"
 msgid "Gender"
-msgstr ""
+msgstr "Sexe"
 
 #: apps/configuration/configuration_translations.py:5071
 msgctxt "approaches label"
@@ -9102,19 +9101,45 @@ msgstr ""
 "terres"
 
 #: apps/configuration/configuration_translations.py:5110
+#: apps/configuration/configuration_translations.py:5120
+#, fuzzy
+#| msgctxt "watershed helptext"
+#| msgid ""
+#| "<strong>Watershed user</strong>: the person/ entity who implements/ "
+#| "maintains the watershed management activities, including individual "
+#| "small-  or large-scale farmers, groups (gender, age, status, interest), "
+#| "cooperatives, industrial companies (e.g. mining), government institutions "
+#| "(e.g. state forest), etc."
 msgctxt "watershed helptext"
 msgid ""
-"<strong>Watershed user</strong>: the person/ entity who implements/ "
-"maintains the Watershed Management activities, including individual small-  "
-"or large-scale farmers, groups (gender, age, status, interest), "
-"cooperatives, industrial companies (e.g. mining), government institutions (e."
-"g. state forest), etc."
+"<p><strong>Land user</strong>: the person/ entity who implements/ maintains "
+"the Technology. The term land user may refer to individual small- or large-"
+"scale farmers, groups (gender, age, status, interest), cooperatives, "
+"industrial companies (e.g. mining), government institutions (e.g. state "
+"forest), etc.</p><p><strong>Watershed user</strong>: the person/ entity who "
+"implements/ maintains the watershed management activities, including "
+"individual small-  or large-scale farmers, groups (gender, age, status, "
+"interest), cooperatives, industrial companies (e.g. mining), government "
+"institutions (e.g. state forest), etc.</p>"
 msgstr ""
+"<strong>Exploitant du bassin versant</strong>: personne ou entité qui met en "
+"œuvre ou entretient des activités de gestion du bassin versant, incluant les "
+"agriculteurs individuels de petites ou grandes exploitations, les groupes "
+"(par sexe, âge, statut, intérêt), les coopératives, les entreprises "
+"industrielles (par ex., minières), les institutions gouvernementales (par "
+"ex., les forêts d'État), etc."
 
 #: apps/configuration/configuration_translations.py:5111
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid "Strengths/ advantages/ opportunities in the watershed user’s view"
 msgctxt "watershed label"
-msgid "Strengths/ advantages/ opportunities in the watershed user’s view"
+msgid ""
+"Strengths/ advantages/ opportunities in the land user’s / watershed user’s "
+"view"
 msgstr ""
+"Points forts / avantages / opportunités du point de vue de l’exploitant du "
+"bassin versant"
 
 #: apps/configuration/configuration_translations.py:5112
 msgctxt "approaches label"
@@ -9160,20 +9185,16 @@ msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
 msgstr ""
 "Faiblesses/ inconvénients/ risques du point de vue de l’exploitant des terres"
 
-#: apps/configuration/configuration_translations.py:5120
-msgctxt "watershed helptext"
-msgid ""
-"<strong>Watershed user</strong>: the person/ entity who implements/ "
-"maintains the watershed management activities, including individual small-  "
-"or large-scale farmers, groups (gender, age, status, interest), "
-"cooperatives, industrial companies (e.g. mining), government institutions (e."
-"g. state forest), etc."
-msgstr ""
-
 #: apps/configuration/configuration_translations.py:5121
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid "Weaknesses/ disadvantages/ risks in the watershed user’s view"
 msgctxt "watershed label"
-msgid "Weaknesses/ disadvantages/ risks in the watershed user’s view"
+msgid ""
+"Weaknesses/ disadvantages/ risks in the land user’s / watershed user’s view"
 msgstr ""
+"Faiblesses/ inconvénients/ risques du point de vue de l’exploitant du bassin "
+"versant"
 
 #: apps/configuration/configuration_translations.py:5122
 msgctxt "approaches label"
@@ -9416,13 +9437,18 @@ msgstr ""
 "le secrétariat WOCAT (wocat@cde.unibe.ch)."
 
 #: apps/configuration/configuration_translations.py:5172
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid ""
+#| "Name of project which funded the documentation/ evaluation of the "
+#| "Approach (if relevant)"
 msgctxt "approaches label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
-"Technology (if relevant)"
+"Approach (if relevant)"
 msgstr ""
-"Nom du projet qui a facilité la documentation/ l'évaluation de la "
-"Technologie (si pertinent)"
+"Nom du projet qui a financé la documentation ou l'évaluation de l'Approche "
+"(si pertinent)"
 
 #: apps/configuration/configuration_translations.py:5173
 msgctxt "cca helptext"
@@ -9475,6 +9501,8 @@ msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
 "watershed (if relevant)"
 msgstr ""
+"Nom du projet qui a facilité la documentation ou l'évaluation du bassin "
+"versant (si pertinent)"
 
 #: apps/configuration/configuration_translations.py:5179
 msgctxt "approaches helptext"
@@ -9486,13 +9514,18 @@ msgstr ""
 "contacter le secrétariat WOCAT (wocat@cde.unibe.ch)."
 
 #: apps/configuration/configuration_translations.py:5180
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid ""
+#| "Name of the institution(s) which facilitated the documentation/ "
+#| "evaluation of the watershed (if relevant)"
 msgctxt "approaches label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
-"of the Technology (if relevant)"
+"of the Approach (if relevant)"
 msgstr ""
-"Nom du ou des institutions qui ont facilité la documentation/ l'évaluation "
-"de la Technologie (si pertinent)"
+"Nom de l'institution ou des institutions qui ont facilité la documentation "
+"ou l'évaluation du bassin versant (si pertinent): "
 
 #: apps/configuration/configuration_translations.py:5181
 msgctxt "cca helptext"
@@ -9545,6 +9578,8 @@ msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
 "of the watershed (if relevant)"
 msgstr ""
+"Nom de l'institution ou des institutions qui ont facilité la documentation "
+"ou l'évaluation du bassin versant (si pertinent): "
 
 #: apps/configuration/configuration_translations.py:5187
 #: apps/configuration/configuration_translations.py:5208
@@ -9758,7 +9793,7 @@ msgstr "Carte"
 #: apps/configuration/configuration_translations.py:5226
 msgctxt "watershed label"
 msgid "Center of the watershed"
-msgstr ""
+msgstr "Centre du bassin versant"
 
 #: apps/configuration/configuration_translations.py:5227
 msgctxt "approaches helptext"
@@ -11249,7 +11284,7 @@ msgstr "visites de terrain, enquêtes sur le terrain"
 #: apps/configuration/configuration_translations.py:5784
 msgctxt "cca label"
 msgid "field visits, field surveys"
-msgstr ""
+msgstr "visites de terrain, enquêtes sur le terrain"
 
 #: apps/configuration/configuration_translations.py:5785
 msgctxt "technologies label"
@@ -11645,7 +11680,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5906
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
-msgstr ""
+msgstr "Indiquez le centre du bassin versant."
 
 #: apps/configuration/configuration_translations.py:5907
 msgctxt "approaches helptext"
@@ -15154,12 +15189,12 @@ msgid ""
 "and describe these adaptation measures in detail.</p><p>Several answers "
 "possible</p>"
 msgstr ""
-"<p>Sélectionnez les mesures de GDT introduites (par ex. stabiliser une "
+"<p>Sélectionner les mesures de GDT introduites (par ex. stabiliser une "
 "diguette avec de l'herbe) ou modifiées (par ex. augmenter la hauteur d'une "
 "diguette) permettant d'adapter/d'adapter davantage la technologie aux "
 "changements climatiques graduels et aux événements extrêmes (catastrophes) "
-"liés au climat. Indiquez si les modifications nécessaires ont été majeures, "
-"moyennes ou mineures et décrivez ces mesures d'adaptation en détail.</"
+"liés au climat. Indiquer si les modifications nécessaires ont été majeures, "
+"moyennes ou mineures et décrire ces mesures d'adaptation en détail.</"
 "p><p>Plusieurs réponses possibles.</p>"
 
 #: apps/configuration/configuration_translations.py:27131
@@ -15602,7 +15637,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28037
 msgctxt "cca label"
 msgid "Extent"
-msgstr ""
+msgstr "Ampleur"
 
 #: apps/configuration/configuration_translations.py:28032
 msgctxt "cca label_left"
@@ -15623,22 +15658,22 @@ msgstr "Impact"
 #: apps/configuration/configuration_translations.py:28035
 msgctxt "cca helptext"
 msgid "Eg. decreased, reduced"
-msgstr ""
+msgstr "Par ex., en baisse, réduit"
 
 #: apps/configuration/configuration_translations.py:28036
 msgctxt "cca label"
 msgid "[Label left]"
-msgstr ""
+msgstr "[Etiquette gauche]"
 
 #: apps/configuration/configuration_translations.py:28038
 msgctxt "cca helptext"
 msgid "Eg. increased, improved"
-msgstr ""
+msgstr "Par ex., augmenté, amélioré"
 
 #: apps/configuration/configuration_translations.py:28039
 msgctxt "cca label"
 msgid "[Label right]"
-msgstr ""
+msgstr "[Etiquette droite]"
 
 #: apps/configuration/configuration_translations.py:28043
 msgctxt "cca label"
@@ -15690,7 +15725,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28048
 msgctxt "cca label"
 msgid "SLM measures comprising the Technology"
-msgstr ""
+msgstr "Mesures de GDT constituant la Technologie"
 
 #: apps/configuration/configuration_translations.py:28049
 msgctxt "cca label_view"
@@ -16034,12 +16069,12 @@ msgstr "automne"
 #: apps/configuration/configuration_translations.py:29020
 msgctxt "cca label"
 msgid "wet/ rainy season"
-msgstr ""
+msgstr "saison des pluies/ humide"
 
 #: apps/configuration/configuration_translations.py:29021
 msgctxt "cca label"
 msgid "dry season"
-msgstr ""
+msgstr "saison sèche"
 
 #: apps/configuration/configuration_translations.py:29022
 msgctxt "cca label"
@@ -17097,7 +17132,7 @@ msgstr "rechargé"
 #: apps/configuration/configuration_translations.py:31001
 msgctxt "watershed label"
 msgid "By national standards, is the watershed considered"
-msgstr ""
+msgstr "Selon les normes nationales, le bassin versant est considéré de "
 
 #: apps/configuration/configuration_translations.py:31002
 msgctxt "watershed label"
@@ -17112,17 +17147,17 @@ msgstr "renforcé"
 #: apps/configuration/configuration_translations.py:31024
 msgctxt "watershed label"
 msgid "If yes, specify"
-msgstr ""
+msgstr "Si oui, précisez"
 
 #: apps/configuration/configuration_translations.py:31004
 msgctxt "watershed label"
 msgid "Total watershed area in km²"
-msgstr ""
+msgstr "Superficie totale du bassin versant en km²"
 
 #: apps/configuration/configuration_translations.py:31005
 msgctxt "watershed label"
 msgid "If precise area is not known, indicate approximately."
-msgstr ""
+msgstr "Si la superficie précise n'est pas connue, indiquez approximativement."
 
 #: apps/configuration/configuration_translations.py:31006
 #: apps/configuration/configuration_translations.py:32706
@@ -17130,6 +17165,8 @@ msgctxt "watershed label"
 msgid ""
 "Key reason(s) for selecting this watershed for assessment and documentation"
 msgstr ""
+"Principale(s) raison(s) du choix de ce bassin versant pour l'évaluation et "
+"la documentation "
 
 #: apps/configuration/configuration_translations.py:31007
 msgctxt "watershed helptext"
@@ -17149,27 +17186,43 @@ msgid ""
 "More detailed descriptions may be uploaded to the database as separate "
 "documents.</p>"
 msgstr ""
+"<p>Cette description détaillée devrait fournir une image concise mais "
+"complète du bassin versant et de sa gestion du point de vue de l'extérieur. "
+"Il convient de souligner les différences majeures entre les trois zones du "
+"bassin versant. La description devrait donc permettre de répondre aux "
+"questions clés suivantes :<ol><li>Où est situé le bassin versant "
+"(environnement naturel et humain)? </li><li>Quels sont les principaux "
+"problèmes / défis et quels sont les principaux objectifs de la gestion de ce "
+"bassin versant?</li><li>Quelles sont les principales technologies appliquées "
+"(techniques, sociales et institutionnelles)?</li><li>Quels sont les "
+"principaux groupes cibles / bénéficiaires?</li><li>Qui sont les partenaires "
+"d'exécution et quels sont leurs rôles?</li><li>Quels sont les impacts "
+"environnementaux, sociaux, culturels et économiques de la gestion de ce "
+"bassin versant?</li></ol></p><p>La description doit idéalement comprendre "
+"entre 2 500 et 3 000 caractères, le maximum absolu étant de 3 500 "
+"caractères. Les descriptions plus détaillées peuvent être téléchargées dans "
+"la base de données comme des documents distincts.</p>"
 
 #: apps/configuration/configuration_translations.py:31008
 #: apps/configuration/configuration_translations.py:32707
 msgctxt "watershed label"
 msgid "Description of the watershed"
-msgstr ""
+msgstr "Description du bassin versant"
 
 #: apps/configuration/configuration_translations.py:31009
 msgctxt "watershed label"
 msgid "Image of the map"
-msgstr ""
+msgstr "Image de la carte"
 
 #: apps/configuration/configuration_translations.py:31011
 msgctxt "watershed label"
 msgid "Caption of the map"
-msgstr ""
+msgstr "Légende de la carte"
 
 #: apps/configuration/configuration_translations.py:31014
 msgctxt "watershed label"
 msgid "Describe major results illustrated by the map"
-msgstr ""
+msgstr "Décrivez les principaux résultats illustrés par la carte"
 
 #: apps/configuration/configuration_translations.py:31015
 msgctxt "watershed label"
@@ -17177,103 +17230,115 @@ msgid ""
 "Describe a scenario for improved watershed management based on different "
 "scenario runs in the offline app."
 msgstr ""
+"Décrivez un scénario permettant d'améliorer la gestion de ce bassin versant "
+"sur la base des différents scénarios fournis dans l'application hors ligne."
 
 #: apps/configuration/configuration_translations.py:31016
 msgctxt "watershed helptext"
 msgid "E.g. water use, forest use"
-msgstr ""
+msgstr "Par ex., pour l'utilisation de l'eau, pour l'utilisation des forêts"
 
 #: apps/configuration/configuration_translations.py:31017
 #: apps/configuration/configuration_translations.py:32715
 msgctxt "watershed label"
 msgid "Are there conflicts between upstream and downstream land users?"
 msgstr ""
+"Existe-t-il des conflits entre les exploitants des terres en amont et ceux "
+"en aval ?"
 
 #: apps/configuration/configuration_translations.py:31019
 msgctxt "watershed helptext"
 msgid "E.g. down-stream hydro-power companies invest in SLM upstream"
 msgstr ""
+"Par ex., les compagnies hydroélectriques en aval investissent dans la GDT en "
+"amont"
 
 #: apps/configuration/configuration_translations.py:31020
 #: apps/configuration/configuration_translations.py:32716
 msgctxt "watershed label"
 msgid "Are there synergies between upstream and downstream land users?"
 msgstr ""
+"Existe-t-il des synergies entre les exploitants des terres en amont et ceux "
+"en aval ?"
 
 #: apps/configuration/configuration_translations.py:31022
 msgctxt "watershed helptext"
 msgid "E.g. regulated water flow of rivers, groundwater recharge"
 msgstr ""
+"Par ex., pour l'écoulement régulé des cours d'eau, pour la recharge des eaux "
+"souterraines"
 
 #: apps/configuration/configuration_translations.py:31023
 msgctxt "watershed label"
 msgid "Are there dependencies between upstream and downstream users?"
 msgstr ""
+"Existe-t-il des liens de dépendance entre les exploitants des terres en "
+"amont et ceux en aval ?"
 
 #: apps/configuration/configuration_translations.py:31026
 msgctxt "watershed label"
 msgid "Are there any solutions?"
-msgstr ""
+msgstr "Existe-t-il des solutions ?"
 
 #: apps/configuration/configuration_translations.py:31027
 msgctxt "watershed label"
 msgid "Can they be maintained in future?"
-msgstr ""
+msgstr "Pourront-elles être maintenues à l'avenir ?"
 
 #: apps/configuration/configuration_translations.py:31028
 msgctxt "watershed label"
 msgid "Map layer ID"
-msgstr ""
+msgstr "ID échelle cartographique"
 
 #: apps/configuration/configuration_translations.py:31501
 msgctxt "watershed label"
 msgid "micro-mini scale"
-msgstr ""
+msgstr "micro-mini échelle"
 
 #: apps/configuration/configuration_translations.py:31502
 msgctxt "watershed label"
 msgid "small scale"
-msgstr ""
+msgstr "petite échelle "
 
 #: apps/configuration/configuration_translations.py:31503
 msgctxt "watershed label"
 msgid "medium scale"
-msgstr ""
+msgstr "échelle moyenne"
 
 #: apps/configuration/configuration_translations.py:31504
 msgctxt "watershed label"
 msgid "large scale (macro)"
-msgstr ""
+msgstr "grande échelle (macro)"
 
 #: apps/configuration/configuration_translations.py:31505
 msgctxt "watershed label"
 msgid "1-10 km²"
-msgstr ""
+msgstr "1-10 km²"
 
 #: apps/configuration/configuration_translations.py:31506
 msgctxt "watershed label"
 msgid "10-100 km²"
-msgstr ""
+msgstr "10-100 km²"
 
 #: apps/configuration/configuration_translations.py:31507
 msgctxt "watershed label"
 msgid "100-1,000 km²"
-msgstr ""
+msgstr "100-1 000 km²"
 
 #: apps/configuration/configuration_translations.py:31508
 msgctxt "watershed label"
 msgid "1,000-10,000 km²"
-msgstr ""
+msgstr "1 000-10 000 km²"
 
 #: apps/configuration/configuration_translations.py:31509
 msgctxt "watershed label"
 msgid ">10,000 km²"
-msgstr ""
+msgstr ">10 000 km²"
 
 #: apps/configuration/configuration_translations.py:32701
 msgctxt "watershed label"
 msgid "Brief identification of the watershed"
-msgstr ""
+msgstr "Brève identification du bassin versant"
 
 #: apps/configuration/configuration_translations.py:32702
 msgctxt "watershed label"
@@ -17281,16 +17346,18 @@ msgid ""
 "Contact details of resource persons and institutions involved in the "
 "documentation"
 msgstr ""
+"Coordonnées des personnes-ressources et des institutions impliquées dans la "
+"documentation  "
 
 #: apps/configuration/configuration_translations.py:32703
 msgctxt "watershed label"
 msgid "Conditions regarding the use of data documented through WOCAT"
-msgstr ""
+msgstr "Conditions relatives à l'utilisation par WOCAT des données documentées"
 
 #: apps/configuration/configuration_translations.py:32704
 msgctxt "watershed label"
 msgid "Define the area of the watershed"
-msgstr ""
+msgstr "Définition de la zone du bassin versant"
 
 #: apps/configuration/configuration_translations.py:32705
 msgctxt "watershed label"
@@ -17298,6 +17365,8 @@ msgid ""
 "Coordinates in latitude and longitude at the outlet and / or centre of the "
 "watershed area"
 msgstr ""
+"Coordonnées en latitude et en longitude de l'exutoire et / ou du centre du "
+"bassin versant "
 
 #: apps/configuration/configuration_translations.py:32708
 msgctxt "watershed helptext"
@@ -17319,11 +17388,30 @@ msgid ""
 "vegetative measures applied in Baqa Kushta watershed, Afghanistan (photo: S. "
 "Bhuchar, Helvetas)</p></div></div>"
 msgstr ""
+"<ul><li>Fournissez des photos montrant une vue d'ensemble du bassin versant "
+"et le détail de ses trois zones</li><li>Fournissez au moins deux fichiers "
+"numériques (JPG, PNG, GIF), par ex. des fichiers issus d'appareils photos "
+"numériques, de scans d'impressions, de films négatifs ou de diapositives.</"
+"li><li>Taille maximale d'un fichier : 3 Mo.</li><li>Les photos doivent être "
+"de grande qualité ou de haute résolution et non manipulées ou déformées.</"
+"li><li>\tUne explication (description) est nécessaire pour chaque photo "
+"soumise ! !</li></ul><p><strong>Exemple:</strong></p><div class=\"row\"><div "
+"class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/"
+"watershed_example_1.jpg\"><p class=\"form-example-legend\">Bassin versant de "
+"Sourakhak, en Afghanistan, exploité pour le combustible, le fourrage, le "
+"pâturage et les cultures commerciales (photo: S. Bhuchar, Helvetas))</p></"
+"div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/"
+"watershed_example_2.jpg\"><p class=\"form-example-legend\">Structures "
+"physiques (tranchées en courbe de niveau, barrages de correction, structures "
+"de collecte de l'eau) en combinaison avec des modes de gestion (gestion des "
+"pâturages et coupes d'arbustes) et des pratiques végétales, appliquées dans "
+"le bassin versant de Baqa Kushta, en Afghanistan (photo: S. Bhuchar, "
+"Helvetas)</p></div></div>"
 
 #: apps/configuration/configuration_translations.py:32709
 msgctxt "watershed label"
 msgid "Photos of the watershed"
-msgstr ""
+msgstr "Photos du bassin versant"
 
 #: apps/configuration/configuration_translations.py:32710
 msgctxt "watershed helptext"
@@ -17332,11 +17420,15 @@ msgid ""
 "Types (LUSTs), and Land Management (LM) for each zone of the watershed "
 "(current situation) in one map."
 msgstr ""
+"Téléchargez les cartes délimitant les principaux types d'utilisation des "
+"terres (TUT), sous-types d'utilisation des terres (STUT) et la gestion des "
+"terres (GT) pour chaque zone du bassin versant (situation actuelle) dans une "
+"seule carte."
 
 #: apps/configuration/configuration_translations.py:32711
 msgctxt "watershed label"
 msgid "Map of the watershed assessment"
-msgstr ""
+msgstr "Carte de l'évaluation du bassin versant"
 
 #: apps/configuration/configuration_translations.py:32712
 msgctxt "watershed helptext"
@@ -17344,26 +17436,36 @@ msgid ""
 "If available provide any other map(s) that support(s) characterization of "
 "the watershed (e.g. altitude, annual rainfall, slopes, soils etc.)."
 msgstr ""
+"Lorsqu'elles sont disponibles, fournissez les autres cartes qui complètent "
+"la caractérisation du bassin versant (par ex., sur l'altitude, les "
+"précipitations annuelles, les pentes, les sols, etc.)"
 
 #: apps/configuration/configuration_translations.py:32713
 msgctxt "watershed label"
 msgid "Additional map(s) that support(s) characterization of the watershed"
 msgstr ""
+"Carte(s) supplémentaire(s) qui complète(nt) la caractérisation du bassin "
+"versant "
 
 #: apps/configuration/configuration_translations.py:32714
 msgctxt "watershed label"
 msgid "Are there dependencies between upstream and downstream land users?"
 msgstr ""
+"Existe-t-il des liens de dépendance entre les exploitants des terres en "
+"amont et ceux en aval ?"
 
 #: apps/configuration/configuration_translations.py:32717
 msgctxt "watershed label"
 msgid "Describe a scenario for improved watershed management"
 msgstr ""
+"Décrire un scénario permettant d'améliorer la gestion du bassin versant"
 
 #: apps/configuration/configuration_translations.py:32718
 msgctxt "watershed label"
 msgid "Strengths/ advantages/ opportunities of watershed management activities"
 msgstr ""
+"Points forts / avantages / opportunités des activités de gestion du bassin "
+"versant "
 
 #: apps/configuration/configuration_translations.py:32719
 msgctxt "watershed label"
@@ -17371,21 +17473,23 @@ msgid ""
 "Weaknesses/ disadvantages/ risks of watershed management activities and ways "
 "of overcoming them"
 msgstr ""
+"Faiblesses/ inconvénients/ risques des activités de gestion du bassin "
+"versant et moyens de les surmonter"
 
 #: apps/configuration/configuration_translations.py:32720
 msgctxt "watershed label"
 msgid "References to available publications"
-msgstr ""
+msgstr "Références des publications disponibles"
 
 #: apps/configuration/configuration_translations.py:32721
 msgctxt "watershed label"
 msgid "Links to relevant information that is available online"
-msgstr ""
+msgstr "Liens vers les informations pertinentes disponibles en ligne "
 
 #: apps/configuration/configuration_translations.py:32901
 msgctxt "watershed label"
 msgid "General information"
-msgstr ""
+msgstr "Informations générales"
 
 #: apps/configuration/configuration_translations.py:32902
 msgctxt "watershed helptext"
@@ -17415,11 +17519,40 @@ msgid ""
 "https://dutchesswam.wordpress.com/)</p><img src=\"/static/assets/img/"
 "watershed/watershed_illustration.jpg\">"
 msgstr ""
+"<p><strong>Définition d'un bassin versant</strong>: Un bassin versant "
+"(watershed en anglais) ou bassin hydrographique est une zone délimitée "
+"topographiquement à partir de laquelle toute l'eau est drainée vers un cours "
+"d'eau commun ou un exutoire. En anglais, il est également nommé catchment ou "
+"basin. (NB : attention de ne pas confondre avec une autre utilisation du "
+"terme employée aux États-Unis, où «watershed» peut signifier la ligne de "
+"crête entre deux bassins versants à partir de laquelle l'eau est dirigée "
+"dans des directions opposées, plutôt que vers une zone commune ou un système "
+"de drainage commun).</p><p>Un bassin versant récupère l'eau issue des "
+"précipitations, filtre et stocke l'eau et détermine sa libération (Schreier "
+"et al., 1997). Les usagers et exploitants des terres, de la végétation, de "
+"l'eau et des ressources (agriculteurs, éleveurs, industries, urbains, "
+"bétail, faune sauvage, etc.) en sont les principaux constituants. Les "
+"composantes humaine et environnementale sont étroitement liées et "
+"interdépendantes de telle sorte que le changement d'une composante affecte "
+"l'intégrité de l'autre.</p><p><strong>Définition de la gestion d'un bassin "
+"versant</strong>: La gestion d'un bassin versant est l'utilisation intégrée "
+"des terres, de la végétation et de l'eau dans un bassin versant "
+"géographiquement défini ou une zone de drainage au bénéfice de ses "
+"résidents, dans le but de maintenir les services hydrologiques et autres "
+"fournis par le bassin versant, de réduire ou d'éviter les impacts négatifs "
+"en aval ou au niveau des eaux souterraines (adapté de la Banque mondiale, "
+"2008). Cela implique également de surveiller les autres services écologiques "
+"tels que la productivité des sols ; la biodiversité ; le cycle du carbone ; "
+"l'adaptation aux changements climatiques et l'atténuation de ses effets ; et "
+"les services socioculturels tels que l'esthétique, les loisirs, le tourisme, "
+"le patrimoine, etc.</p><p>Figure 1 : Illustration d'un bassin versant "
+"(source : https://dutchesswam.wordpress.com/)</p><img src=\"/static/assets/"
+"img/watershed/watershed_illustration.jpg\">"
 
 #: apps/configuration/configuration_translations.py:32903
 msgctxt "watershed label"
 msgid "Watershed information"
-msgstr ""
+msgstr "Informations sur le bassin versant"
 
 #: apps/configuration/configuration_translations.py:32904
 msgctxt "watershed helptext"
@@ -17427,16 +17560,18 @@ msgid ""
 "The results are based on the offline watershed assessment tool and uploaded "
 "to the online database."
 msgstr ""
+"Les résultats sont basés sur l'outil hors ligne d'évaluation des bassins "
+"versants et sont téléchargés dans la base de données en ligne."
 
 #: apps/configuration/configuration_translations.py:32905
 msgctxt "watershed label"
 msgid "Results of the watershed mapping and assessment"
-msgstr ""
+msgstr "Résultats de la cartographie et de l'évaluation du bassin versant"
 
 #: apps/configuration/configuration_translations.py:32906
 msgctxt "watershed label"
 msgid "Analysis"
-msgstr ""
+msgstr "Analyse"
 
 #: apps/configuration/configuration_translations.py:32907
 msgctxt "watershed label"
@@ -17766,7 +17901,7 @@ msgstr "Ce questionnaire peut être modifié."
 #: apps/questionnaire/models.py:921
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
-msgstr ""
+msgstr "Ce questionnaire est verrouillé pour modification par {user}."
 
 #: apps/questionnaire/receivers.py:18
 msgid "Published questionnaires must not be updated."
@@ -17858,7 +17993,6 @@ msgstr "Rédacteur:"
 #: apps/questionnaire/templates/details/category/with_metadata.html:87
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/add_landscapes.html:53
 #: apps/wocat/templates/wocat/questionnaire/list.html:80
 msgid "Coming soon"
 msgstr "Patienter"
@@ -17900,7 +18034,7 @@ msgstr "Exporter"
 #: apps/questionnaire/templates/details/category/watershed_header.html:108
 #: apps/questionnaire/templates/details/category/with_metadata.html:106
 msgid "See history"
-msgstr ""
+msgstr "Voir l'historique"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:114
 #: apps/wocat/templates/wocat/add_practice.html:52
@@ -17961,11 +18095,11 @@ msgstr "Section vide"
 
 #: apps/questionnaire/templates/details/category/cca_header.html:6
 msgid "CCA"
-msgstr ""
+msgstr "ACC"
 
 #: apps/questionnaire/templates/details/category/cca_header.html:17
 msgid "Technology: "
-msgstr ""
+msgstr "Technologie:"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
 #: apps/technologies/views.py:48 apps/wocat/templates/wocat/partial/top.html:14
@@ -17990,11 +18124,11 @@ msgstr "Commentaires"
 #: apps/watershed/templates/watershed/questionnaire/list.html:13
 #: apps/watershed/views.py:21
 msgid "Watershed"
-msgstr ""
+msgstr "Bassin versant"
 
 #: apps/questionnaire/templates/details/category/watershed_header.html:19
 msgid "New Watershed"
-msgstr ""
+msgstr "Nouveau bassin versant"
 
 #: apps/questionnaire/templates/details/field/map.html:13
 #: apps/questionnaire/templates/details/field/map.html:19
@@ -18065,6 +18199,10 @@ msgid ""
 "%(questionnaire_type)s.\n"
 "              "
 msgstr ""
+"\n"
+"              Vous êtes<strong>%(role)s</strong> de ce "
+"%(questionnaire_type)s.\n"
+"              "
 
 #: apps/questionnaire/templates/details/review_panel.html:32
 msgid "Learn more about the review process."
@@ -18079,6 +18217,11 @@ msgid ""
 "it for review or invite other editors.\n"
 "        "
 msgstr ""
+"\n"
+"Les utilisateurs WOCAT peuvent être invités à travailler sur une "
+"%(questionnaire_type)s comme rédacteurs. Les rédacteurs peuvent modifier la "
+"%(questionnaire_type)s, mais ils ne peuvent pas la soumettre pour examen ou "
+"inviter d'autres rédacteurs."
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:24
 #, python-format
@@ -18091,6 +18234,12 @@ msgid ""
 "publication.\n"
 "        "
 msgstr ""
+"\n"
+"Des examinateurs peuvent être attribués à cette %(questionnaire_type)s. Ils "
+"auront la permission de réviser (approuver ou rejeter) la "
+"%(questionnaire_type)s. Une %(questionnaire_type)s peut avoir un ou "
+"plusieurs examinateurs et tous les examinateurs peuvent approuver/ rejeter "
+"une %(questionnaire_type)s avant publication."
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:28
 #, python-format
@@ -18102,6 +18251,11 @@ msgid ""
 "can publish / reject a %(questionnaire_type)s for publishing.\n"
 "        "
 msgstr ""
+"\n"
+"Des éditeurs peuvent être attribués à cette %(questionnaire_type)s. Ils "
+"auront la permission de publier ou de rejeter la %(questionnaire_type)s. Une "
+"%(questionnaire_type)s peut avoir un ou plusieurs éditeurs et tous les "
+"éditeurs peuvent publier / rejeter une %(questionnaire_type)s avant édition."
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:63
 msgid "Search user"
@@ -18147,6 +18301,12 @@ msgid ""
 "compiler can submit it for review.\n"
 "        "
 msgstr ""
+"\n"
+"Le formulaire de saisie de données de %(questionnaire_type)s est enregistré "
+"dans une version provisoire. Le compilateur est responsable de cette saisie "
+"de données et peut inviter des rédacteurs (utilisateurs WOCAT) à contribuer "
+"à sa création. Une fois la saisie des données terminée, le compilateur peut "
+"soumettre les données pour examen."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:23
 #, python-format
@@ -18157,6 +18317,10 @@ msgid ""
 "is selected.\n"
 "        "
 msgstr ""
+"\n"
+"Toutes les modifications ont été effectuées, la saisie des données est "
+"terminée et la %(questionnaire_type)s est prête à être soumise pour examen. "
+"Après la soumission, un examinateur est sélectionné."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:31
 #: apps/questionnaire/templates/details/review_panel/edit.html:29
@@ -18173,6 +18337,12 @@ msgid ""
 "complete the reviewer submits it for publication.\n"
 "          "
 msgstr ""
+"\n"
+"Après la soumission de la %(questionnaire_type)s, un examinateur sera "
+"attribué pour vérifier vos données. Durant cette période, vous ne pouvez pas "
+"modifier vos données. Si ces données sont incomplètes, vous devrez les "
+"réviser. Si ces données sont complètes, l'examinateur les soumettra pour "
+"publication."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:38
 msgid ""
@@ -18206,6 +18376,9 @@ msgid ""
 "finished editing the data. This is for informational purposes only, you may "
 "still edit the data after submitting this."
 msgstr ""
+"En cliquant sur le bouton ci-dessous, le compilateur est averti que vous "
+"avez fini de modifier les données. Ceci n'a qu'un but d'information, vous "
+"pouvez toujours modifier les données après les avoir soumises."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:64
 msgid "A personal message for the compiler may be added here:"
@@ -18232,6 +18405,8 @@ msgid ""
 "          View this %(questionnaire_type)s.\n"
 "        "
 msgstr ""
+"\n"
+"Voir cette %(questionnaire_type)s."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:105
 #: apps/questionnaire/templates/details/review_panel/draft.html:121
@@ -18246,6 +18421,9 @@ msgid ""
 "%(questionnaire_type)s while it is in draft mode.\n"
 "        "
 msgstr ""
+"\n"
+"Supprimer cette %(questionnaire_type)s. Seul le compilateur peut supprimer "
+"une %(questionnaire_type)s lorsqu'elle est une version provisoire."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:115
 msgid "Please confirm removal."
@@ -18258,6 +18436,8 @@ msgid ""
 "          This %(questionnaire_type)s will be deleted.\n"
 "        "
 msgstr ""
+"\n"
+"Cette %(questionnaire_type)s sera supprimée."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:128
 msgid "Manage editors"
@@ -18311,6 +18491,13 @@ msgid ""
 "to public users.\n"
 "      "
 msgstr ""
+"\n"
+"Si vous souhaitez apporter des modifications à une %(questionnaire_type)s  "
+"publiée, vous pouvez créer une nouvelle version de cette "
+"%(questionnaire_type)s. La version actuelle du questionnaire restera "
+"publique jusqu'à ce que la nouvelle version soit publiée. L'ancienne/ "
+"précédente version sera archivée et restera disponible pour les utilisateurs "
+"publics.   "
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:23
 #, python-format
@@ -18320,6 +18507,10 @@ msgid ""
 "questionnaire. The publication workflow will start again.\n"
 "        "
 msgstr ""
+"\n"
+"Créer une nouvelle %(questionnaire_type)s provisoire sur la base du "
+"questionnaire publié. Tout le travail de publication va recommencer à "
+"nouveau.  "
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:31
 #, python-format
@@ -18330,6 +18521,10 @@ msgid ""
 "editors.\n"
 "        "
 msgstr ""
+"\n"
+"Si vous soumettez une nouvelle version de cette %(questionnaire_type)s, une "
+"nouvelle version (statut: \"provisoire\") sera créée. Vous pouvez la "
+"modifier ainsi que tous les rédacteurs."
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:45
 msgid "Flag as UNCCD best practice"
@@ -18338,10 +18533,14 @@ msgstr "Signaler comme meilleure pratique de l'UNCCD"
 #: apps/questionnaire/templates/details/review_panel/edit.html:49
 msgid "Flag this questionnaire as a UNCCD best practice for this country."
 msgstr ""
+"Signaler ce questionnaire en tant que meilleure pratique de l'UNCCD pour ce "
+"pays."
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:52
 msgid "Please confirm flagging as a UNCCD best practice."
 msgstr ""
+"Veuillez confirmer que vous signalez ce questionnaire en tant que meilleure "
+"pratique de l'UNCCD."
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:53
 msgid ""
@@ -18349,6 +18548,10 @@ msgid ""
 "for this country. Please note that due to the review process, it will take a "
 "few days before this is publicly visible."
 msgstr ""
+"En le soumettant, ce questionnaire sera signalé comme étant une meilleure "
+"pratique de l'UNCCD pour ce pays. Veuillez noter qu'en raison du processus "
+"d'examen, il faudra quelques jours avant que cela soit rendu visible "
+"publiquement."
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:54
 #: apps/questionnaire/templates/details/review_panel/edit.html:73
@@ -18365,10 +18568,15 @@ msgid ""
 "This questionnaire is flagged as a UNCCD best practice for this country. As "
 "the UNCCD national focal point, you can remove this flag."
 msgstr ""
+"Ce questionnaire est signalé en tant que meilleure pratique de l'UNCCD pour "
+"ce pays. En tant que point focal national de l'UNCCD, vous pouvez supprimer "
+"ce signalement."
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:71
 msgid "Please confirm unflagging as a UNCCD best practice."
 msgstr ""
+"Veuillez confirmer que vous ne signalez pas ce questionnaire en tant que "
+"meilleure pratique de l'UNCCD. "
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:72
 msgid ""
@@ -18376,6 +18584,10 @@ msgid ""
 "for this country. Please note that due to the review process, it will take a "
 "few days before this is publicly visible."
 msgstr ""
+"En le soumettant, ce questionnaire ne sera pas signalé comme étant une "
+"meilleure pratique de l'UNCCD pour ce pays. Veuillez noter qu'en raison du "
+"processus d'examen, il faudra quelques jours avant que cela soit rendu "
+"visible publiquement. "
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:5
 msgid "Pending for publishing"
@@ -18388,6 +18600,10 @@ msgid ""
 "        This %(questionnaire_type)s is currently waiting to be published.\n"
 "      "
 msgstr ""
+"\n"
+"        Cette %(questionnaire_type)s est actuellement en attente d'être "
+"publiée.\n"
+"      "
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:24
 #, python-format
@@ -18398,6 +18614,10 @@ msgid ""
 "compiler / editor(s) have to revise it.\n"
 "          "
 msgstr ""
+"\n"
+"En tant qu'éditeur, vous pouvez modifier cette %(questionnaire_type)s. Si la "
+"%(questionnaire_type)s est incomplète, vous devez la \"rejeter\" et le "
+"compilateur/ le(s) rédacteur(s) doivent les réviser."
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:39
 #: apps/questionnaire/templates/details/review_panel/review.html:38
@@ -18407,6 +18627,9 @@ msgid ""
 "            View this %(questionnaire_type)s.\n"
 "          "
 msgstr ""
+"\n"
+"            Voir cette %(questionnaire_type)s.\n"
+"          "
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:55
 #, python-format
@@ -18417,6 +18640,10 @@ msgid ""
 "users.\n"
 "        "
 msgstr ""
+"\n"
+"En tant qu'éditeur, vous pouvez publier la %(questionnaire_type)s une fois "
+"les données complètes. La %(questionnaire_type)s sera disponible pour les "
+"utilisateurs publics.   "
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:62
 msgid "Please confirm publication."
@@ -18430,6 +18657,9 @@ msgid ""
 "and available to public users.\n"
 "        "
 msgstr ""
+"\n"
+"Si vous approuvez cette %(questionnaire_type)s, elle sera publiée et "
+"disponible pour les utilisateurs publics.  "
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:69
 msgid "An optional message may be added here:"
@@ -18451,6 +18681,10 @@ msgid ""
 "have to revise it.\n"
 "        "
 msgstr ""
+"\n"
+"En tant qu'éditeur, vous pouvez rejeter la %(questionnaire_type)s si les "
+"données sont incomplètes et le compilateur/ rédacteur(s) seront informés "
+"qu'ils doivent la réviser. "
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:93
 #: apps/questionnaire/templates/details/review_panel/review.html:90
@@ -18467,6 +18701,10 @@ msgid ""
 "%(questionnaire_type)s before re-submitting it.\n"
 "        "
 msgstr ""
+"\n"
+"Si vous rejetez cette %(questionnaire_type)s, le compilateur et le(s) "
+"rédacteur(s) seront avisés qu'ils doivent réviser cette "
+"%(questionnaire_type)s avant de la soumettre à nouveau."
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:100
 #: apps/questionnaire/templates/details/review_panel/review.html:97
@@ -18508,6 +18746,9 @@ msgid ""
 "it can be published.\n"
 "      "
 msgstr ""
+"\n"
+"Cette %(questionnaire_type)s est actuellement en attente d'examen avant sa "
+"publication. "
 
 #: apps/questionnaire/templates/details/review_panel/review.html:24
 #, python-format
@@ -18518,6 +18759,10 @@ msgid ""
 "compiler / editor(s) have to revise it.\n"
 "          "
 msgstr ""
+"\n"
+"En tant qu'examinateur, vous pouvez modifier la %(questionnaire_type)s. Si "
+"la %(questionnaire_type)s est incomplète, vous devez la \"rejeter\" et le "
+"compilateur/ le(s) rédacteur(s) doivent la réviser.   "
 
 #: apps/questionnaire/templates/details/review_panel/review.html:49
 #: apps/questionnaire/templates/details/review_panel/review.html:69
@@ -18532,6 +18777,9 @@ msgid ""
 "data is complete. The publisher will be notified.\n"
 "        "
 msgstr ""
+"\n"
+"En tant qu'examinateur, vous pouvez approuver la %(questionnaire_type)s une "
+"fois les données complètes. L'éditeur sera avisé.  "
 
 #: apps/questionnaire/templates/details/review_panel/review.html:61
 msgid "Please confirm approval."
@@ -18546,6 +18794,10 @@ msgid ""
 "will be published and available to public users.\n"
 "        "
 msgstr ""
+"\n"
+"Si vous approuvez cette %(questionnaire_type)s, l'éditeur sera avisé. Après "
+"l'approbation finale par l'éditeur, la %(questionnaire_type)s sera publiée "
+"et disponible pour les utilisateurs publics.  "
 
 #: apps/questionnaire/templates/details/review_panel/review.html:67
 msgid "An optional message for the publisher(s) may be added here:"
@@ -18560,6 +18812,10 @@ msgid ""
 "have to revise it.\n"
 "        "
 msgstr ""
+"\n"
+"En tant qu'examinateur, vous pouvez rejeter la %(questionnaire_type)s si les "
+"données sont incomplètes et le compilateur/ le(s) rédacteur(s) seront "
+"informés qu'ils doivent la réviser.  "
 
 #: apps/questionnaire/templates/details/review_panel/review.html:108
 msgid "Assign reviewer"
@@ -18652,11 +18908,13 @@ msgstr "Cliquez sur l'image pour l'agrandir."
 
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:8
 msgid "Welcome to the Watershed data entry form."
-msgstr ""
+msgstr "Bienvenue dans le formulaire de saisie sur le bassin versant"
 
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:10
 msgid "You are about to add data from the Questionnaire on Watershed."
 msgstr ""
+"Vous êtes sur le point d'ajouter des données issues du questionnaire sur les "
+"bassins versants."
 
 #: apps/questionnaire/templates/details/section/list_in_progress.html:4
 msgid ""
@@ -18692,7 +18950,7 @@ msgstr "Pays"
 
 #: apps/questionnaire/templates/filter.html:26
 msgid "Select or type a Country name"
-msgstr "Sélectionnez ou saisissez un pays"
+msgstr "Sélectionner ou saisir un pays"
 
 #: apps/questionnaire/templates/filter.html:53
 msgid "Creation Date"
@@ -19057,8 +19315,8 @@ msgid ""
 "option \"Non-registered Person\" above.</li></ul>"
 msgstr ""
 "<ul><li>Vous pouvez rechercher un utilisateur WOCAT enregistré en tapant son "
-"nom.</li><li>Si la personne n'est pas un utilisateur WOCAT enregistré, "
-"sélectionnez l'option \"Personne non enregistrée\" ci-dessus.</li></ul>"
+"nom.</li><li>Si l'utilisateur WOCAT n'est pas enregistré, sélectionner "
+"l'option \"Personne non enregistrée\" ci-dessus.</li></ul>"
 
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:76
 msgid "Search a registered WOCAT user"
@@ -19217,7 +19475,7 @@ msgstr ""
 
 #: apps/questionnaire/utils.py:1568
 msgid "New version due to unccd flagging"
-msgstr ""
+msgstr "Nouvelle version due à la signalisation auprès de l'UNCCD"
 
 #: apps/questionnaire/utils.py:1574
 msgid "The questionnaire was succesfully removed"
@@ -19247,42 +19505,44 @@ msgstr "Ajouter un module de GDT"
 
 #: apps/sample/templates/sample/add_module.html:18
 msgid "SAMPLE: More information about the modules and stuff."
-msgstr ""
+msgstr "SAMPLE: Plus d'informations sur les modules et autres."
 
 #: apps/sample/templates/sample/add_module.html:27
 #: apps/technologies/templates/technologies/add_module.html:30
 msgid "1. Select a Technology"
-msgstr ""
+msgstr "1. Sélectionner une Technologie"
 
 #: apps/sample/templates/sample/add_module.html:30
 #: apps/technologies/templates/technologies/add_module.html:33
 msgid "Search and select a Technology to which you would like to add a module."
 msgstr ""
+"Rechercher et sélectionner une Technologie à laquelle vous souhaitez ajouter "
+"un module."
 
 #: apps/sample/templates/sample/add_module.html:53
 #: apps/technologies/templates/technologies/add_module.html:56
 msgid "2. Select a module"
-msgstr ""
+msgstr "2. Sélectionner un module"
 
 #: apps/sample/templates/sample/add_module.html:56
 #: apps/technologies/templates/technologies/add_module.html:59
 msgid "Select a module which you would like to add to the Technology."
-msgstr ""
+msgstr "Sélectionner un module que vous souhaitez ajouter à la Technologie."
 
 #: apps/sample/templates/sample/add_module.html:70
 #: apps/technologies/templates/technologies/add_module.html:73
 msgid "3. Create the module"
-msgstr ""
+msgstr "3. Créer le module"
 
 #: apps/sample/templates/sample/add_module.html:72
 #: apps/technologies/templates/technologies/add_module.html:75
 msgid "Create"
-msgstr ""
+msgstr "Créer"
 
 #: apps/sample/templates/sample/questionnaire/list.html:33
 #: apps/wocat/templates/wocat/questionnaire/list.html:33
 msgid "Select or type a country name"
-msgstr "Sélectionnez ou saisissez un pays"
+msgstr "Sélectionner ou saisir un pays"
 
 #: apps/sample/templates/sample/questionnaire/list.html:51
 #: apps/wocat/templates/wocat/questionnaire/list.html:51
@@ -19292,7 +19552,7 @@ msgstr "Projet"
 #: apps/sample/templates/sample/questionnaire/list.html:52
 #: apps/wocat/templates/wocat/questionnaire/list.html:52
 msgid "Select or type a project name"
-msgstr "Sélectionnez ou saisissez un projet"
+msgstr "Sélectionner ou saisir un projet"
 
 #: apps/sample/templates/sample/questionnaire/list.html:65
 #: apps/wocat/templates/wocat/partial/search.html:11
@@ -19356,13 +19616,6 @@ msgid "Note:"
 msgstr "Note:"
 
 #: apps/search/templates/search/help_text.html:3
-#, fuzzy
-#| msgid ""
-#| "The WOCAT datasets have not been migrated yet. Currently, the database "
-#| "only contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
-#| "Practices still needs to be done in the old database. The migration of "
-#| "the WOCAT data from the old to the new database will take place later "
-#| "this year and is planned to be finalized latest by December 2016."
 msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
@@ -19374,9 +19627,8 @@ msgstr ""
 "présente base de données ne contient que les données de l’initiative PRAIS "
 "de l’UNCCD. Par conséquent, la recherche des pratiques de GDT existantes "
 "doit encore être faite à partir de l'ancienne base de données. La migration "
-"des données WOCAT à partir de l'ancienne base de données vers la nouvelle "
-"base de données aura lieu plus tard et il est prévu qu’elle soit finalisée "
-"d’ici décembre 2016."
+"des données WOCAT de l'ancienne vers la nouvelle base de données aura lieu "
+"durant la première moitié de 2017. "
 
 #: apps/search/templates/search/help_text.html:4
 #: apps/unccd/templates/unccd/questionnaire/list.html:10
@@ -19385,7 +19637,7 @@ msgstr "Seules les données déclarées publiques sont visibles."
 
 #: apps/technologies/templates/technologies/add_module.html:18
 msgid "Add a module to an existing Technology."
-msgstr ""
+msgstr "Ajouter un module à une Technologie existante."
 
 #: apps/technologies/templates/technologies/add_module.html:21
 msgid ""
@@ -19393,6 +19645,10 @@ msgid ""
 "are in discussion: \"Climate Change Mitigation/ Carbon Benefits\" and "
 "\"Disaster Risk Reduction\"."
 msgstr ""
+"Actuellement, le module \"Adaptation aux changements climatiques\" existe. "
+"D'autres modules sont en discussion: \"Atténuation du changement climatique/ "
+"avantages en terme d'émission de carbone\" et \"Réduction des risques de "
+"catastrophe\"."
 
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
@@ -19408,7 +19664,7 @@ msgstr "Aucune technologie de GDT trouvée."
 
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
 msgid "This SLM Technology has a CCA module"
-msgstr ""
+msgstr "Cette Technologie de GDT a un module ACC"
 
 #: apps/unccd/templates/unccd/home.html:11
 msgid "UNCCD SLM portal"
@@ -19447,33 +19703,37 @@ msgstr "Aucune bonne pratique de GDT trouvée."
 
 #: apps/watershed/templates/watershed/base.html:6
 msgid "WOCAT Watershed"
-msgstr ""
+msgstr "Bassin versant WOCAT"
 
 #: apps/watershed/templates/watershed/questionnaire/partial/list.html:19
 msgid "No Watershed found."
-msgstr ""
+msgstr "Aucun bassin versant trouvé."
 
 #: apps/watershed/templates/watershed/questionnaire/partial/list_item.html:69
 msgid "This Watershed is linked to SLM Technologies"
-msgstr ""
+msgstr "Ce bassin versant est lié à des Technologies de GDT"
 
-#: apps/wocat/templates/wocat/add_landscapes.html:12
-msgid "Add SLM data in landscapes"
-msgstr ""
+#: apps/wocat/templates/wocat/add_maps.html:12
+#, fuzzy
+#| msgid "Land Management Maps"
+msgid "Add Land Management Maps"
+msgstr "Carte de la gestion des terres"
 
-#: apps/wocat/templates/wocat/add_landscapes.html:30
+#: apps/wocat/templates/wocat/add_maps.html:30
 #: apps/wocat/templates/wocat/home.html:157
 msgid "Land Degradation / Conservation"
-msgstr ""
+msgstr "Dégradation / Conservation des terres "
 
-#: apps/wocat/templates/wocat/add_landscapes.html:31
+#: apps/wocat/templates/wocat/add_maps.html:31
 #: apps/wocat/templates/wocat/home.html:158
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
 msgstr ""
+"Cartographie de la gestion, de la dégradation et de la conservation des "
+"terres incluant les facteurs d'influence, l'état des terres et les impacts."
 
-#: apps/wocat/templates/wocat/add_landscapes.html:32
+#: apps/wocat/templates/wocat/add_maps.html:32
 #: apps/wocat/templates/wocat/home.html:159
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -19483,8 +19743,8 @@ msgstr ""
 "de données. Elles peuvent être consultées ou ajoutées dans l'ancienne base "
 "de données (QM)."
 
-#: apps/wocat/templates/wocat/add_landscapes.html:33
-#: apps/wocat/templates/wocat/add_landscapes.html:53
+#: apps/wocat/templates/wocat/add_maps.html:33
+#: apps/wocat/templates/wocat/add_maps.html:53
 #: apps/wocat/templates/wocat/add_practice.html:35
 #: apps/wocat/templates/wocat/add_practice.html:54
 #: apps/wocat/templates/wocat/partial/add.html:23
@@ -19493,18 +19753,20 @@ msgstr ""
 msgid "Add"
 msgstr "Ajouter"
 
-#: apps/wocat/templates/wocat/add_landscapes.html:51
+#: apps/wocat/templates/wocat/add_maps.html:51
 #: apps/wocat/templates/wocat/home.html:136
 #: apps/wocat/templates/wocat/partial/search.html:18
 #: apps/wocat/templates/wocat/questionnaire/list.html:72
 msgid "Watershed and Runoff"
-msgstr ""
+msgstr "Bassin versant et Ruissellement"
 
-#: apps/wocat/templates/wocat/add_landscapes.html:52
+#: apps/wocat/templates/wocat/add_maps.html:52
 #: apps/wocat/templates/wocat/home.html:137
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
 msgstr ""
+"Cartographie de la gestion des terres et évaluation du ruissellement et de "
+"l'écoulement issus d'un bassin versant "
 
 #: apps/wocat/templates/wocat/add_module.html:12
 msgid ""
@@ -19773,6 +20035,9 @@ msgid ""
 "for review or invite other editors.\n"
 "    "
 msgstr ""
+"\n"
+"Les rédacteurs peuvent modifier une %(questionnaire_type)s, mais ils ne "
+"peuvent pas la soumettre pour examen ou inviter d'autres rédacteurs.  "
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:33
 #, python-format
@@ -19782,6 +20047,9 @@ msgid ""
 "edit it.\n"
 "    "
 msgstr ""
+"\n"
+"L'examinateur peut approuver ou rejeter la %(questionnaire_type)s et peut la "
+"modifier. "
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:44
 #, python-format
@@ -19791,6 +20059,9 @@ msgid ""
 "edit it.\n"
 "    "
 msgstr ""
+"\n"
+"L'éditeur peut approuver ou rejeter la %(questionnaire_type)s  et peut la "
+"modifier. "
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:55
 #, python-format
@@ -19801,6 +20072,9 @@ msgid ""
 "publishers.\n"
 "    "
 msgstr ""
+"\n"
+"Le Secrétariat WOCAT peut examiner et publier la  %(questionnaire_type)s. Le "
+"Secrétariat peut également affecter les examinateurs et les éditeurs. "
 
 #: apps/wocat/templates/wocat/help/review_process.html:18
 msgid "Process"
@@ -19878,11 +20152,11 @@ msgstr ""
 
 #: apps/wocat/templates/wocat/partial/add.html:43
 msgid "Land Management Maps"
-msgstr ""
+msgstr "Carte de la gestion des terres"
 
 #: apps/wocat/templates/wocat/partial/add.html:44
 msgid "Mapping and assessing Land Management"
-msgstr ""
+msgstr "Cartographie et évaluation de la gestion des terres"
 
 #: apps/wocat/templates/wocat/partial/add.html:65
 msgid "Modules"
@@ -20175,3 +20449,37 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
+
+#~ msgctxt "watershed helptext"
+#~ msgid ""
+#~ "<strong>Watershed user</strong>: the person/ entity who implements/ "
+#~ "maintains the Watershed Management activities, including individual "
+#~ "small-  or large-scale farmers, groups (gender, age, status, interest), "
+#~ "cooperatives, industrial companies (e.g. mining), government institutions "
+#~ "(e.g. state forest), etc."
+#~ msgstr ""
+#~ "<strong>Exploitant du bassin versant</strong>: personne ou entité qui met "
+#~ "en œuvre ou entretient des activités de gestion du bassin versant, "
+#~ "incluant les agriculteurs individuels de petites ou grandes "
+#~ "exploitations, les groupes (par sexe, âge, statut, intérêt), les "
+#~ "coopératives, les entreprises industrielles (par ex., minières), les "
+#~ "institutions gouvernementales (par ex., les forêts d'État), etc."
+
+#~ msgctxt "approaches label"
+#~ msgid ""
+#~ "Name of project which facilitated the documentation/ evaluation of the "
+#~ "Technology (if relevant)"
+#~ msgstr ""
+#~ "Nom du projet qui a facilité la documentation/ l'évaluation de la "
+#~ "Technologie (si pertinent)"
+
+#~ msgctxt "approaches label"
+#~ msgid ""
+#~ "Name of the institution(s) which facilitated the documentation/ "
+#~ "evaluation of the Technology (if relevant)"
+#~ msgstr ""
+#~ "Nom du ou des institutions qui ont facilité la documentation/ "
+#~ "l'évaluation de la Technologie (si pertinent)"
+
+#~ msgid "Add SLM data in landscapes"
+#~ msgstr "Ajouter des données de GDT dans les paysages"

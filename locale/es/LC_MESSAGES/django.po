@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-22 09:13+0100\n"
-"PO-Revision-Date: 2016-11-22 07:06+0000\n"
+"POT-Creation-Date: 2016-11-24 13:35+0100\n"
+"PO-Revision-Date: 2016-11-22 08:14+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
@@ -233,7 +233,8 @@ msgid "Approaches"
 msgstr "Enfoques"
 
 #: apps/cca/templates/cca/base.html:6
-msgid "WOCAT SLM Climate Change Adaptation"
+#: apps/cca/templates/cca/questionnaire/list.html:13
+msgid "SLM Climate Change Adaptation"
 msgstr ""
 
 #: apps/cca/templates/cca/partial/select_module.html:12
@@ -254,18 +255,16 @@ msgid ""
 "and Climate-Related Extremes"
 msgstr ""
 
-#: apps/cca/templates/cca/questionnaire/list.html:13
-msgid "SLM Climate Change Adaptation"
-msgstr ""
-
 #: apps/cca/templates/cca/questionnaire/partial/link.html:16
 #: apps/cca/views.py:47
 msgid "Climate Change Adaptation"
 msgstr ""
 
 #: apps/cca/templates/cca/questionnaire/partial/list.html:19
-msgid "No SLM Climate Change Adaptations found."
-msgstr ""
+#, fuzzy
+#| msgid "No SLM data found."
+msgid "No data found."
+msgstr "No se hallaron datos MST."
 
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:72
 msgid "This Module is linked to a SLM Technology"
@@ -9054,19 +9053,44 @@ msgstr ""
 "tierra"
 
 #: apps/configuration/configuration_translations.py:5110
+#: apps/configuration/configuration_translations.py:5120
+#, fuzzy
+#| msgctxt "approaches helptext"
+#| msgid ""
+#| "the person/ entity who implements/ maintains the Technology/ Technologies "
+#| "associated with this Approach. The term land user may refer to individual "
+#| "small- or large-scale farmers, groups (gender, age, status, interest), "
+#| "cooperatives, industrial companies (e.g. mining), government institutions "
+#| "(e.g. state forest), etc."
 msgctxt "watershed helptext"
 msgid ""
-"<strong>Watershed user</strong>: the person/ entity who implements/ "
-"maintains the Watershed Management activities, including individual small-  "
-"or large-scale farmers, groups (gender, age, status, interest), "
-"cooperatives, industrial companies (e.g. mining), government institutions (e."
-"g. state forest), etc."
+"<p><strong>Land user</strong>: the person/ entity who implements/ maintains "
+"the Technology. The term land user may refer to individual small- or large-"
+"scale farmers, groups (gender, age, status, interest), cooperatives, "
+"industrial companies (e.g. mining), government institutions (e.g. state "
+"forest), etc.</p><p><strong>Watershed user</strong>: the person/ entity who "
+"implements/ maintains the watershed management activities, including "
+"individual small-  or large-scale farmers, groups (gender, age, status, "
+"interest), cooperatives, industrial companies (e.g. mining), government "
+"institutions (e.g. state forest), etc.</p>"
 msgstr ""
+"la persona/ entidad que implementa/ mantiene la Tecnología/ Tecnologías "
+"asociadas con este Enfoque. El término usuario de tierras puede referirse a "
+"agricultores individuales de pequeña o gran escala (género, edad, estatus, "
+"interés), cooperativas, empresas industriales (por ej. minería), "
+"instituciones gubernamentales (por ej. bosques estatales), etc."
 
 #: apps/configuration/configuration_translations.py:5111
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgctxt "watershed label"
-msgid "Strengths/ advantages/ opportunities in the watershed user’s view"
+msgid ""
+"Strengths/ advantages/ opportunities in the land user’s / watershed user’s "
+"view"
 msgstr ""
+"Fuerzas/ ventajas/ oportunidades desde la perspectiva del usuario de la "
+"tierra"
 
 #: apps/configuration/configuration_translations.py:5112
 msgctxt "approaches label"
@@ -9112,20 +9136,16 @@ msgstr ""
 "Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
 "tierra"
 
-#: apps/configuration/configuration_translations.py:5120
-msgctxt "watershed helptext"
-msgid ""
-"<strong>Watershed user</strong>: the person/ entity who implements/ "
-"maintains the watershed management activities, including individual small-  "
-"or large-scale farmers, groups (gender, age, status, interest), "
-"cooperatives, industrial companies (e.g. mining), government institutions (e."
-"g. state forest), etc."
-msgstr ""
-
 #: apps/configuration/configuration_translations.py:5121
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
 msgctxt "watershed label"
-msgid "Weaknesses/ disadvantages/ risks in the watershed user’s view"
+msgid ""
+"Weaknesses/ disadvantages/ risks in the land user’s / watershed user’s view"
 msgstr ""
+"Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
+"tierra"
 
 #: apps/configuration/configuration_translations.py:5122
 msgctxt "approaches label"
@@ -9362,12 +9382,17 @@ msgstr ""
 "contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
 
 #: apps/configuration/configuration_translations.py:5172
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid ""
+#| "Name of project which funded the documentation/ evaluation of the "
+#| "Approach (if relevant)"
 msgctxt "approaches label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
-"Technology (if relevant)"
+"Approach (if relevant)"
 msgstr ""
-"Nombre del proyecto que facilitó la documentación/ evaluación de la "
+"Nombre del proyecto que financió la documentación/ evaluación de la "
 "Tecnología (si fuera relevante)"
 
 #: apps/configuration/configuration_translations.py:5173
@@ -9426,10 +9451,15 @@ msgstr ""
 "contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
 
 #: apps/configuration/configuration_translations.py:5180
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid ""
+#| "Name of the institution(s) which facilitated the documentation/ "
+#| "evaluation of the Technology (if relevant)"
 msgctxt "approaches label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
-"of the Technology (if relevant)"
+"of the Approach (if relevant)"
 msgstr ""
 "Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
 "de la Tecnología (si fuera relevante)"
@@ -17301,7 +17331,6 @@ msgstr "Editor:"
 #: apps/questionnaire/templates/details/category/with_metadata.html:87
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/add_landscapes.html:53
 #: apps/wocat/templates/wocat/questionnaire/list.html:80
 msgid "Coming soon"
 msgstr "Próximamente"
@@ -18802,13 +18831,6 @@ msgid "Note:"
 msgstr "Nota:"
 
 #: apps/search/templates/search/help_text.html:3
-#, fuzzy
-#| msgid ""
-#| "The WOCAT datasets have not been migrated yet. Currently, the database "
-#| "only contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
-#| "Practices still needs to be done in the old database. The migration of "
-#| "the WOCAT data from the old to the new database will take place later "
-#| "this year and is planned to be finalized latest by December 2016."
 msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
@@ -18816,12 +18838,6 @@ msgid ""
 "WOCAT data from the old to the new database will be migrated during first "
 "half of 2017."
 msgstr ""
-"Las series de datos de WOCAT todavía no se transfirieron. Actualmente, la "
-"base de datos solamente contiene los datos UNCCD PRAIS. Por ello, se deben "
-"buscar las prácticas MST existentes en la antigua base de datos. La "
-"transferencia de los datos WOCAT de la antigua a la nueva base de datos se "
-"llevará a cabo luego este año, y se planea concluirla a más tardar hasta "
-"diciembre de 2016."
 
 #: apps/search/templates/search/help_text.html:4
 #: apps/unccd/templates/unccd/questionnaire/list.html:10
@@ -18901,23 +18917,26 @@ msgstr ""
 msgid "This Watershed is linked to SLM Technologies"
 msgstr ""
 
-#: apps/wocat/templates/wocat/add_landscapes.html:12
-msgid "Add SLM data in landscapes"
-msgstr ""
+#: apps/wocat/templates/wocat/add_maps.html:12
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "land management"
+msgid "Add Land Management Maps"
+msgstr "manejo de tierras"
 
-#: apps/wocat/templates/wocat/add_landscapes.html:30
+#: apps/wocat/templates/wocat/add_maps.html:30
 #: apps/wocat/templates/wocat/home.html:157
 msgid "Land Degradation / Conservation"
 msgstr ""
 
-#: apps/wocat/templates/wocat/add_landscapes.html:31
+#: apps/wocat/templates/wocat/add_maps.html:31
 #: apps/wocat/templates/wocat/home.html:158
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
 msgstr ""
 
-#: apps/wocat/templates/wocat/add_landscapes.html:32
+#: apps/wocat/templates/wocat/add_maps.html:32
 #: apps/wocat/templates/wocat/home.html:159
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -18927,8 +18946,8 @@ msgstr ""
 "datos. Se pueden visualizar o agregar los mapas en la antigua base de datos "
 "(QM).  "
 
-#: apps/wocat/templates/wocat/add_landscapes.html:33
-#: apps/wocat/templates/wocat/add_landscapes.html:53
+#: apps/wocat/templates/wocat/add_maps.html:33
+#: apps/wocat/templates/wocat/add_maps.html:53
 #: apps/wocat/templates/wocat/add_practice.html:35
 #: apps/wocat/templates/wocat/add_practice.html:54
 #: apps/wocat/templates/wocat/partial/add.html:23
@@ -18937,14 +18956,14 @@ msgstr ""
 msgid "Add"
 msgstr "Agregar"
 
-#: apps/wocat/templates/wocat/add_landscapes.html:51
+#: apps/wocat/templates/wocat/add_maps.html:51
 #: apps/wocat/templates/wocat/home.html:136
 #: apps/wocat/templates/wocat/partial/search.html:18
 #: apps/wocat/templates/wocat/questionnaire/list.html:72
 msgid "Watershed and Runoff"
 msgstr ""
 
-#: apps/wocat/templates/wocat/add_landscapes.html:52
+#: apps/wocat/templates/wocat/add_maps.html:52
 #: apps/wocat/templates/wocat/home.html:137
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
@@ -19606,3 +19625,11 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
+
+#~ msgctxt "approaches label"
+#~ msgid ""
+#~ "Name of project which facilitated the documentation/ evaluation of the "
+#~ "Technology (if relevant)"
+#~ msgstr ""
+#~ "Nombre del proyecto que facilitó la documentación/ evaluación de la "
+#~ "Tecnología (si fuera relevante)"
