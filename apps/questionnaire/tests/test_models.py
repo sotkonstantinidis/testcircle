@@ -15,7 +15,7 @@ from accounts.tests.test_models import create_new_user
 from configuration.models import Configuration
 from qcat.tests import TestCase
 from questionnaire.errors import QuestionnaireLockedException
-from questionnaire.models import Questionnaire, QuestionnaireLink, File
+from questionnaire.models import Questionnaire, QuestionnaireLink, File, Lock
 
 
 def get_valid_file():
@@ -470,11 +470,18 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         self.assertEqual(questionnaire.data, {'foo': 'bar'})
 
+    from nose.plugins.attrib import attr
+    @attr('foo')
     def test_block_for_for_user(self):
         questionnaire = get_valid_questionnaire()
-        questionnaire.lock_questionnaire(questionnaire.code, self.user)
-        questionnaire.refresh_from_db()
-        self.assertEqual(questionnaire.blocked, self.user)
+        questionnaire.lock_questionnaire(
+            code=questionnaire.code,
+            user=self.user
+        )
+        lock = Lock.with_status.is_blocked(code=questionnaire.code)
+        self.assertEqual(
+            lock.first().user, self.user
+        )
 
     def test_blocked_questionnaire_raises_exception(self):
         questionnaire = get_valid_questionnaire()

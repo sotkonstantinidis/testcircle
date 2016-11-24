@@ -82,7 +82,8 @@ def get_configuration_index_filter(
         ``list``. A list of configuration codes (the index/indices) to
         be searched.
     """
-    default_configurations = ['unccd', 'technologies', 'approaches']
+    default_configurations = [
+        'unccd', 'technologies', 'approaches', 'watershed']
 
     if query_param_filter:
         query_configurations = []

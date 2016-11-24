@@ -87,3 +87,16 @@ notifications:
   email:
     on_success: change
     on_failure: always
+
+integrations:
+  notifications:
+    - integrationName: slack-integration
+      type: slack
+      recipients:
+        - "#general"
+      branches:
+        only:
+          - master
+          - dev
+      on_success: always
+      on_failure: always

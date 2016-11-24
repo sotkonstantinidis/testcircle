@@ -117,7 +117,12 @@
         <section class="top-bar-section">
           <ul class="right">
             {% if user.is_authenticated %}
-              <li class="has-dropdown">
+              <li>
+                <a href="{% url 'notification_list' %}?is_unread" class="notification-indicator" title ="{% trans "See your messages." %}">
+                  <svg class="icon"><use xlink:href="#icon-mail" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+                </a>
+              </li>
+              <li class="has-dropdown user-menu">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
                   <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM practices" %}</a></li>
@@ -148,7 +153,9 @@
                   <input name="next" type="hidden" value="{{ request.path|clean_url }}" />
                   <input id="language_field" name="language" type="hidden" />
                   {% for lang in LANGUAGES %}
-                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}><a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{{ lang.1 }}</a></li>
+                    <li {% if lang.0 == LANGUAGE_CODE %} class="active"{% endif %}>
+                      <a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{% language lang.0 %}{{ lang.1 }}{% endlanguage %}</a>
+                    </li>
                   {% endfor %}
                 </form>
                 <li class="lang-switcher-info"><a href="https://www.wocat.net/en/about-wocat/contact.html" target="_blank" data-tooltip="" title="{% trans "Would you like to help us translate the SLM Database? Please contact the WOCAT Secretariat for more information." %}"><svg class="icon-lines is-inline"><use xlink:href="#icon-info"></use></svg></a></li>
@@ -197,6 +204,23 @@
       <script src="{% static 'js/foundation.min.js' %}"></script>
       <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
       <script src="{% static 'js/main.min.js' %}"></script>
+      <script>
+      $(function() {
+        // load indicator for new pending tasks - if any (not zero) are available.
+        var notificationIndicator = $('.notification-indicator');
+        if (notificationIndicator.length !== 0) {
+          $.ajax({
+            url: '{% url 'notification_new_count' %}',
+            method: 'GET'
+          }).done(function(data) {
+            if (data != 0) {
+              notificationIndicator.prepend('<strong>' + data + '</strong>');
+              notificationIndicator.addClass('has-unread-messages')
+            }
+          });
+        }
+      });
+      </script>
     {% endcompress %}
     <!-- Block for js within specific templates. Add compress in the template.  -->
     {% render_block "js" %}

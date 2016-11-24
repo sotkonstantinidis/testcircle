@@ -1,3 +1,5 @@
+import re
+
 import time
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
@@ -11,6 +13,7 @@ from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
+from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
     route_home,
     route_questionnaire_new,
@@ -24,7 +27,11 @@ from search.tests.test_index import create_temp_indices
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@override_settings(
+    ES_INDEX_PREFIX=TEST_INDEX_PREFIX,
+    NOTIFICATIONS_CREATE='create_foo',
+    NOTIFICATIONS_CHANGE_STATUS='change_foo'
+)
 @patch.object(Typo3Client, 'get_user_id')
 class ModerationTest(FunctionalTest):
 
@@ -41,7 +48,10 @@ class ModerationTest(FunctionalTest):
         super(ModerationTest, self).tearDown()
         delete_all_indices()
 
-    def test_questionnaire_permissions(self, mock_get_user_id):
+    @patch('questionnaire.signals.create_questionnaire.send')
+    @patch('questionnaire.signals.change_status.send')
+    def test_questionnaire_permissions(self, mock_change_status,
+                                       mock_create_signal, mock_get_user_id):
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
 
@@ -63,7 +73,12 @@ class ModerationTest(FunctionalTest):
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
-
+        # A new notification should be created
+        mock_create_signal.assert_called_once_with(
+            questionnaire=Questionnaire.objects.latest('created'),
+            sender='create_foo',
+            user=user_alice
+        )
         # She changes to the view mode
         self.review_action('view')
         url = self.browser.current_url
@@ -97,6 +112,13 @@ class ModerationTest(FunctionalTest):
         self.doLogin(user=user_alice)
         self.browser.get(url)
         self.review_action('submit')
+        # A notification for the new status is created
+        mock_change_status.assert_called_once_with(
+            message='',
+            questionnaire=Questionnaire.objects.latest('created'),
+            sender='change_foo',
+            user=user_alice
+        )
 
         # She logs out and cannot see the questionnaire
         self.doLogout()
@@ -247,6 +269,8 @@ class ModerationTestFixture(FunctionalTest):
         # She goes to the edit page and now she sees the buttons as well as a
         # button to view the questionnaire
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        time.sleep(0.5)
+
         self.click_edit_section('cat_0', return_button=True)
         self.review_action('view', exists_only=True)
 
@@ -368,7 +392,12 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//form[@id="review_form"]')
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
 
-    def test_secretariat_can_assign_reviewer(self, mock_get_user_id):
+    @override_settings(
+        NOTIFICATIONS_ADD_MEMBER='add_member',
+        NOTIFICATIONS_REMOVE_MEMBER='delete_member'
+    )
+    @patch('questionnaire.signals.change_member.send')
+    def test_secretariat_can_assign_reviewer(self, mock_member_change, mock_get_user_id):
 
         identifier = 'sample_2'
 
@@ -376,8 +405,10 @@ class ModerationTestFixture(FunctionalTest):
         self.doLogin(user=self.user_editor)
 
         # He goes to a submitted questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': identifier}))
+        url = self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': identifier}
+        )
+        self.browser.get(url)
         self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
 
         # He sees he can neither edit, review or assign users
@@ -455,6 +486,17 @@ class ModerationTestFixture(FunctionalTest):
         btn.click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
+        # Two notifications are created
+        self.assertEqual(mock_member_change.call_count, 2)
+        mock_member_change.assert_called_with(
+            sender='add_member',
+            questionnaire=Questionnaire.objects.get(code=identifier),
+            user=self.user_secretariat,
+            affected=User.objects.get(email='lukas.vonlanthen@cde.unibe.ch'),
+            role='reviewer'
+        )
+        mock_member_change.reset_mock()
+
         # She sees the users were added
         assigned_users = self.findManyBy(
             'xpath', '//div[@id="review-list-assigned-users"]/ul/li')
@@ -474,12 +516,18 @@ class ModerationTestFixture(FunctionalTest):
         self.assertTrue('Lukas Vonlanthen' in selected_users[1].text)
 
         # She removes one of the user
-        self.findBy(
-            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
-                     '"alert-box")][1]/a').click()
+        remove_button = self.findBy(
+            'xpath', '//div[@id="review-new-user"]/div'
+                     '[contains(@class, ''"alert-box")][1]/a'
+        )
+        delete_user = re.findall('\d+', remove_button.get_attribute('onclick'))
+
+        remove_button.click()
         selected_users = self.findManyBy(
-            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
-                     '"alert-box")]')
+            'xpath',
+            '//div[@id="review-new-user"]/div[contains(@class, "alert-box")]'
+        )
+
         self.assertEqual(len(selected_users), 1)
 
         # She adds another user
@@ -510,6 +558,16 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(assigned_users), 2)
         self.assertTrue('Lukas Vonlanthen' in assigned_users[0].text)
         self.assertTrue('Sebastian Manger' in assigned_users[1].text)
+
+        # Users are deleted after submitting the page
+        self.browser.get(url)
+        mock_member_change.assert_called_with(
+            sender='delete_member',
+            questionnaire=Questionnaire.objects.get(code=identifier),
+            user=self.user_secretariat,
+            affected=User.objects.get(id=delete_user[-1]),
+            role='reviewer'
+        )
 
     def test_reviewer_can_edit_questionnaire(self, mock_get_user_id):
 

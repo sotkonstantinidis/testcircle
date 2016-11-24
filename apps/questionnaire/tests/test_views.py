@@ -639,7 +639,9 @@ class GenericQuestionnaireStepViewTest(TestCase):
 
     @patch.object(Questionnaire, 'create_new')
     @patch.object(GenericQuestionnaireStepView, 'get_success_url_next_section')
-    def test_next_section_route(self, get_success_url_next_section, create_new):
+    @patch('questionnaire.signals.change_questionnaire_data.send')
+    def test_next_section_route(self, mock_change_data,
+                                get_success_url_next_section, create_new):
         request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
         request.user = self.request.user
         request._messages = MagicMock()
@@ -664,7 +666,8 @@ class GenericQuestionnaireStepViewTest(TestCase):
         self.assertIsNone(response)
 
     @patch.object(Questionnaire, 'create_new')
-    def test_success_url(self, create_new):
+    @patch('questionnaire.signals.change_questionnaire_data.send')
+    def test_success_url(self, mock_change_data, create_new):
         request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
         request.user = self.request.user
         request._messages = MagicMock()

@@ -9,6 +9,15 @@ class DevMixin:
     THUMBNAIL_DEBUG = True
 
 
+class TestMixin:
+    """
+    Provide random content generator for the jsonbfield used for unit tests.
+    """
+    MOMMY_CUSTOM_FIELDS_GEN = {
+        'django_pgjson.fields.JsonBField': lambda : {'very': 'random'}
+    }
+
+
 class DebugToolbarMixin:
     """
     Not used by default, as it slows down request massively. Use this when
@@ -31,6 +40,9 @@ class ProdMixin:
         'gif': '/usr/bin/optipng {filename}',
         'jpeg': '/usr/bin/jpegoptim {filename}'
     }
+
+    # This is the default, stated here to be explicit.
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 
 class LogMixin:
