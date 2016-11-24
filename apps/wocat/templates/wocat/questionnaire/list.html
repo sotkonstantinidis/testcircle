@@ -76,8 +76,8 @@
             <input type="submit" class="search-submit button" value="Search">
           </div>
           <div class="search-option">
-{#            <a href="#" data-toggle="search-advanced-options">{% trans "Advanced filter" %}</a>#}
-            <a href="#" data-tooltip="" title="{% trans "Coming soon" %}">{% trans "Advanced filter" %}</a>
+            <a href="#" data-toggle="search-advanced-options">{% trans "Advanced filter" %}</a>
+{#            <a href="#" data-tooltip="" title="{% trans "Coming soon" %}">{% trans "Advanced filter" %}</a>#}
           </div>
         </div>
       </div>
@@ -85,6 +85,11 @@
     <div id="search-advanced-options" class="search-advanced-options hide">
       <div class="row large-no-gutters">
         <div class="columns small-12">
+
+          <br/>
+          {% trans "A revised filter is coming soon." as filter_coming_soon %}
+          {% include 'form/helptext.html' with helptext=filter_coming_soon %}
+
           {% include 'wocat/partial/advanced_filter.html' %}
         </div>
       </div>
