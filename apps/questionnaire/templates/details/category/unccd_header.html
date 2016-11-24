@@ -101,6 +101,11 @@
     {% endif %}
   </div>
 
+  {% if review_config %}
+    {% trans "UNCCD Prais data" as questionnaire_type %}
+    {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
+  {% endif %}
+
   <div class="row tech-section-group">
     <h2 class="tech-section-group-title left">{% trans "View sections" %}</h2>
     <a href="#" class="link right js-expand-all-sections" data-is-collapsed="true">

@@ -15,7 +15,7 @@ The qcat application needs a whole range of server applications:
 Postgresql
 ..........
 
-Postgresql 9.4 or bigger is needed as JSONP is used. Postgis 2.1 or bigger is needed as well. 
+Postgresql 9.4 or bigger is needed as JSONP is used. Postgis 2.1 or bigger is needed as well.
 
 
 uwsgi
@@ -43,7 +43,7 @@ Backend installation
 ......................
 
 
-#. Creating user 'qcat':: 
+#. Creating user 'qcat'::
 
 	sudo adduser qcat && addgroup qcat:qcat
 
