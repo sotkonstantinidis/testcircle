@@ -21,8 +21,8 @@ urlpatterns = patterns(
     url(r'^add/practice/$', TemplateView.as_view(
         template_name='wocat/add_practice.html'),
         name='add_practice'),
-    url(r'^add/landscapes/$', TemplateView.as_view(
-        template_name='wocat/add_landscapes.html'),
+    url(r'^add/maps/$', TemplateView.as_view(
+        template_name='wocat/add_maps.html'),
         name='add_landscapes'),
     url(r'^view/(?P<identifier>[^/]+)/$', 'wocat.views.questionnaire_details',
         name='questionnaire_details'),

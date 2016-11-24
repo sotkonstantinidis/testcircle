@@ -9,7 +9,7 @@
       <div class="small-12 columns">
         <h1 class="is-title">
           <a href="{% url 'wocat:add' %}" title="Back" class="button-back"><svg class="icon"><use xlink:href="#icon-caret_left"></use></svg></a>
-          {% trans "Add SLM data in landscapes" %}
+          {% trans "Add Land Management Maps" %}
         </h1>
       </div>
     </div>
@@ -50,8 +50,7 @@
           <div class="card-well">
             <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
             <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
-            <a href="{% url 'watershed:questionnaire_new' %}" class="button large expand disabled" title="{% trans "Coming soon" %}" data-tooltip="">{% trans "Add" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></a>
-{#            <a href="{% url 'watershed:questionnaire_new' %}" class="button large expand">{% trans "Add" %}</a>#}
+            <a href="{% url 'watershed:questionnaire_new' %}" class="button large expand">{% trans "Add" %}</a>
           </div>
         </div>
       </div>

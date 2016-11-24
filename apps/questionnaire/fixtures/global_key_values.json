@@ -787,10 +787,10 @@
         },
         "watershed": {
           "label": {
-            "en": "Strengths/ advantages/ opportunities in the watershed user’s view"
+            "en": "Strengths/ advantages/ opportunities in the land user’s / watershed user’s view"
           },
           "helptext": {
-            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the Watershed Management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+            "en": "<p><strong>Land user</strong>: the person/ entity who implements/ maintains the Technology. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc.</p><p><strong>Watershed user</strong>: the person/ entity who implements/ maintains the watershed management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc.</p>"
           }
         }
       }
@@ -849,10 +849,10 @@
         },
         "watershed": {
           "label": {
-            "en": "Weaknesses/ disadvantages/ risks in the watershed user’s view"
+            "en": "Weaknesses/ disadvantages/ risks in the land user’s / watershed user’s view"
           },
           "helptext": {
-            "en": "<strong>Watershed user</strong>: the person/ entity who implements/ maintains the watershed management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
+            "en": "<p><strong>Land user</strong>: the person/ entity who implements/ maintains the Technology. The term land user may refer to individual small- or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc.</p><p><strong>Watershed user</strong>: the person/ entity who implements/ maintains the watershed management activities, including individual small-  or large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc.</p>"
           }
         }
       }
@@ -1306,7 +1306,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Name of project which facilitated the documentation/ evaluation of the Technology (if relevant)"
+            "en": "Name of project which facilitated the documentation/ evaluation of the Approach (if relevant)"
           },
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
@@ -1347,7 +1347,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Technology (if relevant)"
+            "en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Approach (if relevant)"
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
