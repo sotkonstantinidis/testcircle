@@ -1174,6 +1174,26 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
                 'initial_links': curr_initial_links,
             })
 
+        # This is a fix for editing UNCCD cases where boolean values were stored
+        # incorrectly as "false" and "true" instead of 0 and 1.
+        if initial_data is not None:
+            for data_dict in initial_data:
+                for key, value in data_dict.items():
+                    if key not in ['unccd_partnership', 'unccd_property_rights',
+                                   'unccd_local_stakeholders',
+                                   'unccd_population_involved',
+                                   'unccd_impact_biodiversity_conservation',
+                                   'unccd_impact_cc_mitigation',
+                                   'unccd_impact_cc_adaptation',
+                                   'unccd_cost_benefit_analysis',
+                                   'unccd_technology_disseminated',
+                                   'unccd_incentives', 'unccd_replicability']:
+                        continue
+                    if value is False:
+                        data_dict[key] = 0
+                    else:
+                        data_dict[key] = 1
+
         return config, FormSet(
             post_data, prefix=self.keyword, initial=initial_data)
 
