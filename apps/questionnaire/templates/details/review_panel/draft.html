@@ -16,7 +16,7 @@
 {% if 'submit_questionnaire' in review_config.permissions %}
   <div class="row process-action">
     <div class="medium-2 columns">
-      <a class="button expand success" data-reveal-id="confirm-submit">{% trans "Submit" %}</a>
+      <a class="button expand success" data-reveal-id="confirm-submit" {% if review_config.is_blocked %}disabled="disabled"{% endif %}>{% trans "Submit" %}</a>
     </div>
     <div class="medium-10 columns">
       <p>
@@ -46,7 +46,7 @@
       </div>
     </div>
   </div>
-  {% comment %}editors (non compilors) can indicate the compiler that they are finished editing{% endcomment %}
+  {% comment %}editors (non compilers) can indicate the compiler that they are finished editing{% endcomment %}
 {% elif review_config.roles|is_editor and 'edit_questionnaire' in review_config.permissions %}
   <div class="row process-action">
     <div class="medium-2 columns">
