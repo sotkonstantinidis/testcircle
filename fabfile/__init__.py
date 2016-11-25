@@ -89,7 +89,7 @@ def set_environment(environment_name):
 def deploy(branch):
     """
     Deploy the project.
-    Execute with "fab <branch> deploy".
+    Execute with "fab deploy:<branch>".
     """
     if branch not in BRANCH_HOSTINGS.keys():
         raise BaseException('{} is not a valid branch'.format(branch))
