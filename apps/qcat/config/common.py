@@ -263,17 +263,26 @@ class BaseSettings(Configuration):
 
     # Settings for automated deploy with fabric.
     OPBEAT_BEARER_DEV = values.Value(environ_prefix='')
+    OPBEAT_BEARER_DEMO = values.Value(environ_prefix='')
     OPBEAT_BEARER_LIVE = values.Value(environ_prefix='')
 
     OPBEAT_URL_DEV = values.Value(environ_prefix='')
+    OPBEAT_URL_DEMO = values.Value(environ_prefix='')
     OPBEAT_URL_LIVE = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
+    HOST_STRING_DEMO = values.Value(environ_prefix='')
     HOST_STRING_LIVE = values.Value(environ_prefix='')
+
+    # touch file to reload uwsgi
+    TOUCH_FILE_DEV = values.Value(environ_prefix='')
+    TOUCH_FILE_DEMO = values.Value(environ_prefix='')
+    TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
 
-    # Settings for piwik integration. Tracking happens in the frontend (base template) and backend (API)
+    # Settings for piwik integration. Tracking happens in the frontend
+    # (base template) and backend (API)
     PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)
     PIWIK_URL = values.Value(environ_prefix='')
     PIWIK_AUTH_TOKEN = values.Value(environ_prefix='')

@@ -25,13 +25,24 @@ ENVIRONMENTS = {
         'branch': 'develop',
         'label': 'dev',
         'host_string': settings.HOST_STRING_DEV,
+        'touch_file': settings.TOUCH_FILE_DEV,
         'opbeat_url': settings.OPBEAT_URL_DEV,
         'opbeat_bearer': settings.OPBEAT_BEARER_DEV,
+    },
+    'demo': {
+        'branch': 'master',
+        'label': 'live',
+        'host_string': settings.HOST_STRING_DEMO,
+        'touch_file': settings.TOUCH_FILE_DEMO,
+        'opbeat_url': settings.OPBEAT_URL_DEMO,
+        'opbeat_bearer': settings.OPBEAT_BEARER_DEMO,
+        'url': 'https://qcat-demo.wocat.net/{}/wocat/list/?type=all',
     },
     'master': {
         'branch': 'master',
         'label': 'live',
         'host_string': settings.HOST_STRING_LIVE,
+        'touch_file': settings.TOUCH_FILE_LIVE,
         'opbeat_url': settings.OPBEAT_URL_LIVE,
         'opbeat_bearer': settings.OPBEAT_BEARER_LIVE,
         'url': 'https://qcat.wocat.net/{}/wocat/list/?type=all',
@@ -41,6 +52,12 @@ ENVIRONMENTS = {
         'repo_url': 'https://github.com/CDE-UNIBE/qcat.git',
         'base_path': '/srv/webapps',
     }
+}
+
+# Mapping of branches and the hosts on which these branches are checked out
+BRANCH_HOSTINGS = {
+    'develop': ['develop'],
+    'master': ['master', 'demo'],
 }
 
 
@@ -69,42 +86,31 @@ def set_environment(environment_name):
 
 
 @task
-def develop():
-    """
-    Set develop as current environment
-    """
-    set_environment('develop')
-
-
-@task
-def master():
-    """
-    Set maste as current environment
-    """
-    set_environment('master')
-
-
-@task
-def deploy():
+def deploy(branch):
     """
     Deploy the project.
-    Execute with "fab <branch> deploy".
+    Execute with "fab deploy:<branch>".
     """
-    require('environment', provided_by=(develop, master))
-    _set_maintenance_mode(True, env.source_folder)
-    _get_latest_source(env.source_folder)
-    _update_virtualenv(env.source_folder)
-    _clean_static_folder(env.source_folder)
-    _update_static_files(env.source_folder)
-    _update_database(env.source_folder)
-    _set_maintenance_mode(False, env.source_folder)
-    _rebuild_configuration_cache()
-    print(green("Everything OK"))
-    _access_project()
+    if branch not in BRANCH_HOSTINGS.keys():
+        raise BaseException('{} is not a valid branch'.format(branch))
+
+    for environment in BRANCH_HOSTINGS[branch]:
+        set_environment(environment)
+        _set_maintenance_mode(True, env.source_folder)
+        _get_latest_source(env.source_folder)
+        _update_virtualenv(env.source_folder)
+        _clean_static_folder(env.source_folder)
+        _update_static_files(env.source_folder)
+        _update_database(env.source_folder)
+        _set_maintenance_mode(False, env.source_folder)
+        _rebuild_configuration_cache()
+        print(green("Everything OK"))
+        _access_project()
 
 
 @task
-def provision():
+def provision(environment):
+    set_environment(environment)
     _install_prerequirements()
     _create_directory_structure(env.site_folder)
     _get_latest_source(env.source_folder)
@@ -113,16 +119,17 @@ def provision():
 
 
 @task
-def load_qcat_data():
+def load_qcat_data(environment):
+    set_environment(environment)
     run('cd {} && python manage.py load_qcat_data'.format(env.source_folder))
 
 
 @task
-def show_logs(file='django.log', n=100):
+def show_logs(environment, file='django.log', n=100):
     """
     Arguments can be passed like fab develop show_logs:file=myfile.log,n=1
     """
-    require('environment', provided_by=(develop, master))
+    set_environment(environment)
     run('tail -n {n} {folder}/logs/{file}'.format(n=n, folder=env.source_folder, file=file))
 
 
@@ -186,8 +193,7 @@ def _reload_apache(site_folder):
 
 def _reload_uwsgi():
     """Touch the uwsgi-conf to restart the server"""
-    run('touch {}/serverconfig/uwsgi_{}.ini'.format(
-        env.source_folder, env.label))
+    run('touch {}'.format(env.touch_file))
 
 
 def _set_maintenance_mode(value, source_folder):
@@ -220,12 +226,12 @@ def _access_project():
 
 @task
 @runs_once
-def register_deployment():
+def register_deployment(environment):
     """
     Call register_deployment with a local path that contains a .git directory
     after a release has been deployed.
     """
-    require('environment', provided_by=(develop, master))
+    set_environment(environment)
     local_project_folder = dirname(dirname(__file__))
     with(lcd(local_project_folder)):
         revision = local('git log -n 1 --pretty="format:%H"', capture=True)
