@@ -1,9 +1,13 @@
 import collections
 import functools
+import json
 import logging
 from copy import copy
 
 from django.conf import settings
+from questionnaire.models import Questionnaire
+from questionnaire.templatetags.questionnaire_tags import get_static_map_url
+
 from .configuration import QuestionnaireQuestion
 
 logger = logging.getLogger(__name__)
@@ -16,8 +20,9 @@ class ConfiguredQuestionnaire:
     store = collections.OrderedDict()
     tmp_path = []  # all dict keys until the current element
 
-    def __init__(self, config, **data):
+    def __init__(self, config, questionnaire, **data):
         self.values = data
+        self.questionnaire = questionnaire
         self.values_keys = self.values.keys()
         self.get_children(config)
 
@@ -57,7 +62,7 @@ class ConfiguredQuestionnaire:
             'value': self.get_value(child)
         }
 
-    def get_value(self, child):
+    def get_value(self, child: QuestionnaireQuestion):
         """
         Get the template values as defined in the QuestionnaireQuestion config.
         """
@@ -71,7 +76,9 @@ class ConfiguredQuestionnaire:
         if not value:
             val =  ''
         elif len(value) == 1:
-            val = child.get_details(data=value[0])
+            val = child.get_details(
+                data=value[0], questionnaire_object=self.questionnaire
+            )
         else:
             # If 'copy' is omitted, the same instance is returned for all values
             # I don't see why - but at this point, this seems the only
@@ -95,9 +102,9 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     """
     data = {}
 
-    def __init__(self, summary_type, *args, **kwargs):
+    def __init__(self, config, summary_type: str, questionnaire: Questionnaire, **data):
         self.summary_type = summary_type
-        super().__init__(*args, **kwargs)
+        super().__init__(questionnaire=questionnaire, config=config, **data)
 
     def put_question_data(self, child: QuestionnaireQuestion):
         """
@@ -109,19 +116,21 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
 
         This cannot be solved on the config as the same question is listed
         twice, so the key-name overriding setting must be ready for versioning.
-
         """
         if child.in_summary and child.in_summary.get(self.summary_type):
             field_name = child.in_summary[self.summary_type]
-            field_with_qg = '{questiongroup}.{field}'.format(
+            qg_field = '{questiongroup}.{field}'.format(
                 questiongroup=child.questiongroup.keyword,
                 field=field_name
             )
-            overridden_key = settings.CONFIGURATION_SUMMARY_KEY_OVERRIDE.get(
-                field_with_qg, field_name
+            override = settings.CONFIGURATION_SUMMARY_OVERRIDE.get(qg_field, {})
+            field_name = override.get('override_key', field_name)
+            get_value_fn = override.get(
+                'override_fn', lambda self, child: self.get_value(child)
             )
-            if overridden_key not in self.data:
-                self.data[overridden_key] = self.get_value(child)
+
+            if field_name not in self.data:
+                self.data[field_name] = get_value_fn(self, child)
             else:
                 # This can be intentional, e.g. header_image is a list. In this
                 # case, only the first element is available.
@@ -132,3 +141,32 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                         summary_type=self.summary_type
                     )
                 )
+
+    def extract_coordinates(self, features):
+        """
+        Get only Points, and the first set of coordinates for them.
+        """
+        for point in features:
+            if point['geometry']['type'] == 'Point':
+                yield ', '.join(map(str, point['geometry']['coordinates']))
+
+    def get_map_values(self, child: QuestionnaireQuestion):
+        """
+        Configured function (see ConfigurationConf) for special preparation of
+        data to display map data.
+        """
+        value = self.get_value(child).get('value', {})
+        features = json.loads(value).get('features', [])
+        # todo: ask lukas: is there a nicer option?
+        return {
+            'img_url': get_static_map_url(self.questionnaire),
+            'coordinates': self.extract_coordinates(features)
+        }
+
+    def get_full_range_values(self, child: QuestionnaireQuestion):
+        values = self.values.get(child.parent_object.keyword)
+        if len(values) != 1:
+            raise NotImplementedError()
+        selected = values[0].get(child.keyword)
+        for choice in child.choices:
+            yield {'highlighted': choice[0] in selected, 'text': choice[1]}

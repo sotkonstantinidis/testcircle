@@ -259,7 +259,18 @@ class ConfigurationConf(AppConf):
         'ZWE': 'ZW',
     }
 
-    SUMMARY_KEY_OVERRIDE = {
-        'qg_weaknesses_landusers.weaknesses_overcome':
-            'weaknesses_landuser_overcome',
+    # Override default behaviour to change the access key or the callable
+    # to get the value for the summary based on the full questionnaire data.
+    SUMMARY_OVERRIDE = {
+        'qg_weaknesses_landusers.weaknesses_overcome': {
+            'override_key': 'weaknesses_landuser_overcome',
+        },
+        'qg_location_map.location_map': {
+            'override_key': 'location_map_data',
+            'override_fn': lambda self, child: self.get_map_values(child)
+        },
+        'tech_qg_5.location_who_implemented': {
+            'override_key': 'location_who_implemented',
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        }
     }

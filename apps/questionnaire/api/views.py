@@ -303,6 +303,7 @@ class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
         )
         configured_questionnaire = ConfiguredQuestionnaire(
             config=serializer.config,
+            questionnaire=self.obj,
             **data
         )
         return configured_questionnaire.store

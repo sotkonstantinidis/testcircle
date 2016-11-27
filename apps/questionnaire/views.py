@@ -1452,6 +1452,7 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         return get_summary_data(
             config=get_configuration(configuration_code=self.code),
             summary_type=self.summary_type,
+            questionnaire=self.questionnaire,
             **data
         )
 

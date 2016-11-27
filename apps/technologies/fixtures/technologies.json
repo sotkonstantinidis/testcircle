@@ -15162,7 +15162,10 @@
       "keyword": "tech_who_implemented",
       "translation": 1307,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "full": "location_who_implemented"
+        }
       },
       "values": [
         1000,
@@ -17842,7 +17845,10 @@
       "keyword": "tech_sites_considered",
       "translation": 1187,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_sites_considered"
+        }
       },
       "values": [
         1114,
@@ -18681,7 +18687,10 @@
       "keyword": "tech_implementation_decades",
       "translation": 1306,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_implementation_decade"
+        }
       },
       "values": [
         259,
@@ -19061,7 +19070,10 @@
       "keyword": "tech_spread_tech",
       "translation": 1310,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_spread"
+        }
       },
       "values": [
         1329,

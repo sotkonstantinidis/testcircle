@@ -5,20 +5,22 @@ from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.configured_questionnaire import ConfiguredQuestionnaireSummary
+from questionnaire.models import Questionnaire
 
 
-def get_summary_data(config: QuestionnaireConfiguration, summary_type: str, **data):
+def get_summary_data(config: QuestionnaireConfiguration, summary_type: str,
+                     questionnaire: Questionnaire, **data):
     """
     Load summary config according to configuration.
     """
     if config.keyword == 'technologies' and summary_type == 'full':
         return TechnologyFullSummaryProvider(
-            config=config, **data
+            config=config, questionnaire=questionnaire, **data
         ).data
 
     if config.keyword == 'approaches' and summary_type == 'full':
         return ApproachesSummaryProvider(
-            config=config, **data
+            config=config, questionnaire=questionnaire, **data
         )
 
     raise Exception('Summary not configured.')
@@ -43,16 +45,18 @@ class SummaryDataProvider:
 
     """
 
-    def __init__(self, config: QuestionnaireConfiguration, **data):
+    def __init__(self, config: QuestionnaireConfiguration,
+                 questionnaire: Questionnaire, **data):
         """
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, summary_type=self.summary_type, **data
-        # ).data
-        # self.data = self.get_data()
-        self.data = self.get_demo_dict()
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type,
+            questionnaire=questionnaire, **data
+        ).data
+        self.data = self.get_data()
+        #self.data = self.get_demo_dict()
 
     def get_data(self) -> dict:
         return {section: getattr(self, section) for section in self.content}
@@ -84,10 +88,19 @@ class GlobalValuesMixin:
     Mixin for globally configured values
     """
     def raw_data_getter(self, key: str, value='value'):
+        """
+        Get the 'value' for given key from the data.
+        """
         try:
             return self.raw_data[key][value] if value else self.raw_data[key]
         except (AttributeError, TypeError):
             return ''
+
+    def string_from_list(self, key):
+        """
+        Concatenate a list of values from the data to a single string.
+        """
+        return ', '.join(self.raw_data_getter(key, value='').get('values', []))
 
     def header_image(self):
         return {
@@ -120,54 +133,35 @@ class GlobalValuesMixin:
             "title": _("Location"),
             "partials": {
                 "map": {
-                    "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+                    "url": self.raw_data.get('location_map_data').get('img_url')
                 },
                 "infos": {
                     "location": {
-                        "title": "Location",
-                        "text": "Zhuanglang County, Gansu Province (Loess Plateau Region), PR China"
+                        "title": _("Location"),
+                        "text": "{detail}, {prov}, {country}".format(
+                            detail=self.raw_data_getter('location_further'),
+                            prov=self.raw_data_getter('location_state_province'),
+                            country=self.raw_data_getter('country')
+                        )
                     },
                     "sites": {
                         "title": "No. of Technology sites analysed",
-                        "text": "valute"
+                        "text": self.string_from_list('location_sites_considered')
                     },
-                    "geo_reference": [
-                        "coordinates",
-                        "coordinates 2",
-                        "coordinates 3"
-                    ],
+                    "geo_reference": self.raw_data.get(
+                        'location_map_data'
+                    ).get('coordinates'),
                     "spread": {
-                        "title": "Spread of the Technology",
-                        "text": "Evenly spread over an area (1,088 km 2 )"
+                        "title": _("Spread of the Technology"),
+                        "text": self.string_from_list('location_spread')
                     },
                     "date": {
-                        "title": "Date of implementation",
-                        "text": "> 50 years ago (since the 1950s)"
+                        "title": _("Date of implementation"),
+                        "text": self.string_from_list('location_implementation_decade')
                     },
                     "introduction": {
-                        "title": "Type of introduction",
-                        "items": [
-                            {
-                                "highlighted": False,
-                                "text": "through land users’ innovation"
-                            },
-                            {
-                                "highlighted": False,
-                                "text": "as part of a traditional system (> 50 years)"
-                            },
-                            {
-                                "highlighted": False,
-                                "text": "during experiments/ research"
-                            },
-                            {
-                                "highlighted": True,
-                                "text": "through projects/ external interventions"
-                            },
-                            {
-                                "highlighted": False,
-                                "text": "other (specify): ……………."
-                            }
-                        ]
+                        "title": _("Type of introduction"),
+                        "items": self.raw_data.get('location_who_implemented')
                     }
                 }
             }

@@ -62,3 +62,9 @@ Technical workflow
   * All fields for a section are then aggregated and sorted as defined in the
     summary-class for the respective configuration (e.g.
     ```questionnaire.summary_data_provider.TechnologySummaryProvider```)
+  * There usually is one method per 'section', e.g. 'description', 'location'
+  * To modify the *content* available, add the field to the
+    ```CONFIGURATION_SUMMARY_OVERRIDE```. This can either be a rename of the
+    field, or a new data loading method, which then must be added to
+    ```configuration.configured_questionnaire.ConfiguredQuestionnaireSummary```
+  * To modify the structure, add methods on the Provider
