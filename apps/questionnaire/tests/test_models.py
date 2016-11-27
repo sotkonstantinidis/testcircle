@@ -17,6 +17,8 @@ from qcat.tests import TestCase
 from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.models import Questionnaire, QuestionnaireLink, File, Lock
 
+from ..conf import settings
+
 
 def get_valid_file():
     return File.create_new(
@@ -122,6 +124,43 @@ class QuestionnaireModelTest(TestCase):
         self.assertNotEqual(q, previous)
         self.assertEqual(q.code, previous.code)
         self.assertEqual(q.version, previous.version + 1)
+
+    def test_create_new_keeps_languages_from_previous_version(self):
+        previous = get_valid_questionnaire(self.user)
+        previous.status = 4
+        previous.add_translation_language(language='fr')
+        previous.add_translation_language(language='es')
+        self.assertEqual(len(previous.translations), 3)
+        self.assertEqual(previous.original_locale, 'en')
+        q = Questionnaire.create_new(
+            configuration_code='sample', data={}, user=self.user,
+            previous_version=previous)
+        self.assertEqual(len(q.translations), 3)
+        self.assertEqual(q.original_locale, 'en')
+        self.assertEqual(previous.translations, q.translations)
+
+    def test_create_new_keeps_users_from_previous_version(self):
+        user2 = create_new_user(
+            id=2, email='c@d.com', lastname='foo2', firstname='bar2')
+        user3 = create_new_user(
+            id=3, email='e@f.com', lastname='foo3', firstname='bar3')
+        previous = get_valid_questionnaire(self.user)
+        previous.status = 4
+        previous.add_user(user2, settings.QUESTIONNAIRE_EDITOR)
+        previous.add_user(user3, settings.QUESTIONNAIRE_REVIEWER)
+        previous_users = previous.get_users()
+        self.assertEqual(len(previous_users), 3)
+        self.assertIn(
+            (settings.QUESTIONNAIRE_COMPILER, self.user), previous_users)
+        self.assertIn((settings.QUESTIONNAIRE_EDITOR, user2), previous_users)
+        self.assertIn((settings.QUESTIONNAIRE_REVIEWER, user3), previous_users)
+        # Compiler starts a new version
+        q = Questionnaire.create_new(
+            configuration_code='sample', data={}, user=user2,
+            previous_version=previous)
+        current_users = q.get_users()
+        self.assertEqual(len(current_users), 3)
+        self.assertEqual(current_users, previous_users)
 
     @patch('configuration.utils.create_new_code')
     def test_create_new_calls_create_code(self, mock_create_new_code):

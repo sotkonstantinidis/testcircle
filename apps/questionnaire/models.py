@@ -255,6 +255,7 @@ class Questionnaire(models.Model):
                 # Edit of a public questionnaire: Create new version
                 # with the same code
                 version = previous_version.version + 1
+                languages = previous_version.translations
 
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
