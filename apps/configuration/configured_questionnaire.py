@@ -85,7 +85,10 @@ class ConfiguredQuestionnaire:
             # workaround.
             val = [copy(child.get_details(single_value)) for single_value in value]
 
-        child.view_options['template'] = original_template_value
+        if original_template_value:
+            child.view_options['template'] = original_template_value
+        else:
+            del child.view_options['template']
         return val
 
     @property
