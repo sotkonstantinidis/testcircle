@@ -38,6 +38,7 @@ urlpatterns += i18n_patterns(
         namespace='approaches')),
     url(r'^wocat/watershed/', include(
         'watershed.urls', namespace='watershed')),
+    url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
     url(r'^search/', include('search.urls', namespace='search')),
     url(r'^api/', include('api.urls')),
@@ -50,6 +51,8 @@ if settings.DEBUG:
         url(r'^sample/', include('sample.urls', namespace='sample')),
         url(r'^samplemulti/', include('samplemulti.urls',
             namespace='samplemulti')),
+        url(r'^samplemodule/',
+            include('samplemodule.urls', namespace='samplemodule')),
         url(r'^404/', TemplateView.as_view(template_name='404.html')),
         url(r'^500/', TemplateView.as_view(template_name='500.html')),
         url(r'^503/', TemplateView.as_view(template_name='503.html')),

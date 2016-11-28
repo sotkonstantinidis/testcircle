@@ -13,7 +13,7 @@ from configuration.models import (
     Configuration,
     Key,
     Questiongroup)
-from configuration.utils import get_choices_from_model
+from configuration.utils import get_choices_from_model, get_choices_from_questionnaire
 from notifications.models import Log
 from qcat.errors import (
     ConfigurationError,
@@ -243,7 +243,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'float',
         'map',
         'select_model',
+        'select_conditional',
         'display_only',
+        'wms_layer',
     ]
     translation_original_prefix = 'original_'
     translation_translation_prefix = 'translation_'
@@ -498,7 +500,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.required = False
 
     def add_form(
-            self, formfields, templates, options, show_translation=False,
+            self, request_path, formfields, templates, options, show_translation=False,
             edit_mode='edit'):
         """
         Adds one or more fields to a dictionary of formfields.
@@ -568,7 +570,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         attrs.update(self.form_options.get('field_options', {}))
 
-        if self.field_type == 'char':
+        # Disable inherited questions.
+        if self.parent_object.inherited_configuration:
+            attrs.update({
+                'disabled': 'disabled'
+            })
+
+        if self.field_type in ['char', 'wms_layer']:
             max_length = self.max_length
             if max_length is None:
                 max_length = 2000
@@ -667,6 +675,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 required=self.required)
         elif self.field_type in ['checkbox', 'cb_bool']:
             widget = Checkbox(attrs=attrs)
+            if self.form_options.get('layout', '') == 'measure':
+                widget = MeasureCheckbox()
             widget.options = field_options
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
@@ -711,6 +721,20 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             choices = [('', '-')]
             choices.extend(
                 get_choices_from_model(self.form_options.get('model')))
+            field = forms.ChoiceField(
+                label=self.label, widget=widget, choices=choices,
+                required=self.required)
+        elif self.field_type == 'select_conditional':
+            attrs.update({
+                'data-select-display-field': self.form_options.get('display_field'),
+                'data-key-keyword': self.keyword,
+            })
+            widget = Select(attrs=attrs)
+            widget.options = field_options
+            widget.searchable = True
+            choices = [('', '-')]
+            choices.extend(
+                get_choices_from_questionnaire(request_path))
             field = forms.ChoiceField(
                 label=self.label, widget=widget, choices=choices,
                 required=self.required)
@@ -805,6 +829,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'key': self.label_view,
                 'value': values[0],
             })
+        elif self.field_type in ['select_conditional']:
+            template_name = 'hidden'
         elif self.field_type in ['measure']:
             template_name = 'measure_bar'
             level = None
@@ -910,6 +936,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             })
         elif self.field_type in ['link_id']:
             return '\n'
+        elif self.field_type in ['wms_layer']:
+            template_name = 'wms_layer'
+            template_values.update({
+                'layer': value,
+                'wms_url': self.view_options.get('wms_url'),
+            })
         else:
             raise ConfigurationErrorInvalidOption(
                 self.field_type, 'type', self)
@@ -972,6 +1004,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
     name_parent = 'subcategories'
     name_children = 'questions'
     Child = QuestionnaireQuestion
+    inherited_configuration = None
+    inherited_questiongroup = None
 
     def __init__(self, parent_object, configuration):
         """
@@ -1080,11 +1114,16 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
         self.detail_level = self.form_options.get('detail_level')
 
+        self.inherited_configuration = self.configuration.get(
+            'inherited_configuration')
+        self.inherited_questiongroup = self.configuration.get(
+            'inherited_questiongroup')
+
         # TODO
         self.required = False
 
     def get_form(
-            self, post_data=None, initial_data=None, show_translation=False,
+            self, request_path=None, post_data=None, initial_data=None, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1107,7 +1146,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         options = {}
         for f in self.questions:
             formfields, templates, options = f.add_form(
-                formfields, templates, options, show_translation,
+                request_path, formfields, templates, options, show_translation,
                 edit_mode=edit_mode)
 
         if self.numbered != '':
@@ -1441,7 +1480,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         self.table_helptexts.append(question.helptext)
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
+            self, request_path=None, post_data=None, initial_data={}, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1470,6 +1509,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             questionset_initial_data = initial_data.get(questiongroup.keyword)
             formsets.append(
                 questiongroup.get_form(
+                    request_path=request_path,
                     post_data=post_data, initial_data=questionset_initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -1480,6 +1520,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             formsets.append(
                 subcategory.get_form(
+                    request_path=request_path,
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -1716,7 +1757,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         return qg
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
+            self, request_path=None, post_data=None, initial_data={}, show_translation=False,
             edit_mode='edit', edited_questiongroups=[], initial_links=None):
         """
         Returns:
@@ -1727,6 +1768,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         for subcategory in self.subcategories:
             subcategory_formsets.append(
                 subcategory.get_form(
+                    request_path=request_path,
                     post_data=post_data, initial_data=initial_data,
                     show_translation=show_translation, edit_mode=edit_mode,
                     edited_questiongroups=edited_questiongroups,
@@ -2024,6 +2066,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
     """
     valid_options = [
         'sections',
+        'modules',
     ]
     name_current = '-'
     name_parent = '-'
@@ -2034,6 +2077,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         self.keyword = keyword
         self.configuration_keyword = keyword
         self.sections = []
+        self.modules = []
+        self.inherited_data = {}
         self.configuration_object = configuration_object
         if self.configuration_object is None:
             self.configuration_object = Configuration.get_active_by_code(
@@ -2044,10 +2089,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         except Exception as e:
             if isinstance(e, ConfigurationError):
                 self.configuration_error = e
-                print("***")
-                print(e)
             else:
                 raise e
+
+    def get_modules(self):
+        return self.modules
+
+    def get_inherited_data(self):
+        return self.inherited_data
 
     def get_configuration_errors(self):
         return self.configuration_error
@@ -2174,6 +2223,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
 
         images = []
         for image in image_questiongroups:
+            # Maybe it is not a real image (e.g. maps can also be uploaded as
+            # images)
+            if image.get('image') is None:
+                continue
             image_data = File.get_data(uid=image.get('image'))
             images.append({
                 'image': image_data.get('url'),
@@ -2483,6 +2536,19 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
 
+        self.modules = self.configuration.get('modules', [])
+
+        inherited_data = {}
+        for qg in self.get_questiongroups():
+            if qg.inherited_configuration:
+                inherited_by_configuration = inherited_data.get(
+                    qg.inherited_configuration, {})
+                inherited_by_configuration.update(
+                    {qg.inherited_questiongroup: qg.keyword})
+                inherited_data[
+                    qg.inherited_configuration] = inherited_by_configuration
+        self.inherited_data = inherited_data
+
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
     """
@@ -2666,3 +2732,6 @@ class RequiredFormSet(BaseFormSet):
         super(RequiredFormSet, self).__init__(*args, **kwargs)
         for form in self.forms:
             form.empty_permitted = True
+
+class MeasureCheckbox(forms.CheckboxSelectMultiple):
+    template_name = 'form/field/checkbox_measure.html'

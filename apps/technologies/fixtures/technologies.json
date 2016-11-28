@@ -26053,6 +26053,9 @@
                             "keyword": "image_caption"
                           },
                           {
+                            "keyword": "image_comments"
+                          },
+                          {
                             "keyword": "image_date"
                           },
                           {
@@ -26417,6 +26420,9 @@
                           },
                           {
                             "keyword": "image_caption"
+                          },
+                          {
+                            "keyword": "image_comments"
                           },
                           {
                             "keyword": "image_date"
@@ -32426,6 +32432,9 @@
               }
             ]
           }
+        ],
+        "modules": [
+          "cca"
         ]
       },
       "created": "2015-07-09T10:12:59.337Z",

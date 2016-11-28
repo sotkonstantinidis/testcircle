@@ -22,13 +22,14 @@ from configuration.utils import (
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.errors import QuestionnaireFormatError
+from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
 from .conf import settings
-from .models import Questionnaire, Flag
+from .models import Questionnaire, Flag, Lock
 from .signals import change_status, change_member, delete_questionnaire
 
 logger = logging.getLogger(__name__)
@@ -97,6 +98,9 @@ def clean_questionnaire_data(
                 'appears {} times'.format(
                     qg_keyword, questiongroup.max_num, len(qg_data_list)))
             continue
+        if questiongroup.inherited_configuration:
+            # Do not store linked questiongroups
+            continue
         cleaned_qg_list = []
         ordered_qg = False
         for qg_data in qg_data_list:
@@ -140,6 +144,8 @@ def clean_questionnaire_data(
                             'questiongroup "{}").'.format(
                                 value, key, qg_keyword))
                         continue
+                elif question.field_type in ['select_conditional']:
+                    pass
                 elif question.field_type in [
                         'checkbox', 'image_checkbox', 'cb_bool']:
                     if not isinstance(value, list):
@@ -169,7 +175,7 @@ def clean_questionnaire_data(
                         errors.append('Key "{}" has too many values: {}'.format(
                             key, value))
                         continue
-                elif question.field_type in ['char', 'text']:
+                elif question.field_type in ['char', 'text', 'wms_layer']:
                     if not isinstance(value, dict):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a dict.'
@@ -719,6 +725,7 @@ def get_link_data(linked_objects, link_configuration_code=None):
                   "id": 1,
                   "code": "code_of_questionnaire_with_id_1",
                   "name": "Name of Questionnaire with ID 1",
+                  "configuration": "configuration_of_q"
                 }
               ]
             }
@@ -737,12 +744,18 @@ def get_link_data(linked_objects, link_configuration_code=None):
             original_lang = None
         name = name_data.get(get_language(), name_data.get(original_lang, ''))
 
+        configuration = 'unknown'
+        original_configuration = link.get_original_configuration()
+        if original_configuration:
+            configuration = original_configuration.code
+
         link_list = links.get(link_configuration_code, [])
         link_list.append({
             'id': link.id,
             'code': link.code,
             'name': name,
-            'link': get_link_display(link_configuration_code, name, link.code)
+            'link': get_link_display(link_configuration_code, name, link.code),
+            'configuration': configuration,
         })
         links[link_configuration_code] = link_list
 
@@ -1153,15 +1166,17 @@ def get_list_values(
             lang=get_language()
         )
 
-        links = []
-        link_codes = []
+        # Reorder the links: Group them by linked configuration
+        links = {}
         if with_links is True:
             link_data = get_link_data(obj.links.filter(status_filter))
-            for configuration, link_dicts in link_data.items():
-                for link in link_dicts:
-                    if link.get('code') not in link_codes:
-                        link_codes.append(link.get('code'))
-                        links.append(link.get('link'))
+
+            for questionnaire_configuration, link_dicts in link_data.items():
+                for link_dict in link_dicts:
+                    link_configuration = link_dict.get('configuration')
+                    if link_configuration not in links:
+                        links[link_configuration] = []
+                    links[link_configuration].append(link_dict)
 
         template_value.update({
             'links': links,
@@ -1219,7 +1234,18 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_SUBMITTED
-        questionnaire_object.save()
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException:
+            # In case the questionnaire is still locked for the compiler, unlock
+            # all previous logs
+            Lock.objects.filter(
+                user=request.user,
+                questionnaire_code=questionnaire_object.code
+            ).update(
+                is_finished=True
+            )
+            questionnaire_object.save()
 
         messages.success(
             request, _('The questionnaire was successfully submitted.'))
@@ -1636,7 +1662,17 @@ def prepare_list_values(data, config, **kwargs):
     del data['list_data']
 
     if 'links' in data and isinstance(data['links'], dict):
+        # TODO: Is this ever used anymore?
         data['links'] = data['links'].get(language, original_language)
+
+    # Reorder the links: Group them by linked configuration
+    links = {}
+    for link in data.get('links', []):
+        link_configuration = link.get('configuration')
+        if link_configuration not in links:
+            links[link_configuration] = []
+        links[link_configuration].append(link)
+    data['links'] = links
 
     # 'translations' must not list the currently active language
     if data['translations']:

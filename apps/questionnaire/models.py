@@ -255,6 +255,7 @@ class Questionnaire(models.Model):
                 # Edit of a public questionnaire: Create new version
                 # with the same code
                 version = previous_version.version + 1
+                languages = previous_version.translations
 
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
                 # Edit of a draft questionnaire: Only update the data
@@ -951,6 +952,11 @@ class Questionnaire(models.Model):
     @cached_property
     def configurations_property(self):
         return list(self.configurations.values_list('code', flat=True))
+
+    def get_original_configuration(self):
+        return self.configurations.filter(
+            questionnaire__questionnaireconfiguration__original_configuration=True
+        ).first()
 
     @cached_property
     def translations(self):
