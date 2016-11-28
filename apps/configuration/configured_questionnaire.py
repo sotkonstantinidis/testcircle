@@ -102,7 +102,8 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     """
     data = {}
 
-    def __init__(self, config, summary_type: str, questionnaire: Questionnaire, **data):
+    def __init__(self, config, summary_type: str,
+                 questionnaire: Questionnaire, **data):
         self.summary_type = summary_type
         super().__init__(questionnaire=questionnaire, config=config, **data)
 
@@ -160,7 +161,7 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         # todo: ask lukas: is there a nicer option?
         return {
             'img_url': get_static_map_url(self.questionnaire),
-            'coordinates': self.extract_coordinates(features)
+            'coordinates': list(self.extract_coordinates(features))
         }
 
     def get_full_range_values(self, child: QuestionnaireQuestion):

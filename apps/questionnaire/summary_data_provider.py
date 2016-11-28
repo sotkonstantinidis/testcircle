@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.configured_questionnaire import ConfiguredQuestionnaireSummary
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, QuestionnaireLink
 
 
 def get_summary_data(config: QuestionnaireConfiguration, summary_type: str,
@@ -55,6 +55,7 @@ class SummaryDataProvider:
             config=config, summary_type=self.summary_type,
             questionnaire=questionnaire, **data
         ).data
+        self.questionnaire = questionnaire
         self.data = self.get_data()
         #self.data = self.get_demo_dict()
 
@@ -211,6 +212,120 @@ class GlobalValuesMixin:
             }
         }
 
+    def references(self):
+        return {
+            "title": _("References"),
+            "partials": [
+                {
+                    "title": _("Compiler"),
+                    "css_class": "bullets",
+                    "items": self.get_reference_compiler()
+                },
+                {
+                    "title": _("Resource persons"),
+                    "css_class": "bullets",
+                    "items": self.get_reference_resource_persons()
+                },
+                {
+                    "title": _("Links"),
+                    "css_class": "bullets",
+                    "items": self.get_reference_links()
+                },
+                {
+                    "title": _("Key references"),
+                    "css_class": "bullets",
+                    "items": self.get_reference_articles()
+                }
+            ]
+        }
+
+    def get_reference_compiler(self):
+        members = self.questionnaire.questionnairemembership_set.filter(
+            role=settings.QUESTIONNAIRE_COMPILER
+        ).select_related('user')
+        if members.exists():
+            return [
+                {'text': '{name} - {email}'.format(
+                    name=member.user.get_display_name(),
+                    email=member.user.email)
+                } for member in members]
+        return []
+
+    def get_reference_resource_persons(self):
+        """
+        Resource person is a list which always contains a type and either a
+        user-id or a first/last name. The order of type and name correlates, so
+        starting from the type the users details are appended.
+        """
+        resoureperson_types = self.raw_data_getter(
+            'references_resourceperson_type', value=''
+        )
+        person_firstnames = self.raw_data_getter(
+            'references_person_firstname', value=''
+        )
+        person_lastnames = self.raw_data_getter(
+            'references_resourceperson_lastname', value=''
+        )
+        person_user_id = self.raw_data_getter(
+            'references_resourceperson_user_id', value=''
+        )
+        people = []
+        for index, person in enumerate(resoureperson_types):
+            if person_user_id[index] and isinstance(person_user_id[index], dict):
+                name = person_user_id[index].get('value')
+            elif len(person_firstnames) >= index and len(person_lastnames) >= index:
+                name = '{first_name} {last_name}'.format(
+                    first_name=person_firstnames[index].get('value'),
+                    last_name=person_lastnames[index].get('value')
+                )
+            else:
+                continue
+            people.append({
+                'text': '{name} - {type}'.format(
+                    name=name,
+                    type=', '.join(person.get('values', []))
+                )
+            })
+        return people
+
+    def get_reference_links(self):
+        base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
+        link_items = [
+            {'text': 'Full case study in WOCAT DB: <a href="{base_url}{url}">'
+                     '{base_url}{url}</a>'.format(
+                base_url=base_url,
+                url=self.questionnaire.get_absolute_url()
+            )}
+        ]
+        links = QuestionnaireLink.objects.filter(
+            from_questionnaire=self.questionnaire
+        ).prefetch_related('to_questionnaire')
+        if links.exists():
+            for link in links:
+                link_items.append({
+                    'text': 'Corresponding entry in DB: <a href="{base_url}{url}">'
+                            '{base_url}{url}</a>'.format(
+                        base_url=base_url,
+                        url=link.to_questionnaire.get_absolute_url()
+                    )
+                })
+        vimeo_id = self.raw_data.get('references_vimeo_id', {}).get('value')
+        if vimeo_id:
+            vimeo_url = 'https://player.vimeo.com/video/{}'.format(vimeo_id)
+            link_items.append({
+                'text': 'Video: <a href="{vimeo_url}">{vimeo_url}</a>'.format(
+                vimeo_url=vimeo_url)
+            })
+        return link_items
+
+    def get_reference_articles(self):
+        titles = self.raw_data.get('references_title', [])
+        sources = self.raw_data.get('references_source', [])
+        for index, title in enumerate(titles):
+            yield {'text': '{title}: {source}'.format(
+                title=title.get('value'),
+                source=sources[index].get('value') if sources[index] else '')}
+
 
 class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     """
@@ -221,7 +336,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description',
-                'conclusion']
+                'conclusion', 'references']
 
 
 class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
