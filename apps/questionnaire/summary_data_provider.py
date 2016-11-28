@@ -21,7 +21,7 @@ def get_summary_data(config: QuestionnaireConfiguration, summary_type: str,
     if config.keyword == 'approaches' and summary_type == 'full':
         return ApproachesSummaryProvider(
             config=config, questionnaire=questionnaire, **data
-        )
+        ).data
 
     raise Exception('Summary not configured.')
 
@@ -56,11 +56,16 @@ class SummaryDataProvider:
             questionnaire=questionnaire, **data
         ).data
         self.questionnaire = questionnaire
-        self.data = self.get_data()
+        self.data = dict(self.get_data())
         #self.data = self.get_demo_dict()
 
-    def get_data(self) -> dict:
-        return {section: getattr(self, section) for section in self.content}
+    def get_data(self):
+        """
+        This is not a dict comprehenstion as access to 'self' is needed. See
+        http://stackoverflow.com/a/13913933
+        """
+        for section in self.content:
+            yield section, getattr(self, section)
 
     def get_demo_dict(self) -> dict:
         """
@@ -90,18 +95,21 @@ class GlobalValuesMixin:
     """
     def raw_data_getter(self, key: str, value='value'):
         """
-        Get the 'value' for given key from the data.
+        Get the first 'value' for given key from the data.
         """
         try:
-            return self.raw_data[key][value] if value else self.raw_data[key]
-        except (AttributeError, TypeError):
+            return self.raw_data[key][0][value] if value else self.raw_data[key]
+        except (AttributeError, TypeError, IndexError):
             return ''
 
     def string_from_list(self, key):
         """
         Concatenate a list of values from the data to a single string.
         """
-        return ', '.join(self.raw_data_getter(key, value='').get('values', []))
+        try:
+            return ', '.join(self.raw_data[key][0].get('values', []))
+        except IndexError:
+            return ''
 
     def header_image(self):
         return {
@@ -126,45 +134,6 @@ class GlobalValuesMixin:
                 'title': self.raw_data_getter('title_name'),
                 'country': self.raw_data_getter('country'),
                 'local_name': self.raw_data_getter('title_name_local'),
-            }
-        }
-
-    def location(self):
-        return {
-            "title": _("Location"),
-            "partials": {
-                "map": {
-                    "url": self.raw_data.get('location_map_data').get('img_url')
-                },
-                "infos": {
-                    "location": {
-                        "title": _("Location"),
-                        "text": "{detail}, {prov}, {country}".format(
-                            detail=self.raw_data_getter('location_further'),
-                            prov=self.raw_data_getter('location_state_province'),
-                            country=self.raw_data_getter('country')
-                        )
-                    },
-                    "sites": {
-                        "title": "No. of Technology sites analysed",
-                        "text": self.string_from_list('location_sites_considered')
-                    },
-                    "geo_reference": self.raw_data.get(
-                        'location_map_data'
-                    ).get('coordinates'),
-                    "spread": {
-                        "title": _("Spread of the Technology"),
-                        "text": self.string_from_list('location_spread')
-                    },
-                    "date": {
-                        "title": _("Date of implementation"),
-                        "text": self.string_from_list('location_implementation_decade')
-                    },
-                    "introduction": {
-                        "title": _("Type of introduction"),
-                        "items": self.raw_data.get('location_who_implemented')
-                    }
-                }
             }
         }
 
@@ -253,9 +222,10 @@ class GlobalValuesMixin:
 
     def get_reference_resource_persons(self):
         """
-        Resource person is a list which always contains a type and either a
-        user-id or a first/last name. The order of type and name correlates, so
-        starting from the type the users details are appended.
+        Resource persons is either a dictionary with only one element or a list
+        which always contains a type and either a user-id or a first/last name.
+        The order of type and name correlates, so starting from the type the
+        users details are appended.
         """
         resoureperson_types = self.raw_data_getter(
             'references_resourceperson_type', value=''
@@ -269,7 +239,6 @@ class GlobalValuesMixin:
         person_user_id = self.raw_data_getter(
             'references_resourceperson_user_id', value=''
         )
-        people = []
         for index, person in enumerate(resoureperson_types):
             if person_user_id[index] and isinstance(person_user_id[index], dict):
                 name = person_user_id[index].get('value')
@@ -280,13 +249,8 @@ class GlobalValuesMixin:
                 )
             else:
                 continue
-            people.append({
-                'text': '{name} - {type}'.format(
-                    name=name,
-                    type=', '.join(person.get('values', []))
-                )
-            })
-        return people
+            yield {'text': '{name} - {type}'.format(
+                name=name, type=', '.join(person.get('values', [])))}
 
     def get_reference_links(self):
         base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
@@ -309,9 +273,11 @@ class GlobalValuesMixin:
                         url=link.to_questionnaire.get_absolute_url()
                     )
                 })
-        vimeo_id = self.raw_data.get('references_vimeo_id', {}).get('value')
+        vimeo_id = self.raw_data.get('references_vimeo_id')
         if vimeo_id:
-            vimeo_url = 'https://player.vimeo.com/video/{}'.format(vimeo_id)
+            vimeo_url = 'https://player.vimeo.com/video/{}'.format(
+                vimeo_id[0].get('value')
+            )
             link_items.append({
                 'text': 'Video: <a href="{vimeo_url}">{vimeo_url}</a>'.format(
                 vimeo_url=vimeo_url)
@@ -338,6 +304,45 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
         return ['header_image', 'title', 'location', 'description',
                 'conclusion', 'references']
 
+    def location(self):
+        return {
+            "title": _("Location"),
+            "partials": {
+                "map": {
+                    "url": self.raw_data.get('location_map_data').get('img_url')
+                },
+                "infos": {
+                    "location": {
+                        "title": _("Location"),
+                        "text": "{detail}, {prov}, {country}".format(
+                            detail=self.raw_data_getter('location_further'),
+                            prov=self.raw_data_getter('location_state_province'),
+                            country=self.raw_data_getter('country')
+                        )
+                    },
+                    "sites": {
+                        "title": "No. of Technology sites analysed",
+                        "text": self.string_from_list('location_sites_considered')
+                    },
+                    "geo_reference": self.raw_data.get(
+                        'location_map_data'
+                    ).get('coordinates'),
+                    "spread": {
+                        "title": _("Spread of the Technology"),
+                        "text": self.string_from_list('location_spread')
+                    },
+                    "date": {
+                        "title": _("Date of implementation"),
+                        "text": self.string_from_list('location_implementation_decade')
+                    },
+                    "introduction": {
+                        "title": _("Type of introduction"),
+                        "items": self.raw_data.get('location_who_implemented')
+                    }
+                }
+            }
+        }
+
 
 class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     """
@@ -347,4 +352,35 @@ class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'description']
+        return ['header_image', 'title', 'location', 'description',
+                'conclusion', 'references']
+
+    def location(self):
+        return {
+            "title": _("Location"),
+            "partials": {
+                "map": {
+                    "url": self.raw_data.get('location_map_data').get('img_url')
+                },
+                "infos": {
+                    "location": {
+                        "title": _("Location"),
+                        "text": "{detail}, {prov}, {country}".format(
+                            detail=self.raw_data_getter('location_further'),
+                            prov=self.raw_data_getter('location_state_province'),
+                            country=self.raw_data_getter('country')
+                        )
+                    },
+                    "geo_reference": self.raw_data.get(
+                        'location_map_data'
+                    ).get('coordinates'),
+                    "date": {
+                        "title": _("Date of implementation"),
+                        "text": "{start} - {end}".format(
+                            start=self.raw_data_getter('location_initiation_year'),
+                            end=self.raw_data_getter('location_termination_year') or '*'
+                        )
+                    }
+                }
+            }
+        }

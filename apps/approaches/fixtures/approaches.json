@@ -5075,6 +5075,9 @@
             "min": 1900,
             "max": "now"
           }
+        },
+        "in_summary": {
+          "full": "location_initiation_year"
         }
       }
     },
@@ -5108,6 +5111,9 @@
             "min": 1900,
             "max": 2100
           }
+        },
+        "in_summary": {
+          "full": "location_termination_year"
         }
       }
     },

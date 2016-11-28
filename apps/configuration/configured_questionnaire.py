@@ -74,19 +74,17 @@ class ConfiguredQuestionnaire:
         original_template_value = child.view_options.get('template', {})
         child.view_options['template'] = 'raw'
         value = self.values.get(child.parent_object.keyword)
-        # Value may be empty, a list of one element (most of the time) or a list
+        # Value may be empty, or a list
         # of dicts for nested questions.
         if not value:
             val =  ''
-        elif len(value) == 1:
-            val = child.get_details(
-                data=value[0], questionnaire_object=self.questionnaire
-            )
         else:
             # If 'copy' is omitted, the same instance is returned for all values
             # I don't see why - but at this point, this seems the only
             # workaround.
-            val = [copy(child.get_details(single_value)) for single_value in value]
+            val = [copy(child.get_details(
+                single_value, questionnaire_object=self.questionnaire
+            )) for single_value in value]
 
         if original_template_value:
             child.view_options['template'] = original_template_value
@@ -162,7 +160,10 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         Configured function (see ConfigurationConf) for special preparation of
         data to display map data.
         """
-        value = self.get_value(child).get('value', {})
+        try:
+            value = self.get_value(child)[0].get('value', {})
+        except IndexError:
+            return {'img_url': '', 'coordinates': ''}
         features = json.loads(value).get('features', [])
         # todo: ask lukas: is there a nicer option?
         return {
