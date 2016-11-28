@@ -81,7 +81,7 @@
     <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>
 
-    {% compress js %}
+{#    {% compress js %}#}
       <script src="{% static 'questionnaire/js/moduleActions.js' %}"></script>
       <script type="text/javascript">
         $(function() {
@@ -92,7 +92,7 @@
           });
         });
       </script>
-    {% endcompress %}
+{#    {% endcompress %}#}
   {% endaddtoblock %}
 
 {% endblock %}
