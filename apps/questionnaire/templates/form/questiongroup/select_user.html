@@ -37,6 +37,8 @@
 
   {{ formset.management_form }}
 
+  {% include "form/errors.html" with errors=formset.non_form_errors %}
+
   {% block rows %}
     {% form form using %}
       {% for f in formset.forms %}

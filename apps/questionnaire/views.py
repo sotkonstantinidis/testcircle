@@ -351,7 +351,7 @@ class QuestionnaireSaveMixin(StepsMixin):
 
         # Check if any links were modified.
         link_questiongroups = self.category.get_link_questiongroups()
-        if link_questiongroups:
+        if data and link_questiongroups:
             for link_qg in link_questiongroups:
                 link_data = data.get(link_qg, [])
                 if link_data:
@@ -528,7 +528,7 @@ class QuestionnaireSaveMixin(StepsMixin):
 
             if is_valid is False:
                 self.form_has_errors = True
-                return None, False
+                return {}, False
 
             for f in formset.forms:
                 questiongroup_keyword = f.prefix.split('-')[0]
