@@ -17,13 +17,16 @@ class ConfiguredQuestionnaire:
     """
     Combine given configuration and data into a single ordered dict.
     """
-    store = collections.OrderedDict()
-    tmp_path = []  # all dict keys until the current element
-
     def __init__(self, config, questionnaire, **data):
         self.values = data
         self.questionnaire = questionnaire
         self.values_keys = self.values.keys()
+
+        # instance variables
+        self.store = collections.OrderedDict()
+        self.tmp_path = []  # all dict keys until the current element
+
+        # create tree
         self.get_children(config)
 
     def get_children(self, config):
@@ -103,11 +106,11 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     of the summary for given field for the chosen summary-config (e.g. 'full',
     'one page', 'four page').
     """
-    data = {}
 
     def __init__(self, config, summary_type: str,
                  questionnaire: Questionnaire, **data):
         self.summary_type = summary_type
+        self.data = {}
         super().__init__(questionnaire=questionnaire, config=config, **data)
 
     def put_question_data(self, child: QuestionnaireQuestion):
