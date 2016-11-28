@@ -22,13 +22,14 @@ from configuration.utils import (
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.errors import QuestionnaireFormatError
+from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
     delete_questionnaires_from_es,
 )
 from .conf import settings
-from .models import Questionnaire, Flag
+from .models import Questionnaire, Flag, Lock
 from .signals import change_status, change_member, delete_questionnaire
 
 logger = logging.getLogger(__name__)
@@ -1219,7 +1220,18 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_SUBMITTED
-        questionnaire_object.save()
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException:
+            # In case the questionnaire is still locked for the compiler, unlock
+            # all previous logs
+            Lock.objects.filter(
+                user=request.user,
+                questionnaire_code=questionnaire_object.code
+            ).update(
+                is_finished=True
+            )
+            questionnaire_object.save()
 
         messages.success(
             request, _('The questionnaire was successfully submitted.'))

@@ -3,15 +3,19 @@ import copy
 from unittest.mock import patch, Mock, call, MagicMock
 
 from collections import namedtuple
+
+from django.conf import settings
 from django.http import QueryDict
 from django.test.utils import override_settings
 from django.utils.translation import ugettext_lazy as _
+from model_mommy import mommy
 
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from configuration.configuration import QuestionnaireConfiguration
 from qcat.tests import TestCase
-from questionnaire.models import Questionnaire, Flag
+from questionnaire.errors import QuestionnaireLockedException
+from questionnaire.models import Questionnaire, Flag, Lock
 from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.utils import (
     clean_questionnaire_data,
@@ -1076,6 +1080,55 @@ class HandleReviewActionsTest(TestCase):
             self.request,
             'The questionnaire was successfully submitted.')
 
+    def test_submit_fails_for_locked_questionnaire(self, mock_messages):
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+
+        questionnaire = mommy.make(
+            Questionnaire,
+            code='007',
+            status=1
+        )
+        questionnaire.get_roles_permissions = lambda user: RolesPermissions(
+            roles=[], permissions=['submit_questionnaire'])
+        mommy.make(
+            Lock,
+            questionnaire_code=questionnaire.code,
+            user=create_new_user(),
+            is_finished=False
+        )
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = create_new_user(id=2, email='oddjob@mean.com')
+        with self.assertRaises(QuestionnaireLockedException):
+            handle_review_actions(self.request, questionnaire, 'sample')
+
+    def test_submit_succeeds_for_locked_compiler(self, mock_messages):
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+
+        questionnaire = mommy.make(
+            Questionnaire,
+            code='007',
+            status=1
+        )
+        questionnaire.get_roles_permissions = lambda user: RolesPermissions(
+            roles=[], permissions=['submit_questionnaire'])
+
+        compiler = create_new_user()
+
+        mommy.make(
+            Lock,
+            questionnaire_code=questionnaire.code,
+            user=compiler,
+            is_finished=False
+        )
+        self.request.POST = {'submit': 'foo'}
+        self.request.user = compiler
+        handle_review_actions(self.request, questionnaire, 'sample')
+        self.assertEqual(
+            questionnaire.status, settings.QUESTIONNAIRE_SUBMITTED
+        )
+
     def test_review_error_if_previous_status_wrong(self, mock_messages):
         self.obj.status = 3
         self.request.POST = {'review': 'foo'}
@@ -1389,6 +1442,7 @@ class UnccdFlagTest(TestCase):
         handle_review_actions(self.request, questionnaire, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request, 'The flag was successfully set.')
+
 
 @patch('questionnaire.utils.messages')
 class UnccdUnflagTest(TestCase):
