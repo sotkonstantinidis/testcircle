@@ -9383,6 +9383,9 @@
                             "keyword": "image_caption"
                           },
                           {
+                            "keyword": "image_comments"
+                          },
+                          {
                             "keyword": "image_date"
                           },
                           {
@@ -9729,6 +9732,9 @@
                           },
                           {
                             "keyword": "image_caption"
+                          },
+                          {
+                            "keyword": "image_comments"
                           },
                           {
                             "keyword": "image_date"

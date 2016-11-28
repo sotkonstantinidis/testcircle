@@ -129,6 +129,46 @@
                 modalContainer.foundation('reveal', 'close');
               }, 2000);
           }
+        
+          $('.js-wms-preview').each(function() {
+            var wmsUrl = $(this).data('wms-url'),
+                wmsLayer = $(this).data('wms-layer'),
+                img = this;
+
+            // Query the GetCapabilities of Geoserver
+            $.ajax({
+              url: wmsUrl,
+              data: {
+                'service': 'WMS',
+                'request': 'GetCapabilities'
+              },
+              dataType: 'xml'
+            }).done(function(data) {
+              // Determine bbox
+              var layerNode = $(data).find('Layer>Name:contains("' + wmsLayer + '")').parent(),
+                  bbox = layerNode.find('BoundingBox[CRS="EPSG:4326"]'),
+                  bboxList = [
+                    bbox.attr('minx'),
+                    bbox.attr('miny'),
+                    bbox.attr('maxx'),
+                    bbox.attr('maxy')
+                  ],
+                  // Create URL of map image
+                  urlParams = {
+                    'service': 'WMS',
+                    'request': 'GetMap',
+                    'layers': wmsLayer,
+                    'format': 'image/png',
+                    'srs': 'EPSG:4326',
+                    'bbox': bboxList.join(),
+                    'width': 500,
+                    'height': 500
+                  };
+              img.src = wmsUrl + '?' + $.param(urlParams);
+              img.alt = 'Layer preview';
+            });
+          });
+        
         </script>
       {% endcompress %}
     {% endaddtoblock %}

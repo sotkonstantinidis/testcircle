@@ -55,11 +55,13 @@ class BaseSettings(Configuration):
         'notifications',
         'sample',
         'samplemulti',
+        'samplemodule',
         'search',
         'technologies',
         'unccd',
         'watershed',
         'wocat',
+        'cca',
     )
 
     MIDDLEWARE_CLASSES = (

@@ -188,6 +188,7 @@ def generic_questionnaire_view_step(
     initial_data = get_questionnaire_data_for_translation_form(
         data, current_locale, original_locale)
 
+    # TODO: Add inherited data here.
     category_config, subcategories = category.get_form(
         post_data=request.POST or None, initial_data=initial_data,
         show_translation=show_translation, edit_mode=edit_mode)
@@ -313,6 +314,46 @@ class StepsMixin:
             (section.categories for section in self.questionnaire_configuration.sections)
         ))
         return [category.keyword for category in categories]
+
+
+class InheritedDataMixin:
+    """
+    Get the inherited data of linked questionnaires. Used to add read-only data
+    of (parent) questionnaires to modules.
+    """
+    def get_inherited_data(self, original_locale=None):
+        """
+        Args:
+            original_locale: If provided, the data is passed to
+                get_questionnaire_data_for_translation_form before it is
+                returned.
+
+        Returns:
+            dict.
+        """
+        data = {}
+        inherited_data = self.questionnaire_configuration.get_inherited_data()
+        for inherited_config, inherited_qgs in inherited_data.items():
+            inherited_obj = self.object.links.filter(
+                configurations__code=inherited_config).first()
+
+            if inherited_obj is None:
+                continue
+
+            additional_qgs = {}
+            for inherited_qg, current_qg in inherited_qgs.items():
+                additional_qgs[current_qg] = inherited_obj.data.get(
+                    inherited_qg, [])
+
+            if original_locale is not None:
+                additional_data = get_questionnaire_data_for_translation_form(
+                    additional_qgs, get_language(), original_locale)
+            else:
+                additional_data = additional_qgs
+
+            data.update(additional_data)
+
+        return data
 
 
 class QuestionnaireSaveMixin(StepsMixin):
@@ -619,7 +660,8 @@ class GenericQuestionnaireMapView(TemplateResponseMixin, View):
         return self.render_to_response(context=context)
 
 
-class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
+class GenericQuestionnaireView(
+        InheritedDataMixin, QuestionnaireEditMixin, StepsMixin, View):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -635,8 +677,13 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         """
         self.object = self.get_object()
 
+        questionnaire_data = self.questionnaire_data
+        if self.has_object:
+            inherited_data = self.get_inherited_data()
+            questionnaire_data.update(inherited_data)
+
         data = get_questionnaire_data_in_single_language(
-            questionnaire_data=self.questionnaire_data, locale=get_language(),
+            questionnaire_data=questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
         )
 
@@ -784,14 +831,16 @@ class GenericQuestionnaireView(QuestionnaireEditMixin, StepsMixin, View):
         return self.has_object and self.object.has_release
 
 
-class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixin, View):
+class GenericQuestionnaireStepView(
+        InheritedDataMixin, QuestionnaireEditMixin, QuestionnaireSaveMixin,
+        View):
     """
     A section of the questionnaire.
     """
     edit_mode = 'edit'
     template_name = 'form/category.html'
 
-    def set_attributes(self):
+    def set_attributes(self, request_path=None):
         """
         Shared calls (pseudo setup) for get and post
         """
@@ -799,13 +848,13 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         self.category = self.questionnaire_configuration.get_category(self.kwargs['step'])
         if not self.category:
             raise Http404()
-        self.category_config, self.subcategories = self.get_subcategories()
+        self.category_config, self.subcategories = self.get_subcategories(request_path)
 
     def get(self, request, *args, **kwargs):
         """
         Display the form for the selected step,
         """
-        self.set_attributes()
+        self.set_attributes(request.path)
         if self.has_object:
             try:
                 Questionnaire.lock_questionnaire(
@@ -857,7 +906,7 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         show_translation = (original_locale is not None and get_language() != original_locale)
         return original_locale, show_translation
 
-    def get_subcategories(self):
+    def get_subcategories(self, request_path):
         """
         Returns: tuple (category_config, subcategories)
         """
@@ -868,7 +917,14 @@ class GenericQuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireSaveMixi
         )
         initial_links = get_link_data(self.questionnaire_links)
 
+        # Add inherited data if available.
+        if self.has_object:
+            inherited_data = self.get_inherited_data(
+                original_locale=original_locale)
+            initial_data.update(inherited_data)
+
         category_config, subcategories = self.category.get_form(
+            request_path=request_path,
             post_data=self.request.POST or None,
             initial_data=initial_data, show_translation=show_translation,
             edit_mode=self.edit_mode,
@@ -946,8 +1002,14 @@ def generic_questionnaire_details(
     if questionnaire_object is None:
         raise Http404()
     questionnaire_configuration = get_configuration(configuration_code)
+
+    initial_data = questionnaire_object.data
+    inherited_data = temp_get_inherited_data(
+        questionnaire_object, questionnaire_configuration)
+    initial_data.update(inherited_data)
+
     data = get_questionnaire_data_in_single_language(
-        questionnaire_object.data, get_language(),
+        initial_data, get_language(),
         original_locale=questionnaire_object.original_locale)
 
     if request.method == 'POST':
@@ -1357,6 +1419,113 @@ class QuestionnaireDeleteView(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
+class QuestionnaireModuleMixin(LoginRequiredMixin):
+    """
+    Get available modules and check for already existing modules.
+    """
+    request = None
+    questionnaire_object = None
+    questionnaire_configuration = None
+    available_modules = []
+    existing_modules = []
+
+    def get_questionnaire_object(self):
+        try:
+            # The form variable is named similar to the link-creation
+            # action in the questionnaire form.
+            questionnaire_id = int(self.request.POST.get('link_id'))
+        except TypeError:
+            return None
+        try:
+            return Questionnaire.objects.get(pk=questionnaire_id)
+        except Questionnaire.DoesNotExist:
+            return None
+
+    def get_questionnaire_configuration(self):
+        configuration_code = self.request.POST.get('configuration')
+        return get_configuration(configuration_code=configuration_code)
+
+    def get_available_modules(self):
+        return self.questionnaire_configuration.get_modules()
+
+    def get_existing_modules(self):
+        existing_modules = []
+        for link in self.questionnaire_object.links.all():
+            link_configuration = link.configurations.first()
+            if link_configuration.code in self.available_modules:
+                existing_modules.append(link_configuration.code)
+        return existing_modules
+
+
+class QuestionnaireAddModule(QuestionnaireModuleMixin, View):
+
+    http_method_names = ['post']
+    url_namespace = None
+
+    def post(self, request, *args, **kwargs):
+
+        error_redirect = '{}:add_module'.format(self.url_namespace)
+
+        self.questionnaire_object = self.get_questionnaire_object()
+        if self.questionnaire_object is None:
+            messages.error(
+                self.request,
+                'Module cannot be added - Questionnaire not found.')
+            return redirect(error_redirect)
+
+        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.available_modules = self.get_available_modules()
+        self.existing_modules = self.get_existing_modules()
+
+        module_code = request.POST.get('module')
+        if module_code not in self.available_modules:
+            messages.error(
+                self.request, 'Module is not valid for this questionnaire.')
+            return redirect(error_redirect)
+
+        if module_code in self.existing_modules:
+            messages.error(
+                self.request, 'Module exists already for this questionnaire.')
+            return redirect(error_redirect)
+
+        # Create a new questionnaire
+        module_data = {}
+        new_module = Questionnaire.create_new(
+            module_code, module_data, request.user)
+        new_module.add_link(self.questionnaire_object)
+
+        success_redirect = reverse(
+            '{}:questionnaire_edit'.format(module_code),
+            kwargs={'identifier': new_module.code})
+        return redirect(success_redirect)
+
+
+class QuestionnaireCheckModulesView(
+    QuestionnaireModuleMixin, TemplateResponseMixin, View):
+
+    http_method_names = ['post']
+    template_name = 'questionnaire/partial/select_modules.html'
+
+    def post(self, request, *args, **kwargs):
+
+        self.questionnaire_object = self.get_questionnaire_object()
+        if self.questionnaire_object is None:
+            return self.render_to_response(
+                context={
+                    'module_error': 'No modules found for this questionnaire.'})
+
+        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.available_modules = self.get_available_modules()
+        self.existing_modules = self.get_existing_modules()
+
+        context = {
+            'modules': [(module, module in self.existing_modules) for module
+                        in self.available_modules],
+        }
+
+        return self.render_to_response(context=context)
+
+
 class QuestionnaireLockView(LoginRequiredMixin, View):
     """
     Lock the questionnaire for the current user.
@@ -1370,3 +1539,42 @@ class QuestionnaireLockView(LoginRequiredMixin, View):
             user=self.request.user
         )
         return HttpResponse(status=200)
+
+# TODO: This is a copy of the mixin function. Remove this once the views are all
+# class-based.
+def temp_get_inherited_data(
+        questionnaire_object, questionnaire_configuration,
+        original_locale=None):
+    """
+    Args:
+        original_locale: If provided, the data is passed to
+            get_questionnaire_data_for_translation_form before it is
+            returned.
+
+    Returns:
+        dict.
+    """
+    data = {}
+    inherited_data = questionnaire_configuration.get_inherited_data()
+    for inherited_config, inherited_qgs in inherited_data.items():
+        inherited_obj = questionnaire_object.links.filter(
+            configurations__code=inherited_config).first()
+
+        if inherited_obj is None:
+            continue
+
+        additional_qgs = {}
+        for inherited_qg, current_qg in inherited_qgs.items():
+            additional_qgs[current_qg] = inherited_obj.data.get(
+                inherited_qg, [])
+
+        if original_locale is not None:
+            additional_data = get_questionnaire_data_for_translation_form(
+                additional_qgs, get_language(), original_locale)
+
+        else:
+            additional_data = additional_qgs
+
+        data.update(additional_data)
+
+    return data
