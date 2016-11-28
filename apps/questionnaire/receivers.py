@@ -28,8 +28,8 @@ def prevent_editing_of_locked_questionnaires(instance, *args, **kwargs):
         instance: Questionnaire
     """
     if instance.id:
-        has_locks = Lock.with_status.is_blocked(code=instance.code).exists()
-        if has_locks:
+        locks = Lock.with_status.is_blocked(code=instance.code)
+        if locks.exists():
             raise QuestionnaireLockedException(
-                has_locks.first().user
+                locks.first().user
             )
