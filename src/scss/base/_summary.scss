@@ -161,6 +161,7 @@ body.summary {
   ol.numbers {
     list-style: decimal !important;
     margin-left: 1rem;
+    margin-top: 0rem;
         li {
       list-style-type: decimal;
       ul {
@@ -170,6 +171,37 @@ body.summary {
         }
       }
     }
+  }
+
+  .technology_table td
+  {
+    border: 0px solid black;
+    line-height: 1rem;
+    padding: 0.2rem;
+    font-size: 12px;
+  }
+
+  .td_category_title
+  {
+    background-color: #ddd;
+  }
+
+  .technology_table tr:nth-of-type(even)
+  {
+    background-color: #fff;
+  }
+
+  .total_row
+  {
+    border-top: 1px solid black;
+    padding-top: 10px;
+  }
+
+  .calculation_costs_section
+  {
+    background-color: #edf0ea;
+    margin: 15px 0px 10px 0px;
+    padding: 0px 0px 10px 0px;
   }
 
 }
