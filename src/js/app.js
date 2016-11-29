@@ -152,7 +152,7 @@ $(function () {
             var isCollapsed = $(this).data('is-collapsed'),
                 expandAll = $(this).find('.js-is-expanded'),
                 collapseAll = $(this).find('.js-is-collapsed'),
-                content = $('.tech-section-content');
+                content = $($(this).data('selector'));
 
             if (isCollapsed) {
                 // Expand all

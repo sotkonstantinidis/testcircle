@@ -38,6 +38,15 @@
             toggleCreate($(this).is(':checked'));
         });
 
+        // The inline form (when viewing the details of a questionnaire). The
+        // questionnaire is already selected.
+        elem.on('click', '.js-show-embedded-modules-form', function() {
+            $('.module-form-embedded-container').show();
+            // Trigger a change to show the next step.
+            $('#input_questionnaire_id').trigger('change');
+            return false;
+        });
+
         function get_questionnaire_id() {
             return $('#input_questionnaire_id').val();
         }
