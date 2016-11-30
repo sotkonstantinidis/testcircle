@@ -743,9 +743,31 @@ class GenericQuestionnaireView(
             user=request.user,
         )
 
+        modules = {}
+        links = {}
+        module_form_config = {}
+        available_modules = self.questionnaire_configuration.get_modules()
+        if self.has_object:
+            for link_config, link_list in self.get_links().items():
+                if link_config in available_modules:
+                    modules[link_config] = link_list
+                else:
+                    links[link_config] = link_list
+
+            if request.user.is_authenticated() and available_modules:
+                module_form_config = {
+                    'questionnaire_id': self.object.id,
+                    'check_url': reverse(
+                        '{}:check_modules'.format(self.url_namespace)),
+                    'questionnaire_configuration': self.url_namespace,
+                }
+
         context = {
             'images': images,
             'sections': sections,
+            'links': links,
+            'modules': modules,
+            'module_form_config': module_form_config,
             'questionnaire_identifier': self.identifier,
             'url_namespace': self.url_namespace,
             'permissions': permissions,
@@ -1098,9 +1120,31 @@ def generic_questionnaire_details(
         user=request.user if request.user.is_authenticated() else None
     )
 
+    modules = {}
+    links = {}
+    module_form_config = {}
+    available_modules = questionnaire_configuration.get_modules()
+    if questionnaire_object:
+        for link_config, link_list in link_display.items():
+            if link_config in available_modules:
+                modules[link_config] = link_list
+            else:
+                links[link_config] = link_list
+
+        if request.user.is_authenticated() and available_modules:
+            module_form_config = {
+                'questionnaire_id': questionnaire_object.id,
+                'check_url': reverse(
+                    '{}:check_modules'.format(url_namespace)),
+                'questionnaire_configuration': url_namespace,
+            }
+
     return render(request, 'questionnaire/details.html', {
         'images': images,
         'sections': sections,
+        'links': links,
+        'modules': modules,
+        'module_form_config': module_form_config,
         'questionnaire_identifier': identifier,
         'permissions': permissions,
         'view_mode': 'view',
