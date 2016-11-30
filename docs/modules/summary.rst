@@ -66,5 +66,5 @@ Technical workflow
   * To modify the *content* available, add the field to the
     ```CONFIGURATION_SUMMARY_OVERRIDE```. This can either be a rename of the
     field, or a new data loading method, which then must be added to
-    ```configuration.configured_questionnaire.ConfiguredQuestionnaireSummary```
+    ```questionnaire.summary_configuration.ConfiguredQuestionnaireSummary```
   * To modify the structure, add methods on the Provider

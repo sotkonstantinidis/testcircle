@@ -4,8 +4,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireConfiguration
-from configuration.configured_questionnaire import ConfiguredQuestionnaireSummary
-from questionnaire.models import Questionnaire, QuestionnaireLink
+from .summary_configuration import ConfiguredQuestionnaireSummary
+from .models import Questionnaire, QuestionnaireLink
 
 
 def get_summary_data(config: QuestionnaireConfiguration, summary_type: str,
@@ -51,13 +51,13 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, summary_type=self.summary_type,
-        #     questionnaire=questionnaire, **data
-        # ).data
-        # self.questionnaire = questionnaire
-        # self.data = dict(self.get_data())
-        self.data = self.get_demo_dict()
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type,
+            questionnaire=questionnaire, **data
+        ).data
+        self.questionnaire = questionnaire
+        self.data = dict(self.get_data())
+        # self.data = self.get_demo_dict()
 
     def get_data(self):
         """
@@ -274,13 +274,13 @@ class GlobalValuesMixin:
                     )
                 })
         vimeo_id = self.raw_data.get('references_vimeo_id')
-        if vimeo_id:
+        if vimeo_id and vimeo_id[0].get('value'):
             vimeo_url = 'https://player.vimeo.com/video/{}'.format(
                 vimeo_id[0].get('value')
             )
             link_items.append({
                 'text': 'Video: <a href="{vimeo_url}">{vimeo_url}</a>'.format(
-                vimeo_url=vimeo_url)
+                    vimeo_url=vimeo_url)
             })
         return link_items
 
