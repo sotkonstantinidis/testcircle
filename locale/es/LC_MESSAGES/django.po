@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 07:48+0100\n"
+"POT-Creation-Date: 2016-11-30 21:30+0100\n"
 "PO-Revision-Date: 2016-11-30 06:47+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -18128,7 +18128,7 @@ msgstr "Buscar usuario"
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
-#: apps/technologies/templates/technologies/add_module.html:38
+#: apps/technologies/templates/technologies/add_module.html:39
 msgid "No results found"
 msgstr "No hay resultados"
 
@@ -18139,7 +18139,7 @@ msgstr "No hay resultados"
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
-#: apps/technologies/templates/technologies/add_module.html:39
+#: apps/technologies/templates/technologies/add_module.html:40
 msgid "Too many results found, please narrow the search"
 msgstr "Se hallaron demasiados resultados, por favor delimite su búsqueda"
 
@@ -19040,7 +19040,7 @@ msgstr "No hay Tecnologías MST vinculadas"
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:34
-#: apps/technologies/templates/technologies/add_module.html:37
+#: apps/technologies/templates/technologies/add_module.html:38
 msgid "Search"
 msgstr "Búsqueda"
 
@@ -19244,31 +19244,31 @@ msgstr "Agregue Módulo MST"
 
 #: apps/questionnaire/templates/questionnaire/details.html:113
 #: apps/sample/templates/sample/add_module.html:27
-#: apps/technologies/templates/technologies/add_module.html:30
+#: apps/technologies/templates/technologies/add_module.html:31
 msgid "1. Select a Technology"
 msgstr "1. Elija una Tecnología"
 
 #: apps/questionnaire/templates/questionnaire/details.html:117
 #: apps/sample/templates/sample/add_module.html:53
-#: apps/technologies/templates/technologies/add_module.html:56
+#: apps/technologies/templates/technologies/add_module.html:57
 msgid "2. Select a module"
 msgstr "2. Elija un módulo"
 
 #: apps/questionnaire/templates/questionnaire/details.html:120
 #: apps/sample/templates/sample/add_module.html:56
-#: apps/technologies/templates/technologies/add_module.html:59
+#: apps/technologies/templates/technologies/add_module.html:60
 msgid "Select a module which you would like to add to the Technology."
 msgstr "Seleccione un módulo que quiera agregar a la Tecnología"
 
 #: apps/questionnaire/templates/questionnaire/details.html:128
 #: apps/sample/templates/sample/add_module.html:70
-#: apps/technologies/templates/technologies/add_module.html:73
+#: apps/technologies/templates/technologies/add_module.html:74
 msgid "3. Create the module"
 msgstr "3. Cree el módulo"
 
 #: apps/questionnaire/templates/questionnaire/details.html:130
 #: apps/sample/templates/sample/add_module.html:72
-#: apps/technologies/templates/technologies/add_module.html:75
+#: apps/technologies/templates/technologies/add_module.html:76
 msgid "Create"
 msgstr "Crear"
 
@@ -19432,7 +19432,7 @@ msgid "SAMPLE: More information about the modules and stuff."
 msgstr "MUESTRA: Más información acerca de los módulos y otros temas. "
 
 #: apps/sample/templates/sample/add_module.html:30
-#: apps/technologies/templates/technologies/add_module.html:33
+#: apps/technologies/templates/technologies/add_module.html:34
 msgid "Search and select a Technology to which you would like to add a module."
 msgstr ""
 "Busque y seleccione una Tecnología a la que le gustaría agregar un módulo."
@@ -19535,18 +19535,20 @@ msgid "Only data declared as public are visible."
 msgstr "Solo los datos declarados públicos son visibles."
 
 #: apps/technologies/templates/technologies/add_module.html:18
-msgid "Add a module to an existing Technology."
-msgstr "Agregue un módulo a una Tecnología existente."
-
-#: apps/technologies/templates/technologies/add_module.html:21
 msgid ""
-"Currently the module \"Climate Change Adaptation\" exists. Further modules "
-"are in discussion: \"Climate Change Mitigation/ Carbon Benefits\" and "
-"\"Disaster Risk Reduction\"."
+"You can add a module to an existing SLM Technology. If the SLM Technology is "
+"not included in the WOCAT SLM Technology database yet, please first add it."
 msgstr ""
-"Actualmente, existe el módulo \"Adaptación al cambio climático” Se están "
-"discutiendo otros módulos adicionales: “Mitigación del cambio climático/ "
-"beneficios de carbono” y “Reducción de riesgos de desastre”."
+
+#: apps/technologies/templates/technologies/add_module.html:19
+#, fuzzy
+#| msgid "New SLM Technology"
+msgid "Add new SLM Technology."
+msgstr "Nueva Tecnología MST"
+
+#: apps/technologies/templates/technologies/add_module.html:22
+msgid "Currently the module \"Climate Change Adaptation\" can be added."
+msgstr ""
 
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
@@ -20334,3 +20336,15 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
+
+#~ msgid "Add a module to an existing Technology."
+#~ msgstr "Agregue un módulo a una Tecnología existente."
+
+#~ msgid ""
+#~ "Currently the module \"Climate Change Adaptation\" exists. Further "
+#~ "modules are in discussion: \"Climate Change Mitigation/ Carbon Benefits\" "
+#~ "and \"Disaster Risk Reduction\"."
+#~ msgstr ""
+#~ "Actualmente, existe el módulo \"Adaptación al cambio climático” Se están "
+#~ "discutiendo otros módulos adicionales: “Mitigación del cambio climático/ "
+#~ "beneficios de carbono” y “Reducción de riesgos de desastre”."

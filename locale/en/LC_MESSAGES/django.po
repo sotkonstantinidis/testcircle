@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 07:48+0100\n"
+"POT-Creation-Date: 2016-11-30 21:30+0100\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15917,7 +15917,7 @@ msgstr ""
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
-#: apps/technologies/templates/technologies/add_module.html:38
+#: apps/technologies/templates/technologies/add_module.html:39
 msgid "No results found"
 msgstr ""
 
@@ -15928,7 +15928,7 @@ msgstr ""
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
-#: apps/technologies/templates/technologies/add_module.html:39
+#: apps/technologies/templates/technologies/add_module.html:40
 msgid "Too many results found, please narrow the search"
 msgstr ""
 
@@ -16671,7 +16671,7 @@ msgstr ""
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:34
-#: apps/technologies/templates/technologies/add_module.html:37
+#: apps/technologies/templates/technologies/add_module.html:38
 msgid "Search"
 msgstr ""
 
@@ -16862,31 +16862,31 @@ msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:113
 #: apps/sample/templates/sample/add_module.html:27
-#: apps/technologies/templates/technologies/add_module.html:30
+#: apps/technologies/templates/technologies/add_module.html:31
 msgid "1. Select a Technology"
 msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:117
 #: apps/sample/templates/sample/add_module.html:53
-#: apps/technologies/templates/technologies/add_module.html:56
+#: apps/technologies/templates/technologies/add_module.html:57
 msgid "2. Select a module"
 msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:120
 #: apps/sample/templates/sample/add_module.html:56
-#: apps/technologies/templates/technologies/add_module.html:59
+#: apps/technologies/templates/technologies/add_module.html:60
 msgid "Select a module which you would like to add to the Technology."
 msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:128
 #: apps/sample/templates/sample/add_module.html:70
-#: apps/technologies/templates/technologies/add_module.html:73
+#: apps/technologies/templates/technologies/add_module.html:74
 msgid "3. Create the module"
 msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/details.html:130
 #: apps/sample/templates/sample/add_module.html:72
-#: apps/technologies/templates/technologies/add_module.html:75
+#: apps/technologies/templates/technologies/add_module.html:76
 msgid "Create"
 msgstr ""
 
@@ -17031,7 +17031,7 @@ msgid "SAMPLE: More information about the modules and stuff."
 msgstr ""
 
 #: apps/sample/templates/sample/add_module.html:30
-#: apps/technologies/templates/technologies/add_module.html:33
+#: apps/technologies/templates/technologies/add_module.html:34
 msgid "Search and select a Technology to which you would like to add a module."
 msgstr ""
 
@@ -17126,14 +17126,17 @@ msgid "Only data declared as public are visible."
 msgstr ""
 
 #: apps/technologies/templates/technologies/add_module.html:18
-msgid "Add a module to an existing Technology."
+msgid ""
+"You can add a module to an existing SLM Technology. If the SLM Technology is "
+"not included in the WOCAT SLM Technology database yet, please first add it."
 msgstr ""
 
-#: apps/technologies/templates/technologies/add_module.html:21
-msgid ""
-"Currently the module \"Climate Change Adaptation\" exists. Further modules "
-"are in discussion: \"Climate Change Mitigation/ Carbon Benefits\" and "
-"\"Disaster Risk Reduction\"."
+#: apps/technologies/templates/technologies/add_module.html:19
+msgid "Add new SLM Technology."
+msgstr ""
+
+#: apps/technologies/templates/technologies/add_module.html:22
+msgid "Currently the module \"Climate Change Adaptation\" can be added."
 msgstr ""
 
 #: apps/technologies/templates/technologies/base.html:6

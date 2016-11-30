@@ -15,10 +15,11 @@
           {% trans "Add SLM Module" %}
         </h1>
         <p>
-          {% trans "Add a module to an existing Technology." %}
+          {% trans "You can add a module to an existing SLM Technology. If the SLM Technology is not included in the WOCAT SLM Technology database yet, please first add it." %}
+          <a href="{% url 'technologies:questionnaire_new' %}" class="link">{% trans "Add new SLM Technology." %}</a>
         </p>
         <p>
-          {% trans 'Currently the module "Climate Change Adaptation" exists. Further modules are in discussion: "Climate Change Mitigation/ Carbon Benefits" and "Disaster Risk Reduction".' %}
+          {% trans 'Currently the module "Climate Change Adaptation" can be added.' %}
         </p>
       </div>
     </div>
