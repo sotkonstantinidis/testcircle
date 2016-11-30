@@ -58,6 +58,7 @@
 
           // initialize isRead plugin.
           latestUpdatesContainer.bindNotificationActions({
+            csrfToken: '{{ csrf_token }}',
             readUrl: '{% url 'notification_read' %}',
             notificationsUrl: '{% url 'notification_partial_list' %}',
             initialParams: '?is_teaser',
