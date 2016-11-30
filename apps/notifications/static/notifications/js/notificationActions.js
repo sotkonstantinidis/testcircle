@@ -31,6 +31,7 @@
                 url: settings.readUrl,
                 method: 'POST',
                 data: ({
+                    csrfmiddlewaretoken: settings.csrfToken,
                     user: settings.user,
                     log: $(this).val(),
                     checked: $(this).is(':checked')
