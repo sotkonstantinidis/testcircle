@@ -163,7 +163,7 @@ class BaseSettings(Configuration):
     LOGIN_URL = 'login'
 
     # TODO: Try if tests can be run with --with-fixture-bundling
-    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+    TEST_RUNNER = 'qcat.discover_runner.QcatTestSuiteRunner'
     NOSE_ARGS = [
         '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
         '--cover-package=accounts,configuration,qcat,questionnaire,unccd',
