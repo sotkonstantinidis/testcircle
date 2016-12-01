@@ -91,6 +91,7 @@ class BaseSettings(Configuration):
     )
 
     # The first language is the default language.
+    # todo: discuss ordering of languages.
     LANGUAGES = (
         ('en', _('English')),
         ('es', _('Spanish')),
@@ -98,6 +99,8 @@ class BaseSettings(Configuration):
         ('ru', _('Russian')),
         ('pt', _('Portuguese')),
         ('ar', _('Arabic')),
+        ('km', _('Khmer')),
+        ('bs', _('Bosnian')),
     )
 
     TIME_ZONE = 'Europe/Zurich'
