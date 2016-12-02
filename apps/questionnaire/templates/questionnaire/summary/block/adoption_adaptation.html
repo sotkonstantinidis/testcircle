@@ -1,0 +1,21 @@
+{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+<div class="row">
+  <div class="small-6 columns">
+    <h5>{{ content.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.adopted.items %}
+  </div>
+  <div class="small-6 columns">
+    <h5>{{ content.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.adopted_no_incentive.items %}
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 columns">
+    <h5>{{ content.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.adaptation.items %}
+  </div>
+  <div class="small-6 columns">
+    {{ content.comments }}
+  </div>
+</div>
+    

@@ -22,25 +22,25 @@ body.summary {
   h5 {
     font-size: $h5-font-size;
     font-weight: bold;
-    margin: 0.8rem 0rem 0rem 0rem;
+    /*margin: 0.8rem 0rem 0rem 0rem;*/
   }
 
   ul {
     margin-left: 0rem;
-    line-height: $base-line-height;
+    line-height: 1rem;
     li {
       margin-top: 0rem;
     }
   }
 
-  .column, .columns {
+  .columns.description > .tech-section-header h2, .columns.location > .tech-section-header h2{
     padding-left: 0.4rem;
-    padding-right: 0.4rem;
   }
 
   .tech-section-header {
     padding-left: 0;
     padding-right: 0;
+    margin: 1.5rem 0rem 1.0rem 0rem;
   }
 
   .overcome {
@@ -107,7 +107,7 @@ body.summary {
     max-width: 100%;
   }
   .img-caption {
-    background-color: $color-beige-dark;
+    background-color: $color-tech;
     color: white;
     padding: 0rem 1rem 0.12rem 1rem;
     font-size: 0.6rem;
@@ -183,12 +183,11 @@ body.summary {
 
   .td_category_title
   {
-    background-color: #ddd;
+    background-color: #edf0ea;
   }
 
   .technology_table tr:nth-of-type(even)
   {
-    background-color: #fff;
   }
 
   .total_row
@@ -203,5 +202,59 @@ body.summary {
     margin: 15px 0px 10px 0px;
     padding: 0px 0px 10px 0px;
   }
+
+  .row.range
+  {
+    margin-bottom: 0.0rem;
+  }
+
+  .range_square
+  {
+    width: 15px;
+    height: 15px;
+    background-color: #edf0ea;
+    float: left;
+    margin: 0px 2px 2px 0px;
+  }
+
+  .range_title
+  {
+    font-size: 10px;
+    padding: 0px 5px 0px 5px;
+    float: left;
+    min-width: 70px;
+    max-width: 100px;
+  }
+
+  .range_max
+  {
+    text-align: left;
+  }
+
+  .range_min
+  {
+    text-align: right;
+  }
+
+  .range_true::before
+  {
+    background-color: $color-green;
+    float: left;
+    margin: 0px 2px 2px 0px;
+    padding-left: 1px;
+    color: white;
+    width: 14px;
+    height: 14px;
+    line-height: 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+    content: "\2713";
+  }
+
+  p.location_text
+  {
+    margin-top: 0.3rem;
+  }
+
 
 }
