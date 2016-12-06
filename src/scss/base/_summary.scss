@@ -22,7 +22,7 @@ body.summary {
   h5 {
     font-size: $h5-font-size;
     font-weight: bold;
-    /*margin: 0.8rem 0rem 0rem 0rem;*/
+    margin: 0.3rem 0rem 0rem 0rem;
   }
 
   ul {
@@ -107,10 +107,11 @@ body.summary {
     max-width: 100%;
   }
   .img-caption {
-    background-color: $color-tech;
+    background-color: $color-beige-dark;
     color: white;
     padding: 0rem 1rem 0.12rem 1rem;
     font-size: 0.6rem;
+    line-height: 1.5em;
     font-weight: normal;
   }
 
@@ -145,7 +146,7 @@ body.summary {
 
   .img-column-container
   {
-    height: 290px;
+    height: 255px;
     width:100%;
     background-color: rgba(85, 116, 49, 0.1);
     position: relative;
@@ -162,6 +163,7 @@ body.summary {
     list-style: decimal !important;
     margin-left: 1rem;
     margin-top: 0rem;
+    line-height: 1rem;
         li {
       list-style-type: decimal;
       ul {
@@ -200,7 +202,8 @@ body.summary {
   {
     background-color: #edf0ea;
     margin: 15px 0px 10px 0px;
-    padding: 0px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
+
   }
 
   .row.range
@@ -212,7 +215,7 @@ body.summary {
   {
     width: 15px;
     height: 15px;
-    background-color: #edf0ea;
+    background-color: #999999;
     float: left;
     margin: 0px 2px 2px 0px;
   }
@@ -243,8 +246,8 @@ body.summary {
     margin: 0px 2px 2px 0px;
     padding-left: 1px;
     color: white;
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     line-height: 1em;
     font-size: 1.2em;
     font-weight: bold;
@@ -256,5 +259,10 @@ body.summary {
     margin-top: 0.3rem;
   }
 
+ .divider
+ {
+    border-top: 1px solid $color-green;
+    padding: 10px 0px 10px 0px;
+ }
 
 }
