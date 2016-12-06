@@ -1453,7 +1453,7 @@
       },
       "contra": {
         "label": "Weaknesses/ disadvantages/ risks",
-        "subtext": "and how they can be overcome",
+        "subtext": "how to overcome",
         "css_class": "bullets",
         "items": [
           {
