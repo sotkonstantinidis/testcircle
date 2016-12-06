@@ -27,7 +27,8 @@ class ListTest(FunctionalTest):
     def setUp(self):
         super(ListTest, self).setUp()
         delete_all_indices()
-        create_temp_indices(['technologies', 'approaches', 'wocat', 'unccd'])
+        create_temp_indices(['technologies', 'approaches', 'wocat', 'unccd',
+                             'cca', 'watershed'])
 
     def tearDown(self):
         super(ListTest, self).tearDown()
@@ -116,8 +117,6 @@ class ListTest(FunctionalTest):
 
         # She sees that she has been redirected to the list view and the filter
         # is set, only 1 entry is visible
-        from nose.tools import set_trace; set_trace()
-
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)

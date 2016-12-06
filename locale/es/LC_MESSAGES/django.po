@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-30 21:30+0100\n"
-"PO-Revision-Date: 2016-11-30 06:47+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2016-12-06 17:09+0100\n"
+"PO-Revision-Date: 2016-12-01 16:15+0000\n"
+"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -7359,6 +7359,7 @@ msgid "Adaptation"
 msgstr "Adaptación"
 
 #: apps/configuration/configuration_translations.py:2777
+#: apps/configuration/configuration_translations.py:3009
 msgctxt "technologies label"
 msgid ""
 "Specify if the technology relates to one or more of the other UNCCD themes"
@@ -8436,6 +8437,812 @@ msgid ""
 msgstr ""
 "Indique  las fuentes de información usadas para compilar la información en "
 "este cuestionario"
+
+#: apps/configuration/configuration_translations.py:3001
+msgctxt "unccd label"
+msgid ""
+"Clarify if the technology described in the template, or a part of it, is "
+"covered by property rights"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3002
+msgctxt "unccd label"
+msgid "Please provide relevant information on the holder of the rights"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3003
+#: apps/configuration/configuration_translations.py:4703
+msgctxt "unccd label"
+msgid "Prevailing land use in the specified location"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3004
+#: apps/configuration/configuration_translations.py:3014
+#: apps/configuration/configuration_translations.py:3015
+#: apps/configuration/configuration_translations.py:3017
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Specify"
+msgctxt "unccd label"
+msgid "Specify"
+msgstr "Especifique"
+
+#: apps/configuration/configuration_translations.py:3005
+#: apps/configuration/configuration_translations.py:4704
+msgctxt "unccd label"
+msgid ""
+"Contribution to Desertification, land degradation and drought (DLDD) measures"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3006
+msgctxt "technologies label"
+msgid ""
+"To which strategic objectives of The Strategy does the technology contribute?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3007
+#: apps/configuration/configuration_translations.py:4705
+#, fuzzy
+#| msgid "Introduction to the questionnaire"
+msgctxt "unccd label"
+msgid "Contribution to the strategic objectives"
+msgstr "Introducción al cuestionario"
+
+#: apps/configuration/configuration_translations.py:3008
+#: apps/configuration/configuration_translations.py:4706
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Type of Approach"
+msgctxt "unccd label"
+msgid "Type of impact"
+msgstr "Tipo de Enfoque "
+
+#: apps/configuration/configuration_translations.py:3010
+#: apps/configuration/configuration_translations.py:4707
+msgctxt "unccd label"
+msgid "Linkages with the other best practice themes"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3011
+#: apps/configuration/configuration_translations.py:4708
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Location"
+msgctxt "unccd label"
+msgid "Location"
+msgstr "Lugar"
+
+#: apps/configuration/configuration_translations.py:3012
+#: apps/configuration/configuration_translations.py:4734
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Short description of the Approach"
+msgctxt "unccd label"
+msgid "Short description of the best practice"
+msgstr "Breve descripción del Enfoque "
+
+#: apps/configuration/configuration_translations.py:3013
+#: apps/configuration/configuration_translations.py:4709
+msgctxt "unccd label"
+msgid ""
+"Brief description of the natural environment within the specified location."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3016
+#: apps/configuration/configuration_translations.py:4710
+msgctxt "unccd label"
+msgid ""
+"Prevailing socio-economic conditions of those living in the location and/or "
+"nearby"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3018
+#: apps/configuration/configuration_translations.py:4735
+msgctxt "unccd label"
+msgid "Additional questions of Leg 1"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3019
+msgctxt "technologies label"
+msgid ""
+"On the basis of which criteria and/or indicator(s) has the described "
+"technology been considered as 'best'?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3020
+msgctxt "unccd label"
+msgid ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as ‘best’?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3021
+#: apps/configuration/configuration_translations.py:4712
+msgctxt "unccd label"
+msgid "Main problems addressed by the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3022
+#: apps/configuration/configuration_translations.py:4713
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Main types of land degradation addressed by the Technology"
+msgctxt "unccd label"
+msgid ""
+"Outline specific land degradation problems addressed by the best practice"
+msgstr "Principales tipos de degradación del suelo encarados con la Tecnología"
+
+#: apps/configuration/configuration_translations.py:3023
+#: apps/configuration/configuration_translations.py:4714
+#, fuzzy
+#| msgctxt "watershed helptext"
+#| msgid "Specify the centre of the watershed."
+msgctxt "unccd label"
+msgid "Specify the objectives of the best practice"
+msgstr "Especifique el centro de la cuenca"
+
+#: apps/configuration/configuration_translations.py:3024
+#: apps/configuration/configuration_translations.py:4715
+msgctxt "unccd label"
+msgid "Brief description of main activities, by objective"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3025
+msgctxt "unccd label"
+msgid "Reporting Entity"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3026
+#: apps/configuration/configuration_translations.py:4716
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Short description of the Technology"
+msgctxt "unccd label"
+msgid "Short description and technical specifications of the technology"
+msgstr "Breve descripción de la Tecnología "
+
+#: apps/configuration/configuration_translations.py:3027
+#: apps/configuration/configuration_translations.py:4717
+msgctxt "unccd label"
+msgid "Name and address of the institution developing the technology"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3028
+#: apps/configuration/configuration_translations.py:4718
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "How does the Technology cope with it?"
+msgctxt "unccd label"
+msgid "Was the technology developed in partnership?"
+msgstr "¿Cómo es que la tecnología soporta esto?"
+
+#: apps/configuration/configuration_translations.py:3029
+msgctxt "unccd label"
+msgid "List the partners"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3030
+#: apps/configuration/configuration_translations.py:4719
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Specify how the Technology was introduced"
+msgctxt "unccd label"
+msgid "Specify the framework within which the technology was promoted"
+msgstr "Especifique cómo se introdujo la Tecnología"
+
+#: apps/configuration/configuration_translations.py:3031
+#: apps/configuration/configuration_translations.py:4720
+msgctxt "unccd label"
+msgid ""
+"Was the participation of local stakeholders, including CSOs, fostered in the "
+"development of the technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3032
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Participation and roles of stakeholders involved"
+msgctxt "unccd label"
+msgid "List local stakeholders involved"
+msgstr "Participación y roles de las partes interesadas involucradas"
+
+#: apps/configuration/configuration_translations.py:3033
+#: apps/configuration/configuration_translations.py:4721
+msgctxt "unccd label"
+msgid ""
+"For the stakeholders listed above, specify their role in the design, "
+"introduction, use and maintenance of the technology, if any."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3034
+#: apps/configuration/configuration_translations.py:4722
+msgctxt "unccd label"
+msgid ""
+"Was the population living in the location and/or nearby involved in the "
+"development of the technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3035
+msgctxt "unccd label"
+msgid "By means of what?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3036
+#: apps/configuration/configuration_translations.py:4723
+msgctxt "unccd label"
+msgid "Describe on-site impacts (the major two impacts by category)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3040
+#: apps/configuration/configuration_translations.py:4724
+msgctxt "unccd label"
+msgid ""
+"Describe the major two off-site (i.e. not occurring in the location but in "
+"the surrounding areas) impacts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3041
+msgctxt "unccd label"
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on biodiversity conservation?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3042
+msgctxt "unccd label"
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change mitigation?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3043
+msgctxt "unccd label"
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change adaptation?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3044
+msgctxt "unccd label"
+msgid "Explain the reasons:"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3045
+#: apps/configuration/configuration_translations.py:4726
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Cost-benefit analysis"
+msgctxt "unccd label"
+msgid "Has a cost-benefit analysis been carried out?"
+msgstr "Análisis costo-beneficio"
+
+#: apps/configuration/configuration_translations.py:3046
+#: apps/configuration/configuration_translations.py:4727
+msgctxt "unccd label"
+msgid "Was the technology disseminated/introduced to other locations?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3047
+msgctxt "unccd label"
+msgid "Where?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3048
+#: apps/configuration/configuration_translations.py:4728
+msgctxt "unccd label"
+msgid "Were incentives to facilitate the take up of the technology provided?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3049
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Specify type of support"
+msgctxt "unccd label"
+msgid "Specify which type of incentives"
+msgstr "Especifique el tipo de apoyo"
+
+#: apps/configuration/configuration_translations.py:3050
+#: apps/configuration/configuration_translations.py:4729
+msgctxt "unccd label"
+msgid ""
+"Can you identify the three main conditions that led to the success of the "
+"presented best practice/technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3051
+msgctxt "unccd label"
+msgid ""
+"In your opinion, the best practice/technology you have proposed can be "
+"replicated, although with some level of adaptation, elsewhere?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3052
+msgctxt "unccd label"
+msgid "At which level?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3053
+#: apps/configuration/configuration_translations.py:4731
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "plant material and resources"
+msgctxt "unccd label"
+msgid "Related to human resources"
+msgstr "material y recursos vegetales "
+
+#: apps/configuration/configuration_translations.py:3054
+#: apps/configuration/configuration_translations.py:4732
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "financial services"
+msgctxt "unccd label"
+msgid "Related to financial aspects"
+msgstr "servicios financieros"
+
+#: apps/configuration/configuration_translations.py:3055
+#: apps/configuration/configuration_translations.py:4733
+msgctxt "unccd label"
+msgid "Related to technical aspects"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3056
+msgctxt "unccd label"
+msgid ""
+"If the location has well defined boundaries, specify its extension in "
+"hectares"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3057
+msgctxt "unccd label"
+msgid "Estimated population living in the location"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3501
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Cropland"
+msgctxt "unccd label"
+msgid "Cropland"
+msgstr "Tierras cultivadas"
+
+#: apps/configuration/configuration_translations.py:3502
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Grazing land"
+msgctxt "unccd label"
+msgid "Grazing land"
+msgstr "Tierra de pastoreo"
+
+#: apps/configuration/configuration_translations.py:3503
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "Poland"
+msgctxt "unccd label"
+msgid "Woodland"
+msgstr "Polonia"
+
+#: apps/configuration/configuration_translations.py:3504
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Unproductive land"
+msgctxt "unccd label"
+msgid "Uproductive land"
+msgstr " Tierra no productiva"
+
+#: apps/configuration/configuration_translations.py:3505
+msgctxt "unccd label"
+msgid "Human settlement"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3506
+#: apps/configuration/configuration_translations.py:3539
+#: apps/configuration/configuration_translations.py:3542
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Other (specify)"
+msgctxt "unccd label"
+msgid "Other (please specify)"
+msgstr "Otro (especifique)"
+
+#: apps/configuration/configuration_translations.py:3507
+#, fuzzy
+#| msgid "Creation:"
+msgctxt "unccd label"
+msgid "Prevention"
+msgstr "Creación:"
+
+#: apps/configuration/configuration_translations.py:3508
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "full irrigation"
+msgctxt "unccd label"
+msgid "Mitigation"
+msgstr "totalmente irrigada"
+
+#: apps/configuration/configuration_translations.py:3509
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Adaptation"
+msgctxt "unccd label"
+msgid "Adaptation"
+msgstr "Adaptación"
+
+#: apps/configuration/configuration_translations.py:3510
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "health situation"
+msgctxt "unccd label"
+msgid "Rehabilitation"
+msgstr "situación de salud"
+
+#: apps/configuration/configuration_translations.py:3511
+msgctxt "technologies label"
+msgid "To improve the living conditions of affected populations"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3512
+msgctxt "unccd label"
+msgid "To improve the living conditions of affected populations"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3513
+msgctxt "technologies label"
+msgid "To improve the conditions of affected ecosystems"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3514
+msgctxt "unccd label"
+msgid "To improve the conditions of affected ecosystems"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3515
+msgctxt "technologies label"
+msgid ""
+"To generate global benefits through effective implementation of the "
+"Convention"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3516
+msgctxt "unccd label"
+msgid ""
+"To generate global benefits through effective implementation of the "
+"Convention"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3517
+msgctxt "unccd label"
+msgid "On-site impacts on production or productivity"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3518
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Other socio-economic impacts"
+msgctxt "unccd label"
+msgid "On-site socio-economic and cultural impacts"
+msgstr "Otros impactos socioeconómicos"
+
+#: apps/configuration/configuration_translations.py:3519
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "On-site impacts"
+msgctxt "unccd label"
+msgid "On-site environmental impacts"
+msgstr "Impactos in situ"
+
+#: apps/configuration/configuration_translations.py:3520
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Other off-site impacts"
+msgctxt "unccd label"
+msgid "Other on-site impacts"
+msgstr "Otros impactos ecológicos fuera del sitio"
+
+#: apps/configuration/configuration_translations.py:3521
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Off-site impacts"
+msgctxt "unccd label"
+msgid "Off-site impacts"
+msgstr "Impactos fuera del sitio"
+
+#: apps/configuration/configuration_translations.py:3522
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Capacity building/ training"
+msgctxt "technologies label"
+msgid "Capacity-building and awareness-raising"
+msgstr "Construcción de capacidades / capacitación"
+
+#: apps/configuration/configuration_translations.py:3523
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "Capacity building/ training"
+msgctxt "unccd label"
+msgid "Capacity-building and awareness-raising"
+msgstr "Construcción de capacidades / capacitación"
+
+#: apps/configuration/configuration_translations.py:3524
+msgctxt "technologies label"
+msgid "DLDD and SLM monitoring and assessment/research"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3525
+msgctxt "unccd label"
+msgid "DLDD and SLM monitoring and assessment/research"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3526
+msgctxt "technologies label"
+msgid "Knowledge management and decision support"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3527
+msgctxt "unccd label"
+msgid "Knowledge management and decision support"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3528
+msgctxt "technologies label"
+msgid "Policy, legislative and institutional framework"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3529
+msgctxt "unccd label"
+msgid "Policy, legislative and institutional framework"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3530
+msgctxt "technologies label"
+msgid "Funding and resource mobilization"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3531
+msgctxt "unccd label"
+msgid "Funding and resource mobilization"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3532
+msgctxt "technologies label"
+msgid "Participation, collaboration and networking"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3533
+msgctxt "unccd label"
+msgid "Participation, collaboration and networking"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3534
+#, fuzzy
+#| msgctxt "unccd label"
+#| msgid "Local name"
+msgctxt "unccd label"
+msgid "Local initiative"
+msgstr "Nombre local "
+
+#: apps/configuration/configuration_translations.py:3535
+msgctxt "unccd label"
+msgid "National initiative – government-led"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3536
+msgctxt "unccd label"
+msgid "National initiative – non-government-led"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3537
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "international organization"
+msgctxt "unccd label"
+msgid "International initiative"
+msgstr "organización internacional"
+
+#: apps/configuration/configuration_translations.py:3538
+msgctxt "unccd label"
+msgid "Programme/project-based initiative"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3540
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "construction"
+msgctxt "unccd label"
+msgid "Consultation"
+msgstr " construcción"
+
+#: apps/configuration/configuration_translations.py:3541
+msgctxt "unccd label"
+msgid "Participatory approaches"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3543
+msgctxt "unccd label"
+msgid ""
+"Policy or regulatory incentives (for example, related to market requirements "
+"and regulations, import/export, foreign investment, research & development "
+"support, etc) "
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3544
+msgctxt "unccd label"
+msgid ""
+"Financial incentives (for example, preferential rates, State aid, subsidies, "
+"cash grants, loan guarantees, etc)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3545
+msgctxt "unccd label"
+msgid ""
+"Fiscal incentives (for example, exemption from or reduction of taxes, "
+"duties, fees, etc)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3546
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "local"
+msgctxt "unccd label"
+msgid "Local"
+msgstr "local"
+
+#: apps/configuration/configuration_translations.py:3547
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "national"
+msgctxt "unccd label"
+msgid "Sub-national"
+msgstr "nacional"
+
+#: apps/configuration/configuration_translations.py:3548
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "national"
+msgctxt "unccd label"
+msgid "National"
+msgstr "nacional"
+
+#: apps/configuration/configuration_translations.py:3549
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "regional"
+msgctxt "unccd label"
+msgid "Subregional"
+msgstr "regional"
+
+#: apps/configuration/configuration_translations.py:3550
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "regional"
+msgctxt "unccd label"
+msgid "Regional"
+msgstr "regional"
+
+#: apps/configuration/configuration_translations.py:3551
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "national"
+msgctxt "unccd label"
+msgid "International"
+msgstr "nacional"
+
+#: apps/configuration/configuration_translations.py:4201
+msgctxt "unccd helptext"
+msgid ""
+"Examples of conditions leading to success may include: highly motivated "
+"local governments, farmers organized into well structured cooperatives, "
+"extremely favourable weather conditions, etc. For each ‘condition of "
+"success’ you are able to identify, specify whether in your opinion such "
+"condition is: <ul><li>(a) linked to the local context and thus cannot be "
+"replicated elsewhere;</li><li>(b) replicable elsewhere with some level of "
+"adaptation;</li><li>(c) replicable elsewhere with major adaptation.</li></ul>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4202
+msgctxt "unccd helptext"
+msgid ""
+"Additional questions of Leg 1 which are not in Leg 2 are:<ul><li>Amount "
+"committed</li><li>Beneficiaries</li><li>Civil Society Organizations (CSOs) "
+"and Science & Technology Institutions (STIs)</li><li>Commitment date</"
+"li><li>Funding organization</li><li>Name of activity funded</"
+"li><li>Operational objectives</li><li>Recipient country(ies) or "
+"(sub)region(s)</li><li>Recipient organization(s)</li><li>Relevant Activity "
+"Codes (RACs)</li><li>Reporting Entity</li><li>Reporting entity(ies)</"
+"li><li>Rio Marker for desertification</li><li>Role of the Organization(s) in "
+"the Programme/Project</li><li>Status</li><li>Target area size/administrative "
+"unit</li><li>Target Group</li><li>Title</li><li>United Nations Conventions’ "
+"Rio Markers</li></ul>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4702
+msgctxt "unccd label"
+msgid "Property Rights"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4711
+msgctxt "unccd label"
+msgid ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as 'best'?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4725
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "other gradual climate change"
+msgctxt "unccd label"
+msgid "Impact on biodiversity and climate change"
+msgstr "Otro cambio climático gradual"
+
+#: apps/configuration/configuration_translations.py:4730
+msgctxt "unccd label"
+msgid "Replicability"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4901
+#: apps/configuration/configuration_translations.py:5983
+msgctxt "unccd label"
+msgid "General Information"
+msgstr "Información general"
+
+#: apps/configuration/configuration_translations.py:4902
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Ca: acidification"
+msgctxt "unccd label"
+msgid "Classification"
+msgstr "Ca: acidificación "
+
+#: apps/configuration/configuration_translations.py:4903
+msgctxt "unccd label"
+msgid ""
+"Section 1. Context of the best practice: frame conditions (natural and human "
+"environment)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4904
+msgctxt "unccd label"
+msgid ""
+"Section 2. Problems addressed (direct and indirect causes) and objectives of "
+"the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4905
+msgctxt "unccd label"
+msgid "Section 3. Activities"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4906
+msgctxt "unccd label"
+msgid ""
+"Section 4. Institutions/actors involved (collaboration, participation, role "
+"of stakeholders)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4907
+msgctxt "unccd label"
+msgid "Section 5. Contribution to impact"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4908
+msgctxt "unccd label"
+msgid "Section 6. Adoption and replicability"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4909
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Conclusions and lessons learnt"
+msgctxt "unccd label"
+msgid "Section 7. Lessons learned"
+msgstr "Conclusiones y lecciones aprendidas"
+
+#: apps/configuration/configuration_translations.py:4910
+msgctxt "unccd label"
+msgid "Section 8. Additional questions of Leg 1"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:5001
 msgctxt "approaches label"
@@ -11804,11 +12611,6 @@ msgctxt "technologies label"
 msgid "General Information"
 msgstr "Información general"
 
-#: apps/configuration/configuration_translations.py:5983
-msgctxt "unccd label"
-msgid "General Information"
-msgstr "Información general"
-
 #: apps/configuration/configuration_translations.py:5984
 msgctxt "approaches label"
 msgid "Specifications"
@@ -14395,8 +15197,11 @@ msgid "Threshold"
 msgstr "Límite"
 
 #: apps/configuration/configuration_translations.py:22300
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Experienced climate-related extremes (disasters)"
 msgctxt "cca label"
-msgid "Experienced climate-related extremes (disasters)"
+msgid "Experienced climate-related extremes(disasters)"
 msgstr "Extremos (desastres) relacionados al clima que se experimentaron"
 
 #: apps/configuration/configuration_translations.py:23000
@@ -15512,16 +16317,6 @@ msgstr "Nombre del cambio climático gradual/ extremo relacionado al clima"
 msgctxt "cca label"
 msgid "Extent"
 msgstr "Extensión"
-
-#: apps/configuration/configuration_translations.py:28032
-msgctxt "cca label_left"
-msgid " "
-msgstr " "
-
-#: apps/configuration/configuration_translations.py:28033
-msgctxt "cca label_right"
-msgid " "
-msgstr ""
 
 #: apps/configuration/configuration_translations.py:28034
 #: apps/configuration/configuration_translations.py:28090
@@ -17658,24 +18453,32 @@ msgid "English"
 msgstr "Inglés"
 
 #: apps/qcat/config/common.py:96
-msgid "Spanish"
-msgstr "Español"
-
-#: apps/qcat/config/common.py:97
 msgid "French"
 msgstr "Francés"
+
+#: apps/qcat/config/common.py:97
+msgid "Spanish"
+msgstr "Español"
 
 #: apps/qcat/config/common.py:98
 msgid "Russian"
 msgstr "Ruso"
 
 #: apps/qcat/config/common.py:99
-msgid "Portuguese"
-msgstr "Portugués"
+msgid "Khmer"
+msgstr ""
 
 #: apps/qcat/config/common.py:100
 msgid "Arabic"
 msgstr "Árabe"
+
+#: apps/qcat/config/common.py:101
+msgid "Bosnian"
+msgstr ""
+
+#: apps/qcat/config/common.py:102
+msgid "Portuguese"
+msgstr "Portugués"
 
 #: apps/questionnaire/errors.py:20
 msgid "This questionnaire is locked for editing by {}"
@@ -17973,7 +18776,7 @@ msgstr "Comentarios"
 
 #: apps/questionnaire/templates/details/category/unccd_header.html:105
 msgid "UNCCD Prais data"
-msgstr ""
+msgstr "Datos Prais UNCCD "
 
 #: apps/questionnaire/templates/details/category/watershed_header.html:6
 #: apps/questionnaire/templates/details/category/watershed_header.html:114
@@ -18822,7 +19625,7 @@ msgstr "Elija o escriba el nombre de un país"
 
 #: apps/questionnaire/templates/filter.html:35
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: apps/questionnaire/templates/filter.html:53
 msgid "Creation Date"
@@ -19219,15 +20022,15 @@ msgstr "Foto"
 
 #: apps/questionnaire/templates/questionnaire/details.html:61
 msgid "Links and modules"
-msgstr ""
+msgstr "Vínculos y módulos"
 
 #: apps/questionnaire/templates/questionnaire/details.html:71
 msgid "Links"
-msgstr ""
+msgstr "Vínculos"
 
 #: apps/questionnaire/templates/questionnaire/details.html:82
 msgid "No links"
-msgstr ""
+msgstr "No hay vínculos"
 
 #: apps/questionnaire/templates/questionnaire/details.html:89
 #: apps/wocat/templates/wocat/partial/add.html:65
@@ -19539,16 +20342,18 @@ msgid ""
 "You can add a module to an existing SLM Technology. If the SLM Technology is "
 "not included in the WOCAT SLM Technology database yet, please first add it."
 msgstr ""
+"Puede agregar un módulo a una Tecnología MST existente. Si la Tecnología MST "
+"todavía no se halla incluida en la base de datos de Tecnología MST de WOCAT, "
+"por favor, agréguela primero. "
 
 #: apps/technologies/templates/technologies/add_module.html:19
-#, fuzzy
-#| msgid "New SLM Technology"
 msgid "Add new SLM Technology."
-msgstr "Nueva Tecnología MST"
+msgstr "Agregar una nueva tecnología MST."
 
 #: apps/technologies/templates/technologies/add_module.html:22
 msgid "Currently the module \"Climate Change Adaptation\" can be added."
 msgstr ""
+"Actualmente, se puede agregar el módulo \"Adaptación al Cambio Climático\"."
 
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
@@ -20097,7 +20902,7 @@ msgstr "Mostrar todas las prácticas MST"
 
 #: apps/wocat/templates/wocat/questionnaire/list.html:90
 msgid "A revised filter is coming soon."
-msgstr ""
+msgstr "Pronto habrá un filtro revisado."
 
 #: apps/wocat/templates/wocat/questionnaire/list.html:109
 msgid "WOCAT and UNCCD SLM practices"
@@ -20336,15 +21141,3 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
-
-#~ msgid "Add a module to an existing Technology."
-#~ msgstr "Agregue un módulo a una Tecnología existente."
-
-#~ msgid ""
-#~ "Currently the module \"Climate Change Adaptation\" exists. Further "
-#~ "modules are in discussion: \"Climate Change Mitigation/ Carbon Benefits\" "
-#~ "and \"Disaster Risk Reduction\"."
-#~ msgstr ""
-#~ "Actualmente, existe el módulo \"Adaptación al cambio climático” Se están "
-#~ "discutiendo otros módulos adicionales: “Mitigación del cambio climático/ "
-#~ "beneficios de carbono” y “Reducción de riesgos de desastre”."
