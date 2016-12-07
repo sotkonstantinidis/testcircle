@@ -1163,7 +1163,7 @@
           },
           {
             "label": "financial services",
-            "range": "1",
+            "range": "3",
             "min": "poor",
             "max": "good",
             "selected": "2"
@@ -1296,7 +1296,7 @@
         "items": [
           {
             "label": "Short-term returns",
-            "range": "6",
+            "range": "7",
             "min": "very negative",
             "max": "very positive",
             "selected": "2"
@@ -1453,7 +1453,7 @@
       },
       "contra": {
         "label": "Weaknesses/ disadvantages/ risks",
-        "subtext": "and how they can be overcome",
+        "subtext": "how to overcome",
         "css_class": "bullets",
         "items": [
           {

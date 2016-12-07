@@ -106,11 +106,17 @@ def prepare_image(image):
 def link_display(configuration_code, name, identifier):
     return get_link_display(configuration_code, name, identifier)
 
-
 @register.filter
 def keyvalue(dict, key):
     return dict.get(key)
 
+@register.filter(name='iternum')
+def iternum(num):
+    return range(int(num))
+
+@register.filter(name='strtoint')
+def strtoint(num):
+    return (int(num))
 
 @register.filter
 def is_editor(roles: list) -> bool:

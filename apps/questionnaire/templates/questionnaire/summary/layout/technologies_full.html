@@ -17,10 +17,14 @@
     {% include 'questionnaire/summary/block/location.html' with content=block.location.partials title=block.location.title %}
     </div>
     {% include 'questionnaire/summary/block/two_images_with_caption.html' with content=block.images.partials %}
-    {# {% include 'questionnaire/summary/block/classification.html' with content=block.classification.partials title=block.classification.title %} #}
+    {% include 'questionnaire/summary/block/classification.html' with content=block.classification.partials title=block.classification.title %}
     {% include 'questionnaire/summary/block/specifications.html' with content=block.technical_drawing.partials title=block.technical_drawing.title %}
     {% include 'questionnaire/summary/block/establishment_and_maintenance.html' with content=block.establishment_costs.partials title=block.establishment_costs.title %}
     {% include 'questionnaire/summary/block/natural_environment.html' with content=block.natural_environment.partials title=block.natural_environment.title %}
+    {% include 'questionnaire/summary/block/human_environment.html' with content=block.human_environment.partials title=block.human_environment.title %}
+    {% include 'questionnaire/summary/block/impacts.html' with content=block.impacts.partials title=block.impacts.title %}
+    {% include 'questionnaire/summary/block/climate_change.html' with content=block.climate_change.partials title=block.climate_change.title %}
+    {% include 'questionnaire/summary/block/adoption_adaptation.html' with content=block.adoption_adaptation.partials title=block.adoption_adaptation.title %}
     {% include 'questionnaire/summary/block/conclusion.html' with content=block.conclusion.partials title=block.conclusion.title %}
     {% include 'questionnaire/summary/block/references.html' with content=block.references.partials title=block.references.title %}
     <!--  -->
