@@ -51,13 +51,13 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        self.raw_data = ConfiguredQuestionnaireSummary(
-            config=config, summary_type=self.summary_type,
-            questionnaire=questionnaire, **data
-        ).data
-        self.questionnaire = questionnaire
-        self.data = dict(self.get_data())
-        # self.data = self.get_demo_dict()
+        # self.raw_data = ConfiguredQuestionnaireSummary(
+        #     config=config, summary_type=self.summary_type,
+        #     questionnaire=questionnaire, **data
+        # ).data
+        # self.questionnaire = questionnaire
+        # self.data = dict(self.get_data())
+        self.data = self.get_demo_dict(config_type=config.keyword)
 
     def get_data(self):
         """
@@ -67,12 +67,12 @@ class SummaryDataProvider:
         for section in self.content:
             yield section, getattr(self, section)
 
-    def get_demo_dict(self) -> dict:
+    def get_demo_dict(self, config_type: str) -> dict:
         """
         Demo-file for frontend development.
         """
-        pth = '{}/apps/questionnaire/templates/questionnaire/summary/demo.json'
-        with open(pth.format(settings.BASE_DIR)) as data:
+        pth = '{}/apps/questionnaire/templates/questionnaire/summary/{}.json'
+        with open(pth.format(settings.BASE_DIR, config_type)) as data:
             return dict(json.load(data))
 
     @property
