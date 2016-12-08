@@ -101,6 +101,41 @@ class Command(BaseCommand):
                         questionnaire.data = questionnaire_data
                         questionnaire.save()
 
+                # Fix the problem if there are too many header images. This can
+                # happen if more than one image were uploaded (if upload is
+                # slow, additional pictures can be added). It causes the
+                # interchange images to be broken. But really, it should be
+                # somehow fixed in the code, not afterwards in the data ...
+                # TODO: Prevent upload of multiple images in one upload field.
+                qg_image_data = questionnaire.data.get('qg_image', [])
+                if len(qg_image_data) > 1:
+                    print_questionnaire_name(questionnaire)
+                    fixable_string = self.style.NOTICE('Not fixable')
+                    error = 'Questionnaire has too many "qg_image" ' \
+                            'questiongroups'
+                    fixed_string = ''
+                    print_error_message(fixable_string, error, fixed_string)
+                elif len(qg_image_data) == 1:
+                    image_data = qg_image_data[0]
+                    image = image_data.get('image', '')
+                    image_parts = image.split(',')
+                    if len(image_parts) > 1:
+                        if questionnaire not in error_questionnaires:
+                            error_questionnaires.append(questionnaire)
+
+                        print_questionnaire_name(questionnaire)
+                        fixable_string = self.style.SQL_COLTYPE('Fixable')
+                        error = 'Questionnaire has too many header images.'
+
+                        fixed_string = ''
+                        if do_data_clean:
+                            last_image = image_parts[len(image_parts) - 1]
+                            image_data['image'] = last_image
+                            questionnaire.save()
+                            fixed_string = self.style.SQL_COLTYPE('Fixed.')
+
+                        print_error_message(fixable_string, error, fixed_string)
+
             # Check the link count. This fixes the problem where duplicate link
             # entries were created if for example the questionnaire was edited
             # during the review process. This bug should have been fixed on
