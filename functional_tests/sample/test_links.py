@@ -258,3 +258,137 @@ class LinkTests(FunctionalTest):
                      'contains(@class, "tech-attached")]/li/a')
         self.assertEqual(link_count.text, '')
 
+    def test_do_not_add_duplicate_links_when_editing(self, mock_get_user_id):
+        # Alice logs in
+        user_alice = User.objects.get(pk=101)
+        user_alice.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
+        self.doLogin(user=user_alice)
+
+        # She enters a new SAMPLE questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new))
+        self.click_edit_section('cat_1')
+        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Sample Q1')
+        self.submit_form_step()
+
+        sample_url = self.browser.current_url
+
+        # She also enters a new SAMPLEMULTI questionnaire which links to the
+        # newly created SAMPLE questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_samplemulti))
+        self.click_edit_section('mcat_1')
+        self.findBy('name', 'mqg_01-0-original_mkey_01').send_keys(
+            'Samplemulti Q1')
+        self.findBy(
+            'xpath', '//input[contains(@class, "link-search-field")]'
+                     '[1]').send_keys('Sample Q1')
+        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
+        self.findBy(
+            'xpath',
+            '//li[@class="ui-menu-item"]//strong[text()="Sample Q1"'
+            ']').click()
+        self.submit_form_step()
+
+        samplemulti_url = self.browser.current_url
+
+        # She sees the added link (only once)
+        sample_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-sample")]//'
+                     'a[contains(text(), "Sample Q1")]')
+        self.assertEqual(len(sample_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-sample")]//span[contains('
+                     '@class, "tech-status") and contains(@class, "is-draft")]')
+
+        # She goes to the Sample Questionnaire and sees the link (only once)
+        self.browser.get(sample_url)
+        samplemulti_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//'
+                     'a[contains(text(), "Samplemulti Q1")]')
+        self.assertEqual(len(samplemulti_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//span['
+                     'contains(@class, "tech-status") and contains('
+                     '@class, "is-draft")]')
+
+        # She submits the Sample Questionnaire
+        self.review_action('submit')
+
+        # She edits the Questionnaire (only opens the section with the link and
+        # closes it again)
+        self.findBy('xpath', '//a[text()="Edit" and @type="submit"]').click()
+        self.click_edit_section('cat_1')
+        self.submit_form_step()
+
+        # She sees that there is still only one link visible
+        samplemulti_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//'
+                     'a[contains(text(), "Samplemulti Q1")]')
+        self.assertEqual(len(samplemulti_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//span['
+                     'contains(@class, "tech-status") and contains('
+                     '@class, "is-draft")]')
+
+        # She goes to the Samplmulti Questionnaire and sees the link (only once)
+        self.browser.get(samplemulti_url)
+        sample_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-sample")]//'
+                     'a[contains(text(), "Sample Q1")]')
+        self.assertEqual(len(sample_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-sample")]//span['
+                     'contains(@class, "tech-status") and contains('
+                     '@class, "is-submitted")]')
+
+        # She submits the Samplemulti Questionnaire
+        self.review_action('submit')
+
+        # She edits the Questionnaire (only opens the section with the link and
+        # closes it again)
+        self.findBy('xpath', '//a[text()="Edit" and @type="submit"]').click()
+        self.click_edit_section('mcat_1')
+        self.submit_form_step()
+
+        sample_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-sample")]//'
+                     'a[contains(text(), "Sample Q1")]')
+        self.assertEqual(len(sample_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-sample")]//span['
+                     'contains(@class, "tech-status") and contains('
+                     '@class, "is-submitted")]')
+
+        # From Sample Questionnaire, still only one version is linked
+        self.browser.get(sample_url)
+        samplemulti_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//'
+                     'a[contains(text(), "Samplemulti Q1")]')
+        self.assertEqual(len(samplemulti_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//span['
+                     'contains(@class, "tech-status") and contains('
+                     '@class, "is-submitted")]')
+
+        # She publishes the Sample Questionnaire and still, only one link
+        self.review_action('review')
+        self.review_action('publish')
+        samplemulti_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//'
+                     'a[contains(text(), "Samplemulti Q1")]')
+        self.assertEqual(len(samplemulti_links), 1)
+        self.findBy(
+            'xpath', '//article[contains(@class, "is-samplemulti")]//span['
+                     'contains(@class, "tech-status") and contains('
+                     '@class, "is-submitted")]')
+
+        # From Samplemulti Questionnaire, still only one version is linked
+        self.browser.get(samplemulti_url)
+        sample_links = self.findManyBy(
+            'xpath', '//article[contains(@class, "is-sample")]//'
+                     'a[contains(text(), "Sample Q1")]')
+        self.assertEqual(len(sample_links), 1)
+        self.findByNot(
+            'xpath', '//article[contains(@class, "is-sample")]//span['
+                     'contains(@class, "tech-status")]')

@@ -509,8 +509,6 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.save()
         self.assertEqual(questionnaire.data, {'foo': 'bar'})
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_block_for_for_user(self):
         questionnaire = get_valid_questionnaire()
         questionnaire.lock_questionnaire(
