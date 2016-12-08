@@ -8,10 +8,11 @@ DO NOT FORGET TO UPDATE ELASTICSEARCH INDEX AFTER RUNNING THE SCRIPT!
 """
 
 from django.core.management.base import BaseCommand
+from django.db.models import Count
 from django.db.models.signals import pre_save
 
 from configuration.cache import get_configuration
-from questionnaire.models import Questionnaire
+from questionnaire.models import Questionnaire, QuestionnaireLink
 from questionnaire.receivers import prevent_updates_on_published_items
 from questionnaire.utils import clean_questionnaire_data
 
@@ -68,10 +69,7 @@ class Command(BaseCommand):
                     questionnaire_data = questionnaire.data
                     cleaned = False
 
-                    print(
-                        "\nQuestionnaire [ID: {}, code: {}, status: {}]".format(
-                            questionnaire.id, questionnaire.code,
-                            questionnaire.get_status_display()))
+                    print_questionnaire_name(questionnaire)
 
                     for error in errors:
 
@@ -92,8 +90,7 @@ class Command(BaseCommand):
                             cleaned = True
                             fixed_string = self.style.SQL_COLTYPE('Fixed.')
 
-                        print("{}: {} {}".format(
-                            fixable_string, error, fixed_string))
+                        print_error_message(fixable_string, error, fixed_string)
 
                         grouped_errors[error].append(questionnaire.id)
 
@@ -104,12 +101,58 @@ class Command(BaseCommand):
                         questionnaire.data = questionnaire_data
                         questionnaire.save()
 
+            # Check the link count. This fixes the problem where duplicate link
+            # entries were created if for example the questionnaire was edited
+            # during the review process. This bug should have been fixed on
+            # Dec 8, 2016.
+            link_count_query = QuestionnaireLink.objects.filter(
+                from_questionnaire=questionnaire).values(
+                'to_questionnaire_id').annotate(
+                total=Count('to_questionnaire_id'))
+            duplicate_links = [
+                link for link in link_count_query if link['total'] > 1]
+            if duplicate_links:
+                if questionnaire not in error_questionnaires:
+                    error_questionnaires.append(questionnaire)
+
+                print_questionnaire_name(questionnaire)
+
+                for duplicate in duplicate_links:
+                    error = 'Too many links ({}) to questionnaire with ID {}.'.\
+                        format(duplicate['total'],
+                               duplicate['to_questionnaire_id'])
+                    fixable_string = self.style.SQL_COLTYPE('Fixable')
+
+                    fixed_string = ''
+                    if do_data_clean:
+                        to_questionnaire = Questionnaire.objects.get(
+                            pk=duplicate['to_questionnaire_id'])
+                        # Remove all links
+                        questionnaire.remove_link(to_questionnaire, symm=False)
+                        # Add a new (single) link
+                        questionnaire.add_link(to_questionnaire, symm=False)
+                        fixed_string = self.style.SQL_COLTYPE('Fixed.')
+
+                    print_error_message(fixable_string, error, fixed_string)
+
         if do_data_clean:
             pre_save.connect(prevent_updates_on_published_items,
                              sender=Questionnaire)
 
         print("\n\n{} questionnaires found with errors (out of {})".format(
             len(error_questionnaires), len(questionnaires)))
+
+
+def print_questionnaire_name(questionnaire):
+    print(
+        "\nQuestionnaire [ID: {}, code: {}, status: {}]".format(
+            questionnaire.id, questionnaire.code,
+            questionnaire.get_status_display()))
+
+
+def print_error_message(fixable_string, error, fixed_string):
+    print("{}: {} {}".format(
+        fixable_string, error, fixed_string))
 
 
 def fix_country_name(data):
