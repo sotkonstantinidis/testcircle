@@ -370,7 +370,7 @@ class ImportObject(Logger):
             return None
 
         if file_id in [
-            4752,
+            4752, 886, 1309,
         ]:
             self.add_mapping_message(
                 'There was a problem with the file {}.'.format(file_id))
@@ -880,6 +880,11 @@ class ImportObject(Logger):
                     # 46 16 33
                     v = int_values[0] + int_values[1] / 60 + \
                         int_values[2] / 3600
+                # Special cases for BHU001
+                elif v == "N26 55.488'":
+                    v = 26.9248
+                elif v == "E089 20.439'":
+                    v = 89.34065
                 else:
                     self.output(
                         'Invalid coordinates ({}) of object {}'.format(
@@ -888,10 +893,6 @@ class ImportObject(Logger):
                     continue
 
             parsed_values.append(v)
-
-        # TODO: Remove this once the data is cleaned again
-        if self.identifier in [1398, 1447]:
-            return {}
 
         for v in parsed_values:
             # Basic coordinates test.
@@ -1386,14 +1387,19 @@ class WOCATImport(Logger):
         # Status filter: qt.qt_quality_review.quality_review = 372 | 373
         # 372: Complete
         # 373: Incomplete
-        status_objects = []
-        for import_object in self.import_objects:
-            not_review_content = import_object.get_wocat_attribute_data(
-                table_name='qt_quality_review',
-                attribute_name='not_review_content')
-            if 372 in not_review_content or 373 in not_review_content:
-                status_objects.append(import_object)
-        self.import_objects = status_objects
+        # status_objects = []
+        # for import_object in self.import_objects:
+        #     not_review_content = import_object.get_wocat_attribute_data(
+        #         table_name='qt_quality_review',
+        #         attribute_name='not_review_content')
+        #     if 372 in not_review_content or 373 in not_review_content:
+        #         status_objects.append(import_object)
+        # self.import_objects = status_objects
+
+        # Filter out all questionnaires which have not code (and therefore no
+        # created_date etc.)
+        self.import_objects = [
+            io for io in self.import_objects if io.code != '']
 
         # Custom filter
         if self.import_objects_filter:

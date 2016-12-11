@@ -2305,7 +2305,49 @@ tech_qg_7 = {
                         'type': 'string',
                         'value_mapping_list': LANDUSE_MAPPING_VERBOSE,
                         'value_prefix': 'Future (final) land use (after implementation of SLM Technology): ',
-                    }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_3',
+                                'wocat_column': 'comment3',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Type of cropping system and major crops comments: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_4',
+                                'wocat_column': 'livestock_grazing',
+                                'value_mapping': 'Livestock is grazing on crop residues'
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_8_4',
+                                        'wocat_column': 'livestock_grazing',
+                                    },
+                                ],
+                                'operator': 'contains',
+                                'value': '271'
+                            }
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_9_2',
+                                'wocat_column': 'comments',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Type of grazing system comments: ',
+                    },
                 ],
                 'type': 'string',
                 'composite': {
@@ -18274,7 +18316,53 @@ tech_qg_71 = {
                     'type': 'checkbox',
                 }
             },
-            # 'tech_mechanisation': {},
+            'tech_mechanisation': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_8_2',
+                        'wocat_column': 'manual_labour',
+                        'value_mapping': 'mechanisation_manual'
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_2',
+                        'wocat_column': 'animal_traction',
+                        'value_mapping': 'mechanisation_animal'
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_2',
+                        'wocat_column': 'mechanised',
+                        'value_mapping': 'mechanisation_mechanised'
+                    }
+                ],
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_2',
+                                'wocat_column': 'manual_labour',
+                                'value_mapping': 'mechanisation_manual'
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_2',
+                                'wocat_column': 'animal_traction',
+                                'value_mapping': 'mechanisation_animal'
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_2',
+                                'wocat_column': 'mechanised',
+                                'value_mapping': 'mechanisation_mechanised'
+                            }
+                        ],
+                        'operator': 'len_lte',
+                        'value': 2,
+                    }
+                ],
+                'condition_message_opposite': 'Too many values for checkbox 5.6 "Level of mechanization" (QT 2.8.8.2), not mapped.',
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
             'tech_gender': {
                 'mapping': [
                     {
