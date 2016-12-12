@@ -13,6 +13,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.core.management.base import BaseCommand
 from fabric.colors import green, yellow, red
 
+from accounts.client import typo3_client
 from accounts.models import User
 from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire, File
@@ -177,6 +178,7 @@ class ImportObject(Logger):
         self.code_wocat = ''
         self.code = ''
         self.language = 'en'
+        self.questionnaire_owner = None
 
         # A list of ImportObjects which are translations of the current object.
         self.translations = []
@@ -222,6 +224,47 @@ class ImportObject(Logger):
         if language not in LANGUAGE_MAPPING:
             raise Exception('Invalid language code: {}'.format(self.code_wocat))
         self.language = language
+
+    def set_owner(self, user_id):
+        """
+        Set the owner of the current import object. If the user does not yet
+        exist in the local database, its user details are queried through the
+        typo3 client and a new user is created.
+
+        Args:
+            user_id: The ID of the user.
+
+        Returns:
+            -
+        """
+        dry_run = self.command_options['dry-run']
+        if dry_run:
+            return
+
+        # TODO: Temporary workaround
+        if user_id in [
+            241, 14, 771, 632, -999
+        ]:
+            user_id = 2365
+
+        try:
+            # Check if user already exists in the DB
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            # If User does not exist, create and update it.
+            user_info = typo3_client.get_user_information(user_id)
+
+            if not user_info:
+                self.add_error(
+                    'validation', 'User with ID {} does not exist.'.format(
+                        user_id))
+                return
+
+            user, created = User.objects.get_or_create(pk=user_info['uid'])
+            typo3_client.update_user(user, user_info)
+
+        self.questionnaire_owner = user
+
 
     def add_error(self, error_type, error_msg):
         if error_type == 'mapping':
@@ -330,13 +373,12 @@ class ImportObject(Logger):
 
         self.data_json_cleaned = cleaned_data
 
-    def save(self, configuration, import_user):
+    def save(self, configuration):
         """
         Actually insert the object in the QCAT database.
 
         Args:
             configuration: The name of the current configuration.
-            import_user: The compiler.
 
         Returns:
             -
@@ -348,8 +390,8 @@ class ImportObject(Logger):
         self.output('Saving object {}'.format(self), v=2)
         questionnaire = Questionnaire.create_new(
             configuration_code=configuration.configuration_keyword,
-            data=self.data_json, user=import_user, previous_version=None,
-            old_data=None, languages=languages)
+            data=self.data_json, user=self.questionnaire_owner,
+            previous_version=None, status=2, old_data=None, languages=languages)
         questionnaire.update_geometry(configuration.configuration_keyword)
         return questionnaire
 
@@ -1242,6 +1284,7 @@ class WOCATImport(Logger):
     image_url = ''
     questionnaire_identifier = ''
     questionnaire_code = ''
+    questionnaire_owner = ''
     tables = []
     mapping = {}
 
@@ -1252,9 +1295,6 @@ class WOCATImport(Logger):
 
         # A collection of all objects to be imported.
         self.import_objects = []
-
-        # TODO: Do not always use the same user as compiler.
-        self.import_user = User.objects.get(pk=2365)
 
         self.configuration = get_configuration(
             configuration_code=self.configuration_code)
@@ -1365,6 +1405,10 @@ class WOCATImport(Logger):
                 code = row.get(self.questionnaire_code)
                 if code:
                     import_object.set_code(code)
+
+                questionnaire_owner = row.get(self.questionnaire_owner)
+                if questionnaire_owner:
+                    import_object.set_owner(questionnaire_owner)
 
                 # If the creation date is available in the current table data,
                 # set it.
@@ -1554,8 +1598,7 @@ class WOCATImport(Logger):
             inserted = []
             self.output('Starting insert of objects ...', v=1)
             for import_object in self.import_objects:
-                inserted_object = import_object.save(
-                    self.configuration, self.import_user)
+                inserted_object = import_object.save(self.configuration)
                 import_object.questionnaire_object = inserted_object
                 inserted.append(inserted_object)
             self.output('{} objects inserted.'.format(len(inserted)), v=0, l='success')
@@ -1590,6 +1633,7 @@ class WOCATImport(Logger):
         self.output('Wrote mapping messages to file {}.'.format(
             MAPPING_MESSAGES_FILENAME), v=1)
 
+
 class QTImport(WOCATImport):
     """
     Contains all the specifications for the import of the WOCAT QT data.
@@ -1614,6 +1658,7 @@ class QTImport(WOCATImport):
     questionnaire_identifier = 'qt_id'
     questionnaire_code = 'technology_code'
     configuration_code = 'technologies'
+    questionnaire_owner = 'owner_id'
 
     mapping = qt_mapping
 
