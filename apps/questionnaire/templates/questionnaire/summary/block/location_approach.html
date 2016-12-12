@@ -10,7 +10,7 @@
     <ul class="bullets">
       {% for list_item in content.infos.geo_reference %}
         <li>
-          {{ list_item }}
+          {{ list_item|join:', ' }}
         </li>
       {% endfor %}
     </ul>

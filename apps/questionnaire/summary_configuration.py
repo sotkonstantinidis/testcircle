@@ -60,29 +60,18 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                     )
                 )
 
-    def extract_coordinates(self, features):
-        """
-        Get only Points, and the first set of coordinates for them.
-        """
-        for point in features:
-            if point['geometry']['type'] == 'Point':
-                yield ', '.join(map(str, point['geometry']['coordinates']))
-
     def get_map_values(self, child: QuestionnaireQuestion):
         """
         Configured function (see ConfigurationConf) for special preparation of
         data to display map data.
         """
-        try:
-            value = self.get_value(child)[0].get('value', {})
-        except IndexError:
+        if not self.questionnaire.geom:
             return {'img_url': '', 'coordinates': ''}
-        features = json.loads(value).get('features', [])
-        # todo: ask lukas: is there a nicer option?
-        return {
-            'img_url': get_static_map_url(self.questionnaire),
-            'coordinates': list(self.extract_coordinates(features))
-        }
+        else:
+            return {
+                'img_url': get_static_map_url(self.questionnaire),
+                'coordinates': self.questionnaire.geom.coords
+            }
 
     def get_full_range_values(self, child: QuestionnaireQuestion):
         values = self.values.get(child.parent_object.keyword)
