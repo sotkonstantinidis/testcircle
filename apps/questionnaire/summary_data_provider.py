@@ -51,13 +51,13 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, summary_type=self.summary_type,
-        #     questionnaire=questionnaire, **data
-        # ).data
-        # self.questionnaire = questionnaire
-        # self.data = dict(self.get_data())
-        self.data = self.get_demo_dict(config_type=config.keyword)
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type,
+            questionnaire=questionnaire, **data
+        ).data
+        self.questionnaire = questionnaire
+        self.data = dict(self.get_data())
+        # self.data = self.get_demo_dict(config_type=config.keyword)
 
     def get_data(self):
         """
@@ -374,12 +374,17 @@ class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                     "geo_reference": self.raw_data.get(
                         'location_map_data'
                     ).get('coordinates'),
-                    "date": {
-                        "title": _("Date of implementation"),
-                        "text": "{start} - {end}".format(
-                            start=self.raw_data_getter('location_initiation_year'),
-                            end=self.raw_data_getter('location_termination_year') or '*'
-                        )
+                    "initiation": {
+                        "title": _("Initiation date"),
+                        "text": self.raw_data_getter('location_initiation_year') or _("unknown")
+                    },
+                    "termination": {
+                        "title": _("Year of termination"),
+                        "text": self.raw_data_getter('location_termination_year') or '*'
+                    },
+                    "type": {
+                        "title": _("Type of Approach"),
+                        "items": self.raw_data.get('location_type')
                     }
                 }
             }

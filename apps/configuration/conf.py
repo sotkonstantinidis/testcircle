@@ -272,5 +272,9 @@ class ConfigurationConf(AppConf):
         'tech_qg_5.location_who_implemented': {
             'override_key': 'location_who_implemented',
             'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'app_qg_5.location_type': {
+            'override_key': 'location_type',
+            'override_fn': lambda self, child: self.get_full_range_values(child)
         }
     }

@@ -5136,7 +5136,10 @@
       "keyword": "app_type",
       "translation": 7013,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_type"
+        }
       },
       "values": [
         3010,
