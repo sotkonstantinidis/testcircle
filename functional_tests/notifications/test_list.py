@@ -73,8 +73,8 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         # After a reload, the notification for robin is shown, displaying one
         # notification log.
         self.browser.get(self.profile_url)
+        self.browser.implicitly_wait(1)
         logs = self.findManyBy('xpath', self.notifications_xpath)
-
         self.assertEqual(len(logs), 1)
         # and the pagination is available.
         self.findBy('class_name', 'pagination-centered')

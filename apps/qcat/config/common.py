@@ -94,11 +94,13 @@ class BaseSettings(Configuration):
     # The first language is the default language.
     LANGUAGES = (
         ('en', _('English')),
-        ('es', _('Spanish')),
         ('fr', _('French')),
+        ('es', _('Spanish')),
         ('ru', _('Russian')),
-        ('pt', _('Portuguese')),
+        ('km', _('Khmer')),
         ('ar', _('Arabic')),
+        ('bs', _('Bosnian')),
+        ('pt', _('Portuguese')),
     )
 
     TIME_ZONE = 'Europe/Zurich'
@@ -166,7 +168,7 @@ class BaseSettings(Configuration):
     LOGIN_URL = 'login'
 
     # TODO: Try if tests can be run with --with-fixture-bundling
-    TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+    TEST_RUNNER = 'qcat.discover_runner.QcatTestSuiteRunner'
     NOSE_ARGS = [
         '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
         '--cover-package=accounts,configuration,qcat,questionnaire,unccd',

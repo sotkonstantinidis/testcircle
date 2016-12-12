@@ -276,6 +276,9 @@ class ListTest(FunctionalTest):
             EC.visibility_of_element_located(
                 (By.ID, "cat_4-heading")))
         self.findBy('id', 'cat_4-heading').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(
+                (By.ID, "key_14-heading")))
         self.findBy('id', 'key_14-heading').click()
         self.findBy('id', 'key_14_value_14_1').click()
         self.apply_filter()

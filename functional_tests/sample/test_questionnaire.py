@@ -4,6 +4,9 @@ from django.http import JsonResponse
 from django.test.utils import override_settings
 from selenium.webdriver.common.action_chains import ActionChains  # noqa
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from unittest.mock import patch
 
 from accounts.models import User
@@ -1060,6 +1063,9 @@ class QuestionnaireTest(FunctionalTest):
             '(//div[@class="tech-section-progress"])[5]/span[@class="steps"]')
         self.assertIn('0/', progress_indicator.text)
 
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.ID, "cat_4"))
+        )
         # She goes back to the questionnaire step and sees that form
         # progress is still at 0 and no checkbox is selected
         self.click_edit_section('cat_4')
@@ -1438,6 +1444,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//img[@alt="Value 15_1"]')
 
         # She goes back to the form
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.ID, "cat_4"))
+        )
         self.click_edit_section('cat_4')
         cb_1_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_1"]')
         cb_1_2 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_2"]')
@@ -1457,6 +1466,9 @@ class QuestionnaireTest(FunctionalTest):
         self.findByNot('xpath', '//img[@alt="Value 15_1"]')
 
         # She goes back to the form
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.ID, "cat_4"))
+        )
         self.click_edit_section('cat_4')
         cb_1_1 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_1"]')
         cb_1_2 = self.findBy('xpath', '//label[@for="id_qg_12-0-key_16_2"]')
@@ -2434,6 +2446,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the form
         self.submit_form_step()
+        from nose.tools import set_trace; set_trace()
 
         # On the overview page, she sees the image she uploaded
         self.findBy('xpath', '//img[@data-interchange]')
@@ -2712,6 +2725,9 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.submit_form_step()
         self.findByNot('xpath', '//*[text()[contains(.,"This is key 1a")]]')
 
+        WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located((By.ID, "cat_5"))
+        )
         # She links another questionnaire
         self.click_edit_section('cat_5')
         self.findBy(

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-24 13:35+0100\n"
+"POT-Creation-Date: 2016-12-06 17:09+0100\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,8 +73,8 @@ msgid "Public questionnaires"
 msgstr ""
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1020
-#: apps/questionnaire/tests/test_utils.py:1028
+#: apps/questionnaire/tests/test_utils.py:1024
+#: apps/questionnaire/tests/test_utils.py:1032
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:146
 msgid "Login"
@@ -270,7 +270,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: apps/configuration/configuration.py:2419
+#: apps/configuration/configuration.py:2439
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr ""
@@ -6537,6 +6537,7 @@ msgid "Adaptation"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:2777
+#: apps/configuration/configuration_translations.py:3009
 msgctxt "technologies label"
 msgid ""
 "Specify if the technology relates to one or more of the other UNCCD themes"
@@ -7285,6 +7286,688 @@ msgctxt "technologies helptext"
 msgid ""
 "Indicate sources of information used for the compilation of information in "
 "this questionnaire."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3001
+msgctxt "unccd label"
+msgid ""
+"Clarify if the technology described in the template, or a part of it, is "
+"covered by property rights"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3002
+msgctxt "unccd label"
+msgid "Please provide relevant information on the holder of the rights"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3003
+#: apps/configuration/configuration_translations.py:4703
+msgctxt "unccd label"
+msgid "Prevailing land use in the specified location"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3004
+#: apps/configuration/configuration_translations.py:3014
+#: apps/configuration/configuration_translations.py:3015
+#: apps/configuration/configuration_translations.py:3017
+msgctxt "unccd label"
+msgid "Specify"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3005
+#: apps/configuration/configuration_translations.py:4704
+msgctxt "unccd label"
+msgid ""
+"Contribution to Desertification, land degradation and drought (DLDD) measures"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3006
+msgctxt "technologies label"
+msgid ""
+"To which strategic objectives of The Strategy does the technology contribute?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3007
+#: apps/configuration/configuration_translations.py:4705
+msgctxt "unccd label"
+msgid "Contribution to the strategic objectives"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3008
+#: apps/configuration/configuration_translations.py:4706
+msgctxt "unccd label"
+msgid "Type of impact"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3010
+#: apps/configuration/configuration_translations.py:4707
+msgctxt "unccd label"
+msgid "Linkages with the other best practice themes"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3011
+#: apps/configuration/configuration_translations.py:4708
+msgctxt "unccd label"
+msgid "Location"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3012
+#: apps/configuration/configuration_translations.py:4734
+msgctxt "unccd label"
+msgid "Short description of the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3013
+#: apps/configuration/configuration_translations.py:4709
+msgctxt "unccd label"
+msgid ""
+"Brief description of the natural environment within the specified location."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3016
+#: apps/configuration/configuration_translations.py:4710
+msgctxt "unccd label"
+msgid ""
+"Prevailing socio-economic conditions of those living in the location and/or "
+"nearby"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3018
+#: apps/configuration/configuration_translations.py:4735
+msgctxt "unccd label"
+msgid "Additional questions of Leg 1"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3019
+msgctxt "technologies label"
+msgid ""
+"On the basis of which criteria and/or indicator(s) has the described "
+"technology been considered as 'best'?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3020
+msgctxt "unccd label"
+msgid ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as ‘best’?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3021
+#: apps/configuration/configuration_translations.py:4712
+msgctxt "unccd label"
+msgid "Main problems addressed by the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3022
+#: apps/configuration/configuration_translations.py:4713
+msgctxt "unccd label"
+msgid ""
+"Outline specific land degradation problems addressed by the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3023
+#: apps/configuration/configuration_translations.py:4714
+msgctxt "unccd label"
+msgid "Specify the objectives of the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3024
+#: apps/configuration/configuration_translations.py:4715
+msgctxt "unccd label"
+msgid "Brief description of main activities, by objective"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3025
+msgctxt "unccd label"
+msgid "Reporting Entity"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3026
+#: apps/configuration/configuration_translations.py:4716
+msgctxt "unccd label"
+msgid "Short description and technical specifications of the technology"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3027
+#: apps/configuration/configuration_translations.py:4717
+msgctxt "unccd label"
+msgid "Name and address of the institution developing the technology"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3028
+#: apps/configuration/configuration_translations.py:4718
+msgctxt "unccd label"
+msgid "Was the technology developed in partnership?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3029
+msgctxt "unccd label"
+msgid "List the partners"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3030
+#: apps/configuration/configuration_translations.py:4719
+msgctxt "unccd label"
+msgid "Specify the framework within which the technology was promoted"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3031
+#: apps/configuration/configuration_translations.py:4720
+msgctxt "unccd label"
+msgid ""
+"Was the participation of local stakeholders, including CSOs, fostered in the "
+"development of the technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3032
+msgctxt "unccd label"
+msgid "List local stakeholders involved"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3033
+#: apps/configuration/configuration_translations.py:4721
+msgctxt "unccd label"
+msgid ""
+"For the stakeholders listed above, specify their role in the design, "
+"introduction, use and maintenance of the technology, if any."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3034
+#: apps/configuration/configuration_translations.py:4722
+msgctxt "unccd label"
+msgid ""
+"Was the population living in the location and/or nearby involved in the "
+"development of the technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3035
+msgctxt "unccd label"
+msgid "By means of what?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3036
+#: apps/configuration/configuration_translations.py:4723
+msgctxt "unccd label"
+msgid "Describe on-site impacts (the major two impacts by category)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3040
+#: apps/configuration/configuration_translations.py:4724
+msgctxt "unccd label"
+msgid ""
+"Describe the major two off-site (i.e. not occurring in the location but in "
+"the surrounding areas) impacts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3041
+msgctxt "unccd label"
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on biodiversity conservation?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3042
+msgctxt "unccd label"
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change mitigation?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3043
+msgctxt "unccd label"
+msgid ""
+"In your opinion does the best practice/technology you have proposed "
+"positively impact on climate change adaptation?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3044
+msgctxt "unccd label"
+msgid "Explain the reasons:"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3045
+#: apps/configuration/configuration_translations.py:4726
+msgctxt "unccd label"
+msgid "Has a cost-benefit analysis been carried out?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3046
+#: apps/configuration/configuration_translations.py:4727
+msgctxt "unccd label"
+msgid "Was the technology disseminated/introduced to other locations?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3047
+msgctxt "unccd label"
+msgid "Where?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3048
+#: apps/configuration/configuration_translations.py:4728
+msgctxt "unccd label"
+msgid "Were incentives to facilitate the take up of the technology provided?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3049
+msgctxt "unccd label"
+msgid "Specify which type of incentives"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3050
+#: apps/configuration/configuration_translations.py:4729
+msgctxt "unccd label"
+msgid ""
+"Can you identify the three main conditions that led to the success of the "
+"presented best practice/technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3051
+msgctxt "unccd label"
+msgid ""
+"In your opinion, the best practice/technology you have proposed can be "
+"replicated, although with some level of adaptation, elsewhere?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3052
+msgctxt "unccd label"
+msgid "At which level?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3053
+#: apps/configuration/configuration_translations.py:4731
+msgctxt "unccd label"
+msgid "Related to human resources"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3054
+#: apps/configuration/configuration_translations.py:4732
+msgctxt "unccd label"
+msgid "Related to financial aspects"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3055
+#: apps/configuration/configuration_translations.py:4733
+msgctxt "unccd label"
+msgid "Related to technical aspects"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3056
+msgctxt "unccd label"
+msgid ""
+"If the location has well defined boundaries, specify its extension in "
+"hectares"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3057
+msgctxt "unccd label"
+msgid "Estimated population living in the location"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3501
+msgctxt "unccd label"
+msgid "Cropland"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3502
+msgctxt "unccd label"
+msgid "Grazing land"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3503
+msgctxt "unccd label"
+msgid "Woodland"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3504
+msgctxt "unccd label"
+msgid "Uproductive land"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3505
+msgctxt "unccd label"
+msgid "Human settlement"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3506
+#: apps/configuration/configuration_translations.py:3539
+#: apps/configuration/configuration_translations.py:3542
+msgctxt "unccd label"
+msgid "Other (please specify)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3507
+msgctxt "unccd label"
+msgid "Prevention"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3508
+msgctxt "unccd label"
+msgid "Mitigation"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3509
+msgctxt "unccd label"
+msgid "Adaptation"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3510
+msgctxt "unccd label"
+msgid "Rehabilitation"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3511
+msgctxt "technologies label"
+msgid "To improve the living conditions of affected populations"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3512
+msgctxt "unccd label"
+msgid "To improve the living conditions of affected populations"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3513
+msgctxt "technologies label"
+msgid "To improve the conditions of affected ecosystems"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3514
+msgctxt "unccd label"
+msgid "To improve the conditions of affected ecosystems"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3515
+msgctxt "technologies label"
+msgid ""
+"To generate global benefits through effective implementation of the "
+"Convention"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3516
+msgctxt "unccd label"
+msgid ""
+"To generate global benefits through effective implementation of the "
+"Convention"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3517
+msgctxt "unccd label"
+msgid "On-site impacts on production or productivity"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3518
+msgctxt "unccd label"
+msgid "On-site socio-economic and cultural impacts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3519
+msgctxt "unccd label"
+msgid "On-site environmental impacts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3520
+msgctxt "unccd label"
+msgid "Other on-site impacts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3521
+msgctxt "unccd label"
+msgid "Off-site impacts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3522
+msgctxt "technologies label"
+msgid "Capacity-building and awareness-raising"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3523
+msgctxt "unccd label"
+msgid "Capacity-building and awareness-raising"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3524
+msgctxt "technologies label"
+msgid "DLDD and SLM monitoring and assessment/research"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3525
+msgctxt "unccd label"
+msgid "DLDD and SLM monitoring and assessment/research"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3526
+msgctxt "technologies label"
+msgid "Knowledge management and decision support"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3527
+msgctxt "unccd label"
+msgid "Knowledge management and decision support"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3528
+msgctxt "technologies label"
+msgid "Policy, legislative and institutional framework"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3529
+msgctxt "unccd label"
+msgid "Policy, legislative and institutional framework"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3530
+msgctxt "technologies label"
+msgid "Funding and resource mobilization"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3531
+msgctxt "unccd label"
+msgid "Funding and resource mobilization"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3532
+msgctxt "technologies label"
+msgid "Participation, collaboration and networking"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3533
+msgctxt "unccd label"
+msgid "Participation, collaboration and networking"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3534
+msgctxt "unccd label"
+msgid "Local initiative"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3535
+msgctxt "unccd label"
+msgid "National initiative – government-led"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3536
+msgctxt "unccd label"
+msgid "National initiative – non-government-led"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3537
+msgctxt "unccd label"
+msgid "International initiative"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3538
+msgctxt "unccd label"
+msgid "Programme/project-based initiative"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3540
+msgctxt "unccd label"
+msgid "Consultation"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3541
+msgctxt "unccd label"
+msgid "Participatory approaches"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3543
+msgctxt "unccd label"
+msgid ""
+"Policy or regulatory incentives (for example, related to market requirements "
+"and regulations, import/export, foreign investment, research & development "
+"support, etc) "
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3544
+msgctxt "unccd label"
+msgid ""
+"Financial incentives (for example, preferential rates, State aid, subsidies, "
+"cash grants, loan guarantees, etc)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3545
+msgctxt "unccd label"
+msgid ""
+"Fiscal incentives (for example, exemption from or reduction of taxes, "
+"duties, fees, etc)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3546
+msgctxt "unccd label"
+msgid "Local"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3547
+msgctxt "unccd label"
+msgid "Sub-national"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3548
+msgctxt "unccd label"
+msgid "National"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3549
+msgctxt "unccd label"
+msgid "Subregional"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3550
+msgctxt "unccd label"
+msgid "Regional"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:3551
+msgctxt "unccd label"
+msgid "International"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4201
+msgctxt "unccd helptext"
+msgid ""
+"Examples of conditions leading to success may include: highly motivated "
+"local governments, farmers organized into well structured cooperatives, "
+"extremely favourable weather conditions, etc. For each ‘condition of "
+"success’ you are able to identify, specify whether in your opinion such "
+"condition is: <ul><li>(a) linked to the local context and thus cannot be "
+"replicated elsewhere;</li><li>(b) replicable elsewhere with some level of "
+"adaptation;</li><li>(c) replicable elsewhere with major adaptation.</li></ul>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4202
+msgctxt "unccd helptext"
+msgid ""
+"Additional questions of Leg 1 which are not in Leg 2 are:<ul><li>Amount "
+"committed</li><li>Beneficiaries</li><li>Civil Society Organizations (CSOs) "
+"and Science & Technology Institutions (STIs)</li><li>Commitment date</"
+"li><li>Funding organization</li><li>Name of activity funded</"
+"li><li>Operational objectives</li><li>Recipient country(ies) or "
+"(sub)region(s)</li><li>Recipient organization(s)</li><li>Relevant Activity "
+"Codes (RACs)</li><li>Reporting Entity</li><li>Reporting entity(ies)</"
+"li><li>Rio Marker for desertification</li><li>Role of the Organization(s) in "
+"the Programme/Project</li><li>Status</li><li>Target area size/administrative "
+"unit</li><li>Target Group</li><li>Title</li><li>United Nations Conventions’ "
+"Rio Markers</li></ul>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4702
+msgctxt "unccd label"
+msgid "Property Rights"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4711
+msgctxt "unccd label"
+msgid ""
+"On the basis of which criteria and/or indicator(s) (not related to The "
+"Strategy) the proposed practice and corresponding technology has been "
+"considered as 'best'?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4725
+msgctxt "unccd label"
+msgid "Impact on biodiversity and climate change"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4730
+msgctxt "unccd label"
+msgid "Replicability"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4901
+#: apps/configuration/configuration_translations.py:5983
+msgctxt "unccd label"
+msgid "General Information"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4902
+msgctxt "unccd label"
+msgid "Classification"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4903
+msgctxt "unccd label"
+msgid ""
+"Section 1. Context of the best practice: frame conditions (natural and human "
+"environment)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4904
+msgctxt "unccd label"
+msgid ""
+"Section 2. Problems addressed (direct and indirect causes) and objectives of "
+"the best practice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4905
+msgctxt "unccd label"
+msgid "Section 3. Activities"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4906
+msgctxt "unccd label"
+msgid ""
+"Section 4. Institutions/actors involved (collaboration, participation, role "
+"of stakeholders)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4907
+msgctxt "unccd label"
+msgid "Section 5. Contribution to impact"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4908
+msgctxt "unccd label"
+msgid "Section 6. Adoption and replicability"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4909
+msgctxt "unccd label"
+msgid "Section 7. Lessons learned"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:4910
+msgctxt "unccd label"
+msgid "Section 8. Additional questions of Leg 1"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:5001
@@ -10280,11 +10963,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5982
 msgctxt "technologies label"
-msgid "General Information"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:5983
-msgctxt "unccd label"
 msgid "General Information"
 msgstr ""
 
@@ -13495,16 +14173,6 @@ msgctxt "cca label"
 msgid "Extent"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:28032
-msgctxt "cca label_left"
-msgid " "
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28033
-msgctxt "cca label_right"
-msgid " "
-msgstr ""
-
 #: apps/configuration/configuration_translations.py:28034
 #: apps/configuration/configuration_translations.py:28090
 msgctxt "cca label"
@@ -15328,7 +15996,7 @@ msgstr ""
 
 #: apps/notifications/receivers.py:37
 #: apps/notifications/tests/test_receivers.py:58
-#: apps/questionnaire/utils.py:619
+#: apps/questionnaire/utils.py:620
 msgid "Created"
 msgstr ""
 
@@ -15471,11 +16139,11 @@ msgid "English"
 msgstr ""
 
 #: apps/qcat/config/common.py:96
-msgid "Spanish"
+msgid "French"
 msgstr ""
 
 #: apps/qcat/config/common.py:97
-msgid "French"
+msgid "Spanish"
 msgstr ""
 
 #: apps/qcat/config/common.py:98
@@ -15483,11 +16151,19 @@ msgid "Russian"
 msgstr ""
 
 #: apps/qcat/config/common.py:99
-msgid "Portuguese"
+msgid "Khmer"
 msgstr ""
 
 #: apps/qcat/config/common.py:100
 msgid "Arabic"
+msgstr ""
+
+#: apps/qcat/config/common.py:101
+msgid "Bosnian"
+msgstr ""
+
+#: apps/qcat/config/common.py:102
+msgid "Portuguese"
 msgstr ""
 
 #: apps/questionnaire/errors.py:20
@@ -15560,11 +16236,11 @@ msgstr ""
 msgid "Submitted as SLM best practice to UNCCD by the national focal point"
 msgstr ""
 
-#: apps/questionnaire/models.py:919
+#: apps/questionnaire/models.py:920
 msgid "This questionnaire can be edited."
 msgstr ""
 
-#: apps/questionnaire/models.py:921
+#: apps/questionnaire/models.py:922
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr ""
@@ -15657,7 +16333,6 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/with_metadata.html:87
 #: apps/questionnaire/templates/details/category/with_metadata.html:96
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/questionnaire/list.html:80
 msgid "Coming soon"
 msgstr ""
 
@@ -15709,7 +16384,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/cca_header.html:109
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
 #: apps/questionnaire/templates/details/category/technologies_header.html:119
-#: apps/questionnaire/templates/details/category/unccd_header.html:105
+#: apps/questionnaire/templates/details/category/unccd_header.html:110
 #: apps/questionnaire/templates/details/category/watershed_header.html:119
 #: apps/questionnaire/templates/details/category/with_metadata.html:116
 msgid "View sections"
@@ -15719,9 +16394,10 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/cca_header.html:111
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:118
 #: apps/questionnaire/templates/details/category/technologies_header.html:121
-#: apps/questionnaire/templates/details/category/unccd_header.html:107
+#: apps/questionnaire/templates/details/category/unccd_header.html:112
 #: apps/questionnaire/templates/details/category/watershed_header.html:121
 #: apps/questionnaire/templates/details/category/with_metadata.html:118
+#: apps/questionnaire/templates/questionnaire/details.html:63
 msgid "Expand all"
 msgstr ""
 
@@ -15729,9 +16405,10 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/cca_header.html:112
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:119
 #: apps/questionnaire/templates/details/category/technologies_header.html:122
-#: apps/questionnaire/templates/details/category/unccd_header.html:108
+#: apps/questionnaire/templates/details/category/unccd_header.html:113
 #: apps/questionnaire/templates/details/category/watershed_header.html:122
 #: apps/questionnaire/templates/details/category/with_metadata.html:119
+#: apps/questionnaire/templates/questionnaire/details.html:64
 msgid "Collapse all"
 msgstr ""
 
@@ -15740,7 +16417,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:138
 #: apps/questionnaire/templates/details/category/technologies_header.html:141
-#: apps/questionnaire/templates/details/category/unccd_header.html:127
+#: apps/questionnaire/templates/details/category/unccd_header.html:132
 #: apps/questionnaire/templates/details/category/watershed_header.html:141
 #: apps/questionnaire/templates/details/category/with_metadata.html:138
 msgid "Edit this section"
@@ -15751,7 +16428,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:152
 #: apps/questionnaire/templates/details/category/technologies_header.html:157
-#: apps/questionnaire/templates/details/category/unccd_header.html:143
+#: apps/questionnaire/templates/details/category/unccd_header.html:148
 #: apps/questionnaire/templates/details/category/watershed_header.html:157
 #: apps/questionnaire/templates/details/category/with_metadata.html:152
 msgid "Empty section"
@@ -15783,6 +16460,10 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
+#: apps/questionnaire/templates/details/category/unccd_header.html:105
+msgid "UNCCD Prais data"
+msgstr ""
+
 #: apps/questionnaire/templates/details/category/watershed_header.html:6
 #: apps/questionnaire/templates/details/category/watershed_header.html:114
 #: apps/watershed/templates/watershed/questionnaire/list.html:13
@@ -15800,7 +16481,7 @@ msgid "Map preview"
 msgstr ""
 
 #: apps/questionnaire/templates/details/field/wms_layer.html:5
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:76
 msgid "Loading ..."
 msgstr ""
 
@@ -15813,22 +16494,22 @@ msgid "Media Gallery"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:23
-#: apps/questionnaire/templates/form/questiongroup/map.html:52
+#: apps/questionnaire/templates/form/questiongroup/map.html:54
 msgid "Number of points on the map"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:25
-#: apps/questionnaire/templates/form/questiongroup/map.html:54
+#: apps/questionnaire/templates/form/questiongroup/map.html:56
 msgid "Zoom to all points on the map"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:28
-#: apps/questionnaire/templates/form/questiongroup/map.html:60
+#: apps/questionnaire/templates/form/questiongroup/map.html:62
 msgid "Show and change the map layer"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:36
-#: apps/questionnaire/templates/form/questiongroup/map.html:96
+#: apps/questionnaire/templates/form/questiongroup/map.html:98
 msgid "Select a layer from the list below."
 msgstr ""
 
@@ -15908,22 +16589,22 @@ msgstr ""
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:66
 #: apps/questionnaire/templates/form/links/approaches.html:63
 #: apps/questionnaire/templates/form/links/default.html:63
-#: apps/questionnaire/templates/form/questiongroup/map.html:130
-#: apps/questionnaire/templates/form/questiongroup/select_link.html:46
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:77
+#: apps/questionnaire/templates/form/questiongroup/map.html:132
+#: apps/questionnaire/templates/form/questiongroup/select_link.html:48
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
-#: apps/technologies/templates/technologies/add_module.html:38
+#: apps/technologies/templates/technologies/add_module.html:39
 msgid "No results found"
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
 #: apps/questionnaire/templates/form/links/approaches.html:63
 #: apps/questionnaire/templates/form/links/default.html:63
-#: apps/questionnaire/templates/form/questiongroup/map.html:130
-#: apps/questionnaire/templates/form/questiongroup/select_link.html:47
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:77
+#: apps/questionnaire/templates/form/questiongroup/map.html:132
+#: apps/questionnaire/templates/form/questiongroup/select_link.html:49
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
-#: apps/technologies/templates/technologies/add_module.html:39
+#: apps/technologies/templates/technologies/add_module.html:40
 msgid "Too many results found, please narrow the search"
 msgstr ""
 
@@ -16467,6 +17148,10 @@ msgstr ""
 msgid "Select or type a Country name"
 msgstr ""
 
+#: apps/questionnaire/templates/filter.html:35
+msgid "Language"
+msgstr ""
+
 #: apps/questionnaire/templates/filter.html:53
 msgid "Creation Date"
 msgstr ""
@@ -16493,7 +17178,7 @@ msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:77
 #: apps/questionnaire/templates/form/category.html:164
-#: apps/questionnaire/templates/questionnaire/details.html:190
+#: apps/questionnaire/templates/questionnaire/details.html:282
 msgid "Close"
 msgstr ""
 
@@ -16521,17 +17206,17 @@ msgid "Save and go to next section"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:165
-#: apps/questionnaire/templates/questionnaire/details.html:191
+#: apps/questionnaire/templates/questionnaire/details.html:283
 msgid "Next"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:166
-#: apps/questionnaire/templates/questionnaire/details.html:192
+#: apps/questionnaire/templates/questionnaire/details.html:284
 msgid "Back"
 msgstr ""
 
 #: apps/questionnaire/templates/form/category.html:167
-#: apps/questionnaire/templates/questionnaire/details.html:193
+#: apps/questionnaire/templates/questionnaire/details.html:285
 msgid "Done"
 msgstr ""
 
@@ -16580,22 +17265,22 @@ msgid "Pick a date"
 msgstr ""
 
 #: apps/questionnaire/templates/form/field/file_upload.html:22
-#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:59
-#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other.html:80
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:61
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other.html:82
 #: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other_other.html:80
-#: apps/questionnaire/templates/form/questiongroup/columns_24_24_24.html:73
-#: apps/questionnaire/templates/form/questiongroup/columns_24_e4_e4.html:79
-#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:62
-#: apps/questionnaire/templates/form/questiongroup/columns_custom.html:74
-#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:62
-#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:63
-#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:72
-#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:63
-#: apps/questionnaire/templates/form/questiongroup/columns_o6_r6.html:63
-#: apps/questionnaire/templates/form/questiongroup/default.html:58
-#: apps/questionnaire/templates/form/questiongroup/measure_other.html:62
-#: apps/questionnaire/templates/form/questiongroup/select_link.html:54
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:152
+#: apps/questionnaire/templates/form/questiongroup/columns_24_24_24.html:75
+#: apps/questionnaire/templates/form/questiongroup/columns_24_e4_e4.html:81
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:64
+#: apps/questionnaire/templates/form/questiongroup/columns_custom.html:76
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:64
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:65
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:74
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:65
+#: apps/questionnaire/templates/form/questiongroup/columns_o6_r6.html:65
+#: apps/questionnaire/templates/form/questiongroup/default.html:60
+#: apps/questionnaire/templates/form/questiongroup/measure_other.html:64
+#: apps/questionnaire/templates/form/questiongroup/select_link.html:56
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:154
 #: apps/questionnaire/templates/form/questiongroup/table1.html:46
 #: apps/questionnaire/templates/form/questiongroup/table1.html:68
 #: apps/questionnaire/templates/form/questiongroup/table2.html:43
@@ -16659,10 +17344,10 @@ msgstr ""
 
 #: apps/questionnaire/templates/form/links/approaches.html:63
 #: apps/questionnaire/templates/form/links/default.html:63
-#: apps/questionnaire/templates/form/questiongroup/select_link.html:45
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:77
+#: apps/questionnaire/templates/form/questiongroup/select_link.html:47
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:34
-#: apps/technologies/templates/technologies/add_module.html:37
+#: apps/technologies/templates/technologies/add_module.html:38
 msgid "Search"
 msgstr ""
 
@@ -16693,39 +17378,39 @@ msgstr ""
 msgid "+ [TODO] Advanced Questions"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:41
-#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other.html:42
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:43
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other.html:44
 #: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other_other.html:42
-#: apps/questionnaire/templates/form/questiongroup/columns_24_24_24.html:39
-#: apps/questionnaire/templates/form/questiongroup/columns_24_e4_e4.html:39
-#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:38
-#: apps/questionnaire/templates/form/questiongroup/columns_custom.html:47
-#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:38
-#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:39
-#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:38
-#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:39
-#: apps/questionnaire/templates/form/questiongroup/columns_o6_r6.html:39
-#: apps/questionnaire/templates/form/questiongroup/default.html:40
+#: apps/questionnaire/templates/form/questiongroup/columns_24_24_24.html:41
+#: apps/questionnaire/templates/form/questiongroup/columns_24_e4_e4.html:41
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:40
+#: apps/questionnaire/templates/form/questiongroup/columns_custom.html:49
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:40
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:41
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:40
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:41
+#: apps/questionnaire/templates/form/questiongroup/columns_o6_r6.html:41
+#: apps/questionnaire/templates/form/questiongroup/default.html:42
 msgid "Drag and drop the number to order the list"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:72
-#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other.html:93
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:74
+#: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other.html:95
 #: apps/questionnaire/templates/form/questiongroup/checkbox_toggle_other_other.html:93
-#: apps/questionnaire/templates/form/questiongroup/columns_24_24_24.html:85
-#: apps/questionnaire/templates/form/questiongroup/columns_24_e4_e4.html:92
-#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:75
-#: apps/questionnaire/templates/form/questiongroup/columns_custom.html:87
-#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:75
-#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:76
-#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:85
-#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:76
-#: apps/questionnaire/templates/form/questiongroup/columns_o6_r6.html:76
-#: apps/questionnaire/templates/form/questiongroup/default.html:71
-#: apps/questionnaire/templates/form/questiongroup/measure_other.html:71
-#: apps/questionnaire/templates/form/questiongroup/select_link.html:65
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:162
-#: apps/questionnaire/templates/form/questiongroup/table.html:63
+#: apps/questionnaire/templates/form/questiongroup/columns_24_24_24.html:87
+#: apps/questionnaire/templates/form/questiongroup/columns_24_e4_e4.html:94
+#: apps/questionnaire/templates/form/questiongroup/columns_26_r6.html:77
+#: apps/questionnaire/templates/form/questiongroup/columns_custom.html:89
+#: apps/questionnaire/templates/form/questiongroup/columns_e4_e4_e4.html:77
+#: apps/questionnaire/templates/form/questiongroup/columns_e6_e6.html:78
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_o8.html:87
+#: apps/questionnaire/templates/form/questiongroup/columns_o4_r8.html:78
+#: apps/questionnaire/templates/form/questiongroup/columns_o6_r6.html:78
+#: apps/questionnaire/templates/form/questiongroup/default.html:73
+#: apps/questionnaire/templates/form/questiongroup/measure_other.html:73
+#: apps/questionnaire/templates/form/questiongroup/select_link.html:67
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:164
+#: apps/questionnaire/templates/form/questiongroup/table.html:64
 #: apps/questionnaire/templates/form/questiongroup/table1.html:77
 #: apps/questionnaire/templates/form/questiongroup/table2.html:74
 #: apps/questionnaire/templates/form/questiongroup/table3.html:85
@@ -16734,74 +17419,74 @@ msgstr ""
 msgid "Add More"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:41
+#: apps/questionnaire/templates/form/questiongroup/map.html:43
 msgid "Add a point by clicking on the map"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:45
+#: apps/questionnaire/templates/form/questiongroup/map.html:47
 msgid "Click and hold an existing point on the map to move it."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:49
+#: apps/questionnaire/templates/form/questiongroup/map.html:51
 msgid "Delete an existing point on the map by clicking it."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:57
+#: apps/questionnaire/templates/form/questiongroup/map.html:59
 msgid "Delete all points from the map"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:63
+#: apps/questionnaire/templates/form/questiongroup/map.html:65
 msgid "Set a point based on GPS coordinates"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:66
+#: apps/questionnaire/templates/form/questiongroup/map.html:68
 msgid "Search and zoom to a location on the map"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:69
+#: apps/questionnaire/templates/form/questiongroup/map.html:71
 msgid "Change the size of the map"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:77
+#: apps/questionnaire/templates/form/questiongroup/map.html:79
 msgid ""
 "Please enter the coordinates in the field below. The coordinates must be of "
 "format \"Latitude, Longitude\", eg. \"46.9526, 7.4352\"."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:80
+#: apps/questionnaire/templates/form/questiongroup/map.html:82
 msgid "Coordinates:"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:128
+#: apps/questionnaire/templates/form/questiongroup/map.html:130
 msgid ""
 "Enter the name of a village, city, etc. in the textfield below and select "
 "one of the results to zoom to its location."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:63
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:65
 msgid "Search a registered WOCAT user by typing the name of the person."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:63
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:65
 msgid "Registered User"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:67
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:69
 msgid "Enter the details of a person not registered in the WOCAT database."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:67
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:69
 msgid "Non-registered User"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:72
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid ""
 "<ul><li>You can search a registered WOCAT user by typing the name of the "
 "person.</li><li>If the person is not a registered WOCAT user, select the "
 "option \"Non-registered Person\" above.</li></ul>"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:76
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:78
 msgid "Search a registered WOCAT user"
 msgstr ""
 
@@ -16826,25 +17511,80 @@ msgstr ""
 msgid "Photo"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:197
+#: apps/questionnaire/templates/questionnaire/details.html:61
+msgid "Links and modules"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:71
+msgid "Links"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:82
+msgid "No links"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:89
+#: apps/wocat/templates/wocat/partial/add.html:65
+msgid "Modules"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:100
+msgid "No modules"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:108
+msgid "Add a new module"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:113
+#: apps/sample/templates/sample/add_module.html:27
+#: apps/technologies/templates/technologies/add_module.html:31
+msgid "1. Select a Technology"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/sample/templates/sample/add_module.html:53
+#: apps/technologies/templates/technologies/add_module.html:57
+msgid "2. Select a module"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:120
+#: apps/sample/templates/sample/add_module.html:56
+#: apps/technologies/templates/technologies/add_module.html:60
+msgid "Select a module which you would like to add to the Technology."
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:128
+#: apps/sample/templates/sample/add_module.html:70
+#: apps/technologies/templates/technologies/add_module.html:74
+msgid "3. Create the module"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:130
+#: apps/sample/templates/sample/add_module.html:72
+#: apps/technologies/templates/technologies/add_module.html:76
+msgid "Create"
+msgstr ""
+
+#: apps/questionnaire/templates/questionnaire/details.html:289
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:200
+#: apps/questionnaire/templates/questionnaire/details.html:292
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:204
+#: apps/questionnaire/templates/questionnaire/details.html:296
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:209
+#: apps/questionnaire/templates/questionnaire/details.html:301
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -16871,72 +17611,72 @@ msgstr ""
 msgid "File is too big"
 msgstr ""
 
-#: apps/questionnaire/utils.py:599
+#: apps/questionnaire/utils.py:600
 msgid "Search Terms"
 msgstr ""
 
-#: apps/questionnaire/utils.py:621
+#: apps/questionnaire/utils.py:622
 msgid "Updated"
 msgstr ""
 
-#: apps/questionnaire/utils.py:638
+#: apps/questionnaire/utils.py:639
 msgid "Unknown"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1239
+#: apps/questionnaire/utils.py:1251
 msgid "The questionnaire was successfully submitted."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1271
+#: apps/questionnaire/utils.py:1283
 msgid "The questionnaire was successfully reviewed."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1309
+#: apps/questionnaire/utils.py:1321
 msgid "New version was published"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1337
+#: apps/questionnaire/utils.py:1349
 msgid "The questionnaire was successfully set public."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1376
+#: apps/questionnaire/utils.py:1388
 msgid "The questionnaire was successfully rejected."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1466
+#: apps/questionnaire/utils.py:1478
 msgid "Assigned users were successfully updated"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1494
+#: apps/questionnaire/utils.py:1506
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
 "later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1516
+#: apps/questionnaire/utils.py:1528
 msgid "The flag was successfully set."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1540
+#: apps/questionnaire/utils.py:1552
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
 "again later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1561
+#: apps/questionnaire/utils.py:1573
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
 "public version which still shows the flag."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1568
+#: apps/questionnaire/utils.py:1580
 msgid "New version due to unccd flagging"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1574
+#: apps/questionnaire/utils.py:1586
 msgid "The questionnaire was succesfully removed"
 msgstr ""
 
@@ -16944,15 +17684,15 @@ msgstr ""
 msgid "Data successfully saved."
 msgstr ""
 
-#: apps/questionnaire/views.py:965
+#: apps/questionnaire/views.py:987
 msgid "QCAT Form"
 msgstr ""
 
-#: apps/questionnaire/views.py:1325
+#: apps/questionnaire/views.py:1369
 msgid "No or multiple files provided."
 msgstr ""
 
-#: apps/questionnaire/views.py:1415
+#: apps/questionnaire/views.py:1459
 msgid "Successfully removed questionnaire"
 msgstr ""
 
@@ -16966,34 +17706,9 @@ msgstr ""
 msgid "SAMPLE: More information about the modules and stuff."
 msgstr ""
 
-#: apps/sample/templates/sample/add_module.html:27
-#: apps/technologies/templates/technologies/add_module.html:30
-msgid "1. Select a Technology"
-msgstr ""
-
 #: apps/sample/templates/sample/add_module.html:30
-#: apps/technologies/templates/technologies/add_module.html:33
+#: apps/technologies/templates/technologies/add_module.html:34
 msgid "Search and select a Technology to which you would like to add a module."
-msgstr ""
-
-#: apps/sample/templates/sample/add_module.html:53
-#: apps/technologies/templates/technologies/add_module.html:56
-msgid "2. Select a module"
-msgstr ""
-
-#: apps/sample/templates/sample/add_module.html:56
-#: apps/technologies/templates/technologies/add_module.html:59
-msgid "Select a module which you would like to add to the Technology."
-msgstr ""
-
-#: apps/sample/templates/sample/add_module.html:70
-#: apps/technologies/templates/technologies/add_module.html:73
-msgid "3. Create the module"
-msgstr ""
-
-#: apps/sample/templates/sample/add_module.html:72
-#: apps/technologies/templates/technologies/add_module.html:75
-msgid "Create"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/list.html:33
@@ -17037,7 +17752,7 @@ msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/list.html:78
 #: apps/wocat/templates/wocat/partial/top.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:80
+#: apps/wocat/templates/wocat/questionnaire/list.html:79
 msgid "Advanced filter"
 msgstr ""
 
@@ -17087,14 +17802,17 @@ msgid "Only data declared as public are visible."
 msgstr ""
 
 #: apps/technologies/templates/technologies/add_module.html:18
-msgid "Add a module to an existing Technology."
+msgid ""
+"You can add a module to an existing SLM Technology. If the SLM Technology is "
+"not included in the WOCAT SLM Technology database yet, please first add it."
 msgstr ""
 
-#: apps/technologies/templates/technologies/add_module.html:21
-msgid ""
-"Currently the module \"Climate Change Adaptation\" exists. Further modules "
-"are in discussion: \"Climate Change Mitigation/ Carbon Benefits\" and "
-"\"Disaster Risk Reduction\"."
+#: apps/technologies/templates/technologies/add_module.html:19
+msgid "Add new SLM Technology."
+msgstr ""
+
+#: apps/technologies/templates/technologies/add_module.html:22
+msgid "Currently the module \"Climate Change Adaptation\" can be added."
 msgstr ""
 
 #: apps/technologies/templates/technologies/base.html:6
@@ -17477,10 +18195,6 @@ msgstr ""
 msgid "Mapping and assessing Land Management"
 msgstr ""
 
-#: apps/wocat/templates/wocat/partial/add.html:65
-msgid "Modules"
-msgstr ""
-
 #: apps/wocat/templates/wocat/partial/add.html:66
 msgid ""
 "Modules provide in-depth information on specific topics related to SLM "
@@ -17527,7 +18241,11 @@ msgstr ""
 msgid "Show all SLM practices"
 msgstr ""
 
-#: apps/wocat/templates/wocat/questionnaire/list.html:104
+#: apps/wocat/templates/wocat/questionnaire/list.html:90
+msgid "A revised filter is coming soon."
+msgstr ""
+
+#: apps/wocat/templates/wocat/questionnaire/list.html:109
 msgid "WOCAT and UNCCD SLM practices"
 msgstr ""
 

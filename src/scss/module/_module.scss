@@ -55,3 +55,21 @@ span.module-gallery-title {
   margin-top: 1rem;
   margin-bottom: 0;
 }
+
+.module-form-embedded {
+  margin-top: 2rem;
+}
+
+.module-form-embedded-container {
+  border: 1px solid #D9D6CC;
+  margin-top: 1rem;
+  padding: 1.5rem;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  #modules-select-module h3, #modules-create h3 {
+    margin-top: 1.5rem;
+  }
+}
