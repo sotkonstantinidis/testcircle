@@ -632,11 +632,14 @@ class QuestionnaireSaveMixin(StepsMixin):
         for removed in self.object.links.exclude(id__in=linked_ids):
             self.object.remove_link(removed)
 
+        existing_links = self.object.links.all()
+
         # Add links to all questionnaires in the list
         for linked in linked_ids:
             with contextlib.suppress(Questionnaire.DoesNotExist):
                 link = Questionnaire.objects.get(pk=linked)
-                self.object.add_link(link)
+                if link not in existing_links:
+                    self.object.add_link(link)
 
 
 class GenericQuestionnaireMapView(TemplateResponseMixin, View):
