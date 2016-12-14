@@ -1637,6 +1637,9 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
 
     def get(self, request, *args, **kwargs):
         self.questionnaire = self.get_object(id=self.kwargs['id'])
+        self.code = self.questionnaire.configurations.filter(
+            active=True
+        ).first().code
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
@@ -1658,7 +1661,6 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
         """
         Get questionnaire and check status / permissions.
         """
-
         status_filter = get_query_status_filter(self.request)
         status_filter &= Q(id=id)
         obj = Questionnaire.with_status.not_deleted().filter(
@@ -1677,8 +1679,6 @@ class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
             locale=get_language(),
             original_locale=questionnaire.original_locale
         )
-        self.code = questionnaire.configurations.filter(
-            active=True).first().code
         return get_summary_data(
             config=get_configuration(configuration_code=self.code),
             summary_type=self.summary_type,
