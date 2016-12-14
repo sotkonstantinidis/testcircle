@@ -107,7 +107,7 @@ body.summary {
     max-width: 100%;
   }
   .img-caption {
-    background-color: #C5CFBB;
+    background-color: rgba(85,116,49,.8);
     color: white;
     padding: 0rem 1rem 0.12rem 1rem;
     font-size: 0.6rem;
@@ -215,7 +215,7 @@ body.summary {
   {
     width: 15px;
     height: 15px;
-    background-color: #999999;
+    background-color: rgba(85, 116, 49, 0.1);
     float: left;
     margin: 0px 2px 2px 0px;
   }
@@ -241,7 +241,7 @@ body.summary {
 
   .range_true::before
   {
-    background-color: $color-green;
+    background-color: #768f5a;
     float: left;
     margin: 0px 2px 2px 0px;
     padding-left: 1px;
@@ -261,8 +261,9 @@ body.summary {
 
  .divider
  {
-    border-top: 1px solid $color-green;
+    border-top: 1px solid #768f5a;
     padding: 10px 0px 10px 0px;
  }
+
 
 }

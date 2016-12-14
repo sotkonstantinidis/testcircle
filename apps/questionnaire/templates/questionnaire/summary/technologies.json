@@ -3,7 +3,7 @@
     "title": "",
     "partials": {
       "image": {
-        "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+        "url": "/static/assets/img/terraces.png"
       },
       "caption": {
         "title": "A nice picture",
@@ -29,7 +29,7 @@
     "title": "Location",
     "partials": {
       "map": {
-        "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+        "url": ""
       },
       "infos": {
         "location": {
@@ -151,12 +151,12 @@
         "title": "Land use",
         "partials": [
           {
-            "url": "/icon-wheat.png",
+            "url": "/static/assets/img/pictos/land_1.png",
             "label": "Annual cropping",
             "text": "Main crops: wheat, maize, potato, peas, millet, sorghum"
           },
           {
-            "url": "/icon-wood.png",
+            "url": "/static/assets/img/pictos/land_6.png",
             "label": "(Semi-)natural forests/ woodlands",
             "text": "Selective felling; used for timber, fuelwood, other forest products"
           }
@@ -220,22 +220,22 @@
         "title": "Degradation addressed",
         "partials": [
           {
-            "url": "/icon-water-erosion.png",
+            "url": "/static/assets/img/pictos/degra_watererosion.png",
             "label": "Soil erosion by water",
             "text": "loss of topsoil, gully erosion"
           },
           {
-            "url": "/icon-chemical-degradation.png",
+            "url": "/static/assets/img/pictos/degra_2_chem.png",
             "label": "Chemical degradation",
             "text": "fertility decline and reduced organic matter content"
           },
           {
-            "url": "/icon-water-degradation.png",
+            "url": "/static/assets/img/pictos/degra_waterdegrade.png",
             "label": "Water degradation",
             "text": "aridification"
           },
           {
-            "url": "/icon-soil-erosion.png",
+            "url": "/static/assets/img/pictos/degra_watererosion.png",
             "label": "Soil erosion by water",
             "text": "downstream siltation of the Yellow River"
           }
@@ -253,17 +253,17 @@
         "title": "SLM measures",
         "partials": [
           {
-            "url": "/icon-terrace.png",
+            "url": "/static/assets/img/pictos/swc_1_struc.png",
             "label": "Structural",
             "text": "Terraces"
           },
           {
-            "url": "/icon-vegetative.png",
+            "url": "/static/assets/img/pictos/swc_3_veg.png",
             "label": "Vegetative",
             "text": "Grasses and perennial herbaceous plants"
           },
           {
-            "url": "/icon-management.png",
+            "url": "/static/assets/img/pictos/swc_4_manag.png",
             "label": "Agronomic",
             "text": "Contour tillage, application of manure"
           }
