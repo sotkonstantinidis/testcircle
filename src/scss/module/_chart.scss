@@ -139,14 +139,14 @@ body.summary
       padding-left: 1.2rem;
       margin-top: 0rem;
       position: relative;
-      color: #999;
+      color: #CFD2CC;
       &::before {
         font-size: 1rem;
         content: ' ';
         display: block;
         height: 15px;
         width: 15px;
-        background-color: #999;
+        background-color: rgba(85, 116, 49, 0.1);
         left: 0;
         top: 0.05rem;
         position: absolute;
@@ -159,7 +159,7 @@ body.summary
           line-height: 1em;
           font-size: 1.2em;
           content: '\2713 ';
-          background-color: $color-green;
+          background-color: rgba(85,116,49,.8);
         }
       }
     }
