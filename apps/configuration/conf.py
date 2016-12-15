@@ -276,5 +276,14 @@ class ConfigurationConf(AppConf):
         'app_qg_5.location_type': {
             'override_key': 'location_type',
             'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'qg_photos.header_image_image': {
+            'override_key': 'images_image'
+        },
+        'qg_photos.header_image_caption': {
+            'override_key': 'images_caption'
+        },
+        'qg_photos.header_image_photographer': {
+            'override_key': 'images_photographer'
         }
     }

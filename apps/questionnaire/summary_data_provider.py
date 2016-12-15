@@ -51,13 +51,13 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, summary_type=self.summary_type,
-        #     questionnaire=questionnaire, **data
-        # ).data
-        # self.questionnaire = questionnaire
-        # self.data = dict(self.get_data())
-        self.data = self.get_demo_dict(config_type=config.keyword)
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type,
+            questionnaire=questionnaire, **data
+        ).data
+        self.questionnaire = questionnaire
+        self.data = dict(self.get_data())
+        # self.data = self.get_demo_dict(config_type=config.keyword)
 
     def get_data(self):
         """
@@ -143,6 +143,28 @@ class GlobalValuesMixin:
             'partials': {
                 'lead': self.raw_data_getter('definition'),
                 'text': self.raw_data_getter('description')
+            }
+        }
+
+    def images(self):
+        image_urls = self.raw_data_getter('images_image', value='')
+        image_captions = self.raw_data_getter('images_caption', value='')
+        image_photographers = self.raw_data_getter(
+            'images_photographer', value=''
+        )
+        images = []
+        if image_urls:
+            for index, image in enumerate(image_urls[:2]):
+                images.append({
+                    'url': image['value'],
+                    'caption': '{caption}\n{photographer}'.format(
+                        caption=image_captions[index].get('value') or '',
+                        photographer=image_photographers[index].get('value') or ''
+                    )}
+                )
+        return {
+            "partials": {
+                "images": images
             }
         }
 
@@ -301,7 +323,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description',
+        return ['header_image', 'title', 'location', 'description', 'images',
                 'conclusion', 'references']
 
     def location(self):
