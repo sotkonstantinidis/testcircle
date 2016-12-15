@@ -1,4 +1,3 @@
-import json
 import logging
 
 from django.conf import settings
@@ -75,6 +74,8 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
 
     def get_full_range_values(self, child: QuestionnaireQuestion):
         values = self.values.get(child.parent_object.keyword)
+        if not values:
+            return {}
         if len(values) != 1:
             raise NotImplementedError()
         selected = values[0].get(child.keyword)
