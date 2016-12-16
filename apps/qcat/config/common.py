@@ -268,6 +268,10 @@ class BaseSettings(Configuration):
     OPBEAT_URL_DEV = values.Value(environ_prefix='')
     OPBEAT_URL_LIVE = values.Value(environ_prefix='')
 
+    SENTRY_KEY = values.Value(environ_prefix='')
+    SENTRY_SECRET = values.Value(environ_prefix='')
+    SENTRY_PROJECT = values.Value(environ_prefix='')
+
     HOST_STRING_DEV = values.Value(environ_prefix='')
     HOST_STRING_LIVE = values.Value(environ_prefix='')
 

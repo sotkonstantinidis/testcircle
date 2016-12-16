@@ -122,3 +122,28 @@ class OpBeatMixin:
         return super().MIDDLEWARE_CLASSES + (
             'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
         )
+
+
+class SentryMixin:
+    """
+    Config for sentry.
+    """
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + (
+            'raven.contrib.django.raven_compat',
+        )
+
+    @property
+    def RAVEN_CONFIG(self):
+        import os
+        import raven
+        dsn = 'https://{key}:{secret}@sentry.io/{project}'.format(
+            key=super().SENTRY_KEY,
+            secret=super().SENTRY_SECRET,
+            project=super().SENTRY_PROJECT
+        )
+        return {
+            'dsn': dsn,
+            'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+        }

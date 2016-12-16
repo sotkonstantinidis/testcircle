@@ -6,3 +6,4 @@
 
 opbeat==3.2.2
 pylibmc==1.5.1
+raven==5.32.0
