@@ -25,15 +25,11 @@ ENVIRONMENTS = {
         'branch': 'develop',
         'label': 'dev',
         'host_string': settings.HOST_STRING_DEV,
-        'opbeat_url': settings.OPBEAT_URL_DEV,
-        'opbeat_bearer': settings.OPBEAT_BEARER_DEV,
     },
     'master': {
         'branch': 'master',
         'label': 'live',
         'host_string': settings.HOST_STRING_LIVE,
-        'opbeat_url': settings.OPBEAT_URL_LIVE,
-        'opbeat_bearer': settings.OPBEAT_BEARER_LIVE,
         'url': 'https://qcat.wocat.net/{}/wocat/list/?type=all',
     },
     'common': {
@@ -216,25 +212,3 @@ def _access_project():
             with contextlib.closing(urllib.request.urlopen(env.url.format(lang[0]))) as request:
                 request.read()
                 print('Read response from: {}'.format(request.url))
-
-
-@task
-@runs_once
-def register_deployment():
-    """
-    Call register_deployment with a local path that contains a .git directory
-    after a release has been deployed.
-    """
-    require('environment', provided_by=(develop, master))
-    local_project_folder = dirname(dirname(__file__))
-    with(lcd(local_project_folder)):
-        revision = local('git log -n 1 --pretty="format:%H"', capture=True)
-        branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
-        local('curl https://intake.opbeat.com/api/v1/organizations/{}'
-              ' -H "Authorization: Bearer {}"'
-              ' -d rev="{}"'
-              ' -d branch="{}"'
-              ' -d status=completed'.format(env.opbeat_url,
-                                            env.opbeat_bearer,
-                                            revision,
-                                            branch))

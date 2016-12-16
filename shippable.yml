@@ -13,17 +13,13 @@ env:
   # secure keys must include:
   # HOST_STRING_DEV
   # HOST_STRING_LIVE
-  # OPBEAT_BEARER_DEV
-  # OPBEAT_URL_DEV
-  # OPBEAT_BEARER_LIVE
-  # OPBEAT_URL_LIVE
   # AUTH_API_USER
   # AUTH_API_KEY
   # these values are used for testing / deployment only, so the must not
   # necessarily match the proper values from develop / production.
 
   global:
-    - secure: VIEGLYq5OhB08T9JSMuAyJVqfiJXW2pD0hyNXlbkEVS6XOe6cK9UwC3zsn0q3jSILd9Athmh6u1nmK5dIdezpQx90ki318RVCwawKcTkvHzNd8qxXq+1QHrmwocLcp2cSe5ipPcE3t/rdYOLJkd7ouPZS0AOSnLDuiKjE8E/pLoJJ/Swrj+JJcVow6u+SyqF+iseVIPeY+F7jeyv3T9tHfB9aG9z43Iy3m+JPX4tTC0hIhRBHmCezu1f9O27m+If6ouGNTThzo+7ftVQxBLw7vdbi5pwxvyagCK0vyGHJ56Vxfj1UhGkHC0uwtEEI2g8UVKXDhg+1lTLNqEoIYijBbpaUgSR6LPDGRlMcerUzuLwDPCJ8A78lP7o6lOomWvAbbV/10XFYUafrR4rqVXxMCKk0MnW0N/xjmd+yjsp2FZUKQ43228NkTWWUS/eK0/f2KM7lzNyAwhh2U2JkgFkY9QEO+oZNf5/g+hBuqLjAUeRRq0+BJJzYVutSDCBbltTzcDTT4S1JJ4peL35z00uLymOEeKqA+VC79Sfjn+oZW374lf/jbZiISJdyhIn4hqwD8+RikEphnrYewh8E9VB+JCR3pDwLklJppn8KJM+cUeiz8zev+XFWCdS+0IBuCp/TId1JOZVzLSoG6rxuc9a0tJmImVvnVHkVADvrPHnp38GcZkqrZzBni78XA7gXf/vU77wsn59XzyNPon6mwpYFHUtP4TrpJj0tYDPyb5VUpG/0Cjasd2eHBWmCWkziVeBMUSoAYGmvb7V3sw0h550erG5+yi5N0jQhmCgLrn1k/xel9ppjYUyky7WCYvqMmj58rR3uETTe9uLrBxK4ugMPfCQs3cgYlicCItgoe/0mr41JEVeLieFZgtYQJIWKcM5yF7UNrd2C02fg/Vs63W0sfVL9+rj3wVhvlKLCpp3Dt97HdkE3wKmf38BIMpHMUF73T/T+Rfa8vb5KrMc0uFtByEHFUzhkVIzk8xDr+u1vSDlOc5M8UXJFPPJgq3dm28c
+    - secure: NnP6iF/5IpfFNj3kTVPyfpDyzYXOeUm9hmafGWWZbt7wH8iTA2CYE/74R2PIGryEWREtu1nQtpTQsgb2MLU8eTkbUNHFM13Fi+a4QgWh2GjAYXgNAN3AuDzR7Dg4dXsDkk0vi5KGQLiUh0nL/Rwez4FBfy92pmaG/PAAB3ywV/7uW28s+JteSJoLaBLGrRA5Mhixr/5eh2Roau9fAmoO00fa+2xize7ZF3yUDVum8pkN5y03zYHkh4m/zgeBc+qBqGNT6yD5q76KnYhCJJ5cBOcRSoOb7LKAe5pj2Ptv1HB4z7dT9I9BBt4Zm+6Ovk0VEql69EN7BlOMQ0PGVvM86g==
 
 cache: true
 
@@ -81,7 +77,6 @@ after_success:
 #  - mv unittests.xml shippable/testresults/
 #  - mv reports/*.xml shippable/testresults/ && rmdir reports
   - fab $BRANCH deploy
-  - fab $BRANCH register_deployment
 
 notifications:
   email:
