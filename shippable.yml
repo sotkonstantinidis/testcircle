@@ -78,7 +78,15 @@ after_success:
 #  - mv reports/*.xml shippable/testresults/ && rmdir reports
   - fab $BRANCH deploy
 
-notifications:
-  email:
-    on_success: change
-    on_failure: always
+integrations:
+  notifications:
+    - integrationName: slack
+      type: slack
+      recipients:
+        - "#server-info"
+      branches:
+        only:
+          - master
+          - dev
+      on_success: always
+      on_failure: always
