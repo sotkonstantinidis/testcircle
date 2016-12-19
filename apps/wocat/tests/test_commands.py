@@ -819,6 +819,76 @@ class TestImport(WOCATImport):
                 }
             },
             'to_repeating_questiongroup': True,
+        },
+        'qg_27': {
+            'questions': {
+                'question_27_1': {
+                    'mapping': [
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': 'table_27_1',
+                                    'wocat_column': 'column_27_1_1'
+                                },
+                                {
+                                    'wocat_table': 'table_27_1',
+                                    'wocat_column': 'column_27_1_2',
+                                    'mapping_prefix': 'Other: '
+                                }
+                            ]
+                        },
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': 'table_27_1',
+                                    'wocat_column': 'column_27_1_3'
+                                },
+                                {
+                                    'wocat_table': 'table_27_1',
+                                    'wocat_column': 'column_27_1_4',
+                                    'mapping_prefix': 'Other: '
+                                }
+                            ]
+                        }
+                    ],
+                    'type': 'string',
+                },
+            },
+            'split_questions': True,
+        },
+        'qg_28': {
+            'questions': {
+                'question_28_1': {
+                    'mapping': [
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': 'table_28_1',
+                                    'wocat_column': 'column_28_1_1'
+                                }
+                            ]
+                        },
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': 'table_28_1',
+                                    'wocat_column': 'column_28_1_2'
+                                }
+                            ]
+                        },
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': 'table_28_1',
+                                    'wocat_column': 'column_28_1_3'
+                                }
+                            ]
+                        }
+                    ],
+                    'type': 'string',
+                }
+            },
+            'split_questions': True,
         }
     }
     configuration_code = 'sample'
@@ -1087,6 +1157,20 @@ class DoMappingTest(TestCase):
                     'column_26_1_3': '2',
                     'column_26_1_4': 'Bar',
                 }
+            ],
+            'table_27_1': [
+                {
+                    'column_27_1_1': 'one one',
+                    'column_27_1_2': 'one two',
+                    'column_27_1_3': 'two one',
+                    'column_27_1_4': 'two two',
+                }
+            ],
+            'table_28_1': [
+                {
+                    'column_28_1_1': 'one',
+                    'column_28_1_2': 'two',
+                }
             ]
         }
         lookup_table_text = {}
@@ -1338,6 +1422,20 @@ class DoMappingTest(TestCase):
                     'column_25_2_2': 'Faz 4 English',
                 }
             ],
+            'table_27_1': [
+                {
+                    'column_27_1_1': 'one one',
+                    'column_27_1_2': 'one two',
+                    'column_27_1_3': 'two one',
+                    'column_27_1_4': 'two two',
+                }
+            ],
+            'table_28_1': [
+                {
+                    'column_28_1_1': 'one',
+                    'column_28_1_2': 'two',
+                }
+            ]
         }
         lookup_table_text = {}
         file_infos = {}
@@ -1380,6 +1478,19 @@ class DoMappingTest(TestCase):
                     'column_25_2_1': 'Foo 4 French',
                 },
             ],
+            'table_27_1': [
+                {
+                    'column_27_1_1': 'un un',
+                    'column_27_1_2': 'un deux',
+                }
+            ],
+            'table_28_1': [
+                {
+                    'column_28_1_1': 'un',
+                    'column_28_1_2': 'deux',
+                    'column_28_1_3': 'trois'
+                }
+            ]
         }
 
         self.imprt.import_objects = [
@@ -1959,6 +2070,57 @@ class DoMappingTest(TestCase):
             'Number of translations for table_25_2 in language "fr" do not '
             'match the number of original entries.',
             import_object_3.mapping_messages)
+
+    def test_repeating_questiongroups_across_columns(self):
+        self.imprt.check_translations()
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        qg_data_27 = import_object_1.data_json.get('qg_27')
+        self.assertEqual(len(qg_data_27), 2)
+        self.assertEqual(qg_data_27[0], {
+            'question_27_1': {'en': 'one one\n\nOther: one two'}
+        })
+        self.assertEqual(qg_data_27[1], {
+            'question_27_1': {'en': 'two one\n\nOther: two two'}
+        })
+        import_object_2 = self.imprt.import_objects[1]
+        qg_data_27 = import_object_2.data_json.get('qg_27')
+        self.assertIsNone(qg_data_27)
+        import_object_3 = self.imprt.import_objects[2]
+        qg_data_27 = import_object_3.data_json.get('qg_27')
+        self.assertEqual(len(qg_data_27), 2)
+        self.assertEqual(qg_data_27[0], {
+            'question_27_1': {'en': 'one one\n\nOther: one two',
+                              'fr': 'un un\n\nOther: un deux'}
+        })
+        self.assertEqual(qg_data_27[1], {
+            'question_27_1': {'en': 'two one\n\nOther: two two'}
+        })
+
+    def test_repeating_questiongroups_across_columns_2(self):
+        self.imprt.check_translations()
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        qg_data_28 = import_object_1.data_json.get('qg_28')
+        self.assertEqual(len(qg_data_28), 2)
+        self.assertEqual(qg_data_28[0], {
+            'question_28_1': {'en': 'one'}
+        })
+        self.assertEqual(qg_data_28[1], {
+            'question_28_1': {'en': 'two'}
+        })
+        import_object_2 = self.imprt.import_objects[2]
+        qg_data_28 = import_object_2.data_json.get('qg_28')
+        self.assertEqual(len(qg_data_28), 3)
+        self.assertEqual(qg_data_28[0], {
+            'question_28_1': {'en': 'one', 'fr': 'un'}
+        })
+        self.assertEqual(qg_data_28[1], {
+            'question_28_1': {'en': 'two', 'fr': 'deux'}
+        })
+        self.assertEqual(qg_data_28[2], {
+            'question_28_1': {'fr': 'trois'}
+        })
 
     # from nose.plugins.attrib import attr
     # @attr('foo')

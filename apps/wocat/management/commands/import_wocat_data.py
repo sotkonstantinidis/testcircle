@@ -18,7 +18,8 @@ from accounts.models import User
 from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire, File
 from questionnaire.utils import clean_questionnaire_data
-from wocat.management.commands.qt_mapping import qt_mapping
+from wocat.management.commands.qt_mapping import qt_mapping, \
+    custom_mapping_messages
 
 pp = pprint.PrettyPrinter(indent=2)
 
@@ -241,12 +242,6 @@ class ImportObject(Logger):
         if dry_run:
             return
 
-        # TODO: Temporary workaround
-        if user_id in [
-            241, 14, 771, 632, -999
-        ]:
-            user_id = 2365
-
         try:
             # Check if user already exists in the DB
             user = User.objects.get(pk=user_id)
@@ -454,6 +449,11 @@ class ImportObject(Logger):
         else:
             self.add_error('mapping', 'Unsupported content type: {}'.format(
                 mapped_content_type))
+
+    def add_custom_mapping_messages(self, custom_mapping_messages):
+        for custom_mapping_message in custom_mapping_messages:
+            if self.identifier in custom_mapping_message.get('ids', []):
+                self.add_mapping_message(custom_mapping_message.get('message'))
 
     def add_mapping_message(self, message):
         if message and message not in self.mapping_messages:
@@ -857,6 +857,10 @@ class ImportObject(Logger):
             return {}
 
         if q_type == 'dropdown':
+            try:
+                value = int(value)
+            except ValueError:
+                pass
             return {
                 qcat_question_keyword: value
             }
@@ -1268,6 +1272,49 @@ class ImportObject(Logger):
             if existing_qg_data:
                 self.data_json[qcat_questiongroup_keyword] = existing_qg_data
 
+        elif questiongroup_properties.get('split_questions', False) is True:
+
+            # Add special merging options
+            for question_keyword, question_properties in questiongroup_properties.get(
+                    'questions', {}).items():
+                composite_options = question_properties.get('composite', {})
+                composite_options.update({
+                    'type': 'merge',
+                    'separator': 'QUESTIONSEPARATOR'
+                })
+                question_properties['composite'] = composite_options
+            single_questiongroup_mapping(
+                qcat_questiongroup_keyword, questiongroup_properties)
+
+            # Separate the data again
+            questiongroup_data_list = self.data_json.get(
+                qcat_questiongroup_keyword, [])
+
+            grouped_questions = {}
+            max_length = 0
+            for questiongroup_data in questiongroup_data_list:
+                for question_keyword, question_data in questiongroup_data.items():
+                    grouped_questions[question_keyword] = {}
+                    for lang, data in question_data.items():
+                        data_split = data.split('QUESTIONSEPARATOR')
+                        max_length = max(len(data_split), max_length)
+                        grouped_questions[question_keyword][lang] = data_split
+
+            new_data_list = []
+            for i in range(max_length):
+                new_data = {}
+                for question_keyword, langs in grouped_questions.items():
+                    new_data[question_keyword] = {}
+                    for lang, data in langs.items():
+                        try:
+                            new_data[question_keyword][lang] = data[i]
+                        except IndexError:
+                            pass
+                new_data_list.append(new_data)
+
+            if new_data_list:
+                self.data_json[qcat_questiongroup_keyword] = new_data_list
+
         else:
             single_questiongroup_mapping(
                 qcat_questiongroup_keyword, questiongroup_properties)
@@ -1399,6 +1446,10 @@ class WOCATImport(Logger):
                     import_object = ImportObject(
                         identifier, self.command_options, lookup_table,
                         lookup_table_text, file_infos, self.image_url)
+
+                    import_object.add_custom_mapping_messages(
+                        self.custom_mapping_messages)
+
                     self.import_objects.append(import_object)
 
                 # If the code is available in the current table data, set it.
@@ -1661,6 +1712,7 @@ class QTImport(WOCATImport):
     questionnaire_owner = 'owner_id'
 
     mapping = qt_mapping
+    custom_mapping_messages = custom_mapping_messages
 
     # Optionally specify a list of IDs (qt_id) to filter the QT Questionnaires.
     import_objects_filter = []
