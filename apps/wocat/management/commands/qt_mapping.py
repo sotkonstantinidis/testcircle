@@ -22641,6 +22641,34 @@ qg_weaknesses_compiler = {
     }
 }
 
+# 7.2 References to available publications
+qg_references = {
+    'qg_references': {
+        'questions': {
+            'references_title': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_annex_1_reference',
+                        'wocat_column': 'reference',
+                    }
+                ],
+                'type': 'string',
+            },
+            'references_source': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_annex_1_reference',
+                        'wocat_column': 'cost',
+                    }
+                ],
+                'type': 'string',
+            },
+        },
+        'repeating': True,
+        'wocat_table': 'qt_annex_1_reference'
+    }
+}
+
 
 
 questiongroups = [
@@ -22718,6 +22746,7 @@ questiongroups = [
     qg_strengths_compiler,  # 6.7 Strengths/ advantages/ opportunities of the Technology: Compiler's view
     qg_weaknesses_landusers,  # 6.8 Weaknesses/ disadvantages/ risks of the Technology: Land user's view
     qg_weaknesses_compiler,  # 6.8 Weaknesses/ disadvantages/ risks of the Technology: Compiler's view
+    qg_references,  # 7.2 References to available publications
 ]
 impact_qgs = [
     tech_qg_76,  # 6.1 Production > crop production
