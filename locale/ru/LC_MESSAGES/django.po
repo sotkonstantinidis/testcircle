@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 16:56+0100\n"
-"PO-Revision-Date: 2016-12-19 15:44+0000\n"
-"Last-Translator: Julia Johnson <yukuleshova@gmail.com>\n"
+"POT-Creation-Date: 2016-12-19 16:58+0100\n"
+"PO-Revision-Date: 2016-12-19 15:58+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -14301,12 +14301,9 @@ msgid "Threshold"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid "Experienced climate-related extremes (disasters)"
-msgstr "Другие экстремальные климатические явления (стихийные бедствия)"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
 msgctxt "cca label"

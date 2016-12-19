@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 16:56+0100\n"
-"PO-Revision-Date: 2016-12-19 15:44+0000\n"
-"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
+"POT-Creation-Date: 2016-12-19 16:58+0100\n"
+"PO-Revision-Date: 2016-12-19 15:58+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -15157,12 +15157,9 @@ msgid "Threshold"
 msgstr "Seuil"
 
 #: apps/configuration/configuration_translations.py:22300
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid "Experienced climate-related extremes (disasters)"
-msgstr "autres extrêmes climatiques (catastrophes) "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
 msgctxt "cca label"
@@ -20314,13 +20311,6 @@ msgid "Note:"
 msgstr "Note:"
 
 #: apps/search/templates/search/help_text.html:3
-#, fuzzy
-#| msgid ""
-#| "The WOCAT datasets have not been migrated yet. Currently, the database "
-#| "only contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
-#| "Practices still needs to be done in the old database. The migration of "
-#| "the WOCAT data from the old to the new database will be migrated during "
-#| "first half of 2017."
 msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
@@ -20328,12 +20318,6 @@ msgid ""
 "WOCAT data from the old to the new database will be done during the first "
 "half of 2017."
 msgstr ""
-"Les données WOCAT n’ont pas encore été transférées ici. Actuellement, la "
-"présente base de données ne contient que les données de l’initiative PRAIS "
-"de l’UNCCD. Par conséquent, la recherche des pratiques de GDT existantes "
-"doit encore être faite à partir de l'ancienne base de données. La migration "
-"des données WOCAT de l'ancienne vers la nouvelle base de données aura lieu "
-"durant la première moitié de 2017. "
 
 #: apps/search/templates/search/help_text.html:4
 #: apps/unccd/templates/unccd/questionnaire/list.html:10
