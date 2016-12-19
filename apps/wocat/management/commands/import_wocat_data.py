@@ -247,6 +247,11 @@ class ImportObject(Logger):
         if dry_run:
             return
 
+        # Yes, this is a very ugly shortcut to deal with duplicate email entries
+        # in the (fortunately soon obsolete) user database.
+        if user_id == 165:
+            user_id = 551
+
         try:
             # Check if user already exists in the DB
             user = User.objects.get(pk=user_id)
@@ -1679,24 +1684,32 @@ class WOCATImport(Logger):
     def write_mapping_messages(self):
 
         file = open(MAPPING_MESSAGES_FILENAME, 'w')
+        configuration = get_configuration('technologies')
 
         print('Mapping messages of WOCAT import on {}\n\n'.format(
             datetime.now()), file=file)
 
         for import_object in self.import_objects:
-            if not import_object.mapping_messages:
-                continue
 
             print('WOCAT Code: {}'.format(import_object.code), file=file)
+            print('WOCAT ID: {}'.format(import_object.identifier), file=file)
             qcat_code = '-'
             qcat_url = ''
+            questionnaire_name = ''
             if import_object.questionnaire_object is not None:
-                qcat_code = import_object.questionnaire_object.code
-                activate(import_object.questionnaire_object.original_locale)
+                questionnaire_object = import_object.questionnaire_object
+                qcat_code = questionnaire_object.code
+                activate(questionnaire_object.original_locale)
                 qcat_url = reverse(
                     'technologies:questionnaire_details', args=[qcat_code])
-            print('QCAT ID: {}'.format(qcat_code), file=file)
+                name_dict = configuration.get_questionnaire_name(
+                    questionnaire_object.data)
+                questionnaire_name = name_dict.get(
+                    questionnaire_object.original_locale, 'Unknown Name')
+
+            print('QCAT Code: {}'.format(qcat_code), file=file)
             print('URL: {}'.format(qcat_url), file=file)
+            print('Name: {}'.format(questionnaire_name), file=file)
             print('Mapping messages:\n{}'.format('\n'.join(import_object.get_mapping_messages())), file=file)
 
             print('\n', file=file)
