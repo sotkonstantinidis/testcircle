@@ -10,12 +10,16 @@ import requests
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import UploadedFile
+from django.core.management import color_style
 from django.core.management.base import BaseCommand
-from fabric.colors import green, yellow, red
+from django.core.urlresolvers import reverse
+from django.utils.translation import activate
 
 from accounts.client import typo3_client
 from accounts.models import User
 from configuration.cache import get_configuration
+from notifications.receivers import create_questionnaire
+from questionnaire import signals
 from questionnaire.models import Questionnaire, File
 from questionnaire.utils import clean_questionnaire_data
 from wocat.management.commands.qt_mapping import qt_mapping, \
@@ -120,6 +124,7 @@ class Logger:
     A mixin used to log output.
     """
     command_options = {}
+    style = color_style()
 
     def output(self, msg, v=None, l=None, pretty=False):
         """
@@ -136,11 +141,11 @@ class Logger:
             -
         """
         if l == 'error':
-            msg = red(msg)
+            msg = self.style.NOTICE(msg)
         elif l == 'warning':
-            msg = yellow(msg)
+            msg = self.style.WARNING(msg)
         elif l == 'success':
-            msg = green(msg)
+            msg = self.style.SQL_COLTYPE(msg)
         if not v or v <= self.command_options['verbosity']:
             if pretty is True:
                 pp.pprint(msg)
@@ -259,7 +264,6 @@ class ImportObject(Logger):
             typo3_client.update_user(user, user_info)
 
         self.questionnaire_owner = user
-
 
     def add_error(self, error_type, error_msg):
         if error_type == 'mapping':
@@ -450,14 +454,17 @@ class ImportObject(Logger):
             self.add_error('mapping', 'Unsupported content type: {}'.format(
                 mapped_content_type))
 
-    def add_custom_mapping_messages(self, custom_mapping_messages):
-        for custom_mapping_message in custom_mapping_messages:
+    def add_custom_mapping_messages(self, custom_messages):
+        for custom_mapping_message in custom_messages:
             if self.identifier in custom_mapping_message.get('ids', []):
                 self.add_mapping_message(custom_mapping_message.get('message'))
 
     def add_mapping_message(self, message):
         if message and message not in self.mapping_messages:
             self.mapping_messages.append(message)
+
+    def get_mapping_messages(self):
+        return sorted(self.mapping_messages)
 
     def apply_index_filter(self, values, index_filter):
         index_values = self.collect_mapping(
@@ -1641,17 +1648,25 @@ class WOCATImport(Logger):
             if import_object.mapping_messages:
                 mapping_messages_count += 1
                 self.output('\nMapping messages for {}:\n{}'.format(
-                    import_object, '\n'.join(import_object.mapping_messages)), v=3)
+                    import_object, '\n'.join(import_object.get_mapping_messages())), v=3)
         self.output('{} objects with mapping messages.'.format(mapping_messages_count), v=2)
 
         dry_run = self.command_options['dry-run']
         if not dry_run:
+
+            # Deactivate signal which creates notifications
+            signals.create_questionnaire.disconnect(create_questionnaire)
+
             inserted = []
             self.output('Starting insert of objects ...', v=1)
             for import_object in self.import_objects:
                 inserted_object = import_object.save(self.configuration)
                 import_object.questionnaire_object = inserted_object
                 inserted.append(inserted_object)
+
+            # Reactivate notification signal
+            signals.create_questionnaire.connect(create_questionnaire)
+
             self.output('{} objects inserted.'.format(len(inserted)), v=0, l='success')
         else:
             self.output(
@@ -1674,10 +1689,15 @@ class WOCATImport(Logger):
 
             print('WOCAT Code: {}'.format(import_object.code), file=file)
             qcat_code = '-'
+            qcat_url = ''
             if import_object.questionnaire_object is not None:
                 qcat_code = import_object.questionnaire_object.code
+                activate(import_object.questionnaire_object.original_locale)
+                qcat_url = reverse(
+                    'technologies:questionnaire_details', args=[qcat_code])
             print('QCAT ID: {}'.format(qcat_code), file=file)
-            print('Mapping messages:\n{}'.format('\n'.join(import_object.mapping_messages)), file=file)
+            print('URL: {}'.format(qcat_url), file=file)
+            print('Mapping messages:\n{}'.format('\n'.join(import_object.get_mapping_messages())), file=file)
 
             print('\n', file=file)
 

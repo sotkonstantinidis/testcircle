@@ -1459,7 +1459,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1483,7 +1483,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1516,7 +1516,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1540,7 +1540,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1573,7 +1573,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1597,7 +1597,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1630,7 +1630,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1654,7 +1654,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1687,7 +1687,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1711,7 +1711,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1744,7 +1744,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1768,7 +1768,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1804,7 +1804,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1840,7 +1840,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1876,7 +1876,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1912,7 +1912,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1935,7 +1935,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     # End of conditional mapping of grazing land information.
 
@@ -1972,7 +1972,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1996,7 +1996,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2029,7 +2029,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -2053,7 +2053,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2086,7 +2086,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -2110,7 +2110,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2128,7 +2128,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Plantation forestry selected in QT 2.8.10.2, but no automatic mapping to one of plantation subcategories possible in QCAT 3.2. Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Plantation forestry selected in QT 2.8.10.2, but no automatic mapping to one of plantation subcategories possible in QCAT 3.2. Using comment section of QCAT 3.2 for this data.',
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2284,7 +2284,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -2328,7 +2328,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     # End of (conditional) mapping of forest land information.
                     {
@@ -2801,7 +2801,7 @@ tech_qg_19 = {
                                 'value': 2
                             }
                         ],
-                        'condition_message': 'More than one value found for QCAT 3.3 Water supply (QT 2.8.8.4). Using comments in QCAT 3.3 for this data.'
+                        'condition_message': 'QCAT 3.3 Further information about land use: More than one value found for QCAT 3.3 Water supply (QT 2.8.8.4 / 2.8.9.3). Using comments in QCAT 3.3 for this data.'
                     },
                     {
                         'mapping': [
@@ -7359,7 +7359,7 @@ tech_qg_35 = {
                         'value': 2
                     }
                 ],
-                'condition_message_opposite': 'Too many values for checkbox 3.8 "Prevention, reduction or restoration of land degradation".'
+                'condition_message_opposite': 'QCAT 3.8 Prevention, reduction, or restoration of land degradation: Too many values for checkbox 3.8 "Prevention, reduction or restoration of land degradation" (QT 2.2.2.3).'
             },
             'tech_prevention_comments': {
                 'mapping': [
@@ -13011,7 +13011,7 @@ tech_qg_54 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.1 "Annual rainfall", using "Specifications/ comments on rainfall" of 5.1 for this data."',
+                        'condition_message': 'QCAT 5.1 Climate: Too many values for checkbox 5.1 "Annual rainfall" (QT 2.7.1), using "Specifications/ comments on rainfall" of 5.1 for this data."',
                         'type': 'string',
                         'composite': {
                             'separator': ', '
@@ -14667,7 +14667,7 @@ tech_qg_57 = {
                             },
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.2 "Slopes on average", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'condition_message': 'QCAT 5.2 Topography: Too many values for checkbox 5.2 "Slopes on average" (QT 2.7.8), using "Comments and further specifications on topography" of 5.2 for this data."',
                         'type': 'string',
                         'value_prefix': 'Slopes on average: ',
                         'composite': {
@@ -14927,7 +14927,7 @@ tech_qg_57 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.2 "Landforms", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'condition_message': 'QCAT 5.2 Topography: Too many values for checkbox 5.2 "Landforms" (QT 2.7.7), using "Comments and further specifications on topography" of 5.2 for this data."',
                         'type': 'string',
                         'value_prefix': 'Landforms: ',
                         'composite': {
@@ -15295,7 +15295,7 @@ tech_qg_57 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.2 "Altitudinal zone", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'condition_message': 'QCAT 5.2 Topography: Too many values for checkbox 5.2 "Altitudinal zone" (QT 2.7.6), using "Comments and further specifications on topography" of 5.2 for this data."',
                         'type': 'string',
                         'value_prefix': 'Altitudinal zone: ',
                         'composite': {
@@ -16166,7 +16166,7 @@ tech_qg_59 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.3 "Soil depth on average", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'condition_message': 'QCAT 5.3 Soils: Too many values for checkbox 5.3 "Soil depth on average" (QT 2.7.9), using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
                         'type': 'string',
                         'value_prefix': 'Soil depth on average: ',
                         'composite': {
@@ -16309,7 +16309,7 @@ tech_qg_59 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.3 "Soil texture (topsoil)", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'condition_message': 'QCAT 5.3 Soils: Too many values for checkbox 5.3 "Soil texture (topsoil)" (QT 2.7.10), using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
                         'type': 'string',
                         'value_prefix': 'Soil texture (topsoil): ',
                         'composite': {
@@ -17220,7 +17220,7 @@ tech_qg_65 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.4 "Ground water table", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'condition_message': 'QCAT 5.4 Water availability and quality: Too many values for radio 5.4 "Ground water table" (QT 2.7.15), using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
                         'type': 'string',
                         'value_prefix': 'Ground water table: ',
                         'composite': {
@@ -17402,7 +17402,7 @@ tech_qg_65 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.4 "Availability of surface water", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'condition_message': 'QCAT 5.4 Water availability and quality: Too many values for radio 5.4 "Availability of surface water" (QT 2.7.16), using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
                         'type': 'string',
                         'value_prefix': 'Availability of surface water: ',
                         'composite': {
@@ -17584,7 +17584,7 @@ tech_qg_65 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.4 "Water quality (untreated)", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'condition_message': 'QCAT 5.4 Water availability and quality: Too many values for radio 5.4 "Water quality (untreated)" (QT 2.7.17), using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
                         'type': 'string',
                         'value_prefix': 'Water quality (untreated): ',
                         'composite': {
@@ -17936,7 +17936,7 @@ tech_qg_67 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.5 "Species diversity", using "Comments and further specifications on biodiversity" of 5.5 for this data."',
+                        'condition_message': 'QCAT 5.5 Biodiversity: Too many values for radio 5.5 "Species diversity" (QT 2.7.18), using "Comments and further specifications on biodiversity" of 5.5 for this data."',
                         'type': 'string',
                         'value_prefix': 'Species diversity: ',
                         'composite': {
@@ -18603,7 +18603,7 @@ tech_qg_71 = {
                         'value': 2,
                     }
                 ],
-                'condition_message_opposite': 'Too many values for checkbox 5.6 "Level of mechanization" (QT 2.8.8.2), not mapped.',
+                'condition_message_opposite': 'QCAT 5.6 Characteristics of land users applying the Technology: Too many values for checkbox 5.6 "Level of mechanization" (QT 2.8.8.2), not mapped.',
                 'type': 'checkbox',
                 'composite': {
                     'type': 'checkbox',
@@ -19024,7 +19024,7 @@ tech_qg_77 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.6 "Relative level of wealth", using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
+                        'condition_message': 'QCAT 5.6 Characteristics of land users applying the Technology: Too many values for checkbox 5.6 "Relative level of wealth" (QT 2.8.5), using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
                         'type': 'string',
                         'value_prefix': 'Relative level of wealth: ',
                         'composite': {
@@ -19288,7 +19288,7 @@ tech_qg_77 = {
                                 'value': 3
                             }
                         ],
-                        'condition_message': 'Too many values for checkbox 5.6 "Market orientation of production system", using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
+                        'condition_message': 'QCAT 5.6 Characteristics of land users applying the Technology: Too many values for checkbox 5.6 "Market orientation of production system" (QT 2.8.8.1 / 2.8.9.1 / 2.8.10.1), using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
                         'type': 'string',
                         'value_prefix': 'Market orientation of production system: ',
                         'composite': {
@@ -20077,7 +20077,7 @@ tech_qg_72 = {
                                 'value': 3
                             }
                         ],
-                        'condition_message': 'Too many values for checkbox 5.7 "Average area of land owned or leased by land users applying the Technology", using "Comments" of 5.7 for this data."'
+                        'condition_message': 'QCAT 5.7 Average area of land owned or leased: Too many values for checkbox 5.7 "Average area of land owned or leased by land users applying the Technology" (QT 2.8.8.6 / 2.8.9.5 / 2.8.10.4), using "Comments" of 5.7 for this data."'
                     },
                 ],
                 'type': 'string',
@@ -21069,7 +21069,7 @@ tech_qg_75 = {
                                     }
                                 ],
                                 'conditions_join': 'and',
-                                'condition_message': 'Too many values for checkbox 5.8 "Land ownership", using "Comments" of 5.8 for this data."',
+                                'condition_message': 'QCAT 5.8 Land ownership, land use rights, and water use rights: Too many values for checkbox 5.8 "Land ownership" (2.8.4), using "Comments" of 5.8 for this data."',
                                 'type': 'string',
                                 'value_prefix': 'Land ownership: ',
                                 'composite': {
