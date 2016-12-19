@@ -270,6 +270,32 @@ POOR_GOOD_MAPPING = {
     200: '2',
     201: '3',
 }
+IMPACT_MAPPING = {
+    'positive_13': '4',
+    'positive_14': '5',
+    'positive_15': '6',
+    'positive_16': '7',
+    'negative_13': '4',
+    'negative_14': '3',
+    'negative_15': '2',
+    'negative_16': '1',
+}
+COST_BENEFIT_MAPPING = {
+    21: 'costbenefit_verynegative',
+    22: 'costbenefit_negative',
+    23: 'costbenefit_slightlynegative',
+    24: 'costbenefit_neutral',
+    25: 'costbenefit_slightlypositive',
+    26: 'costbenefit_positive',
+    27: 'costbenefit_verypositive',
+}
+TREND_MAPPING = {
+    28: 'There is no trend towards spontaneous adoption of the Technology',
+    29: 'There is a little trend towards spontaneous adoption of the Technology',
+    30: 'There is a moderate trend towards spontaneous adoption of the Technology',
+    31: 'There is a strong trend towards spontaneous adoption of the Technology'
+}
+
 
 qg_name = {
     'qg_name': {
@@ -1433,7 +1459,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1457,7 +1483,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1490,7 +1516,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1514,7 +1540,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1547,7 +1573,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1571,7 +1597,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1604,7 +1630,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1628,7 +1654,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1661,7 +1687,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1685,7 +1711,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1718,7 +1744,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1742,7 +1768,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1778,7 +1804,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1814,7 +1840,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1850,7 +1876,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -1886,7 +1912,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_9_2',
@@ -1909,7 +1935,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on grazing land in QT 2.8.9.2, but "grazing land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     # End of conditional mapping of grazing land information.
 
@@ -1946,7 +1972,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -1970,7 +1996,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2003,7 +2029,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -2027,7 +2053,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2060,7 +2086,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.',
                         'conditions_join': 'and'
                     },
                     {
@@ -2084,7 +2110,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.2, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2102,7 +2128,7 @@ tech_qg_7 = {
                                 'operator': 'is_empty',
                             }
                         ],
-                        'condition_message': 'Plantation forestry selected in QT 2.8.10.2, but no automatic mapping to one of plantation subcategories possible in QCAT 3.2. Using comment section of QCAT 3.2 for this data.',
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Plantation forestry selected in QT 2.8.10.2, but no automatic mapping to one of plantation subcategories possible in QCAT 3.2. Using comment section of QCAT 3.2 for this data.',
                     },
                     {
                         'wocat_table': 'qt_2_8_10_2',
@@ -2185,6 +2211,16 @@ tech_qg_7 = {
                     {
                         'mapping': [
                             {
+                                'wocat_table': 'qt_2_8_10_2',
+                                'wocat_column': 'comment'
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Problems / comments regarding forest use: '
+                    },
+                    {
+                        'mapping': [
+                            {
                                 'wocat_table': 'qt_2_8_10_3',
                                 'wocat_column': 'timber',
                                 'lookup_text': 961,
@@ -2248,7 +2284,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     {
                         'mapping': [
@@ -2292,7 +2328,7 @@ tech_qg_7 = {
                                 'value_mapping_list': LANDUSE_MAPPING
                             }
                         ],
-                        'condition_message': 'Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1 (QCAT 3.2). Using comment section of QCAT 3.2 for this data.'
+                        'condition_message': 'QCAT 3.2 Current land use type(s): Indications on forest land in QT 2.8.10.3, but "forest land" not selected as land use type in QT 2.2.2.1. Using comment section of QCAT 3.2 for this data.'
                     },
                     # End of (conditional) mapping of forest land information.
                     {
@@ -2305,7 +2341,259 @@ tech_qg_7 = {
                         'type': 'string',
                         'value_mapping_list': LANDUSE_MAPPING_VERBOSE,
                         'value_prefix': 'Future (final) land use (after implementation of SLM Technology): ',
-                    }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_3',
+                                'wocat_column': 'comment3',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Type of cropping system and major crops comments: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_4',
+                                'wocat_column': 'livestock_grazing',
+                                'value_mapping': 'Livestock is grazing on crop residues'
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_8_4',
+                                        'wocat_column': 'livestock_grazing',
+                                    },
+                                ],
+                                'operator': 'contains',
+                                'value': '271'
+                            }
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_9_2',
+                                'wocat_column': 'comments',
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Type of grazing system comments: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'mines',
+                                        'value_mapping': 'mines and extractive industries',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'mines_constraints'
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ': '
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'settlement',
+                                        'value_mapping': 'settlement / urban',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'settlement_constraints'
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ': '
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'infrastructure',
+                                        'value_mapping': 'infrastructure network (roads, railways, pipe lines, power lines)',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'infrastructure_constraints'
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ': '
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'wastelands',
+                                        'value_mapping': 'wastelands / deserts / glaciers / swamps',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'wastelands_constraints'
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ': '
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'recreation',
+                                        'value_mapping': 'recreation',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'recreation_constraints'
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ': '
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other1_detail',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other1_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other1_constraints',
+                                        'mapping_prefix': ': '
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ''
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other2_detail',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other2_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other2_constraints',
+                                        'mapping_prefix': ': '
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ''
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other3_detail',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other3_specify',
+                                        'mapping_prefix': ' (',
+                                        'mapping_suffix': ')',
+                                    },
+                                    {
+                                        'wocat_table': 'qt_2_8_11_1',
+                                        'wocat_column': 'other3_constraints',
+                                        'mapping_prefix': ': '
+                                    }
+                                ],
+                                'type': 'string',
+                                'composite': {
+                                    'type': 'merge',
+                                    'separator': ''
+                                }
+                            }
+                        ],
+                        'type': 'string',
+                        'value_prefix': 'Constraints of '
+                    },
                 ],
                 'type': 'string',
                 'composite': {
@@ -2513,7 +2801,7 @@ tech_qg_19 = {
                                 'value': 2
                             }
                         ],
-                        'condition_message': 'More than one value found for QCAT 3.3 Water supply (QT 2.8.8.4). Using comments in QCAT 3.3 for this data.'
+                        'condition_message': 'QCAT 3.3 Further information about land use: More than one value found for QCAT 3.3 Water supply (QT 2.8.8.4 / 2.8.9.3). Using comments in QCAT 3.3 for this data.'
                     },
                     {
                         'mapping': [
@@ -7071,7 +7359,7 @@ tech_qg_35 = {
                         'value': 2
                     }
                 ],
-                'condition_message_opposite': 'Too many values for checkbox 3.8 "Prevention, reduction or restoration of land degradation".'
+                'condition_message_opposite': 'QCAT 3.8 Prevention, reduction, or restoration of land degradation: Too many values for checkbox 3.8 "Prevention, reduction or restoration of land degradation" (QT 2.2.2.3).'
             },
             'tech_prevention_comments': {
                 'mapping': [
@@ -12723,7 +13011,7 @@ tech_qg_54 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.1 "Annual rainfall", using "Specifications/ comments on rainfall" of 5.1 for this data."',
+                        'condition_message': 'QCAT 5.1 Climate: Too many values for checkbox 5.1 "Annual rainfall" (QT 2.7.1), using "Specifications/ comments on rainfall" of 5.1 for this data."',
                         'type': 'string',
                         'composite': {
                             'separator': ', '
@@ -14379,7 +14667,7 @@ tech_qg_57 = {
                             },
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.2 "Slopes on average", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'condition_message': 'QCAT 5.2 Topography: Too many values for checkbox 5.2 "Slopes on average" (QT 2.7.8), using "Comments and further specifications on topography" of 5.2 for this data."',
                         'type': 'string',
                         'value_prefix': 'Slopes on average: ',
                         'composite': {
@@ -14639,7 +14927,7 @@ tech_qg_57 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.2 "Landforms", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'condition_message': 'QCAT 5.2 Topography: Too many values for checkbox 5.2 "Landforms" (QT 2.7.7), using "Comments and further specifications on topography" of 5.2 for this data."',
                         'type': 'string',
                         'value_prefix': 'Landforms: ',
                         'composite': {
@@ -15007,7 +15295,7 @@ tech_qg_57 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.2 "Altitudinal zone", using "Comments and further specifications on topography" of 5.2 for this data."',
+                        'condition_message': 'QCAT 5.2 Topography: Too many values for checkbox 5.2 "Altitudinal zone" (QT 2.7.6), using "Comments and further specifications on topography" of 5.2 for this data."',
                         'type': 'string',
                         'value_prefix': 'Altitudinal zone: ',
                         'composite': {
@@ -15878,7 +16166,7 @@ tech_qg_59 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.3 "Soil depth on average", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'condition_message': 'QCAT 5.3 Soils: Too many values for checkbox 5.3 "Soil depth on average" (QT 2.7.9), using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
                         'type': 'string',
                         'value_prefix': 'Soil depth on average: ',
                         'composite': {
@@ -16021,7 +16309,7 @@ tech_qg_59 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.3 "Soil texture (topsoil)", using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
+                        'condition_message': 'QCAT 5.3 Soils: Too many values for checkbox 5.3 "Soil texture (topsoil)" (QT 2.7.10), using "If available, attach full soil description or specify the available information ..." of 5.3 for this data."',
                         'type': 'string',
                         'value_prefix': 'Soil texture (topsoil): ',
                         'composite': {
@@ -16932,7 +17220,7 @@ tech_qg_65 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.4 "Ground water table", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'condition_message': 'QCAT 5.4 Water availability and quality: Too many values for radio 5.4 "Ground water table" (QT 2.7.15), using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
                         'type': 'string',
                         'value_prefix': 'Ground water table: ',
                         'composite': {
@@ -17114,7 +17402,7 @@ tech_qg_65 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.4 "Availability of surface water", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'condition_message': 'QCAT 5.4 Water availability and quality: Too many values for radio 5.4 "Availability of surface water" (QT 2.7.16), using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
                         'type': 'string',
                         'value_prefix': 'Availability of surface water: ',
                         'composite': {
@@ -17296,7 +17584,7 @@ tech_qg_65 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.4 "Water quality (untreated)", using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
+                        'condition_message': 'QCAT 5.4 Water availability and quality: Too many values for radio 5.4 "Water quality (untreated)" (QT 2.7.17), using "Comments and further specifications on water quality and quantity" of 5.4 for this data."',
                         'type': 'string',
                         'value_prefix': 'Water quality (untreated): ',
                         'composite': {
@@ -17648,7 +17936,7 @@ tech_qg_67 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for radio 5.5 "Species diversity", using "Comments and further specifications on biodiversity" of 5.5 for this data."',
+                        'condition_message': 'QCAT 5.5 Biodiversity: Too many values for radio 5.5 "Species diversity" (QT 2.7.18), using "Comments and further specifications on biodiversity" of 5.5 for this data."',
                         'type': 'string',
                         'value_prefix': 'Species diversity: ',
                         'composite': {
@@ -18274,7 +18562,53 @@ tech_qg_71 = {
                     'type': 'checkbox',
                 }
             },
-            # 'tech_mechanisation': {},
+            'tech_mechanisation': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_2_8_8_2',
+                        'wocat_column': 'manual_labour',
+                        'value_mapping': 'mechanisation_manual'
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_2',
+                        'wocat_column': 'animal_traction',
+                        'value_mapping': 'mechanisation_animal'
+                    },
+                    {
+                        'wocat_table': 'qt_2_8_8_2',
+                        'wocat_column': 'mechanised',
+                        'value_mapping': 'mechanisation_mechanised'
+                    }
+                ],
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_2_8_8_2',
+                                'wocat_column': 'manual_labour',
+                                'value_mapping': 'mechanisation_manual'
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_2',
+                                'wocat_column': 'animal_traction',
+                                'value_mapping': 'mechanisation_animal'
+                            },
+                            {
+                                'wocat_table': 'qt_2_8_8_2',
+                                'wocat_column': 'mechanised',
+                                'value_mapping': 'mechanisation_mechanised'
+                            }
+                        ],
+                        'operator': 'len_lte',
+                        'value': 2,
+                    }
+                ],
+                'condition_message_opposite': 'QCAT 5.6 Characteristics of land users applying the Technology: Too many values for checkbox 5.6 "Level of mechanization" (QT 2.8.8.2), not mapped.',
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                }
+            },
             'tech_gender': {
                 'mapping': [
                     {
@@ -18690,7 +19024,7 @@ tech_qg_77 = {
                             }
                         ],
                         'conditions_join': 'and',
-                        'condition_message': 'Too many values for checkbox 5.6 "Relative level of wealth", using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
+                        'condition_message': 'QCAT 5.6 Characteristics of land users applying the Technology: Too many values for checkbox 5.6 "Relative level of wealth" (QT 2.8.5), using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
                         'type': 'string',
                         'value_prefix': 'Relative level of wealth: ',
                         'composite': {
@@ -18954,7 +19288,7 @@ tech_qg_77 = {
                                 'value': 3
                             }
                         ],
-                        'condition_message': 'Too many values for checkbox 5.6 "Market orientation of production system", using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
+                        'condition_message': 'QCAT 5.6 Characteristics of land users applying the Technology: Too many values for checkbox 5.6 "Market orientation of production system" (QT 2.8.8.1 / 2.8.9.1 / 2.8.10.1), using "Indicate other relevant characteristics of the land users" of 5.6 for this data."',
                         'type': 'string',
                         'value_prefix': 'Market orientation of production system: ',
                         'composite': {
@@ -19743,7 +20077,7 @@ tech_qg_72 = {
                                 'value': 3
                             }
                         ],
-                        'condition_message': 'Too many values for checkbox 5.7 "Average area of land owned or leased by land users applying the Technology", using "Comments" of 5.7 for this data."'
+                        'condition_message': 'QCAT 5.7 Average area of land owned or leased: Too many values for checkbox 5.7 "Average area of land owned or leased by land users applying the Technology" (QT 2.8.8.6 / 2.8.9.5 / 2.8.10.4), using "Comments" of 5.7 for this data."'
                     },
                 ],
                 'type': 'string',
@@ -20735,7 +21069,7 @@ tech_qg_75 = {
                                     }
                                 ],
                                 'conditions_join': 'and',
-                                'condition_message': 'Too many values for checkbox 5.8 "Land ownership", using "Comments" of 5.8 for this data."',
+                                'condition_message': 'QCAT 5.8 Land ownership, land use rights, and water use rights: Too many values for checkbox 5.8 "Land ownership" (2.8.4), using "Comments" of 5.8 for this data."',
                                 'type': 'string',
                                 'value_prefix': 'Land ownership: ',
                                 'composite': {
@@ -20899,6 +21233,727 @@ tech_qg_227 = {
         }
     }
 }
+
+# 6.1 On-site impacts > Production > crop production
+tech_qg_76 = {
+    'questiongroup': 'tech_qg_76',
+    'question': 'tech_impacts_cropproduction',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_crop_yield',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'reduced_crop_production',
+    'error_qcat_location': '6.1 Production > crop production',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > fodder production
+tech_qg_79 = {
+    'questiongroup': 'tech_qg_79',
+    'question': 'tech_impacts_fodderproduction',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_fodder_production',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'reduced_fodder_production',
+    'error_qcat_location': '6.1 Production > fodder production',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > fodder quality
+tech_qg_80 = {
+    'questiongroup': 'tech_qg_80',
+    'question': 'tech_impacts_fodderquality',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_fodder_quality',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'reduced_fodder_quality',
+    'error_qcat_location': '6.1 Production > fodder quality',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > animal production
+tech_qg_81 = {
+    'questiongroup': 'tech_qg_81',
+    'question': 'tech_impacts_animalproduction',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_animal_production',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'reduced_animal_production',
+    'error_qcat_location': '6.1 Production > animal production',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > wood production
+tech_qg_82 = {
+    'questiongroup': 'tech_qg_82',
+    'question': 'tech_impacts_woodproduction',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_wood_production',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'reduced_wood_production',
+    'error_qcat_location': '6.1 Production > wood production',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > risk of production failure
+tech_qg_85 = {
+    'questiongroup': 'tech_qg_85',
+    'question': 'tech_impacts_productionfailure',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'reduced_risk_of_production_failure',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'increased_risk_of_crop_failure',
+    'error_qcat_location': '6.1 Production > risk of production failure',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > product diversity
+tech_qg_86 = {
+    'questiongroup': 'tech_qg_86',
+    'question': 'tech_impacts_productdiversity',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_product_diversification',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'reduced_product_diversification',
+    'error_qcat_location': '6.1 Production > product diversity',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > production area
+tech_qg_87 = {
+    'questiongroup': 'tech_qg_87',
+    'question': 'tech_impacts_productionarea',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_production_area',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'loss_of_land',
+    'error_qcat_location': '6.1 Production > production area',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > land management
+tech_qg_88 = {
+    'questiongroup': 'tech_qg_88',
+    'question': 'tech_impacts_landmanagement',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'simplified_farm_operations',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'hindered_farm_operations',
+    'error_qcat_location': '6.1 Production > land management',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Production > energy generation
+tech_qg_90 = {
+    'questiongroup': 'tech_qg_90',
+    'question': 'tech_impacts_energygeneration',
+    'wocat_table_positive': 'qt_3_1_1_4',
+    'wocat_column_positive': 'energy_generation',
+    'wocat_table_negative': 'qt_3_1_3_4',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Production > energy generation',
+    'error_wocat_location': '3.1.1.4',
+}
+
+# 6.1 On-site impacts > Water availability and quality > drinking water availability
+tech_qg_91 = {
+    'questiongroup': 'tech_qg_91',
+    'question': 'tech_impacts_drinkingwateravailability',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_drinking',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Water availability and quality > drinking water availability',
+    'error_wocat_location': '3.1.1.1',
+}
+
+# 6.1 On-site impacts > Water availability and quality > demand for irrigation water
+tech_qg_102 = {
+    'questiongroup': 'tech_qg_102',
+    'question': 'tech_impacts_demandirrigationwater',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'reduced_demand_for_irrigation_water',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'increased_demand_for_irrigation_water',
+    'error_qcat_location': '6.1 Water availability and quality > demand for irrigation water',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Income and costs > expenses on agricultural inputs
+tech_qg_103 = {
+    'questiongroup': 'tech_qg_103',
+    'question': 'tech_impacts_expenses',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'reduced_expenses_on_agricultural_inputs',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'increased_expenses_on_agricultural_inputs',
+    'error_qcat_location': '6.1 Income and costs > expenses on agricultural inputs',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Income and costs > farm income
+tech_qg_104 = {
+    'questiongroup': 'tech_qg_104',
+    'question': 'tech_impacts_farmincome',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'increased_farm_income',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'decreased_farm_income',
+    'error_qcat_location': '6.1 Income and costs > farm income',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 On-site impacts > Income and costs > diversity of income sources
+tech_qg_105 = {
+    'questiongroup': 'tech_qg_105',
+    'question': 'tech_impacts_diversityincome',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'diversification_of_income_sources',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Income and costs > diversity of income sources',
+    'error_wocat_location': '3.1.1.1',
+}
+
+# 6.1 On-site impacts > Income and costs > economic disparities
+tech_qg_106 = {
+    'questiongroup': 'tech_qg_106',
+    'question': 'tech_impacts_economicdisparities',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': '',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'increased_economic_inequity',
+    'error_qcat_location': '6.1 Income and costs > economic disparities',
+    'error_wocat_location': '3.1.3.1',
+}
+
+# 6.1 On-site impacts > Income and costs > workload
+tech_qg_107 = {
+    'questiongroup': 'tech_qg_107',
+    'question': 'tech_impacts_workload',
+    'wocat_table_positive': 'qt_3_1_1_1',
+    'wocat_column_positive': 'decreased_labour_constraints',
+    'wocat_table_negative': 'qt_3_1_3_1',
+    'wocat_column_negative': 'increased_labour_constraints',
+    'error_qcat_location': '6.1 Income and costs > workload',
+    'error_wocat_location': '3.1.1.1 / 3.1.3.1',
+}
+
+# 6.1 Socio-cultural impacts > food security/ self-sufficiency
+tech_qg_108 = {
+    'questiongroup': 'tech_qg_108',
+    'question': 'tech_impacts_foodsecurity',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'improved_food_security_self_sufficiency',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': 'decreased_food_security_self_sufficiency',
+    'error_qcat_location': '6.1 Socio-cultural impacts > food security/ self-sufficiency',
+    'error_wocat_location': '3.1.1.2 / 3.1.3.2',
+}
+
+# 6.1 Socio-cultural impacts > health situation
+tech_qg_109 = {
+    'questiongroup': 'tech_qg_109',
+    'question': 'tech_impacts_health',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'improved_health',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': 'increased_health_problems',
+    'error_qcat_location': '6.1 Socio-cultural impacts > health situation',
+    'error_wocat_location': '3.1.1.2 / 3.1.3.2',
+}
+
+# 6.1 Socio-cultural impacts > cultural opportunities
+tech_qg_111 = {
+    'questiongroup': 'tech_qg_111',
+    'question': 'tech_impacts_cultural',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'improved_cultural_opportunities',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': 'loss_of_cultural_opportunities',
+    'error_qcat_location': '6.1 Socio-cultural impacts > cultural opportunities',
+    'error_wocat_location': '3.1.1.2 / 3.1.3.2',
+}
+
+# 6.1 Socio-cultural impacts > recreational opportunities
+tech_qg_112 = {
+    'questiongroup': 'tech_qg_112',
+    'question': 'tech_impacts_recreational',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'increased_recreational_opportunities',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': 'loss_of_recreational_opportunities',
+    'error_qcat_location': '6.1 Socio-cultural impacts > recreational opportunities',
+    'error_wocat_location': '3.1.1.2 / 3.1.3.2',
+}
+
+# 6.1 Socio-cultural impacts > community institutions
+tech_qg_113 = {
+    'questiongroup': 'tech_qg_113',
+    'question': 'tech_impacts_community',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'community_institution_strengthening',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Socio-cultural impacts > community institutions',
+    'error_wocat_location': '3.1.1.2',
+}
+
+# 6.1 Socio-cultural impacts > national institutions
+tech_qg_114 = {
+    'questiongroup': 'tech_qg_114',
+    'question': 'tech_impacts_national',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'national_institution_strengthening',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Socio-cultural impacts > national institutions',
+    'error_wocat_location': '3.1.1.2',
+}
+
+# 6.1 Socio-cultural impacts > SLM/ land degradation knowledge
+tech_qg_115 = {
+    'questiongroup': 'tech_qg_115',
+    'question': 'tech_impacts_slmknowledge',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'improved_conservation_erosion',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Socio-cultural impacts > SLM/ land degradation knowledge',
+    'error_wocat_location': '3.1.1.2',
+}
+
+# 6.1 Socio-cultural impacts > conflict mitigation
+tech_qg_116 = {
+    'questiongroup': 'tech_qg_116',
+    'question': 'tech_impacts_conflictmitigation',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'knowledge_conflict_mitigation',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': 'socio_cultural_conflicts',
+    'error_qcat_location': '6.1 Socio-cultural impacts > conflict mitigation',
+    'error_wocat_location': '3.1.1.2 / 3.1.3.2',
+}
+
+# 6.1 Socio-cultural impacts > situation of socially and economically disadvantaged groups
+tech_qg_117 = {
+    'questiongroup': 'tech_qg_117',
+    'question': 'tech_impacts_situationdisadvantaged',
+    'wocat_table_positive': 'qt_3_1_1_2',
+    'wocat_column_positive': 'improved_situation_of_disadvantaged_groups',
+    'wocat_table_negative': 'qt_3_1_3_2',
+    'wocat_column_negative': 'worsen_situation_of_disadvantaged_groups',
+    'error_qcat_location': '6.1 Socio-cultural impacts > situation of socially and economically disadvantaged groups',
+    'error_wocat_location': '3.1.1.2 / 3.1.3.2',
+}
+
+# 6.1 Water cycle/ runoff > water quantity
+tech_qg_118 = {
+    'questiongroup': 'tech_qg_118',
+    'question': 'tech_impacts_waterquantity',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_water_quantity',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'decreased_water_quantity',
+    'error_qcat_location': '6.1 Water cycle/ runoff > water quantity',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Water cycle/ runoff > water quality
+tech_qg_119 = {
+    'questiongroup': 'tech_qg_119',
+    'question': 'tech_impacts_waterquality',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_water_quality',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'decreased_water_quality',
+    'error_qcat_location': '6.1 Water cycle/ runoff > water quality',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Water cycle/ runoff > harvesting/ collection of water
+tech_qg_120 = {
+    'questiongroup': 'tech_qg_120',
+    'question': 'tech_impacts_harvestingwater',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'improved_harvesting_collection_of_water',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Water cycle/ runoff > harvesting/ collection of water',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Water cycle/ runoff > surface runoff
+tech_qg_121 = {
+    'questiongroup': 'tech_qg_121',
+    'question': 'tech_impacts_surfacerunoff',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_surface_runoff',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_surface_water_runoff',
+    'error_qcat_location': '6.1 Water cycle/ runoff > surface runoff',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Water cycle/ runoff > excess water drainage
+tech_qg_122 = {
+    'questiongroup': 'tech_qg_122',
+    'question': 'tech_impacts_waterdrainage',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'improved_excess_water_drainage',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'waterlogging',
+    'error_qcat_location': '6.1 Water cycle/ runoff > excess water drainage',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Water cycle/ runoff > groundwater table/ aquifer
+tech_qg_123 = {
+    'questiongroup': 'tech_qg_123',
+    'question': 'tech_impacts_groundwater',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'recharge_of_groundwater_table_aquifer',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'lowering_of_ground_water_table',
+    'error_qcat_location': '6.1 Water cycle/ runoff > groundwater table/ aquifer',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Water cycle/ runoff > evaporation
+tech_qg_124 = {
+    'questiongroup': 'tech_qg_124',
+    'question': 'tech_impacts_evaporation',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_evaporation',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_evaporation',
+    'error_qcat_location': '6.1 Water cycle/ runoff > evaporation',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Soil > soil moisture
+tech_qg_125 = {
+    'questiongroup': 'tech_qg_125',
+    'question': 'tech_impacts_soilmoisture',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_soil_moisture',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'decreased_soil_moisture',
+    'error_qcat_location': '6.1 Soil > soil moisture',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Soil > soil cover
+tech_qg_126 = {
+    'questiongroup': 'tech_qg_126',
+    'question': 'tech_impacts_soilcover',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'improved_soil_cover',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'decreased_soil_cover',
+    'error_qcat_location': '6.1 Soil > soil cover',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Soil > soil loss
+tech_qg_127 = {
+    'questiongroup': 'tech_qg_127',
+    'question': 'tech_impacts_soilloss',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_soil_loss',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Soil > soil loss',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Soil > soil crusting/ sealing
+tech_qg_129 = {
+    'questiongroup': 'tech_qg_129',
+    'question': 'tech_impacts_soilcrusting',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_soil_crusting_sealing',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_soil_sealing_compaction',
+    'error_qcat_location': '6.1 Soil > soil crusting/ sealing',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Soil > soil compaction
+tech_qg_130 = {
+    'questiongroup': 'tech_qg_130',
+    'question': 'tech_impacts_soilcompaction',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_soil_compaction',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_soil_sealing_compaction',
+    'error_qcat_location': '6.1 Soil > soil compaction',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Soil > nutrient cycling/ recharge
+tech_qg_131 = {
+    'questiongroup': 'tech_qg_131',
+    'question': 'tech_impacts_nutrientcycling',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_nutrient_cycling_recharge',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Soil > nutrient cycling/ recharge',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Soil > salinity
+tech_qg_132 = {
+    'questiongroup': 'tech_qg_132',
+    'question': 'tech_impacts_soilsalinity',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_salinity',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_salinity',
+    'error_qcat_location': '6.1 Soil > salinity',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Soil > soil organic matter/ below ground C
+tech_qg_133 = {
+    'questiongroup': 'tech_qg_133',
+    'question': 'tech_impacts_soilorganicmatter',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_soil_organic_matter_below_ground_c',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'decreased_soil_organic_matter',
+    'error_qcat_location': '6.1 Soil > soil organic matter/ below ground C',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > biomass/ above ground C
+tech_qg_140 = {
+    'questiongroup': 'tech_qg_140',
+    'question': 'tech_impacts_biomass',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_biomass_above_ground_c',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > biomass/ above ground C',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > plant diversity
+tech_qg_136 = {
+    'questiongroup': 'tech_qg_136',
+    'question': 'tech_impacts_plantdiversity',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_plant_diversity',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > plant diversity',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > invasive alien species
+tech_qg_137 = {
+    'questiongroup': 'tech_qg_137',
+    'question': 'tech_impacts_invasivespecies',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_invasive_alien_species',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > invasive alien species',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > animal diversity
+tech_qg_135 = {
+    'questiongroup': 'tech_qg_135',
+    'question': 'tech_impacts_animaldiversity',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_animal_diversity',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > animal diversity',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > beneficial species
+tech_qg_138 = {
+    'questiongroup': 'tech_qg_138',
+    'question': 'tech_impacts_beneficialspecies',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_beneficial_species',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > beneficial species',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > habitat diversity
+tech_qg_139 = {
+    'questiongroup': 'tech_qg_139',
+    'question': 'tech_impacts_habitatdiversity',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_maintained_habitat_diversity',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > habitat diversity',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Biodiversity: vegetation, animals > pest/ disease control
+tech_qg_145 = {
+    'questiongroup': 'tech_qg_145',
+    'question': 'tech_impacts_pestcontrol',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'increased_biological_pest_disease_control',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_niches_for_pests',
+    'error_qcat_location': '6.1 Biodiversity: vegetation, animals > pest/ disease control',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Climate and disaster risk reduction > emission of carbon and greenhouse gases
+tech_qg_141 = {
+    'questiongroup': 'tech_qg_141',
+    'question': 'tech_impacts_emissioncarbon',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_emission_of_carbon_and_greenhouse_gases',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.1 Climate and disaster risk reduction > emission of carbon and greenhouse gases',
+    'error_wocat_location': '3.1.1.3',
+}
+
+# 6.1 Climate and disaster risk reduction > fire risk
+tech_qg_143 = {
+    'questiongroup': 'tech_qg_143',
+    'question': 'tech_impacts_firerisk',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_fire_risk',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_fire_risk',
+    'error_qcat_location': '6.1 Climate and disaster risk reduction > fire risk',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.1 Climate and disaster risk reduction > wind velocity
+tech_qg_144 = {
+    'questiongroup': 'tech_qg_144',
+    'question': 'tech_impacts_windvelocity',
+    'wocat_table_positive': 'qt_3_1_1_3',
+    'wocat_column_positive': 'reduced_wind_velocity',
+    'wocat_table_negative': 'qt_3_1_3_3',
+    'wocat_column_negative': 'increased_wind_velocity',
+    'error_qcat_location': '6.1 Climate and disaster risk reduction > wind velocity',
+    'error_wocat_location': '3.1.1.3 / 3.1.3.3',
+}
+
+# 6.2 Off-site impacts > water availability
+tech_qg_146 = {
+    'questiongroup': 'tech_qg_146',
+    'question': 'tech_impacts_wateravailability',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'increased_water_availability',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.2 Off-site impacts > water availability',
+    'error_wocat_location': '3.1.2',
+}
+
+# 6.2 Off-site impacts > reliable and stable stream flows in dry season
+tech_qg_148 = {
+    'questiongroup': 'tech_qg_148',
+    'question': 'tech_impacts_reliableflows',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'increased_stream_flow_in_dry_season',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'reduced_river_flows',
+    'error_qcat_location': '6.2 Off-site impacts > reliable and stable stream flows in dry season',
+    'error_wocat_location': '3.1.2 / 3.1.4',
+}
+
+# 6.2 Off-site impacts > downstream flooding
+tech_qg_147 = {
+    'questiongroup': 'tech_qg_147',
+    'question': 'tech_impacts_downstreamflooding',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'reduced_downstream_flooding',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'increased_downstream_flooding',
+    'error_qcat_location': '6.2 Off-site impacts > downstream flooding',
+    'error_wocat_location': '3.1.2 / 3.1.4',
+}
+
+# 6.2 Off-site impacts > downstream siltation
+tech_qg_149 = {
+    'questiongroup': 'tech_qg_149',
+    'question': 'tech_impacts_downstreamsiltation',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'reduced_downstream_siltation',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'reduced_sediment_yields',
+    'error_qcat_location': '6.2 Off-site impacts > downstream siltation',
+    'error_wocat_location': '3.1.2 / 3.1.4',
+}
+
+# 6.2 Off-site impacts > groundwater/ river pollution
+tech_qg_150 = {
+    'questiongroup': 'tech_qg_150',
+    'question': 'tech_impacts_groundwaterpollution',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'reduced_groundwater_river_pollution',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'increased_groundwater_river_pollution',
+    'error_qcat_location': '6.2 Off-site impacts > groundwater/ river pollution',
+    'error_wocat_location': '3.1.2 / 3.1.4',
+}
+
+# 6.2 Off-site impacts > buffering/ filtering capacity
+tech_qg_151 = {
+    'questiongroup': 'tech_qg_151',
+    'question': 'tech_impacts_bufferingcapacity',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'improved_buffering_filtering_capacity',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'decreased_buffering_filtering_capacity',
+    'error_qcat_location': '6.2 Off-site impacts > buffering/ filtering capacity',
+    'error_wocat_location': '3.1.2 / 3.1.4',
+}
+
+# 6.2 Off-site impacts > wind transported sediments
+tech_qg_152 = {
+    'questiongroup': 'tech_qg_152',
+    'question': 'tech_impacts_windtransportedsediments',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'reduced_wind_transported_sediments',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': '',
+    'error_qcat_location': '6.2 Off-site impacts > wind transported sediments',
+    'error_wocat_location': '3.1.2',
+}
+
+# 6.2 Off-site impacts > damage on neighbours' fields
+tech_qg_153 = {
+    'questiongroup': 'tech_qg_153',
+    'question': 'tech_impacts_damageneighbourfield',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'reduced_damage_on_neighbours_fields',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'increased_damage_on_neighbours_fields',
+    'error_qcat_location': '6.2 Off-site impacts > damage on neighbours fields',
+    'error_wocat_location': '3.1.2',
+}
+
+# 6.2 Off-site impacts > damage on public/ private infrastructure
+tech_qg_154 = {
+    'questiongroup': 'tech_qg_154',
+    'question': 'tech_impacts_damageinfrastructure',
+    'wocat_table_positive': 'qt_3_1_2',
+    'wocat_column_positive': 'reduced_damage_on_public_private_infrastructure',
+    'wocat_table_negative': 'qt_3_1_4',
+    'wocat_column_negative': 'increased_damage_on_infrastructure',
+    'error_qcat_location': '6.2 Off-site impacts > damage on public/ private infrastructure',
+    'error_wocat_location': '3.1.2',
+}
+
 
 # 6.3 Exposure and sensitivity: Gradual climate change: annual temperature
 tech_qg_168 = {
@@ -21067,6 +22122,555 @@ tech_qg_180 = {
     }
 }
 
+# 6.4 Cost-benefit analysis: establishment costs
+tech_qg_181 = {
+    'tech_qg_181': {
+        'questions': {
+            'tech_costbenefit_est_short': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_3_2',
+                        'wocat_column': 'short_term_returns_establishment_cost',
+                    }
+                ],
+                'value_mapping_list': COST_BENEFIT_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_costbenefit_est_long': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_3_2',
+                        'wocat_column': 'long_term_returns_establishment_cost',
+                    }
+                ],
+                'value_mapping_list': COST_BENEFIT_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.4 Cost-benefit analysis: maintenance costs
+tech_qg_182 = {
+    'tech_qg_182': {
+        'questions': {
+            'tech_costbenefit_est_short': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_3_2',
+                        'wocat_column': 'short_term_returns_maintenance_cost',
+                    }
+                ],
+                'value_mapping_list': COST_BENEFIT_MAPPING,
+                'type': 'dropdown',
+            },
+            'tech_costbenefit_est_long': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_3_2',
+                        'wocat_column': 'long_term_returns_maintenance_cost',
+                    }
+                ],
+                'value_mapping_list': COST_BENEFIT_MAPPING,
+                'type': 'dropdown',
+            },
+        }
+    }
+}
+
+# 6.4 Cost-benefit analysis: Comments
+tech_qg_183 = {
+    'tech_qg_183': {
+        'questions': {
+            'tech_costbenefit_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_3_2',
+                        'wocat_column': 'comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 6.5 Adoption of the Technology
+tech_qg_191 = {
+    'tech_qg_191': {
+        'questions': {
+            # 'tech_adoption_percentage': {},
+            # 'tech_adoption_quantify': {},
+            # 'tech_adoption_spontaneously': {},
+            'tech_adoption_comments': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'external_material_support_percent_applied',
+                                'mapping_suffix': '% of land user families have adopted the Technology with external material support'
+                            }
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'external_material_support_number_families',
+                                'mapping_suffix': ' land user families have adopted the Technology with external material support'
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'external_material_support_comment',
+                                'mapping_prefix': 'Comments on acceptance with external material support: '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'without_external_material_support_percent_applied',
+                                'mapping_suffix': '% of land user families have adopted the Technology without any external material support'
+                            }
+                        ],
+                        'type': 'string',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'without_external_material_support_number_families',
+                                'mapping_suffix': ' land user families have adopted the Technology without any external material support'
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'without_external_material_support_comment',
+                                'mapping_prefix': 'Comments on spontaneous adoption: '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'adoption_trend',
+                            }
+                        ],
+                        'value_mapping_list': TREND_MAPPING,
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_3',
+                                'wocat_column': 'adoption_comment',
+                                'mapping_prefix': 'Comments on adoption trend: '
+                            }
+                        ]
+                    },
+                ],
+                'type': 'string'
+            },
+        }
+    }
+}
+
+# 6.7 Strengths/ advantages/ opportunities of the Technology: Land user's view
+qg_strengths_landusers = {
+    'qg_strengths_landusers': {
+        'questions': {
+            'strengths_landuser': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_strength_1'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_how_1',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_strength_2'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_how_2',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_strength_3'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_how_3',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_strength_4'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_how_4',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_strength_5'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_land_user_opinion_how_5',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                ],
+                'type': 'string',
+            }
+        },
+        'split_questions': True
+    }
+}
+
+# 6.7 Strengths/ advantages/ opportunities of the Technology: Compiler's view
+qg_strengths_compiler = {
+    'qg_strengths_compiler': {
+        'questions': {
+            'strengths_compiler': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_strength_1'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_how_1',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_strength_2'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_how_2',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_strength_3'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_how_3',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_strength_4'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_how_4',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_strength_5'
+                            },
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'sustained_own_opinion_how_5',
+                                'mapping_prefix': 'How can they be sustained / enhanced? '
+                            }
+                        ]
+                    },
+                ],
+                'type': 'string',
+            }
+        },
+        'split_questions': True
+    }
+}
+
+# 6.8 Weaknesses/ disadvantages/ risks of the Technology: Land user's view
+qg_weaknesses_landusers = {
+    'qg_weaknesses_landusers': {
+        'questions': {
+            'weaknesses_landuser': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_weakness_1',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_weakness_2',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_weakness_3',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_weakness_4',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_weakness_5',
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+            'weaknesses_overcome': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_how_1',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_how_2',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_how_3',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_how_4',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_land_user_opinion_how_5',
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+        },
+        'split_questions': True,
+    }
+}
+
+# 6.8 Weaknesses/ disadvantages/ risks of the Technology: Compiler's view
+qg_weaknesses_compiler = {
+    'qg_weaknesses_compiler': {
+        'questions': {
+            'weaknesses_compiler': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_weakness_1',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_weakness_2',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_weakness_3',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_weakness_4',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_weakness_5',
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+            'weaknesses_overcome': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_how_1',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_how_2',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_how_3',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_how_4',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'qt_3_4',
+                                'wocat_column': 'overcome_own_opinion_how_5',
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+        },
+        'split_questions': True,
+    }
+}
+
+# 7.2 References to available publications
+qg_references = {
+    'qg_references': {
+        'questions': {
+            'references_title': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_annex_1_reference',
+                        'wocat_column': 'reference',
+                    }
+                ],
+                'type': 'string',
+            },
+            'references_source': {
+                'mapping': [
+                    {
+                        'wocat_table': 'qt_annex_1_reference',
+                        'wocat_column': 'cost',
+                    }
+                ],
+                'type': 'string',
+            },
+        },
+        'repeating': True,
+        'wocat_table': 'qt_annex_1_reference'
+    }
+}
+
+
+
 questiongroups = [
     qg_name,
     qg_location,
@@ -21134,8 +22738,398 @@ questiongroups = [
     tech_qg_214,  # 6.3 Exposure and sensitivity: reduced growing period
     tech_qg_216,  # 6.3 Exposure and sensitivity: other
     tech_qg_180,  # 6.3 Exposure and sensitivity: Comments
+    tech_qg_181,  # 6.4 Cost-benefit analysis: establishment costs
+    tech_qg_182,  # 6.4 Cost-benefit analysis: maintenance costs
+    tech_qg_183,  # 6.4 Cost-benefit analysis: Comments
+    tech_qg_191,  # 6.5 Adoption of the Technology
+    qg_strengths_landusers,  # 6.7 Strengths/ advantages/ opportunities of the Technology: Land user's view
+    qg_strengths_compiler,  # 6.7 Strengths/ advantages/ opportunities of the Technology: Compiler's view
+    qg_weaknesses_landusers,  # 6.8 Weaknesses/ disadvantages/ risks of the Technology: Land user's view
+    qg_weaknesses_compiler,  # 6.8 Weaknesses/ disadvantages/ risks of the Technology: Compiler's view
+    qg_references,  # 7.2 References to available publications
+]
+impact_qgs = [
+    tech_qg_76,  # 6.1 Production > crop production
+    tech_qg_79,  # 6.1 Production > fodder production
+    tech_qg_80,  # 6.1 Production > fodder quality
+    tech_qg_81,  # 6.1 Production > animal production
+    tech_qg_82,  # 6.1 Production > wood production
+    tech_qg_85,  # 6.1 Production > risk of production failure
+    tech_qg_86,  # 6.1 Production > product diversity
+    tech_qg_87,  # 6.1 Production > production area
+    tech_qg_88,  # 6.1 Production > land management
+    tech_qg_90,  # 6.1 On-site impacts > Production > energy generation
+    tech_qg_91,  # 6.1 Water availability and quality > drinking water availability
+    tech_qg_102,  # 6.1 Water availability and quality > demand for irrigation water
+    tech_qg_103,  # 6.1 Income and costs > expenses on agricultural inputs
+    tech_qg_104,  # 6.1 Income and costs > farm income
+    tech_qg_105,  # 6.1 Income and costs > diversity of income sources
+    tech_qg_106,  # 6.1 Income and costs > economic disparities
+    tech_qg_107,  # 6.1 Income and costs > workload
+    tech_qg_108,  # 6.1 Socio-cultural impacts > food security/ self-sufficiency
+    tech_qg_109,  # 6.1 Socio-cultural impacts > health situation
+    tech_qg_111,  # 6.1 Socio-cultural impacts > cultural opportunities
+    tech_qg_112,  # 6.1 Socio-cultural impacts > recreational opportunities
+    tech_qg_113,  # 6.1 Socio-cultural impacts > community institutions
+    tech_qg_114,  # 6.1 Socio-cultural impacts > national institutions
+    tech_qg_115,  # 6.1 Socio-cultural impacts > SLM/ land degradation knowledge
+    tech_qg_116,  # 6.1 Socio-cultural impacts > conflict mitigation
+    tech_qg_117,  # 6.1 Socio-cultural impacts > situation of socially and economically disadvantaged groups
+    tech_qg_118,  # 6.1 Water cycle/ runoff > water quantity
+    tech_qg_119,  # 6.1 Water cycle/ runoff > water quality
+    tech_qg_120,  # 6.1 Water cycle/ runoff > harvesting/ collection of water
+    tech_qg_121,  # 6.1 Water cycle/ runoff > surface runoff
+    tech_qg_122,  # 6.1 Water cycle/ runoff > excess water drainage
+    tech_qg_123,  # 6.1 Water cycle/ runoff > groundwater table/ aquifer
+    tech_qg_124,  # 6.1 Water cycle/ runoff > evaporation
+    tech_qg_125,  # 6.1 Soil > soil moisture
+    tech_qg_126,  # 6.1 Soil > soil cover
+    tech_qg_127,  # 6.1 Soil > soil loss
+    tech_qg_129,  # 6.1 Soil > soil crusting/ sealing
+    tech_qg_130,  # 6.1 Soil > soil compaction
+    tech_qg_131,  # 6.1 Soil > nutrient cycling/ recharge
+    tech_qg_132,  # 6.1 Soil > salinity
+    tech_qg_133,  # 6.1 Soil > soil organic matter/ below ground C
+    tech_qg_140,  # 6.1 Biodiversity: vegetation, animals > biomass/ above ground C
+    tech_qg_136,  # 6.1 Biodiversity: vegetation, animals > plant diversity
+    tech_qg_135,  # 6.1 Biodiversity: vegetation, animals > animal diversity
+    tech_qg_138,  # 6.1 Biodiversity: vegetation, animals > beneficial species
+    tech_qg_139,  # 6.1 Biodiversity: vegetation, animals > habitat diversity
+    tech_qg_145,  # 6.1 Biodiversity: vegetation, animals > pest/ disease control
+    tech_qg_141,  # 6.1 Climate and disaster risk reduction > emission of carbon and greenhouse gases
+    tech_qg_143,  # 6.1 Climate and disaster risk reduction > fire risk
+    tech_qg_144,  # 6.1 Climate and disaster risk reduction > wind velocity
+    tech_qg_146,  # 6.2 Off-site impacts > water availability
+    tech_qg_148,  # 6.2 Off-site impacts > reliable and stable stream flows in dry season
+    tech_qg_147,  # 6.2 Off-site impacts > downstream flooding
+    tech_qg_149,  # 6.2 Off-site impacts > downstream siltation
+    tech_qg_150,  # 6.2 Off-site impacts > groundwater/ river pollution
+    tech_qg_151,  # 6.2 Off-site impacts > buffering/ filtering capacity
+    tech_qg_152,  # 6.2 Off-site impacts > wind transported sediments
+    tech_qg_153,  # 6.2 Off-site impacts > damage on neighbours' fields
+    tech_qg_154,  # 6.2 Off-site impacts > damage on public/ private infrastructure
 ]
 
 qt_mapping = {}
 for qg in questiongroups:
     qt_mapping.update(qg)
+
+for impact_qg in impact_qgs:
+    wocat_table_positive = impact_qg['wocat_table_positive']
+    wocat_column_positive = impact_qg['wocat_column_positive']
+    wocat_table_negative = impact_qg['wocat_table_negative']
+    wocat_column_negative = impact_qg['wocat_column_negative']
+    error_qcat_location = impact_qg['error_qcat_location']
+    error_wocat_location = impact_qg['error_wocat_location']
+    qg_name = impact_qg['questiongroup']
+    q_name = impact_qg['question']
+
+    qt_mapping.update({
+        qg_name: {
+            'questions': {
+                q_name: {
+                    'mapping': [
+                        {
+                            'wocat_table': wocat_table_positive,
+                            'wocat_column': wocat_column_positive,
+                            'mapping_prefix': 'positive_'
+                        },
+                        {
+                            'wocat_table': wocat_table_negative,
+                            'wocat_column': wocat_column_negative,
+                            'mapping_prefix': 'negative_'
+                        }
+                    ],
+                    'conditions': [
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': wocat_table_positive,
+                                    'wocat_column': wocat_column_positive,
+                                    'mapping_prefix': 'positive_'
+                                },
+                                {
+                                    'wocat_table': wocat_table_negative,
+                                    'wocat_column': wocat_column_negative,
+                                    'mapping_prefix': 'negative_'
+                                }
+                            ],
+                            'operator': 'len_lte',
+                            'value': 1,
+                        }
+                    ],
+                    'condition_message_opposite': 'QCAT {} (QT {}): Conflicting positive and negative impacts'.format(
+                        error_qcat_location, error_wocat_location),
+                    'value_mapping_list': IMPACT_MAPPING,
+                    'type': 'dropdown'
+                },
+                'tech_impacts_quant_before': {
+                    'mapping': [
+                        {
+                            'wocat_table': wocat_table_positive,
+                            'wocat_column': '{}_quantify_before'.format(
+                                wocat_column_positive)
+                        },
+                        {
+                            'wocat_table': wocat_table_negative,
+                            'wocat_column': '{}_quantify_before'.format(
+                                wocat_column_negative)
+                        }
+                    ],
+                    'conditions': [
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': wocat_table_positive,
+                                    'wocat_column': wocat_column_positive,
+                                    'mapping_prefix': 'positive_'
+                                },
+                                {
+                                    'wocat_table': wocat_table_negative,
+                                    'wocat_column': wocat_column_negative,
+                                    'mapping_prefix': 'negative_'
+                                }
+                            ],
+                            'operator': 'len_lte',
+                            'value': 1,
+                        }
+                    ],
+                    'type': 'string'
+                },
+                'tech_impacts_quant_after': {
+                    'mapping': [
+                        {
+                            'wocat_table': wocat_table_positive,
+                            'wocat_column': '{}_quantify_after'.format(
+                                wocat_column_positive)
+                        },
+                        {
+                            'wocat_table': wocat_table_negative,
+                            'wocat_column': '{}_quantify_after'.format(
+                                wocat_column_negative)
+                        }
+                    ],
+                    'conditions': [
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': wocat_table_positive,
+                                    'wocat_column': wocat_column_positive,
+                                    'mapping_prefix': 'positive_'
+                                },
+                                {
+                                    'wocat_table': wocat_table_negative,
+                                    'wocat_column': wocat_column_negative,
+                                    'mapping_prefix': 'negative_'
+                                }
+                            ],
+                            'operator': 'len_lte',
+                            'value': 1,
+                        }
+                    ],
+                    'type': 'string'
+                },
+                'tech_impacts_specify': {
+                    'mapping': [
+                        {
+                            'wocat_table': wocat_table_positive,
+                            'wocat_column': '{}_quantify_comment'.format(
+                                wocat_column_positive)
+                        },
+                        {
+                            'wocat_table': wocat_table_negative,
+                            'wocat_column': '{}_quantify_comment'.format(
+                                wocat_column_negative)
+                        }
+                    ],
+                    'conditions': [
+                        {
+                            'mapping': [
+                                {
+                                    'wocat_table': wocat_table_positive,
+                                    'wocat_column': wocat_column_positive,
+                                    'mapping_prefix': 'positive_'
+                                },
+                                {
+                                    'wocat_table': wocat_table_negative,
+                                    'wocat_column': wocat_column_negative,
+                                    'mapping_prefix': 'negative_'
+                                }
+                            ],
+                            'operator': 'len_lte',
+                            'value': 1,
+                        }
+                    ],
+                    'type': 'string'
+                },
+            }
+        }
+    })
+
+custom_mapping_messages = [
+    {
+        'message': 'QCAT 4.5 "Comments": Manual migration of QT 2.5.1.2 "life-span of product (eg 2 years)" required: “life-span of product: [value]”',
+        'ids': [3, 19, 27, 79, 123, 162, 177, 227, 228, 229, 246, 267, 272, 302,
+                343, 344, 350, 362, 370, 376, 386, 389, 404, 488, 548, 554, 568,
+                580, 592, 602, 603, 616, 617, 618, 619, 620, 621, 625, 648, 663,
+                665, 683, 731, 798, 814, 816, 817, 825, 829, 841, 842, 843, 844,
+                846, 886, 896, 905, 908, 911, 914, 922, 925, 936, 938, 939, 952,
+                956, 957, 959, 994, 997, 1052, 1073, 1075, 1079, 1105, 1137,
+                1141, 1145, 1146, 1151, 1159, 1170, 1180, 1184, 1218, 1221,
+                1222, 1234, 1335, 1336, 1338, 1339, 1352, 1365, 1382, 1401,
+                1415, 1430, 1438, 1448, 1462, 1464, 1472, 1484, 1534, 1557,
+                1566, 1567, 1569, 1574, 1608, 1623, 1624, 1630]
+    },
+    {
+        'message': 'QCAT 4.5 "Comments": Manual migration of QT 2.5.1.2 "No. of parties (sharing)" required: “No. of parties (sharing): [value]”',
+        'ids': [3, 19, 27, 162, 177, 228, 267, 268, 269, 272, 302, 344, 350,
+                362, 370, 376, 389, 404, 405, 458, 488, 548, 568, 580, 592, 602,
+                603, 605, 610, 617, 620, 648, 663, 665, 683, 731, 811, 814, 816,
+                817, 825, 829, 841, 842, 843, 896, 905, 911, 914, 922, 939, 956,
+                957, 959, 1014, 1075, 1079, 1105, 1137, 1138, 1141, 1143, 1146,
+                1151, 1159, 1180, 1184, 1221, 1222, 1335, 1336, 1338, 1339,
+                1352, 1365, 1401, 1430, 1448, 1462, 1472, 1484, 1509, 1510,
+                1534, 1557, 1574, 1608]
+    },
+    {
+        'message': 'QCAT 6.1 Socio-economic impacts > Other socio-economic impacts: Manual import needed for QT 3.1.1.1 "Other" production and socio-economic benefits',
+        'ids': [13, 15, 18, 20, 22, 27, 31, 32, 34, 37, 38, 41, 47, 49, 53, 54,
+                77, 78, 91, 92, 94, 102, 108, 109, 110, 111, 112, 113, 114, 119,
+                120, 121, 140, 143, 148, 156, 160, 164, 165, 167, 169, 170, 172,
+                173, 174, 175, 176, 179, 180, 181, 182, 183, 184, 187, 200, 201,
+                202, 205, 206, 214, 215, 221, 226, 230, 233, 240, 241, 242, 250,
+                251, 252, 259, 263, 271, 279, 284, 292, 295, 315, 353, 354, 374,
+                386, 403, 411, 414, 416, 417, 418, 419, 420, 423, 424, 427, 428,
+                429, 430, 431, 432, 433, 434, 435, 438, 440, 441, 442, 443, 444,
+                453, 454, 455, 456, 457, 459, 460, 461, 463, 464, 467, 468, 470,
+                472, 473, 487, 490, 491, 492, 493, 494, 496, 504, 505, 506, 507,
+                508, 509, 510, 511, 516, 519, 524, 525, 528, 531, 532, 533, 536,
+                546, 551, 556, 560, 564, 567, 569, 574, 577, 582, 615, 624, 632,
+                640, 647, 653, 662, 668, 669, 671, 672, 724, 810, 813, 826, 831,
+                892, 910, 945, 960, 974, 1009, 1011, 1131, 1184, 1191, 1193,
+                1195, 1197, 1198, 1199, 1201, 1265, 1267, 1269, 1271, 1272,
+                1273, 1275, 1300, 1360, 1376, 1383, 1392, 1393, 1401, 1411,
+                1426, 1439, 1447, 1451, 1454, 1460, 1468, 1473, 1480, 1484,
+                1485, 1490, 1492, 1494, 1495, 1496, 1497, 1500, 1502, 1503,
+                1504, 1516, 1517, 1539, 1576]
+    },
+    {
+        'message': 'QCAT 6.1 Socio-economic impacts > Other socio-economic impacts: Manual import needed for QT 3.1.3.1 "Other" production and socio-economic disadvantages',
+        'ids': [43, 44, 53, 84, 86, 91, 120, 121, 129, 140, 143, 151, 156, 160,
+                161, 165, 166, 167, 168, 170, 173, 175, 176, 178, 179, 184, 187,
+                188, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 211, 213,
+                214, 215, 218, 219, 221, 230, 236, 239, 240, 246, 250, 252, 253,
+                254, 259, 260, 261, 263, 265, 268, 273, 274, 275, 277, 279, 284,
+                292, 295, 299, 315, 348, 366, 393, 396, 402, 403, 413, 414, 416,
+                417, 431, 445, 449, 453, 460, 463, 464, 467, 469, 470, 471, 473,
+                478, 490, 491, 492, 493, 504, 505, 506, 507, 509, 513, 515, 516,
+                519, 524, 529, 531, 533, 536, 556, 557, 560, 561, 563, 565, 569,
+                584, 595, 602, 603, 646, 666, 668, 669, 672, 674, 685, 724, 806,
+                810, 890, 892, 894, 905, 942, 943, 944, 965, 967, 974, 997,
+                1011, 1041, 1066, 1069, 1072, 1128, 1157, 1175, 1203, 1210,
+                1232, 1258, 1277, 1284, 1300, 1363, 1364, 1383, 1393, 1401,
+                1439, 1483, 1484, 1495, 1496, 1498, 1500, 1504, 1505, 1506,
+                1507, 1513, 1528, 1539, 1556, 1569, 1570, 1623]
+    },
+    {
+        'message': 'QCAT 6.1 Socio-economic impacts > Other socio-cultural impacts: Manual import needed for QT 3.1.1.2 "Other" socio-cultural benefits',
+        'ids': [13, 32, 34, 41, 45, 47, 49, 54, 55, 72, 77, 78, 79, 80, 85, 92,
+                94, 113, 114, 116, 117, 118, 119, 120, 121, 148, 153, 180, 182,
+                194, 201, 203, 204, 205, 207, 208, 220, 231, 246, 263, 270, 271,
+                273, 274, 283, 285, 295, 315, 389, 431, 432, 457, 460, 469, 491,
+                498, 504, 505, 507, 510, 556, 574, 582, 615, 624, 632, 647, 653,
+                667, 669, 686, 724, 741, 797, 827, 831, 892, 945, 965, 1000,
+                1009, 1011, 1012, 1015, 1073, 1129, 1188, 1258, 1262, 1411,
+                1430, 1460, 1492, 1494, 1495, 1498, 1500, 1517, 1546]
+    },
+    {
+        'message': 'QCAT 6.1 Socio-economic impacts > Other socio-cultural impacts: Manual import needed for QT 3.1.3.2 "Other" socio-cultural disadvantages',
+        'ids': [22, 41, 84, 86, 91, 109, 143, 166, 201, 203, 204, 205, 251, 255,
+                265, 267, 273, 274, 300, 310, 402, 403, 411, 416, 430, 449, 463,
+                467, 478, 487, 489, 491, 492, 493, 498, 505, 507, 508, 512, 513,
+                514, 515, 516, 519, 543, 549, 557, 630, 662, 668, 673, 685, 694,
+                755, 775, 940, 944, 952, 1046, 1377, 1393, 1496, 1500, 1531,
+                1539, 1570, 1601]
+    },
+    {
+        'message': 'QCAT 6.1 Other ecological impacts: Manual import needed for QT 3.1.1.3 "Other" ecological benefits.',
+        'ids': [13, 15, 18, 22, 30, 31, 32, 33, 34, 41, 47, 49, 52, 72, 77, 78,
+                79, 80, 81, 84, 86, 92, 94, 109, 111, 112, 113, 114, 120, 121,
+                129, 143, 156, 157, 158, 160, 164, 165, 166, 167, 168, 172, 173,
+                174, 175, 176, 178, 179, 180, 181, 182, 183, 187, 188, 194, 200,
+                201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213,
+                214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226,
+                230, 233, 242, 247, 248, 249, 250, 251, 252, 253, 254, 258, 259,
+                260, 262, 263, 264, 265, 268, 273, 274, 276, 277, 278, 279, 280,
+                281, 282, 284, 292, 308, 315, 374, 384, 393, 411, 413, 414, 415,
+                416, 417, 418, 419, 420, 424, 425, 427, 428, 429, 430, 431, 433,
+                435, 438, 440, 441, 442, 443, 444, 445, 446, 449, 453, 454, 455,
+                456, 457, 459, 460, 461, 462, 463, 464, 465, 467, 468, 469, 470,
+                471, 472, 478, 487, 490, 491, 492, 493, 494, 495, 496, 497, 499,
+                501, 504, 505, 506, 507, 508, 509, 510, 511, 513, 514, 519, 524,
+                525, 528, 531, 532, 533, 546, 551, 557, 560, 561, 565, 567, 569,
+                572, 584, 602, 603, 622, 626, 632, 635, 662, 666, 668, 669, 671,
+                672, 724, 745, 813, 826, 827, 892, 893, 894, 910, 944, 960, 967,
+                968, 969, 974, 1000, 1001, 1011, 1020, 1024, 1191, 1192, 1199,
+                1200, 1238, 1265, 1266, 1273, 1274, 1297, 1298, 1300, 1360,
+                1370, 1383, 1393, 1411, 1426, 1451, 1454, 1483, 1484, 1485,
+                1487, 1492, 1494, 1496, 1497, 1498, 1499, 1500, 1501, 1502,
+                1504, 1507, 1510, 1536, 1537, 1539, 1557, 1573]
+    },
+    {
+        'message': 'QCAT 6.1 Other ecological impacts: Manual import needed for QT 3.1.3.3 "Other" ecological disadvantages.',
+        'ids': [22, 52, 84, 86, 109, 129, 143, 158, 160, 166, 167, 170, 184,
+                187, 201, 203, 204, 209, 234, 241, 247, 262, 268, 273, 274, 275,
+                278, 284, 292, 316, 382, 402, 403, 416, 433, 460, 466, 487, 490,
+                492, 493, 501, 504, 506, 508, 513, 514, 515, 516, 521, 522, 531,
+                533, 536, 552, 560, 630, 662, 666, 667, 668, 806, 810, 814, 902,
+                906, 915, 1010, 1012, 1019, 1063, 1127, 1157, 1175, 1209, 1213,
+                1214, 1226, 1258, 1283, 1287, 1288, 1360, 1377, 1383, 1393,
+                1401, 1451, 1454, 1467, 1480, 1494, 1495, 1496, 1497, 1498,
+                1499, 1500, 1502, 1505, 1506, 1529, 1531, 1532, 1539, 1549,
+                1554, 1573, 1623, 1630]
+    },
+    {
+        'message': 'QCAT 6.1 Other ecological impacts: Manual import needed for QT 3.1.1.4 "Other" ecological benefits.',
+        'ids': [105, 148, 156, 158, 160, 164, 165, 168, 170, 171, 172, 173, 174,
+                184, 187, 200, 202, 204, 208, 210, 211, 212, 217, 222, 242, 249,
+                250, 251, 252, 253, 264, 275, 278, 348, 354, 366, 414, 417, 420,
+                431, 443, 453, 455, 457, 459, 461, 462, 465, 478, 487, 489, 497,
+                499, 500, 502, 508, 525, 528, 529, 531, 532, 533, 536, 574, 577,
+                593, 612, 626, 634, 662, 672, 813, 849, 965, 967, 974, 1013,
+                1020, 1024, 1041, 1063, 1127, 1131, 1393, 1401, 1485, 1505,
+                1506, 1528, 1601, 1608]
+    },
+    {
+        'message': 'QCAT 6.1 Other ecological impacts: Manual import needed for QT 3.1.3.4 "Other" ecological disadvantages.',
+        'ids': [50, 51, 89, 160, 170, 176, 179, 187, 203, 210, 218, 240, 249,
+                277, 292, 316, 354, 384, 385, 389, 402, 403, 463, 478, 508, 515,
+                516, 524, 532, 541, 577, 724, 810, 892, 902, 914, 1066, 1137,
+                1213, 1233, 1287, 1393, 1480, 1537, 1539, 1601, 1628]
+    },
+    {
+        'message': 'QCAT 6.2 Off-site impacts: Manual import needed for QT 3.1.2 "Other" off-site benefits.',
+        'ids': [13, 27, 33, 43, 52, 54, 55, 77, 78, 102, 111, 112, 114, 117,
+                118, 123, 140, 143, 148, 159, 161, 165, 167, 168, 169, 200, 220,
+                240, 246, 251, 262, 264, 283, 299, 300, 304, 312, 315, 353, 368,
+                370, 371, 390, 393, 401, 416, 417, 456, 459, 464, 469, 471, 478,
+                487, 488, 490, 491, 492, 493, 496, 499, 501, 504, 505, 506, 507,
+                508, 509, 510, 511, 519, 525, 528, 532, 534, 537, 551, 560, 564,
+                566, 574, 584, 592, 603, 605, 607, 610, 611, 612, 614, 622, 623,
+                626, 634, 640, 662, 668, 672, 724, 744, 745, 826, 892, 965, 967,
+                968, 969, 974, 1004, 1024, 1042, 1072, 1131, 1153, 1157, 1165,
+                1258, 1360, 1375, 1376, 1392, 1393, 1394, 1401, 1410, 1412,
+                1439, 1451, 1454, 1464, 1485, 1492, 1493, 1494, 1496, 1497,
+                1498, 1500, 1501, 1502, 1504, 1517, 1529, 1539, 1554, 1557,
+                1573, 1601]
+    },
+    {
+        'message': 'QCAT 6.2 Off-site impacts: Manual import needed for QT 3.1.4 "Other" off-site disadvantages.',
+        'ids': [43, 165, 167, 172, 207, 234, 238, 242, 249, 250, 262, 263, 273,
+                274, 299, 307, 310, 316, 318, 366, 391, 402, 403, 414, 415, 416,
+                417, 449, 458, 459, 469, 492, 493, 501, 508, 515, 516, 524, 529,
+                539, 546, 556, 560, 669, 672, 775, 810, 814, 816, 817, 944, 974,
+                1010, 1011, 1046, 1129, 1155, 1225, 1360, 1401, 1451, 1454,
+                1455, 1497, 1498, 1500, 1557, 1573]
+    },
+]

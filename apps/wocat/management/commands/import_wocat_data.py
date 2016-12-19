@@ -10,14 +10,20 @@ import requests
 from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import UploadedFile
+from django.core.management import color_style
 from django.core.management.base import BaseCommand
-from fabric.colors import green, yellow, red
+from django.core.urlresolvers import reverse
+from django.utils.translation import activate
 
+from accounts.client import typo3_client
 from accounts.models import User
 from configuration.cache import get_configuration
+from notifications.receivers import create_questionnaire
+from questionnaire import signals
 from questionnaire.models import Questionnaire, File
 from questionnaire.utils import clean_questionnaire_data
-from wocat.management.commands.qt_mapping import qt_mapping
+from wocat.management.commands.qt_mapping import qt_mapping, \
+    custom_mapping_messages
 
 pp = pprint.PrettyPrinter(indent=2)
 
@@ -118,6 +124,7 @@ class Logger:
     A mixin used to log output.
     """
     command_options = {}
+    style = color_style()
 
     def output(self, msg, v=None, l=None, pretty=False):
         """
@@ -134,11 +141,11 @@ class Logger:
             -
         """
         if l == 'error':
-            msg = red(msg)
+            msg = self.style.NOTICE(msg)
         elif l == 'warning':
-            msg = yellow(msg)
+            msg = self.style.WARNING(msg)
         elif l == 'success':
-            msg = green(msg)
+            msg = self.style.SQL_COLTYPE(msg)
         if not v or v <= self.command_options['verbosity']:
             if pretty is True:
                 pp.pprint(msg)
@@ -177,6 +184,7 @@ class ImportObject(Logger):
         self.code_wocat = ''
         self.code = ''
         self.language = 'en'
+        self.questionnaire_owner = None
 
         # A list of ImportObjects which are translations of the current object.
         self.translations = []
@@ -222,6 +230,45 @@ class ImportObject(Logger):
         if language not in LANGUAGE_MAPPING:
             raise Exception('Invalid language code: {}'.format(self.code_wocat))
         self.language = language
+
+    def set_owner(self, user_id):
+        """
+        Set the owner of the current import object. If the user does not yet
+        exist in the local database, its user details are queried through the
+        typo3 client and a new user is created.
+
+        Args:
+            user_id: The ID of the user.
+
+        Returns:
+            -
+        """
+        dry_run = self.command_options['dry-run']
+        if dry_run:
+            return
+
+        # Yes, this is a very ugly shortcut to deal with duplicate email entries
+        # in the (fortunately soon obsolete) user database.
+        if user_id == 165:
+            user_id = 551
+
+        try:
+            # Check if user already exists in the DB
+            user = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            # If User does not exist, create and update it.
+            user_info = typo3_client.get_user_information(user_id)
+
+            if not user_info:
+                self.add_error(
+                    'validation', 'User with ID {} does not exist.'.format(
+                        user_id))
+                return
+
+            user, created = User.objects.get_or_create(pk=user_info['uid'])
+            typo3_client.update_user(user, user_info)
+
+        self.questionnaire_owner = user
 
     def add_error(self, error_type, error_msg):
         if error_type == 'mapping':
@@ -330,13 +377,12 @@ class ImportObject(Logger):
 
         self.data_json_cleaned = cleaned_data
 
-    def save(self, configuration, import_user):
+    def save(self, configuration):
         """
         Actually insert the object in the QCAT database.
 
         Args:
             configuration: The name of the current configuration.
-            import_user: The compiler.
 
         Returns:
             -
@@ -348,8 +394,8 @@ class ImportObject(Logger):
         self.output('Saving object {}'.format(self), v=2)
         questionnaire = Questionnaire.create_new(
             configuration_code=configuration.configuration_keyword,
-            data=self.data_json, user=import_user, previous_version=None,
-            old_data=None, languages=languages)
+            data=self.data_json, user=self.questionnaire_owner,
+            previous_version=None, status=2, old_data=None, languages=languages)
         questionnaire.update_geometry(configuration.configuration_keyword)
         return questionnaire
 
@@ -370,7 +416,7 @@ class ImportObject(Logger):
             return None
 
         if file_id in [
-            4752,
+            4752, 886, 1309,
         ]:
             self.add_mapping_message(
                 'There was a problem with the file {}.'.format(file_id))
@@ -413,9 +459,17 @@ class ImportObject(Logger):
             self.add_error('mapping', 'Unsupported content type: {}'.format(
                 mapped_content_type))
 
+    def add_custom_mapping_messages(self, custom_messages):
+        for custom_mapping_message in custom_messages:
+            if self.identifier in custom_mapping_message.get('ids', []):
+                self.add_mapping_message(custom_mapping_message.get('message'))
+
     def add_mapping_message(self, message):
         if message and message not in self.mapping_messages:
             self.mapping_messages.append(message)
+
+    def get_mapping_messages(self):
+        return sorted(self.mapping_messages)
 
     def apply_index_filter(self, values, index_filter):
         index_values = self.collect_mapping(
@@ -815,6 +869,10 @@ class ImportObject(Logger):
             return {}
 
         if q_type == 'dropdown':
+            try:
+                value = int(value)
+            except ValueError:
+                pass
             return {
                 qcat_question_keyword: value
             }
@@ -880,6 +938,11 @@ class ImportObject(Logger):
                     # 46 16 33
                     v = int_values[0] + int_values[1] / 60 + \
                         int_values[2] / 3600
+                # Special cases for BHU001
+                elif v == "N26 55.488'":
+                    v = 26.9248
+                elif v == "E089 20.439'":
+                    v = 89.34065
                 else:
                     self.output(
                         'Invalid coordinates ({}) of object {}'.format(
@@ -888,10 +951,6 @@ class ImportObject(Logger):
                     continue
 
             parsed_values.append(v)
-
-        # TODO: Remove this once the data is cleaned again
-        if self.identifier in [1398, 1447]:
-            return {}
 
         for v in parsed_values:
             # Basic coordinates test.
@@ -1225,6 +1284,49 @@ class ImportObject(Logger):
             if existing_qg_data:
                 self.data_json[qcat_questiongroup_keyword] = existing_qg_data
 
+        elif questiongroup_properties.get('split_questions', False) is True:
+
+            # Add special merging options
+            for question_keyword, question_properties in questiongroup_properties.get(
+                    'questions', {}).items():
+                composite_options = question_properties.get('composite', {})
+                composite_options.update({
+                    'type': 'merge',
+                    'separator': 'QUESTIONSEPARATOR'
+                })
+                question_properties['composite'] = composite_options
+            single_questiongroup_mapping(
+                qcat_questiongroup_keyword, questiongroup_properties)
+
+            # Separate the data again
+            questiongroup_data_list = self.data_json.get(
+                qcat_questiongroup_keyword, [])
+
+            grouped_questions = {}
+            max_length = 0
+            for questiongroup_data in questiongroup_data_list:
+                for question_keyword, question_data in questiongroup_data.items():
+                    grouped_questions[question_keyword] = {}
+                    for lang, data in question_data.items():
+                        data_split = data.split('QUESTIONSEPARATOR')
+                        max_length = max(len(data_split), max_length)
+                        grouped_questions[question_keyword][lang] = data_split
+
+            new_data_list = []
+            for i in range(max_length):
+                new_data = {}
+                for question_keyword, langs in grouped_questions.items():
+                    new_data[question_keyword] = {}
+                    for lang, data in langs.items():
+                        try:
+                            new_data[question_keyword][lang] = data[i]
+                        except IndexError:
+                            pass
+                new_data_list.append(new_data)
+
+            if new_data_list:
+                self.data_json[qcat_questiongroup_keyword] = new_data_list
+
         else:
             single_questiongroup_mapping(
                 qcat_questiongroup_keyword, questiongroup_properties)
@@ -1241,6 +1343,7 @@ class WOCATImport(Logger):
     image_url = ''
     questionnaire_identifier = ''
     questionnaire_code = ''
+    questionnaire_owner = ''
     tables = []
     mapping = {}
 
@@ -1251,9 +1354,6 @@ class WOCATImport(Logger):
 
         # A collection of all objects to be imported.
         self.import_objects = []
-
-        # TODO: Do not always use the same user as compiler.
-        self.import_user = User.objects.get(pk=2365)
 
         self.configuration = get_configuration(
             configuration_code=self.configuration_code)
@@ -1358,12 +1458,20 @@ class WOCATImport(Logger):
                     import_object = ImportObject(
                         identifier, self.command_options, lookup_table,
                         lookup_table_text, file_infos, self.image_url)
+
+                    import_object.add_custom_mapping_messages(
+                        self.custom_mapping_messages)
+
                     self.import_objects.append(import_object)
 
                 # If the code is available in the current table data, set it.
                 code = row.get(self.questionnaire_code)
                 if code:
                     import_object.set_code(code)
+
+                questionnaire_owner = row.get(self.questionnaire_owner)
+                if questionnaire_owner:
+                    import_object.set_owner(questionnaire_owner)
 
                 # If the creation date is available in the current table data,
                 # set it.
@@ -1386,14 +1494,19 @@ class WOCATImport(Logger):
         # Status filter: qt.qt_quality_review.quality_review = 372 | 373
         # 372: Complete
         # 373: Incomplete
-        status_objects = []
-        for import_object in self.import_objects:
-            not_review_content = import_object.get_wocat_attribute_data(
-                table_name='qt_quality_review',
-                attribute_name='not_review_content')
-            if 372 in not_review_content or 373 in not_review_content:
-                status_objects.append(import_object)
-        self.import_objects = status_objects
+        # status_objects = []
+        # for import_object in self.import_objects:
+        #     not_review_content = import_object.get_wocat_attribute_data(
+        #         table_name='qt_quality_review',
+        #         attribute_name='not_review_content')
+        #     if 372 in not_review_content or 373 in not_review_content:
+        #         status_objects.append(import_object)
+        # self.import_objects = status_objects
+
+        # Filter out all questionnaires which have not code (and therefore no
+        # created_date etc.)
+        self.import_objects = [
+            io for io in self.import_objects if io.code != '']
 
         # Custom filter
         if self.import_objects_filter:
@@ -1540,18 +1653,25 @@ class WOCATImport(Logger):
             if import_object.mapping_messages:
                 mapping_messages_count += 1
                 self.output('\nMapping messages for {}:\n{}'.format(
-                    import_object, '\n'.join(import_object.mapping_messages)), v=3)
+                    import_object, '\n'.join(import_object.get_mapping_messages())), v=3)
         self.output('{} objects with mapping messages.'.format(mapping_messages_count), v=2)
 
         dry_run = self.command_options['dry-run']
         if not dry_run:
+
+            # Deactivate signal which creates notifications
+            signals.create_questionnaire.disconnect(create_questionnaire)
+
             inserted = []
             self.output('Starting insert of objects ...', v=1)
             for import_object in self.import_objects:
-                inserted_object = import_object.save(
-                    self.configuration, self.import_user)
+                inserted_object = import_object.save(self.configuration)
                 import_object.questionnaire_object = inserted_object
                 inserted.append(inserted_object)
+
+            # Reactivate notification signal
+            signals.create_questionnaire.connect(create_questionnaire)
+
             self.output('{} objects inserted.'.format(len(inserted)), v=0, l='success')
         else:
             self.output(
@@ -1564,25 +1684,39 @@ class WOCATImport(Logger):
     def write_mapping_messages(self):
 
         file = open(MAPPING_MESSAGES_FILENAME, 'w')
+        configuration = get_configuration('technologies')
 
         print('Mapping messages of WOCAT import on {}\n\n'.format(
             datetime.now()), file=file)
 
         for import_object in self.import_objects:
-            if not import_object.mapping_messages:
-                continue
 
             print('WOCAT Code: {}'.format(import_object.code), file=file)
+            print('WOCAT ID: {}'.format(import_object.identifier), file=file)
             qcat_code = '-'
+            qcat_url = ''
+            questionnaire_name = ''
             if import_object.questionnaire_object is not None:
-                qcat_code = import_object.questionnaire_object.code
-            print('QCAT ID: {}'.format(qcat_code), file=file)
-            print('Mapping messages:\n{}'.format('\n'.join(import_object.mapping_messages)), file=file)
+                questionnaire_object = import_object.questionnaire_object
+                qcat_code = questionnaire_object.code
+                activate(questionnaire_object.original_locale)
+                qcat_url = reverse(
+                    'technologies:questionnaire_details', args=[qcat_code])
+                name_dict = configuration.get_questionnaire_name(
+                    questionnaire_object.data)
+                questionnaire_name = name_dict.get(
+                    questionnaire_object.original_locale, 'Unknown Name')
+
+            print('QCAT Code: {}'.format(qcat_code), file=file)
+            print('URL: {}'.format(qcat_url), file=file)
+            print('Name: {}'.format(questionnaire_name), file=file)
+            print('Mapping messages:\n{}'.format('\n'.join(import_object.get_mapping_messages())), file=file)
 
             print('\n', file=file)
 
         self.output('Wrote mapping messages to file {}.'.format(
             MAPPING_MESSAGES_FILENAME), v=1)
+
 
 class QTImport(WOCATImport):
     """
@@ -1608,8 +1742,10 @@ class QTImport(WOCATImport):
     questionnaire_identifier = 'qt_id'
     questionnaire_code = 'technology_code'
     configuration_code = 'technologies'
+    questionnaire_owner = 'owner_id'
 
     mapping = qt_mapping
+    custom_mapping_messages = custom_mapping_messages
 
     # Optionally specify a list of IDs (qt_id) to filter the QT Questionnaires.
     import_objects_filter = []
