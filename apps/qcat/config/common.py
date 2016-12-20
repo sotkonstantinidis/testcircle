@@ -260,19 +260,7 @@ class BaseSettings(Configuration):
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
     MAINTENANCE_LOCKFILE_PATH = join(BASE_DIR, 'maintenance.lock')
 
-    # Settings for opbeat.
-    OPBEAT_ORGANIZATION_ID = values.Value(environ_prefix='')
-    OPBEAT_APP_ID = values.Value(environ_prefix='')
-    OPBEAT_SECRET_TOKEN = values.Value(environ_prefix='')
-
-    # Settings for automated deploy with fabric.
-    OPBEAT_BEARER_DEV = values.Value(environ_prefix='')
-    OPBEAT_BEARER_DEMO = values.Value(environ_prefix='')
-    OPBEAT_BEARER_LIVE = values.Value(environ_prefix='')
-
-    OPBEAT_URL_DEV = values.Value(environ_prefix='')
-    OPBEAT_URL_DEMO = values.Value(environ_prefix='')
-    OPBEAT_URL_LIVE = values.Value(environ_prefix='')
+    SENTRY_DSN = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
     HOST_STRING_DEMO = values.Value(environ_prefix='')
