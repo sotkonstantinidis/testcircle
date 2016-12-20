@@ -26408,7 +26408,7 @@
                             "form_options": {
                               "label_position": "none",
                               "num_rows": 10,
-                              "max_length": 3500
+                              "max_length": 35000
                             }
                           }
                         ]

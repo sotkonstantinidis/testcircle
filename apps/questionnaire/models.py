@@ -271,6 +271,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(data, updated, configuration_code)
+                previous_version.add_translation_language(original=False)
                 return previous_version
 
             elif previous_version.status == settings.QUESTIONNAIRE_REVIEWED:
@@ -281,6 +282,7 @@ class Questionnaire(models.Model):
                         'You do not have permission to edit the '
                         'questionnaire.')
                 previous_version.update_data(data, updated, configuration_code)
+                previous_version.add_translation_language(original=False)
                 return previous_version
 
             else:

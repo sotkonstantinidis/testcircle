@@ -13,17 +13,13 @@ env:
   # secure keys must include:
   # HOST_STRING_DEV
   # HOST_STRING_LIVE
-  # OPBEAT_BEARER_DEV
-  # OPBEAT_URL_DEV
-  # OPBEAT_BEARER_LIVE
-  # OPBEAT_URL_LIVE
   # AUTH_API_USER
   # AUTH_API_KEY
   # these values are used for testing / deployment only, so the must not
   # necessarily match the proper values from develop / production.
 
   global:
-    - secure: pD+2LVgQP/4XtkB2HhsYMt7T5Gd2lg0J7ehbBAtfnfju/PtRQ03VMYq21lxGyG0y5yTxm2FVpmQ0bs18tv352TaWhThXODQS48509sssg5Foi6qLUbpkNBg9Hek0XmjdnPFF5+c+vdj/V6aajdbMubrjVcgWWjWBRFYeSxEDA5NW0MajCXNNMtAOp6iPbzH3UR6YRBtvT2tlssVkzY+O1YvbFIoE5WSm3KkHMf9bXYfeh+mD1gOvBn2chDbvzl33pqVbLj0jf0PyQOgIeglLJOWAsa3y+yUpjE67DWVnpx2C1EJ6NHLxEMzMQepVDbKhMLxt3AxemktNuxajRI0CArOqDpVaPFCerKL2qen1/wxGELH7iksc9oOEH1hb3mScSbSNXkp7sqw5dO5Tpr4rv5HgzgsUl7Nbz4mM11IYAhEfUk2Jc/z2s1NQdTacP6uFNo0Ec3UkR/mrCORHrGW/XVuSNMz3GJOwgKuXzyQppqgrUZXOaKFabSH3ywqiAhZ+yZ9IOi0t9EspKWeaMAg6Gc8Rf/pAFrfno6vX/gea+DyddfkUqvHcrahKRh3tT6fg9ZYIl0Q1LS2epbYnqyXSKblFYP/uVLenLza2tTxNmx+qGrqEt9OV8nMS9gfWnXQ9TrG4xeA1Mr/cO9WXICt+J6AG7UCaGUEUBkSCcZp9k85lmxyEuUV99rA6hz89y5hP8eRUc8Q4L2vZU1M3R5DvSFXak1pAg/qZ1YGqL44/fimhm5XecZir076hmIp8kpE3c8gk9e0u9E+Xd5WHJNTX8lqu15qPl4zj0IOotS6iyivbMgNFsXV25+A/1T8B0qDRexW3nq0hMSWjHWOvfVvMTgqPlhM6skJV9OmIV8eDoFECWyePii8C3q3+Ju8ieKn+fDf/1Ntj+puAxSvbzoZ9CS3tYlHaL7GMcYONc+hKPYs+P1g/E5xCmGFI0304SD24sT9Q/5c6INbrVRN4fk5C3wgZyA5RGm3Iw0wdo7lApLccShraM7Wu9GiAbow0Ji9sgSQcLg9S3npFtCGjLpWOfWS28b1rhqfMh9matW+7rKh8HD5PTCd94W17BOwkZ9FvOqAWX+CIqrPDceY8IRlxItwUwVG5OKtbBkO4XUr+ZKy/cqUxpd8WwCV/Z4zLwF6L4TXC44caGOvO5Z94Kfsf42drw9zMuKNtgVRcbnu0OcVb8SgIorLOGn3NBPVTaSOcTxsQs26xhMv4x3D/ZSDNoOqHXzi4DvvM2GNTjN6yfAK9x2jezQ0MkYo9SsarxoPmjkp+2jgm909YsiBMUfGUU7qdjZsi3sTVpenUKTUM7D804Aec9I/mhMZUSZQQhqYVzn11adRLzNy19VGuJICjVQ==
+    - secure: ak3x8t6LOonhgt6PDk2Wj1aSnoNn+GIKjLPN3BLjgmann+XlMADhjxADQWJGFxxUNvtNVeQJjWkX9xitbtxWulKMBJhqNFMYIsQZIFnyuhWYLRU1gynOUgw5X8ylioPDYRk4lQfIWDopZ+zI+U4hFeIGSE/+Y3dsQ0ZvoddeZ7lrXqujXQz0f4iok6tI3KmcIRItN/hPAdUK5e99XS3TFpsPILR06aozE2Bq1E3bh8XFLfSJb8QPzMsDdFSf3VTwRiMVsfcBsyX/9BBKx7/DiiZA83TLo5OesHLWSoCDyZP+qseo2Va/CFhMh9ziqGlZyH/UEmJfeW03oCA6qY0ptsfrxuiVyWLMJ0mTpPwxSpBQfMnQZLah51gfQf72M8uI9YktLCj2ANu2O1cL8guzF3dDzi8nuAja3V5aNxsv52fyDgKpHih1m7war0TjpXmGdI7sCDJ4oxF8KkGKMkRYTt+2zMBCokZvdLTVG7SbrLdu1UbgJbVc2r7qxvk/Z7HRlLHRpvcwSYIhYX/i7QcrClsEhZ8uuNUDm4VXySTZFk387Zozze2JzF2mNRWn2U+O647YEZYKKOkMF9Vx5h86NpnK0rDUqvO8a1kMVOQKZmUD60z667gvA68GNuZSGFY0vtNtsWcJ41Z21qkTUBmZ/9Kq4QoxwLBahcc3/Q2R97A=
 
 cache: true
 
@@ -81,9 +77,18 @@ after_success:
 #  - mv unittests.xml shippable/testresults/
 #  - mv reports/*.xml shippable/testresults/ && rmdir reports
   - fab deploy:$BRANCH
-  - fab register_deployment:$BRANCH
 
-notifications:
-  email:
-    on_success: change
-    on_failure: always
+integrations:
+  notifications:
+    - integrationName: slack-integration
+      type: slack
+      recipients:
+        - "#server-info"
+      on_success: always
+      on_failure: always
+
+    - integrationName: email
+      type: email
+      on_success: never
+      on_failure: never
+      on_pull_request: never

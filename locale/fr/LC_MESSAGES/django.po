@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 17:09+0100\n"
-"PO-Revision-Date: 2016-12-06 06:39+0000\n"
+"POT-Creation-Date: 2016-12-19 16:58+0100\n"
+"PO-Revision-Date: 2016-12-19 15:58+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -8501,12 +8501,9 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3014
 #: apps/configuration/configuration_translations.py:3015
 #: apps/configuration/configuration_translations.py:3017
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Specify"
 msgctxt "unccd label"
 msgid "Specify"
-msgstr "Précisez"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3005
 #: apps/configuration/configuration_translations.py:4704
@@ -8523,20 +8520,15 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3007
 #: apps/configuration/configuration_translations.py:4705
-#, fuzzy
-#| msgid "Introduction to the questionnaire"
 msgctxt "unccd label"
 msgid "Contribution to the strategic objectives"
-msgstr "Introduction du questionnaire"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3008
 #: apps/configuration/configuration_translations.py:4706
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Type of Approach"
 msgctxt "unccd label"
 msgid "Type of impact"
-msgstr "Type d'Approche"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3010
 #: apps/configuration/configuration_translations.py:4707
@@ -8546,21 +8538,15 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3011
 #: apps/configuration/configuration_translations.py:4708
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Location"
 msgctxt "unccd label"
 msgid "Location"
-msgstr "Lieu"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3012
 #: apps/configuration/configuration_translations.py:4734
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Short description of the Approach"
 msgctxt "unccd label"
 msgid "Short description of the best practice"
-msgstr "Courte description de l'Approche"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3013
 #: apps/configuration/configuration_translations.py:4709
@@ -8606,22 +8592,16 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3022
 #: apps/configuration/configuration_translations.py:4713
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Main types of land degradation addressed by the Technology"
 msgctxt "unccd label"
 msgid ""
 "Outline specific land degradation problems addressed by the best practice"
-msgstr "Principaux types de dégradation des terres traités par la Technologie"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3023
 #: apps/configuration/configuration_translations.py:4714
-#, fuzzy
-#| msgctxt "watershed helptext"
-#| msgid "Specify the centre of the watershed."
 msgctxt "unccd label"
 msgid "Specify the objectives of the best practice"
-msgstr "Indiquez le centre du bassin versant."
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3024
 #: apps/configuration/configuration_translations.py:4715
@@ -8636,12 +8616,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3026
 #: apps/configuration/configuration_translations.py:4716
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Short description of the Technology"
 msgctxt "unccd label"
 msgid "Short description and technical specifications of the technology"
-msgstr "Courte description de la Technologie "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3027
 #: apps/configuration/configuration_translations.py:4717
@@ -8651,12 +8628,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3028
 #: apps/configuration/configuration_translations.py:4718
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "How does the Technology cope with it?"
 msgctxt "unccd label"
 msgid "Was the technology developed in partnership?"
-msgstr "Comment la Technologie fait-elle face à cela?"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3029
 msgctxt "unccd label"
@@ -8665,12 +8639,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3030
 #: apps/configuration/configuration_translations.py:4719
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Specify how the Technology was introduced"
 msgctxt "unccd label"
 msgid "Specify the framework within which the technology was promoted"
-msgstr "Spécifiez comment la Technologie a été introduite: "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3031
 #: apps/configuration/configuration_translations.py:4720
@@ -8681,13 +8652,9 @@ msgid ""
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3032
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Participation and roles of stakeholders involved"
 msgctxt "unccd label"
 msgid "List local stakeholders involved"
 msgstr ""
-"Participation et rôles des parties prenantes impliquées dans l'Approche "
 
 #: apps/configuration/configuration_translations.py:3033
 #: apps/configuration/configuration_translations.py:4721
@@ -8752,12 +8719,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3045
 #: apps/configuration/configuration_translations.py:4726
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Cost-benefit analysis"
 msgctxt "unccd label"
 msgid "Has a cost-benefit analysis been carried out?"
-msgstr "Analyse coûts-bénéfices"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3046
 #: apps/configuration/configuration_translations.py:4727
@@ -8777,12 +8741,9 @@ msgid "Were incentives to facilitate the take up of the technology provided?"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3049
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify type of support"
 msgctxt "unccd label"
 msgid "Specify which type of incentives"
-msgstr "Précisez le type de soutien"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3050
 #: apps/configuration/configuration_translations.py:4729
@@ -8806,21 +8767,15 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3053
 #: apps/configuration/configuration_translations.py:4731
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "plant material and resources"
 msgctxt "unccd label"
 msgid "Related to human resources"
-msgstr "matériel végétal et ressources végétales "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3054
 #: apps/configuration/configuration_translations.py:4732
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "financial services"
 msgctxt "unccd label"
 msgid "Related to financial aspects"
-msgstr "services financiers"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3055
 #: apps/configuration/configuration_translations.py:4733
@@ -8841,36 +8796,24 @@ msgid "Estimated population living in the location"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3501
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Cropland"
 msgctxt "unccd label"
 msgid "Cropland"
-msgstr "Terres cultivées"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3502
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Grazing land"
 msgctxt "unccd label"
 msgid "Grazing land"
-msgstr "Pâturages"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3503
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "Poland"
 msgctxt "unccd label"
 msgid "Woodland"
-msgstr "Pologne"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3504
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Unproductive land"
 msgctxt "unccd label"
 msgid "Uproductive land"
-msgstr "Terres improductives"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3505
 msgctxt "unccd label"
@@ -8880,43 +8823,29 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3506
 #: apps/configuration/configuration_translations.py:3539
 #: apps/configuration/configuration_translations.py:3542
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Other (specify)"
 msgctxt "unccd label"
 msgid "Other (please specify)"
-msgstr "Autre (spécifiez)"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3507
-#, fuzzy
-#| msgid "Creation:"
 msgctxt "unccd label"
 msgid "Prevention"
-msgstr "Création:"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3508
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "full irrigation"
 msgctxt "unccd label"
 msgid "Mitigation"
-msgstr "pleine irrigation"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3509
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Adaptation"
 msgctxt "unccd label"
 msgid "Adaptation"
-msgstr "Adaptation"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3510
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "health situation"
 msgctxt "unccd label"
 msgid "Rehabilitation"
-msgstr "situation sanitaire"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3511
 msgctxt "technologies label"
@@ -8958,52 +8887,34 @@ msgid "On-site impacts on production or productivity"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3518
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other socio-economic impacts"
 msgctxt "unccd label"
 msgid "On-site socio-economic and cultural impacts"
-msgstr "Autres impacts socio-économiques"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3519
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "On-site impacts"
 msgctxt "unccd label"
 msgid "On-site environmental impacts"
-msgstr "Impacts sur site"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3520
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "Other off-site impacts"
 msgctxt "unccd label"
 msgid "Other on-site impacts"
-msgstr "Autres impacts hors site"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3521
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "Off-site impacts"
 msgctxt "unccd label"
 msgid "Off-site impacts"
-msgstr "Impacts hors site"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3522
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Capacity building/ training"
 msgctxt "technologies label"
 msgid "Capacity-building and awareness-raising"
-msgstr "Renforcement des capacités/ formation"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3523
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Capacity building/ training"
 msgctxt "unccd label"
 msgid "Capacity-building and awareness-raising"
-msgstr "Renforcement des capacités/ formation"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3524
 msgctxt "technologies label"
@@ -9056,12 +8967,9 @@ msgid "Participation, collaboration and networking"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3534
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "Local name"
 msgctxt "unccd label"
 msgid "Local initiative"
-msgstr "Nom local"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3535
 msgctxt "unccd label"
@@ -9074,12 +8982,9 @@ msgid "National initiative – non-government-led"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3537
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "international organization"
 msgctxt "unccd label"
 msgid "International initiative"
-msgstr "organisation internationale"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3538
 msgctxt "unccd label"
@@ -9087,12 +8992,9 @@ msgid "Programme/project-based initiative"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3540
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "construction"
 msgctxt "unccd label"
 msgid "Consultation"
-msgstr "matériaux de construction "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3541
 msgctxt "unccd label"
@@ -9122,52 +9024,34 @@ msgid ""
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3546
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "local"
 msgctxt "unccd label"
 msgid "Local"
-msgstr "local"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3547
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "national"
 msgctxt "unccd label"
 msgid "Sub-national"
-msgstr "national"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3548
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "national"
 msgctxt "unccd label"
 msgid "National"
-msgstr "national"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3549
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "regional"
 msgctxt "unccd label"
 msgid "Subregional"
-msgstr "régional"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3550
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "regional"
 msgctxt "unccd label"
 msgid "Regional"
-msgstr "régional"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3551
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "national"
 msgctxt "unccd label"
 msgid "International"
-msgstr "national"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:4201
 msgctxt "unccd helptext"
@@ -9211,12 +9095,9 @@ msgid ""
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:4725
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "other gradual climate change"
 msgctxt "unccd label"
 msgid "Impact on biodiversity and climate change"
-msgstr "autre changement climatique progressif"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:4730
 msgctxt "unccd label"
@@ -9230,12 +9111,9 @@ msgid "General Information"
 msgstr "Informations générales"
 
 #: apps/configuration/configuration_translations.py:4902
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Ca: acidification"
 msgctxt "unccd label"
 msgid "Classification"
-msgstr "Ca: acidification"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:4903
 msgctxt "unccd label"
@@ -9274,12 +9152,9 @@ msgid "Section 6. Adoption and replicability"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:4909
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Conclusions and lessons learnt"
 msgctxt "unccd label"
 msgid "Section 7. Lessons learned"
-msgstr "Conclusions et enseignements tirés"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:4910
 msgctxt "unccd label"
@@ -15282,12 +15157,9 @@ msgid "Threshold"
 msgstr "Seuil"
 
 #: apps/configuration/configuration_translations.py:22300
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "Experienced climate-related extremes (disasters)"
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
-msgstr "Evénements extrêmes (catastrophes) liés au climat et expérimentés"
+msgid "Experienced climate-related extremes (disasters)"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
 msgctxt "cca label"
@@ -20333,15 +20205,15 @@ msgstr "Le questionnaire a été supprimé avec succès."
 msgid "Data successfully saved."
 msgstr "Données sauvegardées avec succès."
 
-#: apps/questionnaire/views.py:987
+#: apps/questionnaire/views.py:990
 msgid "QCAT Form"
 msgstr "Formulaire QCAT"
 
-#: apps/questionnaire/views.py:1369
+#: apps/questionnaire/views.py:1372
 msgid "No or multiple files provided."
 msgstr "Non ou plusieurs fichiers fournis."
 
-#: apps/questionnaire/views.py:1459
+#: apps/questionnaire/views.py:1462
 msgid "Successfully removed questionnaire"
 msgstr "Questionnaire supprimé avec succès"
 
@@ -20443,15 +20315,9 @@ msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
 "Practices still needs to be done in the old database. The migration of the "
-"WOCAT data from the old to the new database will be migrated during first "
+"WOCAT data from the old to the new database will be done during the first "
 "half of 2017."
 msgstr ""
-"Les données WOCAT n’ont pas encore été transférées ici. Actuellement, la "
-"présente base de données ne contient que les données de l’initiative PRAIS "
-"de l’UNCCD. Par conséquent, la recherche des pratiques de GDT existantes "
-"doit encore être faite à partir de l'ancienne base de données. La migration "
-"des données WOCAT de l'ancienne vers la nouvelle base de données aura lieu "
-"durant la première moitié de 2017. "
 
 #: apps/search/templates/search/help_text.html:4
 #: apps/unccd/templates/unccd/questionnaire/list.html:10

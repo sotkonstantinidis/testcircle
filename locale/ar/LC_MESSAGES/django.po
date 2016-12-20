@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 17:09+0100\n"
-"PO-Revision-Date: 2016-04-13 15:19+0000\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2016-12-19 16:58+0100\n"
+"PO-Revision-Date: 2016-12-19 15:58+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Arabic (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ar/)\n"
 "Language: ar\n"
@@ -13211,7 +13211,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
+msgid "Experienced climate-related extremes (disasters)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
@@ -17687,15 +17687,15 @@ msgstr ""
 msgid "Data successfully saved."
 msgstr ""
 
-#: apps/questionnaire/views.py:987
+#: apps/questionnaire/views.py:990
 msgid "QCAT Form"
 msgstr ""
 
-#: apps/questionnaire/views.py:1369
+#: apps/questionnaire/views.py:1372
 msgid "No or multiple files provided."
 msgstr ""
 
-#: apps/questionnaire/views.py:1459
+#: apps/questionnaire/views.py:1462
 msgid "Successfully removed questionnaire"
 msgstr ""
 
@@ -17795,7 +17795,7 @@ msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
 "Practices still needs to be done in the old database. The migration of the "
-"WOCAT data from the old to the new database will be migrated during first "
+"WOCAT data from the old to the new database will be done during the first "
 "half of 2017."
 msgstr ""
 

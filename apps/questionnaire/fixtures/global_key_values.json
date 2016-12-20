@@ -9125,7 +9125,7 @@
       "configuration": {
         "form_options": {
           "min_num": 1,
-          "max_num": 4,
+          "max_num": 5,
           "template": "table",
           "numbered": "display"
         },
@@ -9145,7 +9145,7 @@
       "configuration": {
         "form_options": {
           "min_num": 1,
-          "max_num": 4,
+          "max_num": 5,
           "template": "table",
           "numbered": "display"
         },
@@ -9165,7 +9165,7 @@
       "configuration": {
         "form_options": {
           "min_num": 1,
-          "max_num": 4,
+          "max_num": 5,
           "template": "table",
           "column_widths": ["60%", "40%"],
           "numbered": "display"
@@ -9187,7 +9187,7 @@
       "configuration": {
         "form_options": {
           "min_num": 1,
-          "max_num": 4,
+          "max_num": 5,
           "template": "table",
           "column_widths": ["60%", "40%"],
           "numbered": "display"
@@ -9290,7 +9290,7 @@
       "configuration": {
         "form_options": {
           "template": "columns_e6_e6",
-          "max_num": 10
+          "max_num": 20
         }
       }
     },

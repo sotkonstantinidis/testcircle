@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-06 17:09+0100\n"
-"PO-Revision-Date: 2016-12-06 12:25+0000\n"
-"Last-Translator: Julia Johnson <yukuleshova@gmail.com>\n"
+"POT-Creation-Date: 2016-12-19 16:58+0100\n"
+"PO-Revision-Date: 2016-12-19 15:58+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: apps/accounts/client.py:169
 msgid "Error when logging in and updating the user {}: {}"
-msgstr "Ошибка авторизации и актуализации пользователя"
+msgstr "Ошибка авторизации и актуализации пользователя {}: {}"
 
 #: apps/accounts/forms.py:12
 msgid "E-mail address"
@@ -1850,6 +1850,8 @@ msgid ""
 "<strong>Example:</strong> dam, terrace wall, grass strip, drainage ditch, "
 "etc."
 msgstr ""
+"Например, плотина, уступ террасы, полосной посев травы, дренажная канава и т."
+"д."
 
 #: apps/configuration/configuration_translations.py:1371
 msgctxt "technologies label"
@@ -2118,6 +2120,10 @@ msgid ""
 "break down the costs, give an estimation of the total costs for the "
 "establishment of the technology"
 msgstr ""
+"Если возможно, укажите, пожалуйста, стоимость затрат на начальной стадии "
+"реализации в соответствии с таблицей ниже, детально указывая затраты по "
+"каждой статье. Если невозможно указать стоимость постатейно, дайте оценку "
+"общей стоимости запуска Технологии"
 
 #: apps/configuration/configuration_translations.py:1427
 msgctxt "technologies label"
@@ -2187,6 +2193,20 @@ msgid ""
 "elongated strips of level land (less than 8 %% slope), flanked by sloping or "
 "steep land on both sides.</li></ul>"
 msgstr ""
+"Не более 2х вариантов ответа\n"
+"Формы рельефа (ISRIC 1993, с изменениями):\n"
+"•\tПлато/ равнины: протяженные горизонтальные поверхности (уклоны менее "
+"8%%).\n"
+"•\tГребни: узкие вытянутые участки, приподнятые над прилегающей территорией, "
+"часто вершины холмов или гор.\n"
+"•\tСклоны гор (включая крупные отвесные участки): протяженные участки с "
+"разницей высот более 600 м на 2 км и склонами крутизной более 15%%\n"
+"•\tСклоны холмов (включая придолинные склоны и небольшие отвесные участки): "
+"разница высот менее 600 м на 2 км и крутизна склонов более 8%% \n"
+"•\tПодножья: участки, граничащие с более крутыми склонами гор/холмов с одной "
+"стороны и с днищами долин/равнинами/плато с другой\n"
+"•\tДнища долин: вытянутые относительно ровные участки (крутизной менее 8%%), "
+"окаймленные пологими или крутыми склонами с обеих сторон"
 
 #: apps/configuration/configuration_translations.py:1438
 msgctxt "technologies label"
@@ -4018,43 +4038,43 @@ msgstr "засушливая"
 #, python-format
 msgctxt "technologies label"
 msgid "flat (0-2%%)"
-msgstr ""
+msgstr "пологие  (0-2%%)"
 
 #: apps/configuration/configuration_translations.py:1734
 #, python-format
 msgctxt "technologies label"
 msgid "gentle (3-5%%)"
-msgstr ""
+msgstr "покатые (3-5%%)"
 
 #: apps/configuration/configuration_translations.py:1735
 #, python-format
 msgctxt "technologies label"
 msgid "moderate (6-10%%)"
-msgstr ""
+msgstr "покато-крутые (6-10%%)"
 
 #: apps/configuration/configuration_translations.py:1736
 #, python-format
 msgctxt "technologies label"
 msgid "rolling (11-15%%)"
-msgstr ""
+msgstr "крутые (11-15%%)"
 
 #: apps/configuration/configuration_translations.py:1737
 #, python-format
 msgctxt "technologies label"
 msgid "hilly (16-30%%)"
-msgstr ""
+msgstr " очень крутые (16-30%%)"
 
 #: apps/configuration/configuration_translations.py:1738
 #, python-format
 msgctxt "technologies label"
 msgid "steep (31-60%%)"
-msgstr ""
+msgstr "чрезвычайно крутые (31-60%%)"
 
 #: apps/configuration/configuration_translations.py:1739
 #, python-format
 msgctxt "technologies label"
 msgid "very steep (>60%%)"
-msgstr ""
+msgstr "обрывистые (>60%%)"
 
 #: apps/configuration/configuration_translations.py:1740
 msgctxt "technologies label"
@@ -4175,19 +4195,19 @@ msgstr "тонкодисперсный/ тяжёлый (глинистый)"
 #, python-format
 msgctxt "technologies label"
 msgid "high (>3%%)"
-msgstr ""
+msgstr "высокое (> 3%%)"
 
 #: apps/configuration/configuration_translations.py:1764
 #, python-format
 msgctxt "technologies label"
 msgid "medium (1-3%%)"
-msgstr ""
+msgstr "среднее (1-3%%)"
 
 #: apps/configuration/configuration_translations.py:1765
 #, python-format
 msgctxt "technologies label"
 msgid "low (<1%%)"
-msgstr ""
+msgstr "низкое (< 1%%)"
 
 #: apps/configuration/configuration_translations.py:1766
 msgctxt "technologies label"
@@ -4453,35 +4473,35 @@ msgstr "индивидуальное"
 #: apps/configuration/configuration_translations.py:1816
 msgctxt "technologies label"
 msgid "-3"
-msgstr ""
+msgstr "-3"
 
 #: apps/configuration/configuration_translations.py:1817
 msgctxt "technologies label"
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
 #: apps/configuration/configuration_translations.py:1818
 msgctxt "technologies label"
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
 #: apps/configuration/configuration_translations.py:1820
 #: apps/configuration/configuration_translations.py:2012
 msgctxt "technologies label"
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: apps/configuration/configuration_translations.py:1821
 #: apps/configuration/configuration_translations.py:2013
 msgctxt "technologies label"
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: apps/configuration/configuration_translations.py:1822
 #: apps/configuration/configuration_translations.py:2014
 msgctxt "technologies label"
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: apps/configuration/configuration_translations.py:1823
 msgctxt "technologies label"
@@ -5050,6 +5070,11 @@ msgid ""
 "plant pests and diseases, drought tolerance in response to changing "
 "environmental conditions and land users’ needs."
 msgstr ""
+"Улучшение сортов растений/пород животных: Выведение новых сортов растений "
+"или пород домашних животных с улучшенными свойствами, такими как повышенная "
+"продуктивность, сопротивляемость вредителям и болезням или "
+"засухоустойчивость в соответствии с меняющимися условиями среды и нуждами "
+"землепользователей."
 
 #: apps/configuration/configuration_translations.py:1900
 msgctxt "technologies label"
@@ -5513,11 +5538,15 @@ msgid ""
 "production. They are usually intensively managed and have relatively high "
 "growth rates and productivity."
 msgstr ""
+"Лесное хозяйство в лесопосадках: лесопосадки состоят из одновозрастных "
+"монокультур и служат в первую очередь для производства древесины и волокна "
+"(целлюлозы). Как правило, они интенсивно эксплуатируются и характеризуются "
+"относительно высокими темпами прироста и продуктивности."
 
 #: apps/configuration/configuration_translations.py:1973
 msgctxt "technologies label"
 msgid "forest plantation management"
-msgstr ""
+msgstr "лесное хозяйство в лесопосадках"
 
 #: apps/configuration/configuration_translations.py:1974
 msgctxt "technologies helptext"
@@ -5527,11 +5556,14 @@ msgid ""
 "collection and abstraction, water storage,  distribution, and water "
 "application."
 msgstr ""
+"Управление орошением (включая водоснабжение и дренаж) в целях оптимизации "
+"водопользования путем более эффективного водоудержания и водозабора, "
+"хранения, распределения и использования воды."
 
 #: apps/configuration/configuration_translations.py:1975
 msgctxt "technologies label"
 msgid "irrigation management (incl. water supply, drainage)"
-msgstr ""
+msgstr "Управление орошением (включая водоснабжение и дренаж)"
 
 #: apps/configuration/configuration_translations.py:1976
 msgctxt "technologies helptext"
@@ -5542,11 +5574,15 @@ msgid ""
 "measures against negative impacts from water bodies (e.g. river bank "
 "erosion, floods, tidal erosion)"
 msgstr ""
+"Управление поверхностными водами (родники, реки, озёра, моря): охрана "
+"родников, рек и озёр от загрязнения, предотвращение наводнений или "
+"избыточного забора воды, а также мероприятия по борьбе с водной эрозией "
+"(например, эрозия речных или морских берегов, паводковая эрозия)"
 
 #: apps/configuration/configuration_translations.py:1977
 msgctxt "technologies label"
 msgid "surface water management (spring, river, lakes, sea)"
-msgstr ""
+msgstr "управление поверхностными водами (родники, реки, озёра, моря)"
 
 #: apps/configuration/configuration_translations.py:1978
 msgctxt "technologies helptext"
@@ -5556,144 +5592,150 @@ msgid ""
 "risk and safeguard the direct and indirect benefits people obtain from the "
 "ecosystems."
 msgstr ""
+"Снижение риска природных стихийных бедствий на основе экосистемного подхода: "
+"устойчивое природопользование, охрана и восстановление экосистем для "
+"поддержания их способности смягчать последствия стихийных бедствий, снижать "
+"уязвимость местных сообществ и обеспечивать устойчивость средств  "
+"жизнеобеспечения "
 
 #: apps/configuration/configuration_translations.py:1979
 msgctxt "technologies label"
 msgid "ecosystem-based disaster risk reduction"
 msgstr ""
+"снижение риска природных стихийных бедствий на основе экосистемного подхода"
 
 #: apps/configuration/configuration_translations.py:1981
 msgctxt "technologies label"
 msgid "evenly spread over an area?"
-msgstr ""
+msgstr "равномерно распределена по той или иной территории? "
 
 #: apps/configuration/configuration_translations.py:1983
 msgctxt "technologies label"
 msgid "applied at specific points/ concentrated on a small area?"
-msgstr ""
+msgstr "примененяется точечно/ на небольших участках?"
 
 #: apps/configuration/configuration_translations.py:1985
 msgctxt "technologies label"
 msgid "prevent land degradation?"
-msgstr ""
+msgstr "предотвращение деградации земель?"
 
 #: apps/configuration/configuration_translations.py:1987
 msgctxt "technologies label"
 msgid "reduce land degradation?"
-msgstr ""
+msgstr "снижение деградации земель?"
 
 #: apps/configuration/configuration_translations.py:1989
 msgctxt "technologies label"
 msgid "restore/ rehabilitate severely degraded land?"
-msgstr ""
+msgstr "восстановление/ реабилитация нарушенных земель?"
 
 #: apps/configuration/configuration_translations.py:1991
 msgctxt "technologies label"
 msgid "adapt to land degradation?"
-msgstr ""
+msgstr "адаптация к деградации земель?"
 
 #: apps/configuration/configuration_translations.py:1992
 #: apps/configuration/configuration_translations.py:2046
 msgctxt "technologies helptext"
 msgid "e.g. watering point, energy saving stove, stone line"
-msgstr ""
+msgstr "например, водопойный пункт, энергосберегающая печь, каменная стенка"
 
 #: apps/configuration/configuration_translations.py:1993
 msgctxt "technologies label"
 msgid "per technology unit"
-msgstr ""
+msgstr "на технологическую единицу"
 
 #: apps/configuration/configuration_translations.py:1994
 #: apps/configuration/configuration_translations.py:2048
 #: apps/configuration/configuration_translations.py:2086
 msgctxt "technologies helptext"
 msgid "e.g. 24 acres"
-msgstr ""
+msgstr "например, 24 акра"
 
 #: apps/configuration/configuration_translations.py:1995
 msgctxt "technologies label"
 msgid "per technology area"
-msgstr ""
+msgstr "на единицу площади, где применяется технология"
 
 #: apps/configuration/configuration_translations.py:1996
 msgctxt "technologies label"
 msgid "101-500 m a.s.l."
-msgstr ""
+msgstr "101-500 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:1997
 msgctxt "technologies label"
 msgid "501-1000 m a.s.l."
-msgstr ""
+msgstr "501-1000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:1998
 msgctxt "technologies label"
 msgid "1001-1500 m a.s.l."
-msgstr ""
+msgstr "1001-1500 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:1999
 msgctxt "technologies label"
 msgid "1501-2000 m a.s.l."
-msgstr ""
+msgstr "1501-2000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2000
 msgctxt "technologies label"
 msgid "2001-2500 m a.s.l."
-msgstr ""
+msgstr "2001-2500 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2001
 msgctxt "technologies label"
 msgid "2501-3000 m a.s.l."
-msgstr ""
+msgstr "2501-3000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2002
 msgctxt "technologies label"
 msgid "3001-4000 m a.s.l."
-msgstr ""
+msgstr "3001-4000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2003
 msgctxt "technologies label"
 msgid "not relevant"
-msgstr ""
+msgstr "не имеет значения"
 
 #: apps/configuration/configuration_translations.py:2004
 msgctxt "technologies label"
 msgid "Sedentary"
-msgstr ""
+msgstr "Осёдлый"
 
 #: apps/configuration/configuration_translations.py:2005
 msgctxt "technologies label"
 msgid "Semi-nomadic"
-msgstr ""
+msgstr "Полукочевой"
 
 #: apps/configuration/configuration_translations.py:2006
 msgctxt "technologies label"
 msgid "Nomadic"
-msgstr ""
+msgstr "Кочевой"
 
 #: apps/configuration/configuration_translations.py:2007
 msgctxt "technologies label"
 msgid "both"
-msgstr ""
+msgstr "оба"
 
 #: apps/configuration/configuration_translations.py:2008
 msgctxt "technologies label"
 msgid "through land users' innovation"
-msgstr ""
+msgstr "как инновация (инициатива) землепользователей"
 
 #: apps/configuration/configuration_translations.py:2009
 msgctxt "technologies label"
 msgid "as part of a traditional system (> 50 years)"
-msgstr ""
+msgstr "как часть традиционной системы землепользования (более 50 лет назад)"
 
 #: apps/configuration/configuration_translations.py:2010
 msgctxt "technologies label"
 msgid "during experiments/ research"
-msgstr ""
+msgstr "в качестве научного/ полевого эксперимента"
 
 #: apps/configuration/configuration_translations.py:2011
 msgctxt "technologies label"
 msgid "through projects/ external interventions"
-msgstr ""
+msgstr "через проекты/ внешнее вмешательство"
 
 #: apps/configuration/configuration_translations.py:2015
 msgctxt "technologies helptext"
@@ -5704,11 +5746,16 @@ msgid ""
 "tolerance, in response to changing environmental conditions and land users’ "
 "needs."
 msgstr ""
+"Улучшение сортов растений/пород животных: выведение новых сортов растений "
+"или пород домашних животных с улучшенными свойствами, такими как повышенная "
+"продуктивность, сопротивляемость вредителям и болезням или "
+"засухоустойчивость в соответствии с меняющимися условиями среды и нуждами "
+"землепользователей."
 
 #: apps/configuration/configuration_translations.py:2016
 msgctxt "technologies label"
 msgid "improved plant varieties/ animal breeds"
-msgstr ""
+msgstr "улучшение сортов растений/ пород животных"
 
 #: apps/configuration/configuration_translations.py:2017
 msgctxt "technologies helptext"
@@ -5717,6 +5764,9 @@ msgid ""
 "groundwater reserves and their protection from pollution, overexploitation/ "
 "overuse, and rising groundwater levels leading to salinization."
 msgstr ""
+"Управление подземными водами: обеспечение своевременного пополнения "
+"подземных водоносных горизонтов и их защиты от загрязнения, избыточного "
+"забора воды и подъема уровня грунтовых вод, ведущего к засолению."
 
 #: apps/configuration/configuration_translations.py:2019
 msgctxt "technologies helptext"
@@ -5725,6 +5775,9 @@ msgid ""
 "required to provide products and services, e.g. for cooking and heating, "
 "reducing the demand for fuel (fossil, wood)."
 msgstr ""
+"Энергосберегающие технологии: снижение энергопотребления для производства "
+"товаров и услуг, например для приготовления пищи и отопления, снижение "
+"потребления топлива (ископаемое топливо, дрова)."
 
 #: apps/configuration/configuration_translations.py:2021
 msgctxt "technologies helptext"
@@ -5734,46 +5787,50 @@ msgid ""
 "maximum return for all involved – such as drying, storage, cooling, "
 "cleaning, sorting, and packing."
 msgstr ""
+"Мероприятия по хранению и реализации продукции после уборки урожая: доставка "
+"продукции от места сбора до потребителя с минимальными потерями, "
+"максимальной эффективностью и максимальной отдачей для всех участников "
+"процесса, включая сушку, хранение, охлаждение, сортировку и упаковку."
 
 #: apps/configuration/configuration_translations.py:2022
 msgctxt "technologies label"
 msgid "post-harvest measures"
-msgstr ""
+msgstr "мероприятия по хранению и реализации продукции после уборки урожая"
 
 #: apps/configuration/configuration_translations.py:2027
 msgctxt "technologies label"
 msgid "< 0.1 km2 (10 ha)"
-msgstr ""
+msgstr "< 0,1 км2 (10 га)"
 
 #: apps/configuration/configuration_translations.py:2028
 msgctxt "technologies label"
 msgid "0.1-1 km2"
-msgstr ""
+msgstr "0,1-1 км2"
 
 #: apps/configuration/configuration_translations.py:2029
 msgctxt "technologies label"
 msgid "1-10 km2"
-msgstr ""
+msgstr "1-10 км2"
 
 #: apps/configuration/configuration_translations.py:2030
 msgctxt "technologies label"
 msgid "10-100 km2"
-msgstr ""
+msgstr "10-100 км2"
 
 #: apps/configuration/configuration_translations.py:2031
 msgctxt "technologies label"
 msgid "100-1,000 km2"
-msgstr ""
+msgstr "100-1000 км2"
 
 #: apps/configuration/configuration_translations.py:2032
 msgctxt "technologies label"
 msgid "1,000-10,000 km2"
-msgstr ""
+msgstr "1000-10 000 км2"
 
 #: apps/configuration/configuration_translations.py:2033
 msgctxt "technologies label"
 msgid "> 10,000 km2"
-msgstr ""
+msgstr "> 10 000 км2"
 
 #: apps/configuration/configuration_translations.py:2034
 msgctxt "technologies helptext"
@@ -5788,6 +5845,16 @@ msgid ""
 "ul><p>If structures are stabilized by means of vegetation, also select "
 "relevant vegetative measures!</p>"
 msgstr ""
+"Инженерные мероприятия\n"
+"•\tДолгосрочные или постоянные \n"
+"•\tНа начальном этапе часто требуют существенных вложений труда и капитала\n"
+"•\tПредполагают значительные земляные работы и/или  сооружение конструкций "
+"из дерева, камня, бетона и т.д. для регулирования поверхностного стока, "
+"эрозии, скорости ветра, а также сбора атмосферных осадков\n"
+"•\tЧасто приводят к изменению  профиля склона.  \n"
+"•\tЧасто связаны с контурной обработкой/ противодействуют преобладающему "
+"направлению ветра\n"
+"•\tРасстояния между элементами часто определяются характеристиками склона"
 
 #: apps/configuration/configuration_translations.py:2036
 msgctxt "technologies helptext"
@@ -5797,181 +5864,186 @@ msgid ""
 "encouragement of desired/ introduction of new species,  controlled burning "
 "(e.g. prescribed fires in forests/ on grazing land)/ residue burning</p>"
 msgstr ""
+"если ежегодно или в севооборотах, как например, на полях  A1\n"
+"Примеры: Снижение доли инвазивных видов, выборочные рубки, стимулирование "
+"предпочтительных/ интродукция новых видов, контролируемые выжигания "
+"(например, контролируемые палы в лесах/ на пастбищах)/ сжигание растительных "
+"остатков"
 
 #: apps/configuration/configuration_translations.py:2047
 #: apps/configuration/configuration_translations.py:2049
 msgctxt "technologies label"
 msgid "per Technology unit"
-msgstr ""
+msgstr "на технологическую единицу"
 
 #: apps/configuration/configuration_translations.py:2050
 msgctxt "technologies label"
 msgid "US Dollars"
-msgstr ""
+msgstr "Доллары США"
 
 #: apps/configuration/configuration_translations.py:2051
 msgctxt "technologies label"
 msgid "751-1,000 mm"
-msgstr ""
+msgstr "751-1000 мм"
 
 #: apps/configuration/configuration_translations.py:2052
 msgctxt "technologies label"
 msgid "1,001-1,500 mm"
-msgstr ""
+msgstr "1001-1500 мм"
 
 #: apps/configuration/configuration_translations.py:2053
 msgctxt "technologies label"
 msgid "1,501-2,000 mm"
-msgstr ""
+msgstr "1501-2000 мм"
 
 #: apps/configuration/configuration_translations.py:2054
 msgctxt "technologies label"
 msgid "2,001-3,000 mm"
-msgstr ""
+msgstr "2001-3000 мм"
 
 #: apps/configuration/configuration_translations.py:2055
 msgctxt "technologies label"
 msgid "3,001-4,000 mm"
-msgstr ""
+msgstr "3001-4000 мм"
 
 #: apps/configuration/configuration_translations.py:2056
 msgctxt "technologies label"
 msgid "> 4,000 mm"
-msgstr ""
+msgstr "> 4000 мм"
 
 #: apps/configuration/configuration_translations.py:2057
 msgctxt "technologies label"
 msgid "501-1,000 m a.s.l."
-msgstr ""
+msgstr "501-1000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2058
 msgctxt "technologies label"
 msgid "1,001-1,500 m a.s.l."
-msgstr ""
+msgstr "1001-1500 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2059
 msgctxt "technologies label"
 msgid "1,501-2,000 m a.s.l."
-msgstr ""
+msgstr "1501-2000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2060
 msgctxt "technologies label"
 msgid "2,001-2,500 m a.s.l."
-msgstr ""
+msgstr "2001-2500 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2061
 msgctxt "technologies label"
 msgid "2,501-3,000 m a.s.l."
-msgstr ""
+msgstr "2501-3000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2062
 msgctxt "technologies label"
 msgid "3,001-4,000 m a.s.l."
-msgstr ""
+msgstr "3001-4000 м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2063
 msgctxt "technologies label"
 msgid "> 4,000 m a.s.l."
-msgstr ""
+msgstr "> 4 тыс. м н.у.м."
 
 #: apps/configuration/configuration_translations.py:2064
 msgctxt "technologies label"
 msgid "women"
-msgstr ""
+msgstr "женщины"
 
 #: apps/configuration/configuration_translations.py:2065
 msgctxt "technologies label"
 msgid "men"
-msgstr ""
+msgstr "мужчины"
 
 #: apps/configuration/configuration_translations.py:2066
 msgctxt "technologies label"
 msgid "children"
-msgstr ""
+msgstr "дети"
 
 #: apps/configuration/configuration_translations.py:2067
 msgctxt "technologies label"
 msgid "youth"
-msgstr ""
+msgstr "молодёжь"
 
 #: apps/configuration/configuration_translations.py:2068
 msgctxt "technologies label"
 msgid "middle-aged"
-msgstr ""
+msgstr "средний возраст"
 
 #: apps/configuration/configuration_translations.py:2069
 msgctxt "technologies label"
 msgid "elderly"
-msgstr ""
+msgstr "пожилой"
 
 #: apps/configuration/configuration_translations.py:2070
 msgctxt "technologies label"
 msgid "small-scale"
-msgstr ""
+msgstr "мелкое"
 
 #: apps/configuration/configuration_translations.py:2071
 msgctxt "technologies label"
 msgid "medium-scale"
-msgstr ""
+msgstr "среднего размера"
 
 #: apps/configuration/configuration_translations.py:2072
 msgctxt "technologies label"
 msgid "large-scale"
-msgstr ""
+msgstr "крупное"
 
 #: apps/configuration/configuration_translations.py:2073
 msgctxt "technologies helptext"
 msgid "<strong>Individual</strong>: right of use pertains to single user."
-msgstr ""
+msgstr "Индивидуальное: право принадлежит отдельному пользователю"
 
 #: apps/configuration/configuration_translations.py:2076
 msgctxt "technologies label"
 msgid "moderate"
-msgstr ""
+msgstr "средний"
 
 #: apps/configuration/configuration_translations.py:2078
 #, python-format
 msgctxt "technologies label"
 msgid "1-10%%"
-msgstr ""
+msgstr "1-10%%"
 
 #: apps/configuration/configuration_translations.py:2079
 #, python-format
 msgctxt "technologies label"
 msgid "0-10%%"
-msgstr ""
+msgstr "0-10%%"
 
 #: apps/configuration/configuration_translations.py:2081
 #, python-format
 msgctxt "technologies label"
 msgid "50-90%%"
-msgstr ""
+msgstr "50-90%%"
 
 #: apps/configuration/configuration_translations.py:2082
 #, python-format
 msgctxt "technologies label"
 msgid "90-100%%"
-msgstr ""
+msgstr "90-100%%"
 
 #: apps/configuration/configuration_translations.py:2083
 msgctxt "technologies label"
 msgid "Traffic: roads, railways"
-msgstr ""
+msgstr "Транспорт: автомобильные и железные дороги"
 
 #: apps/configuration/configuration_translations.py:2084
 msgctxt "technologies label"
 msgid "Energy: pipelines, power lines"
-msgstr ""
+msgstr "Энергетика: трубопроводы, линии электропередач"
 
 #: apps/configuration/configuration_translations.py:2085
 msgctxt "technologies label"
 msgid "Drainage lines, waterways"
-msgstr ""
+msgstr "Дренажные канавы, водотоки"
 
 #: apps/configuration/configuration_translations.py:2087
 msgctxt "technologies label"
 msgid "per Technology area"
-msgstr ""
+msgstr "на площадь, где применяется Технология"
 
 #: apps/configuration/configuration_translations.py:2201
 msgctxt "technologies helptext"
@@ -5983,6 +6055,15 @@ msgid ""
 "Technology does not fit any of the given categories and specify why it does "
 "not fit."
 msgstr ""
+"Термины традиционные, самобытные местные системы землепользования коренных "
+"народов и инновации относятся к технологиям, используемым самими "
+"землепользователями. Первые два относится к технологиям, которые "
+"использовались на протяжении поколений, третий – к технологиям, опробованным "
+"землепользователями относительно недавно, как попытка адаптации к "
+"изменяющимся условиям среды. Используйте строчку «другим путем» в том "
+"случае, если способ внедрения Технологии не соответствует ни одному из "
+"предложенных вариантов и объясните почему. и инновация относятся к "
+"технологиям, используемым самими землепользователями. "
 
 #: apps/configuration/configuration_translations.py:2203
 msgctxt "technologies helptext"
@@ -5990,13 +6071,15 @@ msgid ""
 "<strong>Labour costs</strong> if relevant, differentiate between skilled and "
 "unskilled labour"
 msgstr ""
+"Оплата труда если уместно, отдельно укажите оплату квалифицированного и "
+"неквалифицированного труда"
 
 #: apps/configuration/configuration_translations.py:2204
 #: apps/configuration/configuration_translations.py:2212
 #: apps/configuration/configuration_translations.py:2378
 msgctxt "technologies label"
 msgid "Labour"
-msgstr ""
+msgstr "Оплата труда"
 
 #: apps/configuration/configuration_translations.py:2205
 msgctxt "technologies helptext"
@@ -6005,12 +6088,16 @@ msgid ""
 "calculation for machine hours and animal traction should be based on hiring "
 "costs - even if the machinery/ animals are owned by the land user."
 msgstr ""
+"Оборудование включает инструменты, использование с/х техники, тягловой силы "
+"и т.д.  Подсчет стоимости использования с/х техники и тягловой силы должен "
+"основываться на стоимости аренды, даже в том случае, если землепользователи "
+"являются владельцами техники и животных."
 
 #: apps/configuration/configuration_translations.py:2206
 #: apps/configuration/configuration_translations.py:2380
 msgctxt "technologies label"
 msgid "Equipment"
-msgstr ""
+msgstr "Оборудование"
 
 #: apps/configuration/configuration_translations.py:2207
 msgctxt "technologies helptext"
@@ -6018,11 +6105,13 @@ msgid ""
 "<strong>Agricultural inputs</strong> include seeds, seedling, fertilizer, "
 "biocides, compost/ manure, etc."
 msgstr ""
+"Сельскохозяйственные вложения включают включает семена, саженцы, минеральные "
+"удобрения, гербициды, пестициды, компост/навоз и т.д. "
 
 #: apps/configuration/configuration_translations.py:2208
 msgctxt "technologies label"
 msgid "Agricultural"
-msgstr ""
+msgstr "Сельскохозяйственные"
 
 #: apps/configuration/configuration_translations.py:2209
 msgctxt "technologies helptext"
@@ -6030,11 +6119,13 @@ msgid ""
 "<strong>Construction material</strong> includes timber, stones, earth, "
 "cement, pipes, tanks, etc."
 msgstr ""
+"Строительные материалы включают лесоматериалы, камень, цемент, трубы, "
+"контейнеры и т.д."
 
 #: apps/configuration/configuration_translations.py:2210
 msgctxt "technologies label"
 msgid "Construction material"
-msgstr ""
+msgstr "Строительные материалы"
 
 #: apps/configuration/configuration_translations.py:2211
 msgctxt "technologies helptext"
@@ -6042,11 +6133,13 @@ msgid ""
 "If possible, break down the total costs for maintenance: specify inputs and "
 "costs per input."
 msgstr ""
+"Если возможно, укажите, пожалуйста, стоимость технического обслуживания, "
+"детально по каждой статье затрат. "
 
 #: apps/configuration/configuration_translations.py:2217
 msgctxt "technologies label"
 msgid "Rating of costs considering the local context"
-msgstr ""
+msgstr "Ранжирование затрат в соответствии с местными условиями"
 
 #: apps/configuration/configuration_translations.py:2219
 msgctxt "technologies helptext"
@@ -6055,16 +6148,19 @@ msgid ""
 "precipitation is more than half of the potential evapotranspiration (PET) "
 "and the temperature is higher than 6.5° C."
 msgstr ""
+"Продолжительность вегетационного периода (ПВП) -период, в течение которого "
+"количество выпадающих осадков составляет не менее половины суммарной "
+"испаряемости и средняя температура выше 6,5°C."
 
 #: apps/configuration/configuration_translations.py:2229
 msgctxt "technologies label"
 msgid "Species richness"
-msgstr ""
+msgstr "Богатство видового состава"
 
 #: apps/configuration/configuration_translations.py:2230
 msgctxt "technologies label"
 msgid "Habitat richness"
-msgstr ""
+msgstr "Разнообразие местообитаний"
 
 #: apps/configuration/configuration_translations.py:2231
 msgctxt "technologies helptext"
@@ -6073,6 +6169,9 @@ msgid ""
 "<strong>land use rights</strong> refer to the access to land.</p><p>Maximum "
 "two answers per question.</p>"
 msgstr ""
+"Форма собственности на землю – организационная форма владения земельным "
+"участком физическим или юридическим лицом, в то время как организационная "
+"форма использования земельного участка. Отметьте не более двух ответов. "
 
 #: apps/configuration/configuration_translations.py:2232
 msgctxt "technologies helptext"
@@ -6083,11 +6182,18 @@ msgid ""
 "period of time against payment (contract)</li><li>Individual: right of use "
 "by single user.</li></ul>"
 msgstr ""
+"Право пользования землей/водой:\n"
+"•\tНеограниченное: бесплатное для всех.\n"
+"•\tОбщинное (контролируемое): регулируется правилами, согласованными в "
+"общине.\n"
+"•\tАренда: право пользования землей в течение ограниченного периода времени "
+"за определённую плату (по договору). \n"
+"•\tИндивидуальное: право принадлежит отдельному пользователю."
 
 #: apps/configuration/configuration_translations.py:2233
 msgctxt "technologies label"
 msgid "crop production"
-msgstr ""
+msgstr "продуктивность сельскозяйственных культур"
 
 #: apps/configuration/configuration_translations.py:2236
 msgctxt "technologies helptext"
@@ -6098,207 +6204,216 @@ msgid ""
 "period of time against payment (contract)</li><li>Individual: right of use "
 "by single user.</li></ul>"
 msgstr ""
+"Право пользования землей/водой:\n"
+"•\tНеограниченное: бесплатное для всех.\n"
+"•\tОбщинное (контролируемое): регулируется правилами, согласованными в "
+"общине.\n"
+"•\tАренда: право пользования землей в течение ограниченного периода времени "
+"за определённую плату (по договору). \n"
+"•\tИндивидуальное: право принадлежит отдельному пользователю."
 
 #: apps/configuration/configuration_translations.py:2237
 msgctxt "technologies label"
 msgid "Water use rights (if relevant)"
-msgstr ""
+msgstr "Право водопользования (если применимо)"
 
 #: apps/configuration/configuration_translations.py:2245
 msgctxt "technologies helptext"
 msgid "New land under cultivation/ use"
-msgstr ""
+msgstr "Земли добавленные в оборот/ использование"
 
 #: apps/configuration/configuration_translations.py:2246
 msgctxt "technologies label"
 msgid "production area"
-msgstr ""
+msgstr "используемая продуктивная площадь"
 
 #: apps/configuration/configuration_translations.py:2248
 msgctxt "technologies helptext"
 msgid "E.g. hydro, bio"
-msgstr ""
+msgstr "например, гидроэлектростанции, биоустановки"
 
 #: apps/configuration/configuration_translations.py:2249
 msgctxt "technologies label"
 msgid "energy generation"
-msgstr ""
+msgstr "производство электроэнергии"
 
 #: apps/configuration/configuration_translations.py:2265
 msgctxt "technologies helptext"
 msgid "E.g. spiritual, religious, aesthetic, etc."
-msgstr ""
+msgstr "Например, духовные, религиозные, эстетические и т.д."
 
 #: apps/configuration/configuration_translations.py:2266
 msgctxt "technologies label"
 msgid "cultural opportunities"
-msgstr ""
+msgstr "культурные возможности"
 
 #: apps/configuration/configuration_translations.py:2272
 msgctxt "technologies helptext"
 msgid "Gender, age, status, ethnicity, etc."
-msgstr ""
+msgstr "пол, возраст, статус, этническая принадлежность и т.д."
 
 #: apps/configuration/configuration_translations.py:2273
 msgctxt "technologies label"
 msgid "situation of socially and economically disadvantaged groups"
-msgstr ""
+msgstr "положение социально и экономически уязвимых групп населения"
 
 #: apps/configuration/configuration_translations.py:2276
 msgctxt "technologies helptext"
 msgid "Runoff, dew, snow, etc."
-msgstr ""
+msgstr "поверхностный сток, роса, снег и т.д."
 
 #: apps/configuration/configuration_translations.py:2277
 msgctxt "technologies label"
 msgid "harvesting/ collection of water"
-msgstr ""
+msgstr "сбор воды/ водоудержание"
 
 #: apps/configuration/configuration_translations.py:2295
 msgctxt "technologies helptext"
 msgid "Predators, earthworms, pollinators"
-msgstr ""
+msgstr "виды-хищники, дождевые черви, опылители"
 
 #: apps/configuration/configuration_translations.py:2296
 msgctxt "technologies label"
 msgid "beneficial species"
-msgstr ""
+msgstr "полезные виды"
 
 #: apps/configuration/configuration_translations.py:2300
 msgctxt "technologies helptext"
 msgid "Drought, flood, storms etc."
-msgstr ""
+msgstr "засухи, наводнения, ураганы и т.д. "
 
 #: apps/configuration/configuration_translations.py:2301
 msgctxt "technologies label"
 msgid "disaster risk"
-msgstr ""
+msgstr "риск возникновения стихийного бедствия"
 
 #: apps/configuration/configuration_translations.py:2305
 msgctxt "technologies helptext"
 msgid "groundwater, springs"
-msgstr ""
+msgstr "подземные воды, источники"
 
 #: apps/configuration/configuration_translations.py:2306
 msgctxt "technologies label"
 msgid "water availability"
-msgstr ""
+msgstr "доступность воды"
 
 #: apps/configuration/configuration_translations.py:2307
 msgctxt "technologies helptext"
 msgid "Undesired"
-msgstr ""
+msgstr "Нежелательные"
 
 #: apps/configuration/configuration_translations.py:2308
 #: apps/configuration/configuration_translations.py:2396
 msgctxt "technologies label"
 msgid "downstream flooding"
-msgstr ""
+msgstr "подтопление ниже по течению"
 
 #: apps/configuration/configuration_translations.py:2309
 msgctxt "technologies helptext"
 msgid "Incl. low flows"
-msgstr ""
+msgstr "включая слабые водотоки"
 
 #: apps/configuration/configuration_translations.py:2310
 msgctxt "technologies label"
 msgid "reliable and stable stream flows in dry season"
-msgstr ""
+msgstr "надежность и постоянство водотоков"
 
 #: apps/configuration/configuration_translations.py:2313
 msgctxt "technologies helptext"
 msgid "By soil, vegetation, wetlands"
-msgstr ""
+msgstr "почв, растительности, водно-болотных угодий"
 
 #: apps/configuration/configuration_translations.py:2314
 msgctxt "technologies label"
 msgid "buffering/ filtering capacity"
-msgstr ""
+msgstr "буферная/ фильтрационная способность"
 
 #: apps/configuration/configuration_translations.py:2315
 msgctxt "technologies helptext"
 msgid "undesired"
-msgstr ""
+msgstr "нежелательные"
 
 #: apps/configuration/configuration_translations.py:2320
 msgctxt "technologies label"
 msgid "Define a specific area/unit for which you will specify costs and inputs"
 msgstr ""
+"Укажите единицу площади/ технологическую единицу, на которую рассчитывались "
+"затраты и вложения"
 
 #: apps/configuration/configuration_translations.py:2321
 msgctxt "technologies label"
 msgid "If using national currency, indicate name"
-msgstr ""
+msgstr "Если использовались местные денежные единицы, укажите их название"
 
 #: apps/configuration/configuration_translations.py:2323
 msgctxt "technologies label"
 msgid "Vegetation cover"
-msgstr ""
+msgstr "Растительный покров"
 
 #: apps/configuration/configuration_translations.py:2324
 msgctxt "technologies label"
 msgid "annual temperature"
-msgstr ""
+msgstr "среднегодовые температуры"
 
 #: apps/configuration/configuration_translations.py:2325
 msgctxt "technologies label"
 msgid "seasonal temperature"
-msgstr ""
+msgstr "сезонные температуры"
 
 #: apps/configuration/configuration_translations.py:2326
 msgctxt "technologies label"
 msgid "annual rainfall"
-msgstr ""
+msgstr "среднегодовое количество осадков"
 
 #: apps/configuration/configuration_translations.py:2327
 msgctxt "technologies label"
 msgid "seasonal rainfall"
-msgstr ""
+msgstr "сезонное количество осадков"
 
 #: apps/configuration/configuration_translations.py:2328
 msgctxt "technologies label"
 msgid "other gradual climate change"
-msgstr ""
+msgstr "другие постепенные изменения климата"
 
 #: apps/configuration/configuration_translations.py:2329
 msgctxt "technologies label"
 msgid "Heat waves/warm spells"
-msgstr ""
+msgstr "сильная жара"
 
 #: apps/configuration/configuration_translations.py:2330
 msgctxt "technologies label"
 msgid "Cold waves/cold spells"
-msgstr ""
+msgstr "экстремально холодная погода"
 
 #: apps/configuration/configuration_translations.py:2331
 msgctxt "technologies label"
 msgid "Decreasing length of growing period"
-msgstr ""
+msgstr "Сокращение вегетационного периода"
 
 #: apps/configuration/configuration_translations.py:2332
 msgctxt "technologies helptext"
 msgid "cyclone, typhoon, hurricane"
-msgstr ""
+msgstr "циклоны, тайфуны, ураганы"
 
 #: apps/configuration/configuration_translations.py:2333
 msgctxt "technologies label"
 msgid "tropical storm"
-msgstr ""
+msgstr "тропические штормы"
 
 #: apps/configuration/configuration_translations.py:2334
 msgctxt "technologies helptext"
 msgid "winter storm"
-msgstr ""
+msgstr "зимние бури"
 
 #: apps/configuration/configuration_translations.py:2335
 msgctxt "technologies label"
 msgid "extra-tropical cyclone"
-msgstr ""
+msgstr "внетропические штормы"
 
 #: apps/configuration/configuration_translations.py:2336
 msgctxt "technologies label"
 msgid "local rainstorm"
-msgstr ""
+msgstr "местные ливневые дожди"
 
 #: apps/configuration/configuration_translations.py:2337
 msgctxt "technologies label"
@@ -6306,6 +6421,8 @@ msgid ""
 "How do the benefits compare with the establishment costs (from land users’ "
 "perspective)?"
 msgstr ""
+"Насколько получаемый результат сопоставим с первоначальными вложениями (с "
+"точки зрения землепользователей)?"
 
 #: apps/configuration/configuration_translations.py:2338
 msgctxt "technologies label"
@@ -6313,6 +6430,8 @@ msgid ""
 "How do the benefits compare with the maintenance/ recurrent costs (from land "
 "users' perspective)?"
 msgstr ""
+"Насколько получаемый результат сопоставим с текущими расходами по "
+"поддержанию технологии (с точки зрения землепользователей)?"
 
 #: apps/configuration/configuration_translations.py:2339
 msgctxt "technologies helptext"
@@ -6321,144 +6440,147 @@ msgid ""
 "questionnaire. These can be land users, or local or regional experts/ SLM "
 "specialists."
 msgstr ""
+"Лица, предоставившие большую часть информации для заполнения анкеты. Это "
+"могут быть землепользователи, специалисты по УЗП (например, технические "
+"эксперты, ученые) либо иные лица."
 
 #: apps/configuration/configuration_translations.py:2340
 #: apps/configuration/configuration_translations.py:2372
 #: apps/configuration/configuration_translations.py:2391
 msgctxt "technologies label"
 msgid "Key resource person(s)"
-msgstr ""
+msgstr "Ответственный (-ые) специалист (-ы) "
 
 #: apps/configuration/configuration_translations.py:2345
 msgctxt "technologies label"
 msgid "local thunderstorm"
-msgstr ""
+msgstr "местные грозы"
 
 #: apps/configuration/configuration_translations.py:2346
 msgctxt "technologies label"
 msgid "local hailstorm"
-msgstr ""
+msgstr "местный град"
 
 #: apps/configuration/configuration_translations.py:2347
 msgctxt "technologies label"
 msgid "local snowstorm"
-msgstr ""
+msgstr "местные снежные бури"
 
 #: apps/configuration/configuration_translations.py:2348
 msgctxt "technologies label"
 msgid "local sandstorm/ duststorm"
-msgstr ""
+msgstr "местные песчаные/ пыльные бури"
 
 #: apps/configuration/configuration_translations.py:2349
 msgctxt "technologies label"
 msgid "local windstorm"
-msgstr ""
+msgstr "местные ураганы"
 
 #: apps/configuration/configuration_translations.py:2350
 msgctxt "technologies label"
 msgid "tornado"
-msgstr ""
+msgstr "торнадо"
 
 #: apps/configuration/configuration_translations.py:2351
 msgctxt "technologies label"
 msgid "heatwave"
-msgstr ""
+msgstr "сильная жара"
 
 #: apps/configuration/configuration_translations.py:2352
 #: apps/configuration/configuration_translations.py:2387
 msgctxt "technologies label"
 msgid "cold wave"
-msgstr ""
+msgstr "экстремально холодная погода"
 
 #: apps/configuration/configuration_translations.py:2353
 msgctxt "technologies label"
 msgid "extreme winter conditions"
-msgstr ""
+msgstr "экстремальные зимние условия"
 
 #: apps/configuration/configuration_translations.py:2354
 msgctxt "technologies label"
 msgid "drought"
-msgstr ""
+msgstr "засухи"
 
 #: apps/configuration/configuration_translations.py:2355
 msgctxt "technologies label"
 msgid "forest fire"
-msgstr ""
+msgstr "лесные пожары"
 
 #: apps/configuration/configuration_translations.py:2356
 msgctxt "technologies helptext"
 msgid "grass, shrub, bush"
-msgstr ""
+msgstr "травяные, кустарниковые"
 
 #: apps/configuration/configuration_translations.py:2357
 msgctxt "technologies label"
 msgid "land fire"
-msgstr ""
+msgstr "другие природные пожары"
 
 #: apps/configuration/configuration_translations.py:2358
 msgctxt "technologies label"
 msgid "general (river) flood"
-msgstr ""
+msgstr "регулярные наводнения (выход рек из берегов)"
 
 #: apps/configuration/configuration_translations.py:2359
 msgctxt "technologies label"
 msgid "flash flood"
-msgstr ""
+msgstr "паводки"
 
 #: apps/configuration/configuration_translations.py:2360
 msgctxt "technologies label"
 msgid "storm surge/ coastal flood"
-msgstr ""
+msgstr "штормовые нагоны/ наводнения в прибрежной зоне"
 
 #: apps/configuration/configuration_translations.py:2361
 msgctxt "technologies label"
 msgid "landslide"
-msgstr ""
+msgstr "оползни"
 
 #: apps/configuration/configuration_translations.py:2362
 msgctxt "technologies label"
 msgid "avalanche"
-msgstr ""
+msgstr "снежные лавины"
 
 #: apps/configuration/configuration_translations.py:2363
 msgctxt "technologies helptext"
 msgid "viral, bacterial, fungal, parasitic"
-msgstr ""
+msgstr "вирусные, бактериальные, грибковые, паразиты"
 
 #: apps/configuration/configuration_translations.py:2364
 msgctxt "technologies label"
 msgid "epidemic diseases"
-msgstr ""
+msgstr "эпидемии"
 
 #: apps/configuration/configuration_translations.py:2365
 msgctxt "technologies helptext"
 msgid "grasshoppers/ locusts/ worms"
-msgstr ""
+msgstr "кузнечики/ саранча/ червяки"
 
 #: apps/configuration/configuration_translations.py:2366
 msgctxt "technologies label"
 msgid "insect/ worm infestation"
-msgstr ""
+msgstr "нашествия насекомых/ поражения червями"
 
 #: apps/configuration/configuration_translations.py:2367
 msgctxt "technologies label"
 msgid "extended growing period"
-msgstr ""
+msgstr "увеличение вегетационного периода"
 
 #: apps/configuration/configuration_translations.py:2368
 msgctxt "technologies label"
 msgid "reduced growing period"
-msgstr ""
+msgstr "сокращение вегетационного периода"
 
 #: apps/configuration/configuration_translations.py:2369
 msgctxt "technologies helptext"
 msgid "gradual change"
-msgstr ""
+msgstr "постепенное изменение"
 
 #: apps/configuration/configuration_translations.py:2370
 msgctxt "technologies label"
 msgid "sea level rise"
-msgstr ""
+msgstr "повышение уровня моря"
 
 #: apps/configuration/configuration_translations.py:2371
 msgctxt "technologies helptext"
@@ -6467,17 +6589,20 @@ msgid ""
 "questionnaire. These can be land users, or SLM specialists (e.g. technical "
 "advisors, researchers) or any other persons."
 msgstr ""
+"Лица, предоставившие большую часть информации для заполнения анкеты. Это "
+"могут быть землепользователи, специалисты по УЗП (например, технические "
+"эксперты, ученые) либо иные лица."
 
 #: apps/configuration/configuration_translations.py:2373
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Plant material</strong> includes seeds, seedling, cuttings, etc."
-msgstr ""
+msgstr "Посадочный материал включает семена, саженцы, черенки и т.д."
 
 #: apps/configuration/configuration_translations.py:2374
 msgctxt "technologies label"
 msgid "Plant material"
-msgstr ""
+msgstr "Посадочный материал"
 
 #: apps/configuration/configuration_translations.py:2375
 msgctxt "technologies helptext"
@@ -6485,11 +6610,13 @@ msgid ""
 "<strong>Fertilizers and biocides</strong>: compost/ manure, inorganic "
 "fertilizer, herbicides, pesticides, etc."
 msgstr ""
+"Удобрения и ядохимикаты: компост/навоз, минеральные удобрения, гербициды, "
+"пестициды и т.д."
 
 #: apps/configuration/configuration_translations.py:2376
 msgctxt "technologies label"
 msgid "Fertilizers and biocides"
-msgstr ""
+msgstr "Удобрения и ядохимикаты"
 
 #: apps/configuration/configuration_translations.py:2377
 msgctxt "technologies helptext"
@@ -6499,6 +6626,11 @@ msgid ""
 "wage for hired labour. If relevant, differentiate between skilled and "
 "unskilled labour."
 msgstr ""
+"Оплата труда включает общее число человеко-дней, будь то оплачиваемый или "
+"неоплачиваемый (например. предоставляемый членами семьи) труд. В колонке "
+"«Удельная стоимость» укажите размер дневного заработка для нанятых "
+"работников. Если уместно, отдельно укажите оплату квалифицированного и "
+"неквалифицированного труда."
 
 #: apps/configuration/configuration_translations.py:2379
 msgctxt "technologies helptext"
@@ -6507,16 +6639,20 @@ msgid ""
 "etc. Cost calculation for machine hours and animal traction should be based "
 "on hiring costs - even if the machinery/ animals are owned by the land user."
 msgstr ""
+"Оборудование включает инструменты, использование с/х техники, тягловой силы "
+"и т.д.  Подсчет стоимости использования с/х техники и тягловой силы должен "
+"основываться на стоимости аренды, даже в том случае, если землепользователи "
+"являются владельцами техники и животных."
 
 #: apps/configuration/configuration_translations.py:2382
 msgctxt "technologies label"
 msgid "Annual rainfall"
-msgstr ""
+msgstr "Среднегодовое количество осадков"
 
 #: apps/configuration/configuration_translations.py:2386
 msgctxt "technologies helptext"
 msgid "any time of the year, e.g. frost"
-msgstr ""
+msgstr "в любое время года, например, заморозки"
 
 #: apps/configuration/configuration_translations.py:2388
 msgctxt "technologies label"
@@ -6524,6 +6660,8 @@ msgid ""
 "How do the benefits compare with the establishment costs (from land users’ "
 "perception)?"
 msgstr ""
+"Насколько получаемый результат сопоставим с первоначальными вложениями (с "
+"точки зрения землепользователей)?"
 
 #: apps/configuration/configuration_translations.py:2389
 msgctxt "technologies label"
@@ -6531,6 +6669,8 @@ msgid ""
 "How do the benefits compare with the maintenance/ recurrent costs (from land "
 "users' perception)?"
 msgstr ""
+"Насколько получаемый результат сопоставим с текущими расходами по "
+"поддержанию технологии (с точки зрения землепользователей)?"
 
 #: apps/configuration/configuration_translations.py:2390
 msgctxt "technologies helptext"
@@ -6539,6 +6679,9 @@ msgid ""
 "questionnaire. These can be land users, SLM specialists (e.g. technical "
 "advisers, researchers), or any other persons."
 msgstr ""
+"Лица, предоставившие большую часть информации для заполнения анкеты. Это "
+"могут быть землепользователи, специалисты по УЗП (например, технические "
+"эксперты, ученые) либо иные лица."
 
 #: apps/configuration/configuration_translations.py:2392
 msgctxt "technologies helptext"
@@ -6549,6 +6692,13 @@ msgid ""
 "users in response to changing circumstances. Use “other” when the Technology "
 "does not fit any of the given categories and specify why it does not fit."
 msgstr ""
+"Термины традиционная и инновация относятся к технологиям, используемым "
+"самими землепользователями. Первый относится к технологиям, которые "
+"использовались на протяжении поколений, второй – к технологиям, опробованным "
+"землепользователями относительно недавно, как попытка адаптации к "
+"изменяющимся условиям среды. Используйте строчку «другим путем» в том "
+"случае, если Технология не соответствует ни одному из предложенных вариантов "
+"и объясните почему."
 
 #: apps/configuration/configuration_translations.py:2393
 msgctxt "technologies helptext"
@@ -6558,6 +6708,10 @@ msgid ""
 "entity having a right to access the land.</p><p>Maximum two answers per "
 "question.</p>"
 msgstr ""
+"Форма собственности на землю – организационная форма владения земельным "
+"участком физическим или юридическим лицом, в то время как право "
+"землепользования – организационная форма использования земельного участка. "
+"Не более двух вариантов ответа."
 
 #: apps/configuration/configuration_translations.py:2395
 #: apps/configuration/configuration_translations.py:2397
@@ -6567,6 +6721,9 @@ msgid ""
 "Please specify in comments column and indicate whether an increase is "
 "positive or negative."
 msgstr ""
+"Подтопление и отложение наносов ниже по течению может быть желательным или "
+"нежелательным. Пожалуйста, прокомментируйте ниже и укажите, является ли "
+"изменение положительным или отрицательным."
 
 #: apps/configuration/configuration_translations.py:2701
 msgctxt "technologies helptext"
@@ -6575,22 +6732,25 @@ msgid ""
 "images later.</p><p>Maximum file size: 3 MB. Valid file formats: JPG, PNG, "
 "GIF.</p>"
 msgstr ""
+"Пожалуйста, загрузите первую фотографию для иллюстрации Технологии. "
+"Дополнительные фотографии можно добавить позже. Объем файла: не более 3Mb. "
+"Допустимые форматы: JPG, PNG, GIF. "
 
 #: apps/configuration/configuration_translations.py:2702
 #: apps/configuration/configuration_translations.py:5031
 msgctxt "technologies label"
 msgid "Image"
-msgstr ""
+msgstr "Фотография"
 
 #: apps/configuration/configuration_translations.py:2703
 msgctxt "technologies label"
 msgid "Name of the SLM Technology (hereafter referred to as the Technology)"
-msgstr ""
+msgstr "Название Технологии УЗП (далее – «Технология»)"
 
 #: apps/configuration/configuration_translations.py:2704
 msgctxt "technologies label_view"
 msgid "Name of the SLM Technology"
-msgstr ""
+msgstr "Название Технологии УЗП"
 
 #: apps/configuration/configuration_translations.py:2705
 msgctxt "technologies helptext"
@@ -6598,6 +6758,8 @@ msgid ""
 "Describe the Technology in one sentence containing key words. The definition "
 "of a Technology is very important for searching the database."
 msgstr ""
+"Кратко охарактеризуйте Технологию одним предложением, содержащим ключевые "
+"слова. Определение Технологии - очень важно для поиска в базе данных. "
 
 #: apps/configuration/configuration_translations.py:2707
 msgctxt "technologies helptext"
@@ -6610,12 +6772,21 @@ msgid ""
 "Fill in this information at the beginning but revise the description when "
 "you have completed the questionnaire."
 msgstr ""
+"Описание должно давать краткое, но всестороннее представление о Технологии "
+"и, в том числе для неспециалистов.  Для этого, описание должно содержать "
+"следующие ключевые характеристики: цели и влияние; основные мероприятия/ "
+"ресурсы необходимые для запуска/ поддержания Технологии; технические "
+"характеристики; наиболее важные природные и социально-экономические условия; "
+"сильные и слабые стороны и т.д. (объем описания не должен превышать 2500 "
+"знаков). Лучше всего сделать краткое описание в начале работы над анкетой, "
+"но обязательно вернуться к нему и отредактировать после заполнения всех "
+"разделов. "
 
 #: apps/configuration/configuration_translations.py:2708
 #: apps/configuration/configuration_translations.py:2798
 msgctxt "technologies label"
 msgid "Description of the Technology"
-msgstr ""
+msgstr "Описание Технологии"
 
 #: apps/configuration/configuration_translations.py:2709
 msgctxt "technologies helptext"
@@ -6627,6 +6798,12 @@ msgid ""
 "include other sites where the same Technology is applied but no data has "
 "been collected."
 msgstr ""
+"Описываемая Технология УЗП может применяться в разных местах. Тем не менее, "
+"ограничьте, пожалуйста, информацию в этой Анкете только теми местами, где "
+"применение было оценено/ проанализировано и задокументировано (с выездами на "
+"места, через интервьюирование соответствующих землепользователей, отчеты и т."
+"д.) Не включайте сюда участки, где Технология применялась, но данные при "
+"этом не были собраны."
 
 #: apps/configuration/configuration_translations.py:2710
 msgctxt "technologies label"
@@ -6634,12 +6811,16 @@ msgid ""
 "Country/ region/ locations where the Technology has been applied and which "
 "are covered by this assessment"
 msgstr ""
+"Страна/ регион/ места, где применяется Технология, информация о которых "
+"собрана в данной Анкете  "
 
 #: apps/configuration/configuration_translations.py:2711
 msgctxt "technologies label"
 msgid ""
 "Indicate the main purpose(s) of the SLM technology (land user's perspective)"
 msgstr ""
+"Укажите основные цели и задачи реализации Технологии УЗП (с точки зрения "
+"землепользователей)"
 
 #: apps/configuration/configuration_translations.py:2712
 msgctxt "technologies helptext"
@@ -6649,12 +6830,19 @@ msgid ""
 "<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made "
 "structures (buildings, etc.) that cover the earth’s surface.</p>"
 msgstr ""
+"Землепользование: деятельность человека непосредственно связанная с землей, "
+"использованием земельных ресурсов и/или оказывающая воздействие на нее. "
+"Земельный покров (Land cover): растительность (природная  или насаждения/ "
+"посевы) или сооружения, созданные человеком (строения и пр.), покрывающие "
+"поверхность земли."
 
 #: apps/configuration/configuration_translations.py:2713
 #: apps/configuration/configuration_translations.py:2817
 msgctxt "technologies label"
 msgid "Current land use type(s) where the Technology is applied"
 msgstr ""
+"Текущий(-ие) тип(-ы) землепользования на территории, где применяется "
+"Технология "
 
 #: apps/configuration/configuration_translations.py:2715
 msgctxt "technologies helptext"
@@ -6662,12 +6850,16 @@ msgid ""
 "Assign the described Technology to one of the following SLM groups. If this "
 "is not possible, select several (max. 3) groups to represent the Technology"
 msgstr ""
+"Отнесите описываемую Технологию к одной из нижеперечисленных категорий УЗП. "
+"Если невозможно отнести Технологию к одной категории, выберите не более трех "
+"подходящих вариантов."
 
 #: apps/configuration/configuration_translations.py:2717
 #: apps/configuration/configuration_translations.py:2832
 msgctxt "technologies label"
 msgid "Main types of land degradation addressed by the Technology"
 msgstr ""
+"Основные проблемы деградации земель, на решение которых направлена Технология"
 
 #: apps/configuration/configuration_translations.py:2718
 msgctxt "technologies helptext"
@@ -6682,11 +6874,27 @@ msgid ""
 "material used</li><li>Species used</li><li>Quantity/ density of plants (per "
 "ha)</li></ul>"
 msgstr ""
+"Дайте краткое описание технических характеристик, например: \n"
+"•\tРазмеры (высота, глубина, ширина, длина) инженерных или растительных "
+"элементов \n"
+"•\tИнтервалы (расстояния) между отдельными инженерными или растительными "
+"элементами по горизонтали\n"
+"•\tИнтервалы (расстояния) между отдельными инженерными или растительными "
+"элементами по вертикали\n"
+"•\tКрутизна склона (до и после применения Технологии)\n"
+"•\tУклон поверхности элементов\n"
+"•\tОбъем (запас воды) прудов/ водохранилищ и т.д.\n"
+"•\tПлощадь, обслуживаемая водохранилищами, прудами и другими "
+"водоудерживающими системами, включая сопряженные территории, на которых "
+"проявляется их благоприятное воздействие.\n"
+"•\tИспользованные строительные материалы\n"
+"•\tИспользованные виды растений\n"
+"•\tКоличество/ плотность посадок (на гектар)"
 
 #: apps/configuration/configuration_translations.py:2719
 msgctxt "technologies label"
 msgid "Technical specifications/ explanations of technical drawing"
-msgstr ""
+msgstr "Спецификация / пояснения к техническому рисунку"
 
 #: apps/configuration/configuration_translations.py:2720
 msgctxt "technologies helptext"
@@ -6694,11 +6902,13 @@ msgid ""
 "List establishment activities for the Technology (in sequence) and indicate "
 "timing"
 msgstr ""
+"Перечислите мероприятия, необходимые для запуска Технологии (в "
+"хронологическом порядке) и укажите сроки их выполнения"
 
 #: apps/configuration/configuration_translations.py:2721
 msgctxt "technologies label"
 msgid "Establishment activities"
-msgstr ""
+msgstr "Мероприятия, необходимые для начала реализации "
 
 #: apps/configuration/configuration_translations.py:2722
 msgctxt "technologies helptext"
@@ -6706,13 +6916,16 @@ msgid ""
 "Costs and inputs specified in this question should refer to the area/ unit "
 "defined in 5.1 and to the activities listed in 5.2"
 msgstr ""
+"Вложения и затраты, перечисленные ниже, должны относиться к территории, на "
+"которой реализуется Технология/ технологической единице, описанным в пункте "
+"5.1 и к мероприятиям, перечисленным в пункте 5.2. "
 
 #: apps/configuration/configuration_translations.py:2723
 #: apps/configuration/configuration_translations.py:2803
 #: apps/configuration/configuration_translations.py:2838
 msgctxt "technologies label"
 msgid "Costs and inputs needed for establishment"
-msgstr ""
+msgstr "Вложения и затраты, необходимые для начала реализации"
 
 #: apps/configuration/configuration_translations.py:2724
 msgctxt "technologies helptext"
@@ -6720,11 +6933,14 @@ msgid ""
 "List maintenance/ recurrent activities for the Technology (in sequence) and "
 "indicate timing"
 msgstr ""
+"Перечислите мероприятия, необходимые для поддержания/ текущего обслуживания "
+"Технологии (в хронологической последовательности) и укажите сроки их "
+"проведения"
 
 #: apps/configuration/configuration_translations.py:2725
 msgctxt "technologies label"
 msgid "Maintenance/ recurrent activities"
-msgstr ""
+msgstr "Поддержание/ текущее обслуживание"
 
 #: apps/configuration/configuration_translations.py:2726
 msgctxt "technologies helptext"
@@ -6733,6 +6949,10 @@ msgid ""
 "defined in 5.1 (e.g. 2.5 hectares, 250m terrace wall), and to the activities "
 "listed in 5.4."
 msgstr ""
+"Вложения и затраты, перечисленные ниже, должны рассчитываться по отношению "
+"к  территории, на которой реализуется Технология/ к технологическим "
+"единицам, определённым в пункте 5.1 (например, 2,5 га, 250 м стенки террасы "
+"- 250 м) и по мероприятиям, перечисленным в пункте 5.4.  "
 
 #: apps/configuration/configuration_translations.py:2727
 #: apps/configuration/configuration_translations.py:2805
@@ -6740,33 +6960,33 @@ msgstr ""
 msgctxt "technologies label"
 msgid ""
 "Costs and inputs needed for maintenance/ recurrent activities (per year)"
-msgstr ""
+msgstr "Стоимость поддержания/ текущего обслуживания ( в год)"
 
 #: apps/configuration/configuration_translations.py:2728
 msgctxt "technologies label"
 msgid "Climate"
-msgstr ""
+msgstr "Климат"
 
 #: apps/configuration/configuration_translations.py:2729
 msgctxt "technologies label"
 msgid "Topography"
-msgstr ""
+msgstr "Рельеф"
 
 #: apps/configuration/configuration_translations.py:2730
 msgctxt "technologies helptext"
 msgid "<p>Maximum 2 answers per question.</p>"
-msgstr ""
+msgstr "Не более 2 вариантов ответа."
 
 #: apps/configuration/configuration_translations.py:2731
 msgctxt "technologies label"
 msgid "Soils"
-msgstr ""
+msgstr "Почвы"
 
 #: apps/configuration/configuration_translations.py:2732
 #: apps/configuration/configuration_translations.py:2753
 msgctxt "technologies label"
 msgid "Water availability and quality"
-msgstr ""
+msgstr "Доступность и качество воды"
 
 #: apps/configuration/configuration_translations.py:2733
 msgctxt "technologies helptext"
@@ -6774,11 +6994,13 @@ msgid ""
 "<p>Indicate the state of biodiversity on the analysed sites relative to your "
 "region/ country standards.</p>"
 msgstr ""
+"Укажите состояние биологического разнообразия на рассматриваемой территории "
+"по отношению к среднему по региону/ стране. "
 
 #: apps/configuration/configuration_translations.py:2734
 msgctxt "technologies label"
 msgid "Biodiversity"
-msgstr ""
+msgstr "Биоразнообразие"
 
 #: apps/configuration/configuration_translations.py:2735
 msgctxt "technologies helptext"
@@ -6787,12 +7009,15 @@ msgid ""
 "Technology. Indicate characteristics relative to your region/ country "
 "standards."
 msgstr ""
+"Охарактеризуйте среднестатистических/ типичных землепользователей, "
+"применяющих Технологию. Указывайте характеристики по отношению к средним "
+"значениям по региону/стране."
 
 #: apps/configuration/configuration_translations.py:2736
 #: apps/configuration/configuration_translations.py:2808
 msgctxt "technologies label"
 msgid "Land user applying the SLM Technology"
-msgstr ""
+msgstr "Землепользователи, применяющие Технологию УЗП"
 
 #: apps/configuration/configuration_translations.py:2737
 msgctxt "technologies helptext"
@@ -6800,16 +7025,20 @@ msgid ""
 "Refer to the total area used per household (leased and owned land), "
 "including the land where no Technology is applied."
 msgstr ""
+"Укажите общую площадь земли (арендуемой или находящейся в собственности "
+"землепользователей), включая участки, где Технология не применяется. "
 
 #: apps/configuration/configuration_translations.py:2738
 msgctxt "technologies label"
 msgid "Average land size per household/ farm unit applying the Technology"
 msgstr ""
+"Средний размер земельных участков домохозяйств/ фермерских хозяйств, "
+"применяющих Технологию"
 
 #: apps/configuration/configuration_translations.py:2739
 msgctxt "technologies label"
 msgid "Land ownership, land use, and water use rights"
-msgstr ""
+msgstr "Собственность на землю, права на земле- и водопользование"
 
 #: apps/configuration/configuration_translations.py:2740
 #, python-format
@@ -6821,12 +7050,19 @@ msgid ""
 "strong>: Slightly positive (+5-20%%)</li><li><strong>2</strong>: Positive "
 "(+20-50%%)</li><li><strong>3</strong>: Very positive (+50-100%%)</li></ul>"
 msgstr ""
+"-3: Крайне отрицательное (– 50-100%%)\n"
+"-2: Отрицательное  (- 20-50%%)\n"
+"-1: Слабо отрицательное (- 5-20%%)\n"
+"0: Влияние незаметно\n"
+"1: Слабо позитивное (+5-20%%)\n"
+"2: Позитивное (+20-50%%)\n"
+"3: Очень позитивное (+50-100%%)"
 
 #: apps/configuration/configuration_translations.py:2741
 #: apps/configuration/configuration_translations.py:2812
 msgctxt "technologies label"
 msgid "Indicate the on-site impacts the SLM technology has shown"
-msgstr ""
+msgstr "Оцените влияние Технологии УЗП в пределах территории ее применения"
 
 #: apps/configuration/configuration_translations.py:2742
 msgctxt "technologies helptext"
@@ -6851,21 +7087,43 @@ msgid ""
 "Napier grass on the upper part of the bund, and maize residues in the ditch "
 "below. (Photo: H.P. Liniger)</p></div></div>"
 msgstr ""
+"Приложите фотографии, показывающие общую картину и технические детали "
+"Технологии. \n"
+"Приложите не менее двух цифровых файлов (формата JPG, PNG, GIF), т.е. "
+"снимки, сделанные цифровой камерой, либо отсканированные фотографии, "
+"негативы или слайды. Размер файла не должен превышать 3 МВ.\n"
+"Фотографии должны быть хорошего качества/высокого разрешения, не измененные "
+"и без искажений.\n"
+"Каждый снимок должен быть снабжен пояснениями (описанием)!  Фото должны "
+"соответствовать описанию, данному в пункте 2.2, и способствовать лучшему "
+"пониманию технических рисунков в Разделе 4.1.\n"
+"Где уместно, фото должны отображать ситуацию до и после применения "
+"Технологии УЗП. \n"
+"Качество фотографии очень важно для понимания и иллюстрирования ключевых "
+"особенностей Технологии.\n"
+"Например:\n"
+"Общий вид: Террасы Фаня джу (Fanya juu) с полосными посевами трав для "
+"создания ступенчатых террас. \n"
+"Технические детали: Насыпь Фаня джу на кукурузном поле после уборки урожая:  "
+"Слоновая трава в верхней части насыпи и остатки стеблей кукурузы в "
+"прилегающей борозде.  (Фотографии: Мачакос, Кения; Х.П. Линигер)"
 
 #: apps/configuration/configuration_translations.py:2743
 msgctxt "technologies label"
 msgid "Photos of the Technology"
-msgstr ""
+msgstr "Фотографии, иллюстрирующие Технологию"
 
 #: apps/configuration/configuration_translations.py:2744
 msgctxt "technologies helptext"
 msgid "Tick max. two answers."
-msgstr ""
+msgstr "Отметьте не более двух ответов"
 
 #: apps/configuration/configuration_translations.py:2745
 msgctxt "technologies label"
 msgid "Prevention, reduction, or restoration of land degradation"
 msgstr ""
+"Предотвращение и снижение деградации земель, или восстановление  нарушенных "
+"земель"
 
 #: apps/configuration/configuration_translations.py:2746
 msgctxt "technologies helptext"
@@ -6884,17 +7142,32 @@ msgid ""
 "technical specifications, dimensions, spacing<br><img src=\"/static/assets/"
 "img/qt_technical_drawing.jpg\"></img></p>"
 msgstr ""
+"Пожалуйста, предоставьте исчерпывающий и детальный рисунок (включая "
+"размеры), иллюстрирующий Технологию, с указанием технических характеристик, "
+"размеров, расстояний между разными элементами, уклонов и т.д. Можно "
+"предоставить несколько рисунков, показывающих (а) хронологическую "
+"последовательность операций или (б) различные элементы или детали "
+"Технологии. Как альтернативный вариант, можно приложить одну или несколько "
+"фотографий с техническими характеристиками, отмеченными поверх изображения.  "
+"На рисунках/фотографиях постарайтесь уместить как можно больше технической "
+"информации.\n"
+"Рисунок должен быть простым и схематичным. Технический рисунок критически "
+"важен для понимания Технологии! Отсканируйте рисунок и приложите файл к "
+"анкете. Возможные форматы файлов: PDF, JPG, PNG. Размер файла не должен "
+"превышать 3 МВ.\n"
+"Пример: Технический рисунок, демонстрирующий особенности Технологии, размеры "
+"отдельных элементов и расстояния между ними."
 
 #: apps/configuration/configuration_translations.py:2747
 #: apps/configuration/configuration_translations.py:2834
 msgctxt "technologies label"
 msgid "Technical drawing of the Technology"
-msgstr ""
+msgstr "Технический рисунок, иллюстрирующий Технологию"
 
 #: apps/configuration/configuration_translations.py:2748
 msgctxt "technologies label"
 msgid "General information regarding inputs and costs"
-msgstr ""
+msgstr "Общая информация по необходимым вложениям и стоимости"
 
 #: apps/configuration/configuration_translations.py:2749
 msgctxt "technologies helptext"
@@ -6912,6 +7185,21 @@ msgid ""
 "sea level rise). (Source IPCC 5th assessment report, Climate Change 2014: "
 "Impacts, Adaptation, and Vulnerability)."
 msgstr ""
+"Отметьте постепенные изменения климата и эстремальные погодные явления, "
+"наблюдаемые землепользователями в последние 10 лет (тренд). Примечание: для "
+"более детального анализа заполните анкету Модуля по адаптации к изменениям "
+"климата.\n"
+"Подверженность внешнему воздействию (exposure) - характер и степень "
+"воздействия на систему внешних экологических, социально-политических и "
+"других факторов (МГЭИК, 2007).\n"
+"Чувствительность (восприимчивость) - степень, до которой система или "
+"биологический вид испытывает воздействие (как отрицательное так и "
+"положительное) климатической изменчивости или климатических изменений. "
+"Воздействие может быть как прямым (например, изменение урожайности как "
+"реакция на изменение среднегодовых температур) или косвенным (например, "
+"ущерб, вызванный увеличением частоты затопления прибрежных зон из-за "
+"поднятия уровня моря). (Источник: Пятый оценочный доклад МГЭИК, ИЗМЕНЕНИЕ "
+"КЛИМАТА, 2014: Воздействия, Адаптация и Уязвимость)."
 
 #: apps/configuration/configuration_translations.py:2750
 #: apps/configuration/configuration_translations.py:2819
@@ -6920,56 +7208,59 @@ msgid ""
 "Exposure and sensitivity of the Technology to gradual climate change and "
 "climate-related extremes (disasters)"
 msgstr ""
+"Подверженность и чувствительность Технологии к постепенным изменениям "
+"климата и экстремальным погодным явлениям (стихийным бедствиям), связанным с "
+"изменением климата"
 
 #: apps/configuration/configuration_translations.py:2751
 msgctxt "technologies label"
 msgid "Socio-economic impacts"
-msgstr ""
+msgstr "Социально-экономическое воздействие"
 
 #: apps/configuration/configuration_translations.py:2752
 msgctxt "technologies label"
 msgid "Production"
-msgstr ""
+msgstr "Продуктивность"
 
 #: apps/configuration/configuration_translations.py:2754
 msgctxt "technologies label"
 msgid "Income and costs"
-msgstr ""
+msgstr "Доходы и затраты"
 
 #: apps/configuration/configuration_translations.py:2755
 msgctxt "technologies label"
 msgid "Socio-cultural impacts"
-msgstr ""
+msgstr "Социальное и культурное воздействие"
 
 #: apps/configuration/configuration_translations.py:2756
 msgctxt "technologies label"
 msgid "Ecological impacts"
-msgstr ""
+msgstr "Экологическое воздействие"
 
 #: apps/configuration/configuration_translations.py:2757
 msgctxt "technologies label"
 msgid "Water cycle/ runoff"
-msgstr ""
+msgstr "Водный цикл/ поверхностный сток"
 
 #: apps/configuration/configuration_translations.py:2758
 msgctxt "technologies label"
 msgid "Soil"
-msgstr ""
+msgstr "Почвы"
 
 #: apps/configuration/configuration_translations.py:2759
 msgctxt "technologies label"
 msgid "Biodiversity: vegetation, animals"
-msgstr ""
+msgstr "Биоразнообразие: растительность, животный мир"
 
 #: apps/configuration/configuration_translations.py:2760
 msgctxt "technologies label"
 msgid "Other ecological impacts"
-msgstr ""
+msgstr "Другие экологические последствия"
 
 #: apps/configuration/configuration_translations.py:2761
 msgctxt "technologies label"
 msgid "Off-site impacts the Technology has shown"
-msgstr ""
+msgstr "Влияние Технологии за пределами территории ее применения "
 
 #: apps/configuration/configuration_translations.py:2762
 msgctxt "technologies label"
@@ -6977,6 +7268,8 @@ msgid ""
 "Contact details of resource persons and institutions involved in the "
 "assessment and documentation of the Technology"
 msgstr ""
+"Контактные данные специалистов и организаций, участвующих в описании и "
+"оценке Технологии"
 
 #: apps/configuration/configuration_translations.py:2763
 msgctxt "technologies helptext"
@@ -6985,23 +7278,28 @@ msgid ""
 "SLM practices. However, this questionnaire can also be used to describe "
 "partly sustainable and non-sustainable land management practices."
 msgstr ""
+"Обратите внимание, что анкеты WOCAT предназначены для документирования и "
+"оценки практик УЗП. Однако данная Анкета также может быть использована для "
+"описания практик землепользования, которые могут считаться "
+"природосберегающими лишь отчасти и тех, которые вообще не могут считаться "
+"природосберегающими. "
 
 #: apps/configuration/configuration_translations.py:2764
 #: apps/configuration/configuration_translations.py:2796
 #: apps/configuration/configuration_translations.py:2821
 msgctxt "technologies label"
 msgid "Declaration on sustainability of the described Technology"
-msgstr ""
+msgstr "Декларация по устойчивости описываемой Технологии"
 
 #: apps/configuration/configuration_translations.py:2765
 msgctxt "technologies label"
 msgid "Date of implementation"
-msgstr ""
+msgstr "Сколько лет применяется данная Технология"
 
 #: apps/configuration/configuration_translations.py:2766
 msgctxt "technologies label"
 msgid "Introduction of the Technology"
-msgstr ""
+msgstr "Внедрение Технологии"
 
 #: apps/configuration/configuration_translations.py:2767
 msgctxt "technologies helptext"
@@ -7015,16 +7313,25 @@ msgid ""
 "and fodder (vegetative measure), or contour ploughing (agronomic measure).</"
 "p>"
 msgstr ""
+"УЗП мероприятия – элементы Технологии\n"
+"УЗП мероприятия делятся на пять категорий: агротехнические, с использованием "
+"растительности, инженерные, управленческие и прочие.  Мероприятия являются "
+"элементами Технологии.  Каждая Технология включает в себя одно или, чаще "
+"всего, сочетание нескольких мероприятий.  Например, террасирование, типичное "
+"инженерное мероприятие, часто используется в сочетании с другими "
+"мероприятиями, такими как засевание травами откосов террас для стабилизации "
+"склонов и на корм скоту (использование растительности) или контурная вспашка "
+"(агротехническое мероприятие)."
 
 #: apps/configuration/configuration_translations.py:2769
 msgctxt "technologies label"
 msgid "Gradual climate change"
-msgstr ""
+msgstr "Постепенное изменение климата"
 
 #: apps/configuration/configuration_translations.py:2770
 msgctxt "technologies label"
 msgid "Meteorological disasters"
-msgstr ""
+msgstr "Погодные стихийные бедствия"
 
 #: apps/configuration/configuration_translations.py:2771
 msgctxt "technologies helptext"
@@ -7032,12 +7339,14 @@ msgid ""
 "Refer to questions 5.2 and 5.4 (where costs for establishment and "
 "maintenance have been specified)"
 msgstr ""
+"Смотрите пункты 5.2 и 5.4 (где детально рассчитана стоимость запуска и "
+"технического обслуживания Технологии)  "
 
 #: apps/configuration/configuration_translations.py:2772
 #: apps/configuration/configuration_translations.py:2852
 msgctxt "technologies label"
 msgid "Cost-benefit analysis"
-msgstr ""
+msgstr "Анализ эффективности затрат"
 
 #: apps/configuration/configuration_translations.py:2773
 msgctxt "technologies helptext"
@@ -7046,6 +7355,10 @@ msgid ""
 "external material support other than technical guidance. Refer to the land "
 "use types described in 3.2 and the country/ region/ locations defined in 2.4."
 msgstr ""
+"Добровольное внедрение: применение Технологии по собственной инициативе, без "
+"какого-либо материального стимулирования со стороны кроме технических "
+"консультаций. Смотрите типы землепользования, описанные в пункте 3.2 и "
+"описание страны/ региона/ места применения Технологии в пункте 2.4.   "
 
 #: apps/configuration/configuration_translations.py:2775
 msgctxt "technologies helptext"
@@ -7053,11 +7366,14 @@ msgid ""
 "<strong>Adaptation</strong>: Modifications made by land users to suit local "
 "context and changing conditions (Source: WOCAT)."
 msgstr ""
+"Адаптация: изменения, внесенные землепользователями для лучшего "
+"приспособления к местным условиям и изменяющимся условиям среды (Источник: "
+"WOCAT)"
 
 #: apps/configuration/configuration_translations.py:2776
 msgctxt "technologies label"
 msgid "Adaptation"
-msgstr ""
+msgstr "Адаптация"
 
 #: apps/configuration/configuration_translations.py:2777
 #: apps/configuration/configuration_translations.py:3009
@@ -7065,11 +7381,13 @@ msgctxt "technologies label"
 msgid ""
 "Specify if the technology relates to one or more of the other UNCCD themes"
 msgstr ""
+"Укажите, имеет ли Технология отношение к одной или более областей работы КБО "
+"ООН"
 
 #: apps/configuration/configuration_translations.py:2778
 msgctxt "technologies label"
 msgid "Conditions regarding the use of data documented through WOCAT"
-msgstr ""
+msgstr "Условия, регламентирующие использование данных, собранных WOCAT"
 
 #: apps/configuration/configuration_translations.py:2779
 msgctxt "technologies helptext"
@@ -7078,39 +7396,42 @@ msgid ""
 "SLM Approach must be described. Use the search field to find the SLM "
 "Approach in the database."
 msgstr ""
+"Для всестороннего понимания процесса применения Технологии должен быть "
+"описан связанный с ней Подход УЗП. Для поиска соответствующего Подхода УЗП в "
+"базе данных наберите его название в поисковой строке. "
 
 #: apps/configuration/configuration_translations.py:2780
 msgctxt "technologies label"
 msgid "Reference to Questionnaire(s) on SLM Approaches"
-msgstr ""
+msgstr "Ссылка на Анкету (-ы) по Подходам УЗП"
 
 #: apps/configuration/configuration_translations.py:2782
 msgctxt "technologies label"
 msgid "Most determinate factors affecting the costs"
-msgstr ""
+msgstr "Наиболее значимые факторы, влияющие на стоимость затрат"
 
 #: apps/configuration/configuration_translations.py:2783
 msgctxt "technologies label"
 msgid "Other socio-economic impacts"
-msgstr ""
+msgstr "Другое социально-экономическое воздействие"
 
 #: apps/configuration/configuration_translations.py:2784
 msgctxt "technologies label"
 msgid "Other climate-related consequences"
-msgstr ""
+msgstr "Другие воздействия, связанные с изменением климата"
 
 #: apps/configuration/configuration_translations.py:2785
 #: apps/configuration/configuration_translations.py:2856
 msgctxt "technologies label"
 msgid "Strengths/ advantages/ opportunities of the Technology"
-msgstr ""
+msgstr "Сильные стороны/ преимущества/ возможности Технологии"
 
 #: apps/configuration/configuration_translations.py:2786
 msgctxt "technologies label"
 msgid ""
 "Weaknesses/ disadvantages/ risks of the Technology and ways of overcoming "
 "them"
-msgstr ""
+msgstr "Слабые стороны/ недостатки/ риски Технологии и пути их преодоления"
 
 #: apps/configuration/configuration_translations.py:2787
 msgctxt "technologies helptext"
@@ -7121,38 +7442,43 @@ msgid ""
 "class=\"link\">youtube.com</a>) and indicate a link and a short description "
 "for each video linked below."
 msgstr ""
+"Если имеются видеозаписи, представляющие Технологию, разместите их на "
+"общедоступной платформе (например, vimeo.com, youtube.com), дайте ссылку и "
+"короткое описание для каждого видеофайла."
 
 #: apps/configuration/configuration_translations.py:2788
 #: apps/configuration/configuration_translations.py:2829
 msgctxt "technologies label"
 msgid "Videos of the Technology"
-msgstr ""
+msgstr "Видеоматериалы, иллюстрирующие Технологию"
 
 #: apps/configuration/configuration_translations.py:2789
 #: apps/configuration/configuration_translations.py:5143
 msgctxt "technologies label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr ""
+"Какие из нижеперечисленных источников/ методов сбора информации были "
+"использованы?"
 
 #: apps/configuration/configuration_translations.py:2790
 msgctxt "technologies label"
 msgid "Climatological disasters"
-msgstr ""
+msgstr "Стихийные бедствия климатического характера"
 
 #: apps/configuration/configuration_translations.py:2791
 msgctxt "technologies label"
 msgid "Hydrological disasters"
-msgstr ""
+msgstr "Гидрологические стихийные бедствия"
 
 #: apps/configuration/configuration_translations.py:2792
 msgctxt "technologies label"
 msgid "Biological disasters"
-msgstr ""
+msgstr "Биологические стихийные бедствия"
 
 #: apps/configuration/configuration_translations.py:2793
 msgctxt "technologies label"
 msgid "Other climate-related extremes (disasters)"
-msgstr ""
+msgstr "Другие экстремальные климатические явления (стихийные бедствия)"
 
 #: apps/configuration/configuration_translations.py:2795
 msgctxt "technologies helptext"
@@ -7162,6 +7488,11 @@ msgid ""
 "sustainable land management practices, if you wish to compare this practice "
 "with other technologies."
 msgstr ""
+"Обратите внимание, что анкеты WOCAT предназначены для документирования и "
+"оценки практик УЗП. Однако данная Анкета также может быть использована для "
+"описания практики землепользования, которая не может считаться "
+"природосберегающей, если вы хотите сравнить эту практику с той или иной "
+"Технологией УЗП."
 
 #: apps/configuration/configuration_translations.py:2797
 msgctxt "technologies helptext"
@@ -7178,11 +7509,26 @@ msgid ""
 "the beginning but revise the description when youhave completed the "
 "questionnaire.</p>"
 msgstr ""
+"Подробное описание должно давать краткое, но всестороннее представление о "
+"Технологии и, в том числе для неспециалистов.  Для этого, описание должно "
+"отвечать на следующие ключевые вопросы: \n"
+"Где Технология УЗП применялась (природные и социально-экономические "
+"условия)? \n"
+"Каковы главные характеристики/ отличительные черты Технологии (включая "
+"технические характеристики)?\n"
+"Каковы цели/ функции Технологии?\n"
+"Какие основные мероприятия/ресурсы необходимы для запуска/ поддержания "
+"Технологии?\n"
+"Каковы преимущества/ влияние Технологии?\n"
+"Что землепользователям нравится/ не нравится в применении Технологии? \n"
+"Объем описания не должен превышать 2500 знаков.  Лучше всего сделать краткое "
+"описание в начале работы над анкетой, но обязательно вернуться к нему и "
+"отредактировать после заполнения всех разделов."
 
 #: apps/configuration/configuration_translations.py:2799
 msgctxt "technologies label"
 msgid "Indicate the main purpose(s) of the SLM technology"
-msgstr ""
+msgstr "Укажите основные цели и задачи реализации Технологии УЗП"
 
 #: apps/configuration/configuration_translations.py:2800
 msgctxt "technologies helptext"
@@ -7197,12 +7543,24 @@ msgid ""
 "alternatively be calculated per unit (e.g. dam, animal watering point, "
 "energy saving stove) or per length (e.g. meter stone line)</li></ul>"
 msgstr ""
+"Предпочтительно, чтобы стоимость реализации мероприятий и вложения были "
+"указаны в расчете на территорию, где применяется Технология. Если вы "
+"используете местную единицу измерения площади, укажите соотношение между "
+"местной единицей и гектаром.  Учитывайте не только площадь, где "
+"непосредственно выполняются мероприятия УЗП (например, площадь, занятую "
+"каменными стенками, лесополосами, канавами), но и территорию, на которую "
+"мероприятия УЗП оказывают косвенное влияние и/или обеспечивают защиту от "
+"деградации (например, участки между каменными стенками).\n"
+"Если невозможно рассчитать стоимость работ, ресурсов и других вложений на "
+"единицу площади, они могут быть рассчитаны по отдельным элементам (например, "
+"сооружение запруды, устройство водопоя, строительство энергосберегающей печи "
+"и т.д.) или на единицу длины (например, метр каменной стенки)."
 
 #: apps/configuration/configuration_translations.py:2801
 #: apps/configuration/configuration_translations.py:2836
 msgctxt "technologies label"
 msgid "General information regarding the calculation of inputs and costs"
-msgstr ""
+msgstr "Общая информация по необходимым вложениям и стоимости"
 
 #: apps/configuration/configuration_translations.py:2802
 msgctxt "technologies helptext"
@@ -7211,6 +7569,10 @@ msgid ""
 "refer to the technology area/ technology unit defined in 5.1 and to the "
 "activities listed in 5.2. Use the currency indicated in 5.1.</p>"
 msgstr ""
+"Примечание: Вложения и затраты, перечисленные ниже, должны относиться к "
+"территории, на которой реализуется Технология, или к отдельным мероприятиям "
+"Технологии, описанным в пункте 5.1, и к мероприятиям, перечисленным в пункте "
+"5.2. Используйте денежные единицы, указанные в пункте 5.1."
 
 #: apps/configuration/configuration_translations.py:2804
 msgctxt "technologies helptext"
@@ -7219,11 +7581,15 @@ msgid ""
 "refer to the technology area/ technology unit defined in 5.1, and to the "
 "activities listed in 5.4. Use the currency indicated in 5.1."
 msgstr ""
+"Примечание: Вложения и затраты, перечисленные ниже, должны относиться к "
+"территории, на которой реализуется Технология, или к отдельным мероприятиям "
+"Технологии, описанным в пункте 5.1, и к мероприятиям, перечисленным в пункте "
+"5.4. Используйте денежные единицы, указанные в пункте 5.1."
 
 #: apps/configuration/configuration_translations.py:2806
 msgctxt "technologies label"
 msgid "Most important factors affecting the costs"
-msgstr ""
+msgstr "Наиболее значимые факторы, влияющие на стоимость затрат"
 
 #: apps/configuration/configuration_translations.py:2807
 #: apps/configuration/configuration_translations.py:2841
@@ -7233,6 +7599,9 @@ msgid ""
 "Technology. Tick max. two answers per question. Indicate characteristics "
 "relative to your region/ country standards."
 msgstr ""
+"Охарактеризуйте среднестатистических/ типичных землепользователей, "
+"применяющих Технологию. Отметьте не более двух ответов по каждому пункту. "
+"Указывайте характеристики по отношению к средним значениям по региону/стране."
 
 #: apps/configuration/configuration_translations.py:2809
 msgctxt "technologies helptext"
@@ -7240,12 +7609,17 @@ msgid ""
 "Refer to the total area used per household (leased and owned land), "
 "including the land where no Technology is applied. Tick max. two answers."
 msgstr ""
+"Укажите общую площадь земли (арендуемой или находящейся в собственности "
+"землепользователей), включая участки, где Технология УЗП не применяется. "
+"Отметьте не более двух ответов."
 
 #: apps/configuration/configuration_translations.py:2810
 msgctxt "technologies label"
 msgid ""
 "Average land size per household/ land use entreprise applying the Technology"
 msgstr ""
+"Средний размер земельных участков домохозяйства/ фермерского хозяйства "
+"землепользователей, применяющих Технологию"
 
 #: apps/configuration/configuration_translations.py:2811
 #: apps/configuration/configuration_translations.py:2847
@@ -7261,21 +7635,33 @@ msgid ""
 "li><li><strong>2</strong>: Positive (+20-50%%)</li><li><strong>3</strong>: "
 "Very positive (+50-100%%)</li></ul>"
 msgstr ""
+"Сначала, перечислите все виды влияния (поставьте галочку в квадратиках "
+"слева; по каждому разделу возможно несколько ответов). Далее, для каждого "
+"показателя отметьте соответствующий уровень влияния и поясните/ дайте "
+"количественную оценку там, где это возможно.\n"
+"-3: Крайне отрицательное (– 50-100%%)\n"
+"-2: Отрицательное  (- 20-50%%)\n"
+"-1: Слабо отрицательное (- 5-20%%)\n"
+"0: Влияние незаметно\n"
+"1: Слабо позитивное (+5-20%%)\n"
+"2: Позитивное (+20-50%%)\n"
+"3: Очень позитивное (+50-100%%)"
 
 #: apps/configuration/configuration_translations.py:2813
 msgctxt "technologies label"
 msgid "Climate and disaster risk reduction"
-msgstr ""
+msgstr "Климат и снижение риска стихийных бедствий"
 
 #: apps/configuration/configuration_translations.py:2814
 msgctxt "technologies label"
 msgid "Climate-related extremes (disasters)"
 msgstr ""
+"Экстремальные явления, связанные с изменением климата (стихийные бедствия)"
 
 #: apps/configuration/configuration_translations.py:2815
 msgctxt "technologies label"
 msgid "Adoption of the technology"
-msgstr ""
+msgstr "Добровольное внедрение Технологии"
 
 #: apps/configuration/configuration_translations.py:2816
 msgctxt "technologies helptext"
@@ -7286,6 +7672,12 @@ msgid ""
 "structures (buildings, etc.) that cover the earth’s surface.</p><p>Usually "
 "one, max. two ticks</p>"
 msgstr ""
+"Землепользование: деятельность человека непосредственно связанная с землей, "
+"использованием земельных ресурсов и/или оказывающая воздействие на нее.\n"
+"Земельный покров: растительность (природная  или насаждения/ посевы) или "
+"сооружения, созданные человеком (строения и пр.), покрывающие поверхность "
+"земли.\n"
+"Как правило один, но не более двух вариантов."
 
 #: apps/configuration/configuration_translations.py:2818
 msgctxt "technologies helptext"
@@ -7296,6 +7688,13 @@ msgid ""
 "gradual climate changes and climate-related extremes (disasters) to which "
 "the Technology is exposed.</p>"
 msgstr ""
+"Отметьте постепенные изменения климата и эстремальные погодные явления, "
+"наблюдаемые землепользователями в последние 10 лет (тренд). Примечание: для "
+"более детального анализа заполните анкету по адаптации к изменениям "
+"климата.\n"
+"Отметьте все постепенные изменения климата и экстремальные явления "
+"(стихийные бедствия), связанные с изменением климата, которые оказывают "
+"воздействие на Технологию"
 
 #: apps/configuration/configuration_translations.py:2820
 msgctxt "technologies helptext"
@@ -7306,6 +7705,12 @@ msgid ""
 "practice with specific SLM Technologies. In this case, indicate reference to "
 "those SLM Technologies in question 1.6."
 msgstr ""
+"Обратите внимание, что анкеты WOCAT предназначены для документирования и "
+"оценки практик УЗП. Однако данная Анкета также может быть использована для "
+"описания практики землепользования, которая не может считаться "
+"природосберегающей, если вы хотите сравнить эту практику с той или иной "
+"Технологией УЗП. В этом случае, дайте ссылку на соответствующие технологии "
+"УЗП в Разделе 1.6."
 
 #: apps/configuration/configuration_translations.py:2822
 msgctxt "technologies helptext"
@@ -7313,11 +7718,13 @@ msgid ""
 "If the Technology described in this questionnaire is part of a comparative "
 "assessment of different Technologies/ situations, please indicate details."
 msgstr ""
+"Если Технология, описываемая в данной Анкете, является частью сравнительного "
+"анализа разных Технологий/ ситуаций, пожалуйста, поясните ниже."
 
 #: apps/configuration/configuration_translations.py:2823
 msgctxt "technologies label"
 msgid "Reference to/ comparison with other Technologies"
-msgstr ""
+msgstr "Сравнение с другими Технологиями"
 
 #: apps/configuration/configuration_translations.py:2824
 msgctxt "technologies helptext"
@@ -7326,11 +7733,15 @@ msgid ""
 "is precise and contains relevant keywords. It is the lead text of this "
 "documentation and provides an important basis for searching the database."
 msgstr ""
+"Кратко охарактеризуйте Технологию 1-2 предложениями.  Убедитесь, что это "
+"краткое описание является точным и содержит ключевые слова.  Это наиболее "
+"значимый текст документа – заголовок, который будет использоваться для "
+"поиска в базе данных."
 
 #: apps/configuration/configuration_translations.py:2825
 msgctxt "technologies label"
 msgid "Short description of the Technology"
-msgstr ""
+msgstr "Краткое описание Технологии"
 
 #: apps/configuration/configuration_translations.py:2826
 msgctxt "technologies helptext"
@@ -7349,11 +7760,28 @@ msgid ""
 "separate documents. Fill in the description at the beginning, but revise it "
 "when you have completed the questionnaire.</p>"
 msgstr ""
+"Подробное описание должно давать краткое, но всестороннее представление о "
+"Технологии и, в том числе для неспециалистов.  Для этого, описание должно "
+"отвечать на следующие ключевые вопросы: \n"
+"Где Технология УЗП применялась (природные и социально-экономические "
+"условия)? \n"
+"Каковы главные характеристики/ отличительные черты Технологии (включая "
+"технические характеристики)?\n"
+"Каковы цели/ функции Технологии?\n"
+"Какие основные мероприятия/ресурсы необходимы для запуска/ поддержания "
+"Технологии?\n"
+"Каковы преимущества/ влияние Технологии?\n"
+"Что землепользователям нравится/ не нравится в применении Технологии? \n"
+"Объем описания в идеале должен составлять 2500–3000 знаков и не превышать "
+"3500 знаков. При необходимости, более детальное описание может быть "
+"загружено в базу данных в виде отдельного файла. Лучше всего сделать краткое "
+"описание в начале работы над анкетой, но обязательно вернуться к нему и "
+"отредактировать после заполнения всех разделов."
 
 #: apps/configuration/configuration_translations.py:2827
 msgctxt "technologies label"
 msgid "Detailed description of the Technology"
-msgstr ""
+msgstr "Подробное описание Технологии"
 
 #: apps/configuration/configuration_translations.py:2828
 msgctxt "technologies helptext"
@@ -7362,11 +7790,14 @@ msgid ""
 "public platform (e.g. vimeo.com, youtube.com) and indicate a link and a "
 "short description for each file in the table below."
 msgstr ""
+"Если имеются видеозаписи, представляющие Технологию УЗП, разместите их на "
+"общедоступной платформе (например, vimeo.com, youtube.com), дайте ссылку и "
+"короткое описание для каждого файла в таблице ниже."
 
 #: apps/configuration/configuration_translations.py:2830
 msgctxt "technologies label"
 msgid "Further information about land use"
-msgstr ""
+msgstr "Дополнительная информация о землепользовании"
 
 #: apps/configuration/configuration_translations.py:2831
 msgctxt "technologies helptext"
@@ -7375,6 +7806,9 @@ msgid ""
 "including soils, water, vegetation, and animals.</p><p>Use the degradation "
 "types and subcategories listed below</p>"
 msgstr ""
+"Деградация земель: деградация земельных ресурсов, включая почвенные, водные, "
+"растительные и животные ресурсы. \n"
+"Используйте типы деградации земель и категории, перечисленные ниже."
 
 #: apps/configuration/configuration_translations.py:2833
 msgctxt "technologies helptext"
@@ -7393,6 +7827,22 @@ msgid ""
 "indicating technical specifications, dimensions, spacing<br><img src=\"/"
 "static/assets/img/qt_technical_drawing.jpg\"></img></p>"
 msgstr ""
+"Пожалуйста, предоставьте исчерпывающий и детальный рисунок (включая "
+"размеры), иллюстрирующий Технологию УЗП, с указанием технических "
+"характеристик, размеров, расстояний между разными элементами, уклонов и т.д. "
+"Можно предоставить несколько рисунков, показывающих (а) хронологическую "
+"последовательность операций или (б) различные элементы или детали "
+"Технологии. Как альтернативный вариант, можно приложить одну или несколько "
+"фотографий с техническими характеристиками, отмеченными поверх изображения.  "
+"На рисунках/ фотографиях постарайтесь уместить как можно больше технической "
+"информации.\n"
+"Рисунок должен быть простым и схематичным. Технический рисунок критически "
+"важен для понимания Технологии! Отсканируйте рисунок и приложите файл к "
+"анкете.\n"
+"Возможные форматы файлов: PDF, JPG, PNG. Размер файла не должен превышать 3 "
+"МВ.\n"
+"Пример: Технический рисунок, демонстрирующий особенности Технологии, размеры "
+"отдельных элементов и расстояния между ними."
 
 #: apps/configuration/configuration_translations.py:2835
 msgctxt "technologies helptext"
@@ -7421,6 +7871,40 @@ msgid ""
 "unit (e.g. dam, animal watering point, energy saving stove) or per length (e."
 "g. metre of stone line)</li></ul>"
 msgstr ""
+"Замечания по практической реализации, необходимым вложениям и стоимости:\n"
+"•\tОценка стоимости применения Технологии может быть весьма непростой "
+"задачей. Тем не менее, мы просим вас дать свою максимально объективную "
+"экспертную оценку.\n"
+"•\tОтдельно считаются вложения (затраты) на начальной стадии реализации "
+"(возведение, запуск) и техническое обслуживание/ повторяющиеся ежегодные "
+"мероприятия\n"
+"•\tВсе вложения должны просчитываться с учетом рыночной стоимости. Если "
+"рабочая сила обеспечивается самими землепользователями, укажите "
+"эквивалентную стоимость трудозатрат. Если ресурсы предоставляются/ "
+"производятся самими землепользователями, укажите их соответствующую рыночную "
+"стоимость.\n"
+"•\tНе включайте вложения на информирование (повышение осведомленности), "
+"планирование, обучение, исследования, а также любую финансовую/ материально-"
+"техническую поддержку (эти затраты должны быть описаны в Анкете по "
+"Подходам).\n"
+"В случае если необходимо сравнить две ситуации, например, после/ в процессе "
+"выполнения мероприятий УЗП (природосберегающее сельское хозяйство) и до "
+"применения/без Технологии УЗП (например, традиционное сельское хозяйство), "
+"заполните, пожалуйста, две анкеты для каждой отдельной ситуации.\n"
+"•\tПредпочтительно, чтобы стоимость реализации мероприятий и вложения были "
+"указаны в расчете на территорию, где применяется Технология. Если вы "
+"используете местную единицу измерения площади, укажите соотношение между "
+"местной единицей и гектаром.  Учитывайте не только площадь, где "
+"непосредственно выполняются мероприятия УЗП (например, площадь, занятую "
+"каменными стенками, лесополосами, канавами), но и территорию, на которую "
+"мероприятия УЗП оказывают косвенное влияние и/или обеспечивают защиту от "
+"деградации (например, участки между каменными стенками, лесополосами, "
+"канавами).\n"
+"•\tКак альтернативный вариант, если невозможно рассчитать стоимость работ, "
+"ресурсов и других вложений на единицу площади, они могут быть рассчитаны по "
+"отдельным элементам (например, сооружение запруды, устройство водопоя, "
+"строительство энергосберегающей печи и т.д.) или на единицу длины (например, "
+"метр каменной стенки)"
 
 #: apps/configuration/configuration_translations.py:2837
 msgctxt "technologies helptext"
@@ -7429,6 +7913,10 @@ msgid ""
 "refer to the technology area/ technology unit defined in 4.3 and to the "
 "activities listed in 4.4. Use the currency indicated in 4.3.</p>"
 msgstr ""
+"Примечание: Вложения и затраты, перечисленные ниже, должны относиться к "
+"территории, на которой реализуется Технология, или к технологическим "
+"единицам, определённым в пункте 4.3, и к мероприятиям, перечисленным в "
+"пункте 4.4. Используйте денежные единицы, указанные в пункте 4.3."
 
 #: apps/configuration/configuration_translations.py:2839
 msgctxt "technologies helptext"
@@ -7437,11 +7925,16 @@ msgid ""
 "refer to the technology area/ technology unit defined in 4.3, and to the "
 "activities listed in 4.6. Use the currency indicated in 4.3."
 msgstr ""
+"Примечание: Стоимость и вложения, указанные ниже, оцениваются по отношению к "
+"территории, на которой реализуется Технология, или к отдельным "
+"технологическим единицам, определённым в пункте 4.3, и к мероприятиям, "
+"перечисленным в пункте 4.6.  Используйте денежные единицы, указанные в "
+"пункте 4.3."
 
 #: apps/configuration/configuration_translations.py:2842
 msgctxt "technologies label"
 msgid "Characteristics of land users applying the Technology"
-msgstr ""
+msgstr "Характеристика землепользователей, применяющих Технологию"
 
 #: apps/configuration/configuration_translations.py:2843
 msgctxt "technologies helptext"
@@ -7449,27 +7942,32 @@ msgid ""
 "Indicate the total area owned or leased by land users, including the land "
 "where no Technology is applied. Tick max. two answers."
 msgstr ""
+"Укажите общую площадь земли, арендуемой или находящейся в собственности "
+"землепользователей, включая участки, где Технология УЗП не применяется. "
+"Отметьте не более двух ответов."
 
 #: apps/configuration/configuration_translations.py:2844
 msgctxt "technologies label"
 msgid ""
 "Average area of land owned or leased by land users applying the Technology"
 msgstr ""
+"Средний размер земельных участков, арендуемых или находящихся в "
+"собственности землепользователей, применяющих Технологию"
 
 #: apps/configuration/configuration_translations.py:2845
 msgctxt "technologies label"
 msgid "Land ownership, land use rights, and water use rights"
-msgstr ""
+msgstr "Собственность на землю, права на земле- и водопользование"
 
 #: apps/configuration/configuration_translations.py:2846
 msgctxt "technologies label"
 msgid "Access to services and infrastructure"
-msgstr ""
+msgstr "Доступ к базовым услугам и инфраструктуре"
 
 #: apps/configuration/configuration_translations.py:2848
 msgctxt "technologies label"
 msgid "On-site impacts the Technology has shown"
-msgstr ""
+msgstr "Влияние Технологии УЗП в пределах территории ее применения"
 
 #: apps/configuration/configuration_translations.py:2849
 msgctxt "technologies helptext"
@@ -7480,6 +7978,13 @@ msgid ""
 "adaptation.</p><p>Tick all gradual changes in climate and climate-related "
 "extremes/ disasters to which the Technology is exposed</p>"
 msgstr ""
+"Отметьте постепенные изменения климата и эстремальные погодные явления, "
+"наблюдаемые землепользователями в последние 10 лет (тренд). Примечание: для "
+"более детального анализа заполните анкету по адаптации к изменениям "
+"климата.\n"
+"Отметьте все постепенные изменения климата и экстремальные явления/ "
+"стихийные бедствия, связанные с изменением климата, которые оказывают "
+"воздействие на Технологию"
 
 #: apps/configuration/configuration_translations.py:2850
 msgctxt "technologies label"
@@ -7487,6 +7992,9 @@ msgid ""
 "Exposure and sensitivity of the Technology to gradual climate change and "
 "climate-related extremes/ disasters (as perceived by land users)"
 msgstr ""
+"Подверженность и чувствительность Технологии УЗП к постепенным изменениям "
+"климата и экстремальным погодным явлениям/ стихийным бедствиям, связанным с "
+"изменением климата (в понимании землепользователей)"
 
 #: apps/configuration/configuration_translations.py:2851
 msgctxt "technologies helptext"
@@ -7494,6 +8002,8 @@ msgid ""
 "Refer to questions 4.5 and 4.7 (where costs for establishment and "
 "maintenance have been specified)."
 msgstr ""
+"Смотрите пункты 4.5 и 4.7 (где перечислены затраты на запуск и эксплуатацию "
+"Технологии)."
 
 #: apps/configuration/configuration_translations.py:2853
 #: apps/configuration/configuration_translations.py:2913
@@ -7503,22 +8013,25 @@ msgid ""
 "drivers (motivation of land users to implement the Technology), refer to the "
 "WOCAT Questionnaire on SLM Approaches."
 msgstr ""
+"Примечание: Для информации по факторам, препятствующим или содействующим "
+"применению Технологии (мотивации землепользователей применять/ не применять "
+"Технологию), обратитесь к Анкете WOCAT по Подходам УЗП. "
 
 #: apps/configuration/configuration_translations.py:2854
 msgctxt "technologies label"
 msgid "Adoption of the Technology"
-msgstr ""
+msgstr "Внедрение Технологии"
 
 #: apps/configuration/configuration_translations.py:2855
 #: apps/configuration/configuration_translations.py:2915
 msgctxt "technologies helptext"
 msgid "Give a concluding statement about the Technology."
-msgstr ""
+msgstr "Дайте ваше заключение по Технологии."
 
 #: apps/configuration/configuration_translations.py:2857
 msgctxt "technologies label"
 msgid "Methods/ sources of information"
-msgstr ""
+msgstr "Методы сбора/ источники информации"
 
 #: apps/configuration/configuration_translations.py:2858
 msgctxt "technologies helptext"
@@ -7527,26 +8040,30 @@ msgid ""
 "training materials, case studies, etc.). Upload those publications that are "
 "available as soft copies to the database."
 msgstr ""
+"Перечислите важные публикации, имеющие отношение к Технологии (отчеты, "
+"пособия/руководства, обучающие материалы, исследования конкретных примеров и "
+"т.д.).  Если доступны электронные версии этих материалов, загрузите их, "
+"пожалуйста, в базу данных."
 
 #: apps/configuration/configuration_translations.py:2859
 msgctxt "technologies label"
 msgid "References to available publications"
-msgstr ""
+msgstr "Ссылки на опубликованные материалы"
 
 #: apps/configuration/configuration_translations.py:2860
 msgctxt "technologies label"
 msgid "Links to relevant information which is available online"
-msgstr ""
+msgstr "Ссылки на материалы, доступные онлайн"
 
 #: apps/configuration/configuration_translations.py:2861
 msgctxt "technologies label"
 msgid "Main purpose(s) of the Technology"
-msgstr ""
+msgstr "Основные цели и задачи реализации Технологии"
 
 #: apps/configuration/configuration_translations.py:2901
 msgctxt "technologies label"
 msgid "General information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:2902
 msgctxt "technologies helptext"
@@ -7561,23 +8078,34 @@ msgid ""
 "field surveys, etc.), although the Technology might be applied or be "
 "applicable in a wider area.</p>"
 msgstr ""
+"Технология УЗП – это совокупность практических действий на местах по "
+"управлению и контролю за деградацей земель и/или повышающие их "
+"продуктивность.  Технология включает в себя одно или несколько мероприятий, "
+"таких как агротехнические, инженерные, использование растительности, "
+"управленческие.\n"
+"Информация, привязанная к конкретному месту: Информация, предоставленная в "
+"данной Анкете, должна строго соответствовать месту, которое было оценено/"
+"проанализировано в процессе описания Технологии УЗП (например, посредством "
+"опроса землепользователей, выездов на места и т.д.), хотя сама Технология "
+"УЗП может применяться или быть потенциально применимой на более широкой "
+"территории."
 
 #: apps/configuration/configuration_translations.py:2903
 #: apps/configuration/configuration_translations.py:2919
 #: apps/configuration/configuration_translations.py:2925
 msgctxt "technologies label"
 msgid "Description of the SLM Technology"
-msgstr ""
+msgstr "Описание Технологии УЗП"
 
 #: apps/configuration/configuration_translations.py:2904
 msgctxt "technologies label"
 msgid "Classification of the SLM Technology"
-msgstr ""
+msgstr "Классификация Технологии УЗП"
 
 #: apps/configuration/configuration_translations.py:2905
 msgctxt "technologies label"
 msgid "Technical specifications"
-msgstr ""
+msgstr "Технические характеристики"
 
 #: apps/configuration/configuration_translations.py:2906
 msgctxt "technologies helptext"
@@ -7605,12 +8133,41 @@ msgid ""
 "conservation agriculture) and before/ without SLM measures (e.g. "
 "conventional agriculture) fill in two questionnaires.</li></ul>"
 msgstr ""
+"Замечания по практической реализации, необходимым вложениям и стоимости:\n"
+"•\tОценка стоимости применения Технологии может быть весьма непростой "
+"задачей. Тем не менее, мы просим вас дать свою максимально объективную "
+"экспертную оценку.\n"
+"•\tОтдельно считаются вложения (затраты) на начальной стадии реализации "
+"(возведение, запуск) и техническое обслуживание/ повторяющиеся ежегодные "
+"мероприятия\n"
+"Укажите все мероприятия УЗП, вложения и затраты (для самих "
+"землепользователей, в рамках проектов и т.д.) по реализации Технологии, "
+"которые должны быть выполнены помимо обычных полевых работ. Если обычные "
+"полевые работы видоизменились /являются частью Технологии (например, "
+"природосберегающее сельское хозяйство), опишите все мероприятия.  \n"
+"•\tПредпочтительно, чтобы стоимость реализации мероприятий и вложения были "
+"указаны в расчете на территорию, где применяется Технология. Если вы "
+"используете местную единицу измерения площади, укажите соотношение между "
+"местной единицей и гектаром.  Учитывайте не только площадь, где "
+"непосредственно выполняются мероприятия УЗП (например, площадь, занятую "
+"каменными стенками, лесополосами, канавами), но и территорию, на которую "
+"мероприятия УЗП оказывают косвенное влияние и/или обеспечивают защиту от "
+"деградации (например, участки между каменными стенками, лесополосами, "
+"канавами).\n"
+"•\tНе включайте вложения на информирование (повышение осведомленности), "
+"планирование, обучение, исследования, а также любую финансовую/ материально-"
+"техническую поддержку (эти затраты должны быть описаны в Анкете по "
+"Подходам).\n"
+"•\tВ случае если необходимо сравнить две ситуации, например, после/ в "
+"процессе выполнения мероприятий УЗП (природосберегающее сельское хозяйство) "
+"и до применения/без Технологии УЗП (например, традиционное сельское "
+"хозяйство), заполняйте, пожалуйста, две анкеты для каждой отдельной ситуации."
 
 #: apps/configuration/configuration_translations.py:2907
 #: apps/configuration/configuration_translations.py:2921
 msgctxt "technologies label"
 msgid "Implementation, inputs, and costs"
-msgstr ""
+msgstr "Практическая реализация, необходимые вложения и стоимость"
 
 #: apps/configuration/configuration_translations.py:2908
 msgctxt "technologies helptext"
@@ -7626,16 +8183,27 @@ msgid ""
 "questions might not be relevant for the Technology. In such cases skip the "
 "question but use the comment sections for explanations.</p>"
 msgstr ""
+"Охарактеризуйте природные (биогеографические) условия территории, где "
+"применяется Технология УЗП.  Укажите данные именно для тех участков, по "
+"которым давалось описание и анализ Технологии УЗП.  Используйте графу "
+"«комментарии» для детализации ответов и дополнительной информации. \n"
+"Примечание: Некоторые условия окружающей среды  (например, крутизна склона, "
+"почвенные характеристики, качество/ доступность воды) могут изменяться в "
+"результате применения Технологии УЗП! Однако необходимо дать описание "
+"условий до начала реализации мероприятий по УЗП! В отдельных случаях, "
+"некоторые вопросы могут быть неуместны для описания той или иной Технологии. "
+"В таких случаях, пропустите данный раздел, однако в пункте «комментарии», "
+"объясните, пожалуйста, почему этот раздел не заполнен. "
 
 #: apps/configuration/configuration_translations.py:2909
 msgctxt "technologies label"
 msgid "Natural environment"
-msgstr ""
+msgstr "Природные условия"
 
 #: apps/configuration/configuration_translations.py:2910
 msgctxt "technologies label"
 msgid "Human environment and land use"
-msgstr ""
+msgstr "Социально-экономические условия и землепользование"
 
 #: apps/configuration/configuration_translations.py:2911
 #, python-format
@@ -7666,18 +8234,18 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2914
 msgctxt "technologies label"
 msgid "Adoption and adaptation"
-msgstr ""
+msgstr "Внедрение или адаптация"
 
 #: apps/configuration/configuration_translations.py:2916
 msgctxt "technologies label"
 msgid "Conclusions and lessons learnt"
-msgstr ""
+msgstr "Заключительные положения и извлечённые уроки"
 
 #: apps/configuration/configuration_translations.py:2917
 #: apps/configuration/configuration_translations.py:2932
 msgctxt "technologies label"
 msgid "References and links"
-msgstr ""
+msgstr "Справочные материалы и ссылки"
 
 #: apps/configuration/configuration_translations.py:2918
 msgctxt "technologies helptext"
@@ -7756,6 +8324,8 @@ msgstr ""
 msgctxt "technologies label"
 msgid "Technical specifications, implementation activities, inputs, and costs"
 msgstr ""
+"Технические характеристики, мероприятия по практической реализации, вложения "
+"и стоимость"
 
 #: apps/configuration/configuration_translations.py:2927
 msgctxt "technologies helptext"
@@ -7777,7 +8347,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2928
 msgctxt "technologies label"
 msgid "Natural and human environment"
-msgstr ""
+msgstr "Природные и социально-экономические условия"
 
 #: apps/configuration/configuration_translations.py:2929
 #, python-format
@@ -7802,7 +8372,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2930
 msgctxt "technologies label"
 msgid "Impacts and concluding statements"
-msgstr ""
+msgstr "Воздействия и заключительные положения"
 
 #: apps/configuration/configuration_translations.py:2931
 msgctxt "technologies helptext"
@@ -7810,6 +8380,7 @@ msgid ""
 "Indicate sources of information used for the compilation of information in "
 "this questionnaire."
 msgstr ""
+"Укажите источники информации, использованные для заполнения данной анкеты "
 
 #: apps/configuration/configuration_translations.py:3001
 msgctxt "unccd label"
@@ -7827,18 +8398,15 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:4703
 msgctxt "unccd label"
 msgid "Prevailing land use in the specified location"
-msgstr ""
+msgstr "Преобладающий тип землепользования в конкретном месте"
 
 #: apps/configuration/configuration_translations.py:3004
 #: apps/configuration/configuration_translations.py:3014
 #: apps/configuration/configuration_translations.py:3015
 #: apps/configuration/configuration_translations.py:3017
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Specify"
 msgctxt "unccd label"
 msgid "Specify"
-msgstr "Поясните"
+msgstr "Поясните "
 
 #: apps/configuration/configuration_translations.py:3005
 #: apps/configuration/configuration_translations.py:4704
@@ -7861,12 +8429,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3008
 #: apps/configuration/configuration_translations.py:4706
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Type of measure"
 msgctxt "unccd label"
 msgid "Type of impact"
-msgstr "Тип мероприятия"
+msgstr "Тип воздействия"
 
 #: apps/configuration/configuration_translations.py:3010
 #: apps/configuration/configuration_translations.py:4707
@@ -7876,12 +8441,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3011
 #: apps/configuration/configuration_translations.py:4708
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "education"
 msgctxt "unccd label"
 msgid "Location"
-msgstr "образование"
+msgstr "Местоположение"
 
 #: apps/configuration/configuration_translations.py:3012
 #: apps/configuration/configuration_translations.py:4734
@@ -7959,36 +8521,30 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:4716
 msgctxt "unccd label"
 msgid "Short description and technical specifications of the technology"
-msgstr ""
+msgstr "Краткое описание и технические характеристики технологии "
 
 #: apps/configuration/configuration_translations.py:3027
 #: apps/configuration/configuration_translations.py:4717
 msgctxt "unccd label"
 msgid "Name and address of the institution developing the technology"
-msgstr ""
+msgstr "Название и адрес организации, разработавшей данную технологию"
 
 #: apps/configuration/configuration_translations.py:3028
 #: apps/configuration/configuration_translations.py:4718
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "How does the Technology cope with it?"
 msgctxt "unccd label"
 msgid "Was the technology developed in partnership?"
-msgstr "Насколько успешно Технология справляется с этим? "
+msgstr "Была ли технология разработана в партнерстве?"
 
 #: apps/configuration/configuration_translations.py:3029
 msgctxt "unccd label"
 msgid "List the partners"
-msgstr ""
+msgstr "Перечислите партнеров"
 
 #: apps/configuration/configuration_translations.py:3030
 #: apps/configuration/configuration_translations.py:4719
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Specify how the Technology was introduced"
 msgctxt "unccd label"
 msgid "Specify the framework within which the technology was promoted"
-msgstr "Укажите, как именно Технология УЗП была внедрена"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3031
 #: apps/configuration/configuration_translations.py:4720
@@ -8001,7 +8557,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3032
 msgctxt "unccd label"
 msgid "List local stakeholders involved"
-msgstr ""
+msgstr "Перечислите местные заинтересованные стороны, участвующие в процессе"
 
 #: apps/configuration/configuration_translations.py:3033
 #: apps/configuration/configuration_translations.py:4721
@@ -8062,24 +8618,24 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3044
 msgctxt "unccd label"
 msgid "Explain the reasons:"
-msgstr ""
+msgstr "Объясните причины:"
 
 #: apps/configuration/configuration_translations.py:3045
 #: apps/configuration/configuration_translations.py:4726
 msgctxt "unccd label"
 msgid "Has a cost-benefit analysis been carried out?"
-msgstr ""
+msgstr "Был ли выполнен анализ \"затраты-выгоды\"?"
 
 #: apps/configuration/configuration_translations.py:3046
 #: apps/configuration/configuration_translations.py:4727
 msgctxt "unccd label"
 msgid "Was the technology disseminated/introduced to other locations?"
-msgstr ""
+msgstr "Была ли технология внедрена на других участках/ в других местах? "
 
 #: apps/configuration/configuration_translations.py:3047
 msgctxt "unccd label"
 msgid "Where?"
-msgstr ""
+msgstr "Где?"
 
 #: apps/configuration/configuration_translations.py:3048
 #: apps/configuration/configuration_translations.py:4728
@@ -8120,12 +8676,9 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:3054
 #: apps/configuration/configuration_translations.py:4732
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "financial services"
 msgctxt "unccd label"
 msgid "Related to financial aspects"
-msgstr "финансовые услуги"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3055
 #: apps/configuration/configuration_translations.py:4733
@@ -8143,36 +8696,24 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3057
 msgctxt "unccd label"
 msgid "Estimated population living in the location"
-msgstr ""
+msgstr "Примерная численность населения, живущего в данном месте"
 
 #: apps/configuration/configuration_translations.py:3501
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Cropland"
 msgctxt "unccd label"
 msgid "Cropland"
-msgstr "Пахотные угодья и плантации"
+msgstr "Пахотные угодья"
 
 #: apps/configuration/configuration_translations.py:3502
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Grazing land"
 msgctxt "unccd label"
 msgid "Grazing land"
 msgstr "Пастбищные угодья"
 
 #: apps/configuration/configuration_translations.py:3503
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Cropland"
 msgctxt "unccd label"
 msgid "Woodland"
-msgstr "Пахотные угодья и плантации"
+msgstr "Лесные земли"
 
 #: apps/configuration/configuration_translations.py:3504
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Unproductive land"
 msgctxt "unccd label"
 msgid "Uproductive land"
 msgstr "Непродуктивные земли"
@@ -8180,17 +8721,14 @@ msgstr "Непродуктивные земли"
 #: apps/configuration/configuration_translations.py:3505
 msgctxt "unccd label"
 msgid "Human settlement"
-msgstr ""
+msgstr "Поселения"
 
 #: apps/configuration/configuration_translations.py:3506
 #: apps/configuration/configuration_translations.py:3539
 #: apps/configuration/configuration_translations.py:3542
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "other (specify)"
 msgctxt "unccd label"
 msgid "Other (please specify)"
-msgstr "другое (поясните)"
+msgstr "Другое (пожалуйста, уточните)"
 
 #: apps/configuration/configuration_translations.py:3507
 msgctxt "unccd label"
@@ -8198,27 +8736,19 @@ msgid "Prevention"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3508
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "full irrigation"
 msgctxt "unccd label"
 msgid "Mitigation"
-msgstr "полное орошение"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3509
-#, fuzzy
-#| msgid "Administration"
 msgctxt "unccd label"
 msgid "Adaptation"
-msgstr "Администрация"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3510
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "health situation"
 msgctxt "unccd label"
 msgid "Rehabilitation"
-msgstr "состояние здоровья"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3511
 msgctxt "technologies label"
@@ -8270,20 +8800,14 @@ msgid "On-site environmental impacts"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3520
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other forest products"
 msgctxt "unccd label"
 msgid "Other on-site impacts"
-msgstr "Другие продукты леса"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3521
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Purpose/ impacts"
 msgctxt "unccd label"
 msgid "Off-site impacts"
-msgstr "Цель/ воздействия"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3522
 msgctxt "technologies label"
@@ -8361,12 +8885,9 @@ msgid "National initiative – non-government-led"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3537
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "national institutions"
 msgctxt "unccd label"
 msgid "International initiative"
-msgstr "национальные институты"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3538
 msgctxt "unccd label"
@@ -8374,12 +8895,9 @@ msgid "Programme/project-based initiative"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3540
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "downstream siltation"
 msgctxt "unccd label"
 msgid "Consultation"
-msgstr "отложение наносов ниже по течению"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:3541
 msgctxt "unccd label"
@@ -8434,11 +8952,9 @@ msgid "Regional"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:3551
-#, fuzzy
-#| msgid "Information"
 msgctxt "unccd label"
 msgid "International"
-msgstr "Информация"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:4201
 msgctxt "unccd helptext"
@@ -8498,12 +9014,9 @@ msgid "General Information"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:4902
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Ca: acidification"
 msgctxt "unccd label"
 msgid "Classification"
-msgstr "Хк: подкисление"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:4903
 msgctxt "unccd label"
@@ -13789,7 +14302,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
+msgid "Experienced climate-related extremes (disasters)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
@@ -18265,15 +18778,15 @@ msgstr ""
 msgid "Data successfully saved."
 msgstr ""
 
-#: apps/questionnaire/views.py:987
+#: apps/questionnaire/views.py:990
 msgid "QCAT Form"
 msgstr ""
 
-#: apps/questionnaire/views.py:1369
+#: apps/questionnaire/views.py:1372
 msgid "No or multiple files provided."
 msgstr ""
 
-#: apps/questionnaire/views.py:1459
+#: apps/questionnaire/views.py:1462
 msgid "Successfully removed questionnaire"
 msgstr ""
 
@@ -18373,7 +18886,7 @@ msgid ""
 "The WOCAT datasets have not been migrated yet. Currently, the database only "
 "contains the UNCCD PRAIS data. Therefore, searching for existing SLM "
 "Practices still needs to be done in the old database. The migration of the "
-"WOCAT data from the old to the new database will be migrated during first "
+"WOCAT data from the old to the new database will be done during the first "
 "half of 2017."
 msgstr ""
 
