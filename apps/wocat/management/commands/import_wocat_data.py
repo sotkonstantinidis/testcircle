@@ -359,8 +359,10 @@ class ImportObject(Logger):
         Returns:
             -
         """
+        # Update (20.12.2016): It was decided to temporarily increase the
+        # max_length limit of the description
         cleaned_data, errors = clean_questionnaire_data(
-            self.data_json, configuration, no_limit_check=True)
+            self.data_json, configuration, no_limit_check=False)
 
         for error in errors:
             self.add_error('validation', error)
@@ -1699,9 +1701,11 @@ class WOCATImport(Logger):
             qcat_code = '-'
             qcat_url = ''
             questionnaire_name = ''
+            translations = []
             if import_object.questionnaire_object is not None:
                 questionnaire_object = import_object.questionnaire_object
                 qcat_code = questionnaire_object.code
+                translations = questionnaire_object.translations
                 activate(questionnaire_object.original_locale)
                 qcat_url = reverse(
                     'technologies:questionnaire_details', args=[qcat_code])
@@ -1711,9 +1715,15 @@ class WOCATImport(Logger):
                     questionnaire_object.original_locale, 'Unknown Name')
 
             print('QCAT Code: {}'.format(qcat_code), file=file)
-            print('URL: {}'.format(qcat_url), file=file)
+            print('URL: https://qcat.wocat.net{}'.format(qcat_url), file=file)
             print('Name: {}'.format(questionnaire_name), file=file)
-            print('Mapping messages:\n{}'.format('\n'.join(import_object.get_mapping_messages())), file=file)
+            if translations:
+                print(
+                    'Original language: {} | Translations: {}'.format(
+                        translations[:1][0], ', '.join(translations[1:] or '-')),
+                    file=file)
+            print('Mapping messages:\n{}'.format('\n'.join(
+                import_object.get_mapping_messages())), file=file)
 
             print('\n', file=file)
 
