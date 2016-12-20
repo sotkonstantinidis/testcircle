@@ -1,7 +1,7 @@
 {% for list_item in list_items %}
   <div class="output-has-images">
     <div>
-    	<img class="output-image-cb" src="{{ list_item.url }}">
+    	<img class="output-image-cb" src="{{ request.scheme }}://{{ request.get_host }}/static/{{ list_item.url }}">
     </div>
     <div class="aside-questiongroup">
         <ul>

@@ -2,7 +2,7 @@
 		{% for list_item in content.images  %}
 		<div class="small-6 columns">
 			<div class="img-column-container">
-				<img class="img-column" src="{{ list_item.url }}">
+				<img class="img-column" src="{{ request.scheme }}://{{ request.get_host }}{{ list_item.url }}">
 			</div>
 			<div class="img-caption">
 				{{ list_item.caption }}

@@ -190,7 +190,7 @@ class GlobalValuesMixin:
                     'subtext': self.raw_data_getter(overcome_name, value='')[index].get('value')
                 })
         return {
-            "title": _("Conclusion & Comparison"),
+            "title": _('Conclusions and lessons learnt'),
             "partials": {
                 "pro": {
                     "label": _("Strengths"),
@@ -205,7 +205,7 @@ class GlobalValuesMixin:
 
     def references(self):
         return {
-            "title": _("References"),
+            "title": _('References'),
             "partials": [
                 {
                     "title": _("Compiler"),
@@ -323,7 +323,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description', 'images',
+        return ['header_image', 'title', 'location', 'description',
                 'conclusion', 'references']
 
     def location(self):
@@ -361,6 +361,95 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         "title": _("Type of introduction"),
                         "items": self.raw_data.get('location_who_implemented')
                     }
+                }
+            }
+        }
+
+    def classification(self):
+        try:
+            slm_group = self.raw_data_getter('classification_slm_group', value='')[0].get('values')
+        except (KeyError, IndexError):
+            slm_group = None
+
+        return {
+            "title": "Classification of the Technology",
+            "partials": {
+                "main_purpose": {
+                    "title": _("Main purpose"),
+                    "partials": self.raw_data.get('classification_main_purpose')
+                },
+                "landuse": {
+                    "title": "Land use",
+                    "partials": self.raw_data.get('classification_landuse')
+                },
+                "water_supply": {
+                    "title": "Water supply",
+                    "partials": {
+                        "list": self.raw_data.get('classification_watersupply'),
+                        "text": [
+                            {
+                                "title": "Number of growing seasons per year",
+                                "text": self.string_from_list('classification_growing_seasons')
+                            },
+                            {
+                                "title": "Land use before implementation of the Technology",
+                                "text": self.raw_data_getter('classification_lu_before')
+                            }
+                        ]
+                    }
+                },
+                "purpose": {
+                    "title": "Purpose related to land degradation",
+                    "partials": self.raw_data.get('classification_purpose')
+                },
+                "degredation": {
+                    "title": "Degradation addressed",
+                    "partials": [
+                        {
+                            "url": "/static/assets/img/pictos/degra_watererosion.png",
+                            "label": "Soil erosion by water",
+                            "text": "loss of topsoil, gully erosion"
+                        },
+                        {
+                            "url": "/static/assets/img/pictos/degra_2_chem.png",
+                            "label": "Chemical degradation",
+                            "text": "fertility decline and reduced organic matter content"
+                        },
+                        {
+                            "url": "/static/assets/img/pictos/degra_waterdegrade.png",
+                            "label": "Water degradation",
+                            "text": "aridification"
+                        },
+                        {
+                            "url": "/static/assets/img/pictos/degra_watererosion.png",
+                            "label": "Soil erosion by water",
+                            "text": "downstream siltation of the Yellow River"
+                        }
+                    ]
+                },
+                "slm_group": {
+                    "title": "SLM group",
+                    "partials": slm_group
+                },
+                "measures": {
+                    "title": "SLM measures",
+                    "partials": [
+                        {
+                            "url": "/static/assets/img/pictos/swc_1_struc.png",
+                            "label": "Structural",
+                            "text": "Terraces"
+                        },
+                        {
+                            "url": "/static/assets/img/pictos/swc_3_veg.png",
+                            "label": "Vegetative",
+                            "text": "Grasses and perennial herbaceous plants"
+                        },
+                        {
+                            "url": "/static/assets/img/pictos/swc_4_manag.png",
+                            "label": "Agronomic",
+                            "text": "Contour tillage, application of manure"
+                        }
+                    ]
                 }
             }
         }

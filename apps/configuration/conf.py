@@ -285,5 +285,21 @@ class ConfigurationConf(AppConf):
         },
         'qg_photos.header_image_photographer': {
             'override_key': 'images_photographer'
+        },
+        'tech_qg_6.classification_main_purpose': {
+            'override_key': 'classification_main_purpose',
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_9.classification_landuse': {
+            'override_key': 'classification_landuse',
+            'override_fn': lambda self, child: self.get_picto_and_nested_values(child)
+        },
+        'tech_qg_19.classification_watersupply': {
+            'override_key': 'classification_watersupply',
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_35.classification_purpose': {
+            'override_key': 'classification_purpose',
+            'override_fn': lambda self, child: self.get_full_range_values(child)
         }
     }

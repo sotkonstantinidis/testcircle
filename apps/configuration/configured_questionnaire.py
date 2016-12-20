@@ -72,7 +72,7 @@ class ConfiguredQuestionnaire:
         # Value may be empty, or a list
         # of dicts for nested questions.
         if not value:
-            val =  ''
+            val = ''
         else:
             # If 'copy' is omitted, the same instance is returned for all values
             # I don't see why - but at this point, this seems the only
