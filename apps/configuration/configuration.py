@@ -2,6 +2,7 @@ import collections
 import datetime
 
 import floppyforms as forms
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.forms import BaseFormSet, formset_factory
@@ -1896,6 +1897,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
+                'IS_ACTIVE_FEATURE_SUMMARY': settings.IS_ACTIVE_FEATURE_SUMMARY,
                 'notifications_href': Log.actions.get_url_for_questionnaire(
                     user=user,
                     questionnaire_code=questionnaire_object.code if questionnaire_object else None
