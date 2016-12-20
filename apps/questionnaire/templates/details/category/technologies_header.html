@@ -84,8 +84,11 @@
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
       {% trans "View full content" %}
     </a>
-{#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">#}
-    <button href="#" class="button dropdown" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+    {% if IS_ACTIVE_FEATURE_SUMMARY %}
+      <button href="#" class="button dropdown" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+    {% else %}
+      <button href="#" class="button dropdown disabled" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+    {% endif %}
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
       {% trans "Print summary" %}
     </button>

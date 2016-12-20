@@ -76,7 +76,7 @@ after_success:
 #  - mv coverage.xml shippable/codecoverage/
 #  - mv unittests.xml shippable/testresults/
 #  - mv reports/*.xml shippable/testresults/ && rmdir reports
-  - fab $BRANCH deploy
+  - fab deploy:$BRANCH
 
 integrations:
   notifications:

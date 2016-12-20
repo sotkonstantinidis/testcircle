@@ -267,7 +267,11 @@ class BaseSettings(Configuration):
 
     # "Feature toggles"
     IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
-        environ_prefix='', default=False)
+        environ_prefix='', default=False
+    )
+    IS_ACTIVE_FEATURE_SUMMARY = values.BooleanValue(
+        environ_prefix='', default=False
+    )
 
     SENTRY_DSN = values.Value(environ_prefix='')
 
