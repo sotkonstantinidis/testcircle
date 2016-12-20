@@ -111,10 +111,9 @@ class SentryMixin:
 
     @property
     def RAVEN_CONFIG(self):
-        import os
         import raven
 
         return {
-            'dsn': super().SENTRY_DSN,
-            'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+            'dsn': str(super().SENTRY_DSN),
+            'release': raven.fetch_git_sha(super().BASE_DIR)
         }
