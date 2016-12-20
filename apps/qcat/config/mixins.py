@@ -99,26 +99,22 @@ class CompressMixin:
     # maybe: use different (faster) filters for css and js.
 
 
-class OpBeatMixin:
+class SentryMixin:
     """
-    Configure the settings required for opbeat.
+    Config for sentry.
     """
     @property
     def INSTALLED_APPS(self):
         return super().INSTALLED_APPS + (
-            'opbeat.contrib.django',
+            'raven.contrib.django.raven_compat',
         )
 
     @property
-    def OPBEAT(self):
+    def RAVEN_CONFIG(self):
+        import os
+        import raven
+
         return {
-            'ORGANIZATION_ID': super().OPBEAT_ORGANIZATION_ID,
-            'APP_ID': super().OPBEAT_APP_ID,
-            'SECRET_TOKEN': super().OPBEAT_SECRET_TOKEN,
+            'dsn': super().SENTRY_DSN,
+            'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
         }
-
-    @property
-    def MIDDLEWARE_CLASSES(self):
-        return super().MIDDLEWARE_CLASSES + (
-            'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
-        )
