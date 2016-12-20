@@ -5,7 +5,10 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.test.client import RequestFactory
-from unittest.mock import patch, Mock, MagicMock
+from unittest.mock import patch, Mock, MagicMock, sentinel
+
+from django.utils.timezone import now
+from wkhtmltopdf.views import PDFTemplateResponse
 
 from accounts.tests.test_models import create_new_user
 from configuration.configuration import (
@@ -19,7 +22,7 @@ from questionnaire.views import (
     generic_questionnaire_link_search,
     generic_questionnaire_list,
     GenericQuestionnaireView,
-    GenericQuestionnaireStepView)
+    GenericQuestionnaireStepView, QuestionnaireSummaryPDFCreateView)
 from questionnaire.tests.test_view_utils import get_valid_pagination_parameters
 from sample.tests.test_views import (
     get_valid_details_values,
@@ -668,7 +671,9 @@ class GenericQuestionnaireStepViewTest(TestCase):
     @patch.object(Questionnaire, 'create_new')
     @patch('questionnaire.signals.change_questionnaire_data.send')
     def test_success_url(self, mock_change_data, create_new):
-        request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
+        request = self.factory.post(
+            '/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0'
+        )
         request.user = self.request.user
         request._messages = MagicMock()
 
@@ -684,3 +689,69 @@ class GenericQuestionnaireStepViewTest(TestCase):
         original_locale, show_translation = self.view.get_locale_info()
         self.assertIsNotNone(original_locale)
         self.assertFalse(show_translation)
+
+
+class QuestionnaireSummaryPDFCreateViewTest(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.base_view = QuestionnaireSummaryPDFCreateView()
+        self.base_url = reverse('questionnaire_summary', kwargs={'id': 1})
+        self.request = self.factory.get(self.base_url)
+        self.request.user = MagicMock()
+        self.view = self.setup_view(self.base_view, self.request, id=1)
+
+    @patch.object(QuestionnaireSummaryPDFCreateView, 'get_object')
+    @patch.object(QuestionnaireSummaryPDFCreateView, 'get_prepared_data')
+    def test_get(self, mock_prepared_data, mock_object):
+        mock_object.return_value = MagicMock()
+        view = self.view.get(request=self.request)
+        self.assertIsInstance(view, PDFTemplateResponse)
+
+    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+    @patch('questionnaire.views.get_summary_data')
+    def test_get_context_data(self, mock_summary_data, mock_questionnaire_data):
+        self.view.questionnaire = MagicMock()
+        self.view.code = 'sample'
+        mock_questionnaire_data.return_value = MagicMock()
+        mock_summary_data.return_value = sentinel.summary_data
+        context = self.view.get_context_data()
+        self.assertEqual(
+            context['block'], sentinel.summary_data
+        )
+
+    def test_get_filename(self):
+        this_moment = now()
+        expected = 'wocat-id-full-summary-{}.pdf'.format(
+            this_moment.strftime('%Y-%m-%d-%H:%m')
+        )
+        self.view.questionnaire = MagicMock(
+            id='id', updated=this_moment
+        )
+        self.assertEqual(
+            expected, self.view.get_filename()
+        )
+
+    def test_get_object(self):
+        pass
+
+    def test_get_prepared_data(self):
+        # this is tested in get_context_data
+        pass
+
+    def test_get_template_names(self):
+        self.view.code = 'bar'
+        self.assertEqual(
+            '{}/layout/bar.html'.format(self.view.base_template_path),
+            self.view.get_template_names()
+        )
+
+    def test_get_custom_template_names(self):
+        url = '{}?template=foo'.format(self.base_url)
+        base_path = sentinel.base_path
+        view = self.setup_view(self.base_view, self.factory.get(url), id=1)
+        view.code = 'bar'
+        view.base_template_path = base_path
+        self.assertEqual(
+            '{}/layout/foo.html'.format(base_path), view.get_template_names()
+        )

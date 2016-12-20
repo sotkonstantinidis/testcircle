@@ -5829,7 +5829,10 @@
       "keyword": "name",
       "translation": 5001,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "title_name"
+        }
       }
     },
     "model": "configuration.key",
@@ -5840,7 +5843,10 @@
       "keyword": "country",
       "translation": 5002,
       "configuration": {
-        "type": "select_type"
+        "type": "select_type",
+        "in_summary": {
+          "full": "country"
+        }
       },
       "values": [
         1,
@@ -6105,6 +6111,9 @@
         "type": "char",
         "form_options": {
           "helptext_position": "tooltip"
+        },
+        "in_summary": {
+          "full": "title_name_local"
         }
       }
     },
@@ -6116,7 +6125,10 @@
       "keyword": "state_province",
       "translation": 5005,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "location_state_province"
+        }
       }
     },
     "model": "configuration.key",
@@ -6127,7 +6139,10 @@
       "keyword": "further_location",
       "translation": 5006,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "location_further"
+        }
       }
     },
     "model": "configuration.key",
@@ -6149,7 +6164,10 @@
       "keyword": "image",
       "translation": 5007,
       "configuration": {
-        "type": "image"
+        "type": "image",
+        "in_summary": {
+          "full": "header_image_image"
+        }
       }
     },
     "model": "configuration.key",
@@ -6163,6 +6181,9 @@
         "type": "char",
         "form_options": {
           "helptext_position": "tooltip"
+        },
+        "in_summary": {
+          "full": "header_image_caption"
         }
       }
     },
@@ -6185,7 +6206,10 @@
       "keyword": "image_photographer",
       "translation": 5010,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "header_image_photographer"
+        }
       }
     },
     "model": "configuration.key",
@@ -6207,7 +6231,10 @@
       "keyword": "image_remarks",
       "translation": 5049,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "header_image_remarks"
+        }
       }
     },
     "model": "configuration.key",
@@ -6221,7 +6248,10 @@
         "type": "select_model",
         "form_options": {
           "model": "Project",
-          "display_field": "funding_project_display"
+          "display_field": "funding_project_display",
+          "in_summary": {
+            "full": "header_image_project"
+          }
         }
       }
     },
@@ -6247,7 +6277,10 @@
       "keyword": "user_id",
       "translation": 5014,
       "configuration": {
-        "type": "user_id"
+        "type": "user_id",
+        "in_summary": {
+          "full": "references_resourceperson_user_id"
+        }
       }
     },
     "model": "configuration.key",
@@ -6269,7 +6302,10 @@
       "keyword": "person_lastname",
       "translation": 5016,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "references_resourceperson_lastname"
+        }
       }
     },
     "model": "configuration.key",
@@ -6280,7 +6316,10 @@
       "keyword": "person_firstname",
       "translation": 5017,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "references_person_firstname"
+        }
       }
     },
     "model": "configuration.key",
@@ -6405,7 +6444,10 @@
       "keyword": "user_resourceperson_type",
       "translation": 5052,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "references_resourceperson_type"
+        }
       },
       "values": [
         264,
@@ -6434,6 +6476,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "strengths_landuser"
         }
       }
     },
@@ -6448,6 +6493,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "strengths_compiler"
         }
       }
     },
@@ -6462,6 +6510,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "weaknesses_landuser"
         }
       }
     },
@@ -6476,6 +6527,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "weaknesses_compiler"
         }
       }
     },
@@ -6490,6 +6544,9 @@
         "type": "text",
         "view_options": {
           "template": "value_only"
+        },
+        "in_summary": {
+          "full": "weaknesses_overcome"
         }
       }
     },
@@ -6710,7 +6767,10 @@
       "keyword": "references_title",
       "translation": 5057,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "references_title"
+        }
       }
     },
     "model": "configuration.key",
@@ -6721,7 +6781,10 @@
       "keyword": "references_source",
       "translation": 5058,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "full": "references_source"
+        }
       }
     },
     "model": "configuration.key",
@@ -6765,7 +6828,10 @@
       "keyword": "location_map",
       "translation": 5064,
       "configuration": {
-        "type": "map"
+        "type": "map",
+        "in_summary": {
+          "full": "location_map"
+        }
       }
     },
     "model": "configuration.key",
@@ -6777,6 +6843,9 @@
       "translation": 5065,
       "configuration": {
         "type": "int",
+        "in_summary": {
+          "full": "references_vimeo_id"
+        },
         "view_options": {
           "template": "vimeo_video"
         }

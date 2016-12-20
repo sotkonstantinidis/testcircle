@@ -218,6 +218,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'keyword',
         'view_options',
         'form_options',
+        'in_summary',
     ]
     valid_field_types = [
         'bool',
@@ -355,6 +356,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.filterable = self.view_options.get('filter', False) is True
 
+        self.in_summary = self.key_config.get('in_summary')
         self.images = []
         self.choices = ()
         self.choices_helptexts = []
@@ -1890,6 +1892,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'edit_step_route': edit_step_route,
                 'configuration_name': configuration,
                 'questionnaire_identifier': questionnaire_identifier,
+                'questionnaire_object': questionnaire_object,
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,

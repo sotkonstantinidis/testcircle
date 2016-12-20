@@ -1,0 +1,269 @@
+body.summary {
+  background-color: white;
+  font-size: 0.75rem;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.02rem;
+  line-height: $base-line-height;
+
+  a,
+  a:active {
+    color: $color-blue;
+  }
+
+  h1 {
+    font-size: $h1-font-size;
+    margin-top: 0.5rem;
+
+  }
+  h2 {
+    font-size: $h2-font-size;
+    text-transform: uppercase;
+  }
+  h5 {
+    font-size: $h5-font-size;
+    font-weight: bold;
+    margin: 0.3rem 0rem 0rem 0rem;
+  }
+
+  ul {
+    margin-left: 0rem;
+    line-height: 1rem;
+    li {
+      margin-top: 0rem;
+    }
+  }
+
+  .columns.description > .tech-section-header h2, .columns.location > .tech-section-header h2{
+    padding-left: 0.4rem;
+  }
+
+  .tech-section-header {
+    padding-left: 0;
+    padding-right: 0;
+    margin: 1.5rem 0rem 1.0rem 0rem;
+  }
+
+  .overcome {
+    .subtext {
+        margin-left: 0.8rem;
+        font-style: italic;
+        font-weight: normal;
+      &::before {
+        font-size: 1rem;
+        content: '\2192';
+        height: 0;
+        width: 0;
+        left: -0.5em;
+        top: 0.1rem;
+        position: relative;
+      }
+    }
+  }
+
+  ul.bullets {
+    list-style-type: disc;
+    margin-left: 1rem;
+    li {
+      list-style-type: disc;
+    }
+  }
+
+  .row {
+    margin-bottom: 0.6rem;
+    &.tech-section-header {
+      margin-bottom: 0rem;
+    }
+    .small-8 .tech-section-header {
+      margin-left: -0.4rem;
+    }
+    .location .row {
+      margin-bottom: 0rem;
+    }
+  }
+
+.location {
+  p,
+  div.paragraph {
+    border-bottom: 1px solid $color-beige;
+    margin: 0;
+    line-height: 1rem;
+    padding-bottom: 0.3rem;
+    margin-bottom: 0.3rem;
+
+    &.border-top {
+      border-top: 1px solid $color-beige;
+    }
+  }
+  ul {
+    margin-top: 0;
+    line-height: 1rem;
+  }
+}
+
+  .header-img {
+    height: 350px;
+    width: 100%;
+    background-size: cover;
+    max-width: 100%;
+  }
+  .img-caption {
+    background-color: rgba(85,116,49,.8);
+    color: white;
+    padding: 0rem 1rem 0.12rem 1rem;
+    font-size: 0.6rem;
+    line-height: 1.5em;
+    font-weight: normal;
+  }
+
+  .tech-section-content {
+    padding: 1rem 0rem 1rem 0rem;
+  }
+
+  .tech-section-header {
+    background-color: #edf0ea;
+    h2 {
+      padding-left: 0.75rem;
+      width: auto;
+    }
+  }
+
+   .wocat_logo
+  {
+    position: absolute;
+    top:7px;
+    right: 5px;
+    padding:5px;
+
+  }
+
+  .img-column
+  {
+    width:auto;
+    max-height: 290px;
+    position: absolute;
+    bottom:0px;
+  }
+
+  .img-column-container
+  {
+    height: 255px;
+    width:100%;
+    background-color: rgba(85, 116, 49, 0.1);
+    position: relative;
+  }
+
+  .img_in_text
+  {
+    float: right;
+    max-width: 66%;
+    margin: 0px 0px 20px 20px;
+  }
+
+  ol.numbers {
+    list-style: decimal !important;
+    margin-left: 1rem;
+    margin-top: 0rem;
+    line-height: 1rem;
+        li {
+      list-style-type: decimal;
+      ul {
+        li {
+          list-style-type: decimal;
+          @extend .overcome;
+        }
+      }
+    }
+  }
+
+  .technology_table td
+  {
+    border: 0px solid black;
+    line-height: 1rem;
+    padding: 0.2rem;
+    font-size: 12px;
+  }
+
+  .td_category_title
+  {
+    background-color: #edf0ea;
+  }
+
+  .technology_table tr:nth-of-type(even)
+  {
+  }
+
+  .total_row
+  {
+    border-top: 1px solid black;
+    padding-top: 10px;
+  }
+
+  .calculation_costs_section
+  {
+    background-color: #edf0ea;
+    margin: 15px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
+
+  }
+
+  .row.range
+  {
+    margin-bottom: 0.0rem;
+  }
+
+  .range_square
+  {
+    width: 15px;
+    height: 15px;
+    background-color: rgba(85, 116, 49, 0.1);
+    float: left;
+    margin: 0px 2px 2px 0px;
+  }
+
+  .range_title
+  {
+    font-size: 10px;
+    padding: 0px 5px 0px 5px;
+    float: left;
+    min-width: 70px;
+    max-width: 100px;
+  }
+
+  .range_max
+  {
+    text-align: left;
+  }
+
+  .range_min
+  {
+    text-align: right;
+  }
+
+  .range_true::before
+  {
+    background-color: #768f5a;
+    float: left;
+    margin: 0px 2px 2px 0px;
+    padding-left: 1px;
+    color: white;
+    width: 15px;
+    height: 15px;
+    line-height: 1em;
+    font-size: 1.2em;
+    font-weight: bold;
+    content: "\2713";
+  }
+
+  p.location_text
+  {
+    margin-top: 0.3rem;
+  }
+
+ .divider
+ {
+    border-top: 1px solid #768f5a;
+    padding: 10px 0px 10px 0px;
+ }
+
+
+}

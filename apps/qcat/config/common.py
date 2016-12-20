@@ -45,6 +45,7 @@ class BaseSettings(Configuration):
         'rest_framework',
         'rest_framework_swagger',
         'sekizai',
+        'wkhtmltopdf',
         # Custom apps
         'accounts',
         'api',
@@ -141,6 +142,8 @@ class BaseSettings(Configuration):
         # 'large' is the original uploaded image.
     )
 
+    SUMMARY_PDF_PATH = join(MEDIA_ROOT, 'summary-pdf')
+
     TEMPLATE_DIRS = (
         join(BASE_DIR, 'templates'),
     )
@@ -211,6 +214,8 @@ class BaseSettings(Configuration):
             'anon': '10/day',
             'user': '2000/day',
         },
+        'DEFAULT_VERSIONING_CLASS':
+            'rest_framework.versioning.NamespaceVersioning',
         'PAGE_SIZE': 25,
     }
     SWAGGER_SETTINGS = {

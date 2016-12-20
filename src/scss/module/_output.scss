@@ -19,7 +19,7 @@
   overflow: hidden;
   @include rhythm;
 
-  & > img {
+  & > div img {
     background: $color-beige-light;
     border: 1px solid $color-beige-light;
   }

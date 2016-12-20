@@ -1,0 +1,820 @@
+{
+  "header_image": {
+    "title": "",
+    "partials": {
+      "image": {
+        "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+      },
+      "caption": {
+        "title": "Title photo",
+        "text": "Catchment planning in action: local farmers and extension workers discuss technical interventions based on a participatory map. (Photo: Hanspeter Liniger)"
+      }
+    }
+  },
+  "title": {
+    "partials": {
+      "title": "Catchment approach for integrated land and water management",
+      "country": "Kenya"
+    }
+  },
+  "description": {
+    "title": "Description",
+    "partials": {
+      "lead": "A focused approach to integrated land and water management, including soil and water conservation, where the active participation of the villagers - often organised through common interest groups - is central.",
+      "text": "The catchment approach promotes sustainable land management systems by conservation of a defined area (so-called 'micro-environments') through the active participation of the communities living there. It was launched in Kenya in 1988 to achieve greater technical and social impact - and at a more rapid pace - than the previous focus on individual farmers. This case focuses on a single 'catchment' in a subhumid area of Central Kenya. The emphasis is on structural measures - especially fanya juu terraces - but vegetative systems are promoted also. Other activities are  supported such as spring protection, improved crop and animal husbandry, agroforestry, fodder production, fish ponds and others. The specific objectives are to stimulate the implementation of a variety of SWC measures leading simultaneously to improved production. Each approach area is defined by cultural/administrative boundaries rather than strict hydrological watersheds or catchments (as its name confusingly implies). A conservation committee is elected from amongst the focal community before problem identification begins. Technical staff from relevant government and non-government agencies (NGOs) are co-opted onto the committee. The approach then involves participatory methods of appraisal and planning of solutions. Land users, together with the co-opted subject matter specialists, pool their knowledge and resources. Common Interest Groups (CIGs) are formed, with the aim of self-help promotion of specific farm enterprises. Training is given to the members of the CIGs by the Ministry of Agriculture. The farmers carry out the majority of the work themselves: monetary or other tangible incentives are few. The end result is the micro-environment (catchment area) conserved for improved production, and left in the hands of the community to maintain and sustain. The catchment approach was developed under the National Soil and Water Conservation Programme - supported by (Swedish) Sida - and continues to be promoted as the Focal Area Approach (FAA) under the National Agricultural and Livestock Extension Programme (NALEP), which is again supported by Sida. However, under NALEP there is less emphasis on soil and water conservation than the previous programme, and more focus on promotion of productive enterprises."
+    }
+  },
+  "location": {
+    "title": "Location",
+    "partials": {
+      "map": {
+        "url": "/upload/3b/a/3bade4a0-078f-4acc-b138-175d1c6ecf95.jpg"
+      },
+      "infos": {
+        "location": {
+          "title": "Location",
+          "text": "Muranga District, Kenya"
+        },
+        "geo_reference": [],
+        "start_date": {
+          "title": "Initiation date",
+          "text": "1987"
+        },
+        "end_date": {
+          "title": "Year of termination",
+          "text": "2000"
+        },
+        "introduction": {
+          "title": "Type of Approach",
+          "items": [
+            {
+              "highlighted": false,
+              "text": "traditional/ indigenous"
+            },
+            {
+              "highlighted": false,
+              "text": "recent local initiative/ innovative"
+            },
+            {
+              "highlighted": true,
+              "text": "project/ programme based"
+            },
+            {
+              "highlighted": false,
+              "text": "other: (specify)"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "images": {
+    "partials": {
+      "images": [
+        {
+          "url": "/static/assets/img/mediumsmall_QaKEN01_2.jpg",
+          "caption": "Left: Construction of fanya juu terraces is heavy work. The name fanya juu means 'throw it up' in Swahili and refers to the first step of establishment: ditches are excavated and the soil is thrown upslope to form an embankment (Photo: Hanspeter Liniger)"
+        },
+        {
+          "url": "",
+          "caption": ""
+        }
+      ]
+    }
+  },
+  "aims": {
+    "title": "Approach aims and enabling environment",
+    "partials": {
+      "elements": [
+        {
+          "title": "Main aims / objectives of the approach",
+          "items": [
+            "Bla blab la blab la bla",
+            "Papperlapapp Papperlapapp Papperlapapp and again Papperlapapp and once more Papperlapapp, asd snd asdh aod asd ashd akjhd kah dkajsh d",
+            "Schubidu schubidu schubidu schubidu"
+          ]
+        },
+        {
+          "title": "Conditions enabling the implementation of the Technology/ ies applied under the Approach",
+          "items": [
+            "collaboration/ coordination of actors",
+            "availability/ access to financial resources and services"
+          ]
+        },
+        {
+          "title": "Conditions hindering the implementation of the Technology/ ies applied under the Approach",
+          "items": [
+            "institutional setting: here specifications will take space and we do not know how much since there is no limitation of number of characters so far",
+            "legal framework (land tenure, land and water use rights): here specifications will take space",
+            "workload, availability of manpower: here specifications will take space",
+            "land governance (decision-making, implementation and enforcement): here specifications will take space"
+          ]
+        }
+      ]
+    }
+  },
+  "participation": {
+    "title": "Participation and roles of stakeholders involved",
+    "partials": {
+      "stakeholders": {
+        "title": "Stakeholders involved in the Approach and their roles",
+        "items": [
+          "local land users/ local communities (man, women and youths): The roles and responsibilities will be added here...",
+          "community-based organizations (Common Interest Groups - CIGs): The roles and responsibilities will be added here...",
+          "community-based organizations (conservation committee): The roles and responsibilities will be added here...",
+          "SLM specialists/ agricultural advisers",
+          "SLM specialists/ agricultural advisers",
+          "National government (planners, decision-makers)"
+        ],
+        "addendum": "Lead agency: fghfhg"
+      },
+      "involvement": {
+        "title": "Involvement of local land users/ local communities in the different phases of the Approach",
+        "chart": {
+          "title": "approach phase",
+          "labels": [
+            "none",
+            "passive",
+            "payment / external support",
+            "interactive",
+            "self mobilization"
+          ],
+          "rows": [
+            {
+              "title": "initiation/ motivation",
+              "value": 1,
+              "text": "The land users and akjsdasjd ajs ajsdn uahf man jahf ouf mnc jad jn ajnc udh jnf"
+            },
+            {
+              "title": "planning",
+              "value": 3,
+              "text": "Planning as dak dasd aohf ajnf ioasdjf dm oirg kjn foüsidf d sldf kl"
+            },
+            {
+              "title": "implementation",
+              "value": 0,
+              "text": "After the workshop alsd afh iofüf qefkn as asldj asiojfd iod wegngv peurh ksjdg gj ijg"
+            },
+            {
+              "title": "monitoring/ evaluation",
+              "value": 2,
+              "text": "In the M&E procedures asjnd ad asd ajsnd asd aos asd an ajnd akjsnd apiusd asdn"
+            },
+            {
+              "title": "research",
+              "value": 1,
+              "text": ""
+            }
+          ]
+        }
+      },
+      "flow_chart": {
+        "url": "",
+        "title": "Flow chart",
+        "text": "Describe what is displayed on the graphic. Blab la blab a asnd ais anf ajsd aufh an akhf akjf akjn a,nf asjhdf asjd ajsdn ad asjd ajsf sjdf afn aknf üow sjbns."
+      },
+      "decision_making": {
+        "title": "Decision-making on the selection of SLM Technology",
+        "elements": [
+          {
+            "title": "Decisions were taken by",
+            "items": [
+              {
+                "highlighted": false,
+                "text": "land users alone (self-initiative)"
+              },
+              {
+                "highlighted": true,
+                "text": "mainly land users, supported by SLM specialists"
+              },
+              {
+                "highlighted": false,
+                "text": "all relevant actors, as part of a participatory approach"
+              },
+              {
+                "highlighted": false,
+                "text": "mainly SLM specialists, following consultation with land users"
+              },
+              {
+                "highlighted": false,
+                "text": "SLM specialists alone"
+              },
+              {
+                "highlighted": false,
+                "text": "politicians/leaders"
+              },
+              {
+                "highlighted": false,
+                "text": "other (specify)..."
+              }
+            ]
+          },
+          {
+            "title": "Decisions were made based on:",
+            "items": [
+              {
+                "highlighted": true,
+                "text": "evaluation of SLM knowledge (evidence-based)"
+              },
+              {
+                "highlighted": false,
+                "text": "research findings"
+              },
+              {
+                "highlighted": false,
+                "text": "personal experience and opinions (undocumented)"
+              },
+              {
+                "highlighted": false,
+                "text": "other (specify)..."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "technical_support": {
+    "title": "Technical support, capacity building, and knowledge management",
+    "partials": {
+      "activities": {
+        "title": "The following activities or services have been part of the approach",
+        "items": [
+          {
+            "highlighted": true,
+            "text": "Training / capacity building"
+          },
+          {
+            "highlighted": true,
+            "text": "Advisory services"
+          },
+          {
+            "highlighted": true,
+            "text": "Institutions strengthening"
+          },
+          {
+            "highlighted": false,
+            "text": "Monitoring and evaluation"
+          },
+          {
+            "highlighted": true,
+            "text": "Research"
+          }
+        ]
+      },
+      "training": {
+        "title": "Capacity building/ training",
+        "elements": [
+          {
+            "title": "Training was provided to the following stakeholders",
+            "items": [
+              {
+                "highlighted": true,
+                "text": "land users"
+              },
+              {
+                "highlighted": false,
+                "text": "field staff/ advisers"
+              },
+              {
+                "highlighted": true,
+                "text": "other (specify):"
+              }
+            ]
+          },
+          {
+            "title": "Form of training",
+            "items": [
+              {
+                "highlighted": false,
+                "text": "on-the-job"
+              },
+              {
+                "highlighted": true,
+                "text": "site visits/ farmer-to-farmer"
+              },
+              {
+                "highlighted": true,
+                "text": "demonstration areas"
+              },
+              {
+                "highlighted": false,
+                "text": "public meetings"
+              },
+              {
+                "highlighted": false,
+                "text": "courses"
+              },
+              {
+                "highlighted": false,
+                "text": "other (specify):"
+              }
+            ]
+          },
+          {
+            "title": "Subjects covered",
+            "items": [
+              "Subject A",
+              "Subject B",
+              "Subject C",
+              "Subject D",
+              "Subject E"
+            ]
+          }
+        ]
+      },
+      "advisory": {
+        "title": "Advisory service",
+        "elements": [
+          {
+            "title": "Advisory service was provided",
+            "items": [
+              {
+                "highlighted": true,
+                "text": "on land users' fields"
+              },
+              {
+                "highlighted": false,
+                "text": "at permanent centres"
+              },
+              {
+                "highlighted": false,
+                "text": "other (specify):"
+              }
+            ],
+            "description": "Description of advisory service: Technical staff from relevant government and non-government agencies (NGOs) are co-opted onto the committee. The approach then involves participatory methods of appraisal and planning of solutions. Land users, together with the co-opted subject matter specialists, pool their knowledge and resources. Common Interest Groups (CIGs) are formed, with the aim of self-help promotion of specific farm enterprises"
+          }
+        ]
+      },
+      "institution_strengthening": {
+        "text": "Institutions have been established / strengthened [a little / moderately / greatly]",
+        "elements": [
+          {
+            "title": "at the following level",
+            "items": [
+              {
+                "highlighted": true,
+                "text": "Local"
+              },
+              {
+                "highlighted": false,
+                "text": "Regional"
+              },
+              {
+                "highlighted": false,
+                "text": "National"
+              },
+              {
+                "highlighted": false,
+                "text": "other (specify):"
+              }
+            ],
+            "description": "Comments: Text..."
+          },
+          {
+            "title": "Type of support",
+            "items": [
+              {
+                "highlighted": true,
+                "text": "financial"
+              },
+              {
+                "highlighted": true,
+                "text": "Capacity building/ training"
+              },
+              {
+                "highlighted": false,
+                "text": "Equipment"
+              },
+              {
+                "highlighted": false,
+                "text": "other (specify):"
+              }
+            ],
+            "description": "Comments: Text..."
+          }
+        ]
+      },
+      "monitoring": {
+        "title": "Monitoring and evaluation",
+        "items": [
+          "Comment",
+          "This documentation is [not] intended to be used for monitoring and evaluation"
+        ]
+      },
+      "research": {
+        "title": "Research",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "sociology"
+          },
+          {
+            "highlighted": false,
+            "text": "Economics/ marketing"
+          },
+          {
+            "highlighted": true,
+            "text": "Ecology"
+          },
+          {
+            "highlighted": true,
+            "text": "technology"
+          },
+          {
+            "highlighted": false,
+            "text": "other (specify):"
+          }
+        ],
+        "description": "Comments: Text..."
+      }
+    }
+  },
+  "financing": {
+    "title": "Financing and external material support",
+    "partials": {
+      "budget": {
+        "title": "Annual budget for the SLM component of the Approach",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "< 2,000 USD"
+          },
+          {
+            "highlighted": false,
+            "text": "2000 - 10,000 USD"
+          },
+          {
+            "highlighted": false,
+            "text": "10,000 - 100,000 USD"
+          },
+          {
+            "highlighted": true,
+            "text": "100,000 - 1,000,000 USD"
+          },
+          {
+            "highlighted": false,
+            "text": "> 1,000,000 USD"
+          }
+        ],
+        "description": "Comments: text",
+        "addendum": "Precise annual budget: 120,000 USD"
+      },
+      "services": {
+        "title": "The following services of incentives have been provided to land users",
+        "items": [
+          {
+            "highlighted": true,
+            "text": "Financial/ material support for implementing the Technology"
+          },
+          {
+            "highlighted": true,
+            "text": "Credit"
+          },
+          {
+            "highlighted": true,
+            "text": "Other incentives or instruments"
+          }
+        ]
+      },
+      "subsidies": {
+        "title": "Subsidies for specific inputs",
+        "chart": {
+          "title": "",
+          "labels": [
+            "partly",
+            "fully subsidized"
+          ],
+          "rows": [
+            {
+              "title": "Labour",
+              "value": 1,
+              "text": ""
+            },
+            {
+              "title": "Equipment: tools",
+              "value": 1,
+              "text": ""
+            },
+            {
+              "title": "Agricultural: fertilizers",
+              "value": 0,
+              "text": ""
+            },
+            {
+              "title": "Infrastructure: Inulation of buildings",
+              "value": 1,
+              "text": ""
+            }
+          ]
+        },
+        "labour": {
+          "title": "Labout by land users was",
+          "items": [
+            {
+              "highlighted": true,
+              "text": "Voluntary"
+            },
+            {
+              "highlighted": false,
+              "text": "Food-for-work"
+            },
+            {
+              "highlighted": false,
+              "text": "Paid in cash"
+            },
+            {
+              "highlighted": false,
+              "text": "Rewarded with other material support"
+            }
+          ]
+        },
+        "credit": {
+          "title": "Credit",
+          "items": [
+            "Conditions: Text",
+            "Credit providers: Text",
+            "Credit receivers: Text"
+          ]
+        },
+        "other": {
+          "label": "Other incentives or instruments",
+          "text": "Specify: text"
+        }
+      }
+    }
+  },
+  "impact": {
+    "title": "Impact analysis and concluding statements",
+    "partials": {
+      "impacts": {
+        "title": "Impacts of the Approach",
+        "subtitle": "Did the approach...",
+        "labels": [
+          "no",
+          "a little",
+          "moderately",
+          "greedy"
+        ],
+        "rows": [
+          {
+            "title": "empower local land users, improve stakeholder participation?",
+            "value": 1,
+            "text": "Formation of water resources users associations"
+          },
+          {
+            "title": "enable evidence-based decision-making?",
+            "value": 3,
+            "text": ""
+          },
+          {
+            "title": "mobilize/ improve access to financial resources for SLM implementation?",
+            "value": 0,
+            "text": ""
+          },
+          {
+            "title": "empower socially and economically disadvantaged groups?",
+            "value": 2,
+            "text": ""
+          },
+          {
+            "title": "build/ strengthen institutions, collaboration between stakeholders?",
+            "value": 1,
+            "text": ""
+          },
+          {
+            "title": "Improve issues of land tenure/ user rights that hindered implementation of SLM Technologies",
+            "value": 1,
+            "text": ""
+          },
+          {
+            "title": "lead to improved access to water and sanitation?",
+            "value": 2,
+            "text": ""
+          },
+          {
+            "title": "improve land users’ resilience to climatic changes/ extremes and disasters?",
+            "value": 2,
+            "text": ""
+          },
+          {
+            "title": "lead to employment, income opportunities?",
+            "value": 3,
+            "text": ""
+          },
+          {
+            "title": "improve knowledge and capacities of other stakeholders?",
+            "value": 3,
+            "text": ""
+          }
+        ]
+      },
+      "motivation": {
+        "title": "Main motivation of land users to implement SLM",
+        "items": [
+          {
+            "highlighted": true,
+            "text": "increased production"
+          },
+          {
+            "highlighted": false,
+            "text": "increased profit(ability), improved cost-benefit ratio"
+          },
+          {
+            "highlighted": false,
+            "text": "reduced land degradation"
+          },
+          {
+            "highlighted": false,
+            "text": "reduced risk of disasters"
+          },
+          {
+            "highlighted": false,
+            "text": "reduced workload"
+          },
+          {
+            "highlighted": true,
+            "text": "payments/ subsidies"
+          },
+          {
+            "highlighted": false,
+            "text": "rules and regulations (fines)/ enforcement"
+          },
+          {
+            "highlighted": false,
+            "text": "prestige, social pressure/ social cohesion"
+          },
+          {
+            "highlighted": true,
+            "text": "affiliation to movement/ project/ group/ networks"
+          },
+          {
+            "highlighted": false,
+            "text": "environmental consciousness"
+          },
+          {
+            "highlighted": false,
+            "text": "customs and beliefs, morals"
+          },
+          {
+            "highlighted": false,
+            "text": "enhanced SLM knowledge and skills"
+          },
+          {
+            "highlighted": false,
+            "text": "aesthetic improvement"
+          },
+          {
+            "highlighted": false,
+            "text": "conflict mitigation"
+          },
+          {
+            "highlighted": false,
+            "text": "other (specify):"
+          }
+        ]
+      },
+      "sustainability": {
+        "title": "Sustainability of Approach activities",
+        "subtitle": "Can the land users sustain what hat been implemented through the Approach (without external support)?",
+        "items": [
+          {
+            "highlighted": false,
+            "text": "Yes"
+          },
+          {
+            "highlighted": true,
+            "text": "Uncertain"
+          },
+          {
+            "highlighted": false,
+            "text": "No"
+          }
+        ]
+      }
+    }
+  },
+  "conclusion": {
+    "title": "Conclusions and lessons learnt",
+    "partials": {
+      "pro": {
+        "label": "Strengths",
+        "css_class": "bullets",
+        "items": [
+          {
+            "text": "Diversification of production: terracing makes cultivation of new cash crops possible: flax (for linseed oil), pears, apples, apricots, water melon; all these give high returns and thus make terrace construction profitable."
+          },
+          {
+            "text": "Improvements of farmers’ living standard and decline in poverty stricken population"
+          },
+          {
+            "text": "Reduced erosion, reduced loss of rainwater through runoff (increased in water use efficiency) and reduced fertility loss due to reduced slope angle and length"
+          },
+          {
+            "text": "Increased soil moisture"
+          },
+          {
+            "text": "Increased crop production (before 1983 hunger and starvation in the area)"
+          },
+          {
+            "text": "Easier field operations: the level terrace is easier to cultivate than the original hill slope"
+          }
+        ]
+      },
+      "contra": {
+        "label": "Weaknesses/ disadvantages/ risks",
+        "subtext": "how to overcome",
+        "css_class": "bullets",
+        "items": [
+          {
+            "text": "Decrease in production in first year",
+            "subtext": "Apply manure and fertilizer."
+          },
+          {
+            "text": "Terrace riser can be destroyed by storms – and, sometimes, rodent holes",
+            "subtext": "Good and timely repair and maintenance: planting upper parts of the risers with grass, bushes or even trees help to stabilise the risers but can lead to competition with the crop for water."
+          },
+          {
+            "text": "High cost/input for construction and establishment",
+            "subtext": "Given the high erodibility of the soil and the steep slopes there is no real alternatives to labour-intensive terracing."
+          },
+          {
+            "text": "High loss of soil moisture due to evaporation from the soil surface. Wind erosion due to tillage",
+            "subtext": "Protect soil surface for example by conservation agriculture – comprising permanent cover, crop rotation, reduced tillage – could be supplementary agronomic and vegetative options."
+          }
+        ]
+      }
+    }
+  },
+  "references": {
+    "title": "References",
+    "partials": [
+      {
+        "title": "Compiler",
+        "css_class": "bullets",
+        "items": [
+          {
+            "text": "Mats Gurtner – email – phone – www – etc."
+          }
+        ]
+      },
+      {
+        "title": "Resource persons",
+        "css_class": "bullets",
+        "items": [
+          {
+            "text": "Hanspeter Liniger – email – phone – www – etc."
+          },
+          {
+            "text": "Rima Mekdaschi-Studer – email – phone – www – etc."
+          }
+        ]
+      },
+      {
+        "title": "Links",
+        "css_class": "bullets",
+        "items": [
+          {
+            "text": "Full case study in WOCAT DB: <a href=''>insert Link / URL</a>"
+          },
+          {
+            "text": "Corresponding approach in WOCAT DB: <a href=''>insert Link / URL</a>"
+          },
+          {
+            "text": "Video: <a href=''>insert Link / URL</a>"
+          }
+        ]
+      },
+      {
+        "title": "Key references",
+        "css_class": "bullets",
+        "items": [
+          {
+            "text": "Terraces In China. Published By Ministry Of Water Resources Beijing, PRC. 1989"
+          },
+          {
+            "text": "Conservancy engineering budgetary estimate ration. Issued by Ministry of water resources of PRC, Published by Yellow-river water conservancy publishing company, Zhengzhou, PRC, 2003"
+          },
+          {
+            "text": "A Great Cause for Centuries – 50 Years in Water and Soil Conservation in China. Published by Department of Soil and Water Conservation, Ministry of Water Resources Beijing, PRC, 2000"
+          },
+          {
+            "text": "Dongyinglin, Changpiguang, Wangzhihua 1990: Discussion on several questions on increasing production of the terrace with two banks; Soil and Water Conservation Science and Technology in Shanxi. No. 1, p 36–37"
+          }
+        ]
+      }
+    ]
+  },
+  "project_insitution": {
+    "items": [
+      {
+        "title": "Food and Agriculture Organization of the United Nations",
+        "logo": "http://www.fao.org/fileadmin/templates/faoweb/images/FAO-logo.png"
+      },
+      {
+        "title": "Caritas",
+        "logo": "https://www.caritas.ch/fileadmin/frontend/common/img/logo.png"
+      }
+    ]
+  }
+}

@@ -15115,7 +15115,10 @@
       "keyword": "tech_definition",
       "translation": 1001,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "definition"
+        }
       }
     },
     "model": "configuration.key",
@@ -15159,7 +15162,10 @@
       "keyword": "tech_who_implemented",
       "translation": 1307,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "full": "location_who_implemented"
+        }
       },
       "values": [
         1000,
@@ -15198,7 +15204,10 @@
       "keyword": "tech_main_purpose",
       "translation": 1007,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "full": "classification_main_purpose"
+        }
       },
       "values": [
         1250,
@@ -15232,7 +15241,10 @@
       "keyword": "tech_watersupply",
       "translation": 1012,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "classification_watersupply"
+        }
       },
       "values": [
         1127,
@@ -15264,6 +15276,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "classification_landuse"
         }
       },
       "values": [
@@ -15466,7 +15481,10 @@
       "keyword": "tech_lu_change",
       "translation": 1020,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "classification_lu_before"
+        }
       }
     },
     "model": "configuration.key",
@@ -15744,6 +15762,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "classification_purpose"
         }
       },
       "values": [
@@ -17839,7 +17860,10 @@
       "keyword": "tech_sites_considered",
       "translation": 1187,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_sites_considered"
+        }
       },
       "values": [
         1114,
@@ -18678,7 +18702,10 @@
       "keyword": "tech_implementation_decades",
       "translation": 1306,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_implementation_decade"
+        }
       },
       "values": [
         259,
@@ -18802,6 +18829,9 @@
           "field_options": {
             "data-cb-max-choices": 3
           }
+        },
+        "in_summary": {
+          "full": "classification_slm_group"
         }
       },
       "values": [
@@ -19058,7 +19088,10 @@
       "keyword": "tech_spread_tech",
       "translation": 1310,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_spread"
+        }
       },
       "values": [
         1329,
@@ -19393,7 +19426,10 @@
       "keyword": "tech_description",
       "translation": 1279,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "description"
+        }
       }
     },
     "model": "configuration.key",
@@ -19561,7 +19597,10 @@
       "keyword": "tech_growing_seasons",
       "translation": 1308,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "classification_growing_seasons"
+        }
       },
       "values": [
         1354,

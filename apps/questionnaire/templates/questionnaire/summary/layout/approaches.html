@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Summary</title>
+    <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
+  </head>
+  <body class="summary is-approaches">
+    {% include 'questionnaire/summary/block/header_image.html' with content=block.header_image.partials %}
+    {% include 'questionnaire/summary/block/title.html' with content=block.title.partials %}
+    <div class="row">
+    {% include 'questionnaire/summary/block/description.html' with content=block.description.partials title=block.description.title %}
+    {% include 'questionnaire/summary/block/location_approach.html' with content=block.location.partials title=block.location.title %}
+    </div>
+    {% include 'questionnaire/summary/block/classification.html' with content=block.classification.partials title=block.classification.title %}
+    {% include 'questionnaire/summary/block/conclusion.html' with content=block.conclusion.partials title=block.conclusion.title %}
+    {% include 'questionnaire/summary/block/references.html' with content=block.references.partials title=block.references.title %}
+    <!--  -->
+  </body>
+</html>

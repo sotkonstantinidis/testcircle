@@ -4952,7 +4952,10 @@
       "keyword": "app_definition",
       "translation": 7104,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "definition"
+        }
       }
     },
     "model": "configuration.key",
@@ -5072,6 +5075,9 @@
             "min": 1900,
             "max": "now"
           }
+        },
+        "in_summary": {
+          "full": "location_initiation_year"
         }
       }
     },
@@ -5105,6 +5111,9 @@
             "min": 1900,
             "max": 2100
           }
+        },
+        "in_summary": {
+          "full": "location_termination_year"
         }
       }
     },
@@ -5127,7 +5136,10 @@
       "keyword": "app_type",
       "translation": 7013,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "location_type"
+        }
       },
       "values": [
         3010,
@@ -6865,7 +6877,10 @@
       "keyword": "app_description",
       "translation": 7105,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "description"
+        }
       }
     },
     "model": "configuration.key",

@@ -96,6 +96,10 @@ class ListTest(FunctionalTest):
         link.click()
         self.toggle_all_sections()
         self.checkOnPage('Key 3')
+        # The button to create a summary is on the page.
+        self.findBy('xpath', '//a[@href="{summary_url}"]'.format(
+            summary_url=reverse('questionnaire_summary', args=[3])
+        ))
 
         # She goes to the list page and sees all 4 questionnaires available.
         self.browser.get(self.live_server_url + reverse(

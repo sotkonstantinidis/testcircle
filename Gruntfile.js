@@ -14,7 +14,8 @@ module.exports = function(grunt) {
           imagePath: '/assets/img'
         },
         files: {
-          'static/css/app.css': 'src/scss/app.scss'
+          'static/css/app.css': 'src/scss/app.scss',
+          'static/css/summary.css': 'src/scss/summary.scss'
         }
       },
       deploy: {
@@ -23,7 +24,8 @@ module.exports = function(grunt) {
           imagePath: '/static/assets/img'
         },
         files: {
-          'static/css/app.css': 'src/scss/app.scss'
+          'static/css/app.css': 'src/scss/app.scss',
+          'static/css/summary.css': 'src/scss/summary.scss'
         }
       }
     },
@@ -175,6 +177,7 @@ module.exports = function(grunt) {
           'static/js/scrollTop.js': 'src/js/scrollTop.js',
           'static/js/wizard.js': 'src/js/wizard.js',
           'static/js/review.js': 'src/js/review.js',
+          'static/js/handlebars.min.js': 'bower_components/handlebars/handlebars.min.js',
           'static/js/chosen.jquery.min.js': 'bower_components/chosen/chosen.jquery.min.js',
           'static/js/intro.min.js': 'bower_components/intro.js/minified/intro.min.js',
           'static/js/ol.min.js': 'bower_components/openlayers/ol.js',

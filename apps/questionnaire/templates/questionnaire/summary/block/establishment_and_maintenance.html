@@ -1,0 +1,37 @@
+{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+<div class="row calculation_costs_section">
+  <div class="small-12 columns">
+    <h5>{{ content.introduction.title }}</h5>
+  </div>
+  <div class="small-6 columns">
+    <ul class="bullets">
+      {% for list_item in content.introduction.items  %}
+      <li>
+       {{ list_item }}
+      </li>
+        {% endfor %}
+    </ul>
+	</div>
+   <div class="small-6 columns">
+   	{{ content.introduction.comment }}
+   </div>
+</div>
+<div class="row">
+  <div class="small-6 columns">
+    <h5>{{ content.establishment.title }}</h5>
+    {% include 'questionnaire/summary/partial/ordered_list.html' with class="numbers" list_items=content.establishment.list %}
+   </div>
+   <div class="small-6 columns">
+    {% include 'questionnaire/summary/partial/table_three_columns.html' with class="technology_table" list_items=content.establishment.table %}
+  </div>
+</div>
+<div class="row">
+  <div class="small-6 columns">
+    <h5>{{ content.maintenance.title }}</h5>
+    {% include 'questionnaire/summary/partial/ordered_list.html' with class="numbers" list_items=content.maintenance.partials.activities.items %}
+    {{ content.maintenance.partials.activities.comment }}
+   </div>
+   <div class="small-6 columns">
+    {% include 'questionnaire/summary/partial/table_three_columns.html' with class="technology_table" list_items=content.maintenance.partials.table %}
+  </div>
+</div>
