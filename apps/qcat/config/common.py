@@ -260,6 +260,10 @@ class BaseSettings(Configuration):
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
     MAINTENANCE_LOCKFILE_PATH = join(BASE_DIR, 'maintenance.lock')
 
+    # "Feature toggles"
+    IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
+        environ_prefix='', default=False)
+
     SENTRY_DSN = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')

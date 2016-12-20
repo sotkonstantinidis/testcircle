@@ -7,6 +7,7 @@ def template_settings(request):
     """
     setting_values = [
         'WARN_HEADER',
+        'IS_ACTIVE_FEATURE_MODULE',
         'PIWIK_SITE_ID',
         'GOOGLE_WEBMASTER_TOOLS_KEY'
     ]
