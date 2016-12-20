@@ -13,6 +13,7 @@ from django.core.files.uploadedfile import UploadedFile
 from django.core.management import color_style
 from django.core.management.base import BaseCommand
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 from django.utils.translation import activate
 
 from accounts.client import typo3_client
@@ -395,7 +396,8 @@ class ImportObject(Logger):
         questionnaire = Questionnaire.create_new(
             configuration_code=configuration.configuration_keyword,
             data=self.data_json, user=self.questionnaire_owner,
-            previous_version=None, status=2, old_data=None, languages=languages)
+            previous_version=None, status=2, created=self.created,
+            old_data=None, languages=languages)
         questionnaire.update_geometry(configuration.configuration_keyword)
         return questionnaire
 
@@ -1477,7 +1479,8 @@ class WOCATImport(Logger):
                 # set it.
                 created = row.get('insert_date')
                 if created:
-                    import_object.created = created
+                    import_object.created = timezone.make_aware(
+                        created, timezone.get_current_timezone())
 
                 import_object.add_wocat_data(table_name, row)
 
