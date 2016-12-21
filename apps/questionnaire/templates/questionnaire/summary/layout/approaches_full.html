@@ -9,7 +9,21 @@
     <title>Summary</title>
     <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
   </head>
-  <body class="summary is-technologies">
-    full approaches
+  <body class="summary is-approaches">
+{% include 'questionnaire/summary/block/header_image.html' with content=block.header_image.partials %}
+    {% include 'questionnaire/summary/block/title.html' with content=block.title.partials %}
+    <div class="row">
+    {% include 'questionnaire/summary/block/description.html' with content=block.description.partials title=block.description.title %}
+    {% include 'questionnaire/summary/block/location_approach.html' with content=block.location.partials title=block.location.title %}
+    </div>
+    {% include 'questionnaire/summary/block/two_images_with_caption.html' with content=block.images.partials %}
+    {% include 'questionnaire/summary/block/aims.html' with content=block.aims.partials title=block.aims.title %}
+    {% include 'questionnaire/summary/block/participation.html' with content=block.participation.partials title=block.participation.title %}
+    {% include 'questionnaire/summary/block/technical_support.html' with content=block.technical_support.partials title=block.technical_support.title %}
+    {% include 'questionnaire/summary/block/financing.html' with content=block.financing.partials title=block.financing.title %}
+    {% include 'questionnaire/summary/block/impacts_approach.html' with content=block.impacts.partials title=block.impacts.title %}
+    {% include 'questionnaire/summary/block/conclusion.html' with content=block.conclusion.partials title=block.conclusion.title %}
+    {% include 'questionnaire/summary/block/references.html' with content=block.references.partials title=block.references.title %}
+    <!--  -->
   </body>
 </html>

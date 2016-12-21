@@ -1,4 +1,8 @@
-{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+<div class="row">
+  <div class="small-12 columns">
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+  </div>
+</div>
 <div class="row">
   <div class="small-12 columns">
   </div>
@@ -19,7 +23,7 @@
   <div class="small-3 columns">
   </div>
 </div>
-<div class="row">
+<div class="row divider">
   <div class="small-3 columns">
       <h5>{{ content.slope.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.slope.items %}
@@ -35,7 +39,7 @@
   <div class="small-3 columns">
   </div>
 </div>
-<div class="row">
+<div class="row divider">
   <div class="small-3 columns">
       <h5>{{ content.soil_depth.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.soil_depth.items %}
@@ -51,7 +55,7 @@
   <div class="small-3 columns">
   </div>
 </div>
-<div class="row">
+<div class="row divider">
   <div class="small-3 columns">
       <h5>{{ content.groundwater.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.groundwater.items %}

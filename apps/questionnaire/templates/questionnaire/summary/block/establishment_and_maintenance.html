@@ -1,20 +1,34 @@
-{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
-<div class="row calculation_costs_section">
+<div class="row">
   <div class="small-12 columns">
-    <h5>{{ content.introduction.title }}</h5>
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
   </div>
-  <div class="small-6 columns">
-    <ul class="bullets">
-      {% for list_item in content.introduction.items  %}
-      <li>
-       {{ list_item }}
-      </li>
-        {% endfor %}
-    </ul>
-	</div>
-   <div class="small-6 columns">
-   	{{ content.introduction.comment }}
-   </div>
+</div>
+<div class="row ">
+  <div class="small-12 columns">
+    <div class="calculation_costs_section">
+          <div class="row">
+      <div class="small-12 columns">
+            <h5>{{ content.introduction.title }}</h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <ul class="bullets">
+          {% for list_item in content.introduction.items  %}
+          <li>
+          {{ list_item }}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+     <div class="small-6 columns">
+      <div>{{ content.introduction.comment }}</div>
+      <div><b>{{ content.introduction.comment2.title }}</b>
+      {{ content.introduction.comment2.text }}</div>
+     </div>
+    </div>
+  </div>
+    </div>
 </div>
 <div class="row">
   <div class="small-6 columns">

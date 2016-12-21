@@ -17,11 +17,11 @@
 
 .output-has-images {
   overflow: hidden;
-  @include rhythm;
-
+/*  @include rhythm;
+*/
+  margin-top: 0.2rem;
   & > div img {
-    background: $color-beige-light;
-    border: 1px solid $color-beige-light;
+    border: 1px solid #e5eae0;
   }
 }
 

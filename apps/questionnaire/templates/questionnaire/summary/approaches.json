@@ -74,10 +74,6 @@
         {
           "url": "/static/assets/img/mediumsmall_QaKEN01_2.jpg",
           "caption": "Left: Construction of fanya juu terraces is heavy work. The name fanya juu means 'throw it up' in Swahili and refers to the first step of establishment: ditches are excavated and the soil is thrown upslope to form an embankment (Photo: Hanspeter Liniger)"
-        },
-        {
-          "url": "",
-          "caption": ""
         }
       ]
     }
@@ -130,7 +126,7 @@
       },
       "involvement": {
         "title": "Involvement of local land users/ local communities in the different phases of the Approach",
-        "chart": {
+        "partials": {
           "title": "approach phase",
           "labels": [
             "none",
@@ -139,37 +135,174 @@
             "interactive",
             "self mobilization"
           ],
-          "rows": [
-            {
-              "title": "initiation/ motivation",
-              "value": 1,
-              "text": "The land users and akjsdasjd ajs ajsdn uahf man jahf ouf mnc jad jn ajnc udh jnf"
-            },
-            {
-              "title": "planning",
-              "value": 3,
-              "text": "Planning as dak dasd aohf ajnf ioasdjf dm oirg kjn foüsidf d sldf kl"
-            },
-            {
-              "title": "implementation",
-              "value": 0,
-              "text": "After the workshop alsd afh iofüf qefkn as asldj asiojfd iod wegngv peurh ksjdg gj ijg"
-            },
-            {
-              "title": "monitoring/ evaluation",
-              "value": 2,
-              "text": "In the M&E procedures asjnd ad asd ajsnd asd aos asd an ajnd akjsnd apiusd asdn"
-            },
-            {
-              "title": "research",
-              "value": 1,
-              "text": ""
-            }
-          ]
+          "items2": [
+          	{
+	            "label": "initiation/ motivation",
+	            "range": "5",
+	            "selected": "2",
+            	"text": "The land users and akjsdasjd ajs ajsdn uahf man jahf ouf mnc jad jn ajnc udh jnf"
+
+      		},
+          	{
+	            "label": "planning",
+	            "range": "5",
+	            "selected": "4",
+	            "text": "Planning as dak dasd aohf ajnf ioasdjf dm oirg kjn foüsidf d sldf kl"
+
+      		},
+          	{
+	            "label": "implementation",
+	            "range": "5",
+	            "selected": "1",
+	            "text": "After the workshop alsd afh iofüf qefkn as asldj asiojfd iod wegngv peurh ksjdg gj ijg"
+      		},
+          	{
+	            "label": "monitoring",
+	            "range": "5",
+	            "selected": "3",
+	            "text": "In the M&E procedures asjnd ad asd ajsnd asd aos asd an ajnd akjsnd apiusd asdn"
+      		},
+          	{
+	            "label": "research",
+	            "range": "5",
+	            "selected": "2",
+                "text": ""
+      		}
+          ],
+          "initiation": {
+            "title": "initiation/ motivation",
+            "comment": "The land users and akjsdasjd ajs ajsdn uahf man jahf ouf mnc jad jn ajnc udh jnf",
+            "items": [
+              {
+                "highlighted": false,
+                "text": "none"
+              },
+              {
+                "highlighted": true,
+                "text": "passive"
+              },
+              {
+                "highlighted": false,
+                "text": "payment / external support"
+              },
+              {
+                "highlighted": false,
+                "text": "interactive"
+              },
+              {
+                "highlighted": false,
+                "text": "self mobilization"
+              }
+            ]
+          },
+          "planning": {
+            "title": "planning",
+            "comment": "Planning as dak dasd aohf ajnf ioasdjf dm oirg kjn foüsidf d sldf kl",
+            "items": [
+              {
+                "highlighted": false,
+                "text": "none"
+              },
+              {
+                "highlighted": false,
+                "text": "passive"
+              },
+              {
+                "highlighted": false,
+                "text": "payment / external support"
+              },
+              {
+                "highlighted": true,
+                "text": "interactive"
+              },
+              {
+                "highlighted": false,
+                "text": "self mobilization"
+              }
+            ]
+          },
+          "implementation": {
+            "title": "implementation",
+            "comment": "After the workshop alsd afh iofüf qefkn as asldj asiojfd iod wegngv peurh ksjdg gj ijg",
+            "items": [
+              {
+                "highlighted": true,
+                "text": "none"
+              },
+              {
+                "highlighted": false,
+                "text": "passive"
+              },
+              {
+                "highlighted": false,
+                "text": "payment / external support"
+              },
+              {
+                "highlighted": false,
+                "text": "interactive"
+              },
+              {
+                "highlighted": false,
+                "text": "self mobilization"
+              }
+            ]
+          },
+          "monitoring": {
+            "title": "monitoring/ evaluation",
+            "comment": "In the M&E procedures asjnd ad asd ajsnd asd aos asd an ajnd akjsnd apiusd asdn",
+            "items": [
+              {
+                "highlighted": false,
+                "text": "none"
+              },
+              {
+                "highlighted": false,
+                "text": "passive"
+              },
+              {
+                "highlighted": true,
+                "text": "payment / external support"
+              },
+              {
+                "highlighted": false,
+                "text": "interactive"
+              },
+              {
+                "highlighted": false,
+                "text": "self mobilization"
+              }
+            ]
+          },
+          "research": {
+            "title": "research",
+            "comment": "",
+            "items": [
+              {
+                "highlighted": false,
+                "text": "none"
+              },
+              {
+                "highlighted": false,
+                "text": "passive"
+              },
+              {
+                "highlighted": true,
+                "text": "payment / external support"
+              },
+              {
+                "highlighted": false,
+                "text": "interactive"
+              },
+              {
+                "highlighted": false,
+                "text": "self mobilization"
+              }
+            ]
+          }
         }
       },
       "flow_chart": {
-        "url": "",
+        "url": "/static/assets/img/qt_technical_drawing.jpg",
         "title": "Flow chart",
         "text": "Describe what is displayed on the graphic. Blab la blab a asnd ais anf ajsd aufh an akhf akjf akjn a,nf asjhdf asjd ajsdn ad asjd ajsf sjdf afn aknf üow sjbns."
       },
@@ -310,18 +443,18 @@
                 "text": "other (specify):"
               }
             ]
-          },
-          {
-            "title": "Subjects covered",
-            "items": [
-              "Subject A",
-              "Subject B",
-              "Subject C",
-              "Subject D",
-              "Subject E"
-            ]
           }
-        ]
+        ],
+        "list": {
+          "title": "Subjects covered",
+          "items": [
+            "Subject A",
+            "Subject B",
+            "Subject C",
+            "Subject D",
+            "Subject E"
+          ]
+        }
       },
       "advisory": {
         "title": "Advisory service",
@@ -347,7 +480,7 @@
         ]
       },
       "institution_strengthening": {
-        "text": "Institutions have been established / strengthened [a little / moderately / greatly]",
+        "title": "Institutions have been established / strengthened [a little / moderately / greatly]",
         "elements": [
           {
             "title": "at the following level",
@@ -481,30 +614,34 @@
         "title": "Subsidies for specific inputs",
         "chart": {
           "title": "",
-          "labels": [
-            "partly",
-            "fully subsidized"
-          ],
-          "rows": [
+          "items": [
             {
-              "title": "Labour",
-              "value": 1,
-              "text": ""
+              "label": "Labour",
+              "range": "2",
+              "min": "partly",
+              "max": "fully subsidized",
+              "selected": "2"
             },
             {
-              "title": "Equipment: tools",
-              "value": 1,
-              "text": ""
+              "label": "Equipment: tools",
+              "range": "2",
+              "min": "partly",
+              "max": "fully subsidized",
+              "selected": "2"
             },
             {
-              "title": "Agricultural: fertilizers",
-              "value": 0,
-              "text": ""
+              "label": "Agricultural: fertilizers",
+              "range": "2",
+              "min": "partly",
+              "max": "fully subsidized",
+              "selected": "1"
             },
             {
-              "title": "Infrastructure: Inulation of buildings",
-              "value": 1,
-              "text": ""
+              "label": "Infrastructure: Inulation of buildings",
+              "range": "2",
+              "min": "partly",
+              "max": "fully subsidized",
+              "selected": "2"
             }
           ]
         },
@@ -538,73 +675,97 @@
           ]
         },
         "other": {
-          "label": "Other incentives or instruments",
+          "title": "Other incentives or instruments",
           "text": "Specify: text"
         }
       }
     }
   },
-  "impact": {
+  "impacts": {
     "title": "Impact analysis and concluding statements",
     "partials": {
       "impacts": {
         "title": "Impacts of the Approach",
         "subtitle": "Did the approach...",
-        "labels": [
-          "no",
-          "a little",
-          "moderately",
-          "greedy"
-        ],
-        "rows": [
+        "items": [
           {
-            "title": "empower local land users, improve stakeholder participation?",
-            "value": 1,
-            "text": "Formation of water resources users associations"
+            "label": "empower local land users, improve stakeholder participation?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "2",
+            "text": "Ganz viele Kommentare über das und das"
           },
           {
-            "title": "enable evidence-based decision-making?",
-            "value": 3,
+            "label": "enable evidence-based decision-making?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "4",
+            "text": "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Vestibulum id ligula porta felis euismod semper."
+          },
+          {
+            "label": "mobilize/ improve access to financial resources for SLM implementation?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "1",
+            "text": "Nibh Etiam Parturient Commodo Dapibus"
+          },
+          {
+            "label": "empower socially and economically disadvantaged groups?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "3",
             "text": ""
           },
           {
-            "title": "mobilize/ improve access to financial resources for SLM implementation?",
-            "value": 0,
+            "label": "build/ strengthen institutions, collaboration between stakeholders?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "2",
             "text": ""
           },
           {
-            "title": "empower socially and economically disadvantaged groups?",
-            "value": 2,
+            "label": "Improve issues of land tenure/ user rights that hindered implementation of SLM Technologies",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "2",
             "text": ""
           },
           {
-            "title": "build/ strengthen institutions, collaboration between stakeholders?",
-            "value": 1,
+            "label": "lead to improved access to water and sanitation?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "3",
+            "text": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui."
+          },
+          {
+            "label": "improve land users’ resilience to climatic changes/ extremes and disasters?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "3",
             "text": ""
           },
           {
-            "title": "Improve issues of land tenure/ user rights that hindered implementation of SLM Technologies",
-            "value": 1,
-            "text": ""
+            "label": "lead to employment, income opportunities?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "4",
+            "text": "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec sed odio dui."
           },
           {
-            "title": "lead to improved access to water and sanitation?",
-            "value": 2,
-            "text": ""
-          },
-          {
-            "title": "improve land users’ resilience to climatic changes/ extremes and disasters?",
-            "value": 2,
-            "text": ""
-          },
-          {
-            "title": "lead to employment, income opportunities?",
-            "value": 3,
-            "text": ""
-          },
-          {
-            "title": "improve knowledge and capacities of other stakeholders?",
-            "value": 3,
+            "label": "improve knowledge and capacities of other stakeholders?",
+            "range": "4",
+            "min": "no",
+            "max": "greatly",
+            "selected": "4",
             "text": ""
           }
         ]

@@ -40,7 +40,7 @@ body.summary {
   .tech-section-header {
     padding-left: 0;
     padding-right: 0;
-    margin: 1.5rem 0rem 1.0rem 0rem;
+    margin: 0.7rem 0rem 0.2rem 0rem 
   }
 
   .overcome {
@@ -115,13 +115,17 @@ body.summary {
     font-weight: normal;
   }
 
+  &.is-approaches .img-caption {
+    background-color: #e86b28;
+  }
+
   .tech-section-content {
     padding: 1rem 0rem 1rem 0rem;
   }
 
   .tech-section-header {
-    background-color: #edf0ea;
-    h2 {
+/*    background-color: #edf0ea;
+*/    h2 {
       padding-left: 0.75rem;
       width: auto;
     }
@@ -133,23 +137,29 @@ body.summary {
     top:7px;
     right: 5px;
     padding:5px;
-
   }
 
   .img-column
   {
     width:auto;
     max-height: 290px;
-    position: absolute;
-    bottom:0px;
   }
 
   .img-column-container
   {
-    height: 255px;
-    width:100%;
-    background-color: rgba(85, 116, 49, 0.1);
-    position: relative;
+    background-color: rgba(85, 116, 49, 0.15);
+    width: 100%;
+    height:290px;
+  }
+
+  .img-column-container img
+  {
+    height: 290px;
+  }
+
+  &.is-approaches .img-column-container
+  {
+    background-color: rgba($color-approach, 0.15); 
   }
 
   .img_in_text
@@ -164,12 +174,18 @@ body.summary {
     margin-left: 1rem;
     margin-top: 0rem;
     line-height: 1rem;
+    text-transform: none !important;
         li {
       list-style-type: decimal;
+      margin-top:0px;
+          text-transform: none !important;
+
       ul {
         li {
           list-style-type: decimal;
           @extend .overcome;
+              text-transform: none !important;
+
         }
       }
     }
@@ -181,11 +197,18 @@ body.summary {
     line-height: 1rem;
     padding: 0.2rem;
     font-size: 12px;
+    background-color: white;
+    &.indent_table
+    {
+      padding-left: 0.8rem;
+    }
+
   }
 
-  .td_category_title
+  td.td_category_title
   {
-    background-color: #edf0ea;
+    background-color: rgba(85, 116, 49, 0.15);
+    text-transform: uppercase;
   }
 
   .technology_table tr:nth-of-type(even)
@@ -200,10 +223,14 @@ body.summary {
 
   .calculation_costs_section
   {
-    background-color: #edf0ea;
-    margin: 15px 0px 10px 0px;
-    padding: 10px 0px 10px 0px;
+    background-color: rgba(85, 116, 49, 0.15);
+    padding: 15px;
+    width: 100%;
+  }
 
+  &.is-approaches .calculation_costs_section
+  {
+    background-color: rgba($color-approach, 0.15);
   }
 
   .row.range
@@ -215,9 +242,14 @@ body.summary {
   {
     width: 15px;
     height: 15px;
-    background-color: rgba(85, 116, 49, 0.1);
+    background-color: rgba(85, 116, 49, 0.15);
     float: left;
     margin: 0px 2px 2px 0px;
+  }
+
+  &.is-approaches .range_square
+  {
+    background-color: rgba($color-approach, 0.15);
   }
 
   .range_title
@@ -225,8 +257,12 @@ body.summary {
     font-size: 10px;
     padding: 0px 5px 0px 5px;
     float: left;
-    min-width: 70px;
+    /*min-width: 70px;*/
     max-width: 100px;
+  }
+  .impacts .range_title
+  {
+    min-width: 70px;
   }
 
   .range_max
@@ -254,6 +290,11 @@ body.summary {
     content: "\2713";
   }
 
+  &.is-approaches .range_true::before
+  {
+    background-color: #e86b28;
+  }
+
   p.location_text
   {
     margin-top: 0.3rem;
@@ -261,9 +302,55 @@ body.summary {
 
  .divider
  {
-    border-top: 1px solid #768f5a;
+    border-top: 1px solid rgba(85, 116, 49, 0.15);
+    border-bottom: 0px solid rgba(85, 116, 49, 0.15);
+    border-left: 0px solid rgba(85, 116, 49, 0.15);
+    border-right: 0px solid rgba(85, 116, 49, 0.15);
     padding: 10px 0px 10px 0px;
  }
 
+ &.is-approaches .divider
+ {
+    border-top-width: 1px;
+    border-style: solid;
+    border-color: rgba($color-approach, 0.15);;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px; 
+ }
+
+ .avoidbreak
+ {
+    page-break-inside: avoid;
+ }
+
+ .nowrap
+ {
+    white-space: nowrap; 
+ }
+
+ hr
+ {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba($color-approach, 0.15);
+    border-bottom: 1px solid rgba($color-approach, 0.15);
+    margin: 10px 0px 10px 0px;
+ }
+
+ .rotate
+ {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  font-size: 10px;
+  width: 130px;
+  height: 120px;
+ }
+
+ .rotate-container
+ {
+  width: 100%;
+ }
 
 }
