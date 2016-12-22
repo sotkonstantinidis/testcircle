@@ -1,4 +1,13 @@
-{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+<div class="row">
+  <div class="small-12 columns">
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+      <h5>{{ content.subtitle }}</h5>
+  </div>
+</div>
 <div class="row">
   <div class="small-3 columns">
       <h5>{{ content.market.title }}</h5>
@@ -17,10 +26,8 @@
       <h5>{{ content.mechanization.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.mechanization.items %}
   </div>
-  <div class="small-3 columns">
-  </div>
 </div>
-<div class="row">
+<div class="row divider">
   <div class="small-3 columns">
       <h5>{{ content.sedentary.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.sedentary.items %}
@@ -34,9 +41,13 @@
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.gender.items %}
   </div>
   <div class="small-3 columns">
+      <h5>{{ content.age.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.age.items %}
+  </div>
+  <div class="small-3 columns">
   </div>
 </div>
-<div class="row">
+<div class="row divider">
   <div class="small-3 columns">
       <h5>{{ content.area.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.area.items %}
@@ -67,7 +78,7 @@
     
   </div>
 </div>
-<div class="row">
+<div class="row divider">
   <div class="small-12 columns">
     <h5>{{ content.access.title }}</h5>
   {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=content.access.items %}
