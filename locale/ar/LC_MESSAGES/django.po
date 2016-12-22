@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-19 16:58+0100\n"
+"POT-Creation-Date: 2016-12-22 09:50+0100\n"
 "PO-Revision-Date: 2016-12-19 15:58+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Arabic (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -265,15 +265,15 @@ msgstr ""
 msgid "This Module is linked to a SLM Technology"
 msgstr ""
 
-#: apps/configuration/configuration.py:363
+#: apps/configuration/configuration.py:366
 msgid "Yes"
 msgstr ""
 
-#: apps/configuration/configuration.py:363
+#: apps/configuration/configuration.py:366
 msgid "No"
 msgstr ""
 
-#: apps/configuration/configuration.py:2439
+#: apps/configuration/configuration.py:2444
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr ""
@@ -13211,7 +13211,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
 msgctxt "cca label"
-msgid "Experienced climate-related extremes (disasters)"
+msgid "Experienced climate-related extremes(disasters)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
@@ -14174,6 +14174,16 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28037
 msgctxt "cca label"
 msgid "Extent"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:28032
+msgctxt "cca label_left"
+msgid " "
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:28033
+msgctxt "cca label_right"
+msgid " "
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:28034
@@ -16137,35 +16147,35 @@ msgstr ""
 msgid "{compiler} was informed about your progress."
 msgstr ""
 
-#: apps/qcat/config/common.py:95
+#: apps/qcat/config/common.py:96
 msgid "English"
 msgstr ""
 
-#: apps/qcat/config/common.py:96
+#: apps/qcat/config/common.py:97
 msgid "French"
 msgstr ""
 
-#: apps/qcat/config/common.py:97
+#: apps/qcat/config/common.py:98
 msgid "Spanish"
 msgstr ""
 
-#: apps/qcat/config/common.py:98
+#: apps/qcat/config/common.py:99
 msgid "Russian"
 msgstr ""
 
-#: apps/qcat/config/common.py:99
+#: apps/qcat/config/common.py:100
 msgid "Khmer"
 msgstr ""
 
-#: apps/qcat/config/common.py:100
+#: apps/qcat/config/common.py:101
 msgid "Arabic"
 msgstr ""
 
-#: apps/qcat/config/common.py:101
+#: apps/qcat/config/common.py:102
 msgid "Bosnian"
 msgstr ""
 
-#: apps/qcat/config/common.py:102
+#: apps/qcat/config/common.py:103
 msgid "Portuguese"
 msgstr ""
 
@@ -16199,6 +16209,7 @@ msgid "Inactive"
 msgstr ""
 
 #: apps/questionnaire/models.py:59
+#: apps/questionnaire/summary_data_provider.py:211
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr ""
@@ -16239,11 +16250,11 @@ msgstr ""
 msgid "Submitted as SLM best practice to UNCCD by the national focal point"
 msgstr ""
 
-#: apps/questionnaire/models.py:920
+#: apps/questionnaire/models.py:922
 msgid "This questionnaire can be edited."
 msgstr ""
 
-#: apps/questionnaire/models.py:922
+#: apps/questionnaire/models.py:924
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr ""
@@ -16262,6 +16273,82 @@ msgstr ""
 
 #: apps/questionnaire/serializers.py:78
 msgid "Can't serialize questionnaire without a valid configuration."
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:121
+msgid "Title photo"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:142
+msgid "Description"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:193
+msgid "Conclusions and lessons learnt"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:196
+msgid "Strengths"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:200
+msgid "Weaknesses/ disadvantages/ risks and how they can be overcome"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:208
+msgid "References"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:216
+msgid "Resource persons"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:221
+#: apps/questionnaire/templates/questionnaire/details.html:71
+msgid "Links"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:226
+msgid "Key references"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:331
+#: apps/questionnaire/summary_data_provider.py:338
+#: apps/questionnaire/summary_data_provider.py:471
+#: apps/questionnaire/summary_data_provider.py:478
+msgid "Location"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:353
+msgid "Spread of the Technology"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:357
+msgid "Date of implementation"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:361
+msgid "Type of introduction"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:378
+msgid "Main purpose"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:489
+msgid "Initiation date"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:490
+msgid "unknown"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:493
+msgid "Year of termination"
+msgstr ""
+
+#: apps/questionnaire/summary_data_provider.py:497
+msgid "Type of Approach"
 msgstr ""
 
 #: apps/questionnaire/templates/active_filters.html:28
@@ -16315,8 +16402,7 @@ msgid "Editor:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
-#: apps/questionnaire/templates/details/category/approaches_header.html:89
-#: apps/questionnaire/templates/details/category/approaches_header.html:98
+#: apps/questionnaire/templates/details/category/approaches_header.html:101
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
 #: apps/questionnaire/templates/details/category/cca_header.html:94
@@ -16324,8 +16410,6 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
-#: apps/questionnaire/templates/details/category/technologies_header.html:89
-#: apps/questionnaire/templates/details/category/technologies_header.html:98
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -16349,54 +16433,65 @@ msgstr ""
 msgid "View full content"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:91
+#: apps/questionnaire/templates/details/category/approaches_header.html:94
 #: apps/questionnaire/templates/details/category/cca_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:89
-#: apps/questionnaire/templates/details/category/technologies_header.html:91
+#: apps/questionnaire/templates/details/category/technologies_header.html:94
 #: apps/questionnaire/templates/details/category/unccd_header.html:82
 #: apps/questionnaire/templates/details/category/watershed_header.html:91
 #: apps/questionnaire/templates/details/category/with_metadata.html:89
 msgid "Print summary"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:100
+#: apps/questionnaire/templates/details/category/approaches_header.html:97
+#: apps/questionnaire/templates/details/category/technologies_header.html:97
+#: apps/questionnaire/templates/details/category/with_metadata.html:92
+msgid "Full summary as PDF"
+msgstr ""
+
+#: apps/questionnaire/templates/details/category/approaches_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:98
+#: apps/questionnaire/templates/details/category/with_metadata.html:93
+msgid "Full summary as HTML"
+msgstr ""
+
+#: apps/questionnaire/templates/details/category/approaches_header.html:103
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
-#: apps/questionnaire/templates/details/category/technologies_header.html:100
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:98
 msgid "Export"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:108
+#: apps/questionnaire/templates/details/category/approaches_header.html:111
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:106
-#: apps/questionnaire/templates/details/category/technologies_header.html:108
+#: apps/questionnaire/templates/details/category/technologies_header.html:111
 #: apps/questionnaire/templates/details/category/unccd_header.html:99
 #: apps/questionnaire/templates/details/category/watershed_header.html:108
 #: apps/questionnaire/templates/details/category/with_metadata.html:106
 msgid "See history"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:114
+#: apps/questionnaire/templates/details/category/approaches_header.html:117
 #: apps/wocat/templates/wocat/add_practice.html:52
 msgid "SLM Approach"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:119
+#: apps/questionnaire/templates/details/category/approaches_header.html:122
 #: apps/questionnaire/templates/details/category/cca_header.html:109
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
-#: apps/questionnaire/templates/details/category/technologies_header.html:119
+#: apps/questionnaire/templates/details/category/technologies_header.html:122
 #: apps/questionnaire/templates/details/category/unccd_header.html:110
 #: apps/questionnaire/templates/details/category/watershed_header.html:119
 #: apps/questionnaire/templates/details/category/with_metadata.html:116
 msgid "View sections"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:121
+#: apps/questionnaire/templates/details/category/approaches_header.html:124
 #: apps/questionnaire/templates/details/category/cca_header.html:111
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:118
-#: apps/questionnaire/templates/details/category/technologies_header.html:121
+#: apps/questionnaire/templates/details/category/technologies_header.html:124
 #: apps/questionnaire/templates/details/category/unccd_header.html:112
 #: apps/questionnaire/templates/details/category/watershed_header.html:121
 #: apps/questionnaire/templates/details/category/with_metadata.html:118
@@ -16404,10 +16499,10 @@ msgstr ""
 msgid "Expand all"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:122
+#: apps/questionnaire/templates/details/category/approaches_header.html:125
 #: apps/questionnaire/templates/details/category/cca_header.html:112
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:119
-#: apps/questionnaire/templates/details/category/technologies_header.html:122
+#: apps/questionnaire/templates/details/category/technologies_header.html:125
 #: apps/questionnaire/templates/details/category/unccd_header.html:113
 #: apps/questionnaire/templates/details/category/watershed_header.html:122
 #: apps/questionnaire/templates/details/category/with_metadata.html:119
@@ -16415,22 +16510,22 @@ msgstr ""
 msgid "Collapse all"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:141
+#: apps/questionnaire/templates/details/category/approaches_header.html:144
 #: apps/questionnaire/templates/details/category/cca_header.html:131
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:138
-#: apps/questionnaire/templates/details/category/technologies_header.html:141
+#: apps/questionnaire/templates/details/category/technologies_header.html:144
 #: apps/questionnaire/templates/details/category/unccd_header.html:132
 #: apps/questionnaire/templates/details/category/watershed_header.html:141
 #: apps/questionnaire/templates/details/category/with_metadata.html:138
 msgid "Edit this section"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:157
+#: apps/questionnaire/templates/details/category/approaches_header.html:160
 #: apps/questionnaire/templates/details/category/cca_header.html:147
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:152
-#: apps/questionnaire/templates/details/category/technologies_header.html:157
+#: apps/questionnaire/templates/details/category/technologies_header.html:160
 #: apps/questionnaire/templates/details/category/unccd_header.html:148
 #: apps/questionnaire/templates/details/category/watershed_header.html:157
 #: apps/questionnaire/templates/details/category/with_metadata.html:152
@@ -16454,7 +16549,7 @@ msgstr ""
 msgid "New SLM Technology"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/technologies_header.html:114
+#: apps/questionnaire/templates/details/category/technologies_header.html:117
 #: apps/wocat/templates/wocat/add_practice.html:33
 msgid "SLM Technology"
 msgstr ""
@@ -17518,10 +17613,6 @@ msgstr ""
 msgid "Links and modules"
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:71
-msgid "Links"
-msgstr ""
-
 #: apps/questionnaire/templates/questionnaire/details.html:82
 msgid "No links"
 msgstr ""
@@ -17606,6 +17697,11 @@ msgstr ""
 msgid "Are you sure you want to delete the questionnaire:"
 msgstr ""
 
+#: apps/questionnaire/templates/questionnaire/summary/block/location.html:10
+#: apps/questionnaire/templates/questionnaire/summary/block/location_approach.html:9
+msgid "Geo-reference"
+msgstr ""
+
 #: apps/questionnaire/upload.py:84
 msgid "Unsupported file type"
 msgstr ""
@@ -17683,19 +17779,19 @@ msgstr ""
 msgid "The questionnaire was succesfully removed"
 msgstr ""
 
-#: apps/questionnaire/views.py:510
+#: apps/questionnaire/views.py:519
 msgid "Data successfully saved."
 msgstr ""
 
-#: apps/questionnaire/views.py:990
+#: apps/questionnaire/views.py:999
 msgid "QCAT Form"
 msgstr ""
 
-#: apps/questionnaire/views.py:1372
+#: apps/questionnaire/views.py:1381
 msgid "No or multiple files provided."
 msgstr ""
 
-#: apps/questionnaire/views.py:1462
+#: apps/questionnaire/views.py:1471
 msgid "Successfully removed questionnaire"
 msgstr ""
 
@@ -17906,7 +18002,8 @@ msgstr ""
 #: apps/wocat/templates/wocat/add_practice.html:54
 #: apps/wocat/templates/wocat/partial/add.html:23
 #: apps/wocat/templates/wocat/partial/add.html:45
-#: apps/wocat/templates/wocat/partial/add.html:68
+#: apps/wocat/templates/wocat/partial/add.html:69
+#: apps/wocat/templates/wocat/partial/add.html:73
 msgid "Add"
 msgstr ""
 
@@ -18204,6 +18301,10 @@ msgid ""
 "Technologies and Approaches"
 msgstr ""
 
+#: apps/wocat/templates/wocat/partial/add.html:72
+msgid "Modules will be added soon to the new database."
+msgstr ""
+
 #: apps/wocat/templates/wocat/partial/advanced_filter.html:12
 msgid "Filter for SLM Technologies"
 msgstr ""
@@ -18367,15 +18468,11 @@ msgstr ""
 msgid "Wocat API Docs"
 msgstr ""
 
-#: templates/rest_framework_swagger/index.html:14
-msgid "Explore"
-msgstr ""
-
-#: templates/rest_framework_swagger/index.html:21
+#: templates/rest_framework_swagger/index.html:15
 msgid "Introduction"
 msgstr ""
 
-#: templates/rest_framework_swagger/index.html:22
+#: templates/rest_framework_swagger/index.html:16
 msgid ""
 "\n"
 "            <p>Welcome to the documentation for the Wocat API. Please refer "
@@ -18388,7 +18485,7 @@ msgid ""
 "rest-framework.org/\" target=\"_blank\">django REST framework</a>.\n"
 "            </p>\n"
 "            <p>\n"
-"                The current version of the API is: 1.0. Docs for the older "
+"                The current version of the API is: 2.0. Docs for the older "
 "versions will be listed here as well.\n"
 "            </p>\n"
 "            <h2>Authentication</h2>\n"
