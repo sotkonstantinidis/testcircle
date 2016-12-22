@@ -326,7 +326,8 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'classification', 'conclusion', 'references']
+                'classification', 'technical_drawing', 'conclusion', 
+                'references']
 
     def location(self):
         return {
@@ -423,6 +424,16 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                     "title": "SLM measures",
                     "partials": self.raw_data.get('classification_measures')
                 }
+            }
+        }
+
+    def technical_drawing(self):
+        return {
+            'title': _('Technical drawing'),
+            'partials': {
+                'title': _('Technical specifications'),
+                'text': self.raw_data_getter('tech_drawing_text'),
+                'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image')]
             }
         }
 
