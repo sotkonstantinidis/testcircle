@@ -1,4 +1,5 @@
 import logging
+import operator
 
 from django.conf import settings
 from configuration.configuration import QuestionnaireQuestion
@@ -72,7 +73,8 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                 'coordinates': self.questionnaire.geom.coords
             }
 
-    def get_full_range_values(self, child: QuestionnaireQuestion):
+    def get_full_range_values(self, child: QuestionnaireQuestion,
+                              is_radio=False):
         """
         Get all available elements, with the selected ones highlighted.
         """
@@ -85,8 +87,15 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
             logger.warning(msg='No or more than one list of values is set '
                                'for %s' % child.keyword)
             selected = []
+
+        # default is 'checkbox', where multiple elements can be selected.
+        is_highlighted = operator.eq if is_radio else operator.contains
+
         for choice in child.choices:
-            yield {'highlighted': choice[0] in selected, 'text': choice[1]}
+            yield {
+                'highlighted': is_highlighted(selected, choice[0]),
+                'text': choice[1]
+            }
 
     def get_picto_and_nested_values(self, child: QuestionnaireQuestion):
         """
@@ -99,10 +108,10 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
             return None
 
         # get all nested elements in the form '==question|nested'...
-        nested_elements_config = child.form_options.get('questiongroup_conditions')
+        nested_elements_config = child.form_options.get(
+            'questiongroup_conditions')
         # ..and split the strings to a more usable dict.
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
-        choices = dict(child.choices)
 
         for value in selected:
             child_text = ''

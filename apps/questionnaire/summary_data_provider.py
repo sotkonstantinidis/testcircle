@@ -98,6 +98,7 @@ class GlobalValuesMixin:
         """
         Get the first 'value' for given key from the data.
         """
+        # todo: don't return none values, but empty string
         try:
             return self.raw_data[key][0][value] if value else self.raw_data[key]
         except (AttributeError, TypeError, IndexError):
@@ -326,8 +327,8 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'classification', 'technical_drawing', 'conclusion', 
-                'references']
+                'classification', 'technical_drawing', 'natural_environment',
+                'conclusion', 'references']
 
     def location(self):
         return {
@@ -434,6 +435,81 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
                 'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image')]
+            }
+        }
+
+    def natural_environment(self):
+        return {
+            'title': _('Natural environment'),
+            'partials': {
+                'rainfall': {
+                    'title': _('Average annual rainfall'),
+                    'items': self.raw_data.get('natural_env_rainfall')
+                },
+                'zone': {
+                    'title': _('Agro-climatic zone'),
+                    'items': self.raw_data.get('natural_env_climate_zone')
+                },
+                'specifications': {
+                    'title': _('Specifications on climate'),
+                    'text': self.raw_data_getter('natural_env_climate_zone_text')
+                },
+                'slope': {
+                    'title': _('Slope'),
+                    'items': self.raw_data.get('natural_env_slope')
+                },
+                'landforms': {
+                    'title': _('Landforms'),
+                    'items': self.raw_data.get('natural_env_landforms')
+                },
+                'altitude': {
+                    'title': _('Altitude'),
+                    'items': self.raw_data.get('natural_env_altitude')
+                },
+                'soil_depth': {
+                    'title': _('Soil depth'),
+                    'items': self.raw_data.get('natural_env_soil_depth')
+                },
+                'soil_texture_top': {
+                    'title': _('Soil texture (topsoil)'),
+                    'items': self.raw_data.get('natural_env_soil_texture')
+                },
+                'soil_texture_below': {
+                    'title': _('Soil texture (> 20 cm below surface)'),
+                    'items': self.raw_data.get('natural_env_soil_texture_below')
+                },
+                'topsoil': {
+                    'title': _('Topsoil organic matter content'),
+                    'items': self.raw_data.get('natural_env_soil_organic')
+                },
+                'groundwater': {
+                    'title': _('Groundwater table'),
+                    'items': self.raw_data.get('natural_env_groundwater')
+                },
+                'surface_water': {
+                    'title': _('Availability of surface water'),
+                    'items': self.raw_data.get('natural_env_surfacewater')
+                },
+                'water_quality': {
+                    'title': _('Water quality (untreated)'),
+                    'items': self.raw_data.get('natural_env_waterquality')
+                },
+                'flooding': {
+                    'title': _('Occurrence of flooding'),
+                    'items': self.raw_data.get('natural_env_flooding')
+                },
+                'salinity': {
+                    'title': _('Is salinity a problem?'),
+                    'items': self.raw_data.get('natural_env_salinity')
+                },
+                'species': {
+                    'title': _('Species diversity'),
+                    'items': self.raw_data.get('natural_env_species')
+                },
+                'habitat': {
+                    'title': _('Habitat diversity'),
+                    'items': self.raw_data.get('natural_env_habitat')
+                }
             }
         }
 

@@ -301,5 +301,53 @@ class ConfigurationConf(AppConf):
         },
         'tech_qg_27.classification_degradation': {
             'override_fn': lambda self, child: self.get_picto_and_nested_values(child)
-        }
+        },
+        'tech_qg_54.natural_env_rainfall': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_55.natural_env_climate_zone': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_56.natural_env_slope': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_56.natural_env_landforms': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_56.natural_env_altitude': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_58.natural_env_soil_depth': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_58.natural_env_soil_texture': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_58.natural_env_soil_texture_below': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_58.natural_env_soil_organic': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_60.natural_env_groundwater': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_60.natural_env_surfacewater': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_60.natural_env_waterquality': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_63.natural_env_flooding': {
+            'override_fn': lambda self, child: self.get_full_range_values(child, True)
+        },
+        'tech_qg_61.natural_env_salinity': {
+            'override_fn': lambda self, child: self.get_full_range_values(child, True)
+        },
+        'tech_qg_66.natural_env_species': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
+        'tech_qg_66.natural_env_habitat': {
+            'override_fn': lambda self, child: self.get_full_range_values(child)
+        },
     }

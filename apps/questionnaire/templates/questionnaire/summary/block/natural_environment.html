@@ -45,8 +45,12 @@
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.soil_depth.items %}
   </div>
   <div class="small-3 columns">
-      <h5>{{ content.soil_texture.title }}</h5>
-      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.soil_texture.items %}
+      <h5>{{ content.soil_texture_top.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.soil_texture_top.items %}
+  </div>
+  <div class="small-3 columns">
+      <h5>{{ content.soil_texture_below.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.soil_texture_below.items %}
   </div>
   <div class="small-3 columns">
       <h5>{{ content.topsoil.title }}</h5>

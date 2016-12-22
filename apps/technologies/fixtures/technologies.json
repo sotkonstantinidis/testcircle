@@ -16329,6 +16329,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_rainfall"
         }
       },
       "values": [
@@ -16506,7 +16509,10 @@
       "keyword": "tech_agroclimatic_zone",
       "translation": 1069,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "full": "natural_env_climate_zone"
+        }
       },
       "values": [
         1157,
@@ -16583,7 +16589,10 @@
       "keyword": "tech_agroclimatic_zone_specifications",
       "translation": 1073,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "full": "natural_env_climate_zone_text"
+        }
       }
     },
     "model": "configuration.key",
@@ -16599,6 +16608,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_slope"
         }
       },
       "values": [
@@ -16744,6 +16756,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_landforms"
         }
       },
       "values": [
@@ -16868,6 +16883,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_altitude"
         }
       },
       "values": [
@@ -17082,6 +17100,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_soil_depth"
         }
       },
       "values": [
@@ -17185,6 +17206,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_soil_texture"
         }
       },
       "values": [
@@ -17246,6 +17270,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_soil_texture_below"
         }
       },
       "values": [
@@ -17267,6 +17294,9 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "full": "natural_env_soil_organic"
         }
       },
       "values": [
@@ -17294,7 +17324,10 @@
       "keyword": "tech_groundwater",
       "translation": 1110,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "natural_env_groundwater"
+        }
       },
       "values": [
         1194,
@@ -17311,7 +17344,10 @@
       "keyword": "tech_surfacewater",
       "translation": 1114,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "natural_env_surfacewater"
+        }
       },
       "values": [
         1198,
@@ -17328,7 +17364,10 @@
       "keyword": "tech_waterquality",
       "translation": 1118,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "natural_env_waterquality"
+        }
       },
       "values": [
         1202,
@@ -17345,7 +17384,10 @@
       "keyword": "tech_flooding",
       "translation": 1119,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "full": "natural_env_flooding"
+        }
       }
     },
     "model": "configuration.key",
@@ -17371,7 +17413,10 @@
       "keyword": "tech_salinization",
       "translation": 1122,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "full": "natural_env_salinity"
+        }
       }
     },
     "model": "configuration.key",
@@ -17404,7 +17449,10 @@
       "keyword": "tech_speciesdiversity",
       "translation": 1125,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "natural_env_species"
+        }
       },
       "values": [
         250,
@@ -17420,7 +17468,10 @@
       "keyword": "tech_habitatdiversity",
       "translation": 1126,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "full": "natural_env_habitat"
+        }
       },
       "values": [
         250,
