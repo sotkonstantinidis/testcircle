@@ -59,7 +59,7 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                     )
                 )
 
-    def get_map_values(self, child: QuestionnaireQuestion):
+    def get_map_values(self, child: QuestionnaireQuestion) -> dict:
         """
         Configured function (see ConfigurationConf) for special preparation of
         data to display map data.
@@ -105,7 +105,7 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         choices = dict(child.choices)
 
         for value in selected:
-            child_text = []
+            child_text = ''
             # 'value' is a tuple of four elements: title, icon-url, ?, keyword
             # this represents the 'parent' question with an image
             selected_children_keyword = nested_elements.get(value[3])
@@ -117,27 +117,39 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                 # [{'keyword': 'value'}, {'keyword', 'value'}]
                 for selected_child in self.values.get(selected_children_keyword, {}):
                     for child_keyword, child_value in selected_child.items():
-                        if isinstance(child_value, list):
-                            # [c.keyword for c in self.config_object.get_questiongroup_by_keyword(selected_children_keyword).children]
-                            # todo: continue here.
-                            pass
-                        configured_child = self.config_object.get_question_by_keyword(
+                        # The child element is part of a questiongroup.
+                        child_question = self.config_object.get_question_by_keyword(
                             questiongroup_keyword=selected_children_keyword,
                             keyword=child_keyword
                         )
-                        child_text.append('{label}: {value}'.format(
-                            label=configured_child.label,
-                            value=child_value
-                        ))
-
+                        child_text += self._concatenate_child_question_texts(
+                            child_question=child_question,
+                            selected_child_len=len(selected_child.keys()),
+                            values=child_value
+                        )
             yield {
                 'url': value[1],
-                'label': value[0],
-                'text': '{title}: {child_text}'.format(
-                    title=choices.get(value[3]),
-                    child_text=', '.join(child_text)
-                ),
+                'title': value[0],
+                'text': child_text
             }
+
+    def _concatenate_child_question_texts(
+            self, child_question: QuestionnaireQuestion,
+            selected_child_len: int, values: list) -> str:
+        """
+        Helper to print nice concatenated strings
+        """
+        choices_labels = dict(child_question.choices)
+        # Show label only if it is configured to be shown
+        has_label = child_question.view_options.get('label_position') != 'none'
+        # If more than one element is selected for the current
+        # group, add a newline
+        text_parts = dict(
+            label='{}: '.format(child_question.label) if has_label else '',
+            multi_line='<br>' if selected_child_len > 1 else '',
+            text=', '.join([choices_labels[choice] for choice in values]),
+        )
+        return '{label}{text}{multi_line}'.format_map(text_parts)
 
     def split_raw_children(self, *children):
         """

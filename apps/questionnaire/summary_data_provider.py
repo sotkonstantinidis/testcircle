@@ -1,4 +1,5 @@
 import json
+from itertools import islice
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -51,13 +52,13 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        # self.raw_data = ConfiguredQuestionnaireSummary(
-        #     config=config, summary_type=self.summary_type,
-        #     questionnaire=questionnaire, **data
-        # ).data
-        # self.questionnaire = questionnaire
-        # self.data = dict(self.get_data())
-        self.data = self.get_demo_dict(config_type=config.keyword)
+        self.raw_data = ConfiguredQuestionnaireSummary(
+            config=config, summary_type=self.summary_type,
+            questionnaire=questionnaire, **data
+        ).data
+        self.questionnaire = questionnaire
+        self.data = dict(self.get_data())
+        # self.data = self.get_demo_dict(config_type=config.keyword)
 
     def get_data(self):
         """
@@ -154,7 +155,7 @@ class GlobalValuesMixin:
         )
         images = []
         if image_urls:
-            for index, image in enumerate(image_urls[:2]):
+            for index, image in islice(enumerate(image_urls), 1, 3):
                 images.append({
                     'url': image['value'],
                     'caption': '{caption}\n{photographer}'.format(
@@ -197,7 +198,8 @@ class GlobalValuesMixin:
                     "items": pro_list
                 },
                 "contra": {
-                    "label": _("Weaknesses/ disadvantages/ risks and how they can be overcome"),
+                    "label": _("Weaknesses/ disadvantages/ risks and how they "
+                               "can be overcome"),
                     "items": weaknesses_list
                 }
             }
@@ -323,15 +325,15 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description',
-                'conclusion', 'references']
+        return ['header_image', 'title', 'location', 'description', 'images',
+                'classification', 'conclusion', 'references']
 
     def location(self):
         return {
             "title": _("Location"),
             "partials": {
                 "map": {
-                    "url": self.raw_data.get('location_map_data').get('img_url')
+                    "url": self.raw_data.get('location_map_data', {}).get('img_url')
                 },
                 "infos": {
                     "location": {
@@ -347,7 +349,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         "text": self.string_from_list('location_sites_considered')
                     },
                     "geo_reference": self.raw_data.get(
-                        'location_map_data'
+                        'location_map_data', {}
                     ).get('coordinates'),
                     "spread": {
                         "title": _("Spread of the Technology"),
@@ -367,7 +369,9 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     def classification(self):
         try:
-            slm_group = self.raw_data_getter('classification_slm_group', value='')[0].get('values')
+            slm_group = self.raw_data_getter(
+                'classification_slm_group', value=''
+            )[0].get('values')
         except (KeyError, IndexError):
             slm_group = None
 
@@ -389,11 +393,16 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         "text": [
                             {
                                 "title": "Number of growing seasons per year",
-                                "text": self.string_from_list('classification_growing_seasons')
+                                "text": self.string_from_list(
+                                    'classification_growing_seasons'
+                                )
                             },
                             {
-                                "title": "Land use before implementation of the Technology",
-                                "text": self.raw_data_getter('classification_lu_before')
+                                "title": "Land use before implementation of "
+                                         "the Technology",
+                                "text": self.raw_data_getter(
+                                    'classification_lu_before'
+                                )
                             }
                         ]
                     }
@@ -404,28 +413,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 },
                 "degredation": {
                     "title": "Degradation addressed",
-                    "partials": [
-                        {
-                            "url": "/static/assets/img/pictos/degra_watererosion.png",
-                            "label": "Soil erosion by water",
-                            "text": "loss of topsoil, gully erosion"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/degra_2_chem.png",
-                            "label": "Chemical degradation",
-                            "text": "fertility decline and reduced organic matter content"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/degra_waterdegrade.png",
-                            "label": "Water degradation",
-                            "text": "aridification"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/degra_watererosion.png",
-                            "label": "Soil erosion by water",
-                            "text": "downstream siltation of the Yellow River"
-                        }
-                    ]
+                    "partials": self.raw_data.get('classification_degradation')
                 },
                 "slm_group": {
                     "title": "SLM group",
@@ -433,23 +421,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 },
                 "measures": {
                     "title": "SLM measures",
-                    "partials": [
-                        {
-                            "url": "/static/assets/img/pictos/swc_1_struc.png",
-                            "label": "Structural",
-                            "text": "Terraces"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/swc_3_veg.png",
-                            "label": "Vegetative",
-                            "text": "Grasses and perennial herbaceous plants"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/swc_4_manag.png",
-                            "label": "Agronomic",
-                            "text": "Contour tillage, application of manure"
-                        }
-                    ]
+                    "partials": self.raw_data.get('classification_measures')
                 }
             }
         }
@@ -471,7 +443,9 @@ class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
             "title": _("Location"),
             "partials": {
                 "map": {
-                    "url": self.raw_data.get('location_map_data').get('img_url')
+                    "url": self.raw_data.get(
+                        'location_map_data', {}
+                    ).get('img_url')
                 },
                 "infos": {
                     "location": {
@@ -483,15 +457,17 @@ class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         )
                     },
                     "geo_reference": self.raw_data.get(
-                        'location_map_data'
+                        'location_map_data', {}
                     ).get('coordinates'),
                     "initiation": {
                         "title": _("Initiation date"),
-                        "text": self.raw_data_getter('location_initiation_year') or _("unknown")
+                        "text": self.raw_data_getter(
+                            'location_initiation_year') or _("unknown")
                     },
                     "termination": {
                         "title": _("Year of termination"),
-                        "text": self.raw_data_getter('location_termination_year') or '*'
+                        "text": self.raw_data_getter(
+                            'location_termination_year') or '*'
                     },
                     "type": {
                         "title": _("Type of Approach"),

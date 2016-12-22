@@ -15495,7 +15495,10 @@
       "keyword": "tech_measures",
       "translation": 1022,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "in_summary": {
+          "full": "classification_measures"
+        }
       },
       "values": [
         1130,
@@ -15605,7 +15608,10 @@
       "keyword": "tech_degradation",
       "translation": 1026,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "in_summary": {
+          "full": "classification_degradation"
+        }
       },
       "values": [
         1134,
