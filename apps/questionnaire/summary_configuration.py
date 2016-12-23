@@ -1,9 +1,9 @@
 import logging
 import operator
 
-from django.conf import settings
 from configuration.configuration import QuestionnaireQuestion
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
+from qcat.errors import ConfigurationError
 from .models import Questionnaire
 from .templatetags.questionnaire_tags import get_static_map_url
 
@@ -36,29 +36,58 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         This cannot be solved on the config as the same question is listed
         twice, so the key-name overriding setting must be ready for versioning.
         """
-        if child.in_summary and child.in_summary.get(self.summary_type):
-            field_name = child.in_summary[self.summary_type]
-            qg_field = '{questiongroup}.{field}'.format(
-                questiongroup=child.questiongroup.keyword,
-                field=field_name
+        if child.in_summary and self.summary_type in child.in_summary['types']:
+            options = {
+                **child.in_summary['default'],
+                **child.in_summary.get(self.summary_type, {})
+            }
+            if 'field_name' not in options:
+                raise ConfigurationError(
+                    'At least a unique field name must be set for "in_summary" '
+                    'config for the question {}.'.format(child.keyword)
+                )
+            field_name = self.get_configured_field_name(
+                child=child,
+                field_name=options['field_name']
             )
-            override = settings.CONFIGURATION_SUMMARY_OVERRIDE.get(qg_field, {})
-            field_name = override.get('override_key', field_name)
-            get_value_fn = override.get(
-                'override_fn', lambda self, child: self.get_value(child)
-            )
+
             if field_name not in self.data:
-                self.data[field_name] = get_value_fn(self, child)
+                self.data[field_name] = self.get_configured_value(
+                    child=child, **options
+                )
             else:
                 # This can be intentional, e.g. header_image is a list. In this
                 # case, only the first element is available.
                 logger.warning(
-                    'The field {key} for the summary {summary_type} is defined '
-                    'more than once'.format(
-                        key=child.in_summary[self.summary_type],
+                    'The field {field_name} for the summary {summary_type} '
+                    'is defined more than once'.format(
+                        field_name=field_name,
                         summary_type=self.summary_type
                     )
                 )
+
+    def get_configured_value(self, child: QuestionnaireQuestion, **kwargs):
+        configured_fn = kwargs.get('get_value')
+        if not configured_fn:
+            return self.get_value(child=child)
+        else:
+            fn = getattr(self, configured_fn['name'])
+            return fn(child=child, **configured_fn.get('kwargs', {}))
+
+    def get_configured_field_name(self, child: QuestionnaireQuestion,
+                                  field_name: str) -> str:
+        if not isinstance(field_name, dict):
+            return field_name
+        else:
+            qg_field = '{questiongroup}.{field}'.format(
+                questiongroup=child.questiongroup.keyword,
+                field=child.keyword
+            )
+            try:
+                return field_name[qg_field]
+            except KeyError:
+                raise ConfigurationError('No field_name for '
+                                         'summary field {}'.format(qg_field))
 
     def get_map_values(self, child: QuestionnaireQuestion) -> dict:
         """

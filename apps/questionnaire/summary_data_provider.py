@@ -182,7 +182,7 @@ class GlobalValuesMixin:
         # and get the 'overcome' value as subtext
         weaknesses_list = []
         weaknesses_datasets = {
-            'weaknesses_compiler': 'weaknesses_overcome',
+            'weaknesses_compiler': 'weaknesses_compiler_overcome',
             'weaknesses_landuser': 'weaknesses_landuser_overcome',
         }
         for key_name, overcome_name in weaknesses_datasets.items():
@@ -327,8 +327,8 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'classification', 'technical_drawing', 'natural_environment',
-                'conclusion', 'references']
+                'classification', 'technical_drawing', 'natural_environment', 
+                'human_environment', 'conclusion', 'references']
 
     def location(self):
         return {
@@ -509,6 +509,336 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 'habitat': {
                     'title': _('Habitat diversity'),
                     'items': self.raw_data.get('natural_env_habitat')
+                }
+            }
+        }
+    
+    def human_environment(self):
+        return {
+            'title': _('Characteristics of land users applying the Technology'),
+            'partials': {
+                'market': {
+                    'title': _('Market orientation'),
+                    'items': [
+                        {
+                            'highlighted': True,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'income': {
+                    'title': _('Off-farm income'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'wealth': {
+                    'title': _('Relative level of wealth'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'mechanization': {
+                    'title': _('Level of mechanization'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'sedentary': {
+                    'title': _('Sedentary or nomadic'),
+                    'items': self.raw_data.get('human_env_sedentary_nomadic')
+                },
+                'individuals': {
+                    'title': _('Individuals or groups'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'gender': {
+                    'title': _('Gender'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        }
+                    ]
+                },
+                'age': {
+                    'title': _('Age'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': '20-30'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': '30-40'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': '40-50'
+                        }
+                    ]
+                },
+                'area': {
+                    'title': _('Area used per household'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'scale': {
+                    'title': _('Scale'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'ownership': {
+                    'title': _('Land ownership'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'land_rights': {
+                    'title': _('Land use rights'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'water_rights': {
+                    'title': _('Water use rights'),
+                    'items': [
+                        {
+                            'highlighted': False,
+                            'title': 'same, same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but different'
+                        },
+                        {
+                            'highlighted': True,
+                            'title': 'but same'
+                        },
+                        {
+                            'highlighted': False,
+                            'title': 'but same'
+                        }
+                    ]
+                },
+                'access': {
+                    'title': _('Access to services and infrastructure'),
+                    'items': [
+                        {
+                            'label': 'health',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '3'
+                        },
+                        {
+                            'label': 'education',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': ''
+                        },
+                        {
+                            'label': 'technical assistance',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '2'
+                        },
+                        {
+                            'label': 'employment (e.g. off-farm)',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '1'
+                        },
+                        {
+                            'label': 'markets',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '3'
+                        },
+                        {
+                            'label': 'energy',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '3'
+                        },
+                        {
+                            'label': 'roads and transport',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': ''
+                        },
+                        {
+                            'label': 'drinking water and sanitation',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '2'
+                        },
+                        {
+                            'label': 'financial services',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '2'
+                        },
+                        {
+                            'label': 'other (specify',
+                            'range': '3',
+                            'min': 'poor',
+                            'max': 'good',
+                            'selected': '2'
+                        }
+                    ]
                 }
             }
         }

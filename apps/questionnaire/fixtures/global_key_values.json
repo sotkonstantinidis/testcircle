@@ -5831,7 +5831,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "title_name"
+          "types": ["full"],
+          "default": {
+            "field_name": "title_name"
+          }
         }
       }
     },
@@ -5845,7 +5848,10 @@
       "configuration": {
         "type": "select_type",
         "in_summary": {
-          "full": "country"
+          "types": ["full"],
+          "default": {
+            "field_name": "country"
+          }
         }
       },
       "values": [
@@ -6113,7 +6119,10 @@
           "helptext_position": "tooltip"
         },
         "in_summary": {
-          "full": "title_name_local"
+          "types": ["full"],
+          "default": {
+            "field_name": "title_name_local"
+          }
         }
       }
     },
@@ -6127,7 +6136,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "location_state_province"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_state_province"
+          }
         }
       }
     },
@@ -6141,7 +6153,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "location_further"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_further"
+          }
         }
       }
     },
@@ -6166,7 +6181,13 @@
       "configuration": {
         "type": "image",
         "in_summary": {
-          "full": "header_image_image"
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_photos.image": "images_image",
+              "qg_image.image": "header_image_image"
+            }
+          }
         }
       }
     },
@@ -6183,7 +6204,13 @@
           "helptext_position": "tooltip"
         },
         "in_summary": {
-          "full": "header_image_caption"
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_photos.image_caption": "images_caption",
+              "qg_image.image_caption": "header_image_caption"
+            }
+          }
         }
       }
     },
@@ -6208,7 +6235,13 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "header_image_photographer"
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_photos.image_photographer": "images_photographer",
+              "qg_image.image_photographer": "header_image_photographer"
+            }
+          }
         }
       }
     },
@@ -6233,7 +6266,10 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "header_image_remarks"
+          "types": ["full"],
+          "default": {
+            "field_name": "header_image_remarks"
+          }
         }
       }
     },
@@ -6250,7 +6286,10 @@
           "model": "Project",
           "display_field": "funding_project_display",
           "in_summary": {
-            "full": "header_image_project"
+            "types": ["full"],
+            "default": {
+              "field_name": "header_image_project"
+            }
           }
         }
       }
@@ -6279,7 +6318,10 @@
       "configuration": {
         "type": "user_id",
         "in_summary": {
-          "full": "references_resourceperson_user_id"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_resourceperson_user_id"
+          }
         }
       }
     },
@@ -6304,7 +6346,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "references_resourceperson_lastname"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_resourceperson_lastname"
+          }
         }
       }
     },
@@ -6318,7 +6363,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "references_person_firstname"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_person_firstname"
+          }
         }
       }
     },
@@ -6446,7 +6494,10 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "references_resourceperson_type"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_resourceperson_type"
+          }
         }
       },
       "values": [
@@ -6478,7 +6529,10 @@
           "template": "value_only"
         },
         "in_summary": {
-          "full": "strengths_landuser"
+          "types": ["full"],
+          "default": {
+            "field_name": "strengths_landuser"
+          }
         }
       }
     },
@@ -6495,7 +6549,10 @@
           "template": "value_only"
         },
         "in_summary": {
-          "full": "strengths_compiler"
+          "types": ["full"],
+          "default": {
+            "field_name": "strengths_compiler"
+          }
         }
       }
     },
@@ -6512,7 +6569,10 @@
           "template": "value_only"
         },
         "in_summary": {
-          "full": "weaknesses_landuser"
+          "types": ["full"],
+          "default": {
+            "field_name": "weaknesses_landuser"
+          }
         }
       }
     },
@@ -6529,7 +6589,10 @@
           "template": "value_only"
         },
         "in_summary": {
-          "full": "weaknesses_compiler"
+          "types": ["full"],
+          "default": {
+            "field_name": "weaknesses_compiler"
+          }
         }
       }
     },
@@ -6546,7 +6609,13 @@
           "template": "value_only"
         },
         "in_summary": {
-          "full": "weaknesses_overcome"
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_weaknesses_landusers.weaknesses_overcome": "weaknesses_landuser_overcome",
+              "qg_weaknesses_compiler.weaknesses_overcome": "weaknesses_compiler_overcome"
+            }
+          }
         }
       }
     },
@@ -6769,7 +6838,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "references_title"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_title"
+          }
         }
       }
     },
@@ -6783,7 +6855,10 @@
       "configuration": {
         "type": "char",
         "in_summary": {
-          "full": "references_source"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_source"
+          }
         }
       }
     },
@@ -6830,7 +6905,13 @@
       "configuration": {
         "type": "map",
         "in_summary": {
-          "full": "location_map"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_map_data",
+            "get_value": {
+              "name": "get_map_values"
+            }
+          }
         }
       }
     },
@@ -6844,7 +6925,10 @@
       "configuration": {
         "type": "int",
         "in_summary": {
-          "full": "references_vimeo_id"
+          "types": ["full"],
+          "default": {
+            "field_name": "references_vimeo_id"
+          }
         },
         "view_options": {
           "template": "vimeo_video"
