@@ -26,9 +26,9 @@
           <h5>{{ question.key }}</h5>
           {% for value in question.values %}
             <div class="output-has-images">
+              <h4>{{ value.0 }}</h4>
               <img class="output-image-cb" src="{% static value.1 %}" alt="{{ value.0 }}">
               <div class="aside-questiongroup">
-                <h4>{{ value.0 }}</h4>
                 {% for questiongroup_sub in questions %}
                   {% if questiongroup_sub.conditional_question == value.3 %}
                     {% for qg_questions_sub in questiongroup_sub.questions %}
