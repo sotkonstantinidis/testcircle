@@ -134,7 +134,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity if the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
+            "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity of the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
           },
           "helptext": {
             "en": "If <strong>yes</strong>, specify below"
@@ -179,7 +179,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more"
+            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more?"
           },
           "helptext": {
             "en": "If <strong>yes</strong>, fill in the table below . If <strong>no</strong>, continue with chapter 3"
@@ -5057,7 +5057,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Sensitivity (Risks and Potentials)"
+            "en": "Sensitivity (risks and potentials)"
           }
         }
       }
@@ -5120,6 +5120,9 @@
         "cca": {
           "label": {
             "en": "Name of the SLM Technology (hereafter referred to as the Technology) as per Core Questionnaire on SLM Technologies Question QT Core 1.1"
+          },
+          "label_view": {
+            "en": "Name of the SLM Technology"
           }
         }
       }
@@ -5756,7 +5759,7 @@
             "en": "Assets of land users supporting their capacity to adapt to gradual climate changes and climate-related extremes (disasters)"
           },
           "helptext": {
-            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (www.eldis.org/vfile/upload/1/document/0901/section2.pdf) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
+            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (<a href='http://www.eldis.org/vfile/upload/1/document/0901/section2.pdf' target='_blank'>www.eldis.org/vfile/upload/1/document/0901/section2.pdf</a>) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
           }
         }
       }
@@ -9741,7 +9744,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table1",
+          "template": "table5",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
         }
@@ -11370,6 +11373,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "template": "default_with_div_1"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__gradual",
@@ -11378,7 +11384,7 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "table_5",
+                              "template": "table_8",
                               "table_grouping": [
                                 [
                                   "cca_qg_3",
@@ -11518,6 +11524,9 @@
                         "form_options": {
                           "template": "has_subcategories",
                           "label_tag": "h3"
+                        },
+                        "view_options": {
+                          "template": "default_with_div_2"
                         },
                         "subcategories": [
                           {
@@ -12607,6 +12616,9 @@
                         "form_options": {
                           "template": "has_subcategories",
                           "label_tag": "h3"
+                        },
+                        "view_options": {
+                          "template": "default_with_div_2"
                         },
                         "subcategories": [
                           {
