@@ -9696,12 +9696,12 @@
           "min_num": 1,
           "max_num": 24,
           "template": "table2",
-          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "column_widths": ["25%", "10%", "7%", "10%", "7%", "41%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table2",
-          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "column_widths": ["25%", "10%", "7%", "10%", "7%", "40%"],
           "with_keys": true
         }
       }
@@ -12824,6 +12824,12 @@
                         },
                         "questions": [
                           {
+                            "keyword": "climate_related_extreme"
+                          },
+                          {
+                            "keyword": "climate_related_extreme_display"
+                          },
+                          {
                             "keyword": "from_year"
                           },
                           {
@@ -12834,12 +12840,6 @@
                           },
                           {
                             "keyword": "to_month"
-                          },
-                          {
-                            "keyword": "climate_related_extreme"
-                          },
-                          {
-                            "keyword": "climate_related_extreme_display"
                           },
                           {
                             "keyword": "comments_specify"

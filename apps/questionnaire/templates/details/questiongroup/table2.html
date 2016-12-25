@@ -16,8 +16,15 @@
   {% endfor %}
   <thead>
     {% for key in keys %}
-      {% if forloop.counter != 5 %}
+      {% if forloop.counter == 2 or forloop.counter == 7 %}
         <th>{{ key }}</th>
+        {% if forloop.counter == 7 %}
+          <th></th>
+        {% endif %}
+      {% elif forloop.counter == 3 %}
+        <th colspan="2">From</th>
+      {% elif forloop.counter == 5 %}
+        <th colspan="2">To</th>
       {% endif %}
     {% endfor %}
   </thead>
@@ -25,8 +32,70 @@
     {% for questiongroup in questiongroups %}
       <tr>
         {% for question in questiongroup %}
-          {% if forloop.counter != 5 %}
-            <td>{{ question }}</td>
+          {% if forloop.counter == 2 or forloop.counter == 7 %}
+            <td style="line-height: 7px">{{ question }}</td>
+          {% elif forloop.counter == 3 %}
+            <td colspan="2">{{ question }}
+          {% elif forloop.counter == 4 %}
+            {% with q=question.strip|safe %}
+              {% if q == '1' %}
+                January
+              {% elif q == '2' %}
+                February
+              {% elif q == '3' %}
+                March
+              {% elif q == '4' %}
+                April
+              {% elif q == '5' %}
+                May
+              {% elif q == '6' %}
+                June
+              {% elif q == '7' %}
+                July
+              {% elif q == '8' %}
+                August
+              {% elif q == '9' %}
+                September
+              {% elif q == '10' %}
+                October
+              {% elif q == '11' %}
+                November
+              {% elif q == '12' %}
+                December
+              {% endif %}
+              </td>
+            {% endwith %}
+          {% elif forloop.counter == 5 %}
+            <td colspan="2">{{ question }}
+          {% elif forloop.counter == 6 %}
+            {% with q=question.strip|safe %}
+              {% if q == '1' %}
+                January
+              {% elif q == '2' %}
+                February
+              {% elif q == '3' %}
+                March
+              {% elif q == '4' %}
+                April
+              {% elif q == '5' %}
+                May
+              {% elif q == '6' %}
+                June
+              {% elif q == '7' %}
+                July
+              {% elif q == '8' %}
+                August
+              {% elif q == '9' %}
+                September
+              {% elif q == '10' %}
+                October
+              {% elif q == '11' %}
+                November
+              {% elif q == '12' %}
+                December
+              {% endif %}
+              </td>
+            {% endwith %}
           {% endif %}
         {% endfor %}
       </tr>
