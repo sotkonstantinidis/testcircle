@@ -957,7 +957,7 @@ class UserDetailTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
 
         # And finally, the unccd focal point country switzerland is listed.
-        self.findBy('xpath', '//*[contains(text(), "Focal Point")]')
+        self.findBy('xpath', '//*[contains(text(), "focal point")]')
         self.findBy('xpath', '//div[contains(@class, "user-unccd-focal-point")]')
         self.findBy('xpath', '//a[text()="Switzerland"]')
 

@@ -1,9 +1,13 @@
+import logging
 from unittest.mock import patch
 
 from django.core.urlresolvers import reverse
 
 from functional_tests.base import FunctionalTest
 from questionnaire.views import QuestionnaireSummaryPDFCreateView
+
+
+logging.disable(logging.CRITICAL)
 
 
 class SummaryTest(FunctionalTest):
