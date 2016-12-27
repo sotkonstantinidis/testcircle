@@ -20,22 +20,24 @@
       <thead>
         <tr>
           {% if layout == 'no_label_row' %}
-            <th>{{ table_headers.1 }}</th>
+            <th style="width: 50%">{{ table_headers.1 }}</th>
             {% for header in table_headers %}
               {% if forloop.counter == 1 %}
-                <th></th>
-              {% endif %}
-              {% if forloop.counter >= 3 and forloop.counter <= 4 %}
+                <th style="width: 30%"></th>
+              {% elif forloop.counter == 3 %}
+                <th style="width: 50%">{{ header }}</th>
+              {% elif forloop.counter == 4 %}
                 <th>{{ header }}</th>
               {% endif %}            
             {% endfor %}
           {% else %}
-            <th></th>
+            <th style="width: 50%"></th>
             {% for header in table_headers %}
               {% if forloop.counter == 1 %}
-                <th></th>
-              {% endif %}
-              {% if forloop.counter >= 2 and forloop.counter <= 3 %}
+                <th style="width: 30%"></th>
+              {% elif forloop.counter == 2 %}
+                <th style="width: 50%">{{ header }}</th>
+              {% elif forloop.counter == 3 %}
                 <th>{{ header }}</th>
               {% endif %}            
             {% endfor %}
@@ -55,7 +57,27 @@
                   {% endfor %}
                   {% for k, values in qg %}
                     {% if forloop.counter == 1 or forloop.counter == 5 %}
-                      <td>{{ k }}</td>   
+                      <td>{{ k }}</td>
+                    {% elif forloop.counter == 4 or forloop.counter == 8 %}
+                      <td>
+                        <ul class="chart-measure-labelled" style="line-height: 0.5rem">
+                          {% with 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec' as list %}
+                            {% for month in list.split %}
+                              {% with found=0 %}      
+                                {% if month in values %}
+                                  <li class="step is-level-5" style="padding: 0.5rem">
+                                    {{ month }}
+                                  </li>
+                                {% else %}
+                                  <li class="step is-level-1" style="padding: 0.5rem">
+                                    {{ month }}
+                                  </li>
+                                {% endif %}
+                              {% endwith %}
+                            {% endfor %}
+                          {% endwith %}
+                        </ul>
+                      </td>
                     {% elif forloop.counter != 2 and forloop.counter != 6 %}     
                       <td>
                         {% for v in values %}                        
@@ -73,7 +95,27 @@
                   {% endif %}
                   {% for k, values in qg %}
                     {% if forloop.counter == 1 or forloop.counter == 4 %}
-                      <td>{{ k }}</td>   
+                      <td>{{ k }}</td>
+                    {% elif forloop.counter == 3 or forloop.counter == 6 %}
+                      <td>
+                        <ul class="chart-measure-labelled" style="line-height: 0.5rem">
+                          {% with 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec' as list %}
+                            {% for month in list.split %}
+                              {% with found=0 %}      
+                                {% if month in values %}
+                                  <li class="step is-level-5" style="padding: 0.5rem">
+                                    {{ month }}
+                                  </li>
+                                {% else %}
+                                  <li class="step is-level-1" style="padding: 0.5rem">
+                                    {{ month }}
+                                  </li>
+                                {% endif %}
+                              {% endwith %}
+                            {% endfor %}
+                          {% endwith %}
+                        </ul>
+                      </td>
                     {% else %}     
                       <td>
                         {% for v in values %}
