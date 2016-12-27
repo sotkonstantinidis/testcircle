@@ -653,10 +653,18 @@ function checkConditionalQuestiongroups(element) {
             currentConditionsFulfilled = currentConditionsFulfilled || conditionsFulfilled;
         });
 
-        var questiongroupContainer = $('#' + questiongroup);
+        var questiongroupContainer = $('#' + questiongroup),
+            previousCondition = questiongroupContainer.data('conditions-fulfilled');
         questiongroupContainer.toggle(currentConditionsFulfilled);
-        if (!currentConditionsFulfilled) {
+        if (!currentConditionsFulfilled && previousCondition === true) {
+            // Only clear questiongroup if it was previously visible as this is
+            // an expensive function.
             clearQuestiongroup(questiongroupContainer);
+        }
+        // Store if the condition is now fulfilled, only if there were changes
+        if (currentConditionsFulfilled != previousCondition) {
+            questiongroupContainer.data(
+                'conditions-fulfilled', currentConditionsFulfilled);
         }
     }
 }
