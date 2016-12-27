@@ -12776,6 +12776,9 @@
                                   "questiongroup_conditions": [
                                     "=='yes'|cca_qg_37"
                                   ]
+                                },
+                                "view_options": {
+                                  "template": "checkbox_as_text"
                                 }
                               }
                             ]
