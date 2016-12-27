@@ -16,13 +16,6 @@ class HomeView(TemplateView):
     """
     template_name = 'wocat/home.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update(**generic_questionnaire_list(
-            self.request, 'wocat', template=None
-        ))
-        return context
-
 
 def questionnaire_details(request, identifier):
     """
