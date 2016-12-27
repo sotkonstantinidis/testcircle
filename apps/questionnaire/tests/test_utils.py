@@ -639,6 +639,7 @@ class GetLinkDataTest(TestCase):
         link_data = get_link_data([link])
         self.assertEqual(link_data, {'foo': [{
             'code': link.code,
+            'configuration': link.get_original_configuration().code,
             'id': link.id,
             'link': mock_get_link_display.return_value,
             'name': 'Unknown name',
@@ -963,7 +964,7 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('code'), 'code')
         self.assertEqual(ret_1.get('compilers'), ['compiler'])
         self.assertEqual(ret_1.get('editors'), ['editor'])
-        self.assertEqual(ret_1.get('links'), [])
+        self.assertEqual(ret_1.get('links'), {})
 
     @patch('questionnaire.utils.get_link_data')
     def test_db_uses_provided_configuration(self, mock_get_link_data):
