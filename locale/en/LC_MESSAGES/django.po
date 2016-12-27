@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 09:50+0100\n"
+"POT-Creation-Date: 2016-12-27 07:06+0100\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13208,7 +13208,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
+msgid "Experienced climate-related extremes (disasters)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
@@ -14171,16 +14171,6 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28037
 msgctxt "cca label"
 msgid "Extent"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28032
-msgctxt "cca label_left"
-msgid " "
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28033
-msgctxt "cca label_right"
-msgid " "
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:28034

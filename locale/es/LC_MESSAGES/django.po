@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 09:50+0100\n"
-"PO-Revision-Date: 2016-12-20 16:24+0000\n"
-"Last-Translator: Farrukh Nazarmavloev <fnazarmavloev@unccd.int>\n"
+"POT-Creation-Date: 2016-12-27 07:06+0100\n"
+"PO-Revision-Date: 2016-12-22 08:55+0000\n"
+"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -15134,11 +15134,11 @@ msgstr "Límite"
 
 #: apps/configuration/configuration_translations.py:22300
 #, fuzzy
-#| msgctxt "cca label"
-#| msgid "Experienced climate-related extremes (disasters)"
+#| msgctxt "technologies label"
+#| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
-msgstr "Extremos (desastres) relacionados al clima que se experimentaron"
+msgid "Experienced climate-related extremes (disasters)"
+msgstr "Otros extremos (desastres) relacionados al clima"
 
 #: apps/configuration/configuration_translations.py:23000
 msgctxt "cca label"
@@ -16253,16 +16253,6 @@ msgstr "Nombre del cambio climático gradual/ extremo relacionado al clima"
 msgctxt "cca label"
 msgid "Extent"
 msgstr "Extensión"
-
-#: apps/configuration/configuration_translations.py:28032
-msgctxt "cca label_left"
-msgid " "
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28033
-msgctxt "cca label_right"
-msgid " "
-msgstr ""
 
 #: apps/configuration/configuration_translations.py:28034
 #: apps/configuration/configuration_translations.py:28090
@@ -18523,54 +18513,32 @@ msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "No se puede serializar el cuestionario sin una configuración válida"
 
 #: apps/questionnaire/summary_data_provider.py:121
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Title/ description"
 msgid "Title photo"
-msgstr "Título/ descripción"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:142
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Description"
 msgid "Description"
-msgstr "Descripción"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:193
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Conclusions and lessons learnt"
 msgid "Conclusions and lessons learnt"
-msgstr "Conclusiones y lecciones aprendidas"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:196
-#, fuzzy
-#| msgctxt "technologies label_right"
-#| msgid "strengthened"
 msgid "Strengths"
-msgstr "se fortalecieron"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:200
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
 msgid "Weaknesses/ disadvantages/ risks and how they can be overcome"
 msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
-"tierra"
 
 #: apps/questionnaire/summary_data_provider.py:208
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "References and links"
 msgid "References"
-msgstr " Referencias y vínculos"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:216
-#, fuzzy
-#| msgid "Key resource person"
 msgid "Resource persons"
-msgstr "Persona de referencia clave"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:221
 #: apps/questionnaire/templates/questionnaire/details.html:71
@@ -18578,74 +18546,47 @@ msgid "Links"
 msgstr "Vínculos"
 
 #: apps/questionnaire/summary_data_provider.py:226
-#, fuzzy
-#| msgid "Key resource person"
 msgid "Key references"
-msgstr "Persona de referencia clave"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:331
 #: apps/questionnaire/summary_data_provider.py:338
 #: apps/questionnaire/summary_data_provider.py:471
 #: apps/questionnaire/summary_data_provider.py:478
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "Location"
 msgid "Location"
-msgstr "Lugar"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:353
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Spread of the Technology"
 msgid "Spread of the Technology"
-msgstr "Difusión de la Tecnología"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:357
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Date of implementation"
 msgid "Date of implementation"
-msgstr "Fecha de la implementación"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:361
-#, fuzzy
-#| msgid "Introduction"
 msgid "Type of introduction"
-msgstr "Introducción"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:378
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Main products"
 msgid "Main purpose"
-msgstr "Productos principales"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:489
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "initiation/ motivation"
 msgid "Initiation date"
-msgstr "iniciación/ motivación"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:490
-#, fuzzy
-#| msgid "Unknown"
 msgid "unknown"
-msgstr "No se sabe"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:493
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Date of implementation"
 msgid "Year of termination"
-msgstr "Fecha de la implementación"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:497
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Type of Approach"
 msgid "Type of Approach"
-msgstr "Tipo de Enfoque "
+msgstr ""
 
 #: apps/questionnaire/templates/active_filters.html:28
 msgid "Reset all"
@@ -21120,59 +21061,6 @@ msgid "Introduction"
 msgstr "Introducción"
 
 #: templates/rest_framework_swagger/index.html:16
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "            <p>Welcome to the documentation for the Wocat API. Please "
-#| "refer to\n"
-#| "                the <a href=\"https://qcat.readthedocs.org\" target="
-#| "\"_blank\">qcat docs</a>\n"
-#| "                in case of questions regrading the structure of the "
-#| "returned objects.\n"
-#| "                The API is built on top of the <a href=\"http://www."
-#| "django-rest-framework.org/\" target=\"_blank\">django REST framework</"
-#| "a>.\n"
-#| "            </p>\n"
-#| "            <p>\n"
-#| "                The current version of the API is: 1.0. Docs for the "
-#| "older versions will be listed here as well.\n"
-#| "            </p>\n"
-#| "            <h2>Authentication</h2>\n"
-#| "            <p>\n"
-#| "                Requests to any resource requires an authentication token "
-#| "in the header of the request.\n"
-#| "                The token can be obtained with this API (see: auth-"
-#| "token), a wocat user account is\n"
-#| "                required to obtain a token. Please specify what you will "
-#| "use the token for as \"notes\". Example request:\n"
-#| "                <pre style=\"white-space:pre-line;\">curl -X POST -d "
-#| "'{\"username\":\"name\", \"notes\": \"token will be used for testing\", "
-#| "\"password\": \"***\"}' -H \"Content-Type: application/json\" https://"
-#| "qcat.wocat.net/en/api/v1/auth-token/</pre>\n"
-#| "                <br>\n"
-#| "                Pass the token in the request header as follows: "
-#| "'Authorization: Token &#60;your token here&#62;'. Example request:\n"
-#| "                <br>\n"
-#| "                <pre style=\"white-space:pre-line;\">curl -X GET -H "
-#| "'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://"
-#| "qcat.wocat.net/en/api/v1/questionnaires/</pre>\n"
-#| "            </p>\n"
-#| "            <h2>Response content types</h2>\n"
-#| "            <p>\n"
-#| "            The format of the response can be defined with the 'Accept' "
-#| "header. Following types are available:\n"
-#| "            <ul>\n"
-#| "                <li>JSON (Accept:application/json)</li>\n"
-#| "                <li>XML (Accept:application/xml)</li>\n"
-#| "                <li>CSV (Accept:text/csv)</li>\n"
-#| "            </ul>\n"
-#| "            <br>\n"
-#| "            Example:\n"
-#| "            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:"
-#| "text/csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
-#| "            </p>\n"
-#| "\n"
-#| "        "
 msgid ""
 "\n"
 "            <p>Welcome to the documentation for the Wocat API. Please refer "
@@ -21225,57 +21113,3 @@ msgid ""
 "\n"
 "        "
 msgstr ""
-"\n"
-"            <p>Bienvenido a la documentación para API de Wocat. Por favor, "
-"refiérase a \n"
-"                <a href=\"https://qcat.readthedocs.org\" target=\"_blank"
-"\">qcat docs</a>\n"
-"               en caso de tener preguntas sobre la estructura de los objetos "
-"hallados. returned objects.\n"
-"                API se construye sobre  <a href=\"http://www.django-rest-"
-"framework.org/\" target=\"_blank\">django REST framework</a>.\n"
-"            </p>\n"
-"            <p>\n"
-"                La versión actual de API es: 1.0. Docs. Las versiones más "
-"antiguas también se listarán aquí.\n"
-"            </p>\n"
-"            <h2>Autentificación</h2>\n"
-"            <p>\n"
-"                Las solicitudes de cualquier recurso requiere un token de "
-"autentificación en el encabezado de la solicitud.\n"
-"                El token puede obtenerse con este API (ver: auth-token), Se "
-"requiere de una cuenta de usuario Wocat para\n"
-"                obtener un token. Por favor especifique para qué usará el "
-"token, como ser “notas”. Ejemplo de solicitud:\n"
-"                <pre style=\"white-space:pre-line;\">curl -X POST -d "
-"'{\"nombre de usuario\":\"nombre\", \"notas\": \"token se usará para pruebas"
-"\", \"contraseña\": \"***\"}' -H \"Content-Type: application/json\" https://"
-"qcat.wocat.net/en/api/v1/auth-token/</pre>\n"
-"                <br>\n"
-"                Inserte el toquen en el encabezado de solicitud de la "
-"siguiente forma: 'Authorization: Token &#60; ingrese su token aquí&#62;'. "
-"Ejemplo de solicitud:\n"
-"                <br>\n"
-"                <pre style=\"white-space:pre-line;\">curl -X GET -H "
-"'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://qcat."
-"wocat.net/en/api/v1/questionnaires/</pre>\n"
-"            </p>\n"
-"            <h2>Tipos de contenido de respuesta</h2>\n"
-"            <p>\n"
-"            El formato de la respuesta se puede definir con el encabezado "
-"'Aceptar'. Los siguientes tipos están disponibles:\n"
-"            <ul>\n"
-"                <li>JSON (Accept:application/json)</li>\n"
-"                <li>XML (Accept:application/xml)</li>\n"
-"                <li>CSV (Accept:text/csv)</li>\n"
-"            </ul>\n"
-"            <br>\n"
-"            Ejemplo:\n"
-"            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/"
-"csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
-"            </p>\n"
-"\n"
-"        "
-
-#~ msgid "Explore"
-#~ msgstr "Explore"

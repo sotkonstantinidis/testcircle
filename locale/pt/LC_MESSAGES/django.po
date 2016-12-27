@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 09:50+0100\n"
-"PO-Revision-Date: 2016-12-19 15:58+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2016-12-27 07:06+0100\n"
+"PO-Revision-Date: 2016-12-22 08:55+0000\n"
+"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Portuguese (http://www.transifex.com/university-of-bern-cde/"
 "qcat/language/pt/)\n"
 "Language: pt\n"
@@ -13210,7 +13210,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
+msgid "Experienced climate-related extremes (disasters)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
@@ -14173,16 +14173,6 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28037
 msgctxt "cca label"
 msgid "Extent"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28032
-msgctxt "cca label_left"
-msgid " "
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28033
-msgctxt "cca label_right"
-msgid " "
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:28034

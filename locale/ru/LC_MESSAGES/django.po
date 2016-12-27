@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 09:50+0100\n"
-"PO-Revision-Date: 2016-12-21 16:27+0000\n"
-"Last-Translator: Farrukh Nazarmavloev <fnazarmavloev@unccd.int>\n"
+"POT-Creation-Date: 2016-12-27 07:06+0100\n"
+"PO-Revision-Date: 2016-12-22 08:55+0000\n"
+"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -14364,7 +14364,7 @@ msgstr ""
 #| msgctxt "technologies label"
 #| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
-msgid "Experienced climate-related extremes(disasters)"
+msgid "Experienced climate-related extremes (disasters)"
 msgstr "Другие экстремальные климатические явления (стихийные бедствия)"
 
 #: apps/configuration/configuration_translations.py:23000
@@ -15327,16 +15327,6 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28037
 msgctxt "cca label"
 msgid "Extent"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28032
-msgctxt "cca label_left"
-msgid " "
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:28033
-msgctxt "cca label_right"
-msgid " "
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:28034
@@ -17433,48 +17423,28 @@ msgid "Title photo"
 msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:142
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Description"
 msgid "Description"
-msgstr "Описание"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:193
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Conclusions and lessons learnt"
 msgid "Conclusions and lessons learnt"
-msgstr "Заключительные положения и извлечённые уроки"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:196
-#, fuzzy
-#| msgctxt "technologies label_right"
-#| msgid "strengthened"
 msgid "Strengths"
-msgstr "укрепил."
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:200
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "Weaknesses/ disadvantages/ risks of the Technology and ways of overcoming "
-#| "them"
 msgid "Weaknesses/ disadvantages/ risks and how they can be overcome"
-msgstr "Слабые стороны/ недостатки/ риски Технологии и пути их преодоления"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:208
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "References and links"
 msgid "References"
-msgstr "Справочные материалы и ссылки"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:216
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Key resource person(s)"
 msgid "Resource persons"
-msgstr "Ответственный (-ые) специалист (-ы) "
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:221
 #: apps/questionnaire/templates/questionnaire/details.html:71
@@ -17489,66 +17459,40 @@ msgstr ""
 #: apps/questionnaire/summary_data_provider.py:338
 #: apps/questionnaire/summary_data_provider.py:471
 #: apps/questionnaire/summary_data_provider.py:478
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "Location"
 msgid "Location"
-msgstr "Местоположение"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:353
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Spread of the Technology"
 msgid "Spread of the Technology"
-msgstr "Распределение Технологии по площади"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:357
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Date of implementation"
 msgid "Date of implementation"
-msgstr "Сколько лет применяется данная Технология"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:361
-#, fuzzy
-#| msgid "Introduction"
 msgid "Type of introduction"
-msgstr "Введение"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:378
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Main products"
 msgid "Main purpose"
-msgstr "Основные виды продукции"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:489
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "International"
 msgid "Initiation date"
-msgstr "На международном"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:490
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "not known"
 msgid "unknown"
-msgstr "не известно"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:493
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Date of implementation"
 msgid "Year of termination"
-msgstr "Сколько лет применяется данная Технология"
+msgstr ""
 
 #: apps/questionnaire/summary_data_provider.py:497
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "Type of impact"
 msgid "Type of Approach"
-msgstr "Тип воздействия"
+msgstr ""
 
 #: apps/questionnaire/templates/active_filters.html:28
 msgid "Reset all"
