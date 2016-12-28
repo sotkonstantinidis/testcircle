@@ -357,12 +357,6 @@
         "cca": {
           "label": {
             "en": "Extent"
-          },
-          "label_left": {
-            "en": ""
-          },
-          "label_right": {
-            "en": ""
           }
         }
       }
@@ -12890,7 +12884,7 @@
                           "label_tag": "h2"
                         },
                         "view_options": {
-                          "template": "has_subcategories",
+                          "template": "has_subcategories_no_label",
                           "label_tag": "h3"
                         },
                         "subcategories": [
@@ -12901,7 +12895,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories",
+                              "template": "has_subcategories_on_site",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13071,7 +13065,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories",
+                              "template": "has_subcategories_on_site",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13081,7 +13075,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "template": "default_no_label"
                                 },
                                 "questiongroups": [
                                   {
@@ -13122,7 +13116,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "template": "default_no_label"
                                 },
                                 "questiongroups": [
                                   {
@@ -13159,7 +13153,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories",
+                              "template": "has_subcategories_on_site",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13372,7 +13366,7 @@
                           "label_tag": "h2"
                         },
                         "view_options": {
-                          "template": "has_subcategories",
+                          "template": "has_subcategories_no_label",
                           "label_tag": "h3"
                         },
                         "subcategories": [
@@ -13423,7 +13417,7 @@
                               "template": "default_no_border"
                             },
                             "view_options": {
-                              "template": "default_h4"
+                              "template": "default_no_label"
                             },
                             "questiongroups": [
                               {
