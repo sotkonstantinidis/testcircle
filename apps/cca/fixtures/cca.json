@@ -120,20 +120,6 @@
       "data": {
         "cca": {
           "label": {
-            "en": "other (specify)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28009
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
             "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity of the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
           },
           "helptext": {
@@ -6080,17 +6066,6 @@
     },
     "model": "configuration.key",
     "pk": 28008
-  },
-  {
-    "fields": {
-      "keyword": "cca_exposure_other_specify_other",
-      "translation": 28009,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28009
   },
   {
     "fields": {
@@ -12562,14 +12537,14 @@
                                 },                                  
                                 "questions": [                                  
                                   {
-                                    "keyword": "cca_title_frequency"
-                                  },
-                                  {
                                     "keyword": "cca_exposure_other_specify",
                                     "form_options": {
                                       "label_position": "placeholder"
                                     }
                                   },
+                                  {
+                                    "keyword": "cca_title_frequency"
+                                  },                                  
                                   {
                                     "keyword": "cca_exposure_decrstabincr"
                                   },
@@ -12585,12 +12560,6 @@
                                   },
                                   {
                                     "keyword": "cca_title_intensity"
-                                  },
-                                  {
-                                    "keyword": "cca_exposure_other_specify_other",
-                                    "form_options": {
-                                      "label_position": "placeholder"
-                                    }
                                   },
                                   {
                                     "keyword": "cca_exposure_decrstabincr_other"

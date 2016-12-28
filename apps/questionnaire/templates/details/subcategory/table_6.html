@@ -20,7 +20,7 @@
       <thead>
         <tr>
           {% if layout == 'no_label_row' %}
-            <th style="width: 50%">{{ table_headers.1 }}</th>
+            <th style="width: 50%">{{ table_headers.0 }}</th>
             {% for header in table_headers %}
               {% if forloop.counter == 1 %}
                 <th style="width: 30%"></th>
@@ -50,15 +50,11 @@
             {% for qg in questiongroup.data_labelled %}
               <tr>
                 {% if questiongroup.layout == 'no_label_row' %}
-                  <td rowspan="2">{{ qg.1.1.0 }}</td>
+                  <td rowspan="2">{{ qg.0.1.0 }}</td>
                   {% for k, values in qg %}
-                    {% if forloop.counter == 1 or forloop.counter == 4 %}
-                    {% endif %}
-                  {% endfor %}
-                  {% for k, values in qg %}
-                    {% if forloop.counter == 1 or forloop.counter == 5 %}
+                    {% if forloop.counter == 2 or forloop.counter == 5 %}
                       <td>{{ k }}</td>
-                    {% elif forloop.counter == 4 or forloop.counter == 8 %}
+                    {% elif forloop.counter == 4 or forloop.counter == 7 %}
                       <td>
                         <ul class="chart-measure-labelled" style="line-height: 0.5rem">
                           {% with 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec' as list %}
@@ -78,7 +74,7 @@
                           {% endwith %}
                         </ul>
                       </td>
-                    {% elif forloop.counter != 2 and forloop.counter != 6 %}     
+                    {% elif forloop.counter == 3 or forloop.counter == 6 %}     
                       <td>
                         {% for v in values %}                        
                           {{ v }}
