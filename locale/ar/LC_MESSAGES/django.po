@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-27 07:06+0100\n"
-"PO-Revision-Date: 2016-12-22 14:06+0000\n"
+"POT-Creation-Date: 2016-12-29 07:35+0100\n"
+"PO-Revision-Date: 2016-12-29 06:33+0000\n"
 "Last-Translator: Farrukh Nazarmavloev <fnazarmavloev@unccd.int>\n"
 "Language-Team: Arabic (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ar/)\n"
@@ -77,8 +77,8 @@ msgid "Public questionnaires"
 msgstr ""
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1024
-#: apps/questionnaire/tests/test_utils.py:1032
+#: apps/questionnaire/tests/test_utils.py:1025
+#: apps/questionnaire/tests/test_utils.py:1033
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:146
 msgid "Login"
@@ -167,6 +167,7 @@ msgstr ""
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:41
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:43
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:42
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:42
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:42
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:41
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:42
@@ -184,6 +185,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -202,6 +204,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -213,6 +216,7 @@ msgstr ""
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:56
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:58
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:57
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:57
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:56
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:57
@@ -7027,7 +7031,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2901
 msgctxt "technologies label"
 msgid "General information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:2902
 msgctxt "technologies helptext"
@@ -7550,7 +7554,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3044
 msgctxt "unccd label"
 msgid "Explain the reasons:"
-msgstr ""
+msgstr "شرح الأسباب"
 
 #: apps/configuration/configuration_translations.py:3045
 #: apps/configuration/configuration_translations.py:4726
@@ -7963,7 +7967,7 @@ msgstr "التكرار"
 #: apps/configuration/configuration_translations.py:5983
 msgctxt "unccd label"
 msgid "General Information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:4902
 msgctxt "unccd label"
@@ -8037,7 +8041,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5004
 msgctxt "unccd label"
 msgid "Title of best practice"
-msgstr ""
+msgstr "عنوان أفضل الممارسات"
 
 #: apps/configuration/configuration_translations.py:5005
 msgctxt "watershed label"
@@ -8047,32 +8051,32 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5006
 msgctxt "approaches label"
 msgid "Country"
-msgstr ""
+msgstr "بلد"
 
 #: apps/configuration/configuration_translations.py:5007
 msgctxt "cca label"
 msgid "Country"
-msgstr ""
+msgstr "بلد"
 
 #: apps/configuration/configuration_translations.py:5008
 msgctxt "technologies label"
 msgid "Country"
-msgstr ""
+msgstr "بلد"
 
 #: apps/configuration/configuration_translations.py:5009
 msgctxt "unccd label"
 msgid "Country"
-msgstr ""
+msgstr "بلد"
 
 #: apps/configuration/configuration_translations.py:5010
 msgctxt "watershed label"
 msgid "Country"
-msgstr ""
+msgstr "بلد"
 
 #: apps/configuration/configuration_translations.py:5011
 msgctxt "wocat label"
 msgid "Country"
-msgstr ""
+msgstr "بلد"
 
 #: apps/configuration/configuration_translations.py:5012
 msgctxt "approaches helptext"
@@ -11008,37 +11012,37 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5981
 msgctxt "approaches label"
 msgid "General Information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:5982
 msgctxt "technologies label"
 msgid "General Information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:5984
 msgctxt "approaches label"
 msgid "Specifications"
-msgstr ""
+msgstr "Specifications"
 
 #: apps/configuration/configuration_translations.py:5985
 msgctxt "technologies label"
 msgid "Specifications"
-msgstr ""
+msgstr "Specifications"
 
 #: apps/configuration/configuration_translations.py:5986
 msgctxt "unccd label"
 msgid "Specifications"
-msgstr ""
+msgstr "Specifications"
 
 #: apps/configuration/configuration_translations.py:5987
 msgctxt "technologies label"
 msgid "Analysis"
-msgstr ""
+msgstr "تحليل"
 
 #: apps/configuration/configuration_translations.py:5988
 msgctxt "unccd label"
 msgid "Analysis"
-msgstr ""
+msgstr "تحليل"
 
 #: apps/configuration/configuration_translations.py:7001
 msgctxt "approaches label"
@@ -13021,7 +13025,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:8901
 msgctxt "approaches label"
 msgid "General information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:8902
 msgctxt "approaches helptext"
@@ -13151,7 +13155,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:21000
 msgctxt "cca label"
 msgid "General Information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:21100
 msgctxt "cca label"
@@ -15907,7 +15911,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:32901
 msgctxt "watershed label"
 msgid "General information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: apps/configuration/configuration_translations.py:32902
 msgctxt "watershed helptext"
@@ -16438,6 +16442,7 @@ msgid "Editor:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
+#: apps/questionnaire/templates/details/category/approaches_header.html:91
 #: apps/questionnaire/templates/details/category/approaches_header.html:101
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
@@ -16446,6 +16451,8 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
+#: apps/questionnaire/templates/details/category/technologies_header.html:91
+#: apps/questionnaire/templates/details/category/technologies_header.html:101
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -16494,6 +16501,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/approaches_header.html:103
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:103
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:98
@@ -17905,6 +17913,7 @@ msgid "SAMPLE"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:71
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:71
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:71
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
 msgid "This SLM Technology is linked to SLM Approaches"

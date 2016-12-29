@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 from unittest.mock import patch
 
+from django.test.utils import override_settings
+
 from accounts.client import Typo3Client
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire, QuestionnaireLink
@@ -9,6 +11,7 @@ from sample.tests.test_views import route_questionnaire_new
 route_add_module = 'sample:add_module'
 
 
+@override_settings(IS_ACTIVE_FEATURE_MODULE=True)
 @patch.object(Typo3Client, 'get_user_id')
 class AddModuleTest(FunctionalTest):
 
