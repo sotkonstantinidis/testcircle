@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load date_format %}
+
 {% comment %}
   Render the questiongroup as table. The labels of the keys are used as table
   headers, each questiongroup takes up one row of the table.
@@ -15,89 +18,18 @@
     <col width="{{ width }}">
   {% endfor %}
   <thead>
-    {% for key in keys %}
-      {% if forloop.counter == 2 or forloop.counter == 7 %}
-        <th>{{ key }}</th>
-        {% if forloop.counter == 7 %}
-          <th></th>
-        {% endif %}
-      {% elif forloop.counter == 3 %}
-        <th colspan="2">From</th>
-      {% elif forloop.counter == 5 %}
-        <th colspan="2">To</th>
-      {% endif %}
-    {% endfor %}
+    <td>{{ keys.1 }}</td>
+    <td>{% trans "From" %}</td>
+    <td>{% trans "To" %}</td>
+    <td>{{ keys.6 }}</td>
   </thead>
   <tbody>
     {% for questiongroup in questiongroups %}
       <tr>
-        {% for question in questiongroup %}
-          {% if forloop.counter == 2 or forloop.counter == 7 %}
-            <td style="line-height: 7px">{{ question }}</td>
-          {% elif forloop.counter == 3 %}
-            <td colspan="2">{{ question }}
-          {% elif forloop.counter == 4 %}
-            {% with q=question.strip|safe %}
-              {% if q == '1' %}
-                January
-              {% elif q == '2' %}
-                February
-              {% elif q == '3' %}
-                March
-              {% elif q == '4' %}
-                April
-              {% elif q == '5' %}
-                May
-              {% elif q == '6' %}
-                June
-              {% elif q == '7' %}
-                July
-              {% elif q == '8' %}
-                August
-              {% elif q == '9' %}
-                September
-              {% elif q == '10' %}
-                October
-              {% elif q == '11' %}
-                November
-              {% elif q == '12' %}
-                December
-              {% endif %}
-              </td>
-            {% endwith %}
-          {% elif forloop.counter == 5 %}
-            <td colspan="2">{{ question }}
-          {% elif forloop.counter == 6 %}
-            {% with q=question.strip|safe %}
-              {% if q == '1' %}
-                January
-              {% elif q == '2' %}
-                February
-              {% elif q == '3' %}
-                March
-              {% elif q == '4' %}
-                April
-              {% elif q == '5' %}
-                May
-              {% elif q == '6' %}
-                June
-              {% elif q == '7' %}
-                July
-              {% elif q == '8' %}
-                August
-              {% elif q == '9' %}
-                September
-              {% elif q == '10' %}
-                October
-              {% elif q == '11' %}
-                November
-              {% elif q == '12' %}
-                December
-              {% endif %}
-              </td>
-            {% endwith %}
-          {% endif %}
-        {% endfor %}
+        <td>{{ questiongroup.1 }}</td>
+        <td>{{ questiongroup.3|month_name:'F' }} {{ questiongroup.2 }}</td>
+        <td>{{ questiongroup.5|month_name:'F' }} {{ questiongroup.4 }}</td>
+        <td>{{ questiongroup.6 }}</td>
       </tr>
     {% endfor %}
   </tbody>

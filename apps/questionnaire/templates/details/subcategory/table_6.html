@@ -1,3 +1,5 @@
+{% load list_to_columns %}
+
 {% comment %}
   Table where each questiongroup occupies one row. The first column is filled with the label of the questiongroup.
 
@@ -56,25 +58,9 @@
                       <td>{{ k }}</td>
                     {% elif forloop.counter == 4 or forloop.counter == 7 %}
                       <td>
-                        <ul class="chart-measure-labelled" style="line-height: 0.5rem">
-                          {% with 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec' as list %}
-                            {% for month in list.split %}
-                              {% with found=0 %}      
-                                {% if month in values %}
-                                  <li class="step is-level-5" style="padding: 0.5rem">
-                                    {{ month }}
-                                  </li>
-                                {% else %}
-                                  <li class="step is-level-1" style="padding: 0.5rem">
-                                    {{ month }}
-                                  </li>
-                                {% endif %}
-                              {% endwith %}
-                            {% endfor %}
-                          {% endwith %}
-                        </ul>
+                        {% include 'details/field/year_bar.html' with selected_months=questiongroup.data|get_by_index:forloop.parentloop.counter0|get_by_index:forloop.counter0|get_by_index:1 %}
                       </td>
-                    {% elif forloop.counter == 3 or forloop.counter == 6 %}     
+                    {% elif forloop.counter == 3 or forloop.counter == 6 %}
                       <td>
                         {% for v in values %}                        
                           {{ v }}
@@ -94,23 +80,7 @@
                       <td>{{ k }}</td>
                     {% elif forloop.counter == 3 or forloop.counter == 6 %}
                       <td>
-                        <ul class="chart-measure-labelled" style="line-height: 0.5rem">
-                          {% with 'Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec' as list %}
-                            {% for month in list.split %}
-                              {% with found=0 %}      
-                                {% if month in values %}
-                                  <li class="step is-level-5" style="padding: 0.5rem">
-                                    {{ month }}
-                                  </li>
-                                {% else %}
-                                  <li class="step is-level-1" style="padding: 0.5rem">
-                                    {{ month }}
-                                  </li>
-                                {% endif %}
-                              {% endwith %}
-                            {% endfor %}
-                          {% endwith %}
-                        </ul>
+                        {% include 'details/field/year_bar.html' with selected_months=questiongroup.data|get_by_index:forloop.parentloop.counter0|get_by_index:forloop.counter0|get_by_index:1 %}
                       </td>
                     {% else %}     
                       <td>
