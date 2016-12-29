@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-27 07:06+0100\n"
-"PO-Revision-Date: 2016-12-27 04:56+0000\n"
+"POT-Creation-Date: 2016-12-29 07:35+0100\n"
+"PO-Revision-Date: 2016-12-29 06:33+0000\n"
 "Last-Translator: BE GECHKIM <gechkim@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
@@ -79,8 +79,8 @@ msgid "Public questionnaires"
 msgstr "កម្រងបញ្ជីសំណួរសាធារណៈ"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1024
-#: apps/questionnaire/tests/test_utils.py:1032
+#: apps/questionnaire/tests/test_utils.py:1025
+#: apps/questionnaire/tests/test_utils.py:1033
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:146
 msgid "Login"
@@ -169,6 +169,7 @@ msgstr "មិនឃើញមានវិធីសាស្ត្រផ្សព
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:41
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:43
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:42
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:42
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:42
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:41
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:42
@@ -186,6 +187,7 @@ msgstr "មិនមានការពិពណ៌នាទេ។"
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -204,6 +206,7 @@ msgstr "អ្នកចងក្រង៖"
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -215,6 +218,7 @@ msgstr "អ្នកចងក្រង៖"
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:56
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:58
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:57
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:57
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:56
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:57
@@ -6462,7 +6466,7 @@ msgstr "ឈ្មោះនៃបច្ចេកទេស SLM (hereafter referred
 #: apps/configuration/configuration_translations.py:2704
 msgctxt "technologies label_view"
 msgid "Name of the SLM Technology"
-msgstr ""
+msgstr "ឈ្មោះនៃបច្ចេកទេស SLM"
 
 #: apps/configuration/configuration_translations.py:2705
 msgctxt "technologies helptext"
@@ -6470,6 +6474,8 @@ msgid ""
 "Describe the Technology in one sentence containing key words. The definition "
 "of a Technology is very important for searching the database."
 msgstr ""
+"ពណ៌នាអំពីបច្ចេកទេសដែលក្នុងមួយប្រយោគជាមួយពាក្យគន្លឹះ។ "
+"និយមន័យនៃបច្ចេកទេសគឺពិតជាសំខាន់សម្រាប់ស្វែងរកក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យ។"
 
 #: apps/configuration/configuration_translations.py:2707
 msgctxt "technologies helptext"
@@ -6487,7 +6493,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2798
 msgctxt "technologies label"
 msgid "Description of the Technology"
-msgstr ""
+msgstr "ការពណ៌នាពីបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2709
 msgctxt "technologies helptext"
@@ -6499,6 +6505,11 @@ msgid ""
 "include other sites where the same Technology is applied but no data has "
 "been collected."
 msgstr ""
+"បច្ចេកទេសដែលបានពណ៌នាត្រូវបានអនុវត្តន៍កន្លែងផ្សេងៗពីគ្នា។ ទោះបីជាយ៉ាងណាក៏ដោយ "
+"កំណត់ពត៌មាននៅក្នុងបញ្ជីសំណួរនេះ គឺប្រើចំពោះ កន្លែងទាំងឡាយណាដែលត្រូវបានធ្វើការវាយតម្លៃ/"
+"បានធ្វើការវិភាគនៅក្នុងដំណើរការសម្រាប់ចងក្រងឯកសារ(តាមរយៈការចុះទីវាល "
+"សម្ភាសន៍ជាមួយអ្នកប្រើប្រាស់ដីផ្សេងគ្នា របាយការណ៍ ។ល។)។ "
+"សូមកុំយកទីតាំងផ្សេងដែលបានអនុវត្តបច្ចេកទេសដូចគ្នា ប៉ុន្តែទិន្នន័យមិនត្រូវបានប្រមូលនោះទេ។"
 
 #: apps/configuration/configuration_translations.py:2710
 msgctxt "technologies label"
@@ -6506,12 +6517,13 @@ msgid ""
 "Country/ region/ locations where the Technology has been applied and which "
 "are covered by this assessment"
 msgstr ""
+"ប្រទេស/តំបន់/ទីតាំងកន្លែង ដែលបច្ចេកទេសត្រូវបានអនុវត្តន៍និងបានគ្រប់ដណ្តប់ដោយការវាយតម្លៃនេះ"
 
 #: apps/configuration/configuration_translations.py:2711
 msgctxt "technologies label"
 msgid ""
 "Indicate the main purpose(s) of the SLM technology (land user's perspective)"
-msgstr ""
+msgstr "កំណត់គោលបំណងចម្បងមួយ (ច្រើន) នៃបច្ចេកទេស SLM (ទស្សនៈអ្នកប្រើប្រាស់ដី)"
 
 #: apps/configuration/configuration_translations.py:2712
 msgctxt "technologies helptext"
@@ -6521,12 +6533,16 @@ msgid ""
 "<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made "
 "structures (buildings, etc.) that cover the earth’s surface.</p>"
 msgstr ""
+"<strong>ការប្រើប្រាស់ដី</strong>៖ សកម្មភាពមនុស្សដែលពាក់ព័ន្ធទៅនឹងដីដោយផ្ទាល់ "
+"តាមរយៈការប្រើប្រាស់ធនធានដី ឬក៏ធ្វើឱ្យមានផលប៉ះពាល់ដល់ដី។ <br><strong>គម្រប់ដី </strong>៖ "
+"សារពើរុក្ខជាតិ (ដោយធម្មជាតិ ឬតាមរយៈការដាំដុះ) ឬរចនាសម្ព័ន្ធដែលមនុស្សបង្កើតឡើង (អគារ។"
+"ល។)ដែលគ្រប់ដណ្តប់ នៅលើផ្ទៃដីផ្នែកខាងលើ។</p>"
 
 #: apps/configuration/configuration_translations.py:2713
 #: apps/configuration/configuration_translations.py:2817
 msgctxt "technologies label"
 msgid "Current land use type(s) where the Technology is applied"
-msgstr ""
+msgstr "ប្រភេទដីប្រើប្រាស់មួយប្រភេទ (ច្រើនប្រភេទ) ដែលបានអនុវត្តន៍បច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2715
 msgctxt "technologies helptext"
@@ -6534,12 +6550,14 @@ msgid ""
 "Assign the described Technology to one of the following SLM groups. If this "
 "is not possible, select several (max. 3) groups to represent the Technology"
 msgstr ""
+"ជ្រើសរើសមួយក្នុងចំណោមបណ្តុំនៃ SLM ដែលបច្ចេកទេសត្រូវបានយកមកអនុវត្តន៍។ "
+"អាចជ្រើសចម្លើយបានច្រើន(បំផុត 3)៖"
 
 #: apps/configuration/configuration_translations.py:2717
 #: apps/configuration/configuration_translations.py:2832
 msgctxt "technologies label"
 msgid "Main types of land degradation addressed by the Technology"
-msgstr ""
+msgstr "កំណត់ប្រភេទនៃដីសិករេចរិលសំខាន់ៗដែលបច្ចេកទេសនេះបានដោះស្រាយ"
 
 #: apps/configuration/configuration_translations.py:2718
 msgctxt "technologies helptext"
@@ -6554,23 +6572,30 @@ msgid ""
 "material used</li><li>Species used</li><li>Quantity/ density of plants (per "
 "ha)</li></ul>"
 msgstr ""
+"<p>សង្ខេបពីបច្ចេកទេសឱ្យច្បាស់លាស់ ឧទាហរណ៍៖ </p><ul><li>ទំហំ (កម្ពស់, ជម្រៅ, ទទឹង, បណ្តោយ) "
+"នៃរចនាសម្ព័ន្ធ ឬ សមាសធាតុនៃសារពើរុក្ខជាតិ </li><li>ចន្លោះរវាងរចនាសម្ព័ន្ធ "
+"ឬវិធានការណ៍សារពើរុក្ខជាតិ</li><li>រចនាសម្ព័ន្ធចន្លោះបញ្ឈរ ឬ វិធានការណ៍សារពើរុក្ខជាតិ</"
+"li><li>ជម្រាលមុំ (មុន និងក្រោយការអនុវត្តបច្ចេកទេស)</li><li>ទម្រង់នៃកម្រិតជម្រាលផ្នែកចំហៀង</"
+"li><li>សមត្ថភាពនៃទំនប់, ស្រះទឹក​។ល។ </li><li>កន្លែងស្តុកទឹក និងអត្ថប្រយោជន៍នៃទំនប់ទឹក, ស្រះទឹក, "
+"ប្រព័ន្ធស្តុកទុកទឹកផ្សេងៗទៀត</li><li>សម្ភារៈប្រើក្នុងការសាងសង់</li><li>ប្រភេទដែលត្រូវបានប្រើ</"
+"li><li>បរិមាណ/ ចំនួនដំណាំ (ក្នុងមួយហិកតា)</li></ul>"
 
 #: apps/configuration/configuration_translations.py:2719
 msgctxt "technologies label"
 msgid "Technical specifications/ explanations of technical drawing"
-msgstr ""
+msgstr "លក្ខណៈពិសេសនៃបច្ចេកទេស/ ពណ៌នាពីគំនូរបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2720
 msgctxt "technologies helptext"
 msgid ""
 "List establishment activities for the Technology (in sequence) and indicate "
 "timing"
-msgstr ""
+msgstr "សូមរាយក្នុងតារាងនូវសកម្មភាពបង្កើតសម្រាប់បច្ចេកទេស (តាមលំដាប់) និងបញ្ជាក់ពេលវេលា "
 
 #: apps/configuration/configuration_translations.py:2721
 msgctxt "technologies label"
 msgid "Establishment activities"
-msgstr ""
+msgstr "សកម្មភាពបង្កើត"
 
 #: apps/configuration/configuration_translations.py:2722
 msgctxt "technologies helptext"
@@ -6578,25 +6603,27 @@ msgid ""
 "Costs and inputs specified in this question should refer to the area/ unit "
 "defined in 5.1 and to the activities listed in 5.2"
 msgstr ""
+"ថ្លៃដើម និងធាតុចូលដែលបានកំណត់នៅក្នុងកម្រងសំណួរនេះគួរផ្តោតទៅលើទំហំបច្ចេកទេស/ ឯកតាបច្ចេកទេស "
+"ដែលកំណត់នៅចំណុច 5.1 និងតារាងសកម្មភាព 5.2 ។ "
 
 #: apps/configuration/configuration_translations.py:2723
 #: apps/configuration/configuration_translations.py:2803
 #: apps/configuration/configuration_translations.py:2838
 msgctxt "technologies label"
 msgid "Costs and inputs needed for establishment"
-msgstr ""
+msgstr "ថ្លៃដើម និងធាតុចូលដែលត្រូវការសម្រាប់ការបង្កើតបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2724
 msgctxt "technologies helptext"
 msgid ""
 "List maintenance/ recurrent activities for the Technology (in sequence) and "
 "indicate timing"
-msgstr ""
+msgstr "តារាងការថែទាំ/ សកម្មភាពចរន្តសម្រាប់បច្ចេកទេស (តាមលំដាប់) និងបញ្ជាក់ពីពេលវេលា"
 
 #: apps/configuration/configuration_translations.py:2725
 msgctxt "technologies label"
 msgid "Maintenance/ recurrent activities"
-msgstr ""
+msgstr "ការថែទាំ/ សកម្មភាព"
 
 #: apps/configuration/configuration_translations.py:2726
 msgctxt "technologies helptext"
@@ -6605,6 +6632,8 @@ msgid ""
 "defined in 5.1 (e.g. 2.5 hectares, 250m terrace wall), and to the activities "
 "listed in 5.4."
 msgstr ""
+"ថ្លៃដើម និងធាតុចូលដែលបានកំណត់នៅក្នុងកម្រងសំណួរនេះគួរផ្តោតទៅលើទំហំបច្ចេកទេស/ ឯកតាបច្ចេកទេស "
+"ដែលកំណត់នៅចំណុច 5.1 (ឧ. 2.5 ហិកតា, 250 ម )និងតារាងសកម្មភាព 5.4 ។"
 
 #: apps/configuration/configuration_translations.py:2727
 #: apps/configuration/configuration_translations.py:2805
@@ -6612,45 +6641,45 @@ msgstr ""
 msgctxt "technologies label"
 msgid ""
 "Costs and inputs needed for maintenance/ recurrent activities (per year)"
-msgstr ""
+msgstr "កំណត់ថ្លៃដើមសម្រាប់ការថែទាំ/ សកម្មភាពរបស់បច្ចេកទេស (ក្នុងរយៈពេលមួយឆ្នាំ)"
 
 #: apps/configuration/configuration_translations.py:2728
 msgctxt "technologies label"
 msgid "Climate"
-msgstr ""
+msgstr "អាកាសធាតុ"
 
 #: apps/configuration/configuration_translations.py:2729
 msgctxt "technologies label"
 msgid "Topography"
-msgstr ""
+msgstr "សណ្ឋានដី"
 
 #: apps/configuration/configuration_translations.py:2730
 msgctxt "technologies helptext"
 msgid "<p>Maximum 2 answers per question.</p>"
-msgstr ""
+msgstr "<p>ច្រើនបំផុត 2ចម្លើយក្នុងមួយសំណួរ។ </p>"
 
 #: apps/configuration/configuration_translations.py:2731
 msgctxt "technologies label"
 msgid "Soils"
-msgstr ""
+msgstr "ដី"
 
 #: apps/configuration/configuration_translations.py:2732
 #: apps/configuration/configuration_translations.py:2753
 msgctxt "technologies label"
 msgid "Water availability and quality"
-msgstr ""
+msgstr "ទឹកដែលអាចទាញមកប្រើប្រាស់បាន និងគុណភាពទឹក"
 
 #: apps/configuration/configuration_translations.py:2733
 msgctxt "technologies helptext"
 msgid ""
 "<p>Indicate the state of biodiversity on the analysed sites relative to your "
 "region/ country standards.</p>"
-msgstr ""
+msgstr "កំណត់បង្ហាញពីស្ថានភាពជីវៈចម្រុះក្នុងតំបន់វិភាគទៅតាមស្តង់ដានៃប្រទេស ឬតំបន់របស់អ្នក។ "
 
 #: apps/configuration/configuration_translations.py:2734
 msgctxt "technologies label"
 msgid "Biodiversity"
-msgstr ""
+msgstr "ជីវៈចម្រុះ"
 
 #: apps/configuration/configuration_translations.py:2735
 msgctxt "technologies helptext"
@@ -6658,13 +6687,13 @@ msgid ""
 "Specify the characteristics of the average/ typical land users who apply the "
 "Technology. Indicate characteristics relative to your region/ country "
 "standards."
-msgstr ""
+msgstr "កំណត់លក្ខណៈនៃអ្នកប្រើប្រាស់ដីដែលអនុវត្តបច្ចេកទេស។ កំណត់លក្ខណៈទៅតាមស្តង់ដារ​របស់ប្រទេសអ្នក។"
 
 #: apps/configuration/configuration_translations.py:2736
 #: apps/configuration/configuration_translations.py:2808
 msgctxt "technologies label"
 msgid "Land user applying the SLM Technology"
-msgstr ""
+msgstr "អ្នកប្រើប្រាស់ដីដែលអនុវត្តន៍បច្ចេកទេស SLM"
 
 #: apps/configuration/configuration_translations.py:2737
 msgctxt "technologies helptext"
@@ -6672,16 +6701,18 @@ msgid ""
 "Refer to the total area used per household (leased and owned land), "
 "including the land where no Technology is applied."
 msgstr ""
+"គិតពីទំហំផ្ទៃដីសរុបរបស់គ្រួសារនីមួយៗ (ជួលគេ និងកម្មសិទ្ធផ្ទាល់) "
+"រួមបញ្ចូលទាំងដីដែលមិនបានអនុវត្តន៍បច្ចេកទេស។"
 
 #: apps/configuration/configuration_translations.py:2738
 msgctxt "technologies label"
 msgid "Average land size per household/ farm unit applying the Technology"
-msgstr ""
+msgstr "ទំហំផ្ទៃដីជាមធ្យមក្នុងមួយគ្រួសារ/ កសិដ្ឋានដែលអនុវត្តបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2739
 msgctxt "technologies label"
 msgid "Land ownership, land use, and water use rights"
-msgstr ""
+msgstr "ភាពជាម្ចាស់ដី, កម្មសិទ្ធដីប្រើប្រាស់, និងកម្មសិទ្ធប្រើប្រាស់ទឹក"
 
 #: apps/configuration/configuration_translations.py:2740
 #, python-format
@@ -6693,12 +6724,17 @@ msgid ""
 "strong>: Slightly positive (+5-20%%)</li><li><strong>2</strong>: Positive "
 "(+20-50%%)</li><li><strong>3</strong>: Very positive (+50-100%%)</li></ul>"
 msgstr ""
+"<ul><li><strong>-3</strong>: អវិជ្ជមានខ្លាំង (- 50-100%%)</li><li><strong>-2</"
+"strong>: អវិជ្ជមាន (- 20-50%%)</li><li><strong>-1</strong>: អវជ្ជមានតិចតួច (- "
+"5-20%%)</li><li><strong>0</strong>: ប៉ះពាល់តិចបំផុត</li><li><strong>1</strong>: "
+"វិជ្ជមានតិចតួច (+5-20%%)</li><li><strong>2</strong>:វិជ្ជមាន (+20-50%%)</"
+"li><li><strong>3</strong>: វិជ្ជមានខ្លាំង(+50-100%%)</li></ul>"
 
 #: apps/configuration/configuration_translations.py:2741
 #: apps/configuration/configuration_translations.py:2812
 msgctxt "technologies label"
 msgid "Indicate the on-site impacts the SLM technology has shown"
-msgstr ""
+msgstr "កំណត់ពីផលប៉ះពាល់ក្នុងបរិវេណអនុវត្តបច្ចេកទេសដែលកើតមាន"
 
 #: apps/configuration/configuration_translations.py:2742
 msgctxt "technologies helptext"
@@ -6723,21 +6759,40 @@ msgid ""
 "Napier grass on the upper part of the bund, and maize residues in the ditch "
 "below. (Photo: H.P. Liniger)</p></div></div>"
 msgstr ""
+"<ul><li>សូមផ្តល់រូបថតដែលបង្ហាញពីទិដ្ឋភាពរួម និងលំអិតនៃបច្ចេកទេស។</"
+"li><li>សូមផ្តល់រូបថតយ៉ាងតិចពីរជាប្រភេទ (JPG, PNG,GIF)។ល។"
+"ជាឯកសាររូបភាពដែលបានមកពីកាម៉េរ៉ាឌីជីថល ឬតាមរយៈស្គែន ពីម៉ាស៊ីន ព្រីន ពីវីឌីអូ ឬហ្វីល។</"
+"li><li>ទំហំធំបំផុតត្រឹម 3 MB។</li><li>រូបភាពគួរតែមានគុណភាពខ្ពស់ និងមិនត្រូវបានកែពីទ្រង់ទ្រាយដើម។"
+"</li><li>ការពន្យល់(ពិពណ៌នា) គឺស្នើរឱ្យដាក់រូបភាពនីមួយៗ! "
+"រូបភាពត្រូវតែផ្សាភ្ជាប់គ្នាទៅនឹងការពណ៌នានៅក្នុងចំណុច 2.2 "
+"និងជួយបង្ហាញបច្ចេកទេសដោយធ្វើការគូសនៅក្នុងចំណុច 4.1។</"
+"li><li>រូបភាពដែលសមរម្យត្រូវតែបង្ហាញស្ថានភាពមុន និងក្រោយពេល ឬមាន "
+"និងគ្មានការវាស់ស្ទង់ពីការគ្រប់គ្រងដីប្រកបដោយចីរភាព។</li><li>រូបភាពដែលល្អ "
+"គឺមានសារៈសំខាន់ខ្លាំងណាស់សម្រាប់ការយល់ដឹង និងការបង្ហាញពីលក្ខណៈសំខាន់នៃបច្ចេកទេស។</li></"
+"ul><p><strong>ឧទាហរណ៍៖</strong></p><div class=\"row\"><div class=\"medium-6 "
+"columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class="
+"\"form-example-legend\"><strong>ទិដ្ឋភាពរួម </strong>: "
+"ការរៀបចំដីជាថ្នាក់ៗនៅជម្រាលភ្នំហ្វេនយ៉ា ជូ (Fanyajuu) ដែលមានស្មៅជាភ្លឺ</p></div><div "
+"class=\"medium-6 columns\"><img src=\"/static/assets/img/"
+"mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend"
+"\"><strong>ទិដ្ឋភាពលំអិត</strong>: ភ្លឺហ្វេនយ៉ា ជូ នៅក្នុងចំការពោតបន្ទាប់ពីប្រមូលផល ស្មៅនេបផឺ "
+"នៅលើភ្លឺ និងកាកសំណល់ដើមពោតនៅជាប់ភ្លឺ។ (ថតដោយ៖ Machakos, Kenya; H.P.Liniger)</p></"
+"div></div>"
 
 #: apps/configuration/configuration_translations.py:2743
 msgctxt "technologies label"
 msgid "Photos of the Technology"
-msgstr ""
+msgstr "​រូបភាពនៃបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2744
 msgctxt "technologies helptext"
 msgid "Tick max. two answers."
-msgstr ""
+msgstr "គូសបានច្រើនបំផុត 2 ចម្លើយ"
 
 #: apps/configuration/configuration_translations.py:2745
 msgctxt "technologies label"
 msgid "Prevention, reduction, or restoration of land degradation"
-msgstr ""
+msgstr "ការពារ កាត់បន្ថយ ឬស្តារឡើងវិញនៃឱនភាពដី"
 
 #: apps/configuration/configuration_translations.py:2746
 msgctxt "technologies helptext"
@@ -6756,17 +6811,27 @@ msgid ""
 "technical specifications, dimensions, spacing<br><img src=\"/static/assets/"
 "img/qt_technical_drawing.jpg\"></img></p>"
 msgstr ""
+"<p>សូមគូសរូបដែលបង្ហាញពីបច្ចេកវិជ្ចាឱ្យលំអិត (រួមបញ្ចូលទំហំ) និងកំណត់ឱ្យលំអិតពីបច្ចេកទេស ទំហំ ចន្លោះ "
+"ភាពទេរ ។ល។ អ្នកអាចគំរូបង្ហាញពីរ ឬបីបន្ថែម (ក) លំដាប់នៃដំណើរការ ឬ (ខ) ធាតុផ្សេងៗ "
+"ឬលំអិតពីបច្ចេកទេស។ មួយវិញទៀតអ្នកក៏អាចថតរូបមួយ ឬច្រើនជាមួយគំនូសបង្ហាញដែលបានគូស និង/ឬ "
+"សរសេរខាងក្រោយរូបថត (នីមួយៗ)។ "
+"សរសេរព័ត៌មានដែលទទួលបានឱ្យបានច្រើនតាមដែលអាចធ្វើបាននៅលើគំនូសបច្ចេកទេស (ឬ រូបថត)។</"
+"p><p>រក្សាគំនូសធម្មតា និងគំនូសព្រួញ។ គំនូសបច្ចេកទេសគឺមានសារៈសំខាន់ណាស់ក្នុងការយល់ដឹងពីបច្ចេកទេស! "
+"ស្កេនគំំនូសបច្ចេកទេស និងដាក់បញ្ចូលក្នុងប្រព័ន្ធ    អ៊ិនធឺណេត។</p><p>សូមផ្តល់ជាប្រភេទ PDF, JPG, "
+"PNG ដែលមានទំហំត្រឹម 3 MB។ </p><p><strong>ឧទាហរណ៍</strong>៖ "
+"គំនូរបច្ចេកទេសគួរបង្ហាញពីបច្ចេកទេស, វិមាត្រ, គម្លាត ជាក់លាក់<br><img src=\"/static/"
+"assets/img/qt_technical_drawing.jpg\"></img></p>"
 
 #: apps/configuration/configuration_translations.py:2747
 #: apps/configuration/configuration_translations.py:2834
 msgctxt "technologies label"
 msgid "Technical drawing of the Technology"
-msgstr ""
+msgstr "គំនូសបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2748
 msgctxt "technologies label"
 msgid "General information regarding inputs and costs"
-msgstr ""
+msgstr "ព័ត៌មានទូទៅដែលពាក់ព័ន្ធនឹងធាតុចូល និងថ្លៃដើម"
 
 #: apps/configuration/configuration_translations.py:2749
 msgctxt "technologies helptext"
@@ -6792,6 +6857,8 @@ msgid ""
 "Exposure and sensitivity of the Technology to gradual climate change and "
 "climate-related extremes (disasters)"
 msgstr ""
+"ការប៉ះពាល់ និងភាពផ្លាស់ប្តូរនៃបច្ចេកវិទ្យាទៅនឹងការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ "
+"(គ្រោះមហន្តរាយ) "
 
 #: apps/configuration/configuration_translations.py:2751
 msgctxt "technologies label"
@@ -16784,6 +16851,7 @@ msgid "Editor:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
+#: apps/questionnaire/templates/details/category/approaches_header.html:91
 #: apps/questionnaire/templates/details/category/approaches_header.html:101
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
@@ -16792,6 +16860,8 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
+#: apps/questionnaire/templates/details/category/technologies_header.html:91
+#: apps/questionnaire/templates/details/category/technologies_header.html:101
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -16840,6 +16910,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/approaches_header.html:103
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:103
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:98
@@ -18251,6 +18322,7 @@ msgid "SAMPLE"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:71
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:71
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:71
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
 msgid "This SLM Technology is linked to SLM Approaches"
