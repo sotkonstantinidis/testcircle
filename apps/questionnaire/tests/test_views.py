@@ -276,6 +276,7 @@ class GenericQuestionnaireDetailsTest(TestCase):
             self, mock_query_questionnaire, mock_get_details,
             mock_get_query_status_filter, mock_render):
         mock_query_questionnaire.return_value.first.return_value.data = {}
+        mock_query_questionnaire.return_value.first.return_value.code = 'foo'
         self.request.user.is_authenticated.return_value = True
         generic_questionnaire_details(self.request, *get_valid_details_values())
         self.assertTrue(mock_get_details.called)
@@ -318,17 +319,21 @@ class GenericQuestionnaireDetailsTest(TestCase):
         img = mock_conf.return_value.get_image_data.return_value
         mock_render.assert_called_once_with(
             self.request, 'questionnaire/details.html', {
-                'sections': mock_conf.return_value.get_details.return_value,
-                'questionnaire_identifier': 'foo',
                 'images': img.get.return_value,
+                'sections': mock_conf.return_value.get_details.return_value,
+                'links': {},
+                'modules': {},
+                'module_form_config': {},
+                'questionnaire_identifier': 'foo',
                 'permissions': mock_q_obj.get_roles_permissions.return_value.permissions,
                 'view_mode': 'view',
                 'toc_content': mock_conf.return_value.get_toc_data.return_value,
+                'review_config': {},
                 'base_template': 'sample/base.html',
-                'review_config': {}
             })
 
 
+@patch('configuration.utils.check_aliases')
 @patch('questionnaire.views.render')
 @patch('questionnaire.views.advanced_search')
 class GenericQuestionnaireListTest(TestCase):
@@ -341,7 +346,9 @@ class GenericQuestionnaireListTest(TestCase):
 
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_configuration(
-            self, mock_get_configuration, mock_advanced_search, mock_render):
+            self, mock_get_configuration, mock_advanced_search, mock_render,
+            mock_check_aliases):
+        mock_check_aliases.return_value = True
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_configuration.assert_called_once_with('sample')
 
@@ -349,26 +356,30 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.get_configuration')
     def test_calls_get_active_filters(
             self, mock_conf, mock_get_active_filters, mock_advanced_search,
-            mock_render):
+            mock_render, mock_check_aliases):
+        mock_check_aliases.return_value = True
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_active_filters.assert_called_once_with(
             [mock_conf.return_value], self.request.GET)
 
     @patch('questionnaire.views.get_limit_parameter')
     def test_calls_get_limit_parameter(
-            self, mock_get_limit_parameter, mock_advanced_search, mock_render):
+            self, mock_get_limit_parameter, mock_advanced_search, mock_render,
+            mock_check_aliases):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_limit_parameter.assert_called_once_with(self.request)
 
     @patch('questionnaire.views.get_page_parameter')
     def test_calls_get_page_parameter(
-            self, mock_get_page_parameter, mock_advanced_search, mock_render):
+            self, mock_get_page_parameter, mock_advanced_search, mock_render,
+            mock_check_aliases):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_page_parameter.assert_called_once_with(self.request)
 
     @patch('questionnaire.views.get_list_values')
     def test_db_query_calls_get_list_values(
-            self, mock_get_list_values, mock_advanced_search, mock_render):
+            self, mock_get_list_values, mock_advanced_search, mock_render,
+            mock_check_aliases):
         self.request.user = Mock()
         self.request.user.is_authenticated.return_value = False
         generic_questionnaire_list(self.request, 'sample')
@@ -377,14 +388,16 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_es_calls_get_configuration_index_filter(
             self, mock_get_configuration_index_filter, mock_advanced_search,
-            mock_render):
+            mock_render, mock_check_aliases):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_configuration_index_filter.call_count, 2)
         mock_get_configuration_index_filter.assert_any_call(
             'sample', only_current=False, query_param_filter=())
         mock_get_configuration_index_filter.assert_any_call('sample')
 
-    def test_es_calls_advanced_search(self, mock_advanced_search, mock_render):
+    def test_es_calls_advanced_search(
+            self, mock_advanced_search, mock_render, mock_check_aliases):
+        mock_check_aliases.return_value = True
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_advanced_search.assert_called_once_with(
             filter_params=[], query_string='', configuration_codes=['sample'],
@@ -396,21 +409,24 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.ESPagination')
     def test_es_creates_esPagination(
             self, mock_ESPagination, mock_get_paginator, mock_get_list_values,
-            mock_get_pagination_parameters, mock_advanced_search, mock_render):
+            mock_get_pagination_parameters, mock_advanced_search, mock_render,
+            mock_check_aliases):
         mock_get_paginator.return_value = None, None
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_ESPagination.call_count, 1)
 
     @patch('questionnaire.views.get_list_values')
     def test_es_calls_get_list_values(
-            self, mock_get_list_values, mock_advanced_search, mock_render):
+            self, mock_get_list_values, mock_advanced_search, mock_render,
+            mock_check_aliases):
         generic_questionnaire_list(self.request, *get_valid_list_values())
         self.assertEqual(mock_get_list_values.call_count, 1)
 
     @patch.object(QuestionnaireConfiguration, 'get_filter_configuration')
     def test_calls_get_filter_configuration(
             self, mock_get_filter_configuration, mock_advanced_search,
-            mock_render):
+            mock_render, mock_check_aliases):
+        mock_check_aliases.return_value = True
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_filter_configuration.assert_called_once_with()
 
@@ -419,7 +435,8 @@ class GenericQuestionnaireListTest(TestCase):
     @patch('questionnaire.views.get_pagination_parameters')
     def test_calls_get_pagination_parameters(
             self, mock_get_pagination_parameters, mock_get_paginator,
-            mock_get_list_values, mock_advanced_search, mock_render):
+            mock_get_list_values, mock_advanced_search, mock_render,
+            mock_check_aliases):
         mock_get_paginator.return_value = None, None
         generic_questionnaire_list(self.request, *get_valid_list_values())
         mock_get_pagination_parameters.assert_called_once_with(
@@ -427,7 +444,8 @@ class GenericQuestionnaireListTest(TestCase):
 
     @patch('questionnaire.views.get_filter_configuration')
     def test_calls_render(
-            self, mock_filter_conf, mock_advanced_search, mock_render):
+            self, mock_filter_conf, mock_advanced_search, mock_render,
+            mock_check_aliases):
         mock_advanced_search.return_value = {}
         generic_questionnaire_list(self.request, *get_valid_list_values())
         ret = {
@@ -441,7 +459,7 @@ class GenericQuestionnaireListTest(TestCase):
             self.request, 'sample/questionnaire/list.html', ret)
 
     def test_returns_only_template_values_if_no_template(
-            self, mock_advanced_search, mock_render):
+            self, mock_advanced_search, mock_render, mock_check_aliases):
         ret = generic_questionnaire_list(self.request, 'sample', template=None)
         self.assertIsInstance(ret, dict)
 
@@ -616,6 +634,7 @@ class GenericQuestionnaireStepViewTest(TestCase):
         self.request.user = create_new_user()
         self.request._messages = MagicMock()
         self.view = self.setup_view(view, self.request, identifier='sample_1', step='cat_0')
+        self.view.form_has_errors = False
 
     def test_valid_step(self):
         self.view.get(self.request)

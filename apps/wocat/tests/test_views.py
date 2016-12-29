@@ -39,16 +39,6 @@ class WocatHomeTest(TestCase):
         view.kwargs = kwargs
         return view
 
-    @patch('wocat.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(
-            self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        view = self.setup_view(HomeView(), request)
-        view.get_context_data()
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'wocat', template=None,
-        )
-
     @patch.object(HomeView, 'get_context_data')
     def test_renders_correct_template(self, mock_ctx_data):
         mock_ctx_data.return_value = {}

@@ -1,3 +1,4 @@
+import logging
 from unittest import mock
 from unittest.mock import call
 
@@ -223,6 +224,7 @@ class ReadLogUpdateViewTest(TestCase):
 
     @mock.patch.object(ReadLogUpdateView, 'validate_data')
     def test_post_invalid(self, mock_validate_data):
+        logging.disable(logging.CRITICAL)
         mock_validate_data.return_value = False
         with self.assertRaises(Http404):
             self.view_instance.post(request=self.request)

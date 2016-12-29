@@ -1,4 +1,5 @@
 import json
+import logging
 import uuid
 from datetime import datetime
 
@@ -456,7 +457,7 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         metadata = questionnaire.get_metadata()
         self.assertIsInstance(metadata, dict)
-        self.assertEqual(len(metadata), 9)
+        self.assertEqual(len(metadata), 10)
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
         self.assertEqual(
@@ -467,6 +468,7 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(metadata['configurations'], ['sample'])
         self.assertEqual(metadata['translations'], ['en'])
         self.assertEqual(metadata['status'], ('draft', 'Draft'))
+        self.assertEqual(metadata['flags'], [])
 
     def test_has_links(self):
         questionnaire = get_valid_questionnaire(self.user)
@@ -596,6 +598,7 @@ class QuestionnaireModelTest(TestCase):
         self.assertIsNone(questionnaire.geom)
 
     def test_update_geometry_handles_invalid_geojson_2(self):
+        logging.disable(logging.CRITICAL)
         questionnaire = get_valid_questionnaire()
         questionnaire.data = {'qg_39': [{'key_56': json.dumps({
             "type": "FeatureCollection",

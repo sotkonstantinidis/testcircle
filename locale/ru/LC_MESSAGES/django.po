@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-27 07:06+0100\n"
-"PO-Revision-Date: 2016-12-22 08:55+0000\n"
-"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
+"POT-Creation-Date: 2016-12-29 07:35+0100\n"
+"PO-Revision-Date: 2016-12-29 06:33+0000\n"
+"Last-Translator: Farrukh Nazarmavloev <fnazarmavloev@unccd.int>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -80,8 +80,8 @@ msgid "Public questionnaires"
 msgstr "Общедоступные анкеты"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1024
-#: apps/questionnaire/tests/test_utils.py:1032
+#: apps/questionnaire/tests/test_utils.py:1025
+#: apps/questionnaire/tests/test_utils.py:1033
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:146
 msgid "Login"
@@ -170,6 +170,7 @@ msgstr "Подходы УЗП не найдены"
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:41
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:43
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:42
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:42
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:42
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:41
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:42
@@ -187,6 +188,7 @@ msgstr "Описание отсутствует."
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -205,6 +207,7 @@ msgstr "Составители:"
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -216,6 +219,7 @@ msgstr "Составитель:"
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:56
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:58
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:57
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:57
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:56
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:57
@@ -8230,7 +8234,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2923
 msgctxt "technologies label"
 msgid "Impacts: benefits and disadvantages"
-msgstr ""
+msgstr "Воздействие: положительное и отрицательное "
 
 #: apps/configuration/configuration_translations.py:2914
 msgctxt "technologies label"
@@ -8423,6 +8427,7 @@ msgctxt "technologies label"
 msgid ""
 "To which strategic objectives of The Strategy does the technology contribute?"
 msgstr ""
+"Выполнению какой стратегической задачи Стратегии содействует Технология?"
 
 #: apps/configuration/configuration_translations.py:3007
 #: apps/configuration/configuration_translations.py:4705
@@ -9064,7 +9069,7 @@ msgstr "Тиражирование"
 #: apps/configuration/configuration_translations.py:5983
 msgctxt "unccd label"
 msgid "General Information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:4902
 msgctxt "unccd label"
@@ -9116,7 +9121,7 @@ msgstr "Раздел 6. Принятие и тиражируемость"
 #: apps/configuration/configuration_translations.py:4909
 msgctxt "unccd label"
 msgid "Section 7. Lessons learned"
-msgstr "Section 7. Lessons learned"
+msgstr "Раздел 7. Приобретенный практический опыт"
 
 #: apps/configuration/configuration_translations.py:4910
 msgctxt "unccd label"
@@ -9126,90 +9131,90 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5001
 msgctxt "approaches label"
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: apps/configuration/configuration_translations.py:5002
 msgctxt "cca label"
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: apps/configuration/configuration_translations.py:5003
 msgctxt "technologies label"
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
 #: apps/configuration/configuration_translations.py:5004
 msgctxt "unccd label"
 msgid "Title of best practice"
-msgstr ""
+msgstr "Название передовой практики"
 
 #: apps/configuration/configuration_translations.py:5005
 msgctxt "watershed label"
 msgid "Name of the watershed"
-msgstr ""
+msgstr "Название водораздела"
 
 #: apps/configuration/configuration_translations.py:5006
 msgctxt "approaches label"
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/configuration/configuration_translations.py:5007
 msgctxt "cca label"
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/configuration/configuration_translations.py:5008
 msgctxt "technologies label"
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/configuration/configuration_translations.py:5009
 msgctxt "unccd label"
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/configuration/configuration_translations.py:5010
 msgctxt "watershed label"
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/configuration/configuration_translations.py:5011
 msgctxt "wocat label"
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/configuration/configuration_translations.py:5012
 msgctxt "approaches helptext"
 msgid "In latin letters"
-msgstr ""
+msgstr "Латиницей"
 
 #: apps/configuration/configuration_translations.py:5013
 #: apps/configuration/configuration_translations.py:5151
 msgctxt "approaches label"
 msgid "Locally used name"
-msgstr ""
+msgstr "Местное название"
 
 #: apps/configuration/configuration_translations.py:5014
 msgctxt "technologies helptext"
 msgid "In latin letters"
-msgstr ""
+msgstr "Латиницей"
 
 #: apps/configuration/configuration_translations.py:5015
 #: apps/configuration/configuration_translations.py:5153
 msgctxt "technologies label"
 msgid "Locally used name"
-msgstr ""
+msgstr "Местное название"
 
 #: apps/configuration/configuration_translations.py:5016
 #: apps/configuration/configuration_translations.py:5154
 msgctxt "unccd label"
 msgid "Local name"
-msgstr ""
+msgstr "Местное название"
 
 #: apps/configuration/configuration_translations.py:5017
 msgctxt "approaches label"
 msgid "Comments"
-msgstr ""
+msgstr "Комментарии"
 
 #: apps/configuration/configuration_translations.py:5018
 #: apps/configuration/configuration_translations.py:22240
@@ -9217,27 +9222,27 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28089
 msgctxt "cca label"
 msgid "Comments"
-msgstr ""
+msgstr "Комментарии"
 
 #: apps/configuration/configuration_translations.py:5020
 msgctxt "unccd label"
 msgid "Comments"
-msgstr ""
+msgstr "Комментарии"
 
 #: apps/configuration/configuration_translations.py:5021
 msgctxt "approaches label"
 msgid "Region/ State/ Province"
-msgstr ""
+msgstr "Административная единица (Район/Область)"
 
 #: apps/configuration/configuration_translations.py:5022
 msgctxt "technologies label"
 msgid "Region/ State/ Province"
-msgstr ""
+msgstr "Административная единица (Район/Область)"
 
 #: apps/configuration/configuration_translations.py:5023
 msgctxt "watershed label"
 msgid "Region/ State/ Province"
-msgstr ""
+msgstr "Административная единица (Район/Область)"
 
 #: apps/configuration/configuration_translations.py:5024
 msgctxt "approaches label"
@@ -9245,11 +9250,12 @@ msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
 msgstr ""
+"Более точная привязка места (например, район/поселок/деревня), если применимо"
 
 #: apps/configuration/configuration_translations.py:5025
 msgctxt "approaches label_view"
 msgid "Further specification of location"
-msgstr ""
+msgstr "Более точная привязка места"
 
 #: apps/configuration/configuration_translations.py:5026
 msgctxt "technologies label"
@@ -9257,11 +9263,12 @@ msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
 msgstr ""
+"Более точная привязка места (например, район/поселок/деревня), если применимо"
 
 #: apps/configuration/configuration_translations.py:5027
 msgctxt "technologies label_view"
 msgid "Further specification of location"
-msgstr ""
+msgstr "Более точная привязка места"
 
 #: apps/configuration/configuration_translations.py:5028
 msgctxt "watershed label"
@@ -9269,86 +9276,87 @@ msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
 msgstr ""
+"Более точная привязка места (например, район/поселок/деревня), если применимо"
 
 #: apps/configuration/configuration_translations.py:5029
 msgctxt "watershed label_view"
 msgid "Further specification of location"
-msgstr ""
+msgstr "Более точная привязка места"
 
 #: apps/configuration/configuration_translations.py:5030
 #: apps/configuration/configuration_translations.py:8707
 msgctxt "approaches label"
 msgid "Image"
-msgstr ""
+msgstr "Фото"
 
 #: apps/configuration/configuration_translations.py:5032
 msgctxt "watershed label"
 msgid "Image"
-msgstr ""
+msgstr "Фото"
 
 #: apps/configuration/configuration_translations.py:5033
 msgctxt "approaches helptext"
 msgid "Write one sentence."
-msgstr ""
+msgstr "Одним предложением."
 
 #: apps/configuration/configuration_translations.py:5034
 msgctxt "approaches label"
 msgid "Caption, explanation of photo"
-msgstr ""
+msgstr "Подпись, пояснения к фотографии"
 
 #: apps/configuration/configuration_translations.py:5035
 msgctxt "technologies helptext"
 msgid "Write one sentence."
-msgstr ""
+msgstr "Одним предложением"
 
 #: apps/configuration/configuration_translations.py:5036
 msgctxt "technologies label"
 msgid "Caption, explanation of photo"
-msgstr ""
+msgstr "Подпись, пояснения к фотографии"
 
 #: apps/configuration/configuration_translations.py:5037
 #: apps/configuration/configuration_translations.py:31010
 msgctxt "watershed helptext"
 msgid "Write one sentence."
-msgstr ""
+msgstr "Одним предложением"
 
 #: apps/configuration/configuration_translations.py:5038
 msgctxt "watershed label"
 msgid "Caption, explanation of photo"
-msgstr ""
+msgstr "Подпись, пояснения к фотографии"
 
 #: apps/configuration/configuration_translations.py:5039
 #: apps/configuration/configuration_translations.py:5137
 msgctxt "approaches label"
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: apps/configuration/configuration_translations.py:5041
 #: apps/configuration/configuration_translations.py:31012
 msgctxt "watershed label"
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: apps/configuration/configuration_translations.py:5042
 msgctxt "approaches label"
 msgid "Name of photographer"
-msgstr ""
+msgstr "Автор фотографии"
 
 #: apps/configuration/configuration_translations.py:5043
 msgctxt "technologies label"
 msgid "Name of photographer"
-msgstr ""
+msgstr "Автор фотографии"
 
 #: apps/configuration/configuration_translations.py:5044
 msgctxt "watershed label"
 msgid "Name of photographer"
-msgstr ""
+msgstr "Автор фотографии"
 
 #: apps/configuration/configuration_translations.py:5045
 #: apps/configuration/configuration_translations.py:5161
 msgctxt "technologies label"
 msgid "General remarks regarding photos"
-msgstr ""
+msgstr "Комментарии к фотографиям"
 
 #: apps/configuration/configuration_translations.py:5046
 msgctxt "approaches label"
@@ -9371,6 +9379,9 @@ msgid ""
 "of data documented through WOCAT you will not be able to enter and edit data "
 "in the WOCAT database."
 msgstr ""
+"Примечание. Если вы не согласны с условиями, регламентирующими использование "
+"данных, собранных WOCAT, то вы не имеете права вводить информацию в базу "
+"данных WOCAT и редактировать её содержание."
 
 #: apps/configuration/configuration_translations.py:5049
 #: apps/configuration/configuration_translations.py:5213
@@ -9379,6 +9390,8 @@ msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
 "use of data documented through WOCAT"
 msgstr ""
+"Составитель и ответственный(-ые) специалист(-ы) согласны с условиями, "
+"регламентирующими использование собранных WOCAT данных"
 
 #: apps/configuration/configuration_translations.py:5050
 msgctxt "technologies helptext"
@@ -9387,6 +9400,9 @@ msgid ""
 "of data documented through WOCAT you will not be able to enter and edit data "
 "in the WOCAT database."
 msgstr ""
+"Примечание. Если вы не согласны с условиями, регламентирующими использование "
+"данных, собранных WOCAT, то вы не имеете права вводить информацию в базу "
+"данных WOCAT и редактировать её содержание."
 
 #: apps/configuration/configuration_translations.py:5051
 #: apps/configuration/configuration_translations.py:5217
@@ -9395,249 +9411,251 @@ msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
 "use of data documented through WOCAT"
 msgstr ""
+"Составитель и ответственный(-ые) специалист(-ы) согласны с условиями, "
+"регламентирующими использование собранных WOCAT данных"
 
 #: apps/configuration/configuration_translations.py:5052
 msgctxt "approaches label"
 msgid "User ID"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: apps/configuration/configuration_translations.py:5053
 msgctxt "cca label"
 msgid "User ID"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: apps/configuration/configuration_translations.py:5054
 msgctxt "technologies label"
 msgid "User ID"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: apps/configuration/configuration_translations.py:5055
 msgctxt "watershed label"
 msgid "User ID"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: apps/configuration/configuration_translations.py:5056
 #: apps/configuration/configuration_translations.py:5149
 msgctxt "approaches label"
 msgid "Location"
-msgstr ""
+msgstr "Место"
 
 #: apps/configuration/configuration_translations.py:5057
 #: apps/configuration/configuration_translations.py:5150
 msgctxt "technologies label"
 msgid "Location"
-msgstr ""
+msgstr "Место"
 
 #: apps/configuration/configuration_translations.py:5058
 #: apps/configuration/configuration_translations.py:31013
 msgctxt "watershed label"
 msgid "Location"
-msgstr ""
+msgstr "Место"
 
 #: apps/configuration/configuration_translations.py:5059
 msgctxt "approaches label"
 msgid "Last name"
-msgstr ""
+msgstr "Фамилия"
 
 #: apps/configuration/configuration_translations.py:5060
 msgctxt "cca label"
 msgid "Lastname"
-msgstr ""
+msgstr "Фамилия"
 
 #: apps/configuration/configuration_translations.py:5061
 msgctxt "technologies label"
 msgid "Lastname / surname"
-msgstr ""
+msgstr "Фамилия"
 
 #: apps/configuration/configuration_translations.py:5062
 msgctxt "watershed label"
 msgid "Lastname / surname"
-msgstr ""
+msgstr "Фамилия"
 
 #: apps/configuration/configuration_translations.py:5063
 msgctxt "approaches label"
 msgid "First name(s)"
-msgstr ""
+msgstr "Имя, отчество"
 
 #: apps/configuration/configuration_translations.py:5064
 msgctxt "cca label"
 msgid "First name(s)"
-msgstr ""
+msgstr "Имя, отчество"
 
 #: apps/configuration/configuration_translations.py:5065
 msgctxt "technologies label"
 msgid "First name(s)"
-msgstr ""
+msgstr "Имя, отчество"
 
 #: apps/configuration/configuration_translations.py:5066
 msgctxt "watershed label"
 msgid "First name(s)"
-msgstr ""
+msgstr "Имя, отчество"
 
 #: apps/configuration/configuration_translations.py:5067
 msgctxt "approaches label"
 msgid "Gender"
-msgstr ""
+msgstr "Пол"
 
 #: apps/configuration/configuration_translations.py:5068
 msgctxt "cca label"
 msgid "Gender"
-msgstr ""
+msgstr "Пол"
 
 #: apps/configuration/configuration_translations.py:5070
 msgctxt "watershed label"
 msgid "Gender"
-msgstr ""
+msgstr "Пол"
 
 #: apps/configuration/configuration_translations.py:5071
 msgctxt "approaches label"
 msgid "Name of institution"
-msgstr ""
+msgstr "Название организации"
 
 #: apps/configuration/configuration_translations.py:5072
 msgctxt "cca label"
 msgid "Name of institution"
-msgstr ""
+msgstr "Название организации"
 
 #: apps/configuration/configuration_translations.py:5073
 msgctxt "technologies label"
 msgid "Name of institution"
-msgstr ""
+msgstr "Название организации"
 
 #: apps/configuration/configuration_translations.py:5074
 msgctxt "watershed label"
 msgid "Name of institution"
-msgstr ""
+msgstr "Название организации"
 
 #: apps/configuration/configuration_translations.py:5075
 msgctxt "approaches label"
 msgid "Address of institution"
-msgstr ""
+msgstr "Адрес организации"
 
 #: apps/configuration/configuration_translations.py:5076
 msgctxt "technologies label"
 msgid "Address of institution"
-msgstr ""
+msgstr "Адрес организации"
 
 #: apps/configuration/configuration_translations.py:5077
 msgctxt "approaches label"
 msgid "Postal Code"
-msgstr ""
+msgstr "Почтовый индекс"
 
 #: apps/configuration/configuration_translations.py:5078
 msgctxt "technologies label"
 msgid "Postal Code"
-msgstr ""
+msgstr "Почтовый индекс"
 
 #: apps/configuration/configuration_translations.py:5079
 msgctxt "approaches label"
 msgid "City"
-msgstr ""
+msgstr "Город"
 
 #: apps/configuration/configuration_translations.py:5080
 msgctxt "technologies label"
 msgid "City"
-msgstr ""
+msgstr "Город"
 
 #: apps/configuration/configuration_translations.py:5081
 msgctxt "approaches label"
 msgid "State or District"
-msgstr ""
+msgstr "Область"
 
 #: apps/configuration/configuration_translations.py:5082
 msgctxt "technologies label"
 msgid "State or District"
-msgstr ""
+msgstr "Область"
 
 #: apps/configuration/configuration_translations.py:5083
 msgctxt "approaches label"
 msgid "Phone no. 1"
-msgstr ""
+msgstr "Номер тел. 1"
 
 #: apps/configuration/configuration_translations.py:5084
 msgctxt "cca label"
 msgid "Phone no. 1"
-msgstr ""
+msgstr "Номер тел. 1"
 
 #: apps/configuration/configuration_translations.py:5085
 msgctxt "technologies label"
 msgid "Phone no. 1"
-msgstr ""
+msgstr "Номер тел. 1"
 
 #: apps/configuration/configuration_translations.py:5086
 msgctxt "watershed label"
 msgid "Phone no. 1"
-msgstr ""
+msgstr "Номер тел. 1"
 
 #: apps/configuration/configuration_translations.py:5087
 msgctxt "approaches label"
 msgid "Phone no. 2 (mobile)"
-msgstr ""
+msgstr "Номер тел. 2 (моб.)"
 
 #: apps/configuration/configuration_translations.py:5088
 msgctxt "cca label"
 msgid "Phone no. 2 (mobile)"
-msgstr ""
+msgstr "Номер тел. 2 (моб.)"
 
 #: apps/configuration/configuration_translations.py:5089
 msgctxt "technologies label"
 msgid "Phone no. 2 (mobile)"
-msgstr ""
+msgstr "Номер тел. 2 (моб.)"
 
 #: apps/configuration/configuration_translations.py:5090
 msgctxt "watershed label"
 msgid "Phone no. 2 (mobile)"
-msgstr ""
+msgstr "Номер тел. 2 (моб.)"
 
 #: apps/configuration/configuration_translations.py:5091
 msgctxt "approaches label"
 msgid "E-mail 1"
-msgstr ""
+msgstr "E-mail 1"
 
 #: apps/configuration/configuration_translations.py:5092
 msgctxt "cca label"
 msgid "E-mail 1"
-msgstr ""
+msgstr "E-mail 1"
 
 #: apps/configuration/configuration_translations.py:5093
 msgctxt "technologies label"
 msgid "E-mail 1"
-msgstr ""
+msgstr "E-mail 1"
 
 #: apps/configuration/configuration_translations.py:5094
 msgctxt "watershed label"
 msgid "E-mail 1"
-msgstr ""
+msgstr "E-mail 1"
 
 #: apps/configuration/configuration_translations.py:5095
 msgctxt "approaches label"
 msgid "E-mail 2"
-msgstr ""
+msgstr "E-mail 2"
 
 #: apps/configuration/configuration_translations.py:5096
 msgctxt "cca label"
 msgid "E-mail 2"
-msgstr ""
+msgstr "E-mail 2"
 
 #: apps/configuration/configuration_translations.py:5097
 msgctxt "technologies label"
 msgid "E-mail 2"
-msgstr ""
+msgstr "E-mail 2"
 
 #: apps/configuration/configuration_translations.py:5098
 msgctxt "watershed label"
 msgid "E-mail 2"
-msgstr ""
+msgstr "E-mail 2"
 
 #: apps/configuration/configuration_translations.py:5099
 msgctxt "approaches label"
 msgid "Key resource person type"
-msgstr ""
+msgstr "Тип ответственного специалиста"
 
 #: apps/configuration/configuration_translations.py:5100
 msgctxt "technologies label"
 msgid "Key resource person type"
-msgstr ""
+msgstr "Тип ответственного специалиста"
 
 #: apps/configuration/configuration_translations.py:5101
 #: apps/configuration/configuration_translations.py:7005
@@ -9655,22 +9673,22 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:7104
 msgctxt "approaches label"
 msgid "Other (specify)"
-msgstr ""
+msgstr "Другой (какой именно)"
 
 #: apps/configuration/configuration_translations.py:5102
 msgctxt "cca label"
 msgid "Other (specify)"
-msgstr ""
+msgstr "Другой (какой именно)"
 
 #: apps/configuration/configuration_translations.py:5103
 msgctxt "technologies label"
 msgid "Other (specify)"
-msgstr ""
+msgstr "Другой (какой именно)"
 
 #: apps/configuration/configuration_translations.py:5104
 msgctxt "watershed label"
 msgid "Other (specify)"
-msgstr ""
+msgstr "Другой (какой именно)"
 
 #: apps/configuration/configuration_translations.py:5105
 #: apps/configuration/configuration_translations.py:5115
@@ -9686,11 +9704,12 @@ msgstr ""
 msgctxt "approaches label"
 msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgstr ""
+"Сильные стороны/ преимущества/ возможности по мнению землепользователей"
 
 #: apps/configuration/configuration_translations.py:5107
 msgctxt "cca label"
 msgid "Strengths/ advantages/ opportunities of the technology"
-msgstr ""
+msgstr "Сильные стороны/ преимущества/ возможности технологии"
 
 #: apps/configuration/configuration_translations.py:5108
 #: apps/configuration/configuration_translations.py:5118
@@ -9706,6 +9725,7 @@ msgstr ""
 msgctxt "technologies label"
 msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgstr ""
+"Сильные стороны/ преимущества/ возможности по мнению землепользователей"
 
 #: apps/configuration/configuration_translations.py:5110
 #: apps/configuration/configuration_translations.py:5120
@@ -9728,6 +9748,8 @@ msgid ""
 "Strengths/ advantages/ opportunities in the land user’s / watershed user’s "
 "view"
 msgstr ""
+"Сильные стороны/ преимущества/ возможности по мнению землепользователей/ "
+"пользователей приводораздельной части речного бассейна"
 
 #: apps/configuration/configuration_translations.py:5112
 msgctxt "approaches label"
@@ -9735,6 +9757,8 @@ msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
 "person’s view"
 msgstr ""
+"Сильные стороны/ преимущества/ возможности по мнению составителя или других "
+"ключевых специалистов"
 
 #: apps/configuration/configuration_translations.py:5113
 msgctxt "technologies label"
@@ -9742,6 +9766,8 @@ msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
 "person’s view"
 msgstr ""
+"Сильные стороны/ преимущества/ возможности по мнению составителя или других "
+"ключевых специалистов"
 
 #: apps/configuration/configuration_translations.py:5114
 msgctxt "watershed label"
@@ -9749,21 +9775,23 @@ msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
 "person’s view"
 msgstr ""
+"Сильные стороны/ преимущества/ возможности по мнению составителя или других "
+"ключевых специалистов"
 
 #: apps/configuration/configuration_translations.py:5116
 msgctxt "approaches label"
 msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
-msgstr ""
+msgstr "Слабые стороны/ недостатки/ риски по мнению землепользователей"
 
 #: apps/configuration/configuration_translations.py:5117
 msgctxt "cca label"
 msgid "Weaknesses/ disadvantages/ risks"
-msgstr ""
+msgstr "Слабые стороны/ недостатки/ риски"
 
 #: apps/configuration/configuration_translations.py:5119
 msgctxt "technologies label"
 msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
-msgstr ""
+msgstr "Слабые стороны/ недостатки/ риски по мнению землепользователей"
 
 #: apps/configuration/configuration_translations.py:5121
 msgctxt "watershed label"
@@ -12112,27 +12140,27 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5981
 msgctxt "approaches label"
 msgid "General Information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:5982
 msgctxt "technologies label"
 msgid "General Information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:5984
 msgctxt "approaches label"
 msgid "Specifications"
-msgstr ""
+msgstr "Спецификация"
 
 #: apps/configuration/configuration_translations.py:5985
 msgctxt "technologies label"
 msgid "Specifications"
-msgstr ""
+msgstr "Спецификация"
 
 #: apps/configuration/configuration_translations.py:5986
 msgctxt "unccd label"
 msgid "Specifications"
-msgstr ""
+msgstr "Спецификация"
 
 #: apps/configuration/configuration_translations.py:5987
 msgctxt "technologies label"
@@ -12142,7 +12170,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5988
 msgctxt "unccd label"
 msgid "Analysis"
-msgstr ""
+msgstr "Анализ"
 
 #: apps/configuration/configuration_translations.py:7001
 msgctxt "approaches label"
@@ -14125,7 +14153,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:8901
 msgctxt "approaches label"
 msgid "General information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:8902
 msgctxt "approaches helptext"
@@ -14255,7 +14283,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:21000
 msgctxt "cca label"
 msgid "General Information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:21100
 msgctxt "cca label"
@@ -14360,12 +14388,9 @@ msgid "Threshold"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:22300
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid "Experienced climate-related extremes (disasters)"
-msgstr "Другие экстремальные климатические явления (стихийные бедствия)"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
 msgctxt "cca label"
@@ -17014,7 +17039,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:32901
 msgctxt "watershed label"
 msgid "General information"
-msgstr ""
+msgstr "Общая информация"
 
 #: apps/configuration/configuration_translations.py:32902
 msgctxt "watershed helptext"
@@ -17545,6 +17570,7 @@ msgid "Editor:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
+#: apps/questionnaire/templates/details/category/approaches_header.html:91
 #: apps/questionnaire/templates/details/category/approaches_header.html:101
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
@@ -17553,6 +17579,8 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
+#: apps/questionnaire/templates/details/category/technologies_header.html:91
+#: apps/questionnaire/templates/details/category/technologies_header.html:101
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -17601,6 +17629,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/approaches_header.html:103
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:103
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:98
@@ -17629,7 +17658,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/watershed_header.html:119
 #: apps/questionnaire/templates/details/category/with_metadata.html:116
 msgid "View sections"
-msgstr ""
+msgstr "Просмотреть разделы"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:124
 #: apps/questionnaire/templates/details/category/cca_header.html:111
@@ -18383,7 +18412,7 @@ msgstr ""
 #: apps/sample/templates/sample/questionnaire/list.html:32
 #: apps/wocat/templates/wocat/questionnaire/list.html:32
 msgid "Country"
-msgstr ""
+msgstr "Страна"
 
 #: apps/questionnaire/templates/filter.html:26
 msgid "Select or type a Country name"
@@ -19012,6 +19041,7 @@ msgid "SAMPLE"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:71
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:71
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:71
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
 msgid "This SLM Technology is linked to SLM Approaches"

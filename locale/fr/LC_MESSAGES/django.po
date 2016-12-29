@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-27 07:06+0100\n"
-"PO-Revision-Date: 2016-12-22 08:55+0000\n"
-"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
+"POT-Creation-Date: 2016-12-29 07:35+0100\n"
+"PO-Revision-Date: 2016-12-29 06:33+0000\n"
+"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -81,8 +81,8 @@ msgid "Public questionnaires"
 msgstr "Questionnaires publics"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1024
-#: apps/questionnaire/tests/test_utils.py:1032
+#: apps/questionnaire/tests/test_utils.py:1025
+#: apps/questionnaire/tests/test_utils.py:1033
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:146
 msgid "Login"
@@ -171,6 +171,7 @@ msgstr "Aucune approche de GDT trouvée."
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:41
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:43
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:42
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:42
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:42
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:41
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:42
@@ -188,6 +189,7 @@ msgstr "Aucune description disponible."
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -206,6 +208,7 @@ msgstr "Compilateurs:"
 #: apps/questionnaire/templates/details/category/watershed_header.html:33
 #: apps/questionnaire/templates/details/category/with_metadata.html:29
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:45
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:45
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:45
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:44
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:45
@@ -217,6 +220,7 @@ msgstr "Compilateur:"
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:56
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:58
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:57
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:57
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:57
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:56
 #: apps/unccd/templates/unccd/questionnaire/partial/list_item.html:57
@@ -15221,12 +15225,9 @@ msgid "Threshold"
 msgstr "Seuil"
 
 #: apps/configuration/configuration_translations.py:22300
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Other climate-related extremes (disasters)"
 msgctxt "cca label"
 msgid "Experienced climate-related extremes (disasters)"
-msgstr "autres extrêmes climatiques (catastrophes) "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:23000
 msgctxt "cca label"
@@ -18772,6 +18773,7 @@ msgid "Editor:"
 msgstr "Rédacteur:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
+#: apps/questionnaire/templates/details/category/approaches_header.html:91
 #: apps/questionnaire/templates/details/category/approaches_header.html:101
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
@@ -18780,6 +18782,8 @@ msgstr "Rédacteur:"
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
+#: apps/questionnaire/templates/details/category/technologies_header.html:91
+#: apps/questionnaire/templates/details/category/technologies_header.html:101
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -18828,6 +18832,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/approaches_header.html:103
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:103
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:98
@@ -20446,6 +20451,7 @@ msgid "SAMPLE"
 msgstr "ECHANTILLON"
 
 #: apps/sample/templates/sample/questionnaire/partial/list_item.html:71
+#: apps/samplemodule/templates/samplemodule/questionnaire/partial/list_item.html:71
 #: apps/samplemulti/templates/samplemulti/questionnaire/partial/list_item.html:71
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:69
 msgid "This SLM Technology is linked to SLM Approaches"

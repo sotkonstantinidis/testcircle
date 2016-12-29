@@ -2200,6 +2200,7 @@ class QuestionnaireTest(FunctionalTest):
         self.assertFalse(key_38.is_displayed())
         plus_button.click()
         self.wait_for('xpath', '//input[@name="qg_29-0-original_key_37"]')
+        self.wait_for('xpath', '//input[@name="qg_29-0-original_key_38"]')
 
         key_37_value = self.findBy(
             'xpath',
@@ -2286,6 +2287,7 @@ class QuestionnaireTest(FunctionalTest):
             base=td_2_3_row_1).send_keys('Foobar 3_2')
 
         self.submit_form_step()
+        self.wait_for('xpath', '//td[contains(text(), "Foobar 3_2")]')
 
         # She sees that the values are represented as table
         table = self.findBy('xpath', '//div/table')
@@ -2328,6 +2330,7 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(td_2_3_1_2.text, 'Foobar 3_2')
 
         self.review_action('submit')
+        self.wait_for('xpath', '//td[contains(text(), "Foobar 3_2")]')
 
         table_output = self.findBy('xpath', '//div/table')
         self.assertEqual(table_text, table_output.text)
@@ -2446,10 +2449,10 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the form
         self.submit_form_step()
-        from nose.tools import set_trace; set_trace()
 
         # On the overview page, she sees the image she uploaded
-        self.findBy('xpath', '//img[@data-interchange]')
+        self.findBy('xpath',
+                    '//div[contains(@class, "file-preview-container")]//img')
 
         # She edits the form again and sees the image was populated correctly.
         self.click_edit_section('cat_0')
@@ -2469,7 +2472,8 @@ class QuestionnaireTest(FunctionalTest):
 
         # She submits the form and sees that the image was submitted correctly.
         self.submit_form_step()
-        self.findBy('xpath', '//img[@data-interchange]')
+        self.findBy('xpath',
+                    '//div[contains(@class, "file-preview-container")]//img')
 
         self.review_action('submit')
 

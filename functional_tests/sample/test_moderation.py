@@ -501,8 +501,10 @@ class ModerationTestFixture(FunctionalTest):
         assigned_users = self.findManyBy(
             'xpath', '//div[@id="review-list-assigned-users"]/ul/li')
         self.assertEqual(len(assigned_users), 2)
-        self.assertTrue('Kurt Gerber' in assigned_users[0].text)
-        self.assertTrue('Lukas Vonlanthen' in assigned_users[1].text)
+        users = [self.get_text_excluding_children(user).strip() for user in
+                 assigned_users]
+        self.assertEqual(sorted(users), ['Kurt Gerber', 'Lukas Vonlanthen'])
+        self.assertNotEqual(users[0], users[1])
 
         # She edits the users again
         self.findBy(
@@ -512,8 +514,10 @@ class ModerationTestFixture(FunctionalTest):
             'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 2)
-        self.assertTrue('Kurt Gerber' in selected_users[0].text)
-        self.assertTrue('Lukas Vonlanthen' in selected_users[1].text)
+        users = [self.get_text_excluding_children(user).strip() for user in
+                 selected_users]
+        self.assertEqual(sorted(users), ['Kurt Gerber', 'Lukas Vonlanthen'])
+        self.assertNotEqual(users[0], users[1])
 
         # She removes one of the user
         remove_button = self.findBy(
@@ -543,8 +547,10 @@ class ModerationTestFixture(FunctionalTest):
             'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 2)
-        self.assertTrue('Lukas Vonlanthen' in selected_users[0].text)
-        self.assertTrue('Sebastian Manger' in selected_users[1].text)
+        users = [self.get_text_excluding_children(user).strip() for user in
+                 selected_users]
+        self.assertEqual(sorted(users), ['Lukas Vonlanthen', 'Sebastian Manger'])
+        self.assertNotEqual(users[0], users[1])
 
         # She updates the users
         btn = self.findBy('id', 'button-assign')
@@ -556,8 +562,10 @@ class ModerationTestFixture(FunctionalTest):
         assigned_users = self.findManyBy(
             'xpath', '//div[@id="review-list-assigned-users"]/ul/li')
         self.assertEqual(len(assigned_users), 2)
-        self.assertTrue('Lukas Vonlanthen' in assigned_users[0].text)
-        self.assertTrue('Sebastian Manger' in assigned_users[1].text)
+        users = [self.get_text_excluding_children(user).strip() for user in
+                 assigned_users]
+        self.assertEqual(sorted(users), ['Lukas Vonlanthen', 'Sebastian Manger'])
+        self.assertNotEqual(users[0], users[1])
 
         # Users are deleted after submitting the page
         self.browser.get(url)
