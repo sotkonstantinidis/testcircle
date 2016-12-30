@@ -111,7 +111,7 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         # elements without a selected value must be shown, if more than one list
         # of values exists, this method must be extended.
         if values and len(values) == 1:
-            selected = values[0].get(child.keyword)
+            selected = values[0].get(child.keyword, [])
         else:
             logger.warning(msg='No or more than one list of values is set '
                                'for %s' % child.keyword)
@@ -169,6 +169,21 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                 'url': value[1],
                 'title': value[0],
                 'text': child_text
+            }
+
+    def get_qg_values_with_scale(self, child):
+        try:
+            values = self.values.get(child.parent_object.keyword, [])[0]
+        except IndexError:
+            values = {}
+
+        for child in child.questiongroup.children:
+            yield {
+                'label': child.label,
+                'range': len(child.choices),
+                'min': child.choices[0][1],
+                'max': child.choices[-1][1],
+                'selected': values.get(child.keyword, '')
             }
 
     def _concatenate_child_question_texts(

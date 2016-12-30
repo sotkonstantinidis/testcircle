@@ -20027,6 +20027,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_age",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -20074,7 +20083,16 @@
       "keyword": "tech_access_health",
       "translation": 1324,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_services",
+            "get_value": {
+              "name": "get_qg_values_with_scale"
+            }
+          }
+        }
       },
       "values": [
         1373,

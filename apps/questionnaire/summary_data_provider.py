@@ -519,71 +519,19 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
             'partials': {
                 'market': {
                     'title': _('Market orientation'),
-                    'items': [
-                        {
-                            'highlighted': True,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_market_orientation')
                 },
                 'income': {
                     'title': _('Off-farm income'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_offfarm_income')
                 },
                 'wealth': {
                     'title': _('Relative level of wealth'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_wealth')
                 },
                 'mechanization': {
                     'title': _('Level of mechanization'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_mechanisation')
                 },
                 'sedentary': {
                     'title': _('Sedentary or nomadic'),
@@ -591,254 +539,39 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 },
                 'individuals': {
                     'title': _('Individuals or groups'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_individuals')
                 },
                 'gender': {
                     'title': _('Gender'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_gender')
                 },
                 'age': {
                     'title': _('Age'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': '20-30'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': '30-40'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': '40-50'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_age')
                 },
                 'area': {
                     'title': _('Area used per household'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_land_size')
                 },
                 'scale': {
                     'title': _('Scale'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_land_size_relative')
                 },
                 'ownership': {
                     'title': _('Land ownership'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_ownership')
                 },
                 'land_rights': {
                     'title': _('Land use rights'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_landuser_rights')
                 },
                 'water_rights': {
                     'title': _('Water use rights'),
-                    'items': [
-                        {
-                            'highlighted': False,
-                            'title': 'same, same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but different'
-                        },
-                        {
-                            'highlighted': True,
-                            'title': 'but same'
-                        },
-                        {
-                            'highlighted': False,
-                            'title': 'but same'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_wateruser_rights')
                 },
                 'access': {
                     'title': _('Access to services and infrastructure'),
-                    'items': [
-                        {
-                            'label': 'health',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '3'
-                        },
-                        {
-                            'label': 'education',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': ''
-                        },
-                        {
-                            'label': 'technical assistance',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '2'
-                        },
-                        {
-                            'label': 'employment (e.g. off-farm)',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '1'
-                        },
-                        {
-                            'label': 'markets',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '3'
-                        },
-                        {
-                            'label': 'energy',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '3'
-                        },
-                        {
-                            'label': 'roads and transport',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': ''
-                        },
-                        {
-                            'label': 'drinking water and sanitation',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '2'
-                        },
-                        {
-                            'label': 'financial services',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '2'
-                        },
-                        {
-                            'label': 'other (specify',
-                            'range': '3',
-                            'min': 'poor',
-                            'max': 'good',
-                            'selected': '2'
-                        }
-                    ]
+                    'items': self.raw_data.get('human_env_services')
                 }
             }
         }
