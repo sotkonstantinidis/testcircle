@@ -15915,7 +15915,13 @@
       "keyword": "tech_est_activity",
       "translation": 1037,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_establishment_activities"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15955,7 +15961,13 @@
       "keyword": "tech_est_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_input_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15966,7 +15978,16 @@
       "keyword": "tech_input_est_specify",
       "translation": 1040,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_input",
+            "get_value": {
+              "name": "get_table"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16055,7 +16076,13 @@
       "keyword": "tech_input_national_currency",
       "translation": 1315,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_national_currency"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16066,7 +16093,13 @@
       "keyword": "tech_input_average_wage",
       "translation": 1318,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_average_wage"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16088,7 +16121,13 @@
       "keyword": "tech_maint_activity",
       "translation": 1037,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_activities"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16128,7 +16167,13 @@
       "keyword": "tech_maint_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19197,7 +19242,13 @@
       "keyword": "tech_perarea_size",
       "translation": 1284,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_perarea_size"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19208,7 +19259,13 @@
       "keyword": "tech_area_unit_conversion",
       "translation": 1247,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_unit_conversion"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19767,7 +19824,13 @@
       "keyword": "tech_cost_calculation_base",
       "translation": 1314,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_cost_calculation_base"
+          }
+        }
       },
       "values": [
         1348,
@@ -19842,7 +19905,7 @@
           "types": ["full"],
           "default": {
             "field_name": "human_env_sedentary_nomadic",
-            "value_function": {
+            "get_value": {
               "name": "get_full_range_values"
             }
           }
@@ -19997,7 +20060,13 @@
       "keyword": "tech_input_dollar",
       "translation": 1316,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_dollar"
+          }
+        }
       },
       "values": [
         1365
@@ -20011,7 +20080,13 @@
       "keyword": "tech_input_exchange_rate",
       "translation": 1317,
       "configuration": {
-        "type": "float"
+        "type": "float",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_exchange_rate"
+          }
+        }
       }
     },
     "model": "configuration.key",

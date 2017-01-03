@@ -327,8 +327,9 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'classification', 'technical_drawing', 'natural_environment', 
-                'human_environment', 'conclusion', 'references']
+                'classification', 'technical_drawing', 'establishment_costs',
+                'natural_environment', 'human_environment', 'conclusion',
+                'references']
 
     def location(self):
         return {
@@ -435,6 +436,204 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
                 'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image')]
+            }
+        }
+
+    def establishment_costs(self):
+        base = self.string_from_list('establishment_cost_calculation_base')
+        perarea_size = self.raw_data_getter('establishment_perarea_size')
+        conversion = self.raw_data_getter('establishment_unit_conversion')
+        conversion_text = '; conversion factor to one hectare: {}'.format(conversion)
+        explanation = ' (size and area unit: {size}{conversion_text})'.format(
+            size=perarea_size,
+            conversion_text=conversion_text if conversion else ''
+        )
+        calculation = '{base}{extra}'.format(
+            base=base,
+            extra=explanation if perarea_size else ''
+        )
+        usd = self.string_from_list('establishment_dollar')
+        national_currency = self.raw_data_getter('establishment_national_currency')
+        currency = usd or national_currency or 'n.a'
+        wage = self.raw_data_getter('establishment_average_wage') or _('n.a')
+        exchange_rate = self.raw_data_getter('establishment_exchange_rate') or _('n.a')
+        return {
+            'title': _('Establishment and maintenance: activities, inputs and costs'),
+            'partials': {
+                'introduction': {
+                    'title': _('Calculation of inputs and costs'),
+                    'items': [
+                        _('Costs are calculated: {}').format(calculation),
+                        _('Currency used for cost calculation: {}').format(currency),
+                        _('Exchange rate (to USD): {}.').format(exchange_rate),
+                        _('Average wage cost of hired labour: {}.').format(wage)
+                    ]
+                },
+                'establishment': {
+                    'title': _('Establishment activities'),
+                    'list': [{'text': activity['value']} for activity in self.raw_data['establishment_establishment_activities']],
+                    'comment': self.raw_data_getter('establishment_input_comments'),
+                    'table': {
+                        'title': _('Establishment inputs and costs per ha'),
+                        'head': {
+                            '0': 'Inputs (earth ridge)',
+                            '1': 'Costs (US$)',
+                            '2': '%  l.u.'
+                        },
+                        'partials': [
+                            {
+                                'head': 'Labour',
+                                'items': [
+                                    {
+                                        '0': 'construction: 600 person-days',
+                                        '1': '1,200',
+                                        '2': '97%'
+                                    },
+                                    {
+                                        '0': 'survey',
+                                        '1': '60',
+                                        '2': '0'
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Equipment',
+                                'items': [
+                                    {
+                                        '0': 'Tools: shovels, 2 wheel carts',
+                                        '1': '30',
+                                        '2': '100%'
+                                    },
+                                    {
+                                        '0': 'Machine hours',
+                                        '1': '',
+                                        '2': ''
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Plant materials',
+                                'items': [
+                                    {
+                                        '0': 'Fruit tree seedling (250 pc.)',
+                                        '1': '',
+                                        '2': ''
+                                    },
+                                    {
+                                        '0': 'Grass seeds (4 kg)',
+                                        '1': '',
+                                        '2': ''
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Fertilizers and biocides',
+                                'items': [
+                                    {
+                                        '0': 'Fertilizers (250 kg NPK)',
+                                        '1': '',
+                                        '2': ''
+                                    },
+                                    {
+                                        '0': 'Biocides (6 kg)',
+                                        '1': '',
+                                        '2': ''
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Fertilizers and biocides',
+                                'items': [
+                                    {
+                                        '0': 'Fertilizers (250 kg NPK)',
+                                        '1': '',
+                                        '2': ''
+                                    },
+                                    {
+                                        '0': 'Biocides (6 kg)',
+                                        '1': '',
+                                        '2': ''
+                                    },
+                                    {
+                                        '0': 'Manure (15 tons)',
+                                        '1': '',
+                                        '2': ''
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Construction materials',
+                                'items': [
+                                    {
+                                        '0': 'Earth (2,000 – 2,500 m³)',
+                                        '1': '0',
+                                        '2': '0%'
+                                    },
+                                    {
+                                        '0': 'Sand (250 m³)',
+                                        '1': '',
+                                        '2': ''
+                                    }
+                                ]
+                            }
+                        ],
+                        'total': {
+                            '0': 'Total',
+                            '1': '1290',
+                            '2': '93%'
+                        }
+                    }
+                },
+                'maintenance': {
+                    'title': _('Maintenance activities'),
+                    'list': [{'text': activity['value']} for activity in self.raw_data['establishment_maintenance_activities']],
+                    'comment': self.raw_data_getter('establishment_maintenance_comments'),
+                    'table': {
+                        'title': 'Maintenance inputs and costs per ha',
+                        'head': {
+                            '0': 'Inputs',
+                            '1': 'Costs (US$)',
+                            '2': '%  l.u.'
+                        },
+                        'partials': [
+                            {
+                                'head': 'Labour',
+                                'items': [
+                                    {
+                                        '0': '12 person days',
+                                        '1': '25',
+                                        '2': '97%'
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Equipment',
+                                'items': [
+                                    {
+                                        '0': 'Tools (shovels, two-wheel carts)',
+                                        '1': '10',
+                                        '2': '100%'
+                                    }
+                                ]
+                            },
+                            {
+                                'head': 'Materials',
+                                'items': [
+                                    {
+                                        '0': 'Earth (1-2m3)',
+                                        '1': '0',
+                                        '2': '0%'
+                                    }
+                                ]
+                            }
+                        ],
+                        'total': {
+                            '0': 'Total',
+                            '1': '35',
+                            '2': '98%'
+                        }
+                    }
+                }
             }
         }
 

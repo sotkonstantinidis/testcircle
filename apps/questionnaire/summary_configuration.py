@@ -1,7 +1,9 @@
 import logging
+import itertools
 import operator
 
-from configuration.configuration import QuestionnaireQuestion
+from configuration.configuration import QuestionnaireQuestion, \
+    QuestionnaireSubcategory
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
 from qcat.errors import ConfigurationError
 from .models import Questionnaire
@@ -216,3 +218,35 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     def stripchars(raw: str) -> str:
         strip = ['=', "'"]
         return ''.join([c for c in raw if c not in strip])
+
+    def get_table(self, child: QuestionnaireQuestion):
+        """
+        needs discussion - is the output format really correct?
+        """
+        questiongroups = self.get_questiongroups_in_table(
+            section=child.questiongroup.parent_object
+        )
+        table = []
+        for questiongroup in questiongroups:
+            items = []
+            for question in questiongroup.questions:
+                values = self.get_value(child=question)
+                items.append({
+                    '0': '',
+                    '1': '',
+                    '2': ''
+                })
+            table.append({
+                'head': questiongroup.label,
+                'items': items
+            })
+        return table
+
+    def get_questiongroups_in_table(self, section: QuestionnaireSubcategory):
+        """
+        Get only questiongroups that are configured to be shown in the table.
+        """
+        used = list(itertools.chain(*section.table_grouping))
+        for questiongroup in section.questiongroups:
+            if questiongroup.keyword in used:
+                yield questiongroup
