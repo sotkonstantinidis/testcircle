@@ -328,8 +328,8 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
                 'classification', 'technical_drawing', 'establishment_costs',
-                'natural_environment', 'human_environment', 'conclusion',
-                'references']
+                'natural_environment', 'human_environment', 'impacts',
+                'conclusion', 'references']
 
     def location(self):
         return {
@@ -771,6 +771,37 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 'access': {
                     'title': _('Access to services and infrastructure'),
                     'items': self.raw_data.get('human_env_services')
+                }
+            }
+        }
+
+    def impacts(self):
+        return {
+            'title': _('Impacts: Benefits and disadvantages'),
+            'partials': {
+                'economic': {
+                    'title': _('Socio-economic impacts'),
+                    'items': self.raw_data.get('impacts_cropproduction'),
+                },
+                'cultural': {
+                    'title': _('Socio-cultural impacts'),
+                    'items': self.raw_data.get('impacts_foodsecurity')
+                },
+                'ecological': {
+                    'title': _('Ecological impacts'),
+                    'items': self.raw_data.get('impacts_soilmoisture')
+                },
+                'off_site': {
+                    'title': _('Off-site impacts'),
+                    'items': self.raw_data.get('impacts_downstreamflooding')
+                },
+                'benefits_establishment': {
+                    'title': _('Benefits compared with establishment costs'),
+                    'items': self.raw_data.get('impacts_establishment_costbenefit')
+                },
+                'benefits_maintenance': {
+                    'title': _('Benefits compared with maintenance costs'),
+                    'items': self.raw_data.get('impacts_maintenance_costbenefit')
                 }
             }
         }

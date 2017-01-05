@@ -16456,7 +16456,19 @@
       "keyword": "tech_impacts_cropproduction",
       "translation": 1060,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_cropproduction",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -17177,7 +17189,19 @@
       "keyword": "tech_impacts_foodsecurity",
       "translation": 1095,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_foodsecurity",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -18386,7 +18410,19 @@
       "keyword": "tech_impacts_soilmoisture",
       "translation": 1199,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_soilmoisture",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -18826,7 +18862,19 @@
       "keyword": "tech_impacts_downstreamflooding",
       "translation": 1221,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_downstreamflooding",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -19376,7 +19424,23 @@
       "keyword": "tech_costbenefit_est_short",
       "translation": 1255,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+
+            "field_name": {
+              "tech_qg_181.tech_costbenefit_est_short": "impacts_establishment_costbenefit",
+              "tech_qg_182.tech_costbenefit_est_short": "impacts_maintenance_costbenefit"
+            },
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "radio"
+              }
+            }
+          }
+        }
       },
       "values": [
         1322,
@@ -20164,7 +20228,10 @@
           "default": {
             "field_name": "human_env_services",
             "get_value": {
-              "name": "get_qg_values_with_scale"
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "click_labels"
+              }
             }
           }
         }

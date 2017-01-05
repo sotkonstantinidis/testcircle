@@ -1,3 +1,4 @@
+import contextlib
 import logging
 import itertools
 import operator
@@ -173,20 +174,77 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
                 'text': child_text
             }
 
-    def get_qg_values_with_scale(self, child):
-        try:
-            values = self.values.get(child.parent_object.keyword, [])[0]
-        except IndexError:
-            values = {}
+    def get_qg_values_with_scale(self, child: QuestionnaireQuestion, **kwargs):
+        """
+        The same output format (see _qg_scale_format) is expected for various
+        question formats/styles.
+        maybe: move to separate functions.
+        """
+        if kwargs.get('qg_style') == 'multi_select':
+            # e.g. 6.1. - list only selected options. Get all questions from
+            # the parent Category and append comments.
+            category_groups = child.questiongroup.parent_object.questiongroups
+            for children in [qg.children for qg in category_groups]:
+                value = self._get_qg_selected_value(children[0])
 
-        for child in child.questiongroup.children:
-            yield {
-                'label': child.label,
-                'range': len(child.choices),
-                'min': child.choices[0][1],
-                'max': child.choices[-1][1],
-                'selected': values.get(child.keyword, '')
-            }
+                if value:
+                    kwargs = children[0].additional_translations
+                    comment = self._get_qg_selected_value(children[3])
+                    if comment:
+                        kwargs['comment'] = comment
+
+                    yield from self._qg_scale_format(
+                        child=children[0],
+                        value=value,
+                        **kwargs
+                    )
+
+        if kwargs.get('qg_style') == 'click_labels':
+            # e.g. 5.9 - get all info from parent questiongroup
+            for child in child.questiongroup.children:
+                yield from self._qg_scale_format(
+                    child=child,
+                    value=self._get_qg_selected_value(child),
+                    label_left=child.choices[0][1],
+                    label_right=child.choices[-1][1]
+                )
+
+        if kwargs.get('qg_style') == 'radio':
+            # e.g. 6.4. - all info from radio buttons
+            values = self._get_qg_selected_value(child, all_values=True)
+
+            for child in child.questiongroup.children:
+                str_value = values.get(child.keyword, '')
+                # in the template, the numeric position of the value in the
+                # 'range' is required.
+                with contextlib.suppress(ValueError):
+                    choice_keys = dict(child.choices).keys()
+                    value = list(choice_keys).index(str_value) + 1
+
+                yield from self._qg_scale_format(
+                    child=child,
+                    value=value,
+                    label_left=child.choices[0][1],
+                    label_right=child.choices[-1][1]
+                )
+
+    def _get_qg_selected_value(self, child: QuestionnaireQuestion,
+                               all_values=False):
+        values = {}
+        with contextlib.suppress(IndexError):
+            values = self.values.get(child.questiongroup.keyword, [])[0]
+        return values.get(child.keyword) if not all_values else values
+
+    def _qg_scale_format(self, child: QuestionnaireQuestion, value: str,
+                         **kwargs):
+        yield {
+            'label': child.label,
+            'range': len(child.choices),
+            'min': kwargs.get('label_left'),
+            'max': kwargs.get('label_left'),
+            'selected': value,
+            'comment': kwargs.get('comment', '')
+        }
 
     def _concatenate_child_question_texts(
             self, child_question: QuestionnaireQuestion,
