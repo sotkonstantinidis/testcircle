@@ -5395,6 +5395,9 @@
         "cca": {
           "label": {
             "en": "Socio-economic impacts"
+          },
+          "label_view": {
+            "en": "Socio-economic impacts (on-site)"
           }
         }
       }
@@ -5465,6 +5468,9 @@
         "cca": {
           "label": {
             "en": "Socio-cultural impacts"
+          },
+          "label_view": {
+            "en": "Socio-cultural impacts (on-site)"
           }
         }
       }
@@ -5493,6 +5499,9 @@
         "cca": {
           "label": {
             "en": "Ecological impacts"
+          },
+          "label_view": {
+            "en": "Ecological impacts (on-site)"
           }
         }
       }
@@ -9670,7 +9679,7 @@
         },
         "view_options": {
           "template": "table2",
-          "column_widths": ["25%", "10%", "7%", "10%", "7%", "40%"],
+          "column_widths": ["25%", "17%", "17%", "40%"],
           "with_keys": true
         }
       }
@@ -12895,7 +12904,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories_on_site",
+                              "template": "has_subcategories",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13065,7 +13074,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories_on_site",
+                              "template": "has_subcategories",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13153,7 +13162,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories_on_site",
+                              "template": "has_subcategories",
                               "label_tag": "h4"
                             },
                             "subcategories": [
