@@ -1,7 +1,10 @@
+import collections
 import contextlib
-import logging
 import itertools
+import logging
 import operator
+
+from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireQuestion, \
     QuestionnaireSubcategory
@@ -223,7 +226,7 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
 
                 yield from self._qg_scale_format(
                     child=child,
-                    value=value,
+                    value=str(value),
                     label_left=child.choices[0][1],
                     label_right=child.choices[-1][1]
                 )
@@ -281,23 +284,48 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         """
         needs discussion - is the output format really correct?
         """
+        table = {
+            'head': collections.defaultdict(dict),
+            'partials': []
+        }
         questiongroups = self.get_questiongroups_in_table(
             section=child.questiongroup.parent_object
         )
-        table = []
+        # structure:
+        # a questiongroup consists of typically 6 questions. these are the
+        # columns. the number of columns is fixed for all questiongroups in
+        # the table.
+        # the rows are the values that the user has filled in (0-n).
+        # so always print the 'header' row, and 0-n rows with values
         for questiongroup in questiongroups:
-            items = []
-            for question in questiongroup.questions:
+            partials = collections.OrderedDict()
+
+            for column, question in enumerate(questiongroup.questions):
+                column = str(column)
                 values = self.get_value(child=question)
-                items.append({
-                    '0': '',
-                    '1': '',
-                    '2': ''
+
+                # Special case: the total is saved in the last question. Skip
+                # creating the table header and such, and only fill in the
+                # minimal necessary values.
+                if question.keyword.endswith('_total_costs'):
+                    table['total'] = {
+                        'label': values[0].get('key'),
+                        'value': values[0].get('value'),
+                    }
+                    continue
+
+                for row, value in enumerate(values):
+                    if not table['head'][column] and value.get('key'):
+                        table['head'][column] = value['key']
+                    element = partials.setdefault(row, {})
+                    element[column] = value.get('value') or ''
+
+            if partials:
+                table['partials'].append({
+                    'head': questiongroup.label,
+                    'items': partials.values()
                 })
-            table.append({
-                'head': questiongroup.label,
-                'items': items
-            })
+
         return table
 
     def get_questiongroups_in_table(self, section: QuestionnaireSubcategory):

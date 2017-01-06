@@ -277,6 +277,8 @@ body.summary {
 
   .range_comment {
     font-size: 10px;
+    display: inline-block;
+    position: absolute;
   }
 
   .range_true::before

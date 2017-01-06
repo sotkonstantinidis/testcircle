@@ -16184,7 +16184,16 @@
       "keyword": "tech_input_maint_specify",
       "translation": 1040,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "maintenance_input",
+            "get_value": {
+              "name": "get_table"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
