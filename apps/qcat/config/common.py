@@ -269,6 +269,9 @@ class BaseSettings(Configuration):
     IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
         environ_prefix='', default=False
     )
+    IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
+        environ_prefix='', default=False
+    )
     IS_ACTIVE_FEATURE_SUMMARY = values.BooleanValue(
         environ_prefix='', default=False
     )
