@@ -11,11 +11,11 @@
 </div>
 <div class="row">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/range2.html' with class="highlights_list" list_items=content.impacts.items %}
+    {% include 'questionnaire/summary/partial/range_less_space.html' with class="highlights_list" list_items=content.impacts.items %}
   </div>
 </div>
-<hr>
 <div class="row">
+<hr>
   <div class="small-6 columns">
     <h5>{{ content.motivation.title }}</h5>
     {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.motivation.items %}

@@ -166,6 +166,7 @@ body.summary {
   {
     float: right;
     max-width: 66%;
+    max-height: 300px;
     margin: 0px 0px 20px 20px;
   }
 
@@ -339,9 +340,16 @@ body.summary {
  {
     border: 0;
     height: 0;
+    border-top: 1px solid rgba(85, 116, 49, 0.15);
+    margin: 10px;
+ }
+
+ &.is-approaches hr
+ {
+    border: 0;
+    height: 0;
     border-top: 1px solid rgba($color-approach, 0.15);
-    border-bottom: 1px solid rgba($color-approach, 0.15);
-    margin: 10px 0px 10px 0px;
+    margin: 10px;
  }
 
  .rotate
