@@ -10,7 +10,7 @@ class Command(NoArgsCommand):
     informed.
     """
     def handle_noargs(self, **options):
-        with open(settings.NEXT_MAINTENANCE, 'w') as f:
+        with open(settings.NEXT_MAINTENANCE, 'w+') as f:
             f.write(
                 (now() + timedelta(seconds=settings.DEPLOY_TIMEOUT)).isoformat()
             )
