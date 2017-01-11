@@ -101,7 +101,7 @@ def deploy(branch):
         _rebuild_configuration_cache()
         print(green("Everything OK"))
         _access_project()
-
+        _clean_sessions(env.source_folder)
 
 @task
 def provision(environment):
@@ -231,3 +231,11 @@ def _set_maintenance_warning(source_folder):
     run('cd %s && ../virtualenv/bin/python3 manage.py '
         'set_next_maintenance' % source_folder)
     time.sleep(settings.DEPLOY_TIMEOUT)
+
+
+def _clean_sessions(source_folder):
+    """
+    This should be in a crontab.
+    """
+    run('cd %s && ../virtualenv/bin/python3 manage.py '
+        'clearsessions' % source_folder)
