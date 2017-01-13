@@ -31,11 +31,23 @@
             {% elif forloop.counter == 3 %}
               <td>{{ question }}</td>
             {% elif forloop.counter == 4 %}
-              <td>{{ question }}
+              <td>
+                <div class="row">
+                  <div class="small-3 columns chart-measure-col-left">
+                    <span class="chart-measure-label-left">
+                      {{ question }}
+                    </span>
+                  </div>
             {% elif forloop.counter == 5 %}
-              {{ question }}
+                  <div class="small-9 columns chart-measure-col-content">
+                    {{ question }}
             {% elif forloop.counter == 6 %}
-              {{ question }}</td>
+                    <span class="chart-measure-label-right">
+                      {{ question }}
+                    </span>
+                  </div>
+                </div>
+              </td>
             {% endif %}
           {% endif %}
         {% endfor %}

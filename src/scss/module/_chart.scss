@@ -116,11 +116,13 @@ $bars-factor: 4;
 .chart-measure-label-left {
   margin-right: rem-calc(8);
   font-size: rem-calc(14);
+  line-height: 1.5rem;
   float: right;
 }
 .chart-measure-label-right {
   margin-left: rem-calc(8);
   font-size: rem-calc(14);
+  line-height: 1.5rem;
 }
 .chart-measure-col-left {
   padding-right: 0;

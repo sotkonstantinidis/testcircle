@@ -9835,7 +9835,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
@@ -9879,7 +9879,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
@@ -9989,7 +9989,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         }
@@ -10033,7 +10033,7 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
         } 
@@ -12948,7 +12948,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -12989,7 +12989,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13030,7 +13030,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13118,7 +13118,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13206,7 +13206,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13247,7 +13247,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13288,7 +13288,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13329,7 +13329,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13419,7 +13419,7 @@
                                       "template": "no_label"
                                     },
                                     "view_options": {
-                                      "template": "measure_labelled_inline",
+                                      "template": "measure_bar_only",
                                       "layout": "stacked"
                                     }
                                   },
