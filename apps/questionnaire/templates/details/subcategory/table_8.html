@@ -1,5 +1,4 @@
 {% load list_to_columns %}
-
 {% comment %}
   Table where each questiongroup occupies one row. The first column is filled with the label of the questiongroup.
 
@@ -22,11 +21,13 @@
       <thead>
         <tr>
           {% if layout != 'no_label_row' %}
-            <th style="width: 65%"></th>
+            <th style="width: 50%"></th>
           {% endif %}
           {% for header in table_headers %}
             {% if forloop.counter == 1 %}
-              <th style="width: 65%">{{ header }}</th>
+              <th style="width: 30%">{{ header }}</th>
+            {% elif forloop.counter == 2 %}
+              <th style="width: 50%">{{ header }}</th>
             {% else %}
               <th>{{ header }}</th>
             {% endif %}
@@ -40,6 +41,9 @@
               <tr>
                 {% if questiongroup.layout != 'no_label_row' %}
                   <td>{{ questiongroup.label }}</td>
+                  {% if qg|length == 2 %}
+                    </td><td>
+                  {% endif %}
                 {% endif %}
                 {% for k, values in qg %}
                   {% if forloop.counter == 2 and qg|length == 2 %}

@@ -1276,6 +1276,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
         config.update({
             'numbered': self.numbered,
             'label': self.label,
+            'label_class': self.view_options.get('label_class'),
         })
         template_values = {
             'questiongroups': questiongroups,
@@ -1658,6 +1659,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'questions': rendered_questions,
             'subcategories': subcategories,
             'label': self.label_view,
+            'label_tag': self.view_options.get('label_tag'),
+            'label_class': self.view_options.get('label_class'),
             'numbering': self.form_options.get('numbering'),
             'helptext': self.helptext,
         })

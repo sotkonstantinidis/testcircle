@@ -12,6 +12,30 @@
     border-bottom: 2px solid $color-beige;
     padding-bottom: rem-calc(6);
     margin-bottom: rem-calc(6);
+
+    &.top-margin {
+      margin-top: rem-calc(24) !important;
+    }
+
+    &.top-margin-big {
+      margin-top: rem-calc(36) !important;
+    }
+
+    + h5.top-margin {
+      margin-top: rem-calc(16) !important;
+    }
+
+    + h5.top-margin-big {
+      margin-top: rem-calc(24) !important;
+    }
+  }
+
+  h5.top-margin {
+    margin-top: rem-calc(24) !important;
+  }
+
+  h5.top-margin-big {
+    margin-top: rem-calc(36) !important;
   }
 }
 
