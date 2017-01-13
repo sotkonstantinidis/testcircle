@@ -12903,8 +12903,8 @@
                           "label_tag": "h2"
                         },
                         "view_options": {
-                          "template": "has_subcategories_no_label",
-                          "label_tag": "h3"
+                          "template": "has_subcategories",
+                          "label_position": "none"
                         },
                         "subcategories": [
                           {
@@ -12921,7 +12921,7 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_production",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -12962,7 +12962,7 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_water",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13003,7 +13003,7 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_income",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13044,7 +13044,7 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_other",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13091,10 +13091,10 @@
                               {
                                 "keyword": "cca__3__2__sociocultural",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_no_label"
+                                  "label_position": "none"
                                 },
                                 "questiongroups": [
                                   {
@@ -13132,10 +13132,10 @@
                               {
                                 "keyword": "cca__3__2__sociocultural_other",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_no_label"
+                                  "label_position": "none"
                                 },
                                 "questiongroups": [
                                   {
@@ -13179,7 +13179,7 @@
                               {
                                 "keyword": "cca__3__2__ecological_water",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13220,7 +13220,7 @@
                               {
                                 "keyword": "cca__3__2__ecological_soil",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13261,7 +13261,7 @@
                               {
                                 "keyword": "cca__3__2__ecological_biodiversity",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13302,7 +13302,7 @@
                               {
                                 "keyword": "cca__3__2__ecological_climate",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13343,7 +13343,7 @@
                               {
                                 "keyword": "cca__3__2__ecological_other",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
@@ -13385,17 +13385,17 @@
                           "label_tag": "h2"
                         },
                         "view_options": {
-                          "template": "has_subcategories_no_label",
-                          "label_tag": "h3"
+                          "template": "has_subcategories",
+                          "label_tag": "h4"
                         },
                         "subcategories": [
                           {
                             "keyword": "cca__3__2__offsite__impacts",
                             "form_options": {
-                              "template": "default_no_border"
+                              "fieldset_class": "fieldset-no-border"
                             },
                             "view_options": {
-                              "label_tag": "h5"
+                              "label_position": "none"
                             },
                             "questiongroups": [
                               {
@@ -13433,10 +13433,10 @@
                           {
                             "keyword": "cca__3__2__offsite_other",
                             "form_options": {
-                              "template": "default_no_border"
+                              "fieldset_class": "fieldset-no-border"
                             },
                             "view_options": {
-                              "template": "default_no_label"
+                              "label_position": "none"
                             },
                             "questiongroups": [
                               {
@@ -13837,10 +13837,10 @@
                       {
                         "keyword": "cca__4__6_basic",
                         "form_options": {
-                          "template": "default_no_label"
+                          "template": "empty"
                         },
                         "view_options": {
-                          "template": "default_no_label"
+                          "label_position": "none"
                         },
                         "questiongroups": [
                           {
@@ -13943,10 +13943,13 @@
                       {
                         "keyword": "cca__4__6_main",
                         "form_options": {
-                          "template": "table_input_no_label"
+                          "template": "table_input",
+                          "fieldset_class": "fieldset-no-border fieldset-no-padding",
+                          "label_position": "none"
                         },
                         "view_options": {
-                          "template": "table_input_no_label",
+                          "template": "table_input",
+                          "label_position": "none",
                           "table_grouping": [
                             [
                               "cca_qg_146",

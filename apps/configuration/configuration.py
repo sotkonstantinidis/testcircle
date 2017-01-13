@@ -1663,6 +1663,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             'questions': rendered_questions,
             'subcategories': subcategories,
             'label': self.label_view,
+            'label_position': self.view_options.get('label_position'),
             'label_tag': self.view_options.get('label_tag'),
             'label_class': self.view_options.get('label_class'),
             'numbering': self.form_options.get('numbering'),
