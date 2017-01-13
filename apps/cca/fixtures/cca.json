@@ -5395,6 +5395,9 @@
         "cca": {
           "label": {
             "en": "Socio-economic impacts"
+          },
+          "label_view": {
+            "en": "Socio-economic impacts (on-site)"
           }
         }
       }
@@ -5465,6 +5468,9 @@
         "cca": {
           "label": {
             "en": "Socio-cultural impacts"
+          },
+          "label_view": {
+            "en": "Socio-cultural impacts (on-site)"
           }
         }
       }
@@ -5493,6 +5499,9 @@
         "cca": {
           "label": {
             "en": "Ecological impacts"
+          },
+          "label_view": {
+            "en": "Ecological impacts (on-site)"
           }
         }
       }
@@ -9670,7 +9679,7 @@
         },
         "view_options": {
           "template": "table2",
-          "column_widths": ["25%", "10%", "7%", "10%", "7%", "40%"],
+          "column_widths": ["25%", "17%", "17%", "40%"],
           "with_keys": true
         }
       }
@@ -12905,7 +12914,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories_on_site",
+                              "template": "has_subcategories",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13075,7 +13084,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories_on_site",
+                              "template": "has_subcategories",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -13163,7 +13172,7 @@
                               "label_tag": "h3"
                             },
                             "view_options": {
-                              "template": "has_subcategories_on_site",
+                              "template": "has_subcategories",
                               "label_tag": "h4"
                             },
                             "subcategories": [
@@ -14166,7 +14175,7 @@
                       {
                         "keyword": "cca__4__8__financial",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14187,7 +14196,7 @@
                           {
                             "keyword": "cca_qg_154",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14201,7 +14210,7 @@
                           {
                             "keyword": "cca_qg_155",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14215,7 +14224,7 @@
                           {
                             "keyword": "cca_qg_156",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14229,7 +14238,7 @@
                           {
                             "keyword": "cca_qg_157",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14243,7 +14252,7 @@
                           {
                             "keyword": "cca_qg_158",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14257,7 +14266,7 @@
                           {
                             "keyword": "cca_qg_159",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14271,7 +14280,7 @@
                           {
                             "keyword": "cca_qg_160",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14293,7 +14302,7 @@
                       {
                         "keyword": "cca__4__8__social",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14318,7 +14327,7 @@
                           {
                             "keyword": "cca_qg_161",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14332,7 +14341,7 @@
                           {
                             "keyword": "cca_qg_162",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14346,7 +14355,7 @@
                           {
                             "keyword": "cca_qg_163",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14360,7 +14369,7 @@
                           {
                             "keyword": "cca_qg_164",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14374,7 +14383,7 @@
                           {
                             "keyword": "cca_qg_165",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14388,7 +14397,7 @@
                           {
                             "keyword": "cca_qg_166",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14402,7 +14411,7 @@
                           {
                             "keyword": "cca_qg_167",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14416,7 +14425,7 @@
                           {
                             "keyword": "cca_qg_168",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14430,7 +14439,7 @@
                           {
                             "keyword": "cca_qg_169",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14444,7 +14453,7 @@
                           {
                             "keyword": "cca_qg_170",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14458,7 +14467,7 @@
                           {
                             "keyword": "cca_qg_171",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14480,7 +14489,7 @@
                       {
                         "keyword": "cca__4__8__human",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14496,7 +14505,7 @@
                           {
                             "keyword": "cca_qg_172",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14510,7 +14519,7 @@
                           {
                             "keyword": "cca_qg_173",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14532,7 +14541,7 @@
                       {
                         "keyword": "cca__4__8__physical",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14551,7 +14560,7 @@
                           {
                             "keyword": "cca_qg_174",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14565,7 +14574,7 @@
                           {
                             "keyword": "cca_qg_175",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14579,7 +14588,7 @@
                           {
                             "keyword": "cca_qg_176",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14593,7 +14602,7 @@
                           {
                             "keyword": "cca_qg_177",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14607,7 +14616,7 @@
                           {
                             "keyword": "cca_qg_178",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14629,7 +14638,7 @@
                       {
                         "keyword": "cca__4__8__natural",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14649,7 +14658,7 @@
                           {
                             "keyword": "cca_qg_179",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14663,7 +14672,7 @@
                           {
                             "keyword": "cca_qg_180",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14677,7 +14686,7 @@
                           {
                             "keyword": "cca_qg_181",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14691,7 +14700,7 @@
                           {
                             "keyword": "cca_qg_182",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14705,7 +14714,7 @@
                           {
                             "keyword": "cca_qg_183",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14719,7 +14728,7 @@
                           {
                             "keyword": "cca_qg_184",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
