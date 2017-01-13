@@ -13707,12 +13707,16 @@
                     "questiongroups": [
                       {
                         "keyword": "cca_qg_139",
+                        "view_options": {
+                          "template": "columns_26_26_r"
+                        },
                         "questions": [
                           {
                             "keyword": "cca_who_motivated_land_users",
                             "view_options": {
-                              "template": "measure_stacked_1",
+                              "template": "measure_stacked",
                               "layout": "stacked",
+                              "label_text_direction": "left",
                               "filter": true
                             }
                           },
@@ -13723,17 +13727,19 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "measure_stacked_2",
+                              "template": "measure_stacked_other",
                               "label_position": "none",
                               "layout": "stacked",
+                              "label_text_direction": "left",
                               "filter": true
                             }
                           },
                           {
                             "keyword": "cca_motivated_by_slm_specialists",
                             "view_options": {
-                              "template": "measure_stacked_1",
+                              "template": "measure_stacked",
                               "layout": "stacked",
+                              "label_text_direction": "left",
                               "filter": true
                             }
                           },
@@ -13744,9 +13750,10 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "measure_stacked_2",
+                              "template": "measure_stacked_other",
                               "label_position": "none",
                               "layout": "stacked",
+                              "label_text_direction": "left",
                               "filter": true
                             }
                           },
@@ -13781,12 +13788,16 @@
                         "form_options": {
                           "questiongroup_condition": "cca_qg_186"
                         },
+                        "view_options": {
+                          "template": "columns_26_r6"
+                        },
                         "questions": [
                           {
                             "keyword": "cca_measures_training_by_whom",
                             "view_options": {
-                              "template": "measure_stacked_1",
+                              "template": "measure_stacked",
                               "layout": "stacked",
+                              "label_text_direction": "left",
                               "filter": true
                             }
                           },
@@ -13797,9 +13808,10 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "measure_stacked_2",
+                              "template": "measure_stacked_other",
                               "label_position": "none",
                               "layout": "stacked",
+                              "label_text_direction": "left",
                               "filter": true
                             }
                           }

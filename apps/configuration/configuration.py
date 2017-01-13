@@ -959,7 +959,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     if v == choice[1]:
                         current_level = MAX_MEASURE_LEVEL
                 all_values.append((current_level, choice[1]))
-            template_values.update({'all_values': all_values})
+            template_values.update({
+                'all_values': all_values,
+                'label_text_direction': self.view_options.get(
+                    'label_text_direction')
+            })
 
         template_name = self.view_options.get('template', template_name)
         if template_name == 'raw':
