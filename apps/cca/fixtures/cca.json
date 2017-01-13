@@ -9713,7 +9713,8 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table5",
+          "template": "table1",
+          "label_class": "top-margin-big",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
         }
@@ -11343,7 +11344,7 @@
                           "label_tag": "h3"
                         },
                         "view_options": {
-                          "template": "default_with_div_1"
+                          "template": "default"
                         },
                         "subcategories": [
                           {
@@ -11495,7 +11496,7 @@
                           "label_tag": "h3"
                         },
                         "view_options": {
-                          "template": "default_with_div_2"
+                          "label_class": "top-margin"
                         },
                         "subcategories": [
                           {
@@ -11506,6 +11507,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_7",
@@ -11891,6 +11893,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_16",
@@ -12194,6 +12197,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_23",
@@ -12415,6 +12419,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_28",
@@ -12513,6 +12518,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "layout": "no_label_row",
                               "table_grouping": [
                                 [
@@ -12581,7 +12587,7 @@
                           "label_tag": "h3"
                         },
                         "view_options": {
-                          "template": "default_with_div_2"
+                          "label_class": "top-margin"
                         },
                         "subcategories": [
                           {
@@ -12592,6 +12598,7 @@
                             },
                             "view_options": {
                               "template": "table_7",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_31",
@@ -12769,6 +12776,9 @@
                     "form_options": {
                       "numbering": "2.3"
                     },
+                    "view_options": {
+                      "label_class": "top-margin"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "cca_qg_38",
@@ -12905,7 +12915,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },                                    
                                 "questiongroups": [
                                   {
@@ -12946,7 +12956,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -12987,7 +12997,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13028,7 +13038,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13163,7 +13173,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13204,7 +13214,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13245,7 +13255,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13286,7 +13296,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13327,7 +13337,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13376,7 +13386,7 @@
                               "template": "default_no_border"
                             },
                             "view_options": {
-                              "template": "default_h4"
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {

@@ -28,7 +28,7 @@
           <th class="table-numbered"></th>
         {% endif %}
         {% for field in formset.forms.0.visible_fields %}
-          {% if forloop.counter != 6 %}
+          {% if forloop.counter != 2 %}
             <th>
               {% with options=config.options|get_by_keyword:field.name %}
                 {% if options.helptext %}

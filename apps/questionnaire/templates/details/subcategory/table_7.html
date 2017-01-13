@@ -6,7 +6,7 @@
   Further questions are rendered either before the table (questiongroup_config.layout == 'before_table') or after the table.
 {% endcomment %}
 
-<{{ label_tag|default:"h5" }}>{{ numbering|default:'' }}</{{ label_tag|default:"h5" }}>
+<{{ label_tag|default:"h5" }}{% if label_class %} class="{{ label_class }}"{% endif %}>{{ numbering|default:'' }}</{{ label_tag|default:"h5" }}>
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}
@@ -18,7 +18,7 @@
     {% endif %}
   {% endfor %}
   {% if raw_questiongroups %}
-    <table class="columns small-12 output-table">
+    <table class="small-12 output-table">
       <thead>
         <tr>
           {% if layout != 'no_label_row' %}
