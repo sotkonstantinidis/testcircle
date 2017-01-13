@@ -20,7 +20,7 @@
         <div id="{{ config.keyword }}" class="content active">
   {% endif %}
 
-  <div class="small-12 medium-4 columns">
+  <div class="small-12 medium-4 columns{% if config.columns_class %} {{ config.columns_class }}{% endif %}">
     <label class="input-multiline">
       <input type="checkbox" class="cb-toggle-questiongroup" data-container="{{ config.keyword }}"{% if edit_mode != "edit" %} disabled="disabled"{% endif %}>
       <span{% if config.helptext %} class="has-tip" title="{{ config.helptext }}" aria-haspopup="true" data-tooltip=""{% endif %}>
