@@ -9830,7 +9830,7 @@
         "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
@@ -9874,7 +9874,7 @@
         "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
@@ -9984,7 +9984,7 @@
         "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
@@ -10028,7 +10028,7 @@
        "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
+          "template": "table4",
           "column_widths": ["25%", "25%", "50%"],
           "numbered": "display"
         },
@@ -14190,7 +14190,8 @@
                       {
                         "keyword": "cca__4__8__financial",
                         "form_options": {
-                          "template": "collapsible_font_size_14",
+                          "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14324,7 +14325,8 @@
                       {
                         "keyword": "cca__4__8__social",
                         "form_options": {
-                          "template": "collapsible_font_size_14",
+                          "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14522,7 +14524,8 @@
                       {
                         "keyword": "cca__4__8__human",
                         "form_options": {
-                          "template": "collapsible_font_size_14",
+                          "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14576,7 +14579,8 @@
                       {
                         "keyword": "cca__4__8__physical",
                         "form_options": {
-                          "template": "collapsible_font_size_14",
+                          "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14678,7 +14682,8 @@
                       {
                         "keyword": "cca__4__8__natural",
                         "form_options": {
-                          "template": "collapsible_font_size_14",
+                          "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {

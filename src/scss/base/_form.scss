@@ -190,6 +190,10 @@ td.form-table-contains-inline table tr td {
 h4.form-subcategory {
   margin-top: rem-calc(16);
 }
+h4.form-subcategory.header-checkbox-small-font {
+  font-size: rem-calc(14);
+}
+
 fieldset div h3.form-subcategory {
   margin-top: rem-calc(24);
 }
