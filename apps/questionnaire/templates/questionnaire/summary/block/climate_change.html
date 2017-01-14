@@ -5,8 +5,10 @@
 </div>
 <div class="row">
   <div class="small-12 columns">
-    <h5>{{ content.title }}</h5>
-    {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=content.scale.items %}
+    {% for group in content %}
+      <h5>{{ group.title }}</h5>
+      {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=group.items %}
+    {% endfor %}
   </div>
 </div>
     

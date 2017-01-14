@@ -19755,7 +19755,16 @@
       "keyword": "tech_exposure_incrdecr",
       "translation": 1302,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "climate_change",
+            "get_value": {
+              "name": "get_climate_change"
+            }
+          }
+        }
       },
       "values": [
         266,
@@ -19803,7 +19812,16 @@
       "keyword": "tech_adoption_percentage",
       "translation": 1343,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_percentage",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1340,
@@ -19831,7 +19849,13 @@
       "keyword": "tech_adoption_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -20445,7 +20469,16 @@
       "keyword": "tech_adoption_spontaneously",
       "translation": 1335,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_spontaneously",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1376,
@@ -20462,7 +20495,16 @@
       "keyword": "tech_adaptation_yes",
       "translation": 1336,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_modified",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",

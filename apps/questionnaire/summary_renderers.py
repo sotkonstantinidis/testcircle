@@ -1,3 +1,6 @@
+"""
+Prepare data as required for the summary frontend templates.
+"""
 import json
 from itertools import islice
 
@@ -5,7 +8,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireConfiguration
-from .summary_configuration import ConfiguredQuestionnaireSummary
+from .summary_parsers import ConfiguredQuestionnaireParser, TechnologyParser
 from .models import Questionnaire, QuestionnaireLink
 
 
@@ -15,19 +18,19 @@ def get_summary_data(config: QuestionnaireConfiguration, summary_type: str,
     Load summary config according to configuration.
     """
     if config.keyword == 'technologies' and summary_type == 'full':
-        return TechnologyFullSummaryProvider(
+        return TechnologyFullSummaryRenderer(
             config=config, questionnaire=questionnaire, **data
         ).data
 
     if config.keyword == 'approaches' and summary_type == 'full':
-        return ApproachesSummaryProvider(
+        return ApproachesSummaryRenderer(
             config=config, questionnaire=questionnaire, **data
         ).data
 
     raise Exception('Summary not configured.')
 
 
-class SummaryDataProvider:
+class SummaryRenderer:
     """
     - Load summary-config according to configuration
     - annotate and aggregate values
@@ -45,6 +48,7 @@ class SummaryDataProvider:
     - add a method called 'definition' to the class, which gets the values
 
     """
+    parser = ConfiguredQuestionnaireParser
 
     def __init__(self, config: QuestionnaireConfiguration,
                  questionnaire: Questionnaire, **data):
@@ -52,7 +56,7 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        self.raw_data = ConfiguredQuestionnaireSummary(
+        self.raw_data = self.parser(
             config=config, summary_type=self.summary_type,
             questionnaire=questionnaire, **data
         ).data
@@ -318,18 +322,19 @@ class GlobalValuesMixin:
                 source=sources[index].get('value') if sources[index] else '')}
 
 
-class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
+class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
     Configuration for 'full' technology summary.
     """
+    parser = TechnologyParser
     summary_type = 'full'
 
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
                 'classification', 'technical_drawing', 'establishment_costs',
-                'natural_environment', 'human_environment', 'impacts',
-                'conclusion', 'references']
+                'natural_environment', 'human_environment', 'impacts', 
+                'climate_change', 'adoption_adaptation', 'conclusion', 'references']
 
     def location(self):
         return {
@@ -659,8 +664,35 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
             }
         }
 
+    def climate_change(self):
+        return {
+            'title': _('Climate change'),
+            'partials': self.raw_data.get('climate_change')
+        }
+    
+    def adoption_adaptation(self):
+        return {
+            'title': _('Adoption and adaptation'),
+            'partials': {
+                'adopted': {
+                    'title': _('Percentage of land users in the area who have adopted the Technology'),
+                    'items': self.raw_data.get('adoption_percentage')
+                },
+                'adopted_no_incentive': {
+                    'title': _('Percentage of land users who adopted the Technology without material incentives'),
+                    'items': self.raw_data.get('adoption_spontaneously')
+                },
+                'adaptation': {
+                    'title': _('Adaptation'),
+                    'text': _('The technology has been modified recently to adapt to'),
+                    'items': self.raw_data.get('adoption_modified')
+                },
+                'comments': self.raw_data_getter('adoption_comments')
+            }
+        }
+    
 
-class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
+class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
     Configuration for 'full' approaches summary.
     """

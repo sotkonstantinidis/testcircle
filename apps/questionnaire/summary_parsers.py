@@ -1,13 +1,16 @@
+"""
+Parse data of combined configuration and questionnaire-data and provide some
+additional methods to extract data as required for the summary.
+"""
+
 import collections
 import contextlib
 import itertools
 import logging
 import operator
 
-from django.utils.translation import ugettext_lazy as _
-
 from configuration.configuration import QuestionnaireQuestion, \
-    QuestionnaireSubcategory
+    QuestionnaireSubcategory, QuestionnaireQuestiongroup
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
 from qcat.errors import ConfigurationError
 from .models import Questionnaire
@@ -16,7 +19,7 @@ from .templatetags.questionnaire_tags import get_static_map_url
 logger = logging.getLogger(__name__)
 
 
-class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
+class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
     """
     Get only data which is configured to appear in the summary. This is defined
     by the configuration-field: 'in_summary', which specifies the section
@@ -241,10 +244,10 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
     def _qg_scale_format(self, child: QuestionnaireQuestion, value: str,
                          **kwargs):
         yield {
-            'label': child.label,
-            'range': len(child.choices),
+            'label': kwargs.get('label', child.label),
+            'range': kwargs.get('range', len(child.choices)),
             'min': kwargs.get('label_left'),
-            'max': kwargs.get('label_left'),
+            'max': kwargs.get('label_right'),
             'selected': value,
             'comment': kwargs.get('comment', '')
         }
@@ -336,3 +339,101 @@ class ConfiguredQuestionnaireSummary(ConfiguredQuestionnaire):
         for questiongroup in section.questiongroups:
             if questiongroup.keyword in used:
                 yield questiongroup
+
+
+class TechnologyParser(ConfiguredQuestionnaireParser):
+
+    def get_climate_change(self, child: QuestionnaireQuestion):
+        # based on this first question, get all questiongroups with at least
+        # one # filled in question.
+        climate_change_categories = child.questiongroup.parent_object.\
+            parent_object.parent_object
+        groups = []
+
+        for main_category in filter(self._subcategory_has_value,
+                                    climate_change_categories.subcategories):
+
+            # A store for all 'lines' for the main groups
+            items = []
+            questiongroups = [subcategory.questiongroups for subcategory in
+                              main_category.subcategories]
+            for group in itertools.chain(*questiongroups):
+
+                # omit questions without filled in values.
+                try:
+                    values = self.values.get(group.keyword, [])
+                except IndexError:
+                    continue
+
+                # if more than one element is available, a set of 'sibling'
+                # questions was filled in. Duplicate this question, resulting
+                # in one line per value/answer.
+                for value in values:
+                    items.append(self._prepare_climate_change_row(group, **value))
+
+            groups.append({
+                'title': main_category.label,
+                'items': items
+            })
+
+        return groups
+
+    def _prepare_climate_change_row(self, group: QuestionnaireQuestiongroup, **values):
+        """
+        Create elements for a single line
+        """
+        label = group.label
+        comment = ''
+
+        # One set of questions equals one line in the summary. The field names
+        # are stable/repeating so string comparison is nasty but semi-ok.
+        for question in group.questions:
+
+            if question.keyword == 'tech_exposure_incrdecr':
+                # Indicator for direction of development (increased/decreased)
+                question_label = values.get(question.keyword)
+                if question_label:
+                    label += ' {}'.format(question_label)
+
+            elif question.keyword == 'tech_exposure_sensitivity':
+                # The actual value for our range-field.
+                # The first and the last choice are irrelevant to this
+                # mode of layout. If the selected value is empty or unknown,
+                # this is added as comment.
+                choice_keys = list(
+                    dict(question.choices).keys() - ['', 'cope_unknown']
+                )
+
+                value = values.get(question.keyword)
+                if value not in choice_keys:
+                    string_value = dict(question.choices).get(value)
+                    comment += ' Answer: {}'.format(string_value)
+                else:
+                    value = choice_keys.index(value) + 1
+
+            else:
+                # All other fields, such as 'season' go into the comments.
+                comment_key = values.get(question.keyword)
+                if comment_key:
+                    comment += '{label}: {value}'.format(
+                        label=question.label,
+                        value=dict(question.choices).get(comment_key)
+                    )
+        return {
+            'label': label,
+            'range': len(choice_keys),
+            'min': question.choices[1][1],
+            'max': question.choices[-2][1],
+            'selected': value,
+            'comment': comment
+        }
+
+    def _subcategory_has_value(self, subcategory):
+        """
+        Filter only questiongroups with at least one filled in question.
+        """
+        questiongroups = itertools.chain(
+            *[subcategory.questiongroups for subcategory in subcategory.subcategories]
+        )
+        qg_keywords = [qg.keyword for qg in questiongroups]
+        return not set(qg_keywords).isdisjoint(set(self.values.keys()))
