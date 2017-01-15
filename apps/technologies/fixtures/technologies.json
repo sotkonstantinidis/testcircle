@@ -15117,7 +15117,10 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "definition"
+          "types": ["full"],
+          "default": {
+            "field_name": "definition"
+          }
         }
       }
     },
@@ -15164,7 +15167,13 @@
       "configuration": {
         "type": "checkbox",
         "in_summary": {
-          "full": "location_who_implemented"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_who_implemented",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -15206,7 +15215,13 @@
       "configuration": {
         "type": "checkbox",
         "in_summary": {
-          "full": "classification_main_purpose"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_main_purpose",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -15243,7 +15258,13 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "classification_watersupply"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_watersupply",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -15278,7 +15299,13 @@
           }
         },
         "in_summary": {
-          "full": "classification_landuse"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_landuse",
+            "get_value": {
+              "name": "get_picto_and_nested_values"
+            }
+          }
         }
       },
       "values": [
@@ -15483,7 +15510,10 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "classification_lu_before"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_lu_before"
+          }
         }
       }
     },
@@ -15495,7 +15525,16 @@
       "keyword": "tech_measures",
       "translation": 1022,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_measures",
+            "get_value": {
+              "name": "get_picto_and_nested_values"
+            }
+          }
+        }
       },
       "values": [
         1130,
@@ -15605,7 +15644,16 @@
       "keyword": "tech_degradation",
       "translation": 1026,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_degradation",
+            "get_value": {
+              "name": "get_picto_and_nested_values"
+            }
+          }
+        }
       },
       "values": [
         1134,
@@ -15764,7 +15812,13 @@
           }
         },
         "in_summary": {
-          "full": "classification_purpose"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_purpose",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -15827,7 +15881,13 @@
       "keyword": "tech_specifications",
       "translation": 1036,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_drawing_text"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15855,7 +15915,13 @@
       "keyword": "tech_est_activity",
       "translation": 1037,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_establishment_activities"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15895,7 +15961,13 @@
       "keyword": "tech_est_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_input_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15906,7 +15978,16 @@
       "keyword": "tech_input_est_specify",
       "translation": 1040,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_input",
+            "get_value": {
+              "name": "get_table"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -15995,7 +16076,13 @@
       "keyword": "tech_input_national_currency",
       "translation": 1315,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_national_currency"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16006,7 +16093,13 @@
       "keyword": "tech_input_average_wage",
       "translation": 1318,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_average_wage"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16028,7 +16121,13 @@
       "keyword": "tech_maint_activity",
       "translation": 1037,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_activities"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16068,7 +16167,13 @@
       "keyword": "tech_maint_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16079,7 +16184,16 @@
       "keyword": "tech_input_maint_specify",
       "translation": 1040,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "maintenance_input",
+            "get_value": {
+              "name": "get_table"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16189,7 +16303,13 @@
       "keyword": "tech_input_determinate_factors",
       "translation": 1049,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_determinate_factors"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16320,6 +16440,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_rainfall",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -16342,7 +16471,19 @@
       "keyword": "tech_impacts_cropproduction",
       "translation": 1060,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_cropproduction",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -16497,7 +16638,16 @@
       "keyword": "tech_agroclimatic_zone",
       "translation": 1069,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_climate_zone",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1157,
@@ -16574,7 +16724,13 @@
       "keyword": "tech_agroclimatic_zone_specifications",
       "translation": 1073,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_climate_zone_text"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16589,6 +16745,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_slope",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -16735,6 +16900,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_landforms",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -16858,6 +17032,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_altitude",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17021,7 +17204,19 @@
       "keyword": "tech_impacts_foodsecurity",
       "translation": 1095,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_foodsecurity",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -17052,7 +17247,16 @@
       "keyword": "tech_convex_concave",
       "translation": 1097,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_convex_concave",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1081,
@@ -17072,6 +17276,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_soil_depth",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17176,6 +17389,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_soil_texture",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17237,6 +17459,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_soil_texture_below",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17257,6 +17488,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_soil_organic",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17285,7 +17525,16 @@
       "keyword": "tech_groundwater",
       "translation": 1110,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_groundwater",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1194,
@@ -17302,7 +17551,16 @@
       "keyword": "tech_surfacewater",
       "translation": 1114,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_surfacewater",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1198,
@@ -17319,7 +17577,16 @@
       "keyword": "tech_waterquality",
       "translation": 1118,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_waterquality",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1202,
@@ -17336,7 +17603,19 @@
       "keyword": "tech_flooding",
       "translation": 1119,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_flooding",
+            "get_value": {
+              "name": "get_full_range_values",
+              "kwargs": {
+                "is_radio": "true"
+              }
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -17362,7 +17641,19 @@
       "keyword": "tech_salinization",
       "translation": 1122,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_salinity",
+            "get_value": {
+              "name": "get_full_range_values",
+              "kwargs": {
+                "is_radio": "true"
+              }
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -17395,7 +17686,16 @@
       "keyword": "tech_speciesdiversity",
       "translation": 1125,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_species",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         250,
@@ -17411,7 +17711,16 @@
       "keyword": "tech_habitatdiversity",
       "translation": 1126,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_habitat",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         250,
@@ -17459,6 +17768,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_market_orientation",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17479,6 +17797,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_wealth",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17563,6 +17890,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_offfarm_income",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17583,6 +17919,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_individuals",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17606,6 +17951,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_mechanisation",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17622,7 +17976,16 @@
       "keyword": "tech_gender",
       "translation": 1141,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_gender",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1096,
@@ -17669,6 +18032,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_land_size",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17708,6 +18080,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_ownership",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17755,6 +18136,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_landuser_rights",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -17787,6 +18177,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_wateruser_rights",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -17862,7 +18261,10 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "location_sites_considered"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_sites_considered"
+          }
         }
       },
       "values": [
@@ -18032,7 +18434,19 @@
       "keyword": "tech_impacts_soilmoisture",
       "translation": 1199,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_soilmoisture",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -18472,7 +18886,19 @@
       "keyword": "tech_impacts_downstreamflooding",
       "translation": 1221,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_downstreamflooding",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "multi_select"
+              }
+            }
+          }
+        }
       },
       "values": [
         1237,
@@ -18704,7 +19130,10 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "location_implementation_decade"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_implementation_decade"
+          }
         }
       },
       "values": [
@@ -18831,7 +19260,10 @@
           }
         },
         "in_summary": {
-          "full": "classification_slm_group"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_slm_group"
+          }
         }
       },
       "values": [
@@ -18882,7 +19314,13 @@
       "keyword": "tech_perarea_size",
       "translation": 1284,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_perarea_size"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -18893,7 +19331,13 @@
       "keyword": "tech_area_unit_conversion",
       "translation": 1247,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_unit_conversion"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19004,7 +19448,23 @@
       "keyword": "tech_costbenefit_est_short",
       "translation": 1255,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+
+            "field_name": {
+              "tech_qg_181.tech_costbenefit_est_short": "impacts_establishment_costbenefit",
+              "tech_qg_182.tech_costbenefit_est_short": "impacts_maintenance_costbenefit"
+            },
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "radio"
+              }
+            }
+          }
+        }
       },
       "values": [
         1322,
@@ -19055,7 +19515,13 @@
       "keyword": "tech_drawing",
       "translation": 1257,
       "configuration": {
-        "type": "file"
+        "type": "file",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_drawing_image"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19090,7 +19556,10 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "location_spread"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_spread"
+          }
         }
       },
       "values": [
@@ -19301,7 +19770,16 @@
       "keyword": "tech_exposure_incrdecr",
       "translation": 1302,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "climate_change",
+            "get_value": {
+              "name": "get_climate_change"
+            }
+          }
+        }
       },
       "values": [
         266,
@@ -19349,7 +19827,16 @@
       "keyword": "tech_adoption_percentage",
       "translation": 1343,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_percentage",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1340,
@@ -19377,7 +19864,13 @@
       "keyword": "tech_adoption_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19428,7 +19921,10 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "description"
+          "types": ["full"],
+          "default": {
+            "field_name": "description"
+          }
         }
       }
     },
@@ -19440,7 +19936,13 @@
       "keyword": "tech_cost_calculation_base",
       "translation": 1314,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_cost_calculation_base"
+          }
+        }
       },
       "values": [
         1348,
@@ -19509,6 +20011,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_sedentary_nomadic",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -19599,7 +20110,10 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "classification_growing_seasons"
+          "types": ["full"],
+          "default": {
+            "field_name": "classification_growing_seasons"
+          }
         }
       },
       "values": [
@@ -19658,7 +20172,13 @@
       "keyword": "tech_input_dollar",
       "translation": 1316,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_dollar"
+          }
+        }
       },
       "values": [
         1365
@@ -19672,7 +20192,13 @@
       "keyword": "tech_input_exchange_rate",
       "translation": 1317,
       "configuration": {
-        "type": "float"
+        "type": "float",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_exchange_rate"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19687,6 +20213,15 @@
         "form_options": {
           "field_options": {
             "data-cb-max-choices": 2
+          }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_age",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
           }
         }
       },
@@ -19710,6 +20245,15 @@
           "field_options": {
             "data-cb-max-choices": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_land_size_relative",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -19726,7 +20270,19 @@
       "keyword": "tech_access_health",
       "translation": 1324,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_services",
+            "get_value": {
+              "name": "get_qg_values_with_scale",
+              "kwargs": {
+                "qg_style": "click_labels"
+              }
+            }
+          }
+        }
       },
       "values": [
         1373,
@@ -19928,7 +20484,16 @@
       "keyword": "tech_adoption_spontaneously",
       "translation": 1335,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_spontaneously",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1376,
@@ -19945,7 +20510,16 @@
       "keyword": "tech_adaptation_yes",
       "translation": 1336,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_modified",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",

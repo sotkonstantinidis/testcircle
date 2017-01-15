@@ -1,10 +1,14 @@
+"""
+Prepare data as required for the summary frontend templates.
+"""
 import json
+from itertools import islice
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireConfiguration
-from .summary_configuration import ConfiguredQuestionnaireSummary
+from .summary_parsers import ConfiguredQuestionnaireParser, TechnologyParser
 from .models import Questionnaire, QuestionnaireLink
 
 
@@ -14,19 +18,19 @@ def get_summary_data(config: QuestionnaireConfiguration, summary_type: str,
     Load summary config according to configuration.
     """
     if config.keyword == 'technologies' and summary_type == 'full':
-        return TechnologyFullSummaryProvider(
+        return TechnologyFullSummaryRenderer(
             config=config, questionnaire=questionnaire, **data
         ).data
 
     if config.keyword == 'approaches' and summary_type == 'full':
-        return ApproachesSummaryProvider(
+        return ApproachesSummaryRenderer(
             config=config, questionnaire=questionnaire, **data
         ).data
 
     raise Exception('Summary not configured.')
 
 
-class SummaryDataProvider:
+class SummaryRenderer:
     """
     - Load summary-config according to configuration
     - annotate and aggregate values
@@ -44,6 +48,7 @@ class SummaryDataProvider:
     - add a method called 'definition' to the class, which gets the values
 
     """
+    parser = ConfiguredQuestionnaireParser
 
     def __init__(self, config: QuestionnaireConfiguration,
                  questionnaire: Questionnaire, **data):
@@ -51,7 +56,7 @@ class SummaryDataProvider:
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations to self.data.
         """
-        self.raw_data = ConfiguredQuestionnaireSummary(
+        self.raw_data = self.parser(
             config=config, summary_type=self.summary_type,
             questionnaire=questionnaire, **data
         ).data
@@ -97,6 +102,7 @@ class GlobalValuesMixin:
         """
         Get the first 'value' for given key from the data.
         """
+        # todo: don't return none values, but empty string
         try:
             return self.raw_data[key][0][value] if value else self.raw_data[key]
         except (AttributeError, TypeError, IndexError):
@@ -154,7 +160,7 @@ class GlobalValuesMixin:
         )
         images = []
         if image_urls:
-            for index, image in enumerate(image_urls[:2]):
+            for index, image in islice(enumerate(image_urls), 1, 3):
                 images.append({
                     'url': image['value'],
                     'caption': '{caption}\n{photographer}'.format(
@@ -180,7 +186,7 @@ class GlobalValuesMixin:
         # and get the 'overcome' value as subtext
         weaknesses_list = []
         weaknesses_datasets = {
-            'weaknesses_compiler': 'weaknesses_overcome',
+            'weaknesses_compiler': 'weaknesses_compiler_overcome',
             'weaknesses_landuser': 'weaknesses_landuser_overcome',
         }
         for key_name, overcome_name in weaknesses_datasets.items():
@@ -197,7 +203,8 @@ class GlobalValuesMixin:
                     "items": pro_list
                 },
                 "contra": {
-                    "label": _("Weaknesses/ disadvantages/ risks and how they can be overcome"),
+                    "label": _("Weaknesses/ disadvantages/ risks and how they "
+                               "can be overcome"),
                     "items": weaknesses_list
                 }
             }
@@ -315,23 +322,26 @@ class GlobalValuesMixin:
                 source=sources[index].get('value') if sources[index] else '')}
 
 
-class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
+class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
     Configuration for 'full' technology summary.
     """
+    parser = TechnologyParser
     summary_type = 'full'
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description',
-                'conclusion', 'references']
+        return ['header_image', 'title', 'location', 'description', 'images',
+                'classification', 'technical_drawing', 'establishment_costs',
+                'natural_environment', 'human_environment', 'impacts', 
+                'climate_change', 'adoption_adaptation', 'conclusion', 'references']
 
     def location(self):
         return {
             "title": _("Location"),
             "partials": {
                 "map": {
-                    "url": self.raw_data.get('location_map_data').get('img_url')
+                    "url": self.raw_data.get('location_map_data', {}).get('img_url')
                 },
                 "infos": {
                     "location": {
@@ -347,7 +357,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         "text": self.string_from_list('location_sites_considered')
                     },
                     "geo_reference": self.raw_data.get(
-                        'location_map_data'
+                        'location_map_data', {}
                     ).get('coordinates'),
                     "spread": {
                         "title": _("Spread of the Technology"),
@@ -367,7 +377,9 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
 
     def classification(self):
         try:
-            slm_group = self.raw_data_getter('classification_slm_group', value='')[0].get('values')
+            slm_group = self.raw_data_getter(
+                'classification_slm_group', value=''
+            )[0].get('values')
         except (KeyError, IndexError):
             slm_group = None
 
@@ -389,11 +401,16 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         "text": [
                             {
                                 "title": "Number of growing seasons per year",
-                                "text": self.string_from_list('classification_growing_seasons')
+                                "text": self.string_from_list(
+                                    'classification_growing_seasons'
+                                )
                             },
                             {
-                                "title": "Land use before implementation of the Technology",
-                                "text": self.raw_data_getter('classification_lu_before')
+                                "title": "Land use before implementation of "
+                                         "the Technology",
+                                "text": self.raw_data_getter(
+                                    'classification_lu_before'
+                                )
                             }
                         ]
                     }
@@ -404,28 +421,7 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 },
                 "degredation": {
                     "title": "Degradation addressed",
-                    "partials": [
-                        {
-                            "url": "/static/assets/img/pictos/degra_watererosion.png",
-                            "label": "Soil erosion by water",
-                            "text": "loss of topsoil, gully erosion"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/degra_2_chem.png",
-                            "label": "Chemical degradation",
-                            "text": "fertility decline and reduced organic matter content"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/degra_waterdegrade.png",
-                            "label": "Water degradation",
-                            "text": "aridification"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/degra_watererosion.png",
-                            "label": "Soil erosion by water",
-                            "text": "downstream siltation of the Yellow River"
-                        }
-                    ]
+                    "partials": self.raw_data.get('classification_degradation')
                 },
                 "slm_group": {
                     "title": "SLM group",
@@ -433,29 +429,276 @@ class TechnologyFullSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                 },
                 "measures": {
                     "title": "SLM measures",
-                    "partials": [
-                        {
-                            "url": "/static/assets/img/pictos/swc_1_struc.png",
-                            "label": "Structural",
-                            "text": "Terraces"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/swc_3_veg.png",
-                            "label": "Vegetative",
-                            "text": "Grasses and perennial herbaceous plants"
-                        },
-                        {
-                            "url": "/static/assets/img/pictos/swc_4_manag.png",
-                            "label": "Agronomic",
-                            "text": "Contour tillage, application of manure"
-                        }
-                    ]
+                    "partials": self.raw_data.get('classification_measures')
                 }
             }
         }
 
+    def technical_drawing(self):
+        return {
+            'title': _('Technical drawing'),
+            'partials': {
+                'title': _('Technical specifications'),
+                'text': self.raw_data_getter('tech_drawing_text'),
+                'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image')]
+            }
+        }
 
-class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
+    def establishment_costs(self):
+        base = self.string_from_list('establishment_cost_calculation_base')
+        perarea_size = self.raw_data_getter('establishment_perarea_size')
+        conversion = self.raw_data_getter('establishment_unit_conversion')
+        conversion_text = '; conversion factor to one hectare: {}'.format(conversion)
+        explanation = ' (size and area unit: {size}{conversion_text})'.format(
+            size=perarea_size,
+            conversion_text=conversion_text if conversion else ''
+        )
+        calculation = '{base}{extra}'.format(
+            base=base,
+            extra=explanation if perarea_size else ''
+        )
+        usd = self.string_from_list('establishment_dollar')
+        national_currency = self.raw_data_getter('establishment_national_currency')
+        currency = usd or national_currency or 'n.a'
+        wage = self.raw_data_getter('establishment_average_wage') or _('n.a')
+        exchange_rate = self.raw_data_getter('establishment_exchange_rate') or _('n.a')
+        return {
+            'title': _('Establishment and maintenance: activities, inputs and costs'),
+            'partials': {
+                'introduction': {
+                    'title': _('Calculation of inputs and costs'),
+                    'items': [
+                        _('Costs are calculated: {}').format(calculation),
+                        _('Currency used for cost calculation: {}').format(currency),
+                        _('Exchange rate (to USD): {}.').format(exchange_rate),
+                        _('Average wage cost of hired labour: {}.').format(wage)
+                    ],
+                    'main_factors': self.raw_data_getter('establishment_determinate_factors'),
+                    'main_factors_title': _('Most important factors affecting the costs')
+                },
+                'establishment': {
+                    'title': _('Establishment activities'),
+                    'list': [{'text': activity['value']} for activity in self.raw_data['establishment_establishment_activities']],
+                    'comment': self.raw_data_getter('establishment_input_comments'),
+                    'table': {
+                        'title': _('Establishment inputs and costs per ha'),
+                        **self.raw_data.get('establishment_input'),
+                    }
+                },
+                'maintenance': {
+                    'title': _('Maintenance activities'),
+                    'list': [{'text': activity['value']} for activity in self.raw_data['establishment_maintenance_activities']],
+                    'comment': self.raw_data_getter('establishment_maintenance_comments'),
+                    'table': {
+                        'title': 'Maintenance inputs and costs per ha',
+                        **self.raw_data.get('maintenance_input'),
+                    }
+                }
+            }
+        }
+
+    def natural_environment(self):
+        return {
+            'title': _('Natural environment'),
+            'partials': {
+                'rainfall': {
+                    'title': _('Average annual rainfall'),
+                    'items': self.raw_data.get('natural_env_rainfall')
+                },
+                'zone': {
+                    'title': _('Agro-climatic zone'),
+                    'items': self.raw_data.get('natural_env_climate_zone')
+                },
+                'specifications': {
+                    'title': _('Specifications on climate'),
+                    'text': self.raw_data_getter('natural_env_climate_zone_text')
+                },
+                'slope': {
+                    'title': _('Slope'),
+                    'items': self.raw_data.get('natural_env_slope')
+                },
+                'landforms': {
+                    'title': _('Landforms'),
+                    'items': self.raw_data.get('natural_env_landforms')
+                },
+                'altitude': {
+                    'title': _('Altitude'),
+                    'items': self.raw_data.get('natural_env_altitude')
+                },
+                'convex': {
+                    'title': _('Technology is applied in'),
+                    'items': self.raw_data.get('natural_env_convex_concave')
+                },
+                'soil_depth': {
+                    'title': _('Soil depth'),
+                    'items': self.raw_data.get('natural_env_soil_depth')
+                },
+                'soil_texture_top': {
+                    'title': _('Soil texture (topsoil)'),
+                    'items': self.raw_data.get('natural_env_soil_texture')
+                },
+                'soil_texture_below': {
+                    'title': _('Soil texture (> 20 cm below surface)'),
+                    'items': self.raw_data.get('natural_env_soil_texture_below')
+                },
+                'topsoil': {
+                    'title': _('Topsoil organic matter content'),
+                    'items': self.raw_data.get('natural_env_soil_organic')
+                },
+                'groundwater': {
+                    'title': _('Groundwater table'),
+                    'items': self.raw_data.get('natural_env_groundwater')
+                },
+                'surface_water': {
+                    'title': _('Availability of surface water'),
+                    'items': self.raw_data.get('natural_env_surfacewater')
+                },
+                'water_quality': {
+                    'title': _('Water quality (untreated)'),
+                    'items': self.raw_data.get('natural_env_waterquality')
+                },
+                'flooding': {
+                    'title': _('Occurrence of flooding'),
+                    'items': self.raw_data.get('natural_env_flooding')
+                },
+                'salinity': {
+                    'title': _('Is salinity a problem?'),
+                    'items': self.raw_data.get('natural_env_salinity')
+                },
+                'species': {
+                    'title': _('Species diversity'),
+                    'items': self.raw_data.get('natural_env_species')
+                },
+                'habitat': {
+                    'title': _('Habitat diversity'),
+                    'items': self.raw_data.get('natural_env_habitat')
+                }
+            }
+        }
+    
+    def human_environment(self):
+        return {
+            'title': _('Characteristics of land users applying the Technology'),
+            'partials': {
+                'market': {
+                    'title': _('Market orientation'),
+                    'items': self.raw_data.get('human_env_market_orientation')
+                },
+                'income': {
+                    'title': _('Off-farm income'),
+                    'items': self.raw_data.get('human_env_offfarm_income')
+                },
+                'wealth': {
+                    'title': _('Relative level of wealth'),
+                    'items': self.raw_data.get('human_env_wealth')
+                },
+                'mechanization': {
+                    'title': _('Level of mechanization'),
+                    'items': self.raw_data.get('human_env_mechanisation')
+                },
+                'sedentary': {
+                    'title': _('Sedentary or nomadic'),
+                    'items': self.raw_data.get('human_env_sedentary_nomadic')
+                },
+                'individuals': {
+                    'title': _('Individuals or groups'),
+                    'items': self.raw_data.get('human_env_individuals')
+                },
+                'gender': {
+                    'title': _('Gender'),
+                    'items': self.raw_data.get('human_env_gender')
+                },
+                'age': {
+                    'title': _('Age'),
+                    'items': self.raw_data.get('human_env_age')
+                },
+                'area': {
+                    'title': _('Area used per household'),
+                    'items': self.raw_data.get('human_env_land_size')
+                },
+                'scale': {
+                    'title': _('Scale'),
+                    'items': self.raw_data.get('human_env_land_size_relative')
+                },
+                'ownership': {
+                    'title': _('Land ownership'),
+                    'items': self.raw_data.get('human_env_ownership')
+                },
+                'land_rights': {
+                    'title': _('Land use rights'),
+                    'items': self.raw_data.get('human_env_landuser_rights')
+                },
+                'water_rights': {
+                    'title': _('Water use rights'),
+                    'items': self.raw_data.get('human_env_wateruser_rights')
+                },
+                'access': {
+                    'title': _('Access to services and infrastructure'),
+                    'items': self.raw_data.get('human_env_services')
+                }
+            }
+        }
+
+    def impacts(self):
+        return {
+            'title': _('Impacts: Benefits and disadvantages'),
+            'partials': {
+                'economic': {
+                    'title': _('Socio-economic impacts'),
+                    'items': self.raw_data.get('impacts_cropproduction'),
+                },
+                'cultural': {
+                    'title': _('Socio-cultural impacts'),
+                    'items': self.raw_data.get('impacts_foodsecurity')
+                },
+                'ecological': {
+                    'title': _('Ecological impacts'),
+                    'items': self.raw_data.get('impacts_soilmoisture')
+                },
+                'off_site': {
+                    'title': _('Off-site impacts'),
+                    'items': self.raw_data.get('impacts_downstreamflooding')
+                },
+                'benefits_establishment': {
+                    'title': _('Benefits compared with establishment costs'),
+                    'items': self.raw_data.get('impacts_establishment_costbenefit')
+                },
+                'benefits_maintenance': {
+                    'title': _('Benefits compared with maintenance costs'),
+                    'items': self.raw_data.get('impacts_maintenance_costbenefit')
+                }
+            }
+        }
+
+    def climate_change(self):
+        return {
+            'title': _('Climate change'),
+            'partials': self.raw_data.get('climate_change')
+        }
+    
+    def adoption_adaptation(self):
+        return {
+            'title': _('Adoption and adaptation'),
+            'partials': {
+                'adopted': {
+                    'title': _('Percentage of land users in the area who have adopted the Technology'),
+                    'items': self.raw_data.get('adoption_percentage')
+                },
+                'adopted_no_incentive': {
+                    'title': _('Percentage of land users who adopted the Technology without material incentives'),
+                    'items': self.raw_data.get('adoption_spontaneously')
+                },
+                'adaptation': {
+                    'title': _('Adaptation'),
+                    'text': _('The technology has been modified recently to adapt to'),
+                    'items': self.raw_data.get('adoption_modified')
+                },
+                'comments': self.raw_data_getter('adoption_comments')
+            }
+        }
+    
+
+class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
     Configuration for 'full' approaches summary.
     """
@@ -471,7 +714,9 @@ class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
             "title": _("Location"),
             "partials": {
                 "map": {
-                    "url": self.raw_data.get('location_map_data').get('img_url')
+                    "url": self.raw_data.get(
+                        'location_map_data', {}
+                    ).get('img_url')
                 },
                 "infos": {
                     "location": {
@@ -483,15 +728,17 @@ class ApproachesSummaryProvider(GlobalValuesMixin, SummaryDataProvider):
                         )
                     },
                     "geo_reference": self.raw_data.get(
-                        'location_map_data'
+                        'location_map_data', {}
                     ).get('coordinates'),
                     "initiation": {
                         "title": _("Initiation date"),
-                        "text": self.raw_data_getter('location_initiation_year') or _("unknown")
+                        "text": self.raw_data_getter(
+                            'location_initiation_year') or _("unknown")
                     },
                     "termination": {
                         "title": _("Year of termination"),
-                        "text": self.raw_data_getter('location_termination_year') or '*'
+                        "text": self.raw_data_getter(
+                            'location_termination_year') or '*'
                     },
                     "type": {
                         "title": _("Type of Approach"),

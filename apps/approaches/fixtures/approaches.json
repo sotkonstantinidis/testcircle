@@ -5138,7 +5138,13 @@
       "configuration": {
         "type": "radio",
         "in_summary": {
-          "full": "location_type"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_type",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [

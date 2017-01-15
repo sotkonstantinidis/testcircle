@@ -48,7 +48,7 @@ from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
-from .summary_data_provider import get_summary_data
+from .summary_renderers import get_summary_data
 
 from .utils import (
     clean_questionnaire_data,

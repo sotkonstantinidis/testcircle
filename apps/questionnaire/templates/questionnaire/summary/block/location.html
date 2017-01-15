@@ -1,7 +1,8 @@
 {% load i18n %}
 
 <div class="small-4 columns location">
-  {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+      {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+
   <img src="{{ content.map.url }}">
   <p class="location_text">
     <b>{{ content.infos.location.title }}:</b> {{ content.infos.location.text }}

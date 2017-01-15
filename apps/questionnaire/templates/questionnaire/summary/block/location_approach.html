@@ -1,7 +1,8 @@
 {% load i18n %}
 
 <div class="small-4 columns location">
-  {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
+  {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+
   <img src="{{ content.map.url }}">
   <p class="location_text">
     <b>{{ content.infos.location.title }}:</b> {{ content.infos.location.text }}
@@ -15,9 +16,9 @@
       {% endfor %}
     </ul>
   </div>
-  <p><b>{{ content.infos.initiation.title }}:</b> {{ content.infos.initiation.text }}
+  <p><b>{{ content.infos.start_date.title }}:</b> {{ content.infos.start_date.text }}
   </p>
-  <p><b>{{ content.infos.termination.title }}:</b> {{ content.infos.termination.text }}</p>
-  <b>{{ content.infos.type.title }}</b><br>
-  {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.type.items %}
+  <p><b>{{ content.infos.end_date.title }}:</b> {{ content.infos.end_date.text }}</p>
+  <b>{{ content.infos.introduction.title }}</b><br>
+  {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.introduction.items %}
 </div>

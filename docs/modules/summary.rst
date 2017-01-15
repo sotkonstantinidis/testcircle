@@ -47,10 +47,10 @@ Technical workflow
 
 * The view ```questionnaire.views.QuestionnaireSummaryPDFCreateView``` is called
 * Data for the summary is created with
-  ```questionnaire.summary_data_provider.get_summary_data```. This calls the
-  correct class with the summary fields for the config of the questionnaire and
-  the summary type. As of now, only 'full' exists, but more types (4 page,
-  1 page, etc.) are planned.
+  ```questionnaire.summary_data_provider.get_summary_data```. This returns the
+  data as set up by the provider according to summary type and configuration.
+  As of now, only the type 'full' exists, but more types (4 page, 1 page, etc.)
+  are requested.
 * In the ```get_summary_data method```, the questionnaire and configuration
   data is combined with the same class built for the questionnaire detail API
   resource: ```configuration.configured_questionnaire.ConfiguredQuestionnaire```
@@ -59,12 +59,4 @@ Technical workflow
   * Select only data as defined by the configuration. The attribute:
     'in_summary' defines the section on the summary (e.g. description,
     location)
-  * All fields for a section are then aggregated and sorted as defined in the
-    summary-class for the respective configuration (e.g.
-    ```questionnaire.summary_data_provider.TechnologySummaryProvider```)
-  * There usually is one method per 'section', e.g. 'description', 'location'
-  * To modify the *content* available, add the field to the
-    ```CONFIGURATION_SUMMARY_OVERRIDE```. This can either be a rename of the
-    field, or a new data loading method, which then must be added to
-    ```questionnaire.summary_configuration.ConfiguredQuestionnaireSummary```
-  * To modify the structure, add methods on the Provider
+  * todo: fill up when tables are ready

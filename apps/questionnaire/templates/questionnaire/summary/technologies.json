@@ -292,7 +292,11 @@
           "Exchange rate (to USD): n.a.",
           "Average wage cost of hired labour: n.a."
         ],
-        "comment": "Calculations above are based on the following situation: slopes of about 25-35%, bed width of 3.5-6 m, and a 1-2 m high riser, involving moving about 2,000-2,500 cubic metres of soil. Note: these calculations are based on several years experience in Zhuanglang: that is why they differ in some respects from the standardised table."
+        "comment": "Calculations above are based on the following situation: slopes of about 25-35%, bed width of 3.5-6 m, and a 1-2 m high riser, involving moving about 2,000-2,500 cubic metres of soil. Note: these calculations are based on several years experience in Zhuanglang: that is why they differ in some respects from the standardised table. ",
+        "comment2": {
+            "title": "Most important factors affecting costs:",
+            "text": "Labour costs are very high. The steeper the slope and the higher the terrace risers, the more soil has to be dug (see insert 2 in technical drawing)"
+        }
       },
       "establishment": {
         "title": "Establishment activities",
@@ -856,8 +860,9 @@
     }
   },
   "human_environment": {
-    "title": "Characteristics of land users applying the Technology",
+    "title": "Human environment",
     "partials": {
+      "subtitle": "Characteristics of land users applying the Technology",
       "market": {
         "title": "Market orientation",
         "items": [
@@ -970,6 +975,23 @@
           {
             "highlighted": false,
             "title": "but different"
+          }
+        ]
+      },
+      "age": {
+        "title": "Age",
+        "items": [
+          {
+            "highlighted": false,
+            "title": "20-30"
+          },
+          {
+            "highlighted": true,
+            "title": "30-40"
+          },
+          {
+            "highlighted": false,
+            "title": "40-50"
           }
         ]
       },

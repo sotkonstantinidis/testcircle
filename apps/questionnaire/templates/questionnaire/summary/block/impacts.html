@@ -1,6 +1,10 @@
-{% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
 <div class="row">
-  <div class="small-8 columns">
+  <div class="small-12 columns">
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+  </div>
+</div>
+<div class="row impacts">
+  <div class="small-12 columns">
     <div class="row">
       <div class="small-12 columns">
         <h5>{{ content.economic.title }}</h5>
@@ -37,8 +41,5 @@
         {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=content.benefits_maintenance.items %}
       </div> 
     </div>
-  </div>
-  <div class="small-4 columns">
-    {{ content.comments }}
   </div>
 </div>
