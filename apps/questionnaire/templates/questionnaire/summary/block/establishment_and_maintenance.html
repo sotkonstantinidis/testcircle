@@ -3,12 +3,11 @@
     {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
   </div>
 </div>
-<div class="row ">
-  <div class="small-12 columns">
-    <div class="calculation_costs_section">
-          <div class="row">
+<div class="row calculation_costs_section">
+  <div class="small-{% if content.introduction.main_factors %}6{% else %}12{% endif %} columns">
+    <div class="row">
       <div class="small-12 columns">
-            <h5>{{ content.introduction.title }}</h5>
+        <h5>{{ content.introduction.title }}</h5>
       </div>
     </div>
     <div class="row">
@@ -23,7 +22,12 @@
       </div>
     </div>
   </div>
+  {% if content.introduction.main_factors %}
+    <div class="small-6 columns">
+      <h5>{{ content.introduction.main_factors_title }}</h5>
+      {{ content.introduction.main_factors }}
     </div>
+  {% endif %}
 </div>
 <div class="row">
   <div class="small-12 columns">

@@ -472,7 +472,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         _('Currency used for cost calculation: {}').format(currency),
                         _('Exchange rate (to USD): {}.').format(exchange_rate),
                         _('Average wage cost of hired labour: {}.').format(wage)
-                    ]
+                    ],
+                    'main_factors': self.raw_data_getter('establishment_determinate_factors'),
+                    'main_factors_title': _('Most important factors affecting the costs')
                 },
                 'establishment': {
                     'title': _('Establishment activities'),
@@ -522,6 +524,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'altitude': {
                     'title': _('Altitude'),
                     'items': self.raw_data.get('natural_env_altitude')
+                },
+                'convex': {
+                    'title': _('Technology is applied in'),
+                    'items': self.raw_data.get('natural_env_convex_concave')
                 },
                 'soil_depth': {
                     'title': _('Soil depth'),

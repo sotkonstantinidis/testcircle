@@ -38,6 +38,8 @@
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.altitude.items %}
   </div>
   <div class="small-3 columns">
+    <h5>{{ content.convex.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.convex.items %}
   </div>
 </div>
 <div class="row">
@@ -75,8 +77,30 @@
       <h5>{{ content.water_quality.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_quality.items %}
   </div>
+  <div class="small-3 columns"></div>
+</div>
+<div class="row">
+  <div class="small-3 columns">
+      <h5>{{ content.salinity.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.salinity.items %}
+  </div>
   <div class="small-3 columns">
       <h5>{{ content.flooding.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.flooding.items %}
   </div>
+  <div class="small-3 columns"></div>
+  <div class="small-3 columns"></div>
+</div>
+<div class="row">
+  <hr>
+  <div class="small-3 columns">
+      <h5>{{ content.species.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.species.items %}
+  </div>
+  <div class="small-3 columns">
+      <h5>{{ content.habitat.title }}</h5>
+      {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.habitat.items %}
+  </div>
+  <div class="small-3 columns"></div>
+  <div class="small-3 columns"></div>
 </div>

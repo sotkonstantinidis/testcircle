@@ -16303,7 +16303,13 @@
       "keyword": "tech_input_determinate_factors",
       "translation": 1049,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_determinate_factors"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -17241,7 +17247,16 @@
       "keyword": "tech_convex_concave",
       "translation": 1097,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "natural_env_convex_concave",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1081,
