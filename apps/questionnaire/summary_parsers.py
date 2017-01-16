@@ -183,27 +183,31 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
     def get_qg_values_with_scale(self, child: QuestionnaireQuestion, **kwargs):
         """
         The same output format (see _qg_scale_format) is expected for various
-        question formats/styles.
-        maybe: move to separate functions.
+        question formats/styles. Maybe: move to separate functions.
         """
         if kwargs.get('qg_style') == 'multi_select':
             # e.g. 6.1. - list only selected options. Get all questions from
             # the parent Category and append comments.
-            category_groups = child.questiongroup.parent_object.questiongroups
-            for children in [qg.children for qg in category_groups]:
-                value = self._get_qg_selected_value(children[0])
+            categories = child.questiongroup.parent_object.parent_object.subcategories
+            questiongroups = itertools.chain(
+                *[category.questiongroups for category in categories]
+            )
+            for group in questiongroups:
+                value = self._get_qg_selected_value(group.children[0])
+                # Omit empty questions or 'other' questions.
+                if not value or not isinstance(value, int):
+                    continue
 
-                if value:
-                    kwargs = children[0].additional_translations
-                    comment = self._get_qg_selected_value(children[3])
-                    if comment:
-                        kwargs['comment'] = comment
+                kwargs = group.children[0].additional_translations
+                if len(group.children) > 2:
+                    comment = self._get_qg_selected_value(group.children[3])
+                    kwargs['comment'] = comment or ''
 
-                    yield from self._qg_scale_format(
-                        child=children[0],
-                        value=value,
-                        **kwargs
-                    )
+                yield from self._qg_scale_format(
+                    child=group.children[0],
+                    value=value,
+                    **kwargs
+                )
 
         if kwargs.get('qg_style') == 'click_labels':
             # e.g. 5.9 - get all info from parent questiongroup
@@ -248,7 +252,7 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
             'range': range(0, kwargs.get('range', len(child.choices))),
             'min': kwargs.get('label_left'),
             'max': kwargs.get('label_right'),
-            'selected': value,
+            'selected': value - 1 if value else None,
             'comment': kwargs.get('comment', '')
         }
 
@@ -285,7 +289,8 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
 
     def get_table(self, child: QuestionnaireQuestion):
         """
-        needs discussion - is the output format really correct?
+        Feedback was requested, but no answer given. This output format is
+        assumed to be fine.
         """
         table = {
             'head': collections.defaultdict(dict),
@@ -359,12 +364,7 @@ class TechnologyParser(ConfiguredQuestionnaireParser):
                               main_category.subcategories]
             for group in itertools.chain(*questiongroups):
 
-                # omit questions without filled in values.
-                try:
-                    values = self.values.get(group.keyword, [])
-                except IndexError:
-                    continue
-
+                values = self.values.get(group.keyword, [])
                 # if more than one element is available, a set of 'sibling'
                 # questions was filled in. Duplicate this question, resulting
                 # in one line per value/answer.
