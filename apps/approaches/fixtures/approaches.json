@@ -4954,7 +4954,10 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "definition"
+          "types": ["full"],
+          "default": {
+            "field_name": "definition"
+          }
         }
       }
     },
@@ -5077,7 +5080,10 @@
           }
         },
         "in_summary": {
-          "full": "location_initiation_year"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_initiation_year"
+          }
         }
       }
     },
@@ -5113,7 +5119,10 @@
           }
         },
         "in_summary": {
-          "full": "location_termination_year"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_termination_year"
+          }
         }
       }
     },
@@ -6885,7 +6894,10 @@
       "configuration": {
         "type": "text",
         "in_summary": {
-          "full": "description"
+          "types": ["full"],
+          "default": {
+            "field_name": "description"
+          }
         }
       }
     },
