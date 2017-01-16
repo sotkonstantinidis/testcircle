@@ -229,7 +229,7 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
 
                 yield from self._qg_scale_format(
                     child=child,
-                    value=str(value),
+                    value=value,
                     label_left=child.choices[0][1],
                     label_right=child.choices[-1][1]
                 )
@@ -241,11 +241,11 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
             values = self.values.get(child.questiongroup.keyword, [])[0]
         return values.get(child.keyword) if not all_values else values
 
-    def _qg_scale_format(self, child: QuestionnaireQuestion, value: str,
+    def _qg_scale_format(self, child: QuestionnaireQuestion, value: int,
                          **kwargs):
         yield {
             'label': kwargs.get('label', child.label),
-            'range': kwargs.get('range', len(child.choices)),
+            'range': range(0, kwargs.get('range', len(child.choices))),
             'min': kwargs.get('label_left'),
             'max': kwargs.get('label_right'),
             'selected': value,
@@ -421,7 +421,7 @@ class TechnologyParser(ConfiguredQuestionnaireParser):
                     )
         return {
             'label': label,
-            'range': len(choice_keys),
+            'range': range(0, len(choice_keys)),
             'min': question.choices[1][1],
             'max': question.choices[-2][1],
             'selected': value,
