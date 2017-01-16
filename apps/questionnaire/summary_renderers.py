@@ -8,7 +8,8 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireConfiguration
-from .summary_parsers import ConfiguredQuestionnaireParser, TechnologyParser
+from .summary_parsers import ConfiguredQuestionnaireParser, TechnologyParser, \
+    ApproachParser
 from .models import Questionnaire, QuestionnaireLink
 
 
@@ -40,12 +41,15 @@ class SummaryRenderer:
     Add values / fields by following these steps:
     - in the config-json, add the summary_type and unique label.
       e.g. "in_summary": {
-          "full": "definition"
+          "types": ["full"],
+          "default": {
+            "field_name": "location_termination_year"
+          }
         }
-      this will add the field 'definition' to the raw_values of the provider
-      'full'
-    - add the field to the 'content' property
-    - add a method called 'definition' to the class, which gets the values
+      this will add the field 'location_termination_year' to the raw_values of
+      the parser 'full'
+    - add the field to the 'content' property of the renderer
+    - add a method called 'definition' to the renderer, which gets the values
 
     """
     parser = ConfiguredQuestionnaireParser
@@ -54,7 +58,7 @@ class SummaryRenderer:
                  questionnaire: Questionnaire, **data):
         """
         Load full (raw) data in the same way that it is created for the API and
-        apply data transformations to self.data.
+        apply data transformations/parsing to self.data.
         """
         self.raw_data = self.parser(
             config=config, summary_type=self.summary_type,
@@ -66,7 +70,7 @@ class SummaryRenderer:
 
     def get_data(self):
         """
-        This is not a dict comprehenstion as access to 'self' is needed. See
+        This is not a dict comprehension as access to 'self' is needed. See
         http://stackoverflow.com/a/13913933
         """
         for section in self.content:
@@ -160,6 +164,7 @@ class GlobalValuesMixin:
         )
         images = []
         if image_urls:
+            # first element is the header image, show max. 2 images.
             for index, image in islice(enumerate(image_urls), 1, 3):
                 images.append({
                     'url': image['value'],
@@ -703,11 +708,12 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     Configuration for 'full' approaches summary.
     """
     summary_type = 'full'
+    parser = ApproachParser
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description',
-                'conclusion', 'references']
+        return ['header_image', 'title', 'location', 'description', 'images',
+                'aims', 'conclusion', 'references']
 
     def location(self):
         return {
@@ -745,5 +751,26 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         "items": self.raw_data.get('location_type')
                     }
                 }
+            }
+        }
+
+    def aims(self):
+        return {
+            'title': _('Approach aims and enabling environment'),
+            'partials': {
+                'main': {
+                    'title': _('Main aims / objectives of the approach'),
+                    'text': self.raw_data_getter('aims_main')
+                },
+                'elements': [
+                    {
+                        'title': _('Conditions enabling the implementation of the Technology/ ies applied under the Approach'),
+                        'items': self.raw_data.get('aims_enabling')
+                    },
+                    {
+                        'title': _('Conditions hindering the implementation of the Technology/ ies applied under the Approach'),
+                        'items': self.raw_data.get('aims_hindering')
+                    }
+                ]
             }
         }

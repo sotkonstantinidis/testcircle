@@ -347,6 +347,9 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
 
 
 class TechnologyParser(ConfiguredQuestionnaireParser):
+    """
+    Specific methods for technologies.
+    """
 
     def get_climate_change(self, child: QuestionnaireQuestion):
         # based on this first question, get all questiongroups with at least
@@ -437,3 +440,22 @@ class TechnologyParser(ConfiguredQuestionnaireParser):
         )
         qg_keywords = [qg.keyword for qg in questiongroups]
         return not set(qg_keywords).isdisjoint(set(self.values.keys()))
+
+
+class ApproachParser(ConfiguredQuestionnaireParser):
+    """
+    Specific methods for approaches
+    """
+
+    def get_aims_enabling(self, child: QuestionnaireQuestion, name: str):
+        """
+        Get enabling/hindering values only.
+        """
+        field_name = 'app_condition_{}_specify'.format(name)
+        for group in child.questiongroup.parent_object.questiongroups:
+            try:
+                text = self.values[group.keyword][0][field_name]
+            except (KeyError, IndexError):
+                continue
+
+            yield '{}: {}'.format(group.label, text)

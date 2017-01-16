@@ -5224,6 +5224,18 @@
         "type": "text",
         "view_options": {
           "label_position": "none"
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "aims_enabling",
+            "get_value": {
+              "name": "get_aims_enabling",
+              "kwargs": {
+                "name": "enabling"
+              }
+            }
+          }
         }
       }
     },
@@ -5238,6 +5250,18 @@
         "type": "text",
         "view_options": {
           "label_position": "none"
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "aims_hindering",
+            "get_value": {
+              "name": "get_aims_enabling",
+              "kwargs": {
+                "name": "hindering"
+              }
+            }
+          }
         }
       }
     },
@@ -7026,7 +7050,13 @@
       "keyword": "app_main_aims",
       "translation": 7108,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "aims_main"
+          }
+        }
       }
     },
     "model": "configuration.key",
