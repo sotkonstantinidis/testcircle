@@ -6253,10 +6253,7 @@
       "keyword": "climate_related_extreme",
       "translation": 28019,
       "configuration": {
-        "type": "select_conditional",
-        "form_options": {
-          "display_field": "climate_related_extreme_display"
-        }
+        "type": "select_conditional_questiongroup"
       }
     },
     "model": "configuration.key",
@@ -6412,9 +6409,42 @@
       "keyword": "climate_related_extreme_conditional",
       "translation": 28025,
       "configuration": {
-        "type": "select_conditional",
+        "type": "select_conditional_questiongroup",
         "form_options": {
-          "display_field": "climate_related_extreme_conditional_display"
+          "options_by_questiongroups": [
+            "cca_qg_2",
+            "cca_qg_3",
+            "cca_qg_4",
+            "cca_qg_5",
+            "cca_qg_6",
+            "cca_qg_7",
+            "cca_qg_8",
+            "cca_qg_9",
+            "cca_qg_10",
+            "cca_qg_11",
+            "cca_qg_12",
+            "cca_qg_13",
+            "cca_qg_14",
+            "cca_qg_15",
+            "cca_qg_16",
+            "cca_qg_17",
+            "cca_qg_18",
+            "cca_qg_19",
+            "cca_qg_20",
+            "cca_qg_21",
+            "cca_qg_22",
+            "cca_qg_23",
+            "cca_qg_24",
+            "cca_qg_25",
+            "cca_qg_26",
+            "cca_qg_27",
+            "cca_qg_28",
+            "cca_qg_29",
+            "cca_qg_30"
+          ]
+        },
+        "view_options": {
+          "label_position": "none"
         }
       }
     },
@@ -6423,71 +6453,50 @@
   },
   {
     "fields": {
-      "keyword": "climate_related_extreme_conditional_display",
-      "translation": 28025,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        },
-        "view_options": {
-          "template": "value_only"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28026
-  },
-  {
-    "fields": {
-      "keyword": "climate_related_extreme_display",
-      "translation": 28019,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        },
-        "view_options": {
-          "template": "value_only"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28027
-  },
-  {
-    "fields": {
       "keyword": "change_extreme_name",
       "translation": 28028,
       "configuration": {
-        "type": "select_conditional",
+        "type": "select_conditional_questiongroup",
         "form_options": {
-          "display_field": "change_extreme_name_display"
+          "options_by_questiongroups": [
+            "cca_qg_2",
+            "cca_qg_3",
+            "cca_qg_4",
+            "cca_qg_5",
+            "cca_qg_6",
+            "cca_qg_7",
+            "cca_qg_8",
+            "cca_qg_9",
+            "cca_qg_10",
+            "cca_qg_11",
+            "cca_qg_12",
+            "cca_qg_13",
+            "cca_qg_14",
+            "cca_qg_15",
+            "cca_qg_16",
+            "cca_qg_17",
+            "cca_qg_18",
+            "cca_qg_19",
+            "cca_qg_20",
+            "cca_qg_21",
+            "cca_qg_22",
+            "cca_qg_23",
+            "cca_qg_24",
+            "cca_qg_25",
+            "cca_qg_26",
+            "cca_qg_27",
+            "cca_qg_28",
+            "cca_qg_29",
+            "cca_qg_30"
+          ]
+        },
+        "view_options": {
+          "label_position": "none"
         }
       }
     },
     "model": "configuration.key",
     "pk": 28028
-  },
-  {
-    "fields": {
-      "keyword": "change_extreme_name_display",
-      "translation": 28028,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        },
-        "view_options": {
-          "template": "value_only"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28029
   },
   {
     "fields": {
@@ -9673,7 +9682,7 @@
         "form_options": {
           "min_num": 1,
           "max_num": 24,
-          "template": "table2",
+          "template": "table1",
           "column_widths": ["25%", "10%", "7%", "10%", "7%", "41%"],
           "numbered": "display"
         },
@@ -9700,7 +9709,8 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table1",
+          "template": "table",
+          "layout": "label",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
         }
@@ -9722,7 +9732,8 @@
           "numbered": "display"
         },
         "view_options": {
-          "template": "table1",
+          "template": "table",
+          "layout": "label",
           "label_class": "top-margin-big",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
@@ -10036,7 +10047,7 @@
           "template": "table4",
           "column_widths": ["35%", "30%", "35%"],
           "with_keys": true
-        } 
+        }
       }
     },
     "model": "configuration.questiongroup",
@@ -11367,7 +11378,7 @@
                               "table_grouping": [
                                 [
                                   "cca_qg_3",
-                                  "cca_qg_2",                                  
+                                  "cca_qg_2",
                                   "cca_qg_4",
                                   "cca_qg_5",
                                   "cca_qg_6"
@@ -11535,8 +11546,11 @@
                               {
                                 "keyword": "cca_qg_7",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11570,13 +11584,16 @@
                                       "layout": "stacked"
                                     }
                                   }
-                                ] 
+                                ]
                               },
                               {
                                 "keyword": "cca_qg_8",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11615,8 +11632,11 @@
                               {
                                 "keyword": "cca_qg_9",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11655,8 +11675,11 @@
                               {
                                 "keyword": "cca_qg_10",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11695,8 +11718,11 @@
                               {
                                 "keyword": "cca_qg_11",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11735,8 +11761,11 @@
                               {
                                 "keyword": "cca_qg_12",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11775,8 +11804,11 @@
                               {
                                 "keyword": "cca_qg_13",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11815,8 +11847,11 @@
                               {
                                 "keyword": "cca_qg_14",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11855,8 +11890,11 @@
                               {
                                 "keyword": "cca_qg_15",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11919,8 +11957,11 @@
                               {
                                 "keyword": "cca_qg_16",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11959,8 +12000,11 @@
                               {
                                 "keyword": "cca_qg_17",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11999,8 +12043,11 @@
                               {
                                 "keyword": "cca_qg_18",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12039,8 +12086,11 @@
                               {
                                 "keyword": "cca_qg_19",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12079,8 +12129,11 @@
                               {
                                 "keyword": "cca_qg_20",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12119,8 +12172,11 @@
                               {
                                 "keyword": "cca_qg_21",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12159,8 +12215,11 @@
                               {
                                 "keyword": "cca_qg_22",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12221,8 +12280,11 @@
                               {
                                 "keyword": "cca_qg_23",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12261,8 +12323,11 @@
                               {
                                 "keyword": "cca_qg_24",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12301,8 +12366,11 @@
                               {
                                 "keyword": "cca_qg_25",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12341,8 +12409,11 @@
                               {
                                 "keyword": "cca_qg_26",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12381,8 +12452,11 @@
                               {
                                 "keyword": "cca_qg_27",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12440,8 +12514,11 @@
                               {
                                 "keyword": "cca_qg_28",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12480,8 +12557,11 @@
                               {
                                 "keyword": "cca_qg_29",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12539,12 +12619,15 @@
                               {
                                 "keyword": "cca_qg_30",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
                                 },
                                 "view_options": {
                                   "layout": "no_label_row"
-                                },                                  
-                                "questions": [                                  
+                                },
+                                "questions": [
                                   {
                                     "keyword": "cca_exposure_other_specify",
                                     "form_options": {
@@ -12553,7 +12636,7 @@
                                   },
                                   {
                                     "keyword": "cca_title_frequency"
-                                  },                                  
+                                  },
                                   {
                                     "keyword": "cca_exposure_decrstabincr"
                                   },
@@ -12809,10 +12892,35 @@
                         },
                         "questions": [
                           {
-                            "keyword": "climate_related_extreme"
-                          },
-                          {
-                            "keyword": "climate_related_extreme_display"
+                            "keyword": "climate_related_extreme",
+                            "form_options": {
+                              "options_by_questiongroups": [
+                                "cca_qg_7",
+                                "cca_qg_8",
+                                "cca_qg_9",
+                                "cca_qg_10",
+                                "cca_qg_11",
+                                "cca_qg_12",
+                                "cca_qg_13",
+                                "cca_qg_14",
+                                "cca_qg_15",
+                                "cca_qg_16",
+                                "cca_qg_17",
+                                "cca_qg_18",
+                                "cca_qg_19",
+                                "cca_qg_20",
+                                "cca_qg_21",
+                                "cca_qg_22",
+                                "cca_qg_23",
+                                "cca_qg_24",
+                                "cca_qg_25",
+                                "cca_qg_26",
+                                "cca_qg_27",
+                                "cca_qg_28",
+                                "cca_qg_29",
+                                "cca_qg_30"
+                              ]
+                            }
                           },
                           {
                             "keyword": "from_year"
@@ -12854,9 +12962,6 @@
                             "keyword": "climate_related_extreme_conditional"
                           },
                           {
-                            "keyword": "climate_related_extreme_conditional_display"
-                          },
-                          {
                             "keyword": "land_degradation_type"
                           },
                           {
@@ -12872,9 +12977,6 @@
                         "questions": [
                           {
                             "keyword": "climate_related_extreme_conditional"
-                          },
-                          {
-                            "keyword": "climate_related_extreme_conditional_display"
                           },
                           {
                             "keyword": "newly_occurring_land_degradation_type"
@@ -12934,9 +13036,6 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
                                         "keyword": "cca_production_impact"
                                       },
                                       {
@@ -12973,9 +13072,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_water_impact"
@@ -13016,9 +13112,6 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
                                         "keyword": "cca_income_impact"
                                       },
                                       {
@@ -13055,9 +13148,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_impacts_other_specify"
@@ -13104,9 +13194,6 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
                                         "keyword": "cca_socio_cultural_impact"
                                       },
                                       {
@@ -13143,9 +13230,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_impacts_other_specify"
@@ -13192,9 +13276,6 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
                                         "keyword": "cca_runoff_impact"
                                       },
                                       {
@@ -13231,9 +13312,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_soil_impact"
@@ -13274,9 +13352,6 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
                                         "keyword": "cca_biodiversity_impact"
                                       },
                                       {
@@ -13315,9 +13390,6 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
                                         "keyword": "cca_climate_impact"
                                       },
                                       {
@@ -13354,9 +13426,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_impacts_other_specify"
@@ -13405,9 +13474,6 @@
                                     "keyword": "change_extreme_name"
                                   },
                                   {
-                                    "keyword": "change_extreme_name_display"
-                                  },
-                                  {
                                     "keyword": "cca_offsite_impact"
                                   },
                                   {
@@ -13444,9 +13510,6 @@
                                 "questions": [
                                   {
                                     "keyword": "change_extreme_name"
-                                  },
-                                  {
-                                    "keyword": "change_extreme_name_display"
                                   },
                                   {
                                     "keyword": "cca_impacts_other_specify"

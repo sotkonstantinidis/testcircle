@@ -25,7 +25,7 @@
   {% endcompress %}
 {% endaddtoblock %}
 
-<select name="{{ name }}" data-placeholder=""{% if searchable %} class="chosen-select"{% endif %} {% include "floppyforms/attrs.html" %}
+<select name="{{ name }}" data-placeholder=""{% if searchable %} class="chosen-select"{% endif %}{% if options_order %} data-options-order="{{ options_order|join:"," }}"{% endif %} {% include "floppyforms/attrs.html" %}
     {% if options.question_conditions %} data-question-conditions="{{ options.question_conditions }}"{% endif %} {% if options.field_options.readonly == 'readonly' %}disabled{% endif %}>
   {% for group_name, choices in optgroups %}
     {% for choice in choices %}

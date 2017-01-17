@@ -189,63 +189,29 @@ def get_choices_from_model(model_name, only_active=True):
     return choices
 
 
-def get_choices_from_questionnaire(request_path):
+def get_choices_from_questiongroups(
+        questionnaire_data: dict, questiongroups: list,
+        configuration_keyword: str) -> list:
     """
-    Return the values of an object as choices to be used in the form.
+    Return a list of valid choices based on the presence of certain
+    questiongroups within a questionnaire data JSON.
 
     Args:
-        request_path: (str) The GET request path
+        questionnaire_data: The questionnaire data dict
+        questiongroups: A list of questiongroup keywords (basically a list of
+          all possible choices)
+        configuration_keyword: The keyword of the current configuration
 
     Returns:
-        list. A list of tuples where
-            [0] The ID of the questiongroup instance
-            [1] The string representation of the questiongroup instance
+        A list of possible choices [(keyword, label)]
     """
+    configuration = get_configuration(configuration_keyword)
     choices = []
-    try:
-        questiongroups = Questiongroup.objects.all()
-        if request_path is not None:
-            arr = request_path.split('/')
-            language = arr[1]
-            mode = 'edit'
-            identifier = 0
-            if arr[5] == 'new':
-                mode = 'new'
-            else:
-                key, value = arr[5].split('_')
-                identifier = int(value) + 1
-            category = arr[6]            
-
-            if category == 'cca__2':
-                for questiongroup in questiongroups:
-                    qg = questiongroup.keyword.split('_')
-                    if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg' and qg[2].isdigit():
-                        qg_id = int(qg[2])
-                        if qg_id>=7 and qg_id<=30:
-                            translation = Translation.objects.get(pk=questiongroup.translation_id)
-                            choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label'][language]))
-            elif category == 'cca__3':
-                if mode == 'edit':
-                    questionnaire = Questionnaire.objects.get(pk=identifier)
-                    data = questionnaire.data
-                    for questiongroup in questiongroups:
-                        for keyword, value in data.items():
-                            qg = keyword.split('_')
-                            if len(qg) == 3 and qg[0] == 'cca' and qg[1] == 'qg' and qg[2].isdigit():
-                                qg_id = int(qg[2])
-                                if qg_id>=2 and qg_id<=34 and questiongroup.keyword == keyword:
-                                    translation = Translation.objects.get(pk=questiongroup.translation_id)
-                                    choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label'][language]))
-        else:
-            for questiongroup in questiongroups:
-                qg = questiongroup.keyword.split('_')
-                if len(qg) == 3 and qg[0] == 'cca' and qg[1] =='qg' and qg[2].isdigit():
-                    qg_id = int(qg[2])
-                    if qg_id>=2 and qg_id<=34:
-                        translation = Translation.objects.get(pk=questiongroup.translation_id)
-                        choices.append(('cca_change_extreme_'+str(qg_id), translation.data['cca']['label']['en']))                                
-    except LookupError:
-        pass
+    for questiongroup in questiongroups:
+        if questiongroup in questionnaire_data:
+            questiongroup_object = configuration.get_questiongroup_by_keyword(
+                questiongroup)
+            choices.append((questiongroup, questiongroup_object.label))
     return choices
 
 

@@ -836,6 +836,111 @@
   },
   {
     "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 57",
+            "es": "Clave 57"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11057
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 58",
+            "es": "Clave 58"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11058
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 59",
+            "es": "Clave 59"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11059
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 60",
+            "es": "Clave 60"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11060
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 61",
+            "es": "Clave 61"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11061
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 62",
+            "es": "Clave 62"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11062
+  },
+  {
+    "fields": {
+      "translation_type": "key",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Key 63",
+            "es": "Clave 63"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11063
+  },
+  {
+    "fields": {
       "translation_type": "value",
       "data": {
         "sample": {
@@ -1220,6 +1325,52 @@
   },
   {
     "fields": {
+      "translation_type": "value",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Value 57 A",
+            "es": "Valor 57 A"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11525
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Value 57 B",
+            "es": "Valor 57 B"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11526
+  },
+  {
+    "fields": {
+      "translation_type": "value",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Value 57 C",
+            "es": "Valor 57 C"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 11527
+  },
+
+  {
+    "fields": {
       "translation_type": "questiongroup",
       "data": {
         "sample": {
@@ -1232,6 +1383,66 @@
     },
     "model": "configuration.translation",
     "pk": 12201
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "QG 40",
+            "es": "QG 40 ES"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12202
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "QG 41",
+            "es": "QG 41 ES"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12203
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "QG 42",
+            "es": "QG 42 ES"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12204
+  },
+  {
+    "fields": {
+      "translation_type": "questiongroup",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "QG 43",
+            "es": "QG 43 ES"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12205
   },
   {
     "fields": {
@@ -1607,6 +1818,81 @@
     },
     "model": "configuration.translation",
     "pk": 12725
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Subcategory 4_4",
+            "es": "Subcategoría 4_4"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12726
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Subcategory 4_5",
+            "es": "Subcategoría 4_5"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12727
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Subcategory 5_4",
+            "es": "Subcategoría 5_4"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12728
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Subcategory 5_5",
+            "es": "Subcategoría 5_5"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12729
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "sample": {
+          "label": {
+            "en": "Subcategory 4_6",
+            "es": "Subcategoría 4_6"
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 12730
   },
   {
     "fields": {
@@ -2427,6 +2713,88 @@
   },
   {
     "fields": {
+      "keyword": "key_57",
+      "translation": 11057,
+      "configuration": {
+        "type": "select"
+      },
+      "values": [
+        11025,
+        11026,
+        11027
+      ]
+    },
+    "model": "configuration.key",
+    "pk": 11057
+  },
+  {
+    "fields": {
+      "keyword": "key_58",
+      "translation": 11058,
+      "configuration": {
+        "type": "select_conditional_questiongroup"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11058
+  },
+  {
+    "fields": {
+      "keyword": "key_59",
+      "translation": 11059,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11059
+  },
+  {
+    "fields": {
+      "keyword": "key_60",
+      "translation": 11060,
+      "configuration": {
+        "type": "select_conditional_questiongroup"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11060
+  },
+  {
+    "fields": {
+      "keyword": "key_61",
+      "translation": 11061,
+      "configuration": {
+        "type": "char"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11061
+  },
+  {
+    "fields": {
+      "keyword": "key_62",
+      "translation": 11062,
+      "configuration": {
+        "type": "select_conditional_questiongroup"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11062
+  },
+  {
+    "fields": {
+      "keyword": "key_63",
+      "translation": 11063,
+      "configuration": {
+        "type": "select_conditional_questiongroup"
+      }
+    },
+    "model": "configuration.key",
+    "pk": 11063
+  },
+  {
+    "fields": {
       "keyword": "value_1",
       "translation": 11501,
       "order_value": 1
@@ -2646,6 +3014,30 @@
     },
     "model": "configuration.value",
     "pk": 11024
+  },
+  {
+    "fields": {
+      "keyword": "value_57_1",
+      "translation": 11525
+    },
+    "model": "configuration.value",
+    "pk": 11025
+  },
+  {
+    "fields": {
+      "keyword": "value_57_2",
+      "translation": 11526
+    },
+    "model": "configuration.value",
+    "pk": 11026
+  },
+  {
+    "fields": {
+      "keyword": "value_57_3",
+      "translation": 11527
+    },
+    "model": "configuration.value",
+    "pk": 11027
   },
   {
     "fields": {
@@ -3017,6 +3409,69 @@
   },
   {
     "fields": {
+      "keyword": "qg_40",
+      "translation": 12202,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11040
+  },
+  {
+    "fields": {
+      "keyword": "qg_41",
+      "translation": 12203,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11041
+  },
+  {
+    "fields": {
+      "keyword": "qg_42",
+      "translation": 12204,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11042
+  },
+  {
+    "fields": {
+      "keyword": "qg_43",
+      "translation": 12205,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11043
+  },
+  {
+    "fields": {
+      "keyword": "qg_44",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11044
+  },
+  {
+    "fields": {
+      "keyword": "qg_45",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11045
+  },
+  {
+    "fields": {
+      "keyword": "qg_46",
+      "translation": null,
+      "configuration": {}
+    },
+    "model": "configuration.questiongroup",
+    "pk": 11046
+  },
+  {
+    "fields": {
       "keyword": "subcat_1_1",
       "translation": 12701
     },
@@ -3214,6 +3669,46 @@
     },
     "model": "configuration.category",
     "pk": 11035
+  },
+  {
+    "fields": {
+      "keyword": "subcat_4_4",
+      "translation": 12726
+    },
+    "model": "configuration.category",
+    "pk": 11036
+  },
+  {
+    "fields": {
+      "keyword": "subcat_4_5",
+      "translation": 12727
+    },
+    "model": "configuration.category",
+    "pk": 11037
+  },
+  {
+    "fields": {
+      "keyword": "subcat_5_4",
+      "translation": 12728
+    },
+    "model": "configuration.category",
+    "pk": 11038
+  },
+  {
+    "fields": {
+      "keyword": "subcat_5_5",
+      "translation": 12729
+    },
+    "model": "configuration.category",
+    "pk": 11039
+  },
+  {
+    "fields": {
+      "keyword": "subcat_4_6",
+      "translation": 12730
+    },
+    "model": "configuration.category",
+    "pk": 11040
   },
   {
     "fields": {
@@ -3951,6 +4446,116 @@
                         ]
                       }
                     ]
+                  },
+                  {
+                    "keyword": "subcat_4_4",
+                    "form_options": {
+                      "template": "has_subcategories",
+                      "label_tag": "h5"
+                    },
+                    "subcategories": [
+                      {
+                        "keyword": "subcat_4_4",
+                        "form_options": {
+                          "template": "collapsible",
+                          "label_tag": "h4"
+                        },
+                        "questiongroups": [
+                          {
+                            "keyword": "qg_40",
+                            "form_options": {
+                              "template": "checkbox_toggle",
+                              "questiongroup_to_options": [
+                                "qg_43|key_58",
+                                "qg_46|key_63"
+                              ]
+                            },
+                            "questions": [
+                              {
+                                "keyword": "key_57"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "qg_41",
+                            "form_options": {
+                              "template": "checkbox_toggle",
+                              "questiongroup_to_options": [
+                                "qg_43|key_58",
+                                "qg_46|key_63"
+                              ]
+                            },
+                            "questions": [
+                              {
+                                "keyword": "key_57"
+                              }
+                            ]
+                          },
+                          {
+                            "keyword": "qg_42",
+                            "form_options": {
+                              "template": "checkbox_toggle",
+                              "questiongroup_to_options": [
+                                "qg_46|key_63"
+                              ]
+                            },
+                            "questions": [
+                              {
+                                "keyword": "key_57"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "subcat_4_5",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_43",
+                        "form_options": {
+                          "max_num": 5
+                        },
+                        "questions": [
+                          {
+                            "keyword": "key_58",
+                            "form_options": {
+                              "options_by_questiongroups": [
+                                "qg_40",
+                                "qg_41"
+                              ]
+                            }
+                          },
+                          {
+                            "keyword": "key_59"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "subcat_4_6",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_46",
+                        "form_options": {
+                          "max_num": 5
+                        },
+                        "questions": [
+                          {
+                            "keyword": "key_63",
+                            "form_options": {
+                              "options_by_questiongroups": [
+                                "qg_40",
+                                "qg_41",
+                                "qg_42"
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
@@ -4069,6 +4674,57 @@
                         "questions": [
                           {
                             "keyword": "link_id"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "subcat_5_4",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_44",
+                        "form_options": {
+                          "max_num": 3
+                        },
+                        "questions": [
+                          {
+                            "keyword": "key_60",
+                            "form_options": {
+                              "options_by_questiongroups": [
+                                "qg_40",
+                                "qg_41",
+                                "qg_42"
+                              ]
+                            }
+                          },
+                          {
+                            "keyword": "key_61"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "keyword": "subcat_5_5",
+                    "questiongroups": [
+                      {
+                        "keyword": "qg_45",
+                        "form_options": {
+                          "max_num": 3
+                        },
+                        "questions": [
+                          {
+                            "keyword": "key_62",
+                            "form_options": {
+                              "options_by_questiongroups": [
+                                "qg_40",
+                                "qg_42"
+                              ]
+                            }
+                          },
+                          {
+                            "keyword": "key_61"
                           }
                         ]
                       }

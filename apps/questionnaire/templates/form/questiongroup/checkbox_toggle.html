@@ -29,7 +29,14 @@
       </span>
     </label>
   </div>
-  <div id="{{ config.keyword }}" class="small-12 medium-8 columns cb-toggle-questiongroup-content" style="display:none;">
+  <div id="{{ config.keyword }}"
+       class="small-12 medium-8 columns cb-toggle-questiongroup-content"
+       style="display:none;"
+      {% if config.questiongroup_to_options %}
+        data-questiongroup-to-options="{{ config.questiongroup_to_options|join:"," }}"
+        data-questiongroup-to-options-label="{{ config.label }}"
+        data-questiongroup-to-options-keyword="{{ config.keyword }}"
+      {% endif %}>
 
     {{ formset.management_form }}
 

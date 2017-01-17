@@ -339,74 +339,74 @@ function checkImpact(element) {
 
 }
 
-/**
- * The disasters array that stores states of checkboxes of climate-related extremes (disasters)
- */
-var disasters = [];
-
-/**
- * Initializes the disasters array
- */
-function initializeDisasters() {
-    for(var i=7; i<=30; i++) {
-        var text = $("input[data-container='cca_qg_"+i+"']").parent().find('span:first').map(function() {
-            return $(this).text();
-        }).get();
-        var obj = {
-            "value": "cca_change_extreme_" + i,
-            "text": text,
-            "active": false
-        }
-        disasters.push(obj);
-    }
-}
+// /**
+//  * The disasters array that stores states of checkboxes of climate-related extremes (disasters)
+//  */
+// var disasters = [];
+//
+// /**
+//  * Initializes the disasters array
+//  */
+// function initializeDisasters() {
+//     for(var i=7; i<=30; i++) {
+//         var text = $("input[data-container='cca_qg_"+i+"']").parent().find('span:first').map(function() {
+//             return $(this).text();
+//         }).get();
+//         var obj = {
+//             "value": "cca_change_extreme_" + i,
+//             "text": text,
+//             "active": false
+//         }
+//         disasters.push(obj);
+//     }
+// }
 
 /**
  * Initializing the disasters array happens once on page load
  */
-initializeDisasters();
+// initializeDisasters();
 
-/**
- * Clears up the disasters array at the beginning of each selection of climate-related extremes in cca 2.2
- */
-function clearDisasters() {
-    for(var i=0; i<disasters.length; i++)
-        disasters[i].active = false;
-}
+// /**
+//  * Clears up the disasters array at the beginning of each selection of climate-related extremes in cca 2.2
+//  */
+// function clearDisasters() {
+//     for(var i=0; i<disasters.length; i++)
+//         disasters[i].active = false;
+// }
+//
+// /**
+//  * Selected climate-related extremes from cca 2.2 are registered in the disasters array
+//  */
+// function registerDisaster(id) {
+//     for(var i=0; i<disasters.length; i++) {
+//         var temp = disasters[i].value.split('_');
+//         if(id == 'cca_qg_'+temp[3])
+//             disasters[i].active = true;
+//     }
+// }
 
-/**
- * Selected climate-related extremes from cca 2.2 are registered in the disasters array
- */
-function registerDisaster(id) {
-    for(var i=0; i<disasters.length; i++) {
-        var temp = disasters[i].value.split('_');
-        if(id == 'cca_qg_'+temp[3])
-            disasters[i].active = true;    
-    }
-}
-
-/**
- * Checks which climate-related extremes have been selected in cca 2.2
- */
-function checkDisasters(element) {
-    // Textfields
-    $(element).find('div.row.single-item input:text').each(function () {
-        if ($(this).is(":visible") && $(this).val() != '')
-            registerDisaster($(this).parent().parent().parent().parent().attr('id'));
-    });
-    // Checkbox
-    $(element).find('div.row.single-item input:checkbox').each(function () {
-        if ($(this).is(':checked'))
-            registerDisaster($(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id'));
-    });
-    // Select
-    $(element).find('div.row.single-item select').each(function () {
-        if ($(this).find(':selected').val()) {
-            registerDisaster($(this).parent().parent().parent().parent().attr('id'));
-            checkImpact($(this));
-        }
-    });
-}
+// /**
+//  * Checks which climate-related extremes have been selected in cca 2.2
+//  */
+// function checkDisasters(element) {
+//     // Textfields
+//     $(element).find('div.row.single-item input:text').each(function () {
+//         if ($(this).is(":visible") && $(this).val() != '')
+//             registerDisaster($(this).parent().parent().parent().parent().attr('id'));
+//     });
+//     // Checkbox
+//     $(element).find('div.row.single-item input:checkbox').each(function () {
+//         if ($(this).is(':checked'))
+//             registerDisaster($(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id'));
+//     });
+//     // Select
+//     $(element).find('div.row.single-item select').each(function () {
+//         if ($(this).find(':selected').val()) {
+//             registerDisaster($(this).parent().parent().parent().parent().attr('id'));
+//             checkImpact($(this));
+//         }
+//     });
+// }
 
 /**
  * Defines the index of select element at which a new option will be inserted
@@ -427,38 +427,37 @@ function findSelectIndex(j, item_value) {
         return 0;
 }
 
-/**
- * Refreshes the select element in cca 2.3 based on selected values from cca 2.2
- */
-function refreshDisasters() {
-    for(var j=0; j<24; j++) {
-        if($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme")[0])) {
-            var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
-            $.each(disasters, function(i, item) {
-                if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0])) {
-                    var select_index = findSelectIndex(j, item.value);
-                    if(select_index==0)
-                        selectDisasters.append($('<option>', {
-                            value:  item.value,
-                            text:   item.text
-                        }));
-                    else
-                        $( "#id_cca_qg_39-"+j+"-climate_related_extreme option" ).eq(select_index).before($("<option></option>").val(item.value).text(item.text));
-                }                    
-                else if(disasters[i].active==false && $.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
-                    $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']").remove();
-            });            
-            selectDisasters.trigger("chosen:updated");
-        }
-    }
-}
+// /**
+//  * Refreshes the select element in cca 2.3 based on selected values from cca 2.2
+//  */
+// function refreshDisasters() {
+//     for(var j=0; j<24; j++) {
+//         if($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme")[0])) {
+//             var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
+//             $.each(disasters, function(i, item) {
+//                 if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0])) {
+//                     var select_index = findSelectIndex(j, item.value);
+//                     if(select_index==0)
+//                         selectDisasters.append($('<option>', {
+//                             value:  item.value,
+//                             text:   item.text
+//                         }));
+//                     else
+//                         $( "#id_cca_qg_39-"+j+"-climate_related_extreme option" ).eq(select_index).before($("<option></option>").val(item.value).text(item.text));
+//                 }
+//                 else if(disasters[i].active==false && $.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
+//                     $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']").remove();
+//             });
+//             selectDisasters.trigger("chosen:updated");
+//         }
+//     }
+// }
 
 /**
  * Updates the process indicators while entering the form. Updates the
  * number of subcategories filled out and the progress bar.
  */
 function watchFormProgress() {
-    clearDisasters();
     var completed = 0;
     $('fieldset.row').each(function () {
         // Check the content only for the parent fieldset.
@@ -469,7 +468,6 @@ function watchFormProgress() {
                 completed++;
             }
         }
-        checkDisasters(this);
     });
     var stepsElement = $('.progress-completed');
     stepsElement.html(completed);
@@ -494,7 +492,6 @@ function watchFormProgress() {
     });
 
     updateAutoMultiplication();
-    refreshDisasters();
 }
 
 /**
@@ -778,6 +775,7 @@ function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:text, textarea').val('').change();
     questiongroup.find('input:radio').prop('checked', false).change();
     questiongroup.find('input:checkbox').prop('checked', false).change();
+    questiongroup.find('select').prop('selectedIndex', 0).change();
     questiongroup.find('input:hidden.is-cleared').val('').change();
     questiongroup.find('.chosen-select').val('').trigger('chosen:updated');
 }
@@ -1058,6 +1056,62 @@ $(function () {
         // Form progress upon input
         .on('change', 'fieldset.row div.row.single-item', function() {
             watchFormProgress();
+        })
+
+        .on('change', '[data-questiongroup-to-options]', function() {
+            var $t = $(this),
+                qg_to_options = $t.data('questiongroup-to-options').split(','),
+                label = $t.data('questiongroup-to-options-label'),
+                keyword = $t.data('questiongroup-to-options-keyword'),
+                isOption = $t.data('questiongroup-to-options-is-option'),
+                qgHasContent = hasContent(this);
+
+            if (isOption && qgHasContent) return; // Values only changed
+
+            qg_to_options.forEach(function(qg) {
+                var qg_parts = qg.split('|');
+                if (qg_parts.length != 2) return;
+
+                var questiongroup = qg_parts[0],
+                    question = qg_parts[1];
+
+                var i = 0;
+                do {
+                    var id = '#id_' + questiongroup + '-' + i + '-' + question;
+                    var select = $(id);
+
+                    if (!select.length) break;
+
+                    if (qgHasContent) {
+                        select.append($('<option>', {
+                            value: keyword,
+                            text: label
+                        }));
+                        
+                        // Temporarily store the selected value of the select
+                        var selectedValue = select.val();
+
+                        // Reorder the options
+                        var optionsOrder = select.data('options-order').split(','),
+                            firstOption = select.find('option:first'),
+                            otherOptions = select.find('option:not(:first)');
+                        otherOptions.sort(function(a,b){
+                            var compA = $.inArray(a.value, optionsOrder),
+                                compB = $.inArray(b.value, optionsOrder);
+                            return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+                          });
+                        select.html(otherOptions).prepend(firstOption);
+                        select.val(selectedValue);
+
+                    } else {
+                        select.find('option[value="' + keyword + '"]').remove();
+                    }
+                    select.trigger('chosen:updated');
+                    i++;
+                }
+                while ($(id).length);
+            });
+            $t.data('questiongroup-to-options-is-option', qgHasContent);
         })
 
         .on('click', '.cb-toggle-questiongroup', function () {
@@ -1390,13 +1444,7 @@ $(function () {
                 $('[data-magellan-step="next"]').attr('href', '#' + next);
             }
         }
-    })
-    //  TODO - focus on current step (when location hash is changing)
-    // // Bind the event.
-    // $(window).on('hashchange', function() {
-    //   // Alerts every time the hash changes!
-    //   console.log( location.hash );
-    // })
+    });
 
     updateDropzones();
 });

@@ -16,7 +16,7 @@
   {% endfor %}
   <thead>
     {% for key in keys %}
-      {% if forloop.counter != 1 and forloop.counter != 4 and forloop.counter != 6 %}
+      {% if forloop.counter != 3 and forloop.counter != 5 %}
         <th>{{ key }}</th>
       {% endif %}
     {% endfor %}
@@ -25,30 +25,28 @@
     {% for questiongroup in questiongroups %}
       <tr>
         {% for question in questiongroup %}
-          {% if forloop.counter != 1 %}
-            {% if forloop.counter == 2 %}
-              <td>{{ question }}</td>
-            {% elif forloop.counter == 3 %}
-              <td>{{ question }}</td>
-            {% elif forloop.counter == 4 %}
-              <td>
-                <div class="row">
-                  <div class="small-3 columns chart-measure-col-left">
-                    <span class="chart-measure-label-left">
-                      {{ question }}
-                    </span>
-                  </div>
-            {% elif forloop.counter == 5 %}
-                  <div class="small-9 columns chart-measure-col-content">
+          {% if forloop.counter == 1 %}
+            <td>{{ question }}</td>
+          {% elif forloop.counter == 2 %}
+            <td>{{ question }}</td>
+          {% elif forloop.counter == 3 %}
+            <td>
+              <div class="row">
+                <div class="small-3 columns chart-measure-col-left">
+                  <span class="chart-measure-label-left">
                     {{ question }}
-            {% elif forloop.counter == 6 %}
-                    <span class="chart-measure-label-right">
-                      {{ question }}
-                    </span>
-                  </div>
+                  </span>
                 </div>
-              </td>
-            {% endif %}
+          {% elif forloop.counter == 4 %}
+                <div class="small-9 columns chart-measure-col-content">
+                  {{ question }}
+          {% elif forloop.counter == 5 %}
+                  <span class="chart-measure-label-right">
+                    {{ question }}
+                  </span>
+                </div>
+              </div>
+            </td>
           {% endif %}
         {% endfor %}
       </tr>

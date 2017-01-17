@@ -20,7 +20,7 @@ from configuration.configuration import (
 from configuration.utils import (
     ConfigurationList,
     get_configuration_query_filter,
-    get_choices_from_model)
+    get_choices_from_model, get_choices_from_questiongroups)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.serializers import QuestionnaireSerializer
@@ -144,7 +144,9 @@ def clean_questionnaire_data(
                             'questiongroup "{}").'.format(
                                 value, key, qg_keyword))
                         continue
-                elif question.field_type in ['select_conditional']:
+                elif question.field_type in [
+                    'select_conditional_questiongroup']:
+                    # This is checked later.
                     pass
                 elif question.field_type in [
                         'checkbox', 'image_checkbox', 'cb_bool']:
@@ -311,6 +313,52 @@ def clean_questionnaire_data(
                     format(
                         questiongroup.keyword,
                         questiongroup.questiongroup_condition))
+
+    # Check for select_conditional_questiongroup questions. This needs to be
+    # done after cleaning the data JSON as these questions depend on other
+    # questiongroups. Empty questiongroups (eg. {'qg_42': [{'key_57': ''}], ...}
+    # are now cleaned.
+    for qg_keyword, cleaned_qg_list in cleaned_data.items():
+
+        questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
+        if questiongroup is None:
+            continue
+
+        select_conditional_questiongroup_data_list = []
+        select_conditional_questiongroup_found = False
+
+        for qg_data in cleaned_qg_list:
+            select_conditional_questiongroup_data = {}
+            for key, value in qg_data.items():
+
+                question = questiongroup.get_question_by_key_keyword(key)
+                if question is None:
+                    continue
+
+                if question.field_type in ['select_conditional_questiongroup']:
+                    select_conditional_questiongroup_found = True
+
+                    # Set currently valid question choices
+                    questiongroups = question.form_options.get(
+                        'options_by_questiongroups', [])
+                    question.choices = get_choices_from_questiongroups(
+                        cleaned_data, questiongroups,
+                        configuration.configuration_keyword)
+
+                    if value in [c[0] for c in question.choices]:
+                        # Only copy values which are valid options.
+                        select_conditional_questiongroup_data[key] = value
+
+                else:
+                    select_conditional_questiongroup_data[key] = value
+
+            select_conditional_questiongroup_data_list.append(
+                select_conditional_questiongroup_data)
+
+        if select_conditional_questiongroup_found:
+            cleaned_data[
+                qg_keyword] = select_conditional_questiongroup_data_list
+
     return cleaned_data, errors
 
 
