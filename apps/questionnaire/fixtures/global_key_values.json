@@ -6288,7 +6288,7 @@
           "in_summary": {
             "types": ["full"],
             "default": {
-              "field_name": "header_image_project"
+              "field_name": "project_institution_project"
             }
           }
         }
@@ -6795,6 +6795,12 @@
         "form_options": {
           "model": "Institution",
           "display_field": "funding_institution_display"
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "project_institution_institution"
+          }
         }
       }
     },

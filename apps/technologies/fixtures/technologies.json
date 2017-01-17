@@ -15932,7 +15932,13 @@
       "keyword": "tech_est_type",
       "translation": 1038,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_establishment_measure_type"
+          }
+        }
       },
       "values": [
         1143,
@@ -16138,7 +16144,13 @@
       "keyword": "tech_maint_type",
       "translation": 1038,
       "configuration": {
-        "type": "select"
+        "type": "select",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_measure_type"
+          }
+        }
       },
       "values": [
         1143,
@@ -19078,7 +19090,13 @@
       "keyword": "tech_sustainability",
       "translation": 1305,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "header_image_sustainability"
+          }
+        }
       }
     },
     "model": "configuration.key",

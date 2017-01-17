@@ -326,6 +326,22 @@ class GlobalValuesMixin:
                 title=title.get('value'),
                 source=sources[index].get('value') if sources[index] else '')}
 
+    def project_insitution(self):
+        self.raw_data.get('project_institution_project')
+        self.raw_data.get('project_institution_institution')
+        return {
+            "items": [
+                {
+                    "title": "Food and Agriculture Organization of the United Nations",
+                    "logo": ""
+                },
+                {
+                    "title": "Caritas",
+                    "logo": ""
+                }
+            ]
+        }
+
 
 class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
@@ -339,7 +355,17 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         return ['header_image', 'title', 'location', 'description', 'images',
                 'classification', 'technical_drawing', 'establishment_costs',
                 'natural_environment', 'human_environment', 'impacts', 
-                'climate_change', 'adoption_adaptation', 'conclusion', 'references']
+                'climate_change', 'adoption_adaptation', 'conclusion',
+                'references', 'project_insitution']
+
+    def header_image(self):
+        data = super().header_image()
+        if self.raw_data_getter('header_image_sustainability') == 'Yes':
+            data['partials']['note'] = _(
+                '<strong>Note</strong>: This technology is problematic with '
+                'regard to land degradation, so it cannot be declared a '
+                'sustainable land management technology')
+        return data
 
     def location(self):
         return {
@@ -483,7 +509,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'establishment': {
                     'title': _('Establishment activities'),
-                    'list': [{'text': activity['value']} for activity in self.raw_data['establishment_establishment_activities']],
+                    'list': self._get_establishment_list_items(
+                        'establishment_establishment_activities',
+                        'establishment_establishment_measure_type'
+                    ),
                     'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
                         'title': _('Establishment inputs and costs per ha'),
@@ -492,7 +521,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'maintenance': {
                     'title': _('Maintenance activities'),
-                    'list': [{'text': activity['value']} for activity in self.raw_data['establishment_maintenance_activities']],
+                    'list': self._get_establishment_list_items(
+                        'establishment_maintenance_activities',
+                        'establishment_maintenance_measure_type'
+                    ),
                     'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
                         'title': 'Maintenance inputs and costs per ha',
@@ -501,6 +533,22 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 }
             }
         }
+
+    def _get_establishment_list_items(self, activity: str, measure: str):
+        for index, activity in enumerate(self.raw_data[activity]):
+            # Get the measure type for current activity.
+            try:
+                measure_type = self.raw_data[measure][index]['value']
+            except (KeyError, IndexError):
+                measure_type = ''
+
+            measure_type = ' ({})'.format(measure_type) if measure_type else ''
+            yield {
+                'text': '{activity}{measure_type}'.format(
+                    activity=activity['value'],
+                    measure_type=measure_type
+                )}
+
 
     def natural_environment(self):
         return {
