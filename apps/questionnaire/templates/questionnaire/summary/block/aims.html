@@ -6,7 +6,7 @@
 <div class="row">
   <div class="small-12 columns">
     <h5>{{ content.main.title }}</h5>
-    {{ content.main.text|safe }}
+    {{ content.main.text|linebreaksbr }}
   </div>
   {% for list_item in content.elements  %}
     <div class="small-12 columns">
