@@ -73,7 +73,7 @@ class BaseSettings(Configuration):
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-        #'accounts.middleware.WocatAuthenticationMiddleware',
+        'accounts.middleware.WocatAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'maintenancemode.middleware.MaintenanceModeMiddleware',
@@ -260,6 +260,7 @@ class BaseSettings(Configuration):
 
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
+    KEY_PREFIX = values.Value(environ_prefix='', default='')
 
     # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
