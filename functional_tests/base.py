@@ -13,6 +13,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -262,7 +263,14 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def toggle_all_sections(self):
         self.wait_for('class_name', 'js-expand-all-sections')
-        self.findBy('class_name', 'js-expand-all-sections').click()
+        for el in self.findManyBy('xpath', '//div[contains(@class, "success")]'):
+            self.browser.execute_script("""
+                var element = arguments[0];
+                element.parentNode.removeChild(element);
+                """, el)
+        links = self.findManyBy('class_name', 'js-expand-all-sections')
+        for link in links:
+            link.click()
 
     def open_questionnaire_details(self, configuration, identifier=None):
         route = route_questionnaire_details_sample
@@ -284,11 +292,20 @@ class FunctionalTest(StaticLiveServerTestCase):
     def scroll_to_element(self, el):
         self.browser.execute_script("return arguments[0].scrollIntoView();", el)
 
-    def set_input_value(self, el_id, value):
-        self.browser.execute_script(
-            "document.getElementById('{}').setAttribute('value', '{}')".format(
-                el_id, value
-            ))
+    def set_input_value(self, element, value):
+        if not isinstance(element, WebElement):
+            element = self.findBy('id', element)
+        self.browser.execute_script("""
+            var element = arguments[0];
+                element.setAttribute('value', '{}')
+        """.format(value), element)
+
+    def get_text_excluding_children(self, element):
+        return self.browser.execute_script("""
+        return jQuery(arguments[0]).contents().filter(function() {
+            return this.nodeType == Node.TEXT_NODE;
+        }).text();
+        """, element)
 
     def clickUserMenu(self, user):
         self.findBy(

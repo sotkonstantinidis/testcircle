@@ -50,11 +50,52 @@ function hasContent(element) {
 }
 
 /**
+ * Makes the select element enabled.
+ */
+function enableSelect(temp0, temp1) {
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr("disabled", false);
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr("disabled", false);
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").trigger("chosen:updated");
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").trigger("chosen:updated");
+    var left_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr('name');
+    var right_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr('name');
+    if($('input[name="'+left_label_name+'"]').length!=0) {        
+        $('input[name="'+left_label_name+'"]').remove();
+    }
+    if($('input[name="'+right_label_name+'"]').length!=0) {
+        $('input[name="'+right_label_name+'"]').remove();
+    }
+
+}
+
+/**
  * Refreshes the DOM of the extent labels.
  */
 function refreshLabel(temp0, temp1) {
     $("#"+temp0+"-"+temp1+"-cca_extent_left_label").trigger("chosen:updated");
     $("#"+temp0+"-"+temp1+"-cca_extent_right_label").trigger("chosen:updated");
+    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr("disabled", true);
+    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr("disabled", true);
+
+    var element = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").parent().parent().parent().parent().parent().parent().parent();
+    
+    var left_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr('name');
+    var left_label_value = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").find(':selected').val();
+    if($('input[name="'+left_label_name+'"]').length==0) {
+        $('<input type="hidden" name="'+left_label_name+'" value="'+left_label_value+'">').appendTo(element);
+    }
+    else {
+        $('input[name="'+left_label_name+'"]').attr('value', left_label_value);
+    }
+
+    var right_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr('name');
+    var right_label_value = $("#"+temp0+"-"+temp1+"-cca_extent_right_label").find(':selected').val();
+    if($('input[name="'+right_label_name+'"]').length==0) {
+        $('<input type="hidden" name="'+right_label_name+'" value="'+right_label_value+'">').appendTo(element);
+    }
+    else {
+        $('input[name="'+right_label_name+'"]').attr('value', right_label_value);
+    }
 }
 
 /**
@@ -282,8 +323,8 @@ function checkImpact(element) {
         switch($("#"+id+" option:selected").val()) {
             case 'water_availability':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
             case 'stream_flows':                    setLabelReducedIncreased(temp[0], temp[1]); break;
-            case 'downstream_flooding':             break;
-            case 'downstream_siltation':            break;
+            case 'downstream_flooding':             enableSelect(temp[0], temp[1]); break;
+            case 'downstream_siltation':            enableSelect(temp[0], temp[1]); break;
             case 'groundwater_river_pollution':     setLabelIncreasedReduced(temp[0], temp[1]); break;
             case 'buffering_filtering_capacity':    setLabelReducedImproved(temp[0], temp[1]); break;
             case 'wind_trasported_sediments':       setLabelIncreasedReduced(temp[0], temp[1]); break;
@@ -653,10 +694,18 @@ function checkConditionalQuestiongroups(element) {
             currentConditionsFulfilled = currentConditionsFulfilled || conditionsFulfilled;
         });
 
-        var questiongroupContainer = $('#' + questiongroup);
+        var questiongroupContainer = $('#' + questiongroup),
+            previousCondition = questiongroupContainer.data('conditions-fulfilled');
         questiongroupContainer.toggle(currentConditionsFulfilled);
-        if (!currentConditionsFulfilled) {
+        if (!currentConditionsFulfilled && previousCondition === true) {
+            // Only clear questiongroup if it was previously visible as this is
+            // an expensive function.
             clearQuestiongroup(questiongroupContainer);
+        }
+        // Store if the condition is now fulfilled, only if there were changes
+        if (currentConditionsFulfilled != previousCondition) {
+            questiongroupContainer.data(
+                'conditions-fulfilled', currentConditionsFulfilled);
         }
     }
 }

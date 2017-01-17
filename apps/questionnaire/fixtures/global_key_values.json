@@ -9179,7 +9179,12 @@
     "fields": {
       "keyword": "qg_funding_project",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 1,
+          "max_num": 5
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 5
@@ -9362,7 +9367,12 @@
     "fields": {
       "keyword": "qg_funding_institution",
       "translation": null,
-      "configuration": {}
+      "configuration": {
+        "form_options": {
+          "min_num": 1,
+          "max_num": 5
+        }
+      }
     },
     "model": "configuration.questiongroup",
     "pk": 20

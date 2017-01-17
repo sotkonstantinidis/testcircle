@@ -8,6 +8,11 @@
             "en": "Key 1",
             "es": "Clave 1"
           }
+        },
+        "samplemodule": {
+          "label": {
+            "en": "Key 1 (Samplemodule)"
+          }
         }
       }
     },
@@ -52,6 +57,11 @@
           "label": {
             "en": "Key 4",
             "es": "Clave 4"
+          }
+        },
+        "samplemodule": {
+          "label": {
+            "en": "Key 4 (Samplemodule)"
           }
         }
       }

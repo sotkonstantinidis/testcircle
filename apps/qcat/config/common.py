@@ -260,6 +260,7 @@ class BaseSettings(Configuration):
 
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
+    KEY_PREFIX = values.Value(environ_prefix='', default='')
 
     # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
@@ -267,6 +268,9 @@ class BaseSettings(Configuration):
 
     # "Feature toggles"
     IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
+        environ_prefix='', default=False
+    )
+    IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
         environ_prefix='', default=False
     )
     IS_ACTIVE_FEATURE_SUMMARY = values.BooleanValue(

@@ -1,3 +1,4 @@
+import logging
 from unittest.mock import patch, MagicMock, sentinel
 
 from django.conf import settings
@@ -14,12 +15,20 @@ from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.api.views import QuestionnaireListView, \
     QuestionnaireDetailView,  QuestionnaireAPIMixin, \
     ConfiguredQuestionnaireDetailView
+from search.index import delete_all_indices
+from search.tests.test_index import create_temp_indices
 
 
+TEST_INDEX_PREFIX = 'qcat_test_prefix_'
+
+
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireListViewTest(TestCase):
     fixtures = ['sample', 'sample_questionnaires']
 
     def setUp(self):
+        delete_all_indices()
+        create_temp_indices(['sample'])
         self.factory = RequestFactory()
         self.url = '/en/api/v1/questionnaires/sample_1/'
         self.request = self.factory.get(self.url)
@@ -27,6 +36,9 @@ class QuestionnaireListViewTest(TestCase):
         self.view = self.setup_view(
             QuestionnaireListView(), self.request, identifier='sample_1'
         )
+
+    def tearDown(self):
+        delete_all_indices()
 
     @patch('questionnaire.api.views.advanced_search')
     def test_logs_call(self, mock_advanced_search):
@@ -156,6 +168,7 @@ class QuestionnaireDetailViewTest(TestCase):
     fixtures = ['sample', 'sample_questionnaires']
 
     def setUp(self):
+        logging.disable(logging.CRITICAL)
         self.factory = RequestFactory()
         self.url = '/en/api/v1/questionnaires/sample_1/'
         self.request = self.factory.get(self.url)
@@ -222,6 +235,7 @@ class ConfiguredQuestionnaireDetailViewTest(TestCase):
             ConfiguredQuestionnaireDetailView(), self.request,
             identifier=self.identifier
         )
+        self.view.obj = None
 
     @patch('questionnaire.api.views.get_language')
     @patch('questionnaire.api.views.get_questionnaire_data_in_single_language')

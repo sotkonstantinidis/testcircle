@@ -128,6 +128,13 @@ $bars-factor: 4;
 .chart-measure-col-content {
   padding-left: 0;
 }
+.chart-year-bar {
+  line-height: 0.5rem;
+
+  li.step {
+    padding: 0.5rem;
+  }
+}
 
 
 body.summary

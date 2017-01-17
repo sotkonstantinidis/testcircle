@@ -12,6 +12,9 @@ from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.tests.test_models import get_valid_questionnaire
 
+DEFAULT_WOCAT_CONFIGURATIONS = [
+    'unccd', 'technologies', 'approaches', 'watershed']
+
 
 class GetConfigurationQueryFilterTest(TestCase):
 
@@ -61,7 +64,7 @@ class GetConfigurationIndexFilterTest(TestCase):
 
     def test_returns_default_configurations_if_not_valid_alias(self):
         index_filter = get_configuration_index_filter('foo')
-        self.assertEqual(index_filter, ['unccd', 'technologies', 'approaches'])
+        self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
 
     def test_unccd_returns_single_configuration(self):
         index_filter = get_configuration_index_filter('unccd')
@@ -69,7 +72,7 @@ class GetConfigurationIndexFilterTest(TestCase):
 
     def test_wocat_returns_multiple_configurations(self):
         index_filter = get_configuration_index_filter('wocat')
-        self.assertEqual(index_filter, ['unccd', 'technologies', 'approaches'])
+        self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
 
     def test_wocat_with_only_current_returns_only_wocat(self):
         index_filter = get_configuration_index_filter(

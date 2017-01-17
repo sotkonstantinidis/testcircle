@@ -120,21 +120,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "other (specify)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28009
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity if the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
+            "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity of the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
           },
           "helptext": {
             "en": "If <strong>yes</strong>, specify below"
@@ -179,7 +165,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more"
+            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more?"
           },
           "helptext": {
             "en": "If <strong>yes</strong>, fill in the table below . If <strong>no</strong>, continue with chapter 3"
@@ -371,12 +357,6 @@
         "cca": {
           "label": {
             "en": "Extent"
-          },
-          "label_left": {
-            "en": ""
-          },
-          "label_right": {
-            "en": ""
           }
         }
       }
@@ -5057,7 +5037,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Sensitivity (Risks and Potentials)"
+            "en": "Sensitivity (risks and potentials)"
           }
         }
       }
@@ -5120,6 +5100,9 @@
         "cca": {
           "label": {
             "en": "Name of the SLM Technology (hereafter referred to as the Technology) as per Core Questionnaire on SLM Technologies Question QT Core 1.1"
+          },
+          "label_view": {
+            "en": "Name of the SLM Technology"
           }
         }
       }
@@ -5412,6 +5395,9 @@
         "cca": {
           "label": {
             "en": "Socio-economic impacts"
+          },
+          "label_view": {
+            "en": "Socio-economic impacts (on-site)"
           }
         }
       }
@@ -5482,6 +5468,9 @@
         "cca": {
           "label": {
             "en": "Socio-cultural impacts"
+          },
+          "label_view": {
+            "en": "Socio-cultural impacts (on-site)"
           }
         }
       }
@@ -5510,6 +5499,9 @@
         "cca": {
           "label": {
             "en": "Ecological impacts"
+          },
+          "label_view": {
+            "en": "Ecological impacts (on-site)"
           }
         }
       }
@@ -5756,7 +5748,7 @@
             "en": "Assets of land users supporting their capacity to adapt to gradual climate changes and climate-related extremes (disasters)"
           },
           "helptext": {
-            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (www.eldis.org/vfile/upload/1/document/0901/section2.pdf) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
+            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (<a href='http://www.eldis.org/vfile/upload/1/document/0901/section2.pdf' target='_blank'>www.eldis.org/vfile/upload/1/document/0901/section2.pdf</a>) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
           }
         }
       }
@@ -6077,17 +6069,6 @@
     },
     "model": "configuration.key",
     "pk": 28008
-  },
-  {
-    "fields": {
-      "keyword": "cca_exposure_other_specify_other",
-      "translation": 28009,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28009
   },
   {
     "fields": {
@@ -9693,12 +9674,12 @@
           "min_num": 1,
           "max_num": 24,
           "template": "table2",
-          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "column_widths": ["25%", "10%", "7%", "10%", "7%", "41%"],
           "numbered": "display"
         },
         "view_options": {
           "template": "table2",
-          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "column_widths": ["25%", "17%", "17%", "40%"],
           "with_keys": true
         }
       }
@@ -9742,6 +9723,7 @@
         },
         "view_options": {
           "template": "table1",
+          "label_class": "top-margin-big",
           "column_widths": ["20%", "30%", "20%", "30%"],
           "with_keys": true
         }
@@ -11370,6 +11352,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "template": "default"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__gradual",
@@ -11378,7 +11363,7 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "table_5",
+                              "template": "table_8",
                               "table_grouping": [
                                 [
                                   "cca_qg_3",
@@ -11519,6 +11504,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "label_class": "top-margin"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__meteorological",
@@ -11528,6 +11516,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_7",
@@ -11913,6 +11902,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_16",
@@ -12216,6 +12206,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_23",
@@ -12437,6 +12428,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_28",
@@ -12535,6 +12527,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "layout": "no_label_row",
                               "table_grouping": [
                                 [
@@ -12553,14 +12546,14 @@
                                 },                                  
                                 "questions": [                                  
                                   {
-                                    "keyword": "cca_title_frequency"
-                                  },
-                                  {
                                     "keyword": "cca_exposure_other_specify",
                                     "form_options": {
                                       "label_position": "placeholder"
                                     }
                                   },
+                                  {
+                                    "keyword": "cca_title_frequency"
+                                  },                                  
                                   {
                                     "keyword": "cca_exposure_decrstabincr"
                                   },
@@ -12576,12 +12569,6 @@
                                   },
                                   {
                                     "keyword": "cca_title_intensity"
-                                  },
-                                  {
-                                    "keyword": "cca_exposure_other_specify_other",
-                                    "form_options": {
-                                      "label_position": "placeholder"
-                                    }
                                   },
                                   {
                                     "keyword": "cca_exposure_decrstabincr_other"
@@ -12608,6 +12595,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "label_class": "top-margin"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__other",
@@ -12617,6 +12607,7 @@
                             },
                             "view_options": {
                               "template": "table_7",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_31",
@@ -12764,6 +12755,9 @@
                                   "questiongroup_conditions": [
                                     "=='yes'|cca_qg_37"
                                   ]
+                                },
+                                "view_options": {
+                                  "template": "checkbox_as_text"
                                 }
                               }
                             ]
@@ -12791,6 +12785,9 @@
                     "form_options": {
                       "numbering": "2.3"
                     },
+                    "view_options": {
+                      "label_class": "top-margin"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "cca_qg_38",
@@ -12812,6 +12809,12 @@
                         },
                         "questions": [
                           {
+                            "keyword": "climate_related_extreme"
+                          },
+                          {
+                            "keyword": "climate_related_extreme_display"
+                          },
+                          {
                             "keyword": "from_year"
                           },
                           {
@@ -12822,12 +12825,6 @@
                           },
                           {
                             "keyword": "to_month"
-                          },
-                          {
-                            "keyword": "climate_related_extreme"
-                          },
-                          {
-                            "keyword": "climate_related_extreme_display"
                           },
                           {
                             "keyword": "comments_specify"
@@ -12906,7 +12903,7 @@
                           "label_tag": "h2"
                         },
                         "view_options": {
-                          "template": "has_subcategories",
+                          "template": "has_subcategories_no_label",
                           "label_tag": "h3"
                         },
                         "subcategories": [
@@ -12927,7 +12924,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },                                    
                                 "questiongroups": [
                                   {
@@ -12968,7 +12965,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13009,7 +13006,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13050,7 +13047,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13097,7 +13094,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "template": "default_no_label"
                                 },
                                 "questiongroups": [
                                   {
@@ -13138,7 +13135,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "template": "default_no_label"
                                 },
                                 "questiongroups": [
                                   {
@@ -13185,7 +13182,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13226,7 +13223,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13267,7 +13264,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13308,7 +13305,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13349,7 +13346,7 @@
                                   "template": "default_no_border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13388,7 +13385,7 @@
                           "label_tag": "h2"
                         },
                         "view_options": {
-                          "template": "has_subcategories",
+                          "template": "has_subcategories_no_label",
                           "label_tag": "h3"
                         },
                         "subcategories": [
@@ -13398,7 +13395,7 @@
                               "template": "default_no_border"
                             },
                             "view_options": {
-                              "template": "default_h4"
+                              "label_tag": "h5"
                             },
                             "questiongroups": [
                               {
@@ -13439,7 +13436,7 @@
                               "template": "default_no_border"
                             },
                             "view_options": {
-                              "template": "default_h4"
+                              "template": "default_no_label"
                             },
                             "questiongroups": [
                               {
@@ -13712,7 +13709,12 @@
                         "keyword": "cca_qg_139",
                         "questions": [
                           {
-                            "keyword": "cca_who_motivated_land_users"
+                            "keyword": "cca_who_motivated_land_users",
+                            "view_options": {
+                              "template": "measure_stacked_1",
+                              "layout": "stacked",
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "cca_who_motivated_land_users_other",
@@ -13721,11 +13723,19 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "checkbox_other"
+                              "template": "measure_stacked_2",
+                              "label_position": "none",
+                              "layout": "stacked",
+                              "filter": true
                             }
                           },
                           {
-                            "keyword": "cca_motivated_by_slm_specialists"
+                            "keyword": "cca_motivated_by_slm_specialists",
+                            "view_options": {
+                              "template": "measure_stacked_1",
+                              "layout": "stacked",
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "cca_motivated_by_slm_specialists_other",
@@ -13734,7 +13744,10 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "checkbox_other"
+                              "template": "measure_stacked_2",
+                              "label_position": "none",
+                              "layout": "stacked",
+                              "filter": true
                             }
                           },
                           {
@@ -13770,7 +13783,12 @@
                         },
                         "questions": [
                           {
-                            "keyword": "cca_measures_training_by_whom"
+                            "keyword": "cca_measures_training_by_whom",
+                            "view_options": {
+                              "template": "measure_stacked_1",
+                              "layout": "stacked",
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "cca_measures_training_by_whom_other",
@@ -13779,7 +13797,10 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "checkbox_other"
+                              "template": "measure_stacked_2",
+                              "label_position": "none",
+                              "layout": "stacked",
+                              "filter": true
                             }
                           }
                         ]
@@ -14154,7 +14175,7 @@
                       {
                         "keyword": "cca__4__8__financial",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14175,7 +14196,7 @@
                           {
                             "keyword": "cca_qg_154",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14189,7 +14210,7 @@
                           {
                             "keyword": "cca_qg_155",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14203,7 +14224,7 @@
                           {
                             "keyword": "cca_qg_156",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14217,7 +14238,7 @@
                           {
                             "keyword": "cca_qg_157",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14231,7 +14252,7 @@
                           {
                             "keyword": "cca_qg_158",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14245,7 +14266,7 @@
                           {
                             "keyword": "cca_qg_159",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14259,7 +14280,7 @@
                           {
                             "keyword": "cca_qg_160",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14281,7 +14302,7 @@
                       {
                         "keyword": "cca__4__8__social",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14306,7 +14327,7 @@
                           {
                             "keyword": "cca_qg_161",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14320,7 +14341,7 @@
                           {
                             "keyword": "cca_qg_162",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14334,7 +14355,7 @@
                           {
                             "keyword": "cca_qg_163",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14348,7 +14369,7 @@
                           {
                             "keyword": "cca_qg_164",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14362,7 +14383,7 @@
                           {
                             "keyword": "cca_qg_165",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14376,7 +14397,7 @@
                           {
                             "keyword": "cca_qg_166",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14390,7 +14411,7 @@
                           {
                             "keyword": "cca_qg_167",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14404,7 +14425,7 @@
                           {
                             "keyword": "cca_qg_168",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14418,7 +14439,7 @@
                           {
                             "keyword": "cca_qg_169",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14432,7 +14453,7 @@
                           {
                             "keyword": "cca_qg_170",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14446,7 +14467,7 @@
                           {
                             "keyword": "cca_qg_171",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14468,7 +14489,7 @@
                       {
                         "keyword": "cca__4__8__human",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14484,7 +14505,7 @@
                           {
                             "keyword": "cca_qg_172",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14498,7 +14519,7 @@
                           {
                             "keyword": "cca_qg_173",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14520,7 +14541,7 @@
                       {
                         "keyword": "cca__4__8__physical",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14539,7 +14560,7 @@
                           {
                             "keyword": "cca_qg_174",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14553,7 +14574,7 @@
                           {
                             "keyword": "cca_qg_175",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14567,7 +14588,7 @@
                           {
                             "keyword": "cca_qg_176",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14581,7 +14602,7 @@
                           {
                             "keyword": "cca_qg_177",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14595,7 +14616,7 @@
                           {
                             "keyword": "cca_qg_178",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14617,7 +14638,7 @@
                       {
                         "keyword": "cca__4__8__natural",
                         "form_options": {
-                          "template": "collapsible",
+                          "template": "collapsible_font_size_14",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14637,7 +14658,7 @@
                           {
                             "keyword": "cca_qg_179",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14651,7 +14672,7 @@
                           {
                             "keyword": "cca_qg_180",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14665,7 +14686,7 @@
                           {
                             "keyword": "cca_qg_181",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14679,7 +14700,7 @@
                           {
                             "keyword": "cca_qg_182",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14693,7 +14714,7 @@
                           {
                             "keyword": "cca_qg_183",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {
@@ -14707,7 +14728,7 @@
                           {
                             "keyword": "cca_qg_184",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle_left_indent"
                             },
                             "questions": [
                               {

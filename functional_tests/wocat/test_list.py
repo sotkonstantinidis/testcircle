@@ -1,5 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+
+from configuration.tests.test_utils import DEFAULT_WOCAT_CONFIGURATIONS
 from functional_tests.base import FunctionalTest
 
 from search.index import delete_all_indices
@@ -22,7 +24,7 @@ class ListTest(FunctionalTest):
     def setUp(self):
         super(ListTest, self).setUp()
         delete_all_indices()
-        create_temp_indices(['technologies', 'approaches', 'unccd'])
+        create_temp_indices(DEFAULT_WOCAT_CONFIGURATIONS)
 
     def tearDown(self):
         super(ListTest, self).tearDown()
