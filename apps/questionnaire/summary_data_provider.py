@@ -71,7 +71,7 @@ class SummaryDataProvider:
         """
         Demo-file for frontend development.
         """
-        pth = '{}/apps/questionnaire/templates/questionnaire/summary/{}.json'
+        pth = '{}/apps/questionnaire/templates/questionnaire/summary/technologies.json'
         with open(pth.format(settings.BASE_DIR, config_type)) as data:
             return dict(json.load(data))
 

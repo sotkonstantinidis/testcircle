@@ -868,15 +868,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -885,15 +885,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -902,15 +902,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -919,15 +919,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -936,15 +936,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -953,15 +953,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -970,11 +970,11 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           }
         ]
       },
@@ -983,15 +983,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "20-30"
+            "text": "20-30"
           },
           {
             "highlighted": true,
-            "title": "30-40"
+            "text": "30-40"
           },
           {
             "highlighted": false,
-            "title": "40-50"
+            "text": "40-50"
           }
         ]
       },
@@ -1000,39 +1000,39 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           },
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": false,
-            "title": "but same"
+            "text": "but same"
           },
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": false,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -1041,15 +1041,15 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -1058,27 +1058,27 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           },
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": false,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -1087,19 +1087,19 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           },
           {
             "highlighted": false,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -1108,19 +1108,19 @@
         "items": [
           {
             "highlighted": false,
-            "title": "same, same"
+            "text": "same, same"
           },
           {
             "highlighted": false,
-            "title": "but different"
+            "text": "but different"
           },
           {
             "highlighted": true,
-            "title": "but same"
+            "text": "but same"
           },
           {
             "highlighted": false,
-            "title": "but same"
+            "text": "but same"
           }
         ]
       },
@@ -1332,6 +1332,7 @@
           }
         ]
       },
+      "comments_title": "Comments and quantification",
       "comments": "Comments and quantification regarding impacts: Specifications regarding crop production: production increased by 60% after implementation of the Technolog"
     }
   },
@@ -1388,19 +1389,19 @@
        "items": [
          {
            "highlighted": false,
-           "title": "single cases/ experimental"
+           "text": "single cases/ experimental"
          },
          {
            "highlighted": false,
-           "title": "1 - 10%"
+           "text": "1 - 10%"
          },
          {
            "highlighted": false,
-           "title": "11 - 50%"
+           "text": "11 - 50%"
          },
          {
            "highlighted": false,
-           "title": "> 50%"
+           "text": "> 50%"
          }
        ]
      },
@@ -1409,19 +1410,19 @@
        "items": [
          {
            "highlighted": false,
-           "title": "single cases/ experimental"
+           "text": "single cases/ experimental"
          },
          {
            "highlighted": false,
-           "title": "1 - 10%"
+           "text": "1 - 10%"
          },
          {
            "highlighted": false,
-           "title": "11 - 50%"
+           "text": "11 - 50%"
          },
          {
            "highlighted": false,
-           "title": "> 50%"
+           "text": "> 50%"
          }
        ]
      },
@@ -1431,15 +1432,15 @@
        "items": [
           {
            "highlighted": false,
-           "title": "climatic change/ extremes"
+           "text": "climatic change/ extremes"
          },
          {
            "highlighted": false,
-           "title": "changing markets"
+           "text": "changing markets"
          },
          {
            "highlighted": false,
-           "title": "labour availability (e.g. due to migration)"
+           "text": "labour availability (e.g. due to migration)"
          }
        ]
      },
