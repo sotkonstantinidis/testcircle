@@ -108,7 +108,8 @@ class GlobalValuesMixin:
         """
         # todo: don't return none values, but empty string
         try:
-            return self.raw_data[key][0][value] if value else self.raw_data[key]
+            val = self.raw_data[key][0][value] if value else self.raw_data[key]
+            return val if val else ''
         except (AttributeError, TypeError, IndexError):
             return ''
 
@@ -760,7 +761,8 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'aims', 'participation', 'conclusion', 'references']
+                'aims', 'participation', 'technical_support', 'conclusion',
+                'references']
 
     def location(self):
         return {
@@ -857,6 +859,83 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                             'items': self.raw_data.get('participation_decisions_based')
                         }
                     ]
+                }
+            }
+        }
+
+    def technical_support(self):
+        if self.raw_data_getter('tech_support_monitoring_systematic') == 'No':
+            monitoring_intention = 'This documentation is <i>not</i> intended to be used for monitoring and evaluation'
+        else:
+            monitoring_intention = 'This documentation is intended to be used for monitoring and evaluation'
+
+        return {
+            'title': _('Technical support, capacity building, and knowledge management'),
+            'partials': {
+                'activities': {
+                    'title': 'The following activities or services have been part of the approach',
+                    'items': [
+                        self.raw_data.get('tech_support_training_is_training'),
+                        self.raw_data.get('tech_support_advisory_is_advisory'),
+                        self.raw_data.get('tech_support_institutions_is_institution', {}).get('bool'),
+                        self.raw_data.get('tech_support_monitoring_is_monitoring'),
+                        self.raw_data.get('tech_support_research_is_research')
+                    ]
+                },
+                'training': {
+                    'title': 'Capacity building/ training',
+                    'elements': [
+                        {
+                            'title': _('Training was provided to the following stakeholders'),
+                            'items': self.raw_data.get('tech_support_training_who')
+                        },
+                        {
+                            'title': _('Form of training'),
+                            'items': self.raw_data.get('tech_support_training_form')
+                        }
+                    ],
+                    'list': {
+                        'title': _('Subjects covered'),
+                        'text': self.raw_data_getter('tech_support_training_subjects')
+                    }
+                },
+                'advisory': {
+                    'title': 'Advisory service',
+                    'elements': [
+                        {
+                            'title': 'Advisory service was provided',
+                            'items': self.raw_data.get('tech_support_advisory_service'),
+                            'description': self.raw_data_getter('tech_support_advisory_description')
+                        }
+                    ]
+                },
+                'institution_strengthening': {
+                    'title': _('Institution strenghtening'),
+                    'subtitle': {
+                        'title': _('Institutions have been strengthened / established'),
+                        'value': self.raw_data.get('tech_support_institutions_is_institution', {}).get('value')
+                    },
+                    'elements': [
+                        {
+                            'title': _('at the following level'),
+                            'items': self.raw_data.get('tech_support_institutions_level'),
+                            'description': self.raw_data_getter('tech_support_institutions_describe')
+                        },
+                        {
+                            'title': 'Type of support',
+                            'items': self.raw_data.get('tech_support_institutions_support'),
+                            'description': self.raw_data_getter('tech_support_institutions_support_specify')
+                        }
+                    ]
+                },
+                'monitoring': {
+                    'title': 'Monitoring and evaluation',
+                    'intended': monitoring_intention
+                },
+                'research': {
+                    'title': 'Research',
+                    'items': self.raw_data.get('tech_support_research_topics'),
+                    'description': self.raw_data_getter('tech_support_research_details')
                 }
             }
         }

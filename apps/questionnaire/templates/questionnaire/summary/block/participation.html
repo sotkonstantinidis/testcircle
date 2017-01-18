@@ -39,7 +39,7 @@
         {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=item.items %}
         </div>
         <div class="small-6 columns">
-          {{ item.comment }}
+          {{ item.comment|linebreaksbr }}
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
   </div>
   <div class="small-3 columns">
     <h5>{{ content.flow_chart.title }}</h5>
-    {{ content.flow_chart.text }}
+    {{ content.flow_chart.text|linebreaksbr }}
   </div>
 </div>
 <div class="row avoidbreak">

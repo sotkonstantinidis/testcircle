@@ -515,3 +515,22 @@ class ApproachParser(ConfiguredQuestionnaireParser):
                 'comment': comment,
                 'items': self.get_full_range_values(qg.questions[0])
             }
+
+    def get_highlight_element(self, child: QuestionnaireQuestion):
+        return {
+            'highlighted': bool(self._get_qg_selected_value(child) == 1),
+            'text': child.questiongroup.parent_object.label
+        }
+
+    def get_highlight_element_with_text(self, child: QuestionnaireQuestion):
+        """
+        Really specific method for question 4.3.
+        """
+        selected = self._get_qg_selected_value(child)
+        return {
+            'value': dict(child.choices).get(selected),
+            'bool': {
+                'highlighted': selected != 'app_institutions_no',
+                'text': child.questiongroup.parent_object.label
+            }
+        }

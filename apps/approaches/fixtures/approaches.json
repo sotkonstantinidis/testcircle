@@ -5362,7 +5362,16 @@
       "keyword": "app_training",
       "translation": 7021,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_is_training",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5373,7 +5382,16 @@
       "keyword": "app_training_who",
       "translation": 7116,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_who",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3024,
@@ -5410,7 +5428,16 @@
       "keyword": "app_training_form",
       "translation": 7024,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_form",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3026,
@@ -5439,7 +5466,13 @@
       "keyword": "app_training_subjects",
       "translation": 7025,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_subjects"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5461,7 +5494,16 @@
       "keyword": "app_advisory",
       "translation": 7117,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_is_advisory",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5472,7 +5514,16 @@
       "keyword": "app_advisory_service",
       "translation": 7118,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_service",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3031,
@@ -5498,7 +5549,13 @@
       "keyword": "app_advisory_describe",
       "translation": 7119,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_description"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5509,7 +5566,16 @@
       "keyword": "app_institutions",
       "translation": 7094,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_is_institution",
+            "get_value": {
+              "name": "get_highlight_element_with_text"
+            }
+          }
+        }
       },
       "values": [
         3033,
@@ -5526,7 +5592,16 @@
       "keyword": "app_institutions_level",
       "translation": 7120,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_level",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3037,
@@ -5553,7 +5628,13 @@
       "keyword": "app_institutions_describe",
       "translation": 7038,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_describe"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5564,7 +5645,16 @@
       "keyword": "app_institutions_support",
       "translation": 7121,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_support",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3040,
@@ -5591,7 +5681,13 @@
       "keyword": "app_institutions_support_specify",
       "translation": 7122,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_support_specify"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6923,7 +7019,16 @@
       "keyword": "app_monitoring",
       "translation": 7125,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_monitoring_is_monitoring",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6945,7 +7050,13 @@
       "keyword": "app_documentation_systematic",
       "translation": 7095,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_monitoring_systematic"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7188,7 +7299,16 @@
       "keyword": "app_research",
       "translation": 7123,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_is_research",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7199,7 +7319,16 @@
       "keyword": "app_research_topics",
       "translation": 7124,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_topics",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3093,
@@ -7227,7 +7356,13 @@
       "keyword": "app_research_details",
       "translation": 7127,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_details"
+          }
+        }
       }
     },
     "model": "configuration.key",

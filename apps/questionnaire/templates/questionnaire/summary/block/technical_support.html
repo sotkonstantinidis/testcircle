@@ -23,13 +23,8 @@
   {% endfor %}
   <div class="small-6 columns">
     {{ content.training.list.title }}
-    <ul class="bullets">
-      {% for item in content.training.list.items  %}
-      <li>
-       {{ item }}
-      </li>
-      {% endfor %}
-    </ul>
+    <p>{{ content.training.list.text|linebreaksbr }}</p>
+
   </div>
 </div>
 {% endif %}
@@ -37,15 +32,15 @@
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
-    <h5>{{ content.advisory.title}}</h5>
+    <h5>{{ content.advisory.title }}</h5>
   </div>
   {% for item in content.advisory.elements %}
   <div class="small-3 columns">
     {{ item.title }}
-    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list"   list_items=item.items %}
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=item.items %}
   </div>
   <div class="small-9 columns">
-    {{ item.description }}
+    {{ item.description|linebreaksbr }}
   </div>
   {% endfor %}
 </div>
@@ -60,10 +55,10 @@
   {% for item in content.institution_strengthening.elements %}
   <div class="small-3 columns">
     {{ item.title }}
-    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list"   list_items=item.items %}
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=item.items %}
   </div>
   <div class="small-3 columns">
-    {{ item.description }}
+    {{ item.description|linebreaksbr }}
   </div>
   {% endfor %}
 </div>
@@ -73,12 +68,7 @@
 <hr>
   <div class="small-12 columns">
     <h5>{{ content.monitoring.title }}</h5>
-
-    {% if content.monitoring.intended %}
-    This documentation is intended to be used for monitoring and evaluation
-    {% else %}
-    This documentation is <i>not</i> intended to be used for monitoring and evaluation
-    {% endif %}
+    {{ content.monitoring.intended|safe }}
   </div>
 </div>
 {% endif %}
@@ -86,13 +76,13 @@
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
-    <h5>{{ content.research.title}}</h5>
+    <h5>{{ content.research.title }}</h5>
   </div>
   <div class="small-3 columns">
-    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list"   list_items=content.research.items %}
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.research.items %}
   </div>
   <div class="small-9 columns">
-    <p>{{ content.research.description }}</p>
+    <p>{{ content.research.description|linebreaksbr }}</p>
   </div>
 </div>
 {% endif %}
