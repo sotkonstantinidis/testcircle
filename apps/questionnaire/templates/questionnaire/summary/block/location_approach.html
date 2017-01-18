@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="small-4 columns location">
-  {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+  {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
 
   <img src="{{ content.map.url }}">
   <p class="location_text">
@@ -11,7 +11,7 @@
     <ul class="bullets">
       {% for list_item in content.infos.geo_reference %}
         <li>
-          {{ list_item|join:', ' }}
+          {{ list_item }}
         </li>
       {% endfor %}
     </ul>

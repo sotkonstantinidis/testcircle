@@ -1,15 +1,15 @@
-<div class="row">
+<div class="row compact">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
   </div>
 </div>
 <div class="row">
   <div class="small-12 columns">
-      <h5>{{ content.activities.title }}</h5>        
+      <h5>{{ content.activities.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.activities.items %}
   </div>
 </div>
-{% if content.training %} 
+{% if content.training %}
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
@@ -23,7 +23,7 @@
   {% endfor %}
   <div class="small-6 columns">
     {{ content.training.list.title }}
-    <ul class="bullets"> 
+    <ul class="bullets">
       {% for item in content.training.list.items  %}
       <li>
        {{ item }}
@@ -33,7 +33,7 @@
   </div>
 </div>
 {% endif %}
-{% if content.advisory %} 
+{% if content.advisory %}
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
@@ -50,11 +50,12 @@
   {% endfor %}
 </div>
 {% endif %}
-{% if content.institution_strengthening %} 
+{% if content.institution_strengthening %}
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
     <h5>{{ content.institution_strengthening.title}}</h5>
+     {{ content.institution_strengthening.subtitle.title}} <i>{{ content.institution_strengthening.subtitle.value}}</i>
   </div>
   {% for item in content.institution_strengthening.elements %}
   <div class="small-3 columns">
@@ -67,22 +68,21 @@
   {% endfor %}
 </div>
 {% endif %}
-{% if content.monitoring %} 
+{% if content.monitoring %}
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
     <h5>{{ content.monitoring.title }}</h5>
-    <ul class="bullets"> 
-      {% for item in content.monitoring.items  %}
-      <li>
-       {{ item }}
-      </li>
-      {% endfor %}
-    </ul>
+
+    {% if content.monitoring.intended %}
+    This documentation is intended to be used for monitoring and evaluation
+    {% else %}
+    This documentation is <i>not</i> intended to be used for monitoring and evaluation
+    {% endif %}
   </div>
 </div>
 {% endif %}
-{% if content.research %} 
+{% if content.research %}
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
@@ -94,5 +94,5 @@
   <div class="small-9 columns">
     <p>{{ content.research.description }}</p>
   </div>
-</div> 
+</div>
 {% endif %}

@@ -1,15 +1,11 @@
-<div class="row">
+<div class="row compact">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
   </div>
 </div>
 <div class="row">
   <div class="small-12 columns">
     <h5>{{ content.stakeholders.title }}</h5>
-  </div>
-</div>
-<div class="row">
-  <div class="small-12 columns">
     <ul class="bullets">
     {% for list_item in content.stakeholders.items  %}
       <li>
@@ -22,7 +18,7 @@
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">
-      <h5>{{ content.involvement.title }}</h5>        
+      <h5>{{ content.involvement.title }}</h5>
       {% include 'questionnaire/summary/partial/range_vertical_title.html' with class="highlights_list" list_items=content.involvement.partials %}
   </div>
 </div>
@@ -31,16 +27,12 @@
   <div class="small-12 columns">
     <div class="row">
       <div class="small-12 columns">
-        <h5>{{ content.involvement.title }}</h5>        
+        <h5>{{ content.involvement.title }}</h5>
       </div>
     </div>
     <div class="row">
       <div class="small-6 columns">
-        <div class="row">
-          <div class="small-12 columns">
-            <b>{{ content.involvement.partials.initiation.title }}</b>        
-          </div>
-        </div>
+            <h5>{{ content.involvement.partials.initiation.title }}</h5>
         <div class="row">
            <div class="small-6 columns">
               {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.involvement.partials.initiation.items %}
@@ -51,11 +43,7 @@
         </div>
       </div>
       <div class="small-6 columns">
-        <div class="row">
-          <div class="small-12 columns">
-            <b>{{ content.involvement.partials.planning.title }}</b>        
-          </div>
-        </div>
+            <h5>{{ content.involvement.partials.planning.title }}</h5>
         <div class="row">
            <div class="small-6 columns">
               {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.involvement.partials.planning.items %}
@@ -71,11 +59,7 @@
 <div class="row avoidbreak">
 <hr>
   <div class="small-6 columns">
-    <div class="row">
-      <div class="small-12 columns">
-        <b>{{ content.involvement.partials.implementation.title }}</b>        
-      </div>
-    </div>
+        <h5>{{ content.involvement.partials.implementation.title }}</h5>
     <div class="row">
        <div class="small-6 columns">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.involvement.partials.implementation.items %}
@@ -86,11 +70,7 @@
     </div>
   </div>
   <div class="small-6 columns">
-    <div class="row">
-      <div class="small-12 columns">
-        <b>{{ content.involvement.partials.monitoring.title }}</b>        
-      </div>
-    </div>
+        <h5>{{ content.involvement.partials.monitoring.title }}</h5>
     <div class="row">
        <div class="small-6 columns">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.involvement.partials.monitoring.items %}
@@ -104,11 +84,7 @@
 <div class="row avoidbreak">
 <hr>
   <div class="small-6 columns">
-    <div class="row">
-      <div class="small-12 columns">
-        <b>{{ content.involvement.partials.research.title }}</b>        
-      </div>
-    </div>
+        <h5>{{ content.involvement.partials.research.title }}</h5>
     <div class="row">
        <div class="small-6 columns">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.involvement.partials.research.items %}
@@ -134,7 +110,7 @@
   <div class="small-12 columns">
     <div class="row">
       <div class="small-12 columns">
-        <h5>{{ content.decision_making.title }}</h5>        
+        <h5>{{ content.decision_making.title }}</h5>
       </div>
     </div>
     <div class="row">

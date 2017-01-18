@@ -1,4 +1,5 @@
 body.summary {
+  $base-line-height: 1rem;
   background-color: white;
   font-size: 0.75rem;
   text-rendering: optimizeLegibility;
@@ -23,6 +24,8 @@ body.summary {
     font-size: $h5-font-size;
     font-weight: bold;
     margin: 0.3rem 0rem 0rem 0rem;
+    display: inline-block;
+    width: 100%;
   }
 
   ul {
@@ -33,14 +36,10 @@ body.summary {
     }
   }
 
-  .columns.description > .tech-section-header h2, .columns.location > .tech-section-header h2{
-    padding-left: 0.4rem;
-  }
-
   .tech-section-header {
     padding-left: 0;
     padding-right: 0;
-    margin: 0.7rem 0rem 0.2rem 0rem 
+    margin: 0.7rem 0rem 0.2rem 0rem
   }
 
   .overcome {
@@ -56,13 +55,15 @@ body.summary {
         left: -0.5em;
         top: 0.1rem;
         position: relative;
+        line-height: 0.8rem;
       }
     }
   }
 
   ul.bullets {
     list-style-type: disc;
-    margin-left: 1rem;
+    margin-left: 0.8rem;
+    margin-top: 0;
     li {
       list-style-type: disc;
     }
@@ -70,14 +71,18 @@ body.summary {
 
   .row {
     margin-bottom: 0.6rem;
+    &.compact {
+      margin-bottom: 0rem;
+    }
     &.tech-section-header {
       margin-bottom: 0rem;
     }
-    .small-8 .tech-section-header {
-      margin-left: -0.4rem;
-    }
     .location .row {
       margin-bottom: 0rem;
+    }
+    .budget {
+      padding-right: 0;
+      letter-spacing: -1px;
     }
   }
 
@@ -109,7 +114,7 @@ body.summary {
   .img-caption {
     background-color: rgba(85,116,49,.8);
     color: white;
-    padding: 0rem 1rem 0.12rem 1rem;
+    padding: 0rem 1rem 0.12rem 0.4rem;
     font-size: 0.6rem;
     line-height: 1.5em;
     font-weight: normal;
@@ -126,7 +131,7 @@ body.summary {
   .tech-section-header {
 /*    background-color: #edf0ea;
 */    h2 {
-      padding-left: 0.75rem;
+      padding-left: 0.4rem;
       width: auto;
     }
   }
@@ -135,7 +140,7 @@ body.summary {
   {
     position: absolute;
     top:7px;
-    right: 5px;
+    right: 20px;
     padding:5px;
   }
 
@@ -159,7 +164,7 @@ body.summary {
 
   &.is-approaches .img-column-container
   {
-    background-color: rgba($color-approach, 0.15); 
+    background-color: rgba($color-approach, 0.15);
   }
 
   .img_in_text
@@ -245,7 +250,7 @@ body.summary {
     height: 15px;
     background-color: rgba(85, 116, 49, 0.15);
     float: left;
-    margin: 0px 2px 2px 0px;
+    margin: 0px 1px 1px 0px;
   }
 
   &.is-approaches .range_square
@@ -265,6 +270,9 @@ body.summary {
   {
     min-width: 70px;
   }
+  .range.border .columns {
+    border-top: 1px solid #ccc;
+  }
 
   .range_max
   {
@@ -280,7 +288,7 @@ body.summary {
   {
     background-color: #768f5a;
     float: left;
-    margin: 0px 2px 2px 0px;
+    margin: 0px 1px 1px 0px;
     padding-left: 1px;
     color: white;
     width: 15px;
@@ -317,7 +325,7 @@ body.summary {
     border-color: rgba($color-approach, 0.15);;
     border-bottom-width: 0px;
     border-left-width: 0px;
-    border-right-width: 0px; 
+    border-right-width: 0px;
  }
 
  .avoidbreak
@@ -327,7 +335,7 @@ body.summary {
 
  .nowrap
  {
-    white-space: nowrap; 
+    white-space: nowrap;
  }
 
  hr
@@ -335,15 +343,12 @@ body.summary {
     border: 0;
     height: 0;
     border-top: 1px solid rgba(85, 116, 49, 0.15);
-    margin: 10px;
+    margin: 3px;
  }
 
  &.is-approaches hr
  {
-    border: 0;
-    height: 0;
     border-top: 1px solid rgba($color-approach, 0.15);
-    margin: 10px;
  }
 
  .rotate
@@ -352,13 +357,21 @@ body.summary {
   transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   font-size: 10px;
-  width: 130px;
-  height: 120px;
+  width: 100px;
+  height: 90px;
  }
 
  .rotate-container
  {
   width: 100%;
+  line-height: 1rem;
+ }
+
+ p.comment {
+   line-height: 1rem;
+   font-style: italic;
+   line-height: 1rem;
+  font-size: 10px;
  }
 
 }
