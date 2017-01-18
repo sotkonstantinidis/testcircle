@@ -35,7 +35,10 @@
           "title": "Location",
           "text": "Muranga District, Kenya"
         },
-        "geo_reference": [],
+        "geo_reference": [
+          "94.570312, 38.548165",
+          "38.548165, 38.548165"
+        ],
         "start_date": {
           "title": "Initiation date",
           "text": "1987"
@@ -131,7 +134,7 @@
           "labels": [
             "none",
             "passive",
-            "payment / external support",
+            "external support",
             "interactive",
             "self mobilization"
           ],
@@ -183,7 +186,7 @@
               },
               {
                 "highlighted": false,
-                "text": "payment / external support"
+                "text": "external support"
               },
               {
                 "highlighted": false,
@@ -209,7 +212,7 @@
               },
               {
                 "highlighted": false,
-                "text": "payment / external support"
+                "text": "external support"
               },
               {
                 "highlighted": true,
@@ -235,7 +238,7 @@
               },
               {
                 "highlighted": false,
-                "text": "payment / external support"
+                "text": "external support"
               },
               {
                 "highlighted": false,
@@ -261,7 +264,7 @@
               },
               {
                 "highlighted": true,
-                "text": "payment / external support"
+                "text": "external support"
               },
               {
                 "highlighted": false,
@@ -287,7 +290,7 @@
               },
               {
                 "highlighted": true,
-                "text": "payment / external support"
+                "text": "external support"
               },
               {
                 "highlighted": false,
@@ -375,7 +378,7 @@
         "items": [
           {
             "highlighted": true,
-            "text": "Training / capacity building"
+            "text": "Training"
           },
           {
             "highlighted": true,
@@ -424,7 +427,7 @@
               },
               {
                 "highlighted": true,
-                "text": "site visits/ farmer-to-farmer"
+                "text": "farmer-to-farmer"
               },
               {
                 "highlighted": true,
@@ -480,7 +483,11 @@
         ]
       },
       "institution_strengthening": {
-        "title": "Institutions have been established / strengthened [a little / moderately / greatly]",
+        "title": "Institution strenghtening",
+        "subtitle": {
+          "title": "Institutions have been strengthened / established",
+          "value": "a little"
+        },
         "elements": [
           {
             "title": "at the following level",
@@ -530,10 +537,7 @@
       },
       "monitoring": {
         "title": "Monitoring and evaluation",
-        "items": [
-          "Comment",
-          "This documentation is [not] intended to be used for monitoring and evaluation"
-        ]
+        "intended": false
       },
       "research": {
         "title": "Research",
@@ -646,7 +650,7 @@
           ]
         },
         "labour": {
-          "title": "Labout by land users was",
+          "title": "Labour by land users was",
           "items": [
             {
               "highlighted": true,

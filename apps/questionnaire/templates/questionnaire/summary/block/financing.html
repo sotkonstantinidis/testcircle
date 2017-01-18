@@ -1,17 +1,13 @@
-<div class="row">
+<div class="row compact">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
   </div>
 </div>
 <div class="row">
   <div class="small-6 columns">
-    <div class="row">
-      <div class="small-12 columns">
         <h5>{{ content.budget.title}}</h5>
-      </div>
-    </div>
     <div class="row">
-       <div class="small-6 columns">
+       <div class="small-6 columns budget">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.budget.items %}
           {{ content.budget.addendum }}
       </div>
@@ -21,11 +17,7 @@
     </div>
   </div>
   <div class="small-6 columns">
-    <div class="row">
-      <div class="small-12 columns">
         <h5>{{ content.services.title}}</h5>
-      </div>
-    </div>
     <div class="row">
        <div class="small-12 columns">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.services.items %}
@@ -33,21 +25,16 @@
     </div>
   </div>
 </div>
-{% if content.subsidies.chart and content.subsidies.labour %} 
-<div class="row">
-<hr>
-  <div class="small-12 columns">
-    <h5>{{ content.subsidies.title }}</h5>
-  </div>
-</div>
+{% if content.subsidies.chart and content.subsidies.labour %}
 <div class="row">
   <div class="small-6 columns">
+      <h5>{{ content.subsidies.title }}</h5>
     {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=content.subsidies.chart.items %}
-  </div> 
+  </div>
   <div class="small-6 columns">
     <p>{{ content.subsidies.labour.title }}</p>
     {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.subsidies.labour.items %}
-  </div>    
+  </div>
 </div>
 {% endif %}
 {% if content.subsidies.credit %}
@@ -64,7 +51,7 @@
       </li>
       {% endfor %}
     </ul>
-  </div> 
+  </div>
 </div>
 {% endif %}
 {% if content.subsidies.other %}
@@ -75,6 +62,6 @@
   </div>
   <div class="small-12 columns">
     <p>{{ content.subsidies.other.text }}</p>
-  </div> 
+  </div>
 </div>
 {% endif %}

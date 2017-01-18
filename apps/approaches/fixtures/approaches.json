@@ -2295,7 +2295,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "site visits/ farmer to farmer"
+            "en": "farmer to farmer"
           }
         }
       }
@@ -3228,10 +3228,10 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "payment/ external support"
+            "en": "external support"
           },
           "helptext": {
-            "en": "<strong>Payment/ external support:</strong> means that local people participate in return for food, cash, or other material support."
+            "en": "<strong>external support:</strong> means that local people participate in return for food, cash, or other material support."
           }
         }
       }
@@ -3391,7 +3391,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "site visits/ farmer-to-farmer"
+            "en": "farmer-to-farmer"
           }
         }
       }

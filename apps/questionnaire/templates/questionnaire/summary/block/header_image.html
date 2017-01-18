@@ -1,6 +1,8 @@
-<img class="wocat_logo" src="/static/assets/img/wocat_logo.svg">
-<div class="header-img" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ content.image.url }})"></div>
-<div class="img-caption">
-  <strong>{{ content.caption.title }}</strong> {{ content.caption.text }}
-  {% if content.note %}<br>{{ content.note|safe }}{% endif %}
+<div class="row">
+  <div class="columns small-12">
+    <img class="wocat_logo" src="/static/assets/img/wocat_logo.svg">
+    <div class="header-img" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ content.image.url }})"></div>
+    <div class="img-caption"><strong>{{ content.caption.title }}</strong> {{ content.caption.text }}</div>
+    {% if content.note %}<br>{{ content.note|safe }}{% endif %}
+  </div>
 </div>

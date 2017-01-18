@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row compact">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
   </div>
 </div>
 <div class="row">
@@ -8,18 +8,16 @@
     <h5>{{ content.main.title }}</h5>
     {{ content.main.text|linebreaksbr }}
   </div>
-  {% for list_item in content.elements  %}
-    <div class="small-12 columns">
-      <h5>{{ list_item.title }}</h5>
-    </div>
-    <div class="small-12 columns">
-      <ul class="bullets">
-        {% for item in list_item.items  %}
-        <li>
-         {{ item }}
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endfor %}
+  <div class="small-12 columns">
+    {% for list_item in content.elements  %}
+    <h5>{{ list_item.title }}</h5>
+    <ul class="bullets">
+      {% for item in list_item.items  %}
+      <li>
+        {{ item }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
 </div>
