@@ -12,6 +12,7 @@ import operator
 from configuration.configuration import QuestionnaireQuestion, \
     QuestionnaireSubcategory, QuestionnaireQuestiongroup
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
+from configuration.models import Value
 from qcat.errors import ConfigurationError
 from .models import Questionnaire
 from .templatetags.questionnaire_tags import get_static_map_url
@@ -345,6 +346,26 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
             if questiongroup.keyword in used:
                 yield questiongroup
 
+    def get_qg_values_with_label_scale(self, child: QuestionnaireQuestion):
+        items = []
+        for group in child.questiongroup.parent_object.questiongroups:
+            values = self._get_qg_selected_value(group.children[0], all_values=True)
+            value = values.get(group.questions[0].keyword)
+            if not value:
+                continue
+
+            selected = list(dict(group.questions[0].choices).keys()).index(value)
+            items.append({
+                'label': group.label,
+                'range': range(0, len(group.questions[0].choices)),
+                'selected':  selected,
+                'text': values.get(group.questions[1].keyword)
+            })
+        return {
+            "labels": dict(child.questiongroup.questions[0].choices).values(),
+            "items2": items
+        }
+
 
 class TechnologyParser(ConfiguredQuestionnaireParser):
     """
@@ -459,3 +480,38 @@ class ApproachParser(ConfiguredQuestionnaireParser):
                 continue
 
             yield '{}: {}'.format(group.label, text)
+
+    def get_stakeholders_roles(self, child: QuestionnaireQuestion):
+        groups = child.questiongroup.parent_object.questiongroups
+        # the first element in the group contains the labels of filled in
+        # questiongroups
+        label_group = groups.pop(0)
+        labels = self.values.get(label_group.keyword)[0].get('app_stakeholders')
+        for pos, group in enumerate(groups):
+            try:
+                values = self.values[group.keyword][0]
+            except (KeyError, IndexError):
+                continue
+
+            label = Value.objects.get(keyword=labels[pos]).get_translation(
+                keyword='label', configuration='approaches'
+            )
+
+            yield '{label} ({roles}): {comments}'.format(
+                label=label,
+                roles=values.get('app_stakeholders_roles'),
+                comments=values.get('app_stakeholders_comments')
+            )
+
+    def get_involvement(self, child: QuestionnaireQuestion):
+        for qg in child.questiongroup.parent_object.questiongroups:
+            try:
+                comment = self.values[qg.keyword][0]['app_involvement_who']
+            except (KeyError, IndexError):
+                comment = ''
+
+            yield {
+                'title': qg.label,
+                'comment': comment,
+                'items': self.get_full_range_values(qg.questions[0])
+            }

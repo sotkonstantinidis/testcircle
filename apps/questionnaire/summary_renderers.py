@@ -289,11 +289,11 @@ class GlobalValuesMixin:
     def get_reference_links(self):
         base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
         link_items = [
-            {'text': 'Full case study in WOCAT DB: <a href="{base_url}{url}">'
+            {'text': _('Full case study in WOCAT DB: <a href="{base_url}{url}">'
                      '{base_url}{url}</a>'.format(
                 base_url=base_url,
                 url=self.questionnaire.get_absolute_url()
-            )}
+            ))}
         ]
         links = QuestionnaireLink.objects.filter(
             from_questionnaire=self.questionnaire
@@ -301,11 +301,11 @@ class GlobalValuesMixin:
         if links.exists():
             for link in links:
                 link_items.append({
-                    'text': 'Corresponding entry in DB: <a href="{base_url}{url}">'
+                    'text': _('Corresponding entry in DB: <a href="{base_url}{url}">'
                             '{base_url}{url}</a>'.format(
                         base_url=base_url,
                         url=link.to_questionnaire.get_absolute_url()
-                    )
+                    ))
                 })
         vimeo_id = self.raw_data.get('references_vimeo_id')
         if vimeo_id and vimeo_id[0].get('value'):
@@ -313,8 +313,8 @@ class GlobalValuesMixin:
                 vimeo_id[0].get('value')
             )
             link_items.append({
-                'text': 'Video: <a href="{vimeo_url}">{vimeo_url}</a>'.format(
-                    vimeo_url=vimeo_url)
+                'text': _('Video: <a href="{vimeo_url}">{vimeo_url}</a>'.format(
+                    vimeo_url=vimeo_url))
             })
         return link_items
 
@@ -549,7 +549,6 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     measure_type=measure_type
                 )}
 
-
     def natural_environment(self):
         return {
             'title': _('Natural environment'),
@@ -761,7 +760,7 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'aims', 'conclusion', 'references']
+                'aims', 'participation', 'conclusion', 'references']
 
     def location(self):
         return {
@@ -784,17 +783,17 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     "geo_reference": self.raw_data.get(
                         'location_map_data', {}
                     ).get('coordinates'),
-                    "initiation": {
+                    "start_date": {
                         "title": _("Initiation date"),
                         "text": self.raw_data_getter(
                             'location_initiation_year') or _("unknown")
                     },
-                    "termination": {
+                    "end_date": {
                         "title": _("Year of termination"),
                         "text": self.raw_data_getter(
                             'location_termination_year') or '*'
                     },
-                    "type": {
+                    "introduction": {
                         "title": _("Type of Approach"),
                         "items": self.raw_data.get('location_type')
                     }
@@ -820,5 +819,44 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         'items': self.raw_data.get('aims_hindering')
                     }
                 ]
+            }
+        }
+
+    def participation(self):
+        lead_agency = self.raw_data_getter('participation_lead_agency')
+        return {
+            'title': _('Participation and roles of stakeholders involved'),
+            'partials': {
+                'stakeholders': {
+                    'title': _('Stakeholders involved in the Approach and their roles'),
+                    'items': self.raw_data.get('participation_stakeholders'),
+                    'addendum': _('Lead agency: {}'.format(lead_agency)) if lead_agency else ''
+                },
+                'involvement': {
+                    'title': _('Involvement of local land users/ local communities in the different phases of the Approach'),
+                    'partials': self.raw_data.get('participation_involvement_scale')
+                },
+                'involvement_items': {
+                    'title': _('Involvement of local land users/ local communities in the different phases of the Approach'),
+                    'partials': self.raw_data.get('participation_involvement')
+                },
+                'flow_chart': {
+                    'url': self.raw_data_getter('participation_flowchart_file'),
+                    'title': _('Flow chart'),
+                    'text': self.raw_data_getter('participation_flowchart_text')
+                },
+                'decision_making': {
+                    'title': _('Decision-making on the selection of SLM Technology'),
+                    'elements': [
+                        {
+                            'title': _('Decisions were taken by'),
+                            'items': self.raw_data.get('participation_decisions_by')
+                        },
+                        {
+                            'title': _('Decisions were made based on:'),
+                            'items': self.raw_data.get('participation_decisions_based')
+                        }
+                    ]
+                }
             }
         }

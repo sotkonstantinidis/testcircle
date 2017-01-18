@@ -5273,7 +5273,19 @@
       "keyword": "app_decisions_by",
       "translation": 7114,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_decisions_by",
+            "get_value": {
+              "name": "get_full_range_values",
+              "kwargs": {
+                "is_radio": "true"
+              }
+            }
+          }
+        }
       },
       "values": [
         3015,
@@ -5314,7 +5326,16 @@
       "keyword": "app_decisions_based",
       "translation": 7115,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_decisions_based",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3021,
@@ -6828,7 +6849,13 @@
       "keyword": "app_flowchart",
       "translation": 7084,
       "configuration": {
-        "type": "file"
+        "type": "file",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_flowchart_file"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6839,7 +6866,13 @@
       "keyword": "app_flowchart_description",
       "translation": 7085,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_flowchart_text"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6861,7 +6894,14 @@
       "keyword": "app_stakeholders_lead_agency",
       "translation": 7087,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_lead_agency"
+          }
+        }
+
       }
     },
     "model": "configuration.key",
@@ -7067,7 +7107,16 @@
       "keyword": "app_stakeholders_roles",
       "translation": 7110,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_stakeholders",
+            "get_value": {
+              "name": "get_stakeholders_roles"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7078,7 +7127,16 @@
       "keyword": "app_involvement_type",
       "translation": 7111,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_involvement",
+            "get_value": {
+              "name": "get_involvement"
+            }
+          }
+        }
       },
       "values": [
         3088,
@@ -7099,6 +7157,15 @@
         "type": "text",
         "form_options": {
           "num_rows": 7
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_involvement_scale",
+            "get_value": {
+              "name": "get_qg_values_with_label_scale"
+            }
+          }
         }
       }
     },
