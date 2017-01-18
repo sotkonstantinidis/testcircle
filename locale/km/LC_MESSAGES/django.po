@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-29 07:35+0100\n"
-"PO-Revision-Date: 2017-01-13 10:52+0000\n"
+"PO-Revision-Date: 2017-01-17 15:30+0000\n"
 "Last-Translator: Sophea Tim <stim3993@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/language/km/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: apps/accounts/client.py:169
 msgid "Error when logging in and updating the user {}: {}"
-msgstr "មានបញ្ហាពេលបញ្ចូល និងកែតម្រូវឈ្មោះអ្នកប្រើប្រាស់ {}:{}"
+msgstr "មានបញ្ហាពេលបញ្ចូល និងកែតម្រូវឈ្មោះអ្នកប្រើប្រាស់ {}: {}"
 
 #: apps/accounts/forms.py:12
 msgid "E-mail address"
@@ -18236,7 +18236,7 @@ msgstr "បច្ចេកទេស SLM/ វិធីសាស្ត្រផ្
 #: apps/wocat/templates/wocat/home.html:51
 #: apps/wocat/templates/wocat/home.html:59
 msgid "the Global Database on Sustainable Land Management"
-msgstr "មូលដ្ឋានទិន្នន័យសកលស្ដីពីការគ្រប់គ្រងដីប្រកបដោយចីរភាព"
+msgstr "ប្រព័ន្ធទិន្នន័យសកលស្ដីពីការគ្រប់គ្រងដីប្រកបដោយចីរភាព"
 
 #: apps/wocat/templates/wocat/home.html:28
 msgid "is the primary recommended database by UNCCD"
