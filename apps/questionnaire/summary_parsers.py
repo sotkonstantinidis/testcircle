@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
     """
     Get only data which is configured to appear in the summary. This is defined
-    by the configuration-field: 'in_summary', which specifies the section
+    by the configuration-field: 'summary', which specifies the section
     of the summary for given field for the chosen summary-config (e.g. 'full',
     'one page', 'four page').
     """
@@ -38,7 +38,7 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
     def put_question_data(self, child: QuestionnaireQuestion):
         """
         Put the value to self.data, using the name as defined in the config
-        ('in_summary': {'this_type': <key_name>}}.
+        ('summary': {'this_type': <key_name>}}.
         As some key names are duplicated by virtue (config may use the same
         question twice), but represent different and important content, some
         keys are overridden with the help of the questions questiongroup.
@@ -46,14 +46,14 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
         This cannot be solved on the config as the same question is listed
         twice, so the key-name overriding setting must be ready for versioning.
         """
-        if child.in_summary and self.summary_type in child.in_summary['types']:
+        if child.summary and self.summary_type in child.summary['types']:
             options = {
-                **child.in_summary['default'],
-                **child.in_summary.get(self.summary_type, {})
+                **child.summary['default'],
+                **child.summary.get(self.summary_type, {})
             }
             if 'field_name' not in options:
                 raise ConfigurationError(
-                    'At least a unique field name must be set for "in_summary" '
+                    'At least a unique field name must be set for "summary" '
                     'config for the question {}.'.format(child.keyword)
                 )
             field_name = self.get_configured_field_name(

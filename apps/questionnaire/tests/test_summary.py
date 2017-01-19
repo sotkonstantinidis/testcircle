@@ -33,7 +33,7 @@ class SummaryConfigurationTest(TestCase):
     def test_put_questionnaire_override(self):
         child = MagicMock(
             questiongroup=MagicMock(keyword='qg_keyword'),
-            in_summary={'full': 'field_name'}
+            summary={'full': 'field_name'}
         )
         self.obj.put_question_data(child=child)
         self.assertEqual(self.obj.data, {sentinel.key: sentinel.func})
@@ -41,7 +41,7 @@ class SummaryConfigurationTest(TestCase):
     def test_put_questionnaire_duplicate(self):
         child = MagicMock(
             questiongroup=MagicMock(keyword='qg_keyword'),
-            in_summary={'full': 'spam'}
+            summary={'full': 'spam'}
         )
         self.obj.get_value = lambda child: sentinel.new_value
         self.obj.put_question_data(child=child)
@@ -53,7 +53,7 @@ class SummaryConfigurationTest(TestCase):
     def test_put_questionnaire(self):
         child = MagicMock(
             questiongroup=MagicMock(keyword='qg_keyword'),
-            in_summary={'full': 'spam'}
+            summary={'full': 'spam'}
         )
         self.obj.get_value = lambda child: sentinel.some_value
         self.obj.put_question_data(child=child)

@@ -15116,7 +15116,7 @@
       "translation": 1001,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "definition"
@@ -15166,7 +15166,7 @@
       "translation": 1307,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_who_implemented",
@@ -15214,7 +15214,7 @@
       "translation": 1007,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_main_purpose",
@@ -15257,7 +15257,7 @@
       "translation": 1012,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_watersupply",
@@ -15298,7 +15298,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_landuse",
@@ -15509,7 +15509,7 @@
       "translation": 1020,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_lu_before"
@@ -15526,7 +15526,7 @@
       "translation": 1022,
       "configuration": {
         "type": "image_checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_measures",
@@ -15645,7 +15645,7 @@
       "translation": 1026,
       "configuration": {
         "type": "image_checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_degradation",
@@ -15811,7 +15811,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_purpose",
@@ -15882,7 +15882,7 @@
       "translation": 1036,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_drawing_text"
@@ -15916,7 +15916,7 @@
       "translation": 1037,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_establishment_activities"
@@ -15933,7 +15933,7 @@
       "translation": 1038,
       "configuration": {
         "type": "select",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_establishment_measure_type"
@@ -15968,7 +15968,7 @@
       "translation": 5004,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_input_comments"
@@ -15985,7 +15985,7 @@
       "translation": 1040,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_input",
@@ -16083,7 +16083,7 @@
       "translation": 1315,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_national_currency"
@@ -16100,7 +16100,7 @@
       "translation": 1318,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_average_wage"
@@ -16128,7 +16128,7 @@
       "translation": 1037,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_maintenance_activities"
@@ -16145,7 +16145,7 @@
       "translation": 1038,
       "configuration": {
         "type": "select",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_maintenance_measure_type"
@@ -16180,7 +16180,7 @@
       "translation": 5004,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_maintenance_comments"
@@ -16197,7 +16197,7 @@
       "translation": 1040,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "maintenance_input",
@@ -16316,7 +16316,7 @@
       "translation": 1049,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_determinate_factors"
@@ -16453,7 +16453,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_rainfall",
@@ -16484,7 +16484,7 @@
       "translation": 1060,
       "configuration": {
         "type": "measure",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_cropproduction",
@@ -16651,7 +16651,7 @@
       "translation": 1069,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_climate_zone",
@@ -16737,7 +16737,7 @@
       "translation": 1073,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_climate_zone_text"
@@ -16759,7 +16759,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_slope",
@@ -16913,7 +16913,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_landforms",
@@ -17046,7 +17046,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_altitude",
@@ -17217,7 +17217,7 @@
       "translation": 1095,
       "configuration": {
         "type": "measure",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_foodsecurity",
@@ -17260,7 +17260,7 @@
       "translation": 1097,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_convex_concave",
@@ -17290,7 +17290,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_soil_depth",
@@ -17402,7 +17402,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_soil_texture",
@@ -17472,7 +17472,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_soil_texture_below",
@@ -17502,7 +17502,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_soil_organic",
@@ -17538,7 +17538,7 @@
       "translation": 1110,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_groundwater",
@@ -17564,7 +17564,7 @@
       "translation": 1114,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_surfacewater",
@@ -17590,7 +17590,7 @@
       "translation": 1118,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_waterquality",
@@ -17616,7 +17616,7 @@
       "translation": 1119,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_flooding",
@@ -17654,7 +17654,7 @@
       "translation": 1122,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_salinity",
@@ -17699,7 +17699,7 @@
       "translation": 1125,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_species",
@@ -17724,7 +17724,7 @@
       "translation": 1126,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "natural_env_habitat",
@@ -17781,7 +17781,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_market_orientation",
@@ -17811,7 +17811,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_wealth",
@@ -17903,7 +17903,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_offfarm_income",
@@ -17933,7 +17933,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_individuals",
@@ -17964,7 +17964,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_mechanisation",
@@ -17989,7 +17989,7 @@
       "translation": 1141,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_gender",
@@ -18045,7 +18045,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_land_size",
@@ -18094,7 +18094,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_ownership",
@@ -18149,7 +18149,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_landuser_rights",
@@ -18191,7 +18191,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_wateruser_rights",
@@ -18272,7 +18272,7 @@
       "translation": 1187,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_sites_considered"
@@ -18447,7 +18447,7 @@
       "translation": 1199,
       "configuration": {
         "type": "measure",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_soilmoisture",
@@ -18899,7 +18899,7 @@
       "translation": 1221,
       "configuration": {
         "type": "measure",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_downstreamflooding",
@@ -19091,7 +19091,7 @@
       "translation": 1305,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "header_image_sustainability"
@@ -19147,7 +19147,7 @@
       "translation": 1306,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_implementation_decade"
@@ -19277,7 +19277,7 @@
             "data-cb-max-choices": 3
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_slm_group"
@@ -19333,7 +19333,7 @@
       "translation": 1284,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_perarea_size"
@@ -19350,7 +19350,7 @@
       "translation": 1247,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_unit_conversion"
@@ -19467,7 +19467,7 @@
       "translation": 1255,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
 
@@ -19534,7 +19534,7 @@
       "translation": 1257,
       "configuration": {
         "type": "file",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_drawing_image"
@@ -19573,7 +19573,7 @@
       "translation": 1310,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_spread"
@@ -19789,7 +19789,7 @@
       "translation": 1302,
       "configuration": {
         "type": "select",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "climate_change",
@@ -19846,7 +19846,7 @@
       "translation": 1343,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "adoption_percentage",
@@ -19883,7 +19883,7 @@
       "translation": 5004,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "adoption_comments"
@@ -19938,7 +19938,7 @@
       "translation": 1279,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "description"
@@ -19955,7 +19955,7 @@
       "translation": 1314,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_cost_calculation_base"
@@ -20031,7 +20031,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_sedentary_nomadic",
@@ -20127,7 +20127,7 @@
       "translation": 1308,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "classification_growing_seasons"
@@ -20191,7 +20191,7 @@
       "translation": 1316,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_dollar"
@@ -20211,7 +20211,7 @@
       "translation": 1317,
       "configuration": {
         "type": "float",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "establishment_exchange_rate"
@@ -20233,7 +20233,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_age",
@@ -20264,7 +20264,7 @@
             "data-cb-max-choices": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_land_size_relative",
@@ -20289,7 +20289,7 @@
       "translation": 1324,
       "configuration": {
         "type": "measure",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "human_env_services",
@@ -20503,7 +20503,7 @@
       "translation": 1335,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "adoption_spontaneously",
@@ -20529,7 +20529,7 @@
       "translation": 1336,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "adoption_modified",

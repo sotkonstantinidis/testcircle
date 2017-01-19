@@ -40,7 +40,7 @@ class SummaryRenderer:
 
     Add values / fields by following these steps:
     - in the config-json, add the summary_type and unique label.
-      e.g. "in_summary": {
+      e.g. "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_termination_year"

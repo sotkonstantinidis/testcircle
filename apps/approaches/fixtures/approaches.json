@@ -4953,7 +4953,7 @@
       "translation": 7104,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "definition"
@@ -5079,7 +5079,7 @@
             "max": "now"
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_initiation_year"
@@ -5118,7 +5118,7 @@
             "max": 2100
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_termination_year"
@@ -5146,7 +5146,7 @@
       "translation": 7013,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_type",
@@ -5225,7 +5225,7 @@
         "view_options": {
           "label_position": "none"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "aims_enabling",
@@ -5251,7 +5251,7 @@
         "view_options": {
           "label_position": "none"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "aims_hindering",
@@ -5274,7 +5274,7 @@
       "translation": 7114,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_decisions_by",
@@ -5327,7 +5327,7 @@
       "translation": 7115,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_decisions_based",
@@ -5363,7 +5363,7 @@
       "translation": 7021,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_training_is_training",
@@ -5383,7 +5383,7 @@
       "translation": 7116,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_training_who",
@@ -5429,7 +5429,7 @@
       "translation": 7024,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_training_form",
@@ -5467,7 +5467,7 @@
       "translation": 7025,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_training_subjects"
@@ -5495,7 +5495,7 @@
       "translation": 7117,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_advisory_is_advisory",
@@ -5515,7 +5515,7 @@
       "translation": 7118,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_advisory_service",
@@ -5550,7 +5550,7 @@
       "translation": 7119,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_advisory_description"
@@ -5567,7 +5567,7 @@
       "translation": 7094,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_institutions_is_institution",
@@ -5593,7 +5593,7 @@
       "translation": 7120,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_institutions_level",
@@ -5629,7 +5629,7 @@
       "translation": 7038,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_institutions_describe"
@@ -5646,7 +5646,7 @@
       "translation": 7121,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_institutions_support",
@@ -5682,7 +5682,7 @@
       "translation": 7122,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_institutions_support_specify"
@@ -5705,7 +5705,7 @@
             "decimals": 2
           }
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_budget_precise"
@@ -5722,7 +5722,7 @@
       "translation": 7129,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_budget",
@@ -5771,7 +5771,7 @@
       "translation": 7046,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_subsidies",
@@ -6341,7 +6341,7 @@
       "translation": 7052,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_labour",
@@ -6367,7 +6367,7 @@
       "translation": 7053,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_is_credit",
@@ -6387,7 +6387,7 @@
       "translation": 7054,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_credit_conditions"
@@ -6404,7 +6404,7 @@
       "translation": 7133,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_credit_provider"
@@ -6421,7 +6421,7 @@
       "translation": 7134,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_credit_receiver"
@@ -6438,7 +6438,7 @@
       "translation": 7057,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_is_other",
@@ -6458,7 +6458,7 @@
       "translation": 7058,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_other_text"
@@ -6475,7 +6475,7 @@
       "translation": 7098,
       "configuration": {
         "type": "measure",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_impacts",
@@ -6943,7 +6943,7 @@
       "translation": 7075,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_motivation",
@@ -7001,7 +7001,7 @@
       "translation": 7076,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "impacts_sustainability",
@@ -7048,7 +7048,7 @@
       "translation": 7084,
       "configuration": {
         "type": "file",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_flowchart_file"
@@ -7065,7 +7065,7 @@
       "translation": 7085,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_flowchart_text"
@@ -7093,7 +7093,7 @@
       "translation": 7087,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_lead_agency"
@@ -7122,7 +7122,7 @@
       "translation": 7125,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_monitoring_is_monitoring",
@@ -7153,7 +7153,7 @@
       "translation": 7095,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_monitoring_systematic"
@@ -7170,7 +7170,7 @@
       "translation": 7105,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "description"
@@ -7198,7 +7198,7 @@
       "translation": 7131,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_is_financing",
@@ -7313,7 +7313,7 @@
       "translation": 7108,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "aims_main"
@@ -7330,7 +7330,7 @@
       "translation": 7110,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_stakeholders",
@@ -7350,7 +7350,7 @@
       "translation": 7111,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_involvement",
@@ -7380,7 +7380,7 @@
         "form_options": {
           "num_rows": 7
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "participation_involvement_scale",
@@ -7411,7 +7411,7 @@
       "translation": 7123,
       "configuration": {
         "type": "bool",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_research_is_research",
@@ -7431,7 +7431,7 @@
       "translation": 7124,
       "configuration": {
         "type": "checkbox",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_research_topics",
@@ -7468,7 +7468,7 @@
       "translation": 7127,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "tech_support_research_details"
@@ -7485,7 +7485,7 @@
       "translation": 7130,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "financing_budget_comments"

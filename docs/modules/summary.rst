@@ -57,6 +57,6 @@ Technical workflow
 * The full data is then reduced in two steps:
 
   * Select only data as defined by the configuration. The attribute:
-    'in_summary' defines the section on the summary (e.g. description,
+    'summary' defines the section on the summary (e.g. description,
     location)
   * todo: fill up when tables are ready
