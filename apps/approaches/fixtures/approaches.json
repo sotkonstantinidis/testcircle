@@ -5704,6 +5704,12 @@
             "min": 0,
             "decimals": 2
           }
+        },
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_budget_precise"
+          }
         }
       }
     },
@@ -5715,7 +5721,16 @@
       "keyword": "app_annual_budget_range",
       "translation": 7129,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_budget",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3043,
@@ -5755,7 +5770,16 @@
       "keyword": "app_subsidies_inputs",
       "translation": 7046,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_subsidies",
+            "get_value": {
+              "name": "get_financing_subsidies"
+            }
+          }
+        }
       },
       "values": [
         3048,
@@ -6316,7 +6340,16 @@
       "keyword": "app_subsidies_labour_type",
       "translation": 7052,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_labour",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3064,
@@ -6333,7 +6366,16 @@
       "keyword": "app_credit_provided",
       "translation": 7053,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_is_credit",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6344,7 +6386,13 @@
       "keyword": "app_credit_conditions",
       "translation": 7054,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_credit_conditions"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6355,7 +6403,13 @@
       "keyword": "app_credit_provider",
       "translation": 7133,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_credit_provider"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6366,7 +6420,13 @@
       "keyword": "app_credit_receiver",
       "translation": 7134,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_credit_receiver"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6377,7 +6437,16 @@
       "keyword": "app_incentives_other",
       "translation": 7057,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_is_other",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6388,7 +6457,13 @@
       "keyword": "app_incentives_other_specify",
       "translation": 7058,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_other_text"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6399,7 +6474,16 @@
       "keyword": "app_impacts_empower_local",
       "translation": 7098,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_impacts",
+            "get_value": {
+              "name": "get_impacts"
+            }
+          }
+        }
       },
       "values": [
         3068,
@@ -6858,7 +6942,16 @@
       "keyword": "app_motivation",
       "translation": 7075,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_motivation",
+            "get_value": {
+              "name": "get_impacts_motivation"
+            }
+          }
+        }
       },
       "values": [
         3072,
@@ -6907,7 +7000,16 @@
       "keyword": "app_can_lu_sustain",
       "translation": 7076,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_sustainability",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3084,
@@ -7095,7 +7197,16 @@
       "keyword": "app_financial_support",
       "translation": 7131,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_is_financing",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7373,7 +7484,13 @@
       "keyword": "app_annual_budget_comments",
       "translation": 7130,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "in_summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_budget_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",

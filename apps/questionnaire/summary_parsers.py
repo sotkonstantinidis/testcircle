@@ -65,16 +65,6 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
                 self.data[field_name] = self.get_configured_value(
                     child=child, **options
                 )
-            else:
-                # This can be intentional, e.g. header_image is a list. In this
-                # case, only the first element is available.
-                logger.warning(
-                    'The field {field_name} for the summary {summary_type} '
-                    'is defined more than once'.format(
-                        field_name=field_name,
-                        summary_type=self.summary_type
-                    )
-                )
 
     def get_configured_value(self, child: QuestionnaireQuestion, **kwargs):
         configured_fn = kwargs.get('get_value')
@@ -350,16 +340,26 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
         items = []
         for group in child.questiongroup.parent_object.questiongroups:
             values = self._get_qg_selected_value(group.children[0], all_values=True)
-            value = values.get(group.questions[0].keyword)
+
+            # 'other' values have no choices.
+            if group.questions[0].choices:
+                label = group.label
+                selected_question = 0
+                text_question = 1
+            else:
+                label = self.values.get(group.keyword)[0].get(group.questions[0].keyword)
+                selected_question = 1
+                text_question = 2
+
+            value = values.get(group.questions[selected_question].keyword)
             if not value:
                 continue
 
-            selected = list(dict(group.questions[0].choices).keys()).index(value)
             items.append({
-                'label': group.label,
-                'range': range(0, len(group.questions[0].choices)),
-                'selected':  selected,
-                'text': values.get(group.questions[1].keyword)
+                'label': label,
+                'range': range(0, len(group.questions[selected_question].choices)),
+                'selected':  list(dict(group.questions[selected_question].choices).keys()).index(value),
+                'text': values.get(group.questions[text_question].keyword)
             })
         return {
             "labels": dict(child.questiongroup.questions[0].choices).values(),
@@ -534,3 +534,115 @@ class ApproachParser(ConfiguredQuestionnaireParser):
                 'text': child.questiongroup.parent_object.label
             }
         }
+
+    def get_financing_subsidies(self, child: QuestionnaireQuestion):
+        """
+        Get the 'selected' questiongroups from the questiongroups condition
+        and build a scale with vertical label from it.
+        Also, the 'is_subsidised' info for the first element in the financing
+        part is gathered.
+        The structure is very nested and complex, but follows the config.
+        """
+        none_selected = 'app_subsidies_inputs_none'
+        selected_groups = self._get_qg_selected_value(child)
+        nested_elements_config = child.form_options.get('questiongroup_conditions')
+        # a dict with the mapping of questiongroup-name and identifier.
+        nested_elements = dict(self.split_raw_children(*nested_elements_config))
+        labels = dict(child.choices)
+        items = []
+
+        for group in selected_groups:
+            # Skip the group for 'none'
+            if group == none_selected:
+                continue
+
+            qg = self.config_object.get_questiongroup_by_keyword(
+                nested_elements[group]
+            )
+            label = labels[group]
+            columns = qg.form_options['table_columns']
+            row = self.get_subsidies_row(qg, **self.values.get(qg.keyword)[0])
+
+            # if there are only two columns, there is no additional label.
+            if columns == 2:
+                items.append(row.make_row(label, 0, 1))
+            else:
+                # split questions into rows according to defined columns.
+                index = 0
+                while index + columns < len(qg.questions):
+                    if qg.questions[index + 1].keyword in row.values:
+                        items.append(
+                            row.make_row(label + ': ' + qg.questions[index].choices[0][1], index + 1, index + 2)
+                        )
+                    index += columns
+
+        return {
+            "is_subsidised": {
+                "highlighted": none_selected not in selected_groups,
+                "text": "Financial/ material support"
+            },
+            "subsidies": {
+                "title": child.questiongroup.parent_object.label,
+                "items": {
+                    "labels": row.labels.values(),
+                    "items2": items
+                }
+            }
+        }
+
+    def get_subsidies_row(self, questiongroup, **values):
+
+        class SubsidiesRow:
+
+            def __init__(self, questiongroup, **values):
+                self.qg = questiongroup
+                self.values = values
+                self.labels = None
+
+            def make_row(self, label, selected, text):
+                self.labels = dict(self.qg.questions[selected].choices)
+                return {
+                    'label': label,
+                    'range': range(0, len(self.labels)),
+                    'selected': list(self.labels.keys()).index(values.get(self.qg.questions[selected].keyword)),
+                    'text': values.get(self.qg.questions[text].keyword) or ''
+                }
+
+        return SubsidiesRow(questiongroup, **values)
+
+    def get_impacts_motivation(self, child: QuestionnaireQuestion):
+        selected = self.values.get(child.questiongroup.keyword)[0].get(child.keyword)
+        for keyword, label in dict(child.choices).items():
+            yield {
+                'highlighted': keyword in selected,
+                'text': label
+            }
+
+    def get_impacts(self, child: QuestionnaireQuestion):
+
+        for qg in child.questiongroup.parent_object.questiongroups:
+            selected = self._get_qg_selected_value(qg.questions[0])
+            if not selected:
+                continue
+
+            if not qg.questions[0].choices:
+                # other is not filled in
+                continue
+            elif not qg.questions[0].choices:
+                label = selected
+                selected = self._get_qg_selected_value(qg.questions[1])
+                select = 1
+                text = 2
+            else:
+                label = qg.questions[0].label.strip('Did the Approach')
+                select = 0
+                text = 1
+
+            yield {
+                'label': label,
+                'range': range(0, len(qg.questions[select].choices)),
+                'min': qg.questions[select].choices[0][1],
+                'max': qg.questions[select].choices[-1][1],
+                'selected': selected - 1 if selected else None,
+                'text': self._get_qg_selected_value(qg.questions[text]) or ''
+            }

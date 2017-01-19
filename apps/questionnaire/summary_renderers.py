@@ -761,8 +761,8 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     @property
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
-                'aims', 'participation', 'technical_support', 'conclusion',
-                'references']
+                'aims', 'participation', 'technical_support', 'financing',
+                'impacts', 'conclusion', 'references']
 
     def location(self):
         return {
@@ -936,6 +936,68 @@ class ApproachesSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'title': 'Research',
                     'items': self.raw_data.get('tech_support_research_topics'),
                     'description': self.raw_data_getter('tech_support_research_details')
+                }
+            }
+        }
+
+    def financing(self):
+        return {
+            'title': _('Financing and external material support'),
+            'partials': {
+                'budget': {
+                    'title': _('Annual budget for the SLM component of the Approach'),
+                    'items': self.raw_data.get('financing_budget'),
+                    'description': self.raw_data_getter('financing_budget_comments'),
+                    'addendum': _('Precise annual budget: {}'.format(self.raw_data_getter('financing_budget_precise')))
+                },
+                'services': {
+                    'title': _('The following services of incentives have been provided to land users'),
+                    'items': [
+                        self.raw_data.get('financing_is_financing'),
+                        self.raw_data.get('financing_is_credit'),
+                        self.raw_data.get('financing_is_other'),
+                        self.raw_data.get('financing_subsidies', {}).get('is_subsidised')
+                    ]
+                },
+                'subsidies': {
+                    **self.raw_data.get('financing_subsidies', {}).get('subsidies'),
+                    'labour': {
+                        'title': 'Labour by land users was',
+                        'items': self.raw_data.get('financing_labour')
+                    },
+                    'credit': {
+                        'title': 'Credit',
+                        'items': [
+                            'Conditions: {}'.format(self.raw_data_getter('financing_credit_conditions')),
+                            'Credit providers: {}'.format(self.raw_data_getter('financing_credit_provider')),
+                            'Credit receivers: {}'.format(self.raw_data_getter('financing_credit_receiver'))
+                        ]
+                    },
+                    'other': {
+                        'title': 'Other incentives or instruments',
+                        'text': self.raw_data_getter('financing_other_text')
+                    }
+                }
+            }
+        }
+
+    def impacts(self):
+        return {
+            'title': _('Impact analysis and concluding statements'),
+            'partials': {
+                'impacts': {
+                    'title': _('Impacts of the Approach'),
+                    'subtitle': _('Did the approach...'),
+                    'items': self.raw_data.get('impacts_impacts')
+                },
+                'motivation': {
+                    'title': _('Main motivation of land users to implement SLM'),
+                    'items': self.raw_data.get('impacts_motivation')
+                },
+                'sustainability': {
+                    'title': _('Sustainability of Approach activities'),
+                    'subtitle': _('Can the land users sustain what hat been implemented through the Approach (without external support)?'),
+                    'items': self.raw_data.get('impacts_sustainability')
                 }
             }
         }

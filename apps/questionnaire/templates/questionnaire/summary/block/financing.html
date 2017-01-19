@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="small-6 columns">
-        <h5>{{ content.budget.title}}</h5>
+        <h5>{{ content.budget.title }}</h5>
     <div class="row">
        <div class="small-6 columns budget">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.budget.items %}
@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="small-6 columns">
-        <h5>{{ content.services.title}}</h5>
+        <h5>{{ content.services.title }}</h5>
     <div class="row">
        <div class="small-12 columns">
           {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.services.items %}
@@ -25,11 +25,11 @@
     </div>
   </div>
 </div>
-{% if content.subsidies.chart and content.subsidies.labour %}
+{% if content.subsidies.chart or content.subsidies.labour %}
 <div class="row">
   <div class="small-6 columns">
       <h5>{{ content.subsidies.title }}</h5>
-    {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=content.subsidies.chart.items %}
+    {% include 'questionnaire/summary/partial/range_vertical_title.html' with class="highlights_list" list_items=content.subsidies.items %}
   </div>
   <div class="small-6 columns">
     <p>{{ content.subsidies.labour.title }}</p>
