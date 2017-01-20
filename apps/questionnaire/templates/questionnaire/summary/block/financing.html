@@ -26,7 +26,7 @@
   </div>
 </div>
 {% if content.subsidies.chart and content.subsidies.labour %}
-<div class="row">
+<div class="row subsidies">
   <div class="small-6 columns">
       <h5>{{ content.subsidies.title }}</h5>
     {% include 'questionnaire/summary/partial/range.html' with class="highlights_list" list_items=content.subsidies.chart.items %}

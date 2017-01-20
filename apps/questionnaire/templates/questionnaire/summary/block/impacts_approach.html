@@ -1,6 +1,6 @@
 <div class="row">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
     <h5>{{ content.impacts.title }}</h5>
     <p>{{ content.impacts.subtitle}}</p>
   </div>
@@ -11,7 +11,6 @@
   </div>
 </div>
 <div class="row">
-<hr>
   <div class="small-6 columns">
     <h5>{{ content.motivation.title }}</h5>
     {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.motivation.items %}

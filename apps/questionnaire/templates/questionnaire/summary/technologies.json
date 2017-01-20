@@ -1276,7 +1276,8 @@
             "range": "7",
             "min": "decreased",
             "max": "increased",
-            "selected": "6"
+            "selected": "6",
+            "text": "production increased by 60% after implementation of the Technology"
           },
           {
             "label": "downstream situation",
@@ -1290,7 +1291,8 @@
             "range": "7",
             "min": "decreased",
             "max": "increased",
-            "selected": "7"
+            "selected": "7",
+            "text": "production increased by 60% after implementation of the Technology"
           }
         ]
       },
@@ -1558,7 +1560,8 @@
       }
     ]
   },
-  "project_insitution": {
+  "project_institution": {
+    "title": "Documentation was faciliated by",
     "items": [
       {
         "title": "Food and Agriculture Organization of the United Nations",
