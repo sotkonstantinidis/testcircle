@@ -20534,7 +20534,10 @@
           "default": {
             "field_name": "adoption_modified",
             "get_value": {
-              "name": "get_full_range_values"
+              "name": "get_full_range_values",
+              "kwargs": {
+                "is_radio": "true"
+              }
             }
           }
         }

@@ -5,8 +5,9 @@ import json
 from itertools import islice
 
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language
 
+from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from .summary_parsers import ConfiguredQuestionnaireParser, TechnologyParser, \
     ApproachParser
@@ -53,6 +54,7 @@ class SummaryRenderer:
 
     """
     parser = ConfiguredQuestionnaireParser
+    base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
 
     def __init__(self, config: QuestionnaireConfiguration,
                  questionnaire: Questionnaire, **data):
@@ -231,9 +233,14 @@ class GlobalValuesMixin:
                     "items": self.get_reference_resource_persons()
                 },
                 {
-                    "title": _("Links"),
+                    "title": _("More about this case study"),
                     "css_class": "bullets",
                     "items": self.get_reference_links()
+                },
+                {
+                    "title": _("Linked SLM data"),
+                    "css_class": "bullets",
+                    "items": self.get_reference_linked_questionnaires()
                 },
                 {
                     "title": _("Key references"),
@@ -288,26 +295,14 @@ class GlobalValuesMixin:
                 name=name, type=', '.join(person.get('values', [])))}
 
     def get_reference_links(self):
-        base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
+        text = _('This data in the WOCAT database: <a href="{base_url}{url}">'
+                 '{base_url}{url}</a>'.format(
+            base_url=self.base_url, url=self.questionnaire.get_absolute_url()))
+
         link_items = [
-            {'text': _('Full case study in WOCAT DB: <a href="{base_url}{url}">'
-                     '{base_url}{url}</a>'.format(
-                base_url=base_url,
-                url=self.questionnaire.get_absolute_url()
-            ))}
+            {'text': text}
         ]
-        links = QuestionnaireLink.objects.filter(
-            from_questionnaire=self.questionnaire
-        ).prefetch_related('to_questionnaire')
-        if links.exists():
-            for link in links:
-                link_items.append({
-                    'text': _('Corresponding entry in DB: <a href="{base_url}{url}">'
-                            '{base_url}{url}</a>'.format(
-                        base_url=base_url,
-                        url=link.to_questionnaire.get_absolute_url()
-                    ))
-                })
+
         vimeo_id = self.raw_data.get('references_vimeo_id')
         if vimeo_id and vimeo_id[0].get('value'):
             vimeo_url = 'https://player.vimeo.com/video/{}'.format(
@@ -318,6 +313,23 @@ class GlobalValuesMixin:
                     vimeo_url=vimeo_url))
             })
         return link_items
+
+    def get_reference_linked_questionnaires(self):
+        links = QuestionnaireLink.objects.filter(
+            from_questionnaire=self.questionnaire
+        )
+        for link in links:
+            config = link.to_questionnaire.configurations.filter(active=True)
+            if config.exists():
+                configuration = get_configuration(config.first().code)
+                name = configuration.get_questionnaire_name(
+                    link.to_questionnaire.data
+                )
+                yield {'text': '{config}: {name} (<a href="{url}">{url}</a>)'.format(
+                    config=config.first().name,
+                    name=name.get(get_language(), name.get('en')),
+                    url=self.base_url+link.to_questionnaire.get_absolute_url())
+                }
 
     def get_reference_articles(self):
         titles = self.raw_data.get('references_title', [])
@@ -363,9 +375,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         data = super().header_image()
         if self.raw_data_getter('header_image_sustainability') == 'Yes':
             data['partials']['note'] = _(
-                '<strong>Note</strong>: This technology is problematic with '
-                'regard to land degradation, so it cannot be declared a '
-                'sustainable land management technology')
+                'This technology is problematic with regard to land '
+                'degradation, so it cannot be declared a sustainable land '
+                'management technology')
         return data
 
     def location(self):

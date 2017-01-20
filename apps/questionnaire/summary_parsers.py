@@ -99,7 +99,10 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
         else:
             return {
                 'img_url': get_static_map_url(self.questionnaire),
-                'coordinates': self.questionnaire.geom.coords
+                'coordinates': [
+                    '{}, {}'.format(round(coords[0], 5), round(coords[1], 5))
+                    for coords in self.questionnaire.geom.coords
+                ]
             }
 
     def get_full_range_values(self, child: QuestionnaireQuestion,
