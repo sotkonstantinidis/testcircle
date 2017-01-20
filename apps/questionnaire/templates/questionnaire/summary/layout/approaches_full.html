@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
   </head>
   <body class="summary is-approaches">
-{% include 'questionnaire/summary/block/header_image.html' with content=block.header_image.partials %}
+    {% include 'questionnaire/summary/block/header_image.html' with content=block.header_image.partials %}
     {% include 'questionnaire/summary/block/title.html' with content=block.title.partials %}
     <div class="row">
     {% include 'questionnaire/summary/block/description.html' with content=block.description.partials title=block.description.title %}
