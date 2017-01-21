@@ -6284,12 +6284,12 @@
         "type": "select_model",
         "form_options": {
           "model": "Project",
-          "display_field": "funding_project_display",
-          "summary": {
-            "types": ["full"],
-            "default": {
-              "field_name": "project_institution_project"
-            }
+          "display_field": "funding_project_display"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "project_institution_project"
           }
         }
       }

@@ -1,14 +1,15 @@
 """
 Prepare data as required for the summary frontend templates.
 """
+import itertools
 import json
-from itertools import islice
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, get_language
 
 from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
+from configuration.models import Project, Institution
 from .summary_parsers import ConfiguredQuestionnaireParser, TechnologyParser, \
     ApproachParser
 from .models import Questionnaire, QuestionnaireLink
@@ -168,7 +169,7 @@ class GlobalValuesMixin:
         images = []
         if image_urls:
             # first element is the header image, show max. 2 images.
-            for index, image in islice(enumerate(image_urls), 1, 3):
+            for index, image in itertools.islice(enumerate(image_urls), 1, 3):
                 images.append({
                     'url': image['value'],
                     'caption': '{caption}\n{photographer}'.format(
@@ -339,20 +340,20 @@ class GlobalValuesMixin:
                 title=title.get('value'),
                 source=sources[index].get('value') if sources[index] else '')}
 
-    def project_insitution(self):
-        self.raw_data.get('project_institution_project')
-        self.raw_data.get('project_institution_institution')
+    def project_institution(self):
+
+        project_ids = [project['value'] for project in
+                       self.raw_data.get('project_institution_project', [])]
+
+        projects = Project.objects.filter(id__in=project_ids)
+
+        institution_ids = [institution['value'] for institution in
+                       self.raw_data.get('project_institution_institution', [])]
+        institutions = Institution.objects.filter(id__in=institution_ids)
+
         return {
-            "items": [
-                {
-                    "title": "Food and Agriculture Organization of the United Nations",
-                    "logo": ""
-                },
-                {
-                    "title": "Caritas",
-                    "logo": ""
-                }
-            ]
+            'title': _('Facilitated by'),
+            'items': [{'title': elem.name, 'logo': ''} for elem in itertools.chain(projects, institutions)]
         }
 
 
@@ -369,7 +370,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'classification', 'technical_drawing', 'establishment_costs',
                 'natural_environment', 'human_environment', 'impacts', 
                 'climate_change', 'adoption_adaptation', 'conclusion',
-                'references', 'project_insitution']
+                'references', 'project_institution']
 
     def header_image(self):
         data = super().header_image()

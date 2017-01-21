@@ -970,7 +970,8 @@
       }
     ]
   },
-  "project_insitution": {
+  "project_institution": {
+    "title": "Documentation was faciliated by",
     "items": [
       {
         "title": "Food and Agriculture Organization of the United Nations",

@@ -5,7 +5,7 @@
     <td width="20%"><b>{{ list_items.head.1 }}</b></td>
     <td width="10%"><b>{{ list_items.head.2 }}</b></td>
     <td width="10%"><b>{{ list_items.head.3 }}</b></td>
-    <td width="10%"><b>{{ list_items.head.4 }}</b></td>
+    <td width="10%" class="text-right"><b>{{ list_items.head.4 }}</b></td>
     <td width="10%"><b>{{ list_items.head.5 }}</b></td>
   </tr>
 	{% for table in list_items.partials %}
@@ -20,17 +20,17 @@
         <td width="20%">{{ table_item.1 }}</td>
         <td width="10%">{{ table_item.2 }}</td>
         <td width="10%">{{ table_item.3 }}</td>
-        <td width="10%">{{ table_item.4 }}</td>
+        <td width="10%" class="text-right">{{ table_item.4 }}</td>
         <td width="10%">{{ table_item.5 }}</td>
       </tr>
 	  {% endfor %}
 	{% endfor %}
 	<tr class="total_row">
-		<td width="40%"><b>{{ list_items.total.label }}</b></td>
+		<td width="40%" class="text-right"><b>{{ list_items.total.label }}</b></td>
 		<td width="20%"><b></b></td>
 		<td width="10%"><b></b></td>
 		<td width="10%"><b></b></td>
-		<td width="10%"><b>{{ list_items.total.value }}</b></td>
+		<td width="10%" class="text-right"><b>{{ list_items.total.value }}</b></td>
 		<td width="10%"><b></b></td>
 	</tr>
 </table>

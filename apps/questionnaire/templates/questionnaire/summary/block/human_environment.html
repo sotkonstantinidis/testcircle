@@ -1,10 +1,6 @@
-<div class="row">
+<div class="row compact">
   <div class="small-12 columns">
-    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}    
-  </div>
-</div>
-<div class="row">
-  <div class="small-12 columns">
+    {% include 'questionnaire/summary/partial/title_bar.html' with title=title %}
       <h5>{{ content.subtitle }}</h5>
   </div>
 </div>
@@ -54,30 +50,19 @@
       <h5>{{ content.area.title }}</h5>
       {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.area.items %}
   </div>
-  <div class="small-6 columns">
-    <div class="row">
-        <div class="small-6 columns">
-          <h5>{{ content.scale.title }}</h5>
-          {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.scale.items %}
-        </div>
-        <div class="small-6 columns">
-          <h5>{{ content.ownership.title }}</h5>
-          {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.ownership.items %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="small-6 columns">
-          <h5>{{ content.land_rights.title }}</h5>
-          {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.land_rights.items %}
-        </div>
-        <div class="small-6 columns">
-        <h5>{{ content.water_rights.title }}</h5>
-        {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_rights.items %}
-        </div>
-    </div>
+  <div class="small-3 columns">
+    <h5>{{ content.scale.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.scale.items %}
   </div>
   <div class="small-3 columns">
-    
+    <h5>{{ content.ownership.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.ownership.items %}
+  </div>
+  <div class="small-3 columns">
+    <h5>{{ content.land_rights.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.land_rights.items %}
+    <h5>{{ content.water_rights.title }}</h5>
+    {% include 'questionnaire/summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_rights.items %}
   </div>
 </div>
 <div class="row">
