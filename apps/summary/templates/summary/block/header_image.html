@@ -1,0 +1,14 @@
+{% if content.note %}
+  <div class="row">
+    <div class="columns small-12 columns">
+      {% include 'summary/partial/title_bar.html' with title=content.note %}
+    </div>
+  </div>
+{% endif %}
+<div class="row">
+  <div class="columns small-12">
+    <img class="wocat_logo" src="/static/assets/img/wocat_logo.svg">
+    <div class="header-img" style="background-image: url({{ request.scheme }}://{{ request.get_host }}{{ content.image.url }})"></div>
+    <div class="img-caption"><strong>{{ content.caption.title }}</strong> {{ content.caption.text }}</div>
+  </div>
+</div>

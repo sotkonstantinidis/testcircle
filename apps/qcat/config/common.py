@@ -58,6 +58,7 @@ class BaseSettings(Configuration):
         'samplemulti',
         'samplemodule',
         'search',
+        'summary',
         'technologies',
         'unccd',
         'watershed',

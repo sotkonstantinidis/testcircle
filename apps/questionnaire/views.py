@@ -1,9 +1,7 @@
 import collections
 import contextlib
-import json
 import logging
 from itertools import chain
-from os.path import isfile, join
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -23,7 +21,6 @@ from django.shortcuts import (
 )
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
-from django.utils.text import slugify
 from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -31,7 +28,6 @@ from django.views.decorators.http import require_POST
 from django.views.generic import DeleteView, View
 from django.views.generic.base import TemplateResponseMixin
 from braces.views import LoginRequiredMixin
-from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 
 from accounts.decorators import force_login_check
 from configuration.cache import get_configuration
@@ -48,7 +44,7 @@ from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
-from .summary_renderers import get_summary_data
+
 
 from .utils import (
     clean_questionnaire_data,
@@ -1595,108 +1591,6 @@ class QuestionnaireLockView(LoginRequiredMixin, View):
             user=self.request.user
         )
         return HttpResponse(status=200)
-
-    class CachedPDFTemplateResponse(PDFTemplateResponse):
-        """
-        Creating the pdf includes two resource-heavy processes:
-        - extracting the json to markup (frontend)
-        - call to wkhtmltopdf (backend)
-
-        Therefore, the content is created only once per filename (which should
-        distinguish between new questionnaire edits). This only works with
-        reasonably precise file names!
-        """
-
-        @property
-        def rendered_content(self):
-            file_path = join(settings.SUMMARY_PDF_PATH, self.filename)
-            if isfile(file_path):
-                with contextlib.suppress(Exception) as e:
-                    # Catch any kind of error and log it. PDF is created from
-                    # scratch again.
-                    logger.warn(
-                        "Couldn't open pdf summary from disk: {}".format(e))
-                    return open(file_path, 'rb').read()
-
-            content = super().rendered_content
-            with contextlib.suppress(Exception) as e:
-                # Again, intentionally catch any kind of exception.
-                logger.warn(
-                    "Couldn't write pdf summary from disk: {}".format(e))
-                open(file_path, 'wb').write(content)
-            return content
-
-
-class QuestionnaireSummaryPDFCreateView(PDFTemplateView):
-    """
-    Put the questionnaire data to the context and return the rendered pdf.
-    """
-    # Activate this as soon as frontend is finished.
-    # response_class = CachedPDFTemplateResponse
-
-    # Refactor this when more than one summary type is available.
-    summary_type = 'full'
-    base_template_path = 'questionnaire/summary/'
-
-    def get(self, request, *args, **kwargs):
-        self.questionnaire = self.get_object(id=self.kwargs['id'])
-        self.code = self.questionnaire.configurations.filter(
-            active=True
-        ).first().code
-        return super().get(request, *args, **kwargs)
-
-    def get_template_names(self):
-        template = self.request.GET.get('template', self.code)
-        return '{}/layout/{}.html'.format(self.base_template_path, template)
-
-    def get_filename(self) -> str:
-        """
-        The filename is specific enough to be used as 'pseudo cache-key' in the
-        CachedPDFTemplateResponse.
-        """
-        return 'wocat-{identifier}-{summary_type}-summary-{update}.pdf'.format(
-            summary_type=self.summary_type,
-            identifier=self.questionnaire.id,
-            update=self.questionnaire.updated.strftime('%Y-%m-%d-%H:%m')
-        )
-
-    def get_object(self, id: int) -> Questionnaire:
-        """
-        Get questionnaire and check status / permissions.
-        """
-        status_filter = get_query_status_filter(self.request)
-        status_filter &= Q(id=id)
-        obj = Questionnaire.with_status.not_deleted().filter(
-            Q(id=id), status_filter
-        ).distinct()
-        if not obj.exists() or obj.count() != 1:
-            raise Http404
-        return obj.first()
-
-    def get_prepared_data(self, questionnaire: Questionnaire) -> dict:
-        """
-        Load the prepared JSON for given object in the current language.
-        """
-        data = get_questionnaire_data_in_single_language(
-            questionnaire_data=questionnaire.data,
-            locale=get_language(),
-            original_locale=questionnaire.original_locale
-        )
-        return get_summary_data(
-            config=get_configuration(configuration_code=self.code),
-            summary_type=self.summary_type,
-            questionnaire=self.questionnaire,
-            **data
-        )
-
-    def get_context_data(self, **kwargs):
-        """
-        Dump json to the context, the markup for the pdf is created with a js
-        library in the frontend.
-        """
-        context = super().get_context_data(**kwargs)
-        context['block'] = self.get_prepared_data(self.questionnaire)
-        return context
 
 
 # TODO: This is a copy of the mixin function. Remove this once the views are all
