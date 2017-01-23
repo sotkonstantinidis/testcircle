@@ -15956,7 +15956,13 @@
       "keyword": "tech_est_timing",
       "translation": 1039,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_establishment_timing"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -16168,7 +16174,13 @@
       "keyword": "tech_maint_timing",
       "translation": 1190,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_timing"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -19899,7 +19911,16 @@
       "keyword": "tech_adaptation_modification",
       "translation": 1337,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_condition",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         1344,
@@ -20159,7 +20180,13 @@
       "keyword": "tech_livestock_density",
       "translation": 1309,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default":{
+            "field_name": "classification_livestock"
+          }
+        }
       }
     },
     "model": "configuration.key",

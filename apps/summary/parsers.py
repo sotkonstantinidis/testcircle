@@ -20,7 +20,7 @@ from questionnaire.templatetags.questionnaire_tags import get_static_map_url
 logger = logging.getLogger(__name__)
 
 
-class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
+class QuestionnaireParser(ConfiguredQuestionnaire):
     """
     Get only data which is configured to appear in the summary. This is defined
     by the configuration-field: 'summary', which specifies the section
@@ -193,9 +193,16 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
                     continue
 
                 kwargs = group.children[0].additional_translations
+
+                # if a comment is set, add it
                 if len(group.children) > 2:
                     comment = self._get_qg_selected_value(group.children[3])
                     kwargs['comment'] = comment or ''
+
+                # override the scale for boolean fields
+                if group.children[0].field_type == 'bool':
+                    kwargs['label_left'] = group.children[0].choices[0][1]
+                    kwargs['label_right'] = group.children[0].choices[1][1]
 
                 yield from self._qg_scale_format(
                     child=group.children[0],
@@ -370,7 +377,7 @@ class ConfiguredQuestionnaireParser(ConfiguredQuestionnaire):
         }
 
 
-class TechnologyParser(ConfiguredQuestionnaireParser):
+class TechnologyParser(QuestionnaireParser):
     """
     Specific methods for technologies.
     """
@@ -466,7 +473,7 @@ class TechnologyParser(ConfiguredQuestionnaireParser):
         return not set(qg_keywords).isdisjoint(set(self.values.keys()))
 
 
-class ApproachParser(ConfiguredQuestionnaireParser):
+class ApproachParser(QuestionnaireParser):
     """
     Specific methods for approaches
     """
@@ -488,9 +495,8 @@ class ApproachParser(ConfiguredQuestionnaireParser):
         groups = child.questiongroup.parent_object.questiongroups
         # the first element in the group contains the labels of filled in
         # questiongroups
-        label_group = groups.pop(0)
-        labels = self.values.get(label_group.keyword)[0].get('app_stakeholders')
-        for pos, group in enumerate(groups):
+        labels = self.values.get(groups[0].keyword)[0].get('app_stakeholders')
+        for pos, group in itertools.islice(enumerate(groups), 1):
             try:
                 values = self.values[group.keyword][0]
             except (KeyError, IndexError):
@@ -586,10 +592,7 @@ class ApproachParser(ConfiguredQuestionnaireParser):
             },
             "subsidies": {
                 "title": child.questiongroup.parent_object.label,
-                "items": {
-                    "labels": row.labels.values(),
-                    "items2": items
-                }
+                "items": items
             }
         }
 
@@ -608,7 +611,8 @@ class ApproachParser(ConfiguredQuestionnaireParser):
                     'label': label,
                     'range': range(0, len(self.labels)),
                     'selected': list(self.labels.keys()).index(values.get(self.qg.questions[selected].keyword)),
-                    'text': values.get(self.qg.questions[text].keyword) or ''
+                    'text': values.get(self.qg.questions[text].keyword) or '',
+                    'scale': self.labels.values()
                 }
 
         return SubsidiesRow(questiongroup, **values)
@@ -628,24 +632,22 @@ class ApproachParser(ConfiguredQuestionnaireParser):
             if not selected:
                 continue
 
+            # no choices = this is an 'other' input
             if not qg.questions[0].choices:
-                # other is not filled in
-                continue
-            elif not qg.questions[0].choices:
                 label = selected
                 selected = self._get_qg_selected_value(qg.questions[1])
                 select = 1
                 text = 2
             else:
-                label = qg.questions[0].label.strip('Did the Approach')
+                # this works for english only. discussed and okey-d.
+                label = qg.questions[0].label
                 select = 0
                 text = 1
 
             yield {
                 'label': label,
                 'range': range(0, len(qg.questions[select].choices)),
-                'min': qg.questions[select].choices[0][1],
-                'max': qg.questions[select].choices[-1][1],
                 'selected': selected - 1 if selected else None,
-                'text': self._get_qg_selected_value(qg.questions[text]) or ''
+                'text': self._get_qg_selected_value(qg.questions[text]) or '',
+                'scale': dict(qg.questions[select].choices).values()
             }

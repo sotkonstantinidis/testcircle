@@ -11,7 +11,7 @@ from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from configuration.models import Project, Institution
 from questionnaire.models import Questionnaire, QuestionnaireLink
-from .parsers import ConfiguredQuestionnaireParser, TechnologyParser, \
+from .parsers import QuestionnaireParser, TechnologyParser, \
     ApproachParser
 
 
@@ -36,7 +36,7 @@ class SummaryRenderer:
     - add a method called 'definition' to the renderer, which gets the values
 
     """
-    parser = ConfiguredQuestionnaireParser
+    parser = QuestionnaireParser
     base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
 
     def __init__(self, config: QuestionnaireConfiguration,
@@ -427,17 +427,17 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         "list": self.raw_data.get('classification_watersupply'),
                         "text": [
                             {
-                                "title": "Number of growing seasons per year",
-                                "text": self.string_from_list(
-                                    'classification_growing_seasons'
-                                )
+                                "title": _("Number of growing seasons per year"),
+                                "text": self.string_from_list('classification_growing_seasons')
                             },
                             {
-                                "title": "Land use before implementation of "
-                                         "the Technology",
-                                "text": self.raw_data_getter(
-                                    'classification_lu_before'
-                                )
+                                "title": _("Land use before implementation of "
+                                         "the Technology"),
+                                "text": self.raw_data_getter('classification_lu_before')
+                            },
+                            {
+                                "title": _("Livestock density"),
+                                "text": self.raw_data_getter('classification_livestock')
                             }
                         ]
                     }
@@ -489,6 +489,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         currency = usd or national_currency or 'n.a'
         wage = self.raw_data_getter('establishment_average_wage') or _('n.a')
         exchange_rate = self.raw_data_getter('establishment_exchange_rate') or _('n.a')
+
         return {
             'title': _('Establishment and maintenance: activities, inputs and costs'),
             'partials': {
@@ -505,10 +506,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'establishment': {
                     'title': _('Establishment activities'),
-                    'list': self._get_establishment_list_items(
-                        'establishment_establishment_activities',
-                        'establishment_establishment_measure_type'
-                    ),
+                    'list': self._get_establishment_list_items('establishment'),
                     'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
                         'title': _('Establishment inputs and costs per ha'),
@@ -517,10 +515,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'maintenance': {
                     'title': _('Maintenance activities'),
-                    'list': self._get_establishment_list_items(
-                        'establishment_maintenance_activities',
-                        'establishment_maintenance_measure_type'
-                    ),
+                    'list': self._get_establishment_list_items('maintenance'),
                     'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
                         'title': 'Maintenance inputs and costs per ha',
@@ -530,7 +525,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             }
         }
 
-    def _get_establishment_list_items(self, activity: str, measure: str):
+    def _get_establishment_list_items(self, content_type: str):
+        activity = 'establishment_{}_activities'.format(content_type)
+        measure = 'establishment_{}_measure_type'.format(content_type)
+        timing = 'establishment_{}_timing'.format(content_type)
         for index, activity in enumerate(self.raw_data[activity]):
             # Get the measure type for current activity.
             try:
@@ -538,11 +536,22 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             except (KeyError, IndexError):
                 measure_type = ''
 
-            measure_type = ' ({})'.format(measure_type) if measure_type else ''
+            try:
+                timing = self.raw_data[timing][index]['value']
+            except (KeyError, IndexError):
+                timing = ''
+
+            if measure_type and timing:
+                addendum = ' ({}; {})'.format(measure_type, timing)
+            elif measure_type or timing:
+                addendum = ' ({})'.format(measure_type or timing)
+            else:
+                addendum = ''
+
             yield {
-                'text': '{activity}{measure_type}'.format(
+                'text': '{activity}{addendum}'.format(
                     activity=activity['value'],
-                    measure_type=measure_type
+                    addendum=addendum
                 )}
 
     def natural_environment(self):
@@ -738,8 +747,12 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'adaptation': {
                     'title': _('Adaptation'),
-                    'text': _('The technology has been modified recently to adapt to'),
+                    'text': _('Has the Technology been modified recently to adapt to changing conditions?'),
                     'items': self.raw_data.get('adoption_modified')
+                },
+                'condition': {
+                    'title': _('To which changing conditions'),
+                    'items': self.raw_data.get('adoption_condition')
                 },
                 'comments': self.raw_data_getter('adoption_comments')
             }
@@ -983,7 +996,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'impacts': {
                     'title': _('Impacts of the Approach'),
                     'subtitle': _('Did the approach...'),
-                    'items': self.raw_data.get('impacts_impacts')
+                    'items': self.raw_data.get('impacts_impacts'),
                 },
                 'motivation': {
                     'title': _('Main motivation of land users to implement SLM'),

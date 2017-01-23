@@ -12,16 +12,16 @@
   <div class="small-6 columns">
   	<h5>{{ content.landuse.title }}</h5>
    	{% include 'summary/partial/image_with_caption.html' with list_items=content.landuse.partials %}
-      <h5>{{ content.water_supply.title }}</h5>
+    <h5>{{ content.water_supply.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_supply.partials.list %}
     <div>
       {% for list_item in content.water_supply.partials.text %}
-      <div>
-        {% if list_item.title %}<b>{{ list_item.title }}:</b>{% endif %}
-        {{ list_item.text|safe}}
-        {% if list_item.subtext %}<span class="subtext">{{ list_item.subtext }}</span>{% endif %}
-      </div>
-    {% endfor %}
+        <div>
+          {% if list_item.title %}<b>{{ list_item.title }}:</b>{% endif %}
+          {{ list_item.text|safe}}
+          {% if list_item.subtext %}<span class="subtext">{{ list_item.subtext }}</span>{% endif %}
+        </div>
+      {% endfor %}
     </div>
   </div>
 </div>

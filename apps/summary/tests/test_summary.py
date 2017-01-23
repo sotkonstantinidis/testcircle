@@ -3,7 +3,7 @@ from unittest.mock import patch, Mock, MagicMock, sentinel
 from django.test import override_settings
 
 from qcat.tests import TestCase
-from summary.parsers import ConfiguredQuestionnaireParser
+from summary.parsers import QuestionnaireParser
 from summary.renderers import GlobalValuesMixin, SummaryRenderer
 
 
@@ -13,7 +13,7 @@ class SummaryConfigurationTest(TestCase):
     """
 
     def setUp(self):
-        self.obj = ConfiguredQuestionnaireParser(
+        self.obj = QuestionnaireParser(
             config=MagicMock(),
             summary_type='full',
             questionnaire=MagicMock(),
@@ -113,7 +113,7 @@ class SummaryDataProviderTest(TestCase):
         with self.assertRaises(NotImplementedError):
             SummaryRenderer(config='', questionnaire='')
 
-    @patch.object(ConfiguredQuestionnaireParser, '__init__')
+    @patch.object(QuestionnaireParser, '__init__')
     def test_content(self, mock_raw_data):
         mock_raw_data.return_value = {}
         with self.assertRaises(NotImplementedError):

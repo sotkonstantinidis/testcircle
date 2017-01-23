@@ -19,6 +19,8 @@
     <h5>{{ content.adaptation.title }}</h5>
     {{ content.adaptation.text }}
     {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.adaptation.items %}
+    <p>{{ content.condition.title }}</p>
+    {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.condition.items %}
   </div>
   <div class="small-6 columns adaptation-comments">
     {{ content.comments }}
