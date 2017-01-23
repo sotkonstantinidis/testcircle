@@ -18,18 +18,18 @@
     <col width="{{ width }}">
   {% endfor %}
   <thead>
-    <td>{{ keys.1 }}</td>
+    <td>{{ keys.0 }}</td>
     <td>{% trans "From" %}</td>
     <td>{% trans "To" %}</td>
-    <td>{{ keys.6 }}</td>
+    <td>{{ keys.5 }}</td>
   </thead>
   <tbody>
     {% for questiongroup in questiongroups %}
       <tr>
-        <td>{{ questiongroup.1|striptags }}</td>
-        <td>{{ questiongroup.3|month_name:'F' }} {{ questiongroup.2 }}</td>
-        <td>{{ questiongroup.5|month_name:'F' }} {{ questiongroup.4 }}</td>
-        <td>{{ questiongroup.6 }}</td>
+        <td>{{ questiongroup.0|striptags }}</td>
+        <td>{{ questiongroup.2|month_name:'F' }} {{ questiongroup.1 }}</td>
+        <td>{{ questiongroup.4|month_name:'F' }} {{ questiongroup.3 }}</td>
+        <td>{{ questiongroup.5 }}</td>
       </tr>
     {% endfor %}
   </tbody>

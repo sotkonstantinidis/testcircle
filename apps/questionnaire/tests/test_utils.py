@@ -315,6 +315,48 @@ class CleanQuestionnaireDataTest(TestCase):
         self.assertEqual(errors, [])
         self.assertEqual(cleaned['qg_37'][0]['key_52'], 2)
 
+    def test_select_conditional_questiongroup_cleaned_if_qg_not_available(self):
+        # No qg_41
+        data = {
+            "qg_44": [{"key_60": "qg_41", "key_61": {"en": "foo"}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(errors, [])
+        self.assertEqual(cleaned['qg_44'], [{"key_61": {"en": "foo"}}])
+
+    def test_select_conditional_questiongroup_cleaned_if_qg_not_available_2(self):
+        # No qg_41
+        data = {
+            "qg_41": [{"key_57": ""}],
+            "qg_44": [{"key_60": "qg_41", "key_61": {"en": "foo"}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(errors, [])
+        self.assertEqual(cleaned['qg_44'], [{"key_61": {"en": "foo"}}])
+
+    def test_select_conditional_questiongroup_cleaned_if_qg_not_available_multi(
+            self):
+        # No qg_41
+        data = {
+            "qg_42": [{"key_57": "value_57_3"}],
+            "qg_44": [
+                {"key_60": "qg_41", "key_61": {"en": "foo"}},
+                {"key_60": "qg_42", "key_61": {"en": "bar"}}
+            ]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(errors, [])
+        self.assertEqual(len(cleaned['qg_44']), 2)
+        self.assertIn({"key_61": {"en": "foo"}}, cleaned['qg_44'])
+        self.assertIn(
+            {"key_60": "qg_42", "key_61": {"en": "bar"}}, cleaned['qg_44'])
+
+    def test_select_conditional_questiongroup_passes(self):
+        # qg_41 available
+        data = {
+            "qg_41": [{"key_57": "value_57_3"}],
+            "qg_44": [{"key_60": "qg_41", "key_61": {"en": "foo"}}]}
+        cleaned, errors = clean_questionnaire_data(data, self.conf)
+        self.assertEqual(errors, [])
+        self.assertEqual(cleaned, data)
+
 
 class IsValidQuestionnaireFormatTest(TestCase):
 
