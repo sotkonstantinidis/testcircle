@@ -4286,7 +4286,7 @@
     "model": "configuration.translation",
     "pk": 27022
   },
-    {
+  {
     "fields": {
       "translation_type": "questiongroup",
       "data": {
@@ -7385,7 +7385,7 @@
       "keyword": "cca_extent_left_label",
       "translation": 28094,
       "configuration": {
-        "type": "select_type",
+        "type": "select_conditional_custom",
         "view_options": {
           "template": "value_only"
         }
@@ -7412,7 +7412,7 @@
       "keyword": "cca_extent_right_label",
       "translation": 28094,
       "configuration": {
-        "type": "select_type",
+        "type": "select_conditional_custom",
         "view_options": {
           "template": "value_only"
         }
@@ -7488,7 +7488,7 @@
     "model": "configuration.value",
     "pk": 29006
   },
-    {
+  {
     "fields": {
       "keyword": "april",
       "translation": 29007,
@@ -8275,7 +8275,7 @@
     "model": "configuration.value",
     "pk": 29118
   },
-    {
+  {
     "fields": {
       "keyword": "cca_measures_agronomic",
       "translation": 29119,
@@ -9440,7 +9440,7 @@
     "model": "configuration.questiongroup",
     "pk": 27012
   },
-    {
+  {
     "fields": {
       "keyword": "cca_qg_13",
       "translation": 27013,
@@ -9476,7 +9476,7 @@
     "model": "configuration.questiongroup",
     "pk": 27016
   },
-    {
+  {
     "fields": {
       "keyword": "cca_qg_17",
       "translation": 27017,
@@ -9683,12 +9683,24 @@
           "min_num": 1,
           "max_num": 24,
           "template": "table1",
-          "column_widths": ["25%", "10%", "7%", "10%", "7%", "41%"],
+          "column_widths": [
+            "25%",
+            "10%",
+            "7%",
+            "10%",
+            "7%",
+            "41%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table2",
-          "column_widths": ["25%", "17%", "17%", "40%"],
+          "column_widths": [
+            "25%",
+            "17%",
+            "17%",
+            "40%"
+          ],
           "with_keys": true
         }
       }
@@ -9705,13 +9717,23 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table1",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table",
           "layout": "label",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "with_keys": true
         }
       }
@@ -9728,14 +9750,24 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table1",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table",
           "layout": "label",
           "label_class": "top-margin-big",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "with_keys": true
         }
       }
@@ -9752,12 +9784,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9798,12 +9838,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9820,12 +9868,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9842,12 +9898,20 @@
           "min_num": 1,
           "max_num": 3,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9864,12 +9928,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9886,12 +9958,20 @@
           "min_num": 1,
           "max_num": 3,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9908,12 +9988,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9930,12 +10018,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9952,12 +10048,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9974,12 +10078,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9996,12 +10108,20 @@
           "min_num": 1,
           "max_num": 3,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -10018,12 +10138,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -10036,16 +10164,24 @@
       "keyword": "cca_qg_125",
       "translation": null,
       "configuration": {
-       "form_options": {
+        "form_options": {
           "min_num": 1,
           "max_num": 3,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -12988,7 +13124,7 @@
                             "keyword": "specify_comments"
                           }
                         ]
-                      }                      
+                      }
                     ]
                   },
                   {
@@ -13027,7 +13163,7 @@
                                 },
                                 "view_options": {
                                   "label_tag": "h5"
-                                },                                    
+                                },
                                 "questiongroups": [
                                   {
                                     "keyword": "cca_qg_43",
@@ -13036,7 +13172,126 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_production_impact"
+                                        "keyword": "cca_production_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_production_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "crop_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "crop_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "fodder_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "fodder_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "animal_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "wood_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "forest_woodland_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "non_wood_forest_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "risk_of_production_failure": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "product_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "production_area": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "land_management": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_hindered"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_simplified"
+                                              ]
+                                            },
+                                            "energy_generation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13074,7 +13329,78 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_water_impact"
+                                        "keyword": "cca_water_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_water_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "drinking_water_availability": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "drinking_water_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "water_availability_for_livestock": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "water_quality_for_livestock": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "irrigation_water_availability": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "irrigation_water_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "demand_for_irrigation_water": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13112,7 +13438,62 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_income_impact"
+                                        "keyword": "cca_income_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_income_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "expenses_on_agricultural_inputs": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "farm_income": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "diversity_of_income_sources": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "economic_disparities": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "workload": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13194,7 +13575,102 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_socio_cultural_impact"
+                                        "keyword": "cca_socio_cultural_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_socio_cultural_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "food_security_self_sufficiency": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "health_situation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "land_use_water_rights": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "cultural_opportunities": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "recreational_opportunities": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "community_institutions": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_weakened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_strengthened"
+                                              ]
+                                            },
+                                            "national_institutions": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_weakened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_strengthened"
+                                              ]
+                                            },
+                                            "slm_land_degradation_knowledge": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "conflict_mitigation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "situation_of_disadvantaged_groups": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13276,7 +13752,78 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_runoff_impact"
+                                        "keyword": "cca_runoff_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_runoff_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "water_quantity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "water_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "harvesting_collection_of_water": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "surface_runoff": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "excess_water_drainage": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "groundwater_table_aquifer": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_lowered"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_recharge"
+                                              ]
+                                            },
+                                            "evaporation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13314,7 +13861,102 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_soil_impact"
+                                        "keyword": "cca_soil_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_soil_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "soil_moisture": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "soil_cover": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "soil_loss": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "soil_accumulation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "soil_crusting_sealing": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "soil_compaction": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "nutrient_cycling_recharge": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "salinity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "soil_organic_matter": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "acidity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13352,7 +13994,94 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_biodiversity_impact"
+                                        "keyword": "cca_biodiversity_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_biodiversity_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "vegetation_cover": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "biomass": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "plant_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "invasive_alien_species": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "animal_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "beneficial_species": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "harmful_species": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "habitat_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "pests_diseases": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13390,7 +14119,86 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "cca_climate_impact"
+                                        "keyword": "cca_climate_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_climate_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "flood_impacts": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "landslides_debris_flow": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "drought_impacts": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "impacts_of_cyclones": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "emission_of_carbon": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "fire_risk": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "wind_velocity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "micro_climate": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13474,7 +14282,106 @@
                                     "keyword": "change_extreme_name"
                                   },
                                   {
-                                    "keyword": "cca_offsite_impact"
+                                    "keyword": "cca_offsite_impact",
+                                    "form_options": {
+                                      "field_options": {
+                                        "keyword": "cca_offsite_impact"
+                                      },
+                                      "custom_to_options": {
+                                        "default": {
+                                          "cca_extent_left_label": [
+                                            ""
+                                          ],
+                                          "cca_extent_right_label": [
+                                            ""
+                                          ]
+                                        },
+                                        "water_availability": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_decreased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "stream_flows": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_reduced"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "downstream_flooding": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased",
+                                            "extent_label_decreased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_decreased",
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "downstream_siltation": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased",
+                                            "extent_label_decreased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_decreased",
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "groundwater_river_pollution": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "buffering_filtering_capacity": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_reduced"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_improved"
+                                          ]
+                                        },
+                                        "wind_trasported_sediments": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "damage_on_fields": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "damage_on_infrastructure": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "greenhouse_gases": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        }
+                                      }
+                                    }
                                   },
                                   {
                                     "keyword": "cca_extent_left_label"
@@ -13650,7 +14557,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "investment_made"                            
+                            "keyword": "investment_made"
                           },
                           {
                             "keyword": "measure_details"
@@ -13925,7 +14832,12 @@
                             "form_options": {
                               "questiongroup_condition": "cca_qg_142",
                               "template": "columns_custom",
-                              "columns_custom": [["6", "6"]]
+                              "columns_custom": [
+                                [
+                                  "6",
+                                  "6"
+                                ]
+                              ]
                             },
                             "questions": [
                               {
@@ -13950,7 +14862,12 @@
                             "form_options": {
                               "questiongroup_condition": "cca_qg_143",
                               "template": "columns_custom",
-                              "columns_custom": [["6", "6"]]
+                              "columns_custom": [
+                                [
+                                  "6",
+                                  "6"
+                                ]
+                              ]
                             },
                             "questions": [
                               {
@@ -14262,8 +15179,8 @@
                           "table_grouping": [
                             [
                               "cca_qg_160",
-                              "cca_qg_154", 
-                              "cca_qg_155",                                 
+                              "cca_qg_154",
+                              "cca_qg_155",
                               "cca_qg_156",
                               "cca_qg_157",
                               "cca_qg_158",
@@ -14397,8 +15314,8 @@
                           "table_grouping": [
                             [
                               "cca_qg_171",
-                              "cca_qg_161", 
-                              "cca_qg_162",                                 
+                              "cca_qg_161",
+                              "cca_qg_162",
                               "cca_qg_163",
                               "cca_qg_164",
                               "cca_qg_165",
@@ -15113,5 +16030,5 @@
     },
     "model": "configuration.configuration",
     "pk": 20001
-  }  
+  }
 ]

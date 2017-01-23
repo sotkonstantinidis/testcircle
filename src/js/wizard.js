@@ -1058,6 +1058,57 @@ $(function () {
             watchFormProgress();
         })
 
+        .on('change', '[data-custom-to-options]', function() {
+            var $t = $(this);
+            var customToOption = $t.data('custom-to-options').replace(/'/g, '"');
+            var keyKeyword = $t.data('key-keyword');
+            var keyId = this.id;
+            var currentValue = $t.val();
+
+            try {
+                var options = JSON.parse(customToOption);
+            } catch(e) { return; }
+
+            if (!options) return;
+            
+            var triggeredKeys = options['default'];
+            if (options.hasOwnProperty(currentValue)) {
+                triggeredKeys = options[currentValue];
+            }
+
+            Object.keys(triggeredKeys).forEach(function(key) {
+                var val = triggeredKeys[key],
+                    triggeredKeyEl = $('#' + keyId.replace(keyKeyword, key));
+
+                if (!triggeredKeyEl.length) return;
+
+                if (!Array.isArray(val) || val.length == 0) val = [""];
+
+                if (val.length > 1) {
+
+                    // If a previously selected value (eg. if page was newly
+                    // loaded) is available, use this value if it is one of the
+                    // available options. Else use the first available option.
+                    var selectedValue = triggeredKeyEl.val();
+                    if (!selectedValue || val.indexOf(selectedValue) == -1) {
+                        selectedValue = val[0];
+                    }
+                    triggeredKeyEl.val(selectedValue);
+                    triggeredKeyEl.prop('disabled', false);
+                    
+                    triggeredKeyEl.find('option').each(function() {
+                        $(this).prop('disabled', val.indexOf(this.value) == -1)
+                    });
+
+                } else {
+                    triggeredKeyEl.val(val[0]);
+                    triggeredKeyEl.prop('disabled', true);
+                }
+
+                triggeredKeyEl.trigger('chosen:updated');
+            });
+        })
+
         .on('change', '[data-questiongroup-to-options]', function() {
             var $t = $(this),
                 qg_to_options = $t.data('questiongroup-to-options').split(','),
@@ -1140,6 +1191,11 @@ $(function () {
 
     // Trigger initial change for conditional questiongroups
     $('[data-questiongroup-condition]').trigger('change');
+
+    // Trigger initial change for custom options (only if they have values)
+    $('[data-custom-to-options]').each(function() {
+        if (this.value) $(this).trigger('change');
+    });
 
     // Initial button bar selected toggle
     $('.button-bar').each(toggleButtonBarSelected);

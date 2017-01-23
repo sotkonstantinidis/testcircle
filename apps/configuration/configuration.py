@@ -246,6 +246,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'map',
         'select_model',
         'select_conditional_questiongroup',
+        'select_conditional_custom',
         'display_only',
         'wms_layer',
     ]
@@ -369,12 +370,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.choices = ((1, self.label),)
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type',
-                'select', 'radio']:
+                'select', 'radio', 'select_conditional_custom']:
             self.value_objects = self.configuration_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
                     self, '[values of key {}]'.format(self.keyword))
-            if self.field_type in ['select_type', 'select']:
+            if self.field_type in [
+                    'select_type', 'select', 'select_conditional_custom']:
                 choices = [('', '-', '')]
             else:
                 choices = []
@@ -699,7 +701,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 widget=widget, required=self.required, label=self.label)
             field = forms.CharField(
                 required=self.required, widget=forms.HiddenInput())
-        elif self.field_type == 'select_type':
+        elif self.field_type in ['select_type', 'select_conditional_custom']:
+            if self.field_type == 'select_conditional_custom':
+                attrs.update({
+                    'disabled': 'disabled'
+                })
             widget = Select(attrs=attrs)
             widget.options = field_options
             widget.searchable = True
@@ -804,7 +810,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
                 'select_type', 'select', 'cb_bool', 'radio',
-                'select_conditional_questiongroup']:
+                'select_conditional_questiongroup',
+                'select_conditional_custom']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -839,7 +846,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                     'field_options', {}).get('decimals'),
             })
         elif self.field_type in ['bool', 'select_type', 'select',
-                                 'select_conditional_questiongroup']:
+                                 'select_conditional_questiongroup',
+                                 'select_conditional_custom']:
             template_name = 'textinput'
             template_values.update({
                 'key': self.label_view,

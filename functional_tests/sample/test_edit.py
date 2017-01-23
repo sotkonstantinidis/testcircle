@@ -620,6 +620,181 @@ class EditTest(FunctionalTest):
 
 
 @patch.object(Typo3Client, 'get_user_id')
+class CustomToOptionsTest(FunctionalTest):
+
+    fixtures = ['sample_global_key_values', 'sample']
+
+    def test_custom_to_options(self, mock_get_user_id):
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to step 5 of the SAMPLE form
+        self.browser.get(
+            self.live_server_url + reverse(route_questionnaire_new))
+        self.click_edit_section('cat_5')
+
+        # She sees that no labels are selected in key_65 and key_67
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="-"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen"]/a/span[text()="-"]')
+
+        # She sees that the label fields are disabled
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen" and contains(@class, '
+                    '"disabled")]/a/span[text()="-"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen" and contains(@class, '
+                    '"disabled")]/a/span[text()="-"]')
+
+        # She selects Value 1 of key 64
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "Value 64 1")]').click()
+
+        # She sees the labels were updated in key_65 and key_67
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="'
+                    'Value 66 1 Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen"]/a/span[text()="'
+                    'Value 66 1 Right"]')
+
+        # She deselects the value in key 64
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "-")]').click()
+
+        # She sees the labels were reset
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="-"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen"]/a/span[text()="-"]')
+
+        # She selects Value 1 of key 64 again
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "Value 64 1")]').click()
+
+        # She submits the step and sees the values were submitted correctly
+        self.submit_form_step()
+        self.findBy('xpath',
+                    '//span[contains(@class, "chart-measure-label-left") and '
+                    'contains(text(), "Value 66 1 Left")]')
+        self.findBy('xpath',
+                    '//span[contains(@class, "chart-measure-label-right") and '
+                    'contains(text(), "Value 66 1 Right")]')
+
+        # She goes back to the form
+        self.click_edit_section('cat_5')
+
+        # She sees the fields were populated correctly
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen" and contains(@class, '
+                    '"disabled")]/a/span[text()="Value 66 1 Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen" and contains(@class, '
+                    '"disabled")]/a/span[text()="Value 66 1 Right"]')
+
+        # She sees the labels were updated in key_65 and key_67
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="'
+                    'Value 66 1 Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen"]/a/span[text()="'
+                    'Value 66 1 Right"]')
+
+        # She selects Value 2 of key 64
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "Value 64 2")]').click()
+
+        # She sees the labels were updated in key_65 and key_67
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="'
+                    'Value 66 2 Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen"]/a/span[text()="'
+                    'Value 66 2 Right"]')
+
+        # She sees that the label fields are disabled
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen" and contains(@class, '
+                    '"disabled")]/a/span[text()="Value 66 2 Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen" and contains(@class, '
+                    '"disabled")]/a/span[text()="Value 66 2 Right"]')
+
+        # She selects Value 3 of key 64
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "Value 64 3")]').click()
+
+        # She sees the labels were updated and show the first value possible
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="'
+                    'Value 66 3A Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen"]/a/span[text()="'
+                    'Value 66 3A Right"]')
+
+        # She sees the field is not disabled anymore
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen" and not(contains('
+                    '@class, "disabled"))]/a/span[text()="Value 66 3A Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen" and not(contains('
+                    '@class, "disabled"))]/a/span[text()="Value 66 3A Right"]')
+
+        # She sees she cannot select "Value 66 1 Left"
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "Value 66 2 Left")]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="'
+                    'Value 66 3A Left"]')
+
+        # However, she can select "Value 66 3B Left"
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]//ul[@class="chosen-'
+                    'results"]/li[contains(text(), "Value 66 3B Left")]').click()
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen"]/a/span[text()="'
+                    'Value 66 3B Left"]')
+
+        # She submits the step and sees the values were submitted correctly
+        self.submit_form_step()
+        self.findBy('xpath',
+                    '//span[contains(@class, "chart-measure-label-left") and '
+                    'contains(text(), "Value 66 3B Left")]')
+        self.findBy('xpath',
+                    '//span[contains(@class, "chart-measure-label-right") and '
+                    'contains(text(), "Value 66 3A Right")]')
+
+        # She goes back to step 5 of the form and sees the values were
+        # initialized correctly, the label fields are not disabled
+        self.click_edit_section('cat_5')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_65_chosen" and not(contains('
+                    '@class, "disabled"))]/a/span[text()="Value 66 3B Left"]')
+        self.findBy('xpath',
+                    '//div[@id="id_qg_47_0_key_67_chosen" and not(contains('
+                    '@class, "disabled"))]/a/span[text()="Value 66 3A Right"]')
+
+
+@patch.object(Typo3Client, 'get_user_id')
 class LinkedChoicesTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values', 'sample']

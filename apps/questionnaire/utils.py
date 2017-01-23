@@ -137,7 +137,8 @@ def clean_questionnaire_data(
                                 value, key, qg_keyword))
                         continue
                 if question.field_type in [
-                        'bool', 'measure', 'select_type', 'select', 'radio']:
+                        'bool', 'measure', 'select_type', 'select', 'radio',
+                    'select_conditional_custom']:
                     if value not in [c[0] for c in question.choices]:
                         errors.append(
                             'Value "{}" is not valid for key "{}" ('

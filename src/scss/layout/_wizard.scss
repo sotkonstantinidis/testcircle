@@ -199,6 +199,18 @@ form .single-item.single-item-checkbox-other {
   padding-bottom: 0;
 }
 
+select[disabled]+div.chosen-disabled {
+  opacity: 1 !important;
+
+  .chosen-single {
+    background: lighten(#ddd, 5);
+  }
+
+  .chosen-single div {
+    display: none;
+  }
+}
+
 /* USER SEARCH */
 .form-user-tabs-content {
   margin-top: 1rem;
