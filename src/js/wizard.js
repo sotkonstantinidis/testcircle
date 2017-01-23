@@ -49,416 +49,12 @@ function hasContent(element) {
     return content;
 }
 
-/**
- * Makes the select element enabled.
- */
-function enableSelect(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr("disabled", false);
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr("disabled", false);
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").trigger("chosen:updated");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").trigger("chosen:updated");
-    var left_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr('name');
-    var right_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr('name');
-    if($('input[name="'+left_label_name+'"]').length!=0) {        
-        $('input[name="'+left_label_name+'"]').remove();
-    }
-    if($('input[name="'+right_label_name+'"]').length!=0) {
-        $('input[name="'+right_label_name+'"]').remove();
-    }
-
-}
-
-/**
- * Refreshes the DOM of the extent labels.
- */
-function refreshLabel(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").trigger("chosen:updated");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").trigger("chosen:updated");
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr("disabled", true);
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr("disabled", true);
-
-    var element = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").parent().parent().parent().parent().parent().parent().parent();
-    
-    var left_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").attr('name');
-    var left_label_value = $("#"+temp0+"-"+temp1+"-cca_extent_left_label").find(':selected').val();
-    if($('input[name="'+left_label_name+'"]').length==0) {
-        $('<input type="hidden" name="'+left_label_name+'" value="'+left_label_value+'">').appendTo(element);
-    }
-    else {
-        $('input[name="'+left_label_name+'"]').attr('value', left_label_value);
-    }
-
-    var right_label_name = $("#"+temp0+"-"+temp1+"-cca_extent_right_label").attr('name');
-    var right_label_value = $("#"+temp0+"-"+temp1+"-cca_extent_right_label").find(':selected').val();
-    if($('input[name="'+right_label_name+'"]').length==0) {
-        $('<input type="hidden" name="'+right_label_name+'" value="'+right_label_value+'">').appendTo(element);
-    }
-    else {
-        $('input[name="'+right_label_name+'"]').attr('value', right_label_value);
-    }
-}
-
-/**
- * Sets the extent labels as empty.
- */
-function setLabelEmpty(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as decreased and increased.
- */
-function setLabelDecreasedIncreased(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_decreased");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_increased");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as increased and decreased.
- */
-function setLabelIncreasedDecreased(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_increased");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_decreased");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as hindered and simplified.
- */
-function setLabelHinderedSimplified(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_hindered");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_simplified");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as increased and reduced.
- */
-function setLabelIncreasedReduced(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_increased");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_reduced");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as reduced and improved.
- */
-function setLabelReducedImproved(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_reduced");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_improved");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as worsened and improved.
- */
-function setLabelWorsenedImproved(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_worsened");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_improved");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as reduced and increased.
- */
-function setLabelReducedIncreased(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_reduced");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_increased");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as weakened and strengthened.
- */
-function setLabelWeakenedStrengthened(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_weakened");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_strengthened");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Sets the extent labels as lowered and recharge.
- */
-function setLabelLoweredRecharge(temp0, temp1) {
-    $("#"+temp0+"-"+temp1+"-cca_extent_left_label").val("extent_label_lowered");
-    $("#"+temp0+"-"+temp1+"-cca_extent_right_label").val("extent_label_recharge");
-    refreshLabel(temp0, temp1);
-}
-
-/**
- * Checks if impact is selected in 3.2, and based on its value display proper extent label.
- */
-function checkImpact(element) {
-    var temp = element.attr('id').split('-');
-    id = element.attr('id');
-    if(temp.length==3 && temp[0]=='id_cca_qg_43') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'crop_production':             setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'crop_quality':                setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'fodder_production':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'fodder_quality':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'animal_production':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'wood_production':             setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'forest_woodland_quality':     setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'non_wood_forest_production':  setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'risk_of_production_failure':  setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'product_diversity':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'production_area':             setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'land_management':             setLabelHinderedSimplified(temp[0], temp[1]); break;
-            case 'energy_generation':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_production_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_56') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'drinking_water_availability':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'drinking_water_quality':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'water_availability_for_livestock':    setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'water_quality_for_livestock':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'irrigation_water_availability':       setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'irrigation_water_quality':            setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'demand_for_irrigation_water':         setLabelIncreasedDecreased(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_water_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_63') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'expenses_on_agricultural_inputs': setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'farm_income':                     setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'diversity_of_income_sources':     setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'economic_disparities':            setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'workload':                        setLabelIncreasedDecreased(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_income_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_69') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'food_security_self_sufficiency':      setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'health_situation':                    setLabelWorsenedImproved(temp[0], temp[1]); break;
-            case 'land_use_water_rights':               setLabelWorsenedImproved(temp[0], temp[1]); break;
-            case 'cultural_opportunities':              setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'recreational_opportunities':          setLabelReducedIncreased(temp[0], temp[1]); break;
-            case 'community_institutions':              setLabelWeakenedStrengthened(temp[0], temp[1]); break;
-            case 'national_institutions':               setLabelWeakenedStrengthened(temp[0], temp[1]); break;
-            case 'slm_land_degradation_knowledge':      setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'conflict_mitigation':                 setLabelWorsenedImproved(temp[0], temp[1]); break;
-            case 'situation_of_disadvantaged_groups':   setLabelWorsenedImproved(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_socio_cultural_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_80') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'water_quantity':                  setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'water_quality':                   setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'harvesting_collection_of_water':  setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'surface_runoff':                  setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'excess_water_drainage':           setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'groundwater_table_aquifer':       setLabelLoweredRecharge(temp[0], temp[1]); break;
-            case 'evaporation':                     setLabelIncreasedDecreased(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_runoff_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_87') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'soil_moisture':               setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'soil_cover':                  setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'soil_loss':                   setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'soil_accumulation':           setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'soil_crusting_sealing':       setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'soil_compaction':             setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'nutrient_cycling_recharge':   setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'salinity':                    setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'soil_organic_matter':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'acidity':                     setLabelIncreasedReduced(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_soil_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_97') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'vegetation_cover':        setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'biomass':                 setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'plant_diversity':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'invasive_alien_species':  setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'animal_diversity':        setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'beneficial_species':      setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'harmful_species':         setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'habitat_diversity':       setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'pests_diseases':          setLabelDecreasedIncreased(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_biodiversity_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_106') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'flood_impacts':           setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'landslides_debris_flow':  setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'drought_impacts':         setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'impacts_of_cyclones':     setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'emission_of_carbon':      setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'fire_risk':               setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'wind_velocity':           setLabelIncreasedDecreased(temp[0], temp[1]); break;
-            case 'micro_climate':           setLabelWorsenedImproved(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_climate_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-    else if(temp.length==3 && temp[0]=='id_cca_qg_115') {
-        switch($("#"+id+" option:selected").val()) {
-            case 'water_availability':              setLabelDecreasedIncreased(temp[0], temp[1]); break;
-            case 'stream_flows':                    setLabelReducedIncreased(temp[0], temp[1]); break;
-            case 'downstream_flooding':             enableSelect(temp[0], temp[1]); break;
-            case 'downstream_siltation':            enableSelect(temp[0], temp[1]); break;
-            case 'groundwater_river_pollution':     setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'buffering_filtering_capacity':    setLabelReducedImproved(temp[0], temp[1]); break;
-            case 'wind_trasported_sediments':       setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'damage_on_fields':                setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'damage_on_infrastructure':        setLabelIncreasedReduced(temp[0], temp[1]); break;
-            case 'greenhouse_gases':                setLabelIncreasedReduced(temp[0], temp[1]); break;
-        }
-        if(temp[2]=='cca_extent_left_label')
-            if($("#"+temp[0]+"-"+temp[1]+"-cca_offsite_impact option:selected").val()=="")
-                setLabelEmpty(temp[0], temp[1]);
-    }
-
-}
-
-/**
- * The disasters array that stores states of checkboxes of climate-related extremes (disasters)
- */
-var disasters = [];
-
-/**
- * Initializes the disasters array
- */
-function initializeDisasters() {
-    for(var i=7; i<=30; i++) {
-        var text = $("input[data-container='cca_qg_"+i+"']").parent().find('span:first').map(function() {
-            return $(this).text();
-        }).get();
-        var obj = {
-            "value": "cca_change_extreme_" + i,
-            "text": text,
-            "active": false
-        }
-        disasters.push(obj);
-    }
-}
-
-/**
- * Initializing the disasters array happens once on page load
- */
-initializeDisasters();
-
-/**
- * Clears up the disasters array at the beginning of each selection of climate-related extremes in cca 2.2
- */
-function clearDisasters() {
-    for(var i=0; i<disasters.length; i++)
-        disasters[i].active = false;
-}
-
-/**
- * Selected climate-related extremes from cca 2.2 are registered in the disasters array
- */
-function registerDisaster(id) {
-    for(var i=0; i<disasters.length; i++) {
-        var temp = disasters[i].value.split('_');
-        if(id == 'cca_qg_'+temp[3])
-            disasters[i].active = true;    
-    }
-}
-
-/**
- * Checks which climate-related extremes have been selected in cca 2.2
- */
-function checkDisasters(element) {
-    // Textfields
-    $(element).find('div.row.single-item input:text').each(function () {
-        if ($(this).is(":visible") && $(this).val() != '')
-            registerDisaster($(this).parent().parent().parent().parent().attr('id'));
-    });
-    // Checkbox
-    $(element).find('div.row.single-item input:checkbox').each(function () {
-        if ($(this).is(':checked'))
-            registerDisaster($(this).parent().parent().parent().parent().parent().parent().parent().parent().attr('id'));
-    });
-    // Select
-    $(element).find('div.row.single-item select').each(function () {
-        if ($(this).find(':selected').val()) {
-            registerDisaster($(this).parent().parent().parent().parent().attr('id'));
-            checkImpact($(this));
-        }
-    });
-}
-
-/**
- * Defines the index of select element at which a new option will be inserted
- */
-function findSelectIndex(j, item_value) {
-    var temp0 = item_value.split('_');
-    var count = -1;
-    var found = false;
-    $("#id_cca_qg_39-"+j+"-climate_related_extreme option").each(function() {
-        if (!found) count++;
-        var temp1 = this.value.split('_');
-        if(!found && temp1.length==4 && parseInt(temp0[3])<parseInt(temp1[3]))
-            found = true;
-    });
-    if(found)
-        return count;
-    else
-        return 0;
-}
-
-/**
- * Refreshes the select element in cca 2.3 based on selected values from cca 2.2
- */
-function refreshDisasters() {
-    for(var j=0; j<24; j++) {
-        if($.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme")[0])) {
-            var selectDisasters = $( "#id_cca_qg_39-"+j+"-climate_related_extreme" );
-            $.each(disasters, function(i, item) {
-                if(disasters[i].active==true && !$.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0])) {
-                    var select_index = findSelectIndex(j, item.value);
-                    if(select_index==0)
-                        selectDisasters.append($('<option>', {
-                            value:  item.value,
-                            text:   item.text
-                        }));
-                    else
-                        $( "#id_cca_qg_39-"+j+"-climate_related_extreme option" ).eq(select_index).before($("<option></option>").val(item.value).text(item.text));
-                }                    
-                else if(disasters[i].active==false && $.contains(document, $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']")[0]))
-                    $("#id_cca_qg_39-"+j+"-climate_related_extreme option[value='"+item.value+"']").remove();
-            });            
-            selectDisasters.trigger("chosen:updated");
-        }
-    }
-}
 
 /**
  * Updates the process indicators while entering the form. Updates the
  * number of subcategories filled out and the progress bar.
  */
 function watchFormProgress() {
-    clearDisasters();
     var completed = 0;
     $('fieldset.row').each(function () {
         // Check the content only for the parent fieldset.
@@ -469,7 +65,6 @@ function watchFormProgress() {
                 completed++;
             }
         }
-        checkDisasters(this);
     });
     var stepsElement = $('.progress-completed');
     stepsElement.html(completed);
@@ -494,7 +89,6 @@ function watchFormProgress() {
     });
 
     updateAutoMultiplication();
-    refreshDisasters();
 }
 
 /**
@@ -778,6 +372,7 @@ function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:text, textarea').val('').change();
     questiongroup.find('input:radio').prop('checked', false).change();
     questiongroup.find('input:checkbox').prop('checked', false).change();
+    questiongroup.find('select').prop('selectedIndex', 0).change();
     questiongroup.find('input:hidden.is-cleared').val('').change();
     questiongroup.find('.chosen-select').val('').trigger('chosen:updated');
 }
@@ -1060,6 +655,113 @@ $(function () {
             watchFormProgress();
         })
 
+        .on('change', '[data-custom-to-options]', function() {
+            var $t = $(this);
+            var customToOption = $t.data('custom-to-options').replace(/'/g, '"');
+            var keyKeyword = $t.data('key-keyword');
+            var keyId = this.id;
+            var currentValue = $t.val();
+
+            try {
+                var options = JSON.parse(customToOption);
+            } catch(e) { return; }
+
+            if (!options) return;
+            
+            var triggeredKeys = options['default'];
+            if (options.hasOwnProperty(currentValue)) {
+                triggeredKeys = options[currentValue];
+            }
+
+            Object.keys(triggeredKeys).forEach(function(key) {
+                var val = triggeredKeys[key],
+                    triggeredKeyEl = $('#' + keyId.replace(keyKeyword, key));
+
+                if (!triggeredKeyEl.length) return;
+
+                if (!Array.isArray(val) || val.length == 0) val = [""];
+
+                if (val.length > 1) {
+
+                    // If a previously selected value (eg. if page was newly
+                    // loaded) is available, use this value if it is one of the
+                    // available options. Else use the first available option.
+                    var selectedValue = triggeredKeyEl.val();
+                    if (!selectedValue || val.indexOf(selectedValue) == -1) {
+                        selectedValue = val[0];
+                    }
+                    triggeredKeyEl.val(selectedValue);
+                    triggeredKeyEl.prop('disabled', false);
+                    
+                    triggeredKeyEl.find('option').each(function() {
+                        $(this).prop('disabled', val.indexOf(this.value) == -1)
+                    });
+
+                } else {
+                    triggeredKeyEl.val(val[0]);
+                    triggeredKeyEl.prop('disabled', true);
+                }
+
+                triggeredKeyEl.trigger('chosen:updated');
+            });
+        })
+
+        .on('change', '[data-questiongroup-to-options]', function() {
+            var $t = $(this),
+                qg_to_options = $t.data('questiongroup-to-options').split(','),
+                label = $t.data('questiongroup-to-options-label'),
+                keyword = $t.data('questiongroup-to-options-keyword'),
+                isOption = $t.data('questiongroup-to-options-is-option'),
+                qgHasContent = hasContent(this);
+
+            if (isOption && qgHasContent) return; // Values only changed
+
+            qg_to_options.forEach(function(qg) {
+                var qg_parts = qg.split('|');
+                if (qg_parts.length != 2) return;
+
+                var questiongroup = qg_parts[0],
+                    question = qg_parts[1];
+
+                var i = 0;
+                do {
+                    var id = '#id_' + questiongroup + '-' + i + '-' + question;
+                    var select = $(id);
+
+                    if (!select.length) break;
+
+                    if (qgHasContent) {
+                        select.append($('<option>', {
+                            value: keyword,
+                            text: label
+                        }));
+                        
+                        // Temporarily store the selected value of the select
+                        var selectedValue = select.val();
+
+                        // Reorder the options
+                        var optionsOrder = select.data('options-order').split(','),
+                            firstOption = select.find('option:first'),
+                            otherOptions = select.find('option:not(:first)');
+                        otherOptions.sort(function(a,b){
+                            var compA = $.inArray(a.value, optionsOrder),
+                                compB = $.inArray(b.value, optionsOrder);
+                            return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+                          });
+                        select.html(otherOptions).prepend(firstOption);
+                        select.val(selectedValue);
+
+                    } else {
+                        select.find('option[value="' + keyword + '"]').remove();
+                    }
+                    select.trigger('chosen:updated');
+                    i++;
+                }
+                while ($(id).length);
+            });
+            $t.data('questiongroup-to-options-is-option', qgHasContent);
+        })
+
         .on('click', '.cb-toggle-questiongroup', function () {
             var container = $(this).data('container');
             if ($(this).prop('checked')) {
@@ -1086,6 +788,11 @@ $(function () {
 
     // Trigger initial change for conditional questiongroups
     $('[data-questiongroup-condition]').trigger('change');
+
+    // Trigger initial change for custom options (only if they have values)
+    $('[data-custom-to-options]').each(function() {
+        if (this.value) $(this).trigger('change');
+    });
 
     // Initial button bar selected toggle
     $('.button-bar').each(toggleButtonBarSelected);
@@ -1390,13 +1097,7 @@ $(function () {
                 $('[data-magellan-step="next"]').attr('href', '#' + next);
             }
         }
-    })
-    //  TODO - focus on current step (when location hash is changing)
-    // // Bind the event.
-    // $(window).on('hashchange', function() {
-    //   // Alerts every time the hash changes!
-    //   console.log( location.hash );
-    // })
+    });
 
     updateDropzones();
 });

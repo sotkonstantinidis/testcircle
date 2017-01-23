@@ -870,7 +870,7 @@ class GenericQuestionnaireStepView(
     edit_mode = 'edit'
     template_name = 'form/category.html'
 
-    def set_attributes(self, request_path=None):
+    def set_attributes(self):
         """
         Shared calls (pseudo setup) for get and post
         """
@@ -878,13 +878,13 @@ class GenericQuestionnaireStepView(
         self.category = self.questionnaire_configuration.get_category(self.kwargs['step'])
         if not self.category:
             raise Http404()
-        self.category_config, self.subcategories = self.get_subcategories(request_path)
+        self.category_config, self.subcategories = self.get_subcategories()
 
     def get(self, request, *args, **kwargs):
         """
         Display the form for the selected step,
         """
-        self.set_attributes(request.path)
+        self.set_attributes()
         if self.has_object:
             try:
                 Questionnaire.lock_questionnaire(
@@ -936,7 +936,7 @@ class GenericQuestionnaireStepView(
         show_translation = (original_locale is not None and get_language() != original_locale)
         return original_locale, show_translation
 
-    def get_subcategories(self, request_path):
+    def get_subcategories(self):
         """
         Returns: tuple (category_config, subcategories)
         """
@@ -954,7 +954,6 @@ class GenericQuestionnaireStepView(
             initial_data.update(inherited_data)
 
         category_config, subcategories = self.category.get_form(
-            request_path=request_path,
             post_data=self.request.POST or None,
             initial_data=initial_data, show_translation=show_translation,
             edit_mode=self.edit_mode,
