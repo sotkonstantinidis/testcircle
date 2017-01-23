@@ -405,8 +405,10 @@ body.summary {
  p.comment {
    line-height: 1rem;
    font-style: italic;
-   line-height: 1rem;
-  font-size: 10px;
+   font-size: 10px;
+ }
+ .text-right {
+   padding-right: rem-calc(10) !important;
  }
 
 }

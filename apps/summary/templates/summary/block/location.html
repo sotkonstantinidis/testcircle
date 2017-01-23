@@ -3,7 +3,7 @@
 <div class="small-4 columns location">
       {% include 'summary/partial/title_bar.html' with title=title %}
 
-  <img src="{{ content.map.url }}">
+  <img src="{{ request.scheme }}://{{ request.get_host }}{{ content.map.url }}">
   <p class="location_text">
     <b>{{ content.infos.location.title }}:</b> {{ content.infos.location.text }}
   </p>
