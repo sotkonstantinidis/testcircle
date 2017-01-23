@@ -226,6 +226,16 @@
     {% render_block "js" %}
 
     {% block footer %}
+      {% if maintenance_warn_overlay %}
+        <div class="reveal-modal" id="deploy-modal" data-reveal aria-labelledby="deploy-title" aria-hidden="true" role="dialog">
+          <h2 id="deploy-title">{% trans "Maintenance announcement" %}</h2>
+          {{ maintenance_warn_overlay|safe }}
+          <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
+        <script>
+          $(document).ready(function(){$('#deploy-modal').foundation('reveal', 'open')});
+        </script>
+      {% endif %}
       <footer class="row page-footer large-collapse" role="contentinfo">
         <nav class="sub-nav-footer medium-4 columns">
           <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/launch-of-the-new-wocat-global-database-on-slm.html" target="_blank" class="link">{% trans "About" %}</a> | <a href="https://www.wocat.net/en/about-wocat/contact.html" target="_blank" class="link">{% trans "Contact" %}</a>
