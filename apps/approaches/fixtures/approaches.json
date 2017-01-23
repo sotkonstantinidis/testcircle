@@ -9733,7 +9733,7 @@
                       {
                         "keyword": "qg_photos",
                         "form_options": {
-                          "max_num": 3
+                          "max_num": 50
                         },
                         "view_options": {
                           "template": "none"
