@@ -1,9 +1,11 @@
 {% load i18n %}
 
 <div class="small-4 columns location">
-      {% include 'summary/partial/title_bar.html' with title=title %}
-
-  <img src="{{ request.scheme }}://{{ request.get_host }}{{ content.map.url }}">
+  {% include 'summary/partial/title_bar.html' with title=title %}
+  {% comment %}Without the nbsp, the image brigthness is too high.
+    Without any proof: it seems as if the color of the title-bar is used as
+    background of the image.{% endcomment %}
+  &nbsp;<img src="{{ request.scheme }}://{{ request.get_host }}{{ content.map.url }}">
   <p class="location_text">
     <b>{{ content.infos.location.title }}:</b> {{ content.infos.location.text }}
   </p>
@@ -17,8 +19,7 @@
       {% endfor %}
     </ul>
   </div>
-  <p><b>{{ content.infos.spread.title }}:</b> {{ content.infos.spread.text }}
-  </p>
+  <p><b>{{ content.infos.spread.title }}:</b> {{ content.infos.spread.text }}</p>
   <p><b>{{ content.infos.date.title }}:</b> {{ content.infos.date.text }}</p>
   <b>{{ content.infos.introduction.title }}</b><br>
   {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.infos.introduction.items %}
