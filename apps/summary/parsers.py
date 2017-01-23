@@ -213,9 +213,14 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         if kwargs.get('qg_style') == 'click_labels':
             # e.g. 5.9 - get all info from parent questiongroup
             for child in child.questiongroup.children:
+                try:
+                    value = int(self._get_qg_selected_value(child))
+                except (ValueError, TypeError):
+                    continue
+
                 yield from self._qg_scale_format(
                     child=child,
-                    value=self._get_qg_selected_value(child),
+                    value=value,
                     label_left=child.choices[0][1],
                     label_right=child.choices[-1][1]
                 )
@@ -228,9 +233,11 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                 str_value = values.get(child.keyword, '')
                 # in the template, the numeric position of the value in the
                 # 'range' is required.
-                with contextlib.suppress(ValueError):
+                try:
                     choice_keys = dict(child.choices).keys()
                     value = list(choice_keys).index(str_value) + 1
+                except ValueError:
+                    continue
 
                 yield from self._qg_scale_format(
                     child=child,
@@ -312,6 +319,8 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
             for column, question in enumerate(questiongroup.questions):
                 column = str(column)
                 values = self.get_value(child=question)
+                if not values:
+                    continue
 
                 # Special case: the total is saved in the last question. Skip
                 # creating the table header and such, and only fill in the

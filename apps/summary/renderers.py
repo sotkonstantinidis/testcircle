@@ -91,11 +91,10 @@ class GlobalValuesMixin:
         """
         Get the first 'value' for given key from the data.
         """
-        # todo: don't return none values, but empty string
         try:
             val = self.raw_data[key][0][value] if value else self.raw_data[key]
             return val if val else ''
-        except (AttributeError, TypeError, IndexError):
+        except (AttributeError, TypeError, KeyError, IndexError):
             return ''
 
     def string_from_list(self, key):
@@ -104,7 +103,7 @@ class GlobalValuesMixin:
         """
         try:
             return ', '.join(self.raw_data[key][0].get('values', []))
-        except IndexError:
+        except (IndexError, KeyError):
             return ''
 
     def header_image(self):
@@ -467,7 +466,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             'partials': {
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
-                'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image')]
+                'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image', [])]
             }
         }
 
@@ -510,7 +509,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
                         'title': _('Establishment inputs and costs per ha'),
-                        **self.raw_data.get('establishment_input'),
+                        **self.raw_data.get('establishment_input', {}),
                     }
                 },
                 'maintenance': {
@@ -519,7 +518,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
                         'title': 'Maintenance inputs and costs per ha',
-                        **self.raw_data.get('maintenance_input'),
+                        **self.raw_data.get('maintenance_input', {}),
                     }
                 }
             }
@@ -529,7 +528,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         activity = 'establishment_{}_activities'.format(content_type)
         measure = 'establishment_{}_measure_type'.format(content_type)
         timing = 'establishment_{}_timing'.format(content_type)
-        for index, activity in enumerate(self.raw_data[activity]):
+        for index, activity in enumerate(self.raw_data.get(activity, [])):
             # Get the measure type for current activity.
             try:
                 measure_type = self.raw_data[measure][index]['value']
