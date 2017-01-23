@@ -9491,7 +9491,7 @@
                         "form_options": {
                           "template": "select_user",
                           "user_role": "resourceperson",
-                          "max_num": 3,
+                          "max_num": 20,
                           "row_class": "no-top-margin",
                           "label_class": "bottom-margin"
                         },
