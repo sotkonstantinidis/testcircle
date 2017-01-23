@@ -186,6 +186,12 @@ class FunctionalTest(StaticLiveServerTestCase):
     def screenshot(self, filename='screenshot.png'):
         self.browser.save_screenshot(filename)
 
+    def form_click_add_more(self, questiongroup_keyword):
+        self.findBy(
+            'xpath',
+            '//a[@data-add-item and @data-questiongroup-keyword="{}"]'.format(
+                questiongroup_keyword)).click()
+
     def review_action(
             self, action, exists_only=False, exists_not=False,
             expected_msg_class='success'):

@@ -289,6 +289,8 @@ class BaseSettings(Configuration):
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
+    NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')
+    DEPLOY_TIMEOUT = values.Value(environ_prefix='', default=900)
 
     # Settings for piwik integration. Tracking happens in the frontend
     # (base template) and backend (API)

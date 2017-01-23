@@ -31,17 +31,15 @@
           <th class="table-numbered"></th>
         {% endif %}
         {% for field in formset.forms.0.visible_fields %}
-          {% if forloop.counter != 2 %}
-            <th>
-              {% with options=config.options|get_by_keyword:field.name %}
-                {% if options.helptext %}
-                  <span class="has-tip left" title="{{ options.helptext }}" aria-haspopup="true" data-tooltip="">{{ field.label }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
-                {% else %}
-                  {{ field.label }}
-                {% endif %}
-              {% endwith %}
-            </th>
-          {% endif %}
+          <th>
+            {% with options=config.options|get_by_keyword:field.name %}
+              {% if options.helptext %}
+                <span class="has-tip left" title="{{ options.helptext }}" aria-haspopup="true" data-tooltip="">{{ field.label }}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
+              {% else %}
+                {{ field.label }}
+              {% endif %}
+            {% endwith %}
+          </th>
         {% endfor %}
         <th>{% trans "Remove" %}</th>
       </tr>
@@ -53,17 +51,9 @@
             <td>{{ forloop.counter }}.</td>
           {% endif %}
           {% for field in qg_form.visible_fields %}
-            {% if forloop.counter == 1 %}
-              <td>
-                {% formrow field using "form/question/no_label.html" %}
-            {% elif forloop.counter == 2 %}
-                {% formrow field using "form/question/no_label.html" %}
-              </td>
-            {% else %}
-              <td>
-                {% formrow field using "form/question/no_label.html" %}
-              </td>
-            {% endif %}
+            <td>
+              {% formrow field using "form/question/no_label.html" %}
+            </td>
           {% endfor %}
           <td><a class="btn btn-link list-item-action" data-remove-this=""{% if forloop.counter <= formset.min_num and formset|length <= formset.min_num %} style="display: none;"{% endif %}>{% trans "Remove" %}</a></td>
         </tr>
