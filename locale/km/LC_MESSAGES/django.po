@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-29 07:35+0100\n"
-"PO-Revision-Date: 2017-01-17 15:30+0000\n"
+"PO-Revision-Date: 2017-01-23 10:31+0000\n"
 "Last-Translator: Sophea Tim <stim3993@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/language/km/)\n"
 "MIME-Version: 1.0\n"
@@ -250,7 +250,7 @@ msgstr "ម៉ូឌុលនេះត្រូវបានដាក់ឱ្យ
 #: apps/questionnaire/templates/details/category/cca_header.html:16
 #: apps/questionnaire/templates/details/category/cca_header.html:104
 msgid "Climate Change Adaptation Module"
-msgstr "មេរៀនការបន្ស៊ាំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
+msgstr "ម៉ូឌុលអំពីការបន្ស៊ាំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/cca/templates/cca/partial/select_module.html:19
 msgid ""
@@ -1103,7 +1103,7 @@ msgid ""
 "If available, attach full soil description or specify the available "
 "information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, "
 "nitrogen, salinity etc.)"
-msgstr "បើអាចសូមភ្ជាប់ការពណ៌នាពីដីឱ្យបានច្បាស់ ឬព័ត៌មានដែលអាចទទួលបាន ឧ. ប្រភេទដី, pH ដី/ ជាតិអាស៊ីត, សមត្ថភាពផ្លាស់ប្តូរកាចុង, វត្តមាននីត្រូសែន, ភាពប្រៃ)"
+msgstr "បើអាចសូមភ្ជាប់ការពណ៌នាអំពីដីឱ្យបានច្បាស់ ឬព័ត៌មានដែលអាចទទួលបាន ឧ. ប្រភេទដី, pH ដី/ កំរិតអាស៊ីត, សមត្ថភាពចាប់យកកាចុង, កម្រិតអាសូត, ភាពប្រៃ)"
 
 #: apps/configuration/configuration_translations.py:1179
 msgctxt "technologies label"
@@ -2064,7 +2064,7 @@ msgid ""
 "If available, attach full soil description or specify the available "
 "information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, "
 "nitrogen, salinity etc.)"
-msgstr "បើអាចសូមភ្ជាប់ការពណ៌នាពីដីឱ្យបានច្បាស់ ឬព័ត៌មានដែលអាចទទួលបាន ឧ. ប្រភេទដី, PH ដី/ ជាតិអាស៊ីត, សមត្ថភាពផ្លាស់ប្តូរកាចុង, វត្តមាននីត្រូសែន, ភាពប្រៃ ។ល។)"
+msgstr "បើអាចសូមភ្ជាប់ការពណ៌នាពីដីឱ្យបានច្បាស់ ឬព័ត៌មានដែលអាចទទួលបាន ឧ. ប្រភេទដី, pH ដី/ ជាតិអាស៊ីត, សមត្ថភាពផ្លាស់ប្តូរកាចុង, វត្តមាននីត្រូសែន, ភាពប្រៃ ។ល។)"
 
 #: apps/configuration/configuration_translations.py:1439
 msgctxt "technologies label"
@@ -2343,7 +2343,7 @@ msgid ""
 "If available, attach full soil description or specify the available "
 "information, e.g. soil type, soil PH/ acidity, Cation Exchange Capacity, "
 "nitrogen, salinity etc."
-msgstr "បើអាចសូមភ្ជាប់ការពណ៌នាពីដីឱ្យបានច្បាស់ ឬព័ត៌មានដែលអាចទទួលបាន ឧ. ប្រភេទដី, PH ដី/ ជាតិអាស៊ីត, សមត្ថភាពផ្លាស់ប្តូរកាចុង, វត្តមាននីត្រូសែន, ភាពប្រៃ ។ល។"
+msgstr "បើអាចសូមភ្ជាប់ការពណ៌នាពីដីឱ្យបានច្បាស់ ឬព័ត៌មានដែលអាចទទួលបាន ឧ. ប្រភេទដី, pH ដី/ ជាតិអាស៊ីត, សមត្ថភាពផ្លាស់ប្តូរកាចុង, វត្តមាននីត្រូសែន, ភាពប្រៃ ។ល។"
 
 #: apps/configuration/configuration_translations.py:1501
 msgctxt "technologies helptext"
@@ -3871,7 +3871,7 @@ msgstr "ឧ. អាចទទួលបានទឹកពេញមួយឆ្ន�
 #: apps/configuration/configuration_translations.py:2077
 msgctxt "technologies label"
 msgid "good"
-msgstr "កម្រិតទឹកល្អ "
+msgstr "ល្អ "
 
 #: apps/configuration/configuration_translations.py:1774
 msgctxt "technologies helptext"
@@ -3937,13 +3937,13 @@ msgstr "ពាណិជ្ជកម្ម/ ទីផ្សារ"
 #: apps/configuration/configuration_translations.py:1786
 msgctxt "technologies label"
 msgid "very poor"
-msgstr "ក្រីក្រខ្លាំង"
+msgstr "ទាបខ្លាំង"
 
 #: apps/configuration/configuration_translations.py:1787
 #: apps/configuration/configuration_translations.py:2075
 msgctxt "technologies label"
 msgid "poor"
-msgstr "ក្រីក្រ"
+msgstr "ទាប"
 
 #: apps/configuration/configuration_translations.py:1788
 msgctxt "technologies label"
@@ -6081,7 +6081,7 @@ msgstr "រូបភាព"
 #: apps/configuration/configuration_translations.py:2703
 msgctxt "technologies label"
 msgid "Name of the SLM Technology (hereafter referred to as the Technology)"
-msgstr "ឈ្មោះនៃបច្ចេកទេស SLM (hereafter referred to as the Technology)"
+msgstr "ឈ្មោះនៃបច្ចេកទេស SLM (ហៅកាត់ថា បច្ចេកទេស)"
 
 #: apps/configuration/configuration_translations.py:2704
 msgctxt "technologies label_view"
@@ -6135,7 +6135,7 @@ msgstr "ប្រទេស/តំបន់/ទីតាំងកន្លែង 
 msgctxt "technologies label"
 msgid ""
 "Indicate the main purpose(s) of the SLM technology (land user's perspective)"
-msgstr "កំណត់គោលបំណងចម្បងមួយ (ច្រើន) នៃបច្ចេកទេស SLM (ទស្សនៈអ្នកប្រើប្រាស់ដី)"
+msgstr "កំណត់គោលបំណងចម្បងមួយ (ឬច្រើន) នៃបច្ចេកទេស SLM (ទស្សនៈអ្នកប្រើប្រាស់ដី)"
 
 #: apps/configuration/configuration_translations.py:2712
 msgctxt "technologies helptext"
@@ -6893,7 +6893,7 @@ msgid ""
 "maximum file size: 3 MB.</p><p><strong>Example</strong>: Technical drawing "
 "indicating technical specifications, dimensions, spacing<br><img "
 "src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
-msgstr "<p>សូមគូសរូបដែលបង្ហាញពីបច្ចេកវិជ្ចាឱ្យលម្អិត (រួមបញ្ចូលទំហំ) និងកំណត់ឱ្យលម្អិតពីបច្ចេកទេស, ទំហំ, ចន្លោះ, ភាពទេរ ។ល។ អ្នកអាចគំរូបង្ហាញពីរ ឬបីបន្ថែម (ក) លំដាប់នៃដំណើរការ ឬ (ខ) ធាតុផ្សេងៗ ឬលម្អិតពីបច្ចេកទេស។ មួយវិញទៀតអ្នកក៏អាចថតរូបមួយ ឬច្រើនជាមួយគំនូសបង្ហាញដែលបានគូស និង/ឬ សរសេរខាងក្រោយរូបថតមួយ (ច្រើន)។ សរសេរព័ត៌មានដែលទទួលបានឱ្យបានច្រើនតាមដែលអាចធ្វើបាននៅលើគំនូសបច្ចេកទេស (ឬ រូបថត)។</p><p>រក្សាគំនូសធម្មតា និងគំនូសព្រួញ។ គំនូសបច្ចេកទេសគឺមានសារៈសំខាន់ណាស់ក្នុងការយល់ដឹងពីបច្ចេកទេស! ស្កេនគំំនូសបច្ចេកទេស និងដាក់បញ្ចូលក្នុងប្រព័ន្ធអ៊ិនធឺណេត។</p><p>សូមផ្តល់ជាប្រភេទ PDF, JPG, PNG ដែលមានទំហំត្រឹម 3 MB។ </p><p><strong>ឧទាហរណ៍</strong>៖ គំនូរបច្ចេកទេសគួរបង្ហាញពីភាពជាក់លាក់, វិមាត្រ, គម្លាត <br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
+msgstr "<p>សូមគូសរូបដែលបង្ហាញពីបច្ចេកទេស SLM ឱ្យលម្អិត (រួមបញ្ចូលនូវទំហំ) និងកំណត់ឱ្យលម្អិតពីបច្ចេកទេស, ទំហំ, ចន្លោះ, ភាពទេរ ។ល។ អ្នកអាចផ្តល់នូវគំនូរច្រើន ដែលបង្ហាញពីរ (ក) លំដាប់នៃដំណើរការអនុវត្តបច្ចេកទេស ឬ (ខ) សមាសធាតុ ឬសេចក្តីលម្អិតពីបច្ចេកទេស។ មួយវិញទៀតអ្នកក៏អាចថតរូបមួយ ឬច្រើនជាមួយគំនូសបង្ហាញដែលបានគូស និង/ឬ សរសេរខាងក្រោយរូបថតមួយនោះ។ សូមសរសេរព័ត៌មានដែលទទួលបានឱ្យបានច្រើនតាមដែលអាចធ្វើបាននៅលើគំនូរបច្ចេកទេស (ឬ រូបថត)។</p><p>រក្សាគំនូសធម្មតា និងគំនូសព្រួញ។ គំនូរបច្ចេកទេសគឺមានសារៈសំខាន់ណាស់ក្នុងការយល់ដឹងពីបច្ចេកទេស! ស្កេនគំនូរបច្ចេកទេស និងដាក់បញ្ចូលក្នុងប្រព័ន្ធអ៊ិនធឺណេត។</p><p>សូមផ្តល់ជាប្រភេទ PDF, JPG, PNG ដែលមានទំហំត្រឹម 3 MB។ </p><p><strong>ឧទាហរណ៍</strong>៖ គំនូរបច្ចេកទេសគួរបង្ហាញពីភាពជាក់លាក់, វិមាត្រ, គម្លាត <br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
 
 #: apps/configuration/configuration_translations.py:2835
 msgctxt "technologies helptext"
@@ -7042,7 +7042,7 @@ msgstr "ចូលទៅទាញយកឯកសារដែលពាក់ព័
 #: apps/configuration/configuration_translations.py:2861
 msgctxt "technologies label"
 msgid "Main purpose(s) of the Technology"
-msgstr "គោលបំណងចម្បងមួួយ (ច្រើន)នៃបច្ចេកទេសនេះ"
+msgstr "គោលបំណងចម្បង (១​ ឬច្រើន)​ នៃបច្ចេកទេសនេះ"
 
 #: apps/configuration/configuration_translations.py:2901
 msgctxt "technologies label"
@@ -7275,7 +7275,7 @@ msgid ""
 "certain questions might not be relevant for the Technology. In such cases, "
 "skip the question but use the comment sections to explain why you are "
 "skipping it.</p>"
-msgstr "<p>សូមបញ្ជាក់ឱ្យច្បាស់ពីស្ថានភាពធម្មជាតិ(រូបសាស្ត្រ)ដែលបច្ចេកទេសត្រូវបានអនុវត្តន៍។ បង្កើតឯកសារយោងអោយបានច្បាស់លាស់ដើម្បីរៀបចំចងក្រង ឯកសារបច្ចេកទេសដែលបានវាយតម្លៃ និងវិភាគ។ ចូរគូសចម្លើយតែមួយប៉ុណ្ណោះ ក្នុងប្រអប់ លើកលែងតែប៉ារ៉ាម៉ែត្រជម្រាល និងដី (មើលនៅសូចនាករខាងក្រោម) ប្រើផ្នែកពណ៌នាសម្រាប់បញ្ជាក់បន្ថែមពីចម្លើយរបស់អ្នក និងសរសេរព័ត៌មានបន្ថែម។ </p><p><strong>ចំណាំ៖</strong>មានលក្ខខណ្ខបរិស្ថានមួយចំនួន (ឧ. មុំទីជម្រាល, លក្ខណៈនៃដី, គុណភាពទឹក/ភាពអាចទទួលបានទឹក ។ល។) អាចប្រែប្រួលដោយសារការប្រើប្រាស់បច្ចេកទេស! ជាងនេះទៀត អ្នកត្រូវ<strong>ពណ៌នាពីស្ថានភាពនោះដូចដែលកើតមាន ដោយគ្មានផលប៉ះពាល់នៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព!</strong></p><p> ករណីលើកលែង សំណួរជាក់លាក់ប្រហែលជាមិនពាក់ព័ន្ធនឹងបច្ចេកទេសទេ។ ក្នុងករណីបែបនេះ អាចរំលងសំណួរខ្លះ និងប្រើផ្នែកពណ៌នាដើម្បីពន្យល់ពីមូលហេតុដែលរំលងសំណួរ។</p>"
+msgstr "<p>សូមបញ្ជាក់ឱ្យច្បាស់ពីស្ថានភាពធម្មជាតិ(រូបសាស្ត្រ)ដែលបច្ចេកទេសត្រូវបានអនុវត្តន៍។ បង្កើតឯកសារយោងអោយបានច្បាស់លាស់ដើម្បីរៀបចំចងក្រង ឯកសារបច្ចេកទេសដែលបានវាយតម្លៃ និងវិភាគ។ ចូរគូសចម្លើយតែមួយប៉ុណ្ណោះ ក្នុងប្រអប់ លើកលែងតែប៉ារ៉ាម៉ែត្រជម្រាល និងដី (មើលនៅសូចនាករខាងក្រោម) ប្រើផ្នែកពណ៌នាសម្រាប់បញ្ជាក់បន្ថែមពីចម្លើយរបស់អ្នក និងសរសេរព័ត៌មានបន្ថែម។ </p><p><strong>ចំណាំ៖</strong>មានលក្ខខណ្ខបរិស្ថានមួយចំនួន (ឧ. មុំទីជម្រាល, លក្ខណៈនៃដី, គុណភាពទឹក/ភាពអាចទទួលបានទឹក ។ល។) អាចប្រែប្រួលដោយសារការប្រើប្រាស់បច្ចេកទេស! ជាងនេះទៀត អ្នកត្រូវ<strong>ពណ៌នាពីស្ថានភាពនោះដូចដែលកើតមាន ដោយគ្មានផលប៉ះពាល់នៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព!</strong></p><p> ជាករណីលើកលែង មានសំណួរខ្លះប្រហែលជាមិនពាក់ព័ន្ធនឹងបច្ចេកទេស។ ក្នុងករណីបែបនេះ អាចរំលងសំណួរបាន ប៉ុន្តែនៅត្រង់ចំណុចមតិយោបល់ សូមពន្យល់ពីមូលហេតុដែលរំលងសំណួរ។</p>"
 
 #: apps/configuration/configuration_translations.py:2928
 msgctxt "technologies label"
@@ -7300,7 +7300,7 @@ msgid ""
 "applicable”.</p><p><strong>On-site</strong>: concerns the area where the "
 "Technology is applied.<br><strong>Off-site</strong>: concerns adjacent areas"
 " or areas further away from the area where the Technology is applied</p>"
-msgstr "<p>គូសនូវកម្រិតនៃផលប៉ះពាល់ក្នុងតារាងខាងក្រោម។ ប្រសិនបើគ្មានរង្វាស់រង្វាល់ច្បាស់លាស់គូសតាមការប៉ាន់ស្មានរបស់អ្នក។ មិនខុសគ្នាមានន័យថា “មិនមានភាពខុសគ្នាទៅលើអត្ថប្រយោជន៍ក៏ដូចជាគុណវិបត្តិ”។ សូមធ្វើការកំណត់ទៅលើ “បរិមាណផលិតផលមុនពេលអនុវត្ត SLM និងក្រោយអនុវត្ត SLM” និង “ពន្យល់ឲ្យមានភាពច្បាស់លាស់” ដើម្បីបង្ហាញជាភស្តុតាង។ ប្រើប្រាស់ឯកតាសម្រាប់កំណត់លើទិន្នផល (ឧ, តោន/ហិកតាចំពោះដំណាំ និង coliform measurement សម្រាប់គុណភាពទឹក ។ល។) បើទោះបីកើនឡើងត្រឹម 10%% (ឧ, ទៅលើទិន្នផល) អាចចាត់ទុកថាជាការធ្វើឲ្យប្រសើឡើងដ៏ល្អមួយ សូមគូសលើប្រអប់ “ផលវិជ្ជមានតិចតួច(+5-20%%)” និង “ពន្យល់បន្ថែម”។កំណត់ត្រឹម “បរិមាណ(ទិន្នផលមុន និងក្រោយ)អនុវត្ត SLM”បើការកំណត់ត្រូវបានធ្វើឡើងនៅទីវាល ឬដោយមធ្យមភាគនៃការ អង្កេត។ ផលប៉ះពាល់ផ្សេងៗដែលមិនបានគូសគឺចាត់ទុកថាមិនពាក់ព័ន្ធ។ </p><p>On-site< <strong>៖ គិតតែបរិវេណដែលបានអនុវត្តបច្ចេកទេស ។<br><strong>Off-site </strong>៖គិតតែបរិវេណជិត ឬឆ្ងាយពីកន្លែងដែលបានអនុវត្តបច្ចេកទេស</p>។"
+msgstr "<p>គូសនូវកម្រិតនៃផលប៉ះពាល់ក្នុងតារាងខាងក្រោម។ ប្រសិនបើគ្មានរង្វាស់រង្វាល់ច្បាស់លាស់គូសតាមការប៉ាន់ស្មានរបស់អ្នក។ មិនខុសគ្នាមានន័យថា “មិនមានភាពខុសគ្នាទៅលើអត្ថប្រយោជន៍ក៏ដូចជាគុណវិបត្តិ”។ សូមធ្វើការកំណត់ទៅលើ “បរិមាណផលិតផលមុនពេលអនុវត្ត SLM និងក្រោយអនុវត្ត SLM” និង “ពន្យល់ឲ្យមានភាពច្បាស់លាស់” ដើម្បីបង្ហាញជាភស្តុតាង។ ប្រើប្រាស់ឯកតាសម្រាប់កំណត់លើទិន្នផល (ឧ, តោន/ហិកតាចំពោះដំណាំ និង coliform measurement សម្រាប់គុណភាពទឹក ។ល។) បើទោះបីកើនឡើងត្រឹម 10%% (ឧ, ទៅលើទិន្នផល) អាចចាត់ទុកថាជាការធ្វើឲ្យប្រសើឡើងដ៏ល្អមួយ សូមគូសលើប្រអប់ “ផលវិជ្ជមានតិចតួច(+5-20%%)” និង “ពន្យល់បន្ថែម”។កំណត់ត្រឹម “បរិមាណ(ទិន្នផលមុន និងក្រោយ)អនុវត្ត SLM”បើការកំណត់ត្រូវបានធ្វើឡើងនៅទីវាល ឬដោយមធ្យមភាគនៃការ អង្កេត។ ផលប៉ះពាល់ផ្សេងៗដែលមិនបានគូសជ្រើសយកគឺចាត់ទុកថា \"មិនពាក់ព័ន្ធ\"។ </p><p>តំបន់ខាងក្នុង< <strong>៖ គិតតែក្នុងបរិវេណដែលបានអនុវត្តបច្ចេកទេស។<br><strong>តំបន់ខាងក្រៅ </strong>៖គិតតែបរិវេណជិត ឬឆ្ងាយពីកន្លែងដែលបានអនុវត្តបច្ចេកទេស</p>។"
 
 #: apps/configuration/configuration_translations.py:2930
 msgctxt "technologies label"
@@ -8170,7 +8170,7 @@ msgstr "សូមសរសេរមួយឃ្លា"
 #: apps/configuration/configuration_translations.py:5034
 msgctxt "approaches label"
 msgid "Caption, explanation of photo"
-msgstr "ជំណងជើង ពន្យល់នៃរូបថត"
+msgstr "ជំណងជើងរូបថត, ការពន្យល់អំពីរូបថត"
 
 #: apps/configuration/configuration_translations.py:5035
 msgctxt "technologies helptext"
@@ -8180,7 +8180,7 @@ msgstr "សូមសរសេរមួយឃ្លា"
 #: apps/configuration/configuration_translations.py:5036
 msgctxt "technologies label"
 msgid "Caption, explanation of photo"
-msgstr "ជំណងជើង ពន្យល់នៃរូបថត"
+msgstr "ជំណងជើងរូបថត, ការពន្យល់អំពីរូបថត"
 
 #: apps/configuration/configuration_translations.py:5037
 #: apps/configuration/configuration_translations.py:31010
@@ -8191,7 +8191,7 @@ msgstr "សូមសរសេរមួយឃ្លា"
 #: apps/configuration/configuration_translations.py:5038
 msgctxt "watershed label"
 msgid "Caption, explanation of photo"
-msgstr "ជំណងជើង ពន្យល់នៃរូបថត"
+msgstr "ជំណងជើងរូបថត, ការពន្យល់អំពីរូបថត"
 
 #: apps/configuration/configuration_translations.py:5039
 #: apps/configuration/configuration_translations.py:5137
@@ -13315,7 +13315,7 @@ msgstr "ការប៉ះពាល់នៅខាងក្នុង និង�
 #: apps/configuration/configuration_translations.py:23203
 msgctxt "cca label"
 msgid "On-site impacts"
-msgstr "ផលប៉ះពាល់ខាងក្នុង On-site impacts"
+msgstr "ផលប៉ះពាល់ខាងក្នុង"
 
 #: apps/configuration/configuration_translations.py:23204
 msgctxt "cca label"
@@ -16471,7 +16471,7 @@ msgstr "នឹងមកដល់ពេលឆាប់ៗ"
 #: apps/questionnaire/templates/details/category/watershed_header.html:86
 #: apps/questionnaire/templates/details/category/with_metadata.html:84
 msgid "View full content"
-msgstr "មើលមាតិកាទាំងអស់"
+msgstr "មើលខ្លឹមសារទាំងអស់"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:94
 #: apps/questionnaire/templates/details/category/cca_header.html:87
@@ -16538,7 +16538,7 @@ msgstr "ពិនិត្យមើលគ្រប់ផ្នែក"
 #: apps/questionnaire/templates/details/category/with_metadata.html:118
 #: apps/questionnaire/templates/questionnaire/details.html:63
 msgid "Expand all"
-msgstr "ពង្រីកទាំងអស់"
+msgstr "ពង្រីកមើលទាំងអស់"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:125
 #: apps/questionnaire/templates/details/category/cca_header.html:112
@@ -16549,7 +16549,7 @@ msgstr "ពង្រីកទាំងអស់"
 #: apps/questionnaire/templates/details/category/with_metadata.html:119
 #: apps/questionnaire/templates/questionnaire/details.html:64
 msgid "Collapse all"
-msgstr "ដួលរលំទាំងអស់"
+msgstr "បង្រួមទាំងអស់"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:144
 #: apps/questionnaire/templates/details/category/cca_header.html:131
@@ -16682,7 +16682,7 @@ msgid ""
 "\n"
 "              You are <strong>%(role)s</strong> of this %(questionnaire_type)s.\n"
 "              "
-msgstr "\nអ្នកគឺ <strong>%(role)s</strong>នៃ %(questionnaire_type)s."
+msgstr "\nអ្នកគឺជា<strong>%(role)s</strong>នៃ%(questionnaire_type)sនេះ។"
 
 #: apps/questionnaire/templates/details/review_panel.html:32
 msgid "Learn more about the review process."
@@ -16820,7 +16820,7 @@ msgstr "ចាប់ផ្តើមកែសម្រួលកម្រងបញ
 #: apps/questionnaire/templates/details/review_panel/publish.html:34
 #: apps/questionnaire/templates/details/review_panel/review.html:33
 msgid "View"
-msgstr "ទស្សនៈ"
+msgstr "ពិនិត្យមើល"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:94
 #, python-format
@@ -16828,7 +16828,7 @@ msgid ""
 "\n"
 "          View this %(questionnaire_type)s.\n"
 "        "
-msgstr "\nពិនិត្យមើលវា %(questionnaire_type)s។"
+msgstr "\nពិនិត្យមើល %(questionnaire_type)s។"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:105
 #: apps/questionnaire/templates/details/review_panel/draft.html:121
@@ -16841,7 +16841,7 @@ msgid ""
 "\n"
 "          Delete this %(questionnaire_type)s. Only the compiler can delete a %(questionnaire_type)s while it is in draft mode.\n"
 "        "
-msgstr "\nលុបវាចោល %(questionnaire_type)s។ មានតែអ្នកចងក្រងប៉ុណ្ណោះដែលអាចធ្វើការលុបបាន %(questionnaire_type)s ខណៈវានៅជាសេចក្តីព្រាងនៅឡើយ។"
+msgstr "\nលុបចោល %(questionnaire_type)s។ មានតែអ្នកចងក្រងប៉ុណ្ណោះដែលអាចធ្វើការលុប %(questionnaire_type)s បាននៅពេលដែលវានៅជាសេចក្តីព្រាង។"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:115
 msgid "Please confirm removal."
@@ -16853,25 +16853,25 @@ msgid ""
 "\n"
 "          This %(questionnaire_type)s will be deleted.\n"
 "        "
-msgstr "\nកម្រងបញ្ជីសំណួរនេះ %(questionnaire_type)s នឹងត្រូវបានលុបចោល។"
+msgstr "\nកម្រងបញ្ជីសំណួរ %(questionnaire_type)s នេះនឹងត្រូវបានលុបចោល។"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:128
 msgid "Manage editors"
-msgstr "សាររបស់អ្នកកែសម្រួល"
+msgstr "គ្រប់គ្រងអ្នកកែសម្រួល"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:129
 msgid "Invited editors:"
-msgstr "អញ្ជើញអ្នកកែសម្រួល"
+msgstr "អ្នកកែសម្រួលដែលបានអញ្ជើញ៖"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:130
 msgid "There are no editors invited to this questionnaire."
-msgstr "មិនមានអ្នកកែសម្រួលត្រូវបានអញ្ជើញនៅក្នុងកម្រងសំណួរនេះ"
+msgstr "មិនមានអ្នកកែសម្រួលត្រូវបានអញ្ជើញនៅក្នុងកម្រងសំណួរនេះទេ។"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:131
 msgid ""
 "Add or remove WOCAT users as editors. Click the button on the right to "
 "update the invited editors."
-msgstr "បន្ថែម ឬលុបចេញពីអ្នកប្រើប្រាស់របស់វ៉ូខេត WOCAT users ដែលជាអ្នកកែសម្រួល។ ចុចលើប៉ូតុងនៅខាងស្តាំដើម្បីកែអ្នកកែសម្រួលដែលបានអញ្ជើញមក"
+msgstr "បន្ថែម ឬលុបចេញអ្នកប្រើប្រាស់របស់វ៉ូខេត ដែលជាអ្នកកែសម្រួល។ ចុចលើប៊ូតុងនៅខាងស្តាំដើម្បីធ្វើបច្ចុប្បភាពអំពីអ្នកកែសម្រួលដែលបានអញ្ជើញ។"
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:132
 msgid "Update editors"
@@ -16987,7 +16987,7 @@ msgid ""
 "\n"
 "            View this %(questionnaire_type)s.\n"
 "          "
-msgstr "\nត្រួតពិនិត្យវា %(questionnaire_type)s។"
+msgstr "\nត្រួតពិនិត្យ %(questionnaire_type)s។"
 
 #: apps/questionnaire/templates/details/review_panel/publish.html:55
 #, python-format
@@ -17071,7 +17071,7 @@ msgstr "កែសម្រួលឈ្មោះអ្នកបោះពុម្
 
 #: apps/questionnaire/templates/details/review_panel/review.html:5
 msgid "Pending review"
-msgstr "ផ្អាកដើម្បីពិនិត្យឡើងវិញ"
+msgstr "កំពុងនៅពិនិត្យមើលឡើងវិញ"
 
 #: apps/questionnaire/templates/details/review_panel/review.html:7
 #, python-format
@@ -17079,7 +17079,7 @@ msgid ""
 "\n"
 "        This %(questionnaire_type)s is currently waiting for review before it can be published.\n"
 "      "
-msgstr "\nកម្រងបញ្ជីសំណួរនេះ%(questionnaire_type)s កំពុងដំណើរការរង់ចាំដើម្បីបោះពុម្ព។"
+msgstr "\nកម្រងបញ្ចីសំនួរ%(questionnaire_type)sនេះ កំពុងស្ថិតក្នុងដំណាក់កាលរង់ចាំដើម្បីបោះពុម្ព។"
 
 #: apps/questionnaire/templates/details/review_panel/review.html:24
 #, python-format
@@ -17361,7 +17361,7 @@ msgstr "<p> របារបង្ហាញពីដំណើរការនៃ�
 
 #: apps/questionnaire/templates/form/field/dateinput.html:16
 msgid "Pick a date"
-msgstr "រើសកាលបរិច្ឆេទ"
+msgstr "ជ្រើសរើសកាលបរិច្ឆេទ"
 
 #: apps/questionnaire/templates/form/field/file_upload.html:22
 #: apps/questionnaire/templates/form/questiongroup/checkbox_toggle.html:61
@@ -17528,7 +17528,7 @@ msgstr "ចុចឱ្យជាប់នឹងដាក់ចំណុចនោ
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:51
 msgid "Delete an existing point on the map by clicking it."
-msgstr "លុបនូវចំណុចដែលមាននៅលើផែនទីដោយចុចលើវា។"
+msgstr "លុបចំណុចណាមួយនៅលើផែនទីដោយចុចលើវា។"
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:59
 msgid "Delete all points from the map"
@@ -18040,7 +18040,7 @@ msgid ""
 "picture of an SLM practice. Ideally you would fill in both the Technology "
 "and Approach sections, and then link them. However, it is also possible to "
 "add a Technology or an Approach without its counterpart."
-msgstr "បច្ចេកទេស និងវិធីសាស្ត្រគឺត្រូវបានបញ្ចូលគ្នាដោយរូបភាពនៃការអនវត្ត SLM។ជាក់ស្តែងអ្នកគួរតែបំពេញក្នុងផ្នែក បច្ចេកទេស​ និងវិធីសាស្ត្រផ្សព្វផ្សាយ និងដាក់ចំណុចតភ្ជាប់។ ទោះបីជាយ៉ាងណា នៅតែអាចដាក់បន្ថែមបច្ចេកទេស ឬវិធីសាស្ត្រគ្មានសមភាគី។"
+msgstr "បច្ចេកទេស និងវិធីសាស្ត្រផ្សព្វផ្សាយជាធម្មតាត្រូវបានបញ្ចូលគ្នាដើម្បីផ្លល់ជារួបភាពរួមមួយស្តីពីការអនវត្ត SLM។ ជាក់ស្តែងអ្នកតែងតែបំពេញបច្ចេកទេស​ និងវិធីសាស្ត្រផ្សព្វផ្សាយតាមផ្នែក ហើយបន្ទាប់មកដាក់វាភ្ជាប់គ្នា។ ទោះជាយ៉ាងណា អ្នកនៅតែអាចដាក់បន្ថែមនូវបច្ចេកទេសមួយ ឬវិធីសាស្ត្រផ្សព្វផ្សាយមួយដាច់ដោយឡែក។"
 
 #: apps/wocat/templates/wocat/add_practice.html:34
 #: apps/wocat/templates/wocat/home.html:99
@@ -18048,14 +18048,14 @@ msgid ""
 "An <strong>SLM Technology</strong> is a land management practice that "
 "controls land degradation and enhances productivity and/ or other ecosystem "
 "services."
-msgstr "An <strong> បច្ចេកទេស SLM</strong> គឺជាការអនុវត្តការគ្រប់គ្រងដីដោយការពារពីឱនភាពដី និងបង្កើនផលិតកម្ម និង/ឬ សេវាកម្មនៃប្រព័ន្ធអេកូឡូស៊ី។"
+msgstr "<strong> បច្ចេកទេស SLM</strong> គឺជាការអនុវត្តការគ្រប់គ្រងដីដោយការពារមិនមានឱនភាពដី និងបង្កើនផលិតកម្ម និង/ឬ សេវាកម្មនៃប្រព័ន្ធអេកូឡូស៊ី។"
 
 #: apps/wocat/templates/wocat/add_practice.html:53
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement a SLM Technology, including the stakeholders involved and their "
 "roles."
-msgstr "<strong> វិធីសាស្ត្រផ្សព្វផ្សាយ SLM</strong> កំណត់វិធីសាស្ត្រ និងមធ្យោបាយដែលបានប្រើដើម្បីអនុវត្តបច្ចេកទេស SLM រួមបញ្ចូលទាំងអ្នកពាក់ព័ន្ធដែលបានចូលរួម និងតួនាទីរបស់ពួកគេ។"
+msgstr "<strong> វិធីសាស្ត្រផ្សព្វផ្សាយ SLM </strong> សំដៅលើរបៀប និងមធ្យោបាយនានាដែលត្រូវបានប្រើដើម្បីអនុវត្ត​បច្ចេកទេស SLM ដោយរាប់បញ្ចូលនូវភាគីពាក់ព័ន្ធដែលចូលរួម ព្រមទាំងតួនាទីរបស់ពួកគេ។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:6
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
@@ -18184,7 +18184,7 @@ msgid ""
 "The compiler is responsible for this data entry and can invite editors "
 "(WOCAT users) to help create it. Once the data entry is complete the "
 "compiler can submit it for review."
-msgstr "អ្នកចងក្រង គឺទទួលខុសត្រូវក្នុងការបញ្ចូលទិន្នន័យនេះ ហើយអាចអញ្ជើញអ្នកកែសម្រួលបាន (អ្នកប្រើប្រាស់របស់វ៉ូខេត-WOCAT users) ដើម្បីជួយក្នុងការបង្កើតវា។ នៅពេលដែលទិន្នន័យត្រូវបានបញ្ចូលរួចរាល់ហើយ អ្នកចងក្រងអាចបញ្ជូនវាដើម្បីឱ្យអ្នកកែសម្រួលត្រួតពិនិត្យ។"
+msgstr "អ្នកចងក្រង ជាអ្នកទទួលខុសត្រូវក្នុងការបញ្ចូលទិន្នន័យនេះ ហើយអាចអញ្ជើញអ្នកកែសម្រួលបាន (អ្នកប្រើប្រាស់របស់វ៉ូខេត) ដើម្បីជួយក្នុងការបង្កើតវា។ នៅពេលដែលទិន្នន័យត្រូវបានបញ្ចូលរួចរាល់ហើយ អ្នកចងក្រងអាចបញ្ជូនវាដើម្បីឱ្យអ្នកកែសម្រួលត្រួតពិនិត្យ។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:22
 #, python-format
@@ -18240,11 +18240,11 @@ msgstr "ប្រព័ន្ធទិន្នន័យសកលស្ដីព
 
 #: apps/wocat/templates/wocat/home.html:28
 msgid "is the primary recommended database by UNCCD"
-msgstr "គឺជាប្រព័ន្ធគ្រប់គ្រងទិន្នន័យដែលណែនាំឱ្យប្រើជាមូលដ្ឋានដោយ UNCCD"
+msgstr "គឺជាប្រព័ន្ធគ្រប់គ្រងទិន្នន័យដែលណែនាំឱ្យប្រើដោយអនុសញ្ញាសហប្រជាជាតិប្រយុទ្ធប្រឆាំងនឹងរហោស្ថានកម្ម UNCCD"
 
 #: apps/wocat/templates/wocat/home.html:36
 msgid "is open access and contains over 800 SLM practices"
-msgstr "គឺអាចចូលមើលដោយសេរី និងមានការអនុវត្តល្អស្តីពីការគ្រប់គ្រងដីប្រកបដោយចីរភាពជាង 800 "
+msgstr "អាចចូលមើលដោយសេរី និងមានការអនុវត្តល្អៗស្តីពីការគ្រប់គ្រងដីប្រកបដោយចីរភាពជាង 800 "
 
 #: apps/wocat/templates/wocat/home.html:44
 msgid "is a standardized and modular system"
@@ -18274,7 +18274,7 @@ msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
 "roles."
-msgstr "An <strong>SLM Approach</strong> វិធីសាស្ត្រផ្សព្វផ្សាយមួយស្តីពី​ SLM​ ត្រូវបានកំណត់ជាមធ្យោបាយត្រូវបានប្រើក្នុងការអនុវត្ត​បច្ចេកទេស SLM រួមមានភាគីពាក់ព័ន្ធដែលពាក់ព័ន្ធ ព្រមទាំងតួនាទីរបស់ពួកគេ។"
+msgstr "<strong>វិធីសាស្ត្រផ្សព្វផ្សាយ​ SLM</strong> ​ សំដៅលើរបៀប និងមធ្យោបាយនានាដែលត្រូវបានប្រើដើម្បីអនុវត្ត​បច្ចេកទេស SLM ដោយរាប់បញ្ចូលភាគីពាក់ព័ន្ធដែលចូលរួម ព្រមទាំងតួនាទីរបស់ពួកគេ។"
 
 #: apps/wocat/templates/wocat/partial/add.html:21
 msgid "SLM Practices"
