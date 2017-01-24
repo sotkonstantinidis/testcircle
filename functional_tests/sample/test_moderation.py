@@ -169,8 +169,6 @@ class ModerationTest(FunctionalTest):
         self.review_action('edit', exists_only=True)
 
 
-from nose.plugins.attrib import attr
-@attr('foo')
 @patch.object(Typo3Client, 'get_user_id')
 class ModerationTestFixture(FunctionalTest):
 

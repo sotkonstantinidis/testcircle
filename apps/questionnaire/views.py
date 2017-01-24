@@ -1450,30 +1450,6 @@ def generic_file_serve(request, action, uid):
     return response
 
 
-class QuestionnaireDeleteView(DeleteView):
-    """
-    Confirm and pseudo-delete questionnaire object.
-
-    """
-    model = Questionnaire
-    slug_field = 'code'
-    slug_url_kwarg = 'identifier'
-    success_url = reverse_lazy('account_questionnaires')
-
-    def delete(self, request, *args, **kwargs):
-        """
-        Update deleted flag for given questionnaire and add message.
-        """
-        self.object = self.get_object()
-        success_url = self.get_success_url()
-        messages.success(
-            self.request, _('Successfully removed questionnaire')
-        )
-        self.object.is_deleted=True
-        self.object.save()
-        return HttpResponseRedirect(success_url)
-
-
 class QuestionnaireModuleMixin(LoginRequiredMixin):
     """
     Get available modules and check for already existing modules.
