@@ -21,42 +21,97 @@ depending on configuration and version of the config.
 The relevant sections for the summary of each questionnaire are defined in the
 config. Gathering data for the summary happens in two steps:
 
-* get combined data from config and questionnaire (use the same functionality
-  as the questionnaire API resource)
-* filter, aggregate and annotate data specifically for the summary
+* Parser: get combined data from config and questionnaire (use the same
+  functionality as the questionnaire API resource)
+* Renderer: filter, aggregate and annotate data specifically for the summary
 
-This data is passed to a view as JSON, where its contents are extracted to HTML
-depending on its type. This extraction happens with frontend technologies.
+The naming (parser and renderer) is not 100% precise, but indicates the idea.
 
-The created HTML is then converted to PDF with wkhtmltopdf. This library was
-selected based on a demo-HTML / proof of concept.
+The created HTML is then converted to PDF with wkhtmltopdf.
 
-This concept of creating JSON and extract it to HTML was decided upon because:
+This concept was decided upon because:
 
 * Work can be sourced to external colleagues
 * Robust handling of data (questionnaires will change)
-* More 'modules' (=types that can be extracted from JSON to HTML) can be added
-  later
+* More summary types can be added later
 * HTML can be converted to different formats (doc) as well
 * The very first step of combining data from config and questionnaire was
-  required for another project as well
+  required for another project as well (API)
 
 
 Technical workflow
 ------------------
 
-* The view ```questionnaire.views.QuestionnaireSummaryPDFCreateView``` is called
-* Data for the summary is created with
-  ```questionnaire.summary_data_provider.get_summary_data```. This returns the
-  data as set up by the provider according to summary type and configuration.
-  As of now, only the type 'full' exists, but more types (4 page, 1 page, etc.)
-  are requested.
-* In the ```get_summary_data method```, the questionnaire and configuration
+* The view ```summary.views.QuestionnaireSummaryPDFCreateView``` is called
+* Data for the summary is created with the defined renderer in
+  ```summary.renderers```. This renderer set up the data by the according to
+  summary type and configuration.
+* In the parser module (```summary.parsers```), questionnaire and configuration
   data is combined with the same class built for the questionnaire detail API
   resource: ```configuration.configured_questionnaire.ConfiguredQuestionnaire```
-* The full data is then reduced in two steps:
+* The full data is then preparde as defined in the configuration.
+* The initial idea was to define each question which must appear in the summary.
+  This 'whitelisting' is not always a good fit due to repeating questions/
+  questiongroups. Therefore, specific data preparation methods are available on
+  the parsers classes.
 
-  * Select only data as defined by the configuration. The attribute:
-    'summary' defines the section on the summary (e.g. description,
-    location)
-  * todo: fill up when tables are ready
+
+Add a new summary type
+----------------------
+* Either subclass ```summary.views.SummaryPDFCreateView``` with a custom
+  summary-type, or refactor the class for dynamic usage.
+* Define a renderer in ```summary.views.SummaryPDFCreateView.render_classes```
+* A new template may be created (```summary.templates.layout```) and can be
+  passed as GET-parameter to the view.
+* Extend or create the renderer and according templates
+
+
+Add a new field
+---------------
+* In the fixtures-json file, find the desired question and add the summay-config
+  to the 'configuration' value (see examples below).
+* Depending on the complexity of the question(s) involved, a specific data
+  loading method on the parser may be required (but is optional).
+* For most questions, the default data loding is fine - simply add the field
+  on the respective renderer.
+* Minimal example
+  ::
+    "configuration": {
+      "type": "radio",
+      "summary": {                     # summary config starts here
+        "types": ["full"],             # list with all summary-types
+          "default": {
+            "field_name": "some_name"  # the key which will be used for this data in the summary
+          }
+        }
+      }
+
+* Full example
+  ::
+    "configuration": {
+      "type": "radio",
+      "summary": {
+        "types": ["full"],
+        "default": {
+          "field_name": {
+            "qg_31.question_keyword": "field_name_one",  # when the same question is used in multiple questiongroups:
+            "qg_97.question_keyword": "field_name_two"   # provide different access-keys in the summary
+          },
+          "get_value": {                                 # use a custom method on the parser
+            "name": "get_qg_values_with_scale",          # name of the method
+            "kwargs": {
+              "qg_style": "radio"                        # additional kwargs passed to the method
+            }
+          }
+        }
+      }
+    }
+
+
+History
+-------
+
+* It was planned to pass JSON to the frontend and do all conversion to html with
+  handlebars. This was rejected from we are cube with regard to technical
+  feasibility.
+* wkhtmltopdf was selected based on a demo-HTML / proof of concept.
