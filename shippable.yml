@@ -35,8 +35,8 @@ install:
 #  - npm install
 #  - bower install --allow-root
 #  - grunt build
-  - pip3 install -r requirements/development.txt
-  - pip3 install -r requirements/production.txt
+  - pip install -r requirements/development.txt
+  - pip install -r requirements/production.txt
 
 before_script:
 #  - "/etc/init.d/xvfb start"
