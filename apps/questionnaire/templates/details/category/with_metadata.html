@@ -108,7 +108,9 @@
   </div>
 
   {% if review_config %}
-    {% include 'details/review_panel.html' with review_config=review_config %}
+    {% with "Questionnaire" as questionnaire_type %}
+      {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
+    {% endwith %}
   {% endif %}
 
   <div class="row tech-section-group">

@@ -128,3 +128,11 @@ def is_editor(roles: list) -> bool:
     From the 'roles' list with tuples, check if 'editor' is one of the roles.
     """
     return any([role[0] == 'editor' for role in roles])
+
+
+@register.filter
+def get_flat_roles(roles: list) -> list:
+    """
+    Return a flat list of role keywords present in the current roles.
+    """
+    return [role[0] for role in roles]

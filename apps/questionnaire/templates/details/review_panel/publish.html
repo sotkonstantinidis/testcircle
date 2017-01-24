@@ -108,28 +108,7 @@
 {% endif %}
 
 {% if 'delete_questionnaire' in review_config.permissions %}
-  <div class="row process-action">
-    <div class="medium-2 columns">
-      <a class="button expand alert" data-reveal-id="confirm-delete">{% trans "Delete" %}</a>
-    </div>
-    <div class="medium-10 columns">
-      <p>
-        {% blocktrans with questionnaire_type=questionnaire_type %}
-          Delete this {{ questionnaire_type }}.
-        {% endblocktrans %}
-      </p>
-    </div>
-    <div id="confirm-delete" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2>{% trans "Please confirm removal." %}</h2>
-      <p>
-        {% blocktrans with questionnaire_type=questionnaire_type %}
-          This {{ questionnaire_type }} will be deleted.
-        {% endblocktrans %}
-      </p>
-      <button name='delete' value='true' class="button alert" type="submit" form="review_form">{% trans "Delete" %}</button>
-      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
-    </div>
-  </div>
+  {% include 'details/review_panel/_delete.html' %}
 {% endif %}
 
 {% if 'assign_questionnaire' in review_config.permissions %}

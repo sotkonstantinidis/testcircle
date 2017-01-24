@@ -384,7 +384,12 @@ class QuestionnaireModelTest(TestCase):
             'questionnaire.assign_questionnaire']
         roles, permissions = questionnaire.get_roles_permissions(self.user)
         self.assertEqual(roles, [('secretariat', 'WOCAT Secretariat')])
-        self.assertEqual(permissions, ['assign_questionnaire'])
+        expected_permissions = ['assign_questionnaire', 'review_questionnaire',
+                                'delete_questionnaire', 'submit_questionnaire',
+                                'edit_questionnaire', 'publish_questionnaire']
+        self.assertTrue(
+            len(permissions) == len(expected_permissions) and sorted(
+                permissions) == sorted(expected_permissions))
 
     def test_get_permissions_anonymous_user(self):
         # Anonymous users have no rights.

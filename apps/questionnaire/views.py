@@ -729,10 +729,16 @@ class GenericQuestionnaireView(
         # Url when switching the mode - go to the detail view.
         url = self.get_detail_url(step='') if self.has_object else ''
 
+        other_version_status = None
+        if self.has_object:
+            all_versions = query_questionnaire(request, self.object.code)
+            if len(all_versions) > 1:
+                other_version_status = all_versions[1].get_status_display()
+
         review_config = self.get_review_config(
             permissions=permissions, roles=roles, url=url,
             blocked_by=blocked_by if not can_edit else False,
-            view_mode='edit'
+            view_mode='edit', other_version_status=other_version_status
         )
         if not self.has_object:
             review_config.update({
@@ -820,7 +826,8 @@ class GenericQuestionnaireView(
             is_blocked=bool(kwargs.get('blocked_by', False)),
             blocked_by=kwargs.get('blocked_by', ''),
             form_url=self.get_detail_url(step=''),
-            has_release=self.has_release()
+            has_release=self.has_release(),
+            other_version_status=kwargs.get('other_version_status'),
         )
 
     def questionnaires_in_progress(self):
@@ -1070,6 +1077,11 @@ def generic_questionnaire_details(
         has_release = questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC or Questionnaire.objects.filter(
             code=questionnaire_object.code, status=settings.QUESTIONNAIRE_PUBLIC).exists()
 
+        other_version_status = None
+        all_versions = query_questionnaire(request, questionnaire_object.code)
+        if len(all_versions) > 1:
+            other_version_status = all_versions[1].get_status_display()
+
         review_config = get_review_config_dict(
             status=questionnaire_object.status,
             token=get_token(request),
@@ -1082,7 +1094,8 @@ def generic_questionnaire_details(
             blocked_by=blocked_by,
             form_url=reverse('{}:questionnaire_details'.format(url_namespace),
                              kwargs={'identifier': questionnaire_object.code}),
-            has_release=has_release
+            has_release=has_release,
+            other_version_status=other_version_status,
         )
 
         if 'assign_questionnaire' in review_config.get('permissions', []):

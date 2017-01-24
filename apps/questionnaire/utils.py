@@ -966,7 +966,10 @@ def get_query_status_filter(request):
         # If "view_questionnaire" is part of the permissions, return all
         # statuses
         if 'questionnaire.view_questionnaire' in permissions:
-            return status_filter
+            return Q(status__in=[settings.QUESTIONNAIRE_DRAFT,
+                                 settings.QUESTIONNAIRE_SUBMITTED,
+                                 settings.QUESTIONNAIRE_REVIEWED,
+                                 settings.QUESTIONNAIRE_PUBLIC])
 
         # Reviewers see all Questionnaires with status "submitted".
         if 'questionnaire.review_questionnaire' in permissions:
@@ -1653,7 +1656,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             questionnaire=questionnaire_object,
             user=request.user
         )
-        return redirect('account_questionnaires')
+        # Redirect to the overview of the user's questionnaires if there is no
+        # other version of the questionnaire left to show.
+        other_questionnaire = query_questionnaire(
+            request, questionnaire_object.code).first()
+        if other_questionnaire is None:
+            return redirect('account_questionnaires')
 
 
 def compare_questionnaire_data(data_1, data_2):
@@ -1756,7 +1764,7 @@ def prepare_list_values(data, config, **kwargs):
 
 def get_review_config_dict(
         status, token, permissions, roles, view_mode, url, is_blocked,
-        blocked_by, form_url, has_release):
+        blocked_by, form_url, has_release, other_version_status):
     return {
         'review_status': status,
         'csrf_token_value': token,
@@ -1768,4 +1776,5 @@ def get_review_config_dict(
         'blocked_by': blocked_by,
         'form_action_url': form_url,
         'has_release': has_release,  # flag if this questionnaire has a published version - controlling the first tab.
+        'other_version_status': other_version_status,
     }

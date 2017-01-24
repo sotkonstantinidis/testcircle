@@ -12,6 +12,7 @@ from unittest.mock import patch
 from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
+from accounts.tests.test_views import accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
@@ -174,7 +175,7 @@ class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json', 'sample_questionnaire_status.json']
+        'sample.json', 'sample_questionnaire_status.json', 'sample_user.json']
 
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
@@ -248,6 +249,11 @@ class ModerationTestFixture(FunctionalTest):
         # He sees a button to delete the questionnaire
         self.review_action('delete')
 
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires))
+
         # He goes to the details of a SUBMITTED questionnaire which he did not
         # enter
         self.browser.get(self.live_server_url + reverse(
@@ -258,6 +264,11 @@ class ModerationTestFixture(FunctionalTest):
         # He sees a button to delete the questionnaire
         self.review_action('delete')
 
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires))
+
         # He goes to the details of a REVIEWED questionnaire which he did not
         # enter
         self.browser.get(self.live_server_url + reverse(
@@ -267,6 +278,11 @@ class ModerationTestFixture(FunctionalTest):
 
         # He sees a button to delete the questionnaire
         self.review_action('delete')
+
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires))
 
         # He also opens a PUBLIC questionnaire which he did not enter
         self.browser.get(self.live_server_url + reverse(
@@ -285,9 +301,61 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//form[@id="review_form"]')
         self.review_action('delete')
 
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires))
+
         # In the database, there is still only 1 version
         self.assertEqual(
             Questionnaire.objects.filter(code='sample_3').count(), 1)
+
+        # He opens another PUBLIC questionnaire and edits it
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_5'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
+        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+        self.review_action('edit')
+        self.click_edit_section('cat_1')
+        self.submit_form_step()
+
+        # He deletes the newly created draft version
+        self.findBy('xpath', '//span[contains(@class, "is-draft")]')
+        self.review_action('delete')
+
+        # He sees that he has been redirected to the PUBLIC version of the
+        # questionnaire, not the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(
+                route_questionnaire_details,
+                kwargs={'identifier': 'sample_5'}) + '#top')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
+        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+
+        # He creates another version by editing it
+        self.review_action('edit')
+        self.click_edit_section('cat_1')
+        self.submit_form_step()
+
+        # This time, he publishes the new version
+        self.review_action('view')
+        self.review_action('submit')
+        self.review_action('review')
+        self.review_action('publish')
+
+        # Now he deletes it
+        self.review_action('delete')
+
+        # He is now redirected to the "My SLM Practices" page as there is no
+        # version to show
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires))
 
     def test_review_panel(self, mock_get_user_id):
 
@@ -547,9 +615,9 @@ class ModerationTestFixture(FunctionalTest):
             route_questionnaire_details, kwargs={'identifier': identifier}))
         self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
 
-        # She sees he can only assign users
-        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
-        self.findByNot('id', 'button-review')
+        # She sees he can edit and review and assign users
+        self.findBy('xpath', '//a[contains(text(), "Edit")]')
+        self.findBy('id', 'button-review')
         self.findBy('id', 'review-list-assigned-users')
 
         # She decides to add two users as reviewers

@@ -113,7 +113,6 @@ class Questionnaire(models.Model):
              "Can assign questionnaire (for review/publish)"),
             ("view_questionnaire", "Can view questionnaire"),
             ("edit_questionnaire", "Can edit questionnaire"),
-            ("delete_questionnaire", "Can delete questionnaire"),
             ("flag_unccd_questionnaire", "Can flag UNCCD questionnaire"),
             ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
@@ -477,7 +476,10 @@ class Questionnaire(models.Model):
             if self.status in [settings.QUESTIONNAIRE_SUBMITTED,
                                settings.QUESTIONNAIRE_REVIEWED]:
                 permissions.extend(['assign_questionnaire'])
-            permissions.extend(['edit_questionnaire', 'delete_questionnaire'])
+                permissions.extend(
+                    ['edit_questionnaire', 'delete_questionnaire',
+                     'submit_questionnaire', 'review_questionnaire',
+                     'publish_questionnaire'])
             role = settings.QUESTIONNAIRE_SECRETARIAT
             roles.append(
                 (role, dict(QUESTIONNAIRE_ROLES).get(role)))
