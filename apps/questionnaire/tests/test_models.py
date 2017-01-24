@@ -263,8 +263,9 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire.status, 1)
         roles, permissions = questionnaire.get_roles_permissions(self.user)
         self.assertEqual(roles, [('compiler', 'Compiler')])
-        self.assertEqual(len(permissions), 3)
+        self.assertEqual(len(permissions), 4)
         self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('delete_questionnaire', permissions)
         self.assertIn('submit_questionnaire', permissions)
         self.assertIn('assign_questionnaire', permissions)
 
@@ -383,7 +384,12 @@ class QuestionnaireModelTest(TestCase):
             'questionnaire.assign_questionnaire']
         roles, permissions = questionnaire.get_roles_permissions(self.user)
         self.assertEqual(roles, [('secretariat', 'WOCAT Secretariat')])
-        self.assertEqual(permissions, ['assign_questionnaire'])
+        expected_permissions = ['assign_questionnaire', 'review_questionnaire',
+                                'delete_questionnaire', 'submit_questionnaire',
+                                'edit_questionnaire', 'publish_questionnaire']
+        self.assertTrue(
+            len(permissions) == len(expected_permissions) and sorted(
+                permissions) == sorted(expected_permissions))
 
     def test_get_permissions_anonymous_user(self):
         # Anonymous users have no rights.
@@ -814,6 +820,7 @@ class FileModelTest(TestCase):
 
     @patch.object(File.objects, 'get')
     def test_get_data_gets_object_if_not_provided(self, mock_objects_get):
+        mock_objects_get.return_value = get_valid_file()
         File.get_data(file_object=None, uid='uid')
         mock_objects_get.assert_called_once_with(uuid='uid')
 

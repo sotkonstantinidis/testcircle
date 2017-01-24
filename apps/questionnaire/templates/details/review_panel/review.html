@@ -104,6 +104,10 @@
   </div>
 {% endif %}
 
+{% if 'delete_questionnaire' in review_config.permissions %}
+  {% include 'details/review_panel/_delete.html' %}
+{% endif %}
+
 {% if 'assign_questionnaire' in review_config.permissions %}
   {% trans "Assign reviewer" as assign_header %}
   {% trans "Assigned reviewers:" as assign_assigned %}

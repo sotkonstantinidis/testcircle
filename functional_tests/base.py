@@ -245,7 +245,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
-        if action != 'reject':
+        if action not in ['reject', 'delete']:
             self.toggle_all_sections()
 
     def submit_form_step(self):
