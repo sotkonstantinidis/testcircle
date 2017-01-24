@@ -6,6 +6,7 @@ from uuid import UUID
 from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.signals import pre_save
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.functional import Promise
@@ -23,6 +24,7 @@ from configuration.utils import (
     get_choices_from_model, get_choices_from_questiongroups)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.errors import QuestionnaireLockedException
+from questionnaire.receivers import prevent_updates_on_published_items
 from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
@@ -961,6 +963,11 @@ def get_query_status_filter(request):
 
         permissions = request.user.get_all_permissions()
 
+        # If "view_questionnaire" is part of the permissions, return all
+        # statuses
+        if 'questionnaire.view_questionnaire' in permissions:
+            return status_filter
+
         # Reviewers see all Questionnaires with status "submitted".
         if 'questionnaire.review_questionnaire' in permissions:
                 status_filter |= Q(status__in=[settings.QUESTIONNAIRE_SUBMITTED])
@@ -1630,8 +1637,16 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         )
 
     elif request.POST.get('delete'):
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
+            pre_save.disconnect(
+                prevent_updates_on_published_items, sender=Questionnaire)
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
+            delete_questionnaires_from_es(
+                configuration_code, [questionnaire_object])
+            pre_save.connect(
+                prevent_updates_on_published_items, sender=Questionnaire)
         messages.success(request, _('The questionnaire was succesfully removed'))
         delete_questionnaire.send(
             sender=settings.NOTIFICATIONS_DELETE,

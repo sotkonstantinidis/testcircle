@@ -263,8 +263,9 @@ class QuestionnaireModelTest(TestCase):
         self.assertEqual(questionnaire.status, 1)
         roles, permissions = questionnaire.get_roles_permissions(self.user)
         self.assertEqual(roles, [('compiler', 'Compiler')])
-        self.assertEqual(len(permissions), 3)
+        self.assertEqual(len(permissions), 4)
         self.assertIn('edit_questionnaire', permissions)
+        self.assertIn('delete_questionnaire', permissions)
         self.assertIn('submit_questionnaire', permissions)
         self.assertIn('assign_questionnaire', permissions)
 
@@ -814,6 +815,7 @@ class FileModelTest(TestCase):
 
     @patch.object(File.objects, 'get')
     def test_get_data_gets_object_if_not_provided(self, mock_objects_get):
+        mock_objects_get.return_value = get_valid_file()
         File.get_data(file_object=None, uid='uid')
         mock_objects_get.assert_called_once_with(uuid='uid')
 

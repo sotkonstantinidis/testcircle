@@ -111,6 +111,9 @@ class Questionnaire(models.Model):
             ("publish_questionnaire", "Can publish questionnaire"),
             ("assign_questionnaire",
              "Can assign questionnaire (for review/publish)"),
+            ("view_questionnaire", "Can view questionnaire"),
+            ("edit_questionnaire", "Can edit questionnaire"),
+            ("delete_questionnaire", "Can delete questionnaire"),
             ("flag_unccd_questionnaire", "Can flag UNCCD questionnaire"),
             ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
@@ -420,7 +423,7 @@ class Questionnaire(models.Model):
             settings.QUESTIONNAIRE_COMPILER: [{
                 'status': [settings.QUESTIONNAIRE_DRAFT,
                            settings.QUESTIONNAIRE_PUBLIC],
-                'permissions': ['edit_questionnaire']
+                'permissions': ['edit_questionnaire', 'delete_questionnaire']
             }, {
                 'status': [settings.QUESTIONNAIRE_DRAFT],
                 'permissions': ['submit_questionnaire', 'assign_questionnaire']
@@ -467,10 +470,14 @@ class Questionnaire(models.Model):
             role = settings.QUESTIONNAIRE_PUBLISHER
             roles.append(
                 (role, dict(QUESTIONNAIRE_ROLES).get(role)))
-        if ('questionnaire.assign_questionnaire' in user_permissions
-                and self.status in [settings.QUESTIONNAIRE_SUBMITTED,
-                                    settings.QUESTIONNAIRE_REVIEWED]):
-            permissions.extend(['assign_questionnaire'])
+        if 'questionnaire.assign_questionnaire' in user_permissions:
+            # Piggybacking on the "assign_questionnaire" permission to identify
+            # WOCAT secretariat users as this permission is only available for
+            # this role.
+            if self.status in [settings.QUESTIONNAIRE_SUBMITTED,
+                               settings.QUESTIONNAIRE_REVIEWED]:
+                permissions.extend(['assign_questionnaire'])
+            permissions.extend(['edit_questionnaire', 'delete_questionnaire'])
             role = settings.QUESTIONNAIRE_SECRETARIAT
             roles.append(
                 (role, dict(QUESTIONNAIRE_ROLES).get(role)))
