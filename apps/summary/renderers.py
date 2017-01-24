@@ -154,8 +154,8 @@ class GlobalValuesMixin:
                     )}
                 )
         return {
-            "partials": {
-                "images": images
+            'partials': {
+                'images': images
             }
         }
 
@@ -181,48 +181,47 @@ class GlobalValuesMixin:
                     'subtext': self.raw_data_getter(overcome_name, value='')[index].get('value')
                 })
         return {
-            "title": _('Conclusions and lessons learnt'),
-            "partials": {
-                "pro": {
-                    "label": _("Strengths"),
-                    "items": pro_list
+            'title': _('Conclusions and lessons learnt'),
+            'partials': {
+                'pro': {
+                    'label': _('Strengths'),
+                    'items': pro_list
                 },
-                "contra": {
-                    "label": _("Weaknesses/ disadvantages/ risks and how they "
-                               "can be overcome"),
-                    "items": weaknesses_list
+                'contra': {
+                    'label': _('Weaknesses/ disadvantages/ risks'),
+                    'items': weaknesses_list
                 }
             }
         }
 
     def references(self):
         return {
-            "title": _('References'),
-            "partials": [
+            'title': _('References'),
+            'partials': [
                 {
-                    "title": _("Compiler"),
-                    "css_class": "bullets",
-                    "items": self.get_reference_compiler()
+                    'title': _('Compiler'),
+                    'css_class': 'bullets',
+                    'items': self.get_reference_compiler()
                 },
                 {
-                    "title": _("Resource persons"),
-                    "css_class": "bullets",
-                    "items": self.get_reference_resource_persons()
+                    'title': _('Resource persons'),
+                    'css_class': 'bullets',
+                    'items': self.get_reference_resource_persons()
                 },
                 {
-                    "title": _("More about this case study"),
-                    "css_class": "bullets",
-                    "items": self.get_reference_links()
+                    'title': _('More about this case study'),
+                    'css_class': 'bullets',
+                    'items': self.get_reference_links()
                 },
                 {
-                    "title": _("Linked SLM data"),
-                    "css_class": "bullets",
-                    "items": self.get_reference_linked_questionnaires()
+                    'title': _('Linked SLM data'),
+                    'css_class': 'bullets',
+                    'items': self.get_reference_linked_questionnaires()
                 },
                 {
-                    "title": _("Key references"),
-                    "css_class": "bullets",
-                    "items": self.get_reference_articles()
+                    'title': _('Key references'),
+                    'css_class': 'bullets',
+                    'items': self.get_reference_articles()
                 }
             ]
         }
@@ -328,7 +327,7 @@ class GlobalValuesMixin:
         institutions = Institution.objects.filter(id__in=institution_ids)
 
         return {
-            'title': _('Facilitated by'),
+            'title': _('Documentation was faciliated by'),
             'items': [{'title': elem.name, 'logo': ''} for elem in itertools.chain(projects, institutions)]
         }
 
@@ -359,38 +358,38 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def location(self):
         return {
-            "title": _("Location"),
-            "partials": {
-                "map": {
-                    "url": self.raw_data.get('location_map_data', {}).get('img_url')
+            'title': _('Location'),
+            'partials': {
+                'map': {
+                    'url': self.raw_data.get('location_map_data', {}).get('img_url')
                 },
-                "infos": {
-                    "location": {
-                        "title": _("Location"),
-                        "text": "{detail}, {prov}, {country}".format(
+                'infos': {
+                    'location': {
+                        'title': _('Location'),
+                        'text': '{detail}, {prov}, {country}'.format(
                             detail=self.raw_data_getter('location_further'),
                             prov=self.raw_data_getter('location_state_province'),
                             country=self.raw_data_getter('country')
                         )
                     },
-                    "sites": {
-                        "title": "No. of Technology sites analysed",
-                        "text": self.string_from_list('location_sites_considered')
+                    'sites': {
+                        'title': 'No. of Technology sites analysed',
+                        'text': self.string_from_list('location_sites_considered')
                     },
-                    "geo_reference": self.raw_data.get(
+                    'geo_reference': self.raw_data.get(
                         'location_map_data', {}
                     ).get('coordinates'),
-                    "spread": {
-                        "title": _("Spread of the Technology"),
-                        "text": self.string_from_list('location_spread')
+                    'spread': {
+                        'title': _('Spread of the Technology'),
+                        'text': self.string_from_list('location_spread')
                     },
-                    "date": {
-                        "title": _("Date of implementation"),
-                        "text": self.string_from_list('location_implementation_decade')
+                    'date': {
+                        'title': _('Date of implementation'),
+                        'text': self.string_from_list('location_implementation_decade')
                     },
-                    "introduction": {
-                        "title": _("Type of introduction"),
-                        "items": self.raw_data.get('location_who_implemented')
+                    'introduction': {
+                        'title': _('Type of introduction'),
+                        'items': self.raw_data.get('location_who_implemented')
                     }
                 }
             }
@@ -405,52 +404,51 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             slm_group = None
 
         return {
-            "title": "Classification of the Technology",
-            "partials": {
-                "main_purpose": {
-                    "title": _("Main purpose"),
-                    "partials": self.raw_data.get('classification_main_purpose')
+            'title': _('Classification of the Technology'),
+            'partials': {
+                'main_purpose': {
+                    'title': _('Main purpose'),
+                    'partials': self.raw_data.get('classification_main_purpose')
                 },
-                "landuse": {
-                    "title": "Land use",
-                    "partials": self.raw_data.get('classification_landuse')
+                'landuse': {
+                    'title': _('Land use'),
+                    'partials': self.raw_data.get('classification_landuse')
                 },
-                "water_supply": {
-                    "title": "Water supply",
-                    "partials": {
-                        "list": self.raw_data.get('classification_watersupply'),
-                        "text": [
+                'water_supply': {
+                    'title': _('Water supply'),
+                    'partials': {
+                        'list': self.raw_data.get('classification_watersupply'),
+                        'text': [
                             {
-                                "title": _("Number of growing seasons per year"),
-                                "text": self.string_from_list('classification_growing_seasons')
+                                'title': _('Number of growing seasons per year'),
+                                'text': self.string_from_list('classification_growing_seasons')
                             },
                             {
-                                "title": _("Land use before implementation of "
-                                         "the Technology"),
-                                "text": self.raw_data_getter('classification_lu_before')
+                                'title': _('Land use before implementation of the Technology'),
+                                'text': self.raw_data_getter('classification_lu_before')
                             },
                             {
-                                "title": _("Livestock density"),
-                                "text": self.raw_data_getter('classification_livestock')
+                                'title': _('Livestock density'),
+                                'text': self.raw_data_getter('classification_livestock')
                             }
                         ]
                     }
                 },
-                "purpose": {
-                    "title": "Purpose related to land degradation",
-                    "partials": self.raw_data.get('classification_purpose')
+                'purpose': {
+                    'title': _('Purpose related to land degradation'),
+                    'partials': self.raw_data.get('classification_purpose')
                 },
-                "degredation": {
-                    "title": "Degradation addressed",
-                    "partials": self.raw_data.get('classification_degradation')
+                'degredation': {
+                    'title': _('Degradation addressed'),
+                    'partials': self.raw_data.get('classification_degradation')
                 },
-                "slm_group": {
-                    "title": "SLM group",
-                    "partials": slm_group
+                'slm_group': {
+                    'title': _('SLM group'),
+                    'partials': slm_group
                 },
-                "measures": {
-                    "title": "SLM measures",
-                    "partials": self.raw_data.get('classification_measures')
+                'measures': {
+                    'title': _('SLM measures'),
+                    'partials': self.raw_data.get('classification_measures')
                 }
             }
         }
@@ -768,38 +766,38 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def location(self):
         return {
-            "title": _("Location"),
-            "partials": {
-                "map": {
-                    "url": self.raw_data.get(
+            'title': _('Location'),
+            'partials': {
+                'map': {
+                    'url': self.raw_data.get(
                         'location_map_data', {}
                     ).get('img_url')
                 },
-                "infos": {
-                    "location": {
-                        "title": _("Location"),
-                        "text": "{detail}, {prov}, {country}".format(
+                'infos': {
+                    'location': {
+                        'title': _('Location'),
+                        'text': '{detail}, {prov}, {country}'.format(
                             detail=self.raw_data_getter('location_further'),
                             prov=self.raw_data_getter('location_state_province'),
                             country=self.raw_data_getter('country')
                         )
                     },
-                    "geo_reference": self.raw_data.get(
+                    'geo_reference': self.raw_data.get(
                         'location_map_data', {}
                     ).get('coordinates'),
-                    "start_date": {
-                        "title": _("Initiation date"),
-                        "text": self.raw_data_getter(
-                            'location_initiation_year') or _("unknown")
+                    'start_date': {
+                        'title': _('Initiation date'),
+                        'text': self.raw_data_getter(
+                            'location_initiation_year') or _('unknown')
                     },
-                    "end_date": {
-                        "title": _("Year of termination"),
-                        "text": self.raw_data_getter(
+                    'end_date': {
+                        'title': _('Year of termination'),
+                        'text': self.raw_data_getter(
                             'location_termination_year') or '*'
                     },
-                    "introduction": {
-                        "title": _("Type of Approach"),
-                        "items": self.raw_data.get('location_type')
+                    'introduction': {
+                        'title': _('Type of Approach'),
+                        'items': self.raw_data.get('location_type')
                     }
                 }
             }
@@ -902,17 +900,17 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     }
                 },
                 'advisory': {
-                    'title': 'Advisory service',
+                    'title': _('Advisory service'),
                     'elements': [
                         {
-                            'title': 'Advisory service was provided',
+                            'title': _('Advisory service was provided'),
                             'items': self.raw_data.get('tech_support_advisory_service'),
                             'description': self.raw_data_getter('tech_support_advisory_description')
                         }
                     ]
                 },
                 'institution_strengthening': {
-                    'title': _('Institution strenghtening'),
+                    'title': _('Institution strengthening'),
                     'subtitle': {
                         'title': _('Institutions have been strengthened / established'),
                         'value': self.raw_data.get('tech_support_institutions_is_institution', {}).get('value')
@@ -924,18 +922,18 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                             'description': self.raw_data_getter('tech_support_institutions_describe')
                         },
                         {
-                            'title': 'Type of support',
+                            'title': _('Type of support'),
                             'items': self.raw_data.get('tech_support_institutions_support'),
                             'description': self.raw_data_getter('tech_support_institutions_support_specify')
                         }
                     ]
                 },
                 'monitoring': {
-                    'title': 'Monitoring and evaluation',
+                    'title': _('Monitoring and evaluation'),
                     'intended': monitoring_intention
                 },
                 'research': {
-                    'title': 'Research',
+                    'title': _('Research')  ,
                     'items': self.raw_data.get('tech_support_research_topics'),
                     'description': self.raw_data_getter('tech_support_research_details')
                 }
@@ -964,7 +962,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'subsidies': {
                     **self.raw_data.get('financing_subsidies', {}).get('subsidies'),
                     'labour': {
-                        'title': 'Labour by land users was',
+                        'title': _('Labour by land users was'),
                         'items': self.raw_data.get('financing_labour')
                     },
                     'credit': {
@@ -976,7 +974,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         ]
                     },
                     'other': {
-                        'title': 'Other incentives or instruments',
+                        'title': _('Other incentives or instruments'),
                         'text': self.raw_data_getter('financing_other_text')
                     }
                 }
