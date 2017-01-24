@@ -95,7 +95,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         data to display map data.
         """
         if not self.questionnaire.geom:
-            return {'img_url': '', 'coordinates': ''}
+            return {'img_url': '', 'coordinates': []}
         else:
             return {
                 'img_url': get_static_map_url(self.questionnaire),

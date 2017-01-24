@@ -19482,7 +19482,6 @@
         "summary": {
           "types": ["full"],
           "default": {
-
             "field_name": {
               "tech_qg_181.tech_costbenefit_est_short": "impacts_establishment_costbenefit",
               "tech_qg_182.tech_costbenefit_est_short": "impacts_maintenance_costbenefit"

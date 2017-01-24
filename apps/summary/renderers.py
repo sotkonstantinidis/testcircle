@@ -51,35 +51,30 @@ class SummaryRenderer:
         ).data
         self.questionnaire = questionnaire
         self.data = dict(self.get_data())
-        # self.data = self.get_demo_dict(config_type=config.keyword)
 
     def get_data(self):
         """
-        This is not a dict comprehension as access to 'self' is needed. See
-        http://stackoverflow.com/a/13913933
+        call all methods as named in the list of contents
         """
         for section in self.content:
             yield section, getattr(self, section)
 
-    def get_demo_dict(self, config_type: str) -> dict:
-        """
-        Demo-file for frontend development.
-        """
-        pth = '{}/apps/questionnaire/templates/questionnaire/summary/{}.json'
-        with open(pth.format(settings.BASE_DIR, config_type)) as data:
-            return dict(json.load(data))
-
     @property
     def summary_type(self):
+        """
+        The name of the summary type, i.e. 'full', 'onepage'
+        """
         raise NotImplementedError
 
-    # This is a mapping for the structure of the summary and the fields from
-    # the configuration with the content-types (that are important to generate
-    # the markup in the frontend).
-    # The keys such as 'header_image_image' must be set for the summary_type
-    # in the configuration-json.
     @property
     def content(self):
+        """
+        This is a mapping for the structure of the summary and the fields from
+        the configuration with the content-types (that are important to generate
+        the markup in the frontend).
+        The keys such as 'header_image_image' must be set for the summary_type
+        in the configuration-json.
+        """
         raise NotImplementedError
 
 

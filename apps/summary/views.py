@@ -30,6 +30,10 @@ class SummaryPDFCreateView(PDFTemplateView):
     summary_type = 'full'
     base_template_path = 'summary/'
     http_method_names = ['get']
+    render_classes = {
+        'technologies': {'full': TechnologyFullSummaryRenderer},
+        'approaches': {'full': ApproachesFullSummaryRenderer}
+    }
 
     def get(self, request, *args, **kwargs):
         self.questionnaire = self.get_object(questionnaire_id=self.kwargs['id'])
@@ -71,17 +75,13 @@ class SummaryPDFCreateView(PDFTemplateView):
         Load summary config according to configuration.
         """
         config = get_configuration(configuration_code=self.code)
-        if config.keyword == 'technologies' and self.summary_type == 'full':
-            return TechnologyFullSummaryRenderer(
-                config=config, questionnaire=self.questionnaire, **data
-            ).data
-
-        if config.keyword == 'approaches' and self.summary_type == 'full':
-            return ApproachesFullSummaryRenderer(
-                config=config, questionnaire=self.questionnaire, **data
-            ).data
-
-        raise Exception('Summary not configured.')
+        try:
+            renderer = self.render_classes[config.keyword][self.summary_type]
+        except KeyError:
+            raise Exception('Summary not configured.')
+        return renderer(
+            config=config, questionnaire=self.questionnaire, **data
+        ).data
 
     def get_prepared_data(self, questionnaire: Questionnaire) -> dict:
         """
