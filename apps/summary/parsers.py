@@ -275,10 +275,14 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         has_label = child_question.view_options.get('label_position') != 'none'
         # If more than one element is selected for the current
         # group, add a newline
+        if isinstance(values, str):
+            text = values
+        else:
+            text = ', '.join([choices_labels[choice] for choice in values])
         text_parts = dict(
             label='{}: '.format(child_question.label) if has_label else '',
             multi_line='<br>' if selected_child_len > 1 else '',
-            text=', '.join([choices_labels[choice] for choice in values]),
+            text=text,
         )
         return '{label}{text}{multi_line}'.format_map(text_parts)
 
@@ -344,7 +348,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                     'items': partials.values()
                 })
 
-        return table
+        return table if table['partials'] else {}
 
     def get_questiongroups_in_table(self, section: QuestionnaireSubcategory):
         """

@@ -163,8 +163,8 @@ class GlobalValuesMixin:
         # Combine answers from two questions: strengths compiler and landuser
         pro_list = [
             {'text': item['value']} for item in
-            self.raw_data_getter('strengths_compiler', value='') +
-            self.raw_data_getter('strengths_landuser', value='')
+            self.raw_data_getter('strengths_compiler', value='') or []+
+            self.raw_data_getter('strengths_landuser', value='') or []
             ]
 
         # combine answers from two questions: weaknesses compiler + landuser -

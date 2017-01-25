@@ -1,7 +1,7 @@
 	<div class="row compact">
 		{% for list_item in content.images  %}
 		<div class="{% if content.images|length == 1 %} small-12 columns {% else %} small-6 columns {% endif %}">
-			<div class="img-column-container"  >
+			<div class="img-column-container">&nbsp;
 				<img class="img-column" src="{{ request.scheme }}://{{ request.get_host }}{{ list_item.url }}">
 			</div>
 			<div class="img-caption">
