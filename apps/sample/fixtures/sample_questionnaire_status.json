@@ -104,8 +104,6 @@
     "model": "accounts.user",
     "fields": {
       "groups": [
-        3,
-        4,
         5
       ],
       "date_joined": "2015-01-13T08:24:26.031Z",

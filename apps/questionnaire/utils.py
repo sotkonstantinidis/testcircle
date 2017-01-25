@@ -6,6 +6,7 @@ from uuid import UUID
 from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.signals import pre_save
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.functional import Promise
@@ -23,6 +24,7 @@ from configuration.utils import (
     get_choices_from_model, get_choices_from_questiongroups)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.errors import QuestionnaireLockedException
+from questionnaire.receivers import prevent_updates_on_published_items
 from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
@@ -961,6 +963,14 @@ def get_query_status_filter(request):
 
         permissions = request.user.get_all_permissions()
 
+        # If "view_questionnaire" is part of the permissions, return all
+        # statuses
+        if 'questionnaire.view_questionnaire' in permissions:
+            return Q(status__in=[settings.QUESTIONNAIRE_DRAFT,
+                                 settings.QUESTIONNAIRE_SUBMITTED,
+                                 settings.QUESTIONNAIRE_REVIEWED,
+                                 settings.QUESTIONNAIRE_PUBLIC])
+
         # Reviewers see all Questionnaires with status "submitted".
         if 'questionnaire.review_questionnaire' in permissions:
                 status_filter |= Q(status__in=[settings.QUESTIONNAIRE_SUBMITTED])
@@ -1630,15 +1640,28 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         )
 
     elif request.POST.get('delete'):
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
+            pre_save.disconnect(
+                prevent_updates_on_published_items, sender=Questionnaire)
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
+            delete_questionnaires_from_es(
+                configuration_code, [questionnaire_object])
+            pre_save.connect(
+                prevent_updates_on_published_items, sender=Questionnaire)
         messages.success(request, _('The questionnaire was succesfully removed'))
         delete_questionnaire.send(
             sender=settings.NOTIFICATIONS_DELETE,
             questionnaire=questionnaire_object,
             user=request.user
         )
-        return redirect('account_questionnaires')
+        # Redirect to the overview of the user's questionnaires if there is no
+        # other version of the questionnaire left to show.
+        other_questionnaire = query_questionnaire(
+            request, questionnaire_object.code).first()
+        if other_questionnaire is None:
+            return redirect('account_questionnaires')
 
 
 def compare_questionnaire_data(data_1, data_2):
@@ -1741,7 +1764,7 @@ def prepare_list_values(data, config, **kwargs):
 
 def get_review_config_dict(
         status, token, permissions, roles, view_mode, url, is_blocked,
-        blocked_by, form_url, has_release):
+        blocked_by, form_url, has_release, other_version_status):
     return {
         'review_status': status,
         'csrf_token_value': token,
@@ -1753,4 +1776,5 @@ def get_review_config_dict(
         'blocked_by': blocked_by,
         'form_action_url': form_url,
         'has_release': has_release,  # flag if this questionnaire has a published version - controlling the first tab.
+        'other_version_status': other_version_status,
     }

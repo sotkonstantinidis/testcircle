@@ -45,7 +45,7 @@ def admin(request, log=''):
 
     configurations = []
     for active_configuration in Configuration.objects.filter(active=True):
-        db_count = Questionnaire.with_status.public().filter(
+        db_count = Questionnaire.with_status.public().not_deleted().filter(
             configurations__code=active_configuration.code).count()
         try:
             index_count = es.count(

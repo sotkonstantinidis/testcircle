@@ -166,7 +166,7 @@ def _clean_static_folder(source_folder):
 
 
 def _update_static_files(source_folder):
-    run('cd %s && npm install' % source_folder)
+    run('cd %s && npm install &>/dev/null' % source_folder)
     run('cd %s && bower install | xargs echo' % source_folder)
     run('cd %s && grunt build:deploy --force' % source_folder)
     run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput'
