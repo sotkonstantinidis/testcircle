@@ -880,13 +880,21 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         if not self.has_object:
             return None
 
+        status_filter = get_query_status_filter(self.request)
+
         linked_questionnaires = self.object.links.filter(
-            configurations__isnull=False)
+            status_filter, configurations__isnull=False)
         links_by_configuration = collections.defaultdict(list)
+        links_by_configuration_codes = collections.defaultdict(list)
 
         for linked in linked_questionnaires:
-            links_by_configuration[linked.configurations.first().code].append(
-                linked)
+            configuration_code = linked.configurations.first().code
+            linked_questionnaire_code = linked.code
+            if linked_questionnaire_code not in links_by_configuration_codes[
+                    configuration_code]:
+                links_by_configuration[configuration_code].append(linked)
+                links_by_configuration_codes[configuration_code].append(
+                    linked_questionnaire_code)
 
         link_display = {}
         for configuration, links in links_by_configuration.items():
