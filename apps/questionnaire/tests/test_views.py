@@ -22,7 +22,7 @@ from questionnaire.views import (
     generic_questionnaire_link_search,
     generic_questionnaire_list,
     QuestionnaireEditView,
-    GenericQuestionnaireStepView, QuestionnaireSummaryPDFCreateView)
+    QuestionnaireStepView, QuestionnaireSummaryPDFCreateView)
 from questionnaire.tests.test_view_utils import get_valid_pagination_parameters
 from sample.tests.test_views import (
     get_valid_details_values,
@@ -629,7 +629,7 @@ class GenericQuestionnaireStepViewTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-        view = GenericQuestionnaireStepView(url_namespace='sample')
+        view = QuestionnaireStepView(url_namespace='sample')
         self.request = self.factory.get('/en/sample/view/app_1/cat_0/')
         self.request.user = create_new_user()
         self.request._messages = MagicMock()
@@ -660,7 +660,7 @@ class GenericQuestionnaireStepViewTest(TestCase):
         unlock_questionnaire.assert_called_once_with()
 
     @patch.object(Questionnaire, 'create_new')
-    @patch.object(GenericQuestionnaireStepView, 'get_success_url_next_section')
+    @patch.object(QuestionnaireStepView, 'get_success_url_next_section')
     @patch('questionnaire.signals.change_questionnaire_data.send')
     def test_next_section_route(self, mock_change_data,
                                 get_success_url_next_section, create_new):
@@ -675,13 +675,13 @@ class GenericQuestionnaireStepViewTest(TestCase):
         view.form_valid({})
         get_success_url_next_section.assert_called_with('foo', 'cat_0')
 
-    @patch.object(GenericQuestionnaireStepView, 'get_steps')
+    @patch.object(QuestionnaireStepView, 'get_steps')
     def test_next_section_url(self, get_steps):
         get_steps.return_value = ['foo', 'bar']
         response = self.view.get_success_url_next_section('sample_1', 'foo')
         self.assertEqual(response.url, '/en/sample/edit/sample_1/bar/')
 
-    @patch.object(GenericQuestionnaireStepView, 'get_steps')
+    @patch.object(QuestionnaireStepView, 'get_steps')
     def test_next_section_url_no_exception(self, get_steps):
         get_steps.return_value = ['foo', 'bar', 'baz']
         response = self.view.get_success_url_next_section('sample_1', 'abc')

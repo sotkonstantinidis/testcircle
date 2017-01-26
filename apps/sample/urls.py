@@ -2,8 +2,8 @@ from django.conf.urls import url, patterns
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
 
-from questionnaire.views import QuestionnaireEditView, GenericQuestionnaireStepView, \
-    GenericQuestionnaireMapView, QuestionnaireCheckModulesView, \
+from questionnaire.views import QuestionnaireEditView, QuestionnaireStepView, \
+    QuestionnaireMapView, QuestionnaireCheckModulesView, \
     QuestionnaireAddModule
 
 urlpatterns = patterns(
@@ -12,7 +12,7 @@ urlpatterns = patterns(
     url(r'^view/(?P<identifier>[^/]+)/$', 'sample.views.questionnaire_details',
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/map/$',
-        GenericQuestionnaireMapView.as_view(url_namespace=__package__),
+        QuestionnaireMapView.as_view(url_namespace=__package__),
         name='questionnaire_view_map'),
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'sample.views.questionnaire_view_step',
@@ -22,7 +22,7 @@ urlpatterns = patterns(
     url(r'^edit/(?P<identifier>[^/]+)/$', QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        GenericQuestionnaireStepView.as_view(url_namespace=__package__), name='questionnaire_new_step'),
+        QuestionnaireStepView.as_view(url_namespace=__package__), name='questionnaire_new_step'),
     url(r'^search/links/$', 'sample.views.questionnaire_link_search',
         name='questionnaire_link_search'),
     url(r'^list/$', 'sample.views.questionnaire_list',

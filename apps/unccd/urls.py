@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
 from questionnaire.views import QuestionnaireEditView, \
-    GenericQuestionnaireStepView
+    QuestionnaireStepView
 
 urlpatterns = patterns(
     '',
@@ -22,7 +22,7 @@ urlpatterns = patterns(
         QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        GenericQuestionnaireStepView.as_view(url_namespace=__package__),
+        QuestionnaireStepView.as_view(url_namespace=__package__),
         name='questionnaire_new_step'),
     url(r'^list/$', 'unccd.views.questionnaire_list',
         name='questionnaire_list'),

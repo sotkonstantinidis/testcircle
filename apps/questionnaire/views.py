@@ -647,7 +647,7 @@ class QuestionnaireSaveMixin(StepsMixin):
                     self.object.add_link(link)
 
 
-class GenericQuestionnaireMapView(TemplateResponseMixin, View):
+class QuestionnaireMapView(TemplateResponseMixin, View):
     """
     A generic view to show the map of a questionnaire (in a modal)
     """
@@ -933,9 +933,8 @@ class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class GenericQuestionnaireStepView(
-        QuestionnaireEditMixin, QuestionnaireRetrieveMixin, InheritedDataMixin,
-        QuestionnaireSaveMixin, View):
+class QuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireRetrieveMixin,
+                            InheritedDataMixin, QuestionnaireSaveMixin, View):
     """
     A section of the questionnaire.
     """

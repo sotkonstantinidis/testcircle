@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 
-from questionnaire.views import QuestionnaireEditView, GenericQuestionnaireStepView
+from questionnaire.views import QuestionnaireEditView, QuestionnaireStepView
 
 urlpatterns = patterns(
     '',
@@ -16,7 +16,7 @@ urlpatterns = patterns(
     url(r'^edit/(?P<identifier>[^/]+)/$', QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        GenericQuestionnaireStepView.as_view(url_namespace=__package__), name='questionnaire_new_step'),
+        QuestionnaireStepView.as_view(url_namespace=__package__), name='questionnaire_new_step'),
     url(r'^search/links/$', 'samplemulti.views.questionnaire_link_search',
         name='questionnaire_link_search'),
     url(r'^list/$', 'samplemulti.views.questionnaire_list',
