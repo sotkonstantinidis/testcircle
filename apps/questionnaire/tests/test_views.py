@@ -21,7 +21,7 @@ from questionnaire.views import (
     generic_questionnaire_details,
     generic_questionnaire_link_search,
     generic_questionnaire_list,
-    GenericQuestionnaireView,
+    QuestionnaireEditView,
     GenericQuestionnaireStepView, QuestionnaireSummaryPDFCreateView)
 from questionnaire.tests.test_view_utils import get_valid_pagination_parameters
 from sample.tests.test_views import (
@@ -569,7 +569,7 @@ class GenericQuestionnaireViewTest(TestCase):
     fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
 
     def setUp(self):
-        view = GenericQuestionnaireView(url_namespace='sample')
+        view = QuestionnaireEditView(url_namespace='sample')
         self.request = RequestFactory().get('/en/sample/view/app_1')
         self.request.user = create_new_user()
         self.request.session = dict()

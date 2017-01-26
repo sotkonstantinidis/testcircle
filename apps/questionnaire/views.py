@@ -62,8 +62,7 @@ from .utils import (
     handle_review_actions,
     query_questionnaires_for_link,
     query_questionnaire,
-    query_questionnaires,
-    get_review_config_dict)
+    query_questionnaires)
 from .view_utils import (
     ESPagination,
     get_page_parameter,
@@ -220,7 +219,19 @@ def generic_questionnaire_view_step(
     })
 
 
-class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
+class StepsMixin:
+    """
+    Get a list with all steps for current questionnaire.
+    """
+    def get_steps(self):
+        # Flattened list with all categories.
+        categories = list(chain.from_iterable(
+            (section.categories for section in self.questionnaire_configuration.sections)
+        ))
+        return [category.keyword for category in categories]
+
+
+class QuestionnaireRetrieveMixin(TemplateResponseMixin, StepsMixin):
     """
     Base class for all views that are used to update a questionnaire. At least the url_namespace must be set
     when using this view.
@@ -231,10 +242,6 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
     url_namespace = None
     configuration_code = None
     template_name = ''
-
-    def dispatch(self, request, *args, **kwargs):
-        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
-        return super().dispatch(request, *args, **kwargs)
 
     @property
     def identifier(self):
@@ -281,7 +288,8 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
         Returns: string
         """
         if self.has_object:
-            url = reverse('{}:questionnaire_details'.format(self.url_namespace), args=[self.object.code])
+            url = reverse('{}:questionnaire_details'.format(self.url_namespace),
+                          args=[self.object.code])
         else:
             url = reverse('{}:questionnaire_new'.format(self.url_namespace))
 
@@ -313,16 +321,14 @@ class QuestionnaireEditMixin(LoginRequiredMixin, TemplateResponseMixin):
         return kwargs
 
 
-class StepsMixin:
+class QuestionnaireEditMixin(LoginRequiredMixin):
     """
-    Get a list with all steps for current questionnaire.
+    Require login for editing questionnaires.
     """
-    def get_steps(self):
-        # Flattened list with all categories.
-        categories = list(chain.from_iterable(
-            (section.categories for section in self.questionnaire_configuration.sections)
-        ))
-        return [category.keyword for category in categories]
+
+    def dispatch(self, request, *args, **kwargs):
+        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
+        return super().dispatch(request, *args, **kwargs)
 
 
 class InheritedDataMixin:
@@ -672,16 +678,10 @@ class GenericQuestionnaireMapView(TemplateResponseMixin, View):
         return self.render_to_response(context=context)
 
 
-class GenericQuestionnaireView(
-        InheritedDataMixin, QuestionnaireEditMixin, StepsMixin, View):
-    """
-    Refactored function based view: generic_questionnaire_new
-    """
-    http_method_names = ['get']
+class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
 
-    @method_decorator(ensure_csrf_cookie)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
+    http_method_names = ['get']
+    view_mode = 'view'
 
     def get(self, request, *args, **kwargs):
         """
@@ -699,33 +699,6 @@ class GenericQuestionnaireView(
             original_locale=self.object.original_locale if self.object else None
         )
 
-        if self.has_object:
-            roles, permissions = self.object.get_roles_permissions(
-                self.request.user)
-        else:
-            # User is always compiler of new questionnaires.
-            role = settings.QUESTIONNAIRE_COMPILER
-            roles = [(role, dict(QUESTIONNAIRE_ROLES).get(role))]
-            permissions = ['edit_questionnaire']
-
-        csrf_token = get_token(self.request) if 'edit_questionnaire' in permissions else None
-
-        images = self.questionnaire_configuration.get_image_data(data).get('content', [])
-
-        can_edit = None
-        blocked_by = None
-        # Display a message regarding the state for editing (locked / available)
-        if self.has_object:
-            can_edit = self.object.can_edit(request.user)
-            level, message = self.object.get_blocked_message(request.user)
-            blocked_by = message
-            messages.add_message(request, level, message)
-
-        # TODO: Highlight changes disabled.
-        # For the time being, the function to show changes has been
-        # disabled. Delete the following line to reenable it.
-        edited_questiongroups = []
-
         # Url when switching the mode - go to the detail view.
         url = self.get_detail_url(step='') if self.has_object else ''
 
@@ -735,18 +708,41 @@ class GenericQuestionnaireView(
             if len(all_versions) > 1:
                 other_version_status = all_versions[1].get_status_display()
 
-        review_config = self.get_review_config(
-            permissions=permissions, roles=roles, url=url,
-            blocked_by=blocked_by if not can_edit else False,
-            view_mode='edit', other_version_status=other_version_status
-        )
-        if not self.has_object:
-            review_config.update({
-                'data_type': self.url_namespace,
-                'first_section_url': reverse('{}:questionnaire_new_step'.format(self.url_namespace), kwargs={
-                    'identifier': self.identifier, 'step': self.get_steps()[0]
-                })
-            })
+        roles, permissions = [], []
+        can_edit, blocked_by = None, None
+        review_config = {}
+        if request.user.is_authenticated():
+            if self.has_object:
+                roles, permissions = self.object.get_roles_permissions(
+                    self.request.user)
+
+                # Display a message regarding the state for editing (locked / available)
+                can_edit = self.object.can_edit(request.user)
+                level, message = self.object.get_blocked_message(request.user)
+                blocked_by = message
+                messages.add_message(request, level, message)
+            else:
+                # User is always compiler of new questionnaires.
+                role = settings.QUESTIONNAIRE_COMPILER
+                roles = [(role, dict(QUESTIONNAIRE_ROLES).get(role))]
+                permissions = ['edit_questionnaire']
+
+            review_config = self.get_review_config(
+                permissions=permissions, roles=roles, url=url,
+                blocked_by=blocked_by if not can_edit else False,
+                other_version_status=other_version_status
+            )
+
+        csrf_token = get_token(
+            self.request) if 'edit_questionnaire' in permissions else None
+
+        images = self.questionnaire_configuration.get_image_data(data).get(
+            'content', [])
+
+        # TODO: Highlight changes disabled.
+        # For the time being, the function to show changes has been
+        # disabled. Delete the following line to reenable it.
+        edited_questiongroups = []
 
         sections = self.questionnaire_configuration.get_details(
             data, permissions=permissions,
@@ -755,10 +751,10 @@ class GenericQuestionnaireView(
             questionnaire_object=self.object or None,
             csrf_token=csrf_token,
             edited_questiongroups=edited_questiongroups,
-            view_mode='edit',
+            view_mode=self.view_mode,
             links=self.get_links(),
             review_config=review_config,
-            user=request.user,
+            user=request.user if request.user.is_authenticated() else None,
         )
 
         modules = {}
@@ -800,9 +796,6 @@ class GenericQuestionnaireView(
         }
         return self.render_to_response(context=context)
 
-    def get_detail_url(self, step):
-        return super().get_detail_url(step='top')
-
     def get_review_config(self, permissions, roles, url, **kwargs):
         """
         Create a dict with the review_config, this is required for proper display
@@ -821,42 +814,43 @@ class GenericQuestionnaireView(
         workflow_users = {}
         if 'assign_questionnaire' in permissions:
             if status == settings.QUESTIONNAIRE_DRAFT:
-                workflow_users['editors'] = self.object.get_users_by_role('editor')
+                workflow_users['editors'] = self.object.get_users_by_role(
+                    'editor')
             elif status == settings.QUESTIONNAIRE_SUBMITTED:
-                workflow_users['reviewers'] = self.object.get_users_by_role('reviewer')
+                workflow_users['reviewers'] = self.object.get_users_by_role(
+                    'reviewer')
             elif status == settings.QUESTIONNAIRE_REVIEWED:
-                workflow_users['publishers'] = self.object.get_users_by_role('publisher')
+                workflow_users['publishers'] = self.object.get_users_by_role(
+                    'publisher')
 
-        return get_review_config_dict(
-            status=status,
-            token=get_token(self.request),
-            permissions=permissions,
-            roles=roles,
-            view_mode=kwargs.get('view_mode', 'view'),
-            url=url,
-            is_blocked=bool(kwargs.get('blocked_by', False)),
-            blocked_by=kwargs.get('blocked_by', ''),
-            form_url=self.get_detail_url(step=''),
-            has_release=self.has_release(),
-            other_version_status=kwargs.get('other_version_status'),
-            **workflow_users
-        )
+        welcome_info = {}
+        if not self.has_object:
+            welcome_info = {
+                'data_type': self.url_namespace,
+                'first_section_url': reverse(
+                    '{}:questionnaire_new_step'.format(self.url_namespace),
+                    kwargs={
+                        'identifier': self.identifier,
+                        'step': self.get_steps()[0]
+                    })
+            }
 
-    def questionnaires_in_progress(self):
-        """
-        Get all questionnaires that given user is currently working on.
-
-        Returns:
-            queryset
-
-        """
-        return Questionnaire.with_status.not_deleted().filter(
-            status=settings.QUESTIONNAIRE_DRAFT,
-            questionnairemembership__user=self.request.user,
-            questionnairemembership__role__in=[
-                settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
-            ]
-        )
+        return {
+            'review_status': status,
+            'csrf_token_value': get_token(self.request),
+            'permissions': permissions,
+            'roles': roles,
+            'mode': self.view_mode,
+            'url': url,
+            'is_blocked': bool(kwargs.get('blocked_by', False)),
+            'blocked_by': kwargs.get('blocked_by', ''),
+            'form_action_url': self.get_detail_url(step=''),
+            # flag if this questionnaire has a published version - controlling the first tab.
+            'has_release': self.has_release(),
+            'other_version_status': kwargs.get('other_version_status'),
+            **workflow_users,
+            **welcome_info,
+        }
 
     def get_links(self):
         """
@@ -867,21 +861,58 @@ class GenericQuestionnaireView(
         if not self.has_object:
             return None
 
-        linked_questionnaires = self.object.links.filter(configurations__isnull=False)
+        linked_questionnaires = self.object.links.filter(
+            configurations__isnull=False)
         links_by_configuration = collections.defaultdict(list)
 
         for linked in linked_questionnaires:
-            links_by_configuration[linked.configurations.first().code].append(linked)
+            links_by_configuration[linked.configurations.first().code].append(
+                linked)
 
         link_display = {}
         for configuration, links in links_by_configuration.items():
             link_display[configuration] = get_list_values(
-                configuration_code=configuration, questionnaire_objects=links, with_links=False
+                configuration_code=configuration, questionnaire_objects=links,
+                with_links=False
             )
         return link_display
 
     def has_release(self):
         return self.has_object and self.object.has_release
+
+    def questionnaires_in_progress(self):
+        """
+        Get all questionnaires that given user is currently working on.
+
+        Returns:
+            queryset
+
+        """
+        if not self.request.user.is_authenticated():
+            return []
+        return Questionnaire.with_status.not_deleted().filter(
+            status=settings.QUESTIONNAIRE_DRAFT,
+            questionnairemembership__user=self.request.user,
+            questionnairemembership__role__in=[
+                settings.QUESTIONNAIRE_COMPILER, settings.QUESTIONNAIRE_EDITOR
+            ]
+        )
+
+    def get_detail_url(self, step):
+        return super().get_detail_url(step='top')
+
+
+class QuestionnaireEditView(
+        QuestionnaireEditMixin, QuestionnaireView):
+    """
+    Refactored function based view: generic_questionnaire_new
+    """
+    http_method_names = ['get']
+    view_mode = 'edit'
+
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
 
 
 class GenericQuestionnaireStepView(
@@ -1094,21 +1125,22 @@ def generic_questionnaire_details(
         if len(all_versions) > 1:
             other_version_status = all_versions[1].get_status_display()
 
-        review_config = get_review_config_dict(
-            status=questionnaire_object.status,
-            token=get_token(request),
-            permissions=permissions,
-            roles=roles,
-            view_mode='view',
-            url=reverse('{}:questionnaire_edit'.format(url_namespace),
-                        kwargs={'identifier': questionnaire_object.code}),
-            is_blocked=bool(blocked_by),
-            blocked_by=blocked_by,
-            form_url=reverse('{}:questionnaire_details'.format(url_namespace),
-                             kwargs={'identifier': questionnaire_object.code}),
-            has_release=has_release,
-            other_version_status=other_version_status,
-        )
+        # review_config = get_review_config_dict(
+        #     status=questionnaire_object.status,
+        #     token=get_token(request),
+        #     permissions=permissions,
+        #     roles=roles,
+        #     view_mode='view',
+        #     url=reverse('{}:questionnaire_edit'.format(url_namespace),
+        #                 kwargs={'identifier': questionnaire_object.code}),
+        #     is_blocked=bool(blocked_by),
+        #     blocked_by=blocked_by,
+        #     form_url=reverse('{}:questionnaire_details'.format(url_namespace),
+        #                      kwargs={'identifier': questionnaire_object.code}),
+        #     has_release=has_release,
+        #     other_version_status=other_version_status,
+        # )
+        review_config = {}
 
         if 'assign_questionnaire' in review_config.get('permissions', []):
             if questionnaire_object.status == settings.QUESTIONNAIRE_DRAFT:
