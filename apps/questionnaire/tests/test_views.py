@@ -18,7 +18,6 @@ from qcat.tests import TestCase
 from questionnaire.models import File, Questionnaire
 from questionnaire.views import (
     generic_file_upload,
-    generic_questionnaire_details,
     generic_questionnaire_link_search,
     generic_questionnaire_list,
     QuestionnaireEditView,
@@ -208,129 +207,129 @@ class GenericQuestionnaireDetailsTest(TestCase):
         self.request.user = Mock()
         self.request.user.is_authenticated.return_value = False
 
-    @patch('questionnaire.views.query_questionnaire')
-    def test_calls_query_questionnaire(
-            self, mock_query_questionnaire, mock_render):
-        mock_query_questionnaire.return_value.first.return_value = None
-        with self.assertRaises(Http404):
-            generic_questionnaire_details(
-                self.request, *get_valid_details_values())
-        mock_query_questionnaire.assert_called_once_with(self.request, 'foo')
-
-    @patch('questionnaire.views.query_questionnaire')
-    @patch('questionnaire.views.get_configuration')
-    def test_calls_get_configuration(
-            self, mock_get_configuration, mock_query_questionnaire,
-            mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_get_configuration.assert_called_once_with('sample')
-
-    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
-    @patch('questionnaire.views.query_questionnaire')
-    @patch('questionnaire.views.get_configuration')
-    def test_calls_get_questionnaire_data_in_single_language(
-            self, mock_conf, mock_query_questionnaire,
-            mock_get_q_data_in_single_lang, mock_render):
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_q = mock_query_questionnaire.return_value.first.return_value
-        mock_get_q_data_in_single_lang.assert_called_once_with(
-            mock_q.data, 'en', original_locale=mock_q.original_locale)
-
-    @patch('questionnaire.views.handle_review_actions')
-    @patch('questionnaire.views.redirect')
-    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
-    @patch('questionnaire.views.query_questionnaire')
-    @patch('questionnaire.views.get_configuration')
-    def test_calls_handle_review_actions_if_post_values(
-            self, mock_conf, mock_query_questionnaire,
-            mock_get_q_data_in_single_lang, mock_redirect,
-            mock_handle_review_actions, mock_render):
-        self.request.method = 'POST'
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_handle_review_actions.assert_called_once_with(
-            self.request,
-            mock_query_questionnaire.return_value.first.return_value, 'sample')
-
-    @patch('questionnaire.views.redirect')
-    @patch('questionnaire.views.get_questionnaire_data_in_single_language')
-    @patch('questionnaire.views.query_questionnaire')
-    @patch('questionnaire.views.get_configuration')
-    def test_calls_redirect_if_post_values(
-            self, mock_conf, mock_query_questionnaire,
-            mock_get_q_data_in_single_lang, mock_redirect, mock_render):
-        self.request.method = 'POST'
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_redirect.assert_called_once_with(
-            'sample:questionnaire_details',
-            mock_query_questionnaire.return_value.first.return_value.code)
-
-    @patch('questionnaire.views.get_query_status_filter')
-    @patch.object(QuestionnaireConfiguration, 'get_details')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_calls_get_details(
-            self, mock_query_questionnaire, mock_get_details,
-            mock_get_query_status_filter, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        mock_query_questionnaire.return_value.first.return_value.code = 'foo'
-        self.request.user.is_authenticated.return_value = True
-        generic_questionnaire_details(self.request, *get_valid_details_values())
-        self.assertTrue(mock_get_details.called)
-
-    @patch('questionnaire.views.get_configuration')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_calls_get_image_data(
-            self, mock_query_questionnaire, mock_conf, mock_render):
-        mock_query_questionnaire.return_value.first.return_value.data = {}
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_conf.return_value.get_image_data.assert_called_once_with({})
-
-    @patch('questionnaire.views.get_configuration')
-    @patch('questionnaire.views.get_list_values')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_calls_get_list_values(
-            self, mock_query_questionnaire, mock_get_list_values, mock_conf,
-            mock_render):
-        q = Mock()
-        q.data = {}
-        link = Mock()
-        q.links.filter.return_value = [link]
-        q.members.all.return_value = []
-        mock_query_questionnaire.return_value.first.return_value = q
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        mock_get_list_values.assert_called_once_with(
-            questionnaire_objects=[link], with_links=False,
-            configuration_code=link.configurations.first().code)
-
-    @patch('questionnaire.views.get_configuration')
-    @patch('questionnaire.views.query_questionnaire')
-    def test_calls_render(
-            self, mock_query_questionnaire, mock_conf, mock_render):
-        mock_q_obj = mock_query_questionnaire.return_value.first.return_value
-        mock_q_obj.data = {}
-        generic_questionnaire_details(
-            self.request, *get_valid_details_values())
-        img = mock_conf.return_value.get_image_data.return_value
-        mock_render.assert_called_once_with(
-            self.request, 'questionnaire/details.html', {
-                'images': img.get.return_value,
-                'sections': mock_conf.return_value.get_details.return_value,
-                'links': {},
-                'modules': {},
-                'module_form_config': {},
-                'questionnaire_identifier': 'foo',
-                'permissions': mock_q_obj.get_roles_permissions.return_value.permissions,
-                'view_mode': 'view',
-                'toc_content': mock_conf.return_value.get_toc_data.return_value,
-                'review_config': {},
-                'base_template': 'sample/base.html',
-            })
+    # @patch('questionnaire.views.query_questionnaire')
+    # def test_calls_query_questionnaire(
+    #         self, mock_query_questionnaire, mock_render):
+    #     mock_query_questionnaire.return_value.first.return_value = None
+    #     with self.assertRaises(Http404):
+    #         generic_questionnaire_details(
+    #             self.request, *get_valid_details_values())
+    #     mock_query_questionnaire.assert_called_once_with(self.request, 'foo')
+#
+#     @patch('questionnaire.views.query_questionnaire')
+#     @patch('questionnaire.views.get_configuration')
+#     def test_calls_get_configuration(
+#             self, mock_get_configuration, mock_query_questionnaire,
+#             mock_render):
+#         mock_query_questionnaire.return_value.first.return_value.data = {}
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         mock_get_configuration.assert_called_once_with('sample')
+#
+#     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+#     @patch('questionnaire.views.query_questionnaire')
+#     @patch('questionnaire.views.get_configuration')
+#     def test_calls_get_questionnaire_data_in_single_language(
+#             self, mock_conf, mock_query_questionnaire,
+#             mock_get_q_data_in_single_lang, mock_render):
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         mock_q = mock_query_questionnaire.return_value.first.return_value
+#         mock_get_q_data_in_single_lang.assert_called_once_with(
+#             mock_q.data, 'en', original_locale=mock_q.original_locale)
+#
+#     @patch('questionnaire.views.handle_review_actions')
+#     @patch('questionnaire.views.redirect')
+#     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+#     @patch('questionnaire.views.query_questionnaire')
+#     @patch('questionnaire.views.get_configuration')
+#     def test_calls_handle_review_actions_if_post_values(
+#             self, mock_conf, mock_query_questionnaire,
+#             mock_get_q_data_in_single_lang, mock_redirect,
+#             mock_handle_review_actions, mock_render):
+#         self.request.method = 'POST'
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         mock_handle_review_actions.assert_called_once_with(
+#             self.request,
+#             mock_query_questionnaire.return_value.first.return_value, 'sample')
+#
+#     @patch('questionnaire.views.redirect')
+#     @patch('questionnaire.views.get_questionnaire_data_in_single_language')
+#     @patch('questionnaire.views.query_questionnaire')
+#     @patch('questionnaire.views.get_configuration')
+#     def test_calls_redirect_if_post_values(
+#             self, mock_conf, mock_query_questionnaire,
+#             mock_get_q_data_in_single_lang, mock_redirect, mock_render):
+#         self.request.method = 'POST'
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         mock_redirect.assert_called_once_with(
+#             'sample:questionnaire_details',
+#             mock_query_questionnaire.return_value.first.return_value.code)
+#
+#     @patch('questionnaire.views.get_query_status_filter')
+#     @patch.object(QuestionnaireConfiguration, 'get_details')
+#     @patch('questionnaire.views.query_questionnaire')
+#     def test_calls_get_details(
+#             self, mock_query_questionnaire, mock_get_details,
+#             mock_get_query_status_filter, mock_render):
+#         mock_query_questionnaire.return_value.first.return_value.data = {}
+#         mock_query_questionnaire.return_value.first.return_value.code = 'foo'
+#         self.request.user.is_authenticated.return_value = True
+#         generic_questionnaire_details(self.request, *get_valid_details_values())
+#         self.assertTrue(mock_get_details.called)
+#
+#     @patch('questionnaire.views.get_configuration')
+#     @patch('questionnaire.views.query_questionnaire')
+#     def test_calls_get_image_data(
+#             self, mock_query_questionnaire, mock_conf, mock_render):
+#         mock_query_questionnaire.return_value.first.return_value.data = {}
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         mock_conf.return_value.get_image_data.assert_called_once_with({})
+#
+#     @patch('questionnaire.views.get_configuration')
+#     @patch('questionnaire.views.get_list_values')
+#     @patch('questionnaire.views.query_questionnaire')
+#     def test_calls_get_list_values(
+#             self, mock_query_questionnaire, mock_get_list_values, mock_conf,
+#             mock_render):
+#         q = Mock()
+#         q.data = {}
+#         link = Mock()
+#         q.links.filter.return_value = [link]
+#         q.members.all.return_value = []
+#         mock_query_questionnaire.return_value.first.return_value = q
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         mock_get_list_values.assert_called_once_with(
+#             questionnaire_objects=[link], with_links=False,
+#             configuration_code=link.configurations.first().code)
+#
+#     @patch('questionnaire.views.get_configuration')
+#     @patch('questionnaire.views.query_questionnaire')
+#     def test_calls_render(
+#             self, mock_query_questionnaire, mock_conf, mock_render):
+#         mock_q_obj = mock_query_questionnaire.return_value.first.return_value
+#         mock_q_obj.data = {}
+#         generic_questionnaire_details(
+#             self.request, *get_valid_details_values())
+#         img = mock_conf.return_value.get_image_data.return_value
+#         mock_render.assert_called_once_with(
+#             self.request, 'questionnaire/details.html', {
+#                 'images': img.get.return_value,
+#                 'sections': mock_conf.return_value.get_details.return_value,
+#                 'links': {},
+#                 'modules': {},
+#                 'module_form_config': {},
+#                 'questionnaire_identifier': 'foo',
+#                 'permissions': mock_q_obj.get_roles_permissions.return_value.permissions,
+#                 'view_mode': 'view',
+#                 'toc_content': mock_conf.return_value.get_toc_data.return_value,
+#                 'review_config': {},
+#                 'base_template': 'sample/base.html',
+#             })
 
 
 @patch('configuration.utils.check_aliases')

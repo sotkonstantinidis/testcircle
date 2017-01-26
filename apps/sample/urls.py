@@ -4,12 +4,13 @@ from django.views.generic import TemplateView
 
 from questionnaire.views import QuestionnaireEditView, GenericQuestionnaireStepView, \
     GenericQuestionnaireMapView, QuestionnaireCheckModulesView, \
-    QuestionnaireAddModule
+    QuestionnaireAddModule, QuestionnaireView
 
 urlpatterns = patterns(
     '',
     url(r'^$', 'sample.views.home', name='home'),
-    url(r'^view/(?P<identifier>[^/]+)/$', 'sample.views.questionnaire_details',
+    url(r'^view/(?P<identifier>[^/]+)/$',
+        QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/map/$',
         GenericQuestionnaireMapView.as_view(url_namespace=__package__),

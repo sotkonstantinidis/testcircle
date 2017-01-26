@@ -3,14 +3,15 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import RedirectView
 
 from questionnaire.views import QuestionnaireEditView, \
-    GenericQuestionnaireStepView
+    GenericQuestionnaireStepView, QuestionnaireView
 
 urlpatterns = patterns(
     '',
     url(r'^$', RedirectView.as_view(
         url=reverse_lazy('wocat:home'), permanent=False
     ), name='home'),
-    url(r'^view/(?P<identifier>[^/]+)/$', 'unccd.views.questionnaire_details',
+    url(r'^view/(?P<identifier>[^/]+)/$',
+        QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         'unccd.views.questionnaire_view_step',

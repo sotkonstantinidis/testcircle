@@ -1,14 +1,14 @@
 from django.conf.urls import url, patterns
 
 from questionnaire.views import QuestionnaireEditView, GenericQuestionnaireStepView, \
-    GenericQuestionnaireMapView
+    GenericQuestionnaireMapView, QuestionnaireView
 
 urlpatterns = patterns(
     '',
     # The 'home' route points to the list
     url(r'^$', 'approaches.views.questionnaire_list', name='home'),
     url(r'^view/(?P<identifier>[^/]+)/$',
-        'approaches.views.questionnaire_details',
+        QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/map/$',
         GenericQuestionnaireMapView.as_view(url_namespace=__package__),
