@@ -816,8 +816,19 @@ class GenericQuestionnaireView(
         Returns: dict
 
         """
+        status = self.object.status if self.has_object else 0
+        permissions = permissions or []
+        workflow_users = {}
+        if 'assign_questionnaire' in permissions:
+            if status == settings.QUESTIONNAIRE_DRAFT:
+                workflow_users['editors'] = self.object.get_users_by_role('editor')
+            elif status == settings.QUESTIONNAIRE_SUBMITTED:
+                workflow_users['reviewers'] = self.object.get_users_by_role('reviewer')
+            elif status == settings.QUESTIONNAIRE_REVIEWED:
+                workflow_users['publishers'] = self.object.get_users_by_role('publisher')
+
         return get_review_config_dict(
-            status=self.object.status if self.has_object else 0,
+            status=status,
             token=get_token(self.request),
             permissions=permissions,
             roles=roles,
@@ -828,6 +839,7 @@ class GenericQuestionnaireView(
             form_url=self.get_detail_url(step=''),
             has_release=self.has_release(),
             other_version_status=kwargs.get('other_version_status'),
+            **workflow_users
         )
 
     def questionnaires_in_progress(self):

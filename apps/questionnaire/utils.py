@@ -1764,7 +1764,7 @@ def prepare_list_values(data, config, **kwargs):
 
 def get_review_config_dict(
         status, token, permissions, roles, view_mode, url, is_blocked,
-        blocked_by, form_url, has_release, other_version_status):
+        blocked_by, form_url, has_release, other_version_status, **kwargs):
     return {
         'review_status': status,
         'csrf_token_value': token,
@@ -1777,4 +1777,5 @@ def get_review_config_dict(
         'form_action_url': form_url,
         'has_release': has_release,  # flag if this questionnaire has a published version - controlling the first tab.
         'other_version_status': other_version_status,
+        **kwargs
     }
