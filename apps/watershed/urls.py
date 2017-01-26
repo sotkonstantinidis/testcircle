@@ -8,7 +8,7 @@ urlpatterns = patterns(
     # The 'home' route points to the list
     url(r'^$', 'watershed.views.questionnaire_list', name='home'),
     url(r'^view/(?P<identifier>[^/]+)/$',
-        'watershed.views.questionnaire_details',
+        QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/map/$',
         QuestionnaireMapView.as_view(url_namespace=__package__),
