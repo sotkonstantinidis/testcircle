@@ -231,7 +231,7 @@ class StepsMixin:
         return [category.keyword for category in categories]
 
 
-class QuestionnaireRetrieveMixin(TemplateResponseMixin, StepsMixin):
+class QuestionnaireRetrieveMixin(TemplateResponseMixin):
     """
     Base class for all views that are used to update a questionnaire. At least the url_namespace must be set
     when using this view.
@@ -287,9 +287,8 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin, StepsMixin):
 
         Returns: string
         """
-        if self.has_object:
-            url = reverse('{}:questionnaire_details'.format(self.url_namespace),
-                          args=[self.object.code])
+        if self.view_mode == 'view' or self.has_object:
+            url = self.object.get_absolute_url()
         else:
             url = reverse('{}:questionnaire_new'.format(self.url_namespace))
 
@@ -678,9 +677,9 @@ class GenericQuestionnaireMapView(TemplateResponseMixin, View):
         return self.render_to_response(context=context)
 
 
-class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
+class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMixin, View):
 
-    http_method_names = ['get']
+    http_method_names = ['get', 'post']
     view_mode = 'view'
 
     def get(self, request, *args, **kwargs):
@@ -698,9 +697,6 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
             questionnaire_data=questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
         )
-
-        # Url when switching the mode - go to the detail view.
-        url = self.get_detail_url(step='') if self.has_object else ''
 
         other_version_status = None
         if self.has_object:
@@ -728,7 +724,7 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
                 permissions = ['edit_questionnaire']
 
             review_config = self.get_review_config(
-                permissions=permissions, roles=roles, url=url,
+                permissions=permissions, roles=roles,
                 blocked_by=blocked_by if not can_edit else False,
                 other_version_status=other_version_status
             )
@@ -796,7 +792,24 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
         }
         return self.render_to_response(context=context)
 
-    def get_review_config(self, permissions, roles, url, **kwargs):
+    def post(self, request, *args, **kwargs):
+        """
+        Handle review actions.
+        """
+        obj = self.get_object()
+        review = handle_review_actions(
+            request, obj, self.get_configuration_code()
+        )
+        if isinstance(review, HttpResponse):
+            return review
+        return redirect(obj.get_absolute_url())
+
+    def get_object(self):
+        if self.identifier == self.new_identifier:
+            raise Http404()
+        return super().get_object()
+
+    def get_review_config(self, permissions, roles, **kwargs):
         """
         Create a dict with the review_config, this is required for proper display
         of the review panel.
@@ -834,6 +847,12 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
                         'step': self.get_steps()[0]
                     })
             }
+        url = ''
+        if self.has_object:
+            if self.view_mode == 'edit':
+                url = self.object.get_absolute_url()
+            else:
+                url = self.object.get_edit_url()
 
         return {
             'review_status': status,
@@ -902,8 +921,7 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, InheritedDataMixin, View):
         return super().get_detail_url(step='top')
 
 
-class QuestionnaireEditView(
-        QuestionnaireEditMixin, QuestionnaireView):
+class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -916,8 +934,8 @@ class QuestionnaireEditView(
 
 
 class GenericQuestionnaireStepView(
-        InheritedDataMixin, QuestionnaireEditMixin, QuestionnaireSaveMixin,
-        View):
+        QuestionnaireEditMixin, QuestionnaireRetrieveMixin, InheritedDataMixin,
+        QuestionnaireSaveMixin, View):
     """
     A section of the questionnaire.
     """
