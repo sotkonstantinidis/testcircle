@@ -85,6 +85,7 @@ class SampleHomeTest(TestCase):
     @patch('sample.views.generic_questionnaire_list')
     def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
         request = self.factory.get(self.url)
+        request.user = create_new_user()
         home(request)
         mock_questionnaire_list.assert_called_once_with(
             request, 'sample', template=None, only_current=True,

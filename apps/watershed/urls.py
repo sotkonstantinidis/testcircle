@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns
 
 from questionnaire.views import QuestionnaireEditView, \
-    QuestionnaireStepView, QuestionnaireMapView
+    QuestionnaireStepView, QuestionnaireMapView, QuestionnaireView
 
 urlpatterns = patterns(
     '',
