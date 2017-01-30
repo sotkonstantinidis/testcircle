@@ -387,3 +387,40 @@ class NotificationsListTest(NotificationSetupMixin, FunctionalTest):
             len(self.findManyBy('xpath', self.notifications_xpath)),
             0
         )
+
+    def test_mark_all_read(self):
+        # robin logs in and visits the notifications-page
+        self.create_status_log(user=self.robin)
+        self.doLogin(user=self.robin)
+        self.browser.get(self.notifications_url)
+        # one unread message is shown, and no unread message
+        unmuted = self.notifications_xpath + '/div[@class="is-muted"]'
+        self.assertEqual(
+            len(self.findManyBy('xpath', self.notifications_xpath)),
+            1
+        )
+        self.assertEqual(
+            len(self.findManyBy('xpath', unmuted)),
+            0
+        )
+        # the settings-button is displayed, but the options are hidden
+        toggler = self.findBy('xpath', '//button[@data-toggle="notification-settings"]')
+        self.assertFalse(
+            self.findBy('id', 'notification-settings').is_displayed()
+        )
+        # after clicking the toggler, the 'read all marked' is visible
+        toggler.click()
+        time.sleep(1)
+        mark_all_read = self.findBy('xpath', '//a[@data-reveal-id="confirm-mark-all-read"]')
+        # the overlay is shown
+        mark_all_read.click()
+        self.wait_for('id', 'confirm-mark-all-read')
+        self.assertTrue(
+            self.findBy('id', 'confirm-mark-all-read').is_displayed()
+        )
+        # after clicking on the confirmation button, all messages are read.
+        self.findBy('class_name', 'mark-all-read').click()
+        self.assertEqual(
+            len(self.findManyBy('xpath', unmuted)),
+            0
+        )

@@ -287,3 +287,13 @@ class LogInformationUpdateCreateView(LoginRequiredMixin, View):
                 compiler=compiler.get_display_name())
             )
         )
+
+
+class LogAllReadView(LoginRequiredMixin, View):
+    """
+    Set all logs as read for given user.
+    """
+
+    def post(self, request, *args, **kwargs):
+        Log.actions.mark_all_read(user=request.user)
+        return HttpResponse(status=200)
