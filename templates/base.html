@@ -47,6 +47,13 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static 'css/app.css' %}" />
     {% endcompress %}
+    {% if request.LANGUAGE_CODE in WORD_WRAP_LANGUAGES %}
+      <style type="text/css">
+        body {
+          word-wrap: break-word;
+        }
+      </style>
+    {% endif %}
 
     {% compress js %}
       <!-- todo: measure if cdns are benefitial for rural areas -->
