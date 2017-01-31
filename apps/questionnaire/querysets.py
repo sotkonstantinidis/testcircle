@@ -11,14 +11,14 @@ from .conf import settings
 
 class StatusQuerySet(models.QuerySet):
     """
-    Helper for verbose queries. Use as: Questionnaire.with_status.published()
+    Helper for verbose queries. Use as: Questionnaire.with_status.public()
     """
 
     def public(self):
-        return self.filter(status=settings.QUESTIONNAIRE_PUBLIC)
+        return self.not_deleted().filter(status=settings.QUESTIONNAIRE_PUBLIC)
 
     def draft(self):
-        return self.filter(status=settings.QUESTIONNAIRE_DRAFT)
+        return self.not_deleted().filter(status=settings.QUESTIONNAIRE_DRAFT)
 
     def not_deleted(self):
         return self.filter(is_deleted=False)
