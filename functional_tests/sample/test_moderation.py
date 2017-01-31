@@ -252,7 +252,7 @@ class ModerationTestFixture(FunctionalTest):
         # He sees that he has been redirected to the "My SLM Practices" page
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires))
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
 
         # He goes to the details of a SUBMITTED questionnaire which he did not
         # enter
@@ -267,7 +267,7 @@ class ModerationTestFixture(FunctionalTest):
         # He sees that he has been redirected to the "My SLM Practices" page
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires))
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
 
         # He goes to the details of a REVIEWED questionnaire which he did not
         # enter
@@ -282,7 +282,7 @@ class ModerationTestFixture(FunctionalTest):
         # He sees that he has been redirected to the "My SLM Practices" page
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires))
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
 
         # He also opens a PUBLIC questionnaire which he did not enter
         self.browser.get(self.live_server_url + reverse(
@@ -304,7 +304,7 @@ class ModerationTestFixture(FunctionalTest):
         # He sees that he has been redirected to the "My SLM Practices" page
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires))
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
 
         # In the database, there is still only 1 version
         self.assertEqual(
@@ -355,7 +355,7 @@ class ModerationTestFixture(FunctionalTest):
         # version to show
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires))
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
 
     def test_review_panel(self, mock_get_user_id):
 
@@ -826,7 +826,7 @@ class ModerationTestFixture(FunctionalTest):
         # permission to view or edit the draft questionnaire
         # route_home
         home_url = self.live_server_url + reverse(route_home)
-        self.assertEqual(self.browser.current_url, home_url)
+        self.assertEqual(self.browser.current_url, home_url + '#top')
 
         # User 102 (the compiler of the questionnaire) logs in
         self.doLogin(user=self.user_editor)
@@ -905,7 +905,7 @@ class ModerationTestFixture(FunctionalTest):
         # permission to view or edit the draft questionnaire
         # route_home
         home_url = self.live_server_url + reverse(route_home)
-        self.assertEqual(self.browser.current_url, home_url)
+        self.assertEqual(self.browser.current_url, home_url + '#top')
 
         # User 102 (the compiler of the questionnaire) logs in
         self.doLogin(user=self.user_compiler)

@@ -470,7 +470,7 @@ class EditTest(FunctionalTest):
 
         # She sees the possibility to view the questionnaire
         self.review_action('view')
-        self.assertIn(url, self.browser.current_url)
+        self.assertIn(url, self.browser.current_url + '#top')
 
         # All the changes are there
         self.findBy('xpath', '//p[text()="Bar"]')

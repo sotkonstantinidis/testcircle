@@ -255,7 +255,7 @@ class ModerationTest(FunctionalTest):
         # 1 rejected)
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 7)
+        self.assertEqual(len(list_entries), 6)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
                      'contains(text(), "Foo 1")]')
@@ -274,6 +274,3 @@ class ModerationTest(FunctionalTest):
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[6]//a['
                      'contains(text(), "Foo 9")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[7]//a['
-                     'contains(text(), "Foo 4")]')
