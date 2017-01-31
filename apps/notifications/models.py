@@ -219,6 +219,21 @@ class ActionContextQuerySet(models.QuerySet):
         else:
             return ''
 
+    def mark_all_read(self, user: User) -> None:
+        """
+        Mark all notifications as read in bulk. To prevent edge cases with
+        previously existing logs, all logs are removed before the bulk insert.
+        """
+        self.delete_all_read_logs(user=user)
+        log_ids = self.user_log_list(user=user).values_list('id', flat=True)
+        ReadLog.objects.bulk_create(
+            [ReadLog(user=user, log_id=log, is_read=True) for log in log_ids]
+        )
+
+    @staticmethod
+    def delete_all_read_logs(user: User):
+        ReadLog.objects.filter(user=user).delete()
+
 
 class Log(models.Model):
     """

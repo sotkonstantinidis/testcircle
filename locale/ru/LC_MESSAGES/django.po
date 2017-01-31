@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-29 07:35+0100\n"
-"PO-Revision-Date: 2017-01-26 16:13+0000\n"
-"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
+"PO-Revision-Date: 2017-01-30 09:46+0000\n"
+"Last-Translator: Julia Johnson <yukuleshova@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -87,11 +87,11 @@ msgstr "Войти"
 
 #: apps/accounts/templates/login.html:13
 msgid "Please log in to access this page."
-msgstr "Для доступа к странице введите, пожалуйста, пароль "
+msgstr "Для доступа к странице войдите, пожалуйста, под своим именем"
 
 #: apps/accounts/templates/login.html:33
 msgid "No login?"
-msgstr "Нет логина/ пароля?"
+msgstr "Нет учетной записи?"
 
 #: apps/accounts/templates/login.html:34
 msgid "If you do not yet have a login, please visit "
@@ -761,7 +761,7 @@ msgid ""
 "<p>Maximum 2 answers possible.</p><p>Slope gradient conversion "
 "table</p><table><thead><tr><th>Slope in degrees</th><th>Slope in "
 "percent</th></tr></thead><tbody><tr><th>1°</th><th>2%%</th></tr><tr><th>3°</th><th>5%%</th></tr><tr><th>5°</th><th>8%%</th></tr><tr><th>9°</th><th>16%%</th></tr><tr><th>17°</th><th>30%%</th></tr><tr><th>31°</th><th>60%%</th></tr><tr><th>45°</th><th>100%%</th></tr></tbody></table>"
-msgstr "Таблица перевода крутизны склонов:\nВ градусах\t в процентах\n1\t 2%%\n3\t 5%%\n5\t 8%%\n9\t 16%%\n17\t 30%%\n31\t 60%%\n45\t 100%%"
+msgstr "Не более двух вариантов ответа. Таблица перевода крутизны склонов\nВ градусах\t в процентах\n1\t 2%%\n3\t 5%%\n5\t 8%%\n9\t 16%%\n17\t 30%%\n31\t 60%%\n45\t 100%%"
 
 #: apps/configuration/configuration_translations.py:1092
 msgctxt "technologies label"
@@ -843,7 +843,7 @@ msgstr "разнообразие продукции"
 #: apps/configuration/configuration_translations.py:1102
 msgctxt "technologies label"
 msgid "production area (new land under cultivation/ use)"
-msgstr "используемая продуктивная площадь (новые земли вводимые в оборот)"
+msgstr "используемая продуктивная площадь (земли, добавленные в оборот/ пользование)"
 
 #: apps/configuration/configuration_translations.py:1105
 #: apps/configuration/configuration_translations.py:2247
@@ -2092,7 +2092,7 @@ msgstr "влияние засух"
 #: apps/configuration/configuration_translations.py:2385
 msgctxt "technologies label"
 msgid "impacts of cyclones, rain storms"
-msgstr "влияние ураганов, проливных дождей"
+msgstr "воздействие ураганов, проливных дождей"
 
 #: apps/configuration/configuration_translations.py:1451
 msgctxt "technologies label"
@@ -3168,7 +3168,7 @@ msgstr "Выпуклый: гребень (стекание поверхност�
 #: apps/configuration/configuration_translations.py:1645
 msgctxt "technologies label"
 msgid "convex situations"
-msgstr "выпуклый рельеф"
+msgstr "в условиях выпуклого рельефа"
 
 #: apps/configuration/configuration_translations.py:1646
 msgctxt "technologies helptext"
@@ -3178,7 +3178,7 @@ msgstr "Вогнутый: депрессия (накопление поверх�
 #: apps/configuration/configuration_translations.py:1647
 msgctxt "technologies label"
 msgid "concave situations"
-msgstr "вогнутый рельеф"
+msgstr "в ситуациях вогнутого рельефа"
 
 #: apps/configuration/configuration_translations.py:1648
 msgctxt "technologies label"
@@ -5512,7 +5512,7 @@ msgctxt "technologies helptext"
 msgid ""
 "<strong>Agricultural inputs</strong> include seeds, seedling, fertilizer, "
 "biocides, compost/ manure, etc."
-msgstr "Сельскохозяйственные вложения включают включает семена, саженцы, минеральные удобрения, гербициды, пестициды, компост/навоз и т.д. "
+msgstr "Сельскохозяйственные вложения включают семена, саженцы, минеральные удобрения, гербициды, пестициды, компост/навоз и т.д. "
 
 #: apps/configuration/configuration_translations.py:2208
 msgctxt "technologies label"
@@ -5602,7 +5602,7 @@ msgstr "Право водопользования (если применимо)"
 #: apps/configuration/configuration_translations.py:2245
 msgctxt "technologies helptext"
 msgid "New land under cultivation/ use"
-msgstr "Земли добавленные в оборот/ использование"
+msgstr "Земли добавленные в оборот/ пользование"
 
 #: apps/configuration/configuration_translations.py:2246
 msgctxt "technologies label"
@@ -6483,7 +6483,7 @@ msgid ""
 "Note that WOCAT questionnaires focus on the documentation and assessment of "
 "SLM practices. However, this questionnaire can also be used to describe "
 "partly sustainable and non-sustainable land management practices."
-msgstr "Обратите внимание, что анкеты WOCAT предназначены для документирования и оценки практик УЗП. Однако данная Анкета также может быть использована для описания практик землепользования, которые могут считаться природосберегающими лишь отчасти и тех, которые вообще не могут считаться природосберегающими. "
+msgstr "Обратите внимание, что анкеты WOCAT предназначены для описания и оценки практик УЗП. Однако данная Анкета также может быть использована для описания практик землепользования, которые могут считаться природосберегающими лишь отчасти и тех, которые не могут считаться природосберегающими. "
 
 #: apps/configuration/configuration_translations.py:2764
 #: apps/configuration/configuration_translations.py:2796
@@ -6513,7 +6513,7 @@ msgid ""
 "measure – are often combined with other measures, such as grass on the "
 "risers for stabilization and fodder (vegetative measure), or contour "
 "ploughing (agronomic measure).</p>"
-msgstr "УЗП мероприятия – элементы Технологии\nУЗП мероприятия делятся на пять категорий: агротехнические, с использованием растительности, инженерные, управленческие и прочие.  Мероприятия являются элементами Технологии.  Каждая Технология включает в себя одно или, чаще всего, сочетание нескольких мероприятий.  Например, террасирование, типичное инженерное мероприятие, часто используется в сочетании с другими мероприятиями, такими как засевание травами откосов террас для стабилизации склонов и на корм скоту (использование растительности) или контурная вспашка (агротехническое мероприятие)."
+msgstr "Мероприятия по УЗП – элементы Технологии\nМероприятия по УЗП делятся на пять категорий: агротехнические, с использованием растительности, инженерные, управленческие и прочие. Мероприятия являются элементами Технологии.  Каждая Технология включает в себя одно или, чаще всего, сочетание нескольких мероприятий. Например, террасирование, типичное инженерное мероприятие, часто используется в сочетании с другими мероприятиями, такими как засевание травами откосов террас для стабилизации склонов и на корм скоту (использование растительности) или контурная вспашка (агротехническое мероприятие)."
 
 #: apps/configuration/configuration_translations.py:2769
 msgctxt "technologies label"
@@ -6661,7 +6661,7 @@ msgid ""
 "SLM practices. However, this questionnaire can also be used to describe non-"
 "sustainable land management practices, if you wish to compare this practice "
 "with other technologies."
-msgstr "Обратите внимание, что анкеты WOCAT предназначены для документирования и оценки практик УЗП. Однако данная Анкета также может быть использована для описания практики землепользования, которая не может считаться природосберегающей, если вы хотите сравнить эту практику с той или иной Технологией УЗП."
+msgstr "Обратите внимание, что анкеты WOCAT предназначены для описания и оценки практик УЗП. Однако данная Анкета также может быть использована для описания практики землепользования, которая не может считаться природосберегающей, если вы хотите сравнить эту практику с той или иной Технологией УЗП."
 
 #: apps/configuration/configuration_translations.py:2797
 msgctxt "technologies helptext"
@@ -6806,7 +6806,7 @@ msgid ""
 "non-sustainable land management practice if you wish to compare this "
 "practice with specific SLM Technologies. In this case, indicate reference to"
 " those SLM Technologies in question 1.6."
-msgstr "Обратите внимание, что анкеты WOCAT предназначены для документирования и оценки практик УЗП. Однако данная Анкета также может быть использована для описания практики землепользования, которая не может считаться природосберегающей, если вы хотите сравнить эту практику с той или иной Технологией УЗП. В этом случае, дайте ссылку на соответствующие технологии УЗП в Разделе 1.6."
+msgstr "Обратите внимание, что анкеты WOCAT предназначены для описания и оценки практик УЗП. Однако данная Анкета также может быть использована для описания практики землепользования, которая не может считаться природосберегающей, если вы хотите сравнить эту практику с той или иной Технологией УЗП. В этом случае, дайте ссылку на соответствующие технологии УЗП в Разделе 1.6."
 
 #: apps/configuration/configuration_translations.py:2822
 msgctxt "technologies helptext"
@@ -8231,14 +8231,14 @@ msgctxt "approaches label"
 msgid ""
 "Name of project/ institution which funded the documentation/ evaluation of "
 "the Approach (if relevant)"
-msgstr "Название проекта/ организации, оплатившей документирование/ оценку Подхода (если применимо)"
+msgstr "Название проекта/ организации, из чьих средств была оплачена работа по описанию/ оценке Подхода (если применимо)"
 
 #: apps/configuration/configuration_translations.py:5047
 msgctxt "technologies label"
 msgid ""
 "Name of project/ institution which funded the documentation/ evaluation of "
 "the Technology (if relevant)"
-msgstr "Название проекта/ организации, оплатившей документирование/ оценку Технологии (если применимо)"
+msgstr "Название проекта/ организации, из чьих средств была оплачена работа по описанию/ оценке Технологии (если применимо)"
 
 #: apps/configuration/configuration_translations.py:5048
 msgctxt "approaches helptext"
@@ -9095,7 +9095,7 @@ msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use"
 " of data documented through WOCAT your data will not be accepted by the "
 "WOCAT secretariat and it will not be published."
-msgstr "<strong>Примечание</strong>: Если вы не согласны с условиями, регламентирующими использование данных, собранных при содействии WOCAT, ваша информация не будет принята Секретариатом WOCAT и не будет опубликована."
+msgstr "<strong>Примечание</strong>: Если вы не согласны с условиями, регламентирующими использование собранных WOCAT данных, ваша информация не будет принята Секретариатом WOCAT и не будет опубликована."
 
 #: apps/configuration/configuration_translations.py:5214
 msgctxt "cca helptext"
@@ -9103,7 +9103,7 @@ msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use"
 " of data documented through WOCAT your data will not be accepted by the "
 "WOCAT secretariat and it will not be published."
-msgstr "<strong>Примечание</strong>: Если вы не согласны с условиями, регламентирующими использование данных, собранных при содействии WOCAT, ваша информация не будет принята Секретариатом WOCAT и не будет опубликована."
+msgstr "<strong>Примечание</strong>: Если вы не согласны с условиями, регламентирующими использование собранных WOCAT данных, ваша информация не будет принята Секретариатом WOCAT и не будет опубликована."
 
 #: apps/configuration/configuration_translations.py:5215
 msgctxt "cca label"
@@ -9126,7 +9126,7 @@ msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use"
 " of data documented through WOCAT your data will not be accepted by the "
 "WOCAT secretariat and it will not be published."
-msgstr "<strong>Примечание</strong>: Если вы не согласны с условиями, регламентирующими использование данных, собранных при содействии WOCAT, ваша информация не будет принята Секретариатом WOCAT и не будет опубликована."
+msgstr "<strong>Примечание</strong>: Если вы не согласны с условиями, регламентирующими использование собранных WOCAT данных, ваша информация не будет принята Секретариатом WOCAT и не будет опубликована."
 
 #: apps/configuration/configuration_translations.py:5219
 msgctxt "watershed label"
@@ -12951,7 +12951,7 @@ msgstr "Приложите визуальную схему взаимодейс�
 #: apps/configuration/configuration_translations.py:8777
 msgctxt "approaches label"
 msgid "Decision-making on the selection of SLM Technology/ Technologies"
-msgstr "Принятие решений по выбору УЗП Технологии/ Технологий"
+msgstr "Принятие решений по выбору Технологии/ Технологий УЗП"
 
 #: apps/configuration/configuration_translations.py:8778
 msgctxt "approaches label"
@@ -13939,7 +13939,7 @@ msgstr "например, ассоциации, организации мест�
 #: apps/configuration/configuration_translations.py:27163
 msgctxt "cca label"
 msgid "connection to social networks"
-msgstr "связи с социальными сетями"
+msgstr "выход в социальные сети"
 
 #: apps/configuration/configuration_translations.py:27164
 msgctxt "cca label"
@@ -15488,7 +15488,7 @@ msgstr "последствия засух"
 #: apps/configuration/configuration_translations.py:29217
 msgctxt "cca label"
 msgid "impacts of cyclones, rain storms"
-msgstr "влияние ураганов, проливных дождей"
+msgstr "воздействие ураганов, проливных дождей"
 
 #: apps/configuration/configuration_translations.py:29218
 msgctxt "cca label"
@@ -16109,7 +16109,7 @@ msgstr "Непросмотренный"
 
 #: apps/notifications/templates/notifications/partial/list.html:78
 msgid "Please manage its"
-msgstr ""
+msgstr "Пожалуйста, измените"
 
 #: apps/notifications/templates/notifications/partial/list.html:84
 msgid "You may continue with the next step on the publication workflow."
@@ -16752,7 +16752,7 @@ msgid ""
 "\n"
 "          The %(questionnaire_type)s data entry form is saved as a draft. The compiler is responsible for this data entry and can invite editors (WOCAT users) to help create it. Once the data entry is complete the compiler can submit it for review.\n"
 "        "
-msgstr "\nФорма для ввода данных %(questionnaire_type)s сохранена в черновом варианте. Составитель отвечает за воод данных и может приглашать редакторов (пользователей WOCAT) к сотрудничеству в ее создании. По окончании ввода данных составитель может отправить введённые данные на рецензию."
+msgstr "\nФорма для ввода данных %(questionnaire_type)s сохранена в черновом варианте. Составитель отвечает за ввоод данных и может приглашать редакторов (пользователей WOCAT) к сотрудничеству в ее создании. По окончании ввода данных составитель может отправить введённые данные на рецензию."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:23
 #, python-format
@@ -16773,7 +16773,7 @@ msgid ""
 "\n"
 "            After submission of the %(questionnaire_type)s a reviewer will be assigned to check your data. During this time you cannot edit your data entry. If the data is not complete you must revise it. If the data is complete the reviewer submits it for publication.\n"
 "          "
-msgstr "\nПосле отправки данного %(questionnaire_type)s для проверки данных будет назначен рецензент. Во время работы рецензента, вы не сможете редактировать введённые вами данные. Если данные окажутся неполными, необходимо внести дополнения. Если работа над анкетой завершена, рецензент отправляет ее на публикацию."
+msgstr "\nПосле отправки %(questionnaire_type)s на проверку будет назначен рецензент. Во время работы рецензента, вы не сможете редактировать введённые вами данные. Если данные окажутся неполными, необходимо внести дополнения. Если работа над анкетой завершена, рецензент отправляет ее на публикацию."
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:38
 msgid ""
@@ -17128,11 +17128,11 @@ msgstr "\nКак рецензент вы можете отклонить %(quest
 
 #: apps/questionnaire/templates/details/review_panel/review.html:108
 msgid "Assign reviewer"
-msgstr "Присвоить рецензента"
+msgstr "Прикрепить рецензента"
 
 #: apps/questionnaire/templates/details/review_panel/review.html:109
 msgid "Assigned reviewers:"
-msgstr "Присвоенные рецензенты:"
+msgstr "Прикреплённые рецензенты:"
 
 #: apps/questionnaire/templates/details/review_panel/review.html:110
 msgid "There are no reviewers assigned to this questionnaire."
@@ -17141,7 +17141,7 @@ msgstr "Нет рецензентов, прикрепленных к этой а
 #: apps/questionnaire/templates/details/review_panel/review.html:111
 msgid ""
 "Edit assigned reviewers. Click the button to update the assigned reviewers."
-msgstr "Внести изменения в присвоенных рецензентов. Для обновления списка рецензентов нажмите на клавишу."
+msgstr "Внести изменения в список прикреплённых рецензентов. Для обновления списка рецензентов нажмите на клавишу."
 
 #: apps/questionnaire/templates/details/review_panel/review.html:112
 msgid "Update reviewers"
@@ -17405,11 +17405,11 @@ msgstr "Ввести число"
 
 #: apps/questionnaire/templates/form/helptext.html:12
 msgid "See More"
-msgstr "Видеть больше"
+msgstr "Развернуть"
 
 #: apps/questionnaire/templates/form/helptext.html:12
 msgid "See Less"
-msgstr "Видеть меньше"
+msgstr "Свернуть"
 
 #: apps/questionnaire/templates/form/links/approaches.html:15
 #: apps/questionnaire/templates/form/links/default.html:15
@@ -17745,7 +17745,7 @@ msgstr "Анкета отклонена."
 
 #: apps/questionnaire/utils.py:1478
 msgid "Assigned users were successfully updated"
-msgstr "Присвоенные пользователи успешно обновлены"
+msgstr "Прикрепленные пользователи успешно обновлены"
 
 #: apps/questionnaire/utils.py:1506
 msgid ""
@@ -17849,7 +17849,7 @@ msgstr "Все данные по УЗП"
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/list.html:70
 msgid "SLM Technologies"
-msgstr "УЗП технологии"
+msgstr "Технологии УЗП"
 
 #: apps/sample/templates/sample/questionnaire/list.html:78
 #: apps/wocat/templates/wocat/partial/top.html:33
@@ -18184,7 +18184,7 @@ msgid ""
 "The compiler is responsible for this data entry and can invite editors "
 "(WOCAT users) to help create it. Once the data entry is complete the "
 "compiler can submit it for review."
-msgstr "Составитель отвечает за ввод данных и может приглашать редакторов (пользователей WOCAT) к сотрудничеству. По окончании ввода данных составитель может передавать их на проверку.   "
+msgstr "Составитель отвечает за ввод данных и может приглашать редакторов (пользователей WOCAT) к сотрудничеству. По окончании ввода данных составитель может отправить их на проверку.   "
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:22
 #, python-format
@@ -18236,7 +18236,7 @@ msgstr "Технология/ Подход УЗП"
 #: apps/wocat/templates/wocat/home.html:51
 #: apps/wocat/templates/wocat/home.html:59
 msgid "the Global Database on Sustainable Land Management"
-msgstr "Глобальная База данных по устойчивому землепользованию"
+msgstr "Всемирная База данных по устойчивому землепользованию"
 
 #: apps/wocat/templates/wocat/home.html:28
 msgid "is the primary recommended database by UNCCD"
@@ -18283,7 +18283,7 @@ msgstr "Практика/опыт УЗП"
 #: apps/wocat/templates/wocat/partial/add.html:22
 msgid ""
 "<strong>SLM practices</strong> comprise SLM Technologies and SLM Approaches"
-msgstr "<strong>Практика УЗП<strong> включает Технологии УЗП и Подходы УЗП"
+msgstr "<strong>Практика УЗП</strong> включает Технологии УЗП и Подходы УЗП"
 
 #: apps/wocat/templates/wocat/partial/add.html:43
 msgid "Land Management Maps"
