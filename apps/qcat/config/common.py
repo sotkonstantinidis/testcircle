@@ -142,6 +142,19 @@ class BaseSettings(Configuration):
         ('medium', (1440, 1080)),
         # 'large' is the original uploaded image.
     )
+    THUMBNAIL_ALIASES = {
+        'summary': {
+            'header_image': {
+                'size': (0, 350)
+            },
+            'half_height': {
+                'size': (0, 290)
+            },
+            'map': {
+                'size': (300, 0)
+            }
+        }
+    }
 
     SUMMARY_PDF_PATH = join(MEDIA_ROOT, 'summary-pdf')
 

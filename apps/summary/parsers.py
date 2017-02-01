@@ -146,7 +146,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
 
         for value in selected:
-            child_text = ''
+            child_text = '{title} - '.format(title=value[0])
             # 'value' is a tuple of four elements: title, icon-url, ?, keyword
             # this represents the 'parent' question with an image
             selected_children_keyword = nested_elements.get(value[3])
@@ -279,6 +279,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
             text = values
         else:
             text = ', '.join([choices_labels[choice] for choice in values])
+
         text_parts = dict(
             label='{}: '.format(child_question.label) if has_label else '',
             multi_line='<br>' if selected_child_len > 1 else '',
@@ -311,6 +312,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         questiongroups = self.get_questiongroups_in_table(
             section=child.questiongroup.parent_object
         )
+        has_content = False
         # structure:
         # a questiongroup consists of typically 6 questions. these are the
         # columns. the number of columns is fixed for all questiongroups in
@@ -347,8 +349,9 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                     'head': questiongroup.label,
                     'items': partials.values()
                 })
+                has_content = True
 
-        return table if table['partials'] else {}
+        return table if has_content else {}
 
     def get_questiongroups_in_table(self, section: QuestionnaireSubcategory):
         """

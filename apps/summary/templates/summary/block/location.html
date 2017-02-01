@@ -2,10 +2,7 @@
 
 <div class="small-4 columns location">
   {% include 'summary/partial/title_bar.html' with title=title %}
-  {% comment %}Without the nbsp, the image brigthness is too high.
-    Without any proof: it seems as if the color of the title-bar is used as
-    background of the image.{% endcomment %}
-  &nbsp;<img src="{{ request.scheme }}://{{ request.get_host }}{{ content.map.url }}">
+  <img src="{{ content.map.url }}">
   <p class="location_text">
     <b>{{ content.infos.location.title }}:</b> {{ content.infos.location.text }}
   </p>

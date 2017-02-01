@@ -2,10 +2,11 @@
 Prepare data as required for the summary frontend templates.
 """
 import itertools
-import json
+import os
 
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _, get_language
+from easy_thumbnails.files import get_thumbnailer
 
 from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
@@ -37,10 +38,9 @@ class SummaryRenderer:
 
     """
     parser = QuestionnaireParser
-    base_url = 'https://qcat.wocat.net'  # maybe: use django.contrib.site
 
     def __init__(self, config: QuestionnaireConfiguration,
-                 questionnaire: Questionnaire, **data):
+                 questionnaire: Questionnaire, base_url: str, **data):
         """
         Load full (raw) data in the same way that it is created for the API and
         apply data transformations/parsing to self.data.
@@ -51,6 +51,7 @@ class SummaryRenderer:
         ).data
         self.questionnaire = questionnaire
         self.data = dict(self.get_data())
+        self.base_url = base_url
 
     def get_data(self):
         """
@@ -105,11 +106,14 @@ class GlobalValuesMixin:
         return {
             'partials': {
                 'image': {
-                    'url': self.raw_data_getter('header_image_image')
+                    'url': self.get_thumbnail_url(
+                        image=self.raw_data_getter('header_image_image'),
+                        option_key='header_image'
+                    )
                 },
                 'caption': {
                     'title': '{}: '.format(_('Title photo')),
-                    'text': '{caption} {remarks}\n{name}'.format(
+                    'text': '{caption} {remarks} ({name})'.format(
                         caption=self.raw_data_getter('header_image_caption'),
                         remarks=self.raw_data_getter('header_image_remarks'),
                         name=self.raw_data_getter('header_image_photographer')
@@ -145,10 +149,13 @@ class GlobalValuesMixin:
         images = []
         if image_urls:
             # first element is the header image, show max. 2 images.
-            for index, image in itertools.islice(enumerate(image_urls), 1, 3):
+            for index, image in enumerate(image_urls[:2]):
                 images.append({
-                    'url': image['value'],
-                    'caption': '{caption}\n{photographer}'.format(
+                    'url': self.get_thumbnail_url(
+                        image=image['value'],
+                        option_key='half_height'
+                    ),
+                    'caption': '{caption} ({photographer})'.format(
                         caption=image_captions[index].get('value') or '',
                         photographer=image_photographers[index].get('value') or ''
                     )}
@@ -189,6 +196,7 @@ class GlobalValuesMixin:
                 },
                 'contra': {
                     'label': _('Weaknesses/ disadvantages/ risks'),
+                    'subtext': _('diminish/migitate'),
                     'items': weaknesses_list
                 }
             }
@@ -273,7 +281,9 @@ class GlobalValuesMixin:
     def get_reference_links(self):
         text = _('This data in the WOCAT database: <a href="{base_url}{url}">'
                  '{base_url}{url}</a>'.format(
-            base_url=self.base_url, url=self.questionnaire.get_absolute_url()))
+            base_url=self.base_url,
+            url=self.questionnaire.get_absolute_url())
+        )
 
         link_items = [
             {'text': text}
@@ -304,7 +314,7 @@ class GlobalValuesMixin:
                 yield {'text': '{config}: {name} (<a href="{url}">{url}</a>)'.format(
                     config=config.first().name,
                     name=name.get(get_language(), name.get('en')),
-                    url=self.base_url+link.to_questionnaire.get_absolute_url())
+                    url=self.base_url + link.to_questionnaire.get_absolute_url())
                 }
 
     def get_reference_articles(self):
@@ -330,6 +340,34 @@ class GlobalValuesMixin:
             'title': _('Documentation was faciliated by'),
             'items': [{'title': elem.name, 'logo': ''} for elem in itertools.chain(projects, institutions)]
         }
+
+    def get_thumbnail_url(self, image: str, option_key: str) -> str:
+        """
+        Images can be either very large images or even pdf files. Create an
+        optimized thumbnail and return its url.
+        """
+        if not image:
+            return ''
+
+        # full name is required to prevent a SuspiciousOperation error
+        full_name = '{root}/{image}'.format(
+            root=settings.MEDIA_ROOT,
+            image=image[len(settings.MEDIA_URL):]
+        )
+
+        thumbnail = get_thumbnailer(full_name).get_thumbnail(
+            settings.THUMBNAIL_ALIASES['summary'][option_key],
+            silent_template_exception=True
+        )
+
+        # Return full url, not file path. Use 'abspath' to remove '..' from dir.
+        return thumbnail.url.replace(
+            os.path.abspath(settings.MEDIA_ROOT),
+            '{base}{upload}'.format(
+                base=self.base_url.rstrip('/'),
+                upload=settings.MEDIA_URL
+            )
+        )
 
 
 class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
@@ -357,20 +395,23 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         return data
 
     def location(self):
+        title_keys = ['location_further', 'location_state_province', 'country']
+        title_text = [self.raw_data_getter(key) for key in title_keys if
+                      self.raw_data_getter(key)]
+
         return {
             'title': _('Location'),
             'partials': {
                 'map': {
-                    'url': self.raw_data.get('location_map_data', {}).get('img_url')
+                    'url': self.get_thumbnail_url(
+                        image=self.raw_data.get('location_map_data', {}).get('img_url'),
+                        option_key='map'
+                    )
                 },
                 'infos': {
                     'location': {
                         'title': _('Location'),
-                        'text': '{detail}, {prov}, {country}'.format(
-                            detail=self.raw_data_getter('location_further'),
-                            prov=self.raw_data_getter('location_state_province'),
-                            country=self.raw_data_getter('country')
-                        )
+                        'text': ', '.join(title_text)
                     },
                     'sites': {
                         'title': 'No. of Technology sites analysed',
@@ -400,6 +441,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             slm_group = self.raw_data_getter(
                 'classification_slm_group', value=''
             )[0].get('values')
+            # structure as required for an unordered list.
+            slm_group = [{'text': text for text in slm_group}]
         except (KeyError, IndexError):
             slm_group = None
 
@@ -690,7 +733,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def impacts(self):
         return {
-            'title': _('Impacts: Benefits and disadvantages'),
+            'title': _('Impacts - Benefits and disadvantages'),
             'partials': {
                 'economic': {
                     'title': _('Socio-economic impacts'),
@@ -743,7 +786,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'items': self.raw_data.get('adoption_modified')
                 },
                 'condition': {
-                    'title': _('To which changing conditions'),
+                    'title': _('To which changing conditions?'),
                     'items': self.raw_data.get('adoption_condition')
                 },
                 'comments': self.raw_data_getter('adoption_comments')
@@ -769,9 +812,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             'title': _('Location'),
             'partials': {
                 'map': {
-                    'url': self.raw_data.get(
-                        'location_map_data', {}
-                    ).get('img_url')
+                    'url': self.get_thumbnail_url(
+                        image=self.raw_data.get('location_map_data', {}).get('img_url'),
+                        option_key='map'
+                    )
                 },
                 'infos': {
                     'location': {

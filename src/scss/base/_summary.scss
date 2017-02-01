@@ -1,3 +1,9 @@
+@mixin no-line-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 body.summary {
   $base-line-height: 1rem;
   background-color: white;
@@ -39,6 +45,12 @@ body.summary {
     li {
       margin-top: 0rem;
     }
+  }
+
+  img {
+    // see: https://github.com/wkhtmltopdf/wkhtmltopdf/issues/2135
+    z-index: 100;
+    position: relative;
   }
 
   .tech-section-header {
@@ -108,11 +120,20 @@ body.summary {
     line-height: 1rem;
   }
 }
-
+  .header-note {
+    margin-bottom: 0;
+    > div > div {
+      background-color: rgba(85,116,49,.1);
+      padding: 0.2rem;
+      color: #e86b28;
+      font-size: 0.6rem;
+    }
+  }
   .header-img {
     height: 350px;
     width: 100%;
     background-size: cover;
+    background-repeat: no-repeat;
     max-width: 100%;
   }
   .img-caption {
@@ -185,6 +206,7 @@ body.summary {
 
   ol.numbers {
     list-style: decimal !important;
+    list-style-position: inside;
     margin-left: 1rem;
     margin-top: 0rem;
     line-height: 1rem;
@@ -210,19 +232,19 @@ body.summary {
     float: left;
     img {
       max-width: 100%;
-        max-height: 100%;
+      max-height: 100%;
     }
   }
 
   .technology_table td
   {
-    border: 0px solid black;
-    padding: 0.2rem;
-    font-size: 12px;
+    border: 0 solid black;
+    font-size: 0.75rem;
     background-color: white;
-    padding: 0rem;
-    // font-size: 0.6rem;
-    //line-height: 1rem;
+    line-height: $base-line-height;
+    letter-spacing: -0.02rem;
+    padding: 0.2rem;
+
     &.indent_table
     {
       padding-left: 0.2rem;
@@ -233,8 +255,6 @@ body.summary {
   td.td_category_title
   {
     background-color: rgba(85, 116, 49, 0.15);
-    text-transform: uppercase;
-
   }
 
   .technology_table tr:nth-of-type(even)
@@ -250,10 +270,9 @@ body.summary {
   .calculation_costs_section
   {
     background-color: rgba(85, 116, 49, 0.15);
-    padding: 5px 10px;
     width: 100%;
-    margin-bottom: 5px;
-    padding: 0px 10px 1px 10px;
+    padding: 0 10px 1px 10px;
+    margin: 5px 0;
   }
 
   &.is-approaches .calculation_costs_section
@@ -261,6 +280,9 @@ body.summary {
     background-color: rgba($color-approach, 0.15);
   }
 
+  .no-wrap-container {
+    @include no-line-wrap
+  }
   .row.range
   {
     margin-bottom: 0.0rem;
@@ -287,6 +309,7 @@ body.summary {
     float: left;
     /*min-width: 70px;*/
     width: 76px;
+    @include no-line-wrap
   }
   .impacts .range_title
   {

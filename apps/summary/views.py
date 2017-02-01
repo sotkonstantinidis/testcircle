@@ -34,12 +34,19 @@ class SummaryPDFCreateView(PDFTemplateView):
         'technologies': {'full': TechnologyFullSummaryRenderer},
         'approaches': {'full': ApproachesFullSummaryRenderer}
     }
+    footer_template = '{}layout/footer.html'.format(base_template_path)
+    # see: http://wkhtmltopdf.org/usage/wkhtmltopdf.txt
+    cmd_options = {
+        'margin-top': '1cm',
+        'margin-bottom': '1cm',
+    }
 
     def get(self, request, *args, **kwargs):
         self.questionnaire = self.get_object(questionnaire_id=self.kwargs['id'])
         self.code = self.questionnaire.configurations.filter(
             active=True
         ).first().code
+        self.config = get_configuration(configuration_code=self.code)
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
@@ -74,13 +81,13 @@ class SummaryPDFCreateView(PDFTemplateView):
         """
         Load summary config according to configuration.
         """
-        config = get_configuration(configuration_code=self.code)
         try:
-            renderer = self.render_classes[config.keyword][self.summary_type]
+            renderer = self.render_classes[self.config.keyword][self.summary_type]
         except KeyError:
             raise Exception('Summary not configured.')
         return renderer(
-            config=config, questionnaire=self.questionnaire, **data
+            config=self.config, questionnaire=self.questionnaire,
+            base_url=self.request.build_absolute_uri('/'), **data
         ).data
 
     def get_prepared_data(self, questionnaire: Questionnaire) -> dict:
@@ -94,6 +101,21 @@ class SummaryPDFCreateView(PDFTemplateView):
         )
         return self.get_summary_data(**data)
 
+    def get_footer_context(self) -> dict:
+        """
+        Provide variables used in the footer template.
+        """
+        questionnaire_names = self.config.get_questionnaire_name(
+            self.questionnaire.data
+        )
+        name = questionnaire_names.get(get_language(), questionnaire_names['en'])
+        if len(name) > 50:
+            name = '{}...'.format(name[:47])
+        return {
+            'footer_name': name,
+            'footer_config': self.code
+        }
+
     def get_context_data(self, **kwargs):
         """
         Dump json to the context, the markup for the pdf is created with a js
@@ -101,6 +123,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         """
         context = super().get_context_data(**kwargs)
         context['block'] = self.get_prepared_data(self.questionnaire)
+        context.update(self.get_footer_context())
         return context
 
 

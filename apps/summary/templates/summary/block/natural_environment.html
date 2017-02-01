@@ -73,19 +73,13 @@
       <h5>{{ content.water_quality.title }}</h5>
       {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_quality.items %}
   </div>
-  <div class="small-3 columns"></div>
-</div>
-<div class="row">
   <div class="small-3 columns">
       <h5>{{ content.salinity.title }}</h5>
       {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.salinity.items %}
-  </div>
-  <div class="small-3 columns">
+      <br>
       <h5>{{ content.flooding.title }}</h5>
       {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.flooding.items %}
   </div>
-  <div class="small-3 columns"></div>
-  <div class="small-3 columns"></div>
 </div>
 <div class="row">
   <hr>
