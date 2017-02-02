@@ -2,12 +2,13 @@
 Parse data of combined configuration and questionnaire-data and provide some
 additional methods to extract data as required for the summary.
 """
-
 import collections
 import contextlib
 import itertools
 import logging
 import operator
+
+from django.utils.translation import ugettext_lazy as _
 
 from configuration.configuration import QuestionnaireQuestion, \
     QuestionnaireSubcategory, QuestionnaireQuestiongroup
@@ -164,11 +165,12 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                             questiongroup_keyword=selected_children_keyword,
                             keyword=child_keyword
                         )
-                        child_text += self._concatenate_child_question_texts(
-                            child_question=child_question,
-                            selected_child_len=len(selected_child.keys()),
-                            values=child_value
-                        )
+                        if child_value:
+                            child_text += self._concatenate_child_question_texts(
+                                child_question=child_question,
+                                selected_child_len=len(selected_child.keys()),
+                                values=child_value
+                            )
             yield {
                 'url': value[1],
                 'title': value[0],
@@ -461,7 +463,8 @@ class TechnologyParser(QuestionnaireParser):
                 value = values.get(question.keyword)
                 if value not in choice_keys:
                     string_value = dict(question.choices).get(value)
-                    comment += ' Answer: {}'.format(string_value)
+                    if string_value :
+                        comment += _(' Answer: {}').format(string_value)
                 else:
                     value = choice_keys.index(value) + 1
 
@@ -610,7 +613,7 @@ class ApproachParser(QuestionnaireParser):
         return {
             "is_subsidised": {
                 "highlighted": none_selected not in selected_groups,
-                "text": "Financial/ material support"
+                "text": _("Financial/ material support")
             },
             "subsidies": {
                 "title": child.questiongroup.parent_object.label,

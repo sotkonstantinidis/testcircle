@@ -104,20 +104,37 @@ class GlobalValuesMixin:
             return ''
 
     def header_image(self):
+        """
+        If the header image is empty, use the first element from the default
+        pictures element.
+        """
+        image = self.raw_data_getter('header_image_image')
+        text = '{caption} {remarks} ({name})'.format(
+            caption=self.raw_data_getter('header_image_caption'),
+            remarks=self.raw_data_getter('header_image_remarks'),
+            name=self.raw_data_getter('header_image_photographer')
+        )
+        if not image:
+            image_urls = self.raw_data_getter('images_image', value='')
+            if image_urls:
+                # use first element from photos, and remove it from the photos
+                # element, so the images on display are the 'next' images.
+                image_element = self.raw_data['images_image'].pop(0)
+                image = image_element['value']
+                self.raw_data['images_caption'].pop(0)
+                self.raw_data['images_photographer'].pop(0)
+                text = self.get_image_caption(0)
+
         return {
             'partials': {
                 'image': {
                     'url': self.get_thumbnail_url(
-                        image=self.raw_data_getter('header_image_image'),
+                        image=image,
                         option_key='header_image'
                     )
                 },
                 'caption': {
-                    'text': '{caption} {remarks} ({name})'.format(
-                        caption=self.raw_data_getter('header_image_caption'),
-                        remarks=self.raw_data_getter('header_image_remarks'),
-                        name=self.raw_data_getter('header_image_photographer')
-                    )
+                    'text': text
                 }
             }
         }
@@ -142,10 +159,6 @@ class GlobalValuesMixin:
 
     def images(self):
         image_urls = self.raw_data_getter('images_image', value='')
-        image_captions = self.raw_data_getter('images_caption', value='')
-        image_photographers = self.raw_data_getter(
-            'images_photographer', value=''
-        )
         images = []
         if image_urls:
             # first element is the header image, show max. 2 images.
@@ -155,23 +168,29 @@ class GlobalValuesMixin:
                         image=image['value'],
                         option_key='half_height'
                     ),
-                    'caption': '{caption} ({photographer})'.format(
-                        caption=image_captions[index].get('value') or '',
-                        photographer=image_photographers[index].get('value') or ''
-                    )}
-                )
+                    'caption': self.get_image_caption(index)
+                })
         return {
             'partials': {
                 'images': images
             }
         }
 
+    def get_image_caption(self, index: int) -> str:
+        captions = self.raw_data_getter('images_caption', value='')
+        photographers = self.raw_data_getter('images_photographer', value='')
+        return '{caption} ({photographer})'.format(
+            caption=captions[index].get('value') or '',
+            photographer=photographers[index].get('value') or ''
+        )
+
+
     def conclusion(self):
         # Combine answers from two questions: strengths compiler and landuser
         pro_list = [
             {'text': item['value']} for item in
-            self.raw_data_getter('strengths_compiler', value='') or []+
-            self.raw_data_getter('strengths_landuser', value='') or []
+            (self.raw_data_getter('strengths_compiler', value='') or []) +
+            (self.raw_data_getter('strengths_landuser', value='') or [])
             ]
 
         # combine answers from two questions: weaknesses compiler + landuser -
@@ -323,10 +342,12 @@ class GlobalValuesMixin:
     def get_reference_articles(self):
         titles = self.raw_data.get('references_title', [])
         sources = self.raw_data.get('references_source', [])
+
         for index, title in enumerate(titles):
-            yield {'text': '{title}: {source}'.format(
-                title=title.get('value'),
-                source=sources[index].get('value') or '' if sources[index] else '')}
+            if title.get('value'):
+                yield {'text': '{title}: {source}'.format(
+                    title=title['value'],
+                    source=sources[index].get('value') or '' if sources[index] else '')}
 
     def project_institution(self):
 
@@ -594,7 +615,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
             yield {
                 'text': '{activity}{addendum}'.format(
-                    activity=activity['value'],
+                    activity=activity['value'] or '',
                     addendum=addendum
                 )}
 
@@ -776,7 +797,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             'title': _('Climate change'),
             'subtitle': _('Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters).'),
             'labels': {
-                'left': 'Type of climatic change/extreme',
+                'left': 'Climate change/ extreme to which the Technology is exposed',
                 'right': 'How does the Technology cope with these changes/ extremes'
             },
             'partials': self.raw_data.get('climate_change')
@@ -791,7 +812,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'items': self.raw_data.get('adoption_percentage')
                 },
                 'adopted_no_incentive': {
-                    'title': _('Percentage of land users who adopted the Technology without material incentives'),
+                    'title': _('Of all those who have adopted the Technology, how many have did so without receiving material incentives?'),
                     'items': self.raw_data.get('adoption_spontaneously')
                 },
                 'adaptation': {
