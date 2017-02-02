@@ -103,6 +103,11 @@ class BaseSettings(Configuration):
         ('bs', _('Bosnian')),
         ('pt', _('Portuguese')),
     )
+    # languages with extraordinarily long words that need 'forced' line breaks
+    # to remain consistent in the box-layout.
+    WORD_WRAP_LANGUAGES = [
+        'km'
+    ]
 
     TIME_ZONE = 'Europe/Zurich'
     USE_I18N = True

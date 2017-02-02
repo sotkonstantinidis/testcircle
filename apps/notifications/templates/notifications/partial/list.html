@@ -94,19 +94,5 @@
   <div>{% trans "No notifications." %}</div>
 {% endfor %}
 {% if logs %}
-  <div class="pagination-centered">
-    <ul class="pagination">
-      <li class="arrow{% if not page_obj.has_previous %} unavailable{% endif %}">
-        <a href="{% if page_obj.has_previous %}{{ path }}{{ page_obj.previous_page_number }}{% else %}#{% endif %}">&laquo;</a>
-      </li>
-      {% for page in page_obj.paginator.page_range %}
-        <li {% if page == page_obj.number %}class="current"{% endif %}>
-          <a href="{{ path }}{{ page }}">{{ page }}</a>
-        </li>
-      {% endfor %}
-      <li class="arrow{% if not page_obj.has_next %} unavailable{% endif %}">
-        <a href="{% if page_obj.has_next %}{{ path }}{{ page_obj.next_page_number }}{% else %}#{% endif %}">&raquo;</a>
-      </li>
-    </ul>
-  </div>
+  {% include 'pagination.html' %}
 {% endif %}
