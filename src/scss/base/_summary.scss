@@ -79,8 +79,11 @@ body.summary {
 
   ul.bullets {
     list-style-type: disc;
-    margin-left: 0.9rem;
+    margin-left: 1rem;
     margin-top: 0;
+    li:before {
+      font-size: small;
+    }
     li {
       list-style-type: disc;
     }
@@ -89,13 +92,13 @@ body.summary {
   .row {
     margin-bottom: 0.6rem;
     &.compact {
-      margin-bottom: 0rem;
+      margin-bottom: 0;
     }
     &.tech-section-header {
-      margin-bottom: 0rem;
+      margin-bottom: 0;
     }
     .location .row {
-      margin-bottom: 0rem;
+      margin-bottom: 0;
     }
     .budget {
       padding-right: 0;
@@ -243,7 +246,7 @@ body.summary {
     background-color: white;
     line-height: $base-line-height;
     letter-spacing: -0.02rem;
-    padding: 0.2rem;
+    padding: 0;
 
     &.indent_table
     {
@@ -263,8 +266,11 @@ body.summary {
 
   .total_row
   {
-    border-top: 1px solid black;
     padding-top: 10px;
+
+    & td {
+      background-color: rgba(85, 116, 49, 0.3);
+    }
   }
 
   .calculation_costs_section
@@ -401,7 +407,7 @@ body.summary {
     border: 0;
     height: 0;
     border-top: 1px solid rgba(85, 116, 49, 0.15);
-    margin: 1px 0px 2px 0px;
+    margin: 1px 10px 2px 10px;
  }
 
  &.is-approaches hr
@@ -433,5 +439,10 @@ body.summary {
  .text-right {
    padding-right: rem-calc(10) !important;
  }
-
+ .padding-bottom {
+   padding-bottom: 0.25rem;
+ }
+ .flow-chart {
+   margin-right: 1rem;
+ }
 }

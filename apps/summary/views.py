@@ -113,7 +113,7 @@ class SummaryPDFCreateView(PDFTemplateView):
             name = '{}...'.format(name[:47])
         return {
             'footer_name': name,
-            'footer_config': self.code
+            'footer_config': self.code.title()
         }
 
     def get_context_data(self, **kwargs):

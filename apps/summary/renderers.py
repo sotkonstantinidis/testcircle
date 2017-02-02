@@ -38,6 +38,7 @@ class SummaryRenderer:
 
     """
     parser = QuestionnaireParser
+    n_a = 'n.a.'
 
     def __init__(self, config: QuestionnaireConfiguration,
                  questionnaire: Questionnaire, base_url: str, **data):
@@ -47,7 +48,7 @@ class SummaryRenderer:
         """
         self.raw_data = self.parser(
             config=config, summary_type=self.summary_type,
-            questionnaire=questionnaire, **data
+            questionnaire=questionnaire, n_a=self.n_a, **data
         ).data
         self.questionnaire = questionnaire
         self.data = dict(self.get_data())
@@ -112,7 +113,6 @@ class GlobalValuesMixin:
                     )
                 },
                 'caption': {
-                    'title': '{}: '.format(_('Title photo')),
                     'text': '{caption} {remarks} ({name})'.format(
                         caption=self.raw_data_getter('header_image_caption'),
                         remarks=self.raw_data_getter('header_image_remarks'),
@@ -196,7 +196,7 @@ class GlobalValuesMixin:
                 },
                 'contra': {
                     'label': _('Weaknesses/ disadvantages/ risks'),
-                    'subtext': _('diminish/migitate'),
+                    'subtext': _('how to overcome'),
                     'items': weaknesses_list
                 }
             }
@@ -205,33 +205,33 @@ class GlobalValuesMixin:
     def references(self):
         return {
             'title': _('References'),
-            'partials': [
-                {
+            'partials': {
+                'compiler': {
                     'title': _('Compiler'),
                     'css_class': 'bullets',
                     'items': self.get_reference_compiler()
                 },
-                {
+                'people': {
                     'title': _('Resource persons'),
                     'css_class': 'bullets',
                     'items': self.get_reference_resource_persons()
                 },
-                {
+                'more': {
                     'title': _('More about this case study'),
                     'css_class': 'bullets',
                     'items': self.get_reference_links()
                 },
-                {
+                'links': {
                     'title': _('Linked SLM data'),
                     'css_class': 'bullets',
                     'items': self.get_reference_linked_questionnaires()
                 },
-                {
+                'references': {
                     'title': _('Key references'),
                     'css_class': 'bullets',
                     'items': self.get_reference_articles()
                 }
-            ]
+            }
         }
 
     def get_reference_compiler(self):
@@ -270,8 +270,8 @@ class GlobalValuesMixin:
                 name = person_user_id[index].get('value')
             elif len(person_firstnames) >= index and len(person_lastnames) >= index:
                 name = '{first_name} {last_name}'.format(
-                    first_name=person_firstnames[index].get('value'),
-                    last_name=person_lastnames[index].get('value')
+                    first_name=person_firstnames[index].get('value') or '',
+                    last_name=person_lastnames[index].get('value') or ''
                 )
             else:
                 continue
@@ -298,12 +298,15 @@ class GlobalValuesMixin:
                 'text': _('Video: <a href="{vimeo_url}">{vimeo_url}</a>'.format(
                     vimeo_url=vimeo_url))
             })
-        return link_items
+        return link_items or [{'text': self.n_a}]
 
     def get_reference_linked_questionnaires(self):
         links = QuestionnaireLink.objects.filter(
             from_questionnaire=self.questionnaire
         )
+        if not links.exists():
+            yield {'text': self.n_a}
+
         for link in links:
             config = link.to_questionnaire.configurations.filter(active=True)
             if config.exists():
@@ -323,7 +326,7 @@ class GlobalValuesMixin:
         for index, title in enumerate(titles):
             yield {'text': '{title}: {source}'.format(
                 title=title.get('value'),
-                source=sources[index].get('value') if sources[index] else '')}
+                source=sources[index].get('value') or '' if sources[index] else '')}
 
     def project_institution(self):
 
@@ -336,9 +339,15 @@ class GlobalValuesMixin:
                        self.raw_data.get('project_institution_institution', [])]
         institutions = Institution.objects.filter(id__in=institution_ids)
 
+        if projects or institutions:
+            items = [{'title': elem.name, 'logo': ''} for elem in
+                     itertools.chain(projects, institutions)]
+        else:
+            items = [{'title': self.n_a}]
+
         return {
             'title': _('Documentation was faciliated by'),
-            'items': [{'title': elem.name, 'logo': ''} for elem in itertools.chain(projects, institutions)]
+            'items': items
         }
 
     def get_thumbnail_url(self, image: str, option_key: str) -> str:
@@ -419,7 +428,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     },
                     'geo_reference': self.raw_data.get(
                         'location_map_data', {}
-                    ).get('coordinates'),
+                    ).get('coordinates') or [self.n_a],
                     'spread': {
                         'title': _('Spread of the Technology'),
                         'text': self.string_from_list('location_spread')
@@ -536,7 +545,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         _('Exchange rate (to USD): {}.').format(exchange_rate),
                         _('Average wage cost of hired labour: {}.').format(wage)
                     ],
-                    'main_factors': self.raw_data_getter('establishment_determinate_factors'),
+                    'main_factors': self.raw_data_getter('establishment_determinate_factors') or self.n_a,
                     'main_factors_title': _('Most important factors affecting the costs')
                 },
                 'establishment': {
@@ -765,6 +774,11 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     def climate_change(self):
         return {
             'title': _('Climate change'),
+            'subtitle': _('Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes (disasters).'),
+            'labels': {
+                'left': 'Type of climatic change/extreme',
+                'right': 'How does the Technology cope with these changes/ extremes'
+            },
             'partials': self.raw_data.get('climate_change')
         }
     
@@ -828,7 +842,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     },
                     'geo_reference': self.raw_data.get(
                         'location_map_data', {}
-                    ).get('coordinates'),
+                    ).get('coordinates') or [self.n_a],
                     'start_date': {
                         'title': _('Initiation date'),
                         'text': self.raw_data_getter(
@@ -853,16 +867,16 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             'partials': {
                 'main': {
                     'title': _('Main aims / objectives of the approach'),
-                    'text': self.raw_data_getter('aims_main')
+                    'text': self.raw_data_getter('aims_main') or self.n_a
                 },
                 'elements': [
                     {
                         'title': _('Conditions enabling the implementation of the Technology/ ies applied under the Approach'),
-                        'items': self.raw_data.get('aims_enabling')
+                        'items': self.raw_data.get('aims_enabling') or self.n_a
                     },
                     {
                         'title': _('Conditions hindering the implementation of the Technology/ ies applied under the Approach'),
-                        'items': self.raw_data.get('aims_hindering')
+                        'items': self.raw_data.get('aims_hindering') or self.n_a
                     }
                 ]
             }
@@ -887,7 +901,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'partials': self.raw_data.get('participation_involvement')
                 },
                 'flow_chart': {
-                    'url': self.raw_data_getter('participation_flowchart_file'),
+                    'url': self.get_thumbnail_url(
+                        image=self.raw_data_getter('participation_flowchart_file'),
+                        option_key='flow_chart'
+                    ),
                     'title': _('Flow chart'),
                     'text': self.raw_data_getter('participation_flowchart_text')
                 },
@@ -977,7 +994,8 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'intended': monitoring_intention
                 },
                 'research': {
-                    'title': _('Research')  ,
+                    'title': _('Research'),
+                    'subtitle': _('Research treated the following topics'),
                     'items': self.raw_data.get('tech_support_research_topics'),
                     'description': self.raw_data_getter('tech_support_research_details')
                 }
@@ -992,7 +1010,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'title': _('Annual budget for the SLM component of the Approach'),
                     'items': self.raw_data.get('financing_budget'),
                     'description': self.raw_data_getter('financing_budget_comments'),
-                    'addendum': _('Precise annual budget: {}'.format(self.raw_data_getter('financing_budget_precise')))
+                    'addendum': _('Precise annual budget: {}'.format(self.raw_data_getter('financing_budget_precise') or self.n_a))
                 },
                 'services': {
                     'title': _('The following services of incentives have been provided to land users'),
@@ -1012,14 +1030,20 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'credit': {
                         'title': 'Credit',
                         'items': [
-                            'Conditions: {}'.format(self.raw_data_getter('financing_credit_conditions')),
-                            'Credit providers: {}'.format(self.raw_data_getter('financing_credit_provider')),
-                            'Credit receivers: {}'.format(self.raw_data_getter('financing_credit_receiver'))
+                            'Conditions: {}'.format(self.raw_data_getter(
+                                'financing_credit_conditions') or self.n_a
+                            ),
+                            'Credit providers: {}'.format(self.raw_data_getter(
+                                'financing_credit_provider') or self.n_a
+                            ),
+                            'Credit receivers: {}'.format(self.raw_data_getter(
+                                'financing_credit_receiver') or self.n_a
+                            )
                         ]
                     },
                     'other': {
                         'title': _('Other incentives or instruments'),
-                        'text': self.raw_data_getter('financing_other_text')
+                        'text': self.raw_data_getter('financing_other_text') or self.n_a
                     }
                 }
             }

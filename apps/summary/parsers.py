@@ -28,10 +28,11 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
     'one page', 'four page').
     """
 
-    def __init__(self, config, summary_type: str,
+    def __init__(self, config, summary_type: str, n_a: str,
                  questionnaire: Questionnaire, **data):
         self.summary_type = summary_type
         self.data = {}
+        self.n_a = n_a
         self.config_object = config
         super().__init__(questionnaire=questionnaire, config=config, **data)
 
@@ -373,7 +374,10 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                 selected_question = 0
                 text_question = 1
             else:
-                label = self.values.get(group.keyword)[0].get(group.questions[0].keyword)
+                group_values = self.values.get(group.keyword)
+                if not group_values:
+                    continue
+                label = group_values[0].get(group.questions[0].keyword)
                 selected_question = 1
                 text_question = 2
 
@@ -522,10 +526,12 @@ class ApproachParser(QuestionnaireParser):
                 keyword='label', configuration='approaches'
             )
 
-            yield '{label} ({roles}): {comments}'.format(
+            roles = values.get('app_stakeholders_roles')
+            comments = values.get('app_stakeholders_comments')
+            yield '{label}{roles}{comments}'.format(
                 label=label,
-                roles=values.get('app_stakeholders_roles'),
-                comments=values.get('app_stakeholders_comments')
+                roles=' ({})'.format(roles) if roles else '',
+                comments=': {}'.format(comments) if comments else ''
             )
 
     def get_involvement(self, child: QuestionnaireQuestion):
@@ -553,7 +559,7 @@ class ApproachParser(QuestionnaireParser):
         """
         selected = self._get_qg_selected_value(child)
         return {
-            'value': dict(child.choices).get(selected),
+            'value': self.get_full_range_values(child),
             'bool': {
                 'highlighted': selected != 'app_institutions_no',
                 'text': child.questiongroup.parent_object.label

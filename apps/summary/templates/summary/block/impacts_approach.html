@@ -2,11 +2,6 @@
   <div class="small-12 columns">
     {% include 'summary/partial/title_bar.html' with title=title %}
     <h5>{{ content.impacts.title }}</h5>
-{#    <p>{{ content.impacts.subtitle}}</p>#}
-  </div>
-</div>
-<div class="row">
-  <div class="small-12 columns">
     {% include 'summary/partial/range_inline_comment_vertical_title.html' with class="highlights_list" list_items=content.impacts.items %}
   </div>
 </div>
