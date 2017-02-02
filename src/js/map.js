@@ -108,11 +108,15 @@
          * overlay.
          */
         function attachMapPointActions() {
+            qgContainer.on('click', '.js-map-point-zoom', function() {
+                var featureId = $(this).parent('li').data('feature-identifier');
+                var feature = vectorSource.getFeatureById(featureId);
+                zoomToFeature(feature);
+            });
             qgContainer.on('click', '.js-map-point-remove', function() {
                 // Remove a feature from the map.
                 var featureId = $(this).parent('li').data('feature-identifier');
                 deleteFeature(featureId);
-                return false;
             });
             qgContainer.find('.js-map-point-entry').bind({
                 mouseenter: function() {
@@ -473,32 +477,32 @@
                 .html(features.length);
 
             var pointsList = thisMapContainer.find('.map-points-list');
-            var points_html = pointsList.data('empty-text');
+            var pointsHtml = pointsList.data('empty-text');
 
             if (features.length) {
-                points_html = $('<ul></ul>');
+                pointsHtml = $('<ul class="map-point-entries"></ul>');
 
                 features.forEach(function(f) {
                     var coords = f.getGeometry().getCoordinates();
-                    var coords_transformed = ol.proj.transform(coords, featureProjection, dataProjection);
+                    var coordsTransformed = ol.proj.transform(coords, featureProjection, dataProjection);
 
                     // Round the coordinates to 6 decimals.
-                    var coords_length = coords_transformed.length;
-                    while (coords_length--) {
-                        coords_transformed[coords_length] = coords_transformed[coords_length].toFixed(6);
+                    var coordsLength = coordsTransformed.length;
+                    while (coordsLength--) {
+                        coordsTransformed[coordsLength] = coordsTransformed[coordsLength].toFixed(6);
                     }
 
                     // Prepare a list entry for each point.
-                    var coords_entry = $('<li class="js-map-point-entry" data-feature-identifier="' + f.getId() + '">' + coords_transformed.join(', ') + '</li>');
+                    var coordsEntry = $('<li class="js-map-point-entry" data-feature-identifier="' + f.getId() + '"></li>');
+                    var zoomLink = $('<span class="map-point-entry-zoom js-map-point-zoom"><svg class="icon-lines is-inline"><use xlink:href="#icon-location2"></use></svg></span>');
+                    var removeLink = $('<span class="map-point-entry-remove js-map-point-remove"><svg class="icon-lines is-inline"><use xlink:href="#icon-bin"></use></svg></span>');
+                    var coordsText = $('<span class="js-map-point-zoom">' + coordsTransformed.join(', ') + '</span>');
+                    coordsEntry.append(zoomLink, removeLink, coordsText);
 
-                    // Add action links
-                    var remove_link = $('<a href="#" class="js-map-point-remove">D</a>');
-                    coords_entry.append(remove_link);
-
-                    points_html.append(coords_entry);
+                    pointsHtml.append(coordsEntry);
                 });
             }
-            pointsList.html(points_html);
+            pointsList.html(pointsHtml);
         }
 
         /**
@@ -571,7 +575,7 @@
             var coords_list = coords_text.split(',');
             if (coords_list.length != 2) {
                 coordinates.msg = 'Must be of format "Latitude, Longitude", eg. ' +
-                    '"46.9526, 7.4352"';
+                    '46.9526, 7.4352';
                 return coordinates;
             }
 

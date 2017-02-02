@@ -73,13 +73,16 @@
         </div>
         <div class="map-overlay hide js-map-points">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
-          <div class="row map-points-list" data-empty-text="{% trans 'No points on the map.' %}"><!-- Points list --></div>
+          <div class="row">
+            <div class="small-12 columns"><h4>{% trans "List of all points on the map:" %}</h4></div>
+            <div class="small-12 columns map-points-list" data-empty-text="{% trans 'No points on the map.' %}"><!-- Points list --></div>
+          </div>
         </div>
         <div class="map-overlay hide js-map-coordinates">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
           <div class="row map-coordinates-parse">
             <br/>
-            {% trans 'Please enter the coordinates in the field below. The coordinates must be of format "Latitude, Longitude", eg. "46.9526, 7.4352".' as msg %}
+            {% trans 'Please enter the coordinates in the field below. The coordinates must be of format "Latitude, Longitude", eg. 46.9526, 7.4352.' as msg %}
             {% include "form/helptext.html" with helptext=msg %}
             <div class="small-9 columns">
               <label for="map-coordinates-field">{% trans "Coordinates:" %}</label>
@@ -89,9 +92,9 @@
               <label>&nbsp;</label>
               <button type="button" class="button small button-parse-coordinates js-btn-parse-coordinates">Parse</button>
             </div>
-            <div class="small-12 columns map-coordinates-log">
-              <p><!-- Log --></p>
-            </div>
+            <div class="small-12 columns map-coordinates-log"><!-- Log --></div>
+            <div class="small-12 columns"><label>{% trans "List of all points on the map:" %}</label></div>
+            <div class="small-12 columns map-points-list" data-empty-text="{% trans 'No points on the map.' %}"><!-- Points list --></div>
           </div>
         </div>
         <div class="map-overlay hide js-map-layers">

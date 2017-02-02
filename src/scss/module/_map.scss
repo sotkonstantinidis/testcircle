@@ -103,9 +103,14 @@ $map-height: 400px;
   height: $map-height;
   width: 300px;
   padding: 1rem;
+  overflow-y: auto;
 
-  label, svg, p {
+  label, svg, p, h4 {
     color: white;
+  }
+
+  h4 {
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -116,14 +121,46 @@ $map-height: 400px;
 }
 
 .map-coordinates-log {
-  margin-top: 0.5rem;
+  margin: 0.5rem 0;
 
   p {
+    padding: 0.5rem;
+    font-size: .85em;
+
     &.success {
-      color: #099609;
+      color: darkgreen;
+      border: 1px solid darkgreen;
     }
 
     &.error {
+      color: darkred;
+      border: 1px solid darkred;
+    }
+  }
+}
+
+.map-point-entry-remove svg {
+  &:hover {
+    color: darkred;
+    cursor: pointer;
+  }
+}
+
+.map-point-entries {
+  list-style: none;
+  margin-left: 0;
+  color: white;
+  font-size: .85em;
+
+  li:hover {
+    cursor: pointer;
+    color: silver;
+
+    svg {
+      color: silver;
+    }
+
+    .map-point-entry-remove:hover svg {
       color: darkred;
     }
   }
