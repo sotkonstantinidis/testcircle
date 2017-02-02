@@ -27,6 +27,15 @@
             }),
             layers = getLayers();
 
+        // Make sure to always set a unique ID to new features.
+        vectorSource.on('change', function(e) {
+            e.target.forEachFeature(function(f) {
+                if (!f.getId()) {
+                    f.setId(Date.now())
+                }
+            });
+        });
+
         // Map
         var map = new ol.Map({
             target: mapPanel[0],
@@ -191,17 +200,6 @@
         }
 
         /**
-         * Set a unique ID to the current feature.
-         *
-         * @param f
-         */
-        function setFeatureId(f) {
-            if (!f.getId()) {
-                f.setId(Date.now())
-            }
-        }
-
-        /**
          * Delete all features and activate the "draw" interaction.
          */
         function deleteAllFeatures() {
@@ -222,6 +220,16 @@
                 vectorSource.removeFeature(feature);
             }
             highlightInteraction.getFeatures().clear();
+        }
+
+        /**
+         * Zoom to a given feature on the map.
+         *
+         * @param feature
+         */
+        function zoomToFeature(feature) {
+            map.getView().fit(feature.getGeometry(), map.getSize());
+            map.getView().setZoom(15);
         }
 
         /**
@@ -274,9 +282,6 @@
                 var features = geomFormat.readFeatures(coordinatesField.val(), {
                     featureProjection: featureProjection
                 });
-                features.forEach(function(f) {
-                    setFeatureId(f);
-                });
 
                 vectorSource.addFeatures(features);
                 interactionSwitch.filter(
@@ -313,9 +318,6 @@
                         maxPoints: 10,
                         style: defaultStyle
                       });
-                    interaction.on('drawend', function(e) {
-                        setFeatureId(e.feature);
-                    });
                     break;
 
                 case 'modify':
@@ -525,7 +527,7 @@
 
         /**
          * Parse the coordinates clicked in the corresponding field. If the
-         * coordinates are valid, add the point on the map.
+         * coordinates are valid, add the point on the map and zoom to it.
          */
         function parseCoordinates() {
             var logField = mapContainer.find('.map-coordinates-log');
@@ -540,6 +542,7 @@
                 var coordsTransformed = ol.proj.transform(coords.coords, dataProjection, featureProjection);
                 var feature = new ol.Feature(new ol.geom.Point(coordsTransformed));
                 vectorSource.addFeatures([feature]);
+                zoomToFeature(feature);
                 $(msg).html('The point was successfully added.').addClass('success');
                 coordsField.val('');
             }
