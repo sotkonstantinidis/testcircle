@@ -250,7 +250,8 @@
          * Toggle the size of the map.
          */
         function toggleMapSize() {
-            mapPanel.height(mapPanel.height() == 400 ? 700 : 400);
+            mapPanel.toggleClass('map-size-big');
+            $('.map-overlay').toggleClass('map-size-big');
             map.updateSize();
         }
 

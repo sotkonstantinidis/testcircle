@@ -93,6 +93,10 @@ $map-height: 400px;
   height: $map-height;
   background: lightgrey;
   margin-left: $controls-width;
+
+  &.map-size-big {
+    height: $map-height * 2;
+  }
 }
 
 .map-overlay {
@@ -109,8 +113,20 @@ $map-height: 400px;
     color: white;
   }
 
+  a {
+    color: $color-blue-dark;
+
+    &:hover {
+      color: $color-blue;
+    }
+  }
+
   h4 {
     margin-bottom: 0.5rem;
+  }
+
+  &.map-size-big {
+    height: $map-height * 2;
   }
 }
 
@@ -118,6 +134,11 @@ $map-height: 400px;
   position: absolute;
   top: 0.3rem;
   right: 0;
+}
+
+.map-converter-link {
+  font-size: 0.85em;
+  margin-bottom: 0.5rem;
 }
 
 .map-coordinates-log {
