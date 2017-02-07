@@ -260,6 +260,24 @@ class ActionContextTest(TestCase):
             [self.catalyst_change.id]
         )
 
+    @patch.object(ActionContextQuerySet, 'delete_all_read_logs')
+    def test_mark_all_read_deletes_all(self, mock_delete):
+        Log.actions.mark_all_read(user=self.subscriber)
+        mock_delete.assert_called_once()
+
+    def test_mark_all_read(self):
+        Log.actions.mark_all_read(user=self.catalyst)
+        self.assertTrue(
+            ReadLog.objects.filter(user=self.catalyst, is_read=True).exists()
+        )
+
+    def test_delete_all_read_logs(self):
+        mommy.make(ReadLog, user=self.subscriber)
+        Log.actions.delete_all_read_logs(user=self.subscriber)
+        self.assertFalse(
+            ReadLog.objects.filter(user=self.subscriber)
+        )
+
 
 class LogTest(TestCase):
 

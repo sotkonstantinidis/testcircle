@@ -120,21 +120,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "other (specify)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28009
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
-            "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity if the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
+            "en": "In the land user's point of view, is there a threshold (in view of frequency and/ or severity of the gradual climate changes or climate-related extremes), which leads to the failure of the Technology?"
           },
           "helptext": {
             "en": "If <strong>yes</strong>, specify below"
@@ -179,7 +165,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more"
+            "en": "Has the Technology been exposed to climate-related extremes (disasters) in the last 10 years or more?"
           },
           "helptext": {
             "en": "If <strong>yes</strong>, fill in the table below . If <strong>no</strong>, continue with chapter 3"
@@ -371,12 +357,6 @@
         "cca": {
           "label": {
             "en": "Extent"
-          },
-          "label_left": {
-            "en": ""
-          },
-          "label_right": {
-            "en": ""
           }
         }
       }
@@ -4306,7 +4286,7 @@
     "model": "configuration.translation",
     "pk": 27022
   },
-    {
+  {
     "fields": {
       "translation_type": "questiongroup",
       "data": {
@@ -5057,7 +5037,7 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Sensitivity (Risks and Potentials)"
+            "en": "Sensitivity (risks and potentials)"
           }
         }
       }
@@ -5120,6 +5100,9 @@
         "cca": {
           "label": {
             "en": "Name of the SLM Technology (hereafter referred to as the Technology) as per Core Questionnaire on SLM Technologies Question QT Core 1.1"
+          },
+          "label_view": {
+            "en": "Name of the SLM Technology"
           }
         }
       }
@@ -5412,6 +5395,9 @@
         "cca": {
           "label": {
             "en": "Socio-economic impacts"
+          },
+          "label_view": {
+            "en": "Socio-economic impacts (on-site)"
           }
         }
       }
@@ -5482,6 +5468,9 @@
         "cca": {
           "label": {
             "en": "Socio-cultural impacts"
+          },
+          "label_view": {
+            "en": "Socio-cultural impacts (on-site)"
           }
         }
       }
@@ -5510,6 +5499,9 @@
         "cca": {
           "label": {
             "en": "Ecological impacts"
+          },
+          "label_view": {
+            "en": "Ecological impacts (on-site)"
           }
         }
       }
@@ -5756,7 +5748,7 @@
             "en": "Assets of land users supporting their capacity to adapt to gradual climate changes and climate-related extremes (disasters)"
           },
           "helptext": {
-            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (www.eldis.org/vfile/upload/1/document/0901/section2.pdf) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
+            "en": "<p>Explain below which assets land users have that support them to deal with gradual climate changes and climate-related extremes (disasters). This question does not specifically refer to the Technology but should help in the understanding of which assets are available and can be made use of to adapt to gradual climate changes and climate-related extremes (disasters).</p><p>This question is based on the livelihoods framework (<a href='http://www.eldis.org/vfile/upload/1/document/0901/section2.pdf' target='_blank'>www.eldis.org/vfile/upload/1/document/0901/section2.pdf</a>) with the following 'five capitals': financial, social, human, physical, and natural.</p>"
           }
         }
       }
@@ -6080,17 +6072,6 @@
   },
   {
     "fields": {
-      "keyword": "cca_exposure_other_specify_other",
-      "translation": 28009,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28009
-  },
-  {
-    "fields": {
       "keyword": "cca_tolerance_comments",
       "translation": 5004,
       "configuration": {
@@ -6272,10 +6253,7 @@
       "keyword": "climate_related_extreme",
       "translation": 28019,
       "configuration": {
-        "type": "select_conditional",
-        "form_options": {
-          "display_field": "climate_related_extreme_display"
-        }
+        "type": "select_conditional_questiongroup"
       }
     },
     "model": "configuration.key",
@@ -6431,9 +6409,42 @@
       "keyword": "climate_related_extreme_conditional",
       "translation": 28025,
       "configuration": {
-        "type": "select_conditional",
+        "type": "select_conditional_questiongroup",
         "form_options": {
-          "display_field": "climate_related_extreme_conditional_display"
+          "options_by_questiongroups": [
+            "cca_qg_2",
+            "cca_qg_3",
+            "cca_qg_4",
+            "cca_qg_5",
+            "cca_qg_6",
+            "cca_qg_7",
+            "cca_qg_8",
+            "cca_qg_9",
+            "cca_qg_10",
+            "cca_qg_11",
+            "cca_qg_12",
+            "cca_qg_13",
+            "cca_qg_14",
+            "cca_qg_15",
+            "cca_qg_16",
+            "cca_qg_17",
+            "cca_qg_18",
+            "cca_qg_19",
+            "cca_qg_20",
+            "cca_qg_21",
+            "cca_qg_22",
+            "cca_qg_23",
+            "cca_qg_24",
+            "cca_qg_25",
+            "cca_qg_26",
+            "cca_qg_27",
+            "cca_qg_28",
+            "cca_qg_29",
+            "cca_qg_30"
+          ]
+        },
+        "view_options": {
+          "label_position": "none"
         }
       }
     },
@@ -6442,71 +6453,50 @@
   },
   {
     "fields": {
-      "keyword": "climate_related_extreme_conditional_display",
-      "translation": 28025,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        },
-        "view_options": {
-          "template": "value_only"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28026
-  },
-  {
-    "fields": {
-      "keyword": "climate_related_extreme_display",
-      "translation": 28019,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        },
-        "view_options": {
-          "template": "value_only"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28027
-  },
-  {
-    "fields": {
       "keyword": "change_extreme_name",
       "translation": 28028,
       "configuration": {
-        "type": "select_conditional",
+        "type": "select_conditional_questiongroup",
         "form_options": {
-          "display_field": "change_extreme_name_display"
+          "options_by_questiongroups": [
+            "cca_qg_2",
+            "cca_qg_3",
+            "cca_qg_4",
+            "cca_qg_5",
+            "cca_qg_6",
+            "cca_qg_7",
+            "cca_qg_8",
+            "cca_qg_9",
+            "cca_qg_10",
+            "cca_qg_11",
+            "cca_qg_12",
+            "cca_qg_13",
+            "cca_qg_14",
+            "cca_qg_15",
+            "cca_qg_16",
+            "cca_qg_17",
+            "cca_qg_18",
+            "cca_qg_19",
+            "cca_qg_20",
+            "cca_qg_21",
+            "cca_qg_22",
+            "cca_qg_23",
+            "cca_qg_24",
+            "cca_qg_25",
+            "cca_qg_26",
+            "cca_qg_27",
+            "cca_qg_28",
+            "cca_qg_29",
+            "cca_qg_30"
+          ]
+        },
+        "view_options": {
+          "label_position": "none"
         }
       }
     },
     "model": "configuration.key",
     "pk": 28028
-  },
-  {
-    "fields": {
-      "keyword": "change_extreme_name_display",
-      "translation": 28028,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        },
-        "view_options": {
-          "template": "value_only"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28029
   },
   {
     "fields": {
@@ -7395,7 +7385,7 @@
       "keyword": "cca_extent_left_label",
       "translation": 28094,
       "configuration": {
-        "type": "select_type",
+        "type": "select_conditional_custom",
         "view_options": {
           "template": "value_only"
         }
@@ -7422,7 +7412,7 @@
       "keyword": "cca_extent_right_label",
       "translation": 28094,
       "configuration": {
-        "type": "select_type",
+        "type": "select_conditional_custom",
         "view_options": {
           "template": "value_only"
         }
@@ -7498,7 +7488,7 @@
     "model": "configuration.value",
     "pk": 29006
   },
-    {
+  {
     "fields": {
       "keyword": "april",
       "translation": 29007,
@@ -8285,7 +8275,7 @@
     "model": "configuration.value",
     "pk": 29118
   },
-    {
+  {
     "fields": {
       "keyword": "cca_measures_agronomic",
       "translation": 29119,
@@ -9450,7 +9440,7 @@
     "model": "configuration.questiongroup",
     "pk": 27012
   },
-    {
+  {
     "fields": {
       "keyword": "cca_qg_13",
       "translation": 27013,
@@ -9486,7 +9476,7 @@
     "model": "configuration.questiongroup",
     "pk": 27016
   },
-    {
+  {
     "fields": {
       "keyword": "cca_qg_17",
       "translation": 27017,
@@ -9692,13 +9682,25 @@
         "form_options": {
           "min_num": 1,
           "max_num": 24,
-          "template": "table2",
-          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "template": "table1",
+          "column_widths": [
+            "25%",
+            "10%",
+            "7%",
+            "10%",
+            "7%",
+            "41%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table2",
-          "column_widths": ["10%", "7%", "10%", "7%", "25%", "41%"],
+          "column_widths": [
+            "25%",
+            "17%",
+            "17%",
+            "40%"
+          ],
           "with_keys": true
         }
       }
@@ -9715,12 +9717,23 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table1",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table1",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "template": "table",
+          "layout": "label",
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "with_keys": true
         }
       }
@@ -9737,12 +9750,24 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table1",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table1",
-          "column_widths": ["20%", "30%", "20%", "30%"],
+          "template": "table",
+          "layout": "label",
+          "label_class": "top-margin-big",
+          "column_widths": [
+            "20%",
+            "30%",
+            "20%",
+            "30%"
+          ],
           "with_keys": true
         }
       }
@@ -9759,12 +9784,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9805,12 +9838,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9827,12 +9868,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9848,13 +9897,21 @@
         "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
-          "column_widths": ["25%", "25%", "50%"],
+          "template": "table4",
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
-          "column_widths": ["35%", "30%", "35%"],
+          "template": "table4",
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9871,12 +9928,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9892,13 +9957,21 @@
         "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
-          "column_widths": ["25%", "25%", "50%"],
+          "template": "table4",
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
-          "column_widths": ["35%", "30%", "35%"],
+          "template": "table4",
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9915,12 +9988,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9937,12 +10018,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9959,12 +10048,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -9981,12 +10078,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -10002,13 +10107,21 @@
         "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
-          "column_widths": ["25%", "25%", "50%"],
+          "template": "table4",
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
-          "column_widths": ["35%", "30%", "35%"],
+          "template": "table4",
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -10025,12 +10138,20 @@
           "min_num": 1,
           "max_num": 50,
           "template": "table4",
-          "column_widths": ["25%", "25%", "50%"],
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
           "template": "table4",
-          "column_widths": ["35%", "30%", "35%"],
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
         }
       }
@@ -10043,18 +10164,26 @@
       "keyword": "cca_qg_125",
       "translation": null,
       "configuration": {
-       "form_options": {
+        "form_options": {
           "min_num": 1,
           "max_num": 3,
-          "template": "table3",
-          "column_widths": ["25%", "25%", "50%"],
+          "template": "table4",
+          "column_widths": [
+            "25%",
+            "25%",
+            "50%"
+          ],
           "numbered": "display"
         },
         "view_options": {
-          "template": "table3",
-          "column_widths": ["35%", "30%", "35%"],
+          "template": "table4",
+          "column_widths": [
+            "35%",
+            "30%",
+            "35%"
+          ],
           "with_keys": true
-        } 
+        }
       }
     },
     "model": "configuration.questiongroup",
@@ -11191,7 +11320,7 @@
                         "form_options": {
                           "template": "select_user",
                           "user_role": "resourceperson",
-                          "max_num": 3,
+                          "max_num": 20,
                           "row_class": "no-top-margin",
                           "label_class": "bottom-margin"
                         },
@@ -11370,6 +11499,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "template": "default"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__gradual",
@@ -11378,11 +11510,11 @@
                               "label_tag": "h4"
                             },
                             "view_options": {
-                              "template": "table_5",
+                              "template": "table_8",
                               "table_grouping": [
                                 [
                                   "cca_qg_3",
-                                  "cca_qg_2",                                  
+                                  "cca_qg_2",
                                   "cca_qg_4",
                                   "cca_qg_5",
                                   "cca_qg_6"
@@ -11519,6 +11651,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "label_class": "top-margin"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__meteorological",
@@ -11528,6 +11663,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_7",
@@ -11546,8 +11682,11 @@
                               {
                                 "keyword": "cca_qg_7",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11581,13 +11720,16 @@
                                       "layout": "stacked"
                                     }
                                   }
-                                ] 
+                                ]
                               },
                               {
                                 "keyword": "cca_qg_8",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11626,8 +11768,11 @@
                               {
                                 "keyword": "cca_qg_9",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11666,8 +11811,11 @@
                               {
                                 "keyword": "cca_qg_10",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11706,8 +11854,11 @@
                               {
                                 "keyword": "cca_qg_11",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11746,8 +11897,11 @@
                               {
                                 "keyword": "cca_qg_12",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11786,8 +11940,11 @@
                               {
                                 "keyword": "cca_qg_13",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11826,8 +11983,11 @@
                               {
                                 "keyword": "cca_qg_14",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11866,8 +12026,11 @@
                               {
                                 "keyword": "cca_qg_15",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11913,6 +12076,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_16",
@@ -11929,8 +12093,11 @@
                               {
                                 "keyword": "cca_qg_16",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -11969,8 +12136,11 @@
                               {
                                 "keyword": "cca_qg_17",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12009,8 +12179,11 @@
                               {
                                 "keyword": "cca_qg_18",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12049,8 +12222,11 @@
                               {
                                 "keyword": "cca_qg_19",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12089,8 +12265,11 @@
                               {
                                 "keyword": "cca_qg_20",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12129,8 +12308,11 @@
                               {
                                 "keyword": "cca_qg_21",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12169,8 +12351,11 @@
                               {
                                 "keyword": "cca_qg_22",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12216,6 +12401,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_23",
@@ -12230,8 +12416,11 @@
                               {
                                 "keyword": "cca_qg_23",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12270,8 +12459,11 @@
                               {
                                 "keyword": "cca_qg_24",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12310,8 +12502,11 @@
                               {
                                 "keyword": "cca_qg_25",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12350,8 +12545,11 @@
                               {
                                 "keyword": "cca_qg_26",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12390,8 +12588,11 @@
                               {
                                 "keyword": "cca_qg_27",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12437,6 +12638,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_28",
@@ -12448,8 +12650,11 @@
                               {
                                 "keyword": "cca_qg_28",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12488,8 +12693,11 @@
                               {
                                 "keyword": "cca_qg_29",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
-                                },                                  
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
+                                },
                                 "questions": [
                                   {
                                     "keyword": "cca_title_frequency"
@@ -12535,6 +12743,7 @@
                             },
                             "view_options": {
                               "template": "table_6",
+                              "label_class": "top-margin",
                               "layout": "no_label_row",
                               "table_grouping": [
                                 [
@@ -12546,20 +12755,23 @@
                               {
                                 "keyword": "cca_qg_30",
                                 "form_options": {
-                                  "template": "checkbox_toggle"
+                                  "template": "checkbox_toggle",
+                                  "questiongroup_to_options": [
+                                    "cca_qg_39|climate_related_extreme"
+                                  ]
                                 },
                                 "view_options": {
                                   "layout": "no_label_row"
-                                },                                  
-                                "questions": [                                  
-                                  {
-                                    "keyword": "cca_title_frequency"
-                                  },
+                                },
+                                "questions": [
                                   {
                                     "keyword": "cca_exposure_other_specify",
                                     "form_options": {
                                       "label_position": "placeholder"
                                     }
+                                  },
+                                  {
+                                    "keyword": "cca_title_frequency"
                                   },
                                   {
                                     "keyword": "cca_exposure_decrstabincr"
@@ -12576,12 +12788,6 @@
                                   },
                                   {
                                     "keyword": "cca_title_intensity"
-                                  },
-                                  {
-                                    "keyword": "cca_exposure_other_specify_other",
-                                    "form_options": {
-                                      "label_position": "placeholder"
-                                    }
                                   },
                                   {
                                     "keyword": "cca_exposure_decrstabincr_other"
@@ -12608,6 +12814,9 @@
                           "template": "has_subcategories",
                           "label_tag": "h3"
                         },
+                        "view_options": {
+                          "label_class": "top-margin"
+                        },
                         "subcategories": [
                           {
                             "keyword": "cca__2__2__other",
@@ -12617,6 +12826,7 @@
                             },
                             "view_options": {
                               "template": "table_7",
+                              "label_class": "top-margin",
                               "table_grouping": [
                                 [
                                   "cca_qg_31",
@@ -12764,6 +12974,9 @@
                                   "questiongroup_conditions": [
                                     "=='yes'|cca_qg_37"
                                   ]
+                                },
+                                "view_options": {
+                                  "template": "checkbox_as_text"
                                 }
                               }
                             ]
@@ -12791,6 +13004,9 @@
                     "form_options": {
                       "numbering": "2.3"
                     },
+                    "view_options": {
+                      "label_class": "top-margin"
+                    },
                     "questiongroups": [
                       {
                         "keyword": "cca_qg_38",
@@ -12812,6 +13028,37 @@
                         },
                         "questions": [
                           {
+                            "keyword": "climate_related_extreme",
+                            "form_options": {
+                              "options_by_questiongroups": [
+                                "cca_qg_7",
+                                "cca_qg_8",
+                                "cca_qg_9",
+                                "cca_qg_10",
+                                "cca_qg_11",
+                                "cca_qg_12",
+                                "cca_qg_13",
+                                "cca_qg_14",
+                                "cca_qg_15",
+                                "cca_qg_16",
+                                "cca_qg_17",
+                                "cca_qg_18",
+                                "cca_qg_19",
+                                "cca_qg_20",
+                                "cca_qg_21",
+                                "cca_qg_22",
+                                "cca_qg_23",
+                                "cca_qg_24",
+                                "cca_qg_25",
+                                "cca_qg_26",
+                                "cca_qg_27",
+                                "cca_qg_28",
+                                "cca_qg_29",
+                                "cca_qg_30"
+                              ]
+                            }
+                          },
+                          {
                             "keyword": "from_year"
                           },
                           {
@@ -12822,12 +13069,6 @@
                           },
                           {
                             "keyword": "to_month"
-                          },
-                          {
-                            "keyword": "climate_related_extreme"
-                          },
-                          {
-                            "keyword": "climate_related_extreme_display"
                           },
                           {
                             "keyword": "comments_specify"
@@ -12857,9 +13098,6 @@
                             "keyword": "climate_related_extreme_conditional"
                           },
                           {
-                            "keyword": "climate_related_extreme_conditional_display"
-                          },
-                          {
                             "keyword": "land_degradation_type"
                           },
                           {
@@ -12877,9 +13115,6 @@
                             "keyword": "climate_related_extreme_conditional"
                           },
                           {
-                            "keyword": "climate_related_extreme_conditional_display"
-                          },
-                          {
                             "keyword": "newly_occurring_land_degradation_type"
                           },
                           {
@@ -12889,7 +13124,7 @@
                             "keyword": "specify_comments"
                           }
                         ]
-                      }                      
+                      }
                     ]
                   },
                   {
@@ -12907,7 +13142,7 @@
                         },
                         "view_options": {
                           "template": "has_subcategories",
-                          "label_tag": "h3"
+                          "label_position": "none"
                         },
                         "subcategories": [
                           {
@@ -12924,11 +13159,11 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_production",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
-                                },                                    
+                                  "label_tag": "h5"
+                                },
                                 "questiongroups": [
                                   {
                                     "keyword": "cca_qg_43",
@@ -12937,10 +13172,126 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_production_impact"
+                                        "keyword": "cca_production_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_production_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "crop_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "crop_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "fodder_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "fodder_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "animal_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "wood_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "forest_woodland_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "non_wood_forest_production": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "risk_of_production_failure": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "product_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "production_area": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "land_management": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_hindered"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_simplified"
+                                              ]
+                                            },
+                                            "energy_generation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -12951,7 +13302,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -12965,10 +13316,10 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_water",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -12978,10 +13329,78 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_water_impact"
+                                        "keyword": "cca_water_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_water_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "drinking_water_availability": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "drinking_water_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "water_availability_for_livestock": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "water_quality_for_livestock": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "irrigation_water_availability": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "irrigation_water_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "demand_for_irrigation_water": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -12992,7 +13411,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13006,10 +13425,10 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_income",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13019,10 +13438,62 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_income_impact"
+                                        "keyword": "cca_income_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_income_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "expenses_on_agricultural_inputs": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "farm_income": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "diversity_of_income_sources": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "economic_disparities": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "workload": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13033,7 +13504,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13047,10 +13518,10 @@
                               {
                                 "keyword": "cca__3__2__socioeconomic_other",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13058,9 +13529,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_impacts_other_specify"
@@ -13094,10 +13562,10 @@
                               {
                                 "keyword": "cca__3__2__sociocultural",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_position": "none"
                                 },
                                 "questiongroups": [
                                   {
@@ -13107,10 +13575,102 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_socio_cultural_impact"
+                                        "keyword": "cca_socio_cultural_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_socio_cultural_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "food_security_self_sufficiency": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "health_situation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "land_use_water_rights": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "cultural_opportunities": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "recreational_opportunities": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "community_institutions": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_weakened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_strengthened"
+                                              ]
+                                            },
+                                            "national_institutions": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_weakened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_strengthened"
+                                              ]
+                                            },
+                                            "slm_land_degradation_knowledge": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "conflict_mitigation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "situation_of_disadvantaged_groups": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13121,7 +13681,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13135,10 +13695,10 @@
                               {
                                 "keyword": "cca__3__2__sociocultural_other",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_position": "none"
                                 },
                                 "questiongroups": [
                                   {
@@ -13146,9 +13706,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_impacts_other_specify"
@@ -13182,10 +13739,10 @@
                               {
                                 "keyword": "cca__3__2__ecological_water",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13195,10 +13752,78 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_runoff_impact"
+                                        "keyword": "cca_runoff_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_runoff_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "water_quantity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "water_quality": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "harvesting_collection_of_water": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "surface_runoff": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "excess_water_drainage": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "groundwater_table_aquifer": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_lowered"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_recharge"
+                                              ]
+                                            },
+                                            "evaporation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13209,7 +13834,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13223,10 +13848,10 @@
                               {
                                 "keyword": "cca__3__2__ecological_soil",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13236,10 +13861,102 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_soil_impact"
+                                        "keyword": "cca_soil_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_soil_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "soil_moisture": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "soil_cover": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_reduced"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            },
+                                            "soil_loss": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "soil_accumulation": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "soil_crusting_sealing": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "soil_compaction": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "nutrient_cycling_recharge": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "salinity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "soil_organic_matter": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "acidity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13250,7 +13967,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13264,10 +13981,10 @@
                               {
                                 "keyword": "cca__3__2__ecological_biodiversity",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13277,10 +13994,94 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_biodiversity_impact"
+                                        "keyword": "cca_biodiversity_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_biodiversity_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "vegetation_cover": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "biomass": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "plant_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "invasive_alien_species": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "animal_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "beneficial_species": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "harmful_species": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "habitat_diversity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            },
+                                            "pests_diseases": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_decreased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_increased"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13291,7 +14092,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13305,10 +14106,10 @@
                               {
                                 "keyword": "cca__3__2__ecological_climate",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13318,10 +14119,86 @@
                                         "keyword": "change_extreme_name"
                                       },
                                       {
-                                        "keyword": "change_extreme_name_display"
-                                      },
-                                      {
-                                        "keyword": "cca_climate_impact"
+                                        "keyword": "cca_climate_impact",
+                                        "form_options": {
+                                          "field_options": {
+                                            "keyword": "cca_climate_impact"
+                                          },
+                                          "custom_to_options": {
+                                            "default": {
+                                              "cca_extent_left_label": [
+                                                ""
+                                              ],
+                                              "cca_extent_right_label": [
+                                                ""
+                                              ]
+                                            },
+                                            "flood_impacts": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "landslides_debris_flow": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "drought_impacts": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "impacts_of_cyclones": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "emission_of_carbon": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "fire_risk": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_reduced"
+                                              ]
+                                            },
+                                            "wind_velocity": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_increased"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_decreased"
+                                              ]
+                                            },
+                                            "micro_climate": {
+                                              "cca_extent_left_label": [
+                                                "extent_label_worsened"
+                                              ],
+                                              "cca_extent_right_label": [
+                                                "extent_label_improved"
+                                              ]
+                                            }
+                                          }
+                                        }
                                       },
                                       {
                                         "keyword": "cca_extent_left_label"
@@ -13332,7 +14209,7 @@
                                           "template": "no_label"
                                         },
                                         "view_options": {
-                                          "template": "measure_labelled_inline",
+                                          "template": "measure_bar_only",
                                           "layout": "stacked"
                                         }
                                       },
@@ -13346,10 +14223,10 @@
                               {
                                 "keyword": "cca__3__2__ecological_other",
                                 "form_options": {
-                                  "template": "default_no_border"
+                                  "fieldset_class": "fieldset-no-border"
                                 },
                                 "view_options": {
-                                  "template": "default_h4"
+                                  "label_tag": "h5"
                                 },
                                 "questiongroups": [
                                   {
@@ -13357,9 +14234,6 @@
                                     "questions": [
                                       {
                                         "keyword": "change_extreme_name"
-                                      },
-                                      {
-                                        "keyword": "change_extreme_name_display"
                                       },
                                       {
                                         "keyword": "cca_impacts_other_specify"
@@ -13389,16 +14263,16 @@
                         },
                         "view_options": {
                           "template": "has_subcategories",
-                          "label_tag": "h3"
+                          "label_tag": "h4"
                         },
                         "subcategories": [
                           {
                             "keyword": "cca__3__2__offsite__impacts",
                             "form_options": {
-                              "template": "default_no_border"
+                              "fieldset_class": "fieldset-no-border"
                             },
                             "view_options": {
-                              "template": "default_h4"
+                              "label_position": "none"
                             },
                             "questiongroups": [
                               {
@@ -13408,10 +14282,106 @@
                                     "keyword": "change_extreme_name"
                                   },
                                   {
-                                    "keyword": "change_extreme_name_display"
-                                  },
-                                  {
-                                    "keyword": "cca_offsite_impact"
+                                    "keyword": "cca_offsite_impact",
+                                    "form_options": {
+                                      "field_options": {
+                                        "keyword": "cca_offsite_impact"
+                                      },
+                                      "custom_to_options": {
+                                        "default": {
+                                          "cca_extent_left_label": [
+                                            ""
+                                          ],
+                                          "cca_extent_right_label": [
+                                            ""
+                                          ]
+                                        },
+                                        "water_availability": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_decreased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "stream_flows": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_reduced"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "downstream_flooding": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased",
+                                            "extent_label_decreased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_decreased",
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "downstream_siltation": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased",
+                                            "extent_label_decreased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_decreased",
+                                            "extent_label_increased"
+                                          ]
+                                        },
+                                        "groundwater_river_pollution": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "buffering_filtering_capacity": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_reduced"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_improved"
+                                          ]
+                                        },
+                                        "wind_trasported_sediments": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "damage_on_fields": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "damage_on_infrastructure": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        },
+                                        "greenhouse_gases": {
+                                          "cca_extent_left_label": [
+                                            "extent_label_increased"
+                                          ],
+                                          "cca_extent_right_label": [
+                                            "extent_label_reduced"
+                                          ]
+                                        }
+                                      }
+                                    }
                                   },
                                   {
                                     "keyword": "cca_extent_left_label"
@@ -13422,7 +14392,7 @@
                                       "template": "no_label"
                                     },
                                     "view_options": {
-                                      "template": "measure_labelled_inline",
+                                      "template": "measure_bar_only",
                                       "layout": "stacked"
                                     }
                                   },
@@ -13436,10 +14406,10 @@
                           {
                             "keyword": "cca__3__2__offsite_other",
                             "form_options": {
-                              "template": "default_no_border"
+                              "fieldset_class": "fieldset-no-border"
                             },
                             "view_options": {
-                              "template": "default_h4"
+                              "label_position": "none"
                             },
                             "questiongroups": [
                               {
@@ -13447,9 +14417,6 @@
                                 "questions": [
                                   {
                                     "keyword": "change_extreme_name"
-                                  },
-                                  {
-                                    "keyword": "change_extreme_name_display"
                                   },
                                   {
                                     "keyword": "cca_impacts_other_specify"
@@ -13590,7 +14557,7 @@
                         },
                         "questions": [
                           {
-                            "keyword": "investment_made"                            
+                            "keyword": "investment_made"
                           },
                           {
                             "keyword": "measure_details"
@@ -13710,9 +14677,18 @@
                     "questiongroups": [
                       {
                         "keyword": "cca_qg_139",
+                        "view_options": {
+                          "template": "columns_26_26_r"
+                        },
                         "questions": [
                           {
-                            "keyword": "cca_who_motivated_land_users"
+                            "keyword": "cca_who_motivated_land_users",
+                            "view_options": {
+                              "template": "measure_stacked",
+                              "layout": "stacked",
+                              "label_text_direction": "left",
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "cca_who_motivated_land_users_other",
@@ -13721,11 +14697,21 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "checkbox_other"
+                              "template": "measure_stacked_other",
+                              "label_position": "none",
+                              "layout": "stacked",
+                              "label_text_direction": "left",
+                              "filter": true
                             }
                           },
                           {
-                            "keyword": "cca_motivated_by_slm_specialists"
+                            "keyword": "cca_motivated_by_slm_specialists",
+                            "view_options": {
+                              "template": "measure_stacked",
+                              "layout": "stacked",
+                              "label_text_direction": "left",
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "cca_motivated_by_slm_specialists_other",
@@ -13734,7 +14720,11 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "checkbox_other"
+                              "template": "measure_stacked_other",
+                              "label_position": "none",
+                              "layout": "stacked",
+                              "label_text_direction": "left",
+                              "filter": true
                             }
                           },
                           {
@@ -13768,9 +14758,18 @@
                         "form_options": {
                           "questiongroup_condition": "cca_qg_186"
                         },
+                        "view_options": {
+                          "template": "columns_26_r6"
+                        },
                         "questions": [
                           {
-                            "keyword": "cca_measures_training_by_whom"
+                            "keyword": "cca_measures_training_by_whom",
+                            "view_options": {
+                              "template": "measure_stacked",
+                              "layout": "stacked",
+                              "label_text_direction": "left",
+                              "filter": true
+                            }
                           },
                           {
                             "keyword": "cca_measures_training_by_whom_other",
@@ -13779,7 +14778,11 @@
                               "label_position": "placeholder"
                             },
                             "view_options": {
-                              "template": "checkbox_other"
+                              "template": "measure_stacked_other",
+                              "label_position": "none",
+                              "layout": "stacked",
+                              "label_text_direction": "left",
+                              "filter": true
                             }
                           }
                         ]
@@ -13804,10 +14807,10 @@
                       {
                         "keyword": "cca__4__6_basic",
                         "form_options": {
-                          "template": "default_no_label"
+                          "template": "empty"
                         },
                         "view_options": {
-                          "template": "default_no_label"
+                          "label_position": "none"
                         },
                         "questiongroups": [
                           {
@@ -13829,7 +14832,12 @@
                             "form_options": {
                               "questiongroup_condition": "cca_qg_142",
                               "template": "columns_custom",
-                              "columns_custom": [["6", "6"]]
+                              "columns_custom": [
+                                [
+                                  "6",
+                                  "6"
+                                ]
+                              ]
                             },
                             "questions": [
                               {
@@ -13854,7 +14862,12 @@
                             "form_options": {
                               "questiongroup_condition": "cca_qg_143",
                               "template": "columns_custom",
-                              "columns_custom": [["6", "6"]]
+                              "columns_custom": [
+                                [
+                                  "6",
+                                  "6"
+                                ]
+                              ]
                             },
                             "questions": [
                               {
@@ -13910,10 +14923,13 @@
                       {
                         "keyword": "cca__4__6_main",
                         "form_options": {
-                          "template": "table_input_no_label"
+                          "template": "table_input",
+                          "fieldset_class": "fieldset-no-border fieldset-no-padding",
+                          "label_position": "none"
                         },
                         "view_options": {
-                          "template": "table_input_no_label",
+                          "template": "table_input",
+                          "label_position": "none",
                           "table_grouping": [
                             [
                               "cca_qg_146",
@@ -14155,6 +15171,7 @@
                         "keyword": "cca__4__8__financial",
                         "form_options": {
                           "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14162,8 +15179,8 @@
                           "table_grouping": [
                             [
                               "cca_qg_160",
-                              "cca_qg_154", 
-                              "cca_qg_155",                                 
+                              "cca_qg_154",
+                              "cca_qg_155",
                               "cca_qg_156",
                               "cca_qg_157",
                               "cca_qg_158",
@@ -14175,7 +15192,8 @@
                           {
                             "keyword": "cca_qg_154",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14189,7 +15207,8 @@
                           {
                             "keyword": "cca_qg_155",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14203,7 +15222,8 @@
                           {
                             "keyword": "cca_qg_156",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14217,7 +15237,8 @@
                           {
                             "keyword": "cca_qg_157",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14231,7 +15252,8 @@
                           {
                             "keyword": "cca_qg_158",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14245,7 +15267,8 @@
                           {
                             "keyword": "cca_qg_159",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14259,7 +15282,8 @@
                           {
                             "keyword": "cca_qg_160",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14282,6 +15306,7 @@
                         "keyword": "cca__4__8__social",
                         "form_options": {
                           "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14289,8 +15314,8 @@
                           "table_grouping": [
                             [
                               "cca_qg_171",
-                              "cca_qg_161", 
-                              "cca_qg_162",                                 
+                              "cca_qg_161",
+                              "cca_qg_162",
                               "cca_qg_163",
                               "cca_qg_164",
                               "cca_qg_165",
@@ -14306,7 +15331,8 @@
                           {
                             "keyword": "cca_qg_161",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14320,7 +15346,8 @@
                           {
                             "keyword": "cca_qg_162",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14334,7 +15361,8 @@
                           {
                             "keyword": "cca_qg_163",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14348,7 +15376,8 @@
                           {
                             "keyword": "cca_qg_164",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14362,7 +15391,8 @@
                           {
                             "keyword": "cca_qg_165",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14376,7 +15406,8 @@
                           {
                             "keyword": "cca_qg_166",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14390,7 +15421,8 @@
                           {
                             "keyword": "cca_qg_167",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14404,7 +15436,8 @@
                           {
                             "keyword": "cca_qg_168",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14418,7 +15451,8 @@
                           {
                             "keyword": "cca_qg_169",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14432,7 +15466,8 @@
                           {
                             "keyword": "cca_qg_170",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14446,7 +15481,8 @@
                           {
                             "keyword": "cca_qg_171",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14469,6 +15505,7 @@
                         "keyword": "cca__4__8__human",
                         "form_options": {
                           "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14484,7 +15521,8 @@
                           {
                             "keyword": "cca_qg_172",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14498,7 +15536,8 @@
                           {
                             "keyword": "cca_qg_173",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14521,6 +15560,7 @@
                         "keyword": "cca__4__8__physical",
                         "form_options": {
                           "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14539,7 +15579,8 @@
                           {
                             "keyword": "cca_qg_174",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14553,7 +15594,8 @@
                           {
                             "keyword": "cca_qg_175",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14567,7 +15609,8 @@
                           {
                             "keyword": "cca_qg_176",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14581,7 +15624,8 @@
                           {
                             "keyword": "cca_qg_177",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14595,7 +15639,8 @@
                           {
                             "keyword": "cca_qg_178",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14618,6 +15663,7 @@
                         "keyword": "cca__4__8__natural",
                         "form_options": {
                           "template": "collapsible",
+                          "label_class": "header-checkbox-small-font",
                           "label_tag": "h4"
                         },
                         "view_options": {
@@ -14637,7 +15683,8 @@
                           {
                             "keyword": "cca_qg_179",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14651,7 +15698,8 @@
                           {
                             "keyword": "cca_qg_180",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14665,7 +15713,8 @@
                           {
                             "keyword": "cca_qg_181",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14679,7 +15728,8 @@
                           {
                             "keyword": "cca_qg_182",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14693,7 +15743,8 @@
                           {
                             "keyword": "cca_qg_183",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14707,7 +15758,8 @@
                           {
                             "keyword": "cca_qg_184",
                             "form_options": {
-                              "template": "checkbox_toggle"
+                              "template": "checkbox_toggle",
+                              "columns_class": "checkbox-indent"
                             },
                             "questions": [
                               {
@@ -14978,5 +16030,5 @@
     },
     "model": "configuration.configuration",
     "pk": 20001
-  }  
+  }
 ]

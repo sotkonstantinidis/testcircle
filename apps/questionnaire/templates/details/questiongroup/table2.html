@@ -1,3 +1,6 @@
+{% load i18n %}
+{% load date_format %}
+
 {% comment %}
   Render the questiongroup as table. The labels of the keys are used as table
   headers, each questiongroup takes up one row of the table.
@@ -15,20 +18,18 @@
     <col width="{{ width }}">
   {% endfor %}
   <thead>
-    {% for key in keys %}
-      {% if forloop.counter != 5 %}
-        <th>{{ key }}</th>
-      {% endif %}
-    {% endfor %}
+    <td>{{ keys.0 }}</td>
+    <td>{% trans "From" %}</td>
+    <td>{% trans "To" %}</td>
+    <td>{{ keys.5 }}</td>
   </thead>
   <tbody>
     {% for questiongroup in questiongroups %}
       <tr>
-        {% for question in questiongroup %}
-          {% if forloop.counter != 5 %}
-            <td>{{ question }}</td>
-          {% endif %}
-        {% endfor %}
+        <td>{{ questiongroup.0|striptags }}</td>
+        <td>{{ questiongroup.2|month_name:'F' }} {{ questiongroup.1 }}</td>
+        <td>{{ questiongroup.4|month_name:'F' }} {{ questiongroup.3 }}</td>
+        <td>{{ questiongroup.5 }}</td>
       </tr>
     {% endfor %}
   </tbody>

@@ -6,6 +6,7 @@ from uuid import UUID
 from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models.signals import pre_save
 from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.utils.functional import Promise
@@ -20,9 +21,10 @@ from configuration.configuration import (
 from configuration.utils import (
     ConfigurationList,
     get_configuration_query_filter,
-    get_choices_from_model)
+    get_choices_from_model, get_choices_from_questiongroups)
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.errors import QuestionnaireLockedException
+from questionnaire.receivers import prevent_updates_on_published_items
 from questionnaire.serializers import QuestionnaireSerializer
 from search.index import (
     put_questionnaire_data,
@@ -137,14 +139,17 @@ def clean_questionnaire_data(
                                 value, key, qg_keyword))
                         continue
                 if question.field_type in [
-                        'bool', 'measure', 'select_type', 'select', 'radio']:
+                        'bool', 'measure', 'select_type', 'select', 'radio',
+                    'select_conditional_custom']:
                     if value not in [c[0] for c in question.choices]:
                         errors.append(
                             'Value "{}" is not valid for key "{}" ('
                             'questiongroup "{}").'.format(
                                 value, key, qg_keyword))
                         continue
-                elif question.field_type in ['select_conditional']:
+                elif question.field_type in [
+                    'select_conditional_questiongroup']:
+                    # This is checked later.
                     pass
                 elif question.field_type in [
                         'checkbox', 'image_checkbox', 'cb_bool']:
@@ -311,6 +316,52 @@ def clean_questionnaire_data(
                     format(
                         questiongroup.keyword,
                         questiongroup.questiongroup_condition))
+
+    # Check for select_conditional_questiongroup questions. This needs to be
+    # done after cleaning the data JSON as these questions depend on other
+    # questiongroups. Empty questiongroups (eg. {'qg_42': [{'key_57': ''}], ...}
+    # are now cleaned.
+    for qg_keyword, cleaned_qg_list in cleaned_data.items():
+
+        questiongroup = configuration.get_questiongroup_by_keyword(qg_keyword)
+        if questiongroup is None:
+            continue
+
+        select_conditional_questiongroup_data_list = []
+        select_conditional_questiongroup_found = False
+
+        for qg_data in cleaned_qg_list:
+            select_conditional_questiongroup_data = {}
+            for key, value in qg_data.items():
+
+                question = questiongroup.get_question_by_key_keyword(key)
+                if question is None:
+                    continue
+
+                if question.field_type in ['select_conditional_questiongroup']:
+                    select_conditional_questiongroup_found = True
+
+                    # Set currently valid question choices
+                    questiongroups = question.form_options.get(
+                        'options_by_questiongroups', [])
+                    question.choices = get_choices_from_questiongroups(
+                        cleaned_data, questiongroups,
+                        configuration.configuration_keyword)
+
+                    if value in [c[0] for c in question.choices]:
+                        # Only copy values which are valid options.
+                        select_conditional_questiongroup_data[key] = value
+
+                else:
+                    select_conditional_questiongroup_data[key] = value
+
+            select_conditional_questiongroup_data_list.append(
+                select_conditional_questiongroup_data)
+
+        if select_conditional_questiongroup_found:
+            cleaned_data[
+                qg_keyword] = select_conditional_questiongroup_data_list
+
     return cleaned_data, errors
 
 
@@ -911,6 +962,14 @@ def get_query_status_filter(request):
     if request.user.is_authenticated():
 
         permissions = request.user.get_all_permissions()
+
+        # If "view_questionnaire" is part of the permissions, return all
+        # statuses
+        if 'questionnaire.view_questionnaire' in permissions:
+            return Q(status__in=[settings.QUESTIONNAIRE_DRAFT,
+                                 settings.QUESTIONNAIRE_SUBMITTED,
+                                 settings.QUESTIONNAIRE_REVIEWED,
+                                 settings.QUESTIONNAIRE_PUBLIC])
 
         # Reviewers see all Questionnaires with status "submitted".
         if 'questionnaire.review_questionnaire' in permissions:
@@ -1581,15 +1640,28 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         )
 
     elif request.POST.get('delete'):
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
+            pre_save.disconnect(
+                prevent_updates_on_published_items, sender=Questionnaire)
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
+        if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
+            delete_questionnaires_from_es(
+                configuration_code, [questionnaire_object])
+            pre_save.connect(
+                prevent_updates_on_published_items, sender=Questionnaire)
         messages.success(request, _('The questionnaire was succesfully removed'))
         delete_questionnaire.send(
             sender=settings.NOTIFICATIONS_DELETE,
             questionnaire=questionnaire_object,
             user=request.user
         )
-        return redirect('account_questionnaires')
+        # Redirect to the overview of the user's questionnaires if there is no
+        # other version of the questionnaire left to show.
+        other_questionnaire = query_questionnaire(
+            request, questionnaire_object.code).first()
+        if other_questionnaire is None:
+            return redirect('account_questionnaires')
 
 
 def compare_questionnaire_data(data_1, data_2):
@@ -1688,20 +1760,3 @@ def prepare_list_values(data, config, **kwargs):
     )
 
     return data
-
-
-def get_review_config_dict(
-        status, token, permissions, roles, view_mode, url, is_blocked,
-        blocked_by, form_url, has_release):
-    return {
-        'review_status': status,
-        'csrf_token_value': token,
-        'permissions': permissions,
-        'roles': roles,
-        'mode': view_mode,
-        'url': url,
-        'is_blocked': is_blocked,
-        'blocked_by': blocked_by,
-        'form_action_url': form_url,
-        'has_release': has_release,  # flag if this questionnaire has a published version - controlling the first tab.
-    }

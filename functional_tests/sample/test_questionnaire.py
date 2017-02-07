@@ -1078,7 +1078,7 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy(
             'xpath', '//label[@for="id_qg_11-0-key_14_1"]').click()
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 16.6667%;"]')
 
         # She submits the step and sees that the value was submitted and
         # the form progress on the overview page is updated
@@ -1093,7 +1093,7 @@ class QuestionnaireTest(FunctionalTest):
         # selected, form progress is at 1
         self.click_edit_section('cat_4')
         self.findBy(
-            'xpath', '//span[@class="meter" and @style="width: 33.3333%;"]')
+            'xpath', '//span[@class="meter" and @style="width: 16.6667%;"]')
 
         # She deselects the first value and sees that the progress was
         # updated
@@ -2234,16 +2234,16 @@ class QuestionnaireTest(FunctionalTest):
         self.rearrangeFormHeader()
 
         # She sees a table and enters some values
-        table = self.findBy('xpath', '//table')
+        table = self.findBy('xpath', '//fieldset[@id="subcat_5_1"]//table')
 
-        headers = self.findManyBy('xpath', '//th', base=table)
+        headers = self.findManyBy('xpath', '//fieldset[@id="subcat_5_1"]//th')
         self.assertEqual(len(headers), 4)
         self.assertEqual(headers[0].text, 'Key 33')
         self.assertEqual(headers[1].text, 'Key 34')
         self.assertEqual(headers[2].text, 'Key 35')
         self.assertEqual(headers[3].text, 'Key 36')
 
-        row_1 = self.findBy('xpath', '//tr[1]', base=table)
+        row_1 = self.findBy('xpath', '//fieldset[@id="subcat_5_1"]//tr[1]')
         td_1_1 = self.findBy('xpath', '//td[1]', base=row_1)
         self.findBy(
             'xpath', '//input[@name="qg_25-0-original_key_33"]',

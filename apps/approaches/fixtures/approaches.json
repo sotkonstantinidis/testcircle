@@ -2295,7 +2295,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "site visits/ farmer to farmer"
+            "en": "farmer to farmer"
           }
         }
       }
@@ -3228,10 +3228,10 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "payment/ external support"
+            "en": "external support"
           },
           "helptext": {
-            "en": "<strong>Payment/ external support:</strong> means that local people participate in return for food, cash, or other material support."
+            "en": "<strong>external support:</strong> means that local people participate in return for food, cash, or other material support."
           }
         }
       }
@@ -3391,7 +3391,7 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "site visits/ farmer-to-farmer"
+            "en": "farmer-to-farmer"
           }
         }
       }
@@ -4953,8 +4953,11 @@
       "translation": 7104,
       "configuration": {
         "type": "text",
-        "in_summary": {
-          "full": "definition"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "definition"
+          }
         }
       }
     },
@@ -5076,8 +5079,11 @@
             "max": "now"
           }
         },
-        "in_summary": {
-          "full": "location_initiation_year"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_initiation_year"
+          }
         }
       }
     },
@@ -5112,8 +5118,11 @@
             "max": 2100
           }
         },
-        "in_summary": {
-          "full": "location_termination_year"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_termination_year"
+          }
         }
       }
     },
@@ -5137,8 +5146,14 @@
       "translation": 7013,
       "configuration": {
         "type": "radio",
-        "in_summary": {
-          "full": "location_type"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_type",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
         }
       },
       "values": [
@@ -5209,6 +5224,18 @@
         "type": "text",
         "view_options": {
           "label_position": "none"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "aims_enabling",
+            "get_value": {
+              "name": "get_aims_enabling",
+              "kwargs": {
+                "name": "enabling"
+              }
+            }
+          }
         }
       }
     },
@@ -5223,6 +5250,18 @@
         "type": "text",
         "view_options": {
           "label_position": "none"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "aims_hindering",
+            "get_value": {
+              "name": "get_aims_enabling",
+              "kwargs": {
+                "name": "hindering"
+              }
+            }
+          }
         }
       }
     },
@@ -5234,7 +5273,19 @@
       "keyword": "app_decisions_by",
       "translation": 7114,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_decisions_by",
+            "get_value": {
+              "name": "get_full_range_values",
+              "kwargs": {
+                "is_radio": "true"
+              }
+            }
+          }
+        }
       },
       "values": [
         3015,
@@ -5275,7 +5326,16 @@
       "keyword": "app_decisions_based",
       "translation": 7115,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_decisions_based",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3021,
@@ -5302,7 +5362,16 @@
       "keyword": "app_training",
       "translation": 7021,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_is_training",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5313,7 +5382,16 @@
       "keyword": "app_training_who",
       "translation": 7116,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_who",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3024,
@@ -5350,7 +5428,16 @@
       "keyword": "app_training_form",
       "translation": 7024,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_form",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3026,
@@ -5379,7 +5466,13 @@
       "keyword": "app_training_subjects",
       "translation": 7025,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_subjects"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5401,7 +5494,16 @@
       "keyword": "app_advisory",
       "translation": 7117,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_is_advisory",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5412,7 +5514,16 @@
       "keyword": "app_advisory_service",
       "translation": 7118,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_service",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3031,
@@ -5438,7 +5549,13 @@
       "keyword": "app_advisory_describe",
       "translation": 7119,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_description"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5449,7 +5566,16 @@
       "keyword": "app_institutions",
       "translation": 7094,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_is_institution",
+            "get_value": {
+              "name": "get_highlight_element_with_text"
+            }
+          }
+        }
       },
       "values": [
         3033,
@@ -5466,7 +5592,16 @@
       "keyword": "app_institutions_level",
       "translation": 7120,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_level",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3037,
@@ -5493,7 +5628,13 @@
       "keyword": "app_institutions_describe",
       "translation": 7038,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_describe"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5504,7 +5645,16 @@
       "keyword": "app_institutions_support",
       "translation": 7121,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_support",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3040,
@@ -5531,7 +5681,13 @@
       "keyword": "app_institutions_support_specify",
       "translation": 7122,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_support_specify"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5548,6 +5704,12 @@
             "min": 0,
             "decimals": 2
           }
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_budget_precise"
+          }
         }
       }
     },
@@ -5559,7 +5721,16 @@
       "keyword": "app_annual_budget_range",
       "translation": 7129,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_budget",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3043,
@@ -5599,7 +5770,16 @@
       "keyword": "app_subsidies_inputs",
       "translation": 7046,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_subsidies",
+            "get_value": {
+              "name": "get_financing_subsidies"
+            }
+          }
+        }
       },
       "values": [
         3048,
@@ -6160,7 +6340,16 @@
       "keyword": "app_subsidies_labour_type",
       "translation": 7052,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_labour",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3064,
@@ -6177,7 +6366,16 @@
       "keyword": "app_credit_provided",
       "translation": 7053,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_is_credit",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6188,7 +6386,13 @@
       "keyword": "app_credit_conditions",
       "translation": 7054,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_credit_conditions"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6199,7 +6403,13 @@
       "keyword": "app_credit_provider",
       "translation": 7133,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_credit_provider"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6210,7 +6420,13 @@
       "keyword": "app_credit_receiver",
       "translation": 7134,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_credit_receiver"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6221,7 +6437,16 @@
       "keyword": "app_incentives_other",
       "translation": 7057,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_is_other",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6232,7 +6457,13 @@
       "keyword": "app_incentives_other_specify",
       "translation": 7058,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_other_text"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6243,7 +6474,16 @@
       "keyword": "app_impacts_empower_local",
       "translation": 7098,
       "configuration": {
-        "type": "measure"
+        "type": "measure",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_impacts",
+            "get_value": {
+              "name": "get_impacts"
+            }
+          }
+        }
       },
       "values": [
         3068,
@@ -6702,7 +6942,16 @@
       "keyword": "app_motivation",
       "translation": 7075,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_motivation",
+            "get_value": {
+              "name": "get_impacts_motivation"
+            }
+          }
+        }
       },
       "values": [
         3072,
@@ -6751,7 +7000,16 @@
       "keyword": "app_can_lu_sustain",
       "translation": 7076,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_sustainability",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3084,
@@ -6789,7 +7047,13 @@
       "keyword": "app_flowchart",
       "translation": 7084,
       "configuration": {
-        "type": "file"
+        "type": "file",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_flowchart_file"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6800,7 +7064,13 @@
       "keyword": "app_flowchart_description",
       "translation": 7085,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_flowchart_text"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6822,7 +7092,14 @@
       "keyword": "app_stakeholders_lead_agency",
       "translation": 7087,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_lead_agency"
+          }
+        }
+
       }
     },
     "model": "configuration.key",
@@ -6844,7 +7121,16 @@
       "keyword": "app_monitoring",
       "translation": 7125,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_monitoring_is_monitoring",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6866,7 +7152,13 @@
       "keyword": "app_documentation_systematic",
       "translation": 7095,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_monitoring_systematic"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -6878,8 +7170,11 @@
       "translation": 7105,
       "configuration": {
         "type": "text",
-        "in_summary": {
-          "full": "description"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "description"
+          }
         }
       }
     },
@@ -6902,7 +7197,16 @@
       "keyword": "app_financial_support",
       "translation": 7131,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_is_financing",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7008,7 +7312,13 @@
       "keyword": "app_main_aims",
       "translation": 7108,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "aims_main"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7019,7 +7329,16 @@
       "keyword": "app_stakeholders_roles",
       "translation": 7110,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_stakeholders",
+            "get_value": {
+              "name": "get_stakeholders_roles"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7030,7 +7349,16 @@
       "keyword": "app_involvement_type",
       "translation": 7111,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_involvement",
+            "get_value": {
+              "name": "get_involvement"
+            }
+          }
+        }
       },
       "values": [
         3088,
@@ -7051,6 +7379,15 @@
         "type": "text",
         "form_options": {
           "num_rows": 7
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_involvement_scale",
+            "get_value": {
+              "name": "get_qg_values_with_label_scale"
+            }
+          }
         }
       }
     },
@@ -7073,7 +7410,16 @@
       "keyword": "app_research",
       "translation": 7123,
       "configuration": {
-        "type": "bool"
+        "type": "bool",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_is_research",
+            "get_value": {
+              "name": "get_highlight_element"
+            }
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7084,7 +7430,16 @@
       "keyword": "app_research_topics",
       "translation": 7124,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_topics",
+            "get_value": {
+              "name": "get_full_range_values"
+            }
+          }
+        }
       },
       "values": [
         3093,
@@ -7112,7 +7467,13 @@
       "keyword": "app_research_details",
       "translation": 7127,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_details"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7123,7 +7484,13 @@
       "keyword": "app_annual_budget_comments",
       "translation": 7130,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_budget_comments"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -9491,7 +9858,7 @@
                         "form_options": {
                           "template": "select_user",
                           "user_role": "resourceperson",
-                          "max_num": 3,
+                          "max_num": 20,
                           "row_class": "no-top-margin",
                           "label_class": "bottom-margin"
                         },
@@ -9733,7 +10100,7 @@
                       {
                         "keyword": "qg_photos",
                         "form_options": {
-                          "max_num": 3
+                          "max_num": 50
                         },
                         "view_options": {
                           "template": "none"

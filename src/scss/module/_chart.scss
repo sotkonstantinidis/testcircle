@@ -24,6 +24,10 @@
   }
 }
 
+.chart-horizontal-bars-other {
+   margin-top: rem-calc(1);
+}
+
 $bars-max-number: 20;
 $bars-factor: 4;
 
@@ -116,17 +120,26 @@ $bars-factor: 4;
 .chart-measure-label-left {
   margin-right: rem-calc(8);
   font-size: rem-calc(14);
+  line-height: 1.5rem;
   float: right;
 }
 .chart-measure-label-right {
   margin-left: rem-calc(8);
   font-size: rem-calc(14);
+  line-height: 1.5rem;
 }
 .chart-measure-col-left {
   padding-right: 0;
 }
 .chart-measure-col-content {
   padding-left: 0;
+}
+.chart-year-bar {
+  line-height: 0.5rem;
+
+  li.step {
+    padding: 0.5rem;
+  }
 }
 
 
@@ -139,20 +152,19 @@ body.summary
       padding-left: 1.2rem;
       margin-top: 0rem;
       position: relative;
-      color: #CFD2CC;
+      color: #999;
       &::before {
         font-size: 1rem;
         content: ' ';
         display: block;
         height: 15px;
         width: 15px;
-        background-color: rgba(85, 116, 49, 0.1);
+        background-color: rgba(85, 116, 49, 0.15);
         left: 0;
         top: 0.05rem;
         position: absolute;
       }
       &.true {
-        font-weight: bold;
         color: #3E3B34;
         &::before {
           color: white;
@@ -160,6 +172,23 @@ body.summary
           font-size: 1.2em;
           content: '\2713 ';
           background-color: rgba(85,116,49,.8);
+          padding-left: 2px;
+        }
+      }
+    }
+  }
+}
+
+body.summary.is-approaches
+{
+  .highlights_list {
+    li {
+      &::before {
+        background-color: rgba($color-approach, 0.15);
+      }
+      &.true {
+        &::before {
+          background-color: #e86b28;
         }
       }
     }

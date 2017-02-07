@@ -12,6 +12,7 @@ from unittest.mock import patch
 from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
+from accounts.tests.test_views import accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
@@ -174,7 +175,7 @@ class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json', 'sample_questionnaire_status.json']
+        'sample.json', 'sample_questionnaire_status.json', 'sample_user.json']
 
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
@@ -191,6 +192,171 @@ class ModerationTestFixture(FunctionalTest):
         super(ModerationTestFixture, self).tearDown()
         delete_all_indices()
 
+    def test_secretariat_edit(self, mock_get_user_id):
+
+        # Secretariat user logs in
+        self.doLogin(user=self.user_secretariat)
+
+        # He goes to the details of a DRAFT questionnaire which he did not enter
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 1")]]')
+
+        # He sees a button to edit the questionnaire, he clicks it
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+
+        # In edit mode, he sees that he can edit the first section
+        self.click_edit_section('cat_1')
+
+        # He saves the step and returns
+        self.submit_form_step()
+
+        # He also opens a public questionnaire which he did not enter
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
+
+        # In the database, there is only 1 version
+        self.assertEqual(
+            Questionnaire.objects.filter(code='sample_3').count(), 1)
+
+        # He sees a button to edit the questionnaire, he clicks it and creates a
+        # new version
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('edit')
+
+        # In edit mode, he sees that he can edit the first section
+        self.click_edit_section('cat_1')
+
+        # He saves the step and returns
+        self.submit_form_step()
+
+        # In the database, there are now 2 versions
+        self.assertEqual(
+            Questionnaire.objects.filter(code='sample_3').count(), 2)
+
+    def test_secretariat_delete(self, mock_get_user_id):
+        # Secretariat user logs in
+        self.doLogin(user=self.user_secretariat)
+
+        # He goes to the details of a DRAFT questionnaire which he did not enter
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 1")]]')
+        self.findBy('xpath', '//span[contains(@class, "is-draft")]')
+
+        # He sees a button to delete the questionnaire
+        self.review_action('delete')
+
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+
+        # He goes to the details of a SUBMITTED questionnaire which he did not
+        # enter
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 2")]]')
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+
+        # He sees a button to delete the questionnaire
+        self.review_action('delete')
+
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+
+        # He goes to the details of a REVIEWED questionnaire which he did not
+        # enter
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_7'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 7")]]')
+        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+
+        # He sees a button to delete the questionnaire
+        self.review_action('delete')
+
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+
+        # He also opens a PUBLIC questionnaire which he did not enter
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
+        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+
+        # In the database, there is only 1 version
+        self.assertEqual(
+            Questionnaire.objects.filter(code='sample_3').count(), 1)
+
+        # He sees a button to edit the questionnaire, he clicks it and creates a
+        # new version
+        self.findBy('xpath', '//form[@id="review_form"]')
+        self.review_action('delete')
+
+        # He sees that he has been redirected to the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+
+        # In the database, there is still only 1 version
+        self.assertEqual(
+            Questionnaire.objects.filter(code='sample_3').count(), 1)
+
+        # He opens another PUBLIC questionnaire and edits it
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_5'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
+        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+        self.review_action('edit')
+        self.click_edit_section('cat_1')
+        self.submit_form_step()
+
+        # He deletes the newly created draft version
+        self.findBy('xpath', '//span[contains(@class, "is-draft")]')
+        self.review_action('delete')
+
+        # He sees that he has been redirected to the PUBLIC version of the
+        # questionnaire, not the "My SLM Practices" page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(
+                route_questionnaire_details,
+                kwargs={'identifier': 'sample_5'}) + '#top')
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
+        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
+        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+
+        # He creates another version by editing it
+        self.review_action('edit')
+        self.click_edit_section('cat_1')
+        self.submit_form_step()
+
+        # This time, he publishes the new version
+        self.review_action('view')
+        self.review_action('submit')
+        self.review_action('review')
+        self.review_action('publish')
+
+        # Now he deletes it
+        self.review_action('delete')
+
+        # He is now redirected to the "My SLM Practices" page as there is no
+        # version to show
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+
     def test_review_panel(self, mock_get_user_id):
 
         # Editor logs in
@@ -205,6 +371,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//form[@id="review_form"]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -219,6 +386,7 @@ class ModerationTestFixture(FunctionalTest):
         # He does see the review panel but can only edit
         self.findBy('xpath', '//form[@id="review_form"]')
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -236,6 +404,7 @@ class ModerationTestFixture(FunctionalTest):
         # submit the questionnaire for review
         self.findBy('xpath', '//form[@id="review_form"]')
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -259,6 +428,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//form[@id="review_form"]')
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
+        self.review_action('delete', exists_only=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -275,6 +445,7 @@ class ModerationTestFixture(FunctionalTest):
         self.review_action('view', exists_only=True)
 
         # She submits the questionnaire to review
+        self.review_action('delete', exists_only=True)
         self.review_action('submit')
 
         # The questionnaire is now pending for review. The review panel
@@ -283,6 +454,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -297,6 +469,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -311,6 +484,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_only=True)
         self.review_action('publish', exists_not=True)
 
@@ -333,6 +507,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -345,6 +520,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -357,6 +533,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findByNot('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_not=True)
 
@@ -369,6 +546,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(text(), "Edit")]')
         self.review_action('edit', exists_not=True)
         self.review_action('submit', exists_not=True)
+        self.review_action('delete', exists_not=True)
         self.review_action('review', exists_not=True)
         self.review_action('publish', exists_only=True)
 
@@ -648,7 +826,7 @@ class ModerationTestFixture(FunctionalTest):
         # permission to view or edit the draft questionnaire
         # route_home
         home_url = self.live_server_url + reverse(route_home)
-        self.assertEqual(self.browser.current_url, home_url)
+        self.assertEqual(self.browser.current_url, home_url + '#top')
 
         # User 102 (the compiler of the questionnaire) logs in
         self.doLogin(user=self.user_editor)
@@ -727,7 +905,7 @@ class ModerationTestFixture(FunctionalTest):
         # permission to view or edit the draft questionnaire
         # route_home
         home_url = self.live_server_url + reverse(route_home)
-        self.assertEqual(self.browser.current_url, home_url)
+        self.assertEqual(self.browser.current_url, home_url + '#top')
 
         # User 102 (the compiler of the questionnaire) logs in
         self.doLogin(user=self.user_compiler)

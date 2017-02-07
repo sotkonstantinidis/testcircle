@@ -5830,8 +5830,11 @@
       "translation": 5001,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "title_name"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "title_name"
+          }
         }
       }
     },
@@ -5844,8 +5847,11 @@
       "translation": 5002,
       "configuration": {
         "type": "select_type",
-        "in_summary": {
-          "full": "country"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "country"
+          }
         }
       },
       "values": [
@@ -6112,8 +6118,11 @@
         "form_options": {
           "helptext_position": "tooltip"
         },
-        "in_summary": {
-          "full": "title_name_local"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "title_name_local"
+          }
         }
       }
     },
@@ -6126,8 +6135,11 @@
       "translation": 5005,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "location_state_province"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_state_province"
+          }
         }
       }
     },
@@ -6140,8 +6152,11 @@
       "translation": 5006,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "location_further"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_further"
+          }
         }
       }
     },
@@ -6165,8 +6180,14 @@
       "translation": 5007,
       "configuration": {
         "type": "image",
-        "in_summary": {
-          "full": "header_image_image"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_photos.image": "images_image",
+              "qg_image.image": "header_image_image"
+            }
+          }
         }
       }
     },
@@ -6182,8 +6203,14 @@
         "form_options": {
           "helptext_position": "tooltip"
         },
-        "in_summary": {
-          "full": "header_image_caption"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_photos.image_caption": "images_caption",
+              "qg_image.image_caption": "header_image_caption"
+            }
+          }
         }
       }
     },
@@ -6207,8 +6234,14 @@
       "translation": 5010,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "header_image_photographer"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_photos.image_photographer": "images_photographer",
+              "qg_image.image_photographer": "header_image_photographer"
+            }
+          }
         }
       }
     },
@@ -6232,8 +6265,11 @@
       "translation": 5049,
       "configuration": {
         "type": "text",
-        "in_summary": {
-          "full": "header_image_remarks"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "header_image_remarks"
+          }
         }
       }
     },
@@ -6248,9 +6284,12 @@
         "type": "select_model",
         "form_options": {
           "model": "Project",
-          "display_field": "funding_project_display",
-          "in_summary": {
-            "full": "header_image_project"
+          "display_field": "funding_project_display"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "project_institution_project"
           }
         }
       }
@@ -6278,8 +6317,11 @@
       "translation": 5014,
       "configuration": {
         "type": "user_id",
-        "in_summary": {
-          "full": "references_resourceperson_user_id"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_resourceperson_user_id"
+          }
         }
       }
     },
@@ -6303,8 +6345,11 @@
       "translation": 5016,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "references_resourceperson_lastname"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_resourceperson_lastname"
+          }
         }
       }
     },
@@ -6317,8 +6362,11 @@
       "translation": 5017,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "references_person_firstname"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_person_firstname"
+          }
         }
       }
     },
@@ -6445,8 +6493,11 @@
       "translation": 5052,
       "configuration": {
         "type": "radio",
-        "in_summary": {
-          "full": "references_resourceperson_type"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_resourceperson_type"
+          }
         }
       },
       "values": [
@@ -6477,8 +6528,11 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
-          "full": "strengths_landuser"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "strengths_landuser"
+          }
         }
       }
     },
@@ -6494,8 +6548,11 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
-          "full": "strengths_compiler"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "strengths_compiler"
+          }
         }
       }
     },
@@ -6511,8 +6568,11 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
-          "full": "weaknesses_landuser"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "weaknesses_landuser"
+          }
         }
       }
     },
@@ -6528,8 +6588,11 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
-          "full": "weaknesses_compiler"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "weaknesses_compiler"
+          }
         }
       }
     },
@@ -6545,8 +6608,14 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
-          "full": "weaknesses_overcome"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": {
+              "qg_weaknesses_landusers.weaknesses_overcome": "weaknesses_landuser_overcome",
+              "qg_weaknesses_compiler.weaknesses_overcome": "weaknesses_compiler_overcome"
+            }
+          }
         }
       }
     },
@@ -6726,6 +6795,12 @@
         "form_options": {
           "model": "Institution",
           "display_field": "funding_institution_display"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "project_institution_institution"
+          }
         }
       }
     },
@@ -6768,8 +6843,11 @@
       "translation": 5057,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "references_title"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_title"
+          }
         }
       }
     },
@@ -6782,8 +6860,11 @@
       "translation": 5058,
       "configuration": {
         "type": "char",
-        "in_summary": {
-          "full": "references_source"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_source"
+          }
         }
       }
     },
@@ -6829,8 +6910,14 @@
       "translation": 5064,
       "configuration": {
         "type": "map",
-        "in_summary": {
-          "full": "location_map"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_map_data",
+            "get_value": {
+              "name": "get_map_values"
+            }
+          }
         }
       }
     },
@@ -6843,8 +6930,11 @@
       "translation": 5065,
       "configuration": {
         "type": "int",
-        "in_summary": {
-          "full": "references_vimeo_id"
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "references_vimeo_id"
+          }
         },
         "view_options": {
           "template": "vimeo_video"

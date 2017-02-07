@@ -9,7 +9,6 @@ from wocat.views import (
     HomeView)
 
 
-route_questionnaire_details = 'wocat:questionnaire_details'
 route_home = 'wocat:home'
 route_questionnaire_list = 'wocat:questionnaire_list'
 route_questionnaire_list_partial = 'wocat:questionnaire_list_partial'

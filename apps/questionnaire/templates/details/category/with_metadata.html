@@ -89,7 +89,6 @@
     </button>
     <ul id="tech-details-print" data-dropdown-content class="f-dropdown" aria-hidden="true">
       <li><a {% if not questionnaire_object.id %}disabled="disabled"{% else %}href="{% url 'questionnaire_summary' questionnaire_object.id %}"{% endif %}>{% trans "Full summary as PDF" %}</a></li>
-      <li><a {% if not questionnaire_object.id %}disabled="disabled"{% else %}href="{% url 'questionnaire_summary' questionnaire_object.id %}?as=html"{% endif %}>{% trans "Full summary as HTML" %}</a></li>
     </ul>
 {#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}
     <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">
@@ -108,7 +107,9 @@
   </div>
 
   {% if review_config %}
-    {% include 'details/review_panel.html' with review_config=review_config %}
+    {% with "Questionnaire" as questionnaire_type %}
+      {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
+    {% endwith %}
   {% endif %}
 
   <div class="row tech-section-group">

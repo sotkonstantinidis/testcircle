@@ -1,15 +1,15 @@
 import contextlib
+import time
 import urllib.request
 from os.path import join, dirname
 
 import envdir
 import configurations
-from fabric.context_managers import lcd
+
 from fabric.contrib.files import exists
-from fabric.api import local, run, sudo, env
+from fabric.api import run, sudo, env
 from fabric.colors import green, yellow
-from fabric.decorators import task, runs_once
-from fabric.operations import require
+from fabric.decorators import task
 from fabric.contrib import django
 from django.conf import settings
 
@@ -90,6 +90,7 @@ def deploy(branch):
 
     for environment in BRANCH_HOSTINGS[branch]:
         set_environment(environment)
+        _set_maintenance_warning(env.source_folder)
         _set_maintenance_mode(True, env.source_folder)
         _get_latest_source(env.source_folder)
         _update_virtualenv(env.source_folder)
@@ -100,7 +101,7 @@ def deploy(branch):
         _rebuild_configuration_cache()
         print(green("Everything OK"))
         _access_project()
-
+        _clean_sessions(env.source_folder)
 
 @task
 def provision(environment):
@@ -165,7 +166,7 @@ def _clean_static_folder(source_folder):
 
 
 def _update_static_files(source_folder):
-    run('cd %s && npm install' % source_folder)
+    run('cd %s && npm install &>/dev/null' % source_folder)
     run('cd %s && bower install | xargs echo' % source_folder)
     run('cd %s && grunt build:deploy --force' % source_folder)
     run('cd %s && ../virtualenv/bin/python3 manage.py collectstatic --noinput'
@@ -216,3 +217,25 @@ def _access_project():
             with contextlib.closing(urllib.request.urlopen(env.url.format(lang[0]))) as request:
                 request.read()
                 print('Read response from: {}'.format(request.url))
+
+
+def _set_maintenance_warning(source_folder):
+    """
+    Activate the maintenance warning and wait until the deploy timeout is over,
+    giving people the chance to save their work.
+    This is a brute method, but deploying without a maintenance is not an option
+    at this time, as some tasks (configuration and cache rebuilding) are not
+    always required and are built on human interaction. They also are relatively
+    expensive and don't need to be executed on each deploy.
+    """
+    run('cd %s && ../virtualenv/bin/python3 manage.py '
+        'set_next_maintenance' % source_folder)
+    time.sleep(settings.DEPLOY_TIMEOUT)
+
+
+def _clean_sessions(source_folder):
+    """
+    This should be in a crontab.
+    """
+    run('cd %s && ../virtualenv/bin/python3 manage.py '
+        'clearsessions' % source_folder)

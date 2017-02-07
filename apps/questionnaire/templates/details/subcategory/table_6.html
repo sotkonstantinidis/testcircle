@@ -1,10 +1,12 @@
+{% load list_to_columns %}
+
 {% comment %}
   Table where each questiongroup occupies one row. The first column is filled with the label of the questiongroup.
 
   Further questions are rendered either before the table (questiongroup_config.layout == 'before_table') or after the table.
 {% endcomment %}
 
-<{{ label_tag|default:"h5" }}>{{ numbering|default:'' }} {{ label }}</{{ label_tag|default:"h5" }}>
+<{{ label_tag|default:"h5" }}{% if label_class %} class="{{ label_class }}"{% endif %}>{{ numbering|default:'' }} {{ label }}</{{ label_tag|default:"h5" }}>
 {% if subcategories %}
   {% for subcategory in subcategories %}
     {{ subcategory }}
@@ -16,26 +18,28 @@
     {% endif %}
   {% endfor %}
   {% if raw_questiongroups %}
-    <table class="columns small-12 output-table">
+    <table class="small-12 output-table">
       <thead>
         <tr>
           {% if layout == 'no_label_row' %}
-            <th>{{ table_headers.1 }}</th>
+            <th style="width: 50%">{{ table_headers.0 }}</th>
             {% for header in table_headers %}
               {% if forloop.counter == 1 %}
-                <th></th>
-              {% endif %}
-              {% if forloop.counter >= 3 and forloop.counter <= 4 %}
+                <th style="width: 30%"></th>
+              {% elif forloop.counter == 3 %}
+                <th style="width: 50%">{{ header }}</th>
+              {% elif forloop.counter == 4 %}
                 <th>{{ header }}</th>
               {% endif %}            
             {% endfor %}
           {% else %}
-            <th></th>
+            <th style="width: 50%"></th>
             {% for header in table_headers %}
               {% if forloop.counter == 1 %}
-                <th></th>
-              {% endif %}
-              {% if forloop.counter >= 2 and forloop.counter <= 3 %}
+                <th style="width: 30%"></th>
+              {% elif forloop.counter == 2 %}
+                <th style="width: 50%">{{ header }}</th>
+              {% elif forloop.counter == 3 %}
                 <th>{{ header }}</th>
               {% endif %}            
             {% endfor %}
@@ -48,15 +52,15 @@
             {% for qg in questiongroup.data_labelled %}
               <tr>
                 {% if questiongroup.layout == 'no_label_row' %}
-                  <td rowspan="2">{{ qg.1.1.0 }}</td>
+                  <td rowspan="2">{{ qg.0.1.0 }}</td>
                   {% for k, values in qg %}
-                    {% if forloop.counter == 1 or forloop.counter == 4 %}
-                    {% endif %}
-                  {% endfor %}
-                  {% for k, values in qg %}
-                    {% if forloop.counter == 1 or forloop.counter == 5 %}
-                      <td>{{ k }}</td>   
-                    {% elif forloop.counter != 2 and forloop.counter != 6 %}     
+                    {% if forloop.counter == 2 or forloop.counter == 5 %}
+                      <td>{{ k }}</td>
+                    {% elif forloop.counter == 4 or forloop.counter == 7 %}
+                      <td>
+                        {% include 'details/field/year_bar.html' with selected_months=questiongroup.data|get_by_index:forloop.parentloop.counter0|get_by_index:forloop.counter0|get_by_index:1 %}
+                      </td>
+                    {% elif forloop.counter == 3 or forloop.counter == 6 %}
                       <td>
                         {% for v in values %}                        
                           {{ v }}
@@ -73,7 +77,11 @@
                   {% endif %}
                   {% for k, values in qg %}
                     {% if forloop.counter == 1 or forloop.counter == 4 %}
-                      <td>{{ k }}</td>   
+                      <td>{{ k }}</td>
+                    {% elif forloop.counter == 3 or forloop.counter == 6 %}
+                      <td>
+                        {% include 'details/field/year_bar.html' with selected_months=questiongroup.data|get_by_index:forloop.parentloop.counter0|get_by_index:forloop.counter0|get_by_index:1 %}
+                      </td>
                     {% else %}     
                       <td>
                         {% for v in values %}

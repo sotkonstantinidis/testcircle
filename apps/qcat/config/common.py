@@ -58,6 +58,7 @@ class BaseSettings(Configuration):
         'samplemulti',
         'samplemodule',
         'search',
+        'summary',
         'technologies',
         'unccd',
         'watershed',
@@ -102,6 +103,11 @@ class BaseSettings(Configuration):
         ('bs', _('Bosnian')),
         ('pt', _('Portuguese')),
     )
+    # languages with extraordinarily long words that need 'forced' line breaks
+    # to remain consistent in the box-layout.
+    WORD_WRAP_LANGUAGES = [
+        'km'
+    ]
 
     TIME_ZONE = 'Europe/Zurich'
     USE_I18N = True
@@ -141,6 +147,25 @@ class BaseSettings(Configuration):
         ('medium', (1440, 1080)),
         # 'large' is the original uploaded image.
     )
+    THUMBNAIL_ALIASES = {
+        'summary': {
+            'header_image': {
+                'size': (0, 700),
+                'crop': 'smart',
+                'upscale': True
+            },
+            'half_height': {
+                'size': (0, 290),
+                'crop': 'smart',
+            },
+            'map': {
+                'size': (300, 0)
+            },
+            'flow_chart': {
+                'size': (450, 0)
+            }
+        }
+    }
 
     SUMMARY_PDF_PATH = join(MEDIA_ROOT, 'summary-pdf')
 
@@ -260,6 +285,7 @@ class BaseSettings(Configuration):
 
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
+    KEY_PREFIX = values.Value(environ_prefix='', default='')
 
     # If set to true, the template 503.html is displayed.
     MAINTENANCE_MODE = values.BooleanValue(environ_prefix='', default=False)
@@ -267,6 +293,9 @@ class BaseSettings(Configuration):
 
     # "Feature toggles"
     IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
+        environ_prefix='', default=False
+    )
+    IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
         environ_prefix='', default=False
     )
     IS_ACTIVE_FEATURE_SUMMARY = values.BooleanValue(
@@ -285,6 +314,8 @@ class BaseSettings(Configuration):
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
+    NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')
+    DEPLOY_TIMEOUT = values.Value(environ_prefix='', default=900)
 
     # Settings for piwik integration. Tracking happens in the frontend
     # (base template) and backend (API)

@@ -121,6 +121,9 @@
     }
   }
 }
+#notification-settings {
+  left: inherit !important;
+}
 
 .notification-indicator {
   &.has-unread-messages {

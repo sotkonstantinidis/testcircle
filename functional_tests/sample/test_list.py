@@ -2050,6 +2050,7 @@ class ListTestStatus(FunctionalTest):
 
         # The moderator publishes the questionnaire
         self.browser.get(url)
+        self.wait_for('id', 'review-panel')
         self.review_action('review')
         self.review_action('publish')
 
