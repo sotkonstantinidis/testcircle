@@ -473,13 +473,13 @@ class Questionnaire(models.Model):
             # Piggybacking on the "assign_questionnaire" permission to identify
             # WOCAT secretariat users as this permission is only available for
             # this role.
+            permissions.extend(
+                ['edit_questionnaire', 'delete_questionnaire',
+                 'submit_questionnaire', 'review_questionnaire',
+                 'publish_questionnaire'])
             if self.status in [settings.QUESTIONNAIRE_SUBMITTED,
                                settings.QUESTIONNAIRE_REVIEWED]:
                 permissions.extend(['assign_questionnaire'])
-                permissions.extend(
-                    ['edit_questionnaire', 'delete_questionnaire',
-                     'submit_questionnaire', 'review_questionnaire',
-                     'publish_questionnaire'])
             role = settings.QUESTIONNAIRE_SECRETARIAT
             roles.append(
                 (role, dict(QUESTIONNAIRE_ROLES).get(role)))

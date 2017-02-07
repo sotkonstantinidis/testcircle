@@ -16,6 +16,7 @@ from braces.views import LoginRequiredMixin
 from accounts.models import User
 from questionnaire.models import Questionnaire
 from questionnaire.utils import query_questionnaire
+from questionnaire.view_utils import get_pagination_parameters
 
 from .utils import InformationLog
 from .models import Log, ReadLog
@@ -135,8 +136,14 @@ class LogListView(LoginRequiredMixin, ListView):
         Provide the 'path' with the same querystring as provided, plus 'page='.
         """
         context = super().get_context_data(**kwargs)
+        pagination_range = get_pagination_parameters(
+            request=self.request,
+            paginator=context['paginator'],
+            paginated=context['page_obj']
+        )
         context['logs'] = self.add_user_aware_data(context['object_list'])
         context['statuses'] = dict(settings.NOTIFICATIONS_ACTIONS)
+        context.update(pagination_range)
         return context
 
 
@@ -280,3 +287,13 @@ class LogInformationUpdateCreateView(LoginRequiredMixin, View):
                 compiler=compiler.get_display_name())
             )
         )
+
+
+class LogAllReadView(LoginRequiredMixin, View):
+    """
+    Set all logs as read for given user.
+    """
+
+    def post(self, request, *args, **kwargs):
+        Log.actions.mark_all_read(user=request.user)
+        return HttpResponse(status=200)

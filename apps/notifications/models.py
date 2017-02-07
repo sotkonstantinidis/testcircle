@@ -193,7 +193,7 @@ class ActionContextQuerySet(models.QuerySet):
         This is intentionally rather permissive, only a basic 'loose' connection
         to the questionnaire is required.
         """
-        if not user or not questionnaire_code:
+        if not user or user.is_authenticated() or not questionnaire_code:
             return False
 
         has_global_permissions = self.get_questionnaires_for_permissions(user)
@@ -218,6 +218,21 @@ class ActionContextQuerySet(models.QuerySet):
             )
         else:
             return ''
+
+    def mark_all_read(self, user: User) -> None:
+        """
+        Mark all notifications as read in bulk. To prevent edge cases with
+        previously existing logs, all logs are removed before the bulk insert.
+        """
+        self.delete_all_read_logs(user=user)
+        log_ids = self.user_log_list(user=user).values_list('id', flat=True)
+        ReadLog.objects.bulk_create(
+            [ReadLog(user=user, log_id=log, is_read=True) for log in log_ids]
+        )
+
+    @staticmethod
+    def delete_all_read_logs(user: User):
+        ReadLog.objects.filter(user=user).delete()
 
 
 class Log(models.Model):

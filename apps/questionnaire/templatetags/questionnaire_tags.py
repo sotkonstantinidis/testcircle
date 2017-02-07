@@ -1,3 +1,5 @@
+import warnings
+
 from django import template
 from easy_thumbnails.files import get_thumbnailer
 
@@ -114,11 +116,13 @@ def keyvalue(dict, key):
 
 @register.filter(name='iternum')
 def iternum(num):
+    warnings.warn('Move this to the backend', DeprecationWarning, stacklevel=2)
     return range(int(num))
 
 
 @register.filter(name='strtoint')
 def strtoint(num):
+    warnings.warn('Move this to the backend', DeprecationWarning, stacklevel=2)
     return int(num)
 
 

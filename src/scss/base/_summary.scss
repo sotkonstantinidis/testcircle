@@ -1,4 +1,11 @@
+@mixin no-line-wrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 body.summary {
+  $base-line-height: 1rem;
   background-color: white;
   font-size: 0.75rem;
   text-rendering: optimizeLegibility;
@@ -8,6 +15,10 @@ body.summary {
   a,
   a:active {
     color: $color-blue;
+  }
+
+  p {
+    line-height: 1rem;
   }
 
   h1 {
@@ -23,6 +34,9 @@ body.summary {
     font-size: $h5-font-size;
     font-weight: bold;
     margin: 0.3rem 0rem 0rem 0rem;
+    display: inline-block;
+    width: 100%;
+    line-height: 1rem;
   }
 
   ul {
@@ -33,14 +47,16 @@ body.summary {
     }
   }
 
-  .columns.description > .tech-section-header h2, .columns.location > .tech-section-header h2{
-    padding-left: 0.4rem;
+  img {
+    // see: https://github.com/wkhtmltopdf/wkhtmltopdf/issues/2135
+    z-index: 100;
+    position: relative;
   }
 
   .tech-section-header {
     padding-left: 0;
     padding-right: 0;
-    margin: 0.7rem 0rem 0.2rem 0rem 
+    margin: 0.7rem 0rem 0.2rem 0rem
   }
 
   .overcome {
@@ -56,6 +72,7 @@ body.summary {
         left: -0.5em;
         top: 0.1rem;
         position: relative;
+        line-height: 0.8rem;
       }
     }
   }
@@ -63,6 +80,10 @@ body.summary {
   ul.bullets {
     list-style-type: disc;
     margin-left: 1rem;
+    margin-top: 0;
+    li:before {
+      font-size: small;
+    }
     li {
       list-style-type: disc;
     }
@@ -70,28 +91,31 @@ body.summary {
 
   .row {
     margin-bottom: 0.6rem;
-    &.tech-section-header {
-      margin-bottom: 0rem;
+    &.compact {
+      margin-bottom: 0;
     }
-    .small-8 .tech-section-header {
-      margin-left: -0.4rem;
+    &.tech-section-header {
+      margin-bottom: 0;
     }
     .location .row {
-      margin-bottom: 0rem;
+      margin-bottom: 0;
+    }
+    .budget {
+      padding-right: 0;
     }
   }
 
 .location {
   p,
   div.paragraph {
-    border-bottom: 1px solid $color-beige;
+    border-bottom: 1px solid rgba(85, 116, 49, 0.15);
     margin: 0;
     line-height: 1rem;
     padding-bottom: 0.3rem;
     margin-bottom: 0.3rem;
 
     &.border-top {
-      border-top: 1px solid $color-beige;
+      border-top: 1px solid rgba(85, 116, 49, 0.15);
     }
   }
   ul {
@@ -99,19 +123,28 @@ body.summary {
     line-height: 1rem;
   }
 }
-
+  .header-note {
+    margin-bottom: 0;
+    > div > div {
+      padding: 0.2rem;
+      color: #e86b28;
+      font-size: 1rem;
+      background-color: rgba(255, 255, 0, 0.8);
+    }
+  }
   .header-img {
     height: 350px;
     width: 100%;
     background-size: cover;
+    background-repeat: no-repeat;
     max-width: 100%;
   }
   .img-caption {
     background-color: rgba(85,116,49,.8);
     color: white;
-    padding: 0rem 1rem 0.12rem 1rem;
+    padding: 0.1rem 1rem 0.2rem 0.4rem;
     font-size: 0.6rem;
-    line-height: 1.5em;
+    line-height: 0.8rem;
     font-weight: normal;
   }
 
@@ -126,7 +159,7 @@ body.summary {
   .tech-section-header {
 /*    background-color: #edf0ea;
 */    h2 {
-      padding-left: 0.75rem;
+      padding-left: 0.4rem;
       width: auto;
     }
   }
@@ -135,7 +168,7 @@ body.summary {
   {
     position: absolute;
     top:7px;
-    right: 5px;
+    right: 20px;
     padding:5px;
   }
 
@@ -159,7 +192,11 @@ body.summary {
 
   &.is-approaches .img-column-container
   {
-    background-color: rgba($color-approach, 0.15); 
+    background-color: rgba($color-approach, 0.15);
+  }
+
+  .output-has-images .aside-questiongroup ul {
+    margin-top: 0;
   }
 
   .img_in_text
@@ -172,6 +209,7 @@ body.summary {
 
   ol.numbers {
     list-style: decimal !important;
+    list-style-position: inside;
     margin-left: 1rem;
     margin-top: 0rem;
     line-height: 1rem;
@@ -191,17 +229,28 @@ body.summary {
       }
     }
   }
+  .institution_logo {
+    width: 200px;
+    margin: 10px 20px 20px 0px;
+    float: left;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
 
   .technology_table td
   {
-    border: 0px solid black;
-    line-height: 1rem;
-    padding: 0.2rem;
-    font-size: 12px;
+    border: 0 solid black;
+    font-size: 0.75rem;
     background-color: white;
+    line-height: $base-line-height;
+    letter-spacing: -0.02rem;
+    padding: 0;
+
     &.indent_table
     {
-      padding-left: 0.8rem;
+      padding-left: 0.2rem;
     }
 
   }
@@ -209,7 +258,6 @@ body.summary {
   td.td_category_title
   {
     background-color: rgba(85, 116, 49, 0.15);
-    text-transform: uppercase;
   }
 
   .technology_table tr:nth-of-type(even)
@@ -218,15 +266,19 @@ body.summary {
 
   .total_row
   {
-    border-top: 1px solid black;
     padding-top: 10px;
+
+    & td {
+      background-color: rgba(85, 116, 49, 0.3);
+    }
   }
 
   .calculation_costs_section
   {
     background-color: rgba(85, 116, 49, 0.15);
-    padding: 15px;
     width: 100%;
+    padding: 0 10px 1px 10px;
+    margin: 5px 0;
   }
 
   &.is-approaches .calculation_costs_section
@@ -234,6 +286,9 @@ body.summary {
     background-color: rgba($color-approach, 0.15);
   }
 
+  .no-wrap-container {
+    @include no-line-wrap
+  }
   .row.range
   {
     margin-bottom: 0.0rem;
@@ -245,7 +300,7 @@ body.summary {
     height: 15px;
     background-color: rgba(85, 116, 49, 0.15);
     float: left;
-    margin: 0px 2px 2px 0px;
+    margin: 0px 1px 1px 0px;
   }
 
   &.is-approaches .range_square
@@ -259,11 +314,22 @@ body.summary {
     padding: 0px 5px 0px 5px;
     float: left;
     /*min-width: 70px;*/
-    max-width: 100px;
+    width: 76px;
+    @include no-line-wrap
   }
   .impacts .range_title
   {
     min-width: 70px;
+  }
+  .impacts .comments {
+    margin-top: 0.3rem;
+  }
+
+  .adaptation-comments {
+    margin-top: 21px;
+  }
+  .range.border .columns {
+    border-top: 1px solid #ccc;
   }
 
   .range_max
@@ -286,7 +352,7 @@ body.summary {
   {
     background-color: #768f5a;
     float: left;
-    margin: 0px 2px 2px 0px;
+    margin: 0px 1px 1px 0px;
     padding-left: 1px;
     color: white;
     width: 15px;
@@ -323,7 +389,7 @@ body.summary {
     border-color: rgba($color-approach, 0.15);;
     border-bottom-width: 0px;
     border-left-width: 0px;
-    border-right-width: 0px; 
+    border-right-width: 0px;
  }
 
  .avoidbreak
@@ -333,7 +399,7 @@ body.summary {
 
  .nowrap
  {
-    white-space: nowrap; 
+    white-space: nowrap;
  }
 
  hr
@@ -341,15 +407,12 @@ body.summary {
     border: 0;
     height: 0;
     border-top: 1px solid rgba(85, 116, 49, 0.15);
-    margin: 10px;
+    margin: 1px 10px 2px 10px;
  }
 
  &.is-approaches hr
  {
-    border: 0;
-    height: 0;
     border-top: 1px solid rgba($color-approach, 0.15);
-    margin: 10px;
  }
 
  .rotate
@@ -358,13 +421,28 @@ body.summary {
   transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   font-size: 10px;
-  width: 130px;
-  height: 120px;
+  width: 100px;
+  height: 90px;
  }
 
  .rotate-container
  {
   width: 100%;
+  line-height: 1rem;
  }
 
+ p.comment {
+   line-height: 1rem;
+   font-style: italic;
+   font-size: 10px;
+ }
+ .text-right {
+   padding-right: rem-calc(10) !important;
+ }
+ .padding-bottom {
+   padding-bottom: 0.25rem;
+ }
+ .flow-chart {
+   margin-right: 1rem;
+ }
 }

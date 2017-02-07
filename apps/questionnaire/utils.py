@@ -1760,21 +1760,3 @@ def prepare_list_values(data, config, **kwargs):
     )
 
     return data
-
-
-def get_review_config_dict(
-        status, token, permissions, roles, view_mode, url, is_blocked,
-        blocked_by, form_url, has_release, other_version_status):
-    return {
-        'review_status': status,
-        'csrf_token_value': token,
-        'permissions': permissions,
-        'roles': roles,
-        'mode': view_mode,
-        'url': url,
-        'is_blocked': is_blocked,
-        'blocked_by': blocked_by,
-        'form_action_url': form_url,
-        'has_release': has_release,  # flag if this questionnaire has a published version - controlling the first tab.
-        'other_version_status': other_version_status,
-    }

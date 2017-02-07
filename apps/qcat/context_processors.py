@@ -23,12 +23,13 @@ def template_settings(request):
     maintenance_announcement = MaintenanceAnnouncement(request)
 
     setting_values = [
-        'WARN_HEADER',
+        'GOOGLE_WEBMASTER_TOOLS_KEY',
+        'GOOGLE_MAPS_JAVASCRIPT_API_KEY',
         'IS_ACTIVE_FEATURE_MODULE',
         'IS_ACTIVE_FEATURE_WATERSHED',
         'PIWIK_SITE_ID',
-        'GOOGLE_WEBMASTER_TOOLS_KEY',
-        'GOOGLE_MAPS_JAVASCRIPT_API_KEY',
+        'WARN_HEADER',
+        'WORD_WRAP_LANGUAGES'
     ]
     return {
         **maintenance_announcement.overlay,

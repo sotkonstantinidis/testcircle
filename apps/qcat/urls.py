@@ -41,6 +41,7 @@ urlpatterns += i18n_patterns(
     url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
     url(r'^unccd/', include('unccd.urls', namespace='unccd')),
     url(r'^search/', include('search.urls', namespace='search')),
+    url(r'^summary/', include('summary.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^notifications/', include('notifications.urls')),
 )
