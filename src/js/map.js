@@ -1,5 +1,11 @@
 (function ($) {
-    $.fn.bindMapActions = function() {
+    $.fn.bindMapActions = function(options) {
+
+        var defaults = {
+            inModal: false,
+            editable: true
+        };
+        var settings = $.extend({}, defaults, options);
 
         // Map settings
         var dataProjection = 'EPSG:4326',
@@ -11,7 +17,16 @@
         // Elements
         var qgContainer = this,
             mapPanel = qgContainer.find('.map-form-container').first(),
-            mapContainer = mapPanel.parent('.map-container');
+            mapContainer = mapPanel.closest('.map-container');
+
+        if (settings.inModal) {
+            // If the map is opened in a modal, we need to update the size of
+            // the map panel after the map is created.
+            var newHeight = qgContainer.height() - 50;
+            mapPanel.height(newHeight);
+            $('.map-overlay').height(newHeight - 32);
+            $('.map-controls').height(newHeight);
+        }
 
         // Styles
         var defaultStyle = getDefaultVectorStyle(),
@@ -48,8 +63,20 @@
             })
         });
 
-        // Initial layer: Komoot.
-        toggleLayer('komoot');
+        // Layer slider
+        qgContainer.find('.nstSlider').nstSlider({
+            "left_grip_selector": ".leftGrip",
+            "value_changed_callback": function(cause, leftValue, rightValue) {
+                changeLayerOpacity(leftValue / 100);
+            }
+        });
+
+        var olGM = new olgm.OLGoogleMaps({map: map}); // map is the ol.Map instance
+        olGM.activate();
+
+        // Initial layers
+        toggleLayer(0, 'googlehybrid');
+        toggleLayer(1, 'osm');
 
         // The hidden input field where the coordinates are stored.
         var coordinatesField = mapContainer.next('.single-item').find('input:hidden');
@@ -79,13 +106,12 @@
         // Listen to all kinds of map actions.
         qgContainer.find('.js-btn-feature-count').click(function() { toggleMapOverlay('js-map-points') });
         qgContainer.find('.js-btn-coordinates-show').click(function() { toggleMapOverlay('js-map-coordinates') });
-        qgContainer.find('.js-btn-layers-show').click(function() { toggleMapOverlay('js-map-layers') });
         qgContainer.find('.js-btn-search-show').click(function() { toggleMapOverlay('js-map-search') });
         qgContainer.find('.js-btn-overlay-close').click(hideMapOverlays);
-        qgContainer.find('.js-btn-change-size').click(toggleMapSize);
         qgContainer.find('.js-btn-show-features').click(zoomToFeatures);
         qgContainer.find('.js-btn-delete-features').click(deleteAllFeatures);
-        qgContainer.find('[name="map-layers"]').on('change', function() { toggleLayer(this.value) });
+        qgContainer.find('[name="map-layers-0"]').on('change', function() { toggleLayer(0, this.value) });
+        qgContainer.find('[name="map-layers-1"]').on('change', function() { toggleLayer(1, this.value) });
         qgContainer.find('.js-btn-parse-coordinates').click(parseCoordinates);
         if ($.fn.autocomplete) { qgContainer.find('.js-map-search-field').autocomplete(getSearchAutocompleteOptions()) }
 
@@ -247,15 +273,6 @@
         }
 
         /**
-         * Toggle the size of the map.
-         */
-        function toggleMapSize() {
-            mapPanel.toggleClass('map-size-big');
-            $('.map-overlay').toggleClass('map-size-big');
-            map.updateSize();
-        }
-
-        /**
          * Hide all map overlays.
          */
         function hideMapOverlays() {
@@ -372,65 +389,105 @@
          * @returns {*[]}
          */
         function getLayers() {
-            return [
-                new ol.layer.Tile({
-                    name: 'osm',
-                    source: new ol.source.OSM()
-                }),
-                new ol.layer.Tile({
-                    name: 'komoot',
-                    visible: false,
-                    source: new ol.source.XYZ({
-                        attributions: '&copy; <a href="http://www.komoot.de/">Komoot</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                        url: 'http://a.tile.komoot.de/komoot-2/{z}/{x}/{y}.png'
+            function _getLayers(suffix) {
+                return [
+                    new olgm.layer.Google({
+                        name: 'googlemaps' + suffix,
+                        visible: false
+                    }),
+                    new olgm.layer.Google({
+                        name: 'googlesatellite' + suffix,
+                        mapTypeId: google.maps.MapTypeId.SATELLITE,
+                        visible: false
+                    }),
+                    new olgm.layer.Google({
+                        name: 'googlehybrid' + suffix,
+                        mapTypeId: google.maps.MapTypeId.HYBRID,
+                        visible: false
+                    }),
+                    new ol.layer.Tile({
+                        name: 'osm' + suffix,
+                        source: new ol.source.OSM(),
+                        visible: false
+                    }),
+                    new ol.layer.Tile({
+                        name: 'komoot' + suffix,
+                        visible: false,
+                        source: new ol.source.XYZ({
+                            attributions: '&copy; <a href="http://www.komoot.de/">Komoot</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                            url: 'http://a.tile.komoot.de/komoot-2/{z}/{x}/{y}.png'
+                        })
+                    }),
+                    new ol.layer.Tile({
+                        name: 'aerial' + suffix,
+                        visible: false,
+                        source: new ol.source.XYZ({
+                            attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+                            url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                        })
+                    }),
+                    new ol.layer.Tile({
+                        name: 'opentopo' + suffix,
+                        visible: false,
+                        source: new ol.source.XYZ({
+                            attributions: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+                            url: 'http://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
+                        })
+                    }),
+                    new ol.layer.Tile({
+                        name: 'landscape' + suffix,
+                        visible: false,
+                        source: new ol.source.XYZ({
+                            attributions: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                            url: 'http://{a-c}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
+                        })
+                    }),
+                    new ol.layer.Tile({
+                        name: 'worldtopo' + suffix,
+                        visible: false,
+                        source: new ol.source.XYZ({
+                            attributions: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
+                            url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+                        })
                     })
-                }),
-                new ol.layer.Tile({
-                    name: 'aerial',
-                    visible: false,
-                    source: new ol.source.XYZ({
-                        attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-                        url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
-                    })
-                }),
-                new ol.layer.Tile({
-                    name: 'opentopo',
-                    visible: false,
-                    source: new ol.source.XYZ({
-                        attributions: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
-                        url: 'http://{a-c}.tile.opentopomap.org/{z}/{x}/{y}.png'
-                    })
-                }),
-                new ol.layer.Tile({
-                    name: 'landscape',
-                    visible: false,
-                    source: new ol.source.XYZ({
-                        attributions: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                        url: 'http://{a-c}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
-                    })
-                }),
-                new ol.layer.Tile({
-                    name: 'worldtopo',
-                    visible: false,
-                    source: new ol.source.XYZ({
-                        attributions: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
-                        url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
-                    })
-                }),
-                vectorLayer
-            ];
+                ];
+            }
+            return _getLayers('_0').concat(_getLayers('_1')).concat([vectorLayer]);
+        }
+
+        /**
+         * Change the opacity of the layers. Differentiates between layers of
+         * "group" 0 and 1.
+         *
+         * @param opacity: Between 0 and 1.
+         */
+        function changeLayerOpacity(opacity) {
+            for (var i=0; i<layers.length; i++) {
+                var layer = layers[i];
+                // Never change opacity of the vector layer.
+                if (layer.get('name') == 'vector') continue;
+                if (layer.get('name').endsWith('_0')) {
+                    layer.setOpacity(1 - opacity);
+                } else {
+                    layer.setOpacity(opacity);
+                }
+            }
         }
 
         /**
          * Toggle the visibility of a certain layer while hiding all the others.
          * Never hide the layer with name "vector" (the one used for the points)
          *
+         * @param layerGroupIndex
          * @param layerName
          */
-        function toggleLayer(layerName) {
+        function toggleLayer(layerGroupIndex, layerName) {
+            var suffix = layerGroupIndex == 0 ? '_0' : '_1';
             for (var i=0; i<layers.length; i++) {
                 var layer = layers[i];
-                layer.set('visible', (layer.get('name') == layerName || layer.get('name') == 'vector'));
+                if (layer.get('name').endsWith(suffix)) {
+                    layer.setVisible(layer.get('name') == layerName + suffix);
+                }
             }
         }
 
@@ -496,7 +553,10 @@
                     // Prepare a list entry for each point.
                     var coordsEntry = $('<li class="js-map-point-entry" data-feature-identifier="' + f.getId() + '"></li>');
                     var zoomLink = $('<span class="map-point-entry-zoom js-map-point-zoom"><svg class="icon-lines is-inline"><use xlink:href="#icon-location2"></use></svg></span>');
-                    var removeLink = $('<span class="map-point-entry-remove js-map-point-remove"><svg class="icon-lines is-inline"><use xlink:href="#icon-bin"></use></svg></span>');
+                    var removeLink = '';
+                    if (settings.editable) {
+                        removeLink = $('<span class="map-point-entry-remove js-map-point-remove"><svg class="icon-lines is-inline"><use xlink:href="#icon-bin"></use></svg></span>');
+                    }
                     var coordsText = $('<span class="js-map-point-zoom">' + coordsTransformed.join(', ') + '</span>');
                     coordsEntry.append(zoomLink, removeLink, coordsText);
 

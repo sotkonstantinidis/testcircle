@@ -55,19 +55,11 @@
             </button>
           </div>
           <div class="map-controls-group">
-            <button type="button" class="map-controls-button button small tip-right js-btn-layers-show" title="{% trans "Show and change the map layer" %}" data-tooltip="">
-              <svg class="icon-lines is-inline"><use xlink:href="#icon-stack"></use></svg>
-            </button>
             <button type="button" class="map-controls-button button small tip-right js-btn-coordinates-show" title="{% trans "Set a point based on GPS coordinates" %}" data-tooltip="">
               <svg class="icon-lines is-inline"><use xlink:href="#icon-compass2"></use></svg>
             </button>
             <button type="button" class="map-controls-button button small tip-right js-btn-search-show" title="{% trans "Search and zoom to a location on the map" %}" data-tooltip="">
               <svg class="icon-lines is-inline"><use xlink:href="#icon-search"></use></svg>
-            </button>
-          </div>
-          <div class="map-controls-group">
-            <button type="button" class="map-controls-button button small tip-right js-btn-change-size" title="{% trans "Change the size of the map" %}" data-tooltip="">
-              <svg class="icon-lines is-inline"><use xlink:href="#icon-enlarge2"></use></svg>
             </button>
           </div>
         </div>
@@ -100,38 +92,6 @@
             <div class="small-12 columns map-points-list" data-empty-text="{% trans 'No points on the map.' %}"><!-- Points list --></div>
           </div>
         </div>
-        <div class="map-overlay hide js-map-layers">
-          <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
-          <div class="row map-layers-list">
-            <br/>
-            {% trans 'Select a layer from the list below.' as msg %}
-            {% include "form/helptext.html" with helptext=msg %}
-            <label>
-              <input type="radio" value="osm" name="map-layers">
-              <span>OpenStreetMap</span>
-            </label>
-            <label>
-              <input type="radio" value="opentopo" name="map-layers">
-              <span>OpenTopoMap</span>
-            </label>
-            <label>
-              <input type="radio" value="komoot" name="map-layers" checked="checked">
-              <span>Komoot (OSM)</span>
-            </label>
-            <label>
-              <input type="radio" value="landscape" name="map-layers">
-              <span>Thunderforest Landscape</span>
-            </label>
-            <label>
-              <input type="radio" value="worldtopo" name="map-layers">
-              <span>Esri WorldTopoMap</span>
-            </label>
-            <label>
-              <input type="radio" value="aerial" name="map-layers">
-              <span>Esri WorldImagery</span>
-            </label>
-          </div>
-        </div>
         <div class="map-overlay hide js-map-search">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
           <div class="row map-search-container">
@@ -141,7 +101,25 @@
             <input type="search" class="js-map-search-field" placeholder="Search for a village, city, etc." data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}" data-current-locale="{{ request.LANGUAGE_CODE }}">
           </div>
         </div>
-        <div class="map-form-container"><!-- Map --></div>
+        <div>
+          <div class="map-layers">
+            <div class="row">
+              <div class="columns small-4">
+                {% include 'parts/map_layers_select.html' with select_name='map-layers-0' selected='googlehybrid'%}
+              </div>
+              <div class="columns small-4">
+                <div class="nstSlider map-layers-slider" data-range_min="0" data-range_max="100"
+                           data-cur_min="0">
+                  <div class="leftGrip"></div>
+                </div>
+              </div>
+              <div class="columns small-4">
+                {% include 'parts/map_layers_select.html' with select_name='map-layers-1' selected='osm'%}
+              </div>
+            </div>
+          </div>
+          <div class="map-form-container"><!-- Map --></div>
+        </div>
       </div>
 
       {% for field in qg_form.visible_fields %}
@@ -163,7 +141,8 @@
 </div>
 
 {% addtoblock 'js' %}
-  <script src="{% static 'js/ol.min.js' %}" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ GOOGLE_MAPS_JAVASCRIPT_API_KEY }}"></script>
+  <script type="text/javascript" src="{% static 'js/ol3gm.min.js' %}"></script>
   <script src="{% static 'js/jquery-ui.min.js' %}"></script>
   <script src="{% static 'js/map.min.js' %}"></script>
 {% endaddtoblock %}
@@ -180,5 +159,6 @@
 
 {% addtoblock 'css' %}
   <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/ol3gm.css' %}" type="text/css">
   <link rel="stylesheet" href="{% static 'css/ol.css' %}" type="text/css">
 {% endaddtoblock %}

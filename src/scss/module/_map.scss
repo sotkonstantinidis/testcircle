@@ -1,5 +1,6 @@
 $controls-width: 24px;
-$map-height: 400px;
+$layers-height: 2.25rem;
+$map-height: 600px;
 
 .map-controls-group {
   &:not(:first-of-type) {
@@ -75,6 +76,7 @@ $map-height: 400px;
   height: $map-height;
   position: absolute;
   line-height: 0;
+  margin-top: $layers-height;
 
   input {
     display: none;
@@ -99,11 +101,21 @@ $map-height: 400px;
   }
 }
 
+.map-layers {
+  margin-left: $controls-width;
+  height: $layers-height;
+}
+
+.map-layers-slider {
+  margin-top: 1rem;
+}
+
 .map-overlay {
   position: absolute;
   z-index: 1;
   background: $color-brown-light;
   margin-left: $controls-width;
+  margin-top: $layers-height;
   height: $map-height;
   width: 300px;
   padding: 1rem;
@@ -238,10 +250,6 @@ $map-height: 400px;
   }
 
   .map-container {
-    height: 100%;
-  }
-
-  .map-form-container {
     height: 100%;
   }
 }

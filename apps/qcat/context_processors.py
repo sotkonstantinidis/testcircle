@@ -28,6 +28,7 @@ def template_settings(request):
         'IS_ACTIVE_FEATURE_WATERSHED',
         'PIWIK_SITE_ID',
         'GOOGLE_WEBMASTER_TOOLS_KEY',
+        'GOOGLE_MAPS_JAVASCRIPT_API_KEY',
     ]
     return {
         **maintenance_announcement.overlay,
