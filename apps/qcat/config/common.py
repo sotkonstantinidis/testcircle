@@ -327,6 +327,9 @@ class BaseSettings(Configuration):
     # google webdeveloper verification
     GOOGLE_WEBMASTER_TOOLS_KEY = values.Value(environ_prefix='')
 
+    # Google Maps Javascript API key
+    GOOGLE_MAPS_JAVASCRIPT_API_KEY = values.Value(environ_prefix='')
+
     # Global switch to prevent sending mails.
     SEND_MAILS = values.BooleanValue(default=False)
 
