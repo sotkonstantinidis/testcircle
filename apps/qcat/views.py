@@ -1,3 +1,4 @@
+import contextlib
 import logging
 from datetime import timedelta
 
@@ -11,6 +12,7 @@ from django.utils.decorators import method_decorator
 from django.utils.timezone import now
 from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
+from requests.exceptions import RequestException
 
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
@@ -92,6 +94,7 @@ class FactsTeaserView(TemplateView):
             'created': Questionnaire.with_status.not_deleted().filter(
                 created__gte=self.date_from
             ).count()
+            # add fact: sum of countries with a questionnaire
         }
 
     def get_user_facts(self):
@@ -110,23 +113,21 @@ class FactsTeaserView(TemplateView):
         """
         Get data from piwik.
         """
-        countries = requests.get(
-            '{piwik_api}&'
-            'method=UserCountry.getCountry&'
-            'period=range&'
-            'date={start_date},{end_date}'.format(
-                piwik_api=self.piwik_api_url,
-                start_date=self.date_from,
-                end_date=self.date_to
-            )
+        countries_url = '{piwik_api}&method=UserCountry.getCountry&' \
+                        'period=range&date={start_date},{end_date}'.format(
+            piwik_api=self.piwik_api_url,
+            start_date=self.date_from,
+            end_date=self.date_to
         )
+        with contextlib.suppress(RequestException):
+            countries = requests.get(countries_url)
+            if countries.ok:
+                return {'countries': len(countries.json())}
 
-        if countries.ok:
-            return {'countries': len(countries.json())}
-        else:
-            logger.error('invalid request to piwik: {}'.format(
-                countries.request.url)
-            )
+        logger.error('exception when querying to piwik: {}'.format(
+            countries_url
+        ))
+        return {}
 
     def get_context_data(self, **kwargs) -> dict:
         """
