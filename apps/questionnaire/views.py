@@ -736,6 +736,10 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         # disabled. Delete the following line to reenable it.
         edited_questiongroups = []
 
+        complete, total = self.questionnaire_configuration.get_completeness(
+            data)
+        completeness_percentage = int(round(complete / total * 100))
+
         sections = self.questionnaire_configuration.get_details(
             data, permissions=permissions,
             edit_step_route='{}:questionnaire_new_step'.format(
@@ -747,6 +751,7 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             links=self.get_links(),
             review_config=review_config,
             user=request.user if request.user.is_authenticated() else None,
+            completeness_percentage=completeness_percentage
         )
 
         modules = {}
