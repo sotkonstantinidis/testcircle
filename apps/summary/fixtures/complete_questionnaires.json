@@ -1,0 +1,31 @@
+[
+  {
+      "model": "questionnaire.questionnaire",
+      "pk": 1,
+      "fields": {
+          "uuid": "001eacdb-00a8-4e51-8db3-4b75dcdc6d1c",
+          "data": {
+              "tech_qg_9": [{"tech_landuse": ["tech_lu_cropland"]}],
+              "tech_qg_76": [{"tech_impacts_cropproduction": 5}],
+              "tech_qg_36": [{
+                  "tech_input_est_unit": {"en": "ha"},
+                  "tech_input_est_costs": 2500.0,
+                  "tech_input_est_specify": {"en": "labour"},
+                  "tech_input_est_quantity": 1.0,
+                  "tech_input_est_total_costs_pi": 2500.0,
+                  "tech_input_est_percentage_costs": 100.0
+              }],
+              "tech_qg_169": [{
+                  "tech_exposure_season": "season_summer",
+                  "tech_exposure_incrdecr": "increase"
+              }],
+              "tech_qg_170": [{"tech_exposure_incrdecr": "decrease"}]
+          },
+          "code": "tech",
+          "status": 4,
+          "version": 1,
+          "created": "2017-02-10T16:07:20.847Z",
+          "updated": "2017-02-10T16:07:20.847Z"
+      }
+  }
+]

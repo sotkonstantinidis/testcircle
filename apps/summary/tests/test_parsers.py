@@ -1,7 +1,11 @@
 from unittest.mock import patch, MagicMock, sentinel
 
+from configuration.cache import get_configuration
+from configuration.configuration import QuestionnaireQuestion
 from qcat.tests import TestCase
-from summary.parsers import QuestionnaireParser
+from questionnaire.models import Questionnaire
+from questionnaire.utils import get_questionnaire_data_in_single_language
+from summary.parsers import QuestionnaireParser, TechnologyParser
 
 
 class SummaryConfigurationTest(TestCase):
@@ -113,6 +117,7 @@ class SummaryConfigurationTest(TestCase):
             questionnaire=MagicMock(
                 geom=MagicMock(coords=[(123.123456789, 456)])
             ),
+            n_a=''
         )
         self.assertEqual(
             obj.get_map_values(''),
@@ -139,3 +144,136 @@ class SummaryConfigurationTest(TestCase):
                 )
             ))
         )
+
+
+class TechnologyParserTest(TestCase):
+    """
+    Combine all parts (config, questionnaire, parser), so no proper unit tests
+    but more something like integration tests. These tests make sure that the
+    parser still works after the config changes.
+    Many 'real' functions are used instead of mocks, as setting up mocks for
+    configs / children takes too much time. Also mocking would not result in
+    more stable tests, as the exact structure of the config needed to be mocked.
+    """
+    fixtures = ['global_key_values', 'technologies', 'complete_questionnaires']
+
+    def setUp(self):
+        super().setUp()
+        self.config = get_configuration('technologies')
+        self.questionnaire = Questionnaire.objects.get(id=1)
+        self.data = get_questionnaire_data_in_single_language(
+            self.questionnaire.data, 'en'
+        )
+        self.parser = TechnologyParser(
+            config=self.config,
+            n_a='',
+            questionnaire=self.questionnaire,
+            summary_type='full',
+            **self.data
+        )
+
+    def get_child(self, qg_keyword: str, keyword: str) -> QuestionnaireQuestion:
+        return QuestionnaireQuestion(
+            self.config.get_questiongroup_by_keyword(qg_keyword),
+            {'keyword': keyword}
+        )
+
+    def test_get_picto_and_nested_values(self):
+        child = self.get_child('tech_qg_9', 'tech_landuse')
+        values = list(self.parser.get_picto_and_nested_values(child))
+        self.assertEquals(len(list(values)), 1)
+        self.assertListEqual(
+            list(values[0].keys()), ['url', 'title', 'text']
+        )
+
+    def test_get_qg_values_with_scale(self):
+        child = self.get_child('tech_qg_76', 'tech_impacts_cropproduction')
+        values = list(
+            self.parser.get_qg_values_with_scale(child, qg_style='multi_select')
+        )
+        self.assertEqual(
+            values[0],
+            {
+                'label': 'Crop production',
+                'range': range(0, 7),
+                'min': 'decreased',
+                'max': 'increased',
+                'selected': 4,
+                'comment': ''
+            }
+        )
+
+    def test_get_table(self):
+        child = self.get_child('tech_qg_36', 'tech_input_est_specify')
+        values = dict(self.parser.get_table(child))
+        self.assertDictEqual(
+            values['head'],
+            {'0': 'Specify input', '1': 'Unit', '2': 'Quantity',
+             '3': 'Costs per Unit', '4': 'Total costs per input',
+             '5': '% of costs borne by land users'}
+        )
+        self.assertEqual(
+            values['partials'][0]['head'], 'Labour'
+        )
+        self.assertDictEqual(
+            list(values['partials'][0]['items'])[0],
+            {
+                '0': 'labour', '1': 'ha', '2': 1.0, '3': 2500.0, '4': 2500.0,
+                '5': 100.0
+            }
+        )
+
+    def test_get_climate_change(self):
+        child = self.get_child('tech_qg_169', 'tech_exposure_incrdecr')
+        values = list(self.parser.get_climate_change(child))
+        self.assertEqual(
+            values,
+            [{'title': 'Gradual climate change', 'items': [{
+                'label': 'seasonal temperature increase',
+                'range': range(0, 5),
+                'min': 'not well at all',
+                'max': 'very well',
+                'selected': None,
+                'comment': 'Season: summer'
+            }, {
+                'label': 'annual rainfall decrease',
+                'range': range(0, 5),
+                'min': 'not well at all',
+                'max': 'very well',
+                'selected': None,
+                'comment': ''}
+            ]}]
+        )
+
+
+class ApproachParserTest(TestCase):
+
+    def test_get_aims_enabling(self):
+        pass
+
+    def test_get_financing_subsidies(self):
+        pass
+
+    def test_get_highlight_element(self):
+        pass
+
+    def test_get_highlight_element_with_text(self):
+        pass
+
+    def test_get_impacts(self):
+        pass
+
+    def test_get_impacts_motivation(self):
+        pass
+
+    def test_get_involvement(self):
+        pass
+
+    def test_get_stakeholders_roles(self):
+        pass
+
+    def test_get_subsidies_row(self):
+        pass
+
+    def test_get_qg_values_with_label(self):
+        pass

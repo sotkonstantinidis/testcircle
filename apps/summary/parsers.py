@@ -143,7 +143,8 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
 
         # get all nested elements in the form '==question|nested'...
         nested_elements_config = child.form_options.get(
-            'questiongroup_conditions')
+            'questiongroup_conditions', []
+        )
         # ..and split the strings to a more usable dict.
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
 
