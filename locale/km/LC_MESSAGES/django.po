@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-07 12:02+0100\n"
-"PO-Revision-Date: 2017-02-07 09:04+0000\n"
+"POT-Creation-Date: 2017-02-11 14:50+0100\n"
+"PO-Revision-Date: 2017-02-08 02:03+0000\n"
 "Last-Translator: Sophea Tim <stim3993@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
@@ -1212,7 +1212,7 @@ msgid ""
 "habitats in a given region, landscape, or ecosystem (modified after oecd.org)"
 msgstr ""
 "<strong>ភាពសម្បូរបែបនៃទីជម្រក</strong>៖ សំដៅលើប្រភេទ ឬ ជម្រកនានានៅក្នុងតំបន់កំណត់មួយ, "
-"ទិដ្ឋភាព, ឬប្រព័ន្ធអេកូឡូស៊ី (modified from oecd.org)"
+"ទិដ្ឋភាព, ឬប្រព័ន្ធអេកូឡូស៊ី (កែតម្រូវពី oecd.org)"
 
 #: apps/configuration/configuration_translations.py:1192
 msgctxt "technologies label"
@@ -3766,7 +3766,7 @@ msgstr "រចនាសម្ព័ន្ធ  "
 #: apps/configuration/configuration_translations.py:1714
 msgctxt "technologies label"
 msgid "Management"
-msgstr "រចនាសម្ព័ន្ធ  "
+msgstr "ការគ្រប់គ្រង"
 
 #: apps/configuration/configuration_translations.py:1715
 msgctxt "technologies label"
@@ -17675,7 +17675,7 @@ msgstr "ប៉ូសនៀន"
 msgid "Portuguese"
 msgstr "ភាសាព័រទុយហ្គាល់"
 
-#: apps/qcat/context_processors.py:142
+#: apps/qcat/context_processors.py:143
 msgid ""
 "Caution: Maintenance will start soon ({}), this page will then be "
 "unavailable for a couple of minutes.<br>If you are working on a "
@@ -17684,7 +17684,7 @@ msgstr ""
 "ប្រយ័ត្ន៖ ការជួសជុលនឹងចាប់ផ្តើមក្នុង ({}), ដូច្នេះទំព័រនេះនឹងមិនដំណើការក្នុងរយៈពេល២នាទី។"
 "<br>ប្រសិនបើអ្នកកំពុងតែធ្វើការជាមួយសំណួរ សូមធ្វើការរក្សាទុកការងាររបស់អ្នក!"
 
-#: apps/qcat/context_processors.py:149
+#: apps/qcat/context_processors.py:150
 msgid "Maintenance starts in {}"
 msgstr "ការជួសជុលចាប់ផ្តើមក្នុង {}"
 
@@ -18004,8 +18004,8 @@ msgstr "ទីជម្រាល"
 msgid "New Watershed"
 msgstr "ទីជម្រាលថ្មី"
 
-#: apps/questionnaire/templates/details/field/map.html:13
-#: apps/questionnaire/templates/details/field/map.html:19
+#: apps/questionnaire/templates/details/field/map.html:14
+#: apps/questionnaire/templates/details/field/map.html:20
 msgid "Map preview"
 msgstr "មើលផែនទី"
 
@@ -18022,25 +18022,31 @@ msgstr "ការភ្ជាប់កម្រងបញ្ជីសំណួរ
 msgid "Media Gallery"
 msgstr "វិចិត្រសាលប្រព័ន្ធផ្សព្វផ្សាយ"
 
-#: apps/questionnaire/templates/details/modal_map.html:23
-#: apps/questionnaire/templates/form/questiongroup/map.html:54
+#: apps/questionnaire/templates/details/modal_map.html:26
+#: apps/questionnaire/templates/form/questiongroup/map.html:48
 msgid "Number of points on the map"
 msgstr "ចំនួនចំណុចនៅលើផែនទី"
 
-#: apps/questionnaire/templates/details/modal_map.html:25
-#: apps/questionnaire/templates/form/questiongroup/map.html:56
+#: apps/questionnaire/templates/details/modal_map.html:28
+#: apps/questionnaire/templates/form/questiongroup/map.html:50
 msgid "Zoom to all points on the map"
 msgstr "ពង្រីកទៅដល់ចំណុចទាំងអស់នៅលើផែនទី"
 
-#: apps/questionnaire/templates/details/modal_map.html:28
-#: apps/questionnaire/templates/form/questiongroup/map.html:62
-msgid "Show and change the map layer"
-msgstr "បង្ហាញ និងផ្លាស់ប្តូរស្រទាប់នៃផែនទី"
-
 #: apps/questionnaire/templates/details/modal_map.html:36
-#: apps/questionnaire/templates/form/questiongroup/map.html:98
-msgid "Select a layer from the list below."
-msgstr "ជ្រើសរើសស្រទាប់ពីបញ្ជីខាងក្រោមនេះ។"
+#: apps/questionnaire/templates/form/questiongroup/map.html:69
+#: apps/questionnaire/templates/form/questiongroup/map.html:91
+#, fuzzy
+#| msgid "Zoom to all points on the map"
+msgid "List of all points on the map:"
+msgstr "ពង្រីកទៅដល់ចំណុចទាំងអស់នៅលើផែនទី"
+
+#: apps/questionnaire/templates/details/modal_map.html:37
+#: apps/questionnaire/templates/form/questiongroup/map.html:70
+#: apps/questionnaire/templates/form/questiongroup/map.html:92
+#, fuzzy
+#| msgid "Number of points on the map"
+msgid "No points on the map."
+msgstr "ចំនួនចំណុចនៅលើផែនទី"
 
 #: apps/questionnaire/templates/details/questiongroup/table2.html:22
 msgid "From"
@@ -18141,7 +18147,7 @@ msgid "Search user"
 msgstr "ស្រាវជ្រាវអ្នកប្រើប្រាស់"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:66
-#: apps/questionnaire/templates/form/questiongroup/map.html:132
+#: apps/questionnaire/templates/form/questiongroup/map.html:101
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
@@ -18150,7 +18156,7 @@ msgid "No results found"
 msgstr "មិនមានលទ្ធផល"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
-#: apps/questionnaire/templates/form/questiongroup/map.html:132
+#: apps/questionnaire/templates/form/questiongroup/map.html:101
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
@@ -19047,47 +19053,49 @@ msgstr "រៀបចំដាក់លេខសំគាល់តាមលំដ
 msgid "Add More"
 msgstr "បន្ថែមទៀត"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:43
+#: apps/questionnaire/templates/form/questiongroup/map.html:35
 msgid "Add a point by clicking on the map"
 msgstr "បន្ថែមចំណុចដោយចុចលើផែនទី"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:47
+#: apps/questionnaire/templates/form/questiongroup/map.html:39
 msgid "Click and hold an existing point on the map to move it."
 msgstr "ចុចឱ្យជាប់នឹងដាក់ចំណុចនោះនៅលើផែនទីដើម្បីធ្វើការប្តូរទីតាំង។"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:51
+#: apps/questionnaire/templates/form/questiongroup/map.html:43
 msgid "Delete an existing point on the map by clicking it."
 msgstr "លុបចំណុចណាមួយនៅលើផែនទីដោយចុចលើវា។"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:59
+#: apps/questionnaire/templates/form/questiongroup/map.html:53
 msgid "Delete all points from the map"
 msgstr "លុបគ្រប់ចំណុចទាំងអស់ពីផែនទី"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:65
+#: apps/questionnaire/templates/form/questiongroup/map.html:58
 msgid "Set a point based on GPS coordinates"
 msgstr "កំណត់ចំណុចផ្អែកលើនិយាមការក្នុង GPS"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:68
+#: apps/questionnaire/templates/form/questiongroup/map.html:61
 msgid "Search and zoom to a location on the map"
 msgstr "ស្វែងរក និងពង្រីកទៅតំបន់ណាមួយនៅលើផែនទី"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:71
-msgid "Change the size of the map"
-msgstr "ផ្លាស់ប្តូរទំហំនៃផែនទី"
-
-#: apps/questionnaire/templates/form/questiongroup/map.html:79
+#: apps/questionnaire/templates/form/questiongroup/map.html:77
+#, fuzzy
+#| msgid ""
+#| "Please enter the coordinates in the field below. The coordinates must be "
+#| "of format \"Latitude, Longitude\", eg. \"46.9526, 7.4352\"."
 msgid ""
-"Please enter the coordinates in the field below. The coordinates must be of "
-"format \"Latitude, Longitude\", eg. \"46.9526, 7.4352\"."
+"Please enter the coordinates in the field below. The coordinates must be in "
+"decimal degrees of format \"Latitude, Longitude\", eg. 46.9526, 7.4352. Use "
+"the link below to convert from degrees, minutes and seconds to decimal "
+"degrees."
 msgstr ""
 "សូមធ្វើការបញ្ចូលនិយាមការទៅក្នុងប្រអប់ខាងក្រោម។ និយាមការត្រូវបញ្ចូលតាមទម្រង់\"រយៈទទឹង, រយៈបណ្តោយ"
 "\" ឧ. \"46.9526, 7.4352\"។"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:82
+#: apps/questionnaire/templates/form/questiongroup/map.html:83
 msgid "Coordinates:"
 msgstr "និយាមការ៖"
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:130
+#: apps/questionnaire/templates/form/questiongroup/map.html:99
 msgid ""
 "Enter the name of a village, city, etc. in the textfield below and select "
 "one of the results to zoom to its location."
@@ -19448,11 +19456,8 @@ msgid " Answer: {}"
 msgstr ""
 
 #: apps/summary/parsers.py:616
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Financing and external material support"
 msgid "Financial/ material support"
-msgstr "ថវិកា និងសម្ភារៈឧបត្ថម្ភពីខាងក្រៅ"
+msgstr ""
 
 #: apps/summary/renderers.py:153
 msgid "Description"
@@ -19467,18 +19472,12 @@ msgid "Strengths"
 msgstr "ភាពខ្លាំង"
 
 #: apps/summary/renderers.py:217
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "Weaknesses/ disadvantages/ risks"
 msgid "Weaknesses/ disadvantages/ risks"
-msgstr "ភាពខ្សោយ/ គុណវិបត្តិ/ ហានិភ័យ"
+msgstr ""
 
 #: apps/summary/renderers.py:218
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "How can they be overcome?"
 msgid "how to overcome"
-msgstr "តើបច្ចេកទេសទាំងនោះបានដោះស្រាយបញ្ហាដូចម្តេច?"
+msgstr ""
 
 #: apps/summary/renderers.py:226
 msgid "References"
@@ -19493,10 +19492,8 @@ msgid "More about this case study"
 msgstr ""
 
 #: apps/summary/renderers.py:244
-#, fuzzy
-#| msgid "Add SLM data"
 msgid "Linked SLM data"
-msgstr "បន្ថែមទិនន្ន័យ SLM"
+msgstr ""
 
 #: apps/summary/renderers.py:249
 msgid "Key references"
@@ -19519,18 +19516,10 @@ msgid "Documentation was faciliated by"
 msgstr ""
 
 #: apps/summary/renderers.py:422
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "Is the Technology described here problematic with regard to land "
-#| "degradation, so that it cannot be declared a sustainable land management "
-#| "technology?"
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
 msgstr ""
-"តើបច្ចេកទេសដែលបានពណ៌នានេះមានបញ្ហាដែលផ្តោតលើឱនភាពដី, "
-"បើដូច្នេះវាមិនអាចត្រូវបានប្រកាសថាជាបច្ចេកទេសនៃការគ្រប់គ្រងប្រកបដោយចីរភាពទេ?"
 
 #: apps/summary/renderers.py:433 apps/summary/renderers.py:443
 #: apps/summary/renderers.py:847 apps/summary/renderers.py:857
@@ -19550,77 +19539,48 @@ msgid "Type of introduction"
 msgstr "ប្រភេទនៃការណែនាំ"
 
 #: apps/summary/renderers.py:480
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Classification of the SLM Technology"
 msgid "Classification of the Technology"
-msgstr "ចំណាត់ថ្នាក់នៃបច្ចេកទេស SLM"
+msgstr ""
 
 #: apps/summary/renderers.py:483
 msgid "Main purpose"
 msgstr "គោលបំណងចម្បងៗ"
 
 #: apps/summary/renderers.py:487
-#, fuzzy
-#| msgid "Land User"
 msgid "Land use"
-msgstr "អ្នកប្រើប្រាស់ដី"
+msgstr ""
 
 #: apps/summary/renderers.py:491
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "water quality"
 msgid "Water supply"
-msgstr "គុណភាពទឹក"
+msgstr ""
 
 #: apps/summary/renderers.py:496
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Number of growing seasons per year"
 msgid "Number of growing seasons per year"
-msgstr "ចំនួនសារដែលដាំដំណាំក្នុងមួយឆ្នាំ"
+msgstr ""
 
 #: apps/summary/renderers.py:500
-#, fuzzy
-#| msgctxt "cca label"
-#| msgid "Total costs for the adaptation of the Technology"
 msgid "Land use before implementation of the Technology"
-msgstr "ថ្លៃដើមសរុបសម្រាប់ការបន្ស៊ាំនៃបច្ចេកទេស"
+msgstr ""
 
 #: apps/summary/renderers.py:504
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Livestock density (if relevant)"
 msgid "Livestock density"
-msgstr "ដង់ស៊ីតេនៃសត្វចិញ្ចឹម (បើពាក់ព័ន្ធ)"
+msgstr ""
 
 #: apps/summary/renderers.py:511
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "prevent land degradation"
 msgid "Purpose related to land degradation"
-msgstr "ការការពារឱនភាពដី"
+msgstr ""
 
 #: apps/summary/renderers.py:515
-#, fuzzy
-#| msgctxt "technologies label_view"
-#| msgid "Degradation type"
 msgid "Degradation addressed"
-msgstr "ប្រភេទនៃឱនភាពដី"
+msgstr ""
 
 #: apps/summary/renderers.py:519
-#, fuzzy
-#| msgctxt "technologies label_view"
-#| msgid "SLM group"
 msgid "SLM group"
-msgstr "ក្រុម SLM"
+msgstr ""
 
 #: apps/summary/renderers.py:523
-#, fuzzy
-#| msgctxt "technologies label_view"
-#| msgid "SLM measures"
 msgid "SLM measures"
-msgstr "វិធានការ SLM"
+msgstr ""
 
 #: apps/summary/renderers.py:531
 msgid "Technical drawing"
@@ -19811,10 +19771,8 @@ msgid "Access to services and infrastructure"
 msgstr "ប្រើប្រាស់សេវាកម្ម និងហេដ្ឋារចនាសម្ព័ន្ធ"
 
 #: apps/summary/renderers.py:766
-#, fuzzy
-#| msgid "Impacts: Benefits and disadvantages"
 msgid "Impacts - Benefits and disadvantages"
-msgstr "ផលប៉ះពាល់៖ ផលប្រយោជន៍ និងគុណសម្បត្តិ"
+msgstr ""
 
 #: apps/summary/renderers.py:769
 msgid "Socio-economic impacts"
@@ -19845,17 +19803,10 @@ msgid "Climate change"
 msgstr "ការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/summary/renderers.py:798
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "Exposure and sensitivity of the Technology to gradual climate change and "
-#| "climate-related extremes (disasters)"
 msgid ""
 "Exposure and sensitivity of the Technology to gradual climate change and "
 "climate-related extremes (disasters)."
 msgstr ""
-"ការប៉ះពាល់ និងភាពផ្លាស់ប្តូរនៃបច្ចេកវិទ្យាទៅនឹងការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ "
-"(គ្រោះមហន្តរាយ) "
 
 #: apps/summary/renderers.py:808
 msgid "Adoption and adaptation"
@@ -19866,37 +19817,23 @@ msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "ភាគរយនៃអ្នកប្រើប្រាស់ដីនៅតំបន់ដែលបានទទួលយកបច្ចេកទេស"
 
 #: apps/summary/renderers.py:815
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "Of all those who have adopted the Technology, how many have did so "
-#| "spontaneously, i.e. without receiving any material incentives/ payments?"
 msgid ""
 "Of all those who have adopted the Technology, how many have did so without "
 "receiving material incentives?"
 msgstr ""
-"ក្នុងចំណោមគ្រួសារទាំងអស់ដែលអនុវត្តបច្ចេកទេស តើមានប៉ុន្មានគ្រួសារដែលចង់ធ្វើដោយខ្លួនឯង "
-"ដោយមិនទទួលបានសម្ភារៈលើកទឹកចិត្ត/ប្រាក់ឧបត្ថម្ភ?​"
 
 #: apps/summary/renderers.py:819
 msgid "Adaptation"
 msgstr "ការបន្សាុំ"
 
 #: apps/summary/renderers.py:820
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "Has the Technology been modified recently to adapt to changing conditions?"
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
-msgstr "តើបច្ចេកទេសថ្មីបានផ្លាស់ប្តូរដើម្បីបន្ស៊ាំទៅនឹងការប្រែប្រួលស្ថានភាពដែរឬទេ?"
+msgstr ""
 
 #: apps/summary/renderers.py:824
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "If yes, indicate to which changing conditions it was adapted"
 msgid "To which changing conditions?"
-msgstr "បើឆ្លើយបាទ/ ចា៎ សូមកំណត់ថាតើស្ថានភាពប្រែប្រួលមួយណាត្រូវបានបន្ស៊ាំ"
+msgstr ""
 
 #: apps/summary/renderers.py:868
 msgid "Initiation date"
@@ -19915,194 +19852,118 @@ msgid "Type of Approach"
 msgstr "ប្រភេទនៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
 
 #: apps/summary/renderers.py:887
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Natural and human environment"
 msgid "Approach aims and enabling environment"
-msgstr "បរិស្ថានធម្មជាតិ និងមនុស្ស"
+msgstr ""
 
 #: apps/summary/renderers.py:890
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Main aims/ objectives of the Approach"
 msgid "Main aims / objectives of the approach"
-msgstr "គោលបំណង/ទិសដៅសំខាន់នៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
+msgstr ""
 
 #: apps/summary/renderers.py:895
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "Conditions enabling or hindering the implementation of the Technology/ies "
-#| "applied under the Approach"
 msgid ""
 "Conditions enabling the implementation of the Technology/ ies applied under "
 "the Approach"
-msgstr "លក្ខខណ្ឌអនុញ្ញាត ឬរារាំងការអនុវត្តន៍បច្ចេកទេសដែលស្ថិតនៅក្រោមវិធីសាស្រ្តផ្សព្វផ្សាយ"
+msgstr ""
 
 #: apps/summary/renderers.py:899
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "Conditions enabling or hindering the implementation of the Technology/ies "
-#| "applied under the Approach"
 msgid ""
 "Conditions hindering the implementation of the Technology/ ies applied under "
 "the Approach"
-msgstr "លក្ខខណ្ឌអនុញ្ញាត ឬរារាំងការអនុវត្តន៍បច្ចេកទេសដែលស្ថិតនៅក្រោមវិធីសាស្រ្តផ្សព្វផ្សាយ"
+msgstr ""
 
 #: apps/summary/renderers.py:909
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Participation and roles of stakeholders involved"
 msgid "Participation and roles of stakeholders involved"
-msgstr "ការចូលរួម និងតួនាទីរបស់ភាគីពាក់ព័ន្ធ"
+msgstr ""
 
 #: apps/summary/renderers.py:912
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Stakeholders involved in the Approach and their roles"
 msgid "Stakeholders involved in the Approach and their roles"
-msgstr "អ្នកពាក់ព័ន្ធដែលបានចូលរួមក្នុងវិធីសាស្ត្រផ្សព្វផ្សាយ និងតួនាទីរបស់ពួកគេ"
+msgstr ""
 
 #: apps/summary/renderers.py:914
 msgid "Lead agency: {}"
 msgstr ""
 
 #: apps/summary/renderers.py:917 apps/summary/renderers.py:921
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "Involvement of local land users/ local communities in the different "
-#| "phases of the Approach"
 msgid ""
 "Involvement of local land users/ local communities in the different phases "
 "of the Approach"
 msgstr ""
-"ការចូលរួមរបស់អ្នកប្រើប្រាស់ដីក្នុងតំបន់/ សហគមន៍ក្នុងតំបន់ក្នុងដំណាក់កាលផ្សេងគ្នានៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
 
 #: apps/summary/renderers.py:929
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Flow chart"
 msgid "Flow chart"
-msgstr "គំនូសបំព្រួញ"
+msgstr ""
 
 #: apps/summary/renderers.py:933
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Decision-making on the selection of SLM Technology(ies)"
 msgid "Decision-making on the selection of SLM Technology"
-msgstr "ការសម្រេចចិត្តលើការជ្រើសរើសបច្ចេកទេស SLMមួយ (ច្រើន)"
+msgstr ""
 
 #: apps/summary/renderers.py:936
 msgid "Decisions were taken by"
 msgstr ""
 
 #: apps/summary/renderers.py:940
-#, fuzzy
-#| msgctxt "approaches label_view"
-#| msgid "Is decision making based on"
 msgid "Decisions were made based on:"
-msgstr "តើការសម្រេចចិត្តត្រូវផ្អែកលើអ្វី?"
+msgstr ""
 
 #: apps/summary/renderers.py:955
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Technical support, capacity building, and knowledge management"
 msgid "Technical support, capacity building, and knowledge management"
-msgstr "ជំនួយបច្ចេកទេស ការកសាងសមត្ថភាព និងការគ្រប់គ្រងចំណេះដឹង"
+msgstr ""
 
 #: apps/summary/renderers.py:971
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Was training provided to land users/ other stakeholders?"
 msgid "Training was provided to the following stakeholders"
-msgstr "តើវគ្គបណ្តុះបណ្តាលបានផ្តល់ឱ្យអ្នកប្រើប្រាស់ដី/អ្នកពាក់ព័ន្ធផ្សេងៗទៀតដែរឬទេ?"
+msgstr ""
 
 #: apps/summary/renderers.py:975
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Form of training"
 msgid "Form of training"
-msgstr "ទម្រង់នៃការបណ្តុះបណ្តាល"
+msgstr ""
 
 #: apps/summary/renderers.py:980
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Subjects covered"
 msgid "Subjects covered"
-msgstr "ប្រធានបទបណ្តុះបណ្តាល"
+msgstr ""
 
 #: apps/summary/renderers.py:985
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Advisory service"
 msgid "Advisory service"
-msgstr "សេវាផ្តល់ប្រឹក្សាយោបល់"
+msgstr ""
 
 #: apps/summary/renderers.py:988
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Is advisory service provided"
 msgid "Advisory service was provided"
-msgstr "តើសេវាផ្តល់ប្រឹក្សាត្រូវបានផ្តល់?"
+msgstr ""
 
 #: apps/summary/renderers.py:995
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "institutional setting"
 msgid "Institution strengthening"
-msgstr "បរិបទនៃស្ថាប័ន"
+msgstr ""
 
 #: apps/summary/renderers.py:997
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "At what level have institutions been strengthened or established"
 msgid "Institutions have been strengthened / established"
-msgstr "តើស្ថាប័នដែលបានបង្កើតឡើង ឬដើម្បីពង្រឹងសមត្ថភាពត្រូវបានអនុវត្តន៍កម្រិតណា?"
+msgstr ""
 
 #: apps/summary/renderers.py:1002
 msgid "at the following level"
 msgstr ""
 
 #: apps/summary/renderers.py:1007
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify type of support"
 msgid "Type of support"
-msgstr "សូមបញ្ជាក់ប្រភេទនៃការគាំទ្រ"
+msgstr ""
 
 #: apps/summary/renderers.py:1014
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Monitoring and evaluation"
 msgid "Monitoring and evaluation"
-msgstr "ការត្រួតពិនិត្យ និងវាយតម្លៃ"
+msgstr ""
 
 #: apps/summary/renderers.py:1018
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Research"
 msgid "Research"
-msgstr "ការស្រាវជ្រាវ"
+msgstr ""
 
 #: apps/summary/renderers.py:1019
 msgid "Research treated the following topics"
 msgstr ""
 
 #: apps/summary/renderers.py:1028
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Financing and external material support"
 msgid "Financing and external material support"
-msgstr "ថវិកា និងសម្ភារៈឧបត្ថម្ភពីខាងក្រៅ"
+msgstr ""
 
 #: apps/summary/renderers.py:1031
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Annual budget for the SLM component of the Approach"
 msgid "Annual budget for the SLM component of the Approach"
-msgstr "ថវិកាប្រចាំឆ្នាំសម្រាប់ផ្សព្វផ្សាយ SLM"
+msgstr ""
 
 #: apps/summary/renderers.py:1034
 msgid "Precise annual budget: {}"
@@ -20113,64 +19974,38 @@ msgid "The following services of incentives have been provided to land users"
 msgstr ""
 
 #: apps/summary/renderers.py:1048
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "on land users' fields"
 msgid "Labour by land users was"
-msgstr "នៅលើដីរបស់អ្នកប្រើប្រាស់ដី"
+msgstr ""
 
 #: apps/summary/renderers.py:1066
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Other incentives or instruments"
 msgid "Other incentives or instruments"
-msgstr "ការលើកទឹកចិត្ត ឬវិធីសាស្ត្រដ៏ទៃទៀត"
+msgstr ""
 
 #: apps/summary/renderers.py:1075
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Impact analysis and concluding statements"
 msgid "Impact analysis and concluding statements"
-msgstr "ការវិភាគរកផលប៉ះពាល់ និងសេចក្តីសន្និដ្ឋាន"
+msgstr ""
 
 #: apps/summary/renderers.py:1078
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Impacts of the Approach"
 msgid "Impacts of the Approach"
-msgstr "ផលប៉ះពាល់នៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
+msgstr ""
 
 #: apps/summary/renderers.py:1079
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Videos of the Approach"
 msgid "Did the approach..."
-msgstr "វីឌីអូនៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
+msgstr ""
 
 #: apps/summary/renderers.py:1083
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Main motivation of land users to implement SLM"
 msgid "Main motivation of land users to implement SLM"
-msgstr "ការលើកទឹកចិត្តចម្បងៗរបស់អ្នកប្រើប្រាស់ដីសម្រាប់ការអនុវត្តបច្ចេកទេស SLM"
+msgstr ""
 
 #: apps/summary/renderers.py:1087
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Sustainability of Approach activities"
 msgid "Sustainability of Approach activities"
-msgstr "សកម្មភាពផ្សព្វផ្សាយដែលប្រកបដោយចីរភាព"
+msgstr ""
 
 #: apps/summary/renderers.py:1088
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "Can the land users sustain what has been implemented through the Approach "
-#| "(without external support)?"
 msgid ""
 "Can the land users sustain what hat been implemented through the Approach "
 "(without external support)?"
-msgstr "តើអ្នកប្រើប្រាស់ដីអាចធ្វើឱ្យមានចីរភាពនូវអ្វីដែលត្រូវបានអនុវត្តន៍តាមរយៈវិធីសាស្ត្រផ្សព្វផ្សាយដែរឬទេ(ដោយពុំមានការគាំទ្រពីអ្នកខាងក្រៅ)?"
+msgstr ""
 
 #: apps/summary/templates/summary/block/location.html:10
 #: apps/summary/templates/summary/block/location_approach.html:10
@@ -20942,19 +20777,11 @@ msgstr ""
 "https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
 "</p>"
 
-#~ msgid "Title photo"
-#~ msgstr "ចំណងជើងរូប"
+#~ msgid "Show and change the map layer"
+#~ msgstr "បង្ហាញ និងផ្លាស់ប្តូរស្រទាប់នៃផែនទី"
 
-#~ msgid "Weaknesses/ disadvantages/ risks and how they can be overcome"
-#~ msgstr "ភាពខ្សោយ/ គុណវិបត្តិ/ ហានិភ័យ និងវិធីសាស្ត្រដោះស្រាយ"
+#~ msgid "Select a layer from the list below."
+#~ msgstr "ជ្រើសរើសស្រទាប់ពីបញ្ជីខាងក្រោមនេះ។"
 
-#~ msgid ""
-#~ "Percentage of land users who adopted the Technology without material "
-#~ "incentives"
-#~ msgstr "ភាគរយនៃអ្នកប្រើប្រាស់ដីនៅតំបន់ដែលបានទទួលយកបច្ចេកទេសដោយមិនមានការលើកទឹកចិត្តជាសម្ភារៈ"
-
-#~ msgid "The technology has been modified recently to adapt to"
-#~ msgstr "បច្ចេកទេសទើបត្រូវបានកែតម្រូវដើម្បីបន្សាុំទៅនឹង"
-
-#~ msgid "Full summary as HTML"
-#~ msgstr "សង្ខេបជា HTML"
+#~ msgid "Change the size of the map"
+#~ msgstr "ផ្លាស់ប្តូរទំហំនៃផែនទី"
