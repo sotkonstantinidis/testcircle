@@ -579,8 +579,8 @@ class ApproachParser(QuestionnaireParser):
         The structure is very nested and complex, but follows the config.
         """
         none_selected = 'app_subsidies_inputs_none'
-        selected_groups = self._get_qg_selected_value(child)
-        nested_elements_config = child.form_options.get('questiongroup_conditions')
+        selected_groups = self._get_qg_selected_value(child) or []
+        nested_elements_config = child.form_options.get('questiongroup_conditions') or []
         # a dict with the mapping of questiongroup-name and identifier.
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
         labels = dict(child.choices)
@@ -596,7 +596,10 @@ class ApproachParser(QuestionnaireParser):
             )
             label = labels[group]
             columns = qg.form_options['table_columns']
-            row = self.get_subsidies_row(qg, **self.values.get(qg.keyword)[0])
+            try:
+                row = self.get_subsidies_row(qg, **self.values[qg.keyword][0])
+            except (KeyError, IndexError):
+                continue
 
             # if there are only two columns, there is no additional label.
             if columns == 2:
