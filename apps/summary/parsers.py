@@ -7,6 +7,7 @@ import contextlib
 import itertools
 import logging
 import operator
+from django.conf import settings
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -118,8 +119,9 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         if values and len(values) == 1:
             selected = values[0].get(child.keyword, [])
         else:
-            logger.warning(msg='No or more than one list of values is set '
-                               'for %s' % child.keyword)
+            if settings.DEBUG:
+                logger.warning('No or more than one list of values '
+                               'is set for {keyword}'.format(child.keyword))
             selected = []
 
         # default is 'checkbox', where multiple elements can be selected.
