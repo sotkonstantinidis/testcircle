@@ -122,6 +122,11 @@
     </a>
   </div>
 
+  <div class="row tech-overall-progress">
+    <span class="steps">{% trans "Completeness:" %} {{ completeness_percentage }}%</span>
+    <span class="meter" style="width:{{ completeness_percentage }}%"></span>
+  </div>
+
   {% if subcategories or 'edit_questionnaire' in permissions and 'edit' in view_mode %}
     <section id="{{ keyword }}" class="row tech-section" data-magellan-destination="{{ keyword }}">
       <a name="{{ keyword }}"></a>
