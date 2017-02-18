@@ -300,14 +300,8 @@ class QuestionnaireSearchView(LoginRequiredMixin, View):
         """
         questionnaires = self.get_queryset()
         for questionnaire in questionnaires:
-            active_config = questionnaire.configurations.filter(
-                active=True
-            ).first()
-            if active_config:
-                config = get_configuration(active_config.code)
-                names = config.get_questionnaire_name(questionnaire.data)
                 yield {
-                    'name': names.get(get_language(), names.get('en')),
+                    'name': questionnaire.get_name(),
                     'url': questionnaire.get_absolute_url(),
                     'compilers': ', '.join(
                         [compiler['name'] for compiler in questionnaire.compilers]

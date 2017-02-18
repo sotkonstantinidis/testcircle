@@ -341,7 +341,7 @@ class GlobalValuesMixin:
                 )
                 yield {'text': '{config}: {name} (<a href="{url}">{url}</a>)'.format(
                     config=config.first().name,
-                    name=name.get(get_language(), name.get('en')),
+                    name=self.questionnaire.get_name(get_language()),
                     url=self.base_url + link.to_questionnaire.get_absolute_url())
                 }
 
