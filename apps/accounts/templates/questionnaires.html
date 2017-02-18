@@ -26,6 +26,19 @@
         </div>
       </section>
     </div>
+    {% if request.user.is_superuser %}
+      <div class="small-12 columns">
+        <section class="tech-list small-12 columns">
+          <div class="tech-group">
+            <h2 class="is-group">{% trans "Search" %}</h2>
+              <input type="text" id="search-questionnaires"
+                 data-url="{% url 'superuser_questionnaires_search' %}"
+                 data-no-results="{% trans 'No results found' %}"
+                 placeholder="{% trans "Search questionnaires by name" %}">
+          </div>
+        </section>
+      </div>
+    {% endif %}
     <div class="small-12 columns">
       {% for status, name in statuses.items %}
         <section class="tech-list small-12 columns">
@@ -50,11 +63,13 @@
       <script src="{% static 'notifications/js/ajaxCsrf.js' %}"></script>
       <script src="{% static 'notifications/js/notificationActions.js' %}"></script>
       <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+      <script src="{% static 'js/jquery-ui.min.js' %}"></script>
       <script>
         $(document).ready(function() {
 
           var spinner = '<img src="{% static 'assets/img/ajax-loader.gif' %}">';
           var latestUpdatesContainer = $('#latest-notification-updates');
+          var searchInput = $('#search-questionnaires');
 
           // initialize isRead plugin.
           latestUpdatesContainer.bindNotificationActions({
@@ -96,6 +111,19 @@
             }
             return false;
           });
+
+          searchInput.autocomplete({
+            minLength: 3,
+            source: searchInput.data('url'),
+            select: function( event, ui ) {
+              window.location.href = ui.item.url;
+            }
+          }).autocomplete( "instance" )._renderItem = function(ul, item) {
+            return $("<li>")
+              .append(
+                  "<strong>" + item.name + "</strong> (" + item.status + ")<br>Compiler: " + item.compilers
+              ).appendTo(ul);
+          };
         });
         function getURLParameter(url, name) {
           return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
@@ -106,6 +134,7 @@
   {% addtoblock 'css' %}
     {% compress css %}
       <link href="{% static 'css/chosen.min.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
     {% endcompress %}
   {% endaddtoblock %}
 {% endblock %}

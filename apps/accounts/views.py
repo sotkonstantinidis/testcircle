@@ -12,17 +12,17 @@ from django.shortcuts import get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.timezone import now
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
-from django.views.generic import DetailView
-from django.views.generic import FormView
+from django.views.generic import View, DetailView, FormView
 
 from braces.views import LoginRequiredMixin
+from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from django.views.generic import ListView
-from questionnaire.models import STATUSES
+from questionnaire.models import Questionnaire, STATUSES
 from questionnaire.utils import query_questionnaires, get_list_values
 from questionnaire.view_utils import get_paginator, get_pagination_parameters
 from .client import typo3_client
@@ -263,6 +263,57 @@ class QuestionnaireStatusListView(LoginRequiredMixin, QuestionnaireListMixin):
         important.
         """
         return {'user': self.request.user if self.status is settings.QUESTIONNAIRE_PUBLIC else None}  # noqa
+
+
+class QuestionnaireSearchView(LoginRequiredMixin, View):
+    """
+    Search questionnaires by name and return JSON as required for the
+    autocomplete javascript.
+
+    This is only allowed for superusers
+    """
+
+    http_method_names = ['get']
+    limit = 20
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_superuser:
+            return JsonResponse(
+                list(self.get_data()), safe=False
+            )
+        else:
+            raise Http404
+
+    def get_queryset(self):
+        """
+        To discuss:
+        - also search in compilers name?
+        - what about pagination / limits?
+        """
+        return Questionnaire.with_status.not_deleted().filter(
+            data__qs_name=self.request.GET['term']
+        )[:self.limit]
+
+    def get_data(self) -> dict:
+        """
+        Get elements as required for frontend.
+        """
+        questionnaires = self.get_queryset()
+        for questionnaire in questionnaires:
+            active_config = questionnaire.configurations.filter(
+                active=True
+            ).first()
+            if active_config:
+                config = get_configuration(active_config.code)
+                names = config.get_questionnaire_name(questionnaire.data)
+                yield {
+                    'name': names.get(get_language(), names.get('en')),
+                    'url': questionnaire.get_absolute_url(),
+                    'compilers': ', '.join(
+                        [compiler['name'] for compiler in questionnaire.compilers]
+                    ),
+                    'status': questionnaire.get_status_display()
+                }
 
 
 def logout(request):
