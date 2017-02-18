@@ -31,7 +31,7 @@
         <section class="tech-list small-12 columns">
           <div class="tech-group">
             <h2 class="is-group">{{ name }}</h2>
-            <div id="questionnaire-list" data-status="{{ status }}">
+            <div class="questionnaire-list" data-status="{{ status }}">
               <div id="status-{{ status }}" class="questionnaire-status-list"></div>
             </div>
           </div>
@@ -89,14 +89,17 @@
           });
 
           // load data on click on paginator
-          $('.questionnaire-status-list').on('click', 'ul.pagination li a', function() {
-            var page = $(this).data('page');
-            if (page.length !== 0) {
-              loadQuestionnaires($(this).data('status'), page)
+          $('.questionnaire-list').on('click', 'ul.pagination li a', function() {
+            var page = getURLParameter($(this).attr('href'), 'page');
+            if (page) {
+              loadQuestionnaires($(this).parents('.questionnaire-list:first').data('status'), page)
             }
             return false;
           });
         });
+        function getURLParameter(url, name) {
+          return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+        }
       </script>
     {% endcompress %}
   {% endaddtoblock %}

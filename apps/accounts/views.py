@@ -24,6 +24,7 @@ from configuration.configuration import QuestionnaireConfiguration
 from django.views.generic import ListView
 from questionnaire.models import STATUSES
 from questionnaire.utils import query_questionnaires, get_list_values
+from questionnaire.view_utils import get_paginator, get_pagination_parameters
 from .client import typo3_client
 from .conf import settings
 from .forms import WocatAuthenticationForm
@@ -177,7 +178,7 @@ class QuestionnaireListMixin(ListView):
     Mixin for paginated questionnaires.
     """
     template_name = 'questionnaire_status_list.html'
-    paginate_by = 3
+    per_page = 3  # use qcats default paginator
 
     @property
     def status(self):
@@ -204,9 +205,17 @@ class QuestionnaireListMixin(ListView):
         parents get_context_data method.
         """
         context = super().get_context_data(**kwargs)
-        context['list_values'] = get_list_values(
-            questionnaire_objects=context['object_list'], status_filter=Q()
+        questionnaires, paginator = get_paginator(
+            objects=context['object_list'],
+            page=self.request.GET.get('page', 1),
+            limit=self.per_page
         )
+        context['list_values'] = get_list_values(
+            questionnaire_objects=questionnaires, status_filter=Q()
+        )
+        context.update(**get_pagination_parameters(
+            self.request, paginator, questionnaires
+        ))
         return context
 
 
@@ -225,9 +234,7 @@ class PublicQuestionnaireListView(QuestionnaireListMixin):
 
 class QuestionnaireStatusListView(LoginRequiredMixin, QuestionnaireListMixin):
     """
-    Display all questionnaires for the requested status. Results are paginated,
-    the paginator shows a specified (paginator_quicklink_range) number of pages
-    before and after the current page.
+    Display all questionnaires for the requested status. Results are paginated.
     """
 
     @property
