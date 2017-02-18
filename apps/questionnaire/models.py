@@ -24,6 +24,7 @@ from staticmap import StaticMap, CircleMarker, Polygon
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration
+from qcat.errors import ConfigurationError
 from .signals import change_status, create_questionnaire
 
 from .conf import settings
@@ -534,6 +535,31 @@ class Questionnaire(models.Model):
                     if key == q_keyword:
                         data.append(value)
         return data
+
+    def get_name(self, locale='') -> str:
+        """
+        Return the name of the questionnaire, based on the configuration.
+        """
+        active_config = self.configurations.filter(
+            active=True
+        ).first()
+        if not active_config:
+            raise ConfigurationError(
+                'No active configuration for questionnaire {}'.format(self.id)
+            )
+        config = get_configuration(active_config.code)
+        names = config.get_questionnaire_name(self.data)
+        name = names.get(locale or get_language())
+        if name:
+            # omit additional query
+            return name
+
+        original_lang = self.questionnairetranslation_set.first()
+        if original_lang and names.get(original_lang.language):
+            return names[original_lang.language]
+
+        return ''
+
 
     def update_geometry(self, configuration_code):
         """

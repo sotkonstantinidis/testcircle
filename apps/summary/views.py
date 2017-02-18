@@ -105,10 +105,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         """
         Provide variables used in the footer template.
         """
-        questionnaire_names = self.config.get_questionnaire_name(
-            self.questionnaire.data
-        )
-        name = questionnaire_names.get(get_language(), questionnaire_names['en'])
+        name = self.questionnaire.get_name()
         if len(name) > 50:
             name = '{}...'.format(name[:47])
         return {
