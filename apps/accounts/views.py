@@ -294,7 +294,7 @@ class QuestionnaireSearchView(LoginRequiredMixin, View):
             data__qs_name=self.request.GET['term']
         )[:self.limit]
 
-    def get_data(self) -> dict:
+    def get_data(self):
         """
         Get elements as required for frontend.
         """

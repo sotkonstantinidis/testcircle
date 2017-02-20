@@ -554,7 +554,9 @@ class Questionnaire(models.Model):
             # omit additional query
             return name
 
-        original_lang = self.questionnairetranslation_set.first()
+        original_lang = self.questionnairetranslation_set.filter(
+            original_language=True
+        ).first()
         if original_lang and names.get(original_lang.language):
             return names[original_lang.language]
 
