@@ -277,7 +277,7 @@ class QuestionnaireSearchView(LoginRequiredMixin, View):
     limit = 20
 
     def get(self, request, *args, **kwargs):
-        if self.request.user.is_superuser:
+        if self.request.user.is_staff:
             return JsonResponse(
                 list(self.get_data()), safe=False
             )
