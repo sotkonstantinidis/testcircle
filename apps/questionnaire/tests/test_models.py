@@ -14,7 +14,7 @@ from model_mommy import mommy
 
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
-from configuration.models import Configuration
+from configuration.models import Configuration, Value
 from qcat.tests import TestCase
 from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.models import Questionnaire, QuestionnaireLink, File, Lock, \
@@ -770,6 +770,21 @@ class QuestionnaireModelTest(TestCase):
             self.get_questionnaire_with_name().get_name('it'),
             ''
         )
+
+    def test_get_countries_no_country(self):
+        qs = self.get_questionnaire_with_name()
+        self.assertEqual(qs.get_countries(), [])
+
+    def test_get_countries(self):
+        mommy.make(Value, keyword='foo')
+        qs = mommy.make(
+            Questionnaire,
+            data={'qg_location': [{'country': 'foo'}]}
+        )
+        with patch.object(Value, 'get_translation') as mock_get_translation:
+            qs.get_countries()
+            mock_get_translation.assert_called_once_with(keyword='label')
+
 
 class FileModelTest(TestCase):
 

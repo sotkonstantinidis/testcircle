@@ -31,10 +31,13 @@
         <section class="tech-list small-12 columns">
           <div class="tech-group">
             <h2 class="is-group">{% trans "Search" %}</h2>
-              <input type="text" id="search-questionnaires"
-                 data-url="{% url 'superuser_questionnaires_search' %}"
-                 data-no-results="{% trans 'No results found' %}"
-                 placeholder="{% trans "Search questionnaires by name" %}">
+              <form action="{% url "staff_questionnaires_search" %}" method="get">
+                <input type="search" id="search-questionnaires" name="term"
+                  data-url="{% url "staff_questionnaires_search" %}"
+                  placeholder="{% trans "Search questionnaires by name or compilers name" %}"
+                  class="questionnaire-search">
+                <input type="submit" class="search-submit button " value="Search">
+              </form>
           </div>
         </section>
       </div>
@@ -114,16 +117,25 @@
 
           searchInput.autocomplete({
             minLength: 3,
-            source: searchInput.data('url'),
+            source: searchInput.data("url"),
             select: function( event, ui ) {
               window.location.href = ui.item.url;
+            },
+            open: function(event, ui) {
+              $(".ui-autocomplete").append(
+                "<li class='ui-menu-item see-all'><a>{% trans "See all results... " %}</a></li>"
+              );
             }
-          }).autocomplete( "instance" )._renderItem = function(ul, item) {
+          }).autocomplete("instance")._renderItem = function(ul, item) {
             return $("<li>")
               .append(
-                  "<strong>" + item.name + "</strong> (" + item.status + ")<br>Compiler: " + item.compilers
+                  "<strong>" + item.name + "</strong> (" + item.status +
+                  ")<br>Compiler: " + item.compilers + " Country: " + item.country
               ).appendTo(ul);
           };
+          $("body").on("click", ".see-all", function() {
+              searchInput.parent("form").submit();
+          })
         });
         function getURLParameter(url, name) {
           return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];

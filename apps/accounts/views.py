@@ -265,49 +265,69 @@ class QuestionnaireStatusListView(LoginRequiredMixin, QuestionnaireListMixin):
         return {'user': self.request.user if self.status is settings.QUESTIONNAIRE_PUBLIC else None}  # noqa
 
 
-class QuestionnaireSearchView(LoginRequiredMixin, View):
+class QuestionnaireSearchView(LoginRequiredMixin, ListView):
     """
-    Search questionnaires by name and return JSON as required for the
-    autocomplete javascript.
+    Search questionnaires by name or compiler, this is only allowed for staff
+    members.
 
-    This is only allowed for superusers
+    The same logic is used for both ajax-response for the autocomplete-element
+    and classic list view.
     """
+    template_name = 'questionnaire_search.html'
 
-    http_method_names = ['get']
-    limit = 20
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        if not self.request.user.is_staff:
+            raise Http404
+        return response
 
     def get(self, request, *args, **kwargs):
-        if self.request.user.is_staff:
-            return JsonResponse(
-                list(self.get_data()), safe=False
-            )
+        if self.request.is_ajax():
+            return JsonResponse(list(self.get_json_data()), safe=False)
         else:
-            raise Http404
+            return super().get(request, *args, **kwargs)
+
+    def get_paginate_by(self, queryset):
+        return 10 if self.request.is_ajax() else 20
 
     def get_queryset(self):
-        """
-        To discuss:
-        - also search in compilers name?
-        - what about pagination / limits?
-        """
+        term = self.request.GET.get('term', '')
         return Questionnaire.with_status.not_deleted().filter(
-            data__qs_name=self.request.GET['term']
-        )[:self.limit]
+            Q(questionnairemembership__user__firstname__icontains=term) |
+            Q(questionnairemembership__user__lastname__icontains=term) |
+            Q(data__qs_name=term)
+        ).distinct()
 
-    def get_data(self):
+    def get_json_data(self):
         """
-        Get elements as required for frontend.
+        Structure as required for frontend.
         """
-        questionnaires = self.get_queryset()
+        questionnaires = self.get_queryset()[:self.get_paginate_by(None)]
         for questionnaire in questionnaires:
-                yield {
-                    'name': questionnaire.get_name(),
-                    'url': questionnaire.get_absolute_url(),
-                    'compilers': ', '.join(
-                        [compiler['name'] for compiler in questionnaire.compilers]
-                    ),
-                    'status': questionnaire.get_status_display()
-                }
+            yield {
+                'name': questionnaire.get_name(),
+                'url': questionnaire.get_absolute_url(),
+                'compilers': ', '.join(
+                    [compiler['name'] for compiler in questionnaire.compilers]
+                ),
+                'country': ', '.join(questionnaire.get_countries()),
+                'status': questionnaire.get_status_display()
+            }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        questionnaires, paginator = get_paginator(
+            objects=self.get_queryset(),
+            page=self.request.GET.get('page', 1),
+            limit=self.get_paginate_by(None)
+        )
+        context['list_values'] = get_list_values(
+            questionnaire_objects=questionnaires, status_filter=Q()
+        )
+        context.update(**get_pagination_parameters(
+            self.request, paginator, questionnaires
+        ))
+        return context
 
 
 def logout(request):

@@ -28,7 +28,7 @@ urlpatterns = patterns(
         ),
     url(r'^questionnaires/search/$',
         QuestionnaireSearchView.as_view(),
-        name='superuser_questionnaires_search'
+        name='staff_questionnaires_search'
         ),
 
 )

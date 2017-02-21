@@ -222,6 +222,8 @@ class UserTest(FunctionalTest):
         #     'xpath', '//p[@class="questionnaire-list-empty" and contains('
         #     'text(), "No WOCAT and UNCCD SLM practices found.")]')
 
+    from nose.plugins.attrib import attr
+    @attr('foo')
     def test_questionnaire_search(self, mock_get_user_id):
         alice = mommy.make(
             get_user_model(),
@@ -245,23 +247,39 @@ class UserTest(FunctionalTest):
         results = self.findBy(
             'class_name', 'ui-autocomplete'
         ).find_elements_by_tag_name('li')
-        self.assertEqual(len(results), 1)
+
+        self.assertEqual(len(results), 2)
         self.assertEqual(
-            results[0].text, 'Foo 1 (Draft)\nCompiler: Foo Bar'
+            results[0].text, 'Foo 1 (Draft)\nCompiler: Foo Bar Country:'
         )
         # clicking on the element takes alice to the detail page.
         results[0].click()
         self.assertEqual(
             self.browser.current_url,
-            '{}en/sample/view/sample_1/'.format(self.live_server_url)
+            '{}/en/sample/view/sample_1/'.format(self.live_server_url)
+        )
+
+        # she realises it's a premature click and heads back, searching again
+        self.browser.back()
+        search_input = self.findBy('id', 'search-questionnaires')
+        search_input.send_keys('terra')
+        self.wait_for('class_name', 'ui-autocomplete')
+        results = self.findBy(
+            'class_name', 'ui-autocomplete'
+        ).find_elements_by_tag_name('li')
+        # she clicks on the 'see all results' link
+        results[1].click()
+        self.assertEqual(
+            self.browser.current_url,
+            '{base_url}{search_results_view}?term='.format(
+                base_url=self.live_server_url,
+                search_results_view=reverse('staff_questionnaires_search')
+            )
         )
 
     def test_questionnaire_search_normal_user(self, mock_get_user_id):
         # bob is not a superuser and visits the my slm data page
-        bob = mommy.make(
-            get_user_model(),
-            is_superuser=False
-        )
+        bob = mommy.make(get_user_model())
         self.doLogin(bob)
         self.browser.get(
             '{base_url}{accounts}'.format(
