@@ -17,10 +17,10 @@ $map-height: 600px;
   height: $controls-width;
 
 
-  &:first-of-type {
+  &:first-child {
     border-top-left-radius: 2px;
   }
-  &:last-of-type {
+  &:last-child {
     border-bottom-left-radius: 2px;
   }
 
@@ -108,7 +108,19 @@ $map-height: 600px;
 
 .map-layers {
   margin-left: $controls-width;
-  height: $layers-height;
+  display: flex;
+  flex-wrap: wrap;
+
+  >div {
+    flex-grow: 1;
+    margin-left: 1rem;
+  }
+
+  >div:first-child {
+    flex-grow: 0;
+    margin-left: 0;
+    line-height: $layers-height;
+  }
 }
 
 .map-layers-slider {
@@ -179,13 +191,11 @@ form .row .row.map-overlay-content {
     font-size: .85em;
 
     &.success {
-      color: darkgreen;
-      border: 1px solid darkgreen;
+      background-color: darkgreen;
     }
 
     &.error {
-      color: darkred;
-      border: 1px solid darkred;
+      background-color: darkred;
     }
   }
 }
