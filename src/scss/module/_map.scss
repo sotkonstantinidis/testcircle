@@ -1,4 +1,4 @@
-$controls-width: 24px;
+$controls-width: 2rem;
 $layers-height: 2.25rem;
 $map-height: 600px;
 
@@ -13,6 +13,9 @@ $map-height: 600px;
   padding: 0.375rem;
   background-color: $color-brown-light;
   border-radius: 0;
+  width: $controls-width;
+  height: $controls-width;
+
 
   &:first-of-type {
     border-top-left-radius: 2px;
@@ -27,13 +30,13 @@ $map-height: 600px;
 
   &.button-feature-count.button.small {
     width: $controls-width;
-    height: 24px;
+    height: $controls-width;
     background-color: $color-beige-light;
     border: 1px solid $color-beige-dark;
     color: $color-beige-dark;
     font-weight: bold;
     padding: 0;
-    font-size: 1rem;
+    font-size: $controls-width - (2*0.375rem);
 
     &:hover {
       background-color: $color-beige-light;
@@ -68,6 +71,8 @@ $map-height: 600px;
 
   svg.is-inline {
     margin: 0;
+    width: $controls-width - (2*0.375rem);
+    height: $controls-width - (2*0.375rem);
   }
 }
 
