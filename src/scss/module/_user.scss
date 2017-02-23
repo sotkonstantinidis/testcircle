@@ -29,3 +29,23 @@ h1.user-details-header {
   float: left;
   width: 90% !important;
 }
+
+.ui-autocomplete li {
+  border: 0;
+  border-bottom: 1px solid $color-beige-light;
+
+  &:nth-of-type(even) {
+    background-color: lighten($color-beige-light, 5);
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.ui-state-focus {
+    background-color: $color-orange-light;
+    border: 0;
+    border-bottom: 1px solid $color-orange-dark;
+    margin: 0 0 -1px;
+  }
+}

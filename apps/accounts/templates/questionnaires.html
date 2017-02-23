@@ -123,14 +123,14 @@
             },
             open: function(event, ui) {
               $(".ui-autocomplete").append(
-                "<li class='ui-menu-item see-all'><a>{% trans "See all results... " %}</a></li>"
+                "<a><li class='see-all'>{% trans "See all results... " %}</li></a>"
               );
             }
           }).autocomplete("instance")._renderItem = function(ul, item) {
             return $("<li>")
               .append(
                   "<strong>" + item.name + "</strong> (" + item.status +
-                  ")<br>Compiler: " + item.compilers + " Country: " + item.country
+                  ")<br>Compiler: " + item.compilers + " | Country: " + item.country
               ).appendTo(ul);
           };
           $("body").on("click", ".see-all", function() {
