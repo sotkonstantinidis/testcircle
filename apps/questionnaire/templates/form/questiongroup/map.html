@@ -64,11 +64,24 @@
           </div>
         </div>
         <div class="map-overlay hide js-map-points">
-          <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
+          <div class="js-btn-overlay-close">
+            <a class="map-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
+          </div>
           <div class="row">
             <div class="small-12 columns"><h4>{% trans "List of all points on the map:" %}</h4></div>
             <div class="small-12 columns map-points-list" data-empty-text="{% trans 'No points on the map.' %}"><!-- Points list --></div>
           </div>
+        </div>
+        <div class="map-overlay hide js-map-delete-features">
+          <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
+          <div class="row">
+            <div class="small-12 columns">
+              <h4><strong>{% trans "Delete all points from the map" %}</strong></h4>
+              <p>{% trans "Are you sure you want to delete all the points from the map? This cannot be undone." %}</p>
+              <a class="button alert js-btn-confirm-delete-features">{% trans "Delete" %}</a>
+            </div>
+          </div>
+
         </div>
         <div class="map-overlay hide js-map-coordinates">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>

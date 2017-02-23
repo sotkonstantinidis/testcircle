@@ -105,11 +105,12 @@
 
         // Listen to all kinds of map actions.
         qgContainer.find('.js-btn-feature-count').click(function() { toggleMapOverlay('js-map-points') });
+        qgContainer.find('.js-btn-delete-features').click(function() { toggleMapOverlay('js-map-delete-features') });
         qgContainer.find('.js-btn-coordinates-show').click(function() { toggleMapOverlay('js-map-coordinates') });
         qgContainer.find('.js-btn-search-show').click(function() { toggleMapOverlay('js-map-search') });
         qgContainer.find('.js-btn-overlay-close').click(hideMapOverlays);
         qgContainer.find('.js-btn-show-features').click(zoomToFeatures);
-        qgContainer.find('.js-btn-delete-features').click(deleteAllFeatures);
+        qgContainer.find('.js-btn-confirm-delete-features').click(deleteAllFeatures);
         qgContainer.find('[name="map-layers-0"]').on('change', function() { toggleLayer(0, this.value) });
         qgContainer.find('[name="map-layers-1"]').on('change', function() { toggleLayer(1, this.value) });
         qgContainer.find('.js-btn-parse-coordinates').click(parseCoordinates);
