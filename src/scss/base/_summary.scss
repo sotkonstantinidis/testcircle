@@ -140,8 +140,7 @@ body.summary {
     max-width: 100%;
   }
   .img-caption {
-    background-color: rgba(85,116,49,.8);
-    color: white;
+    background-color: rgba(85,116,49,.15);
     padding: 0.1rem 1rem 0.2rem 0.4rem;
     font-size: 0.6rem;
     line-height: 0.8rem;
@@ -149,7 +148,7 @@ body.summary {
   }
 
   &.is-approaches .img-caption {
-    background-color: #e86b28;
+    background-color: rgba(232, 107, 40, .15);
   }
 
   .tech-section-content {
@@ -157,10 +156,12 @@ body.summary {
   }
 
   .tech-section-header {
-/*    background-color: #edf0ea;
-*/    h2 {
+    background-color: rgba(85,116,49,.8);
+
+    h2 {
       padding-left: 0.4rem;
       width: auto;
+      color: #fff;
     }
   }
 
@@ -413,6 +414,9 @@ body.summary {
  &.is-approaches hr
  {
     border-top: 1px solid rgba($color-approach, 0.15);
+ }
+ &.is-approaches .tech-section-header {
+    background-color: rgb(232, 107, 40) !important;
  }
 
  .rotate

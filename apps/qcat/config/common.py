@@ -152,13 +152,14 @@ class BaseSettings(Configuration):
     THUMBNAIL_ALIASES = {
         'summary': {
             'header_image': {
-                'size': (0, 700),
+                'size': (2512, 700),
                 'crop': 'smart',
                 'upscale': True
             },
             'half_height': {
-                'size': (0, 290),
+                'size': (400, 290),
                 'crop': 'smart',
+                'upscale': True
             },
             'map': {
                 'size': (300, 0)

@@ -9,7 +9,7 @@
       {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.activities.items %}
   </div>
 </div>
-{% if content.training %}
+{% if content.activities.items.0.highlighted %}
   <div class="row avoidbreak">
   <hr>
     <div class="small-12 columns">
@@ -28,7 +28,7 @@
     </div>
   </div>
 {% endif %}
-{% if content.advisory %}
+{% if content.activities.items.1.highlighted %}
   <div class="row avoidbreak">
   <hr>
     <div class="small-12 columns">
@@ -45,46 +45,46 @@
     {% endfor %}
   </div>
 {% endif %}
-{% if content.institution_strengthening %}
-<div class="row avoidbreak">
-<hr>
-  <div class="small-12 columns">
-    <h5>{{ content.institution_strengthening.title }}</h5>
-    {{ content.institution_strengthening.subtitle.title}}
-    {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.institution_strengthening.subtitle.value %}
+{% if content.activities.items.2.highlighted %}
+  <div class="row avoidbreak">
+  <hr>
+    <div class="small-12 columns">
+      <h5>{{ content.institution_strengthening.title }}</h5>
+      {{ content.institution_strengthening.subtitle.title}}
+      {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.institution_strengthening.subtitle.value %}
+    </div>
+    {% for item in content.institution_strengthening.elements %}
+    <div class="small-3 columns">
+      {{ item.title }}
+      {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=item.items %}
+    </div>
+    <div class="small-3 columns">
+      {{ item.description|linebreaksbr }}
+    </div>
+    {% endfor %}
   </div>
-  {% for item in content.institution_strengthening.elements %}
-  <div class="small-3 columns">
-    {{ item.title }}
-    {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=item.items %}
-  </div>
-  <div class="small-3 columns">
-    {{ item.description|linebreaksbr }}
-  </div>
-  {% endfor %}
-</div>
 {% endif %}
-{% if content.monitoring %}
-<div class="row avoidbreak">
-<hr>
-  <div class="small-12 columns">
-    <h5>{{ content.monitoring.title }}</h5>
-    {{ content.monitoring.intended|safe }}
+{% if content.activities.items.3.highlighted %}
+  <div class="row avoidbreak">
+  <hr>
+    <div class="small-12 columns">
+      <h5>{{ content.monitoring.title }}</h5>
+      {{ content.monitoring.intended|safe }}
+    </div>
   </div>
-</div>
 {% endif %}
-{% if content.research %}
-<div class="row avoidbreak">
-<hr>
-  <div class="small-12 columns">
-    <h5>{{ content.research.title }}</h5>
-    {{ content.research.subtitle }}
+{% if content.activities.items.4.highlighted %}
+  <div class="row avoidbreak">
+  <hr>
+    <div class="small-12 columns">
+      <h5>{{ content.research.title }}</h5>
+      {{ content.research.subtitle }}
+    </div>
+    <div class="small-3 columns">
+      {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.research.items %}
+    </div>
+    <div class="small-9 columns">
+      <p>{{ content.research.description|linebreaksbr }}</p>
+    </div>
   </div>
-  <div class="small-3 columns">
-    {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.research.items %}
-  </div>
-  <div class="small-9 columns">
-    <p>{{ content.research.description|linebreaksbr }}</p>
-  </div>
-</div>
 {% endif %}
