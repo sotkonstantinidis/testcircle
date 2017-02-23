@@ -47,6 +47,21 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static 'css/app.css' %}" />
     {% endcompress %}
+    {% if request.LANGUAGE_CODE in WORD_WRAP_LANGUAGES %}
+      <style type="text/css">
+        body {
+          word-wrap: break-word;
+        }
+      </style>
+    {% endif %}
+    {% if request.LANGUAGE_CODE == 'lo' %}
+      <style type="text/css">
+        @font-face {
+          font-family: "Phetsarath_OT";
+          src: url("{% static 'assets/fonts/phetsarath_ot.ttf' %}");
+        }
+      </style>
+    {% endif %}
 
     {% compress js %}
       <!-- todo: measure if cdns are benefitial for rural areas -->
@@ -242,7 +257,7 @@
         </nav>
         <div class="medium-4 columns text-center">
             <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
-            <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_footer_logo.png' %}" alt="{% trans "UNCCD" %}"></a>
+            <a href="https://www.wocat.net/en/news-events/global-news/newsdetail/article/unccd-identifies-wocat-as-primary-recommended-database-for-best-practices-on-slm-technologies.html" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
         </div>
         <div class="page-footer-copy medium-4 columns">
           &copy; {% now "Y" %} - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>

@@ -94,7 +94,6 @@
     </button>
     <ul id="tech-details-print" data-dropdown-content class="f-dropdown" aria-hidden="true">
       <li><a {% if not questionnaire_object.id %}disabled="disabled"{% else %}href="{% url 'questionnaire_summary' questionnaire_object.id %}"{% endif %}>{% trans "Full summary as PDF" %}</a></li>
-      <li><a {% if not questionnaire_object.id %}disabled="disabled"{% else %}href="{% url 'questionnaire_summary' questionnaire_object.id %}?as=html"{% endif %}>{% trans "Full summary as HTML" %}</a></li>
     </ul>
 {#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}
     <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">
@@ -123,6 +122,11 @@
       <span class="js-is-expanded">{% trans "Expand all" %}</span>
       <span class="js-is-collapsed hide">{% trans "Collapse all" %}</span>
     </a>
+  </div>
+
+  <div class="row tech-overall-progress">
+    <span class="steps">{% trans "Completeness:" %} {{ completeness_percentage }}%</span>
+    <span class="meter" style="width:{{ completeness_percentage }}%"></span>
   </div>
 
   {% if subcategories or 'edit_questionnaire' in permissions and 'edit' in view_mode %}

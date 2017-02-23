@@ -1,7 +1,6 @@
 from django.conf.urls import url, patterns
 
-from questionnaire.views import QuestionnaireLockView, \
-    QuestionnaireSummaryPDFCreateView
+from questionnaire.views import QuestionnaireLockView
 
 urlpatterns = patterns(
     '',
@@ -12,7 +11,4 @@ urlpatterns = patterns(
     url(r'^edit/(?P<identifier>[^/]+)/lock/$',
         QuestionnaireLockView.as_view(),
         name='lock_questionnaire'),
-    url(r'^view/(?P<id>[\d]+)/summary/$',
-        QuestionnaireSummaryPDFCreateView.as_view(),
-        name='questionnaire_summary'),
 )

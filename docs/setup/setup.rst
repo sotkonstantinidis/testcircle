@@ -35,6 +35,13 @@ Other required packages
 	sudo apt-get install python3-pip  python3-psycopg2 libpg-dev python3-pil memcached libmemcached-dev nodejs nodejs-legacy npm
 
 
+wkhtmltopdf: a version with patched QT is required. Get the current stable version at http://wkhtmltopdf.org/downloads.html ::
+
+    cd /tmp
+    wget <download_file>
+    sudo tar xvf wkhtmltox-0.12.3_linux-generic-amd64.tar.xz
+    sudo mv wkhtmltox/bin/wkhtmlto* /usr/bin
+
 
 Installation
 ------------

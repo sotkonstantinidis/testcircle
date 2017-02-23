@@ -165,7 +165,6 @@ body.summary
         position: absolute;
       }
       &.true {
-        font-weight: bold;
         color: #3E3B34;
         &::before {
           color: white;
@@ -173,6 +172,7 @@ body.summary
           font-size: 1.2em;
           content: '\2713 ';
           background-color: rgba(85,116,49,.8);
+          padding-left: 2px;
         }
       }
     }

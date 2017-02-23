@@ -4,7 +4,7 @@ from unittest.mock import patch
 from django.core.urlresolvers import reverse
 
 from functional_tests.base import FunctionalTest
-from questionnaire.views import QuestionnaireSummaryPDFCreateView
+from summary.views import SummaryPDFCreateView
 
 
 logging.disable(logging.CRITICAL)
@@ -55,12 +55,11 @@ class SummaryTest(FunctionalTest):
     #
     #     response = browser.get(self.url)
 
-    @patch.object(QuestionnaireSummaryPDFCreateView, 'get_template_names')
-    @patch('questionnaire.views.get_summary_data')
+    @patch.object(SummaryPDFCreateView, 'get_template_names')
+    @patch.object(SummaryPDFCreateView, 'get_summary_data')
     def test_summary_html(self, mock_get_summary, mock_template_names):
         mock_get_summary.return_value = self.data_title_mock
-        mock_template_names.return_value = 'questionnaire/summary/' \
-                                           'layout/technologies.html'
+        mock_template_names.return_value = 'summary/layout/technologies.html'
 
         self.browser.get('{}?as=html'.format(self.url))
         title = self.findBy('class_name', 'tech-output-title')

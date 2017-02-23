@@ -5830,7 +5830,7 @@
       "translation": 5001,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "title_name"
@@ -5847,7 +5847,7 @@
       "translation": 5002,
       "configuration": {
         "type": "select_type",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "country"
@@ -6118,7 +6118,7 @@
         "form_options": {
           "helptext_position": "tooltip"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "title_name_local"
@@ -6135,7 +6135,7 @@
       "translation": 5005,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_state_province"
@@ -6152,7 +6152,7 @@
       "translation": 5006,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_further"
@@ -6180,7 +6180,7 @@
       "translation": 5007,
       "configuration": {
         "type": "image",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": {
@@ -6203,7 +6203,7 @@
         "form_options": {
           "helptext_position": "tooltip"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": {
@@ -6234,7 +6234,7 @@
       "translation": 5010,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": {
@@ -6265,7 +6265,7 @@
       "translation": 5049,
       "configuration": {
         "type": "text",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "header_image_remarks"
@@ -6284,12 +6284,12 @@
         "type": "select_model",
         "form_options": {
           "model": "Project",
-          "display_field": "funding_project_display",
-          "in_summary": {
-            "types": ["full"],
-            "default": {
-              "field_name": "header_image_project"
-            }
+          "display_field": "funding_project_display"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "project_institution_project"
           }
         }
       }
@@ -6317,7 +6317,7 @@
       "translation": 5014,
       "configuration": {
         "type": "user_id",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_resourceperson_user_id"
@@ -6345,7 +6345,7 @@
       "translation": 5016,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_resourceperson_lastname"
@@ -6362,7 +6362,7 @@
       "translation": 5017,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_person_firstname"
@@ -6493,7 +6493,7 @@
       "translation": 5052,
       "configuration": {
         "type": "radio",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_resourceperson_type"
@@ -6528,7 +6528,7 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "strengths_landuser"
@@ -6548,7 +6548,7 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "strengths_compiler"
@@ -6568,7 +6568,7 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "weaknesses_landuser"
@@ -6588,7 +6588,7 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "weaknesses_compiler"
@@ -6608,7 +6608,7 @@
         "view_options": {
           "template": "value_only"
         },
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": {
@@ -6795,6 +6795,12 @@
         "form_options": {
           "model": "Institution",
           "display_field": "funding_institution_display"
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "project_institution_institution"
+          }
         }
       }
     },
@@ -6837,7 +6843,7 @@
       "translation": 5057,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_title"
@@ -6854,7 +6860,7 @@
       "translation": 5058,
       "configuration": {
         "type": "char",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_source"
@@ -6904,7 +6910,7 @@
       "translation": 5064,
       "configuration": {
         "type": "map",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "location_map_data",
@@ -6924,7 +6930,7 @@
       "translation": 5065,
       "configuration": {
         "type": "int",
-        "in_summary": {
+        "summary": {
           "types": ["full"],
           "default": {
             "field_name": "references_vimeo_id"

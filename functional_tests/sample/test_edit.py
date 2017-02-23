@@ -7,7 +7,6 @@ from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_views import accounts_route_questionnaires
 from model_mommy import mommy
-from questionnaire.errors import QuestionnaireLockedException
 
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire, QuestionnaireConfiguration, \
@@ -15,10 +14,9 @@ from questionnaire.models import Questionnaire, QuestionnaireConfiguration, \
 from configuration.models import Configuration
 from sample.tests.test_views import (
     get_position_of_category,
-    route_home,
     route_questionnaire_details,
     route_questionnaire_new,
-)
+    get_categories)
 
 from django.contrib.auth.models import Group
 from accounts.tests.test_models import create_new_user
@@ -411,6 +409,8 @@ class EditTest(FunctionalTest):
         self.toggle_all_sections()
         self.checkOnPage('asdf')
 
+    from nose.plugins.attrib import attr
+    @attr('foobar')
     def test_edit_questionnaire(self, mock_get_user_id):
 
         user = create_new_user(id=6, email='mod@bar.com')
@@ -465,12 +465,13 @@ class EditTest(FunctionalTest):
         self.findBy('xpath', '//p[text()="asdf"]')
 
         # She sees the edit buttons
-        self.findBy(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]')
+        edit_buttons = self.findManyBy(
+            'xpath', '//a[contains(text(), "Edit this section")]')
+        self.assertEqual(len(edit_buttons), len(get_categories()))
 
         # She sees the possibility to view the questionnaire
         self.review_action('view')
-        self.assertIn(url, self.browser.current_url)
+        self.assertIn(url, self.browser.current_url + '#top')
 
         # All the changes are there
         self.findBy('xpath', '//p[text()="Bar"]')
@@ -478,8 +479,9 @@ class EditTest(FunctionalTest):
         self.findBy('xpath', '//p[text()="asdf"]')
 
         # There are no buttons to edit the sections anymore
-        self.findByNot(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]')
+        edit_buttons = self.findManyBy(
+            'xpath', '//a[contains(text(), "Edit this section")]')
+        self.assertEqual(len(edit_buttons), 0)
 
     # def test_show_message_of_changed_versions(self, mock_get_user_id):
     #
