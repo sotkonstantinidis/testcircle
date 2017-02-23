@@ -64,19 +64,17 @@
           </div>
         </div>
         <div class="map-overlay hide js-map-points">
-          <div class="js-btn-overlay-close">
-            <a class="map-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
-          </div>
-          <div class="row">
-            <div class="small-12 columns"><h4>{% trans "List of all points on the map:" %}</h4></div>
+          <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
+          <div class="row map-overlay-content">
+            <strong class="small-12 columns">{% trans "List of all points on the map:" %}</strong>
             <div class="small-12 columns map-points-list" data-empty-text="{% trans 'No points on the map.' %}"><!-- Points list --></div>
           </div>
         </div>
         <div class="map-overlay hide js-map-delete-features">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
-          <div class="row">
+          <div class="row map-overlay-content">
             <div class="small-12 columns">
-              <h4><strong>{% trans "Delete all points from the map" %}</strong></h4>
+              <strong>{% trans "Delete all points from the map" %}</strong>
               <p>{% trans "Are you sure you want to delete all the points from the map? This cannot be undone." %}</p>
               <a class="button alert js-btn-confirm-delete-features">{% trans "Delete" %}</a>
             </div>
@@ -85,8 +83,7 @@
         </div>
         <div class="map-overlay hide js-map-coordinates">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
-          <div class="row map-coordinates-parse">
-            <br/>
+          <div class="row map-overlay-content">
             {% trans 'Please enter the coordinates in the field below. The coordinates must be in decimal degrees of format "Latitude, Longitude", eg. 46.9526, 7.4352. Use the link below to convert from degrees, minutes and seconds to decimal degrees.' as msg %}
             {% include "form/helptext.html" with helptext=msg %}
             <div class="small-12 columns map-converter-link">
@@ -107,8 +104,7 @@
         </div>
         <div class="map-overlay hide js-map-search">
           <a class="map-overlay-close js-btn-overlay-close"><svg class="icon-lines is-inline"><use xlink:href="#icon-cross"/></svg></a>
-          <div class="row map-search-container">
-            <br/>
+          <div class="row map-overlay-content">
             {% trans 'Enter the name of a village, city, etc. in the textfield below and select one of the results to zoom to its location.' as msg %}
             {% include "form/helptext.html" with helptext=msg %}
             <input type="search" class="js-map-search-field" placeholder="{% trans "Search for a village, city, etc." %}">

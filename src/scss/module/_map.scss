@@ -125,9 +125,18 @@ $map-height: 600px;
   width: 300px;
   padding: 1rem;
   overflow-y: auto;
+  color: white;
 
-  label, svg, p, h4 {
+  svg, label {
     color: white;
+  }
+
+  label {
+    font-size: inherit;
+  }
+
+  .help-bloc {
+    color: $color-brown-dark;
   }
 
   a {
@@ -138,7 +147,7 @@ $map-height: 600px;
     }
   }
 
-  h4 {
+  strong {
     margin-bottom: 0.5rem;
   }
 
@@ -151,6 +160,10 @@ $map-height: 600px;
   position: absolute;
   top: 0.3rem;
   right: 0;
+}
+
+form .row .row.map-overlay-content {
+  margin-top: 1.5rem;
 }
 
 .map-converter-link {

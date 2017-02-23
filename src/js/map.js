@@ -478,7 +478,7 @@
                 .html(features.length);
 
             var pointsList = thisMapContainer.find('.map-points-list');
-            var pointsHtml = pointsList.data('empty-text');
+            var pointsHtml = '<p>' + pointsList.data('empty-text') + '</p>';
 
             if (features.length) {
                 pointsHtml = $('<ul class="map-point-entries"></ul>');
