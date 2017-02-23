@@ -303,6 +303,9 @@ class BaseSettings(Configuration):
     IS_ACTIVE_FEATURE_SUMMARY = values.BooleanValue(
         environ_prefix='', default=False
     )
+    IS_ACTIVE_FEATURE_FACTSHEET = values.BooleanValue(
+        environ_prefix='', default=False
+    )
 
     SENTRY_DSN = values.Value(environ_prefix='')
 

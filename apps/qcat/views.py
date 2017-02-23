@@ -94,7 +94,6 @@ class FactsTeaserView(TemplateView):
             'created': Questionnaire.with_status.not_deleted().filter(
                 created__gte=self.date_from
             ).count()
-            # add fact: sum of countries with a questionnaire
         }
 
     def get_user_facts(self):
