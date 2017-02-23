@@ -31,7 +31,7 @@
         <section class="tech-list small-12 columns">
           <div class="tech-group">
             <h2 class="is-group">{% trans "Search" %}</h2>
-              <form action="{% url "staff_questionnaires_search" %}" method="get">
+              <form action="{% url "staff_questionnaires_search" %}" method="get" class="questionnaire-search-form">
                 <input type="search" id="search-questionnaires" name="term"
                   data-url="{% url "staff_questionnaires_search" %}"
                   placeholder="{% trans "Search questionnaires by name or compilers name" %}"
@@ -123,7 +123,7 @@
             },
             open: function(event, ui) {
               $(".ui-autocomplete").append(
-                "<a><li class='see-all'>{% trans "See all results... " %}</li></a>"
+                "<li class='see-all'><a>{% trans "See all results... " %}</a></li>"
               );
             }
           }).autocomplete("instance")._renderItem = function(ul, item) {
@@ -133,6 +133,11 @@
                   ")<br>Compiler: " + item.compilers + " | Country: " + item.country
               ).appendTo(ul);
           };
+          // For some reason, previously "focused" li is still active when
+          // hovering over the added link. Remove focus class manually.
+          $("body").on("mouseover", ".see-all", function() {
+            $(this).parent('ul').find('li.ui-state-focus').removeClass('ui-state-focus');
+          });
           $("body").on("click", ".see-all", function() {
               searchInput.parent("form").submit();
           })

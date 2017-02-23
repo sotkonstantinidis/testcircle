@@ -25,9 +25,9 @@ h1.user-details-header {
   padding: 0.5rem;
 }
 
-.questionnaire-search {
-  float: left;
-  width: 90% !important;
+.questionnaire-search-form {
+  margin-top: .375rem;
+  display: flex;
 }
 
 .ui-autocomplete li {
@@ -47,5 +47,17 @@ h1.user-details-header {
     border: 0;
     border-bottom: 1px solid $color-orange-dark;
     margin: 0 0 -1px;
+  }
+
+  &.see-all {
+    padding: 3px 1em 3px .4em;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-orange-light;
+      border: 0;
+      border-bottom: 1px solid $color-orange-dark;
+      margin: 0 0 -1px;
+    }
   }
 }
