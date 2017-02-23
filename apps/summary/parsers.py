@@ -120,8 +120,8 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
             selected = values[0].get(child.keyword, [])
         else:
             if settings.DEBUG:
-                logger.warning('No or more than one list of values '
-                               'is set for {keyword}'.format(child.keyword))
+                logger.warning('No or more than one list of values is set for '
+                               '{keyword}'.format(keyword=child.keyword))
             selected = []
 
         # default is 'checkbox', where multiple elements can be selected.
