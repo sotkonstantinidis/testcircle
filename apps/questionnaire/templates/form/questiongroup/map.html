@@ -98,7 +98,7 @@
             <br/>
             {% trans 'Enter the name of a village, city, etc. in the textfield below and select one of the results to zoom to its location.' as msg %}
             {% include "form/helptext.html" with helptext=msg %}
-            <input type="search" class="js-map-search-field" placeholder="Search for a village, city, etc." data-translation-no-results="{% trans 'No results found' %}" data-translation-too-many-results="{% trans 'Too many results found, please narrow the search' %}" data-current-locale="{{ request.LANGUAGE_CODE }}">
+            <input type="search" class="js-map-search-field" placeholder="{% trans "Search for a village, city, etc." %}">
           </div>
         </div>
         <div>
@@ -141,7 +141,7 @@
 </div>
 
 {% addtoblock 'js' %}
-  <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ GOOGLE_MAPS_JAVASCRIPT_API_KEY }}"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3&key={{ GOOGLE_MAPS_JAVASCRIPT_API_KEY }}&libraries=places"></script>
   <script type="text/javascript" src="{% static 'js/ol3gm.min.js' %}"></script>
   <script src="{% static 'js/jquery-ui.min.js' %}"></script>
   <script src="{% static 'js/map.min.js' %}"></script>
