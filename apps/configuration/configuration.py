@@ -1570,6 +1570,22 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
 
         return config, formsets
 
+    def has_content(self, data):
+        """
+        Whether this subcategory has content (data) or not.
+
+        Args:
+            data: The data dictionary.
+
+        Returns:
+            bool.
+        """
+        for questiongroup in self.questiongroups:
+            questiongroup_data = data.get(questiongroup.keyword, [])
+            if not is_empty_list_of_dicts(questiongroup_data):
+                return True
+        return False
+
     def get_details(self, data={}, links=None, questionnaire_object=None):
         """
         Returns:
@@ -1824,11 +1840,39 @@ class QuestionnaireCategory(BaseConfigurationObject):
             config.update({'configuration': configuration})
         return config, subcategory_formsets
 
+    def get_completeness(self, data):
+        """
+        Return the number of subcategories with content and the total number of
+        subcategories.
+
+        Args:
+            data: The data dictionary.
+
+        Returns:
+            int, int.
+        """
+        complete = 0
+        total = len(self.get_subcategories())
+        for subcategory in self.subcategories:
+            if subcategory.has_content(data) is True:
+                complete += 1
+        return complete, total
+
+    def get_subcategories(self):
+        """
+        Return a list of all subcategories.
+
+        Returns:
+            list.
+        """
+        return [c for c in self.subcategories if
+                c.questiongroups or c.subcategories]
+
     def get_details(
             self, data={}, permissions=[], edit_step_route='',
             questionnaire_object=None, csrf_token=None,
             edited_questiongroups=[], view_mode='view', links=None,
-            review_config=None, user=None):
+            review_config=None, user=None, completeness_percentage=0):
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1899,8 +1943,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
         # disabled. Delete the following line to reenable it.
         has_changes = False
 
-        categories_with_content = [c for c in self.subcategories if
-                                   c.questiongroups or c.subcategories]
+        categories_with_content = self.get_subcategories()
 
         return render_to_string(
             view_template, {
@@ -1929,7 +1972,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'notifications_href': Log.actions.get_url_for_questionnaire(
                     user=user,
                     questionnaire_code=questionnaire_object.code if questionnaire_object else None
-                )
+                ),
+                'completeness_percentage': completeness_percentage,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -2037,10 +2081,30 @@ class QuestionnaireSection(BaseConfigurationObject):
             form_options.update(configuration.get('form_options'))
         self.form_options = form_options
 
+    def get_completeness(self, data):
+        """
+        Return the number of subcategories with content and the total number of
+        subcategories.
+
+        Args:
+            data: The data dictionary.
+
+        Returns:
+            int, int.
+        """
+        complete = 0
+        total = 0
+        for category in self.categories:
+            complete_category, total_category = category.get_completeness(data)
+            total += total_category
+            complete += complete_category
+        return complete, total
+
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None, user=None):
+            edited_questiongroups=[], view_mode='view', links=None, user=None,
+            completeness_percentage=0):
 
         view_template = 'details/section/{}.html'.format(
             self.view_options.get('template', 'default'))
@@ -2053,7 +2117,7 @@ class QuestionnaireSection(BaseConfigurationObject):
                 csrf_token=csrf_token,
                 edited_questiongroups=edited_questiongroups,
                 view_mode=view_mode, links=links, review_config=review_config,
-                user=user))
+                user=user, completeness_percentage=completeness_percentage))
 
         media_content = []
         media_additional = {}
@@ -2181,10 +2245,30 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             return questiongroup.get_question_by_key_keyword(keyword)
         return None
 
+    def get_completeness(self, data):
+        """
+        Return the number of subcategories with content and the total number of
+        subcategories.
+
+        Args:
+            data: The data dictionary.
+
+        Returns:
+            int, int.
+        """
+        complete = 0
+        total = 0
+        for section in self.sections:
+            complete_section, total_section = section.get_completeness(data)
+            complete += complete_section
+            total += total_section
+        return complete, total
+
     def get_details(
             self, data={}, permissions=[], review_config={},
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None, user=None):
+            edited_questiongroups=[], view_mode='view', links=None, user=None,
+            completeness_percentage=0):
         rendered_sections = []
         for section in self.sections:
             rendered_sections.append(section.get_details(
@@ -2195,7 +2279,8 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 edited_questiongroups=edited_questiongroups,
                 view_mode=view_mode,
                 links=links,
-                user=user))
+                user=user,
+                completeness_percentage=completeness_percentage))
         return rendered_sections
 
     def get_toc_data(self):

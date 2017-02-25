@@ -177,13 +177,19 @@ class GlobalValuesMixin:
         }
 
     def get_image_caption(self, index: int) -> str:
-        captions = self.raw_data_getter('images_caption', value='')
-        photographers = self.raw_data_getter('images_photographer', value='')
-        return '{caption} ({photographer})'.format(
-            caption=captions[index].get('value') or '',
-            photographer=photographers[index].get('value') or ''
+        caption = self._get_caption_info('caption', index)
+        photographer = self._get_caption_info('photographer', index)
+        return '{caption}{photographer}'.format(
+            caption=caption,
+            photographer=' ({})'.format(photographer) if photographer else ''
         )
 
+    def _get_caption_info(self, key: str, index: int) -> str:
+        try:
+            items = self.raw_data_getter('images_{}'.format(key), value='')[index]
+            return items.get('value', '')
+        except IndexError:
+            return ''
 
     def conclusion(self):
         # Combine answers from two questions: strengths compiler and landuser

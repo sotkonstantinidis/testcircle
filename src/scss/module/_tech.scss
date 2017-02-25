@@ -546,6 +546,71 @@ a:hover .tech-icon {
   line-height: rem-calc(24);
   border-radius: 0;
 }
+
+.tech-overall-progress {
+  position: relative;
+  height: rem-calc(32);
+  display: block;
+  text-align: center;
+
+  .steps {
+    display: inline-block;
+    line-height: rem-calc(32);
+  }
+  .meter {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+.is-technologies .tech-overall-progress .meter {
+  background-color: rgba($color-tech, 0.3);
+}
+.is-technologies .tech-overall-progress .steps {
+  color: $color-tech;
+}
+.is-technologies .tech-overall-progress {
+  background-color: rgba($color-tech, 0.1);
+}
+.is-approaches .tech-overall-progress .meter {
+  background-color: rgba($color-approach, 0.3);
+}
+.is-approaches .tech-overall-progress .steps {
+  color: $color-approach;
+}
+.is-approaches .tech-overall-progress {
+  background-color: rgba($color-approach, 0.1);
+}
+.is-cca .tech-overall-progress .meter {
+  background-color: rgba($color-cca, 0.3);
+}
+.is-cca .tech-overall-progress .steps {
+  color: $color-cca;
+}
+.is-cca .tech-overall-progress {
+  background-color: rgba($color-cca, 0.1);
+}
+.is-watershed .tech-overall-progress .meter {
+  background-color: rgba($color-watershed, 0.3);
+}
+.is-watershed .tech-overall-progress .steps {
+  color: $color-watershed;
+}
+.is-watershed .tech-overall-progress {
+  background-color: rgba($color-watershed, 0.1);
+}
+.is-unccd .tech-overall-progress .meter {
+  background-color: rgba($color-unccd, 0.3);
+}
+.is-unccd .tech-overall-progress .steps {
+  color: $color-unccd;
+}
+.is-unccd .tech-overall-progress {
+  background-color: rgba($color-unccd, 0.1);
+}
+
 .tech-section-progress {
   position: relative;
   flex: 1;

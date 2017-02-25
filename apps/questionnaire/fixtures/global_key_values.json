@@ -5718,6 +5718,14 @@
     "fields": {
       "translation_type": "questiongroup",
       "data": {
+        "technologies": {
+          "label": {
+            "en": "Add geo-referenced information on the map below"
+          },
+          "helptext": {
+            "en": "Add a point for each technology site that was considered/ analysed in the documentation of this technology. If more than 10 sites were considered, select and add a point for those that are most representative."
+          }
+        },
         "approaches": {
           "helptext": {
             "en": "Specify the centre of the area in which the Approach has been applied."
