@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-23 13:08+0100\n"
-"PO-Revision-Date: 2017-02-23 12:07+0000\n"
+"POT-Creation-Date: 2017-02-25 10:27+0100\n"
+"PO-Revision-Date: 2017-02-25 09:24+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
@@ -19938,11 +19938,8 @@ msgid "Search for a village, city, etc."
 msgstr ""
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:135
-#, fuzzy
-#| msgctxt "watershed label"
-#| msgid "Map layer ID"
 msgid "Map layers:"
-msgstr "Identificación de la capa del mapa"
+msgstr ""
 
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
