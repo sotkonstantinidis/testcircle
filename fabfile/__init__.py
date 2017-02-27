@@ -58,6 +58,9 @@ BRANCH_HOSTINGS = {
     'develop': ['develop'],
     'master': ['master', 'demo'],
 }
+# set this tag to the latest commit to reload config and rebuild cache during
+# the deploy.
+REBUILD_CONFIG_TAG = 'rebuild_config'
 
 
 def set_environment(environment_name):
@@ -121,10 +124,9 @@ def _run_deploy_steps(environment):
     _update_database()
     if _has_config_update_tag():
         _reload_configuration_fixtures()
-        # also rebuild es index?
         _delete_caches()
+        # also rebuild es index?
     _set_maintenance_mode(False)
-    # _rebuild_configuration_cache()
 
     print(green("Everything OK"))
     _access_project()
@@ -163,8 +165,11 @@ def _update_database():
 
 
 def _has_config_update_tag():
-    # read git tags of latest commit and check if a 'flag' tag is set.
-    return True
+    with cd(env.source_folder):
+        git_tags = run('git tag -l --points-at HEAD')
+        return REBUILD_CONFIG_TAG in git_tags.stdout
+
+    return False
 
 
 def _reload_configuration_fixtures():
@@ -172,7 +177,7 @@ def _reload_configuration_fixtures():
 
 
 def _delete_caches():
-    pass
+    _manage_py('delete_caches')
 
 
 def _reload_uwsgi():
