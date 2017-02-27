@@ -571,7 +571,7 @@ class ApproachParser(QuestionnaireParser):
         return {
             'value': self.get_full_range_values(child),
             'bool': {
-                'highlighted': selected != 'app_institutions_no',
+                'highlighted': selected and selected != 'app_institutions_no',
                 'text': child.questiongroup.parent_object.label
             }
         }
@@ -622,7 +622,7 @@ class ApproachParser(QuestionnaireParser):
 
         return {
             "is_subsidised": {
-                "highlighted": none_selected not in selected_groups,
+                "highlighted": selected_groups and none_selected not in selected_groups,
                 "text": _("Subsidies for specific inputs")
             },
             "subsidies": {

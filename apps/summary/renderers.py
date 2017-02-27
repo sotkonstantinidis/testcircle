@@ -5,7 +5,7 @@ import itertools
 import os
 
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 
 from configuration.cache import get_configuration
@@ -1062,7 +1062,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         'items': self.raw_data.get('financing_labour')
                     },
                     'material_support': {
-                        'title': _('Type(s) of support, conditions, and provider(s) of financial/ material support'),
+                        'title': _('Financial/ material support provided to land users'),
                         'text': self.raw_data_getter('financing_material_support'),
                     },
                     'credit': {
