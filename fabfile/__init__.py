@@ -65,11 +65,7 @@ REBUILD_CONFIG_TAG = 'rebuild_config'
 
 def set_environment(environment_name):
     """
-    Set the proper environment and all it's configured values.
-
-    Args:
-        environment_name: string - the dict key for ENVIRONMENTS
-
+    Setup given environment and all its configured values.
     """
     # Put values from configuration to environment.
     env.environment = environment_name
