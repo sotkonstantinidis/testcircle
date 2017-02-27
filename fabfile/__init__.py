@@ -121,7 +121,7 @@ def _run_deploy_steps(environment):
     if _has_config_update_tag():
         _reload_configuration_fixtures()
         _delete_caches()
-        # also rebuild es index?
+        _rebuild_elasticsearch_indexes()
     _set_maintenance_mode(False)
 
     print(green("Everything OK"))
@@ -169,16 +169,20 @@ def _has_config_update_tag():
 
 
 def _reload_configuration_fixtures():
-    _manage_py('loaddata global_key_values technologies approaches cca watershed')
+    _manage_py('loaddata technologies approaches cca watershed')
 
 
 def _delete_caches():
     _manage_py('delete_caches')
 
 
+def _rebuild_elasticsearch_indexes():
+    _manage_py('rebuild_es_indexes')
+
+
 def _reload_uwsgi():
     """Touch the uwsgi-conf to restart the server"""
-    run('touch {}'.format(env.touch_file))
+    run('touch %(touch_file)s' % env)
 
 
 def _set_maintenance_mode(value):
