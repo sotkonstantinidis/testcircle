@@ -1,4 +1,5 @@
 import contextlib
+from multiprocessing.pool import ThreadPool as Pool
 import os
 import time
 import urllib.request
@@ -86,33 +87,14 @@ def set_environment(environment_name):
 @task
 def deploy(branch):
     """
-    Deploy the project.
     Execute with "fab deploy:<branch>".
     """
     if branch not in BRANCH_HOSTINGS.keys():
         raise BaseException('{} is not a valid branch'.format(branch))
 
-    for environment in BRANCH_HOSTINGS[branch]:
-        set_environment(environment)
-        if env.use_deploy_announcement:
-            _set_maintenance_warning()
-
-        _set_maintenance_mode(True)
-        _get_latest_source()
-        _update_virtualenv()
-        _clean_static_folder()
-        _update_static_files()
-        _update_database()
-        if _has_config_update_tag():
-            _reload_configuration_fixtures()
-            # also rebuild es index?
-            _delete_caches()
-        _set_maintenance_mode(False)
-        # _rebuild_configuration_cache()
-
-        print(green("Everything OK"))
-        _access_project()
-        _clean_sessions()
+    pool = Pool(2)
+    for environment in pool.imap_unordered(_run_deploy_steps, BRANCH_HOSTINGS[branch]):
+        print('depolying %s' % environment)
 
 
 @task
@@ -124,6 +106,29 @@ def show_logs(environment_name, file='django.log', n=100):
     run('tail -n {n} {folder}/logs/{file}'.format(
         n=n, folder=env.source_folder, file=file)
     )
+
+
+def _run_deploy_steps(environment):
+    set_environment(environment)
+    if env.use_deploy_announcement:
+        _set_maintenance_warning()
+
+    _set_maintenance_mode(True)
+    _get_latest_source()
+    _update_virtualenv()
+    _clean_static_folder()
+    _update_static_files()
+    _update_database()
+    if _has_config_update_tag():
+        _reload_configuration_fixtures()
+        # also rebuild es index?
+        _delete_caches()
+    _set_maintenance_mode(False)
+    # _rebuild_configuration_cache()
+
+    print(green("Everything OK"))
+    _access_project()
+    _clean_sessions()
 
 
 def _get_latest_source():
