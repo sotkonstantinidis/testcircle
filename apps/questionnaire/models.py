@@ -23,7 +23,7 @@ from staticmap import StaticMap, CircleMarker, Polygon
 
 from accounts.models import User
 from configuration.cache import get_configuration
-from configuration.models import Configuration
+from configuration.models import Configuration, Value
 from qcat.errors import ConfigurationError
 from .signals import change_status, create_questionnaire
 
@@ -554,12 +554,24 @@ class Questionnaire(models.Model):
             # omit additional query
             return name
 
-        original_lang = self.questionnairetranslation_set.first()
+        original_lang = self.questionnairetranslation_set.filter(
+            original_language=True
+        ).first()
         if original_lang and names.get(original_lang.language):
             return names[original_lang.language]
 
         return ''
 
+    def get_countries(self) -> []:
+        """
+        Return list of translated country names.
+        """
+        codes = self.get_question_data('qg_location', 'country')
+        if codes:
+            values = Value.objects.filter(keyword__in=codes)
+            if values.exists():
+                return [value.get_translation(keyword='label') for value in values]
+        return []
 
     def update_geometry(self, configuration_code):
         """

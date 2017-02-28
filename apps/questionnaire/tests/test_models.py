@@ -10,13 +10,15 @@ from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.utils.translation import activate
 from unittest.mock import patch, Mock
+from model_mommy import mommy
 
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
-from configuration.models import Configuration
+from configuration.models import Configuration, Value
 from qcat.tests import TestCase
 from questionnaire.errors import QuestionnaireLockedException
-from questionnaire.models import Questionnaire, QuestionnaireLink, File, Lock
+from questionnaire.models import Questionnaire, QuestionnaireLink, File, Lock, \
+    QuestionnaireTranslation
 
 from ..conf import settings
 
@@ -56,6 +58,13 @@ class QuestionnaireModelTest(TestCase):
 
     def setUp(self):
         self.user = create_new_user()
+
+    def get_questionnaire_with_name(self):
+        return mommy.make(
+            Questionnaire,
+            data={'qg_1': [{'key_1': {'en': 'bread', 'fr': 'le baguette'}}]},
+            configurations=[Configuration.objects.get(code='sample_core')]
+        )
 
     def test_requires_data(self):
         questionnaire = Questionnaire()
@@ -730,6 +739,52 @@ class QuestionnaireModelTest(TestCase):
         questionnaire_1.add_link(questionnaire_3)
         links_property = questionnaire_1.links_property
         self.assertEqual(len(links_property), 1)
+
+    def test_get_name(self):
+        self.assertDictEqual(
+            self.get_questionnaire_with_name().get_name(),
+            'bread'
+        )
+
+    def test_get_french_name(self):
+        self.assertEqual(
+            self.get_questionnaire_with_name().get_name('fr'),
+            'le baguette'
+        )
+
+    def test_get_name_fallback(self):
+        qs = self.get_questionnaire_with_name()
+        mommy.make(
+            QuestionnaireTranslation,
+            questionnaire=qs,
+            language='fr',
+            original_language=True
+        )
+        self.assertEqual(
+            qs.get_name('it'),
+            'le baguette'
+        )
+
+    def test_get_name_empty(self):
+        self.assertEqual(
+            self.get_questionnaire_with_name().get_name('it'),
+            ''
+        )
+
+    def test_get_countries_no_country(self):
+        qs = self.get_questionnaire_with_name()
+        self.assertEqual(qs.get_countries(), [])
+
+    def test_get_countries(self):
+        mommy.make(Value, keyword='foo')
+        qs = mommy.make(
+            Questionnaire,
+            data={'qg_location': [{'country': 'foo'}]}
+        )
+        with patch.object(Value, 'get_translation') as mock_get_translation:
+            qs.get_countries()
+            mock_get_translation.assert_called_once_with(keyword='label')
+
 
 class FileModelTest(TestCase):
 
