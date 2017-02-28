@@ -121,6 +121,7 @@ def _run_deploy_steps(environment):
     if _has_config_update_tag():
         _reload_configuration_fixtures()
         _delete_caches()
+        _reload_uwsgi()
         _rebuild_elasticsearch_indexes()
     _set_maintenance_mode(False)
 
