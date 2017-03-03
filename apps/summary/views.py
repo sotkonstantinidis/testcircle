@@ -19,13 +19,38 @@ from summary.renderers import TechnologyFullSummaryRenderer, \
 logger = logging.getLogger(__name__)
 
 
+class CachedPDFTemplateResponse(PDFTemplateResponse):
+    """
+    Creating the pdf includes two resource-heavy processes:
+    - extracting the json to markup (frontend)
+    - call to wkhtmltopdf (backend)
+
+    Therefore, the content is created only once per filename (which should
+    distinguish between new questionnaire edits). This only works with
+    reasonably precise file names!
+    """
+
+    @property
+    def rendered_content(self):
+        file_path = join(settings.SUMMARY_PDF_PATH, self.filename)
+        if isfile(file_path):
+            # Catch any exception, worst case is that the pdf is created from
+            # scratch again
+            with contextlib.suppress(Exception) as e:
+                return open(file_path, 'rb').read()
+
+        content = super().rendered_content
+        with contextlib.suppress(Exception) as e:
+            open(file_path, 'wb').write(content)
+
+        return content
+
+
 class SummaryPDFCreateView(PDFTemplateView):
     """
     Put the questionnaire data to the context and return the rendered pdf.
     """
-    # Activate this as soon as frontend is finished.
-    # response_class = CachedPDFTemplateResponse
-
+    response_class = CachedPDFTemplateResponse
     # Refactor this when more than one summary type is available.
     summary_type = 'full'
     base_template_path = 'summary/'
@@ -122,34 +147,3 @@ class SummaryPDFCreateView(PDFTemplateView):
         context['block'] = self.get_prepared_data(self.questionnaire)
         context.update(self.get_footer_context())
         return context
-
-
-class CachedPDFTemplateResponse(PDFTemplateResponse):
-    """
-    Creating the pdf includes two resource-heavy processes:
-    - extracting the json to markup (frontend)
-    - call to wkhtmltopdf (backend)
-
-    Therefore, the content is created only once per filename (which should
-    distinguish between new questionnaire edits). This only works with
-    reasonably precise file names!
-    """
-
-    @property
-    def rendered_content(self):
-        file_path = join(settings.SUMMARY_PDF_PATH, self.filename)
-        if isfile(file_path):
-            with contextlib.suppress(Exception) as e:
-                # Catch any kind of error and log it. PDF is created from
-                # scratch again.
-                logger.warning(
-                    "Couldn't open pdf summary from disk: {}".format(e))
-                return open(file_path, 'rb').read()
-
-        content = super().rendered_content
-        with contextlib.suppress(Exception) as e:
-            # Again, intentionally catch any kind of exception.
-            logger.warning(
-                "Couldn't write pdf summary from disk: {}".format(e))
-            open(file_path, 'wb').write(content)
-        return content
