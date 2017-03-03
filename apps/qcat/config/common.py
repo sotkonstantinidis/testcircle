@@ -152,17 +152,17 @@ class BaseSettings(Configuration):
     THUMBNAIL_ALIASES = {
         'summary': {
             'header_image': {
-                'size': (2512, 700),
+                'size': (2512, 800),
                 'crop': 'smart',
                 'upscale': True
             },
             'half_height': {
-                'size': (400, 290),
+                'size': (400, 350),
                 'crop': 'smart',
                 'upscale': True
             },
             'map': {
-                'size': (300, 0)
+                'size': (280, 0)
             },
             'flow_chart': {
                 'size': (450, 0)
