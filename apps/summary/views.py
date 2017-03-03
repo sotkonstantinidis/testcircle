@@ -51,8 +51,7 @@ class SummaryPDFCreateView(PDFTemplateView):
     Put the questionnaire data to the context and return the rendered pdf.
     """
     response_class = CachedPDFTemplateResponse
-    # Refactor this when more than one summary type is available.
-    summary_type = 'full'
+    summary_type = 'full'  # Only one summary type is available right now
     base_template_path = 'summary/'
     http_method_names = ['get']
     render_classes = {
@@ -104,7 +103,7 @@ class SummaryPDFCreateView(PDFTemplateView):
 
     def get_summary_data(self, **data):
         """
-        Load summary config according to configuration.
+        Get summary data from renderer according to configuration.
         """
         try:
             renderer = self.render_classes[self.config.keyword][self.summary_type]
@@ -139,10 +138,6 @@ class SummaryPDFCreateView(PDFTemplateView):
         }
 
     def get_context_data(self, **kwargs):
-        """
-        Dump json to the context, the markup for the pdf is created with a js
-        library in the frontend.
-        """
         context = super().get_context_data(**kwargs)
         context['block'] = self.get_prepared_data(self.questionnaire)
         context.update(self.get_footer_context())
