@@ -5,6 +5,7 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from django.db.models import Q
 from django.http import Http404
 from django.http import HttpResponseRedirect, JsonResponse
@@ -342,7 +343,14 @@ def user_update(request):
         return JsonResponse(ret)
 
     # Update (or insert) the user details in the local database
-    user, created = User.objects.get_or_create(pk=user_uid)
+    try:
+        user, created = User.objects.get_or_create(
+            pk=user_uid, email=user_info.get('username'))
+    except IntegrityError:
+        ret['message'] = 'Duplicate email address "{}"'.format(
+            user_info.get('username'))
+        return JsonResponse(ret)
+
     typo3_client.update_user(user, user_info)
 
     ret = {
