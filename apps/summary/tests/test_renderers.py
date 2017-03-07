@@ -8,13 +8,13 @@ from summary.renderers import SummaryRenderer, GlobalValuesMixin
 class SummaryDataProviderTest(TestCase):
     def test_summary_type(self):
         with self.assertRaises(NotImplementedError):
-            SummaryRenderer(config='', questionnaire='')
+            SummaryRenderer(config='', questionnaire='', base_url='')
 
     @patch.object(QuestionnaireParser, '__init__')
     def test_content(self, mock_raw_data):
         mock_raw_data.return_value = {}
         with self.assertRaises(NotImplementedError):
-            SummaryRenderer(config='', questionnaire='')
+            SummaryRenderer(config='', questionnaire='', base_url='')
 
 
 class GlobalValuesMixinTest(TestCase):
@@ -27,7 +27,7 @@ class GlobalValuesMixinTest(TestCase):
             def sample(self):
                 return sentinel.sample_value
 
-        self.obj = Tmp(config=MagicMock(), questionnaire='')
+        self.obj = Tmp(config=MagicMock(), questionnaire='', base_url='')
 
     def test_raw_data_getter(self):
         # data as structured by the configured questionnaire summary

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-21 13:15+0100\n"
-"PO-Revision-Date: 2017-02-21 12:12+0000\n"
+"POT-Creation-Date: 2017-02-25 10:27+0100\n"
+"PO-Revision-Date: 2017-02-25 09:24+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Portuguese (http://www.transifex.com/university-of-bern-cde/"
 "qcat/language/pt/)\n"
@@ -16546,24 +16546,24 @@ msgid "Media Gallery"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:26
-#: apps/questionnaire/templates/form/questiongroup/map.html:48
+#: apps/questionnaire/templates/form/questiongroup/map.html:78
 msgid "Number of points on the map"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:28
-#: apps/questionnaire/templates/form/questiongroup/map.html:50
+#: apps/questionnaire/templates/form/questiongroup/map.html:80
 msgid "Zoom to all points on the map"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:36
-#: apps/questionnaire/templates/form/questiongroup/map.html:69
-#: apps/questionnaire/templates/form/questiongroup/map.html:91
+#: apps/questionnaire/templates/form/questiongroup/map.html:88
+#: apps/questionnaire/templates/form/questiongroup/map.html:120
 msgid "List of all points on the map:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/modal_map.html:37
-#: apps/questionnaire/templates/form/questiongroup/map.html:70
-#: apps/questionnaire/templates/form/questiongroup/map.html:92
+#: apps/questionnaire/templates/form/questiongroup/map.html:89
+#: apps/questionnaire/templates/form/questiongroup/map.html:121
 msgid "No points on the map."
 msgstr ""
 
@@ -16649,7 +16649,6 @@ msgid "Search user"
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:66
-#: apps/questionnaire/templates/form/questiongroup/map.html:101
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
@@ -16658,7 +16657,6 @@ msgid "No results found"
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
-#: apps/questionnaire/templates/form/questiongroup/map.html:101
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
@@ -16672,6 +16670,7 @@ msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/_delete.html:7
 #: apps/questionnaire/templates/details/review_panel/_delete.html:41
+#: apps/questionnaire/templates/form/questiongroup/map.html:98
 msgid "Delete"
 msgstr ""
 
@@ -17441,31 +17440,65 @@ msgstr ""
 msgid "Add More"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:35
+#: apps/questionnaire/templates/form/questiongroup/map.html:24
+#, python-format
+msgid ""
+"\n"
+"      <p>Choose map layers, using the dropdown menus on top of the map "
+"image. You can overlay the selected map layers by moving the slider.</p>\n"
+"      <p>Zoom into your area / location by using one of the following "
+"methods:</p>\n"
+"      <ul>\n"
+"        <li>Use +/- buttons on the top left of the map</li>\n"
+"        <li>Use the mouse wheel</li>\n"
+"        <li>Search a location by entering a location name using the "
+"%(button_search)s button</li>\n"
+"      </ul>\n"
+"      <p>Add points on the map by using one of the following methods:</p>\n"
+"      <ul>\n"
+"        <li>Set a point using the %(button_pin)s button</li>\n"
+"        <li>Set a point based on GPS coordinates using the %(button_gps)s "
+"button</li>\n"
+"      </ul>\n"
+"      <p>Use the edit and delete buttons to move points, delete single "
+"points or delete all points from the map</p>\n"
+"      <p>Click on the “number” button to display a list of all points. Here "
+"you can also delete single points.</p>\n"
+"    "
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:54
 msgid "Add a point by clicking on the map"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:39
-msgid "Click and hold an existing point on the map to move it."
-msgstr ""
-
-#: apps/questionnaire/templates/form/questiongroup/map.html:43
-msgid "Delete an existing point on the map by clicking it."
-msgstr ""
-
-#: apps/questionnaire/templates/form/questiongroup/map.html:53
-msgid "Delete all points from the map"
-msgstr ""
-
-#: apps/questionnaire/templates/form/questiongroup/map.html:58
+#: apps/questionnaire/templates/form/questiongroup/map.html:57
 msgid "Set a point based on GPS coordinates"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:61
+#: apps/questionnaire/templates/form/questiongroup/map.html:60
 msgid "Search and zoom to a location on the map"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:77
+#: apps/questionnaire/templates/form/questiongroup/map.html:66
+msgid "Click and hold an existing point on the map to move it."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:70
+msgid "Delete an existing point on the map by clicking it."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:73
+#: apps/questionnaire/templates/form/questiongroup/map.html:96
+msgid "Delete all points from the map"
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:97
+msgid ""
+"Are you sure you want to delete all the points from the map? This cannot be "
+"undone."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:106
 msgid ""
 "Please enter the coordinates in the field below. The coordinates must be in "
 "decimal degrees of format \"Latitude, Longitude\", eg. 46.9526, 7.4352. Use "
@@ -17473,14 +17506,22 @@ msgid ""
 "degrees."
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:83
+#: apps/questionnaire/templates/form/questiongroup/map.html:112
 msgid "Coordinates:"
 msgstr ""
 
-#: apps/questionnaire/templates/form/questiongroup/map.html:99
+#: apps/questionnaire/templates/form/questiongroup/map.html:127
 msgid ""
 "Enter the name of a village, city, etc. in the textfield below and select "
 "one of the results to zoom to its location."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:129
+msgid "Search for a village, city, etc."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/map.html:135
+msgid "Map layers:"
 msgstr ""
 
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47

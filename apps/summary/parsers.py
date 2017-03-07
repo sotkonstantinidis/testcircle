@@ -120,8 +120,8 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
             selected = values[0].get(child.keyword, [])
         else:
             if settings.DEBUG:
-                logger.warning('No or more than one list of values '
-                               'is set for {keyword}'.format(child.keyword))
+                logger.warning('No or more than one list of values is set for '
+                               '{keyword}'.format(keyword=child.keyword))
             selected = []
 
         # default is 'checkbox', where multiple elements can be selected.
@@ -521,7 +521,11 @@ class ApproachParser(QuestionnaireParser):
         groups = child.questiongroup.parent_object.questiongroups
         # the first element in the group contains the labels of filled in
         # questiongroups
-        labels = self.values.get(groups[0].keyword)[0].get('app_stakeholders')
+        label_values = self.values.get(groups[0].keyword)
+        if not label_values:
+            return
+
+        labels = label_values[0].get('app_stakeholders')
         for pos, group in itertools.islice(enumerate(groups), 1):
             try:
                 values = self.values[group.keyword][0]
@@ -567,7 +571,7 @@ class ApproachParser(QuestionnaireParser):
         return {
             'value': self.get_full_range_values(child),
             'bool': {
-                'highlighted': selected != 'app_institutions_no',
+                'highlighted': selected and selected != 'app_institutions_no',
                 'text': child.questiongroup.parent_object.label
             }
         }
@@ -618,8 +622,8 @@ class ApproachParser(QuestionnaireParser):
 
         return {
             "is_subsidised": {
-                "highlighted": none_selected not in selected_groups,
-                "text": _("Financial/ material support")
+                "highlighted": selected_groups and none_selected not in selected_groups,
+                "text": _("Subsidies for specific inputs")
             },
             "subsidies": {
                 "title": child.questiongroup.parent_object.label,
@@ -649,7 +653,10 @@ class ApproachParser(QuestionnaireParser):
         return SubsidiesRow(questiongroup, **values)
 
     def get_impacts_motivation(self, child: QuestionnaireQuestion):
-        selected = self.values.get(child.questiongroup.keyword)[0].get(child.keyword)
+        selected_values = self.values.get(child.questiongroup.keyword)
+        if not selected_values:
+            return
+        selected = selected_values[0].get(child.keyword)
         for keyword, label in dict(child.choices).items():
             yield {
                 'highlighted': keyword in selected,

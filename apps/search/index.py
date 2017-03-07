@@ -2,12 +2,14 @@ from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
 
+from configuration.models import Configuration
+from configuration.utils import ConfigurationList
+from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
 from .utils import (
     get_analyzer,
     get_alias,
     force_strings)
-from configuration.utils import ConfigurationList
 
 
 def get_elasticsearch():
@@ -315,6 +317,20 @@ def put_questionnaire_data(configuration_code, questionnaire_objects):
 
     es.indices.refresh(index=alias)
     return actions_executed, errors
+
+
+def put_all_data():
+    """
+    Put data from all configurations to the es index.
+    """
+    configurations = Configuration.objects.filter(active=True)
+    for configuration in configurations:
+        put_questionnaire_data(
+            configuration,
+            Questionnaire.with_status.public().filter(
+                configurations__code=configuration
+            )
+        )
 
 
 def delete_questionnaires_from_es(configuration_code, questionnaire_objects):

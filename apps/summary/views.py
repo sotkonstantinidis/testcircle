@@ -19,15 +19,39 @@ from summary.renderers import TechnologyFullSummaryRenderer, \
 logger = logging.getLogger(__name__)
 
 
+class CachedPDFTemplateResponse(PDFTemplateResponse):
+    """
+    Creating the pdf includes two resource-heavy processes:
+    - extracting the json to markup (frontend)
+    - call to wkhtmltopdf (backend)
+
+    Therefore, the content is created only once per filename (which should
+    distinguish between new questionnaire edits). This only works with
+    reasonably precise file names!
+    """
+
+    @property
+    def rendered_content(self):
+        file_path = join(settings.SUMMARY_PDF_PATH, self.filename)
+        if isfile(file_path):
+            # Catch any exception, worst case is that the pdf is created from
+            # scratch again
+            with contextlib.suppress(Exception) as e:
+                return open(file_path, 'rb').read()
+
+        content = super().rendered_content
+        with contextlib.suppress(Exception) as e:
+            open(file_path, 'wb').write(content)
+
+        return content
+
+
 class SummaryPDFCreateView(PDFTemplateView):
     """
     Put the questionnaire data to the context and return the rendered pdf.
     """
-    # Activate this as soon as frontend is finished.
-    # response_class = CachedPDFTemplateResponse
-
-    # Refactor this when more than one summary type is available.
-    summary_type = 'full'
+    response_class = CachedPDFTemplateResponse
+    summary_type = 'full'  # Only one summary type is available right now
     base_template_path = 'summary/'
     http_method_names = ['get']
     render_classes = {
@@ -79,7 +103,7 @@ class SummaryPDFCreateView(PDFTemplateView):
 
     def get_summary_data(self, **data):
         """
-        Load summary config according to configuration.
+        Get summary data from renderer according to configuration.
         """
         try:
             renderer = self.render_classes[self.config.keyword][self.summary_type]
@@ -105,10 +129,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         """
         Provide variables used in the footer template.
         """
-        questionnaire_names = self.config.get_questionnaire_name(
-            self.questionnaire.data
-        )
-        name = questionnaire_names.get(get_language(), questionnaire_names['en'])
+        name = self.questionnaire.get_name()
         if len(name) > 50:
             name = '{}...'.format(name[:47])
         return {
@@ -117,42 +138,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         }
 
     def get_context_data(self, **kwargs):
-        """
-        Dump json to the context, the markup for the pdf is created with a js
-        library in the frontend.
-        """
         context = super().get_context_data(**kwargs)
         context['block'] = self.get_prepared_data(self.questionnaire)
         context.update(self.get_footer_context())
         return context
-
-
-class CachedPDFTemplateResponse(PDFTemplateResponse):
-    """
-    Creating the pdf includes two resource-heavy processes:
-    - extracting the json to markup (frontend)
-    - call to wkhtmltopdf (backend)
-
-    Therefore, the content is created only once per filename (which should
-    distinguish between new questionnaire edits). This only works with
-    reasonably precise file names!
-    """
-
-    @property
-    def rendered_content(self):
-        file_path = join(settings.SUMMARY_PDF_PATH, self.filename)
-        if isfile(file_path):
-            with contextlib.suppress(Exception) as e:
-                # Catch any kind of error and log it. PDF is created from
-                # scratch again.
-                logger.warning(
-                    "Couldn't open pdf summary from disk: {}".format(e))
-                return open(file_path, 'rb').read()
-
-        content = super().rendered_content
-        with contextlib.suppress(Exception) as e:
-            # Again, intentionally catch any kind of exception.
-            logger.warning(
-                "Couldn't write pdf summary from disk: {}".format(e))
-            open(file_path, 'wb').write(content)
-        return content
