@@ -312,7 +312,8 @@ class QuestionnaireSearchView(LoginRequiredMixin, ListView):
                     [compiler['name'] for compiler in questionnaire.compilers]
                 ),
                 'country': ', '.join(questionnaire.get_countries()),
-                'status': questionnaire.get_status_display()
+                'status': questionnaire.get_status_display(),
+                'id': questionnaire.id,
             }
 
     def get_context_data(self, **kwargs):
