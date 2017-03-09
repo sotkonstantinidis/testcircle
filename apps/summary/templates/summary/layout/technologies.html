@@ -1,6 +1,6 @@
-{% load compress %}
 {% load static %}
 {% load i18n %}
+{% load file_hash %}
 
 
 <!DOCTYPE html>
@@ -10,9 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% trans "Summary" %}</title>
-    {% compress css %}
-      <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
-    {% endcompress %}
+    <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}?version={% summary_css_hash %}" />
   </head>
   <body class="summary is-technologies">
     {% include 'summary/block/header_image.html' with content=block.header_image.partials %}
