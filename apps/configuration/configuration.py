@@ -1972,7 +1972,6 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
-                'IS_ACTIVE_FEATURE_SUMMARY': settings.IS_ACTIVE_FEATURE_SUMMARY,
                 'notifications_href': Log.actions.get_url_for_questionnaire(
                     user=user,
                     questionnaire_code=questionnaire_object.code if questionnaire_object else None

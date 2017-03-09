@@ -7217,7 +7217,13 @@
       "keyword": "app_financial_support_specify",
       "translation": 7132,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "financing_material_support"
+          }
+        }
       }
     },
     "model": "configuration.key",

@@ -5,7 +5,7 @@ import itertools
 import os
 
 from django.conf import settings
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 
 from configuration.cache import get_configuration
@@ -89,8 +89,8 @@ class GlobalValuesMixin:
         Get the first 'value' for given key from the data.
         """
         try:
-            val = self.raw_data[key][0][value] if value else self.raw_data[key]
-            return val if val else ''
+            value = self.raw_data[key][0][value] if value else self.raw_data[key]
+            return value or ''
         except (AttributeError, TypeError, KeyError, IndexError):
             return ''
 
@@ -109,10 +109,11 @@ class GlobalValuesMixin:
         pictures element.
         """
         image = self.raw_data_getter('header_image_image')
-        text = '{caption} {remarks} ({name})'.format(
+        photographer = self.raw_data_getter('header_image_photographer')
+        text = '{caption} {remarks} {name}'.format(
             caption=self.raw_data_getter('header_image_caption'),
             remarks=self.raw_data_getter('header_image_remarks'),
-            name=self.raw_data_getter('header_image_photographer')
+            name='({})'.format(photographer) if photographer else ''
         )
         if not image:
             image_urls = self.raw_data_getter('images_image', value='')
@@ -341,7 +342,7 @@ class GlobalValuesMixin:
                 )
                 yield {'text': '{config}: {name} (<a href="{url}">{url}</a>)'.format(
                     config=config.first().name,
-                    name=name.get(get_language(), name.get('en')),
+                    name=self.questionnaire.get_name(),
                     url=self.base_url + link.to_questionnaire.get_absolute_url())
                 }
 
@@ -405,6 +406,12 @@ class GlobalValuesMixin:
             )
         )
 
+    def get_location_values(self, *fields):
+        for field in fields:
+            value = self.raw_data_getter(field)
+            if value:
+                yield value
+
 
 class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
@@ -431,9 +438,6 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         return data
 
     def location(self):
-        title_keys = ['location_further', 'location_state_province', 'country']
-        title_text = [self.raw_data_getter(key) for key in title_keys if
-                      self.raw_data_getter(key)]
 
         return {
             'title': _('Location'),
@@ -447,7 +451,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'infos': {
                     'location': {
                         'title': _('Location'),
-                        'text': ', '.join(title_text)
+                        'text': ', '.join(self.get_location_values(
+                            'location_further', 'location_state_province', 'country')
+                        )
                     },
                     'sites': {
                         'title': 'No. of Technology sites analysed',
@@ -480,7 +486,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             # structure as required for an unordered list.
             slm_group = [{'text': text for text in slm_group}]
         except (KeyError, IndexError):
-            slm_group = None
+            slm_group = self.n_a
 
         return {
             'title': _('Classification of the Technology'),
@@ -500,15 +506,15 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         'text': [
                             {
                                 'title': _('Number of growing seasons per year'),
-                                'text': self.string_from_list('classification_growing_seasons')
+                                'text': self.string_from_list('classification_growing_seasons') or self.n_a
                             },
                             {
                                 'title': _('Land use before implementation of the Technology'),
-                                'text': self.raw_data_getter('classification_lu_before')
+                                'text': self.raw_data_getter('classification_lu_before') or self.n_a
                             },
                             {
                                 'title': _('Livestock density'),
-                                'text': self.raw_data_getter('classification_livestock')
+                                'text': self.raw_data_getter('classification_livestock') or self.n_a
                             }
                         ]
                     }
@@ -527,7 +533,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'measures': {
                     'title': _('SLM measures'),
-                    'partials': self.raw_data.get('classification_measures')
+                    'partials': self.raw_data.get('classification_measures') or self.n_a
                 }
             }
         }
@@ -577,7 +583,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'establishment': {
                     'title': _('Establishment activities'),
-                    'list': self._get_establishment_list_items('establishment'),
+                    'list': list(self._get_establishment_list_items('establishment')),
                     'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
                         'title': _('Establishment inputs and costs per ha'),
@@ -586,7 +592,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'maintenance': {
                     'title': _('Maintenance activities'),
-                    'list': self._get_establishment_list_items('maintenance'),
+                    'list': list(self._get_establishment_list_items('maintenance')),
                     'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
                         'title': 'Maintenance inputs and costs per ha',
@@ -597,6 +603,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         }
 
     def _get_establishment_list_items(self, content_type: str):
+        """
+        Combine measure type and timing for identical question groups.
+        """
         activity = 'establishment_{}_activities'.format(content_type)
         measure = 'establishment_{}_measure_type'.format(content_type)
         timing = 'establishment_{}_timing'.format(content_type)
@@ -639,7 +648,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'specifications': {
                     'title': _('Specifications on climate'),
-                    'text': self.raw_data_getter('natural_env_climate_zone_text')
+                    'text': self.raw_data_getter('natural_env_climate_zone_text') or self.n_a
                 },
                 'slope': {
                     'title': _('Slope'),
@@ -861,11 +870,9 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'infos': {
                     'location': {
                         'title': _('Location'),
-                        'text': '{detail}, {prov}, {country}'.format(
-                            detail=self.raw_data_getter('location_further'),
-                            prov=self.raw_data_getter('location_state_province'),
-                            country=self.raw_data_getter('country')
-                        )
+                        'text': ', '.join(self.get_location_values(
+                            'location_further', 'location_state_province', 'country'
+                        ))
                     },
                     'geo_reference': self.raw_data.get(
                         'location_map_data', {}
@@ -873,12 +880,12 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'start_date': {
                         'title': _('Initiation date'),
                         'text': self.raw_data_getter(
-                            'location_initiation_year') or _('unknown')
+                            'location_initiation_year') or self.n_a
                     },
                     'end_date': {
                         'title': _('Year of termination'),
                         'text': self.raw_data_getter(
-                            'location_termination_year') or '*'
+                            'location_termination_year') or self.n_a
                     },
                     'introduction': {
                         'title': _('Type of Approach'),
@@ -1040,12 +1047,12 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'addendum': _('Precise annual budget: {}'.format(self.raw_data_getter('financing_budget_precise') or self.n_a))
                 },
                 'services': {
-                    'title': _('The following services of incentives have been provided to land users'),
+                    'title': _('The following services or incentives have been provided to land users'),
                     'items': [
                         self.raw_data.get('financing_is_financing'),
+                        self.raw_data.get('financing_subsidies', {}).get('is_subsidised'),
                         self.raw_data.get('financing_is_credit'),
                         self.raw_data.get('financing_is_other'),
-                        self.raw_data.get('financing_subsidies', {}).get('is_subsidised')
                     ]
                 },
                 'subsidies': {
@@ -1053,6 +1060,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'labour': {
                         'title': _('Labour by land users was'),
                         'items': self.raw_data.get('financing_labour')
+                    },
+                    'material_support': {
+                        'title': _('Financial/ material support provided to land users'),
+                        'text': self.raw_data_getter('financing_material_support'),
                     },
                     'credit': {
                         'title': 'Credit',
@@ -1087,7 +1098,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'motivation': {
                     'title': _('Main motivation of land users to implement SLM'),
-                    'items': self.raw_data.get('impacts_motivation')
+                    'items': self.raw_data.get('impacts_motivation') or self.n_a
                 },
                 'sustainability': {
                     'title': _('Sustainability of Approach activities'),

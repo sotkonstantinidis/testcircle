@@ -7,7 +7,7 @@
 body.summary {
   $base-line-height: 1rem;
   background-color: white;
-  font-size: 0.75rem;
+  font-size: $base-font-size;
   text-rendering: optimizeLegibility;
   letter-spacing: -0.02rem;
   line-height: $base-line-height;
@@ -23,7 +23,7 @@ body.summary {
 
   h1 {
     font-size: $h1-font-size;
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
 
   }
   h2 {
@@ -133,15 +133,14 @@ body.summary {
     }
   }
   .header-img {
-    height: 350px;
+    height: 460px;
     width: 100%;
     background-size: cover;
     background-repeat: no-repeat;
     max-width: 100%;
   }
   .img-caption {
-    background-color: rgba(85,116,49,.8);
-    color: white;
+    background-color: rgba(85,116,49,.15);
     padding: 0.1rem 1rem 0.2rem 0.4rem;
     font-size: 0.6rem;
     line-height: 0.8rem;
@@ -149,7 +148,7 @@ body.summary {
   }
 
   &.is-approaches .img-caption {
-    background-color: #e86b28;
+    background-color: rgba(232, 107, 40, .15);
   }
 
   .tech-section-content {
@@ -157,10 +156,12 @@ body.summary {
   }
 
   .tech-section-header {
-/*    background-color: #edf0ea;
-*/    h2 {
+    background-color: rgba(85,116,49,.8);
+
+    h2 {
       padding-left: 0.4rem;
       width: auto;
+      color: #fff;
     }
   }
 
@@ -175,19 +176,19 @@ body.summary {
   .img-column
   {
     width:auto;
-    max-height: 290px;
+    max-height: 310px;
   }
 
   .img-column-container
   {
     background-color: rgba(85, 116, 49, 0.15);
     width: 100%;
-    height:290px;
+    height:310px;
   }
 
   .img-column-container img
   {
-    height: 290px;
+    height: 310px;
   }
 
   &.is-approaches .img-column-container
@@ -242,7 +243,7 @@ body.summary {
   .technology_table td
   {
     border: 0 solid black;
-    font-size: 0.75rem;
+    font-size: $base-font-size;
     background-color: white;
     line-height: $base-line-height;
     letter-spacing: -0.02rem;
@@ -413,6 +414,9 @@ body.summary {
  &.is-approaches hr
  {
     border-top: 1px solid rgba($color-approach, 0.15);
+ }
+ &.is-approaches .tech-section-header {
+    background-color: rgb(232, 107, 40) !important;
  }
 
  .rotate

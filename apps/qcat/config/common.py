@@ -152,16 +152,17 @@ class BaseSettings(Configuration):
     THUMBNAIL_ALIASES = {
         'summary': {
             'header_image': {
-                'size': (0, 700),
+                'size': (0, 920),
                 'crop': 'smart',
                 'upscale': True
             },
             'half_height': {
-                'size': (0, 290),
+                'size': (400, 350),
                 'crop': 'smart',
+                'upscale': True
             },
             'map': {
-                'size': (300, 0)
+                'size': (280, 0)
             },
             'flow_chart': {
                 'size': (450, 0)
@@ -300,7 +301,7 @@ class BaseSettings(Configuration):
     IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
         environ_prefix='', default=False
     )
-    IS_ACTIVE_FEATURE_SUMMARY = values.BooleanValue(
+    IS_ACTIVE_FEATURE_FACTSHEET = values.BooleanValue(
         environ_prefix='', default=False
     )
 
@@ -322,7 +323,7 @@ class BaseSettings(Configuration):
     # Settings for piwik integration. Tracking happens in the frontend
     # (base template) and backend (API)
     PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)
-    PIWIK_URL = values.Value(environ_prefix='')
+    PIWIK_URL = values.Value(environ_prefix='', default='https://piwik.wocat.net/')
     PIWIK_AUTH_TOKEN = values.Value(environ_prefix='')
     PIWIK_API_VERSION = values.IntegerValue(environ_prefix='', default=1)
 
