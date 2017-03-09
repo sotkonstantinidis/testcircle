@@ -33,7 +33,7 @@ class DataLookup(Lookup):
     """
     lookup_name = 'qs_data'
 
-    def as_sql(self, compiler, connection):
+    def as_postgresql(self, compiler, connection):
         lhs, lhs_params = self.process_lhs(compiler, connection)
         rhs, rhs_params = self.process_rhs(compiler, connection)
 
