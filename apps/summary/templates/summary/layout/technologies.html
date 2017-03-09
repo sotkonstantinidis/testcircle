@@ -1,4 +1,7 @@
+{% load compress %}
 {% load static %}
+{% load i18n %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,8 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Summary</title>
-    <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
+    <title>{% trans "Summary" %}</title>
+    {% compress css %}
+      <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}" />
+    {% endcompress %}
   </head>
   <body class="summary is-technologies">
     {% include 'summary/block/header_image.html' with content=block.header_image.partials %}
