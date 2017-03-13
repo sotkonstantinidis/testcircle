@@ -94,7 +94,7 @@ def deploy(branch):
         raise BaseException('{} is not a valid branch'.format(branch))
 
     for environment in BRANCH_HOSTINGS[branch]:
-        print('depolying %s' % environment)
+        print('deploying %s' % environment)
         # use execute, so task can run in parallel.
         execute(
             task=deploy_host,
