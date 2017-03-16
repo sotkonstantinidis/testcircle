@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 14:54+0100\n"
+"POT-Creation-Date: 2017-03-16 14:28+0100\n"
 "PO-Revision-Date: 2016-05-05 14:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,8 +73,8 @@ msgid "Public questionnaires"
 msgstr ""
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:1067
-#: apps/questionnaire/tests/test_utils.py:1075
+#: apps/questionnaire/tests/test_utils.py:986
+#: apps/questionnaire/tests/test_utils.py:994
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:161
 msgid "Login"
@@ -124,7 +124,7 @@ msgstr ""
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:9
-#: apps/wocat/templates/wocat/home.html:73 templates/base.html:185
+#: apps/wocat/templates/wocat/home.html:75 templates/base.html:185
 msgid "Add SLM data"
 msgstr ""
 
@@ -158,7 +158,7 @@ msgstr ""
 msgid "See all results... "
 msgstr ""
 
-#: apps/accounts/views.py:62
+#: apps/accounts/views.py:63
 msgid "Welcome {}"
 msgstr ""
 
@@ -167,8 +167,9 @@ msgid "WOCAT SLM Approaches"
 msgstr ""
 
 #: apps/approaches/templates/approaches/questionnaire/list.html:13
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:11
 #: apps/sample/templates/sample/questionnaire/list.html:71
-#: apps/wocat/templates/wocat/home.html:117
+#: apps/wocat/templates/wocat/home.html:119
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/list.html:71
 msgid "SLM Approaches"
@@ -244,7 +245,7 @@ msgstr ""
 msgid "This SLM Approach is linked to SLM Technologies"
 msgstr ""
 
-#: apps/approaches/views.py:47
+#: apps/approaches/views.py:23
 #: apps/questionnaire/templates/details/category/approaches_header.html:6
 #: apps/wocat/templates/wocat/partial/top.html:18
 msgid "Approaches"
@@ -274,7 +275,7 @@ msgid ""
 msgstr ""
 
 #: apps/cca/templates/cca/questionnaire/partial/link.html:16
-#: apps/cca/views.py:46
+#: apps/cca/views.py:23
 msgid "Climate Change Adaptation"
 msgstr ""
 
@@ -294,7 +295,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: apps/configuration/configuration.py:2556
+#: apps/configuration/configuration.py:2560
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr ""
@@ -11621,13 +11622,11 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:23200
 msgctxt "cca helptext"
 msgid ""
-"<p>Below you will find the list of on- and offsite impacts from question 6.1 "
-"and 6.2 in QT Core. Fill out the list for <strong>each</strong> gradual "
-"climate change and climate-related extreme (disaster) that you have listed "
-"in question 2.2. Make as many copies of the list as the number of gradual "
-"climate changes and climate-related extremes you have listed in question 2.2 "
-"(e.g. if you have listed 3 gradual climate changes and 2 climate-related "
-"extremes, have 5 copies of the list available).</p>"
+"Please note that the data entry table below is different from the lists you "
+"have filled out in the paper questionnaire. For each entry you have to first "
+"choose the gradual climate change/ climate-related extreme and then the "
+"impact in the dropdown list. Add them one after the other by clicking on "
+"‘Add More’."
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:23201
@@ -12142,11 +12141,18 @@ msgid ""
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:27049
+msgctxt "cca helptext"
+msgid ""
+"Please check in QT Core question number 3.7 which land degradation types "
+"have been selected and list only those in the second column."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:27050
 msgctxt "cca label"
 msgid "Table 1: Reassessment of land degradation types listed in QT Core 3.7"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:27050
+#: apps/configuration/configuration_translations.py:27051
 msgctxt "cca label"
 msgid "Table 2: Assessment of newly occurring land degradation types"
 msgstr ""
@@ -12617,8 +12623,7 @@ msgstr ""
 msgctxt "cca helptext"
 msgid ""
 "<p>if it has been introduced as an adaptation measure it might have been "
-"further adapted during the course of time</p><br>If <strong>yes</strong>, "
-"fill in the table below. If <strong>no</strong>, continue with chapter 4.7"
+"further adapted during the course of time.</p>"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:28049
@@ -13962,6 +13967,16 @@ msgctxt "cca label"
 msgid "recharge"
 msgstr ""
 
+#: apps/configuration/configuration_translations.py:29243
+msgctxt "cca label"
+msgid "Yes. If yes, fill in the table below."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:29244
+msgctxt "cca label"
+msgid "No. If no, continue with chapter 4.7."
+msgstr ""
+
 #: apps/configuration/configuration_translations.py:31001
 msgctxt "watershed label"
 msgid "By national standards, is the watershed considered"
@@ -14585,15 +14600,58 @@ msgstr ""
 msgid "Portuguese"
 msgstr ""
 
-#: apps/qcat/context_processors.py:144
+#: apps/qcat/context_processors.py:145
 msgid ""
 "Caution: Maintenance will start soon ({}), this page will then be "
 "unavailable for a couple of minutes.<br>If you are working on a "
 "questionnaire, please make sure to save your work!"
 msgstr ""
 
-#: apps/qcat/context_processors.py:151
+#: apps/qcat/context_processors.py:152
 msgid "Maintenance starts in {}"
+msgstr ""
+
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:8
+msgid "SLM Practices published:"
+msgstr ""
+
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:10
+#: apps/sample/templates/sample/questionnaire/list.html:70
+#: apps/technologies/templates/technologies/questionnaire/list.html:13
+#: apps/wocat/templates/wocat/home.html:100
+#: apps/wocat/templates/wocat/partial/search.html:16
+#: apps/wocat/templates/wocat/questionnaire/list.html:70
+msgid "SLM Technologies"
+msgstr ""
+
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:21
+#, python-format
+msgid ""
+"\n"
+"      <span class=\"keynumber-text\">Active visitors from</span>\n"
+"      <span class=\"keynumber\">%(countries)s</span>\n"
+"      <span class=\"keynumber-text\">different countries in the past "
+"%(days)s days.</span>\n"
+"    "
+msgstr ""
+
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:30
+#, python-format
+msgid ""
+"\n"
+"      <span class=\"keynumber\">%(users)s</span>\n"
+"      <span class=\"keynumber-text\">registered users.</span>\n"
+"    "
+msgstr ""
+
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:36
+#, python-format
+msgid ""
+"\n"
+"      <span class=\"keynumber\">%(compilers)s</span>\n"
+"      <span class=\"keynumber-text\">people created a public SLM practice.</"
+"span>\n"
+"    "
 msgstr ""
 
 #: apps/questionnaire/errors.py:20
@@ -14666,11 +14724,11 @@ msgstr ""
 msgid "Submitted as SLM best practice to UNCCD by the national focal point"
 msgstr ""
 
-#: apps/questionnaire/models.py:969
+#: apps/questionnaire/models.py:970
 msgid "This questionnaire can be edited."
 msgstr ""
 
-#: apps/questionnaire/models.py:971
+#: apps/questionnaire/models.py:972
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr ""
@@ -14740,7 +14798,7 @@ msgid "Editor:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
-#: apps/questionnaire/templates/details/category/approaches_header.html:96
+#: apps/questionnaire/templates/details/category/approaches_header.html:97
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
 #: apps/questionnaire/templates/details/category/cca_header.html:94
@@ -14748,7 +14806,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
-#: apps/questionnaire/templates/details/category/technologies_header.html:96
+#: apps/questionnaire/templates/details/category/technologies_header.html:97
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -14789,44 +14847,49 @@ msgstr ""
 msgid "Full summary as PDF"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:98
+#: apps/questionnaire/templates/details/category/approaches_header.html:94
+#: apps/questionnaire/templates/details/category/technologies_header.html:94
+msgid "Full summary as HTML"
+msgstr ""
+
+#: apps/questionnaire/templates/details/category/approaches_header.html:99
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
-#: apps/questionnaire/templates/details/category/technologies_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:99
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:97
 msgid "Export"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:106
+#: apps/questionnaire/templates/details/category/approaches_header.html:107
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:106
-#: apps/questionnaire/templates/details/category/technologies_header.html:106
+#: apps/questionnaire/templates/details/category/technologies_header.html:107
 #: apps/questionnaire/templates/details/category/unccd_header.html:99
 #: apps/questionnaire/templates/details/category/watershed_header.html:108
 #: apps/questionnaire/templates/details/category/with_metadata.html:105
 msgid "See history"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:112
+#: apps/questionnaire/templates/details/category/approaches_header.html:113
 #: apps/wocat/templates/wocat/add_practice.html:52
 msgid "SLM Approach"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:117
+#: apps/questionnaire/templates/details/category/approaches_header.html:118
 #: apps/questionnaire/templates/details/category/cca_header.html:109
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
-#: apps/questionnaire/templates/details/category/technologies_header.html:117
+#: apps/questionnaire/templates/details/category/technologies_header.html:118
 #: apps/questionnaire/templates/details/category/unccd_header.html:110
 #: apps/questionnaire/templates/details/category/watershed_header.html:119
 #: apps/questionnaire/templates/details/category/with_metadata.html:117
 msgid "View sections"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:119
+#: apps/questionnaire/templates/details/category/approaches_header.html:120
 #: apps/questionnaire/templates/details/category/cca_header.html:111
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:118
-#: apps/questionnaire/templates/details/category/technologies_header.html:119
+#: apps/questionnaire/templates/details/category/technologies_header.html:120
 #: apps/questionnaire/templates/details/category/unccd_header.html:112
 #: apps/questionnaire/templates/details/category/watershed_header.html:121
 #: apps/questionnaire/templates/details/category/with_metadata.html:119
@@ -14834,10 +14897,10 @@ msgstr ""
 msgid "Expand all"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:120
+#: apps/questionnaire/templates/details/category/approaches_header.html:121
 #: apps/questionnaire/templates/details/category/cca_header.html:112
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:119
-#: apps/questionnaire/templates/details/category/technologies_header.html:120
+#: apps/questionnaire/templates/details/category/technologies_header.html:121
 #: apps/questionnaire/templates/details/category/unccd_header.html:113
 #: apps/questionnaire/templates/details/category/watershed_header.html:122
 #: apps/questionnaire/templates/details/category/with_metadata.html:120
@@ -14845,30 +14908,30 @@ msgstr ""
 msgid "Collapse all"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:125
+#: apps/questionnaire/templates/details/category/approaches_header.html:126
 #: apps/questionnaire/templates/details/category/cca_header.html:117
-#: apps/questionnaire/templates/details/category/technologies_header.html:125
+#: apps/questionnaire/templates/details/category/technologies_header.html:126
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/watershed_header.html:127
 msgid "Completeness:"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:144
+#: apps/questionnaire/templates/details/category/approaches_header.html:145
 #: apps/questionnaire/templates/details/category/cca_header.html:136
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:138
-#: apps/questionnaire/templates/details/category/technologies_header.html:144
+#: apps/questionnaire/templates/details/category/technologies_header.html:145
 #: apps/questionnaire/templates/details/category/unccd_header.html:137
 #: apps/questionnaire/templates/details/category/watershed_header.html:146
 #: apps/questionnaire/templates/details/category/with_metadata.html:139
 msgid "Edit this section"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:160
+#: apps/questionnaire/templates/details/category/approaches_header.html:161
 #: apps/questionnaire/templates/details/category/cca_header.html:152
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:152
-#: apps/questionnaire/templates/details/category/technologies_header.html:160
+#: apps/questionnaire/templates/details/category/technologies_header.html:161
 #: apps/questionnaire/templates/details/category/unccd_header.html:153
 #: apps/questionnaire/templates/details/category/watershed_header.html:162
 #: apps/questionnaire/templates/details/category/with_metadata.html:153
@@ -14884,7 +14947,7 @@ msgid "Technology: "
 msgstr ""
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
-#: apps/technologies/views.py:47 apps/wocat/templates/wocat/partial/top.html:14
+#: apps/technologies/views.py:23 apps/wocat/templates/wocat/partial/top.html:14
 msgid "Technologies"
 msgstr ""
 
@@ -14892,7 +14955,7 @@ msgstr ""
 msgid "New SLM Technology"
 msgstr ""
 
-#: apps/questionnaire/templates/details/category/technologies_header.html:112
+#: apps/questionnaire/templates/details/category/technologies_header.html:113
 #: apps/wocat/templates/wocat/add_practice.html:33
 msgid "SLM Technology"
 msgstr ""
@@ -15042,7 +15105,7 @@ msgstr ""
 msgid "Search user"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:66
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
@@ -15050,7 +15113,7 @@ msgstr ""
 msgid "No results found"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:68
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
@@ -15058,7 +15121,7 @@ msgstr ""
 msgid "Too many results found, please narrow the search"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/_assign_user.html:70
+#: apps/questionnaire/templates/details/review_panel/_assign_user.html:71
 msgid "Update users"
 msgstr ""
 
@@ -15271,45 +15334,45 @@ msgid ""
 "        "
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:49
+#: apps/questionnaire/templates/details/review_panel/edit.html:53
 msgid "Flag as UNCCD best practice"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:53
+#: apps/questionnaire/templates/details/review_panel/edit.html:57
 msgid "Flag this questionnaire as a UNCCD best practice for this country."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:56
+#: apps/questionnaire/templates/details/review_panel/edit.html:60
 msgid "Please confirm flagging as a UNCCD best practice."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:57
+#: apps/questionnaire/templates/details/review_panel/edit.html:61
 msgid ""
 "By submitting, this questionnaire will be flagged as a UNCCD best practice "
 "for this country. Please note that due to the review process, it will take a "
 "few days before this is publicly visible."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:58
-#: apps/questionnaire/templates/details/review_panel/edit.html:77
+#: apps/questionnaire/templates/details/review_panel/edit.html:62
+#: apps/questionnaire/templates/details/review_panel/edit.html:81
 msgid "Confirm"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:68
+#: apps/questionnaire/templates/details/review_panel/edit.html:72
 msgid "Unflag as UNCCD best practice"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:72
+#: apps/questionnaire/templates/details/review_panel/edit.html:76
 msgid ""
 "This questionnaire is flagged as a UNCCD best practice for this country. As "
 "the UNCCD national focal point, you can remove this flag."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:75
+#: apps/questionnaire/templates/details/review_panel/edit.html:79
 msgid "Please confirm unflagging as a UNCCD best practice."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:76
+#: apps/questionnaire/templates/details/review_panel/edit.html:80
 msgid ""
 "By submitting, this questionnaire will be unflagged as UNCCD best practice "
 "for this country. Please note that due to the review process, it will take a "
@@ -16072,72 +16135,72 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1310
+#: apps/questionnaire/utils.py:1201
 msgid "The questionnaire was successfully submitted."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1342
+#: apps/questionnaire/utils.py:1233
 msgid "The questionnaire was successfully reviewed."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1380
+#: apps/questionnaire/utils.py:1271
 msgid "New version was published"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1408
+#: apps/questionnaire/utils.py:1299
 msgid "The questionnaire was successfully set public."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1447
+#: apps/questionnaire/utils.py:1338
 msgid "The questionnaire was successfully rejected."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1537
+#: apps/questionnaire/utils.py:1428
 msgid "Assigned users were successfully updated"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1565
+#: apps/questionnaire/utils.py:1544
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
 "later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1587
+#: apps/questionnaire/utils.py:1566
 msgid "The flag was successfully set."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1611
+#: apps/questionnaire/utils.py:1590
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
 "again later."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1632
+#: apps/questionnaire/utils.py:1611
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
 "public version which still shows the flag."
 msgstr ""
 
-#: apps/questionnaire/utils.py:1639
+#: apps/questionnaire/utils.py:1618
 msgid "New version due to unccd flagging"
 msgstr ""
 
-#: apps/questionnaire/utils.py:1653
+#: apps/questionnaire/utils.py:1632
 msgid "The questionnaire was succesfully removed"
 msgstr ""
 
-#: apps/questionnaire/views.py:520
+#: apps/questionnaire/views.py:478
 msgid "Data successfully saved."
 msgstr ""
 
-#: apps/questionnaire/views.py:1077
+#: apps/questionnaire/views.py:1035
 msgid "QCAT Form"
 msgstr ""
 
-#: apps/questionnaire/views.py:1301
+#: apps/questionnaire/views.py:1259
 msgid "No or multiple files provided."
 msgstr ""
 
@@ -16185,14 +16248,6 @@ msgstr ""
 #: apps/wocat/templates/wocat/questionnaire/list.html:67
 #: apps/wocat/templates/wocat/questionnaire/list.html:69
 msgid "All SLM Data"
-msgstr ""
-
-#: apps/sample/templates/sample/questionnaire/list.html:70
-#: apps/technologies/templates/technologies/questionnaire/list.html:13
-#: apps/wocat/templates/wocat/home.html:98
-#: apps/wocat/templates/wocat/partial/search.html:16
-#: apps/wocat/templates/wocat/questionnaire/list.html:70
-msgid "SLM Technologies"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/list.html:78
@@ -16803,6 +16858,11 @@ msgstr ""
 msgid "Geo-reference"
 msgstr ""
 
+#: apps/summary/templates/summary/layout/approaches.html:12
+#: apps/summary/templates/summary/layout/technologies.html:12
+msgid "Summary"
+msgstr ""
+
 #: apps/summary/templates/summary/layout/footer.html:50
 msgid "Wocat SLM"
 msgstr ""
@@ -16885,19 +16945,19 @@ msgid "Add Land Management Maps"
 msgstr ""
 
 #: apps/wocat/templates/wocat/add_maps.html:30
-#: apps/wocat/templates/wocat/home.html:157
+#: apps/wocat/templates/wocat/home.html:159
 msgid "Land Degradation / Conservation"
 msgstr ""
 
 #: apps/wocat/templates/wocat/add_maps.html:31
-#: apps/wocat/templates/wocat/home.html:158
+#: apps/wocat/templates/wocat/home.html:160
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
 msgstr ""
 
 #: apps/wocat/templates/wocat/add_maps.html:32
-#: apps/wocat/templates/wocat/home.html:159
+#: apps/wocat/templates/wocat/home.html:161
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
 "or added in the old database (QM)."
@@ -16917,7 +16977,7 @@ msgstr ""
 
 #: apps/wocat/templates/wocat/add_maps.html:52
 #: apps/wocat/templates/wocat/add_maps.html:66
-#: apps/wocat/templates/wocat/home.html:136
+#: apps/wocat/templates/wocat/home.html:138
 #: apps/wocat/templates/wocat/partial/search.html:18
 #: apps/wocat/templates/wocat/questionnaire/list.html:72
 msgid "Watershed and Runoff"
@@ -16925,7 +16985,7 @@ msgstr ""
 
 #: apps/wocat/templates/wocat/add_maps.html:53
 #: apps/wocat/templates/wocat/add_maps.html:67
-#: apps/wocat/templates/wocat/home.html:137
+#: apps/wocat/templates/wocat/home.html:139
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
 msgstr ""
@@ -16950,7 +17010,7 @@ msgid ""
 msgstr ""
 
 #: apps/wocat/templates/wocat/add_practice.html:34
-#: apps/wocat/templates/wocat/home.html:99
+#: apps/wocat/templates/wocat/home.html:101
 msgid ""
 "An <strong>SLM Technology</strong> is a land management practice that "
 "controls land degradation and enhances productivity and/ or other ecosystem "
@@ -17142,50 +17202,54 @@ msgstr ""
 msgid "SLM Technology / Approach"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:27
-#: apps/wocat/templates/wocat/home.html:35
-#: apps/wocat/templates/wocat/home.html:43
-#: apps/wocat/templates/wocat/home.html:51
-#: apps/wocat/templates/wocat/home.html:59
+#: apps/wocat/templates/wocat/home.html:29
+#: apps/wocat/templates/wocat/home.html:37
+#: apps/wocat/templates/wocat/home.html:45
+#: apps/wocat/templates/wocat/home.html:53
+#: apps/wocat/templates/wocat/home.html:61
 msgid "the Global Database on Sustainable Land Management"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:28
+#: apps/wocat/templates/wocat/home.html:30
 msgid "is the primary recommended database by UNCCD"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:36
+#: apps/wocat/templates/wocat/home.html:38
 msgid "is open access and contains over 800 SLM practices"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:44
+#: apps/wocat/templates/wocat/home.html:46
 msgid "is a standardized and modular system"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:52
+#: apps/wocat/templates/wocat/home.html:54
 msgid "supports knowledge sharing and evidence-based decision-making"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:60
+#: apps/wocat/templates/wocat/home.html:62
 msgid "welcomes you to join!"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:72
+#: apps/wocat/templates/wocat/home.html:74
 msgid "Search SLM data"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:100
-#: apps/wocat/templates/wocat/home.html:119
-#: apps/wocat/templates/wocat/home.html:138
-#: apps/wocat/templates/wocat/home.html:160
+#: apps/wocat/templates/wocat/home.html:102
+#: apps/wocat/templates/wocat/home.html:121
+#: apps/wocat/templates/wocat/home.html:140
+#: apps/wocat/templates/wocat/home.html:162
 msgid "View all"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:118
+#: apps/wocat/templates/wocat/home.html:120
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
 "roles."
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:222
+msgid "Key Numbers"
 msgstr ""
 
 #: apps/wocat/templates/wocat/partial/add.html:21
@@ -17260,11 +17324,11 @@ msgid "A revised filter is coming soon."
 msgstr ""
 
 #: apps/wocat/templates/wocat/questionnaire/list.html:109
-msgid "WOCAT and UNCCD SLM practices"
+msgid "Your search results"
 msgstr ""
 
 #: apps/wocat/templates/wocat/questionnaire/partial/list.html:19
-msgid "No WOCAT and UNCCD SLM practices found."
+msgid "No results found."
 msgstr ""
 
 #: templates/404.html:11
