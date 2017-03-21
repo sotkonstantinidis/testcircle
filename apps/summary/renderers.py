@@ -544,12 +544,13 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         }
 
     def technical_drawing(self):
+        img_urls = [img['value'] for img in self.raw_data.get('tech_drawing_image', []) if img['value']]
         return {
             'title': _('Technical drawing'),
             'partials': {
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
-                'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image', [])]
+                'urls': img_urls
             }
         }
 
