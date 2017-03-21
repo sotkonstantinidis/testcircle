@@ -949,8 +949,7 @@ class ImportObject(Logger):
                     v = 89.34065
                 else:
                     self.output(
-                        'Invalid coordinates ({}) of object {}'.format(
-                            v, self.identifier),
+                        'Invalid coordinates ({}) of object {}'.format(v, self),
                         v=1, l='error')
                     continue
 
@@ -964,6 +963,9 @@ class ImportObject(Logger):
                     'Coordinates of object {} are not valid: {}'.format(
                         self, values))
                 return None
+
+        if parsed_values == [0.0, 0.0]:
+            return {}
 
         if len(parsed_values) == 2:
             geojson = {

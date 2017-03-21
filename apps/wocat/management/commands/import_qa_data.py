@@ -1,0 +1,247 @@
+from datetime import datetime
+
+import petl
+import psycopg2
+from django.conf import settings
+from django.core.management.base import BaseCommand
+
+from wocat.management.commands.import_wocat_data import ImportObject, \
+    WOCATImport, WOCAT_DATE_FORMAT, QCAT_DATE_FORMAT
+from wocat.management.commands.qa_mapping import qa_mapping, custom_mapping_messages
+
+
+# Characters used when merging multiple text entries into single (comments)
+# field
+TEXT_VALUES_MERGE_CHAR = '\n\n'
+
+# Language mapping, mostly used to lookup translations (column named 'english')
+# for Questionnaire with language code 'en'.
+LANGUAGE_MAPPING = {
+    'en': 'english',
+    'es': 'spanish',
+    'fr': 'french',
+    'af': 'afrikaans',
+    'ru': 'russian',
+    'pt': 'portuguese',
+}
+
+
+class Command(BaseCommand):
+    help = 'Imports the data from the old WOCAT QA database.'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--dry-run',
+            action='store_true',
+            dest='dry-run',
+            default=True,
+            help='Only extract and transform the data, do not import anything.',
+        )
+        parser.add_argument(
+            '--mapping-messages',
+            action='store_true',
+            dest='mapping-messages',
+            default=False,
+            help='Write a file which contains all mapping messages occuring '
+                 'during the import.',
+        )
+
+    def handle(self, *args, **options):
+        start_time = datetime.now()
+        qa_import = QAImport(options)
+        qa_import.collect_import_objects()
+        qa_import.filter_import_objects()
+        qa_import.check_translations()
+        qa_import.do_mapping()
+        qa_import.save_objects()
+        end_time = datetime.now()
+        print("End of import. Duration: {}.".format(end_time - start_time))
+
+
+class QAImportObject(ImportObject):
+    """
+    Represents a QA object of the WOCAT database to be imported.
+    """
+    pass
+
+
+class QAImport(WOCATImport):
+
+    schema = 'qa'
+
+    # Tables of the mapping are collected automatically.
+    default_tables = [
+        'approach',
+        'qa_quality_review',
+    ]
+    lookup_table_name = 'qa_lookups'
+
+    import_objects_exclude = [
+        # TODO: Should this case really be excluded?
+        # Invalid code: "A_"
+        353,
+    ]
+    import_objects_filter = []
+
+    questionnaire_identifier = 'approach_id'
+    questionnaire_code = 'code'
+    configuration_code = 'approaches'
+
+    mapping = qa_mapping
+    custom_mapping_messages = custom_mapping_messages
+
+    def __init__(self, command_options):
+
+        super().__init__(command_options)
+
+        # LOCAL
+        # self.connection = psycopg2.connect(
+        #     settings.WOCAT_IMPORT_DATABASE_URL_LOCAL)
+
+        # REMOTE (productive)
+        self.connection = psycopg2.connect(
+            settings.WOCAT_IMPORT_DATABASE_URL)
+
+
+    def collect_import_objects(self):
+        """
+        Query and put together all QA objects which will be imported.
+        """
+
+        def get_tables(mappings):
+            """
+            Recursively collect all WOCAT tables of the mappings.
+
+            Args:
+                mappings: list.
+
+            Returns:
+                list. A list of tables.
+            """
+            tables = []
+            for mapping in mappings:
+                table = mapping.get('wocat_table')
+                if table:
+                    tables.append(table)
+                tables.extend(get_tables(mapping.get('mapping', [])))
+                tables.extend(get_tables(mapping.get('conditions', [])))
+            return tables
+
+        self.output('Fetching data from WOCAT QA database.', v=1)
+
+        # Extend the default tables by adding the ones from the mapping.
+        tables = self.default_tables
+        for qg_properties in self.mapping.values():
+            questions = qg_properties.get('questions', {})
+            for q_properties in questions.values():
+                tables.extend(get_tables(q_properties.get('mapping', [])))
+
+        # Remove duplicates
+        tables = list(set(tables))
+
+        # Try to query the lookup table and collect its values.
+        try:
+            lookup_query = """
+                    SELECT *
+                    FROM {schema}.{table_name};
+                """.format(schema=self.schema,
+                           table_name=self.lookup_table_name)
+            lookup_table = {}
+            for row in petl.dicts(petl.fromdb(self.connection, lookup_query)):
+                lookup_table[row.get('id')] = row
+        except AttributeError:
+            lookup_table = {}
+
+        # TODO
+        lookup_table_text = {}
+        file_infos = {}
+
+        for table_name in tables:
+            query = 'SELECT {columns} FROM {schema}.{table_name};'.format(
+                columns='*', schema=self.schema, table_name=table_name)
+
+            queried_table = petl.fromdb(self.connection, query)
+            row_errors = False
+            for row in petl.dicts(queried_table):
+
+                if row_errors is True:
+                    continue
+
+                # Inconsistent naming throughout the tables
+                questionnaire_identifier = self.questionnaire_identifier
+                if table_name == 'approach':
+                    questionnaire_identifier = 'id'
+                elif table_name == 'qa_quality_review':
+                    questionnaire_identifier = 'qa_id'
+
+                identifier = row.get(questionnaire_identifier)
+                if identifier is None:
+                    self.output('No identifier found for table "{}".'.format(
+                        table_name), v=1, l='error')
+                    row_errors = True
+
+                if identifier in self.import_objects_exclude:
+                    continue
+
+                import_object = self.get_import_object(identifier)
+
+                if import_object is None:
+                    import_object = QAImportObject(
+                        identifier, self.command_options, lookup_table,
+                        lookup_table_text, file_infos, self.image_url)
+
+                    import_object.add_custom_mapping_messages(
+                        self.custom_mapping_messages)
+
+                    self.import_objects.append(import_object)
+
+                # Set the code if it is available in the current table
+                code = row.get(self.questionnaire_code)
+                if code:
+                    import_object.set_code(code)
+
+                # TODO: Set Owner
+
+                created = row.get('date')
+                if created:
+                    import_object.created = datetime.strptime(
+                        created, WOCAT_DATE_FORMAT).strftime(
+                        QCAT_DATE_FORMAT)
+
+                import_object.add_wocat_data(table_name, row)
+
+    def filter_import_objects(self):
+        """
+        Filter the import objects based on status and custom filters.
+
+        Returns:
+            -
+        """
+        # Status filter: qa.quality_review.not_review_content:
+        # 449: Complete
+        # 450: Incomplete
+        status_objects = []
+        for import_object in self.import_objects:
+            not_review_content = import_object.get_wocat_attribute_data(
+                table_name='qa_quality_review',
+                attribute_name='not_review_content')
+            if 449 in not_review_content or 450 in not_review_content:
+                status_objects.append(import_object)
+        self.import_objects = status_objects
+
+        # Filter out all questionnaires which have not code (and therefore no
+        # created_date etc.)
+        self.import_objects = [
+            io for io in self.import_objects if io.code != '']
+
+        # Custom filter
+        if self.import_objects_filter:
+            import_objects = []
+            for filter_identifier in self.import_objects_filter:
+                import_object = self.get_import_object(filter_identifier)
+                if import_object:
+                    import_objects.append(import_object)
+            self.import_objects = import_objects
+
+        self.output('{} objects remained after filtering.'.format(
+            len(self.import_objects)), v=1)
