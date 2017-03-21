@@ -5,6 +5,7 @@ import itertools
 import os
 
 from django.conf import settings
+from django.templatetags.static import static
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 
@@ -136,7 +137,11 @@ class GlobalValuesMixin:
                 },
                 'caption': {
                     'text': text
-                }
+                },
+                'wocat_logo_url': '{base_url}{logo}'.format(
+                    base_url=self.base_url.rstrip('/'),
+                    logo=static('assets/img/wocat_logo.svg')
+                )
             }
         }
 
