@@ -5,6 +5,7 @@ import itertools
 import os
 
 from django.conf import settings
+from django.templatetags.static import static
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 
@@ -136,7 +137,11 @@ class GlobalValuesMixin:
                 },
                 'caption': {
                     'text': text
-                }
+                },
+                'wocat_logo_url': '{base_url}{logo}'.format(
+                    base_url=self.base_url.rstrip('/'),
+                    logo=static('assets/img/wocat_logo.svg')
+                )
             }
         }
 
@@ -307,7 +312,7 @@ class GlobalValuesMixin:
     def get_reference_links(self):
         text = _('This data in the WOCAT database: <a href="{base_url}{url}">'
                  '{base_url}{url}</a>'.format(
-            base_url=self.base_url,
+            base_url=self.base_url.rstrip('/'),
             url=self.questionnaire.get_absolute_url())
         )
 
@@ -336,14 +341,12 @@ class GlobalValuesMixin:
         for link in links:
             config = link.to_questionnaire.configurations.filter(active=True)
             if config.exists():
-                configuration = get_configuration(config.first().code)
-                name = configuration.get_questionnaire_name(
-                    link.to_questionnaire.data
-                )
-                yield {'text': '{config}: {name} (<a href="{url}">{url}</a>)'.format(
+                yield {'text': '{config}: {name} (<a href="{base_url}{url}">'
+                               '{base_url}{url}</a>)'.format(
                     config=config.first().name,
                     name=self.questionnaire.get_name(),
-                    url=self.base_url + link.to_questionnaire.get_absolute_url())
+                    base_url=self.base_url.rstrip('/'),
+                    url=link.to_questionnaire.get_absolute_url())
                 }
 
     def get_reference_articles(self):
@@ -539,12 +542,13 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         }
 
     def technical_drawing(self):
+        img_urls = [img['value'] for img in self.raw_data.get('tech_drawing_image', []) if img['value']]
         return {
             'title': _('Technical drawing'),
             'partials': {
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
-                'urls': [img['value'] for img in self.raw_data.get('tech_drawing_image', [])]
+                'urls': img_urls
             }
         }
 
