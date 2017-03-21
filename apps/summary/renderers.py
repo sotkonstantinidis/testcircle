@@ -312,7 +312,7 @@ class GlobalValuesMixin:
     def get_reference_links(self):
         text = _('This data in the WOCAT database: <a href="{base_url}{url}">'
                  '{base_url}{url}</a>'.format(
-            base_url=self.base_url,
+            base_url=self.base_url.rstrip('/'),
             url=self.questionnaire.get_absolute_url())
         )
 
@@ -341,14 +341,12 @@ class GlobalValuesMixin:
         for link in links:
             config = link.to_questionnaire.configurations.filter(active=True)
             if config.exists():
-                configuration = get_configuration(config.first().code)
-                name = configuration.get_questionnaire_name(
-                    link.to_questionnaire.data
-                )
-                yield {'text': '{config}: {name} (<a href="{url}">{url}</a>)'.format(
+                yield {'text': '{config}: {name} (<a href="{base_url}{url}">'
+                               '{base_url}{url}</a>)'.format(
                     config=config.first().name,
                     name=self.questionnaire.get_name(),
-                    url=self.base_url + link.to_questionnaire.get_absolute_url())
+                    base_url=self.base_url.rstrip('/'),
+                    url=link.to_questionnaire.get_absolute_url())
                 }
 
     def get_reference_articles(self):
