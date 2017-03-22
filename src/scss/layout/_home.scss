@@ -20,6 +20,13 @@
 .home-main {
   margin-top: rem-calc(24);
 }
+
+.home-main {
+  .tab-title:focus, a:focus {
+    outline: none;
+  }
+}
+
 //.home-slider-img {
 //  background: url("/static/assets/img/wocat_hero.jpg") $color-brown no-repeat top center;
 //  background-size: cover;
@@ -46,4 +53,23 @@
 
 .keynumbers-text {
   font-size:rem-calc(14);
+}
+
+.accordion .accordion-about-wocat {
+  >a, >a:hover {
+    background: white;
+    color: $color-brown-dark;
+    padding: 1rem 1.5rem;
+  }
+  &.active>a {
+    background: white;
+    color: $color-brown-dark;
+    border-bottom: 1px solid $color-beige;
+  }
+  &:not(.active) svg.accordion-icon-opened {
+    display: none;
+  }
+  &.active svg.accordion-icon-closed {
+    display: none;
+  }
 }
