@@ -155,6 +155,25 @@
               </div>
             </div>
           </div>
+          {# UNCCD #}
+          <div class="small-12 medium-4 columns">
+            <div class="card">
+              <a href="{% url 'wocat:questionnaire_list' %}?type=unccd">
+                <div class="card-image-holder">
+                  <img class="card-image" src="{% static 'assets/img/card_unccd.jpg' %}">
+                </div>
+              </a>
+              <div class="card-well">
+                <h2 class="card-title">{% trans "UNCCD Prais Practices" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared through the UNCCD PRAIS system in the UNCCD reporting process." %}</p>
+                <a href="{% url 'wocat:questionnaire_list' %}?type=unccd" class="button large expand">
+                  {% trans "View all" %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row is-flex" data-equalizer>
           {# Watershed / Watershed and Runoff #}
           <div class="small-12 medium-4 columns">
             <div class="card">
@@ -193,8 +212,6 @@
               {% endif %}
             </div>
           </div>
-        </div>
-        <div class="row is-flex" data-equalizer>
           {# Maps / Land Degradation/Conservation #}
           <div class="small-12 medium-4 columns">
             <div class="card">
@@ -217,30 +234,30 @@
               </div>
             </div>
           </div>
-          {# UNCCD #}
+          {# CCA #}
           <div class="small-12 medium-4 columns">
             <div class="card">
-              <a href="{% url 'wocat:questionnaire_list' %}?type=unccd">
+              {% if IS_ACTIVE_FEATURE_MODULE %}
+              <a href="{% url 'wocat:questionnaire_list' %}?type=cca">
                 <div class="card-image-holder">
-                  <img class="card-image" src="{% static 'assets/img/card_unccd.jpg' %}">
+                  <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
+                  <span class="card-image-overlay-container">
+                    <div class="card-image-overlay is-climate">
+                      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
+                    </div>
+                  </span>
                 </div>
               </a>
               <div class="card-well">
-                <h2 class="card-title">{% trans "UNCCD Prais Practices" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared through the UNCCD PRAIS system in the UNCCD reporting process." %}</p>
-                <a href="{% url 'wocat:questionnaire_list' %}?type=unccd" class="button large expand">
+                <h2 class="card-title">{% trans "CCA Module" %}</h2>
+                <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
+                <a href="{% url 'wocat:questionnaire_list' %}?type=cca" class="button large expand">
                   {% trans "View all" %}
                 </a>
               </div>
-            </div>
-          </div>
-          {# Modules #}
-          {% if IS_ACTIVE_FEATURE_MODULE %}
-          <div class="row" data-equalizer>
-            <div class="small-12 medium-6 columns">
-              <div class="card">
+              {% else %}
                 <div class="card-image-holder">
-                  <img class="card-image" src="{% static 'assets/img/card_climate_change_adaption.jpg' %}">
+                  <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
                   <span class="card-image-overlay-container">
                     <div class="card-image-overlay is-climate">
                       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
@@ -248,35 +265,15 @@
                   </span>
                 </div>
                 <div class="card-well">
-                  <h2 class="card-title">{% trans "Climate change adaptation" %}</h2>
+                  <h2 class="card-title">{% trans "CCA Module" %}</h2>
                   <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
                   <a href="#" class="button large expand disabled" title="{% trans "Modules will be added soon to the new database." %}" aria-haspopup="true" data-tooltip="">
                     {% trans "View all" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
                   </a>
                 </div>
-              </div>
-            </div>
-            <div class="small-12 medium-6 columns">
-              <div class="card">
-                <div class="card-image-holder">
-                  <img class="card-image" src="{% static 'assets/img/card_watershed_technology.jpg' %}">
-                  <span class="card-image-overlay-container">
-                    <div class="card-image-overlay is-combination">
-                      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-combination"></use></svg>
-                    </div>
-                  </span>
-                </div>
-                <div class="card-well">
-                  <h2 class="card-title">{% trans "Watershed/ Technology Systems" %}</h2>
-                  <p class="card-desc" data-equalizer-watch>{% trans "The watershed/ technology systems tool assesses the spatial arrangement, interlinkage, and interdependency of different SLM Technologies and SLM Approaches in a watershed." %}</p>
-                  <a href="#" class="button large expand disabled" title="{% trans "Modules will be added soon to the new database." %}" aria-haspopup="true" data-tooltip="">
-                    {% trans "View all" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
-                  </a>
-                </div>
-              </div>
+              {% endif %}
             </div>
           </div>
-          {% endif %}
         </div>
       </section>
       <section role="tabpanel" aria-hidden="true" class="content" id="panel2-2">
