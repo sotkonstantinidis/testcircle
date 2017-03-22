@@ -91,9 +91,15 @@ class FactsTeaserView(TemplateView):
             'approaches': Questionnaire.with_status.public().filter(
                 code__startswith='approaches'
             ).count(),
+            'unccd': Questionnaire.with_status.public().filter(
+                code__startswith='unccd'
+            ).count(),
             'created': Questionnaire.with_status.not_deleted().filter(
                 created__gte=self.date_from
-            ).count()
+            ).count(),
+            'countries': len(set(Questionnaire.with_status.public().extra(
+                select={'countries': "data->'qg_location'->0->'country'"}
+            ).values_list('countries', flat=True)))
         }
 
     def get_user_facts(self):
@@ -108,26 +114,6 @@ class FactsTeaserView(TemplateView):
             'users': get_user_model().objects.all().count()
         }
 
-    def get_piwik_facts(self) -> dict:
-        """
-        Get data from piwik.
-        """
-        countries_url = '{piwik_api}&method=UserCountry.getCountry&' \
-                        'period=range&date={start_date},{end_date}'.format(
-            piwik_api=self.piwik_api_url,
-            start_date=self.date_from,
-            end_date=self.date_to
-        )
-        with contextlib.suppress(RequestException):
-            countries = requests.get(countries_url)
-            if countries.ok:
-                return {'countries': len(countries.json())}
-
-        logger.error('exception when querying to piwik: {}'.format(
-            countries_url
-        ))
-        return {}
-
     def get_context_data(self, **kwargs) -> dict:
         """
         Combine all kinds of facts.
@@ -136,5 +122,4 @@ class FactsTeaserView(TemplateView):
         context['days'] = self.start_date_offset_days
         context.update(**self.get_questionnaire_facts())
         context.update(**self.get_user_facts())
-        context.update(**self.get_piwik_facts())
         return context
