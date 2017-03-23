@@ -73,9 +73,7 @@
   <ul class="accordion" data-accordion>
     <li class="accordion-navigation accordion-about-wocat">
       <a href="#about-wocat">
-        {% trans "About the WOCAT SLM Database" %}
-        <svg class="accordion-icon-closed icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-down"></use></svg>
-        <svg class="accordion-icon-opened icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-up"></use></svg>
+        {% trans "About the WOCAT SLM Database" %}<svg class="accordion-icon-closed icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-down"></use></svg><svg class="accordion-icon-opened icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-up"></use></svg>
       </a>
       <div id="about-wocat" class="content">
         <p class="is-rhythmed-2">
@@ -114,9 +112,9 @@
             </div>
           </div>
         </div>
-        <div class="row is-flex" data-equalizer>
+        <div class="row is-flex">
           {# Technologies #}
-          <div class="small-12 medium-4 columns">
+          <div class="small-12 medium-4 columns is-flex">
             <div class="card">
               <a href="{% url 'wocat:questionnaire_list' %}?type=technologies">
                 <div class="card-image-holder">
@@ -130,13 +128,13 @@
               </a>
               <div class="card-well">
                 <h2 class="card-title">{% trans "SLM Technologies" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}</p>
+                <p class="card-desc">{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}</p>
                 <a href="{% url 'wocat:questionnaire_list' %}?type=technologies" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
           {# Approaches #}
-          <div class="small-12 medium-4 columns">
+          <div class="small-12 medium-4 columns is-flex">
             <div class="card">
               <a href="{% url 'wocat:questionnaire_list' %}?type=approaches">
                 <div class="card-image-holder">
@@ -150,13 +148,13 @@
               </a>
               <div class="card-well">
                 <h2 class="card-title">{% trans "SLM Approaches" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement an SLM Technology, including the stakeholders involved and their roles." %}</p>
+                <p class="card-desc">{% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement an SLM Technology, including the stakeholders involved and their roles." %}</p>
                 <a href="{% url 'wocat:questionnaire_list' %}?type=approaches" class="button large expand">{% trans "View all" %}</a>
               </div>
             </div>
           </div>
           {# UNCCD #}
-          <div class="small-12 medium-4 columns">
+          <div class="small-12 medium-4 columns is-flex">
             <div class="card">
               <a href="{% url 'wocat:questionnaire_list' %}?type=unccd">
                 <div class="card-image-holder">
@@ -165,7 +163,7 @@
               </a>
               <div class="card-well">
                 <h2 class="card-title">{% trans "UNCCD Prais Practices" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared through the UNCCD PRAIS system in the UNCCD reporting process." %}</p>
+                <p class="card-desc">{% trans "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared through the UNCCD PRAIS system in the UNCCD reporting process." %}</p>
                 <a href="{% url 'wocat:questionnaire_list' %}?type=unccd" class="button large expand">
                   {% trans "View all" %}
                 </a>
@@ -173,9 +171,9 @@
             </div>
           </div>
         </div>
-        <div class="row is-flex" data-equalizer>
+        <div class="row is-flex">
           {# Watershed / Watershed and Runoff #}
-          <div class="small-12 medium-4 columns">
+          <div class="small-12 medium-4 columns is-flex">
             <div class="card">
               {% if IS_ACTIVE_FEATURE_WATERSHED %}
               <a href="{% url 'wocat:questionnaire_list' %}?type=watershed">
@@ -190,7 +188,7 @@
               </a>
               <div class="card-well">
                 <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
+                <p class="card-desc">{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
                 <a href="{% url 'wocat:questionnaire_list' %}?type=watershed" class="button large expand">{% trans "View all" %}</a>
               </div>
               {% else %}
@@ -204,7 +202,7 @@
               </div>
               <div class="card-well">
                 <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
+                <p class="card-desc">{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
                 <a href="#" class="button large expand disabled" title="{% trans "Coming soon" %}" aria-haspopup="true" data-tooltip="">
                   {% trans "View all" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
                 </a>
@@ -213,7 +211,7 @@
             </div>
           </div>
           {# Maps / Land Degradation/Conservation #}
-          <div class="small-12 medium-4 columns">
+          <div class="small-12 medium-4 columns is-flex">
             <div class="card">
               <a href="http://qm.wocat.net/" target="_blank">
                 <div class="card-image-holder">
@@ -227,7 +225,7 @@
               </a>
               <div class="card-well">
                 <h2 class="card-title">{% trans "Land Degradation / Conservation" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management, degradation and conservation including driver, state and impacts." %}</p>
+                <p class="card-desc">{% trans "Mapping land management, degradation and conservation including driver, state and impacts." %}</p>
                 <a href="http://qm.wocat.net/" target="_blank" class="button large expand" title="{% trans "Maps are currently not yet available in the new database. Maps can be viewed or added in the old database (QM)." %}" aria-haspopup="true" data-tooltip="">
                   {% trans "View all" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
                 </a>
@@ -235,7 +233,7 @@
             </div>
           </div>
           {# CCA #}
-          <div class="small-12 medium-4 columns">
+          <div class="small-12 medium-4 columns is-flex">
             <div class="card">
               {% if IS_ACTIVE_FEATURE_MODULE %}
               <a href="{% url 'wocat:questionnaire_list' %}?type=cca">
@@ -250,7 +248,7 @@
               </a>
               <div class="card-well">
                 <h2 class="card-title">{% trans "CCA Module" %}</h2>
-                <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
+                <p class="card-desc">{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
                 <a href="{% url 'wocat:questionnaire_list' %}?type=cca" class="button large expand">
                   {% trans "View all" %}
                 </a>
@@ -266,7 +264,7 @@
                 </div>
                 <div class="card-well">
                   <h2 class="card-title">{% trans "CCA Module" %}</h2>
-                  <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
+                  <p class="card-desc">{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
                   <a href="#" class="button large expand disabled" title="{% trans "Modules will be added soon to the new database." %}" aria-haspopup="true" data-tooltip="">
                     {% trans "View all" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
                   </a>
