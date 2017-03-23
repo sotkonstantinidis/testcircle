@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.utils.timezone import now
+from django.utils import timezone
 from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 from requests.exceptions import RequestException
@@ -57,11 +57,13 @@ class FactsTeaserView(TemplateView):
     http_method_names = ['get']
     template_name = 'qcat/templates/fact_sheet_teaser.html'
     start_date_offset_days = 90
-    date_to = now()
+    date_to = timezone.now()
+    date_launch = '2016-08-01'
+    piwik_date_format = '%Y-%m-%d'
 
     @property
     def date_from(self):
-        return now() - timedelta(days=self.start_date_offset_days)
+        return timezone.now() - timedelta(days=self.start_date_offset_days)
 
     @method_decorator(cache_page(60 * 60))
     def dispatch(self, request, *args, **kwargs):
@@ -74,7 +76,7 @@ class FactsTeaserView(TemplateView):
     def piwik_api_url(self) -> str:
         return '{base_url}/?module=API&idSite={site_id}&' \
                'token_auth={auth_token}&format=JSON'.format(
-            base_url=settings.PIWIK_URL.rstrip('piwik.php'),
+            base_url=settings.PIWIK_URL.rstrip('/piwik.php'),
             site_id=settings.PIWIK_SITE_ID,
             auth_token=settings.PIWIK_AUTH_TOKEN
         )
@@ -114,6 +116,58 @@ class FactsTeaserView(TemplateView):
             'users': get_user_model().objects.all().count()
         }
 
+    @staticmethod
+    def log_piwik_error(url):
+        logger.error('exception when querying to piwik: {}'.format(url))
+
+    def get_piwik_facts(self) -> dict:
+        """
+        Get data from piwik.
+        """
+        def piwik_query(url):
+            """
+            Helper function to query Piwik and check for errors.
+            """
+            try:
+                query = requests.get(url)
+            except RequestException:
+                self.log_piwik_error(url)
+                return {}
+            try:
+                json_data = query.json()
+            except AttributeError:
+                self.log_piwik_error(url)
+                return {}
+            if isinstance(json_data, dict) and json_data.get('result') == 'error':
+                self.log_piwik_error(url)
+                return {}
+            return json_data
+
+        countries_url = '{piwik_api}&method=UserCountry.getCountry&' \
+                        'period=range&date={start_date},{end_date}&' \
+                        'filter_limit={filter_limit}'\
+            .format(
+                piwik_api=self.piwik_api_url,
+                start_date=self.date_launch,
+                end_date=self.date_to.strftime(self.piwik_date_format),
+                filter_limit=-1,  # No limit
+            )
+
+        visits_url = '{piwik_api}&method=VisitsSummary.getVisits&' \
+                     'period=range&date={start_date},{end_date}&' \
+                     'filter_limit={filter_limit}' \
+            .format(
+                piwik_api=self.piwik_api_url,
+                start_date=self.date_launch,
+                end_date=self.date_to.strftime(self.piwik_date_format),
+                filter_limit=-1,  # No limit
+            )
+
+        return {
+            'piwik_countries': len(piwik_query(countries_url)),
+            'piwik_visits': piwik_query(visits_url).get('value', 0)
+        }
+
     def get_context_data(self, **kwargs) -> dict:
         """
         Combine all kinds of facts.
@@ -122,4 +176,5 @@ class FactsTeaserView(TemplateView):
         context['days'] = self.start_date_offset_days
         context.update(**self.get_questionnaire_facts())
         context.update(**self.get_user_facts())
+        context.update(**self.get_piwik_facts())
         return context
