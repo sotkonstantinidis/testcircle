@@ -298,6 +298,92 @@ qg_import = {
     },
 }
 
+# 2.3 Photos of the Approach
+qg_photos = {
+    'qg_photos': {
+        'questions': {
+            'image': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'blob_id',
+                    }
+                ],
+                'type': 'file',
+            },
+            'image_caption': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'description',
+                    }
+                ],
+                'type': 'string',
+            },
+            'image_date': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'date',
+                    }
+                ],
+                'type': 'date',
+            },
+            'image_location': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'location'
+                    },
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'region'
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'type': 'merge',
+                    'separator': ', '
+                }
+            },
+            'image_photographer': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'author'
+                    },
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'address',
+                        'mapping_prefix': '(',
+                        'mapping_suffix': ')',
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'type': 'merge',
+                    'separator': ' '
+                }
+            },
+        },
+        'repeating': True,
+        'wocat_table': 'approach_images',
+        'sort_function': 'sort_by_key(k, "ranking", none_value=1000)',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'image_type',
+                    }
+                ],
+                'operator': 'equals',
+                'value': '1',
+            }
+        ]
+    }
+}
+
 # 2.5 Location
 qg_location_map = {
     'qg_location_map': {
@@ -368,9 +454,10 @@ qg_112 = {
 questiongroups = [
     qg_name,  # 1.1 Name
     qg_location,  # 2.5 Country/ region/ locations where the Approach has been applied
-    qg_112,  # 2.5 Location: comments
-    qg_import,  # Hidden: QA Code
+    qg_import,  # Hidden: QA Code,
+    qg_photos,  # 2.3 Photos of the Approach
     qg_location_map,  # 2.5 Location
+    qg_112,  # 2.5 Location: comments
 ]
 
 qa_mapping = {}

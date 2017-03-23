@@ -889,7 +889,43 @@ class TestImport(WOCATImport):
                 }
             },
             'split_questions': True,
-        }
+        },
+        'qg_29': {
+            'questions': {
+                'question_29_1': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_29_1',
+                            'wocat_column': 'column_29_1_1'
+                        }
+                    ],
+                    'type': 'string',
+                },
+                'question_29_2': {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_29_1',
+                            'wocat_column': 'column_29_1_2'
+                        }
+                    ],
+                    'type': 'string',
+                }
+            },
+            'repeating': True,
+            'wocat_table': 'table_29_1',
+            'index_filter': [
+                {
+                    'mapping': [
+                        {
+                            'wocat_table': 'table_29_1',
+                            'wocat_column': 'column_29_1_0'
+                        }
+                    ],
+                    'operator': 'equals',
+                    'value': '1',
+                }
+            ]
+        },
     }
     configuration_code = 'sample'
 
@@ -1170,6 +1206,23 @@ class DoMappingTest(TestCase):
                 {
                     'column_28_1_1': 'one',
                     'column_28_1_2': 'two',
+                }
+            ],
+            'table_29_1': [
+                {
+                    'column_29_1_0': '1',  # Criteria
+                    'column_29_1_1': '1',
+                    'column_29_1_2': 'a',
+                },
+                {
+                    'column_29_1_0': '2',  # Criteria
+                    'column_29_1_1': '2',
+                    'column_29_1_2': 'b',
+                },
+                {
+                    'column_29_1_0': '1',  # Criteria
+                    'column_29_1_1': '3',
+                    'column_29_1_2': 'c',
                 }
             ]
         }
@@ -2122,11 +2175,15 @@ class DoMappingTest(TestCase):
             'question_28_1': {'fr': 'trois'}
         })
 
-    # from nose.plugins.attrib import attr
-    # @attr('foo')
-    # def test_repeating_in_same_row(self):
-    #     self.imprt.do_mapping()
-    #     import_object_1 = self.imprt.import_objects[0]
-    #     qg_data_26 = import_object_1.data_json.get('qg_26')
-    #     self.assertEqual(qg_data_26, '')
-    #     self.assertEqual(len(qg_data_26), 2)
+    def test_index_filter_on_repeating_questiongroups(self):
+        self.imprt.check_translations()
+        self.imprt.do_mapping()
+        import_object_1 = self.imprt.import_objects[0]
+        qg_data_29 = import_object_1.data_json.get('qg_29')
+        self.assertEqual(len(qg_data_29), 2)
+        self.assertEqual(qg_data_29[0], {
+            'question_29_1': {'en': '1'}, 'question_29_2': {'en': 'a'}
+        })
+        self.assertEqual(qg_data_29[1], {
+            'question_29_1': {'en': '3'}, 'question_29_2': {'en': 'c'}
+        })

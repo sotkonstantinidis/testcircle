@@ -410,27 +410,42 @@ class ImportObject(Logger):
         except ValueError:
             return None
 
-        if file_id in [
-            902,
-            1014,
-            1515,
-            3202,
-        ]:
-            self.add_mapping_message('File {} not found.'.format(file_id))
-            return None
+        from wocat.management.commands.import_qa_data import QAImportObject
+        if not isinstance(self, QAImportObject):
+            if file_id in [
+                902,
+                1014,
+                1515,
+                3202,
+            ]:
+                self.add_mapping_message('File {} not found.'.format(file_id))
+                return None
 
-        if file_id in [
-            4752, 886, 1309,
-        ]:
-            self.add_mapping_message(
-                'There was a problem with the file {}.'.format(file_id))
-            return None
+            if file_id in [
+                4752, 886, 1309,
+            ]:
+                self.add_mapping_message(
+                    'There was a problem with the file {}.'.format(file_id))
+                return None
+
+        if isinstance(self, QAImportObject):
+            if file_id in [
+                1862, 1935
+            ]:
+                self.add_mapping_message('File {} not found.'.format(file_id))
+                return None
+
+            if file_id in [540, 22, 1889, 1771]:
+                self.add_mapping_message(
+                    'There was a problem with the file {}.'.format(file_id))
+                return None
 
         file_info = self.file_infos.get(int(file_id))
         if file_info is None:
             self.add_error(
                 'mapping', 'No file info found with ID {} for object {}'.format(
                     file_id, self))
+            return
 
         content_type = file_info.get('blob_content_type')
         mapped_content_type = FILE_CONTENT_MAPPING.get(
@@ -926,6 +941,10 @@ class ImportObject(Logger):
 
         values = self.collect_mapping(mappings, return_list=True)
 
+        # TODO: Temporary fix for invalid coordinates
+        if self.identifier in [602]:
+            return None
+
         parsed_values = []
         for v in values:
             try:
@@ -1269,6 +1288,15 @@ class ImportObject(Logger):
             wocat_table_data = self.get_wocat_table_data(wocat_table)
             if wocat_table_data is None:
                 return
+
+            if questiongroup_properties.get('index_filter'):
+                index_filter = questiongroup_properties.get('index_filter')
+                if not isinstance(index_filter, list) or len(index_filter) != 1:
+                    raise Exception(
+                        'Index filter must be a list of exactly 1 item!')
+
+                wocat_table_data = self.apply_index_filter(
+                    values=wocat_table_data, index_filter=index_filter[0])
 
             if questiongroup_properties.get('sort_function'):
                 wocat_table_data = sorted(wocat_table_data, key=lambda k: eval(

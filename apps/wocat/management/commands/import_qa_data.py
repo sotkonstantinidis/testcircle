@@ -4,6 +4,7 @@ import petl
 import psycopg2
 from django.conf import settings
 from django.core.management.base import BaseCommand
+from django.utils import timezone
 
 from wocat.management.commands.import_wocat_data import ImportObject, \
     WOCATImport, WOCAT_DATE_FORMAT, QCAT_DATE_FORMAT
@@ -31,11 +32,11 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--dry-run',
+            '--do-import',
             action='store_true',
-            dest='dry-run',
-            default=True,
-            help='Only extract and transform the data, do not import anything.',
+            dest='do-import',
+            default=False,
+            help='Do the actual import.',
         )
         parser.add_argument(
             '--mapping-messages',
@@ -47,6 +48,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        options['dry-run'] = options.get('do-import') is not True
         start_time = datetime.now()
         qa_import = QAImport(options)
         qa_import.collect_import_objects()
@@ -83,9 +85,21 @@ class QAImport(WOCATImport):
     ]
     import_objects_filter = []
 
+    # Attention: image_type column indicate what image it is
+    # 1: Photo
+    # 2: Flow chart
+    # 3: Logo of institution
+    file_info_table = 'qa_blob_info'
+
+    image_url = 'https://qa.wocat.net/ThumbGenerate.php?id={}'
+
     questionnaire_identifier = 'approach_id'
     questionnaire_code = 'code'
     configuration_code = 'approaches'
+    questionnaire_owner = 'main_contributor'
+
+    # TODO: Change this to the real default compiler ID
+    default_compiler_id = 2365
 
     mapping = qa_mapping
     custom_mapping_messages = custom_mapping_messages
@@ -154,7 +168,20 @@ class QAImport(WOCATImport):
 
         # TODO
         lookup_table_text = {}
-        file_infos = {}
+
+        # Try to query file infos
+        try:
+            lookup_query_files = """
+                    SELECT *
+                    FROM {schema}.{table_name};
+                """.format(schema=self.schema,
+                           table_name=self.file_info_table)
+            file_infos = {}
+            for row in petl.dicts(
+                    petl.fromdb(self.connection, lookup_query_files)):
+                file_infos[row.get('blob_id')] = row
+        except AttributeError:
+            file_infos = {}
 
         for table_name in tables:
             query = 'SELECT {columns} FROM {schema}.{table_name};'.format(
@@ -200,13 +227,34 @@ class QAImport(WOCATImport):
                 if code:
                     import_object.set_code(code)
 
-                # TODO: Set Owner
+                # The main contributor is the compiler
+                compiler_id = row.get(self.questionnaire_owner)
 
+                if compiler_id:
+                    # If the main contributer is "Not registered" (ID 661), use
+                    # the default compiler
+                    if compiler_id == 661:
+                        compiler_id = self.default_compiler_id
+                        import_object.add_mapping_message(
+                            'Using default compiler as main contributor was '
+                            '"Not registered"')
+
+                    # TODO: This is a temporary fix for invalid user IDs
+                    elif identifier in [131, 128, 89, 47, 106, 82, 195, 212,
+                                         76, 107, 84, 139, 130, 276, 72, 147,
+                                         138, 43, 44, 46, 49, 50, 52, 57, 173,
+                                         171, 170, 166, 125, 78, 102, 45]:
+                        compiler_id = self.default_compiler_id
+
+                    import_object.set_owner(compiler_id)
+
+                # Use the creation date available on the approach table
                 created = row.get('date')
-                if created:
-                    import_object.created = datetime.strptime(
-                        created, WOCAT_DATE_FORMAT).strftime(
-                        QCAT_DATE_FORMAT)
+                if created and table_name == 'approach':
+                    creation_time = datetime.strptime(
+                        created, WOCAT_DATE_FORMAT)
+                    import_object.created = timezone.make_aware(
+                        creation_time, timezone.get_current_timezone())
 
                 import_object.add_wocat_data(table_name, row)
 
