@@ -110,22 +110,24 @@ class GlobalValuesMixin:
         pictures element.
         """
         image = self.raw_data_getter('header_image_image')
-        photographer = self.raw_data_getter('header_image_photographer')
-        text = '{caption} {remarks} {name}'.format(
-            caption=self.raw_data_getter('header_image_caption'),
-            remarks=self.raw_data_getter('header_image_remarks'),
-            name='({})'.format(photographer) if photographer else ''
-        )
-        if not image:
+        if image:
+            photographer = self.raw_data_getter('header_image_photographer')
+            text = '{caption} {remarks} {name}'.format(
+                caption=self.raw_data_getter('header_image_caption'),
+                remarks=self.raw_data_getter('header_image_remarks'),
+                name='({})'.format(photographer) if photographer else ''
+            )
+        else:
             image_urls = self.raw_data_getter('images_image', value='')
+            text = ''
             if image_urls:
                 # use first element from photos, and remove it from the photos
                 # element, so the images on display are the 'next' images.
                 image_element = self.raw_data['images_image'].pop(0)
                 image = image_element['value']
+                text = self.get_image_caption(0)
                 self.raw_data['images_caption'].pop(0)
                 self.raw_data['images_photographer'].pop(0)
-                text = self.get_image_caption(0)
 
         return {
             'partials': {
@@ -164,6 +166,7 @@ class GlobalValuesMixin:
         }
 
     def images(self):
+        # note: data from images_image may be popped in header_image.
         image_urls = self.raw_data_getter('images_image', value='')
         images = []
         if image_urls:
