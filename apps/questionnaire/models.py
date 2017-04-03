@@ -549,7 +549,7 @@ class Questionnaire(models.Model):
                 'No active configuration for questionnaire {}'.format(self.id)
             )
         config = get_configuration(active_config.code)
-        names = config.get_questionnaire_name(self.data)
+        names = config.get_questionnaire_name(self.data) or {}
         name = names.get(locale or get_language())
         if name:
             # omit additional query
