@@ -326,13 +326,15 @@ class ImportObject(Logger):
     def get_wocat_table_data(self, table_name):
         return self.wocat_data.get(table_name)
 
-    def get_wocat_attribute_data(self, table_name, attribute_name):
+    def get_wocat_attribute_data(
+            self, table_name, attribute_name, keep_null_values=False):
         """
         Return a list of attributes found in the WOCAT data.
 
         Args:
             table_name: The WOCAT table name.
             attribute_name: The WOCAT attribute name (the table column).
+            keep_null_values: Keep values in the list even if they are None
 
         Returns:
             list. A list of attributes.
@@ -343,7 +345,7 @@ class ImportObject(Logger):
         attribute_data = []
         for wocat_table_d in wocat_table_data:
             attribute_d = wocat_table_d.get(attribute_name)
-            if attribute_d:
+            if attribute_d or keep_null_values is True:
                 attribute_data.append(attribute_d)
         return attribute_data
 
@@ -751,9 +753,12 @@ class ImportObject(Logger):
                     values.extend(wocat_data)
                 continue
 
+            keep_null_values = mapping.get('index_filter') is not None
+
             if table_data is None:
                 wocat_attribute = self.get_wocat_attribute_data(
-                    table_name=wocat_table, attribute_name=wocat_column)
+                    table_name=wocat_table, attribute_name=wocat_column,
+                    keep_null_values=keep_null_values)
             else:
                 table_attribute = table_data.get(wocat_column)
                 if not table_attribute:

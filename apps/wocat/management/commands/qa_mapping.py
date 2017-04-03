@@ -298,6 +298,142 @@ qg_import = {
     },
 }
 
+# 2.1 Short description of the Approach
+app_qg_1 = {
+    'app_qg_1': {
+        'questions': {
+            'app_definition': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'description',
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 2.2 Detailed description of the Approach
+app_qg_2 = {
+    'app_qg_2': {
+        'questions': {
+            'app_description': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '1',
+                                    }
+                                ],
+                            },
+                        ],
+                        'value_prefix': 'Aims / objectives: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '2',
+                                    }
+                                ]
+                            }
+                        ],
+                        'value_prefix': 'Methods: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '3',
+                                    }
+                                ]
+
+                            }
+                        ],
+                        'value_prefix': 'Stages of implementation: ',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '4',
+                                    }
+                                ]
+                            }
+                        ],
+                        'value_prefix': 'Role of stakeholders: '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '5',
+                                    }
+                                ]
+                            }
+                        ],
+                        'value_prefix': 'Other important information: ',
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
 # 2.3 Photos of the Approach
 qg_photos = {
     'qg_photos': {
@@ -455,6 +591,8 @@ questiongroups = [
     qg_name,  # 1.1 Name
     qg_location,  # 2.5 Country/ region/ locations where the Approach has been applied
     qg_import,  # Hidden: QA Code,
+    app_qg_1,  # 2.1 Short description of the Approach
+    app_qg_2,  # 2.2 Detailed description of the Approach
     qg_photos,  # 2.3 Photos of the Approach
     qg_location_map,  # 2.5 Location
     qg_112,  # 2.5 Location: comments
