@@ -801,6 +801,11 @@ def get_link_data(linked_objects, link_configuration_code=None):
             configuration = original_configuration.code
 
         link_list = links.get(link_configuration_code, [])
+
+        if next((item for item in link_list if item['code'] == link.code),
+                None) is not None:
+            continue
+
         link_list.append({
             'id': link.id,
             'code': link.code,

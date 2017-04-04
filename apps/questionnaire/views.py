@@ -89,8 +89,12 @@ class QuestionnaireLinkSearchView(QuestionnaireSearchView, LoginRequiredMixin):
 
     def get_queryset(self):
         term = self.request.GET.get('term', '')
+        name_questiongroup = 'qg_name'
+        if self.configuration_code in ['sample', 'samplemulti']:
+            configuration = get_configuration(self.configuration_code)
+            __, name_questiongroup = configuration.get_name_keywords()
         data_lookup_params = {
-            'questiongroup': 'qg_name',
+            'questiongroup': name_questiongroup,
             'lookup_by': 'string',
             'value': term,
         }
