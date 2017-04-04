@@ -704,7 +704,10 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
 
         complete, total = self.questionnaire_configuration.get_completeness(
             data)
-        completeness_percentage = int(round(complete / total * 100))
+        try:
+            completeness_percentage = int(round(complete / total * 100))
+        except ZeroDivisionError:
+            completeness_percentage = 0
 
         sections = self.questionnaire_configuration.get_details(
             data, permissions=permissions,
