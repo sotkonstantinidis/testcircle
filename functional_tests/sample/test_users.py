@@ -15,6 +15,7 @@ from accounts.middleware import WocatAuthenticationMiddleware
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
+from functional_tests.sample.test_search import LIST_EMPTY_RESULTS_TEXT
 from questionnaire.tests.test_models import get_valid_questionnaire
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import route_questionnaire_new_step
@@ -222,8 +223,6 @@ class UserTest(FunctionalTest):
         #     'xpath', '//p[@class="questionnaire-list-empty" and contains('
         #     'text(), "No WOCAT and UNCCD SLM practices found.")]')
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_questionnaire_search(self, mock_get_user_id):
         alice = mommy.make(
             get_user_model(),
@@ -985,8 +984,8 @@ class UserDetailTest(FunctionalTest):
             'Focal Point')
         )
         # The user has no public questionnaires
-        self.findBy('xpath', '//*[contains(text(), "No WOCAT and UNCCD SLM '
-                             'practices found.")]')
+        self.findBy('xpath', '//*[contains(text(), "{}")]'.format(
+            LIST_EMPTY_RESULTS_TEXT))
 
         # Now jay logs in
         self.doLogin(user=self.user)
