@@ -2121,12 +2121,3 @@ class DoMappingTest(TestCase):
         self.assertEqual(qg_data_28[2], {
             'question_28_1': {'fr': 'trois'}
         })
-
-    # from nose.plugins.attrib import attr
-    # @attr('foo')
-    # def test_repeating_in_same_row(self):
-    #     self.imprt.do_mapping()
-    #     import_object_1 = self.imprt.import_objects[0]
-    #     qg_data_26 = import_object_1.data_json.get('qg_26')
-    #     self.assertEqual(qg_data_26, '')
-    #     self.assertEqual(len(qg_data_26), 2)

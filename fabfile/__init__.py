@@ -141,6 +141,7 @@ def _get_latest_source():
     with cd(env.source_folder):
         run('git fetch')
         run('git pull origin %(branch)s' % env)
+        run('git fetch --tags')
 
 
 def _update_virtualenv():
