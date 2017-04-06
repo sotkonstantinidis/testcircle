@@ -235,6 +235,34 @@ DECISION_MAKING_MAPPING = {
     9: 'app_decisions_by_politicians',
 }
 
+ANNUAL_BUDGET_RANGE_MAPPING = {
+    72: 'app_budget_less_2000',
+    73: 'app_budget_2000_10000',
+    74: 'app_budget_10000_100000',
+    75: 'app_budget_100000_1000000',
+    76: 'app_budget_1000000_plus',
+}
+
+TRAINING_PROVIDED_MAPPING = {
+    77: 'app_training_who_lu',
+    78: 'app_training_who_field_staff',
+}
+
+TRAINING_FORM_MAPPING = {
+    80: 'app_training_form_onthejob',
+    81: 'app_training_form_sitevisits',
+    82: 'app_training_form_demonstration',
+    83: 'app_training_form_meetings',
+    84: 'app_training_form_courses',
+}
+
+RESEARCH_KIND_MAPPING = {
+    90: 'research_sociology',
+    91: 'research_economics',
+    92: 'research_ecology',
+    93: 'research_technology',
+}
+
 qg_name = {
     'qg_name': {
         'questions': {
@@ -1613,6 +1641,469 @@ app_qg_17 = {
     }
 }
 
+# 4.1 Capacity building/ training
+app_qg_18 = {
+    'app_qg_18': {
+        'questions': {
+            'app_training': {
+                'type': 'constant',
+                'value': 1,
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'training_provided',
+                            }
+                        ],
+                        'operator': 'contains',
+                        'value': '99'
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_provided_training',
+                                'wocat_column': 'training',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'training_other_specify'
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'training_specify'
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'training_subjects',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_training_form',
+                                'wocat_column': 'training_form',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    }
+                ]
+            }
+        }
+    }
+}
+
+# 4.1 Capacity building/ training
+app_qg_19 = {
+    'app_qg_19': {
+        'questions': {
+            'app_training_who': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_provided_training',
+                        'wocat_column': 'training',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': TRAINING_PROVIDED_MAPPING
+            },
+            'app_training_who_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'training_other_specify'
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_training_who_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'training_specify'
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_training_form': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_training_form',
+                        'wocat_column': 'training_form',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': TRAINING_FORM_MAPPING
+            },
+            'app_training_form_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'training_form_specify'
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_training_subjects': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'training_subjects',
+                    }
+                ],
+                'type': 'string',
+            },
+            # 'app_training_comments': {},
+        }
+    }
+}
+
+# 4.2 Advisory service
+app_qg_20 = {
+    'app_qg_20': {
+        'questions': {
+            'app_advisory': {
+                'type': 'constant',
+                'value': 1,
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'advisory_service_name',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'adisory_service_key1'
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'adisory_service_comment',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'continuation_ensured'
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'continuation_explain'
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    }
+                ]
+            }
+        }
+    }
+}
+
+# 4.2 Advisory service
+app_qg_21 = {
+    'app_qg_21': {
+        'questions': {
+            # 'app_advisory_service': {},
+            # 'app_advisory_service_other': {},
+            'app_advisory_describe': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'advisory_service_name',
+                                'mapping_prefix': 'Name of method used for advisory service: ',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'adisory_service_key1'
+                                    },
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'adisory_service_key2'
+                                    },
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'adisory_service_key3'
+                                    },
+                                ],
+                                'value_prefix': 'Key elements: ',
+                                'composite': {
+                                    'separator': ', '
+                                }
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'adisory_service_comment',
+                            },
+                        ],
+                        'composite': {
+                            'separator': '; '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'continuation_ensured',
+                                        'lookup_table': True,
+                                    }
+                                ],
+                                'value_prefix': 'Advisory service is ',
+                                'value_suffix': ' to ensure the continuation of land conservation activities'
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'continuation_explain',
+                            }
+                        ],
+                        'composite': {
+                            'separator': '; '
+                        }
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 4.5 Research
+app_qg_119 = {
+    'app_qg_119': {
+        'questions': {
+            'app_research': {
+                'type': 'constant',
+                'value': 1,
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'research',
+                            }
+                        ],
+                        'operator': 'one_of',
+                        'value': ['61', '62', '63']
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_research',
+                                'wocat_column': 'research_kind',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'research_specify'
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'research_by',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'research_where',
+                            }
+                        ],
+                        'operator': 'not_empty',
+                    }
+                ]
+            },
+        }
+    }
+}
+
+# 4.5 Research
+app_qg_120 = {
+    'app_qg_120': {
+        'questions': {
+            'app_research_topics': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_research',
+                        'wocat_column': 'research_kind',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': RESEARCH_KIND_MAPPING,
+            },
+            'app_research_topics_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'research_specify'
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_research_details': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'research_by',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'research_where',
+                                'lookup_table': True,
+                            }
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'research_where',
+                                    }
+                                ],
+                                'operator': 'one_of',
+                                'value': ['95', '96']
+                            }
+                        ],
+                        'value_prefix': 'Research was carried out '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'research_where',
+                                'value_mapping': 'Research was carried out both on station and on-farm',
+                            }
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'research_where',
+                                    }
+                                ],
+                                'operator': 'one_of',
+                                'value': ['97']
+                            }
+                        ],
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.1 Annual budget for the SLM component of the Approach
+app_qg_24 = {
+    'app_qg_24': {
+        'questions': {
+            # 'app_annual_budget': {},
+            'app_annual_budget_range': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'budget',
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': ANNUAL_BUDGET_RANGE_MAPPING,
+            },
+            'app_annual_budget_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_finance',
+                        'wocat_column': 'contributor',
+                        'lookup_table': True,
+                    },
+                    {
+                        'wocat_table': 'approach_finance',
+                        'wocat_column': 'comment',
+                        'mapping_prefix': ' (',
+                        'mapping_suffix': ')',
+                    },
+                    {
+                        'wocat_table': 'approach_finance',
+                        'wocat_column': 'percentage',
+                        'mapping_prefix': ': ',
+                        'mapping_suffix': '%',
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'separator': '; '
+                },
+                'value_prefix': 'Approach costs were met by the following donors: ',
+                'group_by_rows': True,
+            },
+        }
+    }
+}
+
 
 questiongroups = [
     qg_name,  # 1.1 Name
@@ -1635,6 +2126,13 @@ questiongroups = [
     app_qg_16,  # 2.9 Conditions enabling / hindering: other
     app_qg_103,  # 3.3 Flow chart
     app_qg_17,  # 3.4 Decision-making on the selection of SLM Technology/ Technologies
+    app_qg_18,  # 4.1 Capacity building/ training
+    app_qg_19,  # 4.1 Capacity building/ training
+    app_qg_20,  # 4.2 Advisory service
+    app_qg_21,  # 4.2 Advisory service
+    app_qg_119,  # 4.5 Research
+    app_qg_120,  # 4.5 Research
+    app_qg_24,  # 5.1 Annual budget for the SLM component of the Approach
 ]
 
 qa_mapping = {}

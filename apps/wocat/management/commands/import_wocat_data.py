@@ -632,7 +632,8 @@ class ImportObject(Logger):
     def collect_mapping(
             self, mappings, separator=None, value_mapping_list=None,
             return_list=False, value_prefix='', value_suffix='',
-            return_row_values=False, no_duplicates=False, table_data=None):
+            return_row_values=False, no_duplicates=False, table_data=None,
+            group_by_rows=False):
         """
         Collect the values defined in the mapping.
 
@@ -656,6 +657,8 @@ class ImportObject(Logger):
             table_data: Dict. Optionally already provide a dictionary of WOCAT
                 table data. In this case, the mapping needs only the
                 wocat_column entries to access the values from the dict.
+            group_by_rows: Boolean. Use this when wanting to map several
+                attributes of the same row to one group.
 
         Returns:
             String. (or list if return_list=True)
@@ -714,6 +717,7 @@ class ImportObject(Logger):
                 return str(v)
 
         values = []
+        grouped_values = []
 
         for mapping in mappings:
 
@@ -728,7 +732,8 @@ class ImportObject(Logger):
                     value_prefix=mapping.get('value_prefix', ''),
                     value_suffix=mapping.get('value_suffix', ''),
                     table_data=table_data,
-                    no_duplicates=no_duplicates)
+                    no_duplicates=no_duplicates,
+                    group_by_rows=group_by_rows)
                 if sub_value:
 
                     if mapping.get('conditions'):
@@ -792,8 +797,17 @@ class ImportObject(Logger):
             if mapping.get('mapping_message'):
                 self.add_mapping_message(mapping.get('mapping_message'))
 
+            if group_by_rows is True:
+                grouped_values.append(
+                    [do_value_mapping(v) for v in wocat_attribute])
+                continue
+
             for value in wocat_attribute:
                 values.append(do_value_mapping(value))
+
+        if group_by_rows is True:
+            for rearranged in [list(t) for t in zip(*grouped_values)]:
+                values.append(''.join(rearranged))
 
         if no_duplicates is True:
             values = list(set(values))
@@ -856,7 +870,8 @@ class ImportObject(Logger):
             value_mapping_list=question_properties.get('value_mapping_list'),
             value_prefix=question_properties.get('value_prefix', ''),
             value_suffix=question_properties.get('value_suffix', ''),
-            no_duplicates=no_duplicates, table_data=table_data)
+            no_duplicates=no_duplicates, table_data=table_data,
+            group_by_rows=question_properties.get('group_by_rows'))
 
         if q_type == 'string':
             # For string values, also collect translations.
@@ -876,7 +891,8 @@ class ImportObject(Logger):
                         'value_mapping_list'),
                     value_prefix=question_properties.get('value_prefix', ''),
                     value_suffix=question_properties.get('value_suffix', ''),
-                    table_data=table_data)
+                    table_data=table_data,
+                    group_by_rows=question_properties.get('group_by_rows'))
 
                 if translated_value:
                     values.append(
