@@ -221,6 +221,19 @@ COUNTRY_MAPPING = {
     188: "country_ALB",
 }
 
+APPROACH_TYPE_MAPPING = {
+    1: 'app_type_project',
+    2: 'app_type_traditional',
+    3: 'app_type_local',
+}
+
+DECISION_MAKING_MAPPING = {
+    5: 'app_decisions_by_lu',
+    6: 'app_decisions_by_lu_slm',
+    7: 'app_decisions_by_slm_lu',
+    8: 'app_decisions_by_slm',
+    9: 'app_decisions_by_politicians',
+}
 
 qg_name = {
     'qg_name': {
@@ -314,6 +327,20 @@ app_qg_1 = {
         }
     }
 }
+
+
+"""
+Paragraph types (para_type) of qa.approach_paragraphs:
+1: [see app_qg_2]
+2: [see app_qg_2]
+3: [see app_qg_2]
+4: [see app_qg_2]
+5: [see app_qg_2]
+6: Main constraints (2.1.3.1)
+7: Main aims and objectives (2.1.4.1)
+8: Comments of Annex 2
+9: Additional information of Annex 3
+"""
 
 # 2.2 Detailed description of the Approach
 app_qg_2 = {
@@ -586,6 +613,1006 @@ qg_112 = {
     }
 }
 
+# 2.6 Dates of initiation and termination of the Approach
+app_qg_4 = {
+    'app_qg_4': {
+        'questions': {
+            'app_initiation_year': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'start_year',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'start_year',
+                                    }
+                                ],
+                                'operator': 'not_one_of',
+                                'value': ['none', '>50', '>200', '> 100']
+                            }
+                        ]
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': {
+                    '1970s': 1970
+                }
+            },
+            # 'app_initiation': {},
+            'app_termination_year': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'end_year',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'end_year',
+                                    }
+                                ],
+                                'operator': 'not_one_of',
+                                'value': ['none', '-']
+                            }
+                        ]
+                    }
+                ],
+                'type': 'dropdown',
+            },
+            # 'app_dates_comments': {},
+        }
+    }
+}
+
+# 2.7 Type of Approach
+app_qg_5 = {
+    'app_qg_5': {
+        'questions': {
+            'app_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'approach_type',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'approach_type',
+                                    }
+                                ],
+                                'operator': 'contains_not',
+                                'value': '4'
+                            }
+                        ]
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': APPROACH_TYPE_MAPPING,
+            },
+            'app_type_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'type_specify',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'approach_type',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '4'
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.8 Main aims/ objectives of the Approach
+app_qg_111 = {
+    'app_qg_111': {
+        'questions': {
+            'app_main_aims': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '7',
+                                    }
+                                ],
+                            },
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_paragraphs',
+                                'wocat_column': 'text',
+                                'index_filter': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach_paragraphs',
+                                                'wocat_column': 'para_type',
+                                            }
+                                        ],
+                                        'operator': 'equals',
+                                        'value': '6',
+                                    }
+                                ],
+                                'mapping_prefix': 'The SLM Approach addressed the following problems: '
+                            },
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+"""
+Constraints (const) in table qa.approach_constraints:
+29: social / cultural / religious
+30: financial
+31: institutional
+32: legal / land use and / water rights
+33: technical
+34: workload
+35: other
+"""
+
+# 2.9 Conditions enabling / hindering: social/ cultural/ religious norms and values
+app_qg_6 = {
+    'app_qg_6': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '29',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '29',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '29',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '29',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.9 Conditions enabling / hindering: availability/ access to financial resources and services
+app_qg_7 = {
+    'app_qg_7': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '30',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '30',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '30',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '30',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.9 Conditions enabling / hindering: institutional setting
+app_qg_8 = {
+    'app_qg_8': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '31',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '31',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '31',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '31',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.9 Conditions enabling / hindering: legal framework (land tenure, land and water use rights)
+app_qg_10 = {
+    'app_qg_10': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '32',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '32',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '32',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '32',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.9 Conditions enabling / hindering: knowledge about SLM, access to technical support
+app_qg_13 = {
+    'app_qg_13': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '33',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '33',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '33',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '33',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.9 Conditions enabling / hindering: workload, availability of manpower
+app_qg_15 = {
+    'app_qg_15': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '34',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '34',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '34',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '34',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 2.9 Conditions enabling / hindering: other
+app_qg_16 = {
+    'app_qg_16': {
+        'questions': {
+            # 'app_condition_enabling': {},
+            # 'app_condition_enabling_specify': {},
+            'app_condition_hindering': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '35',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering'
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '35',
+                            }
+                        ],
+                        'value_mapping': 'app_condition_hindering',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_hindering_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '35',
+                            }
+                        ],
+                    },
+                    {
+                        'wocat_table': 'approach_constraints',
+                        'wocat_column': 'const_treatment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_constraints',
+                                        'wocat_column': 'const',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '35',
+                            }
+                        ],
+                        'mapping_prefix': 'Treatment through the SLM Approach: '
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 3.3 Flow chart
+app_qg_103 = {
+    'app_qg_103': {
+        'questions': {
+            'app_flowchart': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'blob_id',
+                    }
+                ],
+                'type': 'file',
+            },
+            'app_flowchart_description': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'description',
+                    }
+                ],
+                'type': 'string',
+            },
+            # 'app_flowchart_author': {},
+        },
+        'repeating': True,
+        'wocat_table': 'approach_images',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'image_type',
+                    }
+                ],
+                'operator': 'equals',
+                'value': '2',
+            }
+        ],
+        'limit_qg_length': 1,
+    }
+}
+
+# 3.4 Decision-making on the selection of SLM Technology/ Technologies
+app_qg_17 = {
+    'app_qg_17': {
+        'questions': {
+            'app_decisions_by': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'decision_choice',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'decision_choice',
+                                    }
+                                ],
+                                'operator': 'contains_not',
+                                'value': '10'
+                            }
+                        ]
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': DECISION_MAKING_MAPPING
+            },
+            'app_decisions_by_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'decision_choice_specify',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'decision_choice',
+                                    }
+                                ],
+                                'operator': 'contains',
+                                'value': '10'
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_decisions_explain': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'decision_choice_comment',
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'decision_method',
+                                        'lookup_table': True,
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'approach',
+                                                        'wocat_column': 'decision_method',
+                                                    }
+                                                ],
+                                                'operator': 'contains_not',
+                                                'value': '10'
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'value_prefix': 'Decisions on the method of implementing the SLM Technology were made by '
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'decision_method_comment',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach',
+                                                'wocat_column': 'decision_method',
+                                            }
+                                        ],
+                                        'operator': 'contains_not',
+                                        'value': '10'
+                                    }
+                                ],
+                            }
+                        ],
+                        'composite': {
+                            'type': 'merge',
+                            'separator': '. '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'decision_method_specify',
+                                        'conditions': [
+                                            {
+                                                'mapping': [
+                                                    {
+                                                        'wocat_table': 'approach',
+                                                        'wocat_column': 'decision_method',
+                                                    }
+                                                ],
+                                                'operator': 'contains',
+                                                'value': '10'
+                                            }
+                                        ],
+                                    }
+                                ],
+                                'value_prefix': 'Decisions on the method of implementing the SLM Technology were made by '
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'decision_method_comment',
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach',
+                                                'wocat_column': 'decision_method',
+                                            }
+                                        ],
+                                        'operator': 'contains',
+                                        'value': '10'
+                                    }
+                                ],
+                            }
+                        ],
+                        'composite': {
+                            'type': 'merge',
+                            'separator': '. '
+                        }
+                    },
+                ],
+                'type': 'string',
+            },
+            # 'app_decisions_based': {},
+            # 'app_decisions_based_other': {},
+        }
+    }
+}
+
 
 questiongroups = [
     qg_name,  # 1.1 Name
@@ -596,6 +1623,18 @@ questiongroups = [
     qg_photos,  # 2.3 Photos of the Approach
     qg_location_map,  # 2.5 Location
     qg_112,  # 2.5 Location: comments
+    app_qg_5, # 2.7 Type of Approach,
+    app_qg_4,  # 2.6 Dates of initiation and termination of the Approach
+    app_qg_111,  # 2.8 Main aims/ objectives of the Approach
+    app_qg_6,  # 2.9 Conditions enabling / hindering: social/ cultural/ religious norms and values
+    app_qg_7,  # 2.9 Conditions enabling / hindering: availability/ access to financial resources and services
+    app_qg_8,  # 2.9 Conditions enabling / hindering: institutional setting
+    app_qg_10,  # 2.9 Conditions enabling / hindering: legal framework (land tenure, land and water use rights)
+    app_qg_13,  # 2.9 Conditions enabling / hindering: knowledge about SLM, access to technical support
+    app_qg_15,  # 2.9 Conditions enabling / hindering: workload, availability of manpower
+    app_qg_16,  # 2.9 Conditions enabling / hindering: other
+    app_qg_103,  # 3.3 Flow chart
+    app_qg_17,  # 3.4 Decision-making on the selection of SLM Technology/ Technologies
 ]
 
 qa_mapping = {}

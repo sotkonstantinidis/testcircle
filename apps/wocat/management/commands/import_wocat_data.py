@@ -437,7 +437,7 @@ class ImportObject(Logger):
                 self.add_mapping_message('File {} not found.'.format(file_id))
                 return None
 
-            if file_id in [540, 22, 1889, 1771]:
+            if file_id in [540, 22, 1889, 1771, 335, 678]:
                 self.add_mapping_message(
                     'There was a problem with the file {}.'.format(file_id))
                 return None
@@ -554,7 +554,7 @@ class ImportObject(Logger):
                 return len(ref_value) == 0
             elif operator == 'not_empty':
                 return len(ref_value) != 0
-            elif operator == 'one_of':
+            elif operator in ['one_of', 'not_one_of']:
                 if isinstance(ref_value, list):
                     if len(ref_value) == 0:
                         return False
@@ -563,7 +563,10 @@ class ImportObject(Logger):
                             'List for one_of ({}) should contain exactly 1 '
                             'element.'.format(ref_value))
                     ref_value = ref_value[0]
-                return ref_value in cond_value
+                if operator == 'one_of':
+                    return ref_value in cond_value
+                elif operator == 'not_one_of':
+                    return ref_value not in cond_value
             else:
                 raise NotImplementedError(
                     'Condition operator "{}" not specified or not valid'.format(
@@ -1306,6 +1309,11 @@ class ImportObject(Logger):
             if questiongroup_properties.get('sort_function'):
                 wocat_table_data = sorted(wocat_table_data, key=lambda k: eval(
                     questiongroup_properties.get('sort_function')))
+
+            if questiongroup_properties.get('limit_qg_length') is not None:
+                qg_limit = questiongroup_properties.get('limit_qg_length')
+                if len(wocat_table_data) > qg_limit:
+                    wocat_table_data = wocat_table_data[:qg_limit]
 
             for data in wocat_table_data:
                 single_questiongroup_mapping(
