@@ -78,11 +78,7 @@ class QAImport(WOCATImport):
     ]
     lookup_table_name = 'qa_lookups'
 
-    import_objects_exclude = [
-        # TODO: Should this case really be excluded?
-        # Invalid code: "A_"
-        353,
-    ]
+    import_objects_exclude = []
     import_objects_filter = []
 
     # Attention: image_type column indicate what image it is
@@ -98,8 +94,7 @@ class QAImport(WOCATImport):
     configuration_code = 'approaches'
     questionnaire_owner = 'main_contributor'
 
-    # TODO: Change this to the real default compiler ID
-    default_compiler_id = 2365
+    default_compiler_id = 3726
 
     mapping = qa_mapping
     custom_mapping_messages = custom_mapping_messages
@@ -236,8 +231,8 @@ class QAImport(WOCATImport):
                     if compiler_id == 661:
                         compiler_id = self.default_compiler_id
                         import_object.add_mapping_message(
-                            'Using default compiler as main contributor was '
-                            '"Not registered"')
+                            'Using "Unknown User" as compiler in QCAT as main '
+                            'contributor in QA was "Not registered"')
 
                     # TODO: This is a temporary fix for invalid user IDs
                     elif identifier in [131, 128, 89, 47, 106, 82, 195, 212,

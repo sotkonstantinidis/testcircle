@@ -222,12 +222,18 @@ class ImportObject(Logger):
         # Example:
         # T_MOR010en
         code_parts = re.findall('[a-zA-Z_]+\d{3}', self.code_wocat)
+        # Handle code 'A_    ' which should still be migrated
+        if str(self.code_wocat) == 'A_    ':
+            code_parts = ['A_']
         if not len(code_parts) == 1:
             raise Exception('Invalid code: {}'.format(self.code_wocat))
         code = code_parts[0]
         self.code = code
 
         language = self.code_wocat.replace(code, '')
+        # Handle code 'A_    ' which should still be migrated
+        if str(self.code_wocat) == 'A_    ':
+            language = 'ru'
         if language not in LANGUAGE_MAPPING:
             raise Exception('Invalid language code: {}'.format(self.code_wocat))
         self.language = language
