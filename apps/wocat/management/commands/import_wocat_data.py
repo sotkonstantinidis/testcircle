@@ -633,7 +633,7 @@ class ImportObject(Logger):
             self, mappings, separator=None, value_mapping_list=None,
             return_list=False, value_prefix='', value_suffix='',
             return_row_values=False, no_duplicates=False, table_data=None,
-            group_by_rows=False):
+            group_by_rows=False, string_format=None):
         """
         Collect the values defined in the mapping.
 
@@ -659,6 +659,8 @@ class ImportObject(Logger):
                 wocat_column entries to access the values from the dict.
             group_by_rows: Boolean. Use this when wanting to map several
                 attributes of the same row to one group.
+            string_format: Str. A Python string format (with {}) used to compose
+                the mapped values.
 
         Returns:
             String. (or list if return_list=True)
@@ -675,6 +677,35 @@ class ImportObject(Logger):
             Returns:
                 string.
             """
+            def do_lookup(v):
+                """
+                Helper function to do the lookup of a value.
+
+                Args:
+                    v:
+
+                Returns:
+
+                """
+                if lookup_table is True:
+                    try:
+                        v = int(v)
+                        lookup_value = self.lookup_table.get(v)
+                    except ValueError:
+                        lookup_value = None
+                else:
+                    try:
+                        v = int(lookup_text)
+                        lookup_value = self.lookup_table_text.get(v)
+                    except ValueError:
+                        lookup_value = None
+
+                if lookup_value:
+                    return lookup_value.get(
+                        LANGUAGE_MAPPING[self.language], v)
+
+                return v
+
             value_mapping = mapping.get('value_mapping')
             if value_mapping:
                 v = value_mapping
@@ -692,24 +723,12 @@ class ImportObject(Logger):
 
             lookup_table = mapping.get('lookup_table')
             lookup_text = mapping.get('lookup_text')
+            lookup_list = mapping.get('lookup_list')
             if lookup_table is True or lookup_text is not None:
-
-                if lookup_table is True:
-                    try:
-                        v = int(v)
-                        lookup_value = self.lookup_table.get(v)
-                    except ValueError:
-                        lookup_value = None
+                if lookup_list is True:
+                    v = ', '.join([str(do_lookup(part)) for part in v.split(',')])
                 else:
-                    try:
-                        v = int(lookup_text)
-                        lookup_value = self.lookup_table_text.get(v)
-                    except ValueError:
-                        lookup_value = None
-
-                if lookup_value:
-                    v = lookup_value.get(
-                        LANGUAGE_MAPPING[self.language], v)
+                    v = do_lookup(v)
 
             if return_list is True:
                 return v
@@ -733,7 +752,8 @@ class ImportObject(Logger):
                     value_suffix=mapping.get('value_suffix', ''),
                     table_data=table_data,
                     no_duplicates=no_duplicates,
-                    group_by_rows=group_by_rows)
+                    group_by_rows=group_by_rows,
+                    string_format=string_format)
                 if sub_value:
 
                     if mapping.get('conditions'):
@@ -773,7 +793,7 @@ class ImportObject(Logger):
                     continue
                 wocat_attribute = [table_attribute]
 
-            if not wocat_attribute:
+            if not wocat_attribute and string_format is None:
                 continue
 
             if mapping.get('conditions'):
@@ -807,7 +827,10 @@ class ImportObject(Logger):
 
         if group_by_rows is True:
             for rearranged in [list(t) for t in zip(*grouped_values)]:
-                values.append(''.join(rearranged))
+                if string_format:
+                    values.append(string_format.format(*rearranged))
+                else:
+                    values.append(''.join(rearranged))
 
         if no_duplicates is True:
             values = list(set(values))
@@ -871,7 +894,8 @@ class ImportObject(Logger):
             value_prefix=question_properties.get('value_prefix', ''),
             value_suffix=question_properties.get('value_suffix', ''),
             no_duplicates=no_duplicates, table_data=table_data,
-            group_by_rows=question_properties.get('group_by_rows'))
+            group_by_rows=question_properties.get('group_by_rows'),
+            string_format=question_properties.get('string_format'))
 
         if q_type == 'string':
             # For string values, also collect translations.
@@ -892,7 +916,8 @@ class ImportObject(Logger):
                     value_prefix=question_properties.get('value_prefix', ''),
                     value_suffix=question_properties.get('value_suffix', ''),
                     table_data=table_data,
-                    group_by_rows=question_properties.get('group_by_rows'))
+                    group_by_rows=question_properties.get('group_by_rows'),
+                    string_format=question_properties.get('string_format'))
 
                 if translated_value:
                     values.append(

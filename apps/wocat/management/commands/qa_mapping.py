@@ -263,6 +263,20 @@ RESEARCH_KIND_MAPPING = {
     93: 'research_technology',
 }
 
+SUPPORT_MAPPING = {
+    116: 'app_inst_support_financial',
+    117: 'app_inst_support_training',
+    118: 'app_inst_support_equipment',
+}
+
+STRING_NULL_VALUES = [
+    'not applicable',
+    'Not applicable',
+    'N/A',
+    'n. a.',
+    '\r\n',
+]
+
 qg_name = {
     'qg_name': {
         'questions': {
@@ -1915,6 +1929,183 @@ app_qg_21 = {
     }
 }
 
+# 4.3 Institution strengthening (organizational development)
+app_qg_22 = {
+    'app_qg_22': {
+        'questions': {
+            'app_institutions': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'support'
+                    }
+                ],
+                'value_mapping_list': {
+                    60: 'app_institutions_no',
+                    61: 'app_institutions_little',
+                    62: 'app_institutions_moderate',
+                    63: 'app_institutions_great',
+                },
+                'type': 'dropdown'
+            }
+        }
+    }
+}
+
+# 4.3 Institution strengthening (organizational development)
+app_qg_23 = {
+    'app_qg_23': {
+        'questions': {
+            'app_institutions_level': {
+                'type': 'constant',
+                'value': ['app_inst_level_community'],
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'support'
+                            }
+                        ],
+                        'operator': 'one_of',
+                        'value': ['61', '62', '63'],
+                    }
+                ]
+            },
+            # 'app_institutions_level_other': {},
+            # 'app_institutions_describe': {},
+            'app_institutions_support': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_support',
+                        'wocat_column': 'support',
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox',
+                    'mapping': 'exclusive',
+                },
+                'value_mapping_list': SUPPORT_MAPPING,
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'support'
+                            }
+                        ],
+                        'operator': 'one_of',
+                        'value': ['61', '62', '63'],
+                    }
+                ]
+            },
+            'app_institutions_support_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'support_other',
+                    }
+                ],
+                'type': 'string',
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'support'
+                            }
+                        ],
+                        'operator': 'one_of',
+                        'value': ['61', '62', '63'],
+                    }
+                ]
+            },
+            'app_institutions_support_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'support_specify',
+                    }
+                ],
+                'type': 'string',
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'support'
+                            }
+                        ],
+                        'operator': 'one_of',
+                        'value': ['61', '62', '63'],
+                    }
+                ]
+            },
+        }
+    }
+}
+
+# 4.4 Monitoring and evaluation
+app_qg_105 = {
+    'app_qg_105': {
+        'questions': {
+            'app_monitoring': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_monitor',
+                        'wocat_column': 'aspect',
+                        'value_mapping': '1'
+                    }
+                ],
+                'type': 'dropdown',
+            },
+            'app_monitoring_comment': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_monitor',
+                        'wocat_column': 'aspect',
+                        'lookup_table': True,
+                    },
+                    {
+                        'wocat_table': 'approach_monitor',
+                        'wocat_column': 'frequency',
+                        'lookup_table': True
+                    },
+                    {
+                        'wocat_table': 'approach_monitor',
+                        'wocat_column': 'whom',
+                        'lookup_table': True,
+                        'lookup_list': True,
+                    },
+                    {
+                        'wocat_table': 'approach_monitor',
+                        'wocat_column': 'type',
+                        'lookup_table': True
+                    },
+                    {
+                        'wocat_table': 'approach_monitor',
+                        'wocat_column': 'specify',
+                    }
+                ],
+                'type': 'string',
+                'group_by_rows': True,
+                'string_format': '{} aspects were {} monitored by {} through {}; indicators: {}'
+            },
+        }
+    }
+}
+
+# 4.4 Monitoring and evaluation
+app_qg_118 = {
+    'app_qg_118': {
+        # 'questions': {
+        #     'app_documentation_systematic': {},
+        #     'app_documentation_comment': {},
+        # }
+    }
+}
+
 # 4.5 Research
 app_qg_119 = {
     'app_qg_119': {
@@ -2104,6 +2295,171 @@ app_qg_24 = {
     }
 }
 
+# 5.3 Subsidies for specific inputs (including labour)
+app_qg_34 = {
+    'app_qg_34': {
+        'questions': {
+            # 'app_subsidies_labour_type': {},
+            'app_subs_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'landuser_input_specify',
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 5.4 Credit
+app_qg_35 = {
+    'app_qg_35': {
+        'questions': {
+            'app_credit_provided': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'credit',
+                    }
+                ],
+                'value_mapping_list': {
+                    98: 0,
+                    99: 1,
+                },
+                'type': 'dropdown',
+            }
+        }
+    }
+}
+
+# 5.4 Credit
+app_qg_36 = {
+    'app_qg_36': {
+        'questions': {
+            'app_credit_conditions': {
+                'mapping': [
+                    {
+
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'credit_interest',
+                                        'mapping_prefix': 'Interest rate charged: ',
+                                        'mapping_suffix': '%'
+                                    }
+                                ],
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach',
+                                                'wocat_column': 'credit_interest'
+                                            }
+                                        ],
+                                        'operator': 'contains_not',
+                                        'value': '999.0'
+                                    }
+                                ]
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'credit_conditions',
+                                        'mapping_prefix': 'repayment conditions: ',
+                                        'mapping_suffix': '.'
+                                    }
+                                ],
+                                'conditions': [
+                                    {
+                                        'mapping': [
+                                            {
+                                                'wocat_table': 'approach',
+                                                'wocat_column': 'credit_conditions'
+                                            }
+                                        ],
+                                        'operator': 'not_one_of',
+                                        'value': STRING_NULL_VALUES
+                                    }
+                                ]
+                            }
+                        ],
+                        'composite': {
+                            'separator': '; '
+                        },
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'credit',
+                                    }
+                                ],
+                                'operator': 'contains_not',
+                                'value': '98'
+                            }
+                        ]
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'credit_interest_compare',
+                                        'lookup_table': True,
+                                    }
+                                ],
+                            }
+                        ],
+                        'value_prefix': 'Interest was ',
+                        'value_suffix': ' market rate.',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'credit',
+                                    }
+                                ],
+                                'operator': 'contains_not',
+                                'value': '98'
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string'
+            },
+            # 'app_credit_provider': {},
+            'app_credit_receiver': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'credit_receiver'
+                    }
+                ],
+                'type': 'string',
+                'conditions': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'credit',
+                            }
+                        ],
+                        'operator': 'contains_not',
+                        'value': '98'
+                    }
+                ]
+            },
+        }
+    }
+}
+
 
 questiongroups = [
     qg_name,  # 1.1 Name
@@ -2130,9 +2486,16 @@ questiongroups = [
     app_qg_19,  # 4.1 Capacity building/ training
     app_qg_20,  # 4.2 Advisory service
     app_qg_21,  # 4.2 Advisory service
+    app_qg_22,  # 4.3 Institution strengthening (organizational development)
+    app_qg_23,  # 4.3 Institution strengthening (organizational development)
+    app_qg_105,  # 4.4 Monitoring and evaluation
+    app_qg_118,  # 4.4 Monitoring and evaluation
     app_qg_119,  # 4.5 Research
     app_qg_120,  # 4.5 Research
     app_qg_24,  # 5.1 Annual budget for the SLM component of the Approach
+    app_qg_34,  # 5.3 Subsidies for specific inputs (including labour)
+    app_qg_35,  # 5.4 Credit
+    app_qg_36,  # 5.4 Credit
 ]
 
 qa_mapping = {}
@@ -2176,5 +2539,29 @@ custom_mapping_messages = [
                 457, 460, 461, 462, 463, 468, 469, 472, 474, 489, 496, 497, 499,
                 500, 501, 503, 504, 557, 559, 591, 597, 599, 601, 606, 617, 620,
                 621, 622, 624, 626, 630, 631, 632, 634, 646]
+    },
+    {
+        'message': 'QCAT 5.4 Credit - Specify conditions: Repayment conditions specified in QA 2.5.2.1 even though "Was credit provided ..." was answered with "No". Manual check necessary.',
+        'ids': [37, 47, 121, 488, 497, 127, 145, 94, 615, 102, 285]
+    },
+    {
+        'message': 'QCAT 5.4 Credit - Specify conditions: "If yes, also indicate if interest was [] market rate." was specified in QA 2.5.2.1 even though "Was credit provided ..." was answered with "No". Manual check necessary.',
+        'ids': [145, 121]
+    },
+    {
+        'message': 'QCAT 5.4 Credit - Specify conditions: "Specify credit receiver" was specified in QA 2.5.2.1 even though "Was credit provided ..." was answered with "No". Manual check necessary.',
+        'ids': [121]
+    },
+    {
+        'message': 'QCAT 4.3 Institution strenghtening - Specify type of support: Values (type of support) selected in QA 2.5.3 even though "No support" was indicated. Manual check necessary.',
+        'ids': [128, 463]
+    },
+    {
+        'message': 'QCAT 4.3 Institution strenghtening - Specify type of support: Type of support "other" specified in QA 2.5.3 even though "No support" was indicated. Manual check necessary.',
+        'ids': [436, 424]
+    },
+    {
+        'message': 'QCAT 4.3 Institution strenghtening - Give further details: "Specify" was filled out in QA 2.5.3 even though "No support" was indicated. Manual check necessary.',
+        'ids': [424, 117, 436, 606]
     }
 ]

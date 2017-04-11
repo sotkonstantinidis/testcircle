@@ -82,10 +82,6 @@ class QAImport(WOCATImport):
         # TODO: Should this case really be excluded?
         # Invalid code: "A_"
         353,
-
-        # TODO: Temporarily filtering out Approaches with description too long
-        # 622, 524, 585, 461, 488, 497, 589, 496, 624, 596, 620, 577, 606, 629,
-        # 644, 587,
     ]
     import_objects_filter = []
 
