@@ -81,6 +81,27 @@ def sort_by_key(entry, key, none_value=0):
     return v
 
 
+def is_empty_questiongroup(qg_dict):
+    """
+    Check if a questiongroup dictionary contains only empty values. Also checks
+    for empty translation strings.
+
+    Args:
+        qg_dict: dict.
+
+    Returns:
+        bool.
+    """
+    for question, question_data in qg_dict.items():
+        if isinstance(question_data, dict):
+            for translation in question_data.values():
+                if translation:
+                    return False
+        elif question_data:
+            return False
+    return True
+
+
 class Command(BaseCommand):
     help = 'Imports the data from the old WOCAT database.'
 
@@ -639,7 +660,7 @@ class ImportObject(Logger):
             self, mappings, separator=None, value_mapping_list=None,
             return_list=False, value_prefix='', value_suffix='',
             return_row_values=False, no_duplicates=False, table_data=None,
-            group_by_rows=False, string_format=None):
+            group_by_rows=False, string_format=None, split_questions=None):
         """
         Collect the values defined in the mapping.
 
@@ -667,6 +688,8 @@ class ImportObject(Logger):
                 attributes of the same row to one group.
             string_format: Str. A Python string format (with {}) used to compose
                 the mapped values.
+            split_questions: Bool or None. Group mappings into separate
+                questions (by index)
 
         Returns:
             String. (or list if return_list=True)
@@ -711,6 +734,9 @@ class ImportObject(Logger):
                         LANGUAGE_MAPPING[self.language], v)
 
                 return v
+
+            if split_questions is True and v in ['', 0, None]:
+                return ''
 
             value_mapping = mapping.get('value_mapping')
             if value_mapping:
@@ -759,7 +785,7 @@ class ImportObject(Logger):
                     table_data=table_data,
                     no_duplicates=no_duplicates,
                     group_by_rows=group_by_rows,
-                    string_format=string_format)
+                    string_format=mapping.get('string_format'))
                 if sub_value:
 
                     if mapping.get('conditions'):
@@ -787,7 +813,8 @@ class ImportObject(Logger):
                     values.extend(wocat_data)
                 continue
 
-            keep_null_values = mapping.get('index_filter') is not None
+            keep_null_values = split_questions or mapping.get(
+                'index_filter') is not None
 
             if table_data is None:
                 wocat_attribute = self.get_wocat_attribute_data(
@@ -891,7 +918,11 @@ class ImportObject(Logger):
                     question_properties.get('conditions_join')) is False:
                 return {}
 
-        no_duplicates = True if q_type in ['dropdown'] else False
+        split_questions = question_properties.get('split_questions')
+
+        no_duplicates = False
+        if q_type in ['dropdown'] and split_questions is not True:
+            no_duplicates = True
 
         value = self.collect_mapping(
             mappings,
@@ -901,7 +932,8 @@ class ImportObject(Logger):
             value_suffix=question_properties.get('value_suffix', ''),
             no_duplicates=no_duplicates, table_data=table_data,
             group_by_rows=question_properties.get('group_by_rows'),
-            string_format=question_properties.get('string_format'))
+            string_format=question_properties.get('string_format'),
+            split_questions=split_questions)
 
         if q_type == 'string':
             # For string values, also collect translations.
@@ -923,7 +955,8 @@ class ImportObject(Logger):
                     value_suffix=question_properties.get('value_suffix', ''),
                     table_data=table_data,
                     group_by_rows=question_properties.get('group_by_rows'),
-                    string_format=question_properties.get('string_format'))
+                    string_format=question_properties.get('string_format'),
+                    split_questions=split_questions)
 
                 if translated_value:
                     values.append(
@@ -1389,6 +1422,7 @@ class ImportObject(Logger):
                     'separator': 'QUESTIONSEPARATOR'
                 })
                 question_properties['composite'] = composite_options
+                question_properties['split_questions'] = True
             single_questiongroup_mapping(
                 qcat_questiongroup_keyword, questiongroup_properties)
 
@@ -1400,26 +1434,41 @@ class ImportObject(Logger):
             max_length = 0
             for questiongroup_data in questiongroup_data_list:
                 for question_keyword, question_data in questiongroup_data.items():
-                    grouped_questions[question_keyword] = {}
-                    for lang, data in question_data.items():
-                        data_split = data.split('QUESTIONSEPARATOR')
+                    if isinstance(question_data, dict):
+                        grouped_questions[question_keyword] = {}
+                        for lang, data in question_data.items():
+                            data_split = data.split('QUESTIONSEPARATOR')
+                            max_length = max(len(data_split), max_length)
+                            grouped_questions[question_keyword][lang] = data_split
+                    else:
+                        data_split = str(question_data).split('QUESTIONSEPARATOR')
                         max_length = max(len(data_split), max_length)
-                        grouped_questions[question_keyword][lang] = data_split
+                        grouped_questions[question_keyword] = data_split
 
             new_data_list = []
             for i in range(max_length):
                 new_data = {}
                 for question_keyword, langs in grouped_questions.items():
-                    new_data[question_keyword] = {}
-                    for lang, data in langs.items():
+                    if isinstance(langs, dict):
+                        new_data[question_keyword] = {}
+                        for lang, data in langs.items():
+                            try:
+                                new_data[question_keyword][lang] = data[i]
+                            except IndexError:
+                                pass
+                    else:
                         try:
-                            new_data[question_keyword][lang] = data[i]
+                            new_data[question_keyword] = langs[i]
                         except IndexError:
                             pass
-                new_data_list.append(new_data)
+
+                if not is_empty_questiongroup(new_data):
+                    new_data_list.append(new_data)
 
             if new_data_list:
                 self.data_json[qcat_questiongroup_keyword] = new_data_list
+            else:
+                self.data_json[qcat_questiongroup_keyword] = []
 
         else:
             single_questiongroup_mapping(

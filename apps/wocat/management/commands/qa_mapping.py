@@ -269,6 +269,14 @@ SUPPORT_MAPPING = {
     118: 'app_inst_support_equipment',
 }
 
+IMPACT_MAPPING = {
+    0: '',
+    60: '1',  # app_impacts_no
+    61: '2',  # app_impacts_yeslittle
+    62: '3',  # app_impacts_yesmoderate
+    63: '4',  # app_impacts_yesgreatly
+}
+
 STRING_NULL_VALUES = [
     'not applicable',
     'Not applicable',
@@ -2063,34 +2071,95 @@ app_qg_105 = {
             'app_monitoring_comment': {
                 'mapping': [
                     {
-                        'wocat_table': 'approach_monitor',
-                        'wocat_column': 'aspect',
-                        'lookup_table': True,
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_monitor',
+                                'wocat_column': 'aspect',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'approach_monitor',
+                                'wocat_column': 'frequency',
+                                'lookup_table': True
+                            },
+                            {
+                                'wocat_table': 'approach_monitor',
+                                'wocat_column': 'whom',
+                                'lookup_table': True,
+                                'lookup_list': True,
+                            },
+                            {
+                                'wocat_table': 'approach_monitor',
+                                'wocat_column': 'type',
+                                'lookup_table': True
+                            },
+                            {
+                                'wocat_table': 'approach_monitor',
+                                'wocat_column': 'specify',
+                            }
+                        ],
+                        'string_format': '{} aspects were {} monitored by {} through {}; indicators: {}'
                     },
                     {
-                        'wocat_table': 'approach_monitor',
-                        'wocat_column': 'frequency',
-                        'lookup_table': True
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach_monitor_other',
+                                'wocat_column': 'aspect_other',
+                            },
+                            {
+                                'wocat_table': 'approach_monitor_other',
+                                'wocat_column': 'frequency_other',
+                                'lookup_table': True
+                            },
+                            {
+                                'wocat_table': 'approach_monitor_other',
+                                'wocat_column': 'whom_other',
+                                'lookup_table': True,
+                                'lookup_list': True,
+                            },
+                            {
+                                'wocat_table': 'approach_monitor_other',
+                                'wocat_column': 'type_other',
+                                'lookup_table': True
+                            },
+                            {
+                                'wocat_table': 'approach_monitor_other',
+                                'wocat_column': 'specify_other',
+                            }
+                        ],
+                        'string_format': '{} aspects were {} monitored by {} through {}; indicators: {}'
                     },
                     {
-                        'wocat_table': 'approach_monitor',
-                        'wocat_column': 'whom',
-                        'lookup_table': True,
-                        'lookup_list': True,
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'approach_change',
+                                'lookup_table': True
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'approach_change_comment'
+                            }
+                        ],
+                        'string_format': 'There were {} changes in the Approach as a result of monitoring and evaluation: {}'
                     },
                     {
-                        'wocat_table': 'approach_monitor',
-                        'wocat_column': 'type',
-                        'lookup_table': True
-                    },
-                    {
-                        'wocat_table': 'approach_monitor',
-                        'wocat_column': 'specify',
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'technology_change',
+                                'lookup_table': True
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'technology_change_comment'
+                            }
+                        ],
+                        'string_format': 'There were {} changes in the Technology as a result of monitoring and evaluation: {}'
                     }
                 ],
                 'type': 'string',
                 'group_by_rows': True,
-                'string_format': '{} aspects were {} monitored by {} through {}; indicators: {}'
             },
         }
     }
@@ -2460,6 +2529,111 @@ app_qg_36 = {
     }
 }
 
+# 6.1 Impacts of the Approach: Did the Approach help land users to implement and maintain SLM Technologies?
+app_qg_41 = {
+    'app_qg_41': {
+        'questions': {
+            'app_impacts_implement': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_sustain',
+                    }
+                ],
+                'value_mapping_list': IMPACT_MAPPING,
+                'type': 'dropdown',
+            },
+            'app_impacts_implement_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_sustain_comment',
+                    }
+                ],
+                'type': 'string'
+            },
+        }
+    }
+}
+
+# 6.1 Impacts of the Approach: Did the Approach empower socially and economically disadvantaged groups?
+app_qg_48 = {
+    'app_qg_48': {
+        'questions': {
+            'app_impacts_empowergroups': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_situation',
+                    }
+                ],
+                'value_mapping_list': IMPACT_MAPPING,
+                'type': 'dropdown',
+            },
+            'app_impacts_empowergroups_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_situation_comment'
+                    }
+                ],
+                'type': 'string'
+            },
+        }
+    }
+}
+
+# 6.1 Impacts of the Approach: Other
+app_qg_54 = {
+    'app_qg_54': {
+        'questions': {
+            'app_impacts_other': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_live',
+                        'value_mapping': 'Did the Approach lead to improved livelihoods / human well-being?'
+                    },
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'alleviate_poverty',
+                        'value_mapping': 'Did the Approach help to alleviate poverty?'
+                    },
+                ],
+                'type': 'string',
+            },
+            'app_impacts_other_measure': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_live',
+                    },
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'alleviate_poverty'
+                    }
+                ],
+                'value_mapping_list': IMPACT_MAPPING,
+                'type': 'dropdown',
+            },
+            'app_impacts_other_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'improve_live_comment'
+                    },
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'alleviate_poverty_comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        },
+        'split_questions': True,
+    }
+}
+
 
 questiongroups = [
     qg_name,  # 1.1 Name
@@ -2496,6 +2670,9 @@ questiongroups = [
     app_qg_34,  # 5.3 Subsidies for specific inputs (including labour)
     app_qg_35,  # 5.4 Credit
     app_qg_36,  # 5.4 Credit
+    app_qg_41,  # 6.1 Impacts of the Approach: Did the Approach help land users to implement and maintain SLM Technologies?
+    app_qg_48,  # 6.1 Impacts of the Approach: Did the Approach empower socially and economically disadvantaged groups?
+    app_qg_54,  # 6.1 Impacts of the Approach: Other
 ]
 
 qa_mapping = {}
