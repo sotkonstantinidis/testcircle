@@ -277,6 +277,13 @@ IMPACT_MAPPING = {
     63: '4',  # app_impacts_yesgreatly
 }
 
+IMPACT_MAPPING_2 = {
+    168: '1',  # app_impacts_no
+    169: '2',  # app_impacts_yeslittle
+    170: '3',  # app_impacts_yesmoderate
+    171: '4',  # app_impacts_yesgreatly,
+}
+
 STRING_NULL_VALUES = [
     'not applicable',
     'Not applicable',
@@ -2583,6 +2590,59 @@ app_qg_48 = {
     }
 }
 
+# 6.1 Impacts of the Approach: Did the Approach improve issues of land tenure/ user rights that hindered implementation of SLM Technologies?
+app_qg_49 = {
+    'app_qg_49': {
+        'questions': {
+            'app_impacts_landtenure': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'rights_hinder_reduce',
+                    }
+                ],
+                'value_mapping_list': IMPACT_MAPPING_2,
+                'type': 'dropdown',
+            },
+            'app_impacts_landtenure_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'rights_hinder_reduce_comment',
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights_overcome',
+                                        'lookup_table': True,
+                                    }
+                                ],
+                                'value_prefix': 'The problem is ',
+                                'value_suffix': ' to be overcome in the near future.',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights_overcome_comment'
+                                    }
+                                ]
+                            }
+                        ],
+                        'composite': {
+                            'separator': ' '
+                        }
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
 # 6.1 Impacts of the Approach: Other
 app_qg_54 = {
     'app_qg_54': {
@@ -2634,6 +2694,504 @@ app_qg_54 = {
     }
 }
 
+"""
+Motivation (motivation) in table qa.approach_motivation:
+174: production
+175: increased profit(ability), improve cost-benefit-ratio
+176: rules and regulations (fines) / enforcement
+177: prestige / social pressure
+178: payments / subsidies
+179: reduced workload
+180: affiliation to movement / project / group / networks
+181: environmental consciousness, moral, health
+182: well-being and livelihoods improvement
+183: aesthetic
+"""
+
+# 6.2 Main motivation of land users to implement SLM
+app_qg_70 = {
+    'app_qg_70': {
+        'questions': {
+            'app_motivation': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '174',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_production'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '175',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_profit'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '176',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_rules'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '177',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_prestige'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '178',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_payments'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '179',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_workload'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '180',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_affiliation'
+                    },
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'motivation',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '183',
+                            }
+                        ],
+                        'value_mapping': 'app_motivation_aesthetic'
+                    },
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: increased production
+app_qg_71 = {
+    'app_qg_71': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '174',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: increased profit(ability), improved cost-benefit-ratio
+app_qg_72 = {
+    'app_qg_72': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '175',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: reduced workload
+app_qg_73 = {
+    'app_qg_73': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '179',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: payments/ subsidies
+app_qg_74 = {
+    'app_qg_74': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '178',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: rules and regulations (fines)/ enforcement
+app_qg_75 = {
+    'app_qg_75': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '176',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: prestige, social pressure/ social cohesion
+app_qg_76 = {
+    'app_qg_76': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '177',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: affiliation to movement/ project/ group/ networks
+app_qg_77 = {
+    'app_qg_77': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '180',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: aesthetic improvement
+app_qg_81 = {
+    'app_qg_81': {
+        'questions': {
+            'app_motivation_comments': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '183',
+                            }
+                        ],
+                    },
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.2 Main motivation of land users to implement SLM: Other (specify)
+app_qg_83 = {
+    'app_qg_83': {
+        'questions': {
+            'app_motivation_other': {
+                'mapping': [
+                    # environmental consciousness, moral, health
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '181',
+                            }
+                        ],
+                        'value_mapping': 'environmental consciousness, moral, health',
+                        'mapping_message': 'QCAT 6.2 Main motivation - other: Check if "environmental consciousness, moral, health" can be assigned to one of the checkboxes.'
+                    },
+                    # well-being and livelihoods improvement
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '182',
+                            }
+                        ],
+                        'value_mapping': 'well-being and livelihoods improvement'
+                    },
+                    # Other
+                    {
+                        'wocat_table': 'approach_motivation_other',
+                        'wocat_column': 'motivation_other',
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_motivation_comments': {
+                'mapping': [
+                    # environmental consciousness, moral, health
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '181',
+                            }
+                        ],
+                    },
+                    # well-being and livelihoods improvement
+                    {
+                        'wocat_table': 'approach_motivation',
+                        'wocat_column': 'comment',
+                        'index_filter': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach_motivation',
+                                        'wocat_column': 'motivation',
+                                    }
+                                ],
+                                'operator': 'equals',
+                                'value': '182',
+                            }
+                        ],
+                    },
+                    # Other
+                    {
+                        'wocat_table': 'approach_motivation_other',
+                        'wocat_column': 'comment_other',
+                    }
+                ],
+                'type': 'string',
+            },
+        },
+        'split_questions': True,
+    }
+}
+
 
 questiongroups = [
     qg_name,  # 1.1 Name
@@ -2672,7 +3230,18 @@ questiongroups = [
     app_qg_36,  # 5.4 Credit
     app_qg_41,  # 6.1 Impacts of the Approach: Did the Approach help land users to implement and maintain SLM Technologies?
     app_qg_48,  # 6.1 Impacts of the Approach: Did the Approach empower socially and economically disadvantaged groups?
+    app_qg_49,  # 6.1 Impacts of the Approach: Did the Approach improve issues of land tenure/ user rights that hindered implementation of SLM Technologies?
     app_qg_54,  # 6.1 Impacts of the Approach: Other
+    app_qg_70,  # 6.2 Main motivation of land users to implement SLM
+    app_qg_71,  # 6.2 Main motivation of land users to implement SLM: increased production
+    app_qg_72,  # 6.2 Main motivation of land users to implement SLM: increased profit(ability), improved cost-benefit-ratio
+    app_qg_73,  # 6.2 Main motivation of land users to implement SLM: reduced workload
+    app_qg_74,  # 6.2 Main motivation of land users to implement SLM: payments/ subsidies
+    app_qg_75,  # 6.2 Main motivation of land users to implement SLM: rules and regulations (fines)/ enforcement
+    app_qg_76,  # 6.2 Main motivation of land users to implement SLM: prestige, social pressure/ social cohesion
+    app_qg_77,  # 6.2 Main motivation of land users to implement SLM: affiliation to movement/ project/ group/ networks
+    app_qg_81,  # 6.2 Main motivation of land users to implement SLM: aesthetic improvement
+    app_qg_83,  # 6.2 Main motivation of land users to implement SLM: Other (specify)
 ]
 
 qa_mapping = {}

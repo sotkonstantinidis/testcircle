@@ -12958,7 +12958,7 @@
                         "keyword": "app_qg_83",
                         "form_options": {
                           "template": "columns_e6_e6",
-                          "max_num": 2,
+                          "max_num": 5,
                           "row_class": "no-top-margin"
                         },
                         "questions": [
