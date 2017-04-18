@@ -100,6 +100,17 @@ def get_mappings(questionnaire_configuration):
         }
     }
 
+    # Add the global questiongroups to the mapping if they are not already part
+    # of it. This is needed to prevent crashes when filtering (nested) by these
+    # questiongroups in configurations that do not have these questiongroups
+    # (e.g. UNCCD configuration).
+    for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
+        if global_questiongroup not in data_properties.keys():
+            data_properties[global_questiongroup] = {
+                'type': 'nested',
+                'properties': {},
+            }
+
     mappings = {
         'questionnaire': {
             'properties': {
