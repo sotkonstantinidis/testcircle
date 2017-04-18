@@ -102,6 +102,7 @@ class BaseSettings(Configuration):
         ('lo', _('Lao')),
         ('ar', _('Arabic')),
         ('pt', _('Portuguese')),
+        ('af', _('Afrikaans')),
     )
     # languages with extraordinarily long words that need 'forced' line breaks
     # to remain consistent in the box-layout.

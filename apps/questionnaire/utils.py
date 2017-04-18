@@ -1730,11 +1730,18 @@ def prepare_list_values(data, config, **kwargs):
         links[link_configuration].append(link)
     data['links'] = links
 
-    # 'translations' must not list the currently active language
+    # Get the display values of the translation languages
     if data['translations']:
-        data['translations'] = [
-            [lang, str(languages[lang])] for lang in data['translations'] if lang != language
-        ]
+        translations = []
+        for lang in data['translations']:
+            # 'translations' must not list the currently active language
+            if lang == language:
+                continue
+            if lang in languages.keys():
+                translations.append([lang, str(languages[lang])])
+            else:
+                translations.append([lang, lang])
+        data['translations'] = translations
 
     data['configuration'] = config.keyword
     # dict key is suffixed with _property when called from the serializer.
