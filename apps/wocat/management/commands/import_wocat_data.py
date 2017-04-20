@@ -985,11 +985,28 @@ class ImportObject(Logger):
             }
 
         elif q_type == 'date':
+
+            date_format = question_properties.get(
+                'date_format', WOCAT_DATE_FORMAT)
+
+            # Manual fixing of incorrect dates ...
+            if value == 'July/August 2014':
+                value = '01-08-2014'
+            elif value == 'April/May 2013':
+                value = '01-05-2013'
+            elif value == 'Abril/Maio 2013':
+                value = '01-05-2013'
+            elif value == 'May 2012':
+                value = '15-05-2012'
+
             try:
                 value = datetime.strptime(
-                    value, WOCAT_DATE_FORMAT).strftime(
-                    QCAT_DATE_FORMAT)
+                    value, date_format).strftime(QCAT_DATE_FORMAT)
             except ValueError:
+                self.add_error(
+                    'mapping',
+                    'Date of object {} is not valid: {}'.format(
+                        self, value))
                 return {}
 
             return {

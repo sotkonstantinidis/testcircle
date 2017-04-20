@@ -284,6 +284,14 @@ IMPACT_MAPPING_2 = {
     171: '4',  # app_impacts_yesgreatly,
 }
 
+INVOLVEMENT_MAPPING = {
+    1: 'involvement_type_none',
+    2: 'involvement_type_passive',
+    3: 'involvement_type_payment',
+    4: 'involvement_type_interactive',
+    5: 'involvement_type_selfmobilization',
+}
+
 STRING_NULL_VALUES = [
     'not applicable',
     'Not applicable',
@@ -315,6 +323,28 @@ qg_name = {
             },
         }
     },
+}
+
+# 1.3 Conditions regarding the use of data documented through WOCAT
+qg_accept_conditions = {
+    'qg_accept_conditions': {
+        'questions': {
+            'date_documentation': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'collection_date',
+                    }
+                ],
+                'type': 'date',
+                'date_format': '%d-%m-%Y'
+            },
+            'accept_conditions': {
+                'type': 'constant',
+                'value': 1,
+            },
+        }
+    }
 }
 
 qg_location = {
@@ -1471,6 +1501,151 @@ app_qg_16 = {
     }
 }
 
+# 3.2 Involvement of local land users/ local communities in the different phases of the Approach - initiation/ motivation
+app_qg_113 = {
+    'app_qg_113': {
+        'questions': {
+            'app_involvement_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_1'
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': INVOLVEMENT_MAPPING,
+            },
+            'app_involvement_who': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_1_comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 3.2 Involvement of local land users/ local communities in the different phases of the Approach - planning
+app_qg_114 = {
+    'app_qg_114': {
+        'questions': {
+            'app_involvement_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_2'
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': INVOLVEMENT_MAPPING,
+            },
+            'app_involvement_who': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_2_comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 3.2 Involvement of local land users/ local communities in the different phases of the Approach - implementation
+app_qg_115 = {
+    'app_qg_115': {
+        'questions': {
+            'app_involvement_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_3'
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': INVOLVEMENT_MAPPING,
+            },
+            'app_involvement_who': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_3_comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 3.2 Involvement of local land users/ local communities in the different phases of the Approach - monitoring/ evaluation
+app_qg_116 = {
+    'app_qg_116': {
+        'questions': {
+            'app_involvement_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_4'
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': INVOLVEMENT_MAPPING,
+            },
+            'app_involvement_who': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_4_comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
+# 3.2 Involvement of local land users/ local communities in the different phases of the Approach - other
+app_qg_117 = {
+    'app_qg_117': {
+        'questions': {
+            'app_involvement_specify': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_5',
+                        'value_mapping': 'Research'
+                    }
+                ],
+                'type': 'string',
+            },
+            'app_involvement_type': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_5'
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': INVOLVEMENT_MAPPING,
+            },
+            'app_involvement_who': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'lu_involve_5_comment'
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
+
 # 3.3 Flow chart
 app_qg_103 = {
     'app_qg_103': {
@@ -2381,6 +2556,10 @@ app_qg_34 = {
                     {
                         'wocat_table': 'approach',
                         'wocat_column': 'landuser_input_specify',
+                    },
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'finance_comments'
                     }
                 ],
                 'type': 'string',
@@ -3192,9 +3371,273 @@ app_qg_83 = {
     }
 }
 
+# 6.3 Sustainability of Approach activities
+app_qg_84 = {
+    'app_qg_84': {
+        'questions': {
+            'app_can_lu_sustain': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'continue_no_support',
+                    }
+                ],
+                'type': 'dropdown',
+                'value_mapping_list': {
+                    184: 'app_sustainability_no',
+                    185: 'app_sustainability_yes',
+                    186: 'app_sustainability_uncertain',
+                }
+            }
+        }
+    }
+}
+
+# 6.3 Sustainability of Approach activities: No
+app_qg_85 = {
+    'app_qg_85': {
+        'questions': {
+            'app_can_lu_sustain_no_comment': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'continue_comment',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'continue_no_support',
+                                    }
+                                ],
+                                'operator': 'one_of',
+                                'value': ['184', '186']
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.3 Sustainability of Approach activities: Yes
+app_qg_86 = {
+    'app_qg_86': {
+        'questions': {
+            'app_can_lu_sustain_yes_comment': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'continue_comment',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'continue_no_support',
+                                    }
+                                ],
+                                'operator': 'one_of',
+                                'value': ['185']
+                            }
+                        ]
+                    }
+                ],
+                'type': 'string',
+            }
+        }
+    }
+}
+
+# 6.4 Strengths/ advantages of the Approach
+qg_strengths_landusers = {
+    'qg_strengths_landusers': {
+        'questions': {
+            'strengths_landuser': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'strength',
+                    },
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'sustain',
+                        'mapping_prefix': 'How can they be sustained / enhanced? '
+                    }
+                ],
+                'composite': {
+                    'separator': ' '
+                },
+                'type': 'string',
+            }
+        },
+        'repeating': True,
+        'wocat_table': 'approach_strengths',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'type'
+                    }
+                ],
+                'operator': 'equals',
+                'value': '1',
+            }
+        ]
+    }
+}
+
+# 6.4 Strengths/ advantages of the Approach
+qg_strengths_compiler = {
+    'qg_strengths_compiler': {
+        'questions': {
+            'strengths_compiler': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'strength',
+                    },
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'sustain',
+                        'mapping_prefix': 'How can they be sustained / enhanced? '
+                    }
+                ],
+                'composite': {
+                    'separator': ' '
+                },
+                'type': 'string',
+            }
+        },
+        'repeating': True,
+        'wocat_table': 'approach_strengths',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'type'
+                    }
+                ],
+                'operator': 'equals',
+                'value': '2',
+            }
+        ]
+    }
+}
+
+# 6.5 Weaknesses/ disadvantages of the Approach and ways of overcoming them
+qg_weaknesses_landusers = {
+    'qg_weaknesses_landusers': {
+        'questions': {
+            'weaknesses_landuser': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_weakness',
+                        'wocat_column': 'weakness'
+                    }
+                ],
+                'type': 'string',
+            },
+            'weaknesses_overcome': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_weakness',
+                        'wocat_column': 'overcome'
+                    }
+                ],
+                'type': 'string',
+            }
+        },
+        'repeating': True,
+        'wocat_table': 'approach_weakness',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_weakness',
+                        'wocat_column': 'type'
+                    }
+                ],
+                'operator': 'equals',
+                'value': '1',
+            }
+        ]
+    }
+}
+
+# 6.5 Weaknesses/ disadvantages of the Approach and ways of overcoming them
+qg_weaknesses_compiler = {
+    'qg_weaknesses_compiler': {
+        'questions': {
+            'weaknesses_compiler': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_weakness',
+                        'wocat_column': 'weakness'
+                    }
+                ],
+                'type': 'string',
+            },
+            'weaknesses_overcome': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_weakness',
+                        'wocat_column': 'overcome'
+                    }
+                ],
+                'type': 'string',
+            }
+        },
+        'repeating': True,
+        'wocat_table': 'approach_weakness',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_weakness',
+                        'wocat_column': 'type'
+                    }
+                ],
+                'operator': 'equals',
+                'value': '2',
+            }
+        ]
+    }
+}
+
+# 7.2 References to available publications
+qg_references = {
+    'qg_references': {
+        'questions': {
+            'references_title': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_documents',
+                        'wocat_column': 'title',
+                    }
+                ],
+                'type': 'string',
+            },
+            'references_source': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_documents',
+                        'wocat_column': 'availability',
+                    }
+                ],
+                'type': 'string',
+            },
+        }
+    }
+}
 
 questiongroups = [
     qg_name,  # 1.1 Name
+    qg_accept_conditions,  # 1.3 Conditions regarding the use of data documented through WOCAT
     qg_location,  # 2.5 Country/ region/ locations where the Approach has been applied
     qg_import,  # Hidden: QA Code,
     app_qg_1,  # 2.1 Short description of the Approach
@@ -3212,6 +3655,11 @@ questiongroups = [
     app_qg_13,  # 2.9 Conditions enabling / hindering: knowledge about SLM, access to technical support
     app_qg_15,  # 2.9 Conditions enabling / hindering: workload, availability of manpower
     app_qg_16,  # 2.9 Conditions enabling / hindering: other
+    app_qg_113,  # 3.2 Involvement of local land users/ local communities in the different phases of the Approach - initiation/ motivation
+    app_qg_114,  # 3.2 Involvement of local land users/ local communities in the different phases of the Approach - planning
+    app_qg_115,  # 3.2 Involvement of local land users/ local communities in the different phases of the Approach - implementation
+    app_qg_116,  # 3.2 Involvement of local land users/ local communities in the different phases of the Approach - monitoring/ evaluation
+    app_qg_117,  # 3.2 Involvement of local land users/ local communities in the different phases of the Approach - other
     app_qg_103,  # 3.3 Flow chart
     app_qg_17,  # 3.4 Decision-making on the selection of SLM Technology/ Technologies
     app_qg_18,  # 4.1 Capacity building/ training
@@ -3242,6 +3690,14 @@ questiongroups = [
     app_qg_77,  # 6.2 Main motivation of land users to implement SLM: affiliation to movement/ project/ group/ networks
     app_qg_81,  # 6.2 Main motivation of land users to implement SLM: aesthetic improvement
     app_qg_83,  # 6.2 Main motivation of land users to implement SLM: Other (specify)
+    app_qg_84,  # 6.3 Sustainability of Approach activities
+    app_qg_85,  # 6.3 Sustainability of Approach activities: No
+    app_qg_86,  # 6.3 Sustainability of Approach activities: Yes
+    qg_strengths_landusers,  # 6.4 Strengths/ advantages of the Approach
+    qg_strengths_compiler,  # 6.4 Strengths/ advantages of the Approach
+    qg_weaknesses_landusers,  # 6.5 Weaknesses/ disadvantages of the Approach and ways of overcoming them
+    qg_weaknesses_compiler,  # 6.5 Weaknesses/ disadvantages of the Approach and ways of overcoming them
+    qg_references,  # 7.2 References to available publications
 ]
 
 qa_mapping = {}
