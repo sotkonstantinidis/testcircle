@@ -9227,7 +9227,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 1,
+          "min_num": 3,
           "max_num": 10,
           "template": "table",
           "numbered": "display"
@@ -9247,7 +9247,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 1,
+          "min_num": 3,
           "max_num": 10,
           "template": "table",
           "numbered": "display"
@@ -9267,7 +9267,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 1,
+          "min_num": 3,
           "max_num": 10,
           "template": "table",
           "column_widths": ["60%", "40%"],
@@ -9289,7 +9289,7 @@
       "translation": null,
       "configuration": {
         "form_options": {
-          "min_num": 1,
+          "min_num": 3,
           "max_num": 10,
           "template": "table",
           "column_widths": ["60%", "40%"],
