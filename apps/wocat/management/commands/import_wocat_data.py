@@ -999,14 +999,48 @@ class ImportObject(Logger):
             elif value == 'May 2012':
                 value = '15-05-2012'
 
+            MANUAL_DATE_MAPPING = {
+                '15.08.08': '2008-08-15',
+                '15/08/08': '2008-08-15',
+                '2012.01.01': '2012-01-01',
+                '2010/04/01': '2010-04-01',
+                '19/11/2007': '2007-11-19',
+                '2010-16-08': '2010-08-16',
+                '23-08-2009': '2009-08-23',
+                '22-11-09': '2009-11-22',
+                '10.09.08': '2008-09-10',
+                '05.09.08': '2008-09-05',
+                '23/07/2008': '2008-07-23',
+                '04.10.2010': '2010-10-04',
+                '2008/02/': '2008-02-01',
+                '2014-03': '2014-03-01',
+                '1995': '1995-01-01',
+                '1996': '1996-01-01',
+                '2008': '2008-01-01',
+                '2003': '2003-01-01',
+                '2005': '2005-01-01',
+                '2010': '2010-01-01',
+                '2011': '2011-01-01',
+                '2013': '2013-01-01',
+                '2013г': '2013-01-01',
+                '2014': '2014-01-01',
+                'September ': None,
+            }
+
+            value = MANUAL_DATE_MAPPING.get(value, value)
+
+            if value is None:
+                return {}
+
             try:
                 value = datetime.strptime(
                     value, date_format).strftime(QCAT_DATE_FORMAT)
             except ValueError:
                 self.add_error(
                     'mapping',
-                    'Date of object {} is not valid: {}'.format(
-                        self, value))
+                    'Date {} of object {} is not valid: {}. Should be of format'
+                    ' "{}"'.format(
+                        qcat_question_keyword, self, value, date_format))
                 return {}
 
             return {
@@ -1045,10 +1079,6 @@ class ImportObject(Logger):
                 qcat_question_keyword))
 
         values = self.collect_mapping(mappings, return_list=True)
-
-        # TODO: Temporary fix for invalid coordinates
-        if self.identifier in [602]:
-            return None
 
         parsed_values = []
         for v in values:
