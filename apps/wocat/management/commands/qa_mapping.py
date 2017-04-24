@@ -275,6 +275,10 @@ IMPACT_MAPPING = {
     61: '2',  # app_impacts_yeslittle
     62: '3',  # app_impacts_yesmoderate
     63: '4',  # app_impacts_yesgreatly
+    410: '1',
+    411: '2',
+    412: '3',
+    413: '4',
 }
 
 IMPACT_MAPPING_2 = {
@@ -1145,8 +1149,67 @@ app_qg_8 = {
 app_qg_10 = {
     'app_qg_10': {
         'questions': {
-            # 'app_condition_enabling': {},
-            # 'app_condition_enabling_specify': {},
+            'app_condition_enabling': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'rights',
+                        'value_mapping': 'app_condition_enabling',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights'
+                                    },
+                                ],
+                                'operator': 'one_of',
+                                'value': ['417', '418', '419']
+                            }
+                        ]
+                    }
+                ],
+                'type': 'checkbox',
+                'composite': {
+                    'type': 'checkbox'
+                }
+            },
+            'app_condition_enabling_specify': {
+                'mapping': [
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'rights',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'rights_comment',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights'
+                                    },
+                                ],
+                                'operator': 'one_of',
+                                'value': ['417', '418', '419']
+                            }
+                        ],
+                        'value_prefix': 'To what degree did the existing land ownership, land use rights / water rights help or hinder the Approach implementation? ',
+                        'composite': {
+                            'separator': ' '
+                        }
+                    }
+                ],
+                'type': 'string',
+            },
             'app_condition_hindering': {
                 'mapping': [
                     {
@@ -1182,6 +1245,23 @@ app_qg_10 = {
                             }
                         ],
                         'value_mapping': 'app_condition_hindering',
+                    },
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'rights',
+                        'value_mapping': 'app_condition_hindering',
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights'
+                                    },
+                                ],
+                                'operator': 'one_of',
+                                'value': ['420', '421', '422']
+                            }
+                        ]
                     }
                 ],
                 'type': 'checkbox',
@@ -1223,6 +1303,37 @@ app_qg_10 = {
                             }
                         ],
                         'mapping_prefix': 'Treatment through the SLM Approach: '
+                    },
+                    {
+                        'mapping': [
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'rights',
+                                'lookup_table': True,
+                            },
+                            {
+                                'wocat_table': 'approach',
+                                'wocat_column': 'rights_comment',
+                                'mapping_prefix': '(',
+                                'mapping_suffix': ')',
+                            },
+                        ],
+                        'conditions': [
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights'
+                                    },
+                                ],
+                                'operator': 'one_of',
+                                'value': ['420', '421', '422']
+                            }
+                        ],
+                        'value_prefix': 'To what degree did the existing land ownership, land use rights / water rights help or hinder the Approach implementation? ',
+                        'composite': {
+                            'separator': ' '
+                        }
                     }
                 ],
                 'type': 'string',
@@ -2830,6 +2941,11 @@ app_qg_54 = {
                 'mapping': [
                     {
                         'wocat_table': 'approach',
+                        'wocat_column': 'adopt',
+                        'value_mapping': 'Did other land users / projects adopt the Approach?'
+                    },
+                    {
+                        'wocat_table': 'approach',
                         'wocat_column': 'improve_live',
                         'value_mapping': 'Did the Approach lead to improved livelihoods / human well-being?'
                     },
@@ -2845,6 +2961,10 @@ app_qg_54 = {
                 'mapping': [
                     {
                         'wocat_table': 'approach',
+                        'wocat_column': 'adopt',
+                    },
+                    {
+                        'wocat_table': 'approach',
                         'wocat_column': 'improve_live',
                     },
                     {
@@ -2857,6 +2977,10 @@ app_qg_54 = {
             },
             'app_impacts_other_specify': {
                 'mapping': [
+                    {
+                        'wocat_table': 'approach',
+                        'wocat_column': 'adopt_specify',
+                    },
                     {
                         'wocat_table': 'approach',
                         'wocat_column': 'improve_live_comment'
@@ -3765,5 +3889,14 @@ custom_mapping_messages = [
     {
         'message': 'QCAT 4.3 Institution strenghtening - Give further details: "Specify" was filled out in QA 2.5.3 even though "No support" was indicated. Manual check necessary.',
         'ids': [424, 117, 436, 606]
+    },
+    {
+        'message': 'QCAT 2.9 Conditions enabling or hindering ... - legal framework (land tenure, land and water use rights): "QA 3.2.4.1 To what degree did the existing land ownership, land use rights / water rights help or hinder the Approach implementation*?" was marked as "none of the above", please migrate manually.',
+        'ids': [417, 420, 429, 60, 350, 634, 47, 217, 462, 591, 212, 460, 644,
+                635, 439, 359, 405, 243, 633, 216, 309, 323, 629, 631, 59, 123,
+                331, 361, 168, 132, 589, 130, 69, 165, 260, 77, 333, 356, 363,
+                372, 621, 617, 595, 67, 53, 438, 62, 461, 38, 526, 522, 214, 68,
+                43, 326, 173, 171, 166, 150, 145, 578, 90, 604, 624, 620, 597,
+                614, 616, 615, 505, 200, 559, 222, 630, 315, 325, 444]
     }
 ]

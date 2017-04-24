@@ -253,18 +253,6 @@ class QAImport(WOCATImport):
         Returns:
             -
         """
-        # Status filter: qa.quality_review.not_review_content:
-        # 449: Complete
-        # 450: Incomplete
-        status_objects = []
-        for import_object in self.import_objects:
-            not_review_content = import_object.get_wocat_attribute_data(
-                table_name='qa_quality_review',
-                attribute_name='not_review_content')
-            if 449 in not_review_content or 450 in not_review_content:
-                status_objects.append(import_object)
-        self.import_objects = status_objects
-
         # Filter out all questionnaires which have not code (and therefore no
         # created_date etc.)
         self.import_objects = [

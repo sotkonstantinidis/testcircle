@@ -12607,7 +12607,7 @@
                         "keyword": "app_qg_54",
                         "form_options": {
                           "template": "columns_o6_r6",
-                          "max_num": 2
+                          "max_num": 3
                         },
                         "view_options": {
                           "template": "measure_other"
