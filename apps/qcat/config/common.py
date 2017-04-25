@@ -337,6 +337,7 @@ class BaseSettings(Configuration):
     SEND_MAILS = values.BooleanValue(default=False)
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
+    WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

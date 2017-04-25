@@ -10087,7 +10087,7 @@
                             "form_options": {
                               "label_position": "none",
                               "num_rows": 10,
-                              "max_length": 3500
+                              "max_length": 5000
                             }
                           }
                         ]
@@ -12607,7 +12607,7 @@
                         "keyword": "app_qg_54",
                         "form_options": {
                           "template": "columns_o6_r6",
-                          "max_num": 2
+                          "max_num": 3
                         },
                         "view_options": {
                           "template": "measure_other"
@@ -12958,7 +12958,7 @@
                         "keyword": "app_qg_83",
                         "form_options": {
                           "template": "columns_e6_e6",
-                          "max_num": 2,
+                          "max_num": 5,
                           "row_class": "no-top-margin"
                         },
                         "questions": [
