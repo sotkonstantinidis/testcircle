@@ -61,15 +61,19 @@ class SummaryPDFCreateView(PDFTemplateView):
     footer_template = '{}layout/footer.html'.format(base_template_path)
     # see: http://wkhtmltopdf.org/usage/wkhtmltopdf.txt
     cmd_options = {
+        'dpi': '96',
         'margin-top': '1cm',
         'margin-bottom': '1cm',
     }
 
     def get(self, request, *args, **kwargs):
         self.questionnaire = self.get_object(questionnaire_id=self.kwargs['id'])
-        self.code = self.questionnaire.configurations.filter(
-            active=True
-        ).first().code
+        try:
+            self.code = self.questionnaire.configurations.filter(
+                active=True
+            ).first().code
+        except AttributeError:
+            raise Http404
         self.config = get_configuration(configuration_code=self.code)
         return super().get(request, *args, **kwargs)
 
@@ -82,9 +86,10 @@ class SummaryPDFCreateView(PDFTemplateView):
         The filename is specific enough to be used as 'pseudo cache-key' in the
         CachedPDFTemplateResponse.
         """
-        return 'wocat-{identifier}-{summary_type}-summary-{update}.pdf'.format(
+        return 'wocat-{identifier}-{language}-{summary_type}-summary-{update}.pdf'.format(
             summary_type=self.summary_type,
             identifier=self.questionnaire.id,
+            language=get_language(),
             update=self.questionnaire.updated.strftime('%Y-%m-%d-%H:%m')
         )
 

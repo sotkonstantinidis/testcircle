@@ -439,7 +439,9 @@ class TechnologyParser(QuestionnaireParser):
 
     def _prepare_climate_change_row(self, group: QuestionnaireQuestiongroup, **values):
         """
-        Create elements for a single line
+        Create elements for a single line. The structure of questions varies
+        between all elements, regarding number of questions and content/scale of
+        questions.
         """
         label = group.label
         comment = ''
@@ -460,25 +462,31 @@ class TechnologyParser(QuestionnaireParser):
                 # mode of layout. If the selected value is empty or unknown,
                 # this is added as comment.
                 choice_keys = list(
-                    dict(question.choices).keys() - ['', 'cope_unknown']
+                    collections.OrderedDict(question.choices).keys()
                 )
+                with contextlib.suppress(ValueError):
+                    choice_keys.remove('')
+                    choice_keys.remove('cope_unknown')
 
                 value = values.get(question.keyword)
                 if value not in choice_keys:
                     string_value = dict(question.choices).get(value)
-                    if string_value :
+                    if string_value:
                         comment += _(' Answer: {}').format(string_value)
                 else:
-                    value = choice_keys.index(value) + 1
+                    value = choice_keys.index(value)
 
             else:
                 # All other fields, such as 'season' go into the comments.
                 comment_key = values.get(question.keyword)
+                if not group.label.startswith('other'):
+                    comment_key = dict(question.choices).get(comment_key)
                 if comment_key:
                     comment += '{label}: {value}'.format(
                         label=question.label,
-                        value=dict(question.choices).get(comment_key)
+                        value=comment_key
                     )
+
         return {
             'label': label,
             'range': range(0, len(choice_keys)),

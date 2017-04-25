@@ -101,8 +101,8 @@ class BaseSettings(Configuration):
         ('km', _('Khmer')),
         ('lo', _('Lao')),
         ('ar', _('Arabic')),
-        ('bs', _('Bosnian')),
         ('pt', _('Portuguese')),
+        ('af', _('Afrikaans')),
     )
     # languages with extraordinarily long words that need 'forced' line breaks
     # to remain consistent in the box-layout.
@@ -152,7 +152,7 @@ class BaseSettings(Configuration):
     THUMBNAIL_ALIASES = {
         'summary': {
             'header_image': {
-                'size': (2512, 800),
+                'size': (0, 920),
                 'crop': 'smart',
                 'upscale': True
             },
