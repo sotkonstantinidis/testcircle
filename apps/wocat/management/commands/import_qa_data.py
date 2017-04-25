@@ -234,6 +234,15 @@ class QAImport(WOCATImport):
                             'Using "Unknown User" as compiler in QCAT as main '
                             'contributor in QA was "Not registered"')
 
+                    # TODO: This is a temporary fix for invalid user IDs
+                    elif identifier in [131, 128, 89, 47, 106, 82, 195, 212,
+                                        76, 107, 84, 139, 130, 276, 72, 147,
+                                        138, 43, 44, 46, 49, 50, 52, 57, 173,
+                                        171, 170, 166, 125, 78, 102, 45, 197,
+                                        48]:
+
+                        compiler_id = self.default_compiler_id
+
                     import_object.set_owner(compiler_id)
 
                 # Use the creation date available on the approach table

@@ -3588,7 +3588,8 @@ qg_strengths_landusers = {
                     {
                         'wocat_table': 'approach_strengths',
                         'wocat_column': 'sustain',
-                        'mapping_prefix': 'How can they be sustained / enhanced? '
+                        'mapping_prefix': '(How can they be sustained / enhanced? ',
+                        'mapping_suffix': ')'
                     }
                 ],
                 'composite': {
