@@ -78,7 +78,11 @@ class QAImport(WOCATImport):
     ]
     lookup_table_name = 'qa_lookups'
 
-    import_objects_exclude = []
+    import_objects_exclude = [
+        # Exclude Approaches which were already migrated manually to QCAT.
+        102, 101, 100, 602, 607, 608, 625, 635, 644, 597, 617, 621, 634, 526,
+        524
+    ]
     import_objects_filter = []
 
     # Attention: image_type column indicate what image it is
