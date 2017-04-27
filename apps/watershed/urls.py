@@ -25,8 +25,4 @@ urlpatterns = patterns(
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         QuestionnaireStepView.as_view(url_namespace=__package__),
         name='questionnaire_new_step'),
-    url(r'^list/$', 'watershed.views.questionnaire_list',
-        name='questionnaire_list'),
-    url(r'^list_partial/$', 'watershed.views.questionnaire_list_partial',
-        name='questionnaire_list_partial'),
 )
