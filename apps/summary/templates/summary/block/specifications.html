@@ -6,7 +6,7 @@
     		{% for url_items in content.urls %}
     	   	<img src="{{ url_items }}" class="img_in_text">
         {% endfor %}
-    		{{ content.text }}
+    		{{ content.text|linebreaksbr }}
     	</div>
   </div>
 </div>

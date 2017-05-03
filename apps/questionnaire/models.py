@@ -574,7 +574,7 @@ class Questionnaire(models.Model):
                 return [value.get_translation(keyword='label') for value in values]
         return []
 
-    def update_geometry(self, configuration_code):
+    def update_geometry(self, configuration_code, force_update=False):
         """
         Update the geometry of a questionnaire based on the GeoJSON found in the
         data json.
@@ -632,14 +632,14 @@ class Questionnaire(models.Model):
         except ValidationError:
             return
 
-        if self.geom is None or not geometry_changed:
+        if self.geom is None or (not force_update and not geometry_changed):
             # If there is no geometry or if it did not change, there is no need
             # to create the static map image (again)
             return
 
         # Create static map
-        width = 500
-        height = 400
+        width = 1000
+        height = 800
         marker_color = '#0036FF'
 
         m = StaticMap(width, height)
