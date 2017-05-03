@@ -118,6 +118,7 @@ class Questionnaire(models.Model):
             ("flag_unccd_questionnaire", "Can flag UNCCD questionnaire"),
             ("unflag_unccd_questionnaire", "Can unflag UNCCD questionnaire"),
         )
+        unique_together = (('code', 'version'),)
 
     def _get_url_from_configured_app(self, url_name: str) -> str:
         """
@@ -294,8 +295,7 @@ class Questionnaire(models.Model):
                     'The questionnaire cannot be updated because of its status'
                     ' "{}"'.format(previous_version.status))
         else:
-            from configuration.utils import create_new_code
-            code = create_new_code(configuration_code, data)
+            code = ''  # Will be generated later
             version = 1
             uuid = uuid4()
         if status not in [s[0] for s in STATUSES]:
@@ -308,6 +308,13 @@ class Questionnaire(models.Model):
         questionnaire = Questionnaire.objects.create(
             data=data, uuid=uuid, code=code, version=version, status=status,
             created=created, updated=updated)
+
+        if not previous_version:
+            # Generate and set a new code for the questionnaire
+            from configuration.utils import create_new_code
+            code = create_new_code(questionnaire, configuration_code)
+            questionnaire.code = code
+
         create_questionnaire.send(
             sender=settings.NOTIFICATIONS_CREATE,
             questionnaire=questionnaire,
