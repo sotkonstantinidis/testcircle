@@ -1082,8 +1082,6 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         else:
             monitoring_intention = 'This documentation is intended to be used for monitoring and evaluation'
 
-        monitoring_intention_none = _('No specifications available')
-
         return {
             'title': _('Technical support, capacity building, and knowledge management'),
             'partials': {
@@ -1129,24 +1127,23 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'subtitle': {
                         'title': _('Institutions have been strengthened / established'),
                         'value': self.raw_data.get('tech_support_institutions_is_institution', {}).get('value'),
-                        'comment_title': _('Describe institution, roles and responsibilities, members, etc.')
                     },
-                    'elements': [
-                        {
-                            'title': _('at the following level'),
-                            'items': self.raw_data.get('tech_support_institutions_level'),
-                            'description': self.raw_data_getter('tech_support_institutions_describe')
-                        },
-                        {
-                            'title': _('Type of support'),
-                            'items': self.raw_data.get('tech_support_institutions_support'),
-                            'description': self.raw_data_getter('tech_support_institutions_support_specify'),
-                            'comment_title': _('Further details')
-                        }
-                    ]
+                    'level': {
+                        'title': _('at the following level'),
+                        'items': self.raw_data.get('tech_support_institutions_level'),
+                        'description': self.raw_data_getter('tech_support_institutions_describe'),
+                        'comment_title': _('Describe institution, roles and responsibilities, members, etc.'),
+                    },
+                    'support_type': {
+                        'title': _('Type of support'),
+                        'items': self.raw_data.get('tech_support_institutions_support'),
+                        'description': self.raw_data_getter('tech_support_institutions_support_specify'),
+                        'comment_title': _('Further details')
+                    }
                 },
                 'monitoring': {
                     'title': _('Monitoring and evaluation'),
+                    'comment': self.raw_data_getter('tech_support_monitoring_comment'),
                     'intended': monitoring_intention
                 },
                 'research': {
@@ -1225,7 +1222,8 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'sustainability': {
                     'title': _('Sustainability of Approach activities'),
                     'subtitle': _('Can the land users sustain what hat been implemented through the Approach (without external support)?'),
-                    'items': self.raw_data.get('impacts_sustainability')
+                    'items': self.raw_data.get('impacts_sustainability'),
+                    'comment': self.raw_data_getter('impacts_sustainability_comments')
                 }
             }
         }

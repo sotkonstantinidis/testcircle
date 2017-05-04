@@ -298,6 +298,11 @@ body.summary {
   .row.range
   {
     margin-bottom: 0.1rem;
+
+    &.inline-comment {
+      margin-bottom: 0;
+      padding-bottom: 0.3rem;
+    }
   }
 
   .range_square
