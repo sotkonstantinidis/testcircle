@@ -324,24 +324,6 @@ class FunctionalTest(StaticLiveServerTestCase):
                      '@class, "top-bar-lang")]/a').click()
         self.findBy('xpath', '//a[@data-language="{}"]'.format(locale)).click()
 
-    # @patch.object(Typo3Client, 'get_and_update_django_user')
-    # @patch.object(WocatAuthenticationBackend, 'authenticate')
-    # @patch('wocat.views.generic_questionnaire_list')
-    # def doLogin(self, mock_questionnaire_list, mock_authenticate,
-    #             mock_get_and_update_django_user, user=None):
-    #     self.doLogout()
-    #     if user is None:
-    #         user = create_new_user()
-    #     mock_authenticate.return_value = user
-    #     mock_authenticate.__name__ = ''
-    #     mock_get_and_update_django_user.return_value = user
-    #     mock_questionnaire_list.return_value = {}
-    #     with patch('accounts.client.typo3_client.get_user_id') as get_user_id:
-    #         get_user_id.return_value = user.id
-    #         self.browser.get(self.live_server_url + '/404_no_such_url/')
-    #         self.browser.add_cookie({'name': 'fe_typo_user', 'value': 'foo'})
-    #         self.browser.get(self.live_server_url + reverse(loginRouteName))
-
     def doLogin(self, user=None):
         """
         A user is required for the login, this is a convenience wrapper to
@@ -353,8 +335,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     @patch.object(Typo3Client, 'get_and_update_django_user')
     @patch.object(WocatAuthenticationBackend, 'authenticate')
     @patch('django.contrib.auth.authenticate')
-    @patch('wocat.views.generic_questionnaire_list')
-    def _doLogin(self, user, mock_questionnaire_list, mock_django_auth,
+    def _doLogin(self, user, mock_django_auth,
                  mock_authenticate, mock_get_and_update_django_user):
         """
         Mock the authentication to return the given user and put it to the
@@ -362,7 +343,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         Set the cookie so the custom middleware doesn't force-validate the login
         against the login API.
         """
-        mock_questionnaire_list.return_value = {}
         auth_user = user
         auth_user.backend = 'accounts.authentication.WocatAuthenticationBackend'
         mock_django_auth.return_value = auth_user

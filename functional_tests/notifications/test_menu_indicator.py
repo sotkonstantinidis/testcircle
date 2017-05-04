@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
@@ -13,9 +11,7 @@ from wocat.tests.test_views import route_home
 
 class MenuIndicatorTest(FunctionalTest):
 
-    @patch('wocat.views.generic_questionnaire_list')
-    def test_indicator(self, mock_list):
-        mock_list.return_value = {}
+    def test_indicator(self):
 
         start_site_url = self.live_server_url + reverse(route_home)
         # Alice goes to the qcat start site

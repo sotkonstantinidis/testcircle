@@ -1,10 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch, Mock
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
-from wocat.views import HomeView
 
 route_home = 'unccd:home'
 route_questionnaire_details = 'unccd:questionnaire_details'
@@ -59,9 +57,7 @@ class UnccdHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch.object(HomeView, 'get_context_data')
-    def test_redirect(self, mock_ctx_data):
-        mock_ctx_data.return_value = {}
+    def test_redirect(self):
         res = self.client.get(self.url)
         self.assertRedirects(res, 'http://testserver/en/wocat/')
 

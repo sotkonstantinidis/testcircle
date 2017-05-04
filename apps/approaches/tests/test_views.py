@@ -1,6 +1,5 @@
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch, Mock
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
@@ -8,8 +7,6 @@ from qcat.tests import TestCase
 
 route_home = 'approaches:home'
 route_questionnaire_details = 'approaches:questionnaire_details'
-route_questionnaire_list = 'approaches:questionnaire_list'
-route_questionnaire_list_partial = 'approaches:questionnaire_list_partial'
 route_questionnaire_new = 'approaches:questionnaire_new'
 route_questionnaire_new_step = 'approaches:questionnaire_new_step'
 

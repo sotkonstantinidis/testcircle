@@ -11,16 +11,13 @@ from technologies.tests.test_views import (
 from wocat.tests.test_views import route_home
 
 
-@patch('wocat.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'technologies.json']
 
-    def test_questionnaire_is_available(self, mock_get_user_id,
-                                        mock_questionnaire_list):
+    def test_questionnaire_is_available(self, mock_get_user_id):
 
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 

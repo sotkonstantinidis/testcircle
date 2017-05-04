@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from django.core.urlresolvers import reverse
 from functional_tests.base import FunctionalTest
 
@@ -10,9 +8,7 @@ from wocat.tests.test_views import (
 
 class TranslationTest(FunctionalTest):
 
-    @patch('wocat.views.generic_questionnaire_list')
-    def test_change_languages(self, mock_list):
-        mock_list.return_value = {}
+    def test_change_languages(self):
 
         # Alice goes to the UNCCD app
         self.browser.get(self.live_server_url + reverse(

@@ -1,5 +1,4 @@
 import os
-from unittest.mock import patch
 
 from django.core.management import call_command
 from django.test import override_settings
@@ -9,7 +8,6 @@ from accounts.tests.test_commands import create_new_user
 from functional_tests.base import FunctionalTest
 
 
-@patch('questionnaire.views.generic_questionnaire_list')
 class BaseTemplateTest(FunctionalTest):
 
     def setUp(self):
@@ -20,8 +18,7 @@ class BaseTemplateTest(FunctionalTest):
         super().tearDown()
         self.remove_maintenance_file()
 
-    def test_warning_is_displayed(self, mock_questionnaire_list):
-        mock_questionnaire_list.return_value = {}
+    def test_warning_is_displayed(self):
         with self.settings(WARN_HEADER='FOO'):
             self.browser.get(self.live_server_url + reverse('about'))
             # Check if the warning box is displayed
@@ -30,8 +27,7 @@ class BaseTemplateTest(FunctionalTest):
                 '"FOO")]'
             ).is_displayed())
 
-    def test_warning_is_hidden(self, mock_questionnaire_list):
-        mock_questionnaire_list.return_value = {}
+    def test_warning_is_hidden(self):
         with self.settings(WARN_HEADER=''):
             self.browser.get(self.live_server_url + reverse('home'))
             # Check if the warning box is not displayed
@@ -48,7 +44,7 @@ class BaseTemplateTest(FunctionalTest):
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
         }
     )
-    def test_maintenance_overlay_is_displayed(self, mock_questionnaire_list):
+    def test_maintenance_overlay_is_displayed(self):
         # Jay logs in and sees no warning.
         jay = create_new_user()
         self.doLogin(jay)
@@ -108,7 +104,7 @@ class BaseTemplateTest(FunctionalTest):
         if os.path.isfile('envs/TEST_NEXT_MAINTENANCE'):
             os.remove('envs/TEST_NEXT_MAINTENANCE')
 
-    def test_factsheet(self, mock_questionnaire_list):
+    def test_factsheet(self):
         # jay opens the start page
         self.browser.get(self.live_server_url)
 

@@ -16,18 +16,12 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 @patch.object(Typo3Client, 'get_user_id')
-@patch('samplemulti.views.generic_questionnaire_list')
-@patch('questionnaire.views.generic_questionnaire_list')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'samplemulti.json']
 
-    def test_questionnaire_is_available(self, mock_questionnaire_list,
-                                        mock_questionnaire_list_sample,
-                                        mock_get_user_id):
+    def test_questionnaire_is_available(self, mock_get_user_id):
 
-        mock_questionnaire_list_sample.return_value = {}
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 
@@ -57,12 +51,8 @@ class QuestionnaireTest(FunctionalTest):
             '//div[@class="tech-section-progress"]/span[@class="steps"]')
         self.assertEqual(len(progress_indicators), get_category_count())
 
-    def test_questionnaire_can_be_entered(self, mock_questionnaire_list,
-                                          mock_questionnaire_list_sample,
-                                          mock_get_user_id):
+    def test_questionnaire_can_be_entered(self, mock_get_user_id):
 
-        mock_questionnaire_list_sample.return_value = {}
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
         # import time; time.sleep(1)

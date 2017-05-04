@@ -291,15 +291,12 @@ class UserTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch('wocat.views.generic_questionnaire_list')
 @patch.object(Typo3Client, 'get_user_id')
 class UserTest2(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
-    def test_add_user(self, mock_get_user_id, mock_questionnaire_list):
-
-        mock_questionnaire_list.return_value = {}
+    def test_add_user(self, mock_get_user_id):
 
         # Alice logs in
         self.doLogin()
@@ -438,9 +435,8 @@ class UserTest2(FunctionalTest):
             self.assertIn(user_tuple[0], ['compiler', 'landuser'])
             self.assertIn(user_tuple[1].id, [1, 2365])
 
-    def test_add_new_person(self, mock_get_user_id, mock_questionnaire_list):
+    def test_add_new_person(self, mock_get_user_id):
 
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 
@@ -601,10 +597,8 @@ class UserTest2(FunctionalTest):
         self.assertEqual(questionnaire_users[0][0], 'compiler')
         self.assertEqual(questionnaire_users[0][1].id, 1)
 
-    def test_add_multiple_users_persons(self, mock_get_user_id,
-                                        mock_questionnaire_list):
+    def test_add_multiple_users_persons(self, mock_get_user_id):
 
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 
@@ -812,10 +806,8 @@ class UserTest2(FunctionalTest):
             self.assertIn(user_tuple[1].id, [1, 1055, 2365])
 
     @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_remove_user(self, mock_process_request, mock_get_user_id,
-                         mock_questionnaire_list):
+    def test_remove_user(self, mock_process_request, mock_get_user_id):
 
-        mock_questionnaire_list.return_value = {}
         mock_process_request.return_value = {}
         # Alice logs in
         self.doLogin()
