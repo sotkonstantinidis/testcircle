@@ -19601,7 +19601,13 @@
       "keyword": "tech_drawing_author",
       "translation": 1258,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_drawing_author"
+          }
+        }
       }
     },
     "model": "configuration.key",

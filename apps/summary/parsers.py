@@ -587,30 +587,44 @@ class ApproachParser(QuestionnaireParser):
 
     def get_stakeholders_roles(self, child: QuestionnaireQuestion):
         groups = child.questiongroup.parent_object.questiongroups
-        # the first element in the group contains the labels of filled in
-        # questiongroups
+        # the first element in the group contains the labels of the selected
+        # questiongroups, so get the values.
         label_values = self.values.get(groups[0].keyword)
         if not label_values:
             return
-
         labels = label_values[0].get('app_stakeholders')
-        for pos, group in itertools.islice(enumerate(groups), 1):
-            try:
-                values = self.values[group.keyword][0]
-            except (KeyError, IndexError):
-                continue
 
-            label = Value.objects.get(keyword=labels[pos]).get_translation(
+        # use only groups that are selected (i.e. in the labels-list)
+        selected_group_keywords = [
+            group.keyword for group in groups
+            if group.view_options.get('conditional_question') in labels
+        ]
+
+        for index, group_keyword in enumerate(selected_group_keywords):
+            values = self.values[group_keyword][0]
+            label = Value.objects.get(keyword=labels[index]).get_translation(
                 keyword='label', configuration='approaches'
             )
+            yield from self._get_stakeholder_row(label=label, **values)
 
-            roles = values.get('app_stakeholders_roles')
-            comments = values.get('app_stakeholders_comments')
-            yield '{label}{roles}{comments}'.format(
-                label=label,
-                roles=' ({})'.format(roles) if roles else '',
-                comments=': {}'.format(comments) if comments else ''
+        # Also include 'other' stakeholders
+        other_group = next(group for group in groups if group.children[0].keyword == 'app_stakeholders_other')
+        other = self.values.get(other_group.keyword, [])
+        if other and len(other) == 1:
+            values = other[0]
+            yield from self._get_stakeholder_row(
+                label=values[other_group.children[0].keyword], **values
             )
+
+    def _get_stakeholder_row(self, label: str, **kwargs):
+        roles = kwargs.get('app_stakeholders_roles')
+        comments = kwargs.get('app_stakeholders_comments')
+
+        yield '{label}{roles}{comments}'.format(
+            label=label,
+            roles=' ({})'.format(roles) if roles else '',
+            comments=': {}'.format(comments) if comments else ''
+        )
 
     def get_involvement(self, child: QuestionnaireQuestion):
         for qg in child.questiongroup.parent_object.questiongroups:

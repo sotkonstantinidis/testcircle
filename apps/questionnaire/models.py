@@ -647,12 +647,13 @@ class Questionnaire(models.Model):
         # Create static map
         width = 1000
         height = 800
+        marker_diameter = 24
         marker_color = '#0036FF'
 
         m = StaticMap(width, height)
 
         for point in iter(self.geom):
-            m.add_marker(CircleMarker((point.x,  point.y), marker_color, 12))
+            m.add_marker(CircleMarker((point.x,  point.y), marker_color, marker_diameter))
 
         bbox = None
         questionnaire_country = self.get_question_data('qg_location', 'country')
@@ -693,7 +694,6 @@ class Questionnaire(models.Model):
 
         filename = '{}_{}.jpg'.format(self.uuid, self.version)
         image.save(os.path.join(map_folder, filename))
-
 
     def add_flag(self, flag):
         """

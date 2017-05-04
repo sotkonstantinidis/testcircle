@@ -130,6 +130,7 @@ def deploy_host(environment):
         _delete_caches()
         _reload_uwsgi()
         _rebuild_elasticsearch_indexes()
+        _purge_summary_pdfs()
     _set_maintenance_mode(False)
 
     print(green("Everything OK"))
@@ -187,6 +188,11 @@ def _delete_caches():
 
 def _rebuild_elasticsearch_indexes():
     _manage_py('rebuild_es_indexes')
+
+
+def _purge_summary_pdfs():
+    with cd(env.source_folder):
+        run('rm {}/*'.format(settings.SUMMARY_PDF_PATH))
 
 
 def _reload_uwsgi():
