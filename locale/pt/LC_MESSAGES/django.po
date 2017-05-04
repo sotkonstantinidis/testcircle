@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-03 17:52+0200\n"
+"POT-Creation-Date: 2017-05-04 18:48+0200\n"
 "PO-Revision-Date: 2017-04-03 07:58+0000\n"
 "Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Portuguese (http://www.transifex.com/university-of-bern-cde/"
@@ -14831,7 +14831,7 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: apps/questionnaire/models.py:60 apps/summary/renderers.py:247
+#: apps/questionnaire/models.py:60 apps/summary/renderers.py:260
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr ""
@@ -16374,6 +16374,7 @@ msgid "Select or type a country name"
 msgstr ""
 
 #: apps/sample/templates/sample/questionnaire/list.html:51
+#: apps/summary/renderers.py:292
 #: apps/wocat/templates/wocat/questionnaire/list.html:51
 msgid "Project"
 msgstr ""
@@ -16450,447 +16451,470 @@ msgstr ""
 msgid " Answer: {}"
 msgstr ""
 
-#: apps/summary/parsers.py:694
+#: apps/summary/parsers.py:708
 msgid "Subsidies for specific inputs"
 msgstr ""
 
-#: apps/summary/renderers.py:164
+#: apps/summary/renderers.py:165
 msgid "Description"
 msgstr ""
 
-#: apps/summary/renderers.py:228
+#: apps/summary/renderers.py:208
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "land users"
+msgid "land user's view"
+msgstr "Usuários de terra"
+
+#: apps/summary/renderers.py:209
+msgid "compiler’s or other key resource person’s view"
+msgstr ""
+
+#: apps/summary/renderers.py:237
 msgid "Conclusions and lessons learnt"
 msgstr ""
 
-#: apps/summary/renderers.py:231
+#: apps/summary/renderers.py:240
 msgid "Strengths"
 msgstr ""
 
-#: apps/summary/renderers.py:235
+#: apps/summary/renderers.py:244
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr ""
 
-#: apps/summary/renderers.py:236
+#: apps/summary/renderers.py:245
 msgid "how to overcome"
 msgstr ""
 
-#: apps/summary/renderers.py:244
+#: apps/summary/renderers.py:257
 msgid "References"
 msgstr ""
 
-#: apps/summary/renderers.py:252
+#: apps/summary/renderers.py:265
 msgid "Resource persons"
 msgstr ""
 
-#: apps/summary/renderers.py:257
+#: apps/summary/renderers.py:270
 msgid "Full description in the WOCAT database"
 msgstr ""
 
-#: apps/summary/renderers.py:262
+#: apps/summary/renderers.py:275
 msgid "Linked SLM data"
 msgstr ""
 
-#: apps/summary/renderers.py:267
+#: apps/summary/renderers.py:280
 msgid "Key references"
 msgstr ""
 
-#: apps/summary/renderers.py:272
+#: apps/summary/renderers.py:285
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Links to relevant information which is available online"
 msgid "Links to relevant information which is available online"
 msgstr "Links para informação relevante que está disponível online"
 
-#: apps/summary/renderers.py:277
+#: apps/summary/renderers.py:290
 msgid "Documentation was faciliated by"
 msgstr ""
 
-#: apps/summary/renderers.py:279
-msgid "Projects"
-msgstr ""
-
-#: apps/summary/renderers.py:283
+#: apps/summary/renderers.py:296
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "convex situations"
-msgid "Institutions"
+msgid "Institution"
 msgstr "Posições convexas"
 
-#: apps/summary/renderers.py:357
+#: apps/summary/renderers.py:370
 #, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 msgstr ""
 
-#: apps/summary/renderers.py:373
+#: apps/summary/renderers.py:386
 msgid "Video"
 msgstr ""
 
-#: apps/summary/renderers.py:485
+#: apps/summary/renderers.py:498
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
 msgstr ""
 
-#: apps/summary/renderers.py:502 apps/summary/renderers.py:512
-#: apps/summary/renderers.py:979 apps/summary/renderers.py:989
+#: apps/summary/renderers.py:515 apps/summary/renderers.py:525
+#: apps/summary/renderers.py:1001 apps/summary/renderers.py:1011
 msgid "Location"
 msgstr ""
 
-#: apps/summary/renderers.py:518
+#: apps/summary/renderers.py:531
 msgid "No. of Technology sites analysed"
 msgstr ""
 
-#: apps/summary/renderers.py:521 apps/summary/renderers.py:994
+#: apps/summary/renderers.py:534 apps/summary/renderers.py:1016
 msgid "Geo-reference of selected sites"
 msgstr ""
 
-#: apps/summary/renderers.py:526
+#: apps/summary/renderers.py:539
 msgid "Spread of the Technology"
 msgstr ""
 
-#: apps/summary/renderers.py:530
+#: apps/summary/renderers.py:543
 msgid "Date of implementation"
 msgstr ""
 
-#: apps/summary/renderers.py:537
+#: apps/summary/renderers.py:550
 msgid "Type of introduction"
 msgstr ""
 
-#: apps/summary/renderers.py:569
+#: apps/summary/renderers.py:582
 msgid "Classification of the Technology"
 msgstr ""
 
-#: apps/summary/renderers.py:572
+#: apps/summary/renderers.py:585
 msgid "Main purpose"
 msgstr ""
 
-#: apps/summary/renderers.py:576
+#: apps/summary/renderers.py:589
 msgid "Land use"
 msgstr ""
 
-#: apps/summary/renderers.py:580
+#: apps/summary/renderers.py:593
 msgid "Water supply"
 msgstr ""
 
-#: apps/summary/renderers.py:585
+#: apps/summary/renderers.py:598
 msgid "Number of growing seasons per year"
 msgstr ""
 
-#: apps/summary/renderers.py:589
+#: apps/summary/renderers.py:602
 msgid "Land use before implementation of the Technology"
 msgstr ""
 
-#: apps/summary/renderers.py:593
+#: apps/summary/renderers.py:606
 msgid "Livestock density"
 msgstr ""
 
-#: apps/summary/renderers.py:600
+#: apps/summary/renderers.py:613
 msgid "Purpose related to land degradation"
 msgstr ""
 
-#: apps/summary/renderers.py:604
+#: apps/summary/renderers.py:617
 msgid "Degradation addressed"
 msgstr ""
 
-#: apps/summary/renderers.py:608
+#: apps/summary/renderers.py:621
 msgid "SLM group"
 msgstr ""
 
-#: apps/summary/renderers.py:612
+#: apps/summary/renderers.py:625
 msgid "SLM measures"
 msgstr ""
 
-#: apps/summary/renderers.py:626
+#: apps/summary/renderers.py:645 apps/summary/renderers.py:1083
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Author"
+msgid "Author: {}"
+msgstr "Autor"
+
+#: apps/summary/renderers.py:649
 msgid "Technical drawing"
 msgstr ""
 
-#: apps/summary/renderers.py:628
+#: apps/summary/renderers.py:651
 msgid "Technical specifications"
 msgstr ""
 
-#: apps/summary/renderers.py:646
+#: apps/summary/renderers.py:669
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid ""
 #| "If using a local area unit, indicate conversion factor to one hectare"
-msgid "; conversion factor to one hectare: {}"
+msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr ""
 "Caso esteja usando uma unidade de área local, indique o fator de conversão "
 "para um hectare"
 
-#: apps/summary/renderers.py:648
+#: apps/summary/renderers.py:670
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Indicate size and area unit"
-msgid " (size and area unit: {}{})"
+msgid " (size and area unit: <b>{}</b>{})"
 msgstr "Indique o tamanho e a unidade de área"
 
-#: apps/summary/renderers.py:653
-msgid "unit: {}"
+#: apps/summary/renderers.py:675
+msgid "unit: <b>{}</b>"
 msgstr ""
 
-#: apps/summary/renderers.py:666 apps/summary/renderers.py:667
+#: apps/summary/renderers.py:688 apps/summary/renderers.py:689
 msgid "n.a"
 msgstr ""
 
-#: apps/summary/renderers.py:670
+#: apps/summary/renderers.py:692
 msgid "Establishment and maintenance: activities, inputs and costs"
 msgstr ""
 
-#: apps/summary/renderers.py:673
+#: apps/summary/renderers.py:695
 msgid "Calculation of inputs and costs"
 msgstr ""
 
-#: apps/summary/renderers.py:675
+#: apps/summary/renderers.py:697
 msgid "Costs are calculated: {}"
 msgstr ""
 
-#: apps/summary/renderers.py:676
-msgid "Currency used for cost calculation: {}"
+#: apps/summary/renderers.py:698
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Specify currency used for cost calculations"
+msgid "Currency used for cost calculation: <b>{}</b>"
+msgstr "Especifique a moeda utilizada para os cálculos de custo"
+
+#: apps/summary/renderers.py:699
+msgid "Exchange rate (to USD): 1 USD = {}."
 msgstr ""
 
-#: apps/summary/renderers.py:677
-msgid "Exchange rate (to USD): {}."
-msgstr ""
-
-#: apps/summary/renderers.py:678
+#: apps/summary/renderers.py:700
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Indicate average wage cost of hired labour per day"
 msgid "Average wage cost of hired labour per day: {}."
 msgstr "Indique a média salarial da mão-de-obra contratada por dia"
 
-#: apps/summary/renderers.py:681
+#: apps/summary/renderers.py:703
 msgid "Most important factors affecting the costs"
 msgstr ""
 
-#: apps/summary/renderers.py:684
+#: apps/summary/renderers.py:706
 msgid "Establishment activities"
 msgstr ""
 
-#: apps/summary/renderers.py:688
-msgid "Establishment inputs and costs per ha"
-msgstr ""
+#: apps/summary/renderers.py:710
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Establishment activities"
+msgid "Establishment inputs and costs"
+msgstr "Atividades de implantação"
 
-#: apps/summary/renderers.py:693
+#: apps/summary/renderers.py:715
 msgid "Maintenance activities"
 msgstr ""
 
-#: apps/summary/renderers.py:697
-msgid "Maintenance inputs and costs per ha"
-msgstr ""
+#: apps/summary/renderers.py:719
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Maintenance/ recurrent activities"
+msgid "Maintenance inputs and costs"
+msgstr "Atividades recorrentes/manutenção"
 
-#: apps/summary/renderers.py:744
+#: apps/summary/renderers.py:766
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Average annual rainfall"
 msgid "Average annual rainfall in mm: {}"
 msgstr "Média pluviométrica anual"
 
-#: apps/summary/renderers.py:746
+#: apps/summary/renderers.py:768
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Indicate the name of the reference meteorological station considered"
 msgid "Name of the meteorological station: {}"
 msgstr "Indique o nome da estação meteorológica de referência considerada"
 
-#: apps/summary/renderers.py:753
+#: apps/summary/renderers.py:775
 msgid "Natural environment"
 msgstr ""
 
-#: apps/summary/renderers.py:756
+#: apps/summary/renderers.py:778
 msgid "Average annual rainfall"
 msgstr ""
 
-#: apps/summary/renderers.py:760
+#: apps/summary/renderers.py:782
 msgid "Agro-climatic zone"
 msgstr ""
 
-#: apps/summary/renderers.py:764
+#: apps/summary/renderers.py:786
 msgid "Specifications on climate"
 msgstr ""
 
-#: apps/summary/renderers.py:768
+#: apps/summary/renderers.py:790
 msgid "Slope"
 msgstr ""
 
-#: apps/summary/renderers.py:772
+#: apps/summary/renderers.py:794
 msgid "Landforms"
 msgstr ""
 
-#: apps/summary/renderers.py:776
+#: apps/summary/renderers.py:798
 msgid "Altitude"
 msgstr ""
 
-#: apps/summary/renderers.py:780
+#: apps/summary/renderers.py:802
 msgid "Technology is applied in"
 msgstr ""
 
-#: apps/summary/renderers.py:784
+#: apps/summary/renderers.py:806
 msgid "Soil depth"
 msgstr ""
 
-#: apps/summary/renderers.py:788
+#: apps/summary/renderers.py:810
 msgid "Soil texture (topsoil)"
 msgstr ""
 
-#: apps/summary/renderers.py:792
+#: apps/summary/renderers.py:814
 msgid "Soil texture (> 20 cm below surface)"
 msgstr ""
 
-#: apps/summary/renderers.py:796
+#: apps/summary/renderers.py:818
 msgid "Topsoil organic matter content"
 msgstr ""
 
-#: apps/summary/renderers.py:800
+#: apps/summary/renderers.py:822
 msgid "Groundwater table"
 msgstr ""
 
-#: apps/summary/renderers.py:804
+#: apps/summary/renderers.py:826
 msgid "Availability of surface water"
 msgstr ""
 
-#: apps/summary/renderers.py:808
+#: apps/summary/renderers.py:830
 msgid "Water quality (untreated)"
 msgstr ""
 
-#: apps/summary/renderers.py:812
+#: apps/summary/renderers.py:834
 msgid "Occurrence of flooding"
 msgstr ""
 
-#: apps/summary/renderers.py:816
+#: apps/summary/renderers.py:838
 msgid "Is salinity a problem?"
 msgstr ""
 
-#: apps/summary/renderers.py:820
+#: apps/summary/renderers.py:842
 msgid "Species diversity"
 msgstr ""
 
-#: apps/summary/renderers.py:824
+#: apps/summary/renderers.py:846
 msgid "Habitat diversity"
 msgstr ""
 
-#: apps/summary/renderers.py:832
+#: apps/summary/renderers.py:854
 msgid "Characteristics of land users applying the Technology"
 msgstr ""
 
-#: apps/summary/renderers.py:835
+#: apps/summary/renderers.py:857
 msgid "Market orientation"
 msgstr ""
 
-#: apps/summary/renderers.py:839
+#: apps/summary/renderers.py:861
 msgid "Off-farm income"
 msgstr ""
 
-#: apps/summary/renderers.py:843
+#: apps/summary/renderers.py:865
 msgid "Relative level of wealth"
 msgstr ""
 
-#: apps/summary/renderers.py:847
+#: apps/summary/renderers.py:869
 msgid "Level of mechanization"
 msgstr ""
 
-#: apps/summary/renderers.py:851
+#: apps/summary/renderers.py:873
 msgid "Sedentary or nomadic"
 msgstr ""
 
-#: apps/summary/renderers.py:855
+#: apps/summary/renderers.py:877
 msgid "Individuals or groups"
 msgstr ""
 
-#: apps/summary/renderers.py:859
+#: apps/summary/renderers.py:881
 msgid "Gender"
 msgstr ""
 
-#: apps/summary/renderers.py:863
+#: apps/summary/renderers.py:885
 msgid "Age"
 msgstr ""
 
-#: apps/summary/renderers.py:867
+#: apps/summary/renderers.py:889
 msgid "Area used per household"
 msgstr ""
 
-#: apps/summary/renderers.py:871
+#: apps/summary/renderers.py:893
 msgid "Scale"
 msgstr ""
 
-#: apps/summary/renderers.py:875
+#: apps/summary/renderers.py:897
 msgid "Land ownership"
 msgstr ""
 
-#: apps/summary/renderers.py:879
+#: apps/summary/renderers.py:901
 msgid "Land use rights"
 msgstr ""
 
-#: apps/summary/renderers.py:883
+#: apps/summary/renderers.py:905
 msgid "Water use rights"
 msgstr ""
 
-#: apps/summary/renderers.py:887
+#: apps/summary/renderers.py:909
 msgid "Access to services and infrastructure"
 msgstr ""
 
-#: apps/summary/renderers.py:895
+#: apps/summary/renderers.py:917
 msgid "Impacts - Benefits and disadvantages"
 msgstr ""
 
-#: apps/summary/renderers.py:898
+#: apps/summary/renderers.py:920
 msgid "Socio-economic impacts"
 msgstr ""
 
-#: apps/summary/renderers.py:902
+#: apps/summary/renderers.py:924
 msgid "Socio-cultural impacts"
 msgstr ""
 
-#: apps/summary/renderers.py:906
+#: apps/summary/renderers.py:928
 msgid "Ecological impacts"
 msgstr ""
 
-#: apps/summary/renderers.py:910
+#: apps/summary/renderers.py:932
 msgid "Off-site impacts"
 msgstr ""
 
-#: apps/summary/renderers.py:914
+#: apps/summary/renderers.py:936
 msgid "Benefits compared with establishment costs"
 msgstr ""
 
-#: apps/summary/renderers.py:918
+#: apps/summary/renderers.py:940
 msgid "Benefits compared with maintenance costs"
 msgstr ""
 
-#: apps/summary/renderers.py:926
+#: apps/summary/renderers.py:948
 msgid "Climate change"
 msgstr ""
 
-#: apps/summary/renderers.py:928
+#: apps/summary/renderers.py:950
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Water supply for the land on which the Technology is applied"
 msgid "Climate change/ extreme to which the Technology is exposed"
 msgstr "Abastecimento de água para a terra na qual a tecnologia é aplicada"
 
-#: apps/summary/renderers.py:929
+#: apps/summary/renderers.py:951
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "How does the Technology cope with it?"
 msgid "How the Technology copes with these changes/extremes"
 msgstr "Como a tecnologia lida com isso?"
 
-#: apps/summary/renderers.py:937
+#: apps/summary/renderers.py:959
 msgid "Adoption and adaptation"
 msgstr ""
 
-#: apps/summary/renderers.py:940
+#: apps/summary/renderers.py:962
 msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr ""
 
-#: apps/summary/renderers.py:944
+#: apps/summary/renderers.py:966
 msgid ""
 "Of all those who have adopted the Technology, how many have did so without "
 "receiving material incentives?"
 msgstr ""
 
-#: apps/summary/renderers.py:948
+#: apps/summary/renderers.py:970
 #, fuzzy
 #| msgctxt "technologies label"
 #| msgid "If available, quantify (no. of households and/ or area covered)"
@@ -16899,170 +16923,163 @@ msgstr ""
 "Se disponível, determine a quantidade (número de unidades familiares e/ou "
 "área abordada)"
 
-#: apps/summary/renderers.py:952
+#: apps/summary/renderers.py:974
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
 msgstr ""
 
-#: apps/summary/renderers.py:956
+#: apps/summary/renderers.py:978
 msgid "To which changing conditions?"
 msgstr ""
 
-#: apps/summary/renderers.py:999
+#: apps/summary/renderers.py:1021
 msgid "Initiation date"
 msgstr ""
 
-#: apps/summary/renderers.py:1004
+#: apps/summary/renderers.py:1026
 msgid "Year of termination"
 msgstr ""
 
-#: apps/summary/renderers.py:1009
+#: apps/summary/renderers.py:1031
 msgid "Type of Approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1018
+#: apps/summary/renderers.py:1040
 msgid "Approach aims and enabling environment"
 msgstr ""
 
-#: apps/summary/renderers.py:1021
+#: apps/summary/renderers.py:1043
 msgid "Main aims / objectives of the approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1026
+#: apps/summary/renderers.py:1048
 msgid ""
 "Conditions enabling the implementation of the Technology/ ies applied under "
 "the Approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1030
+#: apps/summary/renderers.py:1052
 msgid ""
 "Conditions hindering the implementation of the Technology/ ies applied under "
 "the Approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1040
+#: apps/summary/renderers.py:1063
 msgid "Participation and roles of stakeholders involved"
 msgstr ""
 
-#: apps/summary/renderers.py:1043
+#: apps/summary/renderers.py:1066
 msgid "Stakeholders involved in the Approach and their roles"
 msgstr ""
 
-#: apps/summary/renderers.py:1045
+#: apps/summary/renderers.py:1068
 msgid "Lead agency: {}"
 msgstr ""
 
-#: apps/summary/renderers.py:1048 apps/summary/renderers.py:1052
+#: apps/summary/renderers.py:1071 apps/summary/renderers.py:1075
 msgid ""
 "Involvement of local land users/ local communities in the different phases "
 "of the Approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1060
+#: apps/summary/renderers.py:1084
 msgid "Flow chart"
 msgstr ""
 
-#: apps/summary/renderers.py:1064
+#: apps/summary/renderers.py:1088
 msgid "Decision-making on the selection of SLM Technology"
 msgstr ""
 
-#: apps/summary/renderers.py:1067
+#: apps/summary/renderers.py:1091
 msgid "Decisions were taken by"
 msgstr ""
 
-#: apps/summary/renderers.py:1071
+#: apps/summary/renderers.py:1095
 msgid "Decisions were made based on:"
 msgstr ""
 
-#: apps/summary/renderers.py:1085
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Flow chart (if available)"
-msgid "No specifications available"
-msgstr "Fluxograma (se disponível)"
-
-#: apps/summary/renderers.py:1088
+#: apps/summary/renderers.py:1110
 msgid "Technical support, capacity building, and knowledge management"
 msgstr ""
 
-#: apps/summary/renderers.py:1091
+#: apps/summary/renderers.py:1113
 msgid "The following activities or services have been part of the approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1101
+#: apps/summary/renderers.py:1123
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Capacity building/ training"
 msgid "Capacity building/ training"
 msgstr "Reforço das capacidades/formação"
 
-#: apps/summary/renderers.py:1104
+#: apps/summary/renderers.py:1126
 msgid "Training was provided to the following stakeholders"
 msgstr ""
 
-#: apps/summary/renderers.py:1108
+#: apps/summary/renderers.py:1130
 msgid "Form of training"
 msgstr ""
 
-#: apps/summary/renderers.py:1113
+#: apps/summary/renderers.py:1135
 msgid "Subjects covered"
 msgstr ""
 
-#: apps/summary/renderers.py:1118
+#: apps/summary/renderers.py:1140
 msgid "Advisory service"
 msgstr ""
 
-#: apps/summary/renderers.py:1121
+#: apps/summary/renderers.py:1143
 msgid "Advisory service was provided"
 msgstr ""
 
-#: apps/summary/renderers.py:1128
+#: apps/summary/renderers.py:1150
 msgid "Institution strengthening"
 msgstr ""
 
-#: apps/summary/renderers.py:1130
+#: apps/summary/renderers.py:1152
 msgid "Institutions have been strengthened / established"
 msgstr ""
 
-#: apps/summary/renderers.py:1132
+#: apps/summary/renderers.py:1156
+msgid "at the following level"
+msgstr ""
+
+#: apps/summary/renderers.py:1159
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Describe institution, roles and responsibilities, members, etc."
 msgid "Describe institution, roles and responsibilities, members, etc."
 msgstr "Descreva instituição, papéis e responsabilidades, membros, etc."
 
-#: apps/summary/renderers.py:1136
-msgid "at the following level"
-msgstr ""
-
-#: apps/summary/renderers.py:1141
+#: apps/summary/renderers.py:1162
 msgid "Type of support"
 msgstr ""
 
-#: apps/summary/renderers.py:1144
+#: apps/summary/renderers.py:1165
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Give further details"
 msgid "Further details"
 msgstr "Dê mais detalhes"
 
-#: apps/summary/renderers.py:1149
+#: apps/summary/renderers.py:1169
 msgid "Monitoring and evaluation"
 msgstr ""
 
-#: apps/summary/renderers.py:1153
+#: apps/summary/renderers.py:1174
 msgid "Research"
 msgstr ""
 
-#: apps/summary/renderers.py:1154
+#: apps/summary/renderers.py:1175
 msgid "Research treated the following topics"
 msgstr ""
 
-#: apps/summary/renderers.py:1163
+#: apps/summary/renderers.py:1184
 msgid "Financing and external material support"
 msgstr ""
 
-#: apps/summary/renderers.py:1166
+#: apps/summary/renderers.py:1187
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Annual budget for the SLM component of the Approach"
@@ -17071,72 +17088,72 @@ msgstr ""
 "Orçamento anual para o componente de gestão sustentável da terra da "
 "abordagem "
 
-#: apps/summary/renderers.py:1169
+#: apps/summary/renderers.py:1190
 msgid "Precise annual budget: {}"
 msgstr ""
 
-#: apps/summary/renderers.py:1172
+#: apps/summary/renderers.py:1193
 msgid "The following services or incentives have been provided to land users"
 msgstr ""
 
-#: apps/summary/renderers.py:1183
+#: apps/summary/renderers.py:1204
 msgid "Labour by land users was"
 msgstr ""
 
-#: apps/summary/renderers.py:1187
+#: apps/summary/renderers.py:1208
 msgid "Financial/ material support provided to land users"
 msgstr ""
 
-#: apps/summary/renderers.py:1191
+#: apps/summary/renderers.py:1212
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Credit"
 msgid "Credit"
 msgstr "Crédito"
 
-#: apps/summary/renderers.py:1193
+#: apps/summary/renderers.py:1214
 msgid "Conditions: {}"
 msgstr ""
 
-#: apps/summary/renderers.py:1196
+#: apps/summary/renderers.py:1217
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Specify credit providers"
 msgid "Credit providers: {}"
 msgstr "Especifique os fornecedores de crédito"
 
-#: apps/summary/renderers.py:1199
+#: apps/summary/renderers.py:1220
 #, fuzzy
 #| msgctxt "approaches label"
 #| msgid "Specify credit receivers"
 msgid "Credit receivers: {}"
 msgstr "Especifique os destinatários do crédito"
 
-#: apps/summary/renderers.py:1205
+#: apps/summary/renderers.py:1226
 msgid "Other incentives or instruments"
 msgstr ""
 
-#: apps/summary/renderers.py:1214
+#: apps/summary/renderers.py:1235
 msgid "Impact analysis and concluding statements"
 msgstr ""
 
-#: apps/summary/renderers.py:1217
+#: apps/summary/renderers.py:1238
 msgid "Impacts of the Approach"
 msgstr ""
 
-#: apps/summary/renderers.py:1218
+#: apps/summary/renderers.py:1239
 msgid "Did the approach..."
 msgstr ""
 
-#: apps/summary/renderers.py:1222
+#: apps/summary/renderers.py:1243
 msgid "Main motivation of land users to implement SLM"
 msgstr ""
 
-#: apps/summary/renderers.py:1226
+#: apps/summary/renderers.py:1247
 msgid "Sustainability of Approach activities"
 msgstr ""
 
-#: apps/summary/renderers.py:1227
+#: apps/summary/renderers.py:1248
 msgid ""
 "Can the land users sustain what hat been implemented through the Approach "
 "(without external support)?"
@@ -17809,3 +17826,9 @@ msgid ""
 "\n"
 "        "
 msgstr ""
+
+#, fuzzy
+#~| msgctxt "approaches label"
+#~| msgid "Flow chart (if available)"
+#~ msgid "No specifications available"
+#~ msgstr "Fluxograma (se disponível)"
