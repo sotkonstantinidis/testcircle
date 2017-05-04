@@ -7087,7 +7087,13 @@
       "keyword": "app_flowchart_author",
       "translation": 7086,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_flowchart_author"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7105,7 +7111,6 @@
             "field_name": "participation_lead_agency"
           }
         }
-
       }
     },
     "model": "configuration.key",

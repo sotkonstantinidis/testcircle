@@ -191,6 +191,7 @@ body.summary {
   .img-column-container img
   {
     height: 440px;
+    width: 440px;
   }
 
   &.is-approaches .img-column-container
@@ -205,9 +206,13 @@ body.summary {
   .img_in_text
   {
     float: right;
-    max-width: 66%;
-    max-height: 300px;
-    margin: 0px 0px 20px 20px;
+    margin: 0 0 20px 20px;
+    display:table;
+
+    img {
+      //max-width: 66%;
+      max-height: 400px;
+    }
   }
 
   ol.numbers {
