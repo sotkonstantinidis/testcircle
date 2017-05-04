@@ -84,7 +84,7 @@ class QuestionnaireListViewTest(TestCase):
             configuration_codes=['sample'],
         )
 
-    @patch('questionnaire.api.views.advanced_search')
+    @patch('questionnaire.views.advanced_search')
     def test_pagination(self, mock_advanced_search):
         mock_advanced_search.return_value = {}
         with patch('questionnaire.view_utils.ESPagination.__init__') as mock:
