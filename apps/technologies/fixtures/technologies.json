@@ -21671,7 +21671,7 @@
       "translation": 1624,
       "order_value": 6,
       "configuration": {
-        "image_name": "landuse_empty.png"
+        "image_name": "pictos/land_waterways.png"
       }
     },
     "model": "configuration.value",
