@@ -191,8 +191,9 @@ def _rebuild_elasticsearch_indexes():
 
 
 def _purge_summary_pdfs():
-    with cd(env.source_folder):
-        run('rm {}/*'.format(settings.SUMMARY_PDF_PATH))
+    with cd(env.site_folder):
+        # -f suppresses error when folder is empty
+        run('rm -f upload/summary-pdf/*')
 
 
 def _reload_uwsgi():
