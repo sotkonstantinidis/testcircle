@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 18:48+0200\n"
-"PO-Revision-Date: 2017-04-28 04:15+0000\n"
-"Last-Translator: Pasalath Khounsy <pasalathkh@gmail.com>\n"
+"POT-Creation-Date: 2017-05-08 10:16+0200\n"
+"PO-Revision-Date: 2017-05-04 16:49+0000\n"
+"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/lo/)\n"
 "Language: lo\n"
@@ -15721,17 +15721,13 @@ msgstr "ສະຫຼຸບສັງລວມຢ່າງທັງ​ຫມົດ
 #: apps/questionnaire/templates/details/category/approaches_header.html:94
 #: apps/questionnaire/templates/details/category/technologies_header.html:94
 #: apps/questionnaire/templates/details/category/with_metadata.html:93
-#, fuzzy
-#| msgid "Full summary as PDF"
 msgid "Full summary as PDF for print"
-msgstr "ສະຫຼຸບສັງລວມຢ່າງທັງ​ຫມົດທີ່ເປັນ  PDF"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:95
 #: apps/questionnaire/templates/details/category/technologies_header.html:95
-#, fuzzy
-#| msgid "Full summary as PDF"
 msgid "Full summary in the browser"
-msgstr "ສະຫຼຸບສັງລວມຢ່າງທັງ​ຫມົດທີ່ເປັນ  PDF"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:100
 #: apps/questionnaire/templates/details/category/cca_header.html:96
@@ -17229,20 +17225,12 @@ msgid "Description"
 msgstr "ຄຳອະທິບາຍ"
 
 #: apps/summary/renderers.py:208
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "land users"
 msgid "land user's view"
-msgstr "ຜູ້ນໍາໃຊ້ດິນ"
+msgstr ""
 
 #: apps/summary/renderers.py:209
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
-#| "person’s view"
 msgid "compiler’s or other key resource person’s view"
-msgstr "ຈຸດອ່ອນ ຫຼື ຂໍ້ເສຍ ຫຼື ຄວາມສ່ຽງ ໃນມຸມມອງຂອງ ຜູ້ສັງລວມຂໍ້ມູນ ຫຼື ບັນດາຜູ້ຕອບແບບສອບຖາມ"
+msgstr ""
 
 #: apps/summary/renderers.py:237
 msgid "Conclusions and lessons learnt"
@@ -17269,11 +17257,8 @@ msgid "Resource persons"
 msgstr "ບຸກຄົນທີ່ສໍາຄັນ"
 
 #: apps/summary/renderers.py:270
-#, fuzzy
-#| msgctxt "watershed label"
-#| msgid "Description of the watershed"
 msgid "Full description in the WOCAT database"
-msgstr "ພັນລະຍາອ່າງເກັບນໍ້າ"
+msgstr ""
 
 #: apps/summary/renderers.py:275
 msgid "Linked SLM data"
@@ -17284,30 +17269,21 @@ msgid "Key references"
 msgstr "ການອ້າງອີງທີ່ສໍາຄັນ"
 
 #: apps/summary/renderers.py:285
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Links to relevant information which is available online"
 msgid "Links to relevant information which is available online"
-msgstr "ສາມາດເຊື່ອມໂຍງຂໍ້ມູນຂ່າວສານໄດ້ໂດຍຜ່ານການອອນລາຍ"
+msgstr ""
 
 #: apps/summary/renderers.py:290
 msgid "Documentation was faciliated by"
 msgstr "ເອກກະສານ ແມ່ນໄດ້ອໍານວຍຄວາມສະດວກໂດຍ"
 
 #: apps/summary/renderers.py:296
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "convex situations"
 msgid "Institution"
-msgstr "ລັກສະນະສວດ"
+msgstr ""
 
 #: apps/summary/renderers.py:370
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "This data in the WOCAT database: <a href=\"{base_url}{url}\">{base_url}"
-#| "{url}</a>"
+#, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
-msgstr "ຂໍ້ມູນນີ້ຢູ່ໃນຖານຂໍ້ມູນ WOCAT: <a href=\"{base_url}{url}\">{base_url}{url}</a>"
+msgstr ""
 
 #: apps/summary/renderers.py:386
 msgid "Video"
@@ -17327,10 +17303,8 @@ msgid "Location"
 msgstr "ສະຖານທີ່"
 
 #: apps/summary/renderers.py:531
-#, fuzzy
-#| msgid "No SLM Technologies found."
 msgid "No. of Technology sites analysed"
-msgstr "ບໍ່ພົບເຕັກໂນໂລຊີ SLM ."
+msgstr ""
 
 #: apps/summary/renderers.py:534 apps/summary/renderers.py:1016
 msgid "Geo-reference of selected sites"
@@ -17393,11 +17367,8 @@ msgid "SLM measures"
 msgstr "ມາດຕະການ ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
 #: apps/summary/renderers.py:645 apps/summary/renderers.py:1083
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Author"
 msgid "Author: {}"
-msgstr "ຜູ້ຂຽນ"
+msgstr ""
 
 #: apps/summary/renderers.py:649
 msgid "Technical drawing"
@@ -17408,19 +17379,12 @@ msgid "Technical specifications"
 msgstr "​ຂໍ​ກຳ​ນົດ​ທາງ​ເທັກ​ນິກ"
 
 #: apps/summary/renderers.py:669
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "If using a local area unit, indicate conversion factor to one hectare"
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
-msgstr "ຖ້ານໍາໃຊ້ຫົວໜ່ວຍເນື້ອທີ່ຕາມທ້ອງຖິ່ນ, ໃຫ້ຄິດໄລ່ທຽບເປັນຫົວໜ່ວຍ ເຮັກຕາ"
+msgstr ""
 
 #: apps/summary/renderers.py:670
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate size and area unit"
 msgid " (size and area unit: <b>{}</b>{})"
-msgstr "ໃຫ້ລະບຸຫົວໜ່ວຍຂະໜາດ ແລະ ເນື້ອທີ່"
+msgstr ""
 
 #: apps/summary/renderers.py:675
 msgid "unit: <b>{}</b>"
@@ -17443,22 +17407,16 @@ msgid "Costs are calculated: {}"
 msgstr "ຄິດໄລ່ຄ່າໃຊ້ຈ່າຍ: {}"
 
 #: apps/summary/renderers.py:698
-#, fuzzy
-#| msgid "Currency used for cost calculation: {}"
 msgid "Currency used for cost calculation: <b>{}</b>"
-msgstr "ສະກຸນເງິນທີ່ໃຊ້ສໍາລັບການຄິດໄລ່ຄ່າໃຊ້ຈ່າຍ: {}"
+msgstr ""
 
 #: apps/summary/renderers.py:699
-#, fuzzy
-#| msgid "Exchange rate (to USD): {}."
 msgid "Exchange rate (to USD): 1 USD = {}."
-msgstr "ອັດຕາແລກປ່ຽນ (to USD): {}."
+msgstr ""
 
 #: apps/summary/renderers.py:700
-#, fuzzy
-#| msgid "Average wage cost of hired labour: {}."
 msgid "Average wage cost of hired labour per day: {}."
-msgstr "ຄ່າໃຊ້ຈ່າຍຄ່າແຮງງານສະເລ່ຍຂອງການຈ້າງແຮງງານ: {}."
+msgstr ""
 
 #: apps/summary/renderers.py:703
 msgid "Most important factors affecting the costs"
@@ -17469,33 +17427,24 @@ msgid "Establishment activities"
 msgstr "ກິດຈະກໍາການສ້າງຕັ້ງ"
 
 #: apps/summary/renderers.py:710
-#, fuzzy
-#| msgid "Establishment inputs and costs per ha"
 msgid "Establishment inputs and costs"
-msgstr "ປັດ​ໃຈ​ການ​ຜະ​ລິດ​ສ​ະ​ຖານ​ທີ່​ປະ​ກອບ​ການ ແລະ ຄ່າ​ໃຊ້​ຈ່າຍ​ຕໍ່ເຮັກ​ຕາ"
+msgstr ""
 
 #: apps/summary/renderers.py:715
 msgid "Maintenance activities"
 msgstr "ກິດຈະກໍາບໍາລຸງຮັກສາ"
 
 #: apps/summary/renderers.py:719
-#, fuzzy
-#| msgid "Establishment inputs and costs per ha"
 msgid "Maintenance inputs and costs"
-msgstr "ປັດ​ໃຈ​ການ​ຜະ​ລິດ​ສ​ະ​ຖານ​ທີ່​ປະ​ກອບ​ການ ແລະ ຄ່າ​ໃຊ້​ຈ່າຍ​ຕໍ່ເຮັກ​ຕາ"
+msgstr ""
 
 #: apps/summary/renderers.py:766
-#, fuzzy
-#| msgid "Average annual rainfall"
 msgid "Average annual rainfall in mm: {}"
-msgstr "ສະເລ່ຍປະລິມານນໍ້າຝົນປະຈໍາປີ"
+msgstr ""
 
 #: apps/summary/renderers.py:768
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate the name of the reference meteorological station considered"
 msgid "Name of the meteorological station: {}"
-msgstr "ໃຫ້ລະບຸຊື່ສະຖານີອຸຕຸນິຍົມ ເພື່ອເປັນຂໍ້ມູນອ້າງອີງ"
+msgstr ""
 
 #: apps/summary/renderers.py:775
 msgid "Natural environment"
@@ -17666,18 +17615,12 @@ msgid "Climate change"
 msgstr "ການປ່ຽນແປງສະພາບດິນຟ້າອາກາດ"
 
 #: apps/summary/renderers.py:950
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Water supply for the land on which the Technology is applied"
 msgid "Climate change/ extreme to which the Technology is exposed"
-msgstr "ການສະໜອງນ້ໍາໃສ່ພື້ນທີ່ ທີ່ໄດ້ນໍາໃຊ້ເຕັກໂນໂລຢີ"
+msgstr ""
 
 #: apps/summary/renderers.py:951
-#, fuzzy
-#| msgctxt "technologies helptext"
-#| msgid "Is the Technology exposed to these changes and disasters (extremes)?"
 msgid "How the Technology copes with these changes/extremes"
-msgstr "ແມ່ນເຕັກໂນໂລຢີທີ່ປະເຊີນກັບການປ່ຽນແປງເຫຼົ່ານີ້ ແລະ ໄພພິບັດ (ສຸດ)?"
+msgstr ""
 
 #: apps/summary/renderers.py:959
 msgid "Adoption and adaptation"
@@ -17694,11 +17637,8 @@ msgid ""
 msgstr "ທັງໝົດນັ້ນ ມີໃຜແດ່ທີ່ສາມາດປັບຕົວຕໍ່ເຕັກໂນໂລຢີ,​ ມີຈັກຄົນທີ່ໄດ້ຮັບການກະຕຸກຊຸກຍູ້ ແລະ ອຸປະກອນ?"
 
 #: apps/summary/renderers.py:970
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "If available, quantify (no. of households and/ or area covered)"
 msgid "Number of households and/ or area covered"
-msgstr "ຖ້າຫາກວ່າມີ, ປະລິມານ (ຈໍານວນຂອງຄົວເຮືອນ/ເນື້ອທີ່ການຄຸ້ມຄອງ)"
+msgstr ""
 
 #: apps/summary/renderers.py:974
 msgid ""
@@ -17784,11 +17724,8 @@ msgid "The following activities or services have been part of the approach"
 msgstr ""
 
 #: apps/summary/renderers.py:1123
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Capacity building/ training"
 msgid "Capacity building/ training"
-msgstr "ການສ້າງຄວາມສາມາດ/ການຝຶກອົບຮົມ"
+msgstr ""
 
 #: apps/summary/renderers.py:1126
 msgid "Training was provided to the following stakeholders"
@@ -17823,22 +17760,16 @@ msgid "at the following level"
 msgstr "ໃນລະດັບດັ່ງລຸ່ມນີ້:"
 
 #: apps/summary/renderers.py:1159
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Describe institution, roles and responsibilities, members, etc."
 msgid "Describe institution, roles and responsibilities, members, etc."
-msgstr "ອະທິບາຍ ສະຖາບັນການຈັດຕັ້ງ, ພາລະບົດບາດ ແລະ ໜ້າທີ່ຮັບຜິດຊອບ, ສະມາຊິກ ແລະ ອື່ນໆ."
+msgstr ""
 
 #: apps/summary/renderers.py:1162
 msgid "Type of support"
 msgstr "ຮູບແບບການສະໜັບສະໜຸນ"
 
 #: apps/summary/renderers.py:1165
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Give further details"
 msgid "Further details"
-msgstr "ໃຫ້ລາຍລະອຽດເພີ່ມເຕີມ"
+msgstr ""
 
 #: apps/summary/renderers.py:1169
 msgid "Monitoring and evaluation"
@@ -17857,10 +17788,8 @@ msgid "Financing and external material support"
 msgstr "ການເງິນ ແລະ ການສະໜັບສະໜູນອຸຸປະກອນຈາກພາຍນອກ"
 
 #: apps/summary/renderers.py:1187
-#, fuzzy
-#| msgid "Annual budget for the SLM component of the Approach"
 msgid "Annual budget in USD for the SLM component"
-msgstr "ງົບປະມານປະຈໍາປີຂອງອົງປະກອບການຄຸ້ມຄອງທີ່ດິນແບບຍືຍົງ ຂອງວິທີການ"
+msgstr ""
 
 #: apps/summary/renderers.py:1190
 msgid "Precise annual budget: {}"
@@ -17879,31 +17808,20 @@ msgid "Financial/ material support provided to land users"
 msgstr ""
 
 #: apps/summary/renderers.py:1212
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Credit"
 msgid "Credit"
-msgstr "ສິນເຊື່ອ"
+msgstr ""
 
 #: apps/summary/renderers.py:1214
-#, fuzzy
-#| msgid "Confirmation"
 msgid "Conditions: {}"
-msgstr "ການຢືນຢັນ"
+msgstr ""
 
 #: apps/summary/renderers.py:1217
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify credit providers"
 msgid "Credit providers: {}"
-msgstr "ລະບຸການໃຫ້ບໍລິການການປ່ອຍສິນເຊື່ຶອ"
+msgstr ""
 
 #: apps/summary/renderers.py:1220
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify credit receivers"
 msgid "Credit receivers: {}"
-msgstr "ລະບຸຜູ້ທີ່ໄດ້ຮັບສິນເຊື່ອ"
+msgstr ""
 
 #: apps/summary/renderers.py:1226
 msgid "Other incentives or instruments"
@@ -18677,32 +18595,3 @@ msgid ""
 "\n"
 "        "
 msgstr ""
-
-#, fuzzy
-#~| msgid "Project"
-#~ msgid "Projects"
-#~ msgstr "​ໂຄງ​ການ"
-
-#, fuzzy
-#~| msgid "No description available."
-#~ msgid "No specifications available"
-#~ msgstr "ບໍ່ມີຄໍາອະທິບາຍ"
-
-#~ msgid "More about this case study"
-#~ msgstr "ເພີ່ມຕື່ມສໍາລັບກໍລະນີສຶກສາດັ່ງກ່າວນີ້"
-
-#~ msgid "Video: <a href=\"{vimeo_url}\">{vimeo_url}</a>"
-#~ msgstr "ວຶດີໂອ: <a href=\"{vimeo_url}\">{vimeo_url}</a>"
-
-#~ msgid ""
-#~ "Exposure and sensitivity of the Technology to gradual climate change and "
-#~ "climate-related extremes (disasters)."
-#~ msgstr ""
-#~ "ຄວາມບອບບາງໃນການນໍາໃຊ້ເຕັກໂນໂລຢີ ຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ ແລະ ຄວາມຮູນແຮງ "
-#~ "(ທາງໄພພິບັດທາງທໍາມະຊາດ)"
-
-#~ msgid "Adaptation"
-#~ msgstr "ການປັບຕົວ"
-
-#~ msgid "Geo-reference"
-#~ msgstr "​ອ້າງ​ອິງ​-ພູມ​ສາດ"

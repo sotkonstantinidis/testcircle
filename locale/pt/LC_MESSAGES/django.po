@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 18:48+0200\n"
-"PO-Revision-Date: 2017-04-03 07:58+0000\n"
+"POT-Creation-Date: 2017-05-08 10:16+0200\n"
+"PO-Revision-Date: 2017-05-04 16:49+0000\n"
 "Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Portuguese (http://www.transifex.com/university-of-bern-cde/"
 "qcat/language/pt/)\n"
@@ -16460,11 +16460,8 @@ msgid "Description"
 msgstr ""
 
 #: apps/summary/renderers.py:208
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "land users"
 msgid "land user's view"
-msgstr "Usuários de terra"
+msgstr ""
 
 #: apps/summary/renderers.py:209
 msgid "compiler’s or other key resource person’s view"
@@ -16507,22 +16504,16 @@ msgid "Key references"
 msgstr ""
 
 #: apps/summary/renderers.py:285
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Links to relevant information which is available online"
 msgid "Links to relevant information which is available online"
-msgstr "Links para informação relevante que está disponível online"
+msgstr ""
 
 #: apps/summary/renderers.py:290
 msgid "Documentation was faciliated by"
 msgstr ""
 
 #: apps/summary/renderers.py:296
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "convex situations"
 msgid "Institution"
-msgstr "Posições convexas"
+msgstr ""
 
 #: apps/summary/renderers.py:370
 #, python-brace-format
@@ -16609,11 +16600,8 @@ msgid "SLM measures"
 msgstr ""
 
 #: apps/summary/renderers.py:645 apps/summary/renderers.py:1083
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Author"
 msgid "Author: {}"
-msgstr "Autor"
+msgstr ""
 
 #: apps/summary/renderers.py:649
 msgid "Technical drawing"
@@ -16624,21 +16612,12 @@ msgid "Technical specifications"
 msgstr ""
 
 #: apps/summary/renderers.py:669
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "If using a local area unit, indicate conversion factor to one hectare"
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr ""
-"Caso esteja usando uma unidade de área local, indique o fator de conversão "
-"para um hectare"
 
 #: apps/summary/renderers.py:670
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate size and area unit"
 msgid " (size and area unit: <b>{}</b>{})"
-msgstr "Indique o tamanho e a unidade de área"
+msgstr ""
 
 #: apps/summary/renderers.py:675
 msgid "unit: <b>{}</b>"
@@ -16661,22 +16640,16 @@ msgid "Costs are calculated: {}"
 msgstr ""
 
 #: apps/summary/renderers.py:698
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Specify currency used for cost calculations"
 msgid "Currency used for cost calculation: <b>{}</b>"
-msgstr "Especifique a moeda utilizada para os cálculos de custo"
+msgstr ""
 
 #: apps/summary/renderers.py:699
 msgid "Exchange rate (to USD): 1 USD = {}."
 msgstr ""
 
 #: apps/summary/renderers.py:700
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate average wage cost of hired labour per day"
 msgid "Average wage cost of hired labour per day: {}."
-msgstr "Indique a média salarial da mão-de-obra contratada por dia"
+msgstr ""
 
 #: apps/summary/renderers.py:703
 msgid "Most important factors affecting the costs"
@@ -16687,36 +16660,24 @@ msgid "Establishment activities"
 msgstr ""
 
 #: apps/summary/renderers.py:710
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Establishment activities"
 msgid "Establishment inputs and costs"
-msgstr "Atividades de implantação"
+msgstr ""
 
 #: apps/summary/renderers.py:715
 msgid "Maintenance activities"
 msgstr ""
 
 #: apps/summary/renderers.py:719
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Maintenance/ recurrent activities"
 msgid "Maintenance inputs and costs"
-msgstr "Atividades recorrentes/manutenção"
+msgstr ""
 
 #: apps/summary/renderers.py:766
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Average annual rainfall"
 msgid "Average annual rainfall in mm: {}"
-msgstr "Média pluviométrica anual"
+msgstr ""
 
 #: apps/summary/renderers.py:768
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate the name of the reference meteorological station considered"
 msgid "Name of the meteorological station: {}"
-msgstr "Indique o nome da estação meteorológica de referência considerada"
+msgstr ""
 
 #: apps/summary/renderers.py:775
 msgid "Natural environment"
@@ -16887,18 +16848,12 @@ msgid "Climate change"
 msgstr ""
 
 #: apps/summary/renderers.py:950
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Water supply for the land on which the Technology is applied"
 msgid "Climate change/ extreme to which the Technology is exposed"
-msgstr "Abastecimento de água para a terra na qual a tecnologia é aplicada"
+msgstr ""
 
 #: apps/summary/renderers.py:951
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "How does the Technology cope with it?"
 msgid "How the Technology copes with these changes/extremes"
-msgstr "Como a tecnologia lida com isso?"
+msgstr ""
 
 #: apps/summary/renderers.py:959
 msgid "Adoption and adaptation"
@@ -16915,13 +16870,8 @@ msgid ""
 msgstr ""
 
 #: apps/summary/renderers.py:970
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "If available, quantify (no. of households and/ or area covered)"
 msgid "Number of households and/ or area covered"
 msgstr ""
-"Se disponível, determine a quantidade (número de unidades familiares e/ou "
-"área abordada)"
 
 #: apps/summary/renderers.py:974
 msgid ""
@@ -17007,11 +16957,8 @@ msgid "The following activities or services have been part of the approach"
 msgstr ""
 
 #: apps/summary/renderers.py:1123
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Capacity building/ training"
 msgid "Capacity building/ training"
-msgstr "Reforço das capacidades/formação"
+msgstr ""
 
 #: apps/summary/renderers.py:1126
 msgid "Training was provided to the following stakeholders"
@@ -17046,22 +16993,16 @@ msgid "at the following level"
 msgstr ""
 
 #: apps/summary/renderers.py:1159
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Describe institution, roles and responsibilities, members, etc."
 msgid "Describe institution, roles and responsibilities, members, etc."
-msgstr "Descreva instituição, papéis e responsabilidades, membros, etc."
+msgstr ""
 
 #: apps/summary/renderers.py:1162
 msgid "Type of support"
 msgstr ""
 
 #: apps/summary/renderers.py:1165
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Give further details"
 msgid "Further details"
-msgstr "Dê mais detalhes"
+msgstr ""
 
 #: apps/summary/renderers.py:1169
 msgid "Monitoring and evaluation"
@@ -17080,13 +17021,8 @@ msgid "Financing and external material support"
 msgstr ""
 
 #: apps/summary/renderers.py:1187
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Annual budget for the SLM component of the Approach"
 msgid "Annual budget in USD for the SLM component"
 msgstr ""
-"Orçamento anual para o componente de gestão sustentável da terra da "
-"abordagem "
 
 #: apps/summary/renderers.py:1190
 msgid "Precise annual budget: {}"
@@ -17105,29 +17041,20 @@ msgid "Financial/ material support provided to land users"
 msgstr ""
 
 #: apps/summary/renderers.py:1212
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Credit"
 msgid "Credit"
-msgstr "Crédito"
+msgstr ""
 
 #: apps/summary/renderers.py:1214
 msgid "Conditions: {}"
 msgstr ""
 
 #: apps/summary/renderers.py:1217
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify credit providers"
 msgid "Credit providers: {}"
-msgstr "Especifique os fornecedores de crédito"
+msgstr ""
 
 #: apps/summary/renderers.py:1220
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify credit receivers"
 msgid "Credit receivers: {}"
-msgstr "Especifique os destinatários do crédito"
+msgstr ""
 
 #: apps/summary/renderers.py:1226
 msgid "Other incentives or instruments"
@@ -17826,9 +17753,3 @@ msgid ""
 "\n"
 "        "
 msgstr ""
-
-#, fuzzy
-#~| msgctxt "approaches label"
-#~| msgid "Flow chart (if available)"
-#~ msgid "No specifications available"
-#~ msgstr "Fluxograma (se disponível)"

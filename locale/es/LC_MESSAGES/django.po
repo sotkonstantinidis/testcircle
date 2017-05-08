@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 18:48+0200\n"
-"PO-Revision-Date: 2017-04-27 21:05+0000\n"
-"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
+"POT-Creation-Date: 2017-05-08 10:16+0200\n"
+"PO-Revision-Date: 2017-05-04 16:49+0000\n"
+"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -14090,20 +14090,11 @@ msgstr ""
 "términos de estación de crecimiento)"
 
 #: apps/configuration/configuration_translations.py:28048
-#, fuzzy
-#| msgctxt "cca helptext"
-#| msgid ""
-#| "<p>if it has been introduced as an adaptation measure it might have been "
-#| "further adapted during the course of time</p><br>If <strong>yes</strong>, "
-#| "fill in the table below. If <strong>no</strong>, continue with chapter 4.7"
 msgctxt "cca helptext"
 msgid ""
 "If it has been introduced as an adaptation measure it might have been "
 "further adapted during the course of time."
 msgstr ""
-"<p>Si se introdujo como una medida de adaptación podría haberse adaptado más "
-"en el transcurso del tiempo.</p><br>Si respondió <strong>sí</strong>, llene "
-"la tabla siguiente. Si <strong>no</strong>, continúe en el capítulo 4.7"
 
 #: apps/configuration/configuration_translations.py:28049
 msgctxt "cca label"
@@ -16492,17 +16483,13 @@ msgstr "Resumen completo en PDF"
 #: apps/questionnaire/templates/details/category/approaches_header.html:94
 #: apps/questionnaire/templates/details/category/technologies_header.html:94
 #: apps/questionnaire/templates/details/category/with_metadata.html:93
-#, fuzzy
-#| msgid "Full summary as PDF"
 msgid "Full summary as PDF for print"
-msgstr "Resumen completo en PDF"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:95
 #: apps/questionnaire/templates/details/category/technologies_header.html:95
-#, fuzzy
-#| msgid "Full summary as PDF"
 msgid "Full summary in the browser"
-msgstr "Resumen completo en PDF"
+msgstr ""
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:100
 #: apps/questionnaire/templates/details/category/cca_header.html:96
@@ -18207,22 +18194,12 @@ msgid "Description"
 msgstr "Descripción"
 
 #: apps/summary/renderers.py:208
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "land users"
 msgid "land user's view"
-msgstr "usuarios de tierras"
+msgstr ""
 
 #: apps/summary/renderers.py:209
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
-#| "person’s view"
 msgid "compiler’s or other key resource person’s view"
 msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
-"otra persona de referencia clave"
 
 #: apps/summary/renderers.py:237
 msgid "Conclusions and lessons learnt"
@@ -18249,10 +18226,8 @@ msgid "Resource persons"
 msgstr "Personas de referencia"
 
 #: apps/summary/renderers.py:270
-#, fuzzy
-#| msgid "About the WOCAT SLM Database"
 msgid "Full description in the WOCAT database"
-msgstr "Acerca de la Base de Datos MST WOCAT"
+msgstr ""
 
 #: apps/summary/renderers.py:275
 msgid "Linked SLM data"
@@ -18263,32 +18238,21 @@ msgid "Key references"
 msgstr "Referencias claves"
 
 #: apps/summary/renderers.py:285
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Links to relevant information which is available online"
 msgid "Links to relevant information which is available online"
-msgstr "Vínculos a la información relevante disponible en línea"
+msgstr ""
 
 #: apps/summary/renderers.py:290
 msgid "Documentation was faciliated by"
 msgstr "La documentación fue facilitada por"
 
 #: apps/summary/renderers.py:296
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "convex situations"
 msgid "Institution"
-msgstr " situaciones convexas "
+msgstr ""
 
 #: apps/summary/renderers.py:370
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "This data in the WOCAT database: <a href=\"{base_url}{url}\">{base_url}"
-#| "{url}</a>"
+#, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 msgstr ""
-"Este dato en la base de datos WOCAT: <a href=\"{base_url}{url}\">{base_url}"
-"{url}</a>"
 
 #: apps/summary/renderers.py:386
 msgid "Video"
@@ -18309,10 +18273,8 @@ msgid "Location"
 msgstr "Lugar"
 
 #: apps/summary/renderers.py:531
-#, fuzzy
-#| msgid "No SLM Technologies found."
 msgid "No. of Technology sites analysed"
-msgstr "No se hallaron Tecnologías MST"
+msgstr ""
 
 #: apps/summary/renderers.py:534 apps/summary/renderers.py:1016
 msgid "Geo-reference of selected sites"
@@ -18375,11 +18337,8 @@ msgid "SLM measures"
 msgstr "Medidas MST"
 
 #: apps/summary/renderers.py:645 apps/summary/renderers.py:1083
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Author"
 msgid "Author: {}"
-msgstr "Autor"
+msgstr ""
 
 #: apps/summary/renderers.py:649
 msgid "Technical drawing"
@@ -18390,21 +18349,12 @@ msgid "Technical specifications"
 msgstr "Especificaciones técnicas"
 
 #: apps/summary/renderers.py:669
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid ""
-#| "If using a local area unit, indicate conversion factor to one hectare"
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr ""
-"Si utiliza una unidad de área local, indique el factor de conversión a una "
-"hectárea "
 
 #: apps/summary/renderers.py:670
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate size and area unit"
 msgid " (size and area unit: <b>{}</b>{})"
-msgstr "Indique tamaño y unidad de área"
+msgstr ""
 
 #: apps/summary/renderers.py:675
 msgid "unit: <b>{}</b>"
@@ -18427,22 +18377,16 @@ msgid "Costs are calculated: {}"
 msgstr "Los costos se calculan: {}"
 
 #: apps/summary/renderers.py:698
-#, fuzzy
-#| msgid "Currency used for cost calculation: {}"
 msgid "Currency used for cost calculation: <b>{}</b>"
-msgstr "Moneda usada para calcular el costo: {}"
+msgstr ""
 
 #: apps/summary/renderers.py:699
-#, fuzzy
-#| msgid "Exchange rate (to USD): {}."
 msgid "Exchange rate (to USD): 1 USD = {}."
-msgstr "Tasa de cambio (a dólares americanos):{}."
+msgstr ""
 
 #: apps/summary/renderers.py:700
-#, fuzzy
-#| msgid "Average wage cost of hired labour: {}."
 msgid "Average wage cost of hired labour per day: {}."
-msgstr "Costo promedio del salario de trabajo contratado: {}."
+msgstr ""
 
 #: apps/summary/renderers.py:703
 msgid "Most important factors affecting the costs"
@@ -18453,34 +18397,24 @@ msgid "Establishment activities"
 msgstr "Actividades de establecimiento"
 
 #: apps/summary/renderers.py:710
-#, fuzzy
-#| msgid "Establishment inputs and costs per ha"
 msgid "Establishment inputs and costs"
-msgstr "Insumos y costos de establecimiento por hectárea"
+msgstr ""
 
 #: apps/summary/renderers.py:715
 msgid "Maintenance activities"
 msgstr "Actividades de mantenimiento"
 
 #: apps/summary/renderers.py:719
-#, fuzzy
-#| msgid "Establishment inputs and costs per ha"
 msgid "Maintenance inputs and costs"
-msgstr "Insumos y costos de establecimiento por hectárea"
+msgstr ""
 
 #: apps/summary/renderers.py:766
-#, fuzzy
-#| msgid "Average annual rainfall"
 msgid "Average annual rainfall in mm: {}"
-msgstr "Promedio anual de lluvia "
+msgstr ""
 
 #: apps/summary/renderers.py:768
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Indicate the name of the reference meteorological station considered"
 msgid "Name of the meteorological station: {}"
 msgstr ""
-"Indique el nombre de la estación metereológica de referencia considerada"
 
 #: apps/summary/renderers.py:775
 msgid "Natural environment"
@@ -18652,19 +18586,12 @@ msgid "Climate change"
 msgstr "Cambio climático"
 
 #: apps/summary/renderers.py:950
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Water supply for the land on which the Technology is applied"
 msgid "Climate change/ extreme to which the Technology is exposed"
-msgstr "Provisión de agua para la tierra donde se aplica la Tecnología"
+msgstr ""
 
 #: apps/summary/renderers.py:951
-#, fuzzy
-#| msgctxt "technologies helptext"
-#| msgid "Is the Technology exposed to these changes and disasters (extremes)?"
 msgid "How the Technology copes with these changes/extremes"
 msgstr ""
-"¿La tecnología se halla expuesta a estos cambios y desastres (extremos)?"
 
 #: apps/summary/renderers.py:959
 msgid "Adoption and adaptation"
@@ -18683,13 +18610,8 @@ msgstr ""
 "incentivos/ pagos materiales?"
 
 #: apps/summary/renderers.py:970
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "If available, quantify (no. of households and/ or area covered)"
 msgid "Number of households and/ or area covered"
 msgstr ""
-"Si tiene la información disponible, cuantifique (número de hogares y/o área "
-"cubierta)"
 
 #: apps/summary/renderers.py:974
 msgid ""
@@ -18780,20 +18702,12 @@ msgstr ""
 "Apoyo técnico, fortalecimiento institucional y gestión del conocimiento"
 
 #: apps/summary/renderers.py:1113
-#, fuzzy
-#| msgid ""
-#| "The following services or incentives have been provided to land users"
 msgid "The following activities or services have been part of the approach"
 msgstr ""
-"Los siguientes servicios o incentivos fueron proporcionados a los usuarios "
-"de las tierras"
 
 #: apps/summary/renderers.py:1123
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Capacity building/ training"
 msgid "Capacity building/ training"
-msgstr "Construcción de capacidades / capacitación"
+msgstr ""
 
 #: apps/summary/renderers.py:1126
 msgid "Training was provided to the following stakeholders"
@@ -18828,22 +18742,16 @@ msgid "at the following level"
 msgstr "en el siguiente nivel"
 
 #: apps/summary/renderers.py:1159
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Describe institution, roles and responsibilities, members, etc."
 msgid "Describe institution, roles and responsibilities, members, etc."
-msgstr "Describa la institución, roles y responsabilidades, miembros, etc."
+msgstr ""
 
 #: apps/summary/renderers.py:1162
 msgid "Type of support"
 msgstr "Tipo de apoyo"
 
 #: apps/summary/renderers.py:1165
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Give further details"
 msgid "Further details"
-msgstr "Proporcione detalles adicionales"
+msgstr ""
 
 #: apps/summary/renderers.py:1169
 msgid "Monitoring and evaluation"
@@ -18862,10 +18770,8 @@ msgid "Financing and external material support"
 msgstr "Financiamiento y apoyo material externo"
 
 #: apps/summary/renderers.py:1187
-#, fuzzy
-#| msgid "Annual budget for the SLM component of the Approach"
 msgid "Annual budget in USD for the SLM component"
-msgstr "Presupuesto anual para el componente MST del Enfoque"
+msgstr ""
 
 #: apps/summary/renderers.py:1190
 msgid "Precise annual budget: {}"
@@ -18886,31 +18792,20 @@ msgid "Financial/ material support provided to land users"
 msgstr "Apoyo financiero/material proporcionado a los usuarios de tierras"
 
 #: apps/summary/renderers.py:1212
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Credit"
 msgid "Credit"
-msgstr "Crédito"
+msgstr ""
 
 #: apps/summary/renderers.py:1214
-#, fuzzy
-#| msgid "Confirmation"
 msgid "Conditions: {}"
-msgstr "Confirmación"
+msgstr ""
 
 #: apps/summary/renderers.py:1217
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify credit providers"
 msgid "Credit providers: {}"
-msgstr "Especifique los proveedores de crédito"
+msgstr ""
 
 #: apps/summary/renderers.py:1220
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "Specify credit receivers"
 msgid "Credit receivers: {}"
-msgstr "Especifique los destinatarios del crédito "
+msgstr ""
 
 #: apps/summary/renderers.py:1226
 msgid "Other incentives or instruments"
@@ -19809,54 +19704,3 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
-
-#, fuzzy
-#~| msgid "Project"
-#~ msgid "Projects"
-#~ msgstr "Proyecto"
-
-#, fuzzy
-#~| msgid "No description available."
-#~ msgid "No specifications available"
-#~ msgstr "No existe descripción disponible"
-
-#~ msgctxt "cca helptext"
-#~ msgid ""
-#~ "<p>Below you will find the list of on- and offsite impacts from question "
-#~ "6.1 and 6.2 in QT Core. Fill out the list for <strong>each</strong> "
-#~ "gradual climate change and climate-related extreme (disaster) that you "
-#~ "have listed in question 2.2. Make as many copies of the list as the "
-#~ "number of gradual climate changes and climate-related extremes you have "
-#~ "listed in question 2.2 (e.g. if you have listed 3 gradual climate changes "
-#~ "and 2 climate-related extremes, have 5 copies of the list available).</p>"
-#~ msgstr ""
-#~ "<p>Abajo encontrará la lista de impactos dentro y fuera del sitio de las "
-#~ "preguntas 6.1 y 6.2 de QT Core. Llene la lista para <strong>cada uno</"
-#~ "strong> de los cambios climáticos graduales y extremos climáticos "
-#~ "(desastres) que listó en la pregunta 2.2. Haga una copia de la lista por "
-#~ "cada uno de los cambios climáticos graduales y extremos climáticos que "
-#~ "listó en la pregunta 2.2. (por ej., si listó 3 cambios climáticos "
-#~ "graduales y 2 extremos climáticos, tenga disponibles 5 copias de la "
-#~ "lista).</p>"
-
-#~ msgid "Full summary as HTML"
-#~ msgstr "Resumen completo en HTML"
-
-#~ msgid "More about this case study"
-#~ msgstr "Más acerca de este caso de estudio"
-
-#~ msgid "Video: <a href=\"{vimeo_url}\">{vimeo_url}</a>"
-#~ msgstr "Video: <a href=\"{vimeo_url}\">{vimeo_url}</a>"
-
-#~ msgid ""
-#~ "Exposure and sensitivity of the Technology to gradual climate change and "
-#~ "climate-related extremes (disasters)."
-#~ msgstr ""
-#~ "Exposición y sensibilidad de la Tecnología al cambio climático gradual y "
-#~ "a extremos relacionados al clima (desastres) "
-
-#~ msgid "Adaptation"
-#~ msgstr "Adaptación"
-
-#~ msgid "Geo-reference"
-#~ msgstr "Georreferencia "

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 18:48+0200\n"
-"PO-Revision-Date: 2017-04-03 07:58+0000\n"
+"POT-Creation-Date: 2017-05-08 10:16+0200\n"
+"PO-Revision-Date: 2017-05-04 16:49+0000\n"
 "Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Arabic (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ar/)\n"
@@ -16405,11 +16405,8 @@ msgid "Documentation was faciliated by"
 msgstr ""
 
 #: apps/summary/renderers.py:296
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "Consultation"
 msgid "Institution"
-msgstr "الاستشارة"
+msgstr ""
 
 #: apps/summary/renderers.py:370
 #, python-brace-format
@@ -16744,11 +16741,8 @@ msgid "Climate change"
 msgstr ""
 
 #: apps/summary/renderers.py:950
-#, fuzzy
-#| msgctxt "unccd label"
-#| msgid "Specify the framework within which the technology was promoted"
 msgid "Climate change/ extreme to which the Technology is exposed"
-msgstr "حدد إطار العمل والذي من خلاله تم تطوير التقنية"
+msgstr ""
 
 #: apps/summary/renderers.py:951
 msgid "How the Technology copes with these changes/extremes"
@@ -16856,11 +16850,8 @@ msgid "The following activities or services have been part of the approach"
 msgstr ""
 
 #: apps/summary/renderers.py:1123
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Capacity-building and awareness-raising"
 msgid "Capacity building/ training"
-msgstr "بناء القدرات وزيادة الوعي"
+msgstr ""
 
 #: apps/summary/renderers.py:1126
 msgid "Training was provided to the following stakeholders"
@@ -17655,9 +17646,3 @@ msgid ""
 "\n"
 "        "
 msgstr ""
-
-#, fuzzy
-#~| msgctxt "approaches label"
-#~| msgid "Specifications"
-#~ msgid "No specifications available"
-#~ msgstr "Specifications"
