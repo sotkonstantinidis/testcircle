@@ -151,21 +151,43 @@ class BaseSettings(Configuration):
     )
     THUMBNAIL_ALIASES = {
         'summary': {
-            'header_image': {
-                'size': (0, 920),
-                'crop': 'smart',
-                'upscale': True
+            'screen': {
+                'header_image': {
+                    'size': (0, 1840),
+                    'crop': 'smart',
+                    'upscale': True
+                },
+                'half_height': {
+                    'size': (640, 640),
+                    'crop': 'smart',
+                    'upscale': True
+                },
+                'map': {
+                    'size': (560, 0)
+                },
+                'flow_chart': {
+                    'size': (900, 0),
+                    'upscale': True
+                }
             },
-            'half_height': {
-                'size': (400, 350),
-                'crop': 'smart',
-                'upscale': True
-            },
-            'map': {
-                'size': (280, 0)
-            },
-            'flow_chart': {
-                'size': (450, 0)
+            'print': {
+                'header_image': {
+                    'size': (0, 7360),
+                    'crop': 'smart',
+                    'upscale': True
+                },
+                'half_height': {
+                    'size': (2560, 2560),
+                    'crop': 'smart',
+                    'upscale': True
+                },
+                'map': {
+                    'size': (2240, 0)
+                },
+                'flow_chart': {
+                    'size': (3600, 0),
+                    'upscale': True
+                }
             }
         }
     }
