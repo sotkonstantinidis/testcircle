@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 10:16+0200\n"
-"PO-Revision-Date: 2017-05-04 16:50+0000\n"
-"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
+"POT-Creation-Date: 2017-05-15 09:56+0200\n"
+"PO-Revision-Date: 2017-05-11 10:44+0000\n"
+"Last-Translator: Sophea Tim <stim3993@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
 "Language: km\n"
@@ -154,7 +154,7 @@ msgstr "ស្វែងរក"
 
 #: apps/accounts/templates/questionnaires.html:37
 msgid "Search questionnaires by name or compilers name"
-msgstr ""
+msgstr "ស្វែងរកបញ្ជីរសំណួរតាមឈ្មោះ ឬឈ្មោះអ្នកចងក្រង"
 
 #: apps/accounts/templates/questionnaires.html:58
 msgid "No SLM data found."
@@ -1219,13 +1219,13 @@ msgstr "ឯកជន ឬក្រុម"
 #: apps/configuration/configuration_translations.py:1217
 msgctxt "technologies helptext"
 msgid "Indicate gender of persons using the land"
-msgstr "កំណត់យេនឌើអ្នកប្រើប្រាស់ដី"
+msgstr "កំណត់យេនឌ័រអ្នកប្រើប្រាស់ដី"
 
 #: apps/configuration/configuration_translations.py:1218
 #: apps/configuration/configuration_translations.py:5168
 msgctxt "technologies label"
 msgid "Gender"
-msgstr "យេនឌើ"
+msgstr "យេនឌ័រ"
 
 #: apps/configuration/configuration_translations.py:1219
 msgctxt "technologies label"
@@ -1573,7 +1573,7 @@ msgstr "ផលប៉ះពាល់នៃឧស្ម័នផ្ទះកញ្
 #: apps/configuration/configuration_translations.py:1348
 msgctxt "technologies label"
 msgid "Conclusions/ lessons learnt (major strengths and weaknesses)"
-msgstr "ការសន្និដ្ឋាន / មេរៀនបទពិសោធន៍ (ភាពខ្លាំងនិងភាពខ្សោយចំបងៗ)"
+msgstr "ការសន្និដ្ឋាន / មេរៀនបទពិសោធន៍ (ចំណុចខ្លាំង និងចំណុចខ្សោយសំខាន់ៗ)"
 
 #: apps/configuration/configuration_translations.py:1349
 msgctxt "technologies label"
@@ -1753,7 +1753,7 @@ msgstr "ឯកតា"
 #: apps/configuration/configuration_translations.py:1387
 msgctxt "technologies label"
 msgid "Total costs per input"
-msgstr "តម្លៃធាតុចូលសរុប"
+msgstr "ថ្លៃធាតុចូលសរុប"
 
 #: apps/configuration/configuration_translations.py:1389
 msgctxt "technologies helptext"
@@ -3553,7 +3553,7 @@ msgstr "បាតជ្រលងភ្នំ"
 #: apps/configuration/configuration_translations.py:1724
 msgctxt "technologies label"
 msgid "0-100 m a.s.l."
-msgstr "0-100 ម​ ខ្ពស់ជាងនីវ៉ូសមុទ្រ a.s.l."
+msgstr "0-100 ម​ "
 
 #: apps/configuration/configuration_translations.py:1725
 msgctxt "technologies label"
@@ -3678,7 +3678,7 @@ msgstr "ទឹកពិសារដែលមានគុណភាពល្អ"
 #: apps/configuration/configuration_translations.py:1748
 msgctxt "technologies label"
 msgid "poor drinking water (treatment required)"
-msgstr "ទឹកពិសារដែលគ្មានគុណភាព (តម្រូវការសំអាត)"
+msgstr "ទឹកពិសារដែលគ្មានគុណភាព (តម្រូវឱ្យមានការសំអាត)"
 
 #: apps/configuration/configuration_translations.py:1749
 msgctxt "technologies label"
@@ -3718,13 +3718,13 @@ msgstr "ពាណិជ្ជកម្ម/ ទីផ្សារ"
 #: apps/configuration/configuration_translations.py:1756
 msgctxt "technologies label"
 msgid "very poor"
-msgstr "ទាបខ្លាំង"
+msgstr "ក្រខ្លាំង"
 
 #: apps/configuration/configuration_translations.py:1757
 #: apps/configuration/configuration_translations.py:1988
 msgctxt "technologies label"
 msgid "poor"
-msgstr "ទាប"
+msgstr "ក្រ"
 
 #: apps/configuration/configuration_translations.py:1758
 msgctxt "technologies label"
@@ -4479,7 +4479,7 @@ msgstr "Pi: ការគ្របផ្ទៃដី"
 #: apps/configuration/configuration_translations.py:1875
 msgctxt "technologies label"
 msgid "not well at all"
-msgstr "មិនល្អទាំងស្រុង"
+msgstr "មិនល្អ"
 
 #: apps/configuration/configuration_translations.py:1876
 msgctxt "technologies label"
@@ -4723,7 +4723,7 @@ msgstr "កាត់បន្ថយហានិភ័យនៃបញ្ហាល
 #: apps/configuration/configuration_translations.py:1917
 msgctxt "technologies label"
 msgid "101-500 m a.s.l."
-msgstr "101-500 ម a.s.l."
+msgstr "101-500 ម"
 
 #: apps/configuration/configuration_translations.py:1918
 msgctxt "technologies label"
@@ -5054,37 +5054,37 @@ msgstr "> 4,000 មម"
 #: apps/configuration/configuration_translations.py:1970
 msgctxt "technologies label"
 msgid "501-1,000 m a.s.l."
-msgstr "501-1,000 ម a.s.l."
+msgstr "501-1,000 ម"
 
 #: apps/configuration/configuration_translations.py:1971
 msgctxt "technologies label"
 msgid "1,001-1,500 m a.s.l."
-msgstr "1,001-1,500 ម a.s.l."
+msgstr "1,001-1,500 ម"
 
 #: apps/configuration/configuration_translations.py:1972
 msgctxt "technologies label"
 msgid "1,501-2,000 m a.s.l."
-msgstr "1,501-2,000 ម a.s.l."
+msgstr "1,501-2,000 ម"
 
 #: apps/configuration/configuration_translations.py:1973
 msgctxt "technologies label"
 msgid "2,001-2,500 m a.s.l."
-msgstr "2,001-2,500 ម a.s.l."
+msgstr "2,001-2,500 ម"
 
 #: apps/configuration/configuration_translations.py:1974
 msgctxt "technologies label"
 msgid "2,501-3,000 m a.s.l."
-msgstr "2,501-3,000 ម a.s.l."
+msgstr "2,501-3,000 ម"
 
 #: apps/configuration/configuration_translations.py:1975
 msgctxt "technologies label"
 msgid "3,001-4,000 m a.s.l."
-msgstr "3,001-4,000 ម a.s.l."
+msgstr "3,001-4,000 ម"
 
 #: apps/configuration/configuration_translations.py:1976
 msgctxt "technologies label"
 msgid "> 4,000 m a.s.l."
-msgstr "> 4,000 ម a.s.l."
+msgstr "> 4,000 ម"
 
 #: apps/configuration/configuration_translations.py:1977
 msgctxt "technologies label"
@@ -6123,7 +6123,7 @@ msgstr "មតិយោបល់"
 #: apps/configuration/configuration_translations.py:2774
 msgctxt "technologies label"
 msgid "Most important factors affecting the costs"
-msgstr "កត្តាសំខាន់ៗដែលមានឥទ្ធិពលដល់ការចំណាយ"
+msgstr "កត្តាសំខាន់បំផុតដែលមានឥទ្ធិពលដល់ការចំណាយ"
 
 #: apps/configuration/configuration_translations.py:2777
 #: apps/configuration/configuration_translations.py:2813
@@ -6207,8 +6207,7 @@ msgid ""
 "Exposure and sensitivity of the Technology to gradual climate change and "
 "climate-related extremes (disasters)"
 msgstr ""
-"ការប៉ះពាល់ និងភាពផ្លាស់ប្តូរនៃបច្ចេកវិទ្យាទៅនឹងការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ "
-"(គ្រោះមហន្តរាយ) "
+"ការប្រឈម និងភាពរួសនៃបច្ចេកវិទ្យាទៅនឹងការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ (គ្រោះមហន្តរាយ) "
 
 #: apps/configuration/configuration_translations.py:2786
 msgctxt "technologies helptext"
@@ -6592,12 +6591,12 @@ msgstr "ចំណាត់ថ្នាក់នៃបច្ចេកទេស SL
 #: apps/configuration/configuration_translations.py:2910
 msgctxt "technologies label"
 msgid "Adoption and adaptation"
-msgstr "ការទទួលយក និងការបន្ស៊ាំ"
+msgstr "ការទទួលយក និងការបន្សុំា"
 
 #: apps/configuration/configuration_translations.py:2912
 msgctxt "technologies label"
 msgid "Conclusions and lessons learnt"
-msgstr "សេដ្ឋក្តីសន្និដ្ឋាន និងចំណេះដឹងបានទទួល"
+msgstr "សេក្តីសន្និដ្ឋាន និងមេរៀនបទពិសោធន៍"
 
 #: apps/configuration/configuration_translations.py:2913
 #: apps/configuration/configuration_translations.py:2924
@@ -6640,7 +6639,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2915
 msgctxt "technologies label"
 msgid "Impacts: benefits and disadvantages"
-msgstr "ផលប៉ះពាល់៖ ផលប្រយោជន៍ និងគុណវិបត្តិ"
+msgstr "ផលប៉ះពាល់៖ អត្ថប្រយោជន៍ និងគុណវិបត្តិ"
 
 #: apps/configuration/configuration_translations.py:2916
 msgctxt "technologies helptext"
@@ -7212,7 +7211,7 @@ msgstr "ផលប៉ះពាល់នៅក្នុងបរិវេណអន
 #: apps/configuration/configuration_translations.py:3520
 msgctxt "unccd label"
 msgid "Other on-site impacts"
-msgstr "ផលប៉ះពាល់ផ្សេងៗទៀតនៅក្នុងបរិវេណអនុវត្ត"
+msgstr "ផលប៉ះពាល់ផ្សេងៗទៀតនៅក្នុងបរិវេណអនុវត្តន៍"
 
 #: apps/configuration/configuration_translations.py:3521
 msgctxt "unccd label"
@@ -10260,27 +10259,11 @@ msgid "Specify the centre of the area in which the Approach has been applied."
 msgstr "កំណត់ពីចំណុចកណ្តាល​នៃតំបន់ដែលបានផ្សព្វផ្សាយ។"
 
 #: apps/configuration/configuration_translations.py:5903
-msgctxt "technologies helptext"
-msgid ""
-"Add a point for each technology site that was considered/ analysed in the "
-"documentation of this technology. If more than 10 sites were considered, "
-"select and add a point for those that are most representative."
-msgstr ""
-"ចូរបន្ថែមចំណុចមួយនៃទីកន្លែងបច្ចេកទេសដែលត្រូវបានគិតឬវិភាគក្នុងការចងក្រងបច្ចេកទេសនេះ។ "
-"ប្រសិនបើចំនួនទីកន្លែងអនុវត្តបច្ចេកទេសនេះមានច្រើនជាង 10 "
-"សូមជ្រើសរើសនិងបន្ថែមចំណុចមួយសម្រាប់ទីតាំងណាមួយដែលជាតំណាង។"
-
-#: apps/configuration/configuration_translations.py:5904
-msgctxt "technologies label"
-msgid "Add geo-referenced information on the map below"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:5905
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
 msgstr "កំណត់ពីចំណុចកណ្តាលនៃតំបន់ទីជម្រាល"
 
-#: apps/configuration/configuration_translations.py:5906
+#: apps/configuration/configuration_translations.py:5904
 msgctxt "approaches helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10340,7 +10323,7 @@ msgstr ""
 "class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</"
 "a></p>"
 
-#: apps/configuration/configuration_translations.py:5907
+#: apps/configuration/configuration_translations.py:5905
 msgctxt "technologies helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10400,7 +10383,7 @@ msgstr ""
 "class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</"
 "a></p>"
 
-#: apps/configuration/configuration_translations.py:5908
+#: apps/configuration/configuration_translations.py:5906
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10538,7 +10521,7 @@ msgstr "តួនាទីរបស់អ្នកពាក់ព័ន្ធដ
 #: apps/configuration/configuration_translations.py:7013
 msgctxt "approaches label"
 msgid "Conclusions/ lessons learnt (major strengths and weaknesses)"
-msgstr "សេចក្តីសន្និដ្ឋាន/មេរៀនទទួលបាន (ចំណុចខ្លាំង និងចំណុចខ្សោយ)"
+msgstr "សេចក្តីសន្និដ្ឋាន/មេរៀនបទពិសោធន៍ (ចំណុចខ្លាំង និងចំណុចខ្សោយ)"
 
 #: apps/configuration/configuration_translations.py:7014
 msgctxt "approaches label"
@@ -12500,7 +12483,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:23203
 msgctxt "cca label"
 msgid "On-site impacts"
-msgstr "ផលប៉ះពាល់ខាងក្នុង"
+msgstr "ផលប៉ះពាល់ខាងក្នុងបរិវេណ"
 
 #: apps/configuration/configuration_translations.py:23204
 msgctxt "cca label"
@@ -12515,7 +12498,7 @@ msgstr "ផលប៉ះពាល់លើសេដ្ឋកិច្ចសង្
 #: apps/configuration/configuration_translations.py:23211
 msgctxt "cca label_view"
 msgid "Socio-economic impacts (on-site)"
-msgstr ""
+msgstr "ផលប៉ះពាល់សេដ្ឋកិច្ចសង្គម (ក្នុងបរិវេណ)"
 
 #: apps/configuration/configuration_translations.py:23212
 msgctxt "cca label"
@@ -12545,7 +12528,7 @@ msgstr "ផលប៉ះពាល់ទៅលើវប្បធម៌សង្គ
 #: apps/configuration/configuration_translations.py:23221
 msgctxt "cca label_view"
 msgid "Socio-cultural impacts (on-site)"
-msgstr ""
+msgstr "ផលប៉ះពាល់វប្បធម៌សង្គម (ក្នុងបរិវេណ)"
 
 #: apps/configuration/configuration_translations.py:23222
 msgctxt "cca label"
@@ -12560,7 +12543,7 @@ msgstr "ផលប៉ះពាល់ទៅលើអេកូឡូស៊ី"
 #: apps/configuration/configuration_translations.py:23231
 msgctxt "cca label_view"
 msgid "Ecological impacts (on-site)"
-msgstr ""
+msgstr "ផលប៉ះពាល់ទៅលើអេកូឡូស៊ី (ក្នុងបរិវេណ)"
 
 #: apps/configuration/configuration_translations.py:23232
 msgctxt "cca label"
@@ -12725,7 +12708,7 @@ msgstr "ធនធានធម្មជាតិ"
 #: apps/configuration/configuration_translations.py:25000
 msgctxt "cca label"
 msgid "Conclusions and lessons learnt"
-msgstr "សេដ្ឋក្តីសន្និដ្ឋាន និងចំណេះដឹងបានទទួល"
+msgstr "សេក្តីសន្និដ្ឋាន និងមេរៀនបទពិសោធន៍"
 
 #: apps/configuration/configuration_translations.py:25100
 msgctxt "cca helptext"
@@ -13724,7 +13707,7 @@ msgstr "ថ្លៃដើមក្នុង 1 ឯកតា"
 #: apps/configuration/configuration_translations.py:28081
 msgctxt "cca label"
 msgid "Total costs per input"
-msgstr "តម្លៃធាតុចូលសរុប"
+msgstr "ថ្លៃធាតុចូលសរុប"
 
 #: apps/configuration/configuration_translations.py:28082
 #, python-format
@@ -17475,15 +17458,15 @@ msgstr "ការពណ៌នា"
 
 #: apps/summary/renderers.py:208
 msgid "land user's view"
-msgstr ""
+msgstr "ទស្សនៈអ្នកប្រើប្រាស់ដី"
 
 #: apps/summary/renderers.py:209
 msgid "compiler’s or other key resource person’s view"
-msgstr ""
+msgstr "ទស្សនៈរបស់អ្នកចងក្រង ឬបុគ្គលសំខាន់ផ្សេងទៀត"
 
 #: apps/summary/renderers.py:237
 msgid "Conclusions and lessons learnt"
-msgstr "សេដ្ឋក្តីសន្និដ្ឋាន និងចំណេះដឹងបានទទួល"
+msgstr "សេក្តីសន្និដ្ឋាន និងមេរៀនបទពិសោធន៍"
 
 #: apps/summary/renderers.py:240
 msgid "Strengths"
@@ -17507,7 +17490,7 @@ msgstr "បុគ្គលសំខាន់ៗ"
 
 #: apps/summary/renderers.py:270
 msgid "Full description in the WOCAT database"
-msgstr ""
+msgstr "ការពណ៌នាលម្អិតក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យរបស់វ៉ូខេត"
 
 #: apps/summary/renderers.py:275
 msgid "Linked SLM data"
@@ -17519,7 +17502,7 @@ msgstr "ឯកសារយោងសំខាន់ៗ"
 
 #: apps/summary/renderers.py:285
 msgid "Links to relevant information which is available online"
-msgstr ""
+msgstr "ការភ្ជាប់ទៅកាន់ពត៌មានពាក់ព័ន្ធលើប្រព័ន្ធអនឡាញ"
 
 #: apps/summary/renderers.py:290
 msgid "Documentation was faciliated by"
@@ -17557,7 +17540,7 @@ msgstr "ចំនួនទីកន្លែងបច្ចេកទេស ដ�
 
 #: apps/summary/renderers.py:534 apps/summary/renderers.py:1016
 msgid "Geo-reference of selected sites"
-msgstr ""
+msgstr "ចំណុចយោងភូមិសាស្រ្តនៃទីតាំងជ្រើសរើស"
 
 #: apps/summary/renderers.py:539
 msgid "Spread of the Technology"
@@ -17565,11 +17548,11 @@ msgstr "ការសាយភាយនៃបច្ចេកទេស"
 
 #: apps/summary/renderers.py:543
 msgid "Date of implementation"
-msgstr "កាលបរិច្ឆេទនៃការអនុវត្តន៍"
+msgstr "កាលបរិច្ឆេទនៃការអនុវត្ត៖​"
 
 #: apps/summary/renderers.py:550
 msgid "Type of introduction"
-msgstr "ប្រភេទនៃការណែនាំ"
+msgstr "ប្រភេទនៃការណែនាំឱ្យអនុវត្តន៍៖"
 
 #: apps/summary/renderers.py:582
 msgid "Classification of the Technology"
@@ -17593,7 +17576,7 @@ msgstr "ចំនួនរដូវដាំដុះក្នុងមួយឆ
 
 #: apps/summary/renderers.py:602
 msgid "Land use before implementation of the Technology"
-msgstr "ការប្រើប្រាស់ដីមុនពេលអនុវត្តន៍បច្ចេកទេស"
+msgstr "ការប្រើប្រាស់ដីមុនពេលអនុវត្តបច្ចេកទេស"
 
 #: apps/summary/renderers.py:606
 msgid "Livestock density"
@@ -17657,15 +17640,15 @@ msgstr "ថ្លៃដើមត្រូវបានគណនា៖ {}"
 
 #: apps/summary/renderers.py:698
 msgid "Currency used for cost calculation: <b>{}</b>"
-msgstr ""
+msgstr "រូបិយប័ណ្ណសម្រាប់ការគណនាថ្លៃដើម៖ <b>{}</b>"
 
 #: apps/summary/renderers.py:699
 msgid "Exchange rate (to USD): 1 USD = {}."
-msgstr ""
+msgstr "អត្រាប្តូរប្រាក់ (ទៅជាដុល្លាអាមេរិក) 1 USD = {}."
 
 #: apps/summary/renderers.py:700
 msgid "Average wage cost of hired labour per day: {}."
-msgstr ""
+msgstr "ថ្លៃឈ្នួលជាមធ្យមក្នុង ១ ថ្ងៃ៖  {}."
 
 #: apps/summary/renderers.py:703
 msgid "Most important factors affecting the costs"
@@ -17677,7 +17660,7 @@ msgstr "សកម្មភាពបង្កើតបច្ចេកទេស"
 
 #: apps/summary/renderers.py:710
 msgid "Establishment inputs and costs"
-msgstr ""
+msgstr "ធាតុចូរនិងថ្លៃដើមសម្រាប់ការបង្កើតបច្ចេកទេស"
 
 #: apps/summary/renderers.py:715
 msgid "Maintenance activities"
@@ -17685,7 +17668,7 @@ msgstr "សកម្មភាពថែទាំ"
 
 #: apps/summary/renderers.py:719
 msgid "Maintenance inputs and costs"
-msgstr ""
+msgstr "ធាតុចូលនិងថ្លៃដើមសម្រាប់ការថែទាំ"
 
 #: apps/summary/renderers.py:766
 msgid "Average annual rainfall in mm: {}"
@@ -17721,7 +17704,7 @@ msgstr "ទម្រង់ដី"
 
 #: apps/summary/renderers.py:798
 msgid "Altitude"
-msgstr "កម្ពស់នីវ៉ូ"
+msgstr "រយៈកម្ពស់ធៀបនឹងនីវ៉ូទឹកសមុទ្រ"
 
 #: apps/summary/renderers.py:802
 msgid "Technology is applied in"
@@ -17753,7 +17736,7 @@ msgstr "ភាពអាចរកបាននៃទឹកលើដី"
 
 #: apps/summary/renderers.py:830
 msgid "Water quality (untreated)"
-msgstr "គុណភាពទឹក (មិនបានធ្វើពិពិត្តកម្ម)"
+msgstr "គុណភាពទឹក (មិនបានធ្វើប្រព្រឹត្តិកម្ម)"
 
 #: apps/summary/renderers.py:834
 msgid "Occurrence of flooding"
@@ -17785,7 +17768,7 @@ msgstr "ចំណូលក្រៅកសិដ្ឋាន"
 
 #: apps/summary/renderers.py:865
 msgid "Relative level of wealth"
-msgstr "កម្រិតទ្រព្យសម្បត្តិ"
+msgstr "កម្រិតជីវភាព"
 
 #: apps/summary/renderers.py:869
 msgid "Level of mechanization"
@@ -17793,7 +17776,7 @@ msgstr "កម្រិតនៃការប្រើគ្រឿងយន្ត
 
 #: apps/summary/renderers.py:873
 msgid "Sedentary or nomadic"
-msgstr "លក្ខណៈនៅហ្នឹងកន្លែង ឬពនេចរ"
+msgstr "នៅនឹងកន្លែង ឬពនេចរ"
 
 #: apps/summary/renderers.py:877
 msgid "Individuals or groups"
@@ -17801,7 +17784,7 @@ msgstr "បុគ្គល ឬក្រុម"
 
 #: apps/summary/renderers.py:881
 msgid "Gender"
-msgstr "យេនឌឺ"
+msgstr "យេនឌ័រ"
 
 #: apps/summary/renderers.py:885
 msgid "Age"
@@ -17865,11 +17848,11 @@ msgstr "ការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/summary/renderers.py:950
 msgid "Climate change/ extreme to which the Technology is exposed"
-msgstr "ការប្រែប្រួលអាកាសធាតុដែលប្រឈមដល់បច្ចេកទេស"
+msgstr "បញ្ហាអាកាសធាតុដែលប្រឈមដល់បច្ចេកទេស"
 
 #: apps/summary/renderers.py:951
 msgid "How the Technology copes with these changes/extremes"
-msgstr ""
+msgstr "លក្ខណៈឆ្លើយតបរបស់បច្ចេកទេសចំពោះបញ្ហាអាកាសធាតុ"
 
 #: apps/summary/renderers.py:959
 msgid "Adoption and adaptation"
@@ -18084,7 +18067,7 @@ msgstr ""
 
 #: apps/summary/renderers.py:1238
 msgid "Impacts of the Approach"
-msgstr ""
+msgstr "ឥទ្ធិពលនៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
 
 #: apps/summary/renderers.py:1239
 msgid "Did the approach..."
@@ -18115,7 +18098,7 @@ msgstr "SLM របស់វ៉ូខេត"
 
 #: apps/technologies/templates/technologies/add_module.html:15
 msgid "Add CCA Module"
-msgstr "បន្ថែមម៉ូឌុលអំពីការបន្ស៊ាុំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
+msgstr "បន្ថែមម៉ូឌុលអំពីការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/technologies/templates/technologies/add_module.html:18
 msgid ""
@@ -18130,11 +18113,11 @@ msgstr "បន្ថែមបច្ចេកទេស SLM ថ្មី។"
 
 #: apps/technologies/templates/technologies/add_module.html:54
 msgid "2. Select CCA Module"
-msgstr "2. ជ្រើសរើសម៉ូឌុលអំពីការបន្ស៊ាុំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
+msgstr "2. ជ្រើសរើសម៉ូឌុលអំពីការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/technologies/templates/technologies/add_module.html:68
 msgid "3. Create CCA Module"
-msgstr "3. បង្កើតម៉ូឌុលអំពីការបន្ស៊ាុំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
+msgstr "3. បង្កើតម៉ូឌុលអំពីការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/technologies/templates/technologies/base.html:6
 msgid "WOCAT SLM Technologies"
@@ -18615,7 +18598,7 @@ msgstr ""
 #: apps/wocat/templates/wocat/partial/add.html:123
 #: apps/wocat/templates/wocat/partial/add.html:139
 msgid "CCA Module"
-msgstr "ម៉ូឌុលអំពីការបន្ស៊ាុំទៅនឺងការប្រែប្រួលអាកាសធាតុ"
+msgstr "ម៉ូឌុលអំពីការបន្សុំាទៅនឺងការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/wocat/templates/wocat/home.html:251
 #: apps/wocat/templates/wocat/home.html:267
@@ -18626,8 +18609,8 @@ msgid ""
 "Technology is adapted to gradual climate changes and climate-related "
 "extremes (natural disasters)."
 msgstr ""
-"ឧបករណ៍បន្ស៊ាុំទៅនឹងការប្រែប្រួលអាកាសធាតុ ប្រើសម្រាប់វាយតម្លៃថាតើបច្ចេកវិទ្យា SLM ជាក់លាក់ណាមួយ "
-"ត្រូវបានបន្ស៊ាុំទៅនឹងការប្រែប្រួលអាកាសធាតុសន្សឹមៗ និងភាពធ្ងន់ធ្ងរទាក់ទងនឹងអាកាសធាតុ (គ្រោះធម្មជាតិ) "
+"ឧបករណ៍បន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ ប្រើសម្រាប់វាយតម្លៃថាតើបច្ចេកវិទ្យា SLM ជាក់លាក់ណាមួយ "
+"ត្រូវបានបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុសន្សឹមៗ និងភាពធ្ងន់ធ្ងរទាក់ទងនឹងអាកាសធាតុ (គ្រោះធម្មជាតិ) "
 "ដែរឬទេ។"
 
 #: apps/wocat/templates/wocat/home.html:268
@@ -18637,7 +18620,7 @@ msgstr "ម៉ូឌុលនឹងត្រូវបានបន្ថែមទ
 
 #: apps/wocat/templates/wocat/home.html:286
 msgid "Key Numbers"
-msgstr ""
+msgstr "តួលេខសំខាន់ៗ"
 
 #: apps/wocat/templates/wocat/partial/add.html:21
 #: apps/wocat/templates/wocat/partial/add.html:41
@@ -18915,3 +18898,17 @@ msgstr ""
 "<pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/csv' "
 "https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
 "</p>"
+
+#~ msgctxt "technologies helptext"
+#~ msgid ""
+#~ "Add a point for each technology site that was considered/ analysed in the "
+#~ "documentation of this technology. If more than 10 sites were considered, "
+#~ "select and add a point for those that are most representative."
+#~ msgstr ""
+#~ "ចូរបន្ថែមចំណុចមួយនៃទីកន្លែងបច្ចេកទេសដែលត្រូវបានគិតឬវិភាគក្នុងការចងក្រងបច្ចេកទេសនេះ។ "
+#~ "ប្រសិនបើចំនួនទីកន្លែងអនុវត្តបច្ចេកទេសនេះមានច្រើនជាង 10 "
+#~ "សូមជ្រើសរើសនិងបន្ថែមចំណុចមួយសម្រាប់ទីតាំងណាមួយដែលជាតំណាង។"
+
+#~ msgctxt "technologies label"
+#~ msgid "Add geo-referenced information on the map below"
+#~ msgstr "បន្ថែមពត៌មានយោងទីតាំងភូមិសាស្រ្តលើផែនទីខាងក្រោម"
