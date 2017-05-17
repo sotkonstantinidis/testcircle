@@ -1,3 +1,5 @@
+from itertools import zip_longest
+
 from collections import OrderedDict
 
 import re
@@ -859,11 +861,11 @@ class ImportObject(Logger):
                 values.append(do_value_mapping(value))
 
         if group_by_rows is True:
-            for rearranged in [list(t) for t in zip(*grouped_values)]:
+            for rearranged in [list(t) for t in zip_longest(*grouped_values)]:
                 if string_format:
                     values.append(string_format.format(*rearranged))
                 else:
-                    values.append(''.join(rearranged))
+                    values.append(''.join(filter(None, rearranged)))
 
         if no_duplicates is True:
             values = list(set(values))

@@ -819,6 +819,37 @@ app_qg_111 = {
                     {
                         'mapping': [
                             {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'focus'
+                                    }
+                                ],
+                                'value_mapping_list': {
+                                    414: 'on SLM only',
+                                    415: 'mainly on SLM with other activities',
+                                    416: 'mainly on other activities than SLM',
+                                },
+                                'value_prefix': 'The Approach focused ',
+                            },
+                            {
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'focus_keywords'
+                                    }
+                                ],
+                                'value_prefix': '(',
+                                'value_suffix': ')',
+                            }
+                        ],
+                        'composite': {
+                            'separator': ' '
+                        }
+                    },
+                    {
+                        'mapping': [
+                            {
                                 'wocat_table': 'approach_paragraphs',
                                 'wocat_column': 'text',
                                 'index_filter': [
@@ -1179,15 +1210,29 @@ app_qg_10 = {
                     {
                         'mapping': [
                             {
-                                'wocat_table': 'approach',
-                                'wocat_column': 'rights',
-                                'lookup_table': True,
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights',
+                                    }
+                                ],
+                                'value_mapping_list': {
+                                    # TODO: Use correct words
+                                    417: 'help - low',
+                                    418: 'moderately helped',
+                                    419: 'greatly helped',
+                                    # TODO: Use correct words
+                                    420: 'hinder - low',
+                                    421: 'moderately hindered',
+                                    422: 'greatly hindered',
+                                    423: 'none of the above',
+                                },
+                                'value_prefix': 'The existing land ownership, land use rights / water rights ',
+                                'value_suffix': ' the approach implementation'
                             },
                             {
                                 'wocat_table': 'approach',
                                 'wocat_column': 'rights_comment',
-                                'mapping_prefix': '(',
-                                'mapping_suffix': ')',
                             },
                         ],
                         'conditions': [
@@ -1202,9 +1247,8 @@ app_qg_10 = {
                                 'value': ['417', '418', '419']
                             }
                         ],
-                        'value_prefix': 'To what degree did the existing land ownership, land use rights / water rights help or hinder the Approach implementation? ',
                         'composite': {
-                            'separator': ' '
+                            'separator': ': '
                         }
                     }
                 ],
@@ -1779,7 +1823,25 @@ app_qg_103 = {
                 ],
                 'type': 'string',
             },
-            # 'app_flowchart_author': {},
+            'app_flowchart_author': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'author'
+                    },
+                    {
+                        'wocat_table': 'approach_images',
+                        'wocat_column': 'address',
+                        'mapping_prefix': '(',
+                        'mapping_suffix': ')',
+                    }
+                ],
+                'type': 'string',
+                'composite': {
+                    'type': 'merge',
+                    'separator': ' '
+                }
+            },
         },
         'repeating': True,
         'wocat_table': 'approach_images',
@@ -3588,7 +3650,47 @@ qg_strengths_landusers = {
                     {
                         'wocat_table': 'approach_strengths',
                         'wocat_column': 'sustain',
-                        'mapping_prefix': '(How can they be sustained / enhanced? ',
+                        'mapping_prefix': '(How to sustain/ enhance this strength: ',
+                        'mapping_suffix': ')'
+                    }
+                ],
+                'composite': {
+                    'separator': ' '
+                },
+                'type': 'string',
+            }
+        },
+        'repeating': True,
+        'wocat_table': 'approach_strengths',
+        'index_filter': [
+            {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'type'
+                    }
+                ],
+                'operator': 'equals',
+                'value': '2',
+            }
+        ]
+    }
+}
+
+# 6.4 Strengths/ advantages of the Approach
+qg_strengths_compiler = {
+    'qg_strengths_compiler': {
+        'questions': {
+            'strengths_compiler': {
+                'mapping': [
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'strength',
+                    },
+                    {
+                        'wocat_table': 'approach_strengths',
+                        'wocat_column': 'sustain',
+                        'mapping_prefix': '(How to sustain/ enhance this strength: ',
                         'mapping_suffix': ')'
                     }
                 ],
@@ -3610,45 +3712,6 @@ qg_strengths_landusers = {
                 ],
                 'operator': 'equals',
                 'value': '1',
-            }
-        ]
-    }
-}
-
-# 6.4 Strengths/ advantages of the Approach
-qg_strengths_compiler = {
-    'qg_strengths_compiler': {
-        'questions': {
-            'strengths_compiler': {
-                'mapping': [
-                    {
-                        'wocat_table': 'approach_strengths',
-                        'wocat_column': 'strength',
-                    },
-                    {
-                        'wocat_table': 'approach_strengths',
-                        'wocat_column': 'sustain',
-                        'mapping_prefix': 'How can they be sustained / enhanced? '
-                    }
-                ],
-                'composite': {
-                    'separator': ' '
-                },
-                'type': 'string',
-            }
-        },
-        'repeating': True,
-        'wocat_table': 'approach_strengths',
-        'index_filter': [
-            {
-                'mapping': [
-                    {
-                        'wocat_table': 'approach_strengths',
-                        'wocat_column': 'type'
-                    }
-                ],
-                'operator': 'equals',
-                'value': '2',
             }
         ]
     }
@@ -3688,7 +3751,7 @@ qg_weaknesses_landusers = {
                     }
                 ],
                 'operator': 'equals',
-                'value': '1',
+                'value': '2',
             }
         ]
     }
@@ -3728,7 +3791,7 @@ qg_weaknesses_compiler = {
                     }
                 ],
                 'operator': 'equals',
-                'value': '2',
+                'value': '1',
             }
         ]
     }
