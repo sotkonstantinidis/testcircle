@@ -31,8 +31,8 @@ def simple_search(query_string, configuration_codes=[]):
 
 
 def advanced_search(
-        filter_params=[], query_string='', code='', name='',
-        configuration_codes=[], limit=10, offset=0):
+        filter_params=[], query_string='', configuration_codes=[], limit=10,
+        offset=0, match_all=False):
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -50,15 +50,16 @@ def advanced_search(
 
         ``query_string`` (str): A query string for the full text search.
 
-        ``code`` (str): The code of the questionnaire to search.
-
-        ``name`` (str): The name of the questionnaire to search (search
-        will happen in the ``name`` field of the questionnaire)
-
         ``configuration_codes`` (list): An optional list of
         configuration codes to limit the search to certain indices.
 
         ``limit`` (int): A limit of query results to return.
+
+        ``offset`` (int): The number of query results to skip.
+
+        ``match_all`` (bool): Whether the query MUST match all filters or not.
+        If not all filters must be matched, the results are ordered by relevance
+        to show hits matching more filters at the top. Defaults to False.
 
     Returns:
         ``dict``. The search results as returned by
@@ -67,22 +68,18 @@ def advanced_search(
     alias = get_alias(configuration_codes)
 
     # TODO: Support more operator types.
-    # TODO: Support AND/OR
 
-    must = []
+    es_queries = []
 
     # Filter parameters: Nested subqueries to access the correct
     # questiongroup.
     for filter_param in filter_params:
-        questiongroup = filter_param[0]
-        key = filter_param[1]
-        value = filter_param[2]
-        filter_type = filter_param[4]
+        questiongroup, key, value, operator, filter_type = filter_param
 
         if filter_type in [
                 'checkbox', 'image_checkbox', 'select_type', 'select_model',
                 'radio', 'bool']:
-            must.append({
+            es_queries.append({
                 "nested": {
                     "path": "data.{}".format(questiongroup),
                     "query": {
@@ -95,7 +92,7 @@ def advanced_search(
             })
 
         elif filter_type in ['text', 'char']:
-            must.append({
+            es_queries.append({
                 "nested": {
                     "path": "data.{}".format(questiongroup),
                     "query": {
@@ -113,7 +110,7 @@ def advanced_search(
             years = value.split('-')
             if len(years) != 2:
                 continue
-            must.append({
+            es_queries.append({
                 'range': {
                     key: {
                         'from': '{}||/y'.format(years[0]),
@@ -123,7 +120,7 @@ def advanced_search(
             })
 
         elif filter_type in ['_flag']:
-            must.append({
+            es_queries.append({
                 'nested': {
                     'path': 'flags',
                     'query': {
@@ -136,36 +133,22 @@ def advanced_search(
             })
 
     if query_string:
-        must.append({
+        es_queries.append({
             "query_string": {
                 "query": get_escaped_string(query_string)
             }
         })
 
-    should = []
-    if code:
-        should.append({
-            'match': {
-                'code': code,
-            }
-        })
-    if name:
-        should.append({
-            'multi_match': {
-                'query': name,
-                'fields': ['name.*'],
-                'type': 'most_fields',
-            }
-        })
+    es_bool = 'must' if match_all is True else 'should'
 
     query = {
         "query": {
             "bool": {
-                "must": must,
-                'should': should,
+                es_bool: es_queries
             }
         },
         "sort": [
+            "_score",
             {
                 "updated": "desc"
             }

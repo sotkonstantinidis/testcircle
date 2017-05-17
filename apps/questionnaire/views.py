@@ -1066,8 +1066,8 @@ class ESQuestionnaireQueryMixin:
         Set parameters, mostly required for pagination.
         """
         self.current_page = get_page_parameter(self.request)
-        if self.page_size is None:
-            self.page_size = get_limit_parameter(self.request)
+        self.page_size = getattr(
+            self, 'page_size', get_limit_parameter(self.request))
         self.offset = self.current_page * self.page_size - self.page_size
         self.configurations = [
             get_configuration(code) for code in
@@ -1119,6 +1119,19 @@ class ESQuestionnaireQueryMixin:
 
     def get_filter_params(self):
         # Get the filters and prepare them to be passed to the search.
+        query_string, filter_params = self.get_filters()
+
+        search_configuration_codes = get_configuration_index_filter(
+            self.configuration_code, only_current=False,
+            query_param_filter=tuple(self.request.GET.getlist('type')))
+
+        return {
+            'filter_params': filter_params,
+            'query_string': query_string,
+            'configuration_codes': search_configuration_codes,
+        }
+
+    def get_filters(self):
         active_filters = get_active_filters(
             self.configurations, self.request.GET)
         query_string = ''
@@ -1132,21 +1145,13 @@ class ESQuestionnaireQueryMixin:
                 'select_model', 'radio', 'bool']:
                 filter_params.append(
                     (active_filter.get('questiongroup'),
-                     active_filter.get('key'), active_filter.get('value'), None,
-                     active_filter.get('type')))
+                     active_filter.get('key'), active_filter.get('value'),
+                     active_filter.get('operator'), active_filter.get('type')))
             else:
                 raise NotImplementedError(
                     'Type "{}" is not valid for filters'.format(filter_type))
 
-        search_configuration_codes = get_configuration_index_filter(
-            self.configuration_code, only_current=False,
-            query_param_filter=tuple(self.request.GET.getlist('type')))
-
-        return {
-            'filter_params': filter_params,
-            'query_string': query_string,
-            'configuration_codes': search_configuration_codes,
-        }
+        return query_string, filter_params
 
 
 class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):

@@ -649,6 +649,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
                     'type': '_search',
                     'key': '_search',
                     'key_label': _('Search Terms'),
+                    'operator': None,
                     'value': filter_value,
                     'value_label': filter_value,
                     'questiongroup': '_search',
@@ -676,6 +677,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
                 'type': '_date',
                 'key': filter_param,
                 'key_label': label,
+                'operator': None,
                 'value': '-'.join(str(y) for y in sorted(years)),
                 'value_label': ' - '.join(str(y) for y in sorted(years)),
                 'questiongroup': filter_param,
@@ -692,6 +694,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
                     'type': '_flag',
                     'key': filter_param,
                     'key_label': '',
+                    'operator': None,
                     'value': filter_value,
                     'value_label': flag_label,
                     'questiongroup': filter_param,
@@ -701,11 +704,12 @@ def get_active_filters(questionnaire_configurations, query_dict):
             continue
 
         params = filter_param.split('__')
-        if len(params) != 3:
+        if len(params) not in [3, 4]:
             continue
 
         filter_questiongroup = params[1]
         filter_key = params[2]
+        filter_operator = params[3] if len(params) == 4 else 'eq'
 
         question = None
         for configuration in questionnaire_configurations:
@@ -742,6 +746,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
                 'questiongroup': filter_questiongroup,
                 'key': filter_key,
                 'key_label': question.label_view,
+                'operator': filter_operator,
                 'value': filter_value,
                 'value_label': value_label,
                 'type': question.field_type,

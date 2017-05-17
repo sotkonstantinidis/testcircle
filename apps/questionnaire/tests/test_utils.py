@@ -501,7 +501,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filters, [])
 
     def test_skips_invalid_filters(self):
-        query_dict = QueryDict('filter__foo=1&filter__foo__bar__faz=2')
+        query_dict = QueryDict('filter__foo=1&filter__foo__bar__faz__ham=2')
         filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(filters, [])
 
@@ -518,7 +518,22 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
+        self.assertEqual(filter_1['questiongroup'], 'qg_11')
+        self.assertEqual(filter_1['key'], 'key_14')
+        self.assertEqual(filter_1['key_label'], 'Key 14')
+        self.assertEqual(filter_1['value'], 'value_14_1')
+        self.assertEqual(filter_1['value_label'], 'Value 14_1')
+        self.assertEqual(filter_1['type'], 'image_checkbox')
+
+    def test_returns_single_query_dict_with_operator(self):
+        query_dict = QueryDict(
+            'filter__qg_11__key_14__eq=value_14_1')
+        filters = get_active_filters([self.conf], query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['questiongroup'], 'qg_11')
         self.assertEqual(filter_1['key'], 'key_14')
         self.assertEqual(filter_1['key_label'], 'Key 14')
@@ -533,12 +548,12 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['key_label'], 'Key 14')
         self.assertEqual(filter_1['value_label'], 'Value 14_1')
         filter_2 = filters[1]
         self.assertIsInstance(filter_2, dict)
-        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(len(filter_2), 7)
         self.assertEqual(filter_2['key_label'], 'Key 5')
         self.assertEqual(filter_2['value_label'], 'Faz')
 
@@ -550,12 +565,12 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['key_label'], 'Key 14')
         self.assertEqual(filter_1['value_label'], 'Value 14_1')
         filter_2 = filters[1]
         self.assertIsInstance(filter_2, dict)
-        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(len(filter_2), 7)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_2')
 
@@ -565,7 +580,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['type'], '_search')
         self.assertEqual(filter_1['key'], '_search')
         self.assertEqual(filter_1['questiongroup'], '_search')
@@ -579,7 +594,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['type'], '_date')
         self.assertEqual(filter_1['key'], 'created')
         self.assertEqual(filter_1['questiongroup'], 'created')
@@ -604,7 +619,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['type'], '_flag')
         self.assertEqual(filter_1['key'], 'flag')
         self.assertEqual(filter_1['questiongroup'], 'flag')
@@ -618,7 +633,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['type'], '_flag')
         self.assertEqual(filter_1['key'], 'flag')
         self.assertEqual(filter_1['questiongroup'], 'flag')
@@ -632,7 +647,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), 7)
         self.assertEqual(filter_1['type'], '_search')
         self.assertEqual(filter_1['key'], '_search')
         self.assertEqual(filter_1['questiongroup'], '_search')
@@ -641,7 +656,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_1['value_label'], 'foo')
         filter_2 = filters[1]
         self.assertIsInstance(filter_2, dict)
-        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(len(filter_2), 7)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
 
