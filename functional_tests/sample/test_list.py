@@ -172,7 +172,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 3")]')
 
         pagination = self.findManyBy(
             'xpath', '//ul[contains(@class, "pagination")]/li')
@@ -190,7 +190,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 3")]')
+            'contains(text(), "Foo 4")]')
 
         pagination = self.findManyBy(
             'xpath', '//ul[contains(@class, "pagination")]/li')
@@ -259,7 +259,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 1")]')
 
         pagination = self.findManyBy(
             'xpath', '//ul[contains(@class, "pagination")]/li')
@@ -277,7 +277,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 1")]')
+            'contains(text(), "Foo 4")]')
 
         # She removes all filters
         self.findBy('id', 'filter-reset').click()
@@ -482,10 +482,10 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 1")]')
+            'contains(text(), "Foo 4")]')
 
         # The number of Questionnaires in the title is updated
         count = self.findBy(
@@ -510,12 +510,19 @@ class ListTest(FunctionalTest):
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
 
+        # The filters are joined by OR, therefore there are now more results
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
+        self.assertEqual(len(list_entries), 3)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
             'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 3")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 1")]')
 
         # The filter was added to the list of active filters
         active_filter_panel = self.findBy(
@@ -542,10 +549,10 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 3")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 3")]')
+            'contains(text(), "Foo 4")]')
 
         # The filter was removed from the list of active filters
         active_filter_panel = self.findBy(
@@ -557,7 +564,7 @@ class ListTest(FunctionalTest):
         filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
         self.assertEqual(filter_1.text, 'Key 14: Value 14_3')
 
-        # She adds another filter: She also selects value 3 and updates the
+        # She adds another filter: She also selects value 2 and updates the
         # filter
         val_2.click()
         self.apply_filter()
@@ -850,10 +857,20 @@ class ListTest(FunctionalTest):
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
 
-        # Nothing is visible with these two filters
+        # As the filters are joined by OR, there are now more results
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 0)
+        self.assertEqual(len(list_entries), 3)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 1")]')
+
         filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
         self.assertEqual(filter_1.text, 'Created: 2014 - 2016')
         filter_2 = self.findBy('xpath', '//div[@id="active-filters"]//li[2]')
@@ -861,6 +878,9 @@ class ListTest(FunctionalTest):
 
         # She removes the first filter (creation date), 2 entries show up
         self.findBy('xpath', '(//a[@class="remove-filter"])[1]').click()
+        WebDriverWait(self.browser, 10).until(
+            EC.invisibility_of_element_located(
+                (By.CLASS_NAME, "loading-indicator")))
 
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
@@ -1153,10 +1173,10 @@ class ListTest(FunctionalTest):
 
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 1")]')
+            'contains(text(), "Foo 4")]')
 
         # She also searches for a word
         self.findBy('xpath', '//input[@type="search"]').send_keys('Foo')
@@ -1165,16 +1185,22 @@ class ListTest(FunctionalTest):
             EC.invisibility_of_element_located(
                 (By.CLASS_NAME, "loading-indicator")))
 
-        # She sees that both filters are applied
+        # She sees that both filters are applied, they are joined by OR
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        self.assertEqual(len(list_entries), 4)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 1")]')
+            'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
+                     'contains(text(), "Foo 3")]')
 
         # The filter was added to the list of active filters
         active_filter_panel = self.findBy(
@@ -1254,13 +1280,19 @@ class ListTest(FunctionalTest):
         # The results are filtered
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
+        self.assertEqual(len(list_entries), 4)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+                     'contains(text(), "Foo 1")]')
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 1")]')
+                     'contains(text(), "Foo 4")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 2")]')
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
+                     'contains(text(), "Foo 3")]')
 
         # The filter was added to the list of active filters
         active_filter_panel = self.findBy(

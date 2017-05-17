@@ -1,5 +1,5 @@
 import logging
-from unittest.mock import patch, MagicMock, sentinel
+from unittest.mock import patch, MagicMock, sentinel, Mock
 
 from django.conf import settings
 from django.http import Http404
@@ -40,8 +40,7 @@ class QuestionnaireListViewTest(TestCase):
     def tearDown(self):
         delete_all_indices()
 
-    @patch('questionnaire.api.views.advanced_search')
-    def test_logs_call(self, mock_advanced_search):
+    def test_logs_call(self):
         """
         Use the requestfactory from the rest-framework, as this handles the
         custom token authentication nicely.
@@ -50,7 +49,10 @@ class QuestionnaireListViewTest(TestCase):
         request = APIRequestFactory().get(self.url)
         force_authenticate(request, user=user)
         with patch('api.models.RequestLog.save') as mock_save:
-            QuestionnaireListView().dispatch(request)
+            view = QuestionnaireListView()
+            view.get_es_results = Mock()
+            view.get_es_results.return_value = {}
+            view.dispatch(request)
             mock_save.assert_called_once_with()
 
     def test_api_detail_url(self):
@@ -106,9 +108,9 @@ class QuestionnaireListViewTest(TestCase):
         view.get_previous_link()
         mock_get_paginate_link.assert_called_with(1)
 
-    @patch('questionnaire.api.views.advanced_search')
-    def test_response_type(self, mock_advanced_search):
-        mock_advanced_search.return_value = {}
+    def test_response_type(self):
+        self.view.get_es_results = Mock()
+        self.view.get_es_results.return_value = {}
         response = self.view.get(self.request)
         self.assertIsInstance(response, Response)
 
