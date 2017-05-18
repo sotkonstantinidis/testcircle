@@ -3201,6 +3201,7 @@
     "fields": {
       "keyword": "value_14_1",
       "translation": 11509,
+      "order_value": 1,
       "configuration": {
         "image_name": "landuse_01.png"
       }
@@ -3212,6 +3213,7 @@
     "fields": {
       "keyword": "value_14_2",
       "translation": 11510,
+      "order_value": 2,
       "configuration": {
         "image_name": "landuse_02.png"
       }
@@ -3223,6 +3225,7 @@
     "fields": {
       "keyword": "value_14_3",
       "translation": 11511,
+      "order_value": 3,
       "configuration": {
         "image_name": "landuse_03.png"
       }
@@ -4403,6 +4406,9 @@
                             "keyword": "key_48",
                             "form_options": {
                               "has_other": "key_48"
+                            },
+                            "view_options": {
+                              "filter": true
                             }
                           },
                           {

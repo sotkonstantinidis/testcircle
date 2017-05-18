@@ -137,6 +137,39 @@ class AdvancedSearchTest(TestCase):
         hit_ids = [r.get('_id') for r in search.get('hits')]
         self.assertEqual(hit_ids, ['1'])
 
+    def test_advanced_search_gte(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_11', 'key_14', '2', 'gte', 'image_checkbox'),
+            ],
+            configuration_codes=['sample']
+        ).get('hits')
+        self.assertEqual(search.get('total'), 2)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['4', '1'])
+
+    def test_advanced_search_lt(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_11', 'key_14', '2', 'lt', 'image_checkbox'),
+            ],
+            configuration_codes=['sample']
+        ).get('hits')
+        self.assertEqual(search.get('total'), 2)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['5', '1'])
+
+    def test_advanced_search_lte(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_35', 'key_48', '2', 'lte', 'radio'),
+            ],
+            configuration_codes=['sample']
+        ).get('hits')
+        self.assertEqual(search.get('total'), 2)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['2', '1'])
+
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class GetListValuesTest(TestCase):

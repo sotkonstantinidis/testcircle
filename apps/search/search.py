@@ -67,8 +67,6 @@ def advanced_search(
     """
     alias = get_alias(configuration_codes)
 
-    # TODO: Support more operator types.
-
     es_queries = []
 
     # Filter parameters: Nested subqueries to access the correct
@@ -79,15 +77,27 @@ def advanced_search(
         if filter_type in [
                 'checkbox', 'image_checkbox', 'select_type', 'select_model',
                 'radio', 'bool']:
-            es_queries.append({
-                "nested": {
-                    "path": "data.{}".format(questiongroup),
-                    "query": {
-                        "query_string": {
-                            "query": value,
-                            "fields": ["data.{}.{}".format(questiongroup, key)]
+
+            if operator in ['gt', 'gte', 'lt', 'lte']:
+                query = {
+                    'range': {
+                        f'data.{questiongroup}.{key}_order': {
+                            operator: value
                         }
                     }
+                }
+            else:
+                query = {
+                    'query_string': {
+                        'query': value,
+                        'fields': [f'data.{questiongroup}.{key}']
+                    }
+                }
+
+            es_queries.append({
+                'nested': {
+                    'path': f'data.{questiongroup}',
+                    'query': query
                 }
             })
 

@@ -306,6 +306,35 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
     questionnaire_configuration = config_list.get(configuration_code)
     alias = get_alias([configuration_code])
 
+    # Before looping through the objects, prepare a list of all (checkbox)
+    # values which are ordered
+    filter_configuration = questionnaire_configuration.get_filter_configuration()
+
+    ordered_filter_values = []
+    for filter_categories_dict in filter_configuration.values():
+        for filter_question_dict in filter_categories_dict.get('filters').values():
+
+            filter_type = filter_question_dict.get('type')
+            filter_questiongroup = filter_question_dict.get('questiongroup')
+            filter_question_keyword = filter_question_dict.get('keyword')
+
+            if filter_type not in [
+                    'checkbox', 'image_checkbox', 'select_type', 'select_model',
+                    'radio', 'bool']:
+                continue
+
+            filter_question = questionnaire_configuration.get_question_by_keyword(
+                filter_questiongroup, filter_question_keyword)
+            if filter_question is None:
+                continue
+
+            values = [(v.order_value, v.keyword) for v in
+                      filter_question.value_objects]
+            ordered_values = sorted(values, key=lambda v: v[0])
+
+            ordered_filter_values.append(
+                (filter_questiongroup, filter_question_keyword, ordered_values))
+
     actions = []
     for obj in questionnaire_objects:
         serialized = QuestionnaireSerializer(
@@ -316,6 +345,18 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
         # object, which returns values that are prepared to be presented on the
         # frontend and include lazy translation objects. Cast them to strings.
         serialized['list_data'] = force_strings(serialized['list_data'])
+
+        # Add ordered values to document data
+        for ordered_filter in ordered_filter_values:
+            ordered_qg_data = serialized.get(
+                'data', {}).get(ordered_filter[0], [])
+
+            for ordered_data in ordered_qg_data:
+                values = ordered_data.get(ordered_filter[1], [])
+                values_order = [
+                    o[0] for o in ordered_filter[2] if o[1] in values]
+                ordered_data[f'{ordered_filter[1]}_order'] = values_order
+
         action = {
             '_index': alias,
             '_type': 'questionnaire',
