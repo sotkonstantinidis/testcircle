@@ -325,7 +325,10 @@ class WocatWebsiteUserClient:
         """
         response = self._get(f'users/{user_id}/')
         if response.ok:
-            return response.json()
+            user_info = response.json()
+            # backwards compatibility
+            user_info['username'] = user_info.get('email')
+            return user_info
         return None
 
     def update_user(self, user: User, user_information: dict):
