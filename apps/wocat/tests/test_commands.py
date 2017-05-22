@@ -2282,7 +2282,7 @@ class DoMappingTest(TestCase):
         })
         import_object_2 = self.imprt.import_objects[1]
         qg_data_27 = import_object_2.data_json.get('qg_27')
-        self.assertIsNone(qg_data_27)
+        self.assertEqual(qg_data_27, [])
         import_object_3 = self.imprt.import_objects[2]
         qg_data_27 = import_object_3.data_json.get('qg_27')
         self.assertEqual(len(qg_data_27), 2)
