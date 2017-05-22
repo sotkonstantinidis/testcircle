@@ -427,7 +427,7 @@ class GlobalValuesMixin:
     def _get_project_institutions(self, model, *elements):
         ids = [item['value'] for item in elements]
         objects = model.objects.filter(id__in=ids)
-        object_list = [{'title': elem.name, 'logo': ''} for elem in objects]
+        object_list = [{'title': elem, 'logo': ''} for elem in objects]
         return object_list or [{'title': self.n_a}]
 
     def get_reference_web(self):
@@ -562,7 +562,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             # structure as required for an unordered list.
             slm_group = [{'text': text} for text in slm_group]
         except (KeyError, IndexError):
-            slm_group = []
+            slm_group = [{'text': self.n_a}]
 
         slm_group_other = self.raw_data_getter('classification_slm_group_other')
         if slm_group_other:
@@ -619,7 +619,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'slm_group': {
                     'title': _('SLM group'),
-                    'partials': slm_group or self.n_a
+                    'partials': slm_group
                 },
                 'measures': {
                     'title': _('SLM measures'),
