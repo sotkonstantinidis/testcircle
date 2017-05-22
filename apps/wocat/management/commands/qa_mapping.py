@@ -1217,15 +1217,12 @@ app_qg_10 = {
                                     }
                                 ],
                                 'value_mapping_list': {
-                                    # TODO: Use correct words
-                                    417: 'help - low',
+                                    417: 'helped a little',
                                     418: 'moderately helped',
                                     419: 'greatly helped',
-                                    # TODO: Use correct words
-                                    420: 'hinder - low',
+                                    420: 'hindered a little',
                                     421: 'moderately hindered',
                                     422: 'greatly hindered',
-                                    423: 'none of the above',
                                 },
                                 'value_prefix': 'The existing land ownership, land use rights / water rights ',
                                 'value_suffix': ' the approach implementation'
@@ -1351,15 +1348,26 @@ app_qg_10 = {
                     {
                         'mapping': [
                             {
-                                'wocat_table': 'approach',
-                                'wocat_column': 'rights',
-                                'lookup_table': True,
+                                'mapping': [
+                                    {
+                                        'wocat_table': 'approach',
+                                        'wocat_column': 'rights',
+                                    }
+                                ],
+                                'value_mapping_list': {
+                                    417: 'helped a little',
+                                    418: 'moderately helped',
+                                    419: 'greatly helped',
+                                    420: 'hindered a little',
+                                    421: 'moderately hindered',
+                                    422: 'greatly hindered',
+                                },
+                                'value_prefix': 'The existing land ownership, land use rights / water rights ',
+                                'value_suffix': ' the approach implementation'
                             },
                             {
                                 'wocat_table': 'approach',
                                 'wocat_column': 'rights_comment',
-                                'mapping_prefix': '(',
-                                'mapping_suffix': ')',
                             },
                         ],
                         'conditions': [
@@ -1374,7 +1382,6 @@ app_qg_10 = {
                                 'value': ['420', '421', '422']
                             }
                         ],
-                        'value_prefix': 'To what degree did the existing land ownership, land use rights / water rights help or hinder the Approach implementation? ',
                         'composite': {
                             'separator': ' '
                         }
