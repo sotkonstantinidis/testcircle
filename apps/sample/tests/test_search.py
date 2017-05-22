@@ -71,19 +71,19 @@ class AdvancedSearchTest(TestCase):
 
     def test_advanced_search(self):
         key_search = advanced_search(
-            filter_params=[('qg_1', 'key_1', 'key', 'eq', 'char')],
+            filter_params=[('qg_1', 'key_1', ['key'], 'eq', 'char')],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(key_search.get('total'), 2)
 
         one_search = advanced_search(
-            filter_params=[('qg_1', 'key_1', 'one', 'eq', 'char')],
+            filter_params=[('qg_1', 'key_1', ['one'], 'eq', 'char')],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
     def test_advanced_search_single_filter(self):
         search = advanced_search(
             filter_params=[
-                ('qg_11', 'key_14', 'value_14_1', 'eq', 'image_checkbox')
+                ('qg_11', 'key_14', ['value_14_1'], 'eq', 'image_checkbox')
             ],
             configuration_codes=['sample']
         ).get('hits')
@@ -92,55 +92,94 @@ class AdvancedSearchTest(TestCase):
     def test_advanced_search_multiple_arguments(self):
         search = advanced_search(
             filter_params=[
-                ('qg_1', 'key_1', 'key', 'eq', 'char'),
-                ('qg_19', 'key_5', '5', 'eq', 'char')],
+                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
+                ('qg_19', 'key_5', ['5'], 'eq', 'char')],
             configuration_codes=['sample']
+        ).get('hits')
+        self.assertEqual(search.get('total'), 1)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['1'])
+
+    def test_advanced_search_multiple_arguments_match_one(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
+                ('qg_19', 'key_5', ['5'], 'eq', 'char')],
+            configuration_codes=['sample'],
+            match_all=False
         ).get('hits')
         self.assertEqual(search.get('total'), 2)
         hit_ids = [r.get('_id') for r in search.get('hits')]
         self.assertEqual(hit_ids, ['1', '2'])
 
-    def test_advanced_search_multiple_arguments_match_all(self):
+    def test_advanced_search_multiple_arguments_2_match_one(self):
         search = advanced_search(
             filter_params=[
-                ('qg_1', 'key_1', 'key', 'eq', 'char'),
-                ('qg_19', 'key_5', '5', 'eq', 'char')],
-            configuration_codes=['sample'],
-            match_all=True
-        ).get('hits')
-        self.assertEqual(search.get('total'), 1)
-        hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['1'])
-
-    def test_advanced_search_multiple_arguments_2(self):
-        search = advanced_search(
-            filter_params=[
-                ('qg_1', 'key_1', 'key', 'eq', 'char'),
-                ('qg_11', 'key_14', 'value_14_1', 'eq', 'image_checkbox'),
+                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
+                ('qg_11', 'key_14', ['value_14_1'], 'eq', 'image_checkbox'),
             ],
-            configuration_codes=['sample']
+            configuration_codes=['sample'],
+            match_all=False
         ).get('hits')
         self.assertEqual(search.get('total'), 3)
         hit_ids = [r.get('_id') for r in search.get('hits')]
         self.assertEqual(hit_ids, ['1', '5', '2'])
 
-    def test_advanced_search_multiple_arguments_2_match_all(self):
+    def test_advanced_search_multiple_arguments_2(self):
         search = advanced_search(
             filter_params=[
-                ('qg_1', 'key_1', 'key', 'eq', 'char'),
-                ('qg_11', 'key_14', 'value_14_1', 'eq', 'image_checkbox'),
+                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
+                ('qg_11', 'key_14', ['value_14_1'], 'eq', 'image_checkbox'),
             ],
-            configuration_codes=['sample'],
-            match_all=True
+            configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 1)
         hit_ids = [r.get('_id') for r in search.get('hits')]
         self.assertEqual(hit_ids, ['1'])
 
+    def test_advanced_search_multiple_arguments_same_filter(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_11', 'key_14', ['value_14_1', 'value_14_3'], 'eq',
+                 'image_checkbox'),
+            ],
+            configuration_codes=['sample']
+        ).get('hits')
+        self.assertEqual(search.get('total'), 3)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['4', '1', '5'])
+
+    def test_advanced_search_multiple_arguments_same_filter_2(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_11', 'key_14', ['value_14_1', 'value_14_3'], 'eq',
+                 'image_checkbox'),
+                ('qg_35', 'key_48', ['value_3'], 'eq', 'radio'),
+            ],
+            configuration_codes=['sample']
+        ).get('hits')
+        self.assertEqual(search.get('total'), 1)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['4'])
+
+    def test_advanced_search_multiple_arguments_same_filter_2_match_one(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_11', 'key_14', ['value_14_1', 'value_14_3'], 'eq',
+                 'image_checkbox'),
+                ('qg_35', 'key_48', ['value_2'], 'eq', 'radio'),
+            ],
+            configuration_codes=['sample'],
+            match_all=False,
+        ).get('hits')
+        self.assertEqual(search.get('total'), 4)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['2', '4', '1', '5'])
+
     def test_advanced_search_gte(self):
         search = advanced_search(
             filter_params=[
-                ('qg_11', 'key_14', '2', 'gte', 'image_checkbox'),
+                ('qg_11', 'key_14', ['2'], 'gte', 'image_checkbox'),
             ],
             configuration_codes=['sample']
         ).get('hits')
@@ -151,7 +190,7 @@ class AdvancedSearchTest(TestCase):
     def test_advanced_search_lt(self):
         search = advanced_search(
             filter_params=[
-                ('qg_11', 'key_14', '2', 'lt', 'image_checkbox'),
+                ('qg_11', 'key_14', ['2'], 'lt', 'image_checkbox'),
             ],
             configuration_codes=['sample']
         ).get('hits')
@@ -162,7 +201,7 @@ class AdvancedSearchTest(TestCase):
     def test_advanced_search_lte(self):
         search = advanced_search(
             filter_params=[
-                ('qg_35', 'key_48', '2', 'lte', 'radio'),
+                ('qg_35', 'key_48', ['2'], 'lte', 'radio'),
             ],
             configuration_codes=['sample']
         ).get('hits')
@@ -170,6 +209,18 @@ class AdvancedSearchTest(TestCase):
         hit_ids = [r.get('_id') for r in search.get('hits')]
         self.assertEqual(hit_ids, ['2', '1'])
 
+    def test_advanced_search_gte_lte(self):
+        search = advanced_search(
+            filter_params=[
+                ('qg_11', 'key_14', ['1'], 'lte', 'image_checkbox'),
+                ('qg_11', 'key_14', ['3'], 'gte', 'image_checkbox'),
+            ],
+            configuration_codes=['sample'],
+            match_all=False,
+        ).get('hits')
+        self.assertEqual(search.get('total'), 3)
+        hit_ids = [r.get('_id') for r in search.get('hits')]
+        self.assertEqual(hit_ids, ['5', '4', '1'])
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class GetListValuesTest(TestCase):

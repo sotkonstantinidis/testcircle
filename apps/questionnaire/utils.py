@@ -721,34 +721,45 @@ def get_active_filters(questionnaire_configurations, query_dict):
             continue
 
         for filter_value in filter_values:
-            value_label = next(
-                (v[1] for v in question.choices if str(v[0]) == filter_value),
-                filter_value)
 
-            if question.field_type == 'select_model':
-                try:
-                    model = apps.get_model(
-                        app_label='configuration',
-                        model_name=question.form_options.get('model'))
+            # Each filter value can actually consist of multiple values
+            # belonging to the same key, concatenated to a single string
+            split_filter_values = filter_value.split('|')
+
+            # Collect the labels of all values
+            value_labels = []
+            for single_filter_value in split_filter_values:
+                value_label = next(
+                    (v[1] for v in question.choices if str(v[0]) ==
+                     single_filter_value),
+                    filter_value)
+
+                if question.field_type == 'select_model':
                     try:
-                        object = model.objects.get(pk=filter_value)
-                        value_label = str(object)
-                    except (model.DoesNotExist, ValueError):
-                        # If no object was found by ID or the value is not a
-                        # valid ID, try to find the (supposed string) value in
-                        # the name of the object.
-                        filter_key = '{}_display'.format(filter_key)
-                        value_label = filter_value
-                except LookupError:
-                    continue
+                        model = apps.get_model(
+                            app_label='configuration',
+                            model_name=question.form_options.get('model'))
+                        try:
+                            obj = model.objects.get(pk=single_filter_value)
+                            value_label = str(obj)
+                        except (model.DoesNotExist, ValueError):
+                            # If no object was found by ID or the value is not a
+                            # valid ID, try to find the (supposed string) value
+                            # in the name of the object.
+                            filter_key = '{}_display'.format(filter_key)
+                            value_label = single_filter_value
+                    except LookupError:
+                        continue
+
+                value_labels.append(value_label)
 
             active_filters.append({
                 'questiongroup': filter_questiongroup,
                 'key': filter_key,
                 'key_label': question.label_view,
                 'operator': filter_operator,
-                'value': filter_value,
-                'value_label': value_label,
+                'value': split_filter_values,
+                'value_label': ' / '.join(value_labels),
                 'type': question.field_type,
             })
 

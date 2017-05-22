@@ -31,8 +31,9 @@ def simple_search(query_string, configuration_codes=[]):
 
 
 def advanced_search(
-        filter_params=[], query_string='', configuration_codes=[], limit=10,
-        offset=0, match_all=False):
+        filter_params: list=None, query_string: str='',
+        configuration_codes: list=None, limit: int=10,
+        offset: int=0, match_all: bool=True) -> dict:
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -42,7 +43,7 @@ def advanced_search(
 
             [1]: key
 
-            [2]: value
+            [2]: values (list)
 
             [3]: operator
 
@@ -65,34 +66,52 @@ def advanced_search(
         ``dict``. The search results as returned by
         ``elasticsearch.Elasticsearch.search``.
     """
+    if filter_params is None:
+        filter_params = []
+
     alias = get_alias(configuration_codes)
 
     es_queries = []
 
+    def _get_query_string(qg, k, v):
+        return {
+            'query_string': {
+                'query': v,
+                'fields': [f'data.{qg}.{k}']
+            }
+        }
+
     # Filter parameters: Nested subqueries to access the correct
     # questiongroup.
-    for filter_param in filter_params:
-        questiongroup, key, value, operator, filter_type = filter_param
+    for filter_param in list(filter_params):
+        questiongroup, key, values, operator, filter_type = filter_param
 
         if filter_type in [
                 'checkbox', 'image_checkbox', 'select_type', 'select_model',
                 'radio', 'bool']:
 
+            # So far, range operators only works with one filter value. Does it
+            # even make sense to have multiple of these joined by OR with the
+            # same operator?
             if operator in ['gt', 'gte', 'lt', 'lte']:
                 query = {
                     'range': {
                         f'data.{questiongroup}.{key}_order': {
-                            operator: value
+                            operator: values[0]
                         }
                     }
                 }
             else:
-                query = {
-                    'query_string': {
-                        'query': value,
-                        'fields': [f'data.{questiongroup}.{key}']
+                if len(values) > 1:
+                    query_strings = [
+                        _get_query_string(questiongroup, key, v) for v in values]
+                    query = {
+                        'bool': {
+                            'should': query_strings
+                        }
                     }
-                }
+                else:
+                    query = _get_query_string(questiongroup, key, values[0])
 
             es_queries.append({
                 'nested': {
@@ -107,7 +126,7 @@ def advanced_search(
                     "path": "data.{}".format(questiongroup),
                     "query": {
                         "multi_match": {
-                            "query": value,
+                            "query": values[0],
                             "fields": ["data.{}.{}.*".format(
                                 questiongroup, key)],
                             "type": "most_fields",
@@ -117,7 +136,7 @@ def advanced_search(
             })
 
         elif filter_type in ['_date']:
-            years = value.split('-')
+            years = values[0].split('-')
             if len(years) != 2:
                 continue
             es_queries.append({
@@ -135,7 +154,7 @@ def advanced_search(
                     'path': 'flags',
                     'query': {
                         'query_string': {
-                            'query': value,
+                            'query': values[0],
                             'fields': ['flags.flag'],
                         }
                     }

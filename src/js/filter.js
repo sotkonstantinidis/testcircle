@@ -156,8 +156,14 @@ $(function () {
                 p = addFilter(p, qg, key, val);
             }
         });
+        
+        var query_parts = [];
+        for (var key in p) {
+            var values = p[key];
+            query_parts.push([encodeURIComponent(key), values.map(encodeURIComponent).join('|')].join('='));
+        }
+        var s = '?' + query_parts.join('&');
 
-        var s = ['?', $.param(p, traditional = true)].join('');
         changeUrl(s);
         updateList(s);
         return false;
