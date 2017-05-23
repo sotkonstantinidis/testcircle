@@ -5,7 +5,7 @@
     <script type="text/javascript">
       var _paq = _paq || [];
       {% if request.user.is_authenticated %}
-        _paq.push(['setUserId', '{{ request.user.email }}']);
+        _paq.push(['setUserId', '{{ request.user.id }}']);
       {% endif %}
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
