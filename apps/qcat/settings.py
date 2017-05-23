@@ -1,3 +1,5 @@
+from os.path import join
+
 from .config.common import BaseSettings
 from .config.mixins import CompressMixin, DevMixin, SentryMixin, ProdMixin, \
     SecurityMixin, LogMixin, TestMixin, AuthenticationFeatureSwitch

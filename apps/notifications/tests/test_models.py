@@ -8,7 +8,7 @@ from model_mommy import mommy
 from qcat.tests import TestCase
 
 from notifications.models import ActionContextQuerySet, Log, StatusUpdate, \
-    ReadLog, ContentUpdate
+    ReadLog, ContentUpdate, MemberUpdate
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
 
@@ -302,6 +302,14 @@ class LogTest(TestCase):
             model=ContentUpdate,
             log=self.content_log
         )
+        self.member_log = mommy.make(
+            model=Log,
+            action=settings.NOTIFICATIONS_ADD_MEMBER
+        )
+        mommy.make(
+            MemberUpdate,
+            log=self.member_log
+        )
 
     def test_is_content_update(self):
         self.assertTrue(self.content_log.is_content_update)
@@ -310,11 +318,148 @@ class LogTest(TestCase):
         self.assertFalse(self.status_log.is_content_update)
 
     @patch('notifications.models.render_to_string')
-    def test_get_linked_subject(self, render_to_string):
-        self.status_log.get_linked_subject(self.catalyst)
+    @patch.object(Questionnaire, 'get_name')
+    @override_settings(BASE_URL='foo')
+    def test_get_html(self, mock_get_name, render_to_string):
+        self.status_log.get_html(self.catalyst)
         render_to_string.assert_called_with(
             template_name='notifications/subject/{}.html'.format(
                 settings.NOTIFICATIONS_CHANGE_STATUS
             ),
-            context={'log': self.status_log, 'user': self.catalyst}
+            context={
+                'log': self.status_log, 'user': self.catalyst,
+                'is_mail_context': False, 'base_url': 'foo'
+            }
         )
+
+    @patch.object(Log, 'get_affected')
+    @patch.object(Questionnaire, 'get_reviewers')
+    def test_recipients_no_duplicates(self, mock_reviewers, mock_affected):
+        mock_affected.return_value = [self.catalyst]
+        mock_reviewers.return_value = [self.catalyst, mommy.make(get_user_model())]
+        log = self.get_review_log()
+        self.assertEqual(
+            set([user.id for user in mock_reviewers.return_value]),
+            set([user.id for user in list(log.recipients)]),
+        )
+
+    def get_review_log(self):
+        """
+        Build a log with valid properties to get reviewers
+        """
+        questionnaire = mommy.make(
+            Questionnaire, status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
+        )
+        log = mommy.make(
+            Log,
+            action=settings.NOTIFICATIONS_CHANGE_STATUS,
+            questionnaire=questionnaire
+        )
+        mommy.make(
+            model=StatusUpdate,
+            log=log,
+            status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
+        )
+        return log
+
+    @patch.object(Questionnaire, 'get_users_for_next_publish_step')
+    def test_get_reviewers(self, mock_get_users):
+        log = self.get_review_log()
+        log.get_reviewers()
+        mock_get_users.assert_called_once()
+
+    @patch.object(Questionnaire, 'get_users_for_next_publish_step')
+    def test_get_reviewers_change_log(self, mock_get_users):
+        log = self.get_review_log()
+        log.action = ''
+        log.get_reviewers()
+        self.assertFalse(mock_get_users.called)
+
+    @patch.object(Questionnaire, 'get_users_for_next_publish_step')
+    def test_get_reviewers_no_update(self, mock_get_users):
+        log = self.get_review_log()
+        log.questionnaire.status = ''
+        log.get_reviewers()
+        self.assertFalse(mock_get_users.called)
+
+    @patch.object(Questionnaire, 'get_users_for_next_publish_step')
+    def test_get_reviewers_workflow_status(self, mock_get_users):
+        log = self.get_review_log()
+        log.statusupdate.status = ''
+        log.get_reviewers()
+        self.assertFalse(mock_get_users.called)
+
+    def test_get_affected(self):
+        self.assertFalse(self.content_log.get_affected())
+        self.assertFalse(self.status_log.get_affected())
+        self.assertTrue(self.member_log.get_affected())
+
+
+class ReadLogTest(TestCase):
+    pass
+
+
+class MailPreferencesTest(TestCase):
+
+    def setUp(self):
+        self.user = mommy.make(get_user_model())
+        self.obj = self.user.mailpreferences
+
+    def test_get_defaults_staff(self):
+        self.user.is_superuser = True
+        self.assertEqual(
+            (settings.NOTIFICATIONS_TODO_MAILS, str(settings.NOTIFICATIONS_CHANGE_STATUS)),
+            self.obj.get_defaults()
+        )
+
+    def test_get_defaults(self):
+        self.user.is_superuser = False
+        self.assertEqual(
+            (settings.NOTIFICATIONS_ALL_MAILS,
+             ','.join([str(pref) for pref in settings.NOTIFICATIONS_EMAIL_PREFERENCES])),
+            self.obj.get_defaults()
+        )
+
+    def test_not_allowed_send_mails_settings(self):
+        with override_settings(DO_SEND_EMAILS=False):
+            self.assertFalse(self.obj.is_allowed_send_mails)
+
+    def test_is_allowed_send_mails_settings(self):
+        self.obj.subscription = settings.NOTIFICATIONS_ALL_MAILS
+        with override_settings(DO_SEND_EMAILS=True, DO_SEND_STAFF_ONLY=False):
+            self.assertTrue(self.obj.is_allowed_send_mails)
+
+    def test_is_allowed_send_mails_staff_settings_is_no_staff(self):
+        user = mommy.make(get_user_model(), is_superuser=False)
+        user.mailpreferences.subscription = 'all'
+        with override_settings(DO_SEND_STAFF_ONLY=True, DO_SEND_EMAILS=True):
+            self.assertFalse(user.mailpreferences.is_allowed_send_mails)
+
+    def test_is_allowed_send_mails_staff_settings_is_staff(self):
+        superuser = mommy.make(get_user_model(), is_superuser=True)
+        superuser.mailpreferences.subscription = 'all'
+        with override_settings(DO_SEND_STAFF_ONLY=True, DO_SEND_EMAILS=True):
+            self.assertTrue(superuser.mailpreferences.is_allowed_send_mails)
+
+    def test_not_allowed_send_mails_subscription(self):
+        self.obj.subscription = settings.NOTIFICATIONS_NO_MAILS
+        with override_settings(DO_SEND_EMAILS=True):
+            self.assertFalse(self.obj.is_allowed_send_mails)
+
+    def test_is_wanted_action(self):
+        self.obj.wanted_actions = 'coffee,chocolate'
+        self.assertTrue(self.obj.is_wanted_action('coffee'))
+        self.assertFalse(self.obj.is_wanted_action('bread'))
+
+    @patch.object(ActionContextQuerySet, 'user_pending_list')
+    def test_is_todo_log(self, mock_pending_list):
+        self.obj.subscription = settings.NOTIFICATIONS_TODO_MAILS
+        log = MagicMock()
+        mock_pending_list.return_value = [log]
+        self.assertTrue(self.obj.is_todo_log(log))
+        mock_pending_list.return_value = [MagicMock()]
+        self.assertFalse(self.obj.is_todo_log(log))
+
+    def test_is_todo_log_other_prefs(self):
+        self.obj.subscription = settings.NOTIFICATIONS_ALL_MAILS
+        self.assertTrue(self.obj.is_todo_log(MagicMock()))

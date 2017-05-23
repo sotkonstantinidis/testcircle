@@ -2,24 +2,30 @@ import contextlib
 import logging
 
 from django.conf import settings
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.core import signing
+from django.core.urlresolvers import reverse_lazy
 from django.db import IntegrityError
 from django.http import Http404
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, TemplateView, View
 
 from braces.views import LoginRequiredMixin
+from django.views.generic import UpdateView
 
 from accounts.models import User
 from questionnaire.models import Questionnaire
 from questionnaire.utils import query_questionnaire
 from questionnaire.view_utils import get_pagination_parameters
 
+from .forms import MailPreferencesUpdateForm
 from .utils import InformationLog
-from .models import Log, ReadLog
+from .models import Log, ReadLog, MailPreferences
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +73,7 @@ class LogListView(LoginRequiredMixin, ListView):
                 'id': log.id,
                 'created': log.created,
                 'subject': log.subject,
-                'text': log.get_linked_subject(user=self.request.user),
+                'text': log.get_html(user=self.request.user),
                 'action_icon': log.action_icon(),
                 'is_read': is_read,
                 'is_todo': is_todo,
@@ -294,6 +300,81 @@ class LogAllReadView(LoginRequiredMixin, View):
     Set all logs as read for given user.
     """
 
+    def delete_all_read_logs(self):
+        ReadLog.objects.filter(
+            user=self.request.user, is_read=True
+        ).update(
+            is_deleted=True
+        )
+
     def post(self, request, *args, **kwargs):
-        Log.actions.mark_all_read(user=request.user)
+        if self.request.GET.get('delete', '') == 'true':
+            self.delete_all_read_logs()
+        else:
+            Log.actions.mark_all_read(user=request.user)
         return HttpResponse(status=200)
+
+
+class LogSubscriptionPreferencesMixin(UpdateView):
+    """
+    Display and update the users preferences for receiving emails of
+    notifications.
+    """
+    model = MailPreferences
+    form_class = MailPreferencesUpdateForm
+    template_name = 'notifications/preferences.html'
+    success_url = reverse_lazy('notification_preferences')
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, user=self.request.user)
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['wanted_actions'] = self.object.wanted_actions.split(',')
+        return initial
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        if 'language' in form.changed_data and not self.object.has_changed_language:
+            self.object.has_changed_language = True
+            self.object.save()
+
+        messages.add_message(
+            request=self.request,
+            level=messages.SUCCESS,
+            message=_('Successfully saved changes.')
+        )
+        return response
+
+
+class LogSubscriptionPreferencesView(LoginRequiredMixin, LogSubscriptionPreferencesMixin):
+    """
+    Get object from authenticated user.
+    """
+    pass
+
+
+class SignedLogSubscriptionPreferencesView(LogSubscriptionPreferencesMixin):
+    """
+    Get object from signed url. If an authenticated user is available, this
+    overrides the object from the url.
+    """
+
+    def get_success_url(self):
+        if self.request.user.is_authenticated():
+            return self.success_url
+        return self.object.get_signed_url()
+
+    def get_object(self, queryset=None):
+        if self.request.user.is_authenticated():
+            # maybe: show message on varying objects? seems to be an edge case.
+            return super().get_object(queryset=None)
+
+        try:
+            signed_id = signing.Signer(
+                salt=settings.NOTIFICATIONS_SALT
+            ).unsign(self.kwargs['token'])
+        except signing.BadSignature:
+            raise Http404
+
+        return get_object_or_404(self.model, id=signed_id)

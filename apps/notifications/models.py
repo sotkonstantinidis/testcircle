@@ -1,21 +1,26 @@
-# -*- coding: utf-8 -*-
 import contextlib
 import functools
+import itertools
+import logging
 import operator
 
-from django.core.urlresolvers import reverse
-from django.db import models
+from django.core import signing
+from django.core.mail import EmailMultiAlternatives
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.db import models, transaction
 from django.db.models import F, Q
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language, activate
 from django.utils.functional import cached_property
 
 from django_pgjson.fields import JsonBField
 from accounts.models import User
-from questionnaire.models import Questionnaire, STATUSES, \
-    QuestionnaireMembership
+from questionnaire.models import Questionnaire, QuestionnaireMembership, STATUSES
 
 from .conf import settings
+from .validators import clean_wanted_actions
+
+logger = logging.getLogger(__name__)
 
 
 class ActionContextQuerySet(models.QuerySet):
@@ -64,7 +69,9 @@ class ActionContextQuerySet(models.QuerySet):
             [Q(subscribers=user), Q(catalyst=user)]
         )
 
-        return self.filter(
+        return self.not_deleted_logs(
+            user=user
+        ).filter(
             Q(action__in=settings.NOTIFICATIONS_USER_PROFILE_ACTIONS) |
             Q(action=settings.NOTIFICATIONS_EDIT_CONTENT,
               questionnaire__questionnairemembership__user=user,
@@ -90,7 +97,7 @@ class ActionContextQuerySet(models.QuerySet):
         - if a questionnaire was rejected once, two logs for the same status
           exist. Return only the more current log
 
-        Only distinct questionnaires are epxected. However, this doesnt play
+        Only distinct questionnaires are expected. However, this doesnt play
         nice with order_by.
 
         """
@@ -98,7 +105,9 @@ class ActionContextQuerySet(models.QuerySet):
         if not status_filters:
             return self.none()
 
-        logs = self.filter(
+        logs = self.not_deleted_logs(
+            user=user
+        ).filter(
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             statusupdate__status=F('questionnaire__status')
         ).filter(
@@ -131,11 +140,11 @@ class ActionContextQuerySet(models.QuerySet):
         """
         for read_log in read_logs:
             yield Q(created__lte=read_log.log.created,
-                    questionnaire_id=read_log.log.questionnaire_id,
-                    questionnaire__status=read_log.log.statusupdate.status
-                    )
+                questionnaire_id=read_log.log.questionnaire_id,
+                questionnaire__status=read_log.log.statusupdate.status
+            )
 
-    def _unique_questionnaire(sel, logs):
+    def _unique_questionnaire(self, logs):
         """
         Pseudo 'unique' for questionnaire_id for given logs. Required to get
         the first (regarding time) log for each questionnaire.
@@ -145,12 +154,6 @@ class ActionContextQuerySet(models.QuerySet):
             if log.questionnaire_id not in questionnaire_ids:
                 questionnaire_ids.append(log.questionnaire_id)
                 yield log
-
-    def email(self):
-        """
-        stub.
-        """
-        return self.filter(action__in=settings.NOTIFICATIONS_EMAIL_ACTIONS)
 
     def user_log_count(self, user: User) -> int:
         """
@@ -162,11 +165,20 @@ class ActionContextQuerySet(models.QuerySet):
             'id'
         ).count()
 
+    def not_deleted_logs(self, user: User):
+        return self.exclude(
+            readlog__log_id=F('id'),
+            readlog__user=user,
+            readlog__is_deleted=True
+        )
+
     def only_unread_logs(self, user: User):
         """
         Filter out read logs.
         """
-        return self.exclude(
+        return self.not_deleted_logs(
+            user=user
+        ).exclude(
             Q(readlog__is_read=True, readlog__user=user)
         )
 
@@ -232,7 +244,7 @@ class ActionContextQuerySet(models.QuerySet):
 
     @staticmethod
     def delete_all_read_logs(user: User):
-        ReadLog.objects.filter(user=user).delete()
+        ReadLog.objects.filter(user=user, is_deleted=False).delete()
 
 
 class Log(models.Model):
@@ -259,7 +271,8 @@ class Log(models.Model):
     """
     created = models.DateTimeField(auto_now_add=True)
     catalyst = models.ForeignKey(
-        settings.AUTH_USER_MODEL, related_name='catalyst', help_text='Person triggering the log'
+        settings.AUTH_USER_MODEL, related_name='catalyst',
+        help_text='Person triggering the log'
     )
     subscribers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='subscribers',
@@ -267,6 +280,7 @@ class Log(models.Model):
     )
     questionnaire = models.ForeignKey(Questionnaire)
     action = models.PositiveIntegerField(choices=settings.NOTIFICATIONS_ACTIONS)
+    was_processed = models.BooleanField(default=False)
 
     objects = models.Manager()
     actions = ActionContextQuerySet.as_manager()
@@ -276,7 +290,7 @@ class Log(models.Model):
 
     def __str__(self):
         return '{questionnaire}: {action}'.format(
-            questionnaire=self.questionnaire.code,
+            questionnaire=self.questionnaire.get_name(),
             action=self.get_action_display()
         )
 
@@ -316,19 +330,39 @@ class Log(models.Model):
         )
 
     @cached_property
+    def mail_subject(self):
+        return '[WOCAT] {}'.format(self.subject)
+
+    @cached_property
     def is_content_update(self) -> bool:
         return self.action is settings.NOTIFICATIONS_EDIT_CONTENT
 
-    def get_linked_subject(self, user: User) -> str:
+    @cached_property
+    def is_change_log(self) -> bool:
+        return self.action is settings.NOTIFICATIONS_CHANGE_STATUS
+
+    @cached_property
+    def has_no_update(self) -> bool:
+        return self.questionnaire.status == self.statusupdate.status
+
+    @cached_property
+    def is_workflow_status(self) -> bool:
+        return self.statusupdate.status in settings.QUESTIONNAIRE_WORKFLOW_STEPS
+
+    def get_html(self, user: User, is_mail_context=False) -> str:
         """
-        The subject with links to questionnaire and catalyst, according to the
+        The text with links to questionnaire and catalyst, according to the
         type of the action. Use the integer as template name, as this value is
         fixed (opposed to the verbose name).
         """
         return render_to_string(
             template_name='notifications/subject/{}.html'.format(self.action),
-            context={'log': self, 'user': user}
-        )
+            context={
+                'log': self,
+                'user': user,
+                'base_url': settings.BASE_URL,
+                'is_mail_context': is_mail_context
+            })
 
     def action_icon(self) -> str:
         """
@@ -340,6 +374,92 @@ class Log(models.Model):
         else:
             key = self.action
         return settings.NOTIFICATIONS_ACTION_ICON.get(key)
+
+    def send_mails(self) -> None:
+        """
+        Send mails to all recipients, but not compiler and mark log as sent.
+        The log is fetched from the db again, as select_for_update must be in
+        the same method where the sending of the mail happens to prevent double
+        execution.
+        """
+        with transaction.atomic():
+            log = Log.objects.select_for_update(nowait=True).get(id=self.id)
+            if not log.was_processed:
+                original_locale = get_language()
+                for recipient in log.recipients:
+                    if recipient.mailpreferences.do_send_mail(log):
+                        activate(recipient.mailpreferences.language)
+                        message = log.compile_message_to(recipient=recipient)
+                        message.send()
+
+                log.was_processed = True
+                log.save(update_fields=['was_processed'])
+                activate(original_locale)
+
+    @cached_property
+    def recipients(self):
+        return set(itertools.chain(
+            self.subscribers.all(),
+            self.get_reviewers(),
+            self.get_affected()
+        ))
+
+    def get_reviewers(self):
+        check_properties = self.is_change_log and self.has_no_update and self.is_workflow_status
+        if check_properties:
+            return self.questionnaire.get_users_for_next_publish_step()
+        return []
+
+    def get_affected(self):
+        return [self.memberupdate.affected] if hasattr(self, 'memberupdate') else []
+
+    def compile_message_to(self, recipient: User) -> EmailMultiAlternatives:
+        message = EmailMultiAlternatives(
+            subject=self.mail_subject,
+            body=self.get_mail_template('plain_text.txt', recipient=recipient),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[recipient.email],
+            headers={'qcat_log': self.id}
+        )
+        message.attach_alternative(
+            content=self.get_mail_template('html_text.html', recipient=recipient),
+            mimetype='text/html'
+        )
+        return message
+
+    def get_mail_template(self, template_name: str, recipient: User) -> str:
+        return render_to_string(
+            'notifications/mail/{}'.format(template_name),
+            context=self.get_mail_context(recipient)
+        )
+
+    def get_mail_context(self, recipient: User) -> dict:
+        context = {
+            'title': '«{questionnaire}» was updated'.format(
+                questionnaire=self.questionnaire.get_name()
+            ),
+            'name': recipient.get_display_name(),
+            'content': self.get_html(recipient, is_mail_context=True),
+            'subscription_url': '{base_url}{url}'.format(
+                base_url=settings.BASE_URL,
+                url=recipient.mailpreferences.get_signed_url()
+            ),
+            'questionnaire_url': '{base_url}{url}'.format(
+                base_url=settings.BASE_URL,
+                url=self.questionnaire.get_absolute_url()
+            ),
+            'base_url': settings.BASE_URL
+        }
+        if self.is_publish_notification:
+            context['content'] += render_to_string(
+                'notifications/mail/publish_addendum.html'
+            )
+        return context
+
+    @property
+    def is_publish_notification(self):
+        return self.action == settings.NOTIFICATIONS_CHANGE_STATUS and \
+               self.statusupdate.status == settings.QUESTIONNAIRE_PUBLIC
 
 
 class StatusUpdate(models.Model):
@@ -401,12 +521,80 @@ class ReadLog(models.Model):
     Store the 'is_done' state for each user. This is more or less equivalent to
     the 'read' state in any email program. This can't be handled in the
     'through' model of the subscriber, as the status must also be stored for
-        the catalyst.
+    the catalyst.
     """
     log = models.ForeignKey(Log, on_delete=models.PROTECT)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     is_read = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     class Meta:
         # only one read status per user and log, preventing a race condition.
         unique_together = ['log', 'user']
+
+
+class MailPreferences(models.Model):
+    """
+    User preferences for receiving email notifications.
+    """
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    subscription = models.CharField(
+        max_length=10, choices=settings.NOTIFICATIONS_EMAIL_SUBSCRIPTIONS, default='all'
+    )
+    wanted_actions = models.CharField(
+        max_length=255,  blank=True, validators=[clean_wanted_actions],
+        verbose_name=_('Subscribed for following changes in the review status')
+    )
+    language = models.CharField(
+        max_length=2, choices=settings.LANGUAGES, default=settings.LANGUAGES[0][0]
+    )
+    has_changed_language = models.BooleanField(default=False)
+
+    def get_defaults(self) -> tuple:
+        """
+        Staff users requested a more restrictive set of defaults to reduce
+        amount of mails received.
+        """
+        is_special_user = self.user.groups.exists() or self.user.is_staff
+        if is_special_user:
+            subscription = settings.NOTIFICATIONS_TODO_MAILS
+            wanted_actions = str(settings.NOTIFICATIONS_CHANGE_STATUS)
+        else:
+            subscription = settings.NOTIFICATIONS_ALL_MAILS
+            wanted_actions = ','.join([str(pref) for pref in settings.NOTIFICATIONS_EMAIL_PREFERENCES])
+
+        return subscription, wanted_actions
+
+    def do_send_mail(self, log: Log) -> bool:
+        return all([
+            self.is_allowed_send_mails,
+            self.is_wanted_action(log.action),
+            self.is_todo_log(log)
+        ])
+
+    def set_defaults(self):
+        self.subscription, self.wanted_actions = self.get_defaults()
+        self.save()
+
+    @property
+    def is_allowed_send_mails(self):
+        is_subscriber = self.subscription != settings.NOTIFICATIONS_NO_MAILS
+        is_staff_only = not settings.DO_SEND_STAFF_ONLY or self.user.is_staff
+        return settings.DO_SEND_EMAILS and is_subscriber and is_staff_only
+
+    def is_wanted_action(self, action: int) -> bool:
+        return str(action) in self.wanted_actions.split(',')
+
+    def is_todo_log(self, log: Log):
+        """
+        Implemented like this to make sure to reuse code. Could be better
+        performance-wise, but doesn't really matter as long as mails are sent
+        within a management command.
+        """
+        return self.subscription != settings.NOTIFICATIONS_TODO_MAILS or \
+               log.is_change_log and log in Log.actions.user_pending_list(user=self.user)
+
+    def get_signed_url(self):
+        return reverse_lazy('signed_notification_preferences', kwargs={
+            'token': signing.Signer(salt=settings.NOTIFICATIONS_SALT).sign(self.id)
+        })
