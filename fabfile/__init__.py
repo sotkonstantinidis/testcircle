@@ -135,7 +135,6 @@ def deploy_host(environment):
 
     print(green("Everything OK"))
     _access_project()
-    _clean_sessions()
 
 
 def _get_latest_source():
@@ -238,13 +237,6 @@ def _set_maintenance_warning():
     """
     _manage_py('set_next_maintenance')
     time.sleep(settings.DEPLOY_TIMEOUT)
-
-
-def _clean_sessions():
-    """
-    This should be in a crontab.
-    """
-    _manage_py('clearsessions')
 
 
 def _manage_py(command):
