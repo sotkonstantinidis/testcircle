@@ -210,19 +210,19 @@ class GlobalValuesMixin:
 
         # Combine answers from two questions: strengths compiler and landuser
         pro_compilers = self._get_conclusion_row(
-            suffix=land_users_view,
+            suffix=compilers_view,
             rows=self.raw_data_getter('strengths_compiler', value='')
         )
         pro_landusers = self._get_conclusion_row(
-            suffix=compilers_view,
+            suffix=land_users_view,
             rows=self.raw_data_getter('strengths_landuser', value='')
         )
         # combine answers from two questions: weaknesses compiler + landuser -
         # and get the 'overcome' value as subtext
         weaknesses_list = []
         weaknesses_datasets = [
+            ('weaknesses_landuser', 'weaknesses_landuser_overcome', land_users_view),
             ('weaknesses_compiler', 'weaknesses_compiler_overcome', compilers_view),
-            ('weaknesses_landuser', 'weaknesses_landuser_overcome', land_users_view)
         ]
         for key_name, overcome_name, suffix in weaknesses_datasets:
             for index, item in enumerate(self.raw_data_getter(key_name, value='')):
@@ -238,7 +238,7 @@ class GlobalValuesMixin:
             'partials': {
                 'pro': {
                     'label': _('Strengths'),
-                    'items': itertools.chain(pro_compilers, pro_landusers)
+                    'items': itertools.chain(pro_landusers, pro_compilers)
                 },
                 'contra': {
                     'label': _('Weaknesses/ disadvantages/ risks'),
