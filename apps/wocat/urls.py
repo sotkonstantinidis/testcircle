@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns
 from django.views.generic import TemplateView
 
-from questionnaire.views import QuestionnaireListView
+from questionnaire.views import QuestionnaireListView, QuestionnaireFilterView
 
 urlpatterns = patterns(
     '',
@@ -21,6 +21,8 @@ urlpatterns = patterns(
     url(r'^list/$',
         QuestionnaireListView.as_view(configuration_code=__package__),
         name='questionnaire_list'),
+    url(r'^filter/$', QuestionnaireFilterView.as_view(
+        configuration_code=__package__), name='questionnaire_filter'),
     url(r'^list_partial/$', QuestionnaireListView.as_view(configuration_code=__package__),
         name='questionnaire_list_partial'),
 )

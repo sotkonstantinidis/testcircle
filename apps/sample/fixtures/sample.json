@@ -4407,8 +4407,8 @@
                             "form_options": {
                               "has_other": "key_48"
                             },
-                            "view_options": {
-                              "filter": true
+                            "filter_options": {
+                              "order": 1
                             }
                           },
                           {
@@ -4821,8 +4821,8 @@
                         "questions": [
                           {
                             "keyword": "key_14",
-                            "view_options": {
-                              "filter": true
+                            "filter_options": {
+                              "order": 2
                             }
                           }
                         ],

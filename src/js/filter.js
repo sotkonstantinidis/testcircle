@@ -30,6 +30,15 @@ $(function () {
         // Always delete the paging parameter if the filter was modified
         delete p['page'];
 
+        // For advanced filtering, never remove the "type" filter (respectively
+        // add it again)
+        if ($(this).closest('form').hasClass('filter-advanced')) {
+            p = addFilter(p, {key: 'type'}, getConfigurationType());
+
+            // Also remove any advanced filter
+            $('.js-filter-item').remove();
+        }
+
         var s = ['?', $.param(p, traditional = true)].join('');
         changeUrl(s);
         updateList(s);
@@ -48,124 +57,12 @@ $(function () {
         subfilter.toggle(checked);
     });
 
-    // Initially update the filter input fields
-    updateFilterInputs();
-
-    // Top search bar
-    // $('.top-bar-search').submit(function (e) {
-    //     e.preventDefault();
-    //
-    //     console.log("foo");
-    //
-    //     // Update the search term in the filter parameters
-    //     var search_term = $(this).find('input[name="q"]').val();
-    //     var p = parseQueryString();
-    //     p['q'] = search_term;
-    //
-    //     // track search
-    //     if (typeof _paq !== 'undefined') {
-    //         // the variable is defined
-    //         _paq.push(['trackEvent', 'Search', 'Value', search_term]);
-    //     }
-    //
-    //     var s = ['?', $.param(p, traditional = true)].join('');
-    //     changeUrl(s);
-    //     updateList(s);
-    // });
-
     // Button to submit the filter
-    // $('#submit-filter').click(function () {
     $('#search-advanced').submit(function (e) {
-
         e.preventDefault();
-
-        var p = parseQueryString();
-
-        // track search
-        if (typeof _paq !== 'undefined') {
-            _paq.push(['trackEvent', 'Filter', 'Value', p]);
-        }
-
-        // Remove all filter parameters
-        p = removeFilterParams(p);
-
-        // Always delete the paging parameter if the filter was modified
-        delete p['page'];
-
-        // Type (all, technologies, approaches)
-        var type_ = $('#search-type').val();
-        if (type_) {
-            p = addFilter(p, null, 'type', type_);
-        }
-
-        var search_div = $('#search-advanced');
-
-        // Radio
-        search_div.find('input:radio').each(function() {
-            var $t = $(this);
-            if ($t.is(':checked')) {
-                p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
-            }
-        });
-
-        // Checkboxes
-        search_div.find('input:checkbox').each(function() {
-            var $t = $(this);
-            if ($t.is(':checked')) {
-                p = addFilter(p, $t.data('questiongroup'), $t.data('key'), $t.data('value'));
-            }
-        });
-
-        // Search
-        search_div.find('input[type=search]').each(function() {
-            var $t = $(this);
-            var val = $t.val();
-            if (val) {
-                p = addFilter(p, null, 'q', val);
-            }
-        });
-
-        // Sliders
-        $('.nstSlider').each(function () {
-            var qs = $(this).data('keyword');
-            var min_val = $(this).parent().find('.min').val();
-            var max_val = $(this).parent().find('.max').val();
-            var min = $(this).data('cur_min');
-            var max = $(this).data('cur_max');
-            if (qs && min_val && max_val && !(min == min_val && max == max_val)) {
-                p = addFilter(p, null, qs, [min_val, max_val].join('-'));
-            }
-        });
-
-        // Text inputs, also hidden
-        $('#search-advanced input[type=text], #search-advanced input[type=hidden]').each(function () {
-            var $t = $(this);
-            var qg = $t.data('questiongroup');
-            var key = $t.data('key');
-            var val = $t.val();
-            if (qg && key && val) {
-                p = addFilter(p, qg, key, val);
-            }
-        });
-        // select
-        search_div.find('select').each(function() {
-            var qg = $(this).data('questiongroup');
-            var key = $(this).data('key');
-            var val = $(this).find('option:selected').val();
-            if (qg && key && val) {
-                p = addFilter(p, qg, key, val);
-            }
-        });
-        
-        var query_parts = [];
-        for (var key in p) {
-            var values = p[key];
-            query_parts.push([encodeURIComponent(key), values.map(encodeURIComponent).join('|')].join('='));
-        }
-        var s = '?' + query_parts.join('&');
-
-        changeUrl(s);
-        updateList(s);
+        var queryString = createQueryString(getFilterQueryParams());
+        changeUrl(queryString);
+        updateList(queryString);
         return false;
     });
 
@@ -175,20 +72,132 @@ $(function () {
         updateList(s);
         return false;
     })
+        
+    .on('click', '#filter-add-new', function(e) {
+        e.preventDefault();
 
-    // Deselectable radio buttons
-    .on('click', '#search-advanced input:radio', function () {
-        var previousValue = $(this).attr('previousValue');
-        var name = $(this).attr('name');
-        var initiallyChecked = $(this).attr('checked');
+        var url = $(this).data('key-url');
+        var type_ = getConfigurationType();
+        var row = $(this).closest('.row');
 
-        if (previousValue == 'checked' || (!previousValue && initiallyChecked == 'checked')) {
-            $(this).removeAttr('checked');
-            $(this).attr('previousValue', false);
-        } else {
-            $("input[name=" + name + "]:radio").attr('previousValue', false);
-            $(this).attr('previousValue', 'checked');
-        }
+        $.get(url, {type: type_}, function(data) {
+            $(data).insertBefore(row);
+        });
+    })
+
+    // TODO: Remove this if not needed
+    // .on('click', '#filter-toggle-advanced', function(e) {
+    //     e.preventDefault();
+    //
+    //     var type_ = getConfigurationType();
+    //
+    //     if (!type_ || type_ === 'all') {
+    //         forceFilterType();
+    //         return;
+    //     }
+    //
+    //     $('#search-type-display').addClass('disabled');
+    //
+    //     $(this).hide();
+    //
+    //     var filterContainer = $('#filter-advanced-options');
+    //     filterContainer.show();
+    // })
+
+    // TODO: Remove this if not needed
+    // .on('click', '.js-filter-edit-apply', function(e) {
+    //     e.preventDefault();
+    //
+    //     // "Disable" the form
+    //     var filter = $(this).closest('.row');
+    //     var key = filter.find('.filter-key-select').find(':selected').text();
+    //     var values = filter.find('input[name="filter-value-select"]:checked').map(function() {
+    //         return $.trim($(this).parent('label').text());
+    //     });
+    //
+    //     filter.find('.filter-edit-mode').hide();
+    //     filter.find('.filter-view-mode').show();
+    //
+    //     filter.find('.filter-view-key').html(key);
+    //     filter.find('.filter-view-value').html(values.get().join(' / '));
+    //
+    //     var form = $(this).closest('form');
+    //     form.submit();
+    // })
+
+    // TODO: Remove this if not needed
+    // .on('click', '.js-filter-enable-edit', function(e) {
+    //     e.preventDefault();
+    //
+    //     var filter = $(this).closest('.row');
+    //
+    //     if (filter.attr('data-initial-qg')) {
+    //         // var url = $('#filter-add-new').data('key-url');
+    //         // var type_ = getConfigurationType();
+    //         // $.get(url, {type: type_}, function(data) {
+    //         //     filter.html(data);
+    //         // });
+    //         // If there is an initial questiongroup, set the correct key and
+    //         // trigger a change event to fetch its values
+    //
+    //
+    //
+    //         // var qg = filter.data('initial-qg');
+    //         // var key = filter.data('initial-key');
+    //         // filter.find('.filter-key-select').val([qg, key].join('__')).change();
+    //     }
+    //
+    //     filter.find('.filter-view-mode').hide();
+    //     filter.find('.filter-edit-mode').show();
+    // })
+
+    // After a type (e.g. "technologies") was selected for the advanced filter,
+    // redirect to the filter page by keeping all the currently active filters.
+    .on('click', '.js-filter-advanced-type', function(e) {
+        e.preventDefault();
+        
+        var type_ = $(this).data('type');
+        var filterUrl = $(this).closest('div').data('filter-url');
+
+        // Get the currently active filter parameters
+        var p = getFilterQueryParams();
+
+        // Manually set "type"
+        p['type'] = [type_];
+
+        // Redirect to filter URL
+        window.location = filterUrl + createQueryString(p);
+    })
+
+    // When removing a filter, submit the form again after the filter item was
+    // removed.
+    .on('click', '.js-filter-remove', function(e) {
+        e.preventDefault();
+        var filter = $(this).closest('.row');
+        var form = $(this).closest('form');
+        filter.remove();
+        form.submit();
+    })
+
+    // When selecting a key, query the available values for this key.
+    .on('change', '.filter-key-select', function() {
+
+        var filter = $(this).closest('.row');
+        var valueColumn = filter.find('.filter-value-column');
+
+        var type_ = getConfigurationType();
+        var url = $('#filter-add-new').data('value-url');
+        $.get(url, {type: type_, key_path: this.value}, function(data) {
+            valueColumn.html(data);
+
+            // If there is an initial questiongroup, check the initial values.
+            if (filter.attr('data-initial-qg')) {
+                var value = filter.data('initial-value');
+                value.split(',').forEach(function(v) {
+                    filter.find('input:checkbox[value=' + v + ']').attr('checked', true);
+                });
+            }
+        });
     });
 
     // Slider
@@ -218,7 +227,122 @@ $(function () {
             $(this).parent().find('.max.filter-updated').val(rightValue);
         }
     });
+
+    // Initially update the filter input fields
+    updateFilterInputs();
 });
+
+
+/**
+ * Helper method to return the currently selected SLM Data Type.
+ *
+ * @returns {*|jQuery}
+ */
+function getConfigurationType() {
+    return $('#search-type').val();
+}
+
+/**
+ * Create a query parameter object from the currently selected filters.
+ *
+ * @returns {*}
+ */
+function getFilterQueryParams() {
+    var p = parseQueryString();
+
+    // track search
+    if (typeof _paq !== 'undefined') {
+        _paq.push(['trackEvent', 'Filter', 'Value', p]);
+    }
+
+    // Remove all filter parameters
+    p = removeFilterParams(p);
+
+    // Always delete the paging parameter if the filter was modified
+    delete p['page'];
+
+    // Type (all, technologies, approaches)
+    var type_ = getConfigurationType();
+    if (type_) {
+        p = addFilter(p, {key: 'type'}, type_);
+    }
+
+    var search_div = $('#search-advanced');
+
+    // Radio
+    search_div.find('input:radio').each(function() {
+        var $t = $(this);
+        if ($t.is(':checked')) {
+            p = addFilter(p, {
+                filter_parts: [$t.data('questiongroup'), $t.data('key')]
+            }, $t.data('value'));
+        }
+    });
+
+    // Checkboxes
+    search_div.find('input:checkbox:checked').each(function() {
+        var key_path = $(this).closest('div').data('key-path');
+        p = addFilter(p, {filter_parts: [key_path]}, this.value);
+    });
+
+    // Search
+    search_div.find('input[type=search]').each(function() {
+        var $t = $(this);
+        var val = $t.val();
+        if (val) {
+            p = addFilter(p, {key: 'q'}, val);
+        }
+    });
+
+    // Sliders
+    $('.nstSlider').each(function () {
+        var qs = $(this).data('keyword');
+        var min_val = $(this).parent().find('.min').val();
+        var max_val = $(this).parent().find('.max').val();
+        var min = $(this).data('cur_min');
+        var max = $(this).data('cur_max');
+        if (qs && min_val && max_val && !(min == min_val && max == max_val)) {
+            p = addFilter(p, {key: qs}, [min_val, max_val].join('-'));
+        }
+    });
+
+    // Text inputs, also hidden
+    $('#search-advanced input[type=text], #search-advanced input[type=hidden]').each(function () {
+        var $t = $(this);
+        var qg = $t.data('questiongroup');
+        var key = $t.data('key');
+        var val = $t.val();
+        if (qg && key && val) {
+            p = addFilter(p, {filter_parts: [qg, key]}, val);
+        }
+    });
+    // select
+    search_div.find('select').each(function() {
+        var qg = $(this).data('questiongroup');
+        var key = $(this).data('key');
+        var val = $(this).find('option:selected').val();
+        if (qg && key && val) {
+            p = addFilter(p, {filter_parts: [qg, key]}, val);
+        }
+    });
+
+    return p;
+}
+
+/**
+ * Join a query parameter object to form a query string.
+ *
+ * @param p
+ * @returns {string}
+ */
+function createQueryString(p) {
+    var query_parts = [];
+    for (var key in p) {
+        var values = p[key];
+        query_parts.push([encodeURIComponent(key), values.map(encodeURIComponent).join('|')].join('='));
+    }
+    return '?' + query_parts.join('&');
+}
 
 
 /**
@@ -252,13 +376,6 @@ function updateFilterInputs() {
         if (args.length !== 2) continue;
 
         var values = p[k];
-        // Checkboxes
-        for (var v in values) {
-            var el = $('input[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"][data-value="' + values[v] + '"]');
-            if (el.length !== 1) continue;
-            el.prop('checked', true).trigger('change');
-        }
-
         // chosen-select
         for (var v in values) {
             var el = $('select[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"]');
@@ -323,33 +440,55 @@ function updateFilterInputs() {
     if (p.q) {
         search_field.val(decodeURIComponent(p.q[0].replace('+', ' ')));
     } else {
-        search_field.val('')
+        search_field.val('');
     }
-    $('.chosen-select').trigger('chosen:updated')
+    $('.chosen-select').trigger('chosen:updated');
+
+    // Advanced filters: Populate the initial keys and trigger a change event
+    // which will populate the initial values.
+    $('.js-filter-item').each(function() {
+        var filter = $(this);
+        var qg = filter.attr('data-initial-qg');
+        if (qg) {
+            var key = filter.attr('data-initial-key');
+            filter.find('.filter-key-select').val([qg, key].join('__')).change();
+        }
+    });
 }
 
-
 /**
- * Add an additional filter to the existing ones.
+ * Add a filter to the query parameters.
  *
- * @param {object} p - The object containing the query parameters.
- * @param {string} questiongroup - The keyword of the questiongroup. If
- *   null, only the key is used as parameter.
- * @param {string} key - The keyword of the key.
- * @param {string} value - The keyword of the value.
- * @return {object} An object with the updated query parameters.
+ * @param p: The object containing the query parameters.
+ * @param key_options: An object containing either a "key" or "filter_parts"
+ *  (list of questiongroup and key) which will be concatenated to form a filter.
+ * @param value: String, the value.
+ * @returns {*} Object containing query parameters. The values are always lists.
  */
-function addFilter(p, questiongroup, key, value) {
-    var keyParameter = key;
-    if (questiongroup) {
-        keyParameter = createKeyParameter(questiongroup, key);
+function addFilter(p, key_options, value) {
+    var key = key_options.key;
+    if (!key) {
+        // Concatenate filter parts
+        key = createFilterParameter(key_options.filter_parts);
     }
-    if (keyParameter in p) {
-        p[keyParameter].push(value);
+    if (key in p) {
+        p[key].push(value);
     } else {
-        p[keyParameter] = [value];
+        p[key] = [value];
     }
     return p;
+}
+
+/**
+ * Concatenate parts of a filter (usually questiongroup and key) to form a
+ * filter string.
+ *
+ * @param filter_parts
+ * @returns {*|string|!Array.<T>}
+ */
+function createFilterParameter(filter_parts) {
+    filter_parts.unshift('filter');
+    return filter_parts.join('__');
 }
 
 /**

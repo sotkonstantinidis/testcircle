@@ -27396,8 +27396,10 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
+                            },
+                            "filter_options": {
+                              "order": 9
                             }
                           }
                         ]
@@ -27417,8 +27419,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27449,9 +27450,6 @@
                             "keyword": "tech_lu_grazingland_extensive",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27459,9 +27457,6 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "row_class": "top-margin"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27492,9 +27487,6 @@
                             "keyword": "tech_lu_forest_natural",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27502,9 +27494,6 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "row_class": "top-margin"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27550,8 +27539,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27584,8 +27572,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27618,8 +27605,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27765,8 +27751,10 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
+                            },
+                            "filter_options": {
+                              "order": 12
                             }
                           },
                           {
@@ -27845,8 +27833,7 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
                             }
                           }
                         ]
@@ -27866,8 +27853,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27887,8 +27873,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27908,8 +27893,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27929,8 +27913,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27991,8 +27974,10 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
+                            },
+                            "filter_options": {
+                              "order": 10
                             }
                           }
                         ]
@@ -28012,8 +27997,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28033,8 +28017,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28054,8 +28037,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28075,8 +28057,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28096,8 +28077,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28117,8 +28097,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]

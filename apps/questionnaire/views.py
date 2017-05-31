@@ -3,6 +3,7 @@ import contextlib
 import logging
 from itertools import chain
 
+from configuration.models import Project
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
@@ -33,7 +34,6 @@ from elasticsearch import TransportError
 from accounts.decorators import force_login_check
 from accounts.views import QuestionnaireSearchView
 from configuration.cache import get_configuration
-from configuration.utils import get_filter_configuration
 from configuration.utils import (
     get_configuration_index_filter,
 )
@@ -45,8 +45,7 @@ from questionnaire.upload import (
 from search.search import advanced_search
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
-
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock, Flag
 
 from .utils import (
     clean_questionnaire_data,
@@ -1183,16 +1182,31 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         return reverse(
             '{}:questionnaire_list_partial'.format(self.configuration_code))
 
+    def get_global_filters(self):
+
+        filter_configuration = {
+            'projects': [(p.id, str(p)) for p in Project.objects.all()],
+            'flags': [(f.flag, f.get_flag_display()) for f in Flag.objects.all()],
+        }
+
+        # Global keys
+        configuration = get_configuration(self.configuration_code)
+        for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
+            filter_question = configuration.get_question_by_keyword(
+                questiongroup, question)
+            if filter_question:
+                filter_configuration[filter_keyword] = filter_question.choices[1:]
+
+        return filter_configuration
+
     def get_template_values(self, list_values, questionnaires):
         """
         Paginate the queryset and return a dict of template values.
         """
-        # Add the configuration of the filter
-        filter_configuration = get_filter_configuration(self.configuration_code)
 
         template_values = {
             'list_values': list_values,
-            'filter_configuration': filter_configuration,
+            'filter_configuration': self.get_global_filters(),
             'active_filters': get_active_filters(
                 self.configurations, self.request.GET),
             'filter_url': self.get_filter_url(),
@@ -1220,6 +1234,33 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
             'pagination': pagination,
             'count': list_values['count'],
         }
+
+
+class QuestionnaireFilterView(QuestionnaireListView):
+
+    def get_template_names(self):
+        return '{}/questionnaire/filter.html'.format(self.configuration_code)
+
+    def get_advanced_filter_select(self):
+        configuration = get_configuration(self.request.GET.get('type'))
+        filter_keys = configuration.get_filter_keys()
+        filter_keys.insert(0, ('', '---'))
+        return filter_keys
+
+    def get_template_values(self, list_values, questionnaires):
+        template_values = super(
+            QuestionnaireFilterView, self).get_template_values(
+                list_values, questionnaires)
+
+        advanced_filter_select = self.get_advanced_filter_select()
+        advanced_filter_keys = [f[0] for f in advanced_filter_select[1:]]
+
+        template_values.update({
+            'advanced_filter_select': advanced_filter_select,
+            'advanced_filter_keys': advanced_filter_keys,
+        })
+
+        return template_values
 
 
 @login_required

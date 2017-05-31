@@ -6,6 +6,7 @@ from django.shortcuts import (
     redirect,
 )
 from django.http import HttpResponseBadRequest
+from django.views.generic import TemplateView
 from elasticsearch import TransportError
 
 from accounts.decorators import force_login_check
@@ -214,3 +215,58 @@ def search(request):
     return render(request, 'sample/questionnaire/list.html', {
         'list_values': list_values,
     })
+
+
+class FilterMixin:
+
+    filter_join_char = '__'
+
+    def get_configuration_object(self):
+        configuration_code = self.request.GET.get('type')
+        return get_configuration(configuration_code)
+
+
+class FilterKeyView(FilterMixin, TemplateView):
+    """
+    Get the available filter keys for a given configuration type
+    """
+
+    http_method_names = ['get']
+    template_name = 'search/partial/filter_key.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        configuration = self.get_configuration_object()
+        filter_keys = configuration.get_filter_keys()
+        filter_keys.insert(0, ('', '---'))
+        context = {
+            'filter_select': filter_keys,
+        }
+        return self.render_to_response(context=context)
+
+
+class FilterValueView(FilterMixin, TemplateView):
+    """
+    Get the available values and operator types for a given configuration and 
+    key
+    """
+    http_method_names = ['get']
+    template_name = 'search/partial/filter_value.html'
+
+    def dispatch(self, request, *args, **kwargs):
+
+        configuration = self.get_configuration_object()
+
+        key_path = request.GET.get('key_path', '')
+        key_path_parts = key_path.split(self.filter_join_char)
+
+        question = None
+        if len(key_path_parts) == 2:
+            question = configuration.get_question_by_keyword(
+                key_path_parts[0], key_path_parts[1])
+
+        context = {
+            'choices': question.choices,
+            'key_path': key_path,
+        }
+
+        return self.render_to_response(context=context)

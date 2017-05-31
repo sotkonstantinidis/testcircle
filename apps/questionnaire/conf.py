@@ -48,6 +48,14 @@ class QuestionnaireConf(AppConf):
         'qg_funding_institution',
     ]
 
+    # A list of questiongroups and questions which can be filtered in the GUI
+    # for every configuration.
+    # (questiongroup_keyword, question_keyword, filter_keyword [as used in the
+    # GUI])
+    GLOBAL_FILTERS = [
+        ('qg_location', 'country', 'countries'),
+    ]
+
     # Mapping for consistent field names on the API. See
     # questionnaire.api.views.QuestionnaireAPIMixin for usage.
     API_CHANGE_KEYS = {

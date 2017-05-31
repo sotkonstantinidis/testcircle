@@ -1,12 +1,9 @@
-import random
-import string
-
 from django.apps import apps
 from django.db.models import Q
 from configuration.cache import get_configuration
-from configuration.models import Project, Questiongroup, Translation
-from questionnaire.models import Questionnaire, Flag
+from questionnaire.models import Questionnaire
 from search.utils import check_aliases
+
 
 def get_configuration_query_filter(configuration, only_current=False):
     """
@@ -195,48 +192,3 @@ def get_choices_from_questiongroups(
                 questiongroup)
             choices.append((questiongroup, questiongroup_object.label))
     return choices
-
-
-def get_filter_configuration(configuration_code):
-    """
-    Return the filters for *all* configurations visible by the current one.
-    Also returns "global" filters such as country, project etc.
-
-    Args:
-        configuration_code: (str) The code of the configuration.
-
-    Returns:
-        dict. A dictionary containing the filters for the configurations and
-        "global" filters.
-    """
-
-    configurations = get_configuration_index_filter(configuration_code)
-
-    filter_configuration = {}
-    countries = []
-
-    for code in configurations:
-        configuration = get_configuration(code)
-        filter_configuration[code] = configuration.get_filter_configuration()
-
-        if not countries:
-            country_question = configuration.get_question_by_keyword(
-                'qg_location', 'country')
-            if country_question:
-                countries = country_question.choices[1:]
-
-    projects = []
-    for project in Project.objects.all():
-        projects.append((project.id, str(project)))
-
-    flags = []
-    for flag in Flag.objects.all():
-        flags.append((flag.flag, flag.get_flag_display()))
-
-    filter_configuration.update({
-        'countries': countries,
-        'projects': projects,
-        'flags': flags,
-    })
-
-    return filter_configuration

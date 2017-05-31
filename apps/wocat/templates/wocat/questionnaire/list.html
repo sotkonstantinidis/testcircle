@@ -78,7 +78,6 @@
           </div>
           <div class="search-option">
             <a href="#" data-toggle="search-advanced-options">{% trans "Advanced filter" %}</a>
-{#            <a href="#" data-tooltip="" title="{% trans "Coming soon" %}">{% trans "Advanced filter" %}</a>#}
           </div>
         </div>
       </div>
@@ -87,11 +86,13 @@
       <div class="row large-no-gutters">
         <div class="columns small-12">
 
-          <br/>
-          {% trans "A revised filter is coming soon." as filter_coming_soon %}
-          {% include 'form/helptext.html' with helptext=filter_coming_soon %}
+          {% trans "Advanced filters are only available for a single type of SLM data. Please select the type of SLM data you would like to filter." as filter_select_type %}
+          {% include 'form/helptext.html' with helptext=filter_select_type %}
 
-          {% include 'wocat/partial/advanced_filter.html' %}
+          <div data-filter-url="{% url 'wocat:questionnaire_filter' %}">
+            <a href="#" class="button js-filter-advanced-type" data-type="technologies">{% trans 'SLM Technologies' %}</a>
+            <a href="#" class="button js-filter-advanced-type" data-type="approaches">{% trans 'SLM Approaches' %}</a>
+          </div>
         </div>
       </div>
     </div>
@@ -118,4 +119,28 @@
     </section>
   </main>
 
+{% endblock %}
+
+{% block help_tour %}
+  {# TODO: Remove this if not needed anymore #}
+  {% comment %}
+  {% addtoblock 'css' %}
+    <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
+  {% endaddtoblock %}
+  <script src="{% static 'js/intro.min.js' %}"></script>
+  <script>
+    function forceFilterType() {
+        introJs().setOptions({
+            doneLabel: '{% trans 'Done'|escapejs %}',
+            showStepNumbers: false,
+            steps: [
+                {
+                    intro: '{% trans 'Advanced filters are only available for a single type of SLM data. Please select one first.'|escapejs %}',
+                    element: document.querySelector('#search-type-display')
+                }
+            ]
+        }).start();
+    }
+  </script>
+  {% comment %}
 {% endblock %}

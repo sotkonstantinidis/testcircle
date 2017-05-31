@@ -220,6 +220,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'keyword',
         'view_options',
         'form_options',
+        'filter_options',
         'summary',
     ]
     valid_field_types = [
@@ -357,7 +358,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.max_length = None
         self.num_rows = self.form_options.get('num_rows', 3)
 
-        self.filterable = self.view_options.get('filter', False) is True
+        self.filter_options = configuration.get('filter_options', {})
 
         self.summary = self.key_config.get('summary')
         self.images = []
@@ -2363,71 +2364,31 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             'additional': additional_data,
         }
 
-    def get_filter_configuration(self):
+    def get_filter_keys(self):
         """
-        Return the data needed to create the filter panels. Loops the
-        sections and within them the fields can be filtered. Only returns the
-        filters from the current configuration.
+        Return a list of FilterKey named tuples containing information about the
+        filterable keys.
 
         Returns:
-            ``dict``. A dictionary with a list entry for section filters
-            (``sections``) and additional entries for special filters
-            such as ``countries``.
-
-            Each section dictionary contains a list of dictionaries for
-            each key within the section which can be filtered. Each
-            dictionary has the following entries:
-
-            - ``keyword``: The keyword of the section.
-
-            - ``label``: The label of the section.
-
-            - ``filters``: A list of dictionaries for each key of this
-              section which is filterable. Each dictionary has the
-              following entries:
-
-              - ``keyword``: The keyword of the key.
-
-              - ``label``: The label of the key.
-
-              - ``values``: If available, the values as list of tuples.
-
-              - ``type``: The type of the field (eg. ``checkbox``).
-
-              - ``images`` : If available, the images as list of tuples.
-
-              - ``questiongroup``: The keyword of the questiongroup.
-
-            Each special filter (eg. ``countries``) contains a list of
-            tuples with [0] the internal value and the [1] display value.
+            List of FilterKey named tuples.
         """
-        filter_configuration = {}
-
-        for section in self.sections:
-            for cat in section.categories:
-                for questiongroup in cat.get_questiongroups():
-                    for question in questiongroup.questions:
-                        if question.filterable is True:
-
-                            s = filter_configuration.get(cat.keyword)
-                            if not s:
-                                s = {
-                                    'keyword': cat.keyword,
-                                    'label': cat.label,
-                                    'filters': {},
-                                }
-                                filter_configuration[cat.keyword] = s
-
-                            s['filters'][question.keyword] = {
-                                'keyword': question.keyword,
-                                'label': question.label_view,
-                                'values': question.choices,
-                                'type': question.field_type,
-                                'images': question.images,
-                                'questiongroup': questiongroup.keyword,
-                            }
-
-        return filter_configuration
+        # Note that path and label need to appear first so they can be used as
+        # select options.
+        FilterKey = collections.namedtuple(
+            'FilterKey',
+            ['path', 'label', 'order', 'key', 'questiongroup', 'filter_type'])
+        filter_keys = []
+        for questiongroup in self.get_questiongroups():
+            for question in questiongroup.questions:
+                if question.filter_options:
+                    filter_keys.append(FilterKey(
+                        path=f'{questiongroup.keyword}__{question.keyword}',
+                        label=question.label_view,
+                        order=question.filter_options.get('order'),
+                        key=question.keyword,
+                        questiongroup=questiongroup.keyword,
+                        filter_type=question.field_type))
+        return sorted(filter_keys, key=lambda k: k.order)
 
     def get_list_data(self, questionnaire_data_list):
         """

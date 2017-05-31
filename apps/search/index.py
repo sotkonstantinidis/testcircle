@@ -308,32 +308,24 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
 
     # Before looping through the objects, prepare a list of all (checkbox)
     # values which are ordered
-    filter_configuration = questionnaire_configuration.get_filter_configuration()
-
     ordered_filter_values = []
-    for filter_categories_dict in filter_configuration.values():
-        for filter_question_dict in filter_categories_dict.get('filters').values():
+    for filter_key in questionnaire_configuration.get_filter_keys():
+        if filter_key.filter_type not in [
+                'checkbox', 'image_checkbox', 'select_type', 'select_model',
+                'radio', 'bool']:
+            continue
 
-            filter_type = filter_question_dict.get('type')
-            filter_questiongroup = filter_question_dict.get('questiongroup')
-            filter_question_keyword = filter_question_dict.get('keyword')
+        filter_question = questionnaire_configuration.get_question_by_keyword(
+            filter_key.questiongroup, filter_key.key)
+        if filter_question is None:
+            continue
 
-            if filter_type not in [
-                    'checkbox', 'image_checkbox', 'select_type', 'select_model',
-                    'radio', 'bool']:
-                continue
+        values = [(v.order_value, v.keyword) for v in
+                  filter_question.value_objects]
+        ordered_values = sorted(values, key=lambda v: v[0])
 
-            filter_question = questionnaire_configuration.get_question_by_keyword(
-                filter_questiongroup, filter_question_keyword)
-            if filter_question is None:
-                continue
-
-            values = [(v.order_value, v.keyword) for v in
-                      filter_question.value_objects]
-            ordered_values = sorted(values, key=lambda v: v[0])
-
-            ordered_filter_values.append(
-                (filter_questiongroup, filter_question_keyword, ordered_values))
+        ordered_filter_values.append(
+            (filter_key.questiongroup, filter_key.key, ordered_values))
 
     actions = []
     for obj in questionnaire_objects:
