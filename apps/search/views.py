@@ -217,34 +217,7 @@ def search(request):
     })
 
 
-class FilterMixin:
-
-    filter_join_char = '__'
-
-    def get_configuration_object(self):
-        configuration_code = self.request.GET.get('type')
-        return get_configuration(configuration_code)
-
-
-class FilterKeyView(FilterMixin, TemplateView):
-    """
-    Get the available filter keys for a given configuration type
-    """
-
-    http_method_names = ['get']
-    template_name = 'search/partial/filter_key.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        configuration = self.get_configuration_object()
-        filter_keys = configuration.get_filter_keys()
-        filter_keys.insert(0, ('', '---'))
-        context = {
-            'filter_select': filter_keys,
-        }
-        return self.render_to_response(context=context)
-
-
-class FilterValueView(FilterMixin, TemplateView):
+class FilterValueView(TemplateView):
     """
     Get the available values and operator types for a given configuration and 
     key
@@ -252,12 +225,16 @@ class FilterValueView(FilterMixin, TemplateView):
     http_method_names = ['get']
     template_name = 'search/partial/filter_value.html'
 
+    def get_configuration_object(self):
+        configuration_code = self.request.GET.get('type')
+        return get_configuration(configuration_code)
+
     def dispatch(self, request, *args, **kwargs):
 
         configuration = self.get_configuration_object()
 
         key_path = request.GET.get('key_path', '')
-        key_path_parts = key_path.split(self.filter_join_char)
+        key_path_parts = key_path.split('__')
 
         question = None
         if len(key_path_parts) == 2:

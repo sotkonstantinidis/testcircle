@@ -72,17 +72,14 @@ $(function () {
         updateList(s);
         return false;
     })
-        
+
+    // If a new filter item is added, use the template HTML to display it.
     .on('click', '#filter-add-new', function(e) {
         e.preventDefault();
 
-        var url = $(this).data('key-url');
-        var type_ = getConfigurationType();
+        var template = $('#filter-additional-template');
         var row = $(this).closest('.row');
-
-        $.get(url, {type: type_}, function(data) {
-            $(data).insertBefore(row);
-        });
+        $(template.html()).insertBefore(row);
     })
 
     // TODO: Remove this if not needed
