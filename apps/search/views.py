@@ -10,6 +10,8 @@ from django.views.generic import TemplateView
 from elasticsearch import TransportError
 
 from accounts.decorators import force_login_check
+from questionnaire.views import ESQuestionnaireQueryMixin
+
 from .index import (
     create_or_update_index,
     delete_all_indices,
@@ -18,7 +20,7 @@ from .index import (
     get_mappings,
     put_questionnaire_data,
 )
-from .search import simple_search
+from .search import simple_search, get_values_count
 from .utils import get_alias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
@@ -217,7 +219,7 @@ def search(request):
     })
 
 
-class FilterValueView(TemplateView):
+class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
     """
     Get the available values and operator types for a given configuration and 
     key
@@ -225,11 +227,15 @@ class FilterValueView(TemplateView):
     http_method_names = ['get']
     template_name = 'search/partial/filter_value.html'
 
+    configurations = None
+    configuration_code = 'technologies'
+
     def get_configuration_object(self):
         configuration_code = self.request.GET.get('type')
         return get_configuration(configuration_code)
 
     def dispatch(self, request, *args, **kwargs):
+        self.set_attributes()
 
         configuration = self.get_configuration_object()
 
@@ -241,8 +247,17 @@ class FilterValueView(TemplateView):
             question = configuration.get_question_by_keyword(
                 key_path_parts[0], key_path_parts[1])
 
+        # Also query ES to see how many results are available for each option
+        counted_values = get_values_count(
+            key_path_parts[0], key_path_parts[1], **self.get_filter_params())
+
+        counted_choices = []
+        for c in question.choices:
+            count = counted_values.get(c[0], 0)
+            counted_choices.append((c[0], f'{c[1]} ({count})'))
+
         context = {
-            'choices': question.choices,
+            'choices': counted_choices,
             'key_path': key_path,
         }
 

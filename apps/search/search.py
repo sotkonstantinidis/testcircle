@@ -30,10 +30,9 @@ def simple_search(query_string, configuration_codes=[]):
     return es.search(index=alias, q=get_escaped_string(query_string))
 
 
-def advanced_search(
+def get_es_query(
         filter_params: list=None, query_string: str='',
-        configuration_codes: list=None, limit: int=10,
-        offset: int=0, match_all: bool=True) -> dict:
+        match_all: bool=True) -> dict:
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -51,25 +50,15 @@ def advanced_search(
 
         ``query_string`` (str): A query string for the full text search.
 
-        ``configuration_codes`` (list): An optional list of
-        configuration codes to limit the search to certain indices.
-
-        ``limit`` (int): A limit of query results to return.
-
-        ``offset`` (int): The number of query results to skip.
-
         ``match_all`` (bool): Whether the query MUST match all filters or not.
         If not all filters must be matched, the results are ordered by relevance
         to show hits matching more filters at the top. Defaults to False.
 
     Returns:
-        ``dict``. The search results as returned by
-        ``elasticsearch.Elasticsearch.search``.
+        ``dict``. A dictionary containing the query to be passed to ES.
     """
     if filter_params is None:
         filter_params = []
-
-    alias = get_alias(configuration_codes)
 
     es_queries = []
 
@@ -170,7 +159,7 @@ def advanced_search(
 
     es_bool = 'must' if match_all is True else 'should'
 
-    query = {
+    return {
         "query": {
             "bool": {
                 es_bool: es_queries
@@ -184,7 +173,86 @@ def advanced_search(
         ]
     }
 
+
+def advanced_search(
+        filter_params: list=None, query_string: str='',
+        configuration_codes: list=None, limit: int=10,
+        offset: int=0, match_all: bool=True) -> dict:
+    """
+    Kwargs:
+        ``filter_params`` (list): A list of filter parameters. Each
+        parameter is a tuple consisting of the following elements:
+
+            [0]: questiongroup
+
+            [1]: key
+
+            [2]: values (list)
+
+            [3]: operator
+
+            [4]: type (eg. checkbox / text)
+
+        ``query_string`` (str): A query string for the full text search.
+
+        ``configuration_codes`` (list): An optional list of
+        configuration codes to limit the search to certain indices.
+
+        ``limit`` (int): A limit of query results to return.
+
+        ``offset`` (int): The number of query results to skip.
+
+        ``match_all`` (bool): Whether the query MUST match all filters or not.
+        If not all filters must be matched, the results are ordered by relevance
+        to show hits matching more filters at the top. Defaults to False.
+
+    Returns:
+        ``dict``. The search results as returned by
+        ``elasticsearch.Elasticsearch.search``.
+    """
+    query = get_es_query(
+        filter_params=filter_params, query_string=query_string,
+        match_all=match_all)
+
+    alias = get_alias(configuration_codes)
     return es.search(index=alias, body=query, size=limit, from_=offset)
+
+
+def get_values_count(
+        questiongroup, key, filter_params: list=None, query_string: str='',
+        configuration_codes: list=None, match_all: bool=True) -> dict:
+    """
+    Return a dict containing the values of the question along with the count of
+    how many results there are in ES for every value.
+    """
+    query = get_es_query(
+        filter_params=filter_params, query_string=query_string,
+        match_all=match_all)
+
+    query.update({
+        'size': 0,  # Do not include the actual hits
+        'aggs': {
+            'nested_values': {
+                'nested': {
+                    'path': f'data.{questiongroup}'
+                },
+                'aggs': {
+                    'values': {
+                        'terms': {
+                            'field': f'data.{questiongroup}.{key}'
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    alias = get_alias(configuration_codes)
+    es_query = es.search(index=alias, body=query)
+
+    buckets = es_query.get('aggregations', {}).get('nested_values', {}).get('values', {}).get('buckets', [])
+
+    return {b['key']: b['doc_count'] for b in buckets}
 
 
 def get_element(object_id: int, *configuration_codes) -> dict:

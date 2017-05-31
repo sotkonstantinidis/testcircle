@@ -35,8 +35,8 @@ $(function () {
         if ($(this).closest('form').hasClass('filter-advanced')) {
             p = addFilter(p, {key: 'type'}, getConfigurationType());
 
-            // Also remove any advanced filter
-            $('.js-filter-item').remove();
+            // Also remove any advanced filter. But do not remove the template!
+            $('.js-filter-item').not('#filter-additional-template .js-filter-item').remove();
         }
 
         var s = ['?', $.param(p, traditional = true)].join('');
@@ -182,9 +182,13 @@ $(function () {
         var filter = $(this).closest('.row');
         var valueColumn = filter.find('.filter-value-column');
 
-        var type_ = getConfigurationType();
         var url = $('#filter-add-new').data('value-url');
-        $.get(url, {type: type_, key_path: this.value}, function(data) {
+
+        // Add filter parameters to URL
+        var filterParams = getFilterQueryParams();
+        filterParams['key_path'] = [this.value];
+
+        $.get(url + createQueryString(filterParams), function(data) {
             valueColumn.html(data);
 
             // If there is an initial questiongroup, check the initial values.
