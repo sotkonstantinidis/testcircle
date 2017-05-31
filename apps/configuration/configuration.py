@@ -292,9 +292,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
               # Default: false
               "is_name": true,
-
-              # Default: false
-              "filter": true
             },
 
             # (optional)
@@ -316,6 +313,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
               # Default: []
               "questiongroup_conditions": [],
+            },
+
+            # (optional)
+            "filter_options": {
+                "order": 1
             }
           }
 

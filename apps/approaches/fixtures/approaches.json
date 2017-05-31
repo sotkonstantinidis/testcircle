@@ -10299,8 +10299,10 @@
                               "has_other": "app_type"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
+                            },
+                            "filter_options": {
+                              "order": 1
                             }
                           },
                           {
@@ -10835,8 +10837,10 @@
                             },
                             "view_options": {
                               "template": "raw",
-                              "with_raw_values": true,
-                              "filter": true
+                              "with_raw_values": true
+                            },
+                            "filter_options": {
+                              "order": 3
                             }
                           }
                         ]
@@ -11304,9 +11308,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_19"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -11374,9 +11375,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_21"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -11422,9 +11420,6 @@
                               "questiongroup_conditions": [
                                 "!='app_institutions_no'|app_qg_23"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -11486,9 +11481,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_118"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -11527,9 +11519,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_120"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -12712,6 +12701,9 @@
                             "view_options": {
                               "template": "raw",
                               "with_raw_values": true
+                            },
+                            "filter_options": {
+                              "order": 2
                             }
                           }
                         ]

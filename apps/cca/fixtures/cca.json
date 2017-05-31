@@ -14586,8 +14586,7 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
                             }
                           }
                         ]
@@ -14748,8 +14747,7 @@
                             "view_options": {
                               "template": "measure_stacked",
                               "layout": "stacked",
-                              "label_text_direction": "left",
-                              "filter": true
+                              "label_text_direction": "left"
                             }
                           },
                           {
@@ -14762,8 +14760,7 @@
                               "template": "measure_stacked_other",
                               "label_position": "none",
                               "layout": "stacked",
-                              "label_text_direction": "left",
-                              "filter": true
+                              "label_text_direction": "left"
                             }
                           },
                           {
@@ -14771,8 +14768,7 @@
                             "view_options": {
                               "template": "measure_stacked",
                               "layout": "stacked",
-                              "label_text_direction": "left",
-                              "filter": true
+                              "label_text_direction": "left"
                             }
                           },
                           {
@@ -14785,8 +14781,7 @@
                               "template": "measure_stacked_other",
                               "label_position": "none",
                               "layout": "stacked",
-                              "label_text_direction": "left",
-                              "filter": true
+                              "label_text_direction": "left"
                             }
                           },
                           {
@@ -14829,8 +14824,7 @@
                             "view_options": {
                               "template": "measure_stacked",
                               "layout": "stacked",
-                              "label_text_direction": "left",
-                              "filter": true
+                              "label_text_direction": "left"
                             }
                           },
                           {
@@ -14843,8 +14837,7 @@
                               "template": "measure_stacked_other",
                               "label_position": "none",
                               "layout": "stacked",
-                              "label_text_direction": "left",
-                              "filter": true
+                              "label_text_direction": "left"
                             }
                           }
                         ]
