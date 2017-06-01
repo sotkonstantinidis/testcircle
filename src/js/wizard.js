@@ -374,6 +374,7 @@ function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:checkbox').prop('checked', false).change();
     questiongroup.find('select').prop('selectedIndex', 0).change();
     questiongroup.find('input:hidden.is-cleared').val('').change();
+    questiongroup.find('.list-item input[type="hidden"]').val('').change();
     questiongroup.find('.chosen-select').val('').trigger('chosen:updated');
 }
 

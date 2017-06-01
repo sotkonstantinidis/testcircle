@@ -9,9 +9,9 @@
   <div class="medium-10 columns">
     <p>
       {% if 'secretariat' in review_config.roles|get_flat_roles %}
-        {% with questionnaire_type=questionnaire_type %}
+        {% blocktrans with questionnaire_type=questionnaire_type %}
           Delete this {{ questionnaire_type }}. As a member of the WOCAT secretariat, you can delete this {{ questionnaire_type }}.
-        {% endwith %}
+        {% endblocktrans %}
       {% else %}
         {% blocktrans with questionnaire_type=questionnaire_type %}
           Delete this {{ questionnaire_type }}. Only the compiler can delete a {{ questionnaire_type }} while it is in draft mode.

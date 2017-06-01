@@ -151,6 +151,10 @@ class LinkTests(FunctionalTest):
         self.doLogout()
         self.browser.get(url)
 
+        # Don't ask why ...
+        self.doLogout()
+        self.browser.get(url)
+
         section_xpath = '//section[@id="cat_5"]'
         link_xpath = '//section[@id="links"]'
         for xpath in [section_xpath, link_xpath]:

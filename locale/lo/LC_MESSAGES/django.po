@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 09:56+0200\n"
-"PO-Revision-Date: 2017-05-04 16:49+0000\n"
+"POT-Creation-Date: 2017-06-01 14:25+0200\n"
+"PO-Revision-Date: 2017-06-01 12:21+0000\n"
 "Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/lo/)\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: apps/accounts/client.py:169
+#: apps/accounts/client.py:172
 msgid "Error when logging in and updating the user {}: {}"
 msgstr "ບໍ່ສາມາດເຂົ້າສູ່ລະບົບໄດ້ ແລະ ຂໍ້ມູນຂອງຜູ້ຊົມໃຊ້ກໍາລັງຖືກປັບປຸງ  {}: {}"
 
@@ -10233,11 +10233,24 @@ msgid "Specify the centre of the area in which the Approach has been applied."
 msgstr "ລະບຸຈຸດສູນກາງຂອງເນື້ອທີ່ ບ່ອນທີ່ໄດ້ນໍາໃຊ້ແນວທາງ."
 
 #: apps/configuration/configuration_translations.py:5903
+msgctxt "technologies helptext"
+msgid ""
+"Add a point for each technology site that was considered/ analysed in the "
+"documentation of this technology. If more than 10 sites were considered, "
+"select and add a point for those that are most representative."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5904
+msgctxt "technologies label"
+msgid "Add geo-referenced information on the map below"
+msgstr "ຂໍ້ມູນທີ່ອ້າງອີງທາງພູມສາດ (ຕົວປະສານ) ຂອງພື້ນທີ່ໆ ເຕັກນິກໄດ້ຖືກຜະລິດ ຫຼື ພື້ນທີ່ອ້າງອີງ: "
+
+#: apps/configuration/configuration_translations.py:5905
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
 msgstr "ລະບຸຈຸດໃຈກາງຂອງອ່າງເກັບນ້ໍາ."
 
-#: apps/configuration/configuration_translations.py:5904
+#: apps/configuration/configuration_translations.py:5906
 msgctxt "approaches helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10290,7 +10303,7 @@ msgstr ""
 "ul><p><strong>ລາຍເຊັນແບບເຕັມຮູບແບບ</strong>: <ahref=\"http://creativecommons."
 "org/licenses/by-nc-sa/3.0/legalcode\" target=\"_bla"
 
-#: apps/configuration/configuration_translations.py:5905
+#: apps/configuration/configuration_translations.py:5907
 msgctxt "technologies helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10343,7 +10356,7 @@ msgstr ""
 "ul><p><strong>ລາຍເຊັນແບບເຕັມຮູບແບບ</strong>: <ahref=\"http://creativecommons."
 "org/licenses/by-nc-sa/3.0/legalcode\" target=\"_bla"
 
-#: apps/configuration/configuration_translations.py:5906
+#: apps/configuration/configuration_translations.py:5908
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -15966,10 +15979,12 @@ msgid ""
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:63
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:31
 msgid "Search user"
 msgstr "​ຄົ້​ນ​ຫາ​ຜູ້​ໃຊ້"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
@@ -15978,6 +15993,7 @@ msgid "No results found"
 msgstr "ບໍ່ພົບ​ຂໍ່ມູນການ​ຄົ້ນ​ຫາ"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:68
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
@@ -15989,11 +16005,54 @@ msgstr "ຜົນການຄົ້ນຫາຈໍານວນຫຼາຍເກ
 msgid "Update users"
 msgstr "​ອັບ​ເດດ​ຜູ້​ໃຊ້"
 
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:5
+#, fuzzy
+#| msgid "Compiler"
+msgid "Change compiler"
+msgstr "ການລວບລວມ"
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:9
+#, python-format
+msgid ""
+"\n"
+"        As a member of the WOCAT secretariat, you can change the compiler of "
+"this %(questionnaire_type)s.\n"
+"      "
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:20
+#, python-format
+msgid ""
+"\n"
+"            Search and select a user who will be the new compiler of this "
+"%(questionnaire_type)s.\n"
+"          "
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:40
+msgid "Keep the current compiler as editor?"
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:41
+#, fuzzy
+#| msgid "Update publishers"
+msgid "Update compiler"
+msgstr "ການປັບປຸງການຈັດ"
+
 #: apps/questionnaire/templates/details/review_panel/_delete.html:7
 #: apps/questionnaire/templates/details/review_panel/_delete.html:41
 #: apps/questionnaire/templates/form/questiongroup/map.html:98
 msgid "Delete"
 msgstr "ລົບ"
+
+#: apps/questionnaire/templates/details/review_panel/_delete.html:12
+#, python-format
+msgid ""
+"\n"
+"          Delete this %(questionnaire_type)s. As a member of the WOCAT "
+"secretariat, you can delete this %(questionnaire_type)s.\n"
+"        "
+msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/_delete.html:16
 #, python-format
@@ -18582,7 +18641,3 @@ msgid ""
 "\n"
 "        "
 msgstr ""
-
-#~ msgctxt "technologies label"
-#~ msgid "Add geo-referenced information on the map below"
-#~ msgstr "ຂໍ້ມູນທີ່ອ້າງອີງທາງພູມສາດ (ຕົວປະສານ) ຂອງພື້ນທີ່ໆ ເຕັກນິກໄດ້ຖືກຜະລິດ ຫຼື ພື້ນທີ່ອ້າງອີງ: "
