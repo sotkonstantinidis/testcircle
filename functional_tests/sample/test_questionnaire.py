@@ -1409,6 +1409,100 @@ class QuestionnaireTest(FunctionalTest):
         self.checkOnPage('Key 28')
         self.checkOnPage('Foo')
 
+    def test_conditional_questions_translations(self, mock_process_request):
+        mock_process_request.return_value = None
+        send_text = 'asdfasdf'
+
+        # Alice logs in
+        self.doLogin()
+
+        # She goes to a step of the questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_new_step,
+            kwargs={'identifier': 'new', 'step': 'cat_2'}))
+        self.rearrangeFormHeader()
+
+        value_13_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
+        key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
+
+        # She selects value 13_5 and enters something in the field that is now
+        # visible
+        value_13_5.click()
+        key_24.send_keys(send_text)
+
+        # She submits the step
+        self.submit_form_step()
+        self.findBy('xpath', f'//*[text()="{send_text}"]')
+
+        # She changes the language and opens the step again
+        self.changeLanguage('fr')
+        self.findBy('xpath', f'//*[text()="{send_text}"]')
+        self.click_edit_section('cat_2')
+
+        value_13_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
+        # This time, she is seeing the translation field!
+        key_24 = self.findBy('id', 'id_qg_18-0-translation_key_24')
+
+        # She sees the values are present
+        self.assertEqual(key_24.get_attribute('value'), send_text)
+
+        # She deselects value 13_5 and sees that key 24 is not visible anymore
+        value_13_5.click()
+        self.assertFalse(key_24.is_displayed())
+
+        # If she reselects value 13_5 again, key 24 is visible but empty.
+        value_13_5.click()
+        self.assertTrue(key_24.is_displayed())
+        self.assertEqual(key_24.get_attribute('value'), '')
+
+        # She deselects value 13_5 once again and submits the form
+        value_13_5.click()
+        self.submit_form_step()
+        self.findByNot('xpath', f'//*[text()="{send_text}"]')
+
+        # Still in French, she goes to the step again
+        self.click_edit_section('cat_2')
+
+        value_13_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
+        # This time, she is seeing the translation field!
+        key_24 = self.findBy('id', 'id_qg_18-0-translation_key_24')
+
+        # She selects value 13_5 again and enters some text for key 24
+        value_13_5.click()
+        self.assertEqual(key_24.get_attribute('value'), '')
+        key_24.send_keys(send_text)
+
+        self.submit_form_step()
+        self.findBy('xpath', f'//*[text()="{send_text}"]')
+
+        # She switches back to the original language of the questionnaire
+        self.changeLanguage('en')
+
+        # The text is not visible as it is only in the translation
+        self.findByNot('xpath', f'//*[text()="{send_text}"]')
+
+        # She enters the step again
+        self.click_edit_section('cat_2')
+
+        value_13_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
+        key_24 = self.findBy('id', 'id_qg_18-0-original_key_24')
+
+        # In the step, it is not visible either
+        self.assertEqual(key_24.get_attribute('value'), '')
+
+        # She deselects value 13_5 and submits the step
+        value_13_5.click()
+
+        self.submit_form_step()
+
+        # The text is still not visible in the original language
+        self.findByNot('xpath', f'//*[text()="{send_text}"]')
+
+        # It is also not visible in the translation
+        self.changeLanguage('fr')
+        self.findByNot('xpath', f'//*[text()="{send_text}"]')
+
+
     def test_conditional_questions(self, mock_process_request):
         mock_process_request.return_value = None
 
