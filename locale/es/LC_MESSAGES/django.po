@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 09:56+0200\n"
-"PO-Revision-Date: 2017-05-04 16:49+0000\n"
-"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
+"POT-Creation-Date: 2017-06-01 14:25+0200\n"
+"PO-Revision-Date: 2017-06-01 12:22+0000\n"
+"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: apps/accounts/client.py:169
+#: apps/accounts/client.py:172
 msgid "Error when logging in and updating the user {}: {}"
 msgstr "Error al iniciar sesión y al actualizar al usuario  {}: {}"
 
@@ -2379,7 +2379,7 @@ msgstr "talar todo el bosque de una sola vez"
 #: apps/configuration/configuration_translations.py:1512
 msgctxt "technologies label"
 msgid "Clear felling"
-msgstr "Tala selectiva"
+msgstr "Tala clara"
 
 #: apps/configuration/configuration_translations.py:1513
 msgctxt "technologies helptext"
@@ -3410,7 +3410,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1678
 msgctxt "technologies label"
 msgid "rainfed"
-msgstr "De secano"
+msgstr "de secano"
 
 #: apps/configuration/configuration_translations.py:1679
 msgctxt "technologies helptext"
@@ -4043,7 +4043,7 @@ msgstr "3"
 #: apps/configuration/configuration_translations.py:1791
 msgctxt "technologies label"
 msgid "Monoculture exotic variety"
-msgstr "Monocultivovariedad exótica"
+msgstr "Monocultivo variedad exótica"
 
 #: apps/configuration/configuration_translations.py:1792
 msgctxt "technologies label"
@@ -4981,9 +4981,10 @@ msgid ""
 "groundwater reserves and their protection from pollution, overexploitation/ "
 "overuse, and rising groundwater levels leading to salinization."
 msgstr ""
-"<strong>Groundwater management:</strong> involves securing the recharge of "
-"groundwater reserves and their protection from pollution, overexploitation/ "
-"overuse, and rising groundwater levels leading to salinization."
+"<strong>Gestión de aguas subterráneas:</strong> involucra asegurar la "
+"recarga de las reservas de agua subterránea y su protección de la "
+"contaminación, la sobreexplotación/ uso excesivo, y niveles de agua "
+"subterránea en aumento que lleva a la salinización."
 
 #: apps/configuration/configuration_translations.py:1933
 msgctxt "technologies label"
@@ -6843,7 +6844,7 @@ msgstr ""
 "Liste las publicaciones relevantes relacionadas a la Tecnología (informes, "
 "manuales, material de capacitación, estudios de caso, fotos, vídeo clips, "
 "sitios web, etc.). Cargue a la base de datos aquellas publicaciones "
-"disponibles como copias digitales ."
+"disponibles como copias digitales."
 
 #: apps/configuration/configuration_translations.py:2825
 msgctxt "technologies label"
@@ -7090,7 +7091,7 @@ msgstr "Uso de la tierra predominante en la localización específica"
 #: apps/configuration/configuration_translations.py:3017
 msgctxt "unccd label"
 msgid "Specify"
-msgstr "especifique"
+msgstr "Especifique"
 
 #: apps/configuration/configuration_translations.py:3005
 #: apps/configuration/configuration_translations.py:4704
@@ -7349,7 +7350,7 @@ msgstr "¿La tecnología se difundió o introdujo en otros lugares? "
 #: apps/configuration/configuration_translations.py:3047
 msgctxt "unccd label"
 msgid "Where?"
-msgstr "¿ dónde? "
+msgstr "¿Dónde? "
 
 #: apps/configuration/configuration_translations.py:3048
 #: apps/configuration/configuration_translations.py:4728
@@ -7362,7 +7363,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3049
 msgctxt "unccd label"
 msgid "Specify which type of incentives"
-msgstr "especifique qué tipo de incentivos"
+msgstr "Especifique qué tipo de incentivos"
 
 #: apps/configuration/configuration_translations.py:3050
 #: apps/configuration/configuration_translations.py:4729
@@ -7386,7 +7387,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3052
 msgctxt "unccd label"
 msgid "At which level?"
-msgstr "¿a qué nivel?"
+msgstr "¿A qué nivel?"
 
 #: apps/configuration/configuration_translations.py:3053
 #: apps/configuration/configuration_translations.py:4731
@@ -7773,7 +7774,7 @@ msgstr "Información general"
 #: apps/configuration/configuration_translations.py:4903
 msgctxt "unccd label"
 msgid "Classification"
-msgstr "CLASIFICACIÓN"
+msgstr "Clasificación"
 
 #: apps/configuration/configuration_translations.py:4904
 msgctxt "unccd label"
@@ -10645,7 +10646,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5798
 msgctxt "technologies label"
 msgid "land user"
-msgstr "Usuario de la tierra"
+msgstr "usuario de la tierra"
 
 #: apps/configuration/configuration_translations.py:5799
 msgctxt "watershed label"
@@ -10658,11 +10659,27 @@ msgid "Specify the centre of the area in which the Approach has been applied."
 msgstr "Especifique el centro del área donde el Enfoque ha sido aplicado."
 
 #: apps/configuration/configuration_translations.py:5903
+msgctxt "technologies helptext"
+msgid ""
+"Add a point for each technology site that was considered/ analysed in the "
+"documentation of this technology. If more than 10 sites were considered, "
+"select and add a point for those that are most representative."
+msgstr ""
+"Agregue un punto para cada sitio de tecnología considerado/ analizado en la "
+"documentación de esta tecnología. Si se consideraron más de 10 sitios, elija "
+"y agregue un punto por aquellos que sean más representativos. "
+
+#: apps/configuration/configuration_translations.py:5904
+msgctxt "technologies label"
+msgid "Add geo-referenced information on the map below"
+msgstr "Agregue información georeferenciada en el mapa siguiente"
+
+#: apps/configuration/configuration_translations.py:5905
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
 msgstr "Especifique el centro de la cuenca"
 
-#: apps/configuration/configuration_translations.py:5904
+#: apps/configuration/configuration_translations.py:5906
 msgctxt "approaches helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10726,7 +10743,7 @@ msgstr ""
 "target=\"_blank\" class=\"link\"> http://creativecommons.org/licenses/by-nc-"
 "sa/3.0/legalcode</a></p>"
 
-#: apps/configuration/configuration_translations.py:5905
+#: apps/configuration/configuration_translations.py:5907
 msgctxt "technologies helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10790,7 +10807,7 @@ msgstr ""
 "target=\"_blank\" class=\"link\"> http://creativecommons.org/licenses/by-nc-"
 "sa/3.0/legalcode</a></p>"
 
-#: apps/configuration/configuration_translations.py:5906
+#: apps/configuration/configuration_translations.py:5908
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -12091,7 +12108,7 @@ msgstr "la experiencia personal y opiniones (no documentadas)"
 #: apps/configuration/configuration_translations.py:7608
 msgctxt "approaches label"
 msgid "field staff/ advisers"
-msgstr "personal de campo/ consejeros\t"
+msgstr "personal de campo/ consejeros"
 
 #: apps/configuration/configuration_translations.py:7609
 msgctxt "approaches label"
@@ -12967,6 +12984,11 @@ msgid ""
 "impact in the dropdown list. Add them one after the other by clicking on "
 "‘Add More’."
 msgstr ""
+"Por favor tenga en cuenta que la siguiente tabla para introducir datos "
+"difiere de las listas que creó en el cuestionario impreso en papel. Para "
+"cada entrada, usted primero debe elegir el cambio climático gradual/ extremo "
+"relacionado al clima, y luego el impacto en la lista desplegable. Agréguelos "
+"uno a la vez al haciendo clic en 'Agregar más'."
 
 #: apps/configuration/configuration_translations.py:23201
 msgctxt "cca label"
@@ -13535,6 +13557,9 @@ msgid ""
 "Please check in QT Core question number 3.7 which land degradation types "
 "have been selected and list only those in the second column."
 msgstr ""
+"Por favor marque en la pregunta número 3.7 del cuestionario QT Core qué "
+"tipos de degradación de tierras fueron seleccionados y liste solamente los "
+"que se hallan en la segunda columna. "
 
 #: apps/configuration/configuration_translations.py:27050
 msgctxt "cca label"
@@ -14079,6 +14104,8 @@ msgid ""
 "If it has been introduced as an adaptation measure it might have been "
 "further adapted during the course of time."
 msgstr ""
+"Si se introdujo como una medida de adaptación, podría ser adaptado aún más "
+"durante el transcurso del tiempo. "
 
 #: apps/configuration/configuration_translations.py:28049
 msgctxt "cca label"
@@ -14611,7 +14638,7 @@ msgstr "Wg: erosión en cárcavas"
 #: apps/configuration/configuration_translations.py:29077
 msgctxt "cca label"
 msgid "Wm: mass movements/ landslides"
-msgstr "Wm:\tmovimiento de masas / deslizamientos de tierra"
+msgstr "Wm: movimiento de masas / deslizamientos de tierra"
 
 #: apps/configuration/configuration_translations.py:29078
 msgctxt "cca label"
@@ -15489,12 +15516,12 @@ msgstr "recargó"
 #: apps/configuration/configuration_translations.py:29243
 msgctxt "cca label"
 msgid "Yes. If yes, fill in the table below."
-msgstr ""
+msgstr "Sí. Si la respuesta es sí, llene la siguiente tabla."
 
 #: apps/configuration/configuration_translations.py:29244
 msgctxt "cca label"
 msgid "No. If no, continue with chapter 4.7."
-msgstr ""
+msgstr "No. Si la respuesta es no, continúe con el capítulo 4.7."
 
 #: apps/configuration/configuration_translations.py:31001
 msgctxt "watershed label"
@@ -16213,7 +16240,7 @@ msgstr "Portugués"
 
 #: apps/qcat/config/common.py:105
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: apps/qcat/context_processors.py:145
 msgid ""
@@ -16468,12 +16495,12 @@ msgstr "Resumen completo en PDF"
 #: apps/questionnaire/templates/details/category/technologies_header.html:94
 #: apps/questionnaire/templates/details/category/with_metadata.html:93
 msgid "Full summary as PDF for print"
-msgstr ""
+msgstr "Resumen completo en PDF para imprimir"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:95
 #: apps/questionnaire/templates/details/category/technologies_header.html:95
 msgid "Full summary in the browser"
-msgstr ""
+msgstr "Resumen completo en el navegador"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:100
 #: apps/questionnaire/templates/details/category/cca_header.html:96
@@ -16749,10 +16776,12 @@ msgstr ""
 "        "
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:63
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:31
 msgid "Search user"
 msgstr "Buscar usuario"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
@@ -16761,6 +16790,7 @@ msgid "No results found"
 msgstr "No hay resultados"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:68
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
@@ -16772,11 +16802,81 @@ msgstr "Se hallaron demasiados resultados, por favor delimite su búsqueda"
 msgid "Update users"
 msgstr "Actualizar usuarios"
 
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:5
+#, fuzzy
+#| msgid "Compiler"
+msgid "Change compiler"
+msgstr "Compilador"
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:9
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              You are <strong>%(role)s</strong> of this "
+#| "%(questionnaire_type)s.\n"
+#| "              "
+msgid ""
+"\n"
+"        As a member of the WOCAT secretariat, you can change the compiler of "
+"this %(questionnaire_type)s.\n"
+"      "
+msgstr ""
+"\n"
+"              Usted es <strong>%(role)s</strong> de este "
+"%(questionnaire_type)s.\n"
+"              "
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:20
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              You are <strong>%(role)s</strong> of this "
+#| "%(questionnaire_type)s.\n"
+#| "              "
+msgid ""
+"\n"
+"            Search and select a user who will be the new compiler of this "
+"%(questionnaire_type)s.\n"
+"          "
+msgstr ""
+"\n"
+"              Usted es <strong>%(role)s</strong> de este "
+"%(questionnaire_type)s.\n"
+"              "
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:40
+msgid "Keep the current compiler as editor?"
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:41
+#, fuzzy
+#| msgid "Update publishers"
+msgid "Update compiler"
+msgstr "Actualizar publicadores"
+
 #: apps/questionnaire/templates/details/review_panel/_delete.html:7
 #: apps/questionnaire/templates/details/review_panel/_delete.html:41
 #: apps/questionnaire/templates/form/questiongroup/map.html:98
 msgid "Delete"
 msgstr "Borrar"
+
+#: apps/questionnaire/templates/details/review_panel/_delete.html:12
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "          Delete this %(questionnaire_type)s. Only the compiler can "
+#| "delete a %(questionnaire_type)s while it is in draft mode.\n"
+#| "        "
+msgid ""
+"\n"
+"          Delete this %(questionnaire_type)s. As a member of the WOCAT "
+"secretariat, you can delete this %(questionnaire_type)s.\n"
+"        "
+msgstr ""
+"\n"
+"          Borrar este %(questionnaire_type)s. Solo el compilador puede "
+"borrar un %(questionnaire_type)s mientras está en modo de borrador.\n"
+"        "
 
 #: apps/questionnaire/templates/details/review_panel/_delete.html:16
 #, python-format
@@ -16850,10 +16950,11 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          The %(questionnaire_type)s data entry form is saved as a draft. "
-"The compiler is responsible for this data entry and can invite editors "
-"(WOCAT users) to help create it. Once the data entry is complete the "
-"compiler can submit it for review.\n"
+"          El formulario %(questionnaire_type)s para introducir datos se "
+"guarda como borrador. El compilador es responsable de ingresar estos datos y "
+"puede invitar a editores (usuarios WOCAT) para que ayuden a crearlo. Una vez "
+"que el ingreso de datos se haya completado, el compilador puede enviarlos "
+"para que sean revisados. \n"
 "        "
 
 #: apps/questionnaire/templates/details/review_panel/draft.html:23
@@ -18179,11 +18280,11 @@ msgstr "Descripción"
 
 #: apps/summary/renderers.py:208
 msgid "land user's view"
-msgstr ""
+msgstr "perspectiva del usuario de tierras"
 
 #: apps/summary/renderers.py:209
 msgid "compiler’s or other key resource person’s view"
-msgstr ""
+msgstr "punto de vista del compilador o de otra persona recurso clave"
 
 #: apps/summary/renderers.py:237
 msgid "Conclusions and lessons learnt"
@@ -18211,7 +18312,7 @@ msgstr "Personas de referencia"
 
 #: apps/summary/renderers.py:270
 msgid "Full description in the WOCAT database"
-msgstr ""
+msgstr "Descripción completa en la base de datos de WOCAT"
 
 #: apps/summary/renderers.py:275
 msgid "Linked SLM data"
@@ -18223,7 +18324,7 @@ msgstr "Referencias claves"
 
 #: apps/summary/renderers.py:285
 msgid "Links to relevant information which is available online"
-msgstr ""
+msgstr "Vínculos a la información relevante disponible en línea"
 
 #: apps/summary/renderers.py:290
 msgid "Documentation was faciliated by"
@@ -18231,16 +18332,16 @@ msgstr "La documentación fue facilitada por"
 
 #: apps/summary/renderers.py:296
 msgid "Institution"
-msgstr ""
+msgstr "Institución "
 
 #: apps/summary/renderers.py:370
 #, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
-msgstr ""
+msgstr "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 
 #: apps/summary/renderers.py:386
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: apps/summary/renderers.py:498
 msgid ""
@@ -18258,11 +18359,11 @@ msgstr "Lugar"
 
 #: apps/summary/renderers.py:531
 msgid "No. of Technology sites analysed"
-msgstr ""
+msgstr "No. de sitios de Tecnología analizados"
 
 #: apps/summary/renderers.py:534 apps/summary/renderers.py:1016
 msgid "Geo-reference of selected sites"
-msgstr ""
+msgstr "Georreferencia de sitios seleccionados"
 
 #: apps/summary/renderers.py:539
 msgid "Spread of the Technology"
@@ -18322,7 +18423,7 @@ msgstr "Medidas MST"
 
 #: apps/summary/renderers.py:645 apps/summary/renderers.py:1083
 msgid "Author: {}"
-msgstr ""
+msgstr "Autor: {}"
 
 #: apps/summary/renderers.py:649
 msgid "Technical drawing"
@@ -18334,15 +18435,15 @@ msgstr "Especificaciones técnicas"
 
 #: apps/summary/renderers.py:669
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
-msgstr ""
+msgstr "; factor de conversión a una hectárea: <b>1 ha = {}</b>"
 
 #: apps/summary/renderers.py:670
 msgid " (size and area unit: <b>{}</b>{})"
-msgstr ""
+msgstr " (unidad de tamaño y área: <b>{}</b>{})"
 
 #: apps/summary/renderers.py:675
 msgid "unit: <b>{}</b>"
-msgstr ""
+msgstr "unidad: <b>{}</b>"
 
 #: apps/summary/renderers.py:688 apps/summary/renderers.py:689
 msgid "n.a"
@@ -18362,15 +18463,15 @@ msgstr "Los costos se calculan: {}"
 
 #: apps/summary/renderers.py:698
 msgid "Currency used for cost calculation: <b>{}</b>"
-msgstr ""
+msgstr "Moneda usada para calcular costos: <b>{}</b>"
 
 #: apps/summary/renderers.py:699
 msgid "Exchange rate (to USD): 1 USD = {}."
-msgstr ""
+msgstr "Tasa de cambio (a USD): 1 USD = {}."
 
 #: apps/summary/renderers.py:700
 msgid "Average wage cost of hired labour per day: {}."
-msgstr ""
+msgstr "Costo promedio por día del sueldo de la mano de obra contratada: {}."
 
 #: apps/summary/renderers.py:703
 msgid "Most important factors affecting the costs"
@@ -18382,7 +18483,7 @@ msgstr "Actividades de establecimiento"
 
 #: apps/summary/renderers.py:710
 msgid "Establishment inputs and costs"
-msgstr ""
+msgstr "Insumos y costos para establecimiento"
 
 #: apps/summary/renderers.py:715
 msgid "Maintenance activities"
@@ -18390,15 +18491,15 @@ msgstr "Actividades de mantenimiento"
 
 #: apps/summary/renderers.py:719
 msgid "Maintenance inputs and costs"
-msgstr ""
+msgstr "Insumos y costos de mantenimiento"
 
 #: apps/summary/renderers.py:766
 msgid "Average annual rainfall in mm: {}"
-msgstr ""
+msgstr "Promedio anual de lluvia en mm:{}"
 
 #: apps/summary/renderers.py:768
 msgid "Name of the meteorological station: {}"
-msgstr ""
+msgstr "Nombre de la estación meteorológica: {}"
 
 #: apps/summary/renderers.py:775
 msgid "Natural environment"
@@ -18571,11 +18672,11 @@ msgstr "Cambio climático"
 
 #: apps/summary/renderers.py:950
 msgid "Climate change/ extreme to which the Technology is exposed"
-msgstr ""
+msgstr "Cambio climático/ extremo al que se expone la Tecnología"
 
 #: apps/summary/renderers.py:951
 msgid "How the Technology copes with these changes/extremes"
-msgstr ""
+msgstr "Cómo la tecnología lidia con estos cambios/extremos"
 
 #: apps/summary/renderers.py:959
 msgid "Adoption and adaptation"
@@ -18595,7 +18696,7 @@ msgstr ""
 
 #: apps/summary/renderers.py:970
 msgid "Number of households and/ or area covered"
-msgstr ""
+msgstr "Número de hogares y/ o área cubierta"
 
 #: apps/summary/renderers.py:974
 msgid ""
@@ -18622,7 +18723,7 @@ msgstr "Tipo de Enfoque"
 
 #: apps/summary/renderers.py:1040
 msgid "Approach aims and enabling environment"
-msgstr "metas del enfoque y entorno facilitador"
+msgstr "Metas del Enfoque y entorno facilitador"
 
 #: apps/summary/renderers.py:1043
 msgid "Main aims / objectives of the approach"
@@ -18687,11 +18788,11 @@ msgstr ""
 
 #: apps/summary/renderers.py:1113
 msgid "The following activities or services have been part of the approach"
-msgstr ""
+msgstr "Las siguientes actividades o servicios fueron parte del enfoque"
 
 #: apps/summary/renderers.py:1123
 msgid "Capacity building/ training"
-msgstr ""
+msgstr "Construcción de capacidades/ capacitación"
 
 #: apps/summary/renderers.py:1126
 msgid "Training was provided to the following stakeholders"
@@ -18728,6 +18829,7 @@ msgstr "en el siguiente nivel"
 #: apps/summary/renderers.py:1159
 msgid "Describe institution, roles and responsibilities, members, etc."
 msgstr ""
+"Describa la institución, los roles y las responsabilidades, miembros, etc."
 
 #: apps/summary/renderers.py:1162
 msgid "Type of support"
@@ -18735,7 +18837,7 @@ msgstr "Tipo de apoyo"
 
 #: apps/summary/renderers.py:1165
 msgid "Further details"
-msgstr ""
+msgstr "Detalles adicionales"
 
 #: apps/summary/renderers.py:1169
 msgid "Monitoring and evaluation"
@@ -18755,7 +18857,7 @@ msgstr "Financiamiento y apoyo material externo"
 
 #: apps/summary/renderers.py:1187
 msgid "Annual budget in USD for the SLM component"
-msgstr ""
+msgstr "Presupuesto anual en dólares americanos para el componente MST"
 
 #: apps/summary/renderers.py:1190
 msgid "Precise annual budget: {}"
@@ -18777,19 +18879,19 @@ msgstr "Apoyo financiero/material proporcionado a los usuarios de tierras"
 
 #: apps/summary/renderers.py:1212
 msgid "Credit"
-msgstr ""
+msgstr "Crédito"
 
 #: apps/summary/renderers.py:1214
 msgid "Conditions: {}"
-msgstr ""
+msgstr "Condiciones: {}"
 
 #: apps/summary/renderers.py:1217
 msgid "Credit providers: {}"
-msgstr ""
+msgstr "Proveedores de crédito: {}"
 
 #: apps/summary/renderers.py:1220
 msgid "Credit receivers: {}"
-msgstr ""
+msgstr "Destinatarios del crédito: {}"
 
 #: apps/summary/renderers.py:1226
 msgid "Other incentives or instruments"
@@ -19525,7 +19627,7 @@ msgid ""
 "Would you like to help us translate the SLM Database? Please contact the "
 "WOCAT Secretariat for more information."
 msgstr ""
-"?Le gustaría ayudarnos a traducir la base de datos MST? Por favor, "
+"¿Le gustaría ayudarnos a traducir la base de datos MST? Por favor, "
 "contáctese con la Secretaría WOCAT si desea más información. "
 
 #: templates/base.html:186
@@ -19688,17 +19790,3 @@ msgstr ""
 "            </p>\n"
 "\n"
 "        "
-
-#~ msgctxt "technologies helptext"
-#~ msgid ""
-#~ "Add a point for each technology site that was considered/ analysed in the "
-#~ "documentation of this technology. If more than 10 sites were considered, "
-#~ "select and add a point for those that are most representative."
-#~ msgstr ""
-#~ "Agregue un punto para cada sitio de tecnología considerado/ analizado en "
-#~ "la documentación de esta tecnología. Si se consideraron más de 10 sitios, "
-#~ "elija y agregue un punto por aquellos que sean más representativos. "
-
-#~ msgctxt "technologies label"
-#~ msgid "Add geo-referenced information on the map below"
-#~ msgstr "Agregue información georeferenciada en el mapa siguiente"
