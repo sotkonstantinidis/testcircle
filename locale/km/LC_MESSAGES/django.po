@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 09:56+0200\n"
-"PO-Revision-Date: 2017-05-11 10:44+0000\n"
+"POT-Creation-Date: 2017-06-01 14:25+0200\n"
+"PO-Revision-Date: 2017-06-01 12:21+0000\n"
 "Last-Translator: Sophea Tim <stim3993@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: apps/accounts/client.py:169
+#: apps/accounts/client.py:172
 msgid "Error when logging in and updating the user {}: {}"
 msgstr "មានបញ្ហាពេលបញ្ចូល និងកែតម្រូវឈ្មោះអ្នកប្រើប្រាស់ {}: {}"
 
@@ -3718,13 +3718,13 @@ msgstr "ពាណិជ្ជកម្ម/ ទីផ្សារ"
 #: apps/configuration/configuration_translations.py:1756
 msgctxt "technologies label"
 msgid "very poor"
-msgstr "ក្រខ្លាំង"
+msgstr "មិនល្អខ្លាំង"
 
 #: apps/configuration/configuration_translations.py:1757
 #: apps/configuration/configuration_translations.py:1988
 msgctxt "technologies label"
 msgid "poor"
-msgstr "ក្រ"
+msgstr "មិនល្អ"
 
 #: apps/configuration/configuration_translations.py:1758
 msgctxt "technologies label"
@@ -4913,7 +4913,7 @@ msgstr ""
 "li><li>ជាញឹកញាប់នាំឱ្យមានការផ្លាស់ប្តូរទម្រង់ជម្រាល</"
 "li><li>ជាញឹកញាប់ត្រូវបានតម្រឹមនៅតាមបណ្តោយរង្វង់ភ្នំ ឬជាទូទៅប្រឆាំងនឹងទិសខ្យល់</"
 "li><li>ជាញឹកញាប់គម្លាតអាស្រ័យទៅតាមកម្រិតជម្រាល </li></"
-"ul><p>ប្រសិនបើមានរចនាសម្ព័ន្ធទទួលបានស្ថេរភាពដោយសារពើរុក្ខជាតិ "
+"ul><p>ប្រសិនបើមានរចនាសម្ព័ន្ធទទួលបានស្ថេរភាពដោយសាររុក្ខជាតិ "
 "សូមជ្រើសរើសវិធានការដែលពាក់ព័ន្ធផ្សេងៗទៀត!</p>"
 
 #: apps/configuration/configuration_translations.py:1950
@@ -5261,7 +5261,7 @@ msgstr "ដីដាំដុះថ្មី"
 #: apps/configuration/configuration_translations.py:2245
 msgctxt "technologies label"
 msgid "production area"
-msgstr "តំបន់ផលិតកម្ម"
+msgstr "ផ្ទៃដីផលិតកម្ម"
 
 #: apps/configuration/configuration_translations.py:2247
 msgctxt "technologies helptext"
@@ -5967,7 +5967,7 @@ msgid ""
 "p>"
 msgstr ""
 "<p><strong>វិធានការ SLM -ធាតុផ្សំនៃបច្ចេកវិទ្យានីមួយៗ</strong></p><p>វិធានការ SLM "
-"ចែកជា៥ក្រុម៖ ក្សេត្រសាស្ត្រ សារពើរុក្ខជាតិ រចនាសម្ព័ន្ធ ការគ្រប់គ្រង និងផ្សេងៗ។ "
+"ចែកជា៥ក្រុម៖ ក្សេត្រសាស្ត្រ រុក្ខជាតិ រចនាសម្ព័ន្ធ ការគ្រប់គ្រង និងផ្សេងៗ។ "
 "វិធានការគឺជាសមាសភាគនៃបច្ចេកវិទ្យាច្រើន។ បច្ចេកវិទ្យានីមួយៗត្រូវបានបង្កើតឡើងនៅវិធានការមួយ "
 "ឬច្រើនបញ្ចូលគ្នាដូចជា៖ការធ្វើជាថ្នាក់ៗនៅតាមទីជម្រាល វិធានការរចនាស័ម្ពន្ធ "
 "គឺជាញឹកញាប់បានបញ្ចូលជាមួយវិធានការផ្សេងៗទៀត ដូចជាការកើនឡើងស្ថេរភាពស្មៅ "
@@ -6177,7 +6177,7 @@ msgid ""
 msgstr ""
 "<p><strong>ការប្រើប្រាស់ដី</strong>៖ សកម្មភាពមនុស្សដែលពាក់ព័ន្ធទៅនឹងដីដោយផ្ទាល់ "
 "តាមរយៈការប្រើប្រាស់ធនធានដី ឬក៏ធ្វើឱ្យមានផលប៉ះពាល់ដល់ដី។ <br><strong>គម្រប់ដី </strong>៖ "
-"សារពើរុក្ខជាតិ (ដោយធម្មជាតិ ឬតាមរយៈការដាំដុះ) ឬរចនាសម្ព័ន្ធដែលមនុស្សបង្កើតឡើង (អគារ។"
+"រុក្ខជាតិ (ដោយធម្មជាតិ ឬតាមរយៈការដាំដុះ) ឬរចនាសម្ព័ន្ធដែលមនុស្សបង្កើតឡើង (អគារ។"
 "ល។)ដែលគ្រប់ដណ្តប់ នៅលើផ្ទៃដីផ្នែកខាងលើ។</p><p> ជាធម្មតាគូសបាន 1 ចម្លើយ ហើយច្រើនបំផុត "
 "2ចម្លើយ</p>"
 
@@ -6662,7 +6662,7 @@ msgid ""
 "applicable in a wider area.</p>"
 msgstr ""
 "បច្ចេកទេសការគ្រប់គ្រងដីប្រកបដោយចីរភាព គឺជាការអនុវត្តន៍រូបវ័ន្តនៅទីវាលដែលគ្រប់គ្រងឱនភាពដី និង/"
-"បង្កើនផលិតភាព។ បច្ចេកទេសមួយរួមមានការវាស់វែងមួយ ឬច្រើនដូចជា ក្សេត្រសាស្ត្រ សារពើរុក្ខជាតិ "
+"បង្កើនផលិតភាព។ បច្ចេកទេសមួយរួមមានការវាស់វែងមួយ ឬច្រើនដូចជា ក្សេត្រសាស្ត្រ រុក្ខជាតិ "
 "រចនាសម្ព័ន្ធ និងការវាស់វែងការគ្រប់គ្រង។</p><p> បច្ចេកទេស "
 "SLMតែមួយនេះគួរតែគ្របដណ្តប់សំណុំដូចគ្នាដូចជា ស្ថានភាពធម្មជាតិ (លក្ខណៈជីវសាស្ត្រ) និងមនុស្ស "
 "(សេដ្ឋកិច្ចសង្គម)។ ទាំងនេះមានន័យថាបច្ចេកទេសមិនត្រូវបានអនុវត្តក្នុងភាពខុសប្លែកគ្នានោះទេ "
@@ -6743,7 +6743,7 @@ msgstr ""
 "ដើម្បីបង្ហាញជាភស្តុតាង។ ប្រើប្រាស់ឯកតាសម្រាប់កំណត់លើទិន្នផល (ឧ, តោន/ហិកតាចំពោះដំណាំ និង "
 "ការវាស់វែងសម្រាប់គុណភាពទឹក ។ល។) បើទោះបីកើនឡើងត្រឹម 10%% (ឧ, ទៅលើទិន្នផល) "
 "អាចចាត់ទុកថាជាការធ្វើឲ្យប្រសើឡើងដ៏ល្អមួយ សូមគូសលើប្រអប់ “ផលវិជ្ជមានតិចតួច (+5-20%%)” និង "
-"“ពន្យល់បន្ថែម”។កំណត់ត្រឹម “បរិមាណ(ទិន្នផលមុន និងក្រោយ) អនុវត្ត SLM” "
+"“ពន្យល់បន្ថែម”។ កំណត់ត្រឹម “បរិមាណ (ទិន្នផលមុន និងក្រោយ) អនុវត្ត SLM” "
 "បើការកំណត់ត្រូវបានធ្វើឡើងនៅទីវាល ឬដោយមធ្យមភាគនៃការ អង្កេត។ "
 "ផលប៉ះពាល់ផ្សេងៗដែលមិនបានគូសជ្រើសយកគឺចាត់ទុកថា \"មិនពាក់ព័ន្ធ\"។ </p><p><strong>តំបន់ខាងក្នុង</"
 "strong>៖ គិតតែក្នុងបរិវេណដែលបានអនុវត្តបច្ចេកទេស។<br><strong>តំបន់ខាងក្រៅ </strong>៖"
@@ -10259,11 +10259,27 @@ msgid "Specify the centre of the area in which the Approach has been applied."
 msgstr "កំណត់ពីចំណុចកណ្តាល​នៃតំបន់ដែលបានផ្សព្វផ្សាយ។"
 
 #: apps/configuration/configuration_translations.py:5903
+msgctxt "technologies helptext"
+msgid ""
+"Add a point for each technology site that was considered/ analysed in the "
+"documentation of this technology. If more than 10 sites were considered, "
+"select and add a point for those that are most representative."
+msgstr ""
+"ចូរបន្ថែមចំណុចមួយនៃទីកន្លែងបច្ចេកទេសដែលត្រូវបានគិតឬវិភាគក្នុងការចងក្រងបច្ចេកទេសនេះ។ "
+"ប្រសិនបើចំនួនទីកន្លែងអនុវត្តបច្ចេកទេសនេះមានច្រើនជាង 10 "
+"សូមជ្រើសរើសនិងបន្ថែមចំណុចមួយសម្រាប់ទីតាំងណាមួយដែលជាតំណាង។"
+
+#: apps/configuration/configuration_translations.py:5904
+msgctxt "technologies label"
+msgid "Add geo-referenced information on the map below"
+msgstr "បន្ថែមពត៌មានយោងទីតាំងភូមិសាស្រ្តលើផែនទីខាងក្រោម"
+
+#: apps/configuration/configuration_translations.py:5905
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
 msgstr "កំណត់ពីចំណុចកណ្តាលនៃតំបន់ទីជម្រាល"
 
-#: apps/configuration/configuration_translations.py:5904
+#: apps/configuration/configuration_translations.py:5906
 msgctxt "approaches helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10323,7 +10339,7 @@ msgstr ""
 "class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</"
 "a></p>"
 
-#: apps/configuration/configuration_translations.py:5905
+#: apps/configuration/configuration_translations.py:5907
 msgctxt "technologies helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10383,7 +10399,7 @@ msgstr ""
 "class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</"
 "a></p>"
 
-#: apps/configuration/configuration_translations.py:5906
+#: apps/configuration/configuration_translations.py:5908
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -14259,7 +14275,7 @@ msgid ""
 "against the prevailing wind direction</li><li>are often spaced according to "
 "slope</li></ul>"
 msgstr ""
-"<strong>វិធានការសារពើរុក្ខជាតិ </strong><ul><li>•\tរួមបញ្ចូលការប្រើប្រាស់ស្មៅ ដើមឈើតូចៗ "
+"<strong>វិធានការរុក្ខជាតិ </strong><ul><li>•\tរួមបញ្ចូលការប្រើប្រាស់ស្មៅ ដើមឈើតូចៗ "
 "ឬដើមឈើធំដែលមានអាយុកាលវែង</li><li>អាយុកាលវែង</li><li>•"
 "\tជាញឹកញាប់នាំឱ្យមានការផ្លាស់ប្តូរទម្រង់ជម្រាល</"
 "li><li>ជាញឹកញាប់ត្រូវបានតម្រឹមនៅតាមបណ្តោយជម្រាលភ្នំ ឬជាទូទៅប្រឆាំង នឹងទិសខ្យល់</"
@@ -14268,7 +14284,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:29122
 msgctxt "cca label"
 msgid "Vegetative measures"
-msgstr "វិធានការសារពើរុក្ខជាតិ"
+msgstr "វិធានការរុក្ខជាតិ"
 
 #: apps/configuration/configuration_translations.py:29123
 msgctxt "cca helptext"
@@ -15164,10 +15180,10 @@ msgstr ""
 "Sourakhak watershed ប្រទេសអាហ្វហ្គានីស្ថាន ប្រើសម្រាប់សម្រាប់ប្រេងឥន្ធនៈ​ ចំណីសត្វ វាលស្មៅ "
 "និងដំណាំចម្ការ (រូបថតៈ S. Bhuchar, Helvetas)​</p></div><div class=\"medium-6 "
 "columns\"><img src=\"/static/assets/img/watershed/watershed_example_2.jpg"
-"\"><p class=\"form-example-legend\">វិធានការរចនាស័ម្ពន្ធ​(ស្នាមភ្លោះវណ្ឌជារង្វង់ ទំនប់ "
+"\"><p class=\"form-example-legend\">វិធានការរចនាស័ម្ពន្ធ ​(ស្នាមភ្លោះវណ្ឌជារង្វង់ ទំនប់ "
 "រចនាស័ម្ពន្ធស្តុកទឹកទុក) ដោយមានការចូលរួមគ្នានូវការគ្រប់គ្រង​(ការគ្រប់គ្រងវាលស្មៅ​ និង shrub-"
-"cutting)​ និងវិធានការសារពើរុក្ខជាតិ ដែលប្រើនៅទីជម្រាល បាហ្គា គូសតា​​​​​ Baqa Kushta "
-"watershed​​ ប្រទេសអាហ្វហ្គានីស្ថាន (រូបថតៈS. Bhuchar, Helvetas)</p></div></div>។"
+"cutting)​ និងវិធានការរុក្ខជាតិ ដែលប្រើនៅទីជម្រាល បាហ្គា គូសតា​​​​​ Baqa Kushta watershed​​ "
+"ប្រទេសអាហ្វហ្គានីស្ថាន (រូបថតៈS. Bhuchar, Helvetas)</p></div></div>។"
 
 #: apps/configuration/configuration_translations.py:32709
 msgctxt "watershed label"
@@ -15276,12 +15292,11 @@ msgstr ""
 "“ទីជម្រាល” អាចមាន័យថាជាការបែងចែកជាក់លាក់មួយរវាងផ្ទៃអាងរងទឹកភ្លៀងពីរ "
 "ពីកន្លែងដែលទឹកត្រូវបានទប់នៅក្នុងទិសដៅស្របគ្នា ជាជាងតំបន់ជាមួយលំហូរទឹក​ ឬប្រព័ន្ធបង្ហូរ។)</p><p> "
 "ទីជម្រាលមួយចាប់យកទឹកភ្លៀង ច្រោះ និងរក្សាទឹកហើយកំណត់ពីការបង្ហូររបស់វា (Schreier et al. 1997)។ "
-"អ្នកប្រើប្រាស់ដី សារពើរុក្ខជាតិ ទឹក និងធនធាន (កសិករ អ្នកចិញ្ចឹមសត្វ ឧស្សាហកម្ម ទីប្រជុំុំជន បសុសត្វ "
-"សត្វព្រៃ។ល។) គឺជាសមាសធាតុសំខាន់ៗរបស់វា។ សមាសធាតុបរិស្ថាន និងមនុស្ស "
-"គឺមានទំនាក់ទំនងគ្នាយ៉ាងជិតស្និទ្ធ "
+"អ្នកប្រើប្រាស់ដី រុក្ខជាតិ ទឹក និងធនធាន (កសិករ អ្នកចិញ្ចឹមសត្វ ឧស្សាហកម្ម ទីប្រជុំុំជន បសុសត្វ សត្វព្រៃ។"
+"ល។) គឺជាសមាសធាតុសំខាន់ៗរបស់វា។ សមាសធាតុបរិស្ថាន និងមនុស្ស គឺមានទំនាក់ទំនងគ្នាយ៉ាងជិតស្និទ្ធ "
 "និងអាស្រ័យគ្នាទៅវិញទៅមកទៅតាមមធ្យោបាយដែលមានការប្រែប្រួលទៅលើសមាសធាតុមួយមានផលប៉ះពាល់ទៅលើសមាសធាតុផ្សេងទៀត។"
 "</p><p><strong>និយមន័យ ការគ្រប់គ្រងទីជម្រាល</strong>: ការគ្រប់គ្រងទីជម្រាល "
-"គឺជាការបញ្ចូលគ្នានូវការប្រើប្រាស់ដី សារពើរុក្ខជាតិ និងទឹក "
+"គឺជាការបញ្ចូលគ្នានូវការប្រើប្រាស់ដី រុក្ខជាតិ និងទឹក "
 "នៅក្នុងផ្ទៃអាងរកទឹកភ្លៀងដាច់ដោយឡែកនៅទីតាំងភូមិសាស្ត្រមួយ "
 "ឬផ្ទៃដីប្រព័ន្ធបង្ហូរសម្រាប់ជាអត្ថប្រយោជន៍នៃការរស់នៅ ដោយមានទិសដៅថែរក្សាសេវាកម្មទឹក "
 "និងសេវាកម្មផ្សេងៗទៀតដែលទីជម្រាលផ្តល់ឱ្យ ហើយកាត់បន្ថយ "
@@ -16121,10 +16136,12 @@ msgstr ""
 "និងអ្នកបោះពុម្ពទាំងអស់អាចបោះពុម្ព/ បដិសេធ %(questionnaire_type)s សម្រាប់ការបោះពុម្ពផ្សាយ។"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:63
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:31
 msgid "Search user"
 msgstr "ស្រាវជ្រាវអ្នកប្រើប្រាស់"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:35
@@ -16133,6 +16150,7 @@ msgid "No results found"
 msgstr "មិនមានលទ្ធផល"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:68
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:36
@@ -16144,11 +16162,78 @@ msgstr "មានលទ្ធផលច្រើនពេក សូមធ្វ�
 msgid "Update users"
 msgstr "បច្ចុប្បន្នភាពអ្នកប្រើប្រាស់"
 
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:5
+#, fuzzy
+#| msgid "Compiler"
+msgid "Change compiler"
+msgstr "អ្នកចងក្រង"
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:9
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              You are <strong>%(role)s</strong> of this "
+#| "%(questionnaire_type)s.\n"
+#| "              "
+msgid ""
+"\n"
+"        As a member of the WOCAT secretariat, you can change the compiler of "
+"this %(questionnaire_type)s.\n"
+"      "
+msgstr ""
+"\n"
+"អ្នកគឺជា<strong>%(role)s</strong>នៃ%(questionnaire_type)s\n"
+" នេះ។"
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:20
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              You are <strong>%(role)s</strong> of this "
+#| "%(questionnaire_type)s.\n"
+#| "              "
+msgid ""
+"\n"
+"            Search and select a user who will be the new compiler of this "
+"%(questionnaire_type)s.\n"
+"          "
+msgstr ""
+"\n"
+"អ្នកគឺជា<strong>%(role)s</strong>នៃ%(questionnaire_type)s\n"
+" នេះ។"
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:40
+msgid "Keep the current compiler as editor?"
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/_change_compiler.html:41
+#, fuzzy
+#| msgid "Update publishers"
+msgid "Update compiler"
+msgstr "កែសម្រួលឈ្មោះអ្នកបោះពុម្ព"
+
 #: apps/questionnaire/templates/details/review_panel/_delete.html:7
 #: apps/questionnaire/templates/details/review_panel/_delete.html:41
 #: apps/questionnaire/templates/form/questiongroup/map.html:98
 msgid "Delete"
 msgstr "លុបចេញ"
+
+#: apps/questionnaire/templates/details/review_panel/_delete.html:12
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "          Delete this %(questionnaire_type)s. Only the compiler can "
+#| "delete a %(questionnaire_type)s while it is in draft mode.\n"
+#| "        "
+msgid ""
+"\n"
+"          Delete this %(questionnaire_type)s. As a member of the WOCAT "
+"secretariat, you can delete this %(questionnaire_type)s.\n"
+"        "
+msgstr ""
+"\n"
+"លុបចោល %(questionnaire_type)s។ មានតែអ្នកចងក្រងប៉ុណ្ណោះដែលអាចធ្វើការលុប "
+"%(questionnaire_type)s បាននៅពេលដែលវានៅជាសេចក្តីព្រាង។"
 
 #: apps/questionnaire/templates/details/review_panel/_delete.html:16
 #, python-format
@@ -18213,8 +18298,8 @@ msgid ""
 "structural, and management measures."
 msgstr ""
 "<strong> បច្ចេកទេស SLM </strong> គឺជាការអនុវត្តនៅទីវាលដែលគ្រប់គ្រងឱនភាពដី និង/ឬ "
-"ពង្រីកផលិតកម្ម។ បច្ចេកទេសមួយរួមមានវិធានការមួយ ឬច្រើន ដូចជា ក្សត្រសាស្ត្រ សារពើរុក្ខជាតិ "
-"រចនាស័ម្ពន្ធ និងវិធានការនៃការគ្រប់គ្រង។"
+"ពង្រីកផលិតកម្ម។ បច្ចេកទេសមួយរួមមានវិធានការមួយ ឬច្រើន ដូចជា ក្សត្រសាស្ត្រ រុក្ខជាតិ រចនាស័ម្ពន្ធ "
+"និងវិធានការនៃការគ្រប់គ្រង។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:30
 msgid ""
@@ -18898,17 +18983,3 @@ msgstr ""
 "<pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/csv' "
 "https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
 "</p>"
-
-#~ msgctxt "technologies helptext"
-#~ msgid ""
-#~ "Add a point for each technology site that was considered/ analysed in the "
-#~ "documentation of this technology. If more than 10 sites were considered, "
-#~ "select and add a point for those that are most representative."
-#~ msgstr ""
-#~ "ចូរបន្ថែមចំណុចមួយនៃទីកន្លែងបច្ចេកទេសដែលត្រូវបានគិតឬវិភាគក្នុងការចងក្រងបច្ចេកទេសនេះ។ "
-#~ "ប្រសិនបើចំនួនទីកន្លែងអនុវត្តបច្ចេកទេសនេះមានច្រើនជាង 10 "
-#~ "សូមជ្រើសរើសនិងបន្ថែមចំណុចមួយសម្រាប់ទីតាំងណាមួយដែលជាតំណាង។"
-
-#~ msgctxt "technologies label"
-#~ msgid "Add geo-referenced information on the map below"
-#~ msgstr "បន្ថែមពត៌មានយោងទីតាំងភូមិសាស្រ្តលើផែនទីខាងក្រោម"
