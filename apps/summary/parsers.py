@@ -620,10 +620,10 @@ class ApproachParser(QuestionnaireParser):
         roles = kwargs.get('app_stakeholders_roles')
         comments = kwargs.get('app_stakeholders_comments')
 
-        yield '{label}{roles}{comments}'.format(
+        yield '{label}{comments}{roles}'.format(
             label=label,
-            roles=' ({})'.format(roles) if roles else '',
-            comments=': {}'.format(comments) if comments else ''
+            comments=' ({})'.format(comments) if comments else '',
+            roles=': {}'.format(roles) if roles else '',
         )
 
     def get_involvement(self, child: QuestionnaireQuestion):
