@@ -123,26 +123,6 @@ class CompressMixin:
     # maybe: use different (faster) filters for css and js.
 
 
-class SentryMixin:
-    """
-    Config for sentry.
-    """
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + (
-            'raven.contrib.django.raven_compat',
-        )
-
-    @property
-    def RAVEN_CONFIG(self):
-        import raven
-
-        return {
-            'dsn': str(super().SENTRY_DSN),
-            'release': raven.fetch_git_sha(super().BASE_DIR)
-        }
-
-
 class AuthenticationFeatureSwitch:
     """
     The new authentication is a feature switch, not just a new backend.
@@ -170,3 +150,15 @@ class AuthenticationFeatureSwitch:
             middlewares.remove(old_middleware)
             middlewares = tuple(middlewares)
         return middlewares
+
+
+class OpBeatMixin:
+
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + ('opbeat.contrib.django', )
+
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        return ('opbeat.contrib.django.middleware.OpbeatAPMMiddleware', ) + \
+               super().MIDDLEWARE_CLASSES

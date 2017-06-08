@@ -325,8 +325,6 @@ class BaseSettings(Configuration):
         environ_prefix='', default=False
     )
 
-    SENTRY_DSN = values.Value(environ_prefix='')
-
     HOST_STRING_DEV = values.Value(environ_prefix='')
     HOST_STRING_DEMO = values.Value(environ_prefix='')
     HOST_STRING_LIVE = values.Value(environ_prefix='')
@@ -335,6 +333,9 @@ class BaseSettings(Configuration):
     TOUCH_FILE_DEV = values.Value(environ_prefix='')
     TOUCH_FILE_DEMO = values.Value(environ_prefix='')
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
+
+    # 'OPBEAT' is set according to host in settings.py
+    OPBEAT = values.DictValue(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
     NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')
