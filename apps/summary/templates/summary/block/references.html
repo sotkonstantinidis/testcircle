@@ -10,6 +10,16 @@
     {% include 'summary/partial/unordered_list.html' with list_items=content.compiler.items%}
   </div>
 </div>
+
+<div class="row avoidbreak">
+  <div class="small-6 columns">
+    <h5>{{ content.meta.created.title }}</h5>{{ content.meta.created.value|date }}
+  </div>
+  <div class="small-6 columns">
+    <h5>{{ content.meta.updated.title }}</h5>{{ content.meta.updated.value|date }}
+  </div>
+</div>
+
 <div class="row avoidbreak">
   <div class="small-12 columns">
     <h5>{{ content.people.title }}</h5>
