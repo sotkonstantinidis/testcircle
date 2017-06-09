@@ -21,8 +21,10 @@ urlpatterns = patterns(
     url(r'^list/$',
         QuestionnaireListView.as_view(configuration_code=__package__),
         name='questionnaire_list'),
-    url(r'^filter/$', QuestionnaireFilterView.as_view(
-        configuration_code=__package__), name='questionnaire_filter'),
     url(r'^list_partial/$', QuestionnaireListView.as_view(configuration_code=__package__),
         name='questionnaire_list_partial'),
+    url(r'^filter/$', QuestionnaireFilterView.as_view(
+        configuration_code=__package__), name='questionnaire_filter'),
+    url(r'^filter_partial/$', QuestionnaireFilterView.as_view(
+        configuration_code=__package__), name='questionnaire_filter_partial'),
 )

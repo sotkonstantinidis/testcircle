@@ -228,13 +228,14 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
     template_name = 'search/partial/filter_value.html'
 
     configurations = None
-    configuration_code = 'technologies'
+    configuration_code = None
 
     def get_configuration_object(self):
         configuration_code = self.request.GET.get('type')
         return get_configuration(configuration_code)
 
     def dispatch(self, request, *args, **kwargs):
+        self.configuration_code = self.request.GET.get('type')
         self.set_attributes()
 
         configuration = self.get_configuration_object()

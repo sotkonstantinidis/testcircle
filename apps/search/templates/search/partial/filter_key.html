@@ -1,52 +1,19 @@
 {% load i18n %}
 
-{# TODO: Remove if this is not needed anymore #}
-{% comment %}
-
-  More complex behaviour with a display and an edit mode.
-
-<div class="row large-no-gutters is-rhythmed filter-edit-additional"{% if initial_filter %} data-initial-qg="{{ initial_filter.questiongroup }}" data-initial-key="{{ initial_filter.key }}" data-initial-value="{{ initial_filter.value|join:',' }}"{% endif %}>
-  <div class="medium-2 columns">
-    <div class="filter-edit-mode{% if view_mode %} hide{% endif %}">
-      <select class="filter-key-select">
-        {% for key in filter_select %}
-          <option value="{{ key.0 }}">{{ key.1 }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="filter-view-mode filter-view-key{% if not view_mode %} hide{% endif %}">
-      {% if initial_filter %}{{ initial_filter.key_label }}{% endif %}
-    </div>
-  </div>
-  <div class="medium-9 columns">
-    <div class="filter-edit-mode filter-value-column{% if view_mode %} hide{% endif %}"></div>
-    <div class="filter-view-mode filter-view-value{% if not view_mode %} hide{% endif %}">
-      {% if initial_filter %}{{ initial_filter.value_label }}{% endif %}
-    </div>
-  </div>
-  <div class="medium-1 columns text-right">
-    <div class="filter-edit-mode{% if view_mode %} hide{% endif %}">
-      <a href="#" class="button small filter-edit-button js-filter-edit-apply"><svg class="icon is-inline"><use xlink:href="#icon-checkmark" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
-      <a href="#" class="button small filter-edit-button js-filter-remove"><svg class="icon is-inline"><use xlink:href="#icon-bin" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
-    </div>
-    <div class="filter-view-mode{% if not view_mode %} hide{% endif %}">
-      <a href="#" class="button small filter-edit-button js-filter-enable-edit"><svg class="icon is-inline"><use xlink:href="#icon-pencil" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
-      <a href="#" class="button small filter-edit-button js-filter-remove"><svg class="icon is-inline"><use xlink:href="#icon-bin" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
-    </div>
-  </div>
-</div>
-{% endcomment %}
-
 <div class="row large-no-gutters is-rhythmed js-filter-item"{% if initial_filter %} data-initial-qg="{{ initial_filter.questiongroup }}" data-initial-key="{{ initial_filter.key }}" data-initial-value="{{ initial_filter.value|join:',' }}"{% endif %}>
   <div class="medium-2 columns">
     <select class="filter-key-select">
       {% for key in filter_select %}
-        <option value="{{ key.0 }}">{{ key.1 }}</option>
+        <option value="{{ key.0 }}"{% if key.0 == initial_filter.key_path %} selected="selected"{% endif %}>{{ key.1 }}</option>
       {% endfor %}
     </select>
   </div>
   <div class="medium-9 columns">
-    <div class="filter-value-column"></div>
+    <div class="filter-value-column">
+      {% if initial_filter %}
+        {% include 'search/partial/filter_value.html' with choices=initial_filter.choices_counted key_path=initial_filter.key_path selected=initial_filter.value %}
+      {% endif %}
+    </div>
   </div>
   <div class="medium-1 columns">
     <a href="#" class="js-filter-remove filter-item-button">

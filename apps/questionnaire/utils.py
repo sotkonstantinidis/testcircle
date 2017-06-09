@@ -761,6 +761,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
                 'value': split_filter_values,
                 'value_label': ' / '.join(value_labels),
                 'type': question.field_type,
+                'choices': question.choices,
             })
 
     return sorted(active_filters, key=lambda k: k['key'])

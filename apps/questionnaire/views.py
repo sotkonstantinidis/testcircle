@@ -1081,9 +1081,10 @@ class ESQuestionnaireQueryMixin:
         """
         try:
             # Blank search returns all items within all indexes.
+            include_buckets = call_from == 'filter'
             es_search_results = advanced_search(
                 limit=self.page_size, offset=self.offset,
-                **self.get_filter_params()
+                include_buckets=include_buckets, **self.get_filter_params()
             )
         except TransportError:
             # See https://redmine.cde.unibe.ch/issues/1093
@@ -1135,6 +1136,11 @@ class ESQuestionnaireQueryMixin:
             self.configurations, self.request.GET)
         query_string = ''
         filter_params = []
+
+        FilterParam = collections.namedtuple(
+            'FilterParam',
+            ['questiongroup', 'key', 'values', 'operator', 'type'])
+
         for active_filter in active_filters:
             filter_type = active_filter.get('type')
             if filter_type in ['_search']:
@@ -1143,9 +1149,11 @@ class ESQuestionnaireQueryMixin:
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
                 'select_model', 'radio', 'bool']:
                 filter_params.append(
-                    (active_filter.get('questiongroup'),
-                     active_filter.get('key'), active_filter.get('value'),
-                     active_filter.get('operator'), active_filter.get('type')))
+                    FilterParam(
+                        active_filter.get('questiongroup'),
+                        active_filter.get('key'), active_filter.get('value'),
+                        active_filter.get('operator'),
+                        active_filter.get('type')))
             else:
                 raise NotImplementedError(
                     'Type "{}" is not valid for filters'.format(filter_type))
@@ -1158,35 +1166,45 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
     configuration_code = None
     configurations = None
     es_hits = {}
+    call_from = 'list'
 
     def get(self, request, *args, **kwargs):
         self.set_attributes()
         if self.request.is_ajax():
-            return JsonResponse(self.get_partial_data())
+            return JsonResponse(self.get_context_data(**kwargs))
         else:
             return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        es_results = self.get_es_results()
+        es_results = self.get_es_results(call_from=self.call_from)
 
         es_pagination = self.get_es_paginated_results(es_results)
         questionnaires, self.pagination = self.get_es_pagination(es_pagination)
+        aggregations = es_results.get('aggregations', {})
 
         list_values = get_list_values(es_hits=questionnaires)
-        return self.get_template_values(list_values, questionnaires)
+        return self.get_template_values(
+            list_values, questionnaires, aggregations)
 
     def get_template_names(self):
         return '{}/questionnaire/list.html'.format(self.configuration_code)
 
-    def get_filter_url(self):
-        return reverse(
-            '{}:questionnaire_list_partial'.format(self.configuration_code))
+    def get_filter_template_names(self):
+        return '{}/questionnaire/partial/basic_filter.html'.format(
+            self.configuration_code)
 
-    def get_global_filters(self):
+    def get_partial_list_template_names(self):
+        return 'questionnaire/partial/list.html'
 
+    def get_global_filter_configuration(self):
+        """
+        Get the configuration for the global filter which is available for all
+        types of questionnaires.
+        """
         filter_configuration = {
             'projects': [(p.id, str(p)) for p in Project.objects.all()],
-            'flags': [(f.flag, f.get_flag_display()) for f in Flag.objects.all()],
+            'flags': [
+                (f.flag, f.get_flag_display()) for f in Flag.objects.all()],
         }
 
         # Global keys
@@ -1199,47 +1217,61 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
 
         return filter_configuration
 
-    def get_template_values(self, list_values, questionnaires):
+    def get_basic_filter_values(self, list_values, questionnaires):
         """
-        Paginate the queryset and return a dict of template values.
+        Get the template values required for the basic filter.
         """
-
-        template_values = {
+        basic_filter_values = {
             'list_values': list_values,
-            'filter_configuration': self.get_global_filters(),
+            'filter_configuration': self.get_global_filter_configuration(),
             'active_filters': get_active_filters(
                 self.configurations, self.request.GET),
-            'filter_url': self.get_filter_url(),
+            'request': self.request,
         }
 
         # Add the pagination parameters
-        template_values.update(**get_pagination_parameters(
+        basic_filter_values.update(**get_pagination_parameters(
             self.request, self.pagination, questionnaires))
 
-        return template_values
+        return basic_filter_values
 
-    def get_partial_data(self):
-        list_values = self.get_context_data()
-
-        list_ = render_to_string('wocat/questionnaire/partial/list.html', {
-            'list_values': list_values['list_values']})
-        active_filters = render_to_string('active_filters.html', {
-            'active_filters': list_values['active_filters']})
-        pagination = render_to_string('pagination.html', list_values)
-
+    def get_rendered_list_parts(self, filter_values):
+        """
+        Get the rendered list parts (the bottom of the filter page)
+        """
         return {
-            'success': True,
-            'list': list_,
-            'active_filters': active_filters,
-            'pagination': pagination,
-            'count': list_values['count'],
+            'rendered_list': render_to_string(
+                self.get_partial_list_template_names(), filter_values),
+            'pagination': render_to_string('pagination.html', filter_values),
+            'count': filter_values.get('count', 0)
         }
+
+    def get_template_values(self, list_values, questionnaires, aggregations):
+        """
+        Paginate the queryset and return a dict of template values.
+        """
+        filter_values = self.get_basic_filter_values(
+            list_values, questionnaires)
+
+        basic_filter = render_to_string(
+            self.get_filter_template_names(), filter_values)
+
+        template_values = self.get_rendered_list_parts(filter_values)
+        template_values.update({
+            'rendered_filter': basic_filter,
+        })
+        return template_values
 
 
 class QuestionnaireFilterView(QuestionnaireListView):
+    call_from = 'filter'
 
     def get_template_names(self):
         return '{}/questionnaire/filter.html'.format(self.configuration_code)
+
+    def get_filter_template_names(self):
+        return '{}/questionnaire/partial/advanced_filter.html'.format(
+            self.configuration_code)
 
     def get_advanced_filter_select(self):
         configuration = get_configuration(self.request.GET.get('type'))
@@ -1247,19 +1279,57 @@ class QuestionnaireFilterView(QuestionnaireListView):
         filter_keys.insert(0, ('', '---'))
         return filter_keys
 
-    def get_template_values(self, list_values, questionnaires):
-        template_values = super(
-            QuestionnaireFilterView, self).get_template_values(
-                list_values, questionnaires)
-
+    def get_advanced_filter_values(self, active_filters, aggregations):
+        """
+        Collect all advanced filters, also count their choices based on the ES
+        aggregation. Also add the available keys for additional filters.
+        """
         advanced_filter_select = self.get_advanced_filter_select()
         advanced_filter_keys = [f[0] for f in advanced_filter_select[1:]]
 
-        template_values.update({
-            'advanced_filter_select': advanced_filter_select,
-            'advanced_filter_keys': advanced_filter_keys,
-        })
+        active_advanced_filters = []
+        for active_filter in active_filters:
+            questiongroup = active_filter.get('questiongroup')
+            key = active_filter.get('key')
+            key_path = f'{questiongroup}__{key}'
+            if key_path not in advanced_filter_keys:
+                continue
 
+            buckets = aggregations.get(key_path, {}).get('values', {}).get(
+                'buckets', [])
+            value_buckets = {b['key']: b['doc_count'] for b in buckets}
+
+            values_counted = []
+            for c in active_filter.get('choices', []):
+                count = value_buckets.get(c[0], 0)
+                values_counted.append((c[0], f'{c[1]} ({count})'))
+
+            active_filter.update({
+                'choices_counted': values_counted,
+                'key_path': key_path,
+            })
+            active_advanced_filters.append(active_filter)
+
+        return {
+            'active_advanced_filters': active_advanced_filters,
+            'advanced_filter_select': advanced_filter_select,
+        }
+
+    def get_template_values(self, list_values, questionnaires, aggregations):
+        filter_values = super(
+            QuestionnaireFilterView, self).get_basic_filter_values(
+                list_values, questionnaires)
+
+        filter_values.update(self.get_advanced_filter_values(
+            filter_values.get('active_filters', []), aggregations))
+
+        advanced_filter = render_to_string(
+            self.get_filter_template_names(), filter_values)
+
+        template_values = self.get_rendered_list_parts(filter_values)
+        template_values.update({
+            'rendered_filter': advanced_filter,
+        })
         return template_values
 
 

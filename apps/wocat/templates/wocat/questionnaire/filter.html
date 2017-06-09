@@ -16,101 +16,11 @@
   {% addtoblock 'js' %}
     {% compress js %}
       <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
-      <script>
-        $('.chosen-select').chosen({
-          allow_single_deselect: true,
-          search_contains: true
-        });
-      </script>
     {% endcompress %}
   {% endaddtoblock %}
 
-  <form action="" data-url="{{ filter_url }}" data-list-url="{% url 'wocat:questionnaire_filter' %}" id="search-advanced" class="filter-advanced">
-    <div class="top-bar-search">
-      <div class="row large-no-gutters">
-        <div class="medium-2 columns">
-          <label for="filter-type">{% trans "SLM Data Type" %}</label>
-        </div>
-        <div class="medium-10 columns">
-          <div class="search-category">
-            <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light disabled">{% trans "All SLM Data" %}</a>
-            <ul id="drop1" data-dropdown-content class="f-dropdown search-type-select" aria-hidden="true">
-              <li><a href="#" data-type="all">{% trans "All SLM Data" %}</a></li>
-              <li><a href="#" data-type="technologies">{% trans "SLM Technologies" %}</a></li>
-              <li><a href="#" data-type="approaches">{% trans "SLM Approaches" %}</a></li>
-              <li><a href="#" data-type="unccd">{% trans "UNCCD PRAIS Practices" %}</a></li>
-            </ul>
-            <input type="hidden" name="type" id="search-type" value="all">
-          </div>
-        </div>
-      </div>
-      <div class="row large-no-gutters is-rhythmed">
-        <div class="medium-2 columns">
-          <label for="filter-country">{% trans "Country" %}</label>
-        </div>
-        <div class="medium-10 columns">
-          <select name="filter-country" class="chosen-select hidden-filter" data-questiongroup="qg_location" data-key="country" data-placeholder="{% trans 'Select or type a country name' %}">
-            <option value=""></option>
-            {% with request.GET.filter__qg_location__country|default:None as selected_country %}
-              {% for country in filter_configuration.countries %}
-                <option value="{{ country.0 }}" {% if selected_country == country.0 %}selected="selected"{% endif %}>{{ country.1 }}</option>
-              {% endfor %}
-          {% endwith %}
-          </select>
-        </div>
-      </div>
-      <div class="row large-no-gutters is-rhythmed">
-        <div class="medium-2 columns">
-          <label for="filter-project">{% trans "Project" %}</label>
-        </div>
-        <div class="medium-10 columns">
-          <select name="filter-project" class="chosen-select hidden-filter" data-questiongroup="qg_funding_project" data-key="funding_project" data-placeholder="{% trans 'Select or type a project name' %}">
-            <option value=""></option>
-            {% with request.GET.filter__qg_funding_project__funding_project|default:None as selected_project %}
-              {% for project in filter_configuration.projects %}
-                <option value="{{ project.0 }}" {% if selected_project == project.0 %}selected="selected"{% endif %}>{{ project.1 }}</option>
-              {% endfor %}
-            {% endwith %}
-          </select>
-        </div>
-      </div>
-      <div class="row large-no-gutters is-rhythmed">
-        <div class="medium-2 columns">
-          <label for="search-field">{% trans "Search Terms" %}</label>
-        </div>
-        <div class="medium-10 columns">
-          <div class="search-category">
-            <input type="search" id="search-field" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q">
-          </div>
-        </div>
-      </div>
-
-      {% for filter in active_filters %}
-        {% if filter.questiongroup|add:'__'|add:filter.key in advanced_filter_keys %}
-          {% include 'search/partial/filter_key.html' with filter_select=advanced_filter_select initial_filter=filter %}
-        {% endif %}
-      {% endfor %}
-
-      <div class="row large-no-gutters is-rhythmed">
-        <div class="medium-12 columns">
-          <a href="#" class="button secondary" id="filter-add-new" data-value-url="{% url 'search:filter_value' %}"><svg class="icon-lines is-inline"><use xlink:href="#icon-plus"></use></svg> {% trans "Add Filter" %}</a>
-        </div>
-      </div>
-
-      <div class="hide" id="filter-additional-template">
-        {% include 'search/partial/filter_key.html' with filter_select=advanced_filter_select %}
-      </div>
-
-      <div class="row large-no-gutters is-rhythmed">
-        <div class="medium-2 columns">
-          <input type="submit" class="search-submit button expand" value="{% trans "Search" %}">
-        </div>
-      </div>
-
-    </div>
-    <div id="active-filters" class="search-filters">
-      {% include "active_filters.html" %}
-    </div>
+  <form action="" data-url="{% url 'wocat:questionnaire_filter_partial' %}" data-list-url="{% url 'wocat:questionnaire_filter' %}" id="search-advanced" class="filter-advanced">
+    {{ rendered_filter }}
   </form>
 
   <main class="row large-collapse is-padded-2" role="main">
@@ -122,11 +32,11 @@
       <div class="tech-group">
         <h2 class="is-group">{% trans "Your search results" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>
         <div id="questionnaire-list">
-          {% include "wocat/questionnaire/partial/list.html" %}
+          {{ rendered_list }}
         </div>
       </div>
       <div id="pagination" class="is-rhythmed-2">
-        {% include "pagination.html" %}
+        {{ pagination }}
       </div>
     </section>
   </main>

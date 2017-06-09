@@ -1,3 +1,4 @@
+import collections
 from django.conf import settings
 from elasticsearch import TransportError
 
@@ -73,77 +74,80 @@ def get_es_query(
     # Filter parameters: Nested subqueries to access the correct
     # questiongroup.
     for filter_param in list(filter_params):
-        questiongroup, key, values, operator, filter_type = filter_param
 
-        if filter_type in [
+        if filter_param.type in [
                 'checkbox', 'image_checkbox', 'select_type', 'select_model',
                 'radio', 'bool']:
 
             # So far, range operators only works with one filter value. Does it
             # even make sense to have multiple of these joined by OR with the
             # same operator?
-            if operator in ['gt', 'gte', 'lt', 'lte']:
+            if filter_param.operator in ['gt', 'gte', 'lt', 'lte']:
                 query = {
                     'range': {
                         f'data.{questiongroup}.{key}_order': {
-                            operator: values[0]
+                            filter_param.operator: filter_param.values[0]
                         }
                     }
                 }
             else:
-                if len(values) > 1:
+                if len(filter_param.values) > 1:
                     query_strings = [
-                        _get_query_string(questiongroup, key, v) for v in values]
+                        _get_query_string(filter_param.questiongroup,
+                                          filter_param.key, v) for v in
+                        filter_param.values]
                     query = {
                         'bool': {
                             'should': query_strings
                         }
                     }
                 else:
-                    query = _get_query_string(questiongroup, key, values[0])
+                    query = _get_query_string(
+                        filter_param.questiongroup, filter_param.key,
+                        filter_param.values[0])
 
             es_queries.append({
                 'nested': {
-                    'path': f'data.{questiongroup}',
+                    'path': f'data.{filter_param.questiongroup}',
                     'query': query
                 }
             })
 
-        elif filter_type in ['text', 'char']:
+        elif filter_param.type in ['text', 'char']:
             es_queries.append({
                 "nested": {
-                    "path": "data.{}".format(questiongroup),
+                    "path": "data.{}".format(filter_param.questiongroup),
                     "query": {
                         "multi_match": {
-                            "query": values[0],
+                            "query": filter_param.values[0],
                             "fields": ["data.{}.{}.*".format(
-                                questiongroup, key)],
+                                filter_param.questiongroup, filter_param.key)],
                             "type": "most_fields",
                         }
                     }
                 }
             })
 
-        elif filter_type in ['_date']:
-            years = values[0].split('-')
+        elif filter_param.type in ['_date']:
+            years = filter_param.values[0].split('-')
             if len(years) != 2:
                 continue
             es_queries.append({
                 'range': {
-                    key: {
+                    filter_param.key: {
                         'from': '{}||/y'.format(years[0]),
                         'to': '{}||/y'.format(years[1]),
                     }
                 }
             })
 
-        elif filter_type in ['_flag']:
+        elif filter_param.type in ['_flag']:
             es_queries.append({
                 'nested': {
                     'path': 'flags',
                     'query': {
                         'query_string': {
-                            'query': values[0],
+                            'query': filter_param.values[0],
                             'fields': ['flags.flag'],
                         }
                     }
@@ -174,10 +178,45 @@ def get_es_query(
     }
 
 
+def get_aggs_query(filter_params: list) -> dict:
+    """
+    Return a query which contains aggregations for all values of the currently
+    active filters.
+
+    Args:
+        filter_params: A list of FilterParam tuples.
+
+    Returns:
+        dict.
+    """
+    def _get_agg(qg, k):
+        return {
+            'nested': {
+                'path': f'data.{qg}'
+            },
+            'aggs': {
+                'values': {
+                    'terms': {
+                        'field': f'data.{qg}.{k}'
+                    }
+                }
+            }
+        }
+
+    aggs = {}
+    for f in filter_params:
+        aggs[f'{f.questiongroup}__{f.key}'] = _get_agg(f.questiongroup, f.key)
+
+    return {
+        'aggs': aggs,
+    }
+
+
 def advanced_search(
         filter_params: list=None, query_string: str='',
         configuration_codes: list=None, limit: int=10,
-        offset: int=0, match_all: bool=True) -> dict:
+        offset: int=0, match_all: bool=True,
+        include_buckets: bool=False) -> dict:
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -214,6 +253,9 @@ def advanced_search(
         filter_params=filter_params, query_string=query_string,
         match_all=match_all)
 
+    if include_buckets is True:
+        query.update(get_aggs_query(filter_params))
+
     alias = get_alias(configuration_codes)
     return es.search(index=alias, body=query, size=limit, from_=offset)
 
@@ -229,28 +271,18 @@ def get_values_count(
         filter_params=filter_params, query_string=query_string,
         match_all=match_all)
 
+    MockFilterParam = collections.namedtuple(
+        'MockFilterParam', ['questiongroup', 'key'])
+    query.update(get_aggs_query([MockFilterParam(questiongroup, key)]))
     query.update({
         'size': 0,  # Do not include the actual hits
-        'aggs': {
-            'nested_values': {
-                'nested': {
-                    'path': f'data.{questiongroup}'
-                },
-                'aggs': {
-                    'values': {
-                        'terms': {
-                            'field': f'data.{questiongroup}.{key}'
-                        }
-                    }
-                }
-            }
-        }
     })
 
     alias = get_alias(configuration_codes)
     es_query = es.search(index=alias, body=query)
 
-    buckets = es_query.get('aggregations', {}).get('nested_values', {}).get('values', {}).get('buckets', [])
+    buckets = es_query.get('aggregations', {}).get(
+        f'{questiongroup}__{key}', {}).get('values', {}).get('buckets', [])
 
     return {b['key']: b['doc_count'] for b in buckets}
 

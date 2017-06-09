@@ -1,7 +1,7 @@
 <div data-key-path="{{ key_path }}">
   {% for choice in choices %}
     <label>
-      <input type="checkbox" name="filter-value-select" value="{{ choice.0 }}">
+      <input type="checkbox" name="filter-value-select" value="{{ choice.0 }}"{% if choice.0 in selected %} checked="checked"{% endif %}>
       {{ choice.1 }}
     </label>
   {% endfor %}

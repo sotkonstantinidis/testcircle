@@ -14,7 +14,6 @@ $(function () {
         var s = ['?', $.param(p, traditional = true)].join('');
         changeUrl(s);
         updateList(s);
-        updateFilterInputs();
 
         return false;
     })
@@ -42,7 +41,6 @@ $(function () {
         var s = ['?', $.param(p, traditional = true)].join('');
         changeUrl(s);
         updateList(s);
-        updateFilterInputs();
         return false;
     })
 
@@ -81,72 +79,6 @@ $(function () {
         var row = $(this).closest('.row');
         $(template.html()).insertBefore(row);
     })
-
-    // TODO: Remove this if not needed
-    // .on('click', '#filter-toggle-advanced', function(e) {
-    //     e.preventDefault();
-    //
-    //     var type_ = getConfigurationType();
-    //
-    //     if (!type_ || type_ === 'all') {
-    //         forceFilterType();
-    //         return;
-    //     }
-    //
-    //     $('#search-type-display').addClass('disabled');
-    //
-    //     $(this).hide();
-    //
-    //     var filterContainer = $('#filter-advanced-options');
-    //     filterContainer.show();
-    // })
-
-    // TODO: Remove this if not needed
-    // .on('click', '.js-filter-edit-apply', function(e) {
-    //     e.preventDefault();
-    //
-    //     // "Disable" the form
-    //     var filter = $(this).closest('.row');
-    //     var key = filter.find('.filter-key-select').find(':selected').text();
-    //     var values = filter.find('input[name="filter-value-select"]:checked').map(function() {
-    //         return $.trim($(this).parent('label').text());
-    //     });
-    //
-    //     filter.find('.filter-edit-mode').hide();
-    //     filter.find('.filter-view-mode').show();
-    //
-    //     filter.find('.filter-view-key').html(key);
-    //     filter.find('.filter-view-value').html(values.get().join(' / '));
-    //
-    //     var form = $(this).closest('form');
-    //     form.submit();
-    // })
-
-    // TODO: Remove this if not needed
-    // .on('click', '.js-filter-enable-edit', function(e) {
-    //     e.preventDefault();
-    //
-    //     var filter = $(this).closest('.row');
-    //
-    //     if (filter.attr('data-initial-qg')) {
-    //         // var url = $('#filter-add-new').data('key-url');
-    //         // var type_ = getConfigurationType();
-    //         // $.get(url, {type: type_}, function(data) {
-    //         //     filter.html(data);
-    //         // });
-    //         // If there is an initial questiongroup, set the correct key and
-    //         // trigger a change event to fetch its values
-    //
-    //
-    //
-    //         // var qg = filter.data('initial-qg');
-    //         // var key = filter.data('initial-key');
-    //         // filter.find('.filter-key-select').val([qg, key].join('__')).change();
-    //     }
-    //
-    //     filter.find('.filter-view-mode').hide();
-    //     filter.find('.filter-edit-mode').show();
-    // })
 
     // After a type (e.g. "technologies") was selected for the advanced filter,
     // redirect to the filter page by keeping all the currently active filters.
@@ -229,9 +161,20 @@ $(function () {
         }
     });
 
-    // Initially update the filter input fields
-    updateFilterInputs();
+    // Initiate chosen fields
+    activateChosen();
 });
+
+
+/**
+ * Activate the chosen fields of the filter.
+ */
+function activateChosen() {
+    $('#search-advanced').find('.chosen-select').chosen({
+      allow_single_deselect: true,
+      search_contains: true
+    });
+}
 
 
 /**
@@ -347,117 +290,6 @@ function createQueryString(p) {
 
 
 /**
- * Update the filter input fields based on the currently active filter.
- */
-function updateFilterInputs() {
-    var p = parseQueryString();
-
-    // Uncheck all input fields first
-    $('input[data-questiongroup]').prop('checked', false).trigger('change');
-
-    // Reset Sliders
-    $('.nstSlider').each(function () {
-        var min = $(this).data('range_min');
-        var max = $(this).data('range_max');
-        try {
-            $(this).nstSlider('set_position', min, max);
-        } catch (e) {
-        }
-    });
-
-    // Empty input fields
-    $('#search-advanced input[type=text], #search-advanced input[type=hidden]').val('');
-
-    // Only reset chosen fields of the search (and not those of the form)
-    $('#search-advanced .chosen-select').val('');
-
-
-    for (var k in p) {
-        var args = parseKeyParameter(k);
-        if (args.length !== 2) continue;
-
-        var values = p[k];
-        // chosen-select
-        for (var v in values) {
-            var el = $('select[data-questiongroup="' + args[0] + '"][data-key="' + args[1] + '"]');
-            if (el.length !== 1) continue;
-
-            // Set hidden value
-            el.val(values[v]);
-
-            // Look through the options to set the display value
-            var inputId = el.attr('id');
-            var options = $('#' + inputId + '-list option');
-            var optionFound = false;
-            options.each(function () {
-                var $t = $(this);
-                if ($t.data('value') == values[v]) {
-                    el.val($t.html());
-                    return;
-                }
-            });
-
-            // If no option was found, set the value as such in the display field
-            if (!optionFound) {
-                $('#' + inputId).val(values[v]);
-            }
-        }
-    }
-
-    for (var k in p) {
-        if (k != 'created' && k != 'updated') continue;
-
-        $('.nstSlider').each(function () {
-            var kw = $(this).data('keyword');
-            if (kw != k) return;
-
-            var values = p[k];
-            if (values.length != 1) return;
-
-            var years = values[0].split('-');
-            if (years.length != 2) return;
-
-            try {
-                $(this).nstSlider('set_position', years[0], years[1]);
-            } catch (e) {
-                $(this).data('cur_min', years[0]);
-                $(this).data('cur_max', years[1]);
-            }
-        });
-    }
-
-    // Flags
-    for (var k in p.flag) {
-        $('#flag_' + p.flag[k]).prop('checked', true);
-    }
-
-    // Type
-    for (var k in p.type) {
-        $('a[data-type="' + p.type[k] + '"]').click();
-    }
-
-    // Search
-    var search_field = $('input[type=search]');
-    if (p.q) {
-        search_field.val(decodeURIComponent(p.q[0].replace('+', ' ')));
-    } else {
-        search_field.val('');
-    }
-    $('.chosen-select').trigger('chosen:updated');
-
-    // Advanced filters: Populate the initial keys and trigger a change event
-    // which will populate the initial values.
-    $('.js-filter-item').each(function() {
-        var filter = $(this);
-        var qg = filter.attr('data-initial-qg');
-        if (qg) {
-            var key = filter.attr('data-initial-key');
-            filter.find('.filter-key-select').val([qg, key].join('__')).change();
-        }
-    });
-}
-
-/**
  * Add a filter to the query parameters.
  *
  * @param p: The object containing the query parameters.
@@ -544,10 +376,13 @@ function updateList(queryParam) {
         url: [url, queryParam].join(''),
         type: 'GET',
         success: function (data) {
-            $('#questionnaire-list').html(data.list);
+            $('#search-advanced').html(data.rendered_filter);
+            $('#questionnaire-list').html(data.rendered_list);
             $('#questionnaire-count').html(data.count);
-            $('#active-filters').html(data.active_filters);
             $('#pagination').html(data.pagination);
+
+            activateChosen();
+
             $('.loading-indicator').hide();
         },
         error: function (data) {
