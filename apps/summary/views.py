@@ -77,6 +77,9 @@ class SummaryPDFCreateView(PDFTemplateView):
             raise Http404
         self.config = get_configuration(configuration_code=self.code)
         self.quality = self.request.GET.get('quality', self.default_quality)
+        # filename is set withing render_to_response, this is too late as it's
+        # used for caching.
+        self.filename = self.get_filename()
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
@@ -94,7 +97,7 @@ class SummaryPDFCreateView(PDFTemplateView):
             language=get_language(),
             summary_type=self.summary_type,
             quality=self.quality,
-            update=self.questionnaire.updated.strftime('%Y-%m-%d-%H:%m')
+            update=self.questionnaire.updated.strftime('%Y-%m-%d-%H-%M')
         )
 
     def get_object(self, questionnaire_id: int) -> Questionnaire:

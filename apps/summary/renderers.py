@@ -721,7 +721,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                             'establishment_total_estimation'
                         ),
                         'total_cost_estimate_title': _(
-                            'Estimation of the total costs of establishing the Technology'
+                            'Total establishment costs (estimation)'
                         ),
                         **self.raw_data.get('establishment_input', {}),
                     }
@@ -736,7 +736,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                             'establishment_maintenance_total_estimation'
                         ),
                         'total_cost_estimate_title': _(
-                            'Estimation of the total costs of maintaining the Technology'
+                            'Total maintenance costs (estimation)'
                         ),
                         **self.raw_data.get('maintenance_input', {}),
                     }
