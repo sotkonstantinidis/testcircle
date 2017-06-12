@@ -6,22 +6,21 @@ $(function () {
     $('body').on('click', 'a.remove-filter', function () {
         var $t = $(this);
 
-        var p = removeFilter($t.data('questiongroup'), $t.data('key'), $t.data('value'));
+        var p = removeFilter($t.data('questiongroup'), $t.data('key'));
 
         // Always delete the paging parameter if the filter was modified
         delete p['page'];
 
-        var s = ['?', $.param(p, traditional = true)].join('');
+        var s = createQueryString(p);
         changeUrl(s);
         updateList(s);
-
         return false;
     })
 
     // Button to reset all filters
     .on('click', '#filter-reset', function () {
 
-        var p = parseQueryString();
+        var p = getFilterQueryParams();
 
         // Remove all filter parameters
         p = removeFilterParams(p);
@@ -38,7 +37,7 @@ $(function () {
             $('.js-filter-item').not('#filter-additional-template .js-filter-item').remove();
         }
 
-        var s = ['?', $.param(p, traditional = true)].join('');
+        var s = createQueryString(p);
         changeUrl(s);
         updateList(s);
         return false;
@@ -330,29 +329,22 @@ function createFilterParameter(filter_parts) {
  *
  * @param {string} questiongroup - The keyword of the questiongroup.
  * @param {string} key - The keyword of the key.
- * @param {string} value - The keyword of the value.
  * @return {object} An object with the updated query parameters.
  */
-function removeFilter(questiongroup, key, value) {
+function removeFilter(questiongroup, key) {
     var keyParameter;
     if (key == '_search') {
         keyParameter = 'q';
-        value = encodeURIComponent(value).replace('%20', '+');
     } else if (key == 'created' || key == 'updated' || key == 'flag') {
         keyParameter = key;
     } else if (key == 'funding_project_display') {
         key = key.replace('_display', '');
-        keyParameter = keyParameter = createKeyParameter(questiongroup, key);
+        keyParameter = createKeyParameter(questiongroup, key);
     } else {
         keyParameter = createKeyParameter(questiongroup, key);
     }
-    var p = parseQueryString();
-    if (keyParameter in p) {
-        var i = p[keyParameter].indexOf(String(value));
-        if (i > -1) {
-            p[keyParameter].splice(i, 1);
-        }
-    }
+    var p = getFilterQueryParams();
+    delete p[keyParameter];
     return p;
 }
 
