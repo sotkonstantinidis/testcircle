@@ -120,3 +120,7 @@ div.filter-wrapper {
 .advanced-filter-empty-result {
   color: lighten($color-brown-dark, 25);
 }
+
+.filter-value-column input[type="checkbox"]:checked+span{
+  font-weight: bold;
+}
