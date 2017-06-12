@@ -1301,8 +1301,7 @@ class QuestionnaireFilterView(QuestionnaireListView):
 
             values_counted = []
             for c in active_filter.get('choices', []):
-                count = value_buckets.get(c[0], 0)
-                values_counted.append((c[0], f'{c[1]} ({count})'))
+                values_counted.append((c[0], c[1], value_buckets.get(c[0], 0)))
 
             active_filter.update({
                 'choices_counted': values_counted,

@@ -254,8 +254,7 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
 
         counted_choices = []
         for c in question.choices:
-            count = counted_values.get(c[0], 0)
-            counted_choices.append((c[0], f'{c[1]} ({count})'))
+            counted_choices.append((c[0], c[1], counted_values.get(c[0], 0)))
 
         context = {
             'choices': counted_choices,

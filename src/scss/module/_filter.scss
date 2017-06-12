@@ -112,3 +112,11 @@ div.filter-wrapper {
 #search-advanced {
   position: relative;
 }
+
+.advanced-filter-result-count {
+  font-size: 0.8rem;
+}
+
+.advanced-filter-empty-result {
+  color: lighten($color-brown-dark, 25);
+}
