@@ -124,3 +124,12 @@ div.filter-wrapper {
 .filter-value-column input[type="checkbox"]:checked+span{
   font-weight: bold;
 }
+
+.filter-button-is-sticky {
+  position: fixed;
+  bottom: 0;
+  background-color: $color-beige;
+  -webkit-box-shadow: 0px -5px 5px -4px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px -5px 5px -4px rgba(0,0,0,0.5);
+  box-shadow: 0px -5px 5px -4px rgba(0,0,0,0.5);
+}

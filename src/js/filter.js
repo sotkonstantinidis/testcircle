@@ -1,4 +1,45 @@
+var fIsStuck = false;
+var fStickyEl;
+var fStickyElOffsetTop;
+function checkStickyFilterButton() {
+
+    if (!fStickyEl) {
+        fStickyEl = $('#js-advanced-filter-submit-button');
+    }
+    if (!fStickyElOffsetTop) {
+        fStickyElOffsetTop = fStickyEl.offset().top;
+    }
+
+    var scrollOffset = window.pageYOffset;
+    var viewportHeight = Math.max(
+        document.documentElement.clientHeight, window.innerHeight || 0);
+
+    var elIsInView = scrollOffset + viewportHeight > fStickyElOffsetTop;
+
+    if (!elIsInView && !fIsStuck) {
+        fStickyEl.css('left', fStickyEl.offset().left);
+        fStickyEl.addClass('filter-button-is-sticky');
+        fIsStuck = true;
+    } else if (elIsInView && fIsStuck) {
+        fStickyEl.removeClass('filter-button-is-sticky');
+        fIsStuck = false;
+    }
+}
+
+function resetStickyFilterButton() {
+    fStickyElOffsetTop = null;
+    fStickyEl = null;
+    fIsStuck = false;
+    checkStickyFilterButton();
+}
+
 $(function () {
+
+    // Initial check
+    checkStickyFilterButton();
+
+    // Listen to future scroll events
+    window.onscroll = checkStickyFilterButton;
 
     // Button to remove a filter. As the filter buttons are added
     // dynamically, the event needs to be attached to an element which is
@@ -41,17 +82,6 @@ $(function () {
         changeUrl(s);
         updateList(s);
         return false;
-    })
-
-    .on('change', '#search-advanced input[data-toggle-sub]', function() {
-        // Show or hide sub filters.
-        var checked = $(this).is(':checked');
-        var subfilter = $('#' + $(this).data('toggle-sub'));
-        if (!checked) {
-            // If unselected, uncheck all sub filters
-            subfilter.find('input').prop('checked', false)
-        }
-        subfilter.toggle(checked);
     });
 
     // Button to submit the filter
@@ -77,13 +107,14 @@ $(function () {
         var template = $('#filter-additional-template');
         var row = $(this).closest('.row');
         $(template.html()).insertBefore(row);
+        resetStickyFilterButton();
     })
 
     // After a type (e.g. "technologies") was selected for the advanced filter,
     // redirect to the filter page by keeping all the currently active filters.
     .on('click', '.js-filter-advanced-type', function(e) {
         e.preventDefault();
-        
+
         var type_ = $(this).data('type');
         var filterUrl = $(this).closest('div').data('filter-url');
 
@@ -129,6 +160,7 @@ $(function () {
                     filter.find('input:checkbox[value=' + v + ']').attr('checked', true);
                 });
             }
+            resetStickyFilterButton();
         });
     });
 
@@ -375,10 +407,12 @@ function updateList(queryParam) {
 
             activateChosen();
 
+            resetStickyFilterButton();
             $('.loading-indicator').hide();
         },
         error: function (data) {
             // alert('Something went wrong');
+            resetStickyFilterButton();
             $('.loading-indicator').hide();
         }
     });
