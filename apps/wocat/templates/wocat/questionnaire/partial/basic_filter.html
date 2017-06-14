@@ -53,7 +53,7 @@
   <div class="row large-no-gutters is-rhythmed">
     <div class="medium-12 columns">
       <div class="search-field">
-        <input type="search" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q" value="{{ request.GET.q|default:'' }}">
+        <input type="search" tabindex="1" placeholder="{% trans "Search" %}" name="q" value="{{ request.GET.q|default:'' }}">
         <div class="search-category">
           {% with request.GET.type|default:'all' as selected_type %}
             <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">

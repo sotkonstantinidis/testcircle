@@ -15222,6 +15222,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 5
         }
       },
       "values": [
@@ -15313,6 +15316,9 @@
               "name": "get_picto_and_nested_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 1
         }
       },
       "values": [
@@ -15541,6 +15547,9 @@
               "name": "get_picto_and_nested_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 3
         }
       },
       "values": [
@@ -15660,6 +15669,9 @@
               "name": "get_picto_and_nested_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 2
         }
       },
       "values": [
@@ -15826,6 +15838,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 6
         }
       },
       "values": [
@@ -16486,6 +16501,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 8
         }
       },
       "values": [
@@ -16696,6 +16714,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 7
         }
       },
       "values": [
@@ -16804,6 +16825,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 9
         }
       },
       "values": [
@@ -17091,6 +17115,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 10
         }
       },
       "values": [
@@ -17826,6 +17853,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 11
         }
       },
       "values": [
@@ -18194,6 +18224,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 12
         }
       },
       "values": [
@@ -19331,6 +19364,9 @@
           "default": {
             "field_name": "classification_slm_group"
           }
+        },
+        "filter_options": {
+          "order": 4
         }
       },
       "values": [
@@ -27339,9 +27375,6 @@
                             },
                             "view_options": {
                               "label_position": "none"
-                            },
-                            "filter_options": {
-                              "order": 1
                             }
                           },
                           {
@@ -27400,9 +27433,6 @@
                             },
                             "view_options": {
                               "template": "raw"
-                            },
-                            "filter_options": {
-                              "order": 9
                             }
                           }
                         ]
@@ -27755,9 +27785,6 @@
                             },
                             "view_options": {
                               "label_position": "none"
-                            },
-                            "filter_options": {
-                              "order": 12
                             }
                           },
                           {
@@ -27978,9 +28005,6 @@
                             },
                             "view_options": {
                               "template": "raw"
-                            },
-                            "filter_options": {
-                              "order": 10
                             }
                           }
                         ]
@@ -28136,10 +28160,7 @@
                         "keyword": "tech_qg_35",
                         "questions": [
                           {
-                            "keyword": "tech_prevention",
-                            "filter_options": {
-                              "order": 11
-                            }
+                            "keyword": "tech_prevention"
                           },
                           {
                             "keyword": "tech_prevention_comments"
@@ -28891,9 +28912,6 @@
                               "template": "measure_stacked",
                               "label_position": "none",
                               "layout": "stacked"
-                            },
-                            "filter_options": {
-                              "order": 3
                             }
                           },
                           {
@@ -28926,9 +28944,6 @@
                             },
                             "view_options": {
                               "label_position": "none"
-                            },
-                            "filter_options": {
-                              "order": 2
                             }
                           },
                           {
@@ -28967,9 +28982,6 @@
                             "view_options": {
                               "template": "measure_stacked",
                               "layout": "stacked"
-                            },
-                            "filter_options": {
-                              "order": 4
                             }
                           },
                           {
@@ -28994,9 +29006,6 @@
                             "view_options": {
                               "template": "measure_stacked",
                               "layout": "stacked"
-                            },
-                            "filter_options": {
-                              "order": 5
                             }
                           }
                         ]
@@ -29225,10 +29234,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_market_orientation",
-                            "filter_options": {
-                              "order": 6
-                            }
+                            "keyword": "tech_market_orientation"
                           },
                           {
                             "keyword": "tech_offfarm_income",
@@ -29299,10 +29305,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_land_size_relative",
-                            "filter_options": {
-                              "order": 7
-                            }
+                            "keyword": "tech_land_size_relative"
                           },
                           {
                             "keyword": "tech_land_comments"
@@ -29337,10 +29340,7 @@
                             }
                           },
                           {
-                            "keyword": "tech_landuserights",
-                            "filter_options": {
-                              "order": 8
-                            }
+                            "keyword": "tech_landuserights"
                           },
                           {
                             "keyword": "tech_landrights_other",

@@ -360,7 +360,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.max_length = None
         self.num_rows = self.form_options.get('num_rows', 3)
 
-        self.filter_options = configuration.get('filter_options', {})
+        self.filter_options = self.key_config.get('filter_options', {})
 
         self.summary = self.key_config.get('summary')
         self.images = []
