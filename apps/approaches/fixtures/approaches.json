@@ -4980,7 +4980,10 @@
       "keyword": "app_stakeholders",
       "translation": 7003,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "filter_options": {
+          "order": 2
+        }
       },
       "values": [
         3001,
@@ -5154,6 +5157,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 1
         }
       },
       "values": [
@@ -5371,6 +5377,9 @@
               "name": "get_highlight_element"
             }
           }
+        },
+        "filter_options": {
+          "order": 4
         }
       }
     },
@@ -5503,6 +5512,9 @@
               "name": "get_highlight_element"
             }
           }
+        },
+        "filter_options": {
+          "order": 5
         }
       }
     },
@@ -7206,6 +7218,9 @@
               "name": "get_highlight_element"
             }
           }
+        },
+        "filter_options": {
+          "order": 8
         }
       }
     },
@@ -10300,9 +10315,6 @@
                             },
                             "view_options": {
                               "label_position": "none"
-                            },
-                            "filter_options": {
-                              "order": 1
                             }
                           },
                           {
@@ -10838,9 +10850,6 @@
                             "view_options": {
                               "template": "raw",
                               "with_raw_values": true
-                            },
-                            "filter_options": {
-                              "order": 3
                             }
                           }
                         ]
@@ -12701,9 +12710,6 @@
                             "view_options": {
                               "template": "raw",
                               "with_raw_values": true
-                            },
-                            "filter_options": {
-                              "order": 2
                             }
                           }
                         ]
