@@ -3,11 +3,11 @@ import contextlib
 import logging
 from itertools import chain
 
-from configuration.models import Project
+from configuration.models import Project, Institution
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import (
     Http404,
@@ -34,9 +34,7 @@ from elasticsearch import TransportError
 from accounts.decorators import force_login_check
 from accounts.views import QuestionnaireSearchView
 from configuration.cache import get_configuration
-from configuration.utils import (
-    get_configuration_index_filter,
-)
+from configuration.utils import get_configuration_index_filter
 from questionnaire.signals import change_questionnaire_data
 from questionnaire.upload import (
     retrieve_file,
@@ -1068,9 +1066,9 @@ class ESQuestionnaireQueryMixin:
         self.page_size = getattr(
             self, 'page_size', get_limit_parameter(self.request))
         self.offset = self.current_page * self.page_size - self.page_size
-        self.configurations = [
-            get_configuration(code) for code in
-            get_configuration_index_filter(self.configuration_code)]
+        self.configuration = get_configuration(self.configuration_code)
+        self.search_configuration_codes = get_configuration_index_filter(
+            self.configuration_code)
 
     def get_es_results(self, call_from=None):
         """
@@ -1121,19 +1119,15 @@ class ESQuestionnaireQueryMixin:
         # Get the filters and prepare them to be passed to the search.
         query_string, filter_params = self.get_filters()
 
-        search_configuration_codes = get_configuration_index_filter(
-            self.configuration_code, only_current=False,
-            query_param_filter=tuple(self.request.GET.getlist('type')))
-
         return {
             'filter_params': filter_params,
             'query_string': query_string,
-            'configuration_codes': search_configuration_codes,
+            'configuration_codes': self.search_configuration_codes,
         }
 
     def get_filters(self):
         active_filters = get_active_filters(
-            self.configurations, self.request.GET)
+            self.configuration, self.request.GET)
         query_string = ''
         filter_params = []
 
@@ -1164,7 +1158,7 @@ class ESQuestionnaireQueryMixin:
 class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
 
     configuration_code = None
-    configurations = None
+    configuration = None
     es_hits = {}
     call_from = 'list'
 
@@ -1203,14 +1197,14 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         """
         filter_configuration = {
             'projects': [(p.id, str(p)) for p in Project.objects.all()],
+            'institutions': [(i.id, str(i)) for i in Institution.objects.all()],
             'flags': [
                 (f.flag, f.get_flag_display()) for f in Flag.objects.all()],
         }
 
         # Global keys
-        configuration = get_configuration(self.configuration_code)
         for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
-            filter_question = configuration.get_question_by_keyword(
+            filter_question = self.configuration.get_question_by_keyword(
                 questiongroup, question)
             if filter_question:
                 filter_configuration[filter_keyword] = filter_question.choices[1:]
@@ -1225,7 +1219,7 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
             'list_values': list_values,
             'filter_configuration': self.get_global_filter_configuration(),
             'active_filters': get_active_filters(
-                self.configurations, self.request.GET),
+                self.configuration, self.request.GET),
             'request': self.request,
         }
 
@@ -1266,16 +1260,23 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
 class QuestionnaireFilterView(QuestionnaireListView):
     call_from = 'filter'
 
+    template_configuration_code = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.template_configuration_code = self.configuration_code
+        self.configuration_code = self.request.GET.get('type')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_template_names(self):
-        return '{}/questionnaire/filter.html'.format(self.configuration_code)
+        return '{}/questionnaire/filter.html'.format(
+            self.template_configuration_code)
 
     def get_filter_template_names(self):
         return '{}/questionnaire/partial/advanced_filter.html'.format(
-            self.configuration_code)
+            self.template_configuration_code)
 
     def get_advanced_filter_select(self):
-        configuration = get_configuration(self.request.GET.get('type'))
-        filter_keys = configuration.get_filter_keys()
+        filter_keys = self.configuration.get_filter_keys()
         filter_keys.insert(0, ('', '---'))
         return filter_keys
 

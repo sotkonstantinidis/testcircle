@@ -8,9 +8,9 @@
 
 <div class="top-bar-search">
   <div class="row large-no-gutters">
-    <div class="medium-4 columns">
+    <div class="medium-3 columns">
       <label for="filter-country">{% trans "Country" %}</label>
-      <select name="filter-country" class="chosen-select hidden-filter" data-questiongroup="qg_location" data-key="country" data-placeholder="{% trans 'Select or type a country name' %}">
+      <select name="filter-country" class="chosen-select" data-questiongroup="qg_location" data-key="country" data-placeholder="{% trans 'Select or type a country name' %}">
         <option value=""></option>
         {% with request.GET.filter__qg_location__country|default:None as selected_country %}
           {% for country in filter_configuration.countries %}
@@ -19,7 +19,7 @@
       {% endwith %}
       </select>
     </div>
-    <div class="medium-4 columns">
+    <div class="medium-3 columns">
       <label for="language">Language</label>
       <select id="language" disabled="disabled" class="chosen-select">
         <option value="en">English</option>
@@ -27,13 +27,24 @@
         <option value="de">Deutsch</option>
       </select>
     </div>
-    <div class="medium-4 columns">
+    <div class="medium-3 columns">
       <label for="filter-project">{% trans "Project" %}</label>
-      <select name="filter-project" class="chosen-select hidden-filter" data-questiongroup="qg_funding_project" data-key="funding_project" data-placeholder="{% trans 'Select or type a project name' %}">
+      <select name="filter-project" class="chosen-select" data-questiongroup="qg_funding_project" data-key="funding_project" data-placeholder="{% trans 'Select or type a project name' %}">
         <option value=""></option>
         {% with request.GET.filter__qg_funding_project__funding_project|default:None as selected_project %}
           {% for project in filter_configuration.projects %}
-            <option value="{{ project.0 }}" {% if selected_project == project.0 %}selected="selected"{% endif %}>{{ project.1 }}</option>
+            <option value="{{ project.0 }}" {% if selected_project == project.0|stringformat:"i" %}selected="selected"{% endif %}>{{ project.1 }}</option>
+          {% endfor %}
+        {% endwith %}
+      </select>
+    </div>
+    <div class="medium-3 columns">
+      <label for="filter-institution">{% trans "Institution" %}</label>
+      <select name="filter-institution" class="chosen-select" data-questiongroup="qg_funding_institution" data-key="funding_institution" data-placeholder="{% trans 'Select or type a name' %}">
+        <option value=""></option>
+        {% with request.GET.filter__qg_funding_institution__funding_institution|default:None as selected_institution %}
+          {% for institution in filter_configuration.institutions %}
+            <option value="{{ institution.0 }}" {% if selected_institution == institution.0|stringformat:"i" %}selected="selected"{% endif %}>{{ institution.1 }}</option>
           {% endfor %}
         {% endwith %}
       </select>

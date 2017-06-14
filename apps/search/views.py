@@ -227,7 +227,7 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
     http_method_names = ['get']
     template_name = 'search/partial/filter_value.html'
 
-    configurations = None
+    configuration = None
     configuration_code = None
 
     def get_configuration_object(self):
@@ -238,14 +238,12 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
         self.configuration_code = self.request.GET.get('type')
         self.set_attributes()
 
-        configuration = self.get_configuration_object()
-
         key_path = request.GET.get('key_path', '')
         key_path_parts = key_path.split('__')
 
         question = None
         if len(key_path_parts) == 2:
-            question = configuration.get_question_by_keyword(
+            question = self.configuration.get_question_by_keyword(
                 key_path_parts[0], key_path_parts[1])
 
         # Also query ES to see how many results are available for each option

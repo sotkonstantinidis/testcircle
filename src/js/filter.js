@@ -5,6 +5,7 @@ function checkStickyFilterButton() {
 
     if (!fStickyEl) {
         fStickyEl = $('#js-advanced-filter-submit-button');
+        if (!fStickyEl.length) return;
     }
     if (!fStickyElOffsetTop) {
         fStickyElOffsetTop = fStickyEl.offset().top;
