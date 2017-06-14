@@ -35,11 +35,16 @@ function resetStickyFilterButton() {
 
 $(function () {
 
-    // Initial check
-    checkStickyFilterButton();
+    // If the filter button to be made sticky does not exist on the page (e.g.
+    // simple search), there is no need to check and register the whole sticky
+    // thing.
+    if ($('#js-advanced-filter-submit-button').length) {
+        // Initial check
+        checkStickyFilterButton();
 
-    // Listen to future scroll events
-    window.onscroll = checkStickyFilterButton;
+        // Listen to future scroll events
+        window.onscroll = checkStickyFilterButton;
+    }
 
     // Button to remove a filter. As the filter buttons are added
     // dynamically, the event needs to be attached to an element which is
