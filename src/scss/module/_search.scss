@@ -8,6 +8,11 @@
   border-left:1px solid $color-beige;
   border-top-left-radius:0;
   border-bottom-left-radius:0;
+
+  a {
+    width: 100%;
+    text-align: left;
+  }
 }
 .no-radius {
   border-radius:0;

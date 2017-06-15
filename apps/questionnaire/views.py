@@ -1068,6 +1068,9 @@ class ESQuestionnaireQueryMixin:
         self.page_size = getattr(
             self, 'page_size', get_limit_parameter(self.request))
         self.offset = self.current_page * self.page_size - self.page_size
+        self.template_configuration_code = self.configuration_code
+        self.configuration_code = self.request.GET.get(
+            'type', self.configuration_code)
         self.configuration = get_configuration(self.configuration_code)
         self.search_configuration_codes = get_configuration_index_filter(
             self.configuration_code)
@@ -1180,11 +1183,12 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         return self.get_template_values(list_values, questionnaires)
 
     def get_template_names(self):
-        return '{}/questionnaire/list.html'.format(self.configuration_code)
+        return '{}/questionnaire/list.html'.format(
+            self.template_configuration_code)
 
     def get_filter_template_names(self):
         return '{}/questionnaire/partial/basic_filter.html'.format(
-            self.configuration_code)
+            self.template_configuration_code)
 
     def get_partial_list_template_names(self):
         return 'questionnaire/partial/list.html'
@@ -1260,11 +1264,6 @@ class QuestionnaireFilterView(QuestionnaireListView):
     call_from = 'filter'
 
     template_configuration_code = None
-
-    def dispatch(self, request, *args, **kwargs):
-        self.template_configuration_code = self.configuration_code
-        self.configuration_code = self.request.GET.get('type')
-        return super().dispatch(request, *args, **kwargs)
 
     def get_template_names(self):
         return '{}/questionnaire/filter.html'.format(

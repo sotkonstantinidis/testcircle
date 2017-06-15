@@ -230,10 +230,6 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
     configuration = None
     configuration_code = None
 
-    def get_configuration_object(self):
-        configuration_code = self.request.GET.get('type')
-        return get_configuration(configuration_code)
-
     def dispatch(self, request, *args, **kwargs):
         self.configuration_code = self.request.GET.get('type')
         self.set_attributes()
