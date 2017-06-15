@@ -38,14 +38,8 @@ def get_configuration_query_filter(configuration, only_current=False):
     if only_current is True:
         return Q(configurations__code=configuration)
 
-    if configuration == 'all':
-        return Q()
-
     if configuration == 'wocat':
-        return (
-            Q(configurations__code='technologies') |
-            Q(configurations__code='approaches') |
-            Q(configurations__code='unccd'))
+        return Q()
 
     return Q(configurations__code=configuration)
 
@@ -84,7 +78,7 @@ def get_configuration_index_filter(
     if query_param_filter:
         query_configurations = []
         for q in query_param_filter:
-            if q == 'all':
+            if q == 'wocat':
                 query_configurations.extend(default_configurations)
             else:
                 query_configurations.append(q.lower())

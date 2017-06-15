@@ -113,8 +113,8 @@ class ProfileView(LoginRequiredMixin, DetailView):
         Fetch questionnaires for current user.
         """
         return query_questionnaires(
-            request=self.request, configuration_code='all', only_current=False,
-            limit=None
+            request=self.request, configuration_code='wocat',
+            only_current=False, limit=None
         )
 
     def get_status_list(self) -> list:
@@ -194,8 +194,8 @@ class QuestionnaireListMixin(ListView):
         status.
         """
         return query_questionnaires(
-            request=self.request, configuration_code='all', only_current=False,
-            limit=None, **self.get_filter_user()
+            request=self.request, configuration_code='wocat',
+            only_current=False, limit=None, **self.get_filter_user()
         ).filter(
             status=self.status
         )

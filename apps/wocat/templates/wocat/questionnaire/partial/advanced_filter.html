@@ -10,13 +10,23 @@
 <div class="top-bar-search">
   <div class="row large-no-gutters">
     <div class="medium-2 columns">
+      <label for="search-field">{% trans "Search Terms" %}</label>
+    </div>
+    <div class="medium-10 columns">
+      <div class="search-category">
+        <input type="search" id="search-field" tabindex="1" placeholder="{% trans "Search" %}" name="q" value="{{ request.GET.q|default:'' }}">
+      </div>
+    </div>
+  </div>
+  <div class="row large-no-gutters is-rhythmed">
+    <div class="medium-2 columns">
       <label for="filter-type">{% trans "SLM Data Type" %}</label>
     </div>
     <div class="medium-10 columns">
       <div class="search-category">
-        {% with request.GET.type|default:'all' as selected_type %}
+        {% with request.GET.type|default:'wocat' as selected_type %}
           <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light disabled">
-            {% if selected_type == 'all' %}
+            {% if selected_type == 'wocat' %}
               {% trans "All SLM Data" %}
             {% elif selected_type == 'technologies' %}
               {% trans "SLM Technologies" %}
@@ -55,22 +65,27 @@
         <option value=""></option>
         {% with request.GET.filter__qg_funding_project__funding_project|default:None as selected_project %}
           {% for project in filter_configuration.projects %}
-            <option value="{{ project.0 }}" {% if selected_project == project.0 %}selected="selected"{% endif %}>{{ project.1 }}</option>
+            <option value="{{ project.0 }}" {% if selected_project == project.0|stringformat:"i" %}selected="selected"{% endif %}>{{ project.1 }}</option>
           {% endfor %}
         {% endwith %}
       </select>
     </div>
   </div>
-  <div class="row large-no-gutters is-rhythmed">
-    <div class="medium-2 columns">
-      <label for="search-field">{% trans "Search Terms" %}</label>
-    </div>
-    <div class="medium-10 columns">
-      <div class="search-category">
-        <input type="search" id="search-field" tabindex="1" placeholder="{% trans "Search" %}" name="q" value="{{ request.GET.q|default:'' }}">
-      </div>
-    </div>
+<div class="row large-no-gutters is-rhythmed">
+  <div class="medium-2 columns">
+    <label for="filter-institution">{% trans "Institution" %}</label>
   </div>
+  <div class="medium-10 columns">
+    <select name="filter-institution" class="chosen-select" data-questiongroup="qg_funding_institution" data-key="funding_institution" data-placeholder="{% trans 'Select or type an institution name' %}">
+      <option value=""></option>
+      {% with request.GET.filter__qg_funding_institution__funding_institution|default:None as selected_institution %}
+        {% for institution in filter_configuration.institutions %}
+          <option value="{{ institution.0 }}" {% if selected_institution == institution.0|stringformat:"i" %}selected="selected"{% endif %}>{{ institution.1 }}</option>
+        {% endfor %}
+      {% endwith %}
+    </select>
+  </div>
+</div>
 
   {% for filter in active_advanced_filters %}
     {% include 'search/partial/filter_key.html' with filter_select=advanced_filter_select initial_filter=filter %}

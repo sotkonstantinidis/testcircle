@@ -863,7 +863,7 @@ class QueryQuestionnairesTest(TestCase):
         request = Mock()
         request.user = user
         ret = query_questionnaires(
-            request, 'all', only_current=False, limit=None, user=user)
+            request, 'wocat', only_current=False, limit=None, user=user)
         self.assertEqual(len(ret), 1)
         self.assertEqual(ret[0].id, 7)
 

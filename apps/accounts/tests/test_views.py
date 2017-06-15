@@ -127,7 +127,8 @@ class ProfileViewTest(TestCase):
     def test_get_questionnaires(self, mock_query_questionnaires):
         self.view.get(self.request)
         mock_query_questionnaires.assert_called_once_with(
-            configuration_code='all', limit=None, only_current=False, request=self.request
+            configuration_code='wocat', limit=None, only_current=False,
+            request=self.request
         )
 
     def test_user_required(self):
@@ -198,7 +199,7 @@ class QuestionnaireStatusListViewTest(TestCase):
     def test_get_queryset(self, mock_query_questionnaires):
         self._get_valid_view().get_queryset()
         mock_query_questionnaires.assert_called_once_with(
-            configuration_code='all', limit=None, only_current=False,
+            configuration_code='wocat', limit=None, only_current=False,
             request=self.valid_request, user=self.user
         )
 
