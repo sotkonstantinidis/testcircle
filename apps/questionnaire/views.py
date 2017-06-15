@@ -40,7 +40,7 @@ from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
 )
-from search.search import advanced_search
+from search.search import advanced_search, get_aggregated_values
 
 from .errors import QuestionnaireLockedException
 from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock, Flag
@@ -1057,6 +1057,8 @@ class ESQuestionnaireQueryMixin:
     """
     Mixin to query paginated Questionnaires from elasticsearch.
     """
+    filter_params = None
+    query_string = None
 
     def set_attributes(self):
         """
@@ -1079,10 +1081,8 @@ class ESQuestionnaireQueryMixin:
         """
         try:
             # Blank search returns all items within all indexes.
-            include_buckets = call_from == 'filter'
             es_search_results = advanced_search(
-                limit=self.page_size, offset=self.offset,
-                include_buckets=include_buckets, **self.get_filter_params()
+                limit=self.page_size, offset=self.offset, **self.get_filter_params()
             )
         except TransportError:
             # See https://redmine.cde.unibe.ch/issues/1093
@@ -1117,15 +1117,15 @@ class ESQuestionnaireQueryMixin:
 
     def get_filter_params(self):
         # Get the filters and prepare them to be passed to the search.
-        query_string, filter_params = self.get_filters()
+        self.set_filters()
 
         return {
-            'filter_params': filter_params,
-            'query_string': query_string,
+            'filter_params': self.filter_params,
+            'query_string': self.query_string,
             'configuration_codes': self.search_configuration_codes,
         }
 
-    def get_filters(self):
+    def set_filters(self):
         active_filters = get_active_filters(
             self.configuration, self.request.GET)
         query_string = ''
@@ -1152,7 +1152,8 @@ class ESQuestionnaireQueryMixin:
                 raise NotImplementedError(
                     'Type "{}" is not valid for filters'.format(filter_type))
 
-        return query_string, filter_params
+        self.filter_params = filter_params
+        self.query_string = query_string
 
 
 class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
@@ -1174,11 +1175,9 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
 
         es_pagination = self.get_es_paginated_results(es_results)
         questionnaires, self.pagination = self.get_es_pagination(es_pagination)
-        aggregations = es_results.get('aggregations', {})
 
         list_values = get_list_values(es_hits=questionnaires)
-        return self.get_template_values(
-            list_values, questionnaires, aggregations)
+        return self.get_template_values(list_values, questionnaires)
 
     def get_template_names(self):
         return '{}/questionnaire/list.html'.format(self.configuration_code)
@@ -1240,7 +1239,7 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
             'count': filter_values.get('count', 0)
         }
 
-    def get_template_values(self, list_values, questionnaires, aggregations):
+    def get_template_values(self, list_values, questionnaires):
         """
         Paginate the queryset and return a dict of template values.
         """
@@ -1280,7 +1279,7 @@ class QuestionnaireFilterView(QuestionnaireListView):
         filter_keys.insert(0, ('', '---'))
         return filter_keys
 
-    def get_advanced_filter_values(self, active_filters, aggregations):
+    def get_advanced_filter_values(self, active_filters):
         """
         Collect all advanced filters, also count their choices based on the ES
         aggregation. Also add the available keys for additional filters.
@@ -1296,13 +1295,13 @@ class QuestionnaireFilterView(QuestionnaireListView):
             if key_path not in advanced_filter_keys:
                 continue
 
-            buckets = aggregations.get(key_path, {}).get('values', {}).get(
-                'buckets', [])
-            value_buckets = {b['key']: b['doc_count'] for b in buckets}
+            aggregated_values = get_aggregated_values(
+                questiongroup, key, self.filter_params)
 
             values_counted = []
             for c in active_filter.get('choices', []):
-                values_counted.append((c[0], c[1], value_buckets.get(c[0], 0)))
+                values_counted.append(
+                    (c[0], c[1], aggregated_values.get(c[0], 0)))
 
             active_filter.update({
                 'choices_counted': values_counted,
@@ -1315,13 +1314,13 @@ class QuestionnaireFilterView(QuestionnaireListView):
             'advanced_filter_select': advanced_filter_select,
         }
 
-    def get_template_values(self, list_values, questionnaires, aggregations):
+    def get_template_values(self, list_values, questionnaires):
         filter_values = super(
             QuestionnaireFilterView, self).get_basic_filter_values(
                 list_values, questionnaires)
 
         filter_values.update(self.get_advanced_filter_values(
-            filter_values.get('active_filters', []), aggregations))
+            filter_values.get('active_filters', [])))
 
         advanced_filter = render_to_string(
             self.get_filter_template_names(), filter_values)

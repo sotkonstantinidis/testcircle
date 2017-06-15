@@ -20,7 +20,7 @@ from .index import (
     get_mappings,
     put_questionnaire_data,
 )
-from .search import simple_search, get_values_count
+from .search import simple_search, get_aggregated_values
 from .utils import get_alias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
@@ -241,18 +241,23 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
         key_path = request.GET.get('key_path', '')
         key_path_parts = key_path.split('__')
 
+        if len(key_path_parts) != 2:
+            return self.render_to_response(context={})
+
+        questiongroup, key = key_path_parts
+
+        # Query ES to see how many results are available for each option
+        aggregated_values = get_aggregated_values(
+            questiongroup, key, **self.get_filter_params())
+
         question = None
         if len(key_path_parts) == 2:
             question = self.configuration.get_question_by_keyword(
                 key_path_parts[0], key_path_parts[1])
 
-        # Also query ES to see how many results are available for each option
-        counted_values = get_values_count(
-            key_path_parts[0], key_path_parts[1], **self.get_filter_params())
-
         counted_choices = []
         for c in question.choices:
-            counted_choices.append((c[0], c[1], counted_values.get(c[0], 0)))
+            counted_choices.append((c[0], c[1], aggregated_values.get(c[0], 0)))
 
         context = {
             'choices': counted_choices,

@@ -178,45 +178,10 @@ def get_es_query(
     }
 
 
-def get_aggs_query(filter_params: list) -> dict:
-    """
-    Return a query which contains aggregations for all values of the currently
-    active filters.
-
-    Args:
-        filter_params: A list of FilterParam tuples.
-
-    Returns:
-        dict.
-    """
-    def _get_agg(qg, k):
-        return {
-            'nested': {
-                'path': f'data.{qg}'
-            },
-            'aggs': {
-                'values': {
-                    'terms': {
-                        'field': f'data.{qg}.{k}'
-                    }
-                }
-            }
-        }
-
-    aggs = {}
-    for f in filter_params:
-        aggs[f'{f.questiongroup}__{f.key}'] = _get_agg(f.questiongroup, f.key)
-
-    return {
-        'aggs': aggs,
-    }
-
-
 def advanced_search(
         filter_params: list=None, query_string: str='',
         configuration_codes: list=None, limit: int=10,
-        offset: int=0, match_all: bool=True,
-        include_buckets: bool=False) -> dict:
+        offset: int=0, match_all: bool=True) -> dict:
     """
     Kwargs:
         ``filter_params`` (list): A list of filter parameters. Each
@@ -253,38 +218,52 @@ def advanced_search(
         filter_params=filter_params, query_string=query_string,
         match_all=match_all)
 
-    if include_buckets is True:
-        query.update(get_aggs_query(filter_params))
-
     alias = get_alias(configuration_codes)
     return es.search(index=alias, body=query, size=limit, from_=offset)
 
 
-def get_values_count(
-        questiongroup, key, filter_params: list=None, query_string: str='',
+def get_aggregated_values(
+        questiongroup, key, filter_params: list = None, query_string: str='',
         configuration_codes: list=None, match_all: bool=True) -> dict:
-    """
-    Return a dict containing the values of the question along with the count of
-    how many results there are in ES for every value.
-    """
+
+    if filter_params is None:
+        filter_params = []
+
+    # Remove the filter_param with the current questiongroup and key from the
+    # list of filter_params
+    relevant_filter_params = [
+        f for f in filter_params if
+        f.questiongroup != questiongroup and f.key != key]
+
     query = get_es_query(
-        filter_params=filter_params, query_string=query_string,
+        filter_params=relevant_filter_params, query_string=query_string,
         match_all=match_all)
 
-    MockFilterParam = collections.namedtuple(
-        'MockFilterParam', ['questiongroup', 'key'])
-    query.update(get_aggs_query([MockFilterParam(questiongroup, key)]))
     query.update({
+        'aggs': {
+            'qg': {
+                'nested': {
+                    'path': f'data.{questiongroup}'
+                },
+                'aggs': {
+                    'values': {
+                        'terms': {
+                            'field': f'data.{questiongroup}.{key}'
+                        }
+                    }
+                }
+            }
+        },
         'size': 0,  # Do not include the actual hits
     })
 
     alias = get_alias(configuration_codes)
     es_query = es.search(index=alias, body=query)
 
-    buckets = es_query.get('aggregations', {}).get(
-        f'{questiongroup}__{key}', {}).get('values', {}).get('buckets', [])
+    buckets = es_query.get('aggregations', {}).get('qg', {}).get(
+        'values', {}).get('buckets', [])
 
-    return {b['key']: b['doc_count'] for b in buckets}
+    return {b.get('key'): b.get('doc_count') for b in buckets}
 
 
 def get_element(object_id: int, *configuration_codes) -> dict:
