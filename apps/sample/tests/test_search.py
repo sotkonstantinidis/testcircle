@@ -2,6 +2,8 @@
 import logging
 logging.disable(logging.CRITICAL)
 
+import collections
+
 from django.db.models import Q
 from django.test.utils import override_settings
 
@@ -18,6 +20,10 @@ from search.search import (
 from search.tests.test_index import create_temp_indices
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
+
+FilterParam = collections.namedtuple(
+            'FilterParam',
+            ['questiongroup', 'key', 'values', 'operator', 'type'])
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -70,30 +76,40 @@ class AdvancedSearchTest(TestCase):
         delete_all_indices()
 
     def test_advanced_search(self):
+        filter_param = FilterParam(
+            questiongroup='qg_1', key='key_1', values=['key'], operator='eq',
+            type='char')
         key_search = advanced_search(
-            filter_params=[('qg_1', 'key_1', ['key'], 'eq', 'char')],
+            filter_params=[filter_param],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(key_search.get('total'), 2)
 
+        filter_param = FilterParam(
+            questiongroup='qg_1', key='key_1', values=['one'], operator='eq',
+            type='char')
         one_search = advanced_search(
-            filter_params=[('qg_1', 'key_1', ['one'], 'eq', 'char')],
+            filter_params=[filter_param],
             configuration_codes=['sample']).get('hits')
         self.assertEqual(one_search.get('total'), 1)
 
     def test_advanced_search_single_filter(self):
+        filter_param = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['value_14_1'],
+            operator='eq', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['value_14_1'], 'eq', 'image_checkbox')
-            ],
-            configuration_codes=['sample']
+            filter_params=[filter_param], configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 2)
 
     def test_advanced_search_multiple_arguments(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_1', key='key_1', values=['key'],
+            operator='eq', type='char')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_19', key='key_5', values=['5'],
+            operator='eq', type='char')
         search = advanced_search(
-            filter_params=[
-                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
-                ('qg_19', 'key_5', ['5'], 'eq', 'char')],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 1)
@@ -101,10 +117,14 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['1'])
 
     def test_advanced_search_multiple_arguments_match_one(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_1', key='key_1', values=['key'],
+            operator='eq', type='char')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_19', key='key_5', values=['5'],
+            operator='eq', type='char')
         search = advanced_search(
-            filter_params=[
-                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
-                ('qg_19', 'key_5', ['5'], 'eq', 'char')],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample'],
             match_all=False
         ).get('hits')
@@ -113,11 +133,14 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['1', '2'])
 
     def test_advanced_search_multiple_arguments_2_match_one(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_1', key='key_1', values=['key'],
+            operator='eq', type='char')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['value_14_1'],
+            operator='eq', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
-                ('qg_11', 'key_14', ['value_14_1'], 'eq', 'image_checkbox'),
-            ],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample'],
             match_all=False
         ).get('hits')
@@ -126,11 +149,14 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['1', '5', '2'])
 
     def test_advanced_search_multiple_arguments_2(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_1', key='key_1', values=['key'],
+            operator='eq', type='char')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['value_14_1'],
+            operator='eq', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_1', 'key_1', ['key'], 'eq', 'char'),
-                ('qg_11', 'key_14', ['value_14_1'], 'eq', 'image_checkbox'),
-            ],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 1)
@@ -138,11 +164,12 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['1'])
 
     def test_advanced_search_multiple_arguments_same_filter(self):
+        filter_param = FilterParam(
+            questiongroup='qg_11', key='key_14',
+            values=['value_14_1', 'value_14_3'],
+            operator='eq', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['value_14_1', 'value_14_3'], 'eq',
-                 'image_checkbox'),
-            ],
+            filter_params=[filter_param],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 3)
@@ -150,12 +177,15 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['4', '1', '5'])
 
     def test_advanced_search_multiple_arguments_same_filter_2(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_11', key='key_14',
+            values=['value_14_1', 'value_14_3'],
+            operator='eq', type='image_checkbox')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_35', key='key_48', values=['value_3'],
+            operator='eq', type='radio')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['value_14_1', 'value_14_3'], 'eq',
-                 'image_checkbox'),
-                ('qg_35', 'key_48', ['value_3'], 'eq', 'radio'),
-            ],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 1)
@@ -163,12 +193,15 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['4'])
 
     def test_advanced_search_multiple_arguments_same_filter_2_match_one(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_11', key='key_14',
+            values=['value_14_1', 'value_14_3'],
+            operator='eq', type='image_checkbox')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_35', key='key_48', values=['value_2'],
+            operator='eq', type='radio')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['value_14_1', 'value_14_3'], 'eq',
-                 'image_checkbox'),
-                ('qg_35', 'key_48', ['value_2'], 'eq', 'radio'),
-            ],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample'],
             match_all=False,
         ).get('hits')
@@ -177,10 +210,11 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['2', '4', '1', '5'])
 
     def test_advanced_search_gte(self):
+        filter_param = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['2'],
+            operator='gte', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['2'], 'gte', 'image_checkbox'),
-            ],
+            filter_params=[filter_param],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 2)
@@ -188,10 +222,11 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['4', '1'])
 
     def test_advanced_search_lt(self):
+        filter_param = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['2'],
+            operator='lt', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['2'], 'lt', 'image_checkbox'),
-            ],
+            filter_params=[filter_param],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 2)
@@ -199,10 +234,11 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['5', '1'])
 
     def test_advanced_search_lte(self):
+        filter_param = FilterParam(
+            questiongroup='qg_35', key='key_48', values=['2'],
+            operator='lte', type='radio')
         search = advanced_search(
-            filter_params=[
-                ('qg_35', 'key_48', ['2'], 'lte', 'radio'),
-            ],
+            filter_params=[filter_param],
             configuration_codes=['sample']
         ).get('hits')
         self.assertEqual(search.get('total'), 2)
@@ -210,11 +246,14 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['2', '1'])
 
     def test_advanced_search_gte_lte(self):
+        filter_param_1 = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['1'],
+            operator='lte', type='image_checkbox')
+        filter_param_2 = FilterParam(
+            questiongroup='qg_11', key='key_14', values=['3'],
+            operator='gte', type='image_checkbox')
         search = advanced_search(
-            filter_params=[
-                ('qg_11', 'key_14', ['1'], 'lte', 'image_checkbox'),
-                ('qg_11', 'key_14', ['3'], 'gte', 'image_checkbox'),
-            ],
+            filter_params=[filter_param_1, filter_param_2],
             configuration_codes=['sample'],
             match_all=False,
         ).get('hits')

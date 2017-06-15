@@ -87,7 +87,7 @@
   <div class="row large-no-gutters">
     <div class="columns small-12">
 
-      {% trans "Advanced filters are only available for a single type of SLM data. Please select the type of SLM data you would like to filter." as filter_select_type %}
+      {% trans "Advanced filters are only available for a single type of SLM data. Please select the type of SLM data you would like to filter (SLM Technologies or SLM Approaches)." as filter_select_type %}
       {% include 'form/helptext.html' with helptext=filter_select_type %}
 
       <div data-filter-url="{% url 'wocat:questionnaire_filter' %}">

@@ -63,11 +63,10 @@ def get_es_query(
 
     es_queries = []
 
-    def _get_query_string(qg, k, v):
+    def _get_match(qg, k, v):
         return {
-            'query_string': {
-                'query': v,
-                'fields': [f'data.{qg}.{k}']
+            'match': {
+                f'data.{qg}.{k}': v
             }
         }
 
@@ -85,24 +84,25 @@ def get_es_query(
             if filter_param.operator in ['gt', 'gte', 'lt', 'lte']:
                 query = {
                     'range': {
-                        f'data.{questiongroup}.{key}_order': {
+                        f'data.{filter_param.questiongroup}.'
+                        f'{filter_param.key}_order': {
                             filter_param.operator: filter_param.values[0]
                         }
                     }
                 }
             else:
                 if len(filter_param.values) > 1:
-                    query_strings = [
-                        _get_query_string(filter_param.questiongroup,
+                    matches = [
+                        _get_match(filter_param.questiongroup,
                                           filter_param.key, v) for v in
                         filter_param.values]
                     query = {
                         'bool': {
-                            'should': query_strings
+                            'should': matches
                         }
                     }
                 else:
-                    query = _get_query_string(
+                    query = _get_match(
                         filter_param.questiongroup, filter_param.key,
                         filter_param.values[0])
 

@@ -2452,7 +2452,10 @@
       "keyword": "key_14",
       "translation": 11014,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "filter_options": {
+          "order": 2
+        }
       },
       "values": [
         11009,
@@ -2876,7 +2879,10 @@
       "keyword": "key_48",
       "translation": 11048,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "filter_options": {
+          "order": 1
+        }
       },
       "values": [
         11001,
@@ -4406,9 +4412,6 @@
                             "keyword": "key_48",
                             "form_options": {
                               "has_other": "key_48"
-                            },
-                            "filter_options": {
-                              "order": 1
                             }
                           },
                           {
@@ -4820,10 +4823,7 @@
                       {
                         "questions": [
                           {
-                            "keyword": "key_14",
-                            "filter_options": {
-                              "order": 2
-                            }
+                            "keyword": "key_14"
                           }
                         ],
                         "keyword": "qg_11"
