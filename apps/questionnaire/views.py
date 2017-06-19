@@ -1057,8 +1057,6 @@ class ESQuestionnaireQueryMixin:
     """
     Mixin to query paginated Questionnaires from elasticsearch.
     """
-    filter_params = None
-    query_string = None
 
     def set_attributes(self):
         """
@@ -1120,15 +1118,15 @@ class ESQuestionnaireQueryMixin:
 
     def get_filter_params(self):
         # Get the filters and prepare them to be passed to the search.
-        self.set_filters()
+        query_string, filter_params = self.get_filters()
 
         return {
-            'filter_params': self.filter_params,
-            'query_string': self.query_string,
+            'filter_params': filter_params,
+            'query_string': query_string,
             'configuration_codes': self.search_configuration_codes,
         }
 
-    def set_filters(self):
+    def get_filters(self):
         active_filters = get_active_filters(
             self.configuration, self.request.GET)
         query_string = ''
@@ -1155,8 +1153,7 @@ class ESQuestionnaireQueryMixin:
                 raise NotImplementedError(
                     'Type "{}" is not valid for filters'.format(filter_type))
 
-        self.filter_params = filter_params
-        self.query_string = query_string
+        return query_string, filter_params
 
 
 class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
@@ -1295,7 +1292,7 @@ class QuestionnaireFilterView(QuestionnaireListView):
                 continue
 
             aggregated_values = get_aggregated_values(
-                questiongroup, key, self.filter_params)
+                questiongroup, key, **self.get_filter_params())
 
             values_counted = []
             for c in active_filter.get('choices', []):
