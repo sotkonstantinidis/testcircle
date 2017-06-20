@@ -133,3 +133,13 @@ div.filter-wrapper {
   -moz-box-shadow: 0px -5px 5px -4px rgba(0,0,0,0.5);
   box-shadow: 0px -5px 5px -4px rgba(0,0,0,0.5);
 }
+
+.advanced-filter-buttons svg.is-inline.right {
+  margin-left: 1rem;
+}
+
+.search-field {
+  @media #{$small-only} {
+    margin-bottom: 1rem;
+  }
+}

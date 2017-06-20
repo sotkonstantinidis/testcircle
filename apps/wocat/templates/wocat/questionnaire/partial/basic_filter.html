@@ -102,9 +102,13 @@
       {% trans "Advanced filters are only available for a single type of SLM data. Please select the type of SLM data you would like to filter (SLM Technologies or SLM Approaches)." as filter_select_type %}
       {% include 'form/helptext.html' with helptext=filter_select_type %}
 
-      <div data-filter-url="{% url 'wocat:questionnaire_filter' %}">
-        <a href="#" class="button js-filter-advanced-type" data-type="technologies">{% trans 'SLM Technologies' %}</a>
-        <a href="#" class="button js-filter-advanced-type" data-type="approaches">{% trans 'SLM Approaches' %}</a>
+      <div data-filter-url="{% url 'wocat:questionnaire_filter' %}" class="advanced-filter-buttons">
+        <a href="#" class="button js-filter-advanced-type" data-type="technologies" data-tooltip="" title="{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}">
+          {% trans 'SLM Technologies' %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
+        </a>
+        <a href="#" class="button js-filter-advanced-type" data-type="approaches" data-tooltip="" title="{% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement a SLM Technology, including the stakeholders involved and their roles." %}">
+          {% trans 'SLM Approaches' %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
+        </a>
       </div>
     </div>
   </div>
