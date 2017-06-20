@@ -3,8 +3,13 @@
 <div class="row large-no-gutters is-rhythmed js-filter-item"{% if initial_filter %} data-initial-qg="{{ initial_filter.questiongroup }}" data-initial-key="{{ initial_filter.key }}" data-initial-value="{{ initial_filter.value|join:',' }}"{% endif %}>
   <div class="medium-2 columns">
     <select class="filter-key-select">
-      {% for key in filter_select %}
-        <option value="{{ key.0 }}"{% if key.0 == initial_filter.key_path %} selected="selected"{% endif %}>{{ key.1 }}</option>
+      <option value="">---</option>
+      {% for section in filter_select %}
+        <optgroup label="{{ section.0 }}">
+          {% for key in section.1 %}
+            <option value="{{ key.0 }}"{% if key.0 == initial_filter.key_path %} selected="selected"{% endif %}>{{ key.1 }}</option>
+          {% endfor %}
+        </optgroup>
       {% endfor %}
     </select>
   </div>

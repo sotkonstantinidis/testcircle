@@ -1,8 +1,9 @@
 import collections
 import contextlib
 import logging
-from itertools import chain
+from itertools import chain, groupby
 
+import operator
 from configuration.models import Project, Institution
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -1271,9 +1272,18 @@ class QuestionnaireFilterView(QuestionnaireListView):
             self.template_configuration_code)
 
     def get_advanced_filter_select(self):
+        """
+        Return the choices available for the advanced filter.
+
+        Returns:
+            A nested list with choices (FilterKeys) grouped by section label.
+        """
         filter_keys = self.configuration.get_filter_keys()
-        filter_keys.insert(0, ('', '---'))
-        return filter_keys
+        grouped = []
+        it = groupby(filter_keys, operator.attrgetter('section_label'))
+        for key, subiter in it:
+            grouped.append((key, [i for i in subiter]))
+        return grouped
 
     def get_advanced_filter_values(self, active_filters):
         """
@@ -1281,14 +1291,19 @@ class QuestionnaireFilterView(QuestionnaireListView):
         aggregation. Also add the available keys for additional filters.
         """
         advanced_filter_select = self.get_advanced_filter_select()
-        advanced_filter_keys = [f[0] for f in advanced_filter_select[1:]]
+
+        # Get a list of all key_paths
+        flat_list = []
+        for filter_keys in dict(advanced_filter_select).values():
+            flat_list.extend(filter_keys)
+        advanced_filter_paths = [f.path for f in flat_list]
 
         active_advanced_filters = []
         for active_filter in active_filters:
             questiongroup = active_filter.get('questiongroup')
             key = active_filter.get('key')
             key_path = f'{questiongroup}__{key}'
-            if key_path not in advanced_filter_keys:
+            if key_path not in advanced_filter_paths:
                 continue
 
             aggregated_values = get_aggregated_values(

@@ -2378,18 +2378,21 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         # select options.
         FilterKey = collections.namedtuple(
             'FilterKey',
-            ['path', 'label', 'order', 'key', 'questiongroup', 'filter_type'])
+            ['path', 'label', 'order', 'key', 'questiongroup', 'filter_type',
+             'section_label'])
         filter_keys = []
         for questiongroup in self.get_questiongroups():
             for question in questiongroup.questions:
                 if question.filter_options:
+                    section = questiongroup.get_top_subcategory().parent_object
                     filter_keys.append(FilterKey(
                         path=f'{questiongroup.keyword}__{question.keyword}',
                         label=question.label_view,
                         order=question.filter_options.get('order'),
                         key=question.keyword,
                         questiongroup=questiongroup.keyword,
-                        filter_type=question.field_type))
+                        filter_type=question.field_type,
+                        section_label=section.label))
         return sorted(filter_keys, key=lambda k: k.order)
 
     def get_list_data(self, questionnaire_data_list):
