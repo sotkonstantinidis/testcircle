@@ -1578,6 +1578,9 @@
         "approaches": {
           "label": {
             "en": "Specify who decided on the selection of the Technology/ Technologies to be implemented"
+          },
+          "label_filter": {
+            "en": "Who decided on the selection of the Technology/ Technologies to be implemented?"
           }
         }
       }
@@ -1665,6 +1668,9 @@
         "approaches": {
           "label": {
             "en": "Specify the level(s) at which institutions have been strengthened or established"
+          },
+          "label_filter": {
+            "en": "Level at which institutions have been strengthened or established"
           }
         }
       }
@@ -1800,6 +1806,9 @@
         "approaches": {
           "label": {
             "en": "If precise annual budget is not known, indicate range"
+          },
+          "label_filter": {
+            "en": "Range of annual budget"
           }
         }
       }
@@ -5291,6 +5300,9 @@
               }
             }
           }
+        },
+        "filter_options": {
+          "order": 3
         }
       },
       "values": [
@@ -5613,6 +5625,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 6
         }
       },
       "values": [
@@ -5742,6 +5757,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 7
         }
       },
       "values": [

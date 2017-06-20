@@ -753,7 +753,7 @@ def get_active_filters(questionnaire_configuration, query_dict):
             active_filters.append({
                 'questiongroup': filter_questiongroup,
                 'key': filter_key,
-                'key_label': question.label_view,
+                'key_label': question.label_filter,
                 'operator': filter_operator,
                 'value': split_filter_values,
                 'value_label': ' / '.join(value_labels),
