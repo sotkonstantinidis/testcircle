@@ -19,6 +19,7 @@
         {% include 'search/partial/filter_value.html' with choices=initial_filter.choices_counted key_path=initial_filter.key_path selected=initial_filter.value %}
       {% endif %}
     </div>
+    <div class="loading-indicator-filter-key hide"><div class="spinner"></div></div>
   </div>
   <div class="medium-1 columns">
     <a href="#" class="js-filter-remove filter-item-button">

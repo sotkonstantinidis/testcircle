@@ -42,7 +42,7 @@ div.filter-wrapper {
   position: relative;
 }
 
-.loading-indicator {
+.loading-indicator, .loading-indicator-filter-key {
   filter:alpha(opacity=50); /* IE */
   opacity: 0.5; /* Safari, Opera */
   -moz-opacity:0.50; /* FireFox */

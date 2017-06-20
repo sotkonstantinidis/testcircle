@@ -147,11 +147,23 @@ $(function () {
     // When selecting a key, query the available values for this key.
     .on('change', '.filter-key-select', function() {
 
+        // If no value was selected (e.g. "---"), return right away.
+        if (!this.value) return;
+
         var filter = $(this).closest('.row');
         var valueColumn = filter.find('.filter-value-column');
+        
+        // If there is no content yet, add some linebreaks so the placement of
+        // the loading indicator is nicer
+        if (valueColumn.html().trim() === '') {
+            valueColumn.html('<br/><br/>');
+        }
+
+        // Show loading indicator
+        filter.find('.loading-indicator-filter-key').show();
 
         var url = $('#filter-add-new').data('value-url');
-
+        
         // Add filter parameters to URL
         var filterParams = getFilterQueryParams();
         filterParams['key_path'] = [this.value];
@@ -167,6 +179,9 @@ $(function () {
                 });
             }
             resetStickyFilterButton();
+
+            // Hide loading indicator
+            filter.find('.loading-indicator-filter-key').hide();
         });
     });
 
