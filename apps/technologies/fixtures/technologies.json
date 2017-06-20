@@ -90,6 +90,9 @@
         "technologies": {
           "label": {
             "en": "Main purpose(s) of the Technology (land user’s perspective)"
+          },
+          "label_filter": {
+            "en": "Main purpose of the Technology"
           }
         }
       }
@@ -4144,6 +4147,9 @@
         "technologies": {
           "label": {
             "en": "Specify the goal of the Technology with regard to land degradation"
+          },
+          "label_filter": {
+            "en": "Goal of the Technology with regard to land degradation"
           }
         }
       }

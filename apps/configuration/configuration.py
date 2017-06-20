@@ -362,6 +362,13 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.filter_options = self.key_config.get('filter_options', {})
 
+        if self.filter_options:
+            translation = self.configuration_object.translation
+            self.label_filter = translation.get_translation(
+                'label_filter', self.configuration_keyword)
+            if self.label_filter is None:
+                self.label_filter = self.label_view
+
         self.summary = self.key_config.get('summary')
         self.images = []
         self.choices = ()
@@ -2387,7 +2394,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     section = questiongroup.get_top_subcategory().parent_object
                     filter_keys.append(FilterKey(
                         path=f'{questiongroup.keyword}__{question.keyword}',
-                        label=question.label_view,
+                        label=question.label_filter,
                         order=question.filter_options.get('order'),
                         key=question.keyword,
                         questiongroup=questiongroup.keyword,
