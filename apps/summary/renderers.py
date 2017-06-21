@@ -175,12 +175,25 @@ class GlobalValuesMixin:
         images = []
         if image_urls:
             # first element is the header image, show max. 2 images.
-            for index, image in enumerate(image_urls[:2]):
-                images.append({
-                    'url': self.get_thumbnail_url(
-                        image=image['value'],
+            # Some files may not return a thumbnail and should therefore not be
+            # used. Continue to loop all "images" until 2 thumbnails were returned
+            for index, image_data in enumerate(image_urls):
+                if len(images) >= 2:
+                    continue
+                # If the file is a PDF, then use the preview_image instead of
+                # the actual document
+                if image_data['content_type'] == 'application/pdf':
+                    image = image_data.get('preview_image', '')
+                else:
+                    image = image_data.get('value', '')
+                url = self.get_thumbnail_url(
+                        image=image,
                         option_key='half_height'
-                    ),
+                    )
+                if not url:
+                    continue
+                images.append({
+                    'url': url,
                     'caption': self.get_image_caption(index)
                 })
         return {
@@ -1079,6 +1092,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     def participation(self):
         lead_agency = self.raw_data_getter('participation_lead_agency')
         author = self.raw_data_getter('participation_flowchart_author')
+        flowchart_preview = ''
+        flowchart_data = self.raw_data.get('participation_flowchart_file', [])
+        if len(flowchart_data) >= 1:
+            flowchart_preview = flowchart_data[0].get('preview_image', '')
         return {
             'title': _('Participation and roles of stakeholders involved'),
             'partials': {
@@ -1097,7 +1114,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'flow_chart': {
                     'url': self.get_thumbnail_url(
-                        image=self.raw_data_getter('participation_flowchart_file'),
+                        image=flowchart_preview,
                         option_key='flow_chart'
                     ),
                     'author': _('Author: {}').format(author) if author else '',
