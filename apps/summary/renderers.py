@@ -256,6 +256,16 @@ class GlobalValuesMixin:
         return {
             'title': _('References'),
             'partials': {
+                'meta': {
+                    'created': {
+                        'title': _('Questionnaire created'),
+                        'value': self.questionnaire.created
+                    },
+                    'updated': {
+                        'title': _('Last update'),
+                        'value': self.questionnaire.updated
+                    }
+                },
                 'compiler': {
                     'title': _('Compiler'),
                     'css_class': 'bullets',
@@ -394,7 +404,6 @@ class GlobalValuesMixin:
         )
         if not links.exists():
             yield {'text': self.n_a}
-
         for link in links:
             config = link.to_questionnaire.configurations.filter(active=True)
             if config.exists():
@@ -708,6 +717,12 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
                         'title': _('Establishment inputs and costs'),
+                        'total_cost_estimate': self.raw_data_getter(
+                            'establishment_total_estimation'
+                        ),
+                        'total_cost_estimate_title': _(
+                            'Total establishment costs (estimation)'
+                        ),
                         **self.raw_data.get('establishment_input', {}),
                     }
                 },
@@ -717,6 +732,12 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
                         'title': _('Maintenance inputs and costs'),
+                        'total_cost_estimate': self.raw_data_getter(
+                            'establishment_maintenance_total_estimation'
+                        ),
+                        'total_cost_estimate_title': _(
+                            'Total maintenance costs (estimation)'
+                        ),
                         **self.raw_data.get('maintenance_input', {}),
                     }
                 }
@@ -951,7 +972,6 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'right': _('How the Technology copes with these changes/extremes')
             },
             'partials': self.raw_data.get('climate_change'),
-            'comment': self.raw_data_getter('climate_change_comment')
         }
     
     def adoption_adaptation(self):
@@ -1102,9 +1122,9 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def technical_support(self):
         if self.raw_data_getter('tech_support_monitoring_systematic') == 'No':
-            monitoring_intention = 'This documentation is <i>not</i> intended to be used for monitoring and evaluation'
+            monitoring_intention = _('This documentation is <i>not</i> intended to be used for monitoring and evaluation')
         else:
-            monitoring_intention = 'This documentation is intended to be used for monitoring and evaluation'
+            monitoring_intention = _('This documentation is intended to be used for monitoring and evaluation')
 
         return {
             'title': _('Technical support, capacity building, and knowledge management'),

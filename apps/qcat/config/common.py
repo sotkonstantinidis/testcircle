@@ -115,6 +115,7 @@ class BaseSettings(Configuration):
     USE_I18N = True
     USE_L10N = True
     USE_TZ = True
+    BASE_URL = values.Value(environ_prefix='', default='https://qcat.wocat.net')
 
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/dev/howto/static-files/
@@ -323,11 +324,6 @@ class BaseSettings(Configuration):
     IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
         environ_prefix='', default=False
     )
-    IS_ACTIVE_FEATURE_FACTSHEET = values.BooleanValue(
-        environ_prefix='', default=False
-    )
-
-    SENTRY_DSN = values.Value(environ_prefix='')
 
     HOST_STRING_DEV = values.Value(environ_prefix='')
     HOST_STRING_DEMO = values.Value(environ_prefix='')
@@ -337,6 +333,9 @@ class BaseSettings(Configuration):
     TOUCH_FILE_DEV = values.Value(environ_prefix='')
     TOUCH_FILE_DEMO = values.Value(environ_prefix='')
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
+
+    # 'OPBEAT' is set according to host in settings.py
+    OPBEAT = values.DictValue(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
     NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')
@@ -355,8 +354,10 @@ class BaseSettings(Configuration):
     # Google Maps Javascript API key
     GOOGLE_MAPS_JAVASCRIPT_API_KEY = values.Value(environ_prefix='')
 
-    # Global switch to prevent sending mails.
-    SEND_MAILS = values.BooleanValue(default=False)
+    # Mail settings (notification mails)
+    DEFAULT_FROM_EMAIL = 'info@wocat.net'
+    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=False)
+    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=True)
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
     WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')

@@ -1,11 +1,17 @@
 from configurations import values
+from os.path import join
 
 
 class DevMixin:
     DEBUG = values.BooleanValue(True)
     TEMPLATE_DEBUG = values.BooleanValue(True)
     CACHES = values.CacheURLValue('dummy://')
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
+
+    @property
+    def EMAIL_FILE_PATH(self):
+        return join(super().BASE_DIR, 'tmp')
+
     THUMBNAIL_DEBUG = True
 
 
@@ -87,6 +93,11 @@ class LogMixin:
                     'handlers': ['cache_info'],
                     'propagate': True,
                     'level': 'INFO'
+                },
+                'notifications': {
+                    'handlers': ['file'],
+                    'propagate': True,
+                    'level': 'INFO'
                 }
             },
         }
@@ -110,26 +121,6 @@ class CompressMixin:
     """Settings for the django-compressor"""
     COMPRESS_ENABLED = True
     # maybe: use different (faster) filters for css and js.
-
-
-class SentryMixin:
-    """
-    Config for sentry.
-    """
-    @property
-    def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + (
-            'raven.contrib.django.raven_compat',
-        )
-
-    @property
-    def RAVEN_CONFIG(self):
-        import raven
-
-        return {
-            'dsn': str(super().SENTRY_DSN),
-            'release': raven.fetch_git_sha(super().BASE_DIR)
-        }
 
 
 class AuthenticationFeatureSwitch:
@@ -159,3 +150,15 @@ class AuthenticationFeatureSwitch:
             middlewares.remove(old_middleware)
             middlewares = tuple(middlewares)
         return middlewares
+
+
+class OpBeatMixin:
+
+    @property
+    def INSTALLED_APPS(self):
+        return super().INSTALLED_APPS + ('opbeat.contrib.django', )
+
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        return ('opbeat.contrib.django.middleware.OpbeatAPMMiddleware', ) + \
+               super().MIDDLEWARE_CLASSES

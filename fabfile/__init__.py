@@ -12,6 +12,7 @@ from fabric.api import run, env
 from fabric.colors import green
 from fabric.decorators import task, runs_once, parallel
 from fabric.contrib import django
+from fabric.operations import local
 from fabric.tasks import execute
 from django.conf import settings
 
@@ -28,7 +29,8 @@ ENVIRONMENTS = {
         'label': 'dev',
         'host_string': settings.HOST_STRING_DEV,
         'touch_file': settings.TOUCH_FILE_DEV,
-        'use_deploy_announcement': False
+        'use_deploy_announcement': False,
+        'opbeat_app_id': '484c3eb0d1'
     },
     'demo': {
         'branch': 'master',
@@ -37,6 +39,7 @@ ENVIRONMENTS = {
         'touch_file': settings.TOUCH_FILE_DEMO,
         'use_deploy_announcement': False,
         'url': 'https://qcat-demo.wocat.net/{}/wocat/list/?type=all',
+        'opbeat_app_id': '0d1c0e6ae4'
     },
     'master': {
         'branch': 'master',
@@ -45,6 +48,7 @@ ENVIRONMENTS = {
         'touch_file': settings.TOUCH_FILE_LIVE,
         'use_deploy_announcement': True,
         'url': 'https://qcat.wocat.net/{}/wocat/list/?type=all',
+        'opbeat_app_id': '91ea7668a2'
     },
     'common': {
         'project_name': 'qcat',
@@ -135,7 +139,7 @@ def deploy_host(environment):
 
     print(green("Everything OK"))
     _access_project()
-    _clean_sessions()
+    _register_deployment()
 
 
 def _get_latest_source():
@@ -173,7 +177,7 @@ def _update_database():
 def _has_config_update_tag():
     with cd(env.source_folder):
         git_tags = run('git tag -l --points-at HEAD')
-        return REBUILD_CONFIG_TAG in git_tags.stdout
+        return git_tags.stdout.startswith(REBUILD_CONFIG_TAG)
 
     return False
 
@@ -240,12 +244,16 @@ def _set_maintenance_warning():
     time.sleep(settings.DEPLOY_TIMEOUT)
 
 
-def _clean_sessions():
-    """
-    This should be in a crontab.
-    """
-    _manage_py('clearsessions')
-
+def _register_deployment():
+    revision = local('git log -n 1 --pretty="format:%H"', capture=True)
+    branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
+    local(f'curl https://intake.opbeat.com/api/v1/organizations/'
+          f'{settings.OPBEAT["ORGANIZATION_ID"]}/apps/'
+          f'{env.opbeat_app_id}/releases/'
+          f' -H "Authorization: Bearer {settings.OPBEAT["SECRET_TOKEN"]}"'
+          f' -d rev="{revision}"'
+          f' -d branch="{branch}"'
+          f' -d status=completed')
 
 def _manage_py(command):
     with virtualenv():

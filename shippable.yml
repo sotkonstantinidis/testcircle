@@ -8,7 +8,7 @@ python:
 
 env:
   global:
-    - secure: qTVKZ652+t60ZvqF3+PAhniR+OFhiu9RwpujYcFYj6nRGTAjq/X/w8ch5bpCNMblHSZjTZGCxS9ydAtIv+koLk2Y5sQgn3z+PbcmXOXT0Ntj2uei/rs1BoFLR3wfMpqjmp/73T4PtddG/gVRBb2OkrPj+dsl+K5GEyW0CYz2tDvmDf7yl386LtEmpqtQJrSM6eswfTFIqEW7P0kD12FaCaS2xJXxkgAOnGJGfyfELf7lQyKD1v7Ty7oeQHWihbcrr+zP6A/9QMnh3awQmGxda9BwfCSPESX3aUeUrgdNnI12yS+EvDIzU06IHyrHa0gWy6Av5ew01wqJQxWRscg7ikZVcPzrDHmmb2EHHohoAMs/fuVPb5GKMk0prOyjzqzIEEMjlApf8wavZPjkLQ6tjrTqzrcwMN9NQJVTgwtojwdMUP1MW43UGrxjxxI7NBmuqIzTViHG3ocuxPEBTBn9sHZVS55NUiD/+v99qPdHxC6J/epD7NRyvtomis/UZbWHcSINWVlLeJ2q4617h3xANl/DFY+bS7VxVTeFnhlVYr7eii+hKOPCZH6IbftJJ+vpososuzSHDnsEOROrn1UTr6clkOMNm7kRLMEchiYgu9/GXrQGpuhFPtATQRCqOAJEqQiimwU48L2qSphphQl3GFmK/uGDQtgc5ye48S2sDNs=
+    - secure: LIHBov0S5LSlk2yQLm7XnhqgyOAY3yVoxYkYlClRHVFq2EgqQ3bNyzCRCBNFPmsGAF43ai2ZjcdiqGbJCDv9Psbf20+WC/1sF3MWRV4iOVtg8blQp62eTzksn1Wgl+Mv6ZmX6IPecaAjP3ChQzEx+RRKoUrAuhWtEyTkVE/MwCKObGW8F1vSORycu5PZxfBSO5NK4yOtkxKv7evH/tKYdcwEWkgT9dktTatFA4YhotUp1gEL0PBHl5B5EOPAkbioAmrTmP4omF7AVFUWTS4QFf+T1VPnxpoRuETtu0Rx/xkNYe4KI+6d3L715hY8mlDB1qJeNVA6iSfvqk5+A/lo34/b6Tmyh48O0lY3eFsLJWPV/Ik5OqmjIox+/H6oGRVKmIep/AN90bhPOJ3kqlOlRg4SmZFHsO0e+Na+9fS46zNNeJqIHDbAGRW3v18AbgbcEQuBL1Fm71BJY0vWLJTBs1RK5h0QYHVoPSPCN3Yl9y4Lqee5R33msZcfQj5DoYwM/VXLwc7eo1yOkQfF8gSceuR+qWuoFP0zcTW6DAIBahC/JYxa+cQy61Yy88vCOdY7X1wkGEqeh4dPAJdHM5PFRRTZKXXa1EVQvX+WR8kqwhi7AcFvOboce50XAPqZhU0lEqbQsAXxqB0xhJ/C0exocmgTfSDMtRF9vtsFDbYfTM+KUcvSwQVg2Ta8/nVT0uwin9ajj+3djZjtubSjPykQNEBmfJg0ONmQfIO4QDZdM53WIt+hBfktqWSawYyIlLd1aaXiIClafbVwiaOuAl4tBKxIATFpzHsCswp8Ii7x6eE4zctdmXrjOqqXL5Wojn2y4jXW8Io8AO3F9iTtPhJpR23Pr3FQQflyvvjxzzzoKcITFR/Te6ijqHdZgBXO7az0snRFefnzEnp4GuFSG3UeJ5R59vxvdLBYNsbpmjRoLqSE+IGBbzkgO9YaMbSVZx7KWPXEd6b7+4pzrdsM8RkNqfR3ge/8C0UZJzHQ3d45bLCW8Buyfc6/QcNuZCB6MCl5
 
 build:
   pre_ci_boot:
@@ -43,8 +43,8 @@ integrations:
       type: slack
       recipients:
         - "#server-info"
-      on_success: always
-      on_failure: always
+      on_success: never
+      on_failure: never
 
     - integrationName: email
       type: email

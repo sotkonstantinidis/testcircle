@@ -19567,13 +19567,7 @@
       "keyword": "tech_costbenefit_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text",
-        "summary": {
-          "types": ["full"],
-          "default": {
-            "field_name": "climate_change_comment"
-          }
-        }
+        "type": "text"
       }
     },
     "model": "configuration.key",
@@ -20084,6 +20078,12 @@
         "type": "float",
         "field_options": {
           "min": 0
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_total_estimation"
+          }
         }
       }
     },
@@ -20098,6 +20098,12 @@
         "type": "float",
         "field_options": {
           "min": 0
+        },
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "establishment_maintenance_total_estimation"
+          }
         }
       }
     },

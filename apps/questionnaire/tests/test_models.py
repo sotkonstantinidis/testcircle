@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.utils.translation import activate
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, sentinel
 from model_mommy import mommy
 
 from accounts.models import User
@@ -787,6 +787,30 @@ class QuestionnaireModelTest(TestCase):
         with patch.object(Value, 'get_translation') as mock_get_translation:
             qs.get_countries()
             mock_get_translation.assert_called_once_with(keyword='label')
+
+    @override_settings(
+        QUESTIONNAIRE_WORKFLOW_STEPS=['21'],
+        QUESTIONNAIRE_PUBLICATION_ROLES={'21': 'reviewer'}
+    )
+    def test_get_users_for_next_publish_step(self):
+        qs = self.get_questionnaire_with_name()
+        qs.status = '21'
+        with patch.object(qs, 'get_reviewers') as mock_target_method:
+            mock_target_method.return_value = sentinel.a_function
+            self.assertEqual(
+                sentinel.a_function,
+                qs.get_users_for_next_publish_step()
+            )
+
+    @override_settings(
+        QUESTIONNAIRE_WORKFLOW_STEPS=['no'],
+        QUESTIONNAIRE_PUBLICATION_ROLES={'no': 'not_defined'}
+    )
+    def test_get_users_for_next_publish_step_raises(self):
+        qs = self.get_questionnaire_with_name()
+        qs.status = 'no'
+        with self.assertRaises(AttributeError):
+            qs.get_users_for_next_publish_step()
 
 
 class FileModelTest(TestCase):
