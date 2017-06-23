@@ -360,7 +360,6 @@ class BaseSettings(Configuration):
     DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=True)
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
-    WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')
