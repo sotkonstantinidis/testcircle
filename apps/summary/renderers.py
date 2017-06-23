@@ -176,7 +176,8 @@ class GlobalValuesMixin:
         if image_urls:
             # first element is the header image, show max. 2 images.
             # Some files may not return a thumbnail and should therefore not be
-            # used. Continue to loop all "images" until 2 thumbnails were returned
+            # used. Continue to loop all "images" until 2 thumbnails were
+            # returned
             for index, image_data in enumerate(image_urls):
                 if len(images) >= 2:
                     continue

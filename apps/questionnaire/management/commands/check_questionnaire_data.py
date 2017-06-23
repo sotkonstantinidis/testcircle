@@ -117,24 +117,15 @@ class Command(BaseCommand):
                     print_error_message(fixable_string, error, fixed_string)
                 elif len(qg_image_data) == 1:
                     image_data = qg_image_data[0]
-                    image = image_data.get('image', '')
-                    image_parts = image.split(',')
-                    if len(image_parts) > 1:
-                        if questionnaire not in error_questionnaires:
-                            error_questionnaires.append(questionnaire)
+                    error_questionnaires = self.check_images(
+                        image_data, questionnaire, error_questionnaires,
+                        do_data_clean, 'qg_image')
 
-                        print_questionnaire_name(questionnaire)
-                        fixable_string = self.style.SQL_COLTYPE('Fixable')
-                        error = 'Questionnaire has too many header images.'
-
-                        fixed_string = ''
-                        if do_data_clean:
-                            last_image = image_parts[len(image_parts) - 1]
-                            image_data['image'] = last_image
-                            questionnaire.save()
-                            fixed_string = self.style.SQL_COLTYPE('Fixed.')
-
-                        print_error_message(fixable_string, error, fixed_string)
+                qg_photo_data_list = questionnaire.data.get('qg_photos', [])
+                for qg_photo_data in qg_photo_data_list:
+                    error_questionnaires = self.check_images(
+                        qg_photo_data, questionnaire, error_questionnaires,
+                        do_data_clean, 'qg_photos')
 
             # Check the link count. This fixes the problem where duplicate link
             # entries were created if for example the questionnaire was edited
@@ -177,6 +168,30 @@ class Command(BaseCommand):
         print("\n\n{} questionnaires found with errors (out of {})".format(
             len(error_questionnaires), len(questionnaires)))
 
+    def check_images(
+            self, image_questiongroup, questionnaire, error_questionnaires,
+            do_data_clean, questiongroup):
+        image = image_questiongroup.get('image', '')
+        image_parts = image.split(',')
+        if len(image_parts) > 1:
+            if questionnaire not in error_questionnaires:
+                error_questionnaires.append(questionnaire)
+                print_questionnaire_name(questionnaire)
+
+            fixable_string = self.style.SQL_COLTYPE('Fixable')
+            error = 'Questionnaire has too many images in questiongroup {}.'.\
+                format(questiongroup)
+
+            fixed_string = ''
+            if do_data_clean:
+                last_image = image_parts[len(image_parts) - 1]
+                image_questiongroup['image'] = last_image
+                questionnaire.save()
+                fixed_string = self.style.SQL_COLTYPE('Fixed.')
+
+            print_error_message(fixable_string, error, fixed_string)
+
+        return error_questionnaires
 
 def print_questionnaire_name(questionnaire):
     print(

@@ -324,3 +324,8 @@
     background-position: -7px -400px;
   }
 }
+
+.dz-max-files-reached {
+  pointer-events: none;
+  cursor: default;
+}
