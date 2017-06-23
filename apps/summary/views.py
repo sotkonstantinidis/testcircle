@@ -120,7 +120,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         try:
             renderer = self.render_classes[self.config.keyword][self.summary_type]
         except KeyError:
-            raise Exception('Summary not configured.')
+            raise Http404
         return renderer(
             config=self.config,
             questionnaire=self.questionnaire,
