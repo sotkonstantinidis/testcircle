@@ -113,6 +113,11 @@ class BaseConfigurationObject(object):
                 'label_view', self.configuration_keyword)
             if self.label_view is None:
                 self.label_view = self.label
+            if isinstance(self, QuestionnaireQuestion):
+                self.label_filter = translation.get_translation(
+                    'label_filter', self.configuration_keyword)
+                if self.label_filter is None:
+                    self.label_filter = self.label_view
 
         # Should be at the bottom of the function
         children = []
@@ -361,13 +366,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.num_rows = self.form_options.get('num_rows', 3)
 
         self.filter_options = self.key_config.get('filter_options', {})
-
-        if self.filter_options:
-            translation = self.configuration_object.translation
-            self.label_filter = translation.get_translation(
-                'label_filter', self.configuration_keyword)
-            if self.label_filter is None:
-                self.label_filter = self.label_view
 
         self.summary = self.key_config.get('summary')
         self.images = []

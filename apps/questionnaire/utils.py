@@ -774,7 +774,7 @@ def get_active_filters(questionnaire_configuration, query_dict):
                 'choices': question.choices,
             })
 
-    return sorted(active_filters, key=lambda k: k['key'])
+    return active_filters
 
 
 def get_link_data(linked_objects, link_configuration_code=None):
