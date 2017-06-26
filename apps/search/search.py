@@ -154,6 +154,13 @@ def get_es_query(
                 }
             })
 
+        elif filter_param.type in ['_lang']:
+            es_queries.append({
+                'terms': {
+                    'translations': [filter_param.values]
+                }
+            })
+
     if query_string:
         es_queries.append({
             "query_string": {

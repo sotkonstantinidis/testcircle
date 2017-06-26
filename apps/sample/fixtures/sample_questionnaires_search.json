@@ -71,6 +71,15 @@
     "model": "questionnaire.questionnairetranslation"
   },
   {
+    "pk": 1012,
+    "fields": {
+      "questionnaire": 1,
+      "original_language": false,
+      "language": "es"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 2,
     "fields": {

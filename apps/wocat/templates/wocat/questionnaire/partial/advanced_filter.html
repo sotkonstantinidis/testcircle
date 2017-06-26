@@ -87,6 +87,22 @@
   </div>
 </div>
 
+<div class="row large-no-gutters is-rhythmed">
+  <div class="medium-2 columns">
+    <label for="filter-language">{% trans "Language" %}</label>
+  </div>
+  <div class="medium-10 columns">
+    <select name="filter-language" class="chosen-select" data-placeholder="{% trans 'Select or type a language name' %}">
+      <option value=""></option>
+      {% with request.GET.lang|default:None as selected_lang %}
+        {% for lang in filter_configuration.languages %}
+          <option value="{{ lang.0 }}" {% if selected_lang == lang.0 %}selected="selected"{% endif %}>{{ lang.1 }}</option>
+        {% endfor %}
+      {% endwith %}
+    </select>
+  </div>
+</div>
+
   {% for filter in active_advanced_filters %}
     {% include 'search/partial/filter_key.html' with filter_select=advanced_filter_select initial_filter=filter %}
   {% endfor %}

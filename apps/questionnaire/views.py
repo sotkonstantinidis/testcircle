@@ -1143,7 +1143,7 @@ class ESQuestionnaireQueryMixin:
                 query_string = active_filter.get('value', '')
             elif filter_type in [
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
-                'select_model', 'radio', 'bool']:
+                'select_model', 'radio', 'bool', '_lang']:
                 filter_params.append(
                     FilterParam(
                         active_filter.get('questiongroup'),
@@ -1201,6 +1201,7 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
             'institutions': [(i.id, str(i)) for i in Institution.objects.all()],
             'flags': [
                 (f.flag, f.get_flag_display()) for f in Flag.objects.all()],
+            'languages': settings.LANGUAGES,
         }
 
         # Global keys

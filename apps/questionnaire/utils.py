@@ -700,6 +700,19 @@ def get_active_filters(questionnaire_configuration, query_dict):
                     'questiongroup': filter_param,
                 })
 
+        if filter_param in ['lang']:
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_lang',
+                    'key': filter_param,
+                    'key_label': _('Language'),
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': dict(settings.LANGUAGES).get(
+                        filter_value, filter_value),
+                    'questiongroup': filter_param,
+                })
+
         if not filter_param.startswith('filter__'):
             continue
 

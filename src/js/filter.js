@@ -290,6 +290,12 @@ function getFilterQueryParams() {
         }
     });
 
+    // Language
+    var searchLang = $('#search-language').find('option:selected').val();
+    if (searchLang) {
+        p = addFilter(p, {key: 'lang'}, searchLang);
+    }
+
     // Sliders
     $('.nstSlider').each(function () {
         var qs = $(this).data('keyword');
@@ -475,7 +481,9 @@ function changeUrl(url) {
  */
 function removeFilterParams(p) {
     for (var k in p) {
-        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' || k == 'updated' || k == 'flag' || k == 'type' || k == 'q') {
+        if (k.lastIndexOf('filter__', 0) === 0 || k == 'created' ||
+            k == 'updated' || k == 'flag' || k == 'type' || k == 'q' ||
+            k == 'lang') {
             delete p[k];
         }
     }
