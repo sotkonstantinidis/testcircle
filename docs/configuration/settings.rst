@@ -199,12 +199,6 @@ Used for continuous delivery (fabric).
 
 Default: ``None``
 
-``IS_ACTIVE_FEATURE_MODULE``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Feature toggle for questionnaire-modules
-
-Default: ``False``
-
 ``IS_ACTIVE_FEATURE_WATERSHED``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Feature toggle for questionnaire 'watershed'
@@ -235,7 +229,7 @@ See https://github.com/shanx/django-maintenancemode
 .. hint::
     This setting cannot be overwritten by an environment variable.
 
-``OPBEAT``ls
+``OPBEAT``
 ^^^^^^^^^^
 Opbeat configuration as dictionary.
 

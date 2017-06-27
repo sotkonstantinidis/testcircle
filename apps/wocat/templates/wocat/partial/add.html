@@ -108,25 +108,7 @@
   {# CCA #}
   <div class="small-12 medium-4 columns">
     <div class="card">
-      {% if IS_ACTIVE_FEATURE_MODULE %}
-        <a href="{% url 'technologies:add_module' %}">
-          <div class="card-image-holder">
-            <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
-            <span class="card-image-overlay-container">
-              <div class="card-image-overlay is-climate">
-                <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
-              </div>
-            </span>
-          </div>
-        </a>
-        <div class="card-well">
-          <h2 class="card-title">{% trans "CCA Module" %}</h2>
-          <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
-          <a href="{% url 'technologies:add_module' %}" class="button large expand">
-            {% trans "Add" %}
-          </a>
-        </div>
-      {% else %}
+      <a href="{% url 'technologies:add_module' %}">
         <div class="card-image-holder">
           <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
           <span class="card-image-overlay-container">
@@ -135,14 +117,14 @@
             </div>
           </span>
         </div>
-        <div class="card-well">
-          <h2 class="card-title">{% trans "CCA Module" %}</h2>
-          <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
-          <a href="{% url 'technologies:add_module' %}" class="button large expand disabled" title="{% trans "Modules will be added soon to the new database." %}" aria-haspopup="true" data-tooltip="">
-            {% trans "Add" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
-          </a>
-        </div>
-      {% endif %}
+      </a>
+      <div class="card-well">
+        <h2 class="card-title">{% trans "CCA Module" %}</h2>
+        <p class="card-desc" data-equalizer-watch>{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
+        <a href="{% url 'technologies:add_module' %}" class="button large expand">
+          {% trans "Add" %}
+        </a>
+      </div>
     </div>
   </div>
 </div>

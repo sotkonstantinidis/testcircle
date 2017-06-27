@@ -25,7 +25,6 @@ def template_settings(request):
     setting_values = [
         'GOOGLE_WEBMASTER_TOOLS_KEY',
         'GOOGLE_MAPS_JAVASCRIPT_API_KEY',
-        'IS_ACTIVE_FEATURE_MODULE',
         'IS_ACTIVE_FEATURE_WATERSHED',
         'PIWIK_URL',
         'PIWIK_SITE_ID',

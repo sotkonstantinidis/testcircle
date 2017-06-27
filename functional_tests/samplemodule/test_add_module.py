@@ -11,7 +11,6 @@ from sample.tests.test_views import route_questionnaire_new
 route_add_module = 'sample:add_module'
 
 
-@override_settings(IS_ACTIVE_FEATURE_MODULE=True)
 @patch.object(Typo3Client, 'get_user_id')
 class AddModuleTest(FunctionalTest):
 

@@ -318,9 +318,6 @@ class BaseSettings(Configuration):
     MAINTENANCE_LOCKFILE_PATH = join(BASE_DIR, 'maintenance.lock')
 
     # "Feature toggles"
-    IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
-        environ_prefix='', default=False
-    )
     IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
         environ_prefix='', default=False
     )

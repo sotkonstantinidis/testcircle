@@ -99,7 +99,7 @@
             <p>{% trans "No modules" %}</p>
           {% endfor %}
 
-          {% if module_form_config and IS_ACTIVE_FEATURE_MODULE %}
+          {% if module_form_config %}
             {# Embedded form to add a new module #}
             <form action="{% url 'technologies:add_module_action' %}" method="POST" id="module-form-embedded" class="module-form-embedded">
               {% csrf_token %}

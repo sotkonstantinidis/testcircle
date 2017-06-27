@@ -235,7 +235,6 @@
           {# CCA #}
           <div class="small-12 medium-4 columns">
             <div class="card">
-              {% if IS_ACTIVE_FEATURE_MODULE %}
               <a href="{% url 'wocat:questionnaire_list' %}?type=cca">
                 <div class="card-image-holder">
                   <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
@@ -253,23 +252,6 @@
                   {% trans "View all" %}
                 </a>
               </div>
-              {% else %}
-                <div class="card-image-holder">
-                  <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
-                  <span class="card-image-overlay-container">
-                    <div class="card-image-overlay is-climate">
-                      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
-                    </div>
-                  </span>
-                </div>
-                <div class="card-well">
-                  <h2 class="card-title">{% trans "CCA Module" %}</h2>
-                  <p class="card-desc">{% trans "The climate change adaptation tool assesses whether a specific SLM Technology is adapted to gradual climate changes and climate-related extremes (natural disasters)." %}</p>
-                  <a href="#" class="button large expand disabled" title="{% trans "Modules will be added soon to the new database." %}" aria-haspopup="true" data-tooltip="">
-                    {% trans "View all" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
-                  </a>
-                </div>
-              {% endif %}
             </div>
           </div>
         </div>
