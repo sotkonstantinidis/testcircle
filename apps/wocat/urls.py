@@ -1,11 +1,11 @@
 from django.conf.urls import url, patterns
 from django.views.generic import TemplateView
 
-from .views import HomeView
+from questionnaire.views import QuestionnaireListView, QuestionnaireFilterView
 
 urlpatterns = patterns(
     '',
-    url(r'^$', HomeView.as_view(), name='home'),
+    url(r'^$', TemplateView.as_view(template_name='wocat/home.html'), name='home'),
     url(r'^help/questionnaire/$', TemplateView.as_view(
         template_name='wocat/help/questionnaire_introduction.html'),
         name='help_questionnaire_introduction'),
@@ -18,8 +18,13 @@ urlpatterns = patterns(
     url(r'^add/$', TemplateView.as_view(
         template_name='wocat/add.html'),
         name='add'),
-    url(r'^list/$', 'wocat.views.questionnaire_list',
+    url(r'^list/$',
+        QuestionnaireListView.as_view(configuration_code=__package__),
         name='questionnaire_list'),
-    url(r'^list_partial/$', 'wocat.views.questionnaire_list_partial',
+    url(r'^list_partial/$', QuestionnaireListView.as_view(configuration_code=__package__),
         name='questionnaire_list_partial'),
+    url(r'^filter/$', QuestionnaireFilterView.as_view(
+        configuration_code=__package__), name='questionnaire_filter'),
+    url(r'^filter_partial/$', QuestionnaireFilterView.as_view(
+        configuration_code=__package__), name='questionnaire_filter_partial'),
 )

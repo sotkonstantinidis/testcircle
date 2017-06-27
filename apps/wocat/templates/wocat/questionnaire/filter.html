@@ -9,7 +9,7 @@
 {% block bodyclass %}layout-technologies{% endblock %}
 
 {% block content %}
-  <!-- Top Bar Search -->
+
   {% addtoblock 'css' %}
     <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
   {% endaddtoblock %}
@@ -20,7 +20,7 @@
     {% endcompress %}
   {% endaddtoblock %}
 
-  <form action="" data-url="{% url 'wocat:questionnaire_list_partial' %}" data-list-url="{% url 'wocat:questionnaire_list' %}" id="search-advanced">
+  <form action="" data-url="{% url 'wocat:questionnaire_filter_partial' %}" data-list-url="{% url 'wocat:questionnaire_filter' %}" id="search-advanced" class="filter-advanced">
     {{ rendered_filter }}
   </form>
 
@@ -43,29 +43,4 @@
     </main>
     <div class="loading-indicator hide"><div class="spinner"></div></div>
   </div>
-
-{% endblock %}
-
-{% block help_tour %}
-  {# TODO: Remove this if not needed anymore #}
-  {% comment %}
-  {% addtoblock 'css' %}
-    <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
-  {% endaddtoblock %}
-  <script src="{% static 'js/intro.min.js' %}"></script>
-  <script>
-    function forceFilterType() {
-        introJs().setOptions({
-            doneLabel: '{% trans 'Done'|escapejs %}',
-            showStepNumbers: false,
-            steps: [
-                {
-                    intro: '{% trans 'Advanced filters are only available for a single type of SLM data. Please select one first.'|escapejs %}',
-                    element: document.querySelector('#search-type-display')
-                }
-            ]
-        }).start();
-    }
-  </script>
-  {% endcomment %}
 {% endblock %}

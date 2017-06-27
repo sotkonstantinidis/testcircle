@@ -90,6 +90,9 @@
         "technologies": {
           "label": {
             "en": "Main purpose(s) of the Technology (land user’s perspective)"
+          },
+          "label_filter": {
+            "en": "Main purpose of the Technology"
           }
         }
       }
@@ -4144,6 +4147,9 @@
         "technologies": {
           "label": {
             "en": "Specify the goal of the Technology with regard to land degradation"
+          },
+          "label_filter": {
+            "en": "Goal of the Technology with regard to land degradation"
           }
         }
       }
@@ -15222,6 +15228,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 5
         }
       },
       "values": [
@@ -15313,6 +15322,9 @@
               "name": "get_picto_and_nested_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 1
         }
       },
       "values": [
@@ -15541,6 +15553,9 @@
               "name": "get_picto_and_nested_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 3
         }
       },
       "values": [
@@ -15660,6 +15675,9 @@
               "name": "get_picto_and_nested_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 2
         }
       },
       "values": [
@@ -15826,6 +15844,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 6
         }
       },
       "values": [
@@ -16486,6 +16507,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 8
         }
       },
       "values": [
@@ -16696,6 +16720,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 7
         }
       },
       "values": [
@@ -16804,6 +16831,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 9
         }
       },
       "values": [
@@ -17091,6 +17121,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 10
         }
       },
       "values": [
@@ -17826,6 +17859,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 11
         }
       },
       "values": [
@@ -18194,6 +18230,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 12
         }
       },
       "values": [
@@ -19331,6 +19370,9 @@
           "default": {
             "field_name": "classification_slm_group"
           }
+        },
+        "filter_options": {
+          "order": 4
         }
       },
       "values": [
@@ -21683,7 +21725,7 @@
       "translation": 1624,
       "order_value": 6,
       "configuration": {
-        "image_name": "landuse_empty.png"
+        "image_name": "pictos/land_waterways.png"
       }
     },
     "model": "configuration.value",
@@ -27408,8 +27450,7 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
                             }
                           }
                         ]
@@ -27429,8 +27470,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27461,9 +27501,6 @@
                             "keyword": "tech_lu_grazingland_extensive",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27471,9 +27508,6 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "row_class": "top-margin"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27504,9 +27538,6 @@
                             "keyword": "tech_lu_forest_natural",
                             "form_options": {
                               "helptext_position": "tooltip"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27514,9 +27545,6 @@
                             "form_options": {
                               "helptext_position": "tooltip",
                               "row_class": "top-margin"
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -27562,8 +27590,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27596,8 +27623,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27630,8 +27656,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27777,8 +27802,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -27857,8 +27881,7 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
                             }
                           }
                         ]
@@ -27878,8 +27901,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27899,8 +27921,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27920,8 +27941,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -27941,8 +27961,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28003,8 +28022,7 @@
                               ]
                             },
                             "view_options": {
-                              "template": "raw",
-                              "filter": true
+                              "template": "raw"
                             }
                           }
                         ]
@@ -28024,8 +28042,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28045,8 +28062,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28066,8 +28082,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28087,8 +28102,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28108,8 +28122,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28129,8 +28142,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -28917,8 +28929,7 @@
                             "view_options": {
                               "template": "measure_stacked",
                               "label_position": "none",
-                              "layout": "stacked",
-                              "filter": true
+                              "layout": "stacked"
                             }
                           },
                           {
@@ -29012,8 +29023,7 @@
                             },
                             "view_options": {
                               "template": "measure_stacked",
-                              "layout": "stacked",
-                              "filter": true
+                              "layout": "stacked"
                             }
                           }
                         ]

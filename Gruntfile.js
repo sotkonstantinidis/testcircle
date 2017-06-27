@@ -123,10 +123,15 @@ module.exports = function(grunt) {
       app: {
         src: [
           'src/js/app.js',
-          'src/js/filter.js'
         ],
-        dest: 'static/js/main.js',
+        dest: 'static/js/app.js',
       },
+      filter: {
+        src: [
+          'src/js/filter.js',
+        ],
+        dest: 'static/js/filter.js',
+      }
     },
     // Make it smaller
     uglify: {
@@ -140,7 +145,12 @@ module.exports = function(grunt) {
       },
       app: {
         files: {
-          'static/js/main.min.js': ['static/js/main.js']
+          'static/js/app.min.js': ['static/js/app.js']
+        }
+      },
+      filter: {
+        files: {
+          'static/js/filter.min.js': ['static/js/filter.js']
         }
       },
       wizard: {

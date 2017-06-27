@@ -1335,6 +1335,11 @@
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
+        },
+        "wocat": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation"
+          }
         }
       }
     },
@@ -1375,6 +1380,11 @@
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        },
+        "wocat": {
+          "label": {
+            "en": "Name of the institution which facilitated the documentation/ evaluation"
           }
         }
       }

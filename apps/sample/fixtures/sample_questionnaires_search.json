@@ -34,6 +34,16 @@
               "es": "Clave 5"
             }
           }
+        ],
+        "qg_11": [
+          {
+            "key_14": ["value_14_1", "value_14_2"]
+          }
+        ],
+        "qg_35": [
+          {
+            "key_48": "value_1"
+          }
         ]
       },
       "code": "sample_1",
@@ -61,6 +71,15 @@
     "model": "questionnaire.questionnairetranslation"
   },
   {
+    "pk": 1012,
+    "fields": {
+      "questionnaire": 1,
+      "original_language": false,
+      "language": "es"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
     "model": "questionnaire.questionnaire",
     "pk": 2,
     "fields": {
@@ -81,6 +100,11 @@
             "key_5": {
               "en": "Over here, it's Key Five"
             }
+          }
+        ],
+        "qg_35": [
+          {
+            "key_48": "value_2"
           }
         ]
       },
@@ -141,6 +165,83 @@
     "pk": 1031,
     "fields": {
       "questionnaire": 3,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
+    "model": "questionnaire.questionnaire",
+    "pk": 4,
+    "fields": {
+      "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b07",
+      "data": {
+        "qg_11": [
+          {
+            "key_14": ["value_14_3"]
+          }
+        ],
+        "qg_35": [
+          {
+            "key_48": "value_3"
+          }
+        ]
+      },
+      "code": "sample_3",
+      "status": 4,
+      "version": 1,
+      "created": "2015-02-11T16:08:20.904Z",
+      "updated": "2015-02-11T16:08:20.904Z"
+    }
+  },
+  {
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+      "configuration": 11002,
+      "questionnaire": 4,
+      "original_configuration": true
+    }
+  },
+  {
+    "pk": 1023,
+    "fields": {
+      "questionnaire": 4,
+      "original_language": true,
+      "language": "en"
+    },
+    "model": "questionnaire.questionnairetranslation"
+  },
+  {
+    "model": "questionnaire.questionnaire",
+    "pk": 5,
+    "fields": {
+      "uuid": "edb16da2-83fe-4e08-bd48-5f7a74024b08",
+      "data": {
+        "qg_11": [
+          {
+            "key_14": ["value_14_1"]
+          }
+        ]
+      },
+      "code": "sample_4",
+      "status": 4,
+      "version": 1,
+      "created": "2015-02-11T16:08:20.904Z",
+      "updated": "2015-02-11T16:08:20.904Z"
+    }
+  },
+  {
+    "model": "questionnaire.questionnaireconfiguration",
+    "fields": {
+      "configuration": 11002,
+      "questionnaire": 5,
+      "original_configuration": true
+    }
+  },
+  {
+    "pk": 1024,
+    "fields": {
+      "questionnaire": 5,
       "original_language": true,
       "language": "en"
     },

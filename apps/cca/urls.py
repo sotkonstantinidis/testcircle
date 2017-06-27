@@ -6,7 +6,6 @@ from questionnaire.views import QuestionnaireEditView, QuestionnaireStepView, \
 urlpatterns = patterns(
     '',
     # The 'home' route points to the list
-    url(r'^$', 'cca.views.questionnaire_list', name='home'),
     url(r'^view/(?P<identifier>[^/]+)/$',
         QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
@@ -25,8 +24,4 @@ urlpatterns = patterns(
         name='questionnaire_new_step'),
     url(r'^search/links/$', QuestionnaireLinkSearchView.as_view(
         configuration_code=__package__), name='questionnaire_link_search'),
-    url(r'^list/$', 'cca.views.questionnaire_list',
-        name='questionnaire_list'),
-    url(r'^list_partial/$', 'cca.views.questionnaire_list_partial',
-        name='questionnaire_list_partial'),
 )

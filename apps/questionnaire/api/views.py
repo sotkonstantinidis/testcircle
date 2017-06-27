@@ -5,7 +5,6 @@ from django.core.paginator import EmptyPage
 from django.http import Http404
 from django.utils.functional import cached_property
 from django.utils.translation import get_language
-from elasticsearch import TransportError
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -14,13 +13,12 @@ from rest_framework.utils.urls import remove_query_param, replace_query_param
 from api.views import LogUserMixin, PermissionMixin
 from configuration.cache import get_configuration
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
-from search.search import advanced_search, get_element
+from questionnaire.views import ESQuestionnaireQueryMixin
+from search.search import get_element
 from ..conf import settings
 from ..models import Questionnaire
 from ..serializers import QuestionnaireSerializer
 from ..utils import get_list_values, get_questionnaire_data_in_single_language
-from ..view_utils import ESPagination, get_paginator, get_page_parameter
-
 
 logger = logging.getLogger(__name__)
 
@@ -109,15 +107,17 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
             }
 
 
-class QuestionnaireListView(QuestionnaireAPIMixin):
+class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
     """
     List view for questionnaires.
 
     """
     page_size = settings.API_PAGE_SIZE
     add_detail_url = True
+    configuration_code = 'wocat'
 
     def get(self, request, *args, **kwargs):
+        self.set_attributes()
         items = self.get_elasticsearch_items()
         return self.get_paginated_response(items)
 
@@ -125,21 +125,13 @@ class QuestionnaireListView(QuestionnaireAPIMixin):
         """
         Don't touch the database, but fetch everything from elasticsearch.
 
-        Args:
-            page: int For pagination: start at this position
-            code: string Code of the questionnaire
-
         Returns:
             list of questionnaires
         """
-        self.current_page = get_page_parameter(self.request)
-        offset = self.current_page * self.page_size - self.page_size
+        es_results = self.get_es_results(call_from='api')
 
-        es_pagination = self.get_es_paginated_results(offset)
-
-        questionnaires, self.pagination = get_paginator(
-            es_pagination, self.current_page, self.page_size
-        )
+        es_pagination = self.get_es_paginated_results(es_results)
+        questionnaires, self.pagination = self.get_es_pagination(es_pagination)
 
         # Combine configuration and questionnaire values.
         list_values = get_list_values(es_hits=questionnaires)
@@ -147,38 +139,6 @@ class QuestionnaireListView(QuestionnaireAPIMixin):
             return self.update_dict_keys(list_values)
         else:
             return self.filter_dict(list_values)
-
-    def get_es_paginated_results(self, offset):
-        """
-        Args:
-            offset: int
-
-        Returns:
-            ESPagination
-
-        """
-        try:
-            # Blank search returns all items within all indexes.
-            es_search_results = advanced_search(
-                limit=self.page_size, offset=offset
-            )
-        except TransportError:
-            # See https://redmine.cde.unibe.ch/issues/1098
-            es_search_results = advanced_search(limit=0)
-            total = es_search_results.get('hits', {}).get('total', 0)
-            # If the page is not within the valid total return an empty response
-            if total < offset:
-                logger.warn('Potential issue from skbp: Invalid API request '
-                            'with offset {}.'.format(offset))
-                es_search_results = {}
-            else:
-                # There really are more results than ES pagination is originally
-                # built for. Can be fixed by enabling deep pagination or such.
-                raise
-
-        # Build a custom paginator.
-        es_hits = es_search_results.get('hits', {})
-        return ESPagination(es_hits.get('hits', []), es_hits.get('total', 0))
 
     def get_paginated_response(self, data):
         """

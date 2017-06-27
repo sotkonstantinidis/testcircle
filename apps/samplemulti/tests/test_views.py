@@ -4,11 +4,6 @@ from unittest.mock import patch, Mock
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
-from samplemulti.views import (
-    home,
-    questionnaire_list,
-    questionnaire_list_partial,
-)
 
 route_questionnaire_details = 'samplemulti:questionnaire_details'
 route_home = 'samplemulti:home'
@@ -82,18 +77,7 @@ class SampleMultiHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        request.user = create_new_user()
-        home(request)
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'samplemulti', template=None, only_current=True, limit=3,
-        )
-
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_renders_correct_template(self, mock_questionnaire_list):
-        mock_questionnaire_list.return_value = {}
+    def test_renders_correct_template(self):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'samplemulti/home.html')
         self.assertEqual(res.status_code, 200)
@@ -111,6 +95,7 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_login_required(self):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
+
 
 class QuestionnaireNewStepTest(TestCase):
 
@@ -148,85 +133,3 @@ class QuestionnaireDetailsTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
-
-    # @patch('samplemulti.views.generic_questionnaire_details')
-    # def test_calls_generic_function(self, mock_questionnaire_details):
-    #     request = self.factory.get(self.url)
-    #     questionnaire_details(request, 'foo')
-    #     mock_questionnaire_details.assert_called_once_with(
-    #         request, *get_valid_details_values())
-
-
-class QuestionnaireListPartialTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_list_partial)
-
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        mock_questionnaire_list.return_value = {}
-        with self.assertRaises(KeyError):
-            questionnaire_list_partial(request)
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'samplemulti', template=None)
-
-    @patch('samplemulti.views.render_to_string')
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_list_template(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        mock_render_to_string.return_value = ''
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'samplemulti/questionnaire/partial/list.html',
-            {'list_values': 'foo'})
-
-    @patch('samplemulti.views.render_to_string')
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_active_filters(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        mock_render_to_string.return_value = ''
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'active_filters.html', {'active_filters': 'bar'})
-
-    @patch('samplemulti.views.render_to_string')
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_pagination(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_render_to_string.return_value = ''
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'pagination.html', mock_questionnaire_list.return_value)
-
-
-class QuestionnaireListTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_list)
-
-    @patch('samplemulti.views.generic_questionnaire_list')
-    def test_calls_generic_function(self, mock_generic_function):
-        request = Mock()
-        questionnaire_list(request)
-        mock_generic_function.assert_called_once_with(
-            request, 'samplemulti',
-            template='samplemulti/questionnaire/list.html',
-            filter_url='/en/samplemulti/list_partial/')

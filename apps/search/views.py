@@ -6,9 +6,12 @@ from django.shortcuts import (
     redirect,
 )
 from django.http import HttpResponseBadRequest
+from django.views.generic import TemplateView
 from elasticsearch import TransportError
 
 from accounts.decorators import force_login_check
+from questionnaire.views import ESQuestionnaireQueryMixin
+
 from .index import (
     create_or_update_index,
     delete_all_indices,
@@ -17,7 +20,7 @@ from .index import (
     get_mappings,
     put_questionnaire_data,
 )
-from .search import simple_search
+from .search import simple_search, get_aggregated_values
 from .utils import get_alias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
@@ -214,3 +217,47 @@ def search(request):
     return render(request, 'sample/questionnaire/list.html', {
         'list_values': list_values,
     })
+
+
+class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
+    """
+    Get the available values and operator types for a given configuration and 
+    key
+    """
+    http_method_names = ['get']
+    template_name = 'search/partial/filter_value.html'
+
+    configuration = None
+    configuration_code = None
+
+    def dispatch(self, request, *args, **kwargs):
+        self.configuration_code = self.request.GET.get('type')
+        self.set_attributes()
+
+        key_path = request.GET.get('key_path', '')
+        key_path_parts = key_path.split('__')
+
+        if len(key_path_parts) != 2:
+            return self.render_to_response(context={})
+
+        questiongroup, key = key_path_parts
+
+        # Query ES to see how many results are available for each option
+        aggregated_values = get_aggregated_values(
+            questiongroup, key, **self.get_filter_params())
+
+        question = None
+        if len(key_path_parts) == 2:
+            question = self.configuration.get_question_by_keyword(
+                key_path_parts[0], key_path_parts[1])
+
+        counted_choices = []
+        for c in question.choices:
+            counted_choices.append((c[0], c[1], aggregated_values.get(c[0], 0)))
+
+        context = {
+            'choices': counted_choices,
+            'key_path': key_path,
+        }
+
+        return self.render_to_response(context=context)

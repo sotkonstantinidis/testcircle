@@ -1,14 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch, Mock
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
-from unccd.views import (
-    questionnaire_list,
-    questionnaire_list_partial,
-)
-from wocat.views import HomeView
 
 route_home = 'unccd:home'
 route_questionnaire_details = 'unccd:questionnaire_details'
@@ -63,9 +57,7 @@ class UnccdHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch.object(HomeView, 'get_context_data')
-    def test_redirect(self, mock_ctx_data):
-        mock_ctx_data.return_value = {}
+    def test_redirect(self):
         res = self.client.get(self.url)
         self.assertRedirects(res, 'http://testserver/en/wocat/')
 
@@ -117,84 +109,3 @@ class QuestionnaireDetailsTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
-
-    # @patch('unccd.views.generic_questionnaire_details')
-    # def test_calls_generic_function(self, mock_questionnaire_details):
-    #     request = self.factory.get(self.url)
-    #     questionnaire_details(request, 'foo')
-    #     mock_questionnaire_details.assert_called_once_with(
-    #         request, *get_valid_details_values())
-
-
-class QuestionnaireListPartialTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_list_partial)
-
-    @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        mock_questionnaire_list.return_value = {}
-        with self.assertRaises(KeyError):
-            questionnaire_list_partial(request)
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'unccd', template=None)
-
-    @patch('unccd.views.render_to_string')
-    @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_list_template(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        mock_render_to_string.return_value = ''
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'unccd/questionnaire/partial/list.html',
-            {'list_values': 'foo'})
-
-    @patch('unccd.views.render_to_string')
-    @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_active_filters(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        mock_render_to_string.return_value = ''
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'active_filters.html', {'active_filters': 'bar'})
-
-    @patch('unccd.views.render_to_string')
-    @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_pagination(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_render_to_string.return_value = ''
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'pagination.html', mock_questionnaire_list.return_value)
-
-
-class QuestionnaireListTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_list)
-
-    @patch('unccd.views.generic_questionnaire_list')
-    def test_calls_generic_function(self, mock_generic_function):
-        request = Mock()
-        questionnaire_list(request)
-        mock_generic_function.assert_called_once_with(
-            request, 'unccd', template='unccd/questionnaire/list.html',
-            filter_url='/en/unccd/list_partial/')

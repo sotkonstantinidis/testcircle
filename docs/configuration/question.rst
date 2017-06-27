@@ -47,9 +47,6 @@ The basic format of the configuration is as follows::
 
       # Default: false
       "is_name": true,
-
-      # Default: false
-      "filter": true
     },
 
     # (optional)
@@ -74,6 +71,11 @@ The basic format of the configuration is as follows::
 
       # Default: []
       "questiongroup_conditions": [],
+    },
+
+    # (optional)
+    "filter_options": {
+        "order": 1
     }
   }
 

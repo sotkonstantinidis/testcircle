@@ -1,6 +1,7 @@
 from django.conf.urls import url, patterns
 
 from configuration.views import BuildAllCachesView
+from search.views import FilterValueView
 
 urlpatterns = patterns(
     '',
@@ -17,4 +18,5 @@ urlpatterns = patterns(
     url(r'^cache/delete/$', 'configuration.views.delete_caches',
         name='delete_caches'),
     url(r'^cache/build/$', BuildAllCachesView.as_view(), name='build_caches'),
+    url(r'^value/$', FilterValueView.as_view(), name='filter_value'),
 )

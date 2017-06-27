@@ -2574,7 +2574,6 @@ class QuestionnaireTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch('questionnaire.views.generic_questionnaire_list')
 class QuestionnaireTestIndex(FunctionalTest):
     # Tests requiring an index
 
@@ -2592,10 +2591,8 @@ class QuestionnaireTestIndex(FunctionalTest):
         delete_all_indices()
 
     @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_enter_questionnaire(self, mock_questionnaire_list,
-                                 mock_process_request):
+    def test_enter_questionnaire(self, mock_process_request):
         mock_process_request.return_value = {}
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin()
 

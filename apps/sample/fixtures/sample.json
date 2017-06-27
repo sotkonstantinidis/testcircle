@@ -2452,7 +2452,10 @@
       "keyword": "key_14",
       "translation": 11014,
       "configuration": {
-        "type": "image_checkbox"
+        "type": "image_checkbox",
+        "filter_options": {
+          "order": 2
+        }
       },
       "values": [
         11009,
@@ -2876,7 +2879,10 @@
       "keyword": "key_48",
       "translation": 11048,
       "configuration": {
-        "type": "radio"
+        "type": "radio",
+        "filter_options": {
+          "order": 1
+        }
       },
       "values": [
         11001,
@@ -3201,6 +3207,7 @@
     "fields": {
       "keyword": "value_14_1",
       "translation": 11509,
+      "order_value": 1,
       "configuration": {
         "image_name": "landuse_01.png"
       }
@@ -3212,6 +3219,7 @@
     "fields": {
       "keyword": "value_14_2",
       "translation": 11510,
+      "order_value": 2,
       "configuration": {
         "image_name": "landuse_02.png"
       }
@@ -3223,6 +3231,7 @@
     "fields": {
       "keyword": "value_14_3",
       "translation": 11511,
+      "order_value": 3,
       "configuration": {
         "image_name": "landuse_03.png"
       }
@@ -4814,10 +4823,7 @@
                       {
                         "questions": [
                           {
-                            "keyword": "key_14",
-                            "view_options": {
-                              "filter": true
-                            }
+                            "keyword": "key_14"
                           }
                         ],
                         "keyword": "qg_11"
