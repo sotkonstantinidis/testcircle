@@ -95,14 +95,13 @@ class NotificationsIntegrationTest(FunctionalTest):
         self.findBy('name', 'compiler_info_message').send_keys('i am done')
         # finally, robin clicks the button to submit the message.
         self.findBy('id', 'inform-compiler').click()
-        # as robin checks new notifications, the notification is not on display
+        # as robin checks new notifications, the notification is on display
         self.browser.get(self.notifications_url)
         boxes = self.findBy(
             'id', 'notifications-list'
         ).find_elements_by_tag_name('div')
-        self.assertEqual(
-            boxes[7].text,
-            'No notifications.'
+        self.assertTrue(
+            'sample_1 editing has been finalized by robin' in boxes[7].text
         )
 
         # some time later, jay the compiler logs in and visits the notifications
@@ -114,6 +113,7 @@ class NotificationsIntegrationTest(FunctionalTest):
         self.findBy('class_name', 'has-unread-messages')
         self.browser.get(self.notifications_url)
         # the notification from robin is shown.
+        self.wait_for('class_name', 'notification-list')
         boxes = self.findBy(
             'id', 'notifications-list'
         ).find_elements_by_tag_name('div')

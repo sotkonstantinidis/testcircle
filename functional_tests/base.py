@@ -369,6 +369,13 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url + reverse(loginRouteName))
 
     def doLogout(self):
+        try:
+            self.browser.find_element_by_xpath(
+                '//li[contains(@class, "user-menu")]/a').click()
+            self.browser.find_element_by_xpath(
+                '//ul[@class="dropdown"]/li/a[contains(@href, "/accounts/logout/")]').click()
+        except NoSuchElementException:
+            pass
         self.browser.delete_cookie('fe_typo_user')
         self.browser.get(self.live_server_url + '/404_no_such_url/')
 

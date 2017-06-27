@@ -1,6 +1,7 @@
 """
 Prepare data as required for the summary frontend templates.
 """
+import itertools
 import os
 
 from django.conf import settings
@@ -174,12 +175,26 @@ class GlobalValuesMixin:
         images = []
         if image_urls:
             # first element is the header image, show max. 2 images.
-            for index, image in enumerate(image_urls[:2]):
-                images.append({
-                    'url': self.get_thumbnail_url(
-                        image=image['value'],
+            # Some files may not return a thumbnail and should therefore not be
+            # used. Continue to loop all "images" until 2 thumbnails were
+            # returned
+            for index, image_data in enumerate(image_urls):
+                if len(images) >= 2:
+                    continue
+                # If the file is a PDF, then use the preview_image instead of
+                # the actual document
+                if image_data['content_type'] == 'application/pdf':
+                    image = image_data.get('preview_image', '')
+                else:
+                    image = image_data.get('value', '')
+                url = self.get_thumbnail_url(
+                        image=image,
                         option_key='half_height'
-                    ),
+                    )
+                if not url:
+                    continue
+                images.append({
+                    'url': url,
                     'caption': self.get_image_caption(index)
                 })
         return {
@@ -204,32 +219,40 @@ class GlobalValuesMixin:
             return ''
 
     def conclusion(self):
-        # Combine answers from two questions: strengths compiler and landuser
-        pro_list = [
-            {'text': item['value']} for item in
-            (self.raw_data_getter('strengths_compiler', value='') or []) +
-            (self.raw_data_getter('strengths_landuser', value='') or [])
-            ]
+        land_users_view = _("land user's view")
+        compilers_view = _("compiler’s or other key resource person’s view")
 
+        # Combine answers from two questions: strengths compiler and landuser
+        pro_compilers = self._get_conclusion_row(
+            suffix=compilers_view,
+            rows=self.raw_data_getter('strengths_compiler', value='')
+        )
+        pro_landusers = self._get_conclusion_row(
+            suffix=land_users_view,
+            rows=self.raw_data_getter('strengths_landuser', value='')
+        )
         # combine answers from two questions: weaknesses compiler + landuser -
         # and get the 'overcome' value as subtext
         weaknesses_list = []
-        weaknesses_datasets = {
-            'weaknesses_compiler': 'weaknesses_compiler_overcome',
-            'weaknesses_landuser': 'weaknesses_landuser_overcome',
-        }
-        for key_name, overcome_name in weaknesses_datasets.items():
+        weaknesses_datasets = [
+            ('weaknesses_landuser', 'weaknesses_landuser_overcome', land_users_view),
+            ('weaknesses_compiler', 'weaknesses_compiler_overcome', compilers_view),
+        ]
+        for key_name, overcome_name, suffix in weaknesses_datasets:
             for index, item in enumerate(self.raw_data_getter(key_name, value='')):
+                subtext = self.raw_data_getter(overcome_name, value='')[index].get('value', '')
                 weaknesses_list.append({
                     'text': item['value'],
-                    'subtext': self.raw_data_getter(overcome_name, value='')[index].get('value')
+                    'subtext': subtext,
+                    'suffix': f'({suffix})'
                 })
+
         return {
             'title': _('Conclusions and lessons learnt'),
             'partials': {
                 'pro': {
                     'label': _('Strengths'),
-                    'items': pro_list
+                    'items': itertools.chain(pro_landusers, pro_compilers)
                 },
                 'contra': {
                     'label': _('Weaknesses/ disadvantages/ risks'),
@@ -239,10 +262,24 @@ class GlobalValuesMixin:
             }
         }
 
+    def _get_conclusion_row(self, suffix: str, rows: []):
+        for row in rows:
+            yield {'text': f'{row["value"]} ({suffix})'}
+
     def references(self):
         return {
             'title': _('References'),
             'partials': {
+                'meta': {
+                    'created': {
+                        'title': _('Questionnaire created'),
+                        'value': self.questionnaire.created
+                    },
+                    'updated': {
+                        'title': _('Last update'),
+                        'value': self.questionnaire.updated
+                    }
+                },
                 'compiler': {
                     'title': _('Compiler'),
                     'css_class': 'bullets',
@@ -276,11 +313,11 @@ class GlobalValuesMixin:
                 'project_institution': {
                     'title': _('Documentation was faciliated by'),
                     'projects': {
-                        'title': _('Projects'),
+                        'title': _('Project'),
                         'items': self.get_projects(),
                     },
                     'institutions': {
-                        'title': _('Institutions'),
+                        'title': _('Institution'),
                         'items': self.get_institutions(),
                     }
                 }
@@ -381,7 +418,6 @@ class GlobalValuesMixin:
         )
         if not links.exists():
             yield {'text': self.n_a}
-
         for link in links:
             config = link.to_questionnaire.configurations.filter(active=True)
             if config.exists():
@@ -414,7 +450,7 @@ class GlobalValuesMixin:
     def _get_project_institutions(self, model, *elements):
         ids = [item['value'] for item in elements]
         objects = model.objects.filter(id__in=ids)
-        object_list = [{'title': elem.name, 'logo': ''} for elem in objects]
+        object_list = [{'title': elem, 'logo': ''} for elem in objects]
         return object_list or [{'title': self.n_a}]
 
     def get_reference_web(self):
@@ -549,7 +585,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             # structure as required for an unordered list.
             slm_group = [{'text': text} for text in slm_group]
         except (KeyError, IndexError):
-            slm_group = []
+            slm_group = [{'text': self.n_a}]
 
         slm_group_other = self.raw_data_getter('classification_slm_group_other')
         if slm_group_other:
@@ -606,7 +642,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'slm_group': {
                     'title': _('SLM group'),
-                    'partials': slm_group or self.n_a
+                    'partials': slm_group
                 },
                 'measures': {
                     'title': _('SLM measures'),
@@ -616,18 +652,28 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         }
 
     def technical_drawing(self):
-        img_urls = []
-        for img in self.raw_data.get('tech_drawing_image', []):
-            preview = img.get('preview_image')
+        drawing_files = self.raw_data.get('tech_drawing_image', [])
+        drawing_authors = self.raw_data.get('tech_drawing_author', [])
+        images = []
+
+        for index, file in enumerate(drawing_files):
+            preview = file.get('preview_image')
             if preview:
-                img_urls.append(self.get_thumbnail_url(preview, 'flow_chart'))
+                try:
+                    author = drawing_authors[index]['value']
+                except (KeyError, IndexError):
+                    author = ''
+                images.append({
+                    'url': self.get_thumbnail_url(preview, 'flow_chart'),
+                    'author': _('Author: {}').format(author) if author else ''
+                })
 
         return {
             'title': _('Technical drawing'),
             'partials': {
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
-                'urls': img_urls
+                'images': images
             }
         }
 
@@ -643,17 +689,16 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         # chose explanation text according to selected calculation type.
         extra = ''
         if perarea_size:
-            conversion_text = _('; conversion factor to one hectare: {}').format(
-                perarea_conversion)
-            extra = _(' (size and area unit: {}{})').format(
+            conversion_text = _('; conversion factor to one hectare: <b>1 ha = {}</b>').format(perarea_conversion)
+            extra = _(' (size and area unit: <b>{}</b>{})').format(
                 perarea_size,
                 conversion_text if perarea_conversion else ''
             )
         if perunit_unit:
-            perunit_text = _('unit: {}').format(perunit_unit)
+            perunit_text = _('unit: <b>{}</b>').format(perunit_unit)
             extra = ' ({}{})'.format(
                 perunit_text,
-                ' volume, length: {}'.format(perunit_volume) if perunit_volume else ''
+                ' volume, length: <b>{}</b>'.format(perunit_volume) if perunit_volume else ''
             )
 
         calculation = '{base}{extra}'.format(
@@ -673,8 +718,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'title': _('Calculation of inputs and costs'),
                     'items': [
                         _('Costs are calculated: {}').format(calculation),
-                        _('Currency used for cost calculation: {}').format(currency),
-                        _('Exchange rate (to USD): {}.').format(exchange_rate),
+                        _('Currency used for cost calculation: <b>{}</b>').format(currency),
+                        _('Exchange rate (to USD): 1 USD = {}.').format(exchange_rate),
                         _('Average wage cost of hired labour per day: {}.').format(wage)
                     ],
                     'main_factors': self.raw_data_getter('establishment_determinate_factors') or self.n_a,
@@ -685,7 +730,13 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'list': list(self._get_establishment_list_items('establishment')),
                     'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
-                        'title': _('Establishment inputs and costs per ha'),
+                        'title': _('Establishment inputs and costs'),
+                        'total_cost_estimate': self.raw_data_getter(
+                            'establishment_total_estimation'
+                        ),
+                        'total_cost_estimate_title': _(
+                            'Total establishment costs (estimation)'
+                        ),
                         **self.raw_data.get('establishment_input', {}),
                     }
                 },
@@ -694,7 +745,13 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'list': list(self._get_establishment_list_items('maintenance')),
                     'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
-                        'title': _('Maintenance inputs and costs per ha'),
+                        'title': _('Maintenance inputs and costs'),
+                        'total_cost_estimate': self.raw_data_getter(
+                            'establishment_maintenance_total_estimation'
+                        ),
+                        'total_cost_estimate_title': _(
+                            'Total maintenance costs (estimation)'
+                        ),
                         **self.raw_data.get('maintenance_input', {}),
                     }
                 }
@@ -929,7 +986,6 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'right': _('How the Technology copes with these changes/extremes')
             },
             'partials': self.raw_data.get('climate_change'),
-            'comment': self.raw_data_getter('climate_change_comment')
         }
     
     def adoption_adaptation(self):
@@ -1036,6 +1092,11 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def participation(self):
         lead_agency = self.raw_data_getter('participation_lead_agency')
+        author = self.raw_data_getter('participation_flowchart_author')
+        flowchart_preview = ''
+        flowchart_data = self.raw_data.get('participation_flowchart_file', [])
+        if len(flowchart_data) >= 1:
+            flowchart_preview = flowchart_data[0].get('preview_image', '')
         return {
             'title': _('Participation and roles of stakeholders involved'),
             'partials': {
@@ -1054,9 +1115,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'flow_chart': {
                     'url': self.get_thumbnail_url(
-                        image=self.raw_data_getter('participation_flowchart_file'),
+                        image=flowchart_preview,
                         option_key='flow_chart'
                     ),
+                    'author': _('Author: {}').format(author) if author else '',
                     'title': _('Flow chart'),
                     'text': self.raw_data_getter('participation_flowchart_text')
                 },
@@ -1078,11 +1140,9 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def technical_support(self):
         if self.raw_data_getter('tech_support_monitoring_systematic') == 'No':
-            monitoring_intention = 'This documentation is <i>not</i> intended to be used for monitoring and evaluation'
+            monitoring_intention = _('This documentation is <i>not</i> intended to be used for monitoring and evaluation')
         else:
-            monitoring_intention = 'This documentation is intended to be used for monitoring and evaluation'
-
-        monitoring_intention_none = _('No specifications available')
+            monitoring_intention = _('This documentation is intended to be used for monitoring and evaluation')
 
         return {
             'title': _('Technical support, capacity building, and knowledge management'),
@@ -1129,24 +1189,23 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'subtitle': {
                         'title': _('Institutions have been strengthened / established'),
                         'value': self.raw_data.get('tech_support_institutions_is_institution', {}).get('value'),
-                        'comment_title': _('Describe institution, roles and responsibilities, members, etc.')
                     },
-                    'elements': [
-                        {
-                            'title': _('at the following level'),
-                            'items': self.raw_data.get('tech_support_institutions_level'),
-                            'description': self.raw_data_getter('tech_support_institutions_describe')
-                        },
-                        {
-                            'title': _('Type of support'),
-                            'items': self.raw_data.get('tech_support_institutions_support'),
-                            'description': self.raw_data_getter('tech_support_institutions_support_specify'),
-                            'comment_title': _('Further details')
-                        }
-                    ]
+                    'level': {
+                        'title': _('at the following level'),
+                        'items': self.raw_data.get('tech_support_institutions_level'),
+                        'description': self.raw_data_getter('tech_support_institutions_describe'),
+                        'comment_title': _('Describe institution, roles and responsibilities, members, etc.'),
+                    },
+                    'support_type': {
+                        'title': _('Type of support'),
+                        'items': self.raw_data.get('tech_support_institutions_support'),
+                        'description': self.raw_data_getter('tech_support_institutions_support_specify'),
+                        'comment_title': _('Further details')
+                    }
                 },
                 'monitoring': {
                     'title': _('Monitoring and evaluation'),
+                    'comment': self.raw_data_getter('tech_support_monitoring_comment'),
                     'intended': monitoring_intention
                 },
                 'research': {
@@ -1225,7 +1284,8 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'sustainability': {
                     'title': _('Sustainability of Approach activities'),
                     'subtitle': _('Can the land users sustain what hat been implemented through the Approach (without external support)?'),
-                    'items': self.raw_data.get('impacts_sustainability')
+                    'items': self.raw_data.get('impacts_sustainability'),
+                    'comment': self.raw_data_getter('impacts_sustainability_comments')
                 }
             }
         }

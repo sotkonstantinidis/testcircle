@@ -1,8 +1,8 @@
+import functools
+import operator
+
 from django.contrib import messages
-from django.contrib.auth import (
-    logout as django_logout,
-    login as django_login,
-)
+from django.contrib.auth import logout as django_logout, login as django_login
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
@@ -13,14 +13,13 @@ from django.shortcuts import get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.timezone import now
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
 from django.views.decorators.http import require_POST
-from django.views.generic import View, DetailView, FormView
+from django.views.generic import DetailView, FormView
 
 from braces.views import LoginRequiredMixin
-from configuration.cache import get_configuration
 from configuration.configuration import QuestionnaireConfiguration
 from django.views.generic import ListView
 from questionnaire.models import Questionnaire, STATUSES
@@ -77,6 +76,22 @@ class LoginView(FormView):
         )
         return response
 
+    def form_invalid(self, form):
+        """
+        If this user has logged in before, check if the account was deactivated
+        when relaunching the wocat website. If so, return a redirect to the
+        reactivation view on the new wocat website.
+        """
+        if hasattr(settings, 'USE_NEW_WOCAT_AUTHENTICATION') and settings.USE_NEW_WOCAT_AUTHENTICATION:
+            has_user = User.objects.filter(email=form.cleaned_data['username'])
+            if has_user.exists() and has_user.count() == 1:
+                user_info = typo3_client.get_user_information(has_user[0].pk)
+                if user_info and not user_info.get('is_active', True):
+                    return HttpResponseRedirect(settings.REACTIVATE_WOCAT_ACCOUNT_URL)
+
+        return super().form_invalid(form)
+
+
     def get_success_url(self):
         # Explicitly passed ?next= url takes precedence.
         redirect_to = self.request.GET.get('next') or reverse(self.success_url)
@@ -117,7 +132,7 @@ class ProfileView(LoginRequiredMixin, DetailView):
             only_current=False, limit=None
         )
 
-    def get_status_list(self) -> list:
+    def get_status_list(self) -> dict:
         """
         Fetch all (distinct) statuses that at least one questionnaire of the
         current user has.
@@ -291,17 +306,30 @@ class QuestionnaireSearchView(LoginRequiredMixin, ListView):
     def get_paginate_by(self, queryset):
         return 10 if self.request.is_ajax() else 20
 
+    def get_query_filters(self):
+        search_terms = self.request.GET.get('term', '')
+        for term in search_terms.split(' '):
+            name_lookup_params = {
+                'questiongroup': 'qg_name',
+                'lookup_by': 'string',
+                'value': term,
+            }
+            country_lookup_params = {
+                'questiongroup': 'qg_location',
+                'lookup_by': 'key_value',
+                'key': 'country',
+                'value': 'country_%s' % term,
+            }
+            yield Q(
+                Q(questionnairemembership__user__firstname__icontains=term) |
+                Q(questionnairemembership__user__lastname__icontains=term) |
+                Q(data__qs_data=name_lookup_params) |
+                Q(data__qs_data=country_lookup_params)
+            )
+
     def get_queryset(self):
-        term = self.request.GET.get('term', '')
-        data_lookup_params = {
-            'questiongroup': 'qg_name',
-            'lookup_by': 'string',
-            'value': term,
-        }
         return Questionnaire.with_status.not_deleted().filter(
-            Q(questionnairemembership__user__firstname__icontains=term) |
-            Q(questionnairemembership__user__lastname__icontains=term) |
-            Q(data__qs_data=data_lookup_params),
+            functools.reduce(operator.and_, self.get_query_filters())
         ).distinct()
 
     def get_json_data(self):
@@ -352,17 +380,21 @@ def logout(request):
 
     django_logout(request)
 
-    ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
-    if ses_id is not None:
-        response = HttpResponseRedirect(
-            typo3_client.get_logout_url(request.build_absolute_uri(url))
-        )
-        # The cookie is not always removed on wocat.net
-        response.delete_cookie(settings.AUTH_COOKIE_NAME)
+    if not hasattr(settings, 'USE_NEW_WOCAT_AUTHENTICATION') or not settings.USE_NEW_WOCAT_AUTHENTICATION:
+        ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
+        if ses_id is not None:
+            response = HttpResponseRedirect(
+                typo3_client.get_logout_url(request.build_absolute_uri(url))
+            )
+            # The cookie is not always removed on wocat.net
+            response.delete_cookie(settings.AUTH_COOKIE_NAME)
+        else:
+            response = HttpResponseRedirect(url)
+
+        response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
     else:
         response = HttpResponseRedirect(url)
 
-    response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
     return response
 
 
@@ -422,8 +454,7 @@ def user_update(request):
 
     # Update (or insert) the user details in the local database
     try:
-        user, created = User.objects.get_or_create(
-            pk=user_uid, email=user_info.get('username'))
+        user, created = User.objects.get_or_create(pk=user_uid)
     except IntegrityError:
         ret['message'] = 'Duplicate email address "{}"'.format(
             user_info.get('username'))

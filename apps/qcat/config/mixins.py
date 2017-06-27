@@ -1,11 +1,17 @@
 from configurations import values
+from os.path import join
 
 
 class DevMixin:
     DEBUG = values.BooleanValue(True)
     TEMPLATE_DEBUG = values.BooleanValue(True)
     CACHES = values.CacheURLValue('dummy://')
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
+
+    @property
+    def EMAIL_FILE_PATH(self):
+        return join(super().BASE_DIR, 'tmp')
+
     THUMBNAIL_DEBUG = True
 
 
@@ -68,6 +74,14 @@ class LogMixin:
                     'filename': '{}/logs/django.log'.format(super().BASE_DIR),
                     'formatter': 'verbose'
                 },
+                'cache_info': {
+                    'level': 'DEBUG',
+                    'class': 'logging.handlers.TimedRotatingFileHandler',
+                    'when': 'midnight',
+                    'backupCount': 2,
+                    'filename': '{}/logs/caches.log'.format(super().BASE_DIR),
+                    'formatter': 'verbose'
+                },
             },
             'loggers': {
                 '': {
@@ -75,6 +89,16 @@ class LogMixin:
                     'propagate': True,
                     'level': 'WARNING',
                 },
+                'config_cache': {
+                    'handlers': ['cache_info'],
+                    'propagate': True,
+                    'level': 'INFO'
+                },
+                'notifications': {
+                    'handlers': ['file'],
+                    'propagate': True,
+                    'level': 'INFO'
+                }
             },
         }
 
@@ -99,21 +123,42 @@ class CompressMixin:
     # maybe: use different (faster) filters for css and js.
 
 
-class SentryMixin:
+class AuthenticationFeatureSwitch:
     """
-    Config for sentry.
+    The new authentication is a feature switch, not just a new backend.
     """
+    USE_NEW_WOCAT_AUTHENTICATION = values.BooleanValue(
+        environ_prefix='', default=False
+    )
+    REACTIVATE_WOCAT_ACCOUNT_URL = values.URLValue(
+        environ_prefix='', default='https://beta.wocat.net/accounts/reactivate/'
+    )
+
+    @property
+    def AUTHENTICATION_BACKENDS(self):
+        if self.USE_NEW_WOCAT_AUTHENTICATION:
+            return ('accounts.authentication.WocatCMSAuthenticationBackend', )
+        else:
+            return super().AUTHENTICATION_BACKENDS
+
+    @property
+    def MIDDLEWARE_CLASSES(self):
+        middlewares = super().MIDDLEWARE_CLASSES
+        old_middleware = 'accounts.middleware.WocatAuthenticationMiddleware'
+        if old_middleware in middlewares:
+            middlewares = list(middlewares)
+            middlewares.remove(old_middleware)
+            middlewares = tuple(middlewares)
+        return middlewares
+
+
+class OpBeatMixin:
+
     @property
     def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + (
-            'raven.contrib.django.raven_compat',
-        )
+        return super().INSTALLED_APPS + ('opbeat.contrib.django', )
 
     @property
-    def RAVEN_CONFIG(self):
-        import raven
-
-        return {
-            'dsn': str(super().SENTRY_DSN),
-            'release': raven.fetch_git_sha(super().BASE_DIR)
-        }
+    def MIDDLEWARE_CLASSES(self):
+        return ('opbeat.contrib.django.middleware.OpbeatAPMMiddleware', ) + \
+               super().MIDDLEWARE_CLASSES

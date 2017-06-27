@@ -8,6 +8,20 @@
   <div class="small-12 columns">
     <h5>{{ content.compiler.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with list_items=content.compiler.items%}
+  </div>
+</div>
+
+<div class="row avoidbreak">
+  <div class="small-6 columns">
+    <h5>{{ content.meta.created.title }}</h5>{{ content.meta.created.value|date }}
+  </div>
+  <div class="small-6 columns">
+    <h5>{{ content.meta.updated.title }}</h5>{{ content.meta.updated.value|date }}
+  </div>
+</div>
+
+<div class="row avoidbreak">
+  <div class="small-12 columns">
     <h5>{{ content.people.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with list_items=content.people.items %}
   </div>
@@ -17,7 +31,10 @@
   <div class="small-12 columns">
     <h5>{{ content.more.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with list_items=content.more.items %}
-    <br>
+  </div>
+</div>
+<div class="row avoidbreak">
+  <div class="small-12 columns">
     <h5>{{ content.links.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with list_items=content.links.items %}
   </div>
@@ -61,7 +78,7 @@
           <h5>{{ content.web_references.title }}</h5>
             <ul>
             {% for element in content.web_references.items %}
-              <li>{{ element.title }}: <a href="{{ element.url }}">{{ element.url }}</a></li>
+              <li>{{ element.title }}: <a href="{{ element.url }}" target="_blank">{{ element.url }}</a></li>
             {% endfor %}
             </ul>
         </div>

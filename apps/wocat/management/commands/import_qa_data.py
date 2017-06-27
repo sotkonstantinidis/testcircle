@@ -78,7 +78,11 @@ class QAImport(WOCATImport):
     ]
     lookup_table_name = 'qa_lookups'
 
-    import_objects_exclude = []
+    import_objects_exclude = [
+        # Exclude Approaches which were already migrated manually to QCAT.
+        102, 101, 100, 602, 607, 608, 625, 635, 644, 597, 617, 621, 634, 526,
+        524
+    ]
     import_objects_filter = []
 
     # Attention: image_type column indicate what image it is
@@ -234,14 +238,18 @@ class QAImport(WOCATImport):
                             'Using "Unknown User" as compiler in QCAT as main '
                             'contributor in QA was "Not registered"')
 
-                    # TODO: This is a temporary fix for invalid user IDs
+                    # The following QAs have a main contributor which is not
+                    # available through the API call. Set the default user and
+                    # add a mapping message.
                     elif identifier in [131, 128, 89, 47, 106, 82, 195, 212,
                                         76, 107, 84, 139, 130, 276, 72, 147,
                                         138, 43, 44, 46, 49, 50, 52, 57, 173,
                                         171, 170, 166, 125, 78, 102, 45, 197,
                                         48]:
-
                         compiler_id = self.default_compiler_id
+                        import_object.add_mapping_message(
+                            'The compiler needs to be set manually. Use the '
+                            'main contributor of QA.')
 
                     import_object.set_owner(compiler_id)
 

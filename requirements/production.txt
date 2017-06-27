@@ -5,4 +5,4 @@
 -r base.txt
 
 pylibmc==1.5.1
-raven==5.32.0
+opbeat==3.5.2

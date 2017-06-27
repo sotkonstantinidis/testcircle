@@ -374,6 +374,7 @@ function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:checkbox').prop('checked', false).change();
     questiongroup.find('select').prop('selectedIndex', 0).change();
     questiongroup.find('input:hidden.is-cleared').val('').change();
+    questiongroup.find('.list-item input[type="hidden"]').val('').change();
     questiongroup.find('.chosen-select').val('').trigger('chosen:updated');
 }
 
@@ -1232,6 +1233,8 @@ function updateDropzones(emptyNew) {
         var dz = new Dropzone(this, {
             url: url,
             addRemoveLinks: true,
+            parallelUploads: 1,
+            maxFiles: 1,
             init: function () {
                 dropzones.push(this);
                 $(this.hiddenFileInput).attr(
@@ -1267,6 +1270,7 @@ function updateDropzones(emptyNew) {
             },
             removedfile: function (file) {
                 removeFilename(file, this);
+                $(this.element).removeClass('dz-max-files-reached');
                 var _ref;
                 return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
             }

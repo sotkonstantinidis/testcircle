@@ -647,12 +647,13 @@ class Questionnaire(models.Model):
         # Create static map
         width = 1000
         height = 800
+        marker_diameter = 24
         marker_color = '#0036FF'
 
         m = StaticMap(width, height)
 
         for point in iter(self.geom):
-            m.add_marker(CircleMarker((point.x,  point.y), marker_color, 12))
+            m.add_marker(CircleMarker((point.x,  point.y), marker_color, marker_diameter))
 
         bbox = None
         questionnaire_country = self.get_question_data('qg_location', 'country')
@@ -693,7 +694,6 @@ class Questionnaire(models.Model):
 
         filename = '{}_{}.jpg'.format(self.uuid, self.version)
         image.save(os.path.join(map_folder, filename))
-
 
     def add_flag(self, flag):
         """
@@ -756,6 +756,22 @@ class Questionnaire(models.Model):
             if user_role == role:
                 users.append(user)
         return users
+
+    def get_users_for_next_publish_step(self):
+        if self.status in settings.QUESTIONNAIRE_WORKFLOW_STEPS:
+            role = settings.QUESTIONNAIRE_PUBLICATION_ROLES[self.status]
+            return getattr(self, 'get_{role}s'.format(role=role))()
+        return []
+
+    def get_reviewers(self):
+        return get_user_model().objects.filter(
+            groups__permissions__codename='review_questionnaire'
+        )
+
+    def get_publishers(self):
+        return get_user_model().objects.filter(
+            groups__permissions__codename='publish_questionnaire'
+        )
 
     def add_user(self, user, role):
         """
