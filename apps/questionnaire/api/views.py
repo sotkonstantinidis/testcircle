@@ -49,7 +49,7 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         for item in items:
             yield self.replace_keys(item)
 
-    def language_text_mapping(self, **item) -> dict:
+    def language_text_mapping(self, **item) -> list:
         """
         The consumers of the API require the text values in the format:
         {

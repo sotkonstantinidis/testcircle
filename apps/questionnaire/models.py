@@ -259,7 +259,8 @@ class Questionnaire(models.Model):
             if previous_version.status == settings.QUESTIONNAIRE_PUBLIC:
                 # Edit of a public questionnaire: Create new version
                 # with the same code
-                version = previous_version.version + 1
+                version_count = Questionnaire.objects.filter(code=code).count()
+                version = version_count + 1
                 languages = previous_version.translations
 
             elif previous_version.status == settings.QUESTIONNAIRE_DRAFT:
