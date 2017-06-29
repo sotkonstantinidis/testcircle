@@ -110,6 +110,23 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user, created=date)
         self.assertEqual(questionnaire.created, date)
 
+    def test_create_new_sets_correct_version(self):
+        q_1 = get_valid_questionnaire(self.user)
+        q_1.status = 4
+        q_1.save()
+        # Create a new version
+        q_2 = Questionnaire.create_new(
+            configuration_code='sample', data={'faz': 'taz'}, user=self.user,
+            previous_version=q_1)
+        # Version 2 is deleted
+        q_2.is_deleted = True
+        q_2.save()
+        # Create a new version based on v1
+        q_3 = Questionnaire.create_new(
+            configuration_code='sample', data={'faz': 'taz'}, user=self.user,
+            previous_version=q_1)
+        self.assertEqual(q_3.version, 3)
+
     def test_previous_version_only_allows_certain_status(self):
         previous = Questionnaire(status=2)
         with self.assertRaises(ValidationError):

@@ -85,6 +85,14 @@ class ConfiguredQuestionnaire:
             child.view_options['template'] = original_template_value
         else:
             del child.view_options['template']
+
+        # Some questions (namely "qg_location_map.location_map" have the entire
+        # questionnaire object in its render values (from get_details). This
+        # causes the JSON serializer to stumble and needs to be removed.
+        for v in val:
+            if 'questionnaire_object' in v:
+                del v['questionnaire_object']
+
         return val
 
     @property
