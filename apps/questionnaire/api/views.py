@@ -111,8 +111,12 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
 
 class QuestionnaireListView(QuestionnaireAPIMixin):
     """
-    List view for questionnaires.
+    Get a list of Questionnaires.
 
+    Return a list of Questionnaires. The same filter parameters as for the list
+    view (search/filter in QCAT) can be passed.
+
+    ``page``: Optional page offset.
     """
     page_size = settings.API_PAGE_SIZE
     add_detail_url = True
@@ -289,7 +293,12 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
 
 class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
     """
-    Restore the fully configured questionnaires data.
+    Get a single Questionnaire.
+
+    Return a single Questionnaire by its code. The returned data contains the
+    full configuration (including labels of sections, questiongroups etc.).
+
+    ``identifier``: The identifier / code of the questionnaire.
     """
 
     def prepare_data(self, serializer: QuestionnaireSerializer) -> dict:
