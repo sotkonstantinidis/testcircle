@@ -1,0 +1,203 @@
+QCAT API v2
+===========
+
+Welcome to the documentation of version 2 of the QCAT API.
+
+Additional information on the API can be found on the
+`interactive documentation page`_ allowing to try out available requests.
+
+The example requests below are either for the command line tool `curl`_ or for
+the GUI application `Postman`_.
+
+.. contents::
+    :local:
+
+
+Authorization
+-------------
+Requests to the QCAT API require an authorization token in the header of the
+request. The token can be obtained with this endpoint, a WOCAT user account is
+required to obtain a token. Please specify what you will use the token for as
+"notes".
+
+Endpoint: ``/api/v2/auth-token/``
+
+Allowed method: ``POST``
+
+Post data:
+    ``username``: The username of your WOCAT account
+
+    ``password``: The password of your WOCAT account
+
+    ``notes``: A short note indicating the purpose of the token
+
+Example request with curl
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Request::
+
+    curl -X POST -d '{"username": "WOCAT_USERNAME", "password": "WOCAT_PASSWORD", "notes": "This token will be used for testing"}' -H "Content-Type: application/json" https://qcat.wocat.net/en/api/v2/auth-token/
+
+Response::
+
+    {"token":"0e03f8061c83e58d1595c3b21ddce9712233cb4e"}
+
+Example request with Postman
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../images/qcat_api_v2_authorization_postman.png
+
+
+List of questionnaires
+----------------------
+Return a list of Questionnaires. The same filter parameters as for the list view
+(search or filter) in QCAT can be passed.
+
+Endpoint: ``/api/v2/questionnaires/``
+
+Allowed method: ``GET``
+
+Request headers:
+    ``Authorization``: Your authorization token for the QCAT API. Specified in
+    the format ``Token AUTH_TOKEN``
+
+    ``Accept``: Optionally specify the format of the response. Available formats
+    are JSON (``application/json``), XML (``application/xml``) and
+    CSV (``text/csv``). Default: ``application/json``
+
+Optional Get parameters: Basically, the same parameters as for the list view in QCAT
+can be provided, namely ``page``, ``type`` and all the filter parameters used
+for the list view.
+
+Example request with curl
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Request::
+
+    curl -X GET -H 'Authorization: Token 0e03f8061c83e58d1595c3b21ddce9712233cb4e' -H 'Accept: application/json' https://qcat.wocat.net/en/api/v2/questionnaires/
+
+Response::
+
+    {
+      "count": 1297,
+      "next": "https://qcat.wocat.net/en/api/v2/questionnaires/?page=2",
+      "previous": "",
+      "results": [
+        {
+          "name": "Participatory action research on drip irrigation",
+          "updated": "2017-06-28T14:43:10.622384Z",
+          "code": "approaches_2350",
+          "url": "/en/wocat/approaches/view/approaches_2350/",
+          "details": "/en/api/v2/questionnaires/approaches_2350/"
+        },
+        {
+          "name": "Farmer field schools on integrated plant nutrient systems",
+          "updated": "2017-06-28T14:33:18.215042Z",
+          "code": "approaches_2351",
+          "url": "/en/wocat/approaches/view/approaches_2351/",
+          "details": "/en/api/v2/questionnaires/approaches_2351/"
+        },
+        // ...
+      ]
+    }
+
+Example request with Postman
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../images/qcat_api_v2_questionnaire_list.png
+
+
+Code examples
+^^^^^^^^^^^^^
+
+* `Example code to collect all Questionnaires`_ (in Python, using the
+  `Requests library`_)
+
+
+Details of questionnaire
+------------------------
+Return a single Questionnaire by its code. The returned data contains the full
+configuration (including labels of sections, questiongroups etc.).
+
+Endpoint: ``/api/v2/questionnaires/{identifier}/``
+
+Allowed method: ``GET``
+
+Request headers:
+    ``Authorization``: Your authorization token for the QCAT API. Specified in
+    the format ``Token AUTH_TOKEN``
+
+    ``Accept``: Optionally specify the format of the response. Available formats
+    are JSON (``application/json``), XML (``application/xml``) and
+    CSV (``text/csv``). Default: ``application/json``
+
+Example request with curl
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Request::
+
+    curl -X GET -H 'Authorization: Token 0e03f8061c83e58d1595c3b21ddce9712233cb4e' -H 'Accept: application/json' https://qcat.wocat.net/en/api/v2/questionnaires/approaches_2350/
+
+Response::
+
+    {
+      "section_general_information": {
+        "label": "General Information",
+        "children": {
+          "app__1": {
+            "label": "General information",
+            "children": {
+              "app__0__1": {
+                "label": "Image",
+                "children": {
+                  "qg_image": {
+                    "label": "",
+                    "children": {
+                      "image": {
+                        "label": "Image",
+                        "value": [
+                          {
+                            "in_list": true,
+                            "additional_translations": {},
+                            "content_type": "image/jpeg",
+                            "preview_image": "/upload/7f/0/7f06837f-0d6e-428a-999f-98d3a2f7a115.jpg",
+                            "key": "Image",
+                            "value": "/upload/ef/e/efe3d278-6620-49ed-b491-0ce29db214bd.jpg",
+                            "template": "raw"
+                          }
+                        ]
+                      },
+                      "image_caption": {
+                        "label": "Caption, explanation of photo",
+                        "value": [
+                          {
+                            "additional_translations": {},
+                            "key": "Caption, explanation of photo",
+                            "value": "On-farm demonstration and exchange visits: women demonstrating the system to visitors",
+                            "template": "raw"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              // ...
+            }
+          }
+        }
+      },
+      // ...
+    }
+
+Example request with Postman
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. image:: ../images/qcat_api_v2_questionnaire_details.png
+
+
+.. _interactive documentation page: https://qcat.wocat.net/api/docs
+.. _curl: https://curl.haxx.se/
+.. _Postman: https://www.getpostman.com/
+.. _Example code to collect all Questionnaires: https://gist.github.com/lvonlanthen/a11eb62838af3a294fc54e74d380a1ff
+.. _Requests library: http://docs.python-requests.org/en/master/

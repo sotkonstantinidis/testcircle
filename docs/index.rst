@@ -92,7 +92,7 @@ page of the project. Or see the `List of ToDo's`_ for open issues.
 API
 ---
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     api/docs
 
