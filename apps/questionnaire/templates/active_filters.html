@@ -18,7 +18,10 @@
       <ul class="filter-list">
         {% for active_filter in active_filters %}
           <li class="filter-item">
-            <a class="remove-filter" href="" data-questiongroup="{{ active_filter.questiongroup }}" data-key="{{ active_filter.key }}" data-value="{{ active_filter.value }}">{% if active_filter.key_label %}{{ active_filter.key_label }}: {% endif %}<span class="filter-value">{{ active_filter.value_label }}</span> <svg class="icon is-inline right"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+            <span class="single-filter-item{% if active_filter in active_advanced_filters %} active-advanced-filter-item js-active-advanced-filter{% endif %}">
+              {% if active_filter.key_label %}{{ active_filter.key_label }}: {% endif %}<span class="filter-value">{{ active_filter.value_label }}</span>
+            <a class="remove-filter" href="" data-questiongroup="{{ active_filter.questiongroup }}" data-key="{{ active_filter.key }}" data-value="{{ active_filter.value }}"><svg class="icon is-inline right"><use xlink:href="#icon-cross" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg></a>
+            </span>
           </li>
         {% endfor %}
       </ul>

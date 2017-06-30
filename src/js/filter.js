@@ -103,6 +103,10 @@ $(function () {
         var s = $(this).attr('href');
         changeUrl(s);
         updateList(s);
+
+        // Scroll to top of list
+        $('html,body').animate({scrollTop: $('.filter-wrapper').offset().top}, 'slow');
+
         return false;
     })
 
@@ -144,15 +148,37 @@ $(function () {
         form.submit();
     })
 
+    // When clicking on an active advanced filter, open the filter panel and
+    // scroll to the respective filter so it can be edited.
+    .on('click', '.js-active-advanced-filter', function(e) {
+        var a = $(this).find('a.remove-filter');
+        var qg = a.data('questiongroup');
+        var key = a.data('key');
+
+        // Show the filter panel
+        var filterPanel = $('#js-selected-advanced-filters');
+        filterPanel.show();
+
+        // Scroll to the currently selected filter
+        filterPanel.find('.js-filter-item').each(function() {
+            var $t = $(this);
+            if ($t.data('initial-qg') === qg && $t.data('initial-key') === key) {
+                $('html,body').animate({scrollTop: $t.offset().top}, 'slow');
+            }
+        });
+    })
+
     // When selecting a key, query the available values for this key.
     .on('change', '.filter-key-select', function() {
 
-        // If no value was selected (e.g. "---"), return right away.
-        if (!this.value) return;
-
         var filter = $(this).closest('.row');
         var valueColumn = filter.find('.filter-value-column');
-        
+
+        // If no value was selected (e.g. "---"), remove the values
+        if (!this.value) {
+            valueColumn.html('');
+        }
+
         // If there is no content yet, add some linebreaks so the placement of
         // the loading indicator is nicer
         if (valueColumn.html().trim() === '') {

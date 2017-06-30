@@ -1310,6 +1310,9 @@
           },
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Project"
           }
         },
         "technologies": {
@@ -1318,6 +1321,9 @@
           },
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Project"
           }
         },
         "cca": {
@@ -1356,6 +1362,9 @@
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Institution"
           }
         },
         "technologies": {
@@ -1364,6 +1373,9 @@
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Institution"
           }
         },
         "cca": {

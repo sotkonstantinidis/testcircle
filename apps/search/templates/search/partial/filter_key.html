@@ -1,7 +1,7 @@
 {% load i18n %}
 
-<div class="row large-no-gutters is-rhythmed js-filter-item"{% if initial_filter %} data-initial-qg="{{ initial_filter.questiongroup }}" data-initial-key="{{ initial_filter.key }}" data-initial-value="{{ initial_filter.value|join:',' }}"{% endif %}>
-  <div class="medium-2 columns">
+<div class="row large-no-gutters is-rhythmed advanced-filter-item js-filter-item"{% if initial_filter %} data-initial-qg="{{ initial_filter.questiongroup }}" data-initial-key="{{ initial_filter.key }}" data-initial-value="{{ initial_filter.value|join:',' }}"{% endif %}>
+  <div class="medium-3 columns">
     <select class="filter-key-select">
       <option value="">---</option>
       {% for section in filter_select %}
@@ -13,7 +13,7 @@
       {% endfor %}
     </select>
   </div>
-  <div class="medium-9 columns">
+  <div class="medium-8 columns">
     <div class="filter-value-column">
       {% if initial_filter %}
         {% include 'search/partial/filter_value.html' with choices=initial_filter.choices_counted key_path=initial_filter.key_path selected=initial_filter.value %}

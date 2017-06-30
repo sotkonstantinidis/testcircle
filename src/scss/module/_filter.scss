@@ -9,7 +9,8 @@
 }
 .filter-item {
   float: left;
-  a {
+
+  span.single-filter-item {
     display: inline-block;
     padding: rem-calc(6 8 6 12);
     margin: rem-calc(6 6 0 0);
@@ -20,11 +21,17 @@
   [class*=" icon"].is-inline {
     margin-top: 0;
     height: rem-calc(24);
+    color: $color-beige;
   }
 }
 .filter-value {
   color: white;
 }
+
+.active-advanced-filter-item {
+  cursor: pointer;
+}
+
 .filter-action {
   margin-top: rem-calc(6);
   color: #D9D6CC;
@@ -142,4 +149,13 @@ div.filter-wrapper {
   @media #{$small-only} {
     margin-bottom: 1rem;
   }
+}
+
+.selected-advanced-filters {
+  margin-top: 1rem;
+}
+
+.advanced-filter-item {
+  border-top: 1px solid $color-beige-dark;
+  padding-top: 1rem;
 }
