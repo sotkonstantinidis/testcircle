@@ -176,12 +176,15 @@ def get_es_query(
                 es_bool: es_queries
             }
         },
-        "sort": {
-            "data.qg_location.country": {
-                "order": "asc",
-                "nested_path": "data.qg_location"
-            }
-        }
+        "sort": [
+            {
+                "data.qg_location.country": {
+                    "order": "asc",
+                    "nested_path": "data.qg_location"
+                }
+            },
+            "_score",
+        ]
     }
 
 

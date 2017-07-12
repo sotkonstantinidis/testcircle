@@ -17,15 +17,22 @@
 .no-radius {
   border-radius:0;
 }
-.search-submit {
-  margin-top:0;
+
+.button.search-submit {
+  margin-top: 0.75rem;
 }
 
 .search-option {
-  margin-top: rem-calc(6);
+  margin-top: 1rem;
   a {
     font-size:rem-calc(14);
     text-decoration: underline;
+  }
+}
+
+.search-option-buttons {
+  span, a {
+    font-size: rem-calc(14);
   }
 }
 

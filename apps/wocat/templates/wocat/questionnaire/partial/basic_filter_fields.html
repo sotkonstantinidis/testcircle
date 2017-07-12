@@ -24,8 +24,6 @@
             {% trans "SLM Approaches" %}
           {% elif selected_type == 'unccd' %}
             {% trans "UNCCD PRAIS Practices" %}
-          {% elif selected_type == 'watershed' %}
-            {% trans "Watershed and Runoff" %}
           {% endif %}
         </a>
         <ul id="drop1" data-dropdown-content class="f-dropdown search-type-select" aria-hidden="true">
@@ -33,7 +31,6 @@
           <li><a href="#" data-type="technologies">{% trans "SLM Technologies" %}</a></li>
           <li><a href="#" data-type="approaches">{% trans "SLM Approaches" %}</a></li>
           <li><a href="#" data-type="unccd">{% trans "UNCCD PRAIS Practices" %}</a></li>
-          <li><a href="#" data-type="watershed">{% trans "Watershed and Runoff" %}</a></li>
         </ul>
         <input type="hidden" name="type" id="search-type" value="{{ selected_type }}">
       {% endwith %}

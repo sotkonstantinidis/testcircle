@@ -62,32 +62,6 @@ $(function () {
         changeUrl(s);
         updateList(s);
         return false;
-    })
-
-    // Button to reset all filters
-    .on('click', '#filter-reset', function () {
-
-        var p = getFilterQueryParams();
-
-        // Remove all filter parameters
-        p = removeFilterParams(p);
-
-        // Always delete the paging parameter if the filter was modified
-        delete p['page'];
-
-        // For advanced filtering, never remove the "type" filter (respectively
-        // add it again)
-        if ($(this).closest('form').hasClass('filter-advanced')) {
-            p = addFilter(p, {key: 'type'}, getConfigurationType());
-
-            // Also remove any advanced filter. But do not remove the template!
-            $('.js-filter-item').not('#filter-additional-template .js-filter-item').remove();
-        }
-
-        var s = createQueryString(p);
-        changeUrl(s);
-        updateList(s);
-        return false;
     });
 
     // Button to submit the filter
@@ -126,7 +100,7 @@ $(function () {
         e.preventDefault();
 
         var type_ = $(this).data('type');
-        var filterUrl = $(this).closest('div').data('filter-url');
+        var filterUrl = $(this).closest('span').data('filter-url');
 
         // Get the currently active filter parameters
         var p = getFilterQueryParams();

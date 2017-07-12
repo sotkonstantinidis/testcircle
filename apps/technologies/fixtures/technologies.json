@@ -677,6 +677,9 @@
         "technologies": {
           "label": {
             "en": "Average annual rainfall"
+          },
+          "label_filter": {
+            "en": "Annual rainfall"
           }
         }
       }

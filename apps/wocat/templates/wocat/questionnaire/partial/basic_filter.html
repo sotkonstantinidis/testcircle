@@ -11,31 +11,21 @@
   {% include 'wocat/questionnaire/partial/basic_filter_fields.html' %}
 
   <div class="row large-no-gutters is-rhythmed">
-    <div class="medium-6 columns">
-      <div class="search-option">
-        <a href="#" data-toggle="search-advanced-options">{% trans "Advanced filter" %}</a>
+    <div class="medium-10 columns">
+      <div class="search-option-buttons">
+        <span>{% trans "Advanced filter for" %}</span>
+        <span data-filter-url="{% url 'wocat:questionnaire_filter' %}" class="advanced-filter-buttons">
+          <a href="#" class="button js-filter-advanced-type" data-type="technologies" data-tooltip="" title="{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}">
+            {% trans 'SLM Technologies' %}<svg class="icon-information is-inline right no-pointer-events"><use xlink:href="#icon-information"></svg>
+          </a>
+          <a href="#" class="button js-filter-advanced-type" data-type="approaches" data-tooltip="" title="{% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement a SLM Technology, including the stakeholders involved and their roles." %}">
+            {% trans 'SLM Approaches' %}<svg class="icon-information is-inline right no-pointer-events"><use xlink:href="#icon-information"></svg>
+          </a>
+        </span>
       </div>
     </div>
-    <div class="medium-6 columns text-right">
+    <div class="medium-2 columns text-right">
       <input type="submit" class="search-submit button" value="{% trans "Search" %}">
-    </div>
-  </div>
-</div>
-<div id="search-advanced-options" class="search-advanced-options hide">
-  <div class="row large-no-gutters">
-    <div class="columns small-12">
-
-      {% trans "Advanced filters are only available for a single type of SLM data. Please select the type of SLM data you would like to filter (SLM Technologies or SLM Approaches)." as filter_select_type %}
-      {% include 'form/helptext.html' with helptext=filter_select_type %}
-
-      <div data-filter-url="{% url 'wocat:questionnaire_filter' %}" class="advanced-filter-buttons">
-        <a href="#" class="button js-filter-advanced-type" data-type="technologies" data-tooltip="" title="{% trans "An <strong>SLM Technology</strong> is a land management practice that controls land degradation and enhances productivity and/ or other ecosystem services." %}">
-          {% trans 'SLM Technologies' %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
-        </a>
-        <a href="#" class="button js-filter-advanced-type" data-type="approaches" data-tooltip="" title="{% trans "An <strong>SLM Approach</strong> defines the ways and means used to implement a SLM Technology, including the stakeholders involved and their roles." %}">
-          {% trans 'SLM Approaches' %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg>
-        </a>
-      </div>
     </div>
   </div>
 </div>
