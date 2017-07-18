@@ -168,6 +168,14 @@
                             }
                           }
                         ]
+                      },
+                      {
+                        "keyword": "qg_location",
+                        "questions": [
+                          {
+                            "keyword": "country"
+                          }
+                        ]
                       }
                     ]
                   },
