@@ -241,7 +241,11 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
 
     @property
     def questionnaire_links(self):
-        return self.object.links.all() if self.has_object else []
+        if not self.has_object:
+            return []
+        status_filter = get_query_status_filter(self.request)
+        return self.object.links.filter(
+            status_filter, configurations__isnull=False, is_deleted=False)
 
     def get_detail_url(self, step):
         """
@@ -853,13 +857,11 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         status_filter = get_query_status_filter(self.request)
 
         linked_questionnaires = self.object.links.filter(
-            status_filter, configurations__isnull=False)
+            status_filter, configurations__isnull=False, is_deleted=False)
         links_by_configuration = collections.defaultdict(list)
         links_by_configuration_codes = collections.defaultdict(list)
 
         for linked in linked_questionnaires:
-            if linked.is_deleted is True:
-                continue
             configuration_code = linked.configurations.first().code
             linked_questionnaire_code = linked.code
             if linked_questionnaire_code not in links_by_configuration_codes[

@@ -60,6 +60,54 @@ class LinkTests(FunctionalTest):
         super(LinkTests, self).tearDown()
         delete_all_indices()
 
+    def test_do_not_show_deleted_links_in_form(self, mock_get_user_id):
+
+        # Alice logs in
+        user = User.objects.get(pk=101)
+        self.doLogin(user=user)
+
+        # She goes to the SAMPLE questionnaire and sees the link
+        self.open_questionnaire_details('sample', identifier='sample_1')
+        self.findBy('xpath', '//a[contains(text(), "This is key 1a")]')
+
+        # She starts editing the questionnaire
+        self.review_action('edit')
+        self.findBy('xpath', '//a[contains(text(), "This is key 1a")]')
+
+        # She opens the step with the link and sees the link is there
+        self.click_edit_section('cat_5')
+        links = self.findManyBy(
+            'xpath',
+            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
+        self.assertEqual(len(links), 1)
+
+        # She opens the SAMPLEMULTI questionnaire
+        self.open_questionnaire_details(
+            'samplemulti', identifier='samplemulti_1')
+
+        # She deletes the questionnaire
+        self.review_action('delete')
+
+        # She goes back to the SAMPLE questionnaire
+        self.open_questionnaire_details('sample', identifier='sample_1')
+
+        # Now she does not see the link anymore
+        self.findByNot('xpath', '//a[contains(text(), "This is key 1a")]')
+
+        # In the edit view, it is not there either
+        self.review_action('edit')
+        self.findByNot('xpath', '//a[contains(text(), "This is key 1a")]')
+
+        # She opens the step with the link and sees the link is NOT there
+        self.click_edit_section('cat_5')
+        links = self.findManyBy(
+            'xpath',
+            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
+        self.assertEqual(len(links), 0)
+
+        # She submits the form and sees there is no error
+        self.submit_form_step()
+
     def test_show_only_one_linked_version(self, mock_get_user_id):
 
         # Alice logs in
