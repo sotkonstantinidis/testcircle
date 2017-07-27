@@ -414,7 +414,7 @@ class GlobalValuesMixin:
     def get_reference_linked_questionnaires(self):
         links = QuestionnaireLink.objects.filter(
             from_questionnaire=self.questionnaire,
-            to_questionnaire__status=settings.QUESTIONNAIRE_PUBLIC
+            to_questionnaire__is_deleted=False
         )
         if not links.exists():
             yield {'text': self.n_a}
