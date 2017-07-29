@@ -601,10 +601,13 @@ class ApproachParser(QuestionnaireParser):
         ]
 
         for index, group_keyword in enumerate(selected_group_keywords):
-            values = self.values[group_keyword][0]
+            # Always display translated label ('NGO', 'local land users')
             label = Value.objects.get(keyword=labels[index]).get_translation(
                 keyword='label', configuration='approaches'
             )
+            # If additional info is specified (role, specify), append this.
+            values = self.values[group_keyword][0] if group_keyword in self.values else {}
+
             yield from self._get_stakeholder_row(label=label, **values)
 
         # Also include 'other' stakeholders
