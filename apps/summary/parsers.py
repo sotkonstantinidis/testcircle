@@ -613,7 +613,7 @@ class ApproachParser(QuestionnaireParser):
         # Also include 'other' stakeholders
         other_group = next(group for group in groups if group.children[0].keyword == 'app_stakeholders_other')
         other = self.values.get(other_group.keyword, [])
-        if other and len(other) == 1:
+        if other and len(other) == 1 and 'app_stakeholders_other' in other[0]:
             values = other[0]
             yield from self._get_stakeholder_row(
                 label=values[other_group.children[0].keyword], **values
