@@ -155,4 +155,10 @@ class SummaryPDFCreateView(PDFTemplateView):
         context = super().get_context_data(**kwargs)
         context['block'] = self.get_prepared_data(self.questionnaire)
         context.update(self.get_footer_context())
+        # For languages with no spaces between words (e.g. Lao, Khmer), add CSS
+        # line break rule if either the questionnaire or its original version is
+        # in one of these languages.
+        if self.questionnaire.original_locale in settings.WORD_WRAP_LANGUAGES \
+                or self.request.LANGUAGE_CODE in settings.WORD_WRAP_LANGUAGES:
+            context['break_words'] = True
         return context
