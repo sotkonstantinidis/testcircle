@@ -14,6 +14,7 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -283,6 +284,86 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url + reverse(
             route, kwargs={'identifier': identifier}))
         self.toggle_all_sections()
+
+    def toggle_selected_advanced_filters(self, display: bool=True) -> None:
+        """Toggle the panel with selected advanced filters"""
+        filter_panel_xpath = '//div[contains(@class, "selected-advanced-filters")]'
+        filter_panel = self.findBy('xpath', filter_panel_xpath)
+        if filter_panel.is_displayed() != display:
+            self.findBy('xpath',
+                        '//a[@data-toggle="js-selected-advanced-filters"]').click()
+            self.wait_for('xpath', filter_panel_xpath)
+
+    def open_advanced_filter(self, configuration: str) -> None:
+        """
+        Assuming that you are on search page, click the link to open the
+        advanced filter of a given configuration
+        """
+        self.findBy('xpath',
+                    f'//a[contains(@class, "js-filter-advanced-type") and '
+                    f'@data-type="{configuration}"]').click()
+
+    def add_advanced_filter(self, key: str, value: str) -> None:
+        """Add a new advanced filter"""
+
+        # Toggle the filter panel if it is not open yet
+        self.toggle_selected_advanced_filters(display=True)
+
+        # Select the last <select> available
+        filter_row_xpath = '(//div[contains(@class, "selected-advanced-filters")]/div[contains(@class, "js-filter-item")])[last()]'
+        filter_row = self.findBy('xpath', filter_row_xpath)
+        filter_select_xpath = f'//select[contains(@class, "filter-key-select")]'
+        select = Select(self.findBy('xpath', filter_select_xpath, base=filter_row))
+
+        # If it already has a key selected, click "add filter" to add a new row
+        # and select the <select> again
+        if select.first_selected_option.text != '---':
+            self.findBy('id', 'filter-add-new').click()
+            filter_row = self.findBy('xpath', filter_row_xpath)
+            select = Select(
+                self.findBy('xpath', filter_select_xpath, base=filter_row))
+
+        # Select the key, wait for the values to be loaded and select one
+        select.select_by_value(key)
+        self.wait_for('xpath', filter_row_xpath + '//div[contains(@class, "loading-indicator-filter-key")]', visibility=False)
+        self.findBy('xpath', f'//div[contains(@class, "filter-value-column")]//input[@value="{value}"]', base=filter_row).click()
+        self.apply_filter()
+
+    def remove_filter(self, index):
+        """
+        Remove the filter at a given (0-based) index. If index is None, all
+        filters are removed!
+        """
+        curr_index = index
+        if curr_index is None:
+            curr_index = 0
+        self.findBy(
+            'xpath',
+            f'//ul[@class="filter-list"]//a[@class="remove-filter"]/'
+            f'*[contains(@class, "icon")][{curr_index+1}]').click()
+        self.wait_for('class_name', 'loading-indicator', visibility=False)
+        if index is None:
+            try:
+                self.remove_filter(index=None)
+            except AssertionError:
+                pass
+
+    def get_active_filters(self, has_any=None) -> list:
+        """
+        Return a list of all active filters. If has_any is a boolean, it is
+        checked whether there are any active filters or not.
+        """
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        if has_any is not None:
+            active_filter_panel = self.findBy(
+                'xpath', '//div[@id="active-filters"]/div')
+            self.assertEqual(has_any, active_filter_panel.is_displayed())
+            if has_any is False:
+                self.assertEqual(len(active_filters), 0)
+            else:
+                self.assertNotEqual(len(active_filters), 0)
+        return active_filters
 
     def apply_filter(self):
         self.findBy(
