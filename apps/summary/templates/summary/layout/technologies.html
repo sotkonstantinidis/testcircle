@@ -11,6 +11,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% trans "Summary" %}</title>
     <link rel="stylesheet" href="{{ request.scheme }}://{{ request.get_host }}{% static 'css/summary.css' %}?version={% summary_css_hash %}" />
+    {% if break_words %}
+      <style type="text/css">
+        body {
+          word-wrap: break-word;
+        }
+      </style>
+    {% endif %}
   </head>
   <body class="summary is-technologies">
     {% include 'summary/block/header_image.html' with content=block.header_image.partials %}
