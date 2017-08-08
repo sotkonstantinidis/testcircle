@@ -13,10 +13,6 @@
           <div class="alert-box info is-rhythmed-2">{% trans "Please log in to access this page." %}</div>
         {% endif %}
 
-        <div class="alert-box info is-rhythmed-2">
-          On Tuesday, August 8 2017, the new WOCAT Website will be released. As a consequence, the login functionality may be temporarily unavailable on that day. We apologize for the inconvenience and thank you for your understanding.
-        </div>
-
         <form action="{{ login_url }}" method="post" class="user-login js-submit-once">
             {% csrf_token %}
             {% formrow form.username %}
