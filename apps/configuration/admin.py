@@ -185,25 +185,3 @@ class TranslationAdmin(admin.ModelAdmin):
             translations.append('<strong>{}</strong>: {}'.format(
                 locale, obj.get_translation(locale)))
         return format_html('<br/>'.join(translations))
-
-
-@admin.register(Project)
-class ProjectAdmin(admin.ModelAdmin):
-    """
-    The representation of :class:`configuration.models.Project` in the
-    administration interface.
-    """
-    list_display = ('id', 'name', 'abbreviation', 'active',)
-    list_filter = ('active',)
-    search_fields = ('name', 'abbreviation',)
-
-
-@admin.register(Institution)
-class InstitutionAdmin(admin.ModelAdmin):
-    """
-    The representation of :class:`configuration.models.Institution` in the
-    administration interface.
-    """
-    list_display = ('id', 'name', 'abbreviation', 'country', 'active',)
-    list_filter = ('active', 'country')
-    search_fields = ('name', 'abbreviation',)
