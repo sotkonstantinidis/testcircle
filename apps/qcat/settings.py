@@ -21,7 +21,7 @@ class ProdDefaultSite(ProdMixin, AuthenticationFeatureSwitch, CompressMixin,
     pass
 
 
-class ProdDevDefaultSite(AuthenticationFeatureSwitch, ProdDefaultSite):
+class ProdDevDefaultSite(ProdDefaultSite):
     """
     Settings for qcat-dev hosting.
     """
