@@ -14570,9 +14570,6 @@
                       },
                       {
                         "keyword": "cca_qg_130",
-                        "form_options": {
-                          "questiongroup_condition": "cca_qg_130"
-                        },
                         "questions": [
                           {
                             "keyword": "cca_measures",
