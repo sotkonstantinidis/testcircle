@@ -318,7 +318,7 @@ class BaseSettings(Configuration):
 
     # "Feature toggles"
     IS_ACTIVE_FEATURE_MODULE = values.BooleanValue(
-        environ_prefix='', default=False
+        environ_prefix='', default=True
     )
     IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
         environ_prefix='', default=False
