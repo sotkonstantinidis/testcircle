@@ -14682,9 +14682,6 @@
                       },
                       {
                         "keyword": "cca_qg_136",
-                        "form_options": {
-                          "questiongroup_condition": "cca_qg_136"
-                        },
                         "questions": [
                           {
                             "keyword": "cca_measures_comments"
