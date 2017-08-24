@@ -123,7 +123,7 @@ class FlaggingTest(FunctionalTest):
         self.browser.get(
             self.live_server_url + reverse(route_questionnaire_list))
         self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]'
+            'xpath', '(//article[contains(@class, "tech-item")])[2]'
                      '//span[contains(@class, "is-unccd_bp")]')
 
         # He goes to the page where he sees the questionnaires of user UNCCD

@@ -109,8 +109,7 @@ class NotificationsIntegrationTest(FunctionalTest):
         self.doLogin(self.jay)
         # the indicator for new messages is shown, so jay visits the
         # notifications page
-        time.sleep(0.5)
-        self.findBy('class_name', 'has-unread-messages')
+        self.wait_for('class_name', 'has-unread-messages')
         self.browser.get(self.notifications_url)
         # the notification from robin is shown.
         self.wait_for('class_name', 'notification-list')
@@ -122,7 +121,7 @@ class NotificationsIntegrationTest(FunctionalTest):
         )
         # jay clicks on the mail icon and the message is revealed in full.
         self.findBy('xpath', '//a[@data-reveal-id="show-message-1"]').click()
-        time.sleep(0.5)
+        self.wait_for('id', 'show-message-1')
         modal = self.findBy('id', 'show-message-1')
         self.assertTrue(
             modal.is_displayed()

@@ -16,14 +16,14 @@
     <div class="search-category">
       {% with request.GET.type|default:'wocat' as selected_type %}
         <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light{% if is_type_disabled %} disabled{% endif %}">
-          {% if selected_type == 'wocat' %}
-            {% trans "All SLM Data" %}
-          {% elif selected_type == 'technologies' %}
+          {% if selected_type == 'technologies' %}
             {% trans "SLM Technologies" %}
           {% elif selected_type == 'approaches' %}
             {% trans "SLM Approaches" %}
           {% elif selected_type == 'unccd' %}
             {% trans "UNCCD PRAIS Practices" %}
+          {% else %}
+            {% trans "All SLM Data" %}
           {% endif %}
         </a>
         <ul id="drop1" data-dropdown-content class="f-dropdown search-type-select" aria-hidden="true">

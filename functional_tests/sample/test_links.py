@@ -364,7 +364,7 @@ class LinkTests(FunctionalTest):
         # The first of the list is the newly created one and it does now have a
         # link attached
         link_count = self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//ul['
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//ul['
                      'contains(@class, "tech-attached")]/li/a')
         self.assertEqual(link_count.text, '')
 

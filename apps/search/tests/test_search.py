@@ -57,8 +57,10 @@ class AdvancedSearchTest(TestCase):
         advanced_search(filter_params=[])
         mock_es.search.assert_called_once_with(
             index=mock_get_alias.return_value,
-            body={'query': {'bool': {'should': []}}, 'sort': [
-                '_score', {'updated': 'desc'}]}, size=10, from_=0)
+            body={'query': {'bool': {'must': []}}, 'sort': [
+                {'data.qg_location.country': {
+                    'order': 'asc', 'nested_path': 'data.qg_location'}},
+                '_score']}, size=10, from_=0)
 
     @patch('search.search.es')
     def test_returns_search(self, mock_es):

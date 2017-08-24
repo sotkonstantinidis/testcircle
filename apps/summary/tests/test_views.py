@@ -20,6 +20,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         self.base_url = reverse('questionnaire_summary', kwargs={'id': 1})
         self.request = self.factory.get(self.base_url)
         self.request.user = MagicMock()
+        self.request.LANGUAGE_CODE = ''
         self.view = self.setup_view(self.base_view, self.request, id=1)
         self.view.code = 'sample'
         self.view.quality = 'screen'
@@ -45,7 +46,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
     def test_get_filename(self):
         this_moment = now()
         expected = 'wocat-id-en-full-screen-summary-{}.pdf'.format(
-            this_moment.strftime('%Y-%m-%d-%H:%m')
+            this_moment.strftime('%Y-%m-%d-%H-%M')
         )
         self.view.questionnaire = MagicMock(
             id='id', updated=this_moment

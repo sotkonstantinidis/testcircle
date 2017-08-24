@@ -40,37 +40,25 @@ class ListTest(FunctionalTest):
         # UNCCD practices are listed, each with details.
         self.browser.get(self.live_server_url + reverse(route_wocat_list))
 
-        results = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(results), 4)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "UNCCD practice 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
-            'contains(text(), "This is the description of the second UNCCD '
-            'practice.")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "WOCAT Tech 2 en español")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
-            'contains(text(), "Descripción 2 en español")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
-            'contains(text(), "UNCCD practice 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
-            'contains(text(), "This is the description of the first UNCCD '
-            'practice.")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
-            'contains(text(), "WOCAT Technology 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
-            'contains(text(), "This is the definition of the first WOCAT '
-            'Technology.")]')
+        expected_results = [
+            {
+                'title': 'WOCAT Tech 2 en español',
+                'description': 'Descripción 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1',
+                'description': 'This is the definition of the first WOCAT Technology.',
+            },
+            {
+                'title': 'UNCCD practice 2',
+                'description': 'This is the description of the second UNCCD practice.',
+            },
+            {
+                'title': 'UNCCD practice 1',
+                'description': 'This is the description of the first UNCCD practice.',
+            },
+        ]
+        self.check_list_results(expected_results)
 
         # Alice applies the type filter and sees that only technologies are
         # listed
@@ -78,23 +66,17 @@ class ListTest(FunctionalTest):
         self.findBy('xpath', '//li/a[@data-type="technologies"]').click()
         self.apply_filter()
 
-        results = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(results), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "WOCAT Tech 2 en español")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
-            'contains(text(), "Descripción 2 en español")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "WOCAT Technology 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
-            'contains(text(), "This is the definition of the first WOCAT '
-            'Technology.")]')
+        expected_results = [
+            {
+                'title': 'WOCAT Tech 2 en español',
+                'description': 'Descripción 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1',
+                'description': 'This is the definition of the first WOCAT Technology.',
+            },
+        ]
+        self.check_list_results(expected_results)
 
     def test_filter(self):
 

@@ -1479,24 +1479,17 @@ class ListTestStatus(FunctionalTest):
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 3")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 5")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
+        expected_results = [
+            {
+                'title': 'Foo 5',
+                'status': 'public'
+            },
+            {
+                'title': 'Foo 3',
+                'status': 'public'
+            },
+        ]
+        self.check_list_results(expected_results)
 
     def test_list_status_logged_in(self, mock_get_user_id):
 
@@ -1506,68 +1499,22 @@ class ListTestStatus(FunctionalTest):
 
         # Design change: Home also shows only public questionnaires
 
-        # She goes to the SAMPLE landing page and sees only the public
-        # questionnaires
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 3")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 5")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-
-        # # She goes to the SAMPLE landing page and sees the latest
-        # # updates. These are: 1 (draft), 3 (public) and 6 (public)
-        # self.browser.get(self.live_server_url + reverse(route_home))
-        #
-        # list_entries = self.findManyBy(
-        #     'xpath', '//article[contains(@class, "tech-item")]')
-        # self.assertEqual(len(list_entries), 3)
-        #
-        # self.findBy('xpath', '//article[1]//h1/a[text()="Foo 1"]')
-        # self.findBy('xpath', '//article[1]//figcaption[text()="Draft"]')
-        # self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        # self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        # self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
-        # self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
-
         # She goes to the list view and sees only the public
         # questionnaires
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 3")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 5")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
+        expected_results = [
+            {
+                'title': 'Foo 5',
+                'status': 'public'
+            },
+            {
+                'title': 'Foo 3',
+                'status': 'public'
+            },
+        ]
+        self.check_list_results(expected_results)
 
         # She logs in as user 2
         user = User.objects.get(pk=102)
@@ -1575,69 +1522,12 @@ class ListTestStatus(FunctionalTest):
 
         # Design change: Home also shows only public questionnaires
 
-        # She goes to the SAMPLE landing page and sees only the public
-        # questionnaires
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 3")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 5")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-
-        # # She goes to the SAMPLE landing page and sees the latest
-        # # updates. These are: 2 (pending), 3 (public) and 6
-        # # (public)
-        # self.browser.get(self.live_server_url + reverse(route_home))
-        #
-        # list_entries = self.findManyBy(
-        #     'xpath', '//article[contains(@class, "tech-item")]')
-        # self.assertEqual(len(list_entries), 3)
-        #
-        # self.findBy('xpath', '//article[1]//h1/a[text()="Foo 2"]')
-        # self.findBy('xpath', '//article[1]//figcaption[text()="Submitted"]')
-        # self.findBy('xpath', '//article[2]//h1/a[text()="Foo 3"]')
-        # self.findByNot('xpath', '//article[2]//figcaption[text()="Public"]')
-        # self.findBy('xpath', '//article[3]//h1/a[text()="Foo 5"]')
-        # self.findByNot('xpath', '//article[3]//figcaption[text()="Public"]')
-
         # She goes to the list view and sees only the public
         # questionnaires
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 3")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 5")]')
-        self.findByNot(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//span['
-                     'contains(@class, "tech-status") and contains(text(), '
-                     '"Public")]')
+        self.check_list_results(expected_results)
 
     def test_list_shows_only_one_public(self, mock_get_user_id):
 

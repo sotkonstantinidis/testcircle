@@ -370,6 +370,47 @@ class FunctionalTest(StaticLiveServerTestCase):
             'xpath', '//input[contains(@class, "search-submit")]').click()
         self.wait_for('class_name', 'loading-indicator', visibility=False)
 
+    def check_list_results(self, expected: list, count: bool=True):
+        """
+        Args:
+            expected: list of dicts. Can contain
+                - title
+                - description
+                - translations (list)
+        """
+        if count is True:
+            list_entries = self.findManyBy(
+                'xpath', '//article[contains(@class, "tech-item")]')
+            self.assertEqual(len(list_entries), len(expected))
+        for i, e in enumerate(expected):
+            i_xpath = i + 1
+            if e.get('title') is not None:
+                title = e['title']
+                self.findBy(
+                    'xpath',
+                    f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
+                    f'a[contains(text(), "{title}")]')
+            if e.get('description'):
+                description = e['description']
+                self.findBy(
+                    'xpath',
+                    f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
+                    f'p[contains(text(), "{description}")]')
+            if e.get('status'):
+                status = e['status']
+                xpath = f'(//article[contains(@class, "tech-item")])[{i_xpath}]' \
+                        f'//span[contains(@class, "tech-status") and ' \
+                        f'contains(@class, "is-{status}")]'
+                if status == 'public':
+                    self.findByNot('xpath', xpath)
+                else:
+                    self.findBy('xpath', xpath)
+            for lang in e.get('translations', []):
+                self.findBy(
+                    'xpath',
+                    f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
+                    f'a[contains(text(), "{lang}")]')
+
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)
         WebDriverWait(self.browser, 10).until(

@@ -176,6 +176,7 @@ class QuestionnaireListViewTest(TestCase):
         )
 
 
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireDetailViewTest(TestCase):
     """
     Tests for v1
