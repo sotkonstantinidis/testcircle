@@ -1,3 +1,5 @@
+import unittest
+
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from unittest.mock import patch
@@ -70,6 +72,7 @@ class FlaggingTest(FunctionalTest):
         super(FlaggingTest, self).tearDown()
         delete_all_indices()
 
+    @unittest.skip("Disabling this until further info about UNCCD flagging")
     def test_unccd_focal_point(self, mock_get_user_id):
 
         unccd_user = create_new_user()

@@ -24,7 +24,7 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireListViewTest(TestCase):
-    fixtures = ['sample', 'sample_questionnaires']
+    fixtures = ['global_key_values', 'sample', 'sample_questionnaires']
 
     def setUp(self):
         delete_all_indices()

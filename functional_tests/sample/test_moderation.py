@@ -701,7 +701,7 @@ class ModerationTestFixture(FunctionalTest):
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 1)
 
-        self.findBy('id', 'review-search-user').send_keys('lukas')
+        self.findBy('id', 'review-search-user').send_keys('vonlanthen')
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -818,6 +818,7 @@ class ModerationTestFixture(FunctionalTest):
         NOTIFICATIONS_REMOVE_MEMBER='delete_member',
         QUESTIONNAIRE_COMPILER = 'compiler',
         QUESTIONNAIRE_EDITOR = 'editor',
+        USE_NEW_WOCAT_AUTHENTICATION=True,
     )
     @patch('questionnaire.signals.change_member.send')
     def test_secretariat_can_assign_reviewer_2(
@@ -901,7 +902,8 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(new_compiler_1)
+        self.findBy('id', 'review-change-compiler').send_keys(
+            new_compiler_1.split(' ')[0])
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -967,7 +969,8 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(new_compiler_1)
+        self.findBy('id', 'review-change-compiler').send_keys(
+            new_compiler_1.split(' ')[0])
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -993,7 +996,8 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(new_compiler_2)
+        self.findBy('id', 'review-change-compiler').send_keys(
+            new_compiler_2.split(' ')[0])
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
