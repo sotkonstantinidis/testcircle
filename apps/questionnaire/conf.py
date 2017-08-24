@@ -1,5 +1,6 @@
 from django.conf import settings  # noqa
 from appconf import AppConf
+from django.utils.translation import ugettext as _
 
 
 class QuestionnaireConf(AppConf):
@@ -71,5 +72,12 @@ class QuestionnaireConf(AppConf):
         'tech_definition': 'definition',
         'unccd_description': 'definition',
     }
+
+    SLM_DATA_TYPES = (
+        ('wocat', _('ALL SLM Data')),
+        ('technologies', _('SLM Technologies')),
+        ('approaches', _('SLM Approaches')),
+        ('unccd', _('UNCCD PRAIS Practices')),
+    )
 
     LOCK_TIME = 10  # Number of minutes that questionnaires are locked.

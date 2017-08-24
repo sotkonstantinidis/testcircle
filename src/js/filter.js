@@ -394,7 +394,7 @@ function removeFilter(questiongroup, key) {
     var keyParameter;
     if (key == '_search') {
         keyParameter = 'q';
-    } else if (key == 'created' || key == 'updated' || key == 'flag') {
+    } else if (['created', 'updated', 'flag', 'type', 'lang'].indexOf(key) >= 0) {
         keyParameter = key;
     } else if (key == 'funding_project_display') {
         key = key.replace('_display', '');

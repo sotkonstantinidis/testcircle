@@ -643,6 +643,23 @@ def get_active_filters(questionnaire_configuration, query_dict):
     active_filters = []
     for filter_param, filter_values in query_dict.lists():
 
+        if filter_param == 'type':
+            for filter_value in filter_values:
+                if filter_value == 'wocat':
+                    # Do not add type 'wocat' (= All SLM Data) to active
+                    # filters.
+                    continue
+                active_filters.append({
+                    'type': '_type',
+                    'key': 'type',
+                    'key_label': _('SLM Data'),
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': dict(settings.QUESTIONNAIRE_SLM_DATA_TYPES).get(filter_value, filter_value),
+                    'questiongroup': '_type',
+                })
+            continue
+
         if filter_param == 'q':
             for filter_value in filter_values:
                 active_filters.append({
@@ -1806,8 +1823,6 @@ def prepare_list_values(data, config, **kwargs):
         translations = []
         for lang in data['translations']:
             # 'translations' must not list the currently active language
-            if lang == language:
-                continue
             if lang in languages.keys():
                 translations.append([lang, str(languages[lang])])
             else:
