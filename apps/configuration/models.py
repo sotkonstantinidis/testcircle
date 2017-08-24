@@ -470,7 +470,14 @@ class Institution(models.Model):
 
     @classmethod
     def as_select(cls):
-        return cache.get(settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT)
+        # Method get_or_set is not available for file-based caches
+        # (as in local development)
+        select = cache.get(settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT)
+        if select is None:
+            cache.set(
+                settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT,
+                [(i.id, str(i)) for i in Institution.objects.all()])
+        return select
 
 
 class ValueUser(models.Model):
