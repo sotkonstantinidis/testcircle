@@ -291,9 +291,8 @@ class WocatWebsiteUserClient:
 
     def get_and_update_django_user(self, **user_info) -> User:
         user_id = user_info.pop('pk')
-        user, created = get_user_model().objects.get_or_create(id=user_id)
-        if not created:
-            self.update_user(user, user_info)
+        user, __ = get_user_model().objects.get_or_create(id=user_id)
+        self.update_user(user, user_info)
         return user
 
     def search_users(self, name='') -> dict:

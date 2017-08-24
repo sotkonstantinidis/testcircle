@@ -8,7 +8,7 @@
   {% endfor %}
 {% else %}
   {% for questiongroup in questions %}
-    {% if forloop.first %}
+    {% if questiongroup.qg == 'cca_qg_129' %}
       {% for qg_questions in questiongroup.questions %}
         {% for question in qg_questions %}
           {{ question }}
@@ -20,7 +20,7 @@
           {{ question }}
         {% endfor %}
       {% endfor %}  
-    {% elif forloop.counter == 2 %}      
+    {% elif questiongroup.qg == 'cca_qg_130' %}
       {% for qg_questions in questiongroup.questions %}
         {% for question in qg_questions %}
           <h5>{{ question.key }}</h5>

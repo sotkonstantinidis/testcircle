@@ -42,7 +42,7 @@ class APIRoot(APIView):
     renderer_classes = (BrowsableAPIRenderer, JSONRenderer, )
 
     def get(self, request, format=None):
-        identifier = Questionnaire.objects.first().code
+        identifier = Questionnaire.with_status.public().first().code
         urls = {
             'questionnaire list': reverse('v2:questionnaires-api-list',
                                       request=request, format=format),

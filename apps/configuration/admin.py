@@ -10,7 +10,6 @@ from configuration.models import (
     Key,
     Project,
     Translation,
-    Institution,
 )
 
 
@@ -195,15 +194,4 @@ class ProjectAdmin(admin.ModelAdmin):
     """
     list_display = ('id', 'name', 'abbreviation', 'active',)
     list_filter = ('active',)
-    search_fields = ('name', 'abbreviation',)
-
-
-@admin.register(Institution)
-class InstitutionAdmin(admin.ModelAdmin):
-    """
-    The representation of :class:`configuration.models.Institution` in the
-    administration interface.
-    """
-    list_display = ('id', 'name', 'abbreviation', 'country', 'active',)
-    list_filter = ('active', 'country')
     search_fields = ('name', 'abbreviation',)

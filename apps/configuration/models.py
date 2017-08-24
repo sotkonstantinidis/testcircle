@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from django.contrib.gis.db import models
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db.models import Q
 from django.db.models.signals import post_save
@@ -449,7 +450,7 @@ class Institution(models.Model):
         primary_key=True,
         help_text="The ID must be exactly the same as on the WOCAT website!")
     name = models.CharField(max_length=255)
-    abbreviation = models.CharField(max_length=63, null=True, blank=True)
+    abbreviation = models.CharField(max_length=255, null=True, blank=True)
     country = models.ForeignKey(
         'Value', null=True, blank=True,
         limit_choices_to=Q(key__keyword='country'))
@@ -466,6 +467,10 @@ class Institution(models.Model):
         if self.country:
             name = '{} - {}'.format(name, self.country)
         return name
+
+    @classmethod
+    def as_select(cls):
+        return cache.get(settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT)
 
 
 class ValueUser(models.Model):

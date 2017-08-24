@@ -2,9 +2,10 @@ import unittest
 
 from django.contrib.auth import get_user_model
 from unittest.mock import patch
+
 from qcat.tests import TestCase
 from ..authentication import WocatAuthenticationBackend
-from ..client import typo3_client, Typo3Client
+from ..client import typo3_client, Typo3Client, WocatWebsiteUserClient
 
 User = get_user_model()
 
@@ -30,23 +31,42 @@ def get_mock_user_information_values():
     }
 
 
-@unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
-class AuthenticateTest(TestCase):
+def get_mock_user_information_values_cms():
+    return {
+        'pk': 1,
+        'email': 'foo@bar.com',
+        'first_name': 'Foo',
+        'last_name': 'Bar',
+    }
+
+
+class WOCATCMSAuthenticateTest(TestCase):
 
     def setUp(self):
-        self.backend = WocatAuthenticationBackend()
-        user, created = User.objects.get_or_create(
-            id=1, email='foo@bar.com',
-            defaults={'lastname': 'Foo', 'firstname': 'Bar'}
-        )
-        self.user = user
+        self.typo3_client = WocatWebsiteUserClient()
 
-    @patch.object(Typo3Client, 'get_user_information')
-    def test_creates_new_user_if_necessary(self, mock_get_user_information):
-        mock_get_user_information.return_value = \
-            get_mock_user_information_values()
-        user = typo3_client.get_and_update_django_user(1, 1)
-        self.assertEqual(1, user.id)
+    def test_existing_user_updates(self):
+        # Existing users have their information updated
+        user_info = get_mock_user_information_values_cms()
+        User.objects.create(id=user_info['pk'], email=user_info['email'])
+
+        user = self.typo3_client.get_and_update_django_user(**user_info)
+
+        self.assertEqual(user.id, user_info['pk'])
+        self.assertEqual(user.email, user_info['email'])
+        self.assertEqual(user.firstname, user_info['first_name'])
+        self.assertEqual(user.lastname, user_info['last_name'])
+
+    def test_new_user_updates(self):
+        # New users should also have their information updated
+        user_info = get_mock_user_information_values_cms()
+
+        user = self.typo3_client.get_and_update_django_user(**user_info)
+
+        self.assertEqual(user.id, user_info['pk'])
+        self.assertEqual(user.email, user_info['email'])
+        self.assertEqual(user.firstname, user_info['first_name'])
+        self.assertEqual(user.lastname, user_info['last_name'])
 
 
 @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")

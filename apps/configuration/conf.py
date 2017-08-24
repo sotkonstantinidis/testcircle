@@ -258,3 +258,5 @@ class ConfigurationConf(AppConf):
         'ZMB': 'ZM',
         'ZWE': 'ZW',
     }
+
+    CACHE_KEY_INSTITUTION_SELECT = 'institutions_select'

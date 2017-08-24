@@ -60,6 +60,19 @@
   font-size:rem-calc(14);
 }
 
+.link-unccd-learning-material {
+  background: white;
+  padding: 1rem 1.5rem;
+
+  a {
+    color: $color-brown-dark;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+}
+
 .accordion .accordion-about-wocat {
   >a, >a:hover {
     background: white;
