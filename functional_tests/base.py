@@ -340,8 +340,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             curr_index = 0
         self.findBy(
             'xpath',
-            f'//ul[@class="filter-list"]//a[@class="remove-filter"]/'
-            f'*[contains(@class, "icon")][{curr_index+1}]').click()
+            f'(//ul[@class="filter-list"]/li/span/a)[{curr_index + 1}]/'
+            f'*[contains(@class, "icon")]').click()
         self.wait_for('class_name', 'loading-indicator', visibility=False)
         if index is None:
             try:

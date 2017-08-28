@@ -104,11 +104,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
 
         # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Country: Switzerland')
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: SLM Technologies')
+        self.assertEqual(active_filters[1].text, 'Country: Switzerland')

@@ -325,13 +325,10 @@ class ListTest(FunctionalTest):
             'xpath', '//h2/span[@id="questionnaire-count"]')
         self.assertEqual(count.text, '4')
 
-        # There is no active filter set
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertFalse(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 0)
+        # There is only one active filter set
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
 
         # She filters by some value
         self.add_advanced_filter('qg_11__key_14', 'value_14_2')
@@ -349,14 +346,10 @@ class ListTest(FunctionalTest):
         self.assertEqual(count.text, '1')
 
         # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Key 14: Value 14_2')
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_2')
 
         # She unchecks the checkbox and updates the filter
         self.toggle_selected_advanced_filters(display=True)
@@ -369,12 +362,9 @@ class ListTest(FunctionalTest):
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertFalse(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 0)
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
 
         # She selects the first checkbox and updates the filter
         self.add_advanced_filter('qg_11__key_14', 'value_14_1')
@@ -395,14 +385,10 @@ class ListTest(FunctionalTest):
         self.assertEqual(count.text, '2')
 
         # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Key 14: Value 14_1')
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_1')
 
         # She also selects value 3 and updates the filter
         self.toggle_selected_advanced_filters(display=True)
@@ -430,14 +416,10 @@ class ListTest(FunctionalTest):
                      'contains(text(), "Foo 1")]')
 
         # The active filter updated in the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertEqual(filter_1.text, 'Key 14: Value 14_1 / Value 14_3')
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_1 / Value 14_3')
 
         self.remove_filter(0)
 
@@ -446,23 +428,18 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 4)
 
         # There is no active filter set
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertFalse(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 0)
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
 
         # She adds a first filter again
         self.add_advanced_filter('qg_11__key_14', 'value_14_3')
 
         # There is one active filter set
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_3')
 
         # She removes the first filter and adds another filter instead
         self.toggle_selected_advanced_filters(display=True)
@@ -475,12 +452,10 @@ class ListTest(FunctionalTest):
         self.apply_filter()
 
         # Again, there is one active filter set
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_2')
 
         # She reloads the same page and sees the correct checkbox was selected
         self.browser.get(self.browser.current_url)
@@ -897,14 +872,10 @@ class ListTest(FunctionalTest):
                      'contains(text(), "Foo 3")]')
 
         # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertIn('The first Project (TFP)', filter_1.text)
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertIn('The first Project (TFP)', active_filters[1].text)
 
         # She hits the button to remove all filters
         self.remove_filter(index=None)
@@ -914,12 +885,8 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
 
-        # There is no active filter set
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertFalse(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
+        # There is only one active filter
+        active_filters = self.get_active_filters()
         self.assertEqual(len(active_filters), 0)
 
         # She sets a filter again and reloads the page
@@ -944,14 +911,10 @@ class ListTest(FunctionalTest):
                      'contains(text(), "Foo 3")]')
 
         # The filter was added to the list of active filters
-        active_filter_panel = self.findBy(
-            'xpath', '//div[@id="active-filters"]/div')
-        self.assertTrue(active_filter_panel.is_displayed())
-        active_filters = self.findManyBy(
-            'xpath', '//div[@id="active-filters"]//li')
-        self.assertEqual(len(active_filters), 1)
-        filter_1 = self.findBy('xpath', '//div[@id="active-filters"]//li[1]')
-        self.assertIn('first', filter_1.text)
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertIn('The first Project (TFP)', active_filters[1].text)
 
         # She sees the text in the input field matches the project
         project_filter = self.findBy(
@@ -990,8 +953,10 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
 
-        # There is no active filter set
-        self.get_active_filters(has_any=False)
+        # There is only the type filter active
+        active_filters = self.get_active_filters()
+        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
 
         self.add_advanced_filter('qg_11__key_14', 'value_14_1')
 
@@ -1021,19 +986,21 @@ class ListTest(FunctionalTest):
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters(has_any=True)
-        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(len(active_filters), 3)
 
-        self.assertEqual(active_filters[0].text, 'Key 14: Value 14_1')
-        self.assertEqual(active_filters[1].text, f'Search Terms: {search_term}')
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_1')
+        self.assertEqual(active_filters[2].text, f'Search Terms: {search_term}')
 
         # She removes one filter
         self.remove_filter(index=0)
 
         # The filters are updated
         active_filters = self.get_active_filters(has_any=True)
-        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(len(active_filters), 2)
 
-        self.assertEqual(active_filters[0].text, f'Search Terms: {search_term}')
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, f'Search Terms: {search_term}')
 
         # The results are filtered
         list_entries = self.findManyBy(
@@ -1050,8 +1017,9 @@ class ListTest(FunctionalTest):
 
         # She sees she is taken to the list view with the filter set
         active_filters = self.get_active_filters(has_any=True)
-        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(len(active_filters), 2)
 
+        self.assertEqual(active_filters[1].text, 'SLM Data: sample')
         self.assertEqual(active_filters[0].text, f'Search Terms: {search_term}')
 
         # The results are filtered
@@ -1063,8 +1031,9 @@ class ListTest(FunctionalTest):
         # there
         self.open_advanced_filter('sample')
         active_filters = self.get_active_filters(has_any=True)
-        self.assertEqual(len(active_filters), 1)
-        self.assertEqual(active_filters[0].text, f'Search Terms: {search_term}')
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, f'Search Terms: {search_term}')
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 1)
@@ -1082,9 +1051,10 @@ class ListTest(FunctionalTest):
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters(has_any=True)
-        self.assertEqual(len(active_filters), 2)
-        self.assertEqual(active_filters[0].text, 'Key 14: Value 14_1')
-        self.assertEqual(active_filters[1].text, f'Search Terms: {search_term}')
+        self.assertEqual(len(active_filters), 3)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Key 14: Value 14_1')
+        self.assertEqual(active_filters[2].text, f'Search Terms: {search_term}')
 
         # She removes all filters
         self.remove_filter(index=None)
@@ -1093,8 +1063,9 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 4)
 
-        # There is no active filter left
-        self.get_active_filters(has_any=False)
+        # There is only one active filter left
+        active_filters = self.get_active_filters(has_any=True)
+        self.assertEqual(len(active_filters), 1)
 
         # The search field is empty
         search_field = self.findBy('xpath', '//input[@type="search"]')
@@ -1106,22 +1077,25 @@ class ListTest(FunctionalTest):
 
         # The filter is set correctly
         active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 1)
-        self.assertEqual(active_filters[0].text, f'Search Terms: {search_term}')
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, f'Search Terms: {search_term}')
 
         # She refreshes the page and sees the text in the search bar did not
         # change
         self.browser.get(self.browser.current_url)
         active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 1)
-        self.assertEqual(active_filters[0].text, f'Search Terms: {search_term}')
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, f'Search Terms: {search_term}')
         search_field = self.findBy('xpath', '//input[@type="search"]')
         self.assertEqual(search_field.get_attribute('value'), search_term)
 
         # She removes the filter and sees it works.
         self.remove_filter(index=None)
 
-        self.get_active_filters(has_any=False)
+        active_filters = self.get_active_filters(has_any=True)
+        self.assertEqual(len(active_filters), 1)
         search_field = self.findBy('xpath', '//input[@type="search"]')
         self.assertEqual(search_field.get_attribute('value'), '')
 
@@ -1132,24 +1106,27 @@ class ListTest(FunctionalTest):
 
         # The filter is set correctly
         active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
         self.assertEqual(
-            active_filters[0].text, f'Search Terms: {special_chars}')
+            active_filters[1].text, f'Search Terms: {special_chars}')
 
         # She refreshes the page and sees the text in the search bar did not
         # change
         self.browser.get(self.browser.current_url)
         active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 1)
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
         self.assertEqual(
-            active_filters[0].text, f'Search Terms: {special_chars}')
+            active_filters[1].text, f'Search Terms: {special_chars}')
         search_field = self.findBy('xpath', '//input[@type="search"]')
         self.assertEqual(search_field.get_attribute('value'), special_chars)
 
         # She removes the filter and sees it works.
         self.remove_filter(index=None)
 
-        self.get_active_filters(has_any=False)
+        active_filters = self.get_active_filters(has_any=True)
+        self.assertEqual(len(active_filters), 1)
         search_field = self.findBy('xpath', '//input[@type="search"]')
         self.assertEqual(search_field.get_attribute('value'), '')
 
@@ -1206,8 +1183,9 @@ class ListTest(FunctionalTest):
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 1)
-        self.assertEqual(active_filters[0].text, 'Country: Switzerland')
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Country: Switzerland')
 
         # She hits the button to remove all filters
         self.remove_filter(index=None)
@@ -1242,8 +1220,9 @@ class ListTest(FunctionalTest):
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 1)
-        self.assertEqual(active_filters[0].text, 'Country: Afghanistan')
+        self.assertEqual(len(active_filters), 2)
+        self.assertEqual(active_filters[0].text, 'SLM Data: sample')
+        self.assertEqual(active_filters[1].text, 'Country: Afghanistan')
 
         # She sees the text in the input field matches the country
         selected_country = self.findBy(

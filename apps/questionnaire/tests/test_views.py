@@ -147,10 +147,14 @@ class QuestionnaireLinkSearchViewTest(TestCase):
             data={'qg_name': [{'name': {'en': 'App 2'}}]}, user=user1)
         self.q3 = Questionnaire.create_new(
             configuration_code='approaches',
-            data={'qg_name': [{'name': {'en': 'App 3'}}]}, user=user1, status=4)
+            data={'qg_name': [{'name': {'en': 'App 3'}}]}, user=user1)
+        self.q3.status = 4
+        self.q3.save()
         self.q4 = Questionnaire.create_new(
             configuration_code='approaches',
-            data={'qg_name': [{'name': {'en': 'App 4'}}]}, user=user2, status=4)
+            data={'qg_name': [{'name': {'en': 'App 4'}}]}, user=user2)
+        self.q4.status = 4
+        self.q4.save()
         self.q5 = Questionnaire.create_new(
             configuration_code='approaches',
             data={'qg_name': [{'name': {'en': 'App 5'}}]}, user=user2)

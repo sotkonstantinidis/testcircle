@@ -951,7 +951,7 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('updated', ''), 'updated')
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
-        self.assertEqual(ret_1.get('translations'), [])
+        self.assertEqual(ret_1.get('translations'), [['en', 'English']])
         self.assertEqual(ret_1.get('code'), 'code')
         self.assertEqual(ret_1.get('compilers'), ['compiler'])
         self.assertEqual(ret_1.get('editors'), ['editor'])
@@ -1541,6 +1541,7 @@ class UnccdFlagTest(TestCase):
         questionnaire = Questionnaire.objects.get(pk=1)
         questionnaire.pk = None
         questionnaire.status = 1
+        questionnaire.version = 2
         questionnaire.save()
         questionnaire = Questionnaire.objects.get(pk=1)
         handle_review_actions(self.request, questionnaire, 'sample')
@@ -1625,6 +1626,7 @@ class UnccdUnflagTest(TestCase):
         # Create a copy of the questionnaire
         questionnaire = Questionnaire.objects.get(pk=1)
         questionnaire.pk = None
+        questionnaire.version = 2
         questionnaire.status = 1
         questionnaire.save()
         questionnaire = Questionnaire.objects.get(pk=1)

@@ -77,11 +77,11 @@ class NotificationsIntegrationTest(FunctionalTest):
         self.findByNot('class_name', 'is-finished-editing')
 
     def test_create_message(self, mock_process_request):
+        mock_process_request.return_value = None
         """
         Note: I'm not sure if time.sleep is correct here, but self.wait_until
         seems to defeat the purpose.
         """
-        mock_process_request.return_value = None
         # the editor logs in and sees the button to finish editing.
         self.doLogin(user=self.robin)
         self.browser.get(self.questionnaire_edit_url)
