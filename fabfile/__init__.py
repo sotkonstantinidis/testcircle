@@ -183,7 +183,7 @@ def _has_config_update_tag():
 
 
 def _reload_configuration_fixtures():
-    _manage_py('loaddata technologies approaches cca watershed')
+    _manage_py('loaddata wocat technologies approaches cca watershed')
 
 
 def _delete_caches():

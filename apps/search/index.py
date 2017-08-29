@@ -108,9 +108,13 @@ def get_mappings(questionnaire_configuration):
     # (e.g. UNCCD configuration).
     for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
         if global_questiongroup not in data_properties.keys():
+            properties = {}
+            for global_filter in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
+                if global_filter[0] == global_questiongroup:
+                    properties = {global_filter[1]: {'type': 'string'}}
             data_properties[global_questiongroup] = {
                 'type': 'nested',
-                'properties': {},
+                'properties': properties,
             }
 
     mappings = {
