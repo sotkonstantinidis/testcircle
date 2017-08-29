@@ -1,4 +1,5 @@
 import json
+import unittest
 from datetime import datetime
 
 from qcat.tests import TestCase
@@ -1051,6 +1052,7 @@ See qg_24 for example.
 """
 
 
+@unittest.skip('Import is over. No need for these tests anymore.')
 class DoMappingTest(TestCase):
 
     fixtures = [

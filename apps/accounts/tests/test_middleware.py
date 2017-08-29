@@ -1,3 +1,4 @@
+import unittest
 from unittest.mock import patch, MagicMock
 
 from django.conf import settings
@@ -7,6 +8,7 @@ from .test_models import create_new_user
 from ..middleware import WocatAuthenticationMiddleware
 
 
+@unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
 class TestWocatAuthenticationMiddleware(TestCase):
     """
     Test the core functionality of the custom middleware.

@@ -1,19 +1,14 @@
 from django.core.urlresolvers import reverse
 from django.test.client import RequestFactory
-from unittest.mock import patch, Mock
 
 from accounts.tests.test_models import create_new_user
 from qcat.tests import TestCase
-from sample.views import (
-    home,
-    questionnaire_list,
-    questionnaire_list_partial,
-)
 
 route_questionnaire_details = 'sample:questionnaire_details'
 route_home = 'sample:home'
 route_questionnaire_link_search = 'sample:questionnaire_link_search'
 route_questionnaire_list = 'sample:questionnaire_list'
+route_questionnaire_filter = 'wocat:questionnaire_filter'
 route_questionnaire_list_partial = 'sample:questionnaire_list_partial'
 route_questionnaire_new = 'sample:questionnaire_new'
 route_questionnaire_new_step = 'sample:questionnaire_new_step'
@@ -81,18 +76,7 @@ class SampleHomeTest(TestCase):
         self.factory = RequestFactory()
         self.url = reverse(route_home)
 
-    @patch('sample.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        request.user = create_new_user()
-        home(request)
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'sample', template=None, only_current=True,
-            limit=3)
-
-    @patch('sample.views.generic_questionnaire_list')
-    def test_renders_correct_template(self, mock_questionnaire_list):
-        mock_questionnaire_list.return_value = {}
+    def test_renders_correct_template(self):
         res = self.client.get(self.url)
         self.assertTemplateUsed(res, 'sample/home.html')
         self.assertEqual(res.status_code, 200)
@@ -110,19 +94,6 @@ class QuestionnaireNewTest(TestCase):
     def test_questionnaire_new_login_required(self):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
-
-    # def test_questionnaire_new_test_renders_correct_template(self):
-    #     res = questionnaire_new(self.request)
-    #     self.assertEqual(res.status_code, 200)
-    #
-    # @patch('sample.views.generic_questionnaire_new')
-    # def test_calls_generic_function(self, mock_questionnaire_new):
-    #     questionnaire_new(self.request)
-    #     mock_questionnaire_new.assert_called_once_with(
-    #         self.request,
-    #         *get_valid_new_values()[0],
-    #         **get_valid_new_values()[1]
-    #     )
 
 
 class QuestionnaireNewStepTest(TestCase):
@@ -143,19 +114,6 @@ class QuestionnaireNewStepTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'login.html')
 
-    # def test_renders_correct_template(self):
-    #     res = questionnaire_new_step(
-    #         self.request, identifier='new', step=get_categories()[0][0])
-    #     self.assertEqual(res.status_code, 200)
-    #
-    # @patch('sample.views.generic_questionnaire_new_step')
-    # def test_calls_generic_function(self, mock_questionnaire_new_step):
-    #     questionnaire_new_step(
-    #         self.request, identifier='new', step=get_categories()[0][0])
-    #     mock_questionnaire_new_step.assert_called_once_with(
-    #         self.request, *get_valid_new_step_values()[0],
-    #         **get_valid_new_step_values()[1])
-
 
 class QuestionnaireDetailsTest(TestCase):
 
@@ -171,84 +129,3 @@ class QuestionnaireDetailsTest(TestCase):
         res = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(res, 'questionnaire/details.html')
         self.assertEqual(res.status_code, 200)
-
-    # @patch('sample.views.generic_questionnaire_details')
-    # def test_calls_generic_function(self, mock_questionnaire_details):
-    #     request = self.factory.get(self.url)
-    #     questionnaire_details(request, 'foo')
-    #     mock_questionnaire_details.assert_called_once_with(
-    #         request, *get_valid_details_values())
-
-
-class QuestionnaireListPartialTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_list_partial)
-
-    @patch('sample.views.generic_questionnaire_list')
-    def test_calls_generic_questionnaire_list(self, mock_questionnaire_list):
-        request = self.factory.get(self.url)
-        mock_questionnaire_list.return_value = {}
-        with self.assertRaises(KeyError):
-            questionnaire_list_partial(request)
-        mock_questionnaire_list.assert_called_once_with(
-            request, 'sample', template=None)
-
-    @patch('sample.views.render_to_string')
-    @patch('sample.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_list_template(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        mock_render_to_string.return_value = ''
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'sample/questionnaire/partial/list.html',
-            {'list_values': 'foo'})
-
-    @patch('sample.views.render_to_string')
-    @patch('sample.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_active_filters(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        mock_render_to_string.return_value = ''
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'active_filters.html', {'active_filters': 'bar'})
-
-    @patch('sample.views.render_to_string')
-    @patch('sample.views.generic_questionnaire_list')
-    def test_calls_render_to_string_with_pagination(
-            self, mock_questionnaire_list, mock_render_to_string):
-        mock_render_to_string.return_value = ''
-        mock_questionnaire_list.return_value = {
-            'list_values': 'foo',
-            'active_filters': 'bar',
-            'count': 0,
-        }
-        self.client.get(self.url)
-        mock_render_to_string.assert_any_call(
-            'pagination.html', mock_questionnaire_list.return_value)
-
-
-class QuestionnaireListTest(TestCase):
-
-    def setUp(self):
-        self.factory = RequestFactory()
-        self.url = reverse(route_questionnaire_list)
-
-    @patch('sample.views.generic_questionnaire_list')
-    def test_calls_generic_function(self, mock_generic_function):
-        request = Mock()
-        questionnaire_list(request)
-        mock_generic_function.assert_called_once_with(
-            request, 'sample', template='sample/questionnaire/list.html',
-            filter_url='/en/sample/list_partial/')

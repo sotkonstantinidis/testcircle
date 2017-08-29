@@ -315,6 +315,8 @@ class Questionnaire(models.Model):
             from configuration.utils import create_new_code
             code = create_new_code(questionnaire, configuration_code)
             questionnaire.code = code
+            if questionnaire.status != settings.QUESTIONNAIRE_PUBLIC:
+                questionnaire.save()
 
         create_questionnaire.send(
             sender=settings.NOTIFICATIONS_CREATE,

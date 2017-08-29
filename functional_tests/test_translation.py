@@ -7,9 +7,7 @@ from functional_tests.base import FunctionalTest
 
 class TranslationTest(FunctionalTest):
 
-    @patch('wocat.views.generic_questionnaire_list')
-    def test_change_languages(self, mock_list):
-        mock_list.return_value = {}
+    def test_change_languages(self):
 
         # Alice opens her web browser and goes to the home page.
         self.browser.get('{}{}'.format(

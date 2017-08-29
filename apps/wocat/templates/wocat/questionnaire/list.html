@@ -16,106 +16,56 @@
   {% addtoblock 'js' %}
     {% compress js %}
       <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
-      <script>
-        $('.chosen-select').chosen({
-          allow_single_deselect: true,
-          search_contains: true
-        });
-      </script>
+      <script src="{% static 'js/filter.min.js' %}"></script>
     {% endcompress %}
   {% endaddtoblock %}
 
-  <form action="" data-url="{{ filter_url }}" data-list-url="{% url 'wocat:questionnaire_list' %}" id="search-advanced">
-    <div class="top-bar-search">
-      <div class="row large-no-gutters">
-        <div class="medium-4 columns">
-          <label for="filter-country">{% trans "Country" %}</label>
-          <select name="filter-country" class="chosen-select hidden-filter" data-questiongroup="qg_location" data-key="country" data-placeholder="{% trans 'Select or type a country name' %}">
-            <option value=""></option>
-            {% with request.GET.filter__qg_location__country|default:None as selected_country %}
-              {% for country in filter_configuration.countries %}
-                <option value="{{ country.0 }}" {% if selected_country == country.0 %}selected="selected"{% endif %}>{{ country.1 }}</option>
-              {% endfor %}
-          {% endwith %}
-          </select>
-        </div>
-        <div class="medium-4 columns">
-          <label for="language">Language</label>
-          <select id="language" disabled="disabled" class="chosen-select">
-            <option value="en">English</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-          </select>
-        </div>
-        <div class="medium-4 columns">
-          <label for="filter-project">{% trans "Project" %}</label>
-          <select name="filter-project" class="chosen-select hidden-filter" data-questiongroup="qg_funding_project" data-key="funding_project" data-placeholder="{% trans 'Select or type a project name' %}">
-            <option value=""></option>
-            {% with request.GET.filter__qg_funding_project__funding_project|default:None as selected_project %}
-              {% for project in filter_configuration.projects %}
-                <option value="{{ project.0 }}" {% if selected_project == project.0 %}selected="selected"{% endif %}>{{ project.1 }}</option>
-              {% endfor %}
-            {% endwith %}
-          </select>
-        </div>
-      </div>
-      <div class="row large-no-gutters is-rhythmed">
-        <div class="medium-12 columns">
-          <div class="search-field">
-            <input type="search" tabindex="1" placeholder="{% trans "Search SLM Data" %}" name="q">
-            <div class="search-category">
-              <a href="#" id="search-type-display" data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="button no-radius dropdown secondary light">{% trans "All SLM Data" %}</a>
-              <ul id="drop1" data-dropdown-content class="f-dropdown search-type-select" aria-hidden="true">
-                <li><a href="#" data-type="all">{% trans "All SLM Data" %}</a></li>
-                <li><a href="#" data-type="technologies">{% trans "SLM Technologies" %}</a></li>
-                <li><a href="#" data-type="approaches">{% trans "SLM Approaches" %}</a></li>
-                <li><a href="#" data-type="unccd">{% trans "UNCCD PRAIS Practices" %}</a></li>
-{#                <li><a href="#" data-type="watershed">{% trans "Watershed and Runoff" %}</a></li>#}
-              </ul>
-              <input type="hidden" name="type" id="search-type" value="all">
-            </div>
-            <input type="submit" class="search-submit button" value="{% trans "Search" %}">
-          </div>
-          <div class="search-option">
-            <a href="#" data-toggle="search-advanced-options">{% trans "Advanced filter" %}</a>
-{#            <a href="#" data-tooltip="" title="{% trans "Coming soon" %}">{% trans "Advanced filter" %}</a>#}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div id="search-advanced-options" class="search-advanced-options hide">
-      <div class="row large-no-gutters">
-        <div class="columns small-12">
-
-          <br/>
-          {% trans "A revised filter is coming soon." as filter_coming_soon %}
-          {% include 'form/helptext.html' with helptext=filter_coming_soon %}
-
-          {% include 'wocat/partial/advanced_filter.html' %}
-        </div>
-      </div>
-    </div>
-    <div id="active-filters" class="search-filters">
-      {% include "active_filters.html" %}
-    </div>
+  <form action="" data-url="{% url 'wocat:questionnaire_list_partial' %}" data-list-url="{% url 'wocat:questionnaire_list' %}" id="search-advanced">
+    {{ rendered_filter }}
   </form>
 
-  <main class="row large-collapse is-padded-2" role="main">
-    <div class="loading-indicator hide"></div>
-    <div class="small-12 columns">
-      {% include 'search/help_text.html' %}
-    </div>
-    <section class="tech-list small-12 columns">
-      <div class="tech-group">
-        <h2 class="is-group">{% trans "Your search results" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>
-        <div id="questionnaire-list">
-          {% include "wocat/questionnaire/partial/list.html" %}
+  <div class="filter-wrapper">
+    <main class="row large-collapse is-padded-2" role="main">
+      <div class="small-12 columns">
+        {% include 'search/help_text.html' %}
+      </div>
+      <section class="tech-list small-12 columns">
+        <div class="tech-group">
+          <h2 class="is-group">{% trans "Your search results" %} (<span id="questionnaire-count">{{ count }}</span>)</h2>
+          <div id="questionnaire-list">
+            {{ rendered_list }}
+          </div>
         </div>
-      </div>
-      <div id="pagination" class="is-rhythmed-2">
-        {% include "pagination.html" %}
-      </div>
-    </section>
-  </main>
+        <div id="pagination" class="is-rhythmed-2">
+          {{ pagination }}
+        </div>
+      </section>
+    </main>
+    <div class="loading-indicator hide"><div class="spinner"></div></div>
+  </div>
 
+{% endblock %}
+
+{% block help_tour %}
+  {# TODO: Remove this if not needed anymore #}
+  {% comment %}
+  {% addtoblock 'css' %}
+    <link rel="stylesheet" href="{% static 'css/introjs.min.css' %}" />
+  {% endaddtoblock %}
+  <script src="{% static 'js/intro.min.js' %}"></script>
+  <script>
+    function forceFilterType() {
+        introJs().setOptions({
+            doneLabel: '{% trans 'Done'|escapejs %}',
+            showStepNumbers: false,
+            steps: [
+                {
+                    intro: '{% trans 'Advanced filters are only available for a single type of SLM data. Please select one first.'|escapejs %}',
+                    element: document.querySelector('#search-type-display')
+                }
+            ]
+        }).start();
+    }
+  </script>
+  {% endcomment %}
 {% endblock %}

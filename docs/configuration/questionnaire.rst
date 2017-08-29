@@ -414,7 +414,9 @@ The following is an arbitrary example of how a configuration could look like::
                     "questions": [
                       {
                         "keyword": "key_14",
-                        "filter": true
+                        "filter_options": {
+                            "order": 1
+                        }
                       }
                     ],
                     "keyword": "qg_11"

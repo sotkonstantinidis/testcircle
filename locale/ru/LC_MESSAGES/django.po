@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-15 14:51+0200\n"
-"PO-Revision-Date: 2017-06-01 12:27+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2017-07-29 15:08+0200\n"
+"PO-Revision-Date: 2017-07-27 06:53+0000\n"
+"Last-Translator: Julia Johnson <yukuleshova@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -67,7 +67,7 @@ msgstr "Национальный координатор КБО ООН "
 
 #: apps/accounts/templates/details.html:41
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
-#: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:63
+#: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:57
 #: templates/base.html:258
 msgid "UNCCD"
 msgstr "КБО ООН"
@@ -81,8 +81,8 @@ msgid "Public questionnaires"
 msgstr "Общедоступные анкеты"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:986
-#: apps/questionnaire/tests/test_utils.py:994
+#: apps/questionnaire/tests/test_utils.py:1001
+#: apps/questionnaire/tests/test_utils.py:1009
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:162
 msgid "Login"
@@ -149,8 +149,10 @@ msgstr "Все уведомления"
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:34
 #: apps/technologies/templates/technologies/add_module.html:35
-#: apps/wocat/templates/wocat/partial/search.html:23
-#: apps/wocat/templates/wocat/questionnaire/list.html:77
+#: apps/wocat/templates/wocat/partial/search.html:22
+#: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:39
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:28
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:12
 msgid "Search"
 msgstr "Поиск"
 
@@ -159,6 +161,8 @@ msgid ""
 "Search questionnaires by name, compilers name or country ISO code (alpha-3, "
 "caps: https://www.iso.org/obp/ui/#search)"
 msgstr ""
+"Поиск анкеты по названию, фамилии составителя или ISO коду страны (alpha-3, "
+"caps: https://www.iso.org/obp/ui/#search)"
 
 #: apps/accounts/templates/questionnaires.html:58
 msgid "No SLM data found."
@@ -176,22 +180,9 @@ msgstr "Добро пожаловать {}"
 msgid "WOCAT SLM Approaches"
 msgstr "Подходы по УЗП, принятые ВОКАТ"
 
-#: apps/approaches/templates/approaches/questionnaire/list.html:13
-#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/sample/templates/sample/questionnaire/list.html:71
-#: apps/wocat/templates/wocat/home.html:150
-#: apps/wocat/templates/wocat/partial/search.html:17
-#: apps/wocat/templates/wocat/questionnaire/list.html:71
-msgid "SLM Approaches"
-msgstr "Подходы по УЗП"
-
 #: apps/approaches/templates/approaches/questionnaire/partial/link.html:16
 msgid "Approach"
 msgstr "Подход"
-
-#: apps/approaches/templates/approaches/questionnaire/partial/list.html:19
-msgid "No SLM Approaches found."
-msgstr "Подходы по УЗП не найдены."
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:41
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:43
@@ -255,14 +246,13 @@ msgstr "Эта практика УЗП также описана в:"
 msgid "This SLM Approach is linked to SLM Technologies"
 msgstr "Этот Подход УЗП соответствует Технологиям УЗП"
 
-#: apps/approaches/views.py:23
+#: apps/approaches/views.py:17
 #: apps/questionnaire/templates/details/category/approaches_header.html:6
 #: apps/wocat/templates/wocat/partial/top.html:18
 msgid "Approaches"
 msgstr "Подходы"
 
 #: apps/cca/templates/cca/base.html:6
-#: apps/cca/templates/cca/questionnaire/list.html:13
 msgid "SLM Climate Change Adaptation"
 msgstr "Адаптация УЗП к изменениям климата"
 
@@ -287,27 +277,23 @@ msgstr ""
 "экстремальным погодным явлениям, связанным с изменением климата"
 
 #: apps/cca/templates/cca/questionnaire/partial/link.html:16
-#: apps/cca/views.py:23
+#: apps/cca/views.py:17
 msgid "Climate Change Adaptation"
 msgstr "Адаптация к изменениям климата"
-
-#: apps/cca/templates/cca/questionnaire/partial/list.html:19
-msgid "No data found."
-msgstr "Данные отсутствуют."
 
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:72
 msgid "This Module is linked to a SLM Technology"
 msgstr "Данный Модуль связан с Технологией УЗП"
 
-#: apps/configuration/configuration.py:368
+#: apps/configuration/configuration.py:376
 msgid "Yes"
 msgstr "Да"
 
-#: apps/configuration/configuration.py:368
+#: apps/configuration/configuration.py:376
 msgid "No"
 msgstr "Нет"
 
-#: apps/configuration/configuration.py:2560
+#: apps/configuration/configuration.py:2531
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "Неизвестное имя"
@@ -6866,7 +6852,7 @@ msgstr "Внедрение Технологии"
 #: apps/configuration/configuration_translations.py:2911
 msgctxt "technologies helptext"
 msgid "Give a concluding statement about the Technology."
-msgstr "Дайте ваше заключение по Технологии."
+msgstr "Дайте заключение по Технологии."
 
 #: apps/configuration/configuration_translations.py:2823
 msgctxt "technologies label"
@@ -10705,11 +10691,24 @@ msgid "Specify the centre of the area in which the Approach has been applied."
 msgstr "Обозначьте центр участка, в пределах которого применяется Подход "
 
 #: apps/configuration/configuration_translations.py:5903
+msgctxt "technologies helptext"
+msgid ""
+"Add a point for each technology site that was considered/ analysed in the "
+"documentation of this technology. If more than 10 sites were considered, "
+"select and add a point for those that are most representative."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5904
+msgctxt "technologies label"
+msgid "Add geo-referenced information on the map below"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5905
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
 msgstr "Обозначьте центр речного бассейна"
 
-#: apps/configuration/configuration_translations.py:5904
+#: apps/configuration/configuration_translations.py:5906
 msgctxt "approaches helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10777,7 +10776,7 @@ msgstr ""
 "target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-"
 "sa/3.0/legalcode</a></p>"
 
-#: apps/configuration/configuration_translations.py:5905
+#: apps/configuration/configuration_translations.py:5907
 msgctxt "technologies helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10845,7 +10844,7 @@ msgstr ""
 "target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-"
 "sa/3.0/legalcode</a></p>"
 
-#: apps/configuration/configuration_translations.py:5906
+#: apps/configuration/configuration_translations.py:5908
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -13784,7 +13783,7 @@ msgstr "выход в социальные сети"
 #: apps/configuration/configuration_translations.py:27164
 msgctxt "cca label"
 msgid "stability of social environment"
-msgstr "стабильной социальной среды"
+msgstr "стабильность социальной среды"
 
 #: apps/configuration/configuration_translations.py:27165
 msgctxt "cca label"
@@ -13867,7 +13866,7 @@ msgstr "мощность, плодородие и т.д."
 #: apps/configuration/configuration_translations.py:27180
 msgctxt "cca label"
 msgid "soil properties"
-msgstr "почвенный свойства"
+msgstr "свойства почв"
 
 #: apps/configuration/configuration_translations.py:27181
 msgctxt "cca label"
@@ -14082,8 +14081,8 @@ msgstr ""
 msgctxt "cca label"
 msgid "Gradual climate change/ climate-related extreme (disaster)"
 msgstr ""
-"Экстремальное погодное явление, связанное с изменением климата (стихийное "
-"бедствие)"
+"Постепенное изменение климата/ экстремальное погодное явление, связанное с "
+"изменением климата (стихийное бедствие)"
 
 #: apps/configuration/configuration_translations.py:28036
 #: apps/configuration/configuration_translations.py:28037
@@ -14173,7 +14172,7 @@ msgid ""
 "Has the Technology been modified to adapt/ further adapt to gradual climate "
 "changes and climate-related extremes (disasters)?"
 msgstr ""
-"Была ли Технология изменена с целью адаптации.дальнейшей адаптации к "
+"Была ли Технология изменена с целью адаптации/ дальнейшей адаптации к "
 "постепенным изменениям климата и экстремальным погодным явлениям (стихийным "
 "бедствиям)? "
 
@@ -14238,7 +14237,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:28060
 msgctxt "cca label"
 msgid "If yes, by whom?"
-msgstr "Если да, то кем?"
+msgstr "Если да, то кем оно проводилось?"
 
 #: apps/configuration/configuration_translations.py:28061
 msgctxt "cca label"
@@ -15055,7 +15054,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:29139
 msgctxt "cca label"
 msgid "mainly input from SLM specialist(s)"
-msgstr "преимущественно эксперт (-ы) по УЗП"
+msgstr "преимущественно вклад эксперт (-ов) по УЗП "
 
 #: apps/configuration/configuration_translations.py:29140
 msgctxt "cca label"
@@ -16012,19 +16011,16 @@ msgid "publication"
 msgstr "публикация"
 
 #: apps/notifications/conf.py:77
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "not well at all"
 msgid "No emails at all"
-msgstr "очень плохо"
+msgstr "Еmail адресов нет"
 
 #: apps/notifications/conf.py:78
 msgid "Only emails that I need to work on"
-msgstr ""
+msgstr "Только emails, необходимые для работы"
 
 #: apps/notifications/conf.py:79
 msgid "All emails"
-msgstr ""
+msgstr "Все emails"
 
 #: apps/notifications/models.py:303
 msgid "was created"
@@ -16057,11 +16053,11 @@ msgstr "{compiler} закончил редактирование"
 
 #: apps/notifications/models.py:546
 msgid "Subscribed for following changes in the review status"
-msgstr ""
+msgstr "Подписаны на следующие изменения в статусе рецензирования"
 
 #: apps/notifications/receivers.py:41
 #: apps/notifications/tests/test_receivers.py:58
-#: apps/questionnaire/utils.py:671
+#: apps/questionnaire/utils.py:672
 msgid "Created"
 msgstr "Создано"
 
@@ -16079,16 +16075,12 @@ msgid "Mark all as read"
 msgstr "Отметить как просмотренное"
 
 #: apps/notifications/templates/notifications/log_list.html:25
-#, fuzzy
-#| msgid "Deleted"
 msgid "Delete all read"
-msgstr "Удалено"
+msgstr "Убрать все прочитанное"
 
 #: apps/notifications/templates/notifications/log_list.html:26
-#, fuzzy
-#| msgid "Key references"
 msgid "Mail preferences"
-msgstr "Ключевые ссылки"
+msgstr "Настройки почты"
 
 #: apps/notifications/templates/notifications/log_list.html:33
 #: apps/notifications/templates/notifications/log_list.html:39
@@ -16110,12 +16102,12 @@ msgid ""
 "Please confirm that you want to delete all notifications. This cannot be "
 "undone!"
 msgstr ""
+"Пожалуйста подтвердите команду, удаляющую все уведомления. Ее невозможно "
+"отменить!   "
 
 #: apps/notifications/templates/notifications/log_list.html:41
-#, fuzzy
-#| msgid "All notifications"
 msgid "Delete all read notifications"
-msgstr "Все уведомления"
+msgstr "Удалить все прочитанные уведомления"
 
 #: apps/notifications/templates/notifications/log_list.html:91
 msgid "Could not update notifications."
@@ -16124,14 +16116,12 @@ msgstr "Невозможно обновить уведомления."
 #: apps/notifications/templates/notifications/mail/html_text.html:21
 #: apps/notifications/templates/notifications/mail/plain_text.txt:2
 msgid "Dear"
-msgstr ""
+msgstr "Уважаемый (-ая, -ые)"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:31
 #: apps/notifications/templates/notifications/mail/plain_text.txt:6
-#, fuzzy
-#| msgid "created questionnaire"
 msgid "See questionnaire in full"
-msgstr "вновь созданная анкета"
+msgstr "Просмотреть анкету целиком"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:36
 #: apps/notifications/templates/notifications/mail/plain_text.txt:8
@@ -16139,6 +16129,8 @@ msgid ""
 "This is an automated message, please don't reply. If you have any questions, "
 "please contact the WOCAT secretariat."
 msgstr ""
+"Это автоматическое уведомление, пожалуйста, не отвечайте на него. Если у вас "
+"возникли вопросы, обращайтесь в Секретариат ВОКАТ. "
 
 #: apps/notifications/templates/notifications/mail/html_text.html:41
 #: apps/notifications/templates/notifications/mail/plain_text.txt:11
@@ -16146,26 +16138,21 @@ msgid ""
 "You're getting this message because your account on qcat.wocat.net is linked "
 "to this address."
 msgstr ""
+"Вы получили данное сообщение, поскольку ваша учетная запись в qcat.wocat.net "
+"зарегистрирована на данный адрес."
 
 #: apps/notifications/templates/notifications/mail/html_text.html:46
 #: apps/notifications/templates/notifications/mail/plain_text.txt:12
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "institutional setting"
 msgid "Change subscription settings"
-msgstr "Институциональные условия"
+msgstr "Изменить настройки подписки"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:53
-#, fuzzy
-#| msgid "WOCAT Watershed"
 msgid "WOCAT Website"
-msgstr "Речной бассейн ВОКАТ"
+msgstr "Веб-сайт ВОКАТ "
 
 #: apps/notifications/templates/notifications/mail/html_text.html:57
-#, fuzzy
-#| msgid "About the WOCAT SLM Database"
 msgid "WOCAT SLM Database"
-msgstr "Информация о Базе данных ВОКАТ по УЗП"
+msgstr "ВОКАТ база данных по УЗП"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:66
 #: templates/base.html:254
@@ -16174,17 +16161,19 @@ msgstr "Контакты"
 
 #: apps/notifications/templates/notifications/mail/plain_text.txt:13
 msgid "Visit qcat.wocat.net"
-msgstr ""
+msgstr "Перейти на qcat.wocat.net"
 
 #: apps/notifications/templates/notifications/mail/publish_addendum.html:2
 msgid "Congratulations your practice has been published!"
-msgstr ""
+msgstr "Поздравляем! Ваша анкета опубликована!"
 
 #: apps/notifications/templates/notifications/mail/publish_addendum.html:4
 msgid ""
 "We kindly invite you to discuss your case, and other issues related to SLM "
 "or the WOCAT tools on our interactive WOCATpedia platform"
 msgstr ""
+"Приглашаем Вас к обсуждению вашего вопроса и других тем, затрагивающих УЗП "
+"или инструменты ВОКАТ, на интерактивной платформе WOCATpedia"
 
 #: apps/notifications/templates/notifications/partial/list.html:7
 msgid "Date"
@@ -16259,16 +16248,12 @@ msgid "Click to display message from"
 msgstr "Нажмите для отображения сообщения от"
 
 #: apps/notifications/templates/notifications/preferences.html:16
-#, fuzzy
-#| msgid "Key references"
 msgid "Your email preferences"
-msgstr "Ключевые ссылки"
+msgstr "Настройки вашего email"
 
 #: apps/notifications/templates/notifications/preferences.html:21
-#, fuzzy
-#| msgid "Key references"
 msgid "Save preferences"
-msgstr "Ключевые ссылки"
+msgstr "Сохранить настройки"
 
 #: apps/notifications/templates/notifications/subject/1.html:9
 msgid "was created by"
@@ -16323,7 +16308,7 @@ msgstr "редактирование завершено"
 
 #: apps/notifications/validators.py:11
 msgid "Invalid email status filters"
-msgstr ""
+msgstr "Недопустимый статус фильтров email"
 
 #: apps/notifications/views.py:292
 #, python-brace-format
@@ -16331,10 +16316,8 @@ msgid "{compiler} was informed about your progress."
 msgstr "{compiler} уведомлен о вашем продвижении."
 
 #: apps/notifications/views.py:345
-#, fuzzy
-#| msgid "Data successfully saved."
 msgid "Successfully saved changes."
-msgstr "Данные успешно сохранены."
+msgstr "Изменения успешно сохранены."
 
 #: apps/qcat/config/common.py:97
 msgid "English"
@@ -16397,16 +16380,28 @@ msgstr ""
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
 #: apps/sample/templates/sample/questionnaire/list.html:70
-#: apps/technologies/templates/technologies/questionnaire/list.html:13
 #: apps/wocat/templates/wocat/home.html:130
 #: apps/wocat/templates/wocat/partial/search.html:16
-#: apps/wocat/templates/wocat/questionnaire/list.html:70
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:31
 msgid "SLM Technologies"
 msgstr "Технологии УЗП"
 
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
+#: apps/sample/templates/sample/questionnaire/list.html:71
+#: apps/wocat/templates/wocat/home.html:150
+#: apps/wocat/templates/wocat/partial/search.html:17
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:24
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:32
+msgid "SLM Approaches"
+msgstr "Подходы по УЗП"
+
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:14
 #: apps/wocat/templates/wocat/partial/search.html:18
-#: apps/wocat/templates/wocat/questionnaire/list.html:72
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:26
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:33
 msgid "UNCCD PRAIS Practices"
 msgstr "Практика PRAIS КБО ООН"
 
@@ -16456,7 +16451,7 @@ msgstr "Отклонено"
 msgid "Inactive"
 msgstr "Неактивный"
 
-#: apps/questionnaire/models.py:60 apps/summary/renderers.py:270
+#: apps/questionnaire/models.py:60 apps/summary/renderers.py:284
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr "Составитель"
@@ -16499,11 +16494,11 @@ msgstr ""
 "Представлен в качестве передовой практики УЗП в КБО ООН национальным "
 "координатором"
 
-#: apps/questionnaire/models.py:993
+#: apps/questionnaire/models.py:994
 msgid "This questionnaire can be edited."
 msgstr "Эта анкета доступна для редактирования"
 
-#: apps/questionnaire/models.py:995
+#: apps/questionnaire/models.py:996
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr "Эта анкета закрыта для редактирования {user}."
@@ -16524,9 +16519,11 @@ msgstr ""
 msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "Невозможно серилизовать анкету без правильной конфигурации."
 
-#: apps/questionnaire/templates/active_filters.html:28
-msgid "Reset all"
-msgstr "Перезапуск всех параметров"
+#: apps/questionnaire/templates/active_filters.html:31
+#, fuzzy
+#| msgid "Search"
+msgid "New Search"
+msgstr "Поиск"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:19
 msgid "New SLM Approach"
@@ -16729,7 +16726,7 @@ msgid "Technology: "
 msgstr "Технология:"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
-#: apps/technologies/views.py:23 apps/wocat/templates/wocat/partial/top.html:14
+#: apps/technologies/views.py:17 apps/wocat/templates/wocat/partial/top.html:14
 msgid "Technologies"
 msgstr "Технологии"
 
@@ -16752,8 +16749,7 @@ msgstr "Отчетность PRAIS КБО ООН"
 
 #: apps/questionnaire/templates/details/category/watershed_header.html:6
 #: apps/questionnaire/templates/details/category/watershed_header.html:114
-#: apps/watershed/templates/watershed/questionnaire/list.html:13
-#: apps/watershed/views.py:21
+#: apps/watershed/views.py:17
 msgid "Watershed"
 msgstr "Речной бассейн"
 
@@ -16931,7 +16927,7 @@ msgstr "Обновить пользователей"
 
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:5
 msgid "Change compiler"
-msgstr ""
+msgstr "Изменить имя составителя"
 
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:9
 #, python-format
@@ -16941,6 +16937,10 @@ msgid ""
 "this %(questionnaire_type)s.\n"
 "      "
 msgstr ""
+"\n"
+"Как член секретариата ВОКАТ, вы можете изменить имя составителя этой "
+"%(questionnaire_type)s\n"
+" "
 
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:20
 #, python-format
@@ -16950,14 +16950,17 @@ msgid ""
 "%(questionnaire_type)s.\n"
 "          "
 msgstr ""
+"\n"
+"Найти и выбрать пользователя, который будет новым составителем этой "
+"%(questionnaire_type)s"
 
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:40
 msgid "Keep the current compiler as editor?"
-msgstr ""
+msgstr "Сохранить текущего составителя в качестве редактора?"
 
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:41
 msgid "Update compiler"
-msgstr ""
+msgstr "Обновить имя составителя"
 
 #: apps/questionnaire/templates/details/review_panel/_delete.html:7
 #: apps/questionnaire/templates/details/review_panel/_delete.html:41
@@ -16973,6 +16976,10 @@ msgid ""
 "secretariat, you can delete this %(questionnaire_type)s.\n"
 "        "
 msgstr ""
+"\n"
+"Удалить эту %(questionnaire_type)s. Как член Секретариата Вокат, вы можете "
+"удалить эту %(questionnaire_type)s.\n"
+" "
 
 #: apps/questionnaire/templates/details/review_panel/_delete.html:16
 #, python-format
@@ -17630,32 +17637,6 @@ msgstr "Начать виртуальный тур, объясняющий фу�
 msgid "other"
 msgstr "другие"
 
-#: apps/questionnaire/templates/filter.html:25
-#: apps/sample/templates/sample/questionnaire/list.html:32
-#: apps/wocat/templates/wocat/questionnaire/list.html:32
-msgid "Country"
-msgstr "Страна"
-
-#: apps/questionnaire/templates/filter.html:26
-msgid "Select or type a Country name"
-msgstr "Выбрать или ввести название страны"
-
-#: apps/questionnaire/templates/filter.html:35
-msgid "Language"
-msgstr "Язык"
-
-#: apps/questionnaire/templates/filter.html:53
-msgid "Creation Date"
-msgstr "Дата создания"
-
-#: apps/questionnaire/templates/filter.html:67
-msgid "Update Date"
-msgstr "Дата обновления"
-
-#: apps/questionnaire/templates/filter.html:144
-msgid "Filter"
-msgstr "Фильтр"
-
 #: apps/questionnaire/templates/form/category.html:52
 msgid "Go Back without saving"
 msgstr "Вернуться без сохранения"
@@ -18099,6 +18080,10 @@ msgstr ""
 "p><p>Цифрами отображается количество отвеченных вопросов в данном разделе."
 "<p>  "
 
+#: apps/questionnaire/templates/questionnaire/partial/list.html:19
+msgid "No results found."
+msgstr "Результатов не найдено."
+
 #: apps/questionnaire/templates/questionnaire/partial/select_modules.html:14
 msgid "No modules found."
 msgstr "Модулей не найдено."
@@ -18115,39 +18100,44 @@ msgstr "Файл слишком велик"
 msgid "Search Terms"
 msgstr "Условия поиска"
 
-#: apps/questionnaire/utils.py:673
+#: apps/questionnaire/utils.py:674
 msgid "Updated"
 msgstr "Обновлено"
 
-#: apps/questionnaire/utils.py:690
+#: apps/questionnaire/utils.py:692
 msgid "Unknown"
 msgstr "Неизвестно"
 
-#: apps/questionnaire/utils.py:1206
+#: apps/questionnaire/utils.py:708
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:75
+msgid "Language"
+msgstr "Язык"
+
+#: apps/questionnaire/utils.py:1233
 msgid "The questionnaire was successfully submitted."
 msgstr "Анкета успешно отправлена."
 
-#: apps/questionnaire/utils.py:1238
+#: apps/questionnaire/utils.py:1265
 msgid "The questionnaire was successfully reviewed."
 msgstr "Проверка анкеты успешно завершенаю"
 
-#: apps/questionnaire/utils.py:1276
+#: apps/questionnaire/utils.py:1303
 msgid "New version was published"
 msgstr "Опубликована новая версия"
 
-#: apps/questionnaire/utils.py:1304
+#: apps/questionnaire/utils.py:1331
 msgid "The questionnaire was successfully set public."
 msgstr "Статус анкеты изменен на общедоступный. "
 
-#: apps/questionnaire/utils.py:1343
+#: apps/questionnaire/utils.py:1370
 msgid "The questionnaire was successfully rejected."
 msgstr "Анкета отклонена."
 
-#: apps/questionnaire/utils.py:1433
+#: apps/questionnaire/utils.py:1460
 msgid "Assigned users were successfully updated"
 msgstr "Прикрепленные пользователи успешно обновлены"
 
-#: apps/questionnaire/utils.py:1549
+#: apps/questionnaire/utils.py:1576
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -18157,11 +18147,11 @@ msgstr ""
 "находится в процессе проверки и должна быть опубликована первой. Пожалуйста, "
 "повторите попытку позже.  "
 
-#: apps/questionnaire/utils.py:1571
+#: apps/questionnaire/utils.py:1598
 msgid "The flag was successfully set."
 msgstr "Метка успешно установлена."
 
-#: apps/questionnaire/utils.py:1595
+#: apps/questionnaire/utils.py:1622
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -18171,7 +18161,7 @@ msgstr ""
 "процессе проверки и должна быть опубликована первой. Пожалуйста, повторите "
 "попытку позже."
 
-#: apps/questionnaire/utils.py:1616
+#: apps/questionnaire/utils.py:1643
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -18181,23 +18171,23 @@ msgstr ""
 "новая версия, которая должна быть проверена перед публикацией. До окончания "
 "проверки вы будете видеть общедоступную версию с меткой."
 
-#: apps/questionnaire/utils.py:1623
+#: apps/questionnaire/utils.py:1650
 msgid "New version due to unccd flagging"
 msgstr "Новой версии должна быть присвоена метка КБО ООН "
 
-#: apps/questionnaire/utils.py:1637
+#: apps/questionnaire/utils.py:1664
 msgid "The questionnaire was succesfully removed"
 msgstr "Анкета успешно удалена"
 
-#: apps/questionnaire/views.py:486
+#: apps/questionnaire/views.py:487
 msgid "Data successfully saved."
 msgstr "Данные успешно сохранены."
 
-#: apps/questionnaire/views.py:1048
+#: apps/questionnaire/views.py:1047
 msgid "QCAT Form"
 msgstr "Форма QCAT"
 
-#: apps/questionnaire/views.py:1272
+#: apps/questionnaire/views.py:1388
 msgid "No or multiple files provided."
 msgstr "Файлы не найдены или их несколько"
 
@@ -18214,26 +18204,29 @@ msgstr "Пример: Больше информации о модулях и п�
 msgid "Search and select a Technology to which you would like to add a module."
 msgstr "Найти и отметить Технологию, к которой вы хотите добавить новый модуль"
 
+#: apps/sample/templates/sample/questionnaire/list.html:32
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:42
+msgid "Country"
+msgstr "Страна"
+
 #: apps/sample/templates/sample/questionnaire/list.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:33
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:43
 msgid "Select or type a country name"
 msgstr "Выбрите или введите название страны"
 
 #: apps/sample/templates/sample/questionnaire/list.html:51
-#: apps/summary/renderers.py:302
-#: apps/wocat/templates/wocat/questionnaire/list.html:51
+#: apps/summary/renderers.py:316
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:53
 msgid "Project"
 msgstr "Проект"
 
 #: apps/sample/templates/sample/questionnaire/list.html:52
-#: apps/wocat/templates/wocat/questionnaire/list.html:52
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:54
 msgid "Select or type a project name"
 msgstr "Выбрите или введите название проекта"
 
 #: apps/sample/templates/sample/questionnaire/list.html:65
-#: apps/wocat/templates/wocat/partial/search.html:11
-#: apps/wocat/templates/wocat/questionnaire/list.html:65
-#: templates/base.html:180
+#: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:180
 msgid "Search SLM Data"
 msgstr "Поиск данных по УЗП"
 
@@ -18241,14 +18234,13 @@ msgstr "Поиск данных по УЗП"
 #: apps/sample/templates/sample/questionnaire/list.html:69
 #: apps/wocat/templates/wocat/partial/search.html:13
 #: apps/wocat/templates/wocat/partial/search.html:15
-#: apps/wocat/templates/wocat/questionnaire/list.html:67
-#: apps/wocat/templates/wocat/questionnaire/list.html:69
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:30
 msgid "All SLM Data"
 msgstr "Все данные по УЗП"
 
 #: apps/sample/templates/sample/questionnaire/list.html:78
 #: apps/wocat/templates/wocat/partial/top.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:80
 msgid "Advanced filter"
 msgstr "Расширенный фильтр"
 
@@ -18289,7 +18281,6 @@ msgid "The migration of the data from the old WOCAT database is in process!"
 msgstr "Перенос данных из старой версии базы данных ВОКАТ еще не завершён! "
 
 #: apps/search/templates/search/help_text.html:4
-#: apps/unccd/templates/unccd/questionnaire/list.html:10
 msgid "Only data declared as public are visible."
 msgstr "Просмотреть можно только данные, находящиеся в открытом доступе.  "
 
@@ -18297,7 +18288,7 @@ msgstr "Просмотреть можно только данные, наход�
 msgid " Answer: {}"
 msgstr "Ответ: {}"
 
-#: apps/summary/parsers.py:708
+#: apps/summary/parsers.py:711
 msgid "Subsidies for specific inputs"
 msgstr "Субсидии на отдельные затраты"
 
@@ -18305,84 +18296,81 @@ msgstr "Субсидии на отдельные затраты"
 msgid "Description"
 msgstr "Описание"
 
-#: apps/summary/renderers.py:208
+#: apps/summary/renderers.py:222
 msgid "land user's view"
 msgstr "по мнению землепользователей"
 
-#: apps/summary/renderers.py:209
+#: apps/summary/renderers.py:223
 msgid "compiler’s or other key resource person’s view"
 msgstr "по мнению составителя или ответственных специалистов"
 
-#: apps/summary/renderers.py:237
+#: apps/summary/renderers.py:251
 msgid "Conclusions and lessons learnt"
 msgstr "Заключительные положения и извлечённые уроки"
 
-#: apps/summary/renderers.py:240
+#: apps/summary/renderers.py:254
 msgid "Strengths"
 msgstr "Сильные стороны"
 
-#: apps/summary/renderers.py:244
+#: apps/summary/renderers.py:258
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "Слабые стороны/ недостатки/ риски"
 
-#: apps/summary/renderers.py:245
+#: apps/summary/renderers.py:259
 msgid "how to overcome"
 msgstr "возможные пути преодоления"
 
-#: apps/summary/renderers.py:257
+#: apps/summary/renderers.py:271
 msgid "References"
 msgstr "Справочные материалы"
 
-#: apps/summary/renderers.py:261
-#, fuzzy
-#| msgid "Questionnaires"
-msgid "Questionnaire created"
-msgstr "Анкеты"
-
-#: apps/summary/renderers.py:265
-#, fuzzy
-#| msgid "Last updates"
-msgid "Last update"
-msgstr "Последние обновления "
-
 #: apps/summary/renderers.py:275
+msgid "Questionnaire created"
+msgstr "Анкета создана"
+
+#: apps/summary/renderers.py:279
+msgid "Last update"
+msgstr ""
+
+#: apps/summary/renderers.py:289
 msgid "Resource persons"
 msgstr "Ответственные специалисты"
 
-#: apps/summary/renderers.py:280
+#: apps/summary/renderers.py:294
 msgid "Full description in the WOCAT database"
 msgstr "Полное описание в базе данных ВОКАТ"
 
-#: apps/summary/renderers.py:285
+#: apps/summary/renderers.py:299
 msgid "Linked SLM data"
 msgstr "Связанные данные по УЗП"
 
-#: apps/summary/renderers.py:290
+#: apps/summary/renderers.py:304
 msgid "Key references"
 msgstr "Ключевые ссылки"
 
-#: apps/summary/renderers.py:295
+#: apps/summary/renderers.py:309
 msgid "Links to relevant information which is available online"
 msgstr "Ссылки на материалы по теме, доступные онлайн"
 
-#: apps/summary/renderers.py:300
+#: apps/summary/renderers.py:314
 msgid "Documentation was faciliated by"
 msgstr "Документирование осуществлялось при участии"
 
-#: apps/summary/renderers.py:306
+#: apps/summary/renderers.py:320
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:64
 msgid "Institution"
 msgstr "Организация"
 
-#: apps/summary/renderers.py:380
+#: apps/summary/renderers.py:394
 #, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 msgstr ""
 
-#: apps/summary/renderers.py:396
+#: apps/summary/renderers.py:410
 msgid "Video"
 msgstr "Видео"
 
-#: apps/summary/renderers.py:507
+#: apps/summary/renderers.py:521
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
@@ -18390,355 +18378,355 @@ msgstr ""
 "Данная Технология вызывает проблемы, приводящие к деградации земель, поэтому "
 "ее нельзя назвать природосберегающей"
 
-#: apps/summary/renderers.py:524 apps/summary/renderers.py:534
-#: apps/summary/renderers.py:1021 apps/summary/renderers.py:1031
+#: apps/summary/renderers.py:538 apps/summary/renderers.py:548
+#: apps/summary/renderers.py:1035 apps/summary/renderers.py:1045
 msgid "Location"
 msgstr "Местоположение"
 
-#: apps/summary/renderers.py:540
+#: apps/summary/renderers.py:554
 msgid "No. of Technology sites analysed"
 msgstr "Число исследованных участков, где применяется Технология"
 
-#: apps/summary/renderers.py:543 apps/summary/renderers.py:1036
+#: apps/summary/renderers.py:557 apps/summary/renderers.py:1050
 msgid "Geo-reference of selected sites"
 msgstr "Географическая привязка выбранных участков"
 
-#: apps/summary/renderers.py:548
+#: apps/summary/renderers.py:562
 msgid "Spread of the Technology"
 msgstr "Пространственное распространение Технологии"
 
-#: apps/summary/renderers.py:552
+#: apps/summary/renderers.py:566
 msgid "Date of implementation"
 msgstr "Продолжительность применения Технологии"
 
-#: apps/summary/renderers.py:559
+#: apps/summary/renderers.py:573
 msgid "Type of introduction"
 msgstr "Тип внедрения/ применения "
 
-#: apps/summary/renderers.py:591
+#: apps/summary/renderers.py:605
 msgid "Classification of the Technology"
 msgstr "Классификация Технологии"
 
-#: apps/summary/renderers.py:594
+#: apps/summary/renderers.py:608
 msgid "Main purpose"
 msgstr "Основная цель"
 
-#: apps/summary/renderers.py:598
+#: apps/summary/renderers.py:612
 msgid "Land use"
 msgstr "Землепользование"
 
-#: apps/summary/renderers.py:602
+#: apps/summary/renderers.py:616
 msgid "Water supply"
 msgstr "Водоснабжение"
 
-#: apps/summary/renderers.py:607
+#: apps/summary/renderers.py:621
 msgid "Number of growing seasons per year"
 msgstr "Число урожаев за год"
 
-#: apps/summary/renderers.py:611
+#: apps/summary/renderers.py:625
 msgid "Land use before implementation of the Technology"
 msgstr "Тип землепользования до применения Технологии"
 
-#: apps/summary/renderers.py:615
+#: apps/summary/renderers.py:629
 msgid "Livestock density"
 msgstr "Поголовье скота на единицу площади"
 
-#: apps/summary/renderers.py:622
+#: apps/summary/renderers.py:636
 msgid "Purpose related to land degradation"
 msgstr "Цель, связанная с деградацией земель"
 
-#: apps/summary/renderers.py:626
+#: apps/summary/renderers.py:640
 msgid "Degradation addressed"
 msgstr "Тип деградации, на борьбу с которым направлена"
 
-#: apps/summary/renderers.py:630
+#: apps/summary/renderers.py:644
 msgid "SLM group"
 msgstr "Категория УЗП"
 
-#: apps/summary/renderers.py:634
+#: apps/summary/renderers.py:648
 msgid "SLM measures"
 msgstr "Мероприятия УЗП"
 
-#: apps/summary/renderers.py:654 apps/summary/renderers.py:1103
+#: apps/summary/renderers.py:668 apps/summary/renderers.py:1121
 msgid "Author: {}"
 msgstr "Автор: {}"
 
-#: apps/summary/renderers.py:658
+#: apps/summary/renderers.py:672
 msgid "Technical drawing"
 msgstr "Технический рисунок"
 
-#: apps/summary/renderers.py:660
+#: apps/summary/renderers.py:674
 msgid "Technical specifications"
 msgstr "Технические характеристики"
 
-#: apps/summary/renderers.py:678
+#: apps/summary/renderers.py:692
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr "коэффициент перевода: <b>1 гектар =  {}</b>"
 
-#: apps/summary/renderers.py:679
+#: apps/summary/renderers.py:693
 msgid " (size and area unit: <b>{}</b>{})"
 msgstr "(размер и единица площади: <b>{}</b>{})"
 
-#: apps/summary/renderers.py:684
+#: apps/summary/renderers.py:698
 msgid "unit: <b>{}</b>"
 msgstr "единица: <b>{}</b>"
 
-#: apps/summary/renderers.py:697 apps/summary/renderers.py:698
+#: apps/summary/renderers.py:711 apps/summary/renderers.py:712
 msgid "n.a"
 msgstr "недоступно"
 
-#: apps/summary/renderers.py:701
+#: apps/summary/renderers.py:715
 msgid "Establishment and maintenance: activities, inputs and costs"
 msgstr ""
 "Запуск и текущее обслуживание: мероприятия, необходимые ресурсы и затраты"
 
-#: apps/summary/renderers.py:704
+#: apps/summary/renderers.py:718
 msgid "Calculation of inputs and costs"
 msgstr "Подсчет вложений и затрат"
 
-#: apps/summary/renderers.py:706
+#: apps/summary/renderers.py:720
 msgid "Costs are calculated: {}"
 msgstr "Подсчитанные затраты: {}"
 
-#: apps/summary/renderers.py:707
+#: apps/summary/renderers.py:721
 msgid "Currency used for cost calculation: <b>{}</b>"
 msgstr "Денежные единицы, использованные для подсчета затрат: <b>{}</b>"
 
-#: apps/summary/renderers.py:708
+#: apps/summary/renderers.py:722
 msgid "Exchange rate (to USD): 1 USD = {}."
 msgstr "Обменный курс (Доллар США): 1 доллар = {}"
 
-#: apps/summary/renderers.py:709
+#: apps/summary/renderers.py:723
 msgid "Average wage cost of hired labour per day: {}."
 msgstr "Средний размер дневного заработка нанятых работников: {}."
 
-#: apps/summary/renderers.py:712
+#: apps/summary/renderers.py:726
 msgid "Most important factors affecting the costs"
 msgstr "Наиболее значимые факторы, влияющие на стоимость затрат"
 
-#: apps/summary/renderers.py:715
+#: apps/summary/renderers.py:729
 msgid "Establishment activities"
 msgstr "Мероприятия, необходимые для начала реализации"
 
-#: apps/summary/renderers.py:719
+#: apps/summary/renderers.py:733
 msgid "Establishment inputs and costs"
 msgstr "Стоимость вложений и затрат по запуску"
 
-#: apps/summary/renderers.py:724
+#: apps/summary/renderers.py:738
 msgid "Total establishment costs (estimation)"
 msgstr ""
 
-#: apps/summary/renderers.py:730
+#: apps/summary/renderers.py:744
 msgid "Maintenance activities"
 msgstr "Текущее обслуживание"
 
-#: apps/summary/renderers.py:734
+#: apps/summary/renderers.py:748
 msgid "Maintenance inputs and costs"
 msgstr "Стоимость вложений и затрат по эксплуатации"
 
-#: apps/summary/renderers.py:739
+#: apps/summary/renderers.py:753
 msgid "Total maintenance costs (estimation)"
 msgstr ""
 
-#: apps/summary/renderers.py:787
+#: apps/summary/renderers.py:801
 msgid "Average annual rainfall in mm: {}"
 msgstr "Среднегодовое количество осадков в мм: {}"
 
-#: apps/summary/renderers.py:789
+#: apps/summary/renderers.py:803
 msgid "Name of the meteorological station: {}"
 msgstr "Название метеостанции: {}"
 
-#: apps/summary/renderers.py:796
+#: apps/summary/renderers.py:810
 msgid "Natural environment"
 msgstr "Природные условия"
 
-#: apps/summary/renderers.py:799
+#: apps/summary/renderers.py:813
 msgid "Average annual rainfall"
 msgstr "Среднегодовое количество осадков"
 
-#: apps/summary/renderers.py:803
+#: apps/summary/renderers.py:817
 msgid "Agro-climatic zone"
 msgstr "Агроклиматическая зона"
 
-#: apps/summary/renderers.py:807
+#: apps/summary/renderers.py:821
 msgid "Specifications on climate"
 msgstr "Дополнительные характеристики климата"
 
-#: apps/summary/renderers.py:811
+#: apps/summary/renderers.py:825
 msgid "Slope"
 msgstr "Склон"
 
-#: apps/summary/renderers.py:815
+#: apps/summary/renderers.py:829
 msgid "Landforms"
 msgstr "Формы рельефа"
 
-#: apps/summary/renderers.py:819
+#: apps/summary/renderers.py:833
 msgid "Altitude"
 msgstr "Высота над уровнем моря"
 
-#: apps/summary/renderers.py:823
+#: apps/summary/renderers.py:837
 msgid "Technology is applied in"
 msgstr "Технология применяется в"
 
-#: apps/summary/renderers.py:827
+#: apps/summary/renderers.py:841
 msgid "Soil depth"
 msgstr "Мощность почв"
 
-#: apps/summary/renderers.py:831
+#: apps/summary/renderers.py:845
 msgid "Soil texture (topsoil)"
 msgstr "Гранулометрический состав (верхнего горизонта)"
 
-#: apps/summary/renderers.py:835
+#: apps/summary/renderers.py:849
 msgid "Soil texture (> 20 cm below surface)"
 msgstr "Гранулометрический состав (на глубине более 20 см)"
 
-#: apps/summary/renderers.py:839
+#: apps/summary/renderers.py:853
 msgid "Topsoil organic matter content"
 msgstr "Содержание органического вещества в верхнем почвенном горизонте"
 
-#: apps/summary/renderers.py:843
+#: apps/summary/renderers.py:857
 msgid "Groundwater table"
 msgstr "Уровень грунтовых вод"
 
-#: apps/summary/renderers.py:847
+#: apps/summary/renderers.py:861
 msgid "Availability of surface water"
 msgstr "Доступность поверхностных вод"
 
-#: apps/summary/renderers.py:851
+#: apps/summary/renderers.py:865
 msgid "Water quality (untreated)"
 msgstr "Качество воды (без обработки)"
 
-#: apps/summary/renderers.py:855
+#: apps/summary/renderers.py:869
 msgid "Occurrence of flooding"
 msgstr "Повторяемость затопления"
 
-#: apps/summary/renderers.py:859
+#: apps/summary/renderers.py:873
 msgid "Is salinity a problem?"
 msgstr "Является ли солёность воды проблемой?"
 
-#: apps/summary/renderers.py:863
+#: apps/summary/renderers.py:877
 msgid "Species diversity"
 msgstr "Видовое разнообразие"
 
-#: apps/summary/renderers.py:867
+#: apps/summary/renderers.py:881
 msgid "Habitat diversity"
 msgstr "Разнообразие местообитаний"
 
-#: apps/summary/renderers.py:875
+#: apps/summary/renderers.py:889
 msgid "Characteristics of land users applying the Technology"
 msgstr "Характеристика землепользователей, применяющих Технологию"
 
-#: apps/summary/renderers.py:878
+#: apps/summary/renderers.py:892
 msgid "Market orientation"
 msgstr "Рыночная ориентация"
 
-#: apps/summary/renderers.py:882
+#: apps/summary/renderers.py:896
 msgid "Off-farm income"
 msgstr "Доходы из других источников"
 
-#: apps/summary/renderers.py:886
+#: apps/summary/renderers.py:900
 msgid "Relative level of wealth"
 msgstr "Относительный уровень достатка"
 
-#: apps/summary/renderers.py:890
+#: apps/summary/renderers.py:904
 msgid "Level of mechanization"
 msgstr "Уровень механизации"
 
-#: apps/summary/renderers.py:894
+#: apps/summary/renderers.py:908
 msgid "Sedentary or nomadic"
 msgstr "Осёдлый или кочевой"
 
-#: apps/summary/renderers.py:898
+#: apps/summary/renderers.py:912
 msgid "Individuals or groups"
 msgstr "Индивидуальное или коллективное хозяйство"
 
-#: apps/summary/renderers.py:902
+#: apps/summary/renderers.py:916
 msgid "Gender"
 msgstr "Пол"
 
-#: apps/summary/renderers.py:906
+#: apps/summary/renderers.py:920
 msgid "Age"
 msgstr "Возраст"
 
-#: apps/summary/renderers.py:910
+#: apps/summary/renderers.py:924
 msgid "Area used per household"
 msgstr "Площадь, используемая домохозяйством"
 
-#: apps/summary/renderers.py:914
+#: apps/summary/renderers.py:928
 msgid "Scale"
 msgstr "Масштаб"
 
-#: apps/summary/renderers.py:918
+#: apps/summary/renderers.py:932
 msgid "Land ownership"
 msgstr "Собственность на землю"
 
-#: apps/summary/renderers.py:922
+#: apps/summary/renderers.py:936
 msgid "Land use rights"
 msgstr "Права на землепользование"
 
-#: apps/summary/renderers.py:926
+#: apps/summary/renderers.py:940
 msgid "Water use rights"
 msgstr "Права на водовользование"
 
-#: apps/summary/renderers.py:930
+#: apps/summary/renderers.py:944
 msgid "Access to services and infrastructure"
 msgstr "Доступ к базовым услугам и инфраструктуре"
 
-#: apps/summary/renderers.py:938
+#: apps/summary/renderers.py:952
 msgid "Impacts - Benefits and disadvantages"
 msgstr "Воздействие - положительное и отрицательное"
 
-#: apps/summary/renderers.py:941
+#: apps/summary/renderers.py:955
 msgid "Socio-economic impacts"
 msgstr "Социально-экономическое воздействие"
 
-#: apps/summary/renderers.py:945
+#: apps/summary/renderers.py:959
 msgid "Socio-cultural impacts"
 msgstr "Социальное и культурное воздействие"
 
-#: apps/summary/renderers.py:949
+#: apps/summary/renderers.py:963
 msgid "Ecological impacts"
 msgstr "Экологическое воздействие"
 
-#: apps/summary/renderers.py:953
+#: apps/summary/renderers.py:967
 msgid "Off-site impacts"
 msgstr "Влияние за пределами территории применения"
 
-#: apps/summary/renderers.py:957
+#: apps/summary/renderers.py:971
 msgid "Benefits compared with establishment costs"
 msgstr "Насколько получаемый результат сопоставим с первоначальными вложениями"
 
-#: apps/summary/renderers.py:961
+#: apps/summary/renderers.py:975
 msgid "Benefits compared with maintenance costs"
 msgstr ""
 "Насколько получаемый результат сопоставим с затратами на техническое "
 "обслуживание"
 
-#: apps/summary/renderers.py:969
+#: apps/summary/renderers.py:983
 msgid "Climate change"
 msgstr "Изменение климата"
 
-#: apps/summary/renderers.py:971
+#: apps/summary/renderers.py:985
 msgid "Climate change/ extreme to which the Technology is exposed"
 msgstr ""
 "Изменение климата/ экстремальные погодные явления, которым подвержена "
 "Технология"
 
-#: apps/summary/renderers.py:972
+#: apps/summary/renderers.py:986
 msgid "How the Technology copes with these changes/extremes"
 msgstr ""
 "Насколько успешно Технология справляется с данными изменениями/ "
 "экстремальными погодными явлениями"
 
-#: apps/summary/renderers.py:979
+#: apps/summary/renderers.py:993
 msgid "Adoption and adaptation"
 msgstr "Внедрение и адаптация"
 
-#: apps/summary/renderers.py:982
+#: apps/summary/renderers.py:996
 msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "Доля землепользователей (в процентах), применяющих Технологию"
 
-#: apps/summary/renderers.py:986
+#: apps/summary/renderers.py:1000
 msgid ""
 "Of all those who have adopted the Technology, how many have did so without "
 "receiving material incentives?"
@@ -18747,68 +18735,68 @@ msgstr ""
 "применяющих её по собственной инициативе, т.е. без какого-либо материального "
 "стимулирования со стороны?"
 
-#: apps/summary/renderers.py:990
+#: apps/summary/renderers.py:1004
 msgid "Number of households and/ or area covered"
 msgstr "Число домохозяйств и/или площадь применения"
 
-#: apps/summary/renderers.py:994
+#: apps/summary/renderers.py:1008
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
 msgstr ""
 "Была ли Технология УЗП модифицирована в недавнее время с целью адаптации к "
 "меняющимся условиям среды?"
 
-#: apps/summary/renderers.py:998
+#: apps/summary/renderers.py:1012
 msgid "To which changing conditions?"
 msgstr "К каким именно изменяющимся условиям среды?"
 
-#: apps/summary/renderers.py:1041
+#: apps/summary/renderers.py:1055
 msgid "Initiation date"
 msgstr "Дата ввода в действие"
 
-#: apps/summary/renderers.py:1046
+#: apps/summary/renderers.py:1060
 msgid "Year of termination"
 msgstr "Дата завершения"
 
-#: apps/summary/renderers.py:1051
+#: apps/summary/renderers.py:1065
 msgid "Type of Approach"
 msgstr "Тип Подхода"
 
-#: apps/summary/renderers.py:1060
+#: apps/summary/renderers.py:1074
 msgid "Approach aims and enabling environment"
 msgstr "Цели подхода и благоприятные условия для его реализации"
 
-#: apps/summary/renderers.py:1063
+#: apps/summary/renderers.py:1077
 msgid "Main aims / objectives of the approach"
 msgstr "Главные цели/ задачи Подхода"
 
-#: apps/summary/renderers.py:1068
+#: apps/summary/renderers.py:1082
 msgid ""
 "Conditions enabling the implementation of the Technology/ ies applied under "
 "the Approach"
 msgstr ""
 "Условия, содействующие применению Технологии/ Технологий в рамках Подхода"
 
-#: apps/summary/renderers.py:1072
+#: apps/summary/renderers.py:1086
 msgid ""
 "Conditions hindering the implementation of the Technology/ ies applied under "
 "the Approach"
 msgstr ""
 "Условия, затрудняющие применение Технологии/ Технологий в рамках Подхода"
 
-#: apps/summary/renderers.py:1083
+#: apps/summary/renderers.py:1101
 msgid "Participation and roles of stakeholders involved"
 msgstr "Участие и распределение ролей заинтересованных сторон"
 
-#: apps/summary/renderers.py:1086
+#: apps/summary/renderers.py:1104
 msgid "Stakeholders involved in the Approach and their roles"
 msgstr "Заинтересованные стороны, участвующие в реализации Подхода, и их роли"
 
-#: apps/summary/renderers.py:1088
+#: apps/summary/renderers.py:1106
 msgid "Lead agency: {}"
 msgstr "Ведущая организация: {}"
 
-#: apps/summary/renderers.py:1091 apps/summary/renderers.py:1095
+#: apps/summary/renderers.py:1109 apps/summary/renderers.py:1113
 msgid ""
 "Involvement of local land users/ local communities in the different phases "
 "of the Approach"
@@ -18816,180 +18804,168 @@ msgstr ""
 "Участие местных землепользователей/ местных сообществ на разных стадиях "
 "реализации Подхода"
 
-#: apps/summary/renderers.py:1104
+#: apps/summary/renderers.py:1122
 msgid "Flow chart"
 msgstr "Схема реализации Подхода"
 
-#: apps/summary/renderers.py:1108
+#: apps/summary/renderers.py:1126
 msgid "Decision-making on the selection of SLM Technology"
 msgstr "Принятие решений по выбору Технологии УЗП"
 
-#: apps/summary/renderers.py:1111
+#: apps/summary/renderers.py:1129
 msgid "Decisions were taken by"
 msgstr "Кто принимал решения? "
 
-#: apps/summary/renderers.py:1115
+#: apps/summary/renderers.py:1133
 msgid "Decisions were made based on:"
 msgstr "Принятие решений было основано на:"
 
-#: apps/summary/renderers.py:1125
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "If yes, is this documentation intended to be used for monitoring and "
-#| "evaluation?"
+#: apps/summary/renderers.py:1143
 msgid ""
 "This documentation is <i>not</i> intended to be used for monitoring and "
 "evaluation"
 msgstr ""
-"Если да, будет ли данный документ использоваться для мониторинга и оценки?"
 
-#: apps/summary/renderers.py:1127
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "If yes, is this documentation intended to be used for monitoring and "
-#| "evaluation?"
+#: apps/summary/renderers.py:1145
 msgid "This documentation is intended to be used for monitoring and evaluation"
 msgstr ""
-"Если да, будет ли данный документ использоваться для мониторинга и оценки?"
 
-#: apps/summary/renderers.py:1130
+#: apps/summary/renderers.py:1148
 msgid "Technical support, capacity building, and knowledge management"
 msgstr "Техническая поддержка, повышение компетенций и управление знаниями"
 
-#: apps/summary/renderers.py:1133
+#: apps/summary/renderers.py:1151
 msgid "The following activities or services have been part of the approach"
 msgstr "Следующие мероприятия или работы являлись частью Подхода"
 
-#: apps/summary/renderers.py:1143
+#: apps/summary/renderers.py:1161
 msgid "Capacity building/ training"
 msgstr "Повышение компетенций/ обучение"
 
-#: apps/summary/renderers.py:1146
+#: apps/summary/renderers.py:1164
 msgid "Training was provided to the following stakeholders"
 msgstr "Обучение было предоставлено следующим заинтересованным лицам"
 
-#: apps/summary/renderers.py:1150
+#: apps/summary/renderers.py:1168
 msgid "Form of training"
 msgstr "Тип обучения"
 
-#: apps/summary/renderers.py:1155
+#: apps/summary/renderers.py:1173
 msgid "Subjects covered"
 msgstr "Рассматриваемые темы"
 
-#: apps/summary/renderers.py:1160
+#: apps/summary/renderers.py:1178
 msgid "Advisory service"
 msgstr "Консультационные услуги"
 
-#: apps/summary/renderers.py:1163
+#: apps/summary/renderers.py:1181
 msgid "Advisory service was provided"
 msgstr "Консультационные услуги были предоставлены"
 
-#: apps/summary/renderers.py:1170
+#: apps/summary/renderers.py:1188
 msgid "Institution strengthening"
 msgstr "Институциональная поддержка"
 
-#: apps/summary/renderers.py:1172
+#: apps/summary/renderers.py:1190
 msgid "Institutions have been strengthened / established"
 msgstr "Какие институциональные структуры были укреплены или вновь созданы"
 
-#: apps/summary/renderers.py:1176
+#: apps/summary/renderers.py:1194
 msgid "at the following level"
 msgstr "на уровне..."
 
-#: apps/summary/renderers.py:1179
+#: apps/summary/renderers.py:1197
 msgid "Describe institution, roles and responsibilities, members, etc."
 msgstr "Опишите организацию, функции и ответственность, членство и т.д."
 
-#: apps/summary/renderers.py:1182
+#: apps/summary/renderers.py:1200
 msgid "Type of support"
 msgstr "Тип поддержки"
 
-#: apps/summary/renderers.py:1185
+#: apps/summary/renderers.py:1203
 msgid "Further details"
 msgstr "Подробнее"
 
-#: apps/summary/renderers.py:1189
+#: apps/summary/renderers.py:1207
 msgid "Monitoring and evaluation"
 msgstr "Мониторинг и оценка"
 
-#: apps/summary/renderers.py:1194
+#: apps/summary/renderers.py:1212
 msgid "Research"
 msgstr "Научные исследования"
 
-#: apps/summary/renderers.py:1195
+#: apps/summary/renderers.py:1213
 msgid "Research treated the following topics"
 msgstr "Научные исследования проводились по следующим темам"
 
-#: apps/summary/renderers.py:1204
+#: apps/summary/renderers.py:1222
 msgid "Financing and external material support"
 msgstr "Финансирование и внешняя материальная поддержка"
 
-#: apps/summary/renderers.py:1207
+#: apps/summary/renderers.py:1225
 msgid "Annual budget in USD for the SLM component"
 msgstr "Годовой бюджет мероприятий по УЗП в долларах США"
 
-#: apps/summary/renderers.py:1210
+#: apps/summary/renderers.py:1228
 msgid "Precise annual budget: {}"
 msgstr "Точный годовой бюжет: {}"
 
-#: apps/summary/renderers.py:1213
+#: apps/summary/renderers.py:1231
 msgid "The following services or incentives have been provided to land users"
 msgstr ""
 "Землепользователям были оказаны/предоставлены следующие услуги или меры "
 "стимулирования  "
 
-#: apps/summary/renderers.py:1224
+#: apps/summary/renderers.py:1242
 msgid "Labour by land users was"
 msgstr "Трудозатраты, вложенные землепользователями были..."
 
-#: apps/summary/renderers.py:1228
+#: apps/summary/renderers.py:1246
 msgid "Financial/ material support provided to land users"
 msgstr ""
 "Финансовая/ материальная поддержка, предоставленная землепользователям "
 
-#: apps/summary/renderers.py:1232
+#: apps/summary/renderers.py:1250
 msgid "Credit"
 msgstr "Заём/кредит"
 
-#: apps/summary/renderers.py:1234
+#: apps/summary/renderers.py:1252
 msgid "Conditions: {}"
 msgstr "Условия: {}"
 
-#: apps/summary/renderers.py:1237
+#: apps/summary/renderers.py:1255
 msgid "Credit providers: {}"
 msgstr "Кредиторы: {} "
 
-#: apps/summary/renderers.py:1240
+#: apps/summary/renderers.py:1258
 msgid "Credit receivers: {}"
 msgstr "Заёмщики: {}"
 
-#: apps/summary/renderers.py:1246
+#: apps/summary/renderers.py:1264
 msgid "Other incentives or instruments"
 msgstr "Другие методы или инструменты стимулирования "
 
-#: apps/summary/renderers.py:1255
+#: apps/summary/renderers.py:1273
 msgid "Impact analysis and concluding statements"
 msgstr "Анализ влияния и заключительные положения"
 
-#: apps/summary/renderers.py:1258
+#: apps/summary/renderers.py:1276
 msgid "Impacts of the Approach"
 msgstr "Влияние Подхода"
 
-#: apps/summary/renderers.py:1259
+#: apps/summary/renderers.py:1277
 msgid "Did the approach..."
 msgstr "Сумел ли Подход ..."
 
-#: apps/summary/renderers.py:1263
+#: apps/summary/renderers.py:1281
 msgid "Main motivation of land users to implement SLM"
 msgstr "Основные причины, побуждающие землепользователей внедрять УЗП"
 
-#: apps/summary/renderers.py:1267
+#: apps/summary/renderers.py:1285
 msgid "Sustainability of Approach activities"
 msgstr "Долгосрочная устойчивость мероприятий в рамках Подхода"
 
-#: apps/summary/renderers.py:1268
+#: apps/summary/renderers.py:1286
 msgid ""
 "Can the land users sustain what hat been implemented through the Approach "
 "(without external support)?"
@@ -19039,10 +19015,6 @@ msgstr "Технологии УЗП, принятые ВОКАТ"
 msgid "Technology"
 msgstr "Технология"
 
-#: apps/technologies/templates/technologies/questionnaire/partial/list.html:19
-msgid "No SLM Technologies found."
-msgstr "Технология УЗП не найдена."
-
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
 msgid "This SLM Technology has a CCA module"
 msgstr "Данная Технология УЗП имеет модуль АИК"
@@ -19073,21 +19045,9 @@ msgstr "Добавать новую практику УЗП Конвенции �
 msgid "Last updates"
 msgstr "Последние обновления "
 
-#: apps/unccd/templates/unccd/questionnaire/list.html:13
-msgid "SLM best practices"
-msgstr "Передовые практики УЗП"
-
-#: apps/unccd/templates/unccd/questionnaire/partial/list.html:19
-msgid "No SLM best practices found."
-msgstr "Передовые практики УЗП не найдены"
-
 #: apps/watershed/templates/watershed/base.html:6
 msgid "WOCAT Watershed"
 msgstr "Речной бассейн ВОКАТ"
-
-#: apps/watershed/templates/watershed/questionnaire/partial/list.html:19
-msgid "No Watershed found."
-msgstr "Речной бассейн не найден"
 
 #: apps/watershed/templates/watershed/questionnaire/partial/list_item.html:69
 msgid "This Watershed is linked to SLM Technologies"
@@ -19456,6 +19416,7 @@ msgstr "Поиск данных по УЗП"
 
 #: apps/wocat/templates/wocat/home.html:131
 #: apps/wocat/templates/wocat/partial/add.html:20
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
 "An <strong>SLM Technology</strong> is a land management practice that "
 "controls land degradation and enhances productivity and/ or other ecosystem "
@@ -19578,6 +19539,7 @@ msgid "Add"
 msgstr "Добавить"
 
 #: apps/wocat/templates/wocat/partial/add.html:40
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:21
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement a SLM Technology, including the stakeholders involved and their "
@@ -19586,18 +19548,6 @@ msgstr ""
 " <strong>Подход УЗП</strong> определяет пути и способы реализации одной или "
 "нескольких Технологий УЗП. Сюда относятся материально-техническое "
 "обеспечение, вовлечение и роль различных заинтересованных сторон и т.д. "
-
-#: apps/wocat/templates/wocat/partial/advanced_filter.html:12
-msgid "Filter for SLM Technologies"
-msgstr "Фильтр для Технологий УЗП"
-
-#: apps/wocat/templates/wocat/partial/advanced_filter.html:251
-msgid "Filter for SLM Approaches"
-msgstr "Фильтр для Подходов УЗП"
-
-#: apps/wocat/templates/wocat/partial/advanced_filter.html:349
-msgid "Technical support"
-msgstr "Техническая поддержка"
 
 #: apps/wocat/templates/wocat/partial/top.html:22
 msgid "All SLM practices"
@@ -19627,17 +19577,40 @@ msgstr "Показать все Подходы"
 msgid "Show all SLM practices"
 msgstr "Показать все практики УЗП"
 
-#: apps/wocat/templates/wocat/questionnaire/list.html:91
-msgid "A revised filter is coming soon."
-msgstr "Фильтр будет отредактирован в ближайшее время "
-
-#: apps/wocat/templates/wocat/questionnaire/list.html:110
+#: apps/wocat/templates/wocat/questionnaire/filter.html:34
+#: apps/wocat/templates/wocat/questionnaire/list.html:34
 msgid "Your search results"
 msgstr "Результаты поиска"
 
-#: apps/wocat/templates/wocat/questionnaire/partial/list.html:19
-msgid "No results found."
-msgstr "Результатов не найдено."
+#: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:23
+#, fuzzy
+#| msgid "Filter"
+msgid "Add Filter"
+msgstr "Фильтр"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:35
+#, fuzzy
+#| msgid "Advanced filter"
+msgid "Add or edit filters"
+msgstr "Расширенный фильтр"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:16
+#, fuzzy
+#| msgid "Advanced filter"
+msgid "Advanced filter for"
+msgstr "Расширенный фильтр"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:65
+#, fuzzy
+#| msgid "Select or type a Country name"
+msgid "Select or type a name"
+msgstr "Выбрать или ввести название страны"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:76
+#, fuzzy
+#| msgid "Select or type a Country name"
+msgid "Select or type a language name"
+msgstr "Выбрать или ввести название страны"
 
 #: templates/404.html:11
 msgid "404 - Not found"
@@ -19676,10 +19649,8 @@ msgid "My SLM practices"
 msgstr "Мои практики УЗП"
 
 #: templates/base.html:145
-#, fuzzy
-#| msgid "No notifications."
 msgid "Notifications"
-msgstr "Уведомлений нет."
+msgstr "Уведомления"
 
 #: templates/base.html:149
 msgid "Administration"
@@ -19733,89 +19704,53 @@ msgstr ""
 "База данных ВОКАТ по практике УЗП (Технологии и Подходы) содержит широкий "
 "спектр передового опыта со всего мира.  "
 
-#: templates/rest_framework/api.html:7 templates/rest_framework/api.html:13
-msgid "WOCAT API"
-msgstr "ВОКАТ API"
+#~ msgid "No SLM Approaches found."
+#~ msgstr "Подходы по УЗП не найдены."
 
-#: templates/rest_framework_swagger/index.html:6
-msgid "Wocat API Documentation"
-msgstr "Документы ВОКАТ API"
+#~ msgid "No data found."
+#~ msgstr "Данные отсутствуют."
 
-#: templates/rest_framework_swagger/index.html:11
-msgid "Wocat API Docs"
-msgstr "Документы ВОКАТ API"
+#~ msgid "Reset all"
+#~ msgstr "Перезапуск всех параметров"
 
-#: templates/rest_framework_swagger/index.html:15
-msgid "Introduction"
-msgstr "Введение"
+#~ msgid "Creation Date"
+#~ msgstr "Дата создания"
 
-#: templates/rest_framework_swagger/index.html:16
-msgid ""
-"\n"
-"            <p>Welcome to the documentation for the Wocat API. Please refer "
-"to\n"
-"                the <a href=\"https://qcat.readthedocs.org\" target=\"_blank"
-"\">qcat docs</a>\n"
-"                in case of questions regrading the structure of the returned "
-"objects.\n"
-"                The API is built on top of the <a href=\"http://www.django-"
-"rest-framework.org/\" target=\"_blank\">django REST framework</a>.\n"
-"            </p>\n"
-"            <p>\n"
-"                The current version of the API is: 2.0. Docs for the older "
-"versions will be listed here as well.\n"
-"            </p>\n"
-"            <h2>Authentication</h2>\n"
-"            <p>\n"
-"                Requests to any resource requires an authentication token in "
-"the header of the request.\n"
-"                The token can be obtained with this API (see: auth-token), a "
-"wocat user account is\n"
-"                required to obtain a token. Please specify what you will use "
-"the token for as \"notes\". Example request:\n"
-"                <pre style=\"white-space:pre-line;\">curl -X POST -d "
-"'{\"username\":\"name\", \"notes\": \"token will be used for testing\", "
-"\"password\": \"***\"}' -H \"Content-Type: application/json\" https://qcat."
-"wocat.net/en/api/v1/auth-token/</pre>\n"
-"                <br>\n"
-"                Pass the token in the request header as follows: "
-"'Authorization: Token &#60;your token here&#62;'. Example request:\n"
-"                <br>\n"
-"                <pre style=\"white-space:pre-line;\">curl -X GET -H "
-"'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://qcat."
-"wocat.net/en/api/v1/questionnaires/</pre>\n"
-"            </p>\n"
-"            <h2>Response content types</h2>\n"
-"            <p>\n"
-"            The format of the response can be defined with the 'Accept' "
-"header. Following types are available:\n"
-"            <ul>\n"
-"                <li>JSON (Accept:application/json)</li>\n"
-"                <li>XML (Accept:application/xml)</li>\n"
-"                <li>CSV (Accept:text/csv)</li>\n"
-"            </ul>\n"
-"            <br>\n"
-"            Example:\n"
-"            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/"
-"csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
-"            </p>\n"
-"\n"
-"        "
-msgstr ""
+#~ msgid "Update Date"
+#~ msgstr "Дата обновления"
 
-#~ msgid "Search questionnaires by name or compilers name"
-#~ msgstr "Поиск анкеты по названию или именам составителей "
+#~ msgid "No SLM Technologies found."
+#~ msgstr "Технология УЗП не найдена."
 
-#~ msgctxt "technologies helptext"
-#~ msgid ""
-#~ "Add a point for each technology site that was considered/ analysed in the "
-#~ "documentation of this technology. If more than 10 sites were considered, "
-#~ "select and add a point for those that are most representative."
-#~ msgstr ""
-#~ "Добавить маркер для каждого участка, упомянутого в описании технологии. "
-#~ "Если описано более 10 участков, выберите и добавьте маркеры для наиболее "
-#~ "репрезентативных участков."
+#~ msgid "SLM best practices"
+#~ msgstr "Передовые практики УЗП"
 
-#~ msgctxt "technologies label"
-#~ msgid "Add geo-referenced information on the map below"
-#~ msgstr "Добавить географичеки-привязанную информацию на карту ниже"
+#~ msgid "No SLM best practices found."
+#~ msgstr "Передовые практики УЗП не найдены"
+
+#~ msgid "No Watershed found."
+#~ msgstr "Речной бассейн не найден"
+
+#~ msgid "Filter for SLM Technologies"
+#~ msgstr "Фильтр для Технологий УЗП"
+
+#~ msgid "Filter for SLM Approaches"
+#~ msgstr "Фильтр для Подходов УЗП"
+
+#~ msgid "Technical support"
+#~ msgstr "Техническая поддержка"
+
+#~ msgid "A revised filter is coming soon."
+#~ msgstr "Фильтр будет отредактирован в ближайшее время "
+
+#~ msgid "WOCAT API"
+#~ msgstr "ВОКАТ API"
+
+#~ msgid "Wocat API Documentation"
+#~ msgstr "Документы ВОКАТ API"
+
+#~ msgid "Wocat API Docs"
+#~ msgstr "Документы ВОКАТ API"
+
+#~ msgid "Introduction"
+#~ msgstr "Введение"

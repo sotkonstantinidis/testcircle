@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-15 14:51+0200\n"
-"PO-Revision-Date: 2017-06-01 12:27+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2017-07-29 15:08+0200\n"
+"PO-Revision-Date: 2017-06-15 12:53+0000\n"
+"Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -67,7 +67,7 @@ msgstr "Punto focal nacional CLD"
 
 #: apps/accounts/templates/details.html:41
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
-#: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:63
+#: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:57
 #: templates/base.html:258
 msgid "UNCCD"
 msgstr "UNCCD"
@@ -81,8 +81,8 @@ msgid "Public questionnaires"
 msgstr "Cuestionarios publicados"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:986
-#: apps/questionnaire/tests/test_utils.py:994
+#: apps/questionnaire/tests/test_utils.py:1001
+#: apps/questionnaire/tests/test_utils.py:1009
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
 #: templates/base.html:162
 msgid "Login"
@@ -149,8 +149,10 @@ msgstr "Todas las notificaciones"
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 #: apps/sample/templates/sample/add_module.html:34
 #: apps/technologies/templates/technologies/add_module.html:35
-#: apps/wocat/templates/wocat/partial/search.html:23
-#: apps/wocat/templates/wocat/questionnaire/list.html:77
+#: apps/wocat/templates/wocat/partial/search.html:22
+#: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:39
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:28
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:12
 msgid "Search"
 msgstr "Búsqueda"
 
@@ -176,22 +178,9 @@ msgstr "Bienvenido {}"
 msgid "WOCAT SLM Approaches"
 msgstr "Enfoques MST WOCAT"
 
-#: apps/approaches/templates/approaches/questionnaire/list.html:13
-#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/sample/templates/sample/questionnaire/list.html:71
-#: apps/wocat/templates/wocat/home.html:150
-#: apps/wocat/templates/wocat/partial/search.html:17
-#: apps/wocat/templates/wocat/questionnaire/list.html:71
-msgid "SLM Approaches"
-msgstr "Enfoques MST"
-
 #: apps/approaches/templates/approaches/questionnaire/partial/link.html:16
 msgid "Approach"
 msgstr "Enfoque"
-
-#: apps/approaches/templates/approaches/questionnaire/partial/list.html:19
-msgid "No SLM Approaches found."
-msgstr "No se hallaron enfoques MST"
 
 #: apps/approaches/templates/approaches/questionnaire/partial/list_item.html:41
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:43
@@ -255,14 +244,13 @@ msgstr "Esta práctica MST también se halla disponible en:"
 msgid "This SLM Approach is linked to SLM Technologies"
 msgstr "Este enfoque MST se vincula a Tecnologías MST"
 
-#: apps/approaches/views.py:23
+#: apps/approaches/views.py:17
 #: apps/questionnaire/templates/details/category/approaches_header.html:6
 #: apps/wocat/templates/wocat/partial/top.html:18
 msgid "Approaches"
 msgstr "Enfoques"
 
 #: apps/cca/templates/cca/base.html:6
-#: apps/cca/templates/cca/questionnaire/list.html:13
 msgid "SLM Climate Change Adaptation"
 msgstr "Adaptación al Cambio Climático MST"
 
@@ -287,27 +275,23 @@ msgstr ""
 "y Extremos Climáticos"
 
 #: apps/cca/templates/cca/questionnaire/partial/link.html:16
-#: apps/cca/views.py:23
+#: apps/cca/views.py:17
 msgid "Climate Change Adaptation"
 msgstr "Adaptación al Cambio Climático "
-
-#: apps/cca/templates/cca/questionnaire/partial/list.html:19
-msgid "No data found."
-msgstr "No se hallaron datos."
 
 #: apps/cca/templates/cca/questionnaire/partial/list_item.html:72
 msgid "This Module is linked to a SLM Technology"
 msgstr "Este módulo se vincula a una Tecnología MST"
 
-#: apps/configuration/configuration.py:368
+#: apps/configuration/configuration.py:376
 msgid "Yes"
 msgstr "Sí"
 
-#: apps/configuration/configuration.py:368
+#: apps/configuration/configuration.py:376
 msgid "No"
 msgstr "No"
 
-#: apps/configuration/configuration.py:2560
+#: apps/configuration/configuration.py:2531
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "Nombre desconocido"
@@ -10661,11 +10645,24 @@ msgid "Specify the centre of the area in which the Approach has been applied."
 msgstr "Especifique el centro del área donde el Enfoque ha sido aplicado."
 
 #: apps/configuration/configuration_translations.py:5903
+msgctxt "technologies helptext"
+msgid ""
+"Add a point for each technology site that was considered/ analysed in the "
+"documentation of this technology. If more than 10 sites were considered, "
+"select and add a point for those that are most representative."
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5904
+msgctxt "technologies label"
+msgid "Add geo-referenced information on the map below"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5905
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
 msgstr "Especifique el centro de la cuenca"
 
-#: apps/configuration/configuration_translations.py:5904
+#: apps/configuration/configuration_translations.py:5906
 msgctxt "approaches helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10729,7 +10726,7 @@ msgstr ""
 "target=\"_blank\" class=\"link\"> http://creativecommons.org/licenses/by-nc-"
 "sa/3.0/legalcode</a></p>"
 
-#: apps/configuration/configuration_translations.py:5905
+#: apps/configuration/configuration_translations.py:5907
 msgctxt "technologies helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -10793,7 +10790,7 @@ msgstr ""
 "target=\"_blank\" class=\"link\"> http://creativecommons.org/licenses/by-nc-"
 "sa/3.0/legalcode</a></p>"
 
-#: apps/configuration/configuration_translations.py:5906
+#: apps/configuration/configuration_translations.py:5908
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Conditions regarding the use of data documented through WOCAT</"
@@ -16000,11 +15997,8 @@ msgid "publication"
 msgstr "publicación"
 
 #: apps/notifications/conf.py:77
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "not well at all"
 msgid "No emails at all"
-msgstr "nada bien"
+msgstr ""
 
 #: apps/notifications/conf.py:78
 msgid "Only emails that I need to work on"
@@ -16049,7 +16043,7 @@ msgstr ""
 
 #: apps/notifications/receivers.py:41
 #: apps/notifications/tests/test_receivers.py:58
-#: apps/questionnaire/utils.py:671
+#: apps/questionnaire/utils.py:672
 msgid "Created"
 msgstr "Creado"
 
@@ -16067,16 +16061,12 @@ msgid "Mark all as read"
 msgstr "Marcar todos como leídos"
 
 #: apps/notifications/templates/notifications/log_list.html:25
-#, fuzzy
-#| msgid "Deleted"
 msgid "Delete all read"
-msgstr "Borrado"
+msgstr ""
 
 #: apps/notifications/templates/notifications/log_list.html:26
-#, fuzzy
-#| msgid "Key references"
 msgid "Mail preferences"
-msgstr "Referencias claves"
+msgstr ""
 
 #: apps/notifications/templates/notifications/log_list.html:33
 #: apps/notifications/templates/notifications/log_list.html:39
@@ -16092,22 +16082,14 @@ msgid "OK"
 msgstr "OK"
 
 #: apps/notifications/templates/notifications/log_list.html:40
-#, fuzzy
-#| msgid ""
-#| "Are you sure you want to delete all the points from the map? This cannot "
-#| "be undone."
 msgid ""
 "Please confirm that you want to delete all notifications. This cannot be "
 "undone!"
 msgstr ""
-"¿Está seguro/a que desea borrar todos los puntos del mapa? Esto no se puede "
-"deshacer. "
 
 #: apps/notifications/templates/notifications/log_list.html:41
-#, fuzzy
-#| msgid "All notifications"
 msgid "Delete all read notifications"
-msgstr "Todas las notificaciones"
+msgstr ""
 
 #: apps/notifications/templates/notifications/log_list.html:91
 msgid "Could not update notifications."
@@ -16120,10 +16102,8 @@ msgstr ""
 
 #: apps/notifications/templates/notifications/mail/html_text.html:31
 #: apps/notifications/templates/notifications/mail/plain_text.txt:6
-#, fuzzy
-#| msgid "created questionnaire"
 msgid "See questionnaire in full"
-msgstr "cuestionario creado"
+msgstr ""
 
 #: apps/notifications/templates/notifications/mail/html_text.html:36
 #: apps/notifications/templates/notifications/mail/plain_text.txt:8
@@ -16141,23 +16121,16 @@ msgstr ""
 
 #: apps/notifications/templates/notifications/mail/html_text.html:46
 #: apps/notifications/templates/notifications/mail/plain_text.txt:12
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid "institutional setting"
 msgid "Change subscription settings"
-msgstr "entorno institucional"
+msgstr ""
 
 #: apps/notifications/templates/notifications/mail/html_text.html:53
-#, fuzzy
-#| msgid "WOCAT Watershed"
 msgid "WOCAT Website"
-msgstr "Cuenca WOCAT"
+msgstr ""
 
 #: apps/notifications/templates/notifications/mail/html_text.html:57
-#, fuzzy
-#| msgid "About the WOCAT SLM Database"
 msgid "WOCAT SLM Database"
-msgstr "Acerca de la Base de Datos MST WOCAT"
+msgstr ""
 
 #: apps/notifications/templates/notifications/mail/html_text.html:66
 #: templates/base.html:254
@@ -16253,16 +16226,12 @@ msgid "Click to display message from"
 msgstr "Haga clic para mostrar el mensaje de"
 
 #: apps/notifications/templates/notifications/preferences.html:16
-#, fuzzy
-#| msgid "Key references"
 msgid "Your email preferences"
-msgstr "Referencias claves"
+msgstr ""
 
 #: apps/notifications/templates/notifications/preferences.html:21
-#, fuzzy
-#| msgid "Key references"
 msgid "Save preferences"
-msgstr "Referencias claves"
+msgstr ""
 
 #: apps/notifications/templates/notifications/subject/1.html:9
 msgid "was created by"
@@ -16325,10 +16294,8 @@ msgid "{compiler} was informed about your progress."
 msgstr "{compiler} fue informado de su progreso."
 
 #: apps/notifications/views.py:345
-#, fuzzy
-#| msgid "Data successfully saved."
 msgid "Successfully saved changes."
-msgstr "Los datos se guardaron con éxito"
+msgstr ""
 
 #: apps/qcat/config/common.py:97
 msgid "English"
@@ -16391,16 +16358,28 @@ msgstr ""
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
 #: apps/sample/templates/sample/questionnaire/list.html:70
-#: apps/technologies/templates/technologies/questionnaire/list.html:13
 #: apps/wocat/templates/wocat/home.html:130
 #: apps/wocat/templates/wocat/partial/search.html:16
-#: apps/wocat/templates/wocat/questionnaire/list.html:70
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:31
 msgid "SLM Technologies"
 msgstr "Tecnologías MST"
 
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
+#: apps/sample/templates/sample/questionnaire/list.html:71
+#: apps/wocat/templates/wocat/home.html:150
+#: apps/wocat/templates/wocat/partial/search.html:17
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:24
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:32
+msgid "SLM Approaches"
+msgstr "Enfoques MST"
+
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:14
 #: apps/wocat/templates/wocat/partial/search.html:18
-#: apps/wocat/templates/wocat/questionnaire/list.html:72
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:26
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:33
 msgid "UNCCD PRAIS Practices"
 msgstr "Prácticas UNCCD PRAIS"
 
@@ -16450,7 +16429,7 @@ msgstr "Rechazado"
 msgid "Inactive"
 msgstr "Inactivo"
 
-#: apps/questionnaire/models.py:60 apps/summary/renderers.py:270
+#: apps/questionnaire/models.py:60 apps/summary/renderers.py:284
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr "Compilador"
@@ -16491,11 +16470,11 @@ msgstr "Mejores prácticas UNCCD"
 msgid "Submitted as SLM best practice to UNCCD by the national focal point"
 msgstr "Presentado como Mejor Práctica MST a CLD por el punto focal del país"
 
-#: apps/questionnaire/models.py:993
+#: apps/questionnaire/models.py:994
 msgid "This questionnaire can be edited."
 msgstr "Este cuestionario puede editarse."
 
-#: apps/questionnaire/models.py:995
+#: apps/questionnaire/models.py:996
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr "Las ediciones de este cuestionario se hallan bloqueadas por {user}."
@@ -16516,9 +16495,11 @@ msgstr "Código inválido de configuración almacenado inelasticsearch."
 msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "No se puede serializar el cuestionario sin una configuración válida"
 
-#: apps/questionnaire/templates/active_filters.html:28
-msgid "Reset all"
-msgstr "Resetear todo"
+#: apps/questionnaire/templates/active_filters.html:31
+#, fuzzy
+#| msgid "Search"
+msgid "New Search"
+msgstr "Búsqueda"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:19
 msgid "New SLM Approach"
@@ -16721,7 +16702,7 @@ msgid "Technology: "
 msgstr "Tecnología:"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
-#: apps/technologies/views.py:23 apps/wocat/templates/wocat/partial/top.html:14
+#: apps/technologies/views.py:17 apps/wocat/templates/wocat/partial/top.html:14
 msgid "Technologies"
 msgstr "Tecnologías"
 
@@ -16744,8 +16725,7 @@ msgstr "Datos Prais UNCCD "
 
 #: apps/questionnaire/templates/details/category/watershed_header.html:6
 #: apps/questionnaire/templates/details/category/watershed_header.html:114
-#: apps/watershed/templates/watershed/questionnaire/list.html:13
-#: apps/watershed/views.py:21
+#: apps/watershed/views.py:17
 msgid "Watershed"
 msgstr "Cuenca"
 
@@ -17658,32 +17638,6 @@ msgstr "Tome un tour explicando las funciones en esta página"
 msgid "other"
 msgstr "otro"
 
-#: apps/questionnaire/templates/filter.html:25
-#: apps/sample/templates/sample/questionnaire/list.html:32
-#: apps/wocat/templates/wocat/questionnaire/list.html:32
-msgid "Country"
-msgstr "País"
-
-#: apps/questionnaire/templates/filter.html:26
-msgid "Select or type a Country name"
-msgstr "Elija o escriba el nombre de un país"
-
-#: apps/questionnaire/templates/filter.html:35
-msgid "Language"
-msgstr "Idioma"
-
-#: apps/questionnaire/templates/filter.html:53
-msgid "Creation Date"
-msgstr "Fecha de creación"
-
-#: apps/questionnaire/templates/filter.html:67
-msgid "Update Date"
-msgstr "Fecha de actualización"
-
-#: apps/questionnaire/templates/filter.html:144
-msgid "Filter"
-msgstr "Filtro"
-
 #: apps/questionnaire/templates/form/category.html:52
 msgid "Go Back without saving"
 msgstr "Volver sin guardar"
@@ -18160,6 +18114,10 @@ msgstr ""
 "p><p>Los números indican cuántas preguntas ya fueron respondidas en esta "
 "sección.</p>"
 
+#: apps/questionnaire/templates/questionnaire/partial/list.html:19
+msgid "No results found."
+msgstr "No se hallaron resultados."
+
 #: apps/questionnaire/templates/questionnaire/partial/select_modules.html:14
 msgid "No modules found."
 msgstr "No se hallaron módulos."
@@ -18176,39 +18134,44 @@ msgstr "El archivo es demasiado grande"
 msgid "Search Terms"
 msgstr "Buscar términos"
 
-#: apps/questionnaire/utils.py:673
+#: apps/questionnaire/utils.py:674
 msgid "Updated"
 msgstr "Actualizado"
 
-#: apps/questionnaire/utils.py:690
+#: apps/questionnaire/utils.py:692
 msgid "Unknown"
 msgstr "No se sabe"
 
-#: apps/questionnaire/utils.py:1206
+#: apps/questionnaire/utils.py:708
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:75
+msgid "Language"
+msgstr "Idioma"
+
+#: apps/questionnaire/utils.py:1233
 msgid "The questionnaire was successfully submitted."
 msgstr "El cuestionario fue enviado exitosamente."
 
-#: apps/questionnaire/utils.py:1238
+#: apps/questionnaire/utils.py:1265
 msgid "The questionnaire was successfully reviewed."
 msgstr "El cuestionario fue revisado exitosamente."
 
-#: apps/questionnaire/utils.py:1276
+#: apps/questionnaire/utils.py:1303
 msgid "New version was published"
 msgstr "Se publicó una nueva versión"
 
-#: apps/questionnaire/utils.py:1304
+#: apps/questionnaire/utils.py:1331
 msgid "The questionnaire was successfully set public."
 msgstr "El cuestionario fue publicado exitosamente."
 
-#: apps/questionnaire/utils.py:1343
+#: apps/questionnaire/utils.py:1370
 msgid "The questionnaire was successfully rejected."
 msgstr "El cuestionario fue rechazado exitosamente."
 
-#: apps/questionnaire/utils.py:1433
+#: apps/questionnaire/utils.py:1460
 msgid "Assigned users were successfully updated"
 msgstr "Los usuarios asignados se actualizaron con éxito"
 
-#: apps/questionnaire/utils.py:1549
+#: apps/questionnaire/utils.py:1576
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -18218,11 +18181,11 @@ msgstr ""
 "el proceso de revisión y debe publicarse primero. Por favor, inténtelo más "
 "tarde. "
 
-#: apps/questionnaire/utils.py:1571
+#: apps/questionnaire/utils.py:1598
 msgid "The flag was successfully set."
 msgstr "Se marcó correctamente."
 
-#: apps/questionnaire/utils.py:1595
+#: apps/questionnaire/utils.py:1622
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -18232,7 +18195,7 @@ msgstr ""
 "se halla en el proceso de revisión y debe publicarse primero. Por favor, "
 "inténtelo más tarde. "
 
-#: apps/questionnaire/utils.py:1616
+#: apps/questionnaire/utils.py:1643
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -18242,23 +18205,23 @@ msgstr ""
 "una versión nueva que requiere revisión. Mientras tanto, usted está viendo "
 "la versión pública que aún muestra la marca. "
 
-#: apps/questionnaire/utils.py:1623
+#: apps/questionnaire/utils.py:1650
 msgid "New version due to unccd flagging"
 msgstr "Nueva versión debido a que se agrego marca unccd"
 
-#: apps/questionnaire/utils.py:1637
+#: apps/questionnaire/utils.py:1664
 msgid "The questionnaire was succesfully removed"
 msgstr "El cuestionario fue eliminado exitosamente"
 
-#: apps/questionnaire/views.py:486
+#: apps/questionnaire/views.py:487
 msgid "Data successfully saved."
 msgstr "Los datos se guardaron con éxito"
 
-#: apps/questionnaire/views.py:1048
+#: apps/questionnaire/views.py:1047
 msgid "QCAT Form"
 msgstr "Formulario QCAT"
 
-#: apps/questionnaire/views.py:1272
+#: apps/questionnaire/views.py:1388
 msgid "No or multiple files provided."
 msgstr "No se proporcionaron archivos o se proporcionaron múltiples archivos."
 
@@ -18276,26 +18239,29 @@ msgid "Search and select a Technology to which you would like to add a module."
 msgstr ""
 "Busque y seleccione una Tecnología a la que le gustaría agregar un módulo."
 
+#: apps/sample/templates/sample/questionnaire/list.html:32
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:42
+msgid "Country"
+msgstr "País"
+
 #: apps/sample/templates/sample/questionnaire/list.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:33
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:43
 msgid "Select or type a country name"
 msgstr "Elija o escriba el nombre de un país"
 
 #: apps/sample/templates/sample/questionnaire/list.html:51
-#: apps/summary/renderers.py:302
-#: apps/wocat/templates/wocat/questionnaire/list.html:51
+#: apps/summary/renderers.py:316
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:53
 msgid "Project"
 msgstr "Proyecto"
 
 #: apps/sample/templates/sample/questionnaire/list.html:52
-#: apps/wocat/templates/wocat/questionnaire/list.html:52
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:54
 msgid "Select or type a project name"
 msgstr "Elija o escriba el nombre de un proyecto"
 
 #: apps/sample/templates/sample/questionnaire/list.html:65
-#: apps/wocat/templates/wocat/partial/search.html:11
-#: apps/wocat/templates/wocat/questionnaire/list.html:65
-#: templates/base.html:180
+#: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:180
 msgid "Search SLM Data"
 msgstr "Busque datos MST "
 
@@ -18303,14 +18269,13 @@ msgstr "Busque datos MST "
 #: apps/sample/templates/sample/questionnaire/list.html:69
 #: apps/wocat/templates/wocat/partial/search.html:13
 #: apps/wocat/templates/wocat/partial/search.html:15
-#: apps/wocat/templates/wocat/questionnaire/list.html:67
-#: apps/wocat/templates/wocat/questionnaire/list.html:69
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:30
 msgid "All SLM Data"
 msgstr "Todos los datos MST"
 
 #: apps/sample/templates/sample/questionnaire/list.html:78
 #: apps/wocat/templates/wocat/partial/top.html:33
-#: apps/wocat/templates/wocat/questionnaire/list.html:80
 msgid "Advanced filter"
 msgstr "Filtro avanzado"
 
@@ -18355,7 +18320,6 @@ msgstr ""
 "proceso!"
 
 #: apps/search/templates/search/help_text.html:4
-#: apps/unccd/templates/unccd/questionnaire/list.html:10
 msgid "Only data declared as public are visible."
 msgstr "Solo los datos declarados públicos son visibles."
 
@@ -18363,7 +18327,7 @@ msgstr "Solo los datos declarados públicos son visibles."
 msgid " Answer: {}"
 msgstr " Respuesta: {}"
 
-#: apps/summary/parsers.py:708
+#: apps/summary/parsers.py:711
 msgid "Subsidies for specific inputs"
 msgstr "Subsidios para insumos específicos"
 
@@ -18371,84 +18335,81 @@ msgstr "Subsidios para insumos específicos"
 msgid "Description"
 msgstr "Descripción"
 
-#: apps/summary/renderers.py:208
+#: apps/summary/renderers.py:222
 msgid "land user's view"
 msgstr "perspectiva del usuario de tierras"
 
-#: apps/summary/renderers.py:209
+#: apps/summary/renderers.py:223
 msgid "compiler’s or other key resource person’s view"
 msgstr "punto de vista del compilador o de otra persona recurso clave"
 
-#: apps/summary/renderers.py:237
+#: apps/summary/renderers.py:251
 msgid "Conclusions and lessons learnt"
 msgstr "Conclusiones y lecciones aprendidas"
 
-#: apps/summary/renderers.py:240
+#: apps/summary/renderers.py:254
 msgid "Strengths"
 msgstr "Fortalezas"
 
-#: apps/summary/renderers.py:244
+#: apps/summary/renderers.py:258
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "Debilidades/ desventajas/ riesgos"
 
-#: apps/summary/renderers.py:245
+#: apps/summary/renderers.py:259
 msgid "how to overcome"
 msgstr "cómo sobreponerse"
 
-#: apps/summary/renderers.py:257
+#: apps/summary/renderers.py:271
 msgid "References"
 msgstr "Referencias"
 
-#: apps/summary/renderers.py:261
-#, fuzzy
-#| msgid "Questionnaires"
-msgid "Questionnaire created"
-msgstr "Cuestionarios"
-
-#: apps/summary/renderers.py:265
-#, fuzzy
-#| msgid "Last updates"
-msgid "Last update"
-msgstr "Últimas actualizaciones"
-
 #: apps/summary/renderers.py:275
+msgid "Questionnaire created"
+msgstr ""
+
+#: apps/summary/renderers.py:279
+msgid "Last update"
+msgstr ""
+
+#: apps/summary/renderers.py:289
 msgid "Resource persons"
 msgstr "Personas de referencia"
 
-#: apps/summary/renderers.py:280
+#: apps/summary/renderers.py:294
 msgid "Full description in the WOCAT database"
 msgstr "Descripción completa en la base de datos de WOCAT"
 
-#: apps/summary/renderers.py:285
+#: apps/summary/renderers.py:299
 msgid "Linked SLM data"
 msgstr "Datos MST vinculados"
 
-#: apps/summary/renderers.py:290
+#: apps/summary/renderers.py:304
 msgid "Key references"
 msgstr "Referencias claves"
 
-#: apps/summary/renderers.py:295
+#: apps/summary/renderers.py:309
 msgid "Links to relevant information which is available online"
 msgstr "Vínculos a la información relevante disponible en línea"
 
-#: apps/summary/renderers.py:300
+#: apps/summary/renderers.py:314
 msgid "Documentation was faciliated by"
 msgstr "La documentación fue facilitada por"
 
-#: apps/summary/renderers.py:306
+#: apps/summary/renderers.py:320
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:64
 msgid "Institution"
 msgstr "Institución "
 
-#: apps/summary/renderers.py:380
+#: apps/summary/renderers.py:394
 #, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 msgstr "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 
-#: apps/summary/renderers.py:396
+#: apps/summary/renderers.py:410
 msgid "Video"
 msgstr "Video"
 
-#: apps/summary/renderers.py:507
+#: apps/summary/renderers.py:521
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
@@ -18457,349 +18418,349 @@ msgstr ""
 "degradación de la tierra, de tal forma que no puede considerársela una "
 "tecnología sostenible para el manejo de la tierra"
 
-#: apps/summary/renderers.py:524 apps/summary/renderers.py:534
-#: apps/summary/renderers.py:1021 apps/summary/renderers.py:1031
+#: apps/summary/renderers.py:538 apps/summary/renderers.py:548
+#: apps/summary/renderers.py:1035 apps/summary/renderers.py:1045
 msgid "Location"
 msgstr "Lugar"
 
-#: apps/summary/renderers.py:540
+#: apps/summary/renderers.py:554
 msgid "No. of Technology sites analysed"
 msgstr "No. de sitios de Tecnología analizados"
 
-#: apps/summary/renderers.py:543 apps/summary/renderers.py:1036
+#: apps/summary/renderers.py:557 apps/summary/renderers.py:1050
 msgid "Geo-reference of selected sites"
 msgstr "Georreferencia de sitios seleccionados"
 
-#: apps/summary/renderers.py:548
+#: apps/summary/renderers.py:562
 msgid "Spread of the Technology"
 msgstr "Difusión de la Tecnología"
 
-#: apps/summary/renderers.py:552
+#: apps/summary/renderers.py:566
 msgid "Date of implementation"
 msgstr "Fecha de la implementación"
 
-#: apps/summary/renderers.py:559
+#: apps/summary/renderers.py:573
 msgid "Type of introduction"
 msgstr "Tipo de introducción"
 
-#: apps/summary/renderers.py:591
+#: apps/summary/renderers.py:605
 msgid "Classification of the Technology"
 msgstr "Clasificación de la Tecnología"
 
-#: apps/summary/renderers.py:594
+#: apps/summary/renderers.py:608
 msgid "Main purpose"
 msgstr "Propósito principal"
 
-#: apps/summary/renderers.py:598
+#: apps/summary/renderers.py:612
 msgid "Land use"
 msgstr "Uso de tierra"
 
-#: apps/summary/renderers.py:602
+#: apps/summary/renderers.py:616
 msgid "Water supply"
 msgstr "Provisión de agua"
 
-#: apps/summary/renderers.py:607
+#: apps/summary/renderers.py:621
 msgid "Number of growing seasons per year"
 msgstr "Número de temporadas de cultivo por año"
 
-#: apps/summary/renderers.py:611
+#: apps/summary/renderers.py:625
 msgid "Land use before implementation of the Technology"
 msgstr "Uso de las tierras antes de implementar la Tecnología"
 
-#: apps/summary/renderers.py:615
+#: apps/summary/renderers.py:629
 msgid "Livestock density"
 msgstr "Densidad del ganado"
 
-#: apps/summary/renderers.py:622
+#: apps/summary/renderers.py:636
 msgid "Purpose related to land degradation"
 msgstr "Propósito relacionado a la degradación de las tierras"
 
-#: apps/summary/renderers.py:626
+#: apps/summary/renderers.py:640
 msgid "Degradation addressed"
 msgstr "La degradación considerada"
 
-#: apps/summary/renderers.py:630
+#: apps/summary/renderers.py:644
 msgid "SLM group"
 msgstr "Grupo MST"
 
-#: apps/summary/renderers.py:634
+#: apps/summary/renderers.py:648
 msgid "SLM measures"
 msgstr "Medidas MST"
 
-#: apps/summary/renderers.py:654 apps/summary/renderers.py:1103
+#: apps/summary/renderers.py:668 apps/summary/renderers.py:1121
 msgid "Author: {}"
 msgstr "Autor: {}"
 
-#: apps/summary/renderers.py:658
+#: apps/summary/renderers.py:672
 msgid "Technical drawing"
 msgstr "Dibujo técnico"
 
-#: apps/summary/renderers.py:660
+#: apps/summary/renderers.py:674
 msgid "Technical specifications"
 msgstr "Especificaciones técnicas"
 
-#: apps/summary/renderers.py:678
+#: apps/summary/renderers.py:692
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr "; factor de conversión a una hectárea: <b>1 ha = {}</b>"
 
-#: apps/summary/renderers.py:679
+#: apps/summary/renderers.py:693
 msgid " (size and area unit: <b>{}</b>{})"
 msgstr " (unidad de tamaño y área: <b>{}</b>{})"
 
-#: apps/summary/renderers.py:684
+#: apps/summary/renderers.py:698
 msgid "unit: <b>{}</b>"
 msgstr "unidad: <b>{}</b>"
 
-#: apps/summary/renderers.py:697 apps/summary/renderers.py:698
+#: apps/summary/renderers.py:711 apps/summary/renderers.py:712
 msgid "n.a"
 msgstr "n.d."
 
-#: apps/summary/renderers.py:701
+#: apps/summary/renderers.py:715
 msgid "Establishment and maintenance: activities, inputs and costs"
 msgstr "Establecimiento/ mantenimiento: actividades, insumos y costos"
 
-#: apps/summary/renderers.py:704
+#: apps/summary/renderers.py:718
 msgid "Calculation of inputs and costs"
 msgstr "Cálculo de insumos y costos"
 
-#: apps/summary/renderers.py:706
+#: apps/summary/renderers.py:720
 msgid "Costs are calculated: {}"
 msgstr "Los costos se calculan: {}"
 
-#: apps/summary/renderers.py:707
+#: apps/summary/renderers.py:721
 msgid "Currency used for cost calculation: <b>{}</b>"
 msgstr "Moneda usada para calcular costos: <b>{}</b>"
 
-#: apps/summary/renderers.py:708
+#: apps/summary/renderers.py:722
 msgid "Exchange rate (to USD): 1 USD = {}."
 msgstr "Tasa de cambio (a USD): 1 USD = {}."
 
-#: apps/summary/renderers.py:709
+#: apps/summary/renderers.py:723
 msgid "Average wage cost of hired labour per day: {}."
 msgstr "Costo promedio por día del sueldo de la mano de obra contratada: {}."
 
-#: apps/summary/renderers.py:712
+#: apps/summary/renderers.py:726
 msgid "Most important factors affecting the costs"
 msgstr "Factores más determinantes que afectan los costos: "
 
-#: apps/summary/renderers.py:715
+#: apps/summary/renderers.py:729
 msgid "Establishment activities"
 msgstr "Actividades de establecimiento"
 
-#: apps/summary/renderers.py:719
+#: apps/summary/renderers.py:733
 msgid "Establishment inputs and costs"
 msgstr "Insumos y costos para establecimiento"
 
-#: apps/summary/renderers.py:724
+#: apps/summary/renderers.py:738
 msgid "Total establishment costs (estimation)"
 msgstr ""
 
-#: apps/summary/renderers.py:730
+#: apps/summary/renderers.py:744
 msgid "Maintenance activities"
 msgstr "Actividades de mantenimiento"
 
-#: apps/summary/renderers.py:734
+#: apps/summary/renderers.py:748
 msgid "Maintenance inputs and costs"
 msgstr "Insumos y costos de mantenimiento"
 
-#: apps/summary/renderers.py:739
+#: apps/summary/renderers.py:753
 msgid "Total maintenance costs (estimation)"
 msgstr ""
 
-#: apps/summary/renderers.py:787
+#: apps/summary/renderers.py:801
 msgid "Average annual rainfall in mm: {}"
 msgstr "Promedio anual de lluvia en mm:{}"
 
-#: apps/summary/renderers.py:789
+#: apps/summary/renderers.py:803
 msgid "Name of the meteorological station: {}"
 msgstr "Nombre de la estación meteorológica: {}"
 
-#: apps/summary/renderers.py:796
+#: apps/summary/renderers.py:810
 msgid "Natural environment"
 msgstr "Entorno natural"
 
-#: apps/summary/renderers.py:799
+#: apps/summary/renderers.py:813
 msgid "Average annual rainfall"
 msgstr "Promedio anual de lluvia "
 
-#: apps/summary/renderers.py:803
+#: apps/summary/renderers.py:817
 msgid "Agro-climatic zone"
 msgstr "Zona agroclimática"
 
-#: apps/summary/renderers.py:807
+#: apps/summary/renderers.py:821
 msgid "Specifications on climate"
 msgstr "Especificaciones sobre el clima"
 
-#: apps/summary/renderers.py:811
+#: apps/summary/renderers.py:825
 msgid "Slope"
 msgstr "Pendiente"
 
-#: apps/summary/renderers.py:815
+#: apps/summary/renderers.py:829
 msgid "Landforms"
 msgstr "Formaciones telúricas"
 
-#: apps/summary/renderers.py:819
+#: apps/summary/renderers.py:833
 msgid "Altitude"
 msgstr "Altura"
 
-#: apps/summary/renderers.py:823
+#: apps/summary/renderers.py:837
 msgid "Technology is applied in"
 msgstr "La Tecnología se aplica en"
 
-#: apps/summary/renderers.py:827
+#: apps/summary/renderers.py:841
 msgid "Soil depth"
 msgstr "Profundidad promedio del suelo"
 
-#: apps/summary/renderers.py:831
+#: apps/summary/renderers.py:845
 msgid "Soil texture (topsoil)"
 msgstr "Textura del suelo (capa arable)"
 
-#: apps/summary/renderers.py:835
+#: apps/summary/renderers.py:849
 msgid "Soil texture (> 20 cm below surface)"
 msgstr "Textura del suelo (> 20 cm debajo de la superficie)"
 
-#: apps/summary/renderers.py:839
+#: apps/summary/renderers.py:853
 msgid "Topsoil organic matter content"
 msgstr "Materia orgánica de capa arable"
 
-#: apps/summary/renderers.py:843
+#: apps/summary/renderers.py:857
 msgid "Groundwater table"
 msgstr "Agua subterránea"
 
-#: apps/summary/renderers.py:847
+#: apps/summary/renderers.py:861
 msgid "Availability of surface water"
 msgstr "Disponibilidad de aguas superficiales"
 
-#: apps/summary/renderers.py:851
+#: apps/summary/renderers.py:865
 msgid "Water quality (untreated)"
 msgstr "Calidad de agua (sin tratar)"
 
-#: apps/summary/renderers.py:855
+#: apps/summary/renderers.py:869
 msgid "Occurrence of flooding"
 msgstr "Incidencia de inundaciones"
 
-#: apps/summary/renderers.py:859
+#: apps/summary/renderers.py:873
 msgid "Is salinity a problem?"
 msgstr "¿La salinidad del agua es un problema?"
 
-#: apps/summary/renderers.py:863
+#: apps/summary/renderers.py:877
 msgid "Species diversity"
 msgstr "Diversidad de especies"
 
-#: apps/summary/renderers.py:867
+#: apps/summary/renderers.py:881
 msgid "Habitat diversity"
 msgstr "Diversidad de hábitats"
 
-#: apps/summary/renderers.py:875
+#: apps/summary/renderers.py:889
 msgid "Characteristics of land users applying the Technology"
 msgstr ""
 "Las características de los usuarios de la tierra que aplican la Tecnología"
 
-#: apps/summary/renderers.py:878
+#: apps/summary/renderers.py:892
 msgid "Market orientation"
 msgstr "Orientación del mercado"
 
-#: apps/summary/renderers.py:882
+#: apps/summary/renderers.py:896
 msgid "Off-farm income"
 msgstr "Ingresos no agrarios"
 
-#: apps/summary/renderers.py:886
+#: apps/summary/renderers.py:900
 msgid "Relative level of wealth"
 msgstr "Nivel relativo de riqueza"
 
-#: apps/summary/renderers.py:890
+#: apps/summary/renderers.py:904
 msgid "Level of mechanization"
 msgstr "Nivel de mecanización"
 
-#: apps/summary/renderers.py:894
+#: apps/summary/renderers.py:908
 msgid "Sedentary or nomadic"
 msgstr "Sedentario o nómada"
 
-#: apps/summary/renderers.py:898
+#: apps/summary/renderers.py:912
 msgid "Individuals or groups"
 msgstr "Individuos o grupos"
 
-#: apps/summary/renderers.py:902
+#: apps/summary/renderers.py:916
 msgid "Gender"
 msgstr "Género"
 
-#: apps/summary/renderers.py:906
+#: apps/summary/renderers.py:920
 msgid "Age"
 msgstr "Edad"
 
-#: apps/summary/renderers.py:910
+#: apps/summary/renderers.py:924
 msgid "Area used per household"
 msgstr "Área usada por hogar"
 
-#: apps/summary/renderers.py:914
+#: apps/summary/renderers.py:928
 msgid "Scale"
 msgstr "Escala"
 
-#: apps/summary/renderers.py:918
+#: apps/summary/renderers.py:932
 msgid "Land ownership"
 msgstr "Tenencia de tierra"
 
-#: apps/summary/renderers.py:922
+#: apps/summary/renderers.py:936
 msgid "Land use rights"
 msgstr "Derechos de uso de tierra"
 
-#: apps/summary/renderers.py:926
+#: apps/summary/renderers.py:940
 msgid "Water use rights"
 msgstr "Derechos de uso de agua"
 
-#: apps/summary/renderers.py:930
+#: apps/summary/renderers.py:944
 msgid "Access to services and infrastructure"
 msgstr "Acceso a servicios e infraestructura"
 
-#: apps/summary/renderers.py:938
+#: apps/summary/renderers.py:952
 msgid "Impacts - Benefits and disadvantages"
 msgstr "Impactos: beneficios y desventajas"
 
-#: apps/summary/renderers.py:941
+#: apps/summary/renderers.py:955
 msgid "Socio-economic impacts"
 msgstr "Impactos socioeconómicos"
 
-#: apps/summary/renderers.py:945
+#: apps/summary/renderers.py:959
 msgid "Socio-cultural impacts"
 msgstr "Impactos socioculturales"
 
-#: apps/summary/renderers.py:949
+#: apps/summary/renderers.py:963
 msgid "Ecological impacts"
 msgstr "Impactos ecológicos"
 
-#: apps/summary/renderers.py:953
+#: apps/summary/renderers.py:967
 msgid "Off-site impacts"
 msgstr "Impactos fuera del sitio"
 
-#: apps/summary/renderers.py:957
+#: apps/summary/renderers.py:971
 msgid "Benefits compared with establishment costs"
 msgstr "Beneficios comparados con los costos de establecimiento"
 
-#: apps/summary/renderers.py:961
+#: apps/summary/renderers.py:975
 msgid "Benefits compared with maintenance costs"
 msgstr "Beneficios comparados con costos de mantenimiento"
 
-#: apps/summary/renderers.py:969
+#: apps/summary/renderers.py:983
 msgid "Climate change"
 msgstr "Cambio climático"
 
-#: apps/summary/renderers.py:971
+#: apps/summary/renderers.py:985
 msgid "Climate change/ extreme to which the Technology is exposed"
 msgstr "Cambio climático/ extremo al que se expone la Tecnología"
 
-#: apps/summary/renderers.py:972
+#: apps/summary/renderers.py:986
 msgid "How the Technology copes with these changes/extremes"
 msgstr "Cómo la tecnología lidia con estos cambios/extremos"
 
-#: apps/summary/renderers.py:979
+#: apps/summary/renderers.py:993
 msgid "Adoption and adaptation"
 msgstr "Adopción y adaptación"
 
-#: apps/summary/renderers.py:982
+#: apps/summary/renderers.py:996
 msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "Porcentaje de usuarios de la tierra que adoptaron la Tecnología "
 
-#: apps/summary/renderers.py:986
+#: apps/summary/renderers.py:1000
 msgid ""
 "Of all those who have adopted the Technology, how many have did so without "
 "receiving material incentives?"
@@ -18807,42 +18768,42 @@ msgstr ""
 "De todos quienes adoptaron la Tecnología, ¿cuántos lo hicieron sin recibir "
 "incentivos/ pagos materiales?"
 
-#: apps/summary/renderers.py:990
+#: apps/summary/renderers.py:1004
 msgid "Number of households and/ or area covered"
 msgstr "Número de hogares y/ o área cubierta"
 
-#: apps/summary/renderers.py:994
+#: apps/summary/renderers.py:1008
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
 msgstr ""
 "¿La tecnología fue modificada recientemente para adaptarse a las condiciones "
 "cambiantes?"
 
-#: apps/summary/renderers.py:998
+#: apps/summary/renderers.py:1012
 msgid "To which changing conditions?"
 msgstr "¿A qué condiciones cambiantes?"
 
-#: apps/summary/renderers.py:1041
+#: apps/summary/renderers.py:1055
 msgid "Initiation date"
 msgstr "Dato de inicio"
 
-#: apps/summary/renderers.py:1046
+#: apps/summary/renderers.py:1060
 msgid "Year of termination"
 msgstr "Año de conclusión"
 
-#: apps/summary/renderers.py:1051
+#: apps/summary/renderers.py:1065
 msgid "Type of Approach"
 msgstr "Tipo de Enfoque"
 
-#: apps/summary/renderers.py:1060
+#: apps/summary/renderers.py:1074
 msgid "Approach aims and enabling environment"
 msgstr "Metas del Enfoque y entorno facilitador"
 
-#: apps/summary/renderers.py:1063
+#: apps/summary/renderers.py:1077
 msgid "Main aims / objectives of the approach"
 msgstr "Propósitos/ objetivos principales del Enfoque"
 
-#: apps/summary/renderers.py:1068
+#: apps/summary/renderers.py:1082
 msgid ""
 "Conditions enabling the implementation of the Technology/ ies applied under "
 "the Approach"
@@ -18850,7 +18811,7 @@ msgstr ""
 "Condiciones que facilitan la implementación de la/s Tecnología/s aplicadas "
 "bajo el Enfoque"
 
-#: apps/summary/renderers.py:1072
+#: apps/summary/renderers.py:1086
 msgid ""
 "Conditions hindering the implementation of the Technology/ ies applied under "
 "the Approach"
@@ -18858,19 +18819,19 @@ msgstr ""
 "Condiciones que impiden la implementación de la/s Tecnología/s aplicadas "
 "bajo el Enfoque"
 
-#: apps/summary/renderers.py:1083
+#: apps/summary/renderers.py:1101
 msgid "Participation and roles of stakeholders involved"
 msgstr "Participación y roles de las partes interesadas involucradas"
 
-#: apps/summary/renderers.py:1086
+#: apps/summary/renderers.py:1104
 msgid "Stakeholders involved in the Approach and their roles"
 msgstr "Partes interesadas involucradas en el Enfoque y sus roles"
 
-#: apps/summary/renderers.py:1088
+#: apps/summary/renderers.py:1106
 msgid "Lead agency: {}"
 msgstr "Agencia líder: {}"
 
-#: apps/summary/renderers.py:1091 apps/summary/renderers.py:1095
+#: apps/summary/renderers.py:1109 apps/summary/renderers.py:1113
 msgid ""
 "Involvement of local land users/ local communities in the different phases "
 "of the Approach"
@@ -18878,183 +18839,169 @@ msgstr ""
 "Involucramiento de los usuarios locales de tierras/ comunidades locales en "
 "las distintas fases del Enfoque"
 
-#: apps/summary/renderers.py:1104
+#: apps/summary/renderers.py:1122
 msgid "Flow chart"
 msgstr "Flujograma"
 
-#: apps/summary/renderers.py:1108
+#: apps/summary/renderers.py:1126
 msgid "Decision-making on the selection of SLM Technology"
 msgstr "La toma de decisiones en la selección de Tecnología MST"
 
-#: apps/summary/renderers.py:1111
+#: apps/summary/renderers.py:1129
 msgid "Decisions were taken by"
 msgstr "Las decisiones fueron tomadas por"
 
-#: apps/summary/renderers.py:1115
+#: apps/summary/renderers.py:1133
 msgid "Decisions were made based on:"
 msgstr "La toma de decisiones se basa en:"
 
-#: apps/summary/renderers.py:1125
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "If yes, is this documentation intended to be used for monitoring and "
-#| "evaluation?"
+#: apps/summary/renderers.py:1143
 msgid ""
 "This documentation is <i>not</i> intended to be used for monitoring and "
 "evaluation"
 msgstr ""
-"Si respondió que sí, ¿la documentación se utilizará para monitoreo y "
-"evaluación?"
 
-#: apps/summary/renderers.py:1127
-#, fuzzy
-#| msgctxt "approaches label"
-#| msgid ""
-#| "If yes, is this documentation intended to be used for monitoring and "
-#| "evaluation?"
+#: apps/summary/renderers.py:1145
 msgid "This documentation is intended to be used for monitoring and evaluation"
 msgstr ""
-"Si respondió que sí, ¿la documentación se utilizará para monitoreo y "
-"evaluación?"
 
-#: apps/summary/renderers.py:1130
+#: apps/summary/renderers.py:1148
 msgid "Technical support, capacity building, and knowledge management"
 msgstr ""
 "Apoyo técnico, fortalecimiento institucional y gestión del conocimiento"
 
-#: apps/summary/renderers.py:1133
+#: apps/summary/renderers.py:1151
 msgid "The following activities or services have been part of the approach"
 msgstr "Las siguientes actividades o servicios fueron parte del enfoque"
 
-#: apps/summary/renderers.py:1143
+#: apps/summary/renderers.py:1161
 msgid "Capacity building/ training"
 msgstr "Construcción de capacidades/ capacitación"
 
-#: apps/summary/renderers.py:1146
+#: apps/summary/renderers.py:1164
 msgid "Training was provided to the following stakeholders"
 msgstr "Se proporcionó capacitación a las siguientes partes interesadas"
 
-#: apps/summary/renderers.py:1150
+#: apps/summary/renderers.py:1168
 msgid "Form of training"
 msgstr "Forma de capacitación"
 
-#: apps/summary/renderers.py:1155
+#: apps/summary/renderers.py:1173
 msgid "Subjects covered"
 msgstr "Temas avanzados"
 
-#: apps/summary/renderers.py:1160
+#: apps/summary/renderers.py:1178
 msgid "Advisory service"
 msgstr "Servicio de asesoría"
 
-#: apps/summary/renderers.py:1163
+#: apps/summary/renderers.py:1181
 msgid "Advisory service was provided"
 msgstr "Se proporcionó servicio de asesoría"
 
-#: apps/summary/renderers.py:1170
+#: apps/summary/renderers.py:1188
 msgid "Institution strengthening"
 msgstr "Fortalecimiento institucional"
 
-#: apps/summary/renderers.py:1172
+#: apps/summary/renderers.py:1190
 msgid "Institutions have been strengthened / established"
 msgstr "Se fortalecieron/ establecieron instituciones"
 
-#: apps/summary/renderers.py:1176
+#: apps/summary/renderers.py:1194
 msgid "at the following level"
 msgstr "en el siguiente nivel"
 
-#: apps/summary/renderers.py:1179
+#: apps/summary/renderers.py:1197
 msgid "Describe institution, roles and responsibilities, members, etc."
 msgstr ""
 "Describa la institución, los roles y las responsabilidades, miembros, etc."
 
-#: apps/summary/renderers.py:1182
+#: apps/summary/renderers.py:1200
 msgid "Type of support"
 msgstr "Tipo de apoyo"
 
-#: apps/summary/renderers.py:1185
+#: apps/summary/renderers.py:1203
 msgid "Further details"
 msgstr "Detalles adicionales"
 
-#: apps/summary/renderers.py:1189
+#: apps/summary/renderers.py:1207
 msgid "Monitoring and evaluation"
 msgstr "Monitoreo y evaluación"
 
-#: apps/summary/renderers.py:1194
+#: apps/summary/renderers.py:1212
 msgid "Research"
 msgstr "Investigación"
 
-#: apps/summary/renderers.py:1195
+#: apps/summary/renderers.py:1213
 msgid "Research treated the following topics"
 msgstr "La investigación trató los siguientes temas"
 
-#: apps/summary/renderers.py:1204
+#: apps/summary/renderers.py:1222
 msgid "Financing and external material support"
 msgstr "Financiamiento y apoyo material externo"
 
-#: apps/summary/renderers.py:1207
+#: apps/summary/renderers.py:1225
 msgid "Annual budget in USD for the SLM component"
 msgstr "Presupuesto anual en dólares americanos para el componente MST"
 
-#: apps/summary/renderers.py:1210
+#: apps/summary/renderers.py:1228
 msgid "Precise annual budget: {}"
 msgstr "Presupuesto anual preciso: {}"
 
-#: apps/summary/renderers.py:1213
+#: apps/summary/renderers.py:1231
 msgid "The following services or incentives have been provided to land users"
 msgstr ""
 "Los siguientes servicios o incentivos fueron proporcionados a los usuarios "
 "de las tierras"
 
-#: apps/summary/renderers.py:1224
+#: apps/summary/renderers.py:1242
 msgid "Labour by land users was"
 msgstr "El trabajo de los usuarios de las tierras fue"
 
-#: apps/summary/renderers.py:1228
+#: apps/summary/renderers.py:1246
 msgid "Financial/ material support provided to land users"
 msgstr "Apoyo financiero/material proporcionado a los usuarios de tierras"
 
-#: apps/summary/renderers.py:1232
+#: apps/summary/renderers.py:1250
 msgid "Credit"
 msgstr "Crédito"
 
-#: apps/summary/renderers.py:1234
+#: apps/summary/renderers.py:1252
 msgid "Conditions: {}"
 msgstr "Condiciones: {}"
 
-#: apps/summary/renderers.py:1237
+#: apps/summary/renderers.py:1255
 msgid "Credit providers: {}"
 msgstr "Proveedores de crédito: {}"
 
-#: apps/summary/renderers.py:1240
+#: apps/summary/renderers.py:1258
 msgid "Credit receivers: {}"
 msgstr "Destinatarios del crédito: {}"
 
-#: apps/summary/renderers.py:1246
+#: apps/summary/renderers.py:1264
 msgid "Other incentives or instruments"
 msgstr "Otros incentivos o instrumentos "
 
-#: apps/summary/renderers.py:1255
+#: apps/summary/renderers.py:1273
 msgid "Impact analysis and concluding statements"
 msgstr "Análisis de impacto y comentarios de conclusión"
 
-#: apps/summary/renderers.py:1258
+#: apps/summary/renderers.py:1276
 msgid "Impacts of the Approach"
 msgstr "Impactos del Enfoque"
 
-#: apps/summary/renderers.py:1259
+#: apps/summary/renderers.py:1277
 msgid "Did the approach..."
 msgstr "El enfoque..."
 
-#: apps/summary/renderers.py:1263
+#: apps/summary/renderers.py:1281
 msgid "Main motivation of land users to implement SLM"
 msgstr "Motivación principal del usuario de la tierra para implementar MST"
 
-#: apps/summary/renderers.py:1267
+#: apps/summary/renderers.py:1285
 msgid "Sustainability of Approach activities"
 msgstr "Sostenibilidad de las actividades del Enfoque"
 
-#: apps/summary/renderers.py:1268
+#: apps/summary/renderers.py:1286
 msgid ""
 "Can the land users sustain what hat been implemented through the Approach "
 "(without external support)?"
@@ -19105,10 +19052,6 @@ msgstr "Tecnologías MST WOCAT"
 msgid "Technology"
 msgstr "Tecnología"
 
-#: apps/technologies/templates/technologies/questionnaire/partial/list.html:19
-msgid "No SLM Technologies found."
-msgstr "No se hallaron Tecnologías MST"
-
 #: apps/technologies/templates/technologies/questionnaire/partial/list_item.html:75
 msgid "This SLM Technology has a CCA module"
 msgstr "Esta Tecnología MST tiene un módulo CCA"
@@ -19139,21 +19082,9 @@ msgstr "Agregar nueva práctica MST UNCCD"
 msgid "Last updates"
 msgstr "Últimas actualizaciones"
 
-#: apps/unccd/templates/unccd/questionnaire/list.html:13
-msgid "SLM best practices"
-msgstr "Mejores prácticas MST"
-
-#: apps/unccd/templates/unccd/questionnaire/partial/list.html:19
-msgid "No SLM best practices found."
-msgstr "No se hallaron mejores prácticas MST."
-
 #: apps/watershed/templates/watershed/base.html:6
 msgid "WOCAT Watershed"
 msgstr "Cuenca WOCAT"
-
-#: apps/watershed/templates/watershed/questionnaire/partial/list.html:19
-msgid "No Watershed found."
-msgstr "No se halló la cuenca."
 
 #: apps/watershed/templates/watershed/questionnaire/partial/list_item.html:69
 msgid "This Watershed is linked to SLM Technologies"
@@ -19529,6 +19460,7 @@ msgstr "Busque datos MST"
 
 #: apps/wocat/templates/wocat/home.html:131
 #: apps/wocat/templates/wocat/partial/add.html:20
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
 "An <strong>SLM Technology</strong> is a land management practice that "
 "controls land degradation and enhances productivity and/ or other ecosystem "
@@ -19653,6 +19585,7 @@ msgid "Add"
 msgstr "Agregar"
 
 #: apps/wocat/templates/wocat/partial/add.html:40
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:21
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement a SLM Technology, including the stakeholders involved and their "
@@ -19661,18 +19594,6 @@ msgstr ""
 "Un <strong>Enfoque MST</strong> define las maneras y medios usados para "
 "implementar una Tecnología MST, e incluye a las partes interesadas "
 "involucradas y sus roles."
-
-#: apps/wocat/templates/wocat/partial/advanced_filter.html:12
-msgid "Filter for SLM Technologies"
-msgstr "Filtro para Tecnologías SLM"
-
-#: apps/wocat/templates/wocat/partial/advanced_filter.html:251
-msgid "Filter for SLM Approaches"
-msgstr "Filtro para Enfoques MST"
-
-#: apps/wocat/templates/wocat/partial/advanced_filter.html:349
-msgid "Technical support"
-msgstr "Apoyo Técnico"
 
 #: apps/wocat/templates/wocat/partial/top.html:22
 msgid "All SLM practices"
@@ -19702,17 +19623,40 @@ msgstr "Mostrar todos los Enfoques"
 msgid "Show all SLM practices"
 msgstr "Mostrar todas las prácticas MST"
 
-#: apps/wocat/templates/wocat/questionnaire/list.html:91
-msgid "A revised filter is coming soon."
-msgstr "Pronto habrá un filtro revisado."
-
-#: apps/wocat/templates/wocat/questionnaire/list.html:110
+#: apps/wocat/templates/wocat/questionnaire/filter.html:34
+#: apps/wocat/templates/wocat/questionnaire/list.html:34
 msgid "Your search results"
 msgstr "Los resultados de su búsqueda"
 
-#: apps/wocat/templates/wocat/questionnaire/partial/list.html:19
-msgid "No results found."
-msgstr "No se hallaron resultados."
+#: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:23
+#, fuzzy
+#| msgid "Filter"
+msgid "Add Filter"
+msgstr "Filtro"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:35
+#, fuzzy
+#| msgid "Advanced filter"
+msgid "Add or edit filters"
+msgstr "Filtro avanzado"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:16
+#, fuzzy
+#| msgid "Advanced filter"
+msgid "Advanced filter for"
+msgstr "Filtro avanzado"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:65
+#, fuzzy
+#| msgid "Select or type a Country name"
+msgid "Select or type a name"
+msgstr "Elija o escriba el nombre de un país"
+
+#: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:76
+#, fuzzy
+#| msgid "Select or type a Country name"
+msgid "Select or type a language name"
+msgstr "Elija o escriba el nombre de un país"
 
 #: templates/404.html:11
 msgid "404 - Not found"
@@ -19752,10 +19696,8 @@ msgid "My SLM practices"
 msgstr "Mis prácticas MST"
 
 #: templates/base.html:145
-#, fuzzy
-#| msgid "No notifications."
 msgid "Notifications"
-msgstr "Sin notificaciones."
+msgstr ""
 
 #: templates/base.html:149
 msgid "Administration"
@@ -19809,140 +19751,159 @@ msgstr ""
 "La base de datos WOCAT de prácticas MST (Tecnologías y Enfoques) contiene "
 "una gran cantidad de buenas prácticas de todo el mundo. "
 
-#: templates/rest_framework/api.html:7 templates/rest_framework/api.html:13
-msgid "WOCAT API"
-msgstr "WOCAT API"
+#~ msgid "No SLM Approaches found."
+#~ msgstr "No se hallaron enfoques MST"
 
-#: templates/rest_framework_swagger/index.html:6
-msgid "Wocat API Documentation"
-msgstr "Documentación Wocat API "
+#~ msgid "No data found."
+#~ msgstr "No se hallaron datos."
 
-#: templates/rest_framework_swagger/index.html:11
-msgid "Wocat API Docs"
-msgstr "Docs Wocat API "
+#~ msgid "Reset all"
+#~ msgstr "Resetear todo"
 
-#: templates/rest_framework_swagger/index.html:15
-msgid "Introduction"
-msgstr "Introducción"
+#~ msgid "Creation Date"
+#~ msgstr "Fecha de creación"
 
-#: templates/rest_framework_swagger/index.html:16
-msgid ""
-"\n"
-"            <p>Welcome to the documentation for the Wocat API. Please refer "
-"to\n"
-"                the <a href=\"https://qcat.readthedocs.org\" target=\"_blank"
-"\">qcat docs</a>\n"
-"                in case of questions regrading the structure of the returned "
-"objects.\n"
-"                The API is built on top of the <a href=\"http://www.django-"
-"rest-framework.org/\" target=\"_blank\">django REST framework</a>.\n"
-"            </p>\n"
-"            <p>\n"
-"                The current version of the API is: 2.0. Docs for the older "
-"versions will be listed here as well.\n"
-"            </p>\n"
-"            <h2>Authentication</h2>\n"
-"            <p>\n"
-"                Requests to any resource requires an authentication token in "
-"the header of the request.\n"
-"                The token can be obtained with this API (see: auth-token), a "
-"wocat user account is\n"
-"                required to obtain a token. Please specify what you will use "
-"the token for as \"notes\". Example request:\n"
-"                <pre style=\"white-space:pre-line;\">curl -X POST -d "
-"'{\"username\":\"name\", \"notes\": \"token will be used for testing\", "
-"\"password\": \"***\"}' -H \"Content-Type: application/json\" https://qcat."
-"wocat.net/en/api/v1/auth-token/</pre>\n"
-"                <br>\n"
-"                Pass the token in the request header as follows: "
-"'Authorization: Token &#60;your token here&#62;'. Example request:\n"
-"                <br>\n"
-"                <pre style=\"white-space:pre-line;\">curl -X GET -H "
-"'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://qcat."
-"wocat.net/en/api/v1/questionnaires/</pre>\n"
-"            </p>\n"
-"            <h2>Response content types</h2>\n"
-"            <p>\n"
-"            The format of the response can be defined with the 'Accept' "
-"header. Following types are available:\n"
-"            <ul>\n"
-"                <li>JSON (Accept:application/json)</li>\n"
-"                <li>XML (Accept:application/xml)</li>\n"
-"                <li>CSV (Accept:text/csv)</li>\n"
-"            </ul>\n"
-"            <br>\n"
-"            Example:\n"
-"            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/"
-"csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
-"            </p>\n"
-"\n"
-"        "
-msgstr ""
-"\n"
-"            <p>Bienvenido a la documentación para API de Wocat. Por favor, "
-"refiérase a \n"
-"                <a href=\"https://qcat.readthedocs.org\" target=\"_blank"
-"\">qcat docs</a>\n"
-"               en caso de tener preguntas sobre la estructura de los objetos "
-"hallados. \n"
-"                API se construye sobre  <a href=\"http://www.django-rest-"
-"framework.org/\" target=\"_blank\">django REST framework</a>.\n"
-"            </p>\n"
-"            <p>\n"
-"                La versión actual de API es: 2.0. Docs. Las versiones más "
-"antiguas también se listarán aquí.\n"
-"            </p>\n"
-"            <h2>Autentificación</h2>\n"
-"            <p>\n"
-"                Las solicitudes de cualquier recurso requiere un "
-"identificador o token de autentificación en el encabezado de la solicitud.\n"
-"                El token puede obtenerse con este API (ver: auth-token), Se "
-"requiere de una cuenta de usuario Wocat para\n"
-"                obtener un token. Por favor especifique para qué usará el "
-"token, como ser “notas”. Ejemplo de solicitud:\n"
-"                <pre style=\"white-space:pre-line;\">curl -X POST -d "
-"'{\"nombre de usuario\":\"nombre\", \"notas\": \"token se usará para pruebas"
-"\", \"contraseña\": \"***\"}' -H \"Content-Type: application/json\" https://"
-"qcat.wocat.net/en/api/v1/auth-token/</pre>\n"
-"                <br>\n"
-"                Inserte el token en el encabezado de solicitud de la "
-"siguiente forma: 'Authorization: Token &#60; ingrese su token aquí&#62;'. "
-"Ejemplo de solicitud:\n"
-"                <br>\n"
-"                <pre style=\"white-space:pre-line;\">curl -X GET -H "
-"'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://qcat."
-"wocat.net/en/api/v1/questionnaires/</pre>\n"
-"            </p>\n"
-"            <h2>Tipos de contenido de respuesta</h2>\n"
-"            <p>\n"
-"            El formato de la respuesta se puede definir con el encabezado "
-"'Aceptar'. Los siguientes tipos están disponibles:\n"
-"            <ul>\n"
-"                <li>JSON (Accept:application/json)</li>\n"
-"                <li>XML (Accept:application/xml)</li>\n"
-"                <li>CSV (Accept:text/csv)</li>\n"
-"            </ul>\n"
-"            <br>\n"
-"            Ejemplo:\n"
-"            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:text/"
-"csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
-"            </p>\n"
-"\n"
-"        "
+#~ msgid "Update Date"
+#~ msgstr "Fecha de actualización"
 
-#~ msgid "Search questionnaires by name or compilers name"
-#~ msgstr "Buscar cuestionarios por nombre o nombre del compilador"
+#~ msgid "No SLM Technologies found."
+#~ msgstr "No se hallaron Tecnologías MST"
 
-#~ msgctxt "technologies helptext"
+#~ msgid "SLM best practices"
+#~ msgstr "Mejores prácticas MST"
+
+#~ msgid "No SLM best practices found."
+#~ msgstr "No se hallaron mejores prácticas MST."
+
+#~ msgid "No Watershed found."
+#~ msgstr "No se halló la cuenca."
+
+#~ msgid "Filter for SLM Technologies"
+#~ msgstr "Filtro para Tecnologías SLM"
+
+#~ msgid "Filter for SLM Approaches"
+#~ msgstr "Filtro para Enfoques MST"
+
+#~ msgid "Technical support"
+#~ msgstr "Apoyo Técnico"
+
+#~ msgid "A revised filter is coming soon."
+#~ msgstr "Pronto habrá un filtro revisado."
+
+#~ msgid "WOCAT API"
+#~ msgstr "WOCAT API"
+
+#~ msgid "Wocat API Documentation"
+#~ msgstr "Documentación Wocat API "
+
+#~ msgid "Wocat API Docs"
+#~ msgstr "Docs Wocat API "
+
+#~ msgid "Introduction"
+#~ msgstr "Introducción"
+
 #~ msgid ""
-#~ "Add a point for each technology site that was considered/ analysed in the "
-#~ "documentation of this technology. If more than 10 sites were considered, "
-#~ "select and add a point for those that are most representative."
+#~ "\n"
+#~ "            <p>Welcome to the documentation for the Wocat API. Please "
+#~ "refer to\n"
+#~ "                the <a href=\"https://qcat.readthedocs.org\" target="
+#~ "\"_blank\">qcat docs</a>\n"
+#~ "                in case of questions regrading the structure of the "
+#~ "returned objects.\n"
+#~ "                The API is built on top of the <a href=\"http://www."
+#~ "django-rest-framework.org/\" target=\"_blank\">django REST framework</"
+#~ "a>.\n"
+#~ "            </p>\n"
+#~ "            <p>\n"
+#~ "                The current version of the API is: 2.0. Docs for the "
+#~ "older versions will be listed here as well.\n"
+#~ "            </p>\n"
+#~ "            <h2>Authentication</h2>\n"
+#~ "            <p>\n"
+#~ "                Requests to any resource requires an authentication token "
+#~ "in the header of the request.\n"
+#~ "                The token can be obtained with this API (see: auth-"
+#~ "token), a wocat user account is\n"
+#~ "                required to obtain a token. Please specify what you will "
+#~ "use the token for as \"notes\". Example request:\n"
+#~ "                <pre style=\"white-space:pre-line;\">curl -X POST -d "
+#~ "'{\"username\":\"name\", \"notes\": \"token will be used for testing\", "
+#~ "\"password\": \"***\"}' -H \"Content-Type: application/json\" https://"
+#~ "qcat.wocat.net/en/api/v1/auth-token/</pre>\n"
+#~ "                <br>\n"
+#~ "                Pass the token in the request header as follows: "
+#~ "'Authorization: Token &#60;your token here&#62;'. Example request:\n"
+#~ "                <br>\n"
+#~ "                <pre style=\"white-space:pre-line;\">curl -X GET -H "
+#~ "'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://"
+#~ "qcat.wocat.net/en/api/v1/questionnaires/</pre>\n"
+#~ "            </p>\n"
+#~ "            <h2>Response content types</h2>\n"
+#~ "            <p>\n"
+#~ "            The format of the response can be defined with the 'Accept' "
+#~ "header. Following types are available:\n"
+#~ "            <ul>\n"
+#~ "                <li>JSON (Accept:application/json)</li>\n"
+#~ "                <li>XML (Accept:application/xml)</li>\n"
+#~ "                <li>CSV (Accept:text/csv)</li>\n"
+#~ "            </ul>\n"
+#~ "            <br>\n"
+#~ "            Example:\n"
+#~ "            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:"
+#~ "text/csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
+#~ "            </p>\n"
+#~ "\n"
+#~ "        "
 #~ msgstr ""
-#~ "Agregue un punto para cada sitio de tecnología considerado/ analizado en "
-#~ "la documentación de esta tecnología. Si se consideraron más de 10 sitios, "
-#~ "elija y agregue un punto por aquellos que sean más representativos. "
-
-#~ msgctxt "technologies label"
-#~ msgid "Add geo-referenced information on the map below"
-#~ msgstr "Agregue información georeferenciada en el mapa siguiente"
+#~ "\n"
+#~ "            <p>Bienvenido a la documentación para API de Wocat. Por "
+#~ "favor, refiérase a \n"
+#~ "                <a href=\"https://qcat.readthedocs.org\" target=\"_blank"
+#~ "\">qcat docs</a>\n"
+#~ "               en caso de tener preguntas sobre la estructura de los "
+#~ "objetos hallados. \n"
+#~ "                API se construye sobre  <a href=\"http://www.django-rest-"
+#~ "framework.org/\" target=\"_blank\">django REST framework</a>.\n"
+#~ "            </p>\n"
+#~ "            <p>\n"
+#~ "                La versión actual de API es: 2.0. Docs. Las versiones más "
+#~ "antiguas también se listarán aquí.\n"
+#~ "            </p>\n"
+#~ "            <h2>Autentificación</h2>\n"
+#~ "            <p>\n"
+#~ "                Las solicitudes de cualquier recurso requiere un "
+#~ "identificador o token de autentificación en el encabezado de la "
+#~ "solicitud.\n"
+#~ "                El token puede obtenerse con este API (ver: auth-token), "
+#~ "Se requiere de una cuenta de usuario Wocat para\n"
+#~ "                obtener un token. Por favor especifique para qué usará el "
+#~ "token, como ser “notas”. Ejemplo de solicitud:\n"
+#~ "                <pre style=\"white-space:pre-line;\">curl -X POST -d "
+#~ "'{\"nombre de usuario\":\"nombre\", \"notas\": \"token se usará para "
+#~ "pruebas\", \"contraseña\": \"***\"}' -H \"Content-Type: application/json"
+#~ "\" https://qcat.wocat.net/en/api/v1/auth-token/</pre>\n"
+#~ "                <br>\n"
+#~ "                Inserte el token en el encabezado de solicitud de la "
+#~ "siguiente forma: 'Authorization: Token &#60; ingrese su token aquí&#62;'. "
+#~ "Ejemplo de solicitud:\n"
+#~ "                <br>\n"
+#~ "                <pre style=\"white-space:pre-line;\">curl -X GET -H "
+#~ "'Authorization: Token 5289bc42fb2e9322b3aa6238669734bacdc1ae60' https://"
+#~ "qcat.wocat.net/en/api/v1/questionnaires/</pre>\n"
+#~ "            </p>\n"
+#~ "            <h2>Tipos de contenido de respuesta</h2>\n"
+#~ "            <p>\n"
+#~ "            El formato de la respuesta se puede definir con el encabezado "
+#~ "'Aceptar'. Los siguientes tipos están disponibles:\n"
+#~ "            <ul>\n"
+#~ "                <li>JSON (Accept:application/json)</li>\n"
+#~ "                <li>XML (Accept:application/xml)</li>\n"
+#~ "                <li>CSV (Accept:text/csv)</li>\n"
+#~ "            </ul>\n"
+#~ "            <br>\n"
+#~ "            Ejemplo:\n"
+#~ "            <pre style=\"white-space:pre-line;\">curl -X GET -H 'Accept:"
+#~ "text/csv' https://qcat.wocat.net/en/api/v1/questionnaires/303/</pre>\n"
+#~ "            </p>\n"
+#~ "\n"
+#~ "        "

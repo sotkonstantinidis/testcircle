@@ -3779,8 +3779,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -3810,8 +3809,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -3849,8 +3847,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -3869,8 +3866,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           }
                         ]
@@ -4152,8 +4148,7 @@
                               "template": "no_label"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -4358,10 +4353,7 @@
                             }
                           },
                           {
-                            "keyword": "unccd_incentives_types",
-                            "view_options": {
-                              "filter": true
-                            }
+                            "keyword": "unccd_incentives_types"
                           }
                         ]
                       }
@@ -4500,20 +4492,5 @@
     },
     "model": "configuration.configuration",
     "pk": 2001
-  },
-  {
-    "pk": 3009,
-    "model": "accounts.user",
-    "fields": {
-      "groups": [],
-      "date_joined": "2015-10-01T08:24:26.031Z",
-      "is_superuser": false,
-      "last_login": "2015-10-01T08:24:26.047Z",
-      "user_permissions": [],
-      "password": "",
-      "email": "unccd-import@cde.unibe.ch",
-      "firstname": "unccd",
-      "lastname": "import"
-    }
   }
 ]

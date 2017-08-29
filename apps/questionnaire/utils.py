@@ -585,7 +585,7 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configurations, query_dict):
+def get_active_filters(questionnaire_configuration, query_dict):
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on
@@ -612,9 +612,9 @@ def get_active_filters(questionnaire_configurations, query_dict):
         q=search&filter__qg_11__key_14=value_14_1
 
     Args:
-        ``questionnaire_configurations``
-        (list of :class:`configuration.configuration.QuestionnaireConfiguration`):
-        A list of questionnaire configurations.
+        ``questionnaire_configuration``
+        (:class:`configuration.configuration.QuestionnaireConfiguration`):
+        A questionnaire configurations.
 
         ``query_dict`` (Nested Multidict): A nested multidict object,
         eg. ``request.GET``.
@@ -643,12 +643,30 @@ def get_active_filters(questionnaire_configurations, query_dict):
     active_filters = []
     for filter_param, filter_values in query_dict.lists():
 
+        if filter_param == 'type':
+            for filter_value in filter_values:
+                if filter_value == 'wocat':
+                    # Do not add type 'wocat' (= All SLM Data) to active
+                    # filters.
+                    continue
+                active_filters.append({
+                    'type': '_type',
+                    'key': 'type',
+                    'key_label': _('SLM Data'),
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': dict(settings.QUESTIONNAIRE_SLM_DATA_TYPES).get(filter_value, filter_value),
+                    'questiongroup': '_type',
+                })
+            continue
+
         if filter_param == 'q':
             for filter_value in filter_values:
                 active_filters.append({
                     'type': '_search',
                     'key': '_search',
                     'key_label': _('Search Terms'),
+                    'operator': None,
                     'value': filter_value,
                     'value_label': filter_value,
                     'questiongroup': '_search',
@@ -676,6 +694,7 @@ def get_active_filters(questionnaire_configurations, query_dict):
                 'type': '_date',
                 'key': filter_param,
                 'key_label': label,
+                'operator': None,
                 'value': '-'.join(str(y) for y in sorted(years)),
                 'value_label': ' - '.join(str(y) for y in sorted(years)),
                 'questiongroup': filter_param,
@@ -692,8 +711,22 @@ def get_active_filters(questionnaire_configurations, query_dict):
                     'type': '_flag',
                     'key': filter_param,
                     'key_label': '',
+                    'operator': None,
                     'value': filter_value,
                     'value_label': flag_label,
+                    'questiongroup': filter_param,
+                })
+
+        if filter_param in ['lang']:
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_lang',
+                    'key': filter_param,
+                    'key_label': _('Language'),
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': dict(settings.LANGUAGES).get(
+                        filter_value, filter_value),
                     'questiongroup': filter_param,
                 })
 
@@ -701,53 +734,64 @@ def get_active_filters(questionnaire_configurations, query_dict):
             continue
 
         params = filter_param.split('__')
-        if len(params) != 3:
+        if len(params) not in [3, 4]:
             continue
 
         filter_questiongroup = params[1]
         filter_key = params[2]
+        filter_operator = params[3] if len(params) == 4 else 'eq'
 
-        question = None
-        for configuration in questionnaire_configurations:
-            if question is None:
-                question = configuration.get_question_by_keyword(
-                    filter_questiongroup, filter_key)
+        question = questionnaire_configuration.get_question_by_keyword(
+            filter_questiongroup, filter_key)
 
         if question is None:
             continue
 
         for filter_value in filter_values:
-            value_label = next(
-                (v[1] for v in question.choices if str(v[0]) == filter_value),
-                filter_value)
 
-            if question.field_type == 'select_model':
-                try:
-                    model = apps.get_model(
-                        app_label='configuration',
-                        model_name=question.form_options.get('model'))
+            # Each filter value can actually consist of multiple values
+            # belonging to the same key, concatenated to a single string
+            split_filter_values = filter_value.split('|')
+
+            # Collect the labels of all values
+            value_labels = []
+            for single_filter_value in split_filter_values:
+                value_label = next(
+                    (v[1] for v in question.choices if str(v[0]) ==
+                     single_filter_value),
+                    filter_value)
+
+                if question.field_type == 'select_model':
                     try:
-                        object = model.objects.get(pk=filter_value)
-                        value_label = str(object)
-                    except (model.DoesNotExist, ValueError):
-                        # If no object was found by ID or the value is not a
-                        # valid ID, try to find the (supposed string) value in
-                        # the name of the object.
-                        filter_key = '{}_display'.format(filter_key)
-                        value_label = filter_value
-                except LookupError:
-                    continue
+                        model = apps.get_model(
+                            app_label='configuration',
+                            model_name=question.form_options.get('model'))
+                        try:
+                            obj = model.objects.get(pk=single_filter_value)
+                            value_label = str(obj)
+                        except (model.DoesNotExist, ValueError):
+                            # If no object was found by ID or the value is not a
+                            # valid ID, try to find the (supposed string) value
+                            # in the name of the object.
+                            filter_key = '{}_display'.format(filter_key)
+                            value_label = single_filter_value
+                    except LookupError:
+                        continue
+
+                value_labels.append(value_label)
 
             active_filters.append({
                 'questiongroup': filter_questiongroup,
                 'key': filter_key,
-                'key_label': question.label_view,
-                'value': filter_value,
-                'value_label': value_label,
+                'key_label': question.label_filter,
+                'operator': filter_operator,
+                'value': split_filter_values,
+                'value_label': ' / '.join(value_labels),
                 'type': question.field_type,
+                'choices': question.choices,
             })
 
-    return sorted(active_filters, key=lambda k: k['key'])
+    return active_filters
 
 
 def get_link_data(linked_objects, link_configuration_code=None):
@@ -1232,7 +1276,21 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_REVIEWED
-        questionnaire_object.save()
+
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException as e:
+            # If the same user also has a lock, then release this lock.
+            if e.user == request.user:
+                Lock.objects.filter(
+                        user=request.user,
+                        questionnaire_code=questionnaire_object.code
+                    ).update(
+                        is_finished=True
+                    )
+                questionnaire_object.save()
+            else:
+                return
 
         messages.success(
             request, _('The questionnaire was successfully reviewed.'))
@@ -1276,8 +1334,23 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 message=_('New version was published')
             )
 
+        # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_PUBLIC
-        questionnaire_object.save()
+
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException as e:
+            # If the same user also has a lock, then release this lock.
+            if e.user == request.user:
+                Lock.objects.filter(
+                        user=request.user,
+                        questionnaire_code=questionnaire_object.code
+                    ).update(
+                        is_finished=True
+                    )
+                questionnaire_object.save()
+            else:
+                return
 
         added, errors = put_questionnaire_data(
             configuration_code, [questionnaire_object])
@@ -1336,8 +1409,23 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         # Attach the reviewer to the questionnaire if he is not already
         questionnaire_object.add_user(request.user, 'reviewer')
 
+        # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_DRAFT
-        questionnaire_object.save()
+
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException as e:
+            # If the same user also has a lock, then release this lock.
+            if e.user == request.user:
+                Lock.objects.filter(
+                        user=request.user,
+                        questionnaire_code=questionnaire_object.code
+                    ).update(
+                        is_finished=True
+                    )
+                questionnaire_object.save()
+            else:
+                return
 
         messages.success(
             request, _('The questionnaire was successfully rejected.'))
@@ -1735,8 +1823,6 @@ def prepare_list_values(data, config, **kwargs):
         translations = []
         for lang in data['translations']:
             # 'translations' must not list the currently active language
-            if lang == language:
-                continue
             if lang in languages.keys():
                 translations.append([lang, str(languages[lang])])
             else:

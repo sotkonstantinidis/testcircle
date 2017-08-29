@@ -1310,6 +1310,9 @@
           },
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Project"
           }
         },
         "technologies": {
@@ -1318,6 +1321,9 @@
           },
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Project"
           }
         },
         "cca": {
@@ -1335,6 +1341,14 @@
           "helptext": {
             "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
           }
+        },
+        "wocat": {
+          "label": {
+            "en": "Name of project which facilitated the documentation/ evaluation"
+          },
+          "label_filter": {
+            "en": "Project"
+          }
         }
       }
     },
@@ -1351,6 +1365,9 @@
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Institution"
           }
         },
         "technologies": {
@@ -1359,6 +1376,9 @@
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          },
+          "label_filter": {
+            "en": "Institution"
           }
         },
         "cca": {
@@ -1375,6 +1395,14 @@
           },
           "helptext": {
             "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+          }
+        },
+        "wocat": {
+          "label": {
+            "en": "Name of the institution which facilitated the documentation/ evaluation"
+          },
+          "label_filter": {
+            "en": "Institution"
           }
         }
       }

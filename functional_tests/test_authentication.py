@@ -162,14 +162,12 @@ class ModerationTest(FunctionalTest):
         'groups_permissions.json', 'global_key_values.json', 'sample.json',
         'sample_questionnaire_status.json', 'sample_user.json']
 
-    @patch('wocat.views.generic_questionnaire_list')
-    def test_user_questionnaires(self, mock_questionnaire_list):
+    def test_user_questionnaires(self):
 
         user_alice = User.objects.get(pk=101)
         user_moderator = User.objects.get(pk=103)
         user_secretariat = User.objects.get(pk=107)
 
-        mock_questionnaire_list.return_value = {}
         # Alice logs in
         self.doLogin(user=user_alice)
 

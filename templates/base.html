@@ -140,7 +140,7 @@
               <li class="has-dropdown user-menu">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
-                  <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM practices" %}</a></li>
+                  <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM Data" %}</a></li>
                   <li><a href="{% url 'notification_list' %}">{% trans "Notifications" %}</a></li>
                   <li><a href="{% url 'user_details' user.id %}">{% trans "User Details" %}</a></li>
                   {% if user.is_staff %}
@@ -214,7 +214,7 @@
       <script src="{% static 'js/jquery.min.js' %}"></script>
       <script src="{% static 'js/foundation.min.js' %}"></script>
       <script src="{% static 'js/jquery.nstSlider.min.js' %}"></script>
-      <script src="{% static 'js/main.min.js' %}"></script>
+      <script src="{% static 'js/app.min.js' %}"></script>
       <script>
       $(function() {
         // load indicator for new pending tasks - if any (not zero) are available.

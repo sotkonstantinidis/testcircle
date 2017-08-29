@@ -1,5 +1,6 @@
 from django.conf import settings  # noqa
 from appconf import AppConf
+from django.utils.translation import ugettext as _
 
 
 class QuestionnaireConf(AppConf):
@@ -56,6 +57,14 @@ class QuestionnaireConf(AppConf):
         'qg_funding_institution',
     ]
 
+    # A list of questiongroups and questions which can be filtered in the GUI
+    # for every configuration.
+    # (questiongroup_keyword, question_keyword, filter_keyword [as used in the
+    # GUI])
+    GLOBAL_FILTERS = [
+        ('qg_location', 'country', 'countries'),
+    ]
+
     # Mapping for consistent field names on the API. See
     # questionnaire.api.views.QuestionnaireAPIMixin for usage.
     API_CHANGE_KEYS = {
@@ -63,5 +72,12 @@ class QuestionnaireConf(AppConf):
         'tech_definition': 'definition',
         'unccd_description': 'definition',
     }
+
+    SLM_DATA_TYPES = (
+        ('wocat', _('ALL SLM Data')),
+        ('technologies', _('SLM Technologies')),
+        ('approaches', _('SLM Approaches')),
+        ('unccd', _('UNCCD PRAIS Practices')),
+    )
 
     LOCK_TIME = 10  # Number of minutes that questionnaires are locked.

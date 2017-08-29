@@ -1578,6 +1578,9 @@
         "approaches": {
           "label": {
             "en": "Specify who decided on the selection of the Technology/ Technologies to be implemented"
+          },
+          "label_filter": {
+            "en": "Who decided on the selection of the Technology/ Technologies to be implemented?"
           }
         }
       }
@@ -1665,6 +1668,9 @@
         "approaches": {
           "label": {
             "en": "Specify the level(s) at which institutions have been strengthened or established"
+          },
+          "label_filter": {
+            "en": "Level at which institutions have been strengthened or established"
           }
         }
       }
@@ -1800,6 +1806,9 @@
         "approaches": {
           "label": {
             "en": "If precise annual budget is not known, indicate range"
+          },
+          "label_filter": {
+            "en": "Range of annual budget"
           }
         }
       }
@@ -4980,7 +4989,10 @@
       "keyword": "app_stakeholders",
       "translation": 7003,
       "configuration": {
-        "type": "checkbox"
+        "type": "checkbox",
+        "filter_options": {
+          "order": 2
+        }
       },
       "values": [
         3001,
@@ -5154,6 +5166,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 1
         }
       },
       "values": [
@@ -5285,6 +5300,9 @@
               }
             }
           }
+        },
+        "filter_options": {
+          "order": 3
         }
       },
       "values": [
@@ -5371,6 +5389,9 @@
               "name": "get_highlight_element"
             }
           }
+        },
+        "filter_options": {
+          "order": 4
         }
       }
     },
@@ -5503,6 +5524,9 @@
               "name": "get_highlight_element"
             }
           }
+        },
+        "filter_options": {
+          "order": 5
         }
       }
     },
@@ -5601,6 +5625,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 6
         }
       },
       "values": [
@@ -5730,6 +5757,9 @@
               "name": "get_full_range_values"
             }
           }
+        },
+        "filter_options": {
+          "order": 7
         }
       },
       "values": [
@@ -7223,6 +7253,9 @@
               "name": "get_highlight_element"
             }
           }
+        },
+        "filter_options": {
+          "order": 8
         }
       }
     },
@@ -10316,8 +10349,7 @@
                               "has_other": "app_type"
                             },
                             "view_options": {
-                              "label_position": "none",
-                              "filter": true
+                              "label_position": "none"
                             }
                           },
                           {
@@ -10852,8 +10884,7 @@
                             },
                             "view_options": {
                               "template": "raw",
-                              "with_raw_values": true,
-                              "filter": true
+                              "with_raw_values": true
                             }
                           }
                         ]
@@ -11321,9 +11352,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_19"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -11391,9 +11419,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_21"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -11439,9 +11464,6 @@
                               "questiongroup_conditions": [
                                 "!='app_institutions_no'|app_qg_23"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]
@@ -11503,9 +11525,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_118"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           },
                           {
@@ -11544,9 +11563,6 @@
                               "questiongroup_conditions": [
                                 "==1|app_qg_120"
                               ]
-                            },
-                            "view_options": {
-                              "filter": true
                             }
                           }
                         ]

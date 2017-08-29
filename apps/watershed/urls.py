@@ -6,7 +6,6 @@ from questionnaire.views import QuestionnaireEditView, \
 urlpatterns = patterns(
     '',
     # The 'home' route points to the list
-    url(r'^$', 'watershed.views.questionnaire_list', name='home'),
     url(r'^view/(?P<identifier>[^/]+)/$',
         QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
@@ -25,8 +24,4 @@ urlpatterns = patterns(
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
         QuestionnaireStepView.as_view(url_namespace=__package__),
         name='questionnaire_new_step'),
-    url(r'^list/$', 'watershed.views.questionnaire_list',
-        name='questionnaire_list'),
-    url(r'^list_partial/$', 'watershed.views.questionnaire_list_partial',
-        name='questionnaire_list_partial'),
 )

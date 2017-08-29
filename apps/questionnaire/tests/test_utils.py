@@ -489,6 +489,7 @@ class GetActiveFiltersTest(TestCase):
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
+        self.filter_obj_length = 8
 
     def test_returns_empty_if_empty_query_dict(self):
         query_dict = QueryDict('')
@@ -501,44 +502,61 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filters, [])
 
     def test_skips_invalid_filters(self):
-        query_dict = QueryDict('filter__foo=1&filter__foo__bar__faz=2')
+        query_dict = QueryDict('filter__foo=1&filter__foo__bar__faz__ham=2')
         filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(filters, [])
 
     def test_skips_filter_with_unknown_questiongroup_or_key(self):
         query_dict = QueryDict(
             'filter__qg_1__unknown_key=1&filter__inv_qg__key_1=2')
-        filters = get_active_filters([self.conf], query_dict)
+        filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(filters, [])
 
     def test_returns_single_query_dict(self):
         query_dict = QueryDict(
             'filter__qg_11__key_14=value_14_1')
-        filters = get_active_filters([self.conf], query_dict)
+        filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length)
+        self.assertEqual(filter_1['operator'], 'eq')
         self.assertEqual(filter_1['questiongroup'], 'qg_11')
         self.assertEqual(filter_1['key'], 'key_14')
         self.assertEqual(filter_1['key_label'], 'Key 14')
-        self.assertEqual(filter_1['value'], 'value_14_1')
+        self.assertEqual(filter_1['value'], ['value_14_1'])
+        self.assertEqual(filter_1['value_label'], 'Value 14_1')
+        self.assertEqual(filter_1['type'], 'image_checkbox')
+
+    def test_returns_single_query_dict_with_operator(self):
+        query_dict = QueryDict(
+            'filter__qg_11__key_14__eq=value_14_1')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), self.filter_obj_length)
+        self.assertEqual(filter_1['operator'], 'eq')
+        self.assertEqual(filter_1['questiongroup'], 'qg_11')
+        self.assertEqual(filter_1['key'], 'key_14')
+        self.assertEqual(filter_1['key_label'], 'Key 14')
+        self.assertEqual(filter_1['value'], ['value_14_1'])
         self.assertEqual(filter_1['value_label'], 'Value 14_1')
         self.assertEqual(filter_1['type'], 'image_checkbox')
 
     def test_returns_multiple_filters(self):
         query_dict = QueryDict(
             'filter__qg_11__key_14=value_14_1&filter__qg_19__key_5=Faz')
-        filters = get_active_filters([self.conf], query_dict)
+        filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length)
         self.assertEqual(filter_1['key_label'], 'Key 14')
         self.assertEqual(filter_1['value_label'], 'Value 14_1')
         filter_2 = filters[1]
         self.assertIsInstance(filter_2, dict)
-        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(len(filter_2), self.filter_obj_length)
         self.assertEqual(filter_2['key_label'], 'Key 5')
         self.assertEqual(filter_2['value_label'], 'Faz')
 
@@ -546,18 +564,30 @@ class GetActiveFiltersTest(TestCase):
         query_dict = QueryDict(
             'filter__qg_11__key_14=value_14_1&filter__qg_11__key_14='
             'value_14_2')
-        filters = get_active_filters([self.conf], query_dict)
+        filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length)
         self.assertEqual(filter_1['key_label'], 'Key 14')
         self.assertEqual(filter_1['value_label'], 'Value 14_1')
         filter_2 = filters[1]
         self.assertIsInstance(filter_2, dict)
-        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(len(filter_2), self.filter_obj_length)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_2')
+
+    def test_returns_multiple_values(self):
+        query_dict = QueryDict(
+            'filter__qg_11__key_14=value_14_1|value_14_2')
+        filters = get_active_filters(self.conf, query_dict)
+        self.assertEqual(len(filters), 1)
+        filter_1 = filters[0]
+        self.assertIsInstance(filter_1, dict)
+        self.assertEqual(len(filter_1), self.filter_obj_length)
+        self.assertEqual(filter_1['key_label'], 'Key 14')
+        self.assertEqual(filter_1['value_label'], 'Value 14_1 / Value 14_2')
+        self.assertEqual(filter_1['value'], ['value_14_1', 'value_14_2'])
 
     def test_returns_q_filter(self):
         query_dict = QueryDict('q=foo')
@@ -565,7 +595,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length - 1)
         self.assertEqual(filter_1['type'], '_search')
         self.assertEqual(filter_1['key'], '_search')
         self.assertEqual(filter_1['questiongroup'], '_search')
@@ -579,7 +609,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length - 1)
         self.assertEqual(filter_1['type'], '_date')
         self.assertEqual(filter_1['key'], 'created')
         self.assertEqual(filter_1['questiongroup'], 'created')
@@ -604,7 +634,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length - 1)
         self.assertEqual(filter_1['type'], '_flag')
         self.assertEqual(filter_1['key'], 'flag')
         self.assertEqual(filter_1['questiongroup'], 'flag')
@@ -618,7 +648,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(len(filters), 1)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length - 1)
         self.assertEqual(filter_1['type'], '_flag')
         self.assertEqual(filter_1['key'], 'flag')
         self.assertEqual(filter_1['questiongroup'], 'flag')
@@ -628,11 +658,11 @@ class GetActiveFiltersTest(TestCase):
 
     def test_returns_mixed_filters(self):
         query_dict = QueryDict('q=foo&filter__qg_11__key_14=value_14_1')
-        filters = get_active_filters([self.conf], query_dict)
+        filters = get_active_filters(self.conf, query_dict)
         self.assertEqual(len(filters), 2)
         filter_1 = filters[0]
         self.assertIsInstance(filter_1, dict)
-        self.assertEqual(len(filter_1), 6)
+        self.assertEqual(len(filter_1), self.filter_obj_length - 1)
         self.assertEqual(filter_1['type'], '_search')
         self.assertEqual(filter_1['key'], '_search')
         self.assertEqual(filter_1['questiongroup'], '_search')
@@ -641,7 +671,7 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_1['value_label'], 'foo')
         filter_2 = filters[1]
         self.assertIsInstance(filter_2, dict)
-        self.assertEqual(len(filter_2), 6)
+        self.assertEqual(len(filter_2), self.filter_obj_length)
         self.assertEqual(filter_2['key_label'], 'Key 14')
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
 
@@ -848,7 +878,7 @@ class QueryQuestionnairesTest(TestCase):
         request = Mock()
         request.user = user
         ret = query_questionnaires(
-            request, 'all', only_current=False, limit=None, user=user)
+            request, 'wocat', only_current=False, limit=None, user=user)
         self.assertEqual(len(ret), 1)
         self.assertEqual(ret[0].id, 7)
 
@@ -921,7 +951,7 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('updated', ''), 'updated')
         self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
-        self.assertEqual(ret_1.get('translations'), [])
+        self.assertEqual(ret_1.get('translations'), [['en', 'English']])
         self.assertEqual(ret_1.get('code'), 'code')
         self.assertEqual(ret_1.get('compilers'), ['compiler'])
         self.assertEqual(ret_1.get('editors'), ['editor'])
@@ -1511,6 +1541,7 @@ class UnccdFlagTest(TestCase):
         questionnaire = Questionnaire.objects.get(pk=1)
         questionnaire.pk = None
         questionnaire.status = 1
+        questionnaire.version = 2
         questionnaire.save()
         questionnaire = Questionnaire.objects.get(pk=1)
         handle_review_actions(self.request, questionnaire, 'sample')
@@ -1595,6 +1626,7 @@ class UnccdUnflagTest(TestCase):
         # Create a copy of the questionnaire
         questionnaire = Questionnaire.objects.get(pk=1)
         questionnaire.pk = None
+        questionnaire.version = 2
         questionnaire.status = 1
         questionnaire.save()
         questionnaire = Questionnaire.objects.get(pk=1)

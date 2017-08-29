@@ -34,4 +34,7 @@
     height: 0.85rem;
     width: 0.85rem;
   }
+  &.no-pointer-events {
+    pointer-events: none;
+  }
 }

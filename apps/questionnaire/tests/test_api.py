@@ -1,5 +1,5 @@
 import logging
-from unittest.mock import patch, MagicMock, sentinel
+from unittest.mock import patch, MagicMock, sentinel, Mock
 
 from django.conf import settings
 from django.http import Http404
@@ -24,7 +24,7 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireListViewTest(TestCase):
-    fixtures = ['sample', 'sample_questionnaires']
+    fixtures = ['global_key_values', 'sample', 'sample_questionnaires']
 
     def setUp(self):
         delete_all_indices()
@@ -40,8 +40,7 @@ class QuestionnaireListViewTest(TestCase):
     def tearDown(self):
         delete_all_indices()
 
-    @patch('questionnaire.api.views.advanced_search')
-    def test_logs_call(self, mock_advanced_search):
+    def test_logs_call(self):
         """
         Use the requestfactory from the rest-framework, as this handles the
         custom token authentication nicely.
@@ -50,7 +49,10 @@ class QuestionnaireListViewTest(TestCase):
         request = APIRequestFactory().get(self.url)
         force_authenticate(request, user=user)
         with patch('api.models.RequestLog.save') as mock_save:
-            QuestionnaireListView().dispatch(request)
+            view = QuestionnaireListView()
+            view.get_es_results = Mock()
+            view.get_es_results.return_value = {}
+            view.dispatch(request)
             mock_save.assert_called_once_with()
 
     def test_api_detail_url(self):
@@ -65,24 +67,31 @@ class QuestionnaireListViewTest(TestCase):
         request = self.factory.get('{}?page=5'.format(self.url))
         request.version = 'v1'
         view = self.setup_view(self.view, request, identifier='sample_1')
+        view.set_attributes()
         view.get_elasticsearch_items()
         self.assertEqual(view.current_page, 5)
 
-    @patch('questionnaire.api.views.advanced_search')
-    def test_access_elasticsearch(self, mock_advanced_search):
+    @patch('questionnaire.views.get_configuration_index_filter')
+    @patch('questionnaire.views.advanced_search')
+    def test_access_elasticsearch(
+            self, mock_advanced_search, mock_get_configuration_index_filter):
+        mock_get_configuration_index_filter.return_value = ['sample']
         mock_advanced_search.return_value = {}
         self.view.get(self.request)
         mock_advanced_search.assert_called_once_with(
             limit=settings.API_PAGE_SIZE,
-            offset=0
+            offset=0,
+            filter_params=[],
+            query_string='',
+            configuration_codes=['sample'],
         )
 
-    @patch('questionnaire.api.views.advanced_search')
+    @patch('questionnaire.views.advanced_search')
     def test_pagination(self, mock_advanced_search):
         mock_advanced_search.return_value = {}
         with patch('questionnaire.view_utils.ESPagination.__init__') as mock:
             mock.return_value = None
-            self.view.get_es_paginated_results(0)
+            self.view.get_es_paginated_results({})
             mock.assert_called_once_with([], 0)
 
     @patch('questionnaire.api.views.QuestionnaireListView._get_paginate_link')
@@ -99,9 +108,9 @@ class QuestionnaireListViewTest(TestCase):
         view.get_previous_link()
         mock_get_paginate_link.assert_called_with(1)
 
-    @patch('questionnaire.api.views.advanced_search')
-    def test_response_type(self, mock_advanced_search):
-        mock_advanced_search.return_value = {}
+    def test_response_type(self):
+        self.view.get_es_results = Mock()
+        self.view.get_es_results.return_value = {}
         response = self.view.get(self.request)
         self.assertIsInstance(response, Response)
 
@@ -127,16 +136,22 @@ class QuestionnaireListViewTest(TestCase):
             [{'language': 'a', 'text': 'foo'}]
         )
 
+    @patch('questionnaire.views.get_configuration_index_filter')
     @patch.object(QuestionnaireAPIMixin, 'update_dict_keys')
-    def test_v1_filter(self, mock_update_dict_keys):
+    def test_v1_filter(
+            self, mock_update_dict_keys, mock_get_configuration_index_filter):
+        mock_get_configuration_index_filter.return_value = ['sample']
         request = self.factory.get(self.url)
         request.version = 'v1'
         view = self.setup_view(self.view, request, identifier='sample_1')
         view.get(self.request)
         self.assertTrue(mock_update_dict_keys.called)
 
+    @patch('questionnaire.views.get_configuration_index_filter')
     @patch.object(QuestionnaireAPIMixin, 'filter_dict')
-    def test_v2_filter(self, mock_filter_dict):
+    def test_v2_filter(
+            self, mock_filter_dict, mock_get_configuration_index_filter):
+        mock_get_configuration_index_filter.return_value = ['sample']
         request = self.factory.get(self.url)
         request.version = 'v2'
         view = self.setup_view(self.view, request, identifier='sample_1')
@@ -161,6 +176,7 @@ class QuestionnaireListViewTest(TestCase):
         )
 
 
+@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireDetailViewTest(TestCase):
     """
     Tests for v1

@@ -1,12 +1,14 @@
 import collections
 import contextlib
 import logging
-from itertools import chain
+from itertools import chain, groupby
 
+import operator
+from configuration.models import Project, Institution
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import (
     Http404,
@@ -25,27 +27,24 @@ from django.utils.translation import ugettext as _, get_language
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_POST
-from django.views.generic import DeleteView, View
-from django.views.generic.base import TemplateResponseMixin
+from django.views.generic import View
+from django.views.generic.base import TemplateResponseMixin, TemplateView
 from braces.views import LoginRequiredMixin
+from elasticsearch import TransportError
 
 from accounts.decorators import force_login_check
 from accounts.views import QuestionnaireSearchView
 from configuration.cache import get_configuration
-from configuration.utils import get_filter_configuration
-from configuration.utils import (
-    get_configuration_index_filter,
-)
+from configuration.utils import get_configuration_index_filter
 from questionnaire.signals import change_questionnaire_data
 from questionnaire.upload import (
     retrieve_file,
     UPLOAD_THUMBNAIL_CONTENT_TYPE,
 )
-from search.search import advanced_search
+from search.search import advanced_search, get_aggregated_values
 
 from .errors import QuestionnaireLockedException
-from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock
-
+from .models import Questionnaire, File, QUESTIONNAIRE_ROLES, Lock, Flag
 
 from .utils import (
     clean_questionnaire_data,
@@ -57,15 +56,13 @@ from .utils import (
     get_questionnaire_data_in_single_language,
     get_questionnaire_data_for_translation_form,
     handle_review_actions,
-    query_questionnaire,
-    query_questionnaires)
+    query_questionnaire)
 from .view_utils import (
     ESPagination,
-    get_page_parameter,
     get_pagination_parameters,
     get_paginator,
     get_limit_parameter,
-)
+    get_page_parameter)
 from .conf import settings
 
 logger = logging.getLogger(__name__)
@@ -1059,177 +1056,296 @@ class QuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireRetrieveMixin,
         return ctx
 
 
-def generic_questionnaire_list_no_config(
-        request, user=None, moderation_mode=None):
+class ESQuestionnaireQueryMixin:
     """
-    A generic view to show a list of Questionnaires. Similar to
-    :func:`generic_questionnaire_list` but with the following
-    differences:
-
-    * No configuration is used, meaning that questionnaires from all
-      configurations are queried.
-
-    * No (attribute) filter configuration is created and provided.
-
-    * Special status filters are used: In moderation mode
-      (``moderation=True``), only pending versions are returned. Users
-      see their own versions (all statuses). Else the default status
-      filter is used.
-
-    * Always return the template values as a dictionary.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-
-    Kwargs:
-        ``user`` (``accounts.models.User``): If provided, show only
-        Questionnaires in which the user is a member of.
-
-        ``moderation`` (bool): If ``True``, always only show ``pending``
-         Questionnaires if the current user has moderation
-        permission.
-
-    Returns:
-        ``dict``. A dictionary with template values to be used in a list
-        template.
+    Mixin to query paginated Questionnaires from elasticsearch.
     """
-    limit = get_limit_parameter(request)
-    page = get_page_parameter(request)
-    is_current_user = request.user is not None and request.user == user
 
-    # Determine the status filter
-    if moderation_mode is not None:
-        # Moderators always have a special moderation status filter
-        status_filter = get_query_status_filter(
-            request, moderation_mode=moderation_mode)
-    elif is_current_user is True:
-        # The current user has no status filter (sees all statuses)
-        status_filter = Q()
-    else:
-        # Else use the default status filter (will be applied in
-        # :func:`query_questionnaires`)
-        status_filter = None
+    def set_attributes(self):
+        """
+        Set parameters, mostly required for pagination.
+        """
+        self.current_page = get_page_parameter(self.request)
+        self.page_size = getattr(
+            self, 'page_size', get_limit_parameter(self.request))
+        self.offset = self.current_page * self.page_size - self.page_size
+        self.template_configuration_code = self.configuration_code
+        self.configuration_code = self.request.GET.get(
+            'type', self.configuration_code)
+        self.configuration = get_configuration(self.configuration_code)
+        self.search_configuration_codes = get_configuration_index_filter(
+            self.configuration_code)
 
-    questionnaire_objects = query_questionnaires(
-        request, 'all', only_current=False,
-        limit=None, user=user, status_filter=status_filter)
+    def get_es_results(self, call_from=None):
+        """
+        Query and return elasticsearch results.
 
-    questionnaires, paginator = get_paginator(
-        questionnaire_objects, page, limit)
+        Returns:
+            dict. Elasticsearch query result.
+        """
+        try:
+            # Blank search returns all items within all indexes.
+            es_search_results = advanced_search(
+                limit=self.page_size, offset=self.offset, **self.get_filter_params()
+            )
+        except TransportError:
+            # See https://redmine.cde.unibe.ch/issues/1093
+            es_search_results = advanced_search(limit=0)
+            total = es_search_results.get('hits', {}).get('total', 0)
+            # If the page is not within the valid total return an empty response
+            if total < self.offset:
+                if call_from == 'api':
+                    logger.warn('Potential issue from skbp: Invalid API '
+                                'request with offset {}.'.format(self.offset))
+                es_search_results = {}
+            else:
+                # There really are more results than ES pagination is originally
+                # built for. Can be fixed by enabling deep pagination or such.
+                raise
 
-    status_filter = get_query_status_filter(request)
-    list_values = get_list_values(
-        configuration_code='wocat',
-        questionnaire_objects=questionnaires, status_filter=status_filter)
+        return es_search_results
 
-    template_values = {
-        'list_values': list_values,
-        'is_current_user': is_current_user,
-        'list_user': user,
-        'is_moderation': moderation_mode,
-    }
+    def get_es_paginated_results(self, es_search_results):
+        """
+        Returns:
+            ESPagination
+        """
+        # Build a custom paginator.
+        es_hits = es_search_results.get('hits', {})
+        return ESPagination(es_hits.get('hits', []), es_hits.get('total', 0))
 
-    # Add the pagination parameters
-    pagination_params = get_pagination_parameters(
-        request, paginator, questionnaires)
-    template_values.update(pagination_params)
+    def get_es_pagination(self, es_pagination):
+        return get_paginator(
+            es_pagination, self.current_page, self.page_size
+        )
 
-    return template_values
+    def get_filter_params(self):
+        # Get the filters and prepare them to be passed to the search.
+        query_string, filter_params = self.get_filters()
 
+        return {
+            'filter_params': filter_params,
+            'query_string': query_string,
+            'configuration_codes': self.search_configuration_codes,
+        }
 
-def generic_questionnaire_list(
-        request, configuration_code, template=None, filter_url='', limit=None,
-        only_current=False):
-    """
-    A generic view to show a list of Questionnaires.
+    def get_filters(self):
+        active_filters = get_active_filters(
+            self.configuration, self.request.GET)
+        query_string = ''
+        filter_params = []
 
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
+        FilterParam = collections.namedtuple(
+            'FilterParam',
+            ['questiongroup', 'key', 'values', 'operator', 'type'])
 
-        ``configuration_code`` (str): The code of the questionnaire
-        configuration.
-
-    Kwargs:
-        ``template`` (str): The path of the template to be rendered for
-        the list.
-
-        ``filter_url`` (str): The URL of the view used to render the
-        list partially. Used by AJAX requests to update the list.
-
-        ``limit`` (int): The limit of results the list will return.
-
-        ``only_current`` (bool): A boolean indicating whether to include
-        only questionnaires from the current configuration. Passed to
-        :func:`questionnaire.utils.query_questionnaires`
-
-    Returns:
-        ``HttpResponse``. A rendered Http Response.
-    """
-    configuration_codes = get_configuration_index_filter(configuration_code)
-    configurations = [get_configuration(code) for code in configuration_codes]
-
-
-    # Get the filters and prepare them to be passed to the search.
-    active_filters = get_active_filters(configurations, request.GET)
-    query_string = ''
-    filter_params = []
-    for active_filter in active_filters:
-        filter_type = active_filter.get('type')
-        if filter_type in ['_search']:
-            query_string = active_filter.get('value', '')
-        elif filter_type in [
+        for active_filter in active_filters:
+            filter_type = active_filter.get('type')
+            if filter_type in ['_type']:
+                pass
+            elif filter_type in ['_search']:
+                query_string = active_filter.get('value', '')
+            elif filter_type in [
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
-                'select_model', 'radio', 'bool']:
-            filter_params.append(
-                (active_filter.get('questiongroup'),
-                 active_filter.get('key'), active_filter.get('value'), None,
-                 active_filter.get('type')))
+                'select_model', 'radio', 'bool', '_lang']:
+                filter_params.append(
+                    FilterParam(
+                        active_filter.get('questiongroup'),
+                        active_filter.get('key'), active_filter.get('value'),
+                        active_filter.get('operator'),
+                        active_filter.get('type')))
+            else:
+                raise NotImplementedError(
+                    'Type "{}" is not valid for filters'.format(filter_type))
+
+        return query_string, filter_params
+
+
+class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
+
+    configuration_code = None
+    configuration = None
+    es_hits = {}
+    call_from = 'list'
+
+    def get(self, request, *args, **kwargs):
+        self.set_attributes()
+        if self.request.is_ajax():
+            return JsonResponse(self.get_context_data(**kwargs))
         else:
-            raise NotImplementedError(
-                'Type "{}" is not valid for filters'.format(filter_type))
+            return super().get(request, *args, **kwargs)
 
-    if limit is None:
-        limit = get_limit_parameter(request)
-    page = get_page_parameter(request)
-    offset = page * limit - limit
+    def get_context_data(self, **kwargs):
+        es_results = self.get_es_results(call_from=self.call_from)
 
-    search_configuration_codes = get_configuration_index_filter(
-        configuration_code, only_current=only_current,
-        query_param_filter=tuple(request.GET.getlist('type')))
+        es_pagination = self.get_es_paginated_results(es_results)
+        questionnaires, self.pagination = self.get_es_pagination(es_pagination)
 
-    search = advanced_search(
-        filter_params=filter_params, query_string=query_string,
-        configuration_codes=search_configuration_codes, limit=limit,
-        offset=offset)
+        list_values = get_list_values(es_hits=questionnaires)
+        return self.get_template_values(list_values, questionnaires)
 
-    es_hits = search.get('hits', {})
-    es_pagination = ESPagination(
-        es_hits.get('hits', []), es_hits.get('total', 0))
+    def get_template_names(self):
+        return '{}/questionnaire/list.html'.format(
+            self.template_configuration_code)
 
-    questionnaires, paginator = get_paginator(es_pagination, page, limit)
+    def get_filter_template_names(self):
+        return '{}/questionnaire/partial/basic_filter.html'.format(
+            self.template_configuration_code)
 
-    list_values = get_list_values(
-        configuration_code=configuration_code, es_hits=questionnaires)
+    def get_partial_list_template_names(self):
+        return 'questionnaire/partial/list.html'
 
-    # Add the configuration of the filter
-    filter_configuration = get_filter_configuration(configuration_code)
+    def get_global_filter_configuration(self):
+        """
+        Get the configuration for the global filter which is available for all
+        types of questionnaires.
+        """
+        filter_configuration = {
+            'projects': [(p.id, str(p)) for p in Project.objects.all()],
+            'institutions': Institution.as_select(),
+            'flags': [
+                (f.flag, f.get_flag_display()) for f in Flag.objects.all()],
+            'languages': settings.LANGUAGES,
+        }
 
-    template_values = {
-        'list_values': list_values,
-        'filter_configuration': filter_configuration,
-        'active_filters': active_filters,
-        'filter_url': filter_url,
-    }
+        # Global keys
+        for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
+            filter_question = self.configuration.get_question_by_keyword(
+                questiongroup, question)
+            if filter_question:
+                filter_configuration[filter_keyword] = filter_question.choices[1:]
 
-    # Add the pagination parameters
-    pagination_params = get_pagination_parameters(
-        request, paginator, questionnaires)
-    template_values.update(pagination_params)
+        return filter_configuration
 
-    if template is None:
+    def get_basic_filter_values(self, list_values, questionnaires):
+        """
+        Get the template values required for the basic filter.
+        """
+        basic_filter_values = {
+            'list_values': list_values,
+            'filter_configuration': self.get_global_filter_configuration(),
+            'active_filters': get_active_filters(
+                self.configuration, self.request.GET),
+            'request': self.request,
+        }
+
+        # Add the pagination parameters
+        basic_filter_values.update(**get_pagination_parameters(
+            self.request, self.pagination, questionnaires))
+
+        return basic_filter_values
+
+    def get_rendered_list_parts(self, filter_values):
+        """
+        Get the rendered list parts (the bottom of the filter page)
+        """
+        return {
+            'rendered_list': render_to_string(
+                self.get_partial_list_template_names(), filter_values),
+            'pagination': render_to_string('pagination.html', filter_values),
+            'count': filter_values.get('count', 0)
+        }
+
+    def get_template_values(self, list_values, questionnaires):
+        """
+        Paginate the queryset and return a dict of template values.
+        """
+        filter_values = self.get_basic_filter_values(
+            list_values, questionnaires)
+
+        basic_filter = render_to_string(
+            self.get_filter_template_names(), filter_values)
+
+        template_values = self.get_rendered_list_parts(filter_values)
+        template_values.update({
+            'rendered_filter': basic_filter,
+        })
         return template_values
 
-    return render(request, template, template_values)
+
+class QuestionnaireFilterView(QuestionnaireListView):
+    call_from = 'filter'
+
+    template_configuration_code = None
+
+    def get_template_names(self):
+        return '{}/questionnaire/filter.html'.format(
+            self.template_configuration_code)
+
+    def get_filter_template_names(self):
+        return '{}/questionnaire/partial/advanced_filter.html'.format(
+            self.template_configuration_code)
+
+    def get_advanced_filter_select(self):
+        """
+        Return the choices available for the advanced filter.
+
+        Returns:
+            A nested list with choices (FilterKeys) grouped by section label.
+        """
+        filter_keys = self.configuration.get_filter_keys()
+        grouped = []
+        it = groupby(filter_keys, operator.attrgetter('section_label'))
+        for key, subiter in it:
+            grouped.append((key, [i for i in subiter]))
+        return grouped
+
+    def get_advanced_filter_values(self, active_filters):
+        """
+        Collect all advanced filters, also count their choices based on the ES
+        aggregation. Also add the available keys for additional filters.
+        """
+        advanced_filter_select = self.get_advanced_filter_select()
+
+        # Get a list of all key_paths
+        flat_list = []
+        for filter_keys in dict(advanced_filter_select).values():
+            flat_list.extend(filter_keys)
+        advanced_filter_paths = [f.path for f in flat_list]
+
+        active_advanced_filters = []
+        for active_filter in active_filters:
+            questiongroup = active_filter.get('questiongroup')
+            key = active_filter.get('key')
+            key_path = f'{questiongroup}__{key}'
+            if key_path not in advanced_filter_paths:
+                continue
+
+            aggregated_values = get_aggregated_values(
+                questiongroup, key, **self.get_filter_params())
+
+            values_counted = []
+            for c in active_filter.get('choices', []):
+                values_counted.append(
+                    (c[0], c[1], aggregated_values.get(c[0], 0)))
+
+            active_filter.update({
+                'choices_counted': values_counted,
+                'key_path': key_path,
+            })
+            active_advanced_filters.append(active_filter)
+
+        return {
+            'active_advanced_filters': active_advanced_filters,
+            'advanced_filter_select': advanced_filter_select,
+        }
+
+    def get_template_values(self, list_values, questionnaires):
+        filter_values = super(
+            QuestionnaireFilterView, self).get_basic_filter_values(
+                list_values, questionnaires)
+
+        filter_values.update(self.get_advanced_filter_values(
+            filter_values.get('active_filters', [])))
+
+        advanced_filter = render_to_string(
+            self.get_filter_template_names(), filter_values)
+
+        template_values = self.get_rendered_list_parts(filter_values)
+        template_values.update({
+            'rendered_filter': advanced_filter,
+        })
+        return template_values
 
 
 @login_required
