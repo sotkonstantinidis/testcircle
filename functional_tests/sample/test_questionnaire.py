@@ -2700,8 +2700,13 @@ class QuestionnaireTestIndex(FunctionalTest):
         #  questionnaire she created is listed there.
         self.browser.get(self.live_server_url + reverse(
             route_questionnaire_list))
-        self.checkOnPage('All')
-        self.checkOnPage('Foo')
+
+        expected = [
+            {
+                'title': 'Foo'
+            }
+        ]
+        self.check_list_results(expected, count=False)
 
         # If she goes to the questionnaire overview form again, she sees
         # that the session values are not there anymore.

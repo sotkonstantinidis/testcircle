@@ -1141,7 +1141,9 @@ class ESQuestionnaireQueryMixin:
 
         for active_filter in active_filters:
             filter_type = active_filter.get('type')
-            if filter_type in ['_search']:
+            if filter_type in ['_type']:
+                pass
+            elif filter_type in ['_search']:
                 query_string = active_filter.get('value', '')
             elif filter_type in [
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
@@ -1200,7 +1202,7 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         """
         filter_configuration = {
             'projects': [(p.id, str(p)) for p in Project.objects.all()],
-            'institutions': [(i.id, str(i)) for i in Institution.objects.all()],
+            'institutions': Institution.as_select(),
             'flags': [
                 (f.flag, f.get_flag_display()) for f in Flag.objects.all()],
             'languages': settings.LANGUAGES,

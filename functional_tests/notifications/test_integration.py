@@ -77,11 +77,11 @@ class NotificationsIntegrationTest(FunctionalTest):
         self.findByNot('class_name', 'is-finished-editing')
 
     def test_create_message(self, mock_process_request):
+        mock_process_request.return_value = None
         """
         Note: I'm not sure if time.sleep is correct here, but self.wait_until
         seems to defeat the purpose.
         """
-        mock_process_request.return_value = None
         # the editor logs in and sees the button to finish editing.
         self.doLogin(user=self.robin)
         self.browser.get(self.questionnaire_edit_url)
@@ -109,8 +109,7 @@ class NotificationsIntegrationTest(FunctionalTest):
         self.doLogin(self.jay)
         # the indicator for new messages is shown, so jay visits the
         # notifications page
-        time.sleep(0.5)
-        self.findBy('class_name', 'has-unread-messages')
+        self.wait_for('class_name', 'has-unread-messages')
         self.browser.get(self.notifications_url)
         # the notification from robin is shown.
         self.wait_for('class_name', 'notification-list')
@@ -122,7 +121,7 @@ class NotificationsIntegrationTest(FunctionalTest):
         )
         # jay clicks on the mail icon and the message is revealed in full.
         self.findBy('xpath', '//a[@data-reveal-id="show-message-1"]').click()
-        time.sleep(0.5)
+        self.wait_for('id', 'show-message-1')
         modal = self.findBy('id', 'show-message-1')
         self.assertTrue(
             modal.is_displayed()

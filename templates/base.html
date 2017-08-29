@@ -140,7 +140,7 @@
               <li class="has-dropdown user-menu">
                 <a href="#">{{ user }}</a>
                 <ul class="dropdown">
-                  <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM practices" %}</a></li>
+                  <li><a href="{% url 'account_questionnaires' %}">{% trans "My SLM Data" %}</a></li>
                   <li><a href="{% url 'notification_list' %}">{% trans "Notifications" %}</a></li>
                   <li><a href="{% url 'user_details' user.id %}">{% trans "User Details" %}</a></li>
                   {% if user.is_staff %}

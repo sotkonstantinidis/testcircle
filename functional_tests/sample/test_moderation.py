@@ -195,6 +195,61 @@ class ModerationTestFixture(FunctionalTest):
         super(ModerationTestFixture, self).tearDown()
         delete_all_indices()
 
+    def test_review_locked_questionnaire(self, mock_get_user_id):
+        # Secretariat user logs in
+        self.doLogin(user=self.user_secretariat)
+
+        # He goes to the details of a SUBMITTED questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 2")]]')
+
+        # He starts to edit the first section (this sets a lock on the
+        # questionnaire)
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.click_edit_section('cat_1')
+
+        # He goes back (without saving!)
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
+
+        # He reviews the questionnaire and sees there is no exception thrown
+        self.review_action('review')
+
+        # He sees the questionnaire is now reviewed
+        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+
+    def test_review_locked_questionnaire_blocked_by_other(
+            self, mock_get_user_id):
+
+        # Reviewer logs in
+        self.doLogin(user=self.user_reviewer)
+
+        # He goes to the details of a SUBMITTED questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 2")]]')
+
+        # He starts to edit the first section (this sets a lock on the
+        # questionnaire)
+        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.click_edit_section('cat_1')
+
+        # Secretariat user logs in
+        self.doLogin(user=self.user_secretariat)
+
+        # He goes to the details of a SUBMITTED questionnaire
+        self.browser.get(self.live_server_url + reverse(
+            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
+        self.findBy('xpath', '//*[text()[contains(.,"Foo 2")]]')
+
+        # He reviews the questionnaire which is still locked and sees there is
+        # no exception thrown, however she sees a warning.
+        self.review_action('review', expected_msg_class='warning')
+
+        # He sees the questionnaire is still submitted
+        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+
     def test_secretariat_edit(self, mock_get_user_id):
 
         # Secretariat user logs in
@@ -646,7 +701,7 @@ class ModerationTestFixture(FunctionalTest):
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 1)
 
-        self.findBy('id', 'review-search-user').send_keys('lukas')
+        self.findBy('id', 'review-search-user').send_keys('vonlanthen')
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -763,9 +818,10 @@ class ModerationTestFixture(FunctionalTest):
         NOTIFICATIONS_REMOVE_MEMBER='delete_member',
         QUESTIONNAIRE_COMPILER = 'compiler',
         QUESTIONNAIRE_EDITOR = 'editor',
+        USE_NEW_WOCAT_AUTHENTICATION=True,
     )
     @patch('questionnaire.signals.change_member.send')
-    def test_secretariat_can_assign_reviewer(
+    def test_secretariat_can_assign_reviewer_2(
             self, mock_member_change, mock_get_user_id):
         identifier = 'sample_3'
 
@@ -775,6 +831,7 @@ class ModerationTestFixture(FunctionalTest):
         new_compiler_1_id = 3034
         new_compiler_2 = 'test3 wocat'
         new_compiler_2_id = 3035
+        result_list_position = 2
 
         # A user logs in
         self.doLogin(user=self.user_publisher)
@@ -819,8 +876,9 @@ class ModerationTestFixture(FunctionalTest):
         # She sees the compiler of the first entry is correct
         self.findBy(
             'xpath',
-            '//article[contains(@class, "tech-item")][1]//ul[contains(@class, '
-            '"tech-infos")]/li[text()="Compiler: {}"]'.format(old_compiler))
+            '//article[contains(@class, "tech-item")][{}]//ul[contains(@class, '
+            '"tech-infos")]/li[text()="Compiler: {}"]'.format(
+                result_list_position, old_compiler))
 
         # She goes back to the questionnaire details
         self.browser.get(self.live_server_url + reverse(
@@ -844,7 +902,8 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(new_compiler_1)
+        self.findBy('id', 'review-change-compiler').send_keys(
+            new_compiler_1.split(' ')[0])
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -897,8 +956,9 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath',
-            '//article[contains(@class, "tech-item")][1]//ul[contains(@class, '
-            '"tech-infos")]/li[text()="Compiler: {}"]'.format(new_compiler_1))
+            '//article[contains(@class, "tech-item")][{}]//ul[contains(@class, '
+            '"tech-infos")]/li[text()="Compiler: {}"]'.format(
+                result_list_position, new_compiler_1))
 
         # She goes back to the questionnaire details
         self.browser.get(self.live_server_url + reverse(
@@ -909,7 +969,8 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(new_compiler_1)
+        self.findBy('id', 'review-change-compiler').send_keys(
+            new_compiler_1.split(' ')[0])
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -935,7 +996,8 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(new_compiler_2)
+        self.findBy('id', 'review-change-compiler').send_keys(
+            new_compiler_2.split(' ')[0])
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
@@ -1005,8 +1067,9 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(list_entries), 2)
         self.findBy(
             'xpath',
-            '//article[contains(@class, "tech-item")][1]//ul[contains(@class, '
-            '"tech-infos")]/li[text()="Compiler: {}"]'.format(new_compiler_2))
+            '//article[contains(@class, "tech-item")][{}]//ul[contains(@class, '
+            '"tech-infos")]/li[text()="Compiler: {}"]'.format(
+                result_list_position, new_compiler_2))
 
     def test_reviewer_can_edit_questionnaire(self, mock_get_user_id):
 

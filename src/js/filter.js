@@ -30,7 +30,6 @@ function checkStickyFilterButton() {
 function resetStickyFilterButton() {
     fStickyElOffsetTop = null;
     fStickyEl = null;
-    fIsStuck = false;
     checkStickyFilterButton();
 }
 
@@ -140,6 +139,12 @@ $(function () {
                 $('html,body').animate({scrollTop: $t.offset().top}, 'slow');
             }
         });
+    })
+
+    // When toggling the advanced filter panel, wait for the toggling and check
+    // if the filter button needs to be made sticky or not
+    .on('click', '.js-toggle-advanced-filters', function(e) {
+        setTimeout(function() { console.log("bar"); resetStickyFilterButton(); }, 400);
     })
 
     // When selecting a key, query the available values for this key.
@@ -394,7 +399,7 @@ function removeFilter(questiongroup, key) {
     var keyParameter;
     if (key == '_search') {
         keyParameter = 'q';
-    } else if (key == 'created' || key == 'updated' || key == 'flag') {
+    } else if (['created', 'updated', 'flag', 'type', 'lang'].indexOf(key) >= 0) {
         keyParameter = key;
     } else if (key == 'funding_project_display') {
         key = key.replace('_display', '');

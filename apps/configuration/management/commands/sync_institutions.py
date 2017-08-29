@@ -64,8 +64,7 @@ class Command(NoArgsCommand, WocatWebsiteUserClient):
                 f'Query to API returned status {r.status_code}')
             return []
 
-    def update_cache(self):
-        institution_select = [(i.id, str(i)) for i in Institution.objects.all()]
-        cache.set(
-            settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT,
-            institution_select)
+    @staticmethod
+    def update_cache():
+        # Update happens on first call of Institution.as_select()
+        cache.delete(settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT)

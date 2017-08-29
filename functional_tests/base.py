@@ -14,12 +14,14 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from accounts.authentication import WocatAuthenticationBackend
-from accounts.client import Typo3Client
+from accounts.authentication import WocatAuthenticationBackend, \
+    WocatCMSAuthenticationBackend
+from accounts.client import Typo3Client, WocatWebsiteUserClient
 from qcat.tests import TEST_CACHES
 from unittest.mock import patch
 from accounts.tests.test_models import create_new_user
@@ -284,10 +286,131 @@ class FunctionalTest(StaticLiveServerTestCase):
             route, kwargs={'identifier': identifier}))
         self.toggle_all_sections()
 
+    def toggle_selected_advanced_filters(self, display: bool=True) -> None:
+        """Toggle the panel with selected advanced filters"""
+        filter_panel_xpath = '//div[contains(@class, "selected-advanced-filters")]'
+        filter_panel = self.findBy('xpath', filter_panel_xpath)
+        if filter_panel.is_displayed() != display:
+            self.findBy('xpath',
+                        '//a[@data-toggle="js-selected-advanced-filters"]').click()
+            self.wait_for('xpath', filter_panel_xpath)
+
+    def open_advanced_filter(self, configuration: str) -> None:
+        """
+        Assuming that you are on search page, click the link to open the
+        advanced filter of a given configuration
+        """
+        self.findBy('xpath',
+                    f'//a[contains(@class, "js-filter-advanced-type") and '
+                    f'@data-type="{configuration}"]').click()
+
+    def add_advanced_filter(self, key: str, value: str) -> None:
+        """Add a new advanced filter"""
+
+        # Toggle the filter panel if it is not open yet
+        self.toggle_selected_advanced_filters(display=True)
+
+        # Select the last <select> available
+        filter_row_xpath = '(//div[contains(@class, "selected-advanced-filters")]/div[contains(@class, "js-filter-item")])[last()]'
+        filter_row = self.findBy('xpath', filter_row_xpath)
+        filter_select_xpath = f'//select[contains(@class, "filter-key-select")]'
+        select = Select(self.findBy('xpath', filter_select_xpath, base=filter_row))
+
+        # If it already has a key selected, click "add filter" to add a new row
+        # and select the <select> again
+        if select.first_selected_option.text != '---':
+            self.findBy('id', 'filter-add-new').click()
+            filter_row = self.findBy('xpath', filter_row_xpath)
+            select = Select(
+                self.findBy('xpath', filter_select_xpath, base=filter_row))
+
+        # Select the key, wait for the values to be loaded and select one
+        select.select_by_value(key)
+        self.wait_for('xpath', filter_row_xpath + '//div[contains(@class, "loading-indicator-filter-key")]', visibility=False)
+        self.findBy('xpath', f'//div[contains(@class, "filter-value-column")]//input[@value="{value}"]', base=filter_row).click()
+        self.apply_filter()
+
+    def remove_filter(self, index):
+        """
+        Remove the filter at a given (0-based) index. If index is None, all
+        filters are removed!
+        """
+        curr_index = index
+        if curr_index is None:
+            curr_index = 0
+        self.findBy(
+            'xpath',
+            f'(//ul[@class="filter-list"]/li/span/a)[{curr_index + 1}]/'
+            f'*[contains(@class, "icon")]').click()
+        self.wait_for('class_name', 'loading-indicator', visibility=False)
+        if index is None:
+            try:
+                self.remove_filter(index=None)
+            except AssertionError:
+                pass
+
+    def get_active_filters(self, has_any=None) -> list:
+        """
+        Return a list of all active filters. If has_any is a boolean, it is
+        checked whether there are any active filters or not.
+        """
+        active_filters = self.findManyBy(
+            'xpath', '//div[@id="active-filters"]//li')
+        if has_any is not None:
+            active_filter_panel = self.findBy(
+                'xpath', '//div[@id="active-filters"]/div')
+            self.assertEqual(has_any, active_filter_panel.is_displayed())
+            if has_any is False:
+                self.assertEqual(len(active_filters), 0)
+            else:
+                self.assertNotEqual(len(active_filters), 0)
+        return active_filters
+
     def apply_filter(self):
         self.findBy(
             'xpath', '//input[contains(@class, "search-submit")]').click()
         self.wait_for('class_name', 'loading-indicator', visibility=False)
+
+    def check_list_results(self, expected: list, count: bool=True):
+        """
+        Args:
+            expected: list of dicts. Can contain
+                - title
+                - description
+                - translations (list)
+        """
+        if count is True:
+            list_entries = self.findManyBy(
+                'xpath', '//article[contains(@class, "tech-item")]')
+            self.assertEqual(len(list_entries), len(expected))
+        for i, e in enumerate(expected):
+            i_xpath = i + 1
+            if e.get('title') is not None:
+                title = e['title']
+                self.findBy(
+                    'xpath',
+                    f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
+                    f'a[contains(text(), "{title}")]')
+            if e.get('description'):
+                description = e['description']
+                self.findBy(
+                    'xpath',
+                    f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
+                    f'p[contains(text(), "{description}")]')
+            if e.get('status'):
+                status = e['status']
+                xpath = f'(//article[contains(@class, "tech-item")])[{i_xpath}]' \
+                        f'//span[contains(@class, "tech-status") and ' \
+                        f'contains(@class, "is-{status}")]'
+                if status == 'public':
+                    self.findByNot('xpath', xpath)
+                else:
+                    self.findBy('xpath', xpath)
+            for lang in e.get('translations', []):
+                self.findBy(
+                    'xpath',
+                    f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
+                    f'a[contains(text(), "{lang}")]')
 
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)
@@ -332,11 +455,14 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.doLogout()
         self._doLogin(user or create_new_user())
 
+    @patch.object(WocatCMSAuthenticationBackend, 'authenticate')
+    @patch.object(WocatWebsiteUserClient, 'get_and_update_django_user')
     @patch.object(Typo3Client, 'get_and_update_django_user')
     @patch.object(WocatAuthenticationBackend, 'authenticate')
     @patch('django.contrib.auth.authenticate')
     def _doLogin(self, user, mock_django_auth,
-                 mock_authenticate, mock_get_and_update_django_user):
+                 mock_authenticate, mock_get_and_update_django_user,
+                 mock_cms_get_and_update_django_user, mock_cms_authenticate):
         """
         Mock the authentication to return the given user and put it to the
         session - django.contrib.auth.login handles this.
@@ -344,11 +470,16 @@ class FunctionalTest(StaticLiveServerTestCase):
         against the login API.
         """
         auth_user = user
-        auth_user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        if settings.USE_NEW_WOCAT_AUTHENTICATION:
+            auth_user.backend = 'accounts.authentication.WocatCMSAuthenticationBackend'
+        else:
+            auth_user.backend = 'accounts.authentication.WocatAuthenticationBackend'
         mock_django_auth.return_value = auth_user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_get_and_update_django_user.return_value = user
+        mock_cms_authenticate.return_value = user
+        mock_cms_get_and_update_django_user.return_value = user
 
         self.client.login(username='spam', password='eggs')
         # note the difference: self.client != self.browser, copy the cookie.
