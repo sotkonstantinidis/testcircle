@@ -1345,6 +1345,9 @@
         "wocat": {
           "label": {
             "en": "Name of project which facilitated the documentation/ evaluation"
+          },
+          "label_filter": {
+            "en": "Project"
           }
         }
       }
@@ -1397,6 +1400,9 @@
         "wocat": {
           "label": {
             "en": "Name of the institution which facilitated the documentation/ evaluation"
+          },
+          "label_filter": {
+            "en": "Institution"
           }
         }
       }

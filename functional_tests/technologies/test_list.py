@@ -1,8 +1,7 @@
+import json
+
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
 from functional_tests.base import FunctionalTest
 
@@ -108,3 +107,77 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(active_filters), 2)
         self.assertEqual(active_filters[0].text, 'SLM Data: SLM Technologies')
         self.assertEqual(active_filters[1].text, 'Country: Switzerland')
+
+    def test_filter_also_in_api(self):
+        api_url = reverse('v2:questionnaires-api-list')
+
+        # Alice goes to the list view
+        self.browser.get(self.live_server_url + reverse(route_wocat_list))
+
+        # She sees there are 4 Questionnaires in the list
+        list_entries = self.findManyBy(
+            'xpath', '//article[contains(@class, "tech-item")]')
+        self.assertEqual(len(list_entries), 4)
+
+        # She filters by country = Switzerland
+        country_filter = self.findBy(
+            'xpath', '//div/label[@for="filter-country"]/../div')
+        country_filter.click()
+        country_filter.find_element_by_xpath(
+            '//ul[@class="chosen-results"]/li[text()="Switzerland"]'
+        ).click()
+        self.apply_filter()
+
+        # She sees there is 1 results left
+        expected_results = [
+            {
+                'title': 'WOCAT Technology 1',
+                'description': 'This is the definition of the first WOCAT Technology.',
+            },
+        ]
+        self.check_list_results(expected_results)
+
+        # She adds the same filter params to the API url
+        url = self.browser.current_url
+        filter_params = url.split('?')[1]
+        self.browser.get(self.live_server_url + api_url + '?' + filter_params + '&format=json')
+
+        # She sees the API results are filtered
+        json_response = json.loads(
+            self.browser.find_element_by_tag_name('body').text)
+        self.assertEqual(len(json_response['results']), 1)
+        self.assertEqual(
+            json_response['results'][0]['name'], 'WOCAT Technology 1')
+
+        # She goes back to the list view and does a search
+        self.browser.get(self.live_server_url + reverse(route_wocat_list))
+        self.findBy('xpath', '//input[@type="search"]').send_keys('wocat')
+        self.apply_filter()
+
+        # She sees there are 2 results left
+        expected_results = [
+            {
+                'title': 'WOCAT Tech 2 en español',
+                'description': 'Descripción 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1',
+                'description': 'This is the definition of the first WOCAT Technology.',
+            },
+        ]
+        self.check_list_results(expected_results)
+
+        # Again, she adds the same filter params to the API url
+        url = self.browser.current_url
+        filter_params = url.split('?')[1]
+        self.browser.get(
+            self.live_server_url + api_url + '?' + filter_params + '&format=json')
+
+        # She sees the API results are filtered
+        json_response = json.loads(
+            self.browser.find_element_by_tag_name('body').text)
+        self.assertEqual(len(json_response['results']), 2)
+        self.assertEqual(
+            json_response['results'][0]['name'], 'WOCAT Tech 2 en espaÃ±ol')
+        self.assertEqual(
+            json_response['results'][1]['name'], 'WOCAT Technology 1')
