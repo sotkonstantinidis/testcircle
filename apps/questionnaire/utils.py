@@ -1443,7 +1443,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         roles, permissions = questionnaire_object.get_roles_permissions(
             request.user)
         if 'edit_questionnaire' not in permissions:
-            return redirect('{}:home'.format(configuration_code))
+            return redirect('wocat:home')
 
     elif request.POST.get('assign'):
 
