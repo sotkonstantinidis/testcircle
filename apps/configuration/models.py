@@ -472,11 +472,14 @@ class Institution(models.Model):
     def as_select(cls):
         # Method get_or_set is not available for file-based caches
         # (as in local development)
-        select = cache.get(settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT)
+        cache_key = '{key}-{language}'.format(
+            key=settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT,
+            language=get_language()
+        )
+        select = cache.get(cache_key)
         if select is None:
-            cache.set(
-                settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT,
-                [(i.id, str(i)) for i in Institution.objects.all()])
+            select = [(i.id, str(i)) for i in Institution.objects.all()]
+            cache.set(cache_key, select)
         return select
 
 
