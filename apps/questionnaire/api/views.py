@@ -98,7 +98,12 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
                 'name': item.get('name'),
                 'updated': item.get('updated'),
                 'code': item.get('code'),
-                'url': item.get('url'),
+                'url': reverse(
+                    viewname='{configuration}:questionnaire_details'.format(
+                        configuration=item['configuration']
+                    ),
+                    kwargs={'identifier': item['code']}),
+                'translations': item.get('translations'),
                 'details': reverse(
                     '{api_version}:questionnaires-api-detail'.format(
                         api_version=self.request.version

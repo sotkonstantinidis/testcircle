@@ -159,14 +159,14 @@ class QuestionnaireListViewTest(TestCase):
         self.assertTrue(mock_filter_dict.called)
 
     def test_api_url_detail_v1(self):
-        items = [{'code': 'spam'}]
+        items = [{'code': 'spam', 'configuration': 'sample'}]
         updated = list(self.view.filter_dict(items))
         self.assertEqual(
             updated[0]['details'], '/en/api/v1/questionnaires/spam/'
         )
 
     def test_api_url_detail_v2(self):
-        items = [{'code': 'spam'}]
+        items = [{'code': 'spam', 'configuration': 'sample'}]
         request = self.request
         request.version = 'v2'
         view = self.setup_view(self.view, request)
@@ -174,6 +174,16 @@ class QuestionnaireListViewTest(TestCase):
         self.assertEqual(
             updated[0]['details'], '/en/api/v2/questionnaires/spam/'
         )
+
+    @patch('questionnaire.api.views.reverse')
+    def test_api_v2_language_aware(self, mock_reverse):
+        items = [{'code': 'spam', 'configuration': 'sample'}]
+        request = self.request
+        request.version = 'v2'
+        view = self.setup_view(self.view, request)
+        list(view.filter_dict(items))
+        mock_reverse.assert_any_call(viewname='sample:questionnaire_details',
+                                     kwargs={'identifier': 'spam'})
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

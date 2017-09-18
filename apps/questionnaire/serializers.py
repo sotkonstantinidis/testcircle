@@ -26,7 +26,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     status = serializers.ListField(source='status_property')
     translations = serializers.ListField()
     flags = serializers.ListField(source='flags_property')
-    url = serializers.CharField(source='get_absolute_url')
+    url = serializers.SerializerMethodField()
 
     class Meta:
         model = Questionnaire
@@ -96,7 +96,11 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         return self.config.keyword
 
     def get_url(self, obj):
-        return obj.get_absolute_url()
+        # Remove language from url, as this is 'None' if executed from command
+        # line, or whichever active language if called from the search-admin panel.
+        # See: https://redmine.cde.unibe.ch/issues/1716
+        url = obj.get_absolute_url()
+        return url[url.find('/', 1):]
 
     def to_internal_value(self, data):
         internal_value = dict(super().to_internal_value(data))
@@ -105,7 +109,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         internal_value['serializer_config'] = self.get_serializer_config(None)
         internal_value['list_data'] = self.get_list_data(data['data'], False)
         internal_value['name'] = self.get_name(data['data'], False)
-        internal_value['url'] = internal_value.pop('get_absolute_url', '')
+        internal_value['url'] = data.get('url', '')
         replace_property_keys = filter(lambda item: item.endswith('_property'), internal_value.keys())
         for key in replace_property_keys:
             internal_value[key.replace('_property', '')] = internal_value.pop(key)
