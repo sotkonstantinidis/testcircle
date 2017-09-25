@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.utils.translation import pgettext_lazy, get_language, activate, \
     ugettext as _
 from django_pgjson.fields import JsonBField
+from easy_thumbnails.fields import ThumbnailerField
 
 from .conf import settings
 
@@ -441,11 +442,11 @@ class Project(models.Model):
 
 class Institution(models.Model):
     """
-        The model representing the Institutions as they are managed by the WOCAT
-        website. IDs must be identical!
+    The model representing the Institutions as they are managed by the WOCAT
+    website. IDs must be identical!
 
-        Only "active" Institutions can be selected in the form.
-        """
+    Only "active" Institutions can be selected in the form.
+    """
     id = models.IntegerField(
         primary_key=True,
         help_text="The ID must be exactly the same as on the WOCAT website!")
@@ -455,6 +456,11 @@ class Institution(models.Model):
         'Value', null=True, blank=True,
         limit_choices_to=Q(key__keyword='country'))
     active = models.BooleanField(default=True)
+    # The URL may be too long to be valid, but the slug on wocat.net is not
+    # editable and is not validated for its length.
+    url = models.TextField(blank=True)
+    external_url = models.URLField(blank=True)
+    logo = ThumbnailerField(blank=True, null=True)
 
     class Meta:
         ordering = ['name']
