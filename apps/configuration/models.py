@@ -430,6 +430,8 @@ class Project(models.Model):
     name = models.CharField(max_length=255)
     abbreviation = models.CharField(max_length=63, null=True, blank=True)
     active = models.BooleanField(default=True)
+    url = models.URLField(blank=True)
+    logo = ThumbnailerField(blank=True, null=True)
 
     class Meta:
         ordering = ['name']
