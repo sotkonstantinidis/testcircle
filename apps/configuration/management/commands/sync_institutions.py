@@ -1,3 +1,7 @@
+from os.path import join
+
+import requests
+
 from accounts.client import WocatWebsiteUserClient
 from configuration.models import Institution, Country
 from django.core.cache import cache
@@ -42,9 +46,15 @@ class Command(NoArgsCommand, WocatWebsiteUserClient):
             'abbreviation': institution['abbreviation'],
             'country': Country.get(institution['country']),
             'active': True,
+            'url': institution['url'],
+            'external_url': institution['external_url'],
+            'logo': self.get_logo_file(institution['logo']),
         }
+
         institution_object, created = Institution.objects.update_or_create(
-            id=values['id'], defaults=values)
+            id=values['id'], defaults=values
+        )
+
         if created is True:
             self.created.append(institution_object.id)
         else:
@@ -64,7 +74,39 @@ class Command(NoArgsCommand, WocatWebsiteUserClient):
                 f'Query to API returned status {r.status_code}')
             return []
 
+    def get_logo_file(self, url: str) -> str:
+        """
+        Call given url, store it as a file and return the file name.
+        """
+        if not url:
+            return ''
+
+        response = self.get_request_logo(url)
+        if not response:
+            return ''
+
+        return self.write_to_file(response)
+
+    def get_request_logo(self, url: str):
+        response = requests.get(url)
+        return None if not response.ok else response
+
+    def write_to_file(self, response) -> str:
+        """
+        Write the responses content to a file, and return its name.
+        """
+        request_file_name = response.url.split('/')[-1]
+        file_name = join(settings.MEDIA_ROOT, 'institutions', request_file_name)
+        with open(file_name, 'wb') as f:
+            f.write(response.content)
+        return file_name.replace(settings.MEDIA_ROOT, '.')
+
     @staticmethod
     def update_cache():
         # Update happens on first call of Institution.as_select()
-        cache.delete(settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT)
+        for language in settings.LANGUAGES:
+            cache_key = '{key}-{language}'.format(
+                key=settings.CONFIGURATION_CACHE_KEY_INSTITUTION_SELECT,
+                language=language[0]
+            )
+            cache.delete(cache_key)

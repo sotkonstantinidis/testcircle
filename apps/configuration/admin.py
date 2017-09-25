@@ -10,7 +10,7 @@ from configuration.models import (
     Key,
     Project,
     Translation,
-)
+    Institution)
 
 
 class CustomFormWithJsonData(forms.ModelForm):
@@ -195,3 +195,10 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'abbreviation', 'active',)
     list_filter = ('active',)
     search_fields = ('name', 'abbreviation',)
+
+
+@admin.register(Institution)
+class InstitutionAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'active', )
+    list_filter = ('active', )
+    search_fields = ('name', )
