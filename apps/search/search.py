@@ -258,7 +258,8 @@ def get_aggregated_values(
                 'aggs': {
                     'values': {
                         'terms': {
-                            'field': f'data.{questiongroup}.{key}'
+                            'field': f'data.{questiongroup}.{key}',
+                            'size': 0,  # Include all aggregations, not only 10
                         }
                     }
                 }
