@@ -13,7 +13,7 @@ env:
 build:
   pre_ci_boot:
     image_name: drydock/u16pytall
-    image_tag: v5.5.3
+    image_tag: v5.10.2
 
   ci:
     - export LC_ALL=C
@@ -23,8 +23,8 @@ build:
     - echo "qcat.settings" > envs/DJANGO_SETTINGS_MODULE
     - echo "postgis://qcat:123456@localhost:5432/qcat" > envs/DATABASE_URL
     - echo "123" > envs/DJANGO_SECRET_KEY
-    - pip3 install -r requirements/development.txt
-    - pip3 install -r requirements/production.txt
+    - pip install -r requirements/development.txt
+    - pip install -r requirements/production.txt
     - unset LC_ALL
 
   on_success:
@@ -44,7 +44,7 @@ integrations:
       recipients:
         - "#server-info"
       on_success: never
-      on_failure: never
+      on_failure: always
 
     - integrationName: email
       type: email
