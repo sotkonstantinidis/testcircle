@@ -258,7 +258,12 @@ def get_aggregated_values(
                 'aggs': {
                     'values': {
                         'terms': {
-                            'field': f'data.{questiongroup}.{key}'
+                            'field': f'data.{questiongroup}.{key}',
+                            # Include all aggregations, not only 10. Setting
+                            # "size": 0 is deprecated, therefore setting a
+                            # (hopefully) reasonably high limit manually.
+                            # See https://github.com/elastic/elasticsearch/issues/18838
+                            'size': 200,
                         }
                     }
                 }
