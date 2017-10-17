@@ -34,8 +34,7 @@ class StaticViewSitemap(sitemaps.Sitemap):
     def items(self):
         return [
             'wocat:home',
-            'technologies:home',
-            'approaches:home',
+            'wocat:questionnaire_list',
             'login',
         ]
 
