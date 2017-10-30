@@ -7,36 +7,36 @@
 <div class="row avoidbreak">
   <div class="small-12 columns">
     <h5>{{ content.compiler.title }}</h5>
-    {% include 'summary/partial/unordered_list.html' with list_items=content.compiler.items%}
+    {% include 'summary/partial/unordered_list.html' with list_items=content.compiler.items class="compact" %}
   </div>
 </div>
 
 <div class="row avoidbreak">
   <div class="small-6 columns">
-    <h5>{{ content.meta.created.title }}</h5>{{ content.meta.created.value|date }}
+    <strong>{{ content.meta.created.title }}</strong>: {{ content.meta.created.value|date }}
   </div>
   <div class="small-6 columns">
-    <h5>{{ content.meta.updated.title }}</h5>{{ content.meta.updated.value|date }}
+    <strong>{{ content.meta.updated.title }}</strong>: {{ content.meta.updated.value|date }}
   </div>
 </div>
 
 <div class="row avoidbreak">
   <div class="small-12 columns">
     <h5>{{ content.people.title }}</h5>
-    {% include 'summary/partial/unordered_list.html' with list_items=content.people.items %}
+    {% include 'summary/partial/unordered_list.html' with list_items=content.people.items class="compact" %}
   </div>
 </div>
 
 <div class="row avoidbreak">
   <div class="small-12 columns">
     <h5>{{ content.more.title }}</h5>
-    {% include 'summary/partial/unordered_list.html' with list_items=content.more.items %}
+    {% include 'summary/partial/unordered_list.html' with list_items=content.more.items class="compact" %}
   </div>
 </div>
 <div class="row avoidbreak">
   <div class="small-12 columns">
     <h5>{{ content.links.title }}</h5>
-    {% include 'summary/partial/unordered_list.html' with list_items=content.links.items %}
+    {% include 'summary/partial/unordered_list.html' with list_items=content.links.items class="compact" %}
   </div>
 </div>
 
@@ -74,14 +74,16 @@
           <h5>{{ content.references.title }}</h5>
           {% include 'summary/partial/unordered_list.html' with list_items=content.references.items class="bullets" %}
         </div>
-        <div class="small-12 columns">
-          <h5>{{ content.web_references.title }}</h5>
-            <ul>
-            {% for element in content.web_references.items %}
-              <li>{{ element.title }}: <a href="{{ element.url }}" target="_blank">{{ element.url }}</a></li>
-            {% endfor %}
-            </ul>
-        </div>
+        {% if content.web_references.items|length %}
+          <div class="small-12 columns">
+            <h5>{{ content.web_references.title }}</h5>
+              <ul>
+              {% for element in content.web_references.items %}
+                <li>{{ element.title }}: <a href="{{ element.url }}" target="_blank">{{ element.url }}</a></li>
+              {% endfor %}
+              </ul>
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>

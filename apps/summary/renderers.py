@@ -321,7 +321,7 @@ class GlobalValuesMixin:
                 'web_references': {
                     'title': _('Links to relevant information which is available online'),
                     'css_class': 'bullets',
-                    'items': self.get_reference_web()
+                    'items': list(self.get_reference_web())
                 },
                 'project_institution': {
                     'title': _('Documentation was faciliated by'),
