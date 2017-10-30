@@ -155,12 +155,10 @@ class BaseSettings(Configuration):
             'screen': {
                 'header_image': {
                     'size': (0, 1840),
-                    'crop': 'smart',
                     'upscale': True
                 },
                 'half_height': {
                     'size': (640, 640),
-                    'crop': 'smart',
                     'upscale': True
                 },
                 'map': {

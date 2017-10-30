@@ -272,7 +272,7 @@ class GlobalValuesMixin:
             'partials': {
                 'meta': {
                     'created': {
-                        'title': _('Questionnaire created'),
+                        'title': _('Date of documentation'),
                         'value': self.questionnaire.created
                     },
                     'updated': {
@@ -330,7 +330,7 @@ class GlobalValuesMixin:
         ).select_related('user')
         if members.exists():
             return [
-                {'text': '{name} - {email}'.format(
+                {'text': '{name} ({email})'.format(
                     name=member.user.get_display_name(),
                     email=member.user.email)
                 } for member in members]
@@ -510,9 +510,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     def content(self):
         return ['header_image', 'title', 'location', 'description', 'images',
                 'classification', 'technical_drawing', 'establishment_costs',
-                'natural_environment', 'human_environment', 'impacts', 
-                'climate_change', 'adoption_adaptation', 'conclusion',
-                'references']
+                'natural_environment', 'human_environment', 'impacts',
+                'cost_benefit', 'climate_change', 'adoption_adaptation',
+                'conclusion', 'references']
 
     def header_image(self):
         data = super().header_image()
@@ -667,6 +667,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'url': self.get_thumbnail_url(preview, 'flow_chart'),
                     'author': _('Author: {}').format(author) if author else ''
                 })
+                # Display only one image.
+                break
 
         return {
             'title': _('Technical drawing'),
@@ -773,14 +775,17 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 measure_type = ''
 
             try:
-                timing = self.raw_data[timing][index]['value']
+                timing_value = self.raw_data[timing][index]['value']
             except (KeyError, IndexError):
-                timing = ''
+                timing_value = ''
 
-            if measure_type and timing:
-                addendum = ' ({}; {})'.format(measure_type, timing)
-            elif measure_type or timing:
-                addendum = ' ({})'.format(measure_type or timing)
+            timing_title = _('Timing/ frequency')
+            if measure_type and timing_value:
+                addendum = f' ({measure_type}; {timing_title}: {timing_value})'
+            elif measure_type:
+                addendum = f' ({measure_type})'
+            elif timing_value:
+                addendum = f' ({timing_title}: {timing_value})'
             else:
                 addendum = ''
 
@@ -949,7 +954,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def impacts(self):
         return {
-            'title': _('Impacts - Benefits and disadvantages'),
+            'title': _('Impacts'),
             'partials': {
                 'economic': {
                     'title': _('Socio-economic impacts'),
@@ -966,15 +971,25 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'off_site': {
                     'title': _('Off-site impacts'),
                     'items': self.raw_data.get('impacts_downstreamflooding')
-                },
-                'benefits_establishment': {
-                    'title': _('Benefits compared with establishment costs'),
-                    'items': self.raw_data.get('impacts_establishment_costbenefit')
-                },
-                'benefits_maintenance': {
-                    'title': _('Benefits compared with maintenance costs'),
-                    'items': self.raw_data.get('impacts_maintenance_costbenefit')
                 }
+            }
+        }
+
+    def cost_benefit(self):
+        return {
+            'title': _('Cost-benefit analysis'),
+            'partials': {
+                'establishment': {
+                    'title': _('Benefits compared with establishment costs'),
+                    'items': self.raw_data.get(
+                        'impacts_establishment_costbenefit')
+                },
+                'maintenance': {
+                    'title': _('Benefits compared with maintenance costs'),
+                    'items': self.raw_data.get(
+                        'impacts_maintenance_costbenefit')
+                },
+                'comment': self.raw_data_getter('tech_costbenefit_comment')
             }
         }
 
@@ -1130,7 +1145,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                             'items': self.raw_data.get('participation_decisions_by')
                         },
                         {
-                            'title': _('Decisions were made based on:'),
+                            'title': _('Decisions were made based on'),
                             'items': self.raw_data.get('participation_decisions_based')
                         }
                     ]
@@ -1139,11 +1154,6 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         }
 
     def technical_support(self):
-        if self.raw_data_getter('tech_support_monitoring_systematic') == 'No':
-            monitoring_intention = _('This documentation is <i>not</i> intended to be used for monitoring and evaluation')
-        else:
-            monitoring_intention = _('This documentation is intended to be used for monitoring and evaluation')
-
         return {
             'title': _('Technical support, capacity building, and knowledge management'),
             'partials': {
@@ -1206,7 +1216,6 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'monitoring': {
                     'title': _('Monitoring and evaluation'),
                     'comment': self.raw_data_getter('tech_support_monitoring_comment'),
-                    'intended': monitoring_intention
                 },
                 'research': {
                     'title': _('Research'),

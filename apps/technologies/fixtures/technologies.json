@@ -19612,7 +19612,13 @@
       "keyword": "tech_costbenefit_comments",
       "translation": 5004,
       "configuration": {
-        "type": "text"
+        "type": "text",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_costbenefit_comment"
+          }
+        }
       }
     },
     "model": "configuration.key",

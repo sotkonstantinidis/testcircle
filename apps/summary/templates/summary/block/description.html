@@ -1,6 +1,5 @@
 <div class="small-8 columns description">
 {% include 'summary/partial/title_bar.html' with title=title %}
-    <h5>{{ content.lead }}</h5>
-    {{ content.text }}
-
+    <h5>{{ content.lead|linebreaksbr }}</h5>
+    {{ content.text|linebreaks }}
 </div>
