@@ -755,6 +755,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         'total_cost_estimate_title': _(
                             'Total establishment costs (estimation)'
                         ),
+                        'unit': perunit_unit,
+                        'currency': currency,
                         **self.raw_data.get('establishment_input', {}),
                     }
                 },
@@ -770,6 +772,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         'total_cost_estimate_title': _(
                             'Total maintenance costs (estimation)'
                         ),
+                        'unit': perunit_unit,
+                        'currency': currency,
                         **self.raw_data.get('maintenance_input', {}),
                     }
                 }

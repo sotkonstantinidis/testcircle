@@ -4,8 +4,8 @@
     <td width="40%"><b>{{ list_items.head.0 }}</b></td>
     <td width="10%"><b>{{ list_items.head.1 }}</b></td>
     <td width="10%" class="text-right"><b>{{ list_items.head.2 }}</b></td>
-    <td width="10%" class="text-right"><b>{{ list_items.head.3 }}</b></td>
-    <td width="10%" class="text-right"><b>{{ list_items.head.4 }}</b></td>
+    <td width="10%" class="text-right"><b>{{ list_items.head.3 }} ({{ list_items.unit }})</b></td>
+    <td width="10%" class="text-right"><b>{{ list_items.head.4 }} ({{ list_items.currency }})</b></td>
     <td width="10%" class="text-right"><b>{{ list_items.head.5 }}</b></td>
   </tr>
 	{% for table in list_items.partials %}
