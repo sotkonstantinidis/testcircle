@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-19 10:23+0200\n"
-"PO-Revision-Date: 2017-06-24 16:24+0000\n"
-"Last-Translator: Sophea Tim <stim3993@gmail.com>\n"
+"POT-Creation-Date: 2017-10-30 10:13+0100\n"
+"PO-Revision-Date: 2017-10-25 03:34+0000\n"
+"Last-Translator: BE GECHKIM <gechkim@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
 "Language: km\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: apps/accounts/client.py:172
 msgid "Error when logging in and updating the user {}: {}"
-msgstr "មានបញ្ហាពេលបញ្ចូល និងកែតម្រូវឈ្មោះអ្នកប្រើប្រាស់ {}: {}"
+msgstr "មានបញ្ហាពេលបញ្ចូល និងកែតម្រូវឈ្មោះអ្នកប្រើប្រាស់ {}: {}l an"
 
 #: apps/accounts/forms.py:12
 msgid "E-mail address"
@@ -1473,7 +1473,7 @@ msgstr "ប្រភេទរាតត្បាត"
 #: apps/configuration/configuration_translations.py:1296
 msgctxt "technologies label"
 msgid "beneficial species (predators, earthworms, pollinators)"
-msgstr "ប្រភេទមានប្រយោជន៍ (​មំសាសី ជន្លេន ពពួកសត្វធ្វើដំណើរលម្អង)"
+msgstr "ប្រភេទមានប្រយោជន៍ (​មំសាសី ជន្លេន ពពួកសត្វចម្លងលម្អង)"
 
 #: apps/configuration/configuration_translations.py:1299
 #: apps/configuration/configuration_translations.py:2296
@@ -1585,7 +1585,7 @@ msgstr "បង្ហាញឆ្នាំនៃការចុះអនុវត
 #: apps/configuration/configuration_translations.py:1352
 msgctxt "technologies label"
 msgid "Main crops (cash and food crops)"
-msgstr "ដំណាំចម្បង (ដំណាំឧស្សាហកម្ម និងដំណាំស្បៀង) "
+msgstr "ដំណាំចម្បង (ដំណាំកសិ-ឧស្សាហកម្ម និងដំណាំស្បៀង) "
 
 #: apps/configuration/configuration_translations.py:1353
 msgctxt "technologies helptext"
@@ -1859,7 +1859,7 @@ msgstr "ថ្លៃដើមសរុបក្នុងការបង្កើ
 #: apps/configuration/configuration_translations.py:1411
 msgctxt "technologies label"
 msgid "Total costs for maintenance of the Technology"
-msgstr "ថ្លៃដើមសរុបសម្រាប់ការថែទាំបច្ចេកទេស"
+msgstr "ថ្លៃដើមសរុបសម្រាប់ការថែទាំដំណាំតាមបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:1412
 msgctxt "technologies label"
@@ -1929,7 +1929,7 @@ msgstr "តំបន់តាមរយៈកម្ពស់ "
 #: apps/configuration/configuration_translations.py:1419
 msgctxt "technologies label"
 msgid "Sedentary or nomadic"
-msgstr "នៅនឹងកន្លែង ឬពនេចរ   "
+msgstr "នៅមួយកន្លែង ឬពនេចរ   "
 
 #: apps/configuration/configuration_translations.py:1420
 msgctxt "technologies label"
@@ -2682,12 +2682,12 @@ msgid ""
 "<strong>Loss of topsoil/ surface erosion:</strong> even removal of top soil, "
 "sheet and interrill erosion"
 msgstr ""
-"<strong>ការបាត់ដីស្រទាប់លើដោយសារការហូរច្រោះ៖</strong>ការដកចេញពីដីស្រទាប់លើ និងគ្រប់ស្រទាប់ដី"
+"<strong>ការបាត់ដីស្រទាប់លើដោយការហូរច្រោះ៖</strong>ការដកចេញពីដីស្រទាប់លើ និងគ្រប់ស្រទាប់ដី"
 
 #: apps/configuration/configuration_translations.py:1576
 msgctxt "technologies label"
 msgid "Wt: loss of topsoil/ surface erosion"
-msgstr "Wt: ការបាត់ដីស្រទាប់លើដោយសារការហូរច្រោះ"
+msgstr "Wt: ការបាត់ដីស្រទាប់លើដោយការហូរច្រោះ"
 
 #: apps/configuration/configuration_translations.py:1577
 msgctxt "technologies label"
@@ -3087,22 +3087,22 @@ msgstr ">1000"
 #: apps/configuration/configuration_translations.py:1639
 msgctxt "technologies helptext"
 msgid "<strong>Convex</strong>: ridge (diversion of water flow)"
-msgstr "<strong>ភាពប៉ោង</strong>៖ កំពូលភ្នំ  (ការបង្វែរនៃចរន្តទឹកហូរ)"
+msgstr "<strong>សណ្ឋានដីប៉ោង</strong>៖ កំពូលភ្នំ  (ទឹកហូរចេញ)"
 
 #: apps/configuration/configuration_translations.py:1640
 msgctxt "technologies label"
 msgid "convex situations"
-msgstr "ភាពប៉ោង"
+msgstr "សណ្ឋានដីប៉ោង"
 
 #: apps/configuration/configuration_translations.py:1641
 msgctxt "technologies helptext"
 msgid "<strong>Concave</strong>: depression (conversion of water flow)"
-msgstr "<strong>ភាពកោង</strong>៖  វាលទំនាប (ការបង្វែរនៃចរន្តទឹកហូរ)"
+msgstr "<strong>សណ្ឋានដីផត</strong>៖  វាលទំនាប (ទឹកហូរចូល)"
 
 #: apps/configuration/configuration_translations.py:1642
 msgctxt "technologies label"
 msgid "concave situations"
-msgstr "ភាពកោង"
+msgstr "សណ្ឋានដីផត"
 
 #: apps/configuration/configuration_translations.py:1643
 msgctxt "technologies label"
@@ -3578,7 +3578,7 @@ msgstr "រាក់ (21-50 សម)"
 #: apps/configuration/configuration_translations.py:1727
 msgctxt "technologies label"
 msgid "moderately deep (51-80 cm)"
-msgstr "ជ្រៅមធ្យម (51-80 សម)"
+msgstr "មធ្យម (51-80 សម)"
 
 #: apps/configuration/configuration_translations.py:1728
 msgctxt "technologies label"
@@ -3598,12 +3598,12 @@ msgstr "គ្រើម/ មានពន្លឺ (ខ្សាច់)"
 #: apps/configuration/configuration_translations.py:1731
 msgctxt "technologies label"
 msgid "medium (loamy, silty)"
-msgstr "ល្មម (ល្បាយ, ល្បាប់)"
+msgstr "មធ្យម (ល្បាយ, ល្បាប់)"
 
 #: apps/configuration/configuration_translations.py:1732
 msgctxt "technologies label"
 msgid "fine/ heavy (clay)"
-msgstr "រលោង/ ធ្ងន់ (ឥដ្ឋ)"
+msgstr "ម៉ត់/ ធ្ងន់ (ឥដ្ឋ)"
 
 #: apps/configuration/configuration_translations.py:1733
 #, python-format
@@ -3673,7 +3673,7 @@ msgstr "ឧ. អាចទទួលបានទឹកពេញមួយឆ្ន�
 #: apps/configuration/configuration_translations.py:5751
 msgctxt "technologies label"
 msgid "medium"
-msgstr "កម្រិតទឹកមធ្យម "
+msgstr "កម្រិតមធ្យម "
 
 #: apps/configuration/configuration_translations.py:1746
 msgctxt "technologies label"
@@ -3829,12 +3829,12 @@ msgstr "ក្រុម"
 #: apps/configuration/configuration_translations.py:1776
 msgctxt "technologies label"
 msgid "individual, not titled"
-msgstr "ឯកជន មិនមានតួនាទី"
+msgstr "ឯកជន មិនមានកម្មសិទ្ធ"
 
 #: apps/configuration/configuration_translations.py:1777
 msgctxt "technologies label"
 msgid "individual, titled"
-msgstr "ឯកជន មានតួនាទី"
+msgstr "ឯកជន មានកម្មសិទ្ធ"
 
 #: apps/configuration/configuration_translations.py:1778
 msgctxt "technologies helptext"
@@ -4743,7 +4743,7 @@ msgstr "មិនពាក់ព័ន្ធទាំងអស់"
 #: apps/configuration/configuration_translations.py:1919
 msgctxt "technologies label"
 msgid "Sedentary"
-msgstr "នៅនឹងកន្លែង "
+msgstr "នៅមួយកន្លែង "
 
 #: apps/configuration/configuration_translations.py:1920
 msgctxt "technologies label"
@@ -4955,7 +4955,7 @@ msgid ""
 "place on land that may be prone to land degradation. They maintain natural "
 "resources and their environmental and productive functions."
 msgstr ""
-"<strong>ការការពារ៖</strong>ការអនុវត្តការគ្រប់គ្រងដីបានល្អដែលនាំទៅរកការកាត់បន្ថយឳនភាពដី។ "
+"<strong>ការការពារ៖</strong>ការអនុវត្តការគ្រប់គ្រងដីបានល្អដែលនាំទៅរកការកាត់បន្ថយឱនភាពដី។ "
 "វាថែរក្សានូវធនធានធម្មជាតិ និងបរិស្ថានជុំវិញរបស់វា ក៏ដូចជា  ផលិតភាពដី។"
 
 #: apps/configuration/configuration_translations.py:1954
@@ -5316,7 +5316,7 @@ msgstr "ការប្រមូលស្តុកទុកទឹក"
 #: apps/configuration/configuration_translations.py:2294
 msgctxt "technologies helptext"
 msgid "Predators, earthworms, pollinators"
-msgstr "មំសាសី ជន្លេន ពពួកសត្វនាំលំអងផ្កា"
+msgstr "មំសាសី ជន្លេន ពពួកសត្វចម្លងលម្អង"
 
 #: apps/configuration/configuration_translations.py:2295
 msgctxt "technologies label"
@@ -6725,7 +6725,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2920
 msgctxt "technologies label"
 msgid "Natural and human environment"
-msgstr "បរិស្ថានធម្មជាតិ និងមនុស្ស"
+msgstr "លក្ខណៈបរិស្ថានធម្មជាតិ និងមនុស្ស"
 
 #: apps/configuration/configuration_translations.py:2921
 #, python-format
@@ -7339,7 +7339,7 @@ msgid ""
 "Financial incentives (for example, preferential rates, State aid, subsidies, "
 "cash grants, loan guarantees, etc)"
 msgstr ""
-"ការលើកចិត្តផ្នែកហិរញ្ញវត្ថុ(ឧទាហរណ៍៖ កម្រិតនៃការអនុគ្រោះ ជំនួយពីរដ្ឋ បដិភាគ subsidies "
+"ការលើកទឹកចិត្តផ្នែកហិរញ្ញវត្ថុ(ឧទាហរណ៍៖ កម្រិតនៃការអនុគ្រោះ ជំនួយពីរដ្ឋ បដិភាគ subsidies "
 "មូនិធិជាសាច់ប្រាក់ ការធានាផ្នែកកម្ចី។ល។)"
 
 #: apps/configuration/configuration_translations.py:3545
@@ -13138,12 +13138,12 @@ msgstr ""
 msgctxt "cca label"
 msgid "Table 1: Reassessment of land degradation types listed in QT Core 3.7"
 msgstr ""
-"តារាង 1៖ តារាងវាយតម្លៃប្រភេទនៃឳនភាពដីឡើងវិញនៅក្នុងកម្រងបញ្ជីសំណួរបច្ចេកទេសស្នូលនូវចំណុច 3.7"
+"តារាង 1៖ តារាងវាយតម្លៃប្រភេទនៃឱនភាពដីឡើងវិញនៅក្នុងកម្រងបញ្ជីសំណួរបច្ចេកទេសស្នូលនូវចំណុច 3.7"
 
 #: apps/configuration/configuration_translations.py:27051
 msgctxt "cca label"
 msgid "Table 2: Assessment of newly occurring land degradation types"
-msgstr "តារាង 2៖ វាយតម្លៃប្រភេទនៃឳនភាពដីដែលទើបតែកើតឡើង"
+msgstr "តារាង 2៖ វាយតម្លៃប្រភេទនៃឱនភាពដីដែលទើបតែកើតឡើង"
 
 #: apps/configuration/configuration_translations.py:27124
 msgctxt "cca helptext"
@@ -13529,13 +13529,13 @@ msgid ""
 "climate-related extreme. The same change/ extreme may have several land "
 "degradation types."
 msgstr ""
-"រាយប្រភេទឳនភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ ការប្រែប្រួលខុសគ្នា/ ខ្លាំង "
-"ប្រហែលមានប្រភេទនៃឳនភាពដីកើតឡើងផ្សេងគ្នា។"
+"រាយប្រភេទឱនភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ ការប្រែប្រួលខុសគ្នា/ ខ្លាំង "
+"ប្រហែលមានប្រភេទនៃឱនភាពដីកើតឡើងផ្សេងគ្នា។"
 
 #: apps/configuration/configuration_translations.py:28029
 msgctxt "cca label"
 msgid "Land degradation type addressed by the Technology listed in QT Core 3.7"
-msgstr "ប្រភេទឳនភាពដីដែលបានរាយនៅក្នុងកម្រងបញ្ជីសំណួរស្នូលនៃបច្ចេកទេសចំណុច 3.7"
+msgstr "ប្រភេទឱនភាពដីដែលបានរាយនៅក្នុងកម្រងបញ្ជីសំណួរស្នូលនៃបច្ចេកទេសចំណុច 3.7"
 
 #: apps/configuration/configuration_translations.py:28030
 msgctxt "cca label"
@@ -13553,8 +13553,8 @@ msgid ""
 "List one land degradation type per gradual climate change/ climate-related "
 "extreme. The same change/ extreme may have several land degradation types."
 msgstr ""
-"រាយប្រភេទនៃឳនភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ ការប្រែប្រួលខុសគ្នា/ ខ្លាំង "
-"ប្រហែលមានប្រភេទនៃឳនភាពដីកើតឡើងផ្សេងគ្នា។"
+"រាយប្រភេទនៃឱនភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ ការប្រែប្រួលខុសគ្នា/ ខ្លាំង "
+"ប្រហែលមានប្រភេទនៃឱនភាពដីកើតឡើងផ្សេងគ្នា។"
 
 #: apps/configuration/configuration_translations.py:28033
 msgctxt "cca label"
@@ -13562,7 +13562,7 @@ msgid ""
 "Land degradation type newly occurring due to gradual climate change/ climate-"
 "related extreme (disaster)"
 msgstr ""
-"ប្រភេទនៃឳនភាពដីដែលកើតឡើងទៅតាមការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ (គ្រោះមហន្តរាយ)"
+"ប្រភេទនៃឱនភាពដីដែលកើតឡើងទៅតាមការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ (គ្រោះមហន្តរាយ)"
 
 #: apps/configuration/configuration_translations.py:28034
 #: apps/configuration/configuration_translations.py:28035
@@ -14150,7 +14150,7 @@ msgstr "12"
 #: apps/configuration/configuration_translations.py:29075
 msgctxt "cca label"
 msgid "Wt: loss of topsoil/ surface erosion"
-msgstr "Wt: ការបាត់ដីស្រទាប់លើដោយសារការហូរច្រោះ"
+msgstr "Wt: ការបាត់ដីស្រទាប់លើដោយការហូរច្រោះ"
 
 #: apps/configuration/configuration_translations.py:29076
 msgctxt "cca label"
@@ -17561,7 +17561,7 @@ msgstr "បានធ្វើពបច្ចុប្បន្នភាព"
 
 #: apps/questionnaire/utils.py:709
 msgid "Unknown"
-msgstr "មិនស្គាល់"
+msgstr "មិនដឹង"
 
 #: apps/questionnaire/utils.py:725
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:75
@@ -17773,7 +17773,7 @@ msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
 msgstr ""
-"បច្ចេកទេសនេះមានបញ្ហាជាមួយនឹងឳនភាពដី "
+"បច្ចេកទេសនេះមានបញ្ហាជាមួយនឹងឱនភាពដី "
 "ដូចនេះវាមិនអាចត្រូវបានប្រកាស់ថាជាបច្ចេកទេសគ្រប់គ្រងដីប្រកបដោយចីរភាពទេ"
 
 #: apps/summary/renderers.py:538 apps/summary/renderers.py:548
@@ -17831,7 +17831,7 @@ msgstr "ដង់ស៊ីតេនៃសត្វចិញ្ចឹម"
 
 #: apps/summary/renderers.py:636
 msgid "Purpose related to land degradation"
-msgstr "គោលបំណងទាក់ទងនឹងឳនភាពដី"
+msgstr "គោលបំណងទាក់ទងនឹងឱនភាពដី"
 
 #: apps/summary/renderers.py:640
 msgid "Degradation addressed"
@@ -17907,7 +17907,7 @@ msgstr "សកម្មភាពបង្កើតបច្ចេកទេស"
 
 #: apps/summary/renderers.py:733
 msgid "Establishment inputs and costs"
-msgstr "ធាតុចូរនិងថ្លៃដើមសម្រាប់ការបង្កើតបច្ចេកទេស"
+msgstr "ធាតុចូល និងថ្លៃដើមសម្រាប់ការបង្កើតបច្ចេកទេស"
 
 #: apps/summary/renderers.py:738
 msgid "Total establishment costs (estimation)"
@@ -17927,11 +17927,11 @@ msgstr ""
 
 #: apps/summary/renderers.py:801
 msgid "Average annual rainfall in mm: {}"
-msgstr "ទឹកភ្លៀងជាមធ្យមប្រចាំឆ្នាំគិតជា មម៖ {}"
+msgstr "បរិមាណទឹកភ្លៀងជាមធ្យមប្រចាំឆ្នាំគិតជា មម៖ {}"
 
 #: apps/summary/renderers.py:803
 msgid "Name of the meteorological station: {}"
-msgstr "ឈ្មោះស្ថានីយឧតុនិយម៖​ {}"
+msgstr "ស្ថានីយឧតុនិយម៖​ {}"
 
 #: apps/summary/renderers.py:810
 msgid "Natural environment"
@@ -17939,7 +17939,7 @@ msgstr "បរិស្ថានធម្មជាតិ"
 
 #: apps/summary/renderers.py:813
 msgid "Average annual rainfall"
-msgstr "ទឹកភ្លៀងជាមធ្យមប្រចាំឆ្នាំ"
+msgstr "បរិមាណទឹកភ្លៀងជាមធ្យមប្រចាំឆ្នាំ"
 
 #: apps/summary/renderers.py:817
 msgid "Agro-climatic zone"
@@ -18003,7 +18003,7 @@ msgstr "តើមានបញ្ហាទឹកប្រៃហូរចូលម
 
 #: apps/summary/renderers.py:877
 msgid "Species diversity"
-msgstr "ភាពសំបូរបែបនៃប្រភេទ"
+msgstr "ភាពសំបូរបែបនៃប្រភេទសត្វ"
 
 #: apps/summary/renderers.py:881
 msgid "Habitat diversity"
@@ -18031,7 +18031,7 @@ msgstr "កម្រិតនៃការប្រើគ្រឿងយន្ត
 
 #: apps/summary/renderers.py:908
 msgid "Sedentary or nomadic"
-msgstr "នៅនឹងកន្លែង ឬពនេចរ"
+msgstr "នៅមួយកន្លែង ឬពនេចរ"
 
 #: apps/summary/renderers.py:912
 msgid "Individuals or groups"
@@ -18123,7 +18123,7 @@ msgid ""
 "receiving material incentives?"
 msgstr ""
 "ក្នុងចំណោមអ្នកទទួលយកបច្ចេកទេសនេះ "
-"តើមានប៉ុន្មានភាគរយដែលបានអនុវត្តន៍ដោយមិនបានទទួលការលើកទឹកជាសម្ភារៈ?"
+"តើមានប៉ុន្មានភាគរយដែលបានអនុវត្តន៍ដោយមិនបានទទួលការលើកទឹកចិត្តជាសម្ភារៈ?"
 
 #: apps/summary/renderers.py:1004
 msgid "Number of households and/ or area covered"
@@ -18751,7 +18751,7 @@ msgstr ""
 "គោលបំណងនៃការចងក្រងឯកសារ និងវាយតម្លៃការអនុវត្ត SLM គឺដើម្បីចែករំលែក "
 "និងផ្សព្វផ្សាយចំណេះដឹងដ៏មានតម្លៃអំពីការគ្រប់គ្រងដី "
 "គាំទ្រដល់ការធ្វើការសម្រេចចិត្តដែលផ្អែកលើភស្តុតាងជាមូលដ្ឋាន "
-"និងពង្រីកបន្តនូវការអនុវត្តន៍ល្អៗដែលបានរកឃើញ ដែលជាលទ្ធគឺចូលរួមចំណេកការពារនិងកាត់បន្ថយឳនភាពដី "
+"និងពង្រីកបន្តនូវការអនុវត្តន៍ល្អៗដែលបានរកឃើញ ដែលជាលទ្ធគឺចូលរួមចំណេកការពារនិងកាត់បន្ថយឱនភាពដី "
 "និងស្តារឡើងវិញនូវដីដែលមានឳនភាពរួចទៅហើយ។"
 
 #: apps/wocat/templates/wocat/home.html:89
