@@ -670,12 +670,22 @@ class ApproachParser(QuestionnaireParser):
         The structure is very nested and complex, but follows the config.
         """
         none_selected = 'app_subsidies_inputs_none'
+        other_question = 'app_subsidies_inputs_other'
         selected_groups = self._get_qg_selected_value(child) or []
         nested_elements_config = child.form_options.get('questiongroup_conditions') or []
-        # a dict with the mapping of questiongroup-name and identifier.
+        # A dict with the mapping of questiongroup-name and identifier.
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
         labels = dict(child.choices)
         items = []
+
+        # Prepare 'other' questiongroup if filled in (usually the last question)
+        for questiongroup in reversed(child.questiongroup.parent_object.questiongroups):
+            if other_question in [question.keyword for question in questiongroup.questions]:
+                if self.values.get(questiongroup.keyword):
+                    selected_groups.append(questiongroup.keyword)
+                    nested_elements[questiongroup.keyword] = questiongroup.keyword
+                    labels[questiongroup.keyword] = self.values[questiongroup.keyword][0][other_question]
+                break
 
         for group in selected_groups:
             # Skip the group for 'none'
@@ -686,7 +696,7 @@ class ApproachParser(QuestionnaireParser):
                 nested_elements[group]
             )
             label = labels[group]
-            columns = qg.form_options['table_columns']
+            columns = qg.form_options.get('table_columns', 3)
             try:
                 row = self.get_subsidies_row(qg, **self.values[qg.keyword][0])
             except (KeyError, IndexError):
@@ -698,10 +708,20 @@ class ApproachParser(QuestionnaireParser):
             else:
                 # split questions into rows according to defined columns.
                 index = 0
-                while index + columns < len(qg.questions):
+                while index + columns <= len(qg.questions):
                     if qg.questions[index + 1].keyword in row.values:
+                        # 'other' / custom labels: label text is set as value.
+                        if qg.questions[index].keyword.endswith('other'):
+                            label = row.values[qg.questions[index].keyword]
+                        else:
+                            label = f'{label}: {qg.questions[index].choices[0][1]}'
+
                         items.append(
-                            row.make_row(label + ': ' + qg.questions[index].choices[0][1], index + 1, index + 2)
+                            row.make_row(
+                                label=label,
+                                selected=index + 1,
+                                text=index + 2
+                            )
                         )
                     index += columns
 

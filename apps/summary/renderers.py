@@ -89,7 +89,7 @@ class GlobalValuesMixin:
     """
     Mixin for globally configured values
     """
-    def raw_data_getter(self, key: str, value='value'):
+    def raw_data_getter(self, key: str, value='value') -> str:
         """
         Get the first 'value' for given key from the data.
         """
@@ -99,7 +99,7 @@ class GlobalValuesMixin:
         except (AttributeError, TypeError, KeyError, IndexError):
             return ''
 
-    def string_from_list(self, key):
+    def string_from_list(self, key: str) -> str:
         """
         Concatenate a list of values from the data to a single string.
         """
@@ -107,6 +107,20 @@ class GlobalValuesMixin:
             return ', '.join(self.raw_data[key][0].get('values', []))
         except (IndexError, KeyError):
             return ''
+
+    def get_list_values_with_other(self, key_list_values: str, key_other: str) -> list:
+        """
+        Append 'other' to any list containing a dict with the keys 'highlight' 
+        and 'text'
+        """
+        base = list(self.raw_data.get(key_list_values))
+        other = self.raw_data_getter(key_other)
+        if other:
+            base.append({
+                'highlighted': True,
+                'text': other
+            })
+        return base
 
     def header_image(self):
         """
@@ -116,9 +130,8 @@ class GlobalValuesMixin:
         image = self.raw_data_getter('header_image_image')
         if image:
             photographer = self.raw_data_getter('header_image_photographer')
-            text = '{caption} {remarks} {name}'.format(
+            text = '{caption} {name}'.format(
                 caption=self.raw_data_getter('header_image_caption'),
-                remarks=self.raw_data_getter('header_image_remarks'),
                 name='({})'.format(photographer) if photographer else ''
             )
         else:
@@ -571,7 +584,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     },
                     'introduction': {
                         'title': _('Type of introduction'),
-                        'items': self.raw_data.get('location_who_implemented')
+                        'items': self.get_list_values_with_other(
+                            'location_who_implemented',
+                            'location_who_implemented_other'
+                        )
                     }
                 }
             }
@@ -911,7 +927,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'sedentary': {
                     'title': _('Sedentary or nomadic'),
-                    'items': self.raw_data.get('human_env_sedentary_nomadic')
+                    'items': self.get_list_values_with_other(
+                        'human_env_sedentary_nomadic',
+                        'human_env_sedentary_nomadic_other'
+                    )
                 },
                 'individuals': {
                     'title': _('Individuals or groups'),
@@ -935,7 +954,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'ownership': {
                     'title': _('Land ownership'),
-                    'items': self.raw_data.get('human_env_ownership')
+                    'items': self.get_list_values_with_other(
+                        'human_env_ownership',
+                        'human_env_ownership_other'
+                    )
                 },
                 'land_rights': {
                     'title': _('Land use rights'),
@@ -1025,7 +1047,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'condition': {
                     'title': _('To which changing conditions?'),
-                    'items': self.raw_data.get('adoption_condition')
+                    'items': self.get_list_values_with_other(
+                        'adoption_condition',
+                        'adoption_condition_other'
+                    )
                 },
                 'comments': self.raw_data_getter('adoption_comments')
             }
@@ -1078,7 +1103,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     },
                     'introduction': {
                         'title': _('Type of Approach'),
-                        'items': self.raw_data.get('location_type')
+                        'items': self.get_list_values_with_other(
+                            'location_type',
+                            'location_type_other'
+                        )
                     }
                 }
             }
@@ -1142,11 +1170,17 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'elements': [
                         {
                             'title': _('Decisions were taken by'),
-                            'items': self.raw_data.get('participation_decisions_by')
+                            'items': self.get_list_values_with_other(
+                                'participation_decisions_by',
+                                'participation_decisions_by_other'
+                            )
                         },
                         {
                             'title': _('Decisions were made based on'),
-                            'items': self.raw_data.get('participation_decisions_based')
+                            'items': self.get_list_values_with_other(
+                                'participation_decisions_based',
+                                'participation_decisions_based_other'
+                            )
                         }
                     ]
                 }
@@ -1172,7 +1206,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'elements': [
                         {
                             'title': _('Training was provided to the following stakeholders'),
-                            'items': self.raw_data.get('tech_support_training_who')
+                            'items': self.get_list_values_with_other(
+                                'tech_support_training_who',
+                                'tech_support_training_who_other'
+                            )
                         },
                         {
                             'title': _('Form of training'),
@@ -1189,7 +1226,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'elements': [
                         {
                             'title': _('Advisory service was provided'),
-                            'items': self.raw_data.get('tech_support_advisory_service'),
+                            'items': self.get_list_values_with_other(
+                                'tech_support_advisory_service',
+                                'tech_support_advisory_service_other',
+                            ),
                             'description': self.raw_data_getter('tech_support_advisory_description')
                         }
                     ]
@@ -1202,13 +1242,19 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     },
                     'level': {
                         'title': _('at the following level'),
-                        'items': self.raw_data.get('tech_support_institutions_level'),
+                        'items': self.get_list_values_with_other(
+                            'tech_support_institutions_level',
+                            'tech_support_institutions_level_other'
+                        ),
                         'description': self.raw_data_getter('tech_support_institutions_describe'),
                         'comment_title': _('Describe institution, roles and responsibilities, members, etc.'),
                     },
                     'support_type': {
                         'title': _('Type of support'),
-                        'items': self.raw_data.get('tech_support_institutions_support'),
+                        'items': self.get_list_values_with_other(
+                            'tech_support_institutions_support',
+                            'tech_support_institutions_support_other'
+                        ),
                         'description': self.raw_data_getter('tech_support_institutions_support_specify'),
                         'comment_title': _('Further details')
                     }
@@ -1220,7 +1266,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'research': {
                     'title': _('Research'),
                     'subtitle': _('Research treated the following topics'),
-                    'items': self.raw_data.get('tech_support_research_topics'),
+                    'items': self.get_list_values_with_other(
+                        'tech_support_research_topics',
+                        'tech_support_research_topics_other'
+                    ),
                     'description': self.raw_data_getter('tech_support_research_details')
                 }
             }
@@ -1288,7 +1337,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'motivation': {
                     'title': _('Main motivation of land users to implement SLM'),
-                    'items': self.raw_data.get('impacts_motivation') or self.n_a
+                    'items': self.get_list_values_with_other(
+                        'impacts_motivation',
+                        'impacts_motivation_other'
+                    ) or self.n_a
                 },
                 'sustainability': {
                     'title': _('Sustainability of Approach activities'),

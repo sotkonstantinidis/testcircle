@@ -5015,7 +5015,13 @@
       "keyword": "app_stakeholders_other",
       "translation": 7004,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_stakeholders_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5185,7 +5191,13 @@
       "keyword": "app_type_specify",
       "translation": 7028,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_type_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5322,7 +5334,13 @@
       "keyword": "app_decisions_by_other",
       "translation": 7029,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_decisions_by_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5369,7 +5387,13 @@
       "keyword": "app_decisions_based_other",
       "translation": 7030,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "participation_decisions_based_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5427,7 +5451,13 @@
       "keyword": "app_training_who_other",
       "translation": 7026,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_who_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5562,7 +5592,13 @@
       "keyword": "app_advisory_service_other",
       "translation": 7093,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_advisory_service_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5644,7 +5680,13 @@
       "keyword": "app_institutions_level_other",
       "translation": 7037,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_level_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -5697,7 +5739,13 @@
       "keyword": "app_institutions_support_other",
       "translation": 7040,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_institutions_support_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7019,7 +7067,13 @@
       "keyword": "app_motivation_other",
       "translation": 7004,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "impacts_motivation_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -7512,7 +7566,13 @@
       "keyword": "app_research_topics_other",
       "translation": 7126,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_research_topics_other"
+          }
+        }
       }
     },
     "model": "configuration.key",

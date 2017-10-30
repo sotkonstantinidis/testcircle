@@ -15200,7 +15200,13 @@
       "keyword": "tech_who_implemented_other",
       "translation": 1008,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "location_who_implemented_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -18197,7 +18203,13 @@
       "keyword": "tech_ownership_other",
       "translation": 1008,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_ownership_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -18253,7 +18265,13 @@
       "keyword": "tech_landrights_other",
       "translation": 1008,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_landuser_rights_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -18295,7 +18313,13 @@
       "keyword": "tech_waterrights_other",
       "translation": 1008,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_wateruser_rights_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -20026,7 +20050,13 @@
       "keyword": "tech_adaptation_modification_other",
       "translation": 1008,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "adoption_condition_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
@@ -20196,7 +20226,13 @@
       "keyword": "tech_sedentary_other",
       "translation": 1008,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "human_env_sedentary_nomadic_other"
+          }
+        }
       }
     },
     "model": "configuration.key",
