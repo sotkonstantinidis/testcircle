@@ -469,7 +469,7 @@ class TechnologyParser(QuestionnaireParser):
 
     def get_climate_change(self, child: QuestionnaireQuestion):
         # based on this first question, get all questiongroups with at least
-        # one # filled in question.
+        # one filled in question.
         climate_change_categories = child.questiongroup.parent_object.\
             parent_object.parent_object
         groups = []
@@ -535,6 +535,9 @@ class TechnologyParser(QuestionnaireParser):
                         comment += _(' Answer: {}').format(string_value)
                 else:
                     value = choice_keys.index(value)
+
+            elif 'other' in question.keyword:
+                label = values.get(question.keyword)
 
             else:
                 # All other fields, such as 'season' go into the comments.
