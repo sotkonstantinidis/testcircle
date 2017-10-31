@@ -441,11 +441,11 @@ class Project(models.Model):
 
 class Institution(models.Model):
     """
-        The model representing the Institutions as they are managed by the WOCAT
-        website. IDs must be identical!
+    The model representing the Institutions as they are managed by the WOCAT
+    website. IDs must be identical!
 
-        Only "active" Institutions can be selected in the form.
-        """
+    Only "active" Institutions can be selected in the form.
+    """
     id = models.IntegerField(
         primary_key=True,
         help_text="The ID must be exactly the same as on the WOCAT website!")
