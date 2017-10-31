@@ -237,27 +237,31 @@ class GlobalValuesMixin:
 
         # Combine answers from two questions: strengths compiler and landuser
         pro_compilers = self._get_conclusion_row(
-            suffix=compilers_view,
             rows=self.raw_data_getter('strengths_compiler', value='')
         )
         pro_landusers = self._get_conclusion_row(
-            suffix=land_users_view,
             rows=self.raw_data_getter('strengths_landuser', value='')
         )
         # combine answers from two questions: weaknesses compiler + landuser -
         # and get the 'overcome' value as subtext
-        weaknesses_list = []
+        weakness_compiler = {
+            'title': compilers_view,
+            'items': []
+        }
+        weakness_landuser = {
+            'title': land_users_view,
+            'items': []
+        }
         weaknesses_datasets = [
-            ('weaknesses_landuser', 'weaknesses_landuser_overcome', land_users_view),
-            ('weaknesses_compiler', 'weaknesses_compiler_overcome', compilers_view),
+            (weakness_landuser, 'weaknesses_landuser', 'weaknesses_landuser_overcome'),
+            (weakness_compiler, 'weaknesses_compiler', 'weaknesses_compiler_overcome'),
         ]
-        for key_name, overcome_name, suffix in weaknesses_datasets:
+        for container, key_name, overcome_name in weaknesses_datasets:
             for index, item in enumerate(self.raw_data_getter(key_name, value='')):
                 subtext = self.raw_data_getter(overcome_name, value='')[index].get('value', '')
-                weaknesses_list.append({
+                container['items'].append({
                     'text': item['value'],
                     'subtext': subtext,
-                    'suffix': f'({suffix})'
                 })
 
         return {
@@ -265,19 +269,28 @@ class GlobalValuesMixin:
             'partials': {
                 'pro': {
                     'label': _('Strengths'),
-                    'items': itertools.chain(pro_landusers, pro_compilers)
+                    'items': [
+                        {
+                            'title': compilers_view,
+                            'items': pro_compilers
+                        },
+                        {
+                            'title': land_users_view,
+                            'items': pro_landusers
+                        }
+                    ]
                 },
                 'contra': {
                     'label': _('Weaknesses/ disadvantages/ risks'),
                     'subtext': _('how to overcome'),
-                    'items': weaknesses_list
+                    'items': [weakness_compiler, weakness_landuser]
                 }
             }
         }
 
-    def _get_conclusion_row(self, suffix: str, rows: []):
+    def _get_conclusion_row(self, rows: []):
         for row in rows:
-            yield {'text': f'{row["value"]} ({suffix})'}
+            yield {'text': row['value']}
 
     def references(self):
         return {
@@ -316,7 +329,7 @@ class GlobalValuesMixin:
                 'references': {
                     'title': _('Key references'),
                     'css_class': 'bullets',
-                    'items': self.get_reference_articles()
+                    'items': list(self.get_reference_articles())
                 },
                 'web_references': {
                     'title': _('Links to relevant information which is available online'),
