@@ -6,15 +6,33 @@
 <div class="row">
   <div class="small-12 columns">
     <h5>{{ content.stakeholders.title }}</h5>
-    <ul class="bullets">
-    {% for list_item in content.stakeholders.items  %}
-      <li>
-       {{ list_item }}
-      </li>
-      {% endfor %}
-    </ul>
   </div>
 </div>
+{% if content.stakeholders.items %}
+  <div class="row">
+    <div class="small-12 columns">
+      <table>
+        {% for list_item in content.stakeholders.items %}
+          {% if forloop.first %}<thead>{% endif %}
+          <tr>
+            <td width="33%">{{ list_item.0 }}</td>
+            <td width="33%">{{ list_item.1 }}</td>
+            <td width="33%">{{ list_item.2 }}</td>
+          </tr>
+          {% if forloop.first %}</thead>{% endif %}
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endif %}
+{% if content.stakeholders.addendum.text %}
+  <div class="row">
+    <div class="small-12 columns">
+      <h5>{{ content.stakeholders.addendum.title }}</h5>
+      {{ content.stakeholders.addendum.text }}
+    </div>
+  </div>
+{% endif %}
 <div class="row avoidbreak">
 <hr>
   <div class="small-12 columns">

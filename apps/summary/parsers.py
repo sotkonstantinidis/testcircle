@@ -599,6 +599,15 @@ class ApproachParser(QuestionnaireParser):
             group.keyword for group in groups
             if group.view_options.get('conditional_question') in labels
         ]
+        first_children = self.config_object.get_questiongroup_by_keyword(
+            selected_group_keywords[0]
+        ).children
+        # Get the headers first.
+        yield from self._get_stakeholder_row(
+            label=groups[0].children[0].label,
+            app_stakeholders_roles=first_children[0].label,
+            app_stakeholders_comments=first_children[1].label
+        )
 
         for index, group_keyword in enumerate(selected_group_keywords):
             # Always display translated label ('NGO', 'local land users')
@@ -622,12 +631,7 @@ class ApproachParser(QuestionnaireParser):
     def _get_stakeholder_row(self, label: str, **kwargs):
         roles = kwargs.get('app_stakeholders_roles')
         comments = kwargs.get('app_stakeholders_comments')
-
-        yield '{label}{comments}{roles}'.format(
-            label=label,
-            comments=' ({})'.format(comments) if comments else '',
-            roles=': {}'.format(roles) if roles else '',
-        )
+        yield label, comments or '', roles or ''
 
     def get_involvement(self, child: QuestionnaireQuestion):
         for qg in child.questiongroup.parent_object.questiongroups:

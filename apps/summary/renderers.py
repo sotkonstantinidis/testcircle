@@ -1149,8 +1149,11 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             'partials': {
                 'stakeholders': {
                     'title': _('Stakeholders involved in the Approach and their roles'),
-                    'items': self.raw_data.get('participation_stakeholders'),
-                    'addendum': _('Lead agency: {}'.format(lead_agency)) if lead_agency else ''
+                    'items': list(self.raw_data.get('participation_stakeholders')),
+                    'addendum': {
+                        'title': _('Lead agency'),
+                        'text': lead_agency
+                    }
                 },
                 'involvement': {
                     'title': _('Involvement of local land users/ local communities in the different phases of the Approach'),
