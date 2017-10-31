@@ -11,7 +11,7 @@
       </div>
       <div>
         {% for i in range_item.range %}
-          <div class="{% if i == range_item.selected %}range_true {% endif %}range_square scale-{% widthratio i range_item.range|length 100 %}"></div>
+          <div class="{% if i == range_item.selected %}range_true {% endif %}range_square range_scale scale-{% widthratio i range_item.range|length|add:-1 100 %}"></div>
         {% endfor %}
       </div>
         <div class="range_title range_max">

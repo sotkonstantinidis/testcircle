@@ -3,6 +3,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+@function set-rgb-a($color, $alpha) {
+  @return rgba($color, $alpha);
+}
 
 body.summary {
   $base-line-height: 1rem;
@@ -319,30 +322,35 @@ body.summary {
     background-color: rgba(85, 116, 49, 0.15);
     float: left;
     margin: 0px 1px 1px 0px;
-    &.scale-0 {
-      background-color: rgba(244, 176, 131, 1);
-    }
-    &.scale-14 {
-      background-color: rgba(244, 176, 131, 0.6);
-    }
-    &.scale-29 {
-      background-color: rgba(244, 176, 131, 0.3);
-    }
-    &.scale-43, &.scale-33 {
-      //background-color: rgba(85, 116, 49, 1);
-    }
-    &.scale-57 {
-      background-color: rgba(168, 208, 141, 0.3);
-    }
-    &.scale-71 {
-      background-color: rgba(168, 208, 141, 0.6);
-    }
-    &.scale-86, &.scale-67 {
-      background-color: rgba(168, 208, 141, 1);
+
+    /*
+     * 'Rainbow' for scale, with three main colors and 'gradient' alpha.
+     */
+    $scale_min: rgb(244, 176, 131);
+    $scale_mid: rgb(152, 160, 164);
+    $scale_max: rgb(168, 208, 141);
+
+    @for $i from 0 through 100 {
+      $scale_color: $scale_mid;
+      $alpha: 0.5;
+      @if $i < 51 {
+        $scale_color: $scale_min;
+        $alpha: 1 - $i / 50;
+      } @else {
+        $scale_color: $scale_max;
+        $alpha: $i / 100;
+      }
+      &.scale-#{$i} {
+        background-color: set-rgb-a($scale_color, $alpha) !important;
+      }
     }
   }
 
   &.is-approaches .range_square
+  {
+    background-color: rgba($color-approach, 0.15);
+  }
+  &.is-technologies .range_square
   {
     background-color: rgba($color-approach, 0.15);
   }
@@ -402,9 +410,16 @@ body.summary {
     content: "\2713";
   }
 
-  &.is-approaches .range_true::before
+  &.is-technologies :not(.range_scale).range_true::before
+  {
+    background-color: #768f5a;
+    color: #fff;
+  }
+
+  &.is-approaches :not(.range_scale).range_true::before
   {
     background-color: #e86b28;
+    color: #fff;
   }
 
   p.location_text
