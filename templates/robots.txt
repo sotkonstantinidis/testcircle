@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /summary/
+Disallow: /*/summary/
 
 User-agent: SemrushBot
 Disallow: /
