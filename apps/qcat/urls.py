@@ -16,7 +16,8 @@ urlpatterns = patterns(
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': static_sitemap},
-        name='django.contrib.sitemaps.views.sitemap')
+        name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^robots\.txt', TemplateView.as_view(template_name='robots.txt'))
 )
 
 # The following urls are created with the locale as prefix, eg.

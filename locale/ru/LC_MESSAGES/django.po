@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-19 10:23+0200\n"
-"PO-Revision-Date: 2017-09-13 13:55+0000\n"
+"POT-Creation-Date: 2017-10-30 10:13+0100\n"
+"PO-Revision-Date: 2017-09-27 13:09+0000\n"
 "Last-Translator: Julia Johnson <yukuleshova@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
@@ -7906,7 +7906,7 @@ msgstr "Название передовой практики"
 #: apps/configuration/configuration_translations.py:5005
 msgctxt "watershed label"
 msgid "Name of the watershed"
-msgstr "Название водораздела"
+msgstr "Название речного бассейна"
 
 #: apps/configuration/configuration_translations.py:5006
 msgctxt "approaches label"
@@ -8516,7 +8516,7 @@ msgid ""
 "view"
 msgstr ""
 "Сильные стороны/ преимущества/ возможности по мнению землепользователей/ "
-"пользователей приводораздельной части речного бассейна"
+"пользователей ресурсов речного бассейна"
 
 #: apps/configuration/configuration_translations.py:5209
 msgctxt "approaches label"
@@ -15723,6 +15723,8 @@ msgid ""
 "Indicate if the described watershed is representative of a larger watershed, "
 "river basin, or region."
 msgstr ""
+"Укажите, является ли описываемый водосборный бассейн характерным для более "
+"крупного водосборного бассейна, речного бассейна или района."
 
 #: apps/configuration/configuration_translations.py:31003
 #: apps/configuration/configuration_translations.py:31018
@@ -15865,12 +15867,12 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:31028
 msgctxt "watershed label"
 msgid "Map layer ID"
-msgstr ""
+msgstr "ID слоя карты"
 
 #: apps/configuration/configuration_translations.py:31501
 msgctxt "watershed label"
 msgid "micro-mini scale"
-msgstr ""
+msgstr "микро-мини масштаб"
 
 #: apps/configuration/configuration_translations.py:31502
 msgctxt "watershed label"
@@ -15915,7 +15917,7 @@ msgstr ">10000 км²"
 #: apps/configuration/configuration_translations.py:32701
 msgctxt "watershed label"
 msgid "Brief identification of the watershed"
-msgstr ""
+msgstr "Краткое описание водосборного бассейна"
 
 #: apps/configuration/configuration_translations.py:32702
 msgctxt "watershed label"
@@ -15939,7 +15941,7 @@ msgctxt "watershed label"
 msgid ""
 "Coordinates in latitude and longitude at the outlet and / or centre of the "
 "watershed area"
-msgstr ""
+msgstr "Широта и долгота истока и/или центра водосборного бассейна"
 
 #: apps/configuration/configuration_translations.py:32708
 msgctxt "watershed helptext"
@@ -18044,7 +18046,7 @@ msgstr "Удалить все точки на карте"
 msgid ""
 "Are you sure you want to delete all the points from the map? This cannot be "
 "undone."
-msgstr ""
+msgstr "Вы уверены, что хотите удалить все точки на карте? Отмена невозможна. "
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:106
 msgid ""
