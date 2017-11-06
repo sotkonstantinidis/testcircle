@@ -116,8 +116,8 @@ class FactsTeaserView(TemplateView):
         }
 
     @staticmethod
-    def log_piwik_error(url):
-        logger.error('exception when querying to piwik: {}'.format(url))
+    def log_piwik_error(url, error=''):
+        logger.error('exception when querying to piwik: {}'.format(url, error))
 
     def get_piwik_facts(self) -> dict:
         """
@@ -129,13 +129,13 @@ class FactsTeaserView(TemplateView):
             """
             try:
                 query = requests.get(url)
-            except RequestException:
-                self.log_piwik_error(url)
+            except RequestException as e:
+                self.log_piwik_error(url, e)
                 return {}
             try:
                 json_data = query.json()
-            except AttributeError:
-                self.log_piwik_error(url)
+            except AttributeError as e:
+                self.log_piwik_error(url, e)
                 return {}
             if isinstance(json_data, dict) and json_data.get('result') == 'error':
                 self.log_piwik_error(url)
