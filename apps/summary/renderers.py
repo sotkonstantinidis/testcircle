@@ -271,19 +271,19 @@ class GlobalValuesMixin:
                     'label': _('Strengths'),
                     'items': [
                         {
+                            'title': land_users_view,
+                            'items': pro_landusers
+                        },
+                        {
                             'title': compilers_view,
                             'items': pro_compilers
                         },
-                        {
-                            'title': land_users_view,
-                            'items': pro_landusers
-                        }
                     ]
                 },
                 'contra': {
                     'label': _('Weaknesses/ disadvantages/ risks'),
                     'subtext': _('how to overcome'),
-                    'items': [weakness_compiler, weakness_landuser]
+                    'items': [weakness_landuser, weakness_compiler]
                 }
             }
         }
@@ -798,28 +798,13 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         Combine measure type and timing for identical question groups.
         """
         activity = 'establishment_{}_activities'.format(content_type)
-        measure = 'establishment_{}_measure_type'.format(content_type)
         timing = 'establishment_{}_timing'.format(content_type)
+        timing_title = _('Timing/ frequency')
         for index, activity in enumerate(self.raw_data.get(activity, [])):
-            # Get the measure type for current activity.
-            try:
-                measure_type = self.raw_data[measure][index]['value']
-            except (KeyError, IndexError):
-                measure_type = ''
 
             try:
-                timing_value = self.raw_data[timing][index]['value']
+                addendum = f' ({timing_title}: {self.raw_data[timing][index]["value"]})'
             except (KeyError, IndexError):
-                timing_value = ''
-
-            timing_title = _('Timing/ frequency')
-            if measure_type and timing_value:
-                addendum = f' ({measure_type}; {timing_title}: {timing_value})'
-            elif measure_type:
-                addendum = f' ({measure_type})'
-            elif timing_value:
-                addendum = f' ({timing_title}: {timing_value})'
-            else:
                 addendum = ''
 
             yield {

@@ -79,7 +79,7 @@
         {% if content.web_references.items|length %}
           <div class="small-12 columns">
             <h5>{{ content.web_references.title }}</h5>
-              <ul>
+              <ul class="bullets">
               {% for element in content.web_references.items %}
                 <li>{{ element.title }}: <a href="{{ element.url }}" target="_blank">{{ element.url }}</a></li>
               {% endfor %}

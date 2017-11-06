@@ -12,7 +12,7 @@
   </div>
   <div class="small-6 columns overcome">
     {% for item in content.contra.items %}
-      <h5>{{ content.contra.label }}: {{ item.title }}</h5>
+      <h5>{{ content.contra.label }}: {{ item.title }}<span class="subtext">{{ content.contra.subtext }}</span></h5>
       {% include 'summary/partial/unordered_list.html' with list_items=item.items class="bullets" %}
     {% endfor %}
   </div>
