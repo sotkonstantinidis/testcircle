@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         files: {
           'static/css/app.css': 'src/scss/app.scss',
           'static/css/summary.css': 'src/scss/summary.scss',
-          'static/css/summary_raw.css': 'src/scss/summary_raw.scss',
+          'static/css/summary_raw.css': 'src/scss/summary_raw.scss'
         }
       },
       deploy: {
@@ -26,7 +26,8 @@ module.exports = function(grunt) {
         },
         files: {
           'static/css/app.css': 'src/scss/app.scss',
-          'static/css/summary.css': 'src/scss/summary.scss'
+          'static/css/summary.css': 'src/scss/summary.scss',
+          'static/css/summary_raw.css': 'src/scss/summary_raw.scss'
         }
       }
     },
