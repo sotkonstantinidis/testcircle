@@ -54,6 +54,8 @@
     <div class="small-12 columns">
       <h5>{{ content.subsidies.credit.title }}</h5>
     </div>
+  </div>
+  <div class="row">
     <div class="small-12 columns">
       <ul>
       {% for list_item in content.subsidies.credit.items  %}
@@ -66,11 +68,13 @@
   </div>
 {% endif %}
 {% if content.services.items.3.highlighted %}
-  <div class="row">
   <hr>
-    <div class="small-12 columns">
-      <h5>{{ content.subsidies.other.title }}</h5>
+    <div class="row">
+      <div class="small-12 columns">
+        <h5>{{ content.subsidies.other.title }}</h5>
+      </div>
     </div>
+  <div class="row">
     <div class="small-12 columns">
       <p>{{ content.subsidies.other.text }}</p>
     </div>

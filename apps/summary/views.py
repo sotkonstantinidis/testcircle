@@ -1,11 +1,14 @@
 import contextlib
 import logging
+
 from os.path import join, isfile
 
 from django.conf import settings
 from django.db.models import Q
 from django.http import Http404
+from django.template.response import TemplateResponse
 from django.utils.translation import get_language
+import bs4
 
 from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 
@@ -13,7 +16,8 @@ from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_query_status_filter, \
     get_questionnaire_data_in_single_language
-from summary.renderers import TechnologyFullSummaryRenderer, \
+
+from .renderers import TechnologyFullSummaryRenderer, \
     ApproachesFullSummaryRenderer
 
 logger = logging.getLogger(__name__)
@@ -29,21 +33,99 @@ class CachedPDFTemplateResponse(PDFTemplateResponse):
     distinguish between new questionnaire edits). This only works with
     reasonably precise file names!
     """
-
     @property
-    def rendered_content(self):
-        file_path = join(settings.SUMMARY_PDF_PATH, self.filename)
-        if isfile(file_path):
+    def file_path(self):
+        return join(settings.SUMMARY_PDF_PATH, self.filename)
+
+    def get_rendered_content(self):
+        return super().rendered_content
+
+    def content_with_file_cache(self):
+        if isfile(self.file_path):
             # Catch any exception, worst case is that the pdf is created from
             # scratch again
             with contextlib.suppress(Exception) as e:
-                return open(file_path, 'rb').read()
+                return open(self.file_path, 'rb').read()
 
-        content = super().rendered_content
+        content = self.get_rendered_content()
         with contextlib.suppress(Exception) as e:
-            open(file_path, 'wb').write(content)
-
+            open(self.file_path, 'wb').write(content)
         return content
+
+    @property
+    def rendered_content(self):
+        return self.content_with_file_cache()
+
+
+class DocTemplateResponse(TemplateResponse):
+    """
+    Create HTML with the default template response, cast the markup to a table. 
+    """
+
+    def rows_to_tr(self):
+        """
+        Prepend a row with 12 elements, forcing 'proper' width of following rows
+        """
+        for row in self.soup.select('.row'):
+            table = self.soup.new_tag('table')
+            table.attrs['width'] = '100%'
+            row.wrap(table)
+            grid_12_columns = '<tr>'
+            for i in range(0, 12):
+                grid_12_columns += '<td width="8.3%"></td>'
+            grid_12_columns += '</tr>'
+            row.insert_before(bs4.BeautifulSoup(grid_12_columns, 'lxml'))
+            if 'range' not in row.attrs['class']:
+                row.unwrap()
+
+    def columns_to_td(self):
+        """
+        Use columns-width as colspan.
+        """
+        for column in self.soup.select('.columns'):
+            column.name = 'td'
+
+            for i, class_name in enumerate(column.attrs['class']):
+                if class_name.startswith('small'):
+                    column.attrs['colspan'] = class_name[6:]
+                    del column.attrs['class'][i]
+
+    def highlight_list_to_bold(self):
+        """
+        CSS highlights can not be seen in word, make them bold.
+        """
+        for highlight in self.soup.select('.highlights_list > .true'):
+            highlight.wrap(self.soup.new_tag('strong'))
+
+    def range_to_table(self):
+        """
+        Cast the 'ranges' to a more basic format.
+        """
+        for row in self.soup.select('.range'):
+            pass
+
+    def html_to_table(self, html: str) -> str:
+        """
+        Cast the 'fluid' markup to a table so the word-document looks
+        as expected by the researchers.
+        """
+        self.soup = bs4.BeautifulSoup(html, 'lxml')
+        css = self.soup.find('link')
+        # Cache busting is only done with respect to 'summary.css', so in case
+        # changes on the summary_raw.css are made, also change a blank in
+        # 'summary.css'.
+        css.attrs['href'] = css.attrs['href'].replace(
+            'summary.css', 'summary_raw.css'
+        )
+        self.highlight_list_to_bold()
+        self.range_to_table()
+        self.columns_to_td()
+        self.rows_to_tr()
+        return str(self.soup)
+
+    @property
+    def rendered_content(self):
+        return self.html_to_table(super().rendered_content)
 
 
 class SummaryPDFCreateView(PDFTemplateView):
@@ -51,6 +133,7 @@ class SummaryPDFCreateView(PDFTemplateView):
     Put the questionnaire data to the context and return the rendered pdf.
     """
     response_class = CachedPDFTemplateResponse
+    doc_response_class = DocTemplateResponse
     summary_type = 'full'  # Only one summary type is available right now
     base_template_path = 'summary/'
     http_method_names = ['get']
@@ -80,6 +163,8 @@ class SummaryPDFCreateView(PDFTemplateView):
         # filename is set withing render_to_response, this is too late as it's
         # used for caching.
         self.filename = self.get_filename()
+        if self.is_doc_file:
+            self.response_class = self.doc_response_class
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
@@ -99,6 +184,10 @@ class SummaryPDFCreateView(PDFTemplateView):
             quality=self.quality,
             update=self.questionnaire.updated.strftime('%Y-%m-%d-%H-%M')
         )
+
+    @property
+    def is_doc_file(self):
+        return self.request.GET.get('as', '') == 'doc'
 
     def get_object(self, questionnaire_id: int) -> Questionnaire:
         """

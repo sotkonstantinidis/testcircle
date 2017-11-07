@@ -34,13 +34,17 @@
     {{ content.establishment.comment }}
   </div>
   {% if content.establishment.table.partials %}
-    <div class="small-12 columns">
-      {% include 'summary/partial/table_six_columns.html' with class="technology_table" list_items=content.establishment.table %}
+    <div class="row">
+      <div class="small-12 columns">
+        {% include 'summary/partial/table_six_columns.html' with class="technology_table" list_items=content.establishment.table %}
+      </div>
     </div>
   {% elif content.establishment.table.total_cost_estimate %}
-    <div class="small-12 columns">
-      <h5>{{ content.establishment.table.total_cost_estimate_title }}</h5>
-      {{ content.establishment.table.total_cost_estimate }}
+    <div class="row">
+      <div class="small-12 columns">
+        <h5>{{ content.establishment.table.total_cost_estimate_title }}</h5>
+        {{ content.establishment.table.total_cost_estimate }}
+      </div>
     </div>
   {% endif %}
 </div>
@@ -54,14 +58,18 @@
     {% endif %}
     {{ content.maintenance.comment }}
   </div>
-  {% if content.maintenance.table.partials %}
+</div>
+{% if content.maintenance.table.partials %}
+  <div class="row">
     <div class="small-12 columns">
       {% include 'summary/partial/table_six_columns.html' with class="technology_table" list_items=content.maintenance.table %}
     </div>
-  {% elif content.maintenance.table.total_cost_estimate %}
+  </div>
+{% elif content.maintenance.table.total_cost_estimate %}
+  <div class="row">
     <div class="small-12 columns">
       <h5>{{ content.maintenance.table.total_cost_estimate_title }}</h5>
       {{ content.maintenance.table.total_cost_estimate }}
     </div>
-  {% endif %}
-</div>
+  </div>
+{% endif %}

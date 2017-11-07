@@ -12,13 +12,15 @@
     <h5>{{ content.adopted_no_incentive.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.adopted_no_incentive.items %}
   </div>
-  {% if content.quantify.text %}
+</div>
+{% if content.quantify.text %}
+  <div class="row">
     <div class="small-12 columns">
       <h5>{{ content.quantify.title }}</h5>
       {{ content.quantify.text }}
     </div>
-  {% endif %}
-</div>
+  </div>
+{% endif %}
 <div class="row">
   <hr>
   <div class="small-6 columns">

@@ -67,26 +67,26 @@
 </div>
 
 <div class="row avoidbreak">
-  <div class="small-12 columns">
-    <div class="calculation_costs_section references">
+  <div class="calculation_costs_section references">
+    {% if content.references.items|length %}
       <div class="row compact">
-        {% if content.references.items|length %}
-          <div class="small-12 columns">
-            <h5>{{ content.references.title }}</h5>
-            {% include 'summary/partial/unordered_list.html' with list_items=content.references.items class="bullets" %}
-          </div>
-        {% endif %}
-        {% if content.web_references.items|length %}
-          <div class="small-12 columns">
-            <h5>{{ content.web_references.title }}</h5>
-              <ul class="bullets">
-              {% for element in content.web_references.items %}
-                <li>{{ element.title }}: <a href="{{ element.url }}" target="_blank">{{ element.url }}</a></li>
-              {% endfor %}
-              </ul>
-          </div>
-        {% endif %}
+        <div class="small-12 columns">
+          <h5>{{ content.references.title }}</h5>
+          {% include 'summary/partial/unordered_list.html' with list_items=content.references.items class="bullets" %}
+        </div>
       </div>
-    </div>
+    {% endif %}
+    {% if content.web_references.items|length %}
+      <div class="row compact">
+        <div class="small-12 columns">
+          <h5>{{ content.web_references.title }}</h5>
+            <ul class="bullets">
+            {% for element in content.web_references.items %}
+              <li>{{ element.title }}: <a href="{{ element.url }}" target="_blank">{{ element.url }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </div>
