@@ -154,12 +154,15 @@ class BaseSettings(Configuration):
         'summary': {
             'screen': {
                 'header_image': {
-                    'size': (0, 1840),
-                    'upscale': True
+                    'size': (1542, 767),
+                    'upscale': True,
+                    'crop': True,
+                    'target': (50, 50),
                 },
                 'half_height': {
                     'size': (640, 640),
-                    'upscale': True
+                    'upscale': True,
+                    'crop': True,
                 },
                 'map': {
                     'size': (560, 0)
@@ -171,14 +174,14 @@ class BaseSettings(Configuration):
             },
             'print': {
                 'header_image': {
-                    'size': (0, 7360),
-                    'crop': 'smart',
-                    'upscale': True
+                    'size': (6168, 3068),
+                    'crop': True,
+                    'upscale': True,
                 },
                 'half_height': {
                     'size': (2560, 2560),
-                    'crop': 'smart',
-                    'upscale': True
+                    'upscale': True,
+                    'crop': True,
                 },
                 'map': {
                     'size': (2240, 0)

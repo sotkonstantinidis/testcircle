@@ -220,9 +220,9 @@ class GlobalValuesMixin:
         caption = self._get_caption_info('caption', index)
         photographer = self._get_caption_info('photographer', index)
         return '{caption}{photographer}'.format(
-            caption=caption,
+            caption=caption or '',
             photographer=' ({})'.format(photographer) if photographer else ''
-        )
+        ) or '-'
 
     def _get_caption_info(self, key: str, index: int) -> str:
         try:
@@ -732,6 +732,10 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 ' volume, length: <b>{}</b>'.format(perunit_volume) if perunit_volume else ''
             )
 
+        title_addendum = ''
+        if perarea_size or perunit_unit:
+            title_addendum = ' ({})'.format(perarea_size or perunit_unit)
+
         calculation = '{base}{extra}'.format(
             base=base,
             extra=extra
@@ -759,9 +763,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'establishment': {
                     'title': _('Establishment activities'),
                     'list': list(self._get_establishment_list_items('establishment')),
-                    'comment': self.raw_data_getter('establishment_input_comments'),
+                    #'comment': self.raw_data_getter('establishment_input_comments'),
                     'table': {
-                        'title': _('Establishment inputs and costs'),
+                        'title': _('Establishment inputs and costs{}').format(title_addendum),
                         'total_cost_estimate': self.raw_data_getter(
                             'establishment_total_estimation'
                         ),
@@ -776,9 +780,9 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'maintenance': {
                     'title': _('Maintenance activities'),
                     'list': list(self._get_establishment_list_items('maintenance')),
-                    'comment': self.raw_data_getter('establishment_maintenance_comments'),
+                    #'comment': self.raw_data_getter('establishment_maintenance_comments'),
                     'table': {
-                        'title': _('Maintenance inputs and costs'),
+                        'title': _('Maintenance inputs and costs{}').format(title_addendum),
                         'total_cost_estimate': self.raw_data_getter(
                             'establishment_maintenance_total_estimation'
                         ),
@@ -963,11 +967,17 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 },
                 'land_rights': {
                     'title': _('Land use rights'),
-                    'items': self.raw_data.get('human_env_landuser_rights')
+                    'items': self.get_list_values_with_other(
+                        'human_env_landuser_rights',
+                        'human_env_landuser_rights_other'
+                    )
                 },
                 'water_rights': {
                     'title': _('Water use rights'),
-                    'items': self.raw_data.get('human_env_wateruser_rights')
+                    'items': self.get_list_values_with_other(
+                        'human_env_wateruser_rights',
+                        'human_env_wateruser_rights_other'
+                    )
                 },
                 'access': {
                     'title': _('Access to services and infrastructure'),
@@ -1036,7 +1046,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'items': self.raw_data.get('adoption_percentage')
                 },
                 'adopted_no_incentive': {
-                    'title': _('Of all those who have adopted the Technology, how many have did so without receiving material incentives?'),
+                    'title': _('Of all those who have adopted the Technology, how many have done so without receiving material incentives?'),
                     'items': self.raw_data.get('adoption_spontaneously')
                 },
                 'quantify': {
@@ -1218,7 +1228,10 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                         },
                         {
                             'title': _('Form of training'),
-                            'items': self.raw_data.get('tech_support_training_form')
+                            'items': self.get_list_values_with_other(
+                                'tech_support_training_form',
+                                'tech_support_training_form_other'
+                            )
                         }
                     ],
                     'list': {
@@ -1345,7 +1358,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'items': self.get_list_values_with_other(
                         'impacts_motivation',
                         'impacts_motivation_other'
-                    ) or self.n_a
+                    ) or [{'text': self.n_a, 'highlighted': True}]
                 },
                 'sustainability': {
                     'title': _('Sustainability of Approach activities'),

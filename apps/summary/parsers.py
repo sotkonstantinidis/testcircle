@@ -149,34 +149,39 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         )
         # ..and split the strings to a more usable dict.
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
-
+        is_in_child_list = lambda child: child.keyword in child_values
         for value in selected:
-            child_text = '{title} - '.format(title=value[0])
+            child_text = '<strong>{title}</strong> - '.format(title=value[0])
             # 'value' is a tuple of four elements: title, icon-url, ?, keyword
             # this represents the 'parent' question with an image
             selected_children_keyword = nested_elements.get(value[3])
             # selected_children are the 'sub-selections' of given 'value'
             if selected_children_keyword:
-                # load the configured question for the children and get their
+                # To keep ordering as defined on the questiongroup, loop over
+                # the children, skipping the ones not filled in.
+                selected_qg = self.config_object.get_questiongroup_by_keyword(
+                    selected_children_keyword
+                )
+                try:
+                    child_values = self.values.get(
+                        selected_children_keyword, {}
+                    )[0]
+                except IndexError:
+                    continue
+
+                # Load the configured question for the children and get their
                 # labels - they will be concatenated as 'text' below.
                 # the structure is nested as follows:
                 # [{'keyword': 'value'}, {'keyword', 'value'}]
-                for selected_child in self.values.get(selected_children_keyword, {}):
-                    for child_keyword, child_value in selected_child.items():
-                        # The child element is part of a questiongroup.
-                        child_question = self.config_object.get_question_by_keyword(
-                            questiongroup_keyword=selected_children_keyword,
-                            keyword=child_keyword
-                        )
-                        if child_value:
-                            child_text += self._concatenate_child_question_texts(
-                                child_question=child_question,
-                                selected_child_len=len(selected_child.keys()),
-                                values=child_value
-                            )
+                for child in filter(is_in_child_list, selected_qg.children):
+                    child_value = child_values.get(child.keyword)
+                    child_text += self._concatenate_child_question_texts(
+                        child_question=child,
+                        selected_child_len=len(child_values),
+                        values=child_value
+                    )
             yield {
                 'url': value[1],
-                'title': value[0],
                 'text': child_text
             }
 
@@ -608,8 +613,8 @@ class ApproachParser(QuestionnaireParser):
         # Get the headers first.
         yield from self._get_stakeholder_row(
             label=groups[0].children[0].label,
-            app_stakeholders_roles=first_children[0].label,
-            app_stakeholders_comments=first_children[1].label
+            app_stakeholders_roles=first_children[1].label,
+            app_stakeholders_comments=first_children[0].label
         )
 
         for index, group_keyword in enumerate(selected_group_keywords):

@@ -251,11 +251,11 @@ body.summary {
     }
   }
 
-  .technology_table td
+  .technology_table td, .participation_table td
   {
     border: 0 solid black;
     font-size: $base-font-size;
-    background-color: white;
+    //background-color: white;
     line-height: $base-line-height;
     letter-spacing: -0.02rem;
     padding: 0;
@@ -264,7 +264,9 @@ body.summary {
     {
       padding-left: 0.2rem;
     }
-
+  }
+  .participation_table tr:nth-of-type(even) {
+    background-color: #efefef;
   }
 
   td.td_category_title

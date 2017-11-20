@@ -5506,7 +5506,13 @@
       "keyword": "app_training_form_other",
       "translation": 7027,
       "configuration": {
-        "type": "char"
+        "type": "char",
+        "summary": {
+          "types": ["full"],
+          "default": {
+            "field_name": "tech_support_training_form_other"
+          }
+        }
       }
     },
     "model": "configuration.key",

@@ -37,14 +37,13 @@
 {% if content.services.items.1.highlighted %}
   <div class="row">
     <div class="small-12 columns">
-      <h5>{{ content.subsidies.title }}</h5>
-      <p>{{ content.subsidies.labour.title }}</p>
-      {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.subsidies.labour.items %}
+      {% include 'summary/partial/range_inline_comment_vertical_title.html' with class="highlights_list" list_items=content.subsidies.items %}
     </div>
   </div>
   <div class="row">
     <div class="small-12 columns">
-      {% include 'summary/partial/range_inline_comment_vertical_title.html' with class="highlights_list" list_items=content.subsidies.items %}
+      <p>{{ content.subsidies.labour.title }}</p>
+      {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.subsidies.labour.items %}
     </div>
   </div>
 {% endif %}
