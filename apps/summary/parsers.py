@@ -724,7 +724,7 @@ class ApproachParser(QuestionnaireParser):
                     if qg.questions[index + 1].keyword in row.values:
                         # 'other' / custom labels: label text is set as value.
                         if qg.questions[index].keyword.endswith('other'):
-                            label = row.values[qg.questions[index].keyword]
+                            label = row.values.get(qg.questions[index].keyword, '')
                         else:
                             label = f'{label}: {qg.questions[index].choices[0][1]}'
 
@@ -759,10 +759,11 @@ class ApproachParser(QuestionnaireParser):
 
             def make_row(self, label, selected, text):
                 self.labels = dict(self.qg.questions[selected].choices)
+                selected = values.get(self.qg.questions[selected].keyword)
                 return {
                     'label': label,
                     'range': range(0, len(self.labels)),
-                    'selected': list(self.labels.keys()).index(values.get(self.qg.questions[selected].keyword)),
+                    'selected': list(self.labels.keys()).index(selected) if selected else '',
                     'text': values.get(self.qg.questions[text].keyword) or '',
                     'scale': self.labels.values()
                 }
