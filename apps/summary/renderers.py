@@ -734,7 +734,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
         title_addendum = ''
         if perarea_size or perunit_unit:
-            title_addendum = ' ({})'.format(perarea_size or perunit_unit)
+            title_addendum = ' (per {})'.format(perarea_size or perunit_unit)
 
         calculation = '{base}{extra}'.format(
             base=base,

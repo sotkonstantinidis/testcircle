@@ -166,7 +166,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                     child_values = self.values.get(
                         selected_children_keyword, {}
                     )[0]
-                except IndexError:
+                except (IndexError, KeyError):
                     continue
 
                 # Load the configured question for the children and get their
