@@ -2042,7 +2042,6 @@ msgid "Specify the goal of the Technology with regard to land degradation"
 msgstr "បញ្ជាក់ពីគោលដៅរបស់បច្ចេកទេស ដែលផ្តោតទៅលើឱនភាពដី"
 
 #: apps/configuration/configuration_translations.py:1443
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Specify the goal of the Technology with regard to land degradation"
 msgctxt "technologies label_filter"
@@ -8352,7 +8351,6 @@ msgstr "ឈ្មោះគម្រោងដែលបានចងក្រងឯ
 
 #: apps/configuration/configuration_translations.py:5260
 #: apps/configuration/configuration_translations.py:5261
-#, fuzzy
 #| msgid "Project"
 msgctxt "approaches label_filter"
 msgid "Project"
@@ -8393,7 +8391,6 @@ msgstr "ឈ្មោះគម្រោងដែលបានចងក្រងឯ
 
 #: apps/configuration/configuration_translations.py:5270
 #: apps/configuration/configuration_translations.py:5271
-#, fuzzy
 #| msgid "Project"
 msgctxt "technologies label_filter"
 msgid "Project"
@@ -8417,7 +8414,6 @@ msgstr "ឈ្មោះគម្រោងដែលបានចងក្រងឯ
 
 #: apps/configuration/configuration_translations.py:5276
 #: apps/configuration/configuration_translations.py:5277
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Name of project which facilitated the documentation/ evaluation of the "
@@ -8428,7 +8424,6 @@ msgstr "ឈ្មោះគម្រោងដែលបានចងក្រងឯ
 
 #: apps/configuration/configuration_translations.py:5278
 #: apps/configuration/configuration_translations.py:5279
-#, fuzzy
 #| msgid "Project"
 msgctxt "wocat label_filter"
 msgid "Project"
@@ -8453,7 +8448,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5284
 #: apps/configuration/configuration_translations.py:5285
-#, fuzzy
 #| msgid "Introduction"
 msgctxt "approaches label_filter"
 msgid "Institution"
@@ -8495,7 +8489,6 @@ msgstr "ឈ្មោះអង្គភាពមួយ (ច្រើន) ដែ�
 
 #: apps/configuration/configuration_translations.py:5294
 #: apps/configuration/configuration_translations.py:5295
-#, fuzzy
 #| msgid "Introduction"
 msgctxt "technologies label_filter"
 msgid "Institution"
@@ -8519,7 +8512,6 @@ msgstr "ឈ្មោះអង្គភាពមួយ (ច្រើន) ដែ�
 
 #: apps/configuration/configuration_translations.py:5300
 #: apps/configuration/configuration_translations.py:5301
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Name of the institution(s) which facilitated the documentation/ "
@@ -8531,7 +8523,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5302
 #: apps/configuration/configuration_translations.py:5303
-#, fuzzy
 #| msgid "Introduction"
 msgctxt "wocat label_filter"
 msgid "Institution"
@@ -11099,7 +11090,6 @@ msgid ""
 msgstr "សូមបញ្ជាក់តើអ្នកណាជាអ្នកបានសម្រេចចិត្តក្នុងការជ្រើសរើសបច្ចេកទេសដើម្បីយកមកអនុវត្តន៍"
 
 #: apps/configuration/configuration_translations.py:7161
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Specify who decided on the selection of the Technology/ Technologies to "
@@ -11156,7 +11146,6 @@ msgid ""
 msgstr "សូមបញ្ជាក់ថាតើស្ថាប័នត្រូវបានពង្រឹង ឬបង្កើតឡើងនៅត្រឹមកម្រិតណា(ច្រើន)?"
 
 #: apps/configuration/configuration_translations.py:7169
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Specify the level(s) at which institutions have been strengthened or "
@@ -15891,7 +15880,6 @@ msgstr ""
 "គិតចាប់ពីពេលដាក់ឱ្យប្រើប្រាស់ក្នុងខែកញ្ញា ឆ្នាំ 2016។"
 
 #: apps/questionnaire/conf.py:77
-#, fuzzy
 #| msgid "All SLM Data"
 msgid "ALL SLM Data"
 msgstr "ទិន្នន័យ SLM ទាំងអស់"
@@ -15994,7 +15982,6 @@ msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "កម្រងបញ្ជីសំណួរមិនអាចបោះពុម្ពផ្សាយដោយគ្មានការកំណត់រចនាសម្ព័ន្ធត្រឹមត្រូវនោះទេ។"
 
 #: apps/questionnaire/templates/active_filters.html:33
-#, fuzzy
 #| msgid "Search"
 msgid "New Search"
 msgstr "ស្វែងរក"
@@ -17553,7 +17540,6 @@ msgid "File is too big"
 msgstr "ឯកសារមានទំហំធំពេក"
 
 #: apps/questionnaire/utils.py:655
-#, fuzzy
 #| msgid "My SLM Data"
 msgid "SLM Data"
 msgstr "ទិន្នន័យ SLM របស់ខ្ញុំ"
@@ -17725,7 +17711,6 @@ msgid "References"
 msgstr "ឯកសារយោង "
 
 #: apps/summary/renderers.py:301
-#, fuzzy
 #| msgid "Date of implementation"
 msgid "Date of documentation"
 msgstr "កាលបរិច្ឆេទនៃការអនុវត្ត៖​"
@@ -17915,10 +17900,9 @@ msgid "Establishment activities"
 msgstr "សកម្មភាពបង្កើតបច្ចេកទេស"
 
 #: apps/summary/renderers.py:768
-#, fuzzy
 #| msgid "Establishment inputs and costs"
 msgid "Establishment inputs and costs{}"
-msgstr "ធាតុចូល និងថ្លៃដើមសម្រាប់ការបង្កើតបច្ចេកទេស"
+msgstr "ធាតុចូល និងថ្លៃដើមសម្រាប់ការបង្កើតបច្ចេកទេស{}"
 
 #: apps/summary/renderers.py:773
 msgid "Total establishment costs (estimation)"
@@ -17929,17 +17913,15 @@ msgid "Maintenance activities"
 msgstr "សកម្មភាពថែទាំ"
 
 #: apps/summary/renderers.py:785
-#, fuzzy
 #| msgid "Maintenance inputs and costs"
 msgid "Maintenance inputs and costs{}"
-msgstr "ធាតុចូលនិងថ្លៃដើមសម្រាប់ការថែទាំ"
+msgstr "ធាតុចូលនិងថ្លៃដើមសម្រាប់ការថែទាំ{}"
 
 #: apps/summary/renderers.py:790
 msgid "Total maintenance costs (estimation)"
 msgstr ""
 
 #: apps/summary/renderers.py:806
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Timing/ frequency"
 msgid "Timing/ frequency"
@@ -18090,7 +18072,6 @@ msgid "Access to services and infrastructure"
 msgstr "ប្រើប្រាស់សេវាកម្ម និងហេដ្ឋារចនាសម្ព័ន្ធ"
 
 #: apps/summary/renderers.py:991
-#, fuzzy
 #| msgctxt "cca label"
 #| msgid "Impact"
 msgid "Impacts"
@@ -18113,7 +18094,6 @@ msgid "Off-site impacts"
 msgstr "ផលប៉ះពាល់ក្នុងបរិវេណ"
 
 #: apps/summary/renderers.py:1014
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Cost-benefit analysis"
 msgid "Cost-benefit analysis"
@@ -18148,7 +18128,6 @@ msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "ភាគរយនៃអ្នកប្រើប្រាស់ដីនៅតំបន់ដែលបានទទួលយកបច្ចេកទេស"
 
 #: apps/summary/renderers.py:1049
-#, fuzzy
 #| msgid ""
 #| "Of all those who have adopted the Technology, how many have did so "
 #| "without receiving material incentives?"
@@ -18213,10 +18192,9 @@ msgid "Stakeholders involved in the Approach and their roles"
 msgstr "ភាគីពាក់ព័ន្ធដែលចូលរួមក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ​ និងតួរនាទីរបស់គាត់"
 
 #: apps/summary/renderers.py:1162
-#, fuzzy
 #| msgid "Lead agency: {}"
 msgid "Lead agency"
-msgstr "តួអង្គឈានមុខ៖ {}"
+msgstr "តួអង្គឈានមុខ"
 
 #: apps/summary/renderers.py:1167 apps/summary/renderers.py:1171
 msgid ""
@@ -18237,7 +18215,6 @@ msgid "Decisions were taken by"
 msgstr "ការសម្រេចចិត្តត្រូវបានធ្វើដោយ"
 
 #: apps/summary/renderers.py:1194
-#, fuzzy
 #| msgid "Decisions were made based on:"
 msgid "Decisions were made based on"
 msgstr "ការសម្រេចចិត្តត្រូវបានធ្វើដោយផ្អែកលើ៖"
@@ -18796,7 +18773,6 @@ msgstr ""
 "រាប់បញ្ចូលទាំងការគាំទ្រផ្នែកសម្ភារ និងបច្ចេកទេស ការចូលរួមរបស់ភាគីពាក់ព័ន្ធ និងផ្សេងៗទៀត)។"
 
 #: apps/wocat/templates/wocat/home.html:92
-#, fuzzy
 #| msgid ""
 #| "For further information please contact the <a href=\"https://www.wocat."
 #| "net/en/about-wocat/contact.html\" target=\"_blank\" class=\"link\">WOCAT "

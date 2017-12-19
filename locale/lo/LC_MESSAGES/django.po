@@ -319,7 +319,6 @@ msgid "Main purpose(s) of the Technology (land user’s perspective)"
 msgstr "ຈຸດປະສົງຫຼັກ (ຫຼາຍ) ໃນການນໍາໃຊ້ ເຕັກໂນໂລຢີ (ອີງຕາມທັດສະນະ ຂອງຜູ້ໃຊ້ທີ່ດິນ)"
 
 #: apps/configuration/configuration_translations.py:1008
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Main purpose(s) of the Technology"
 msgctxt "technologies label_filter"
@@ -609,7 +608,6 @@ msgid "Average annual rainfall"
 msgstr "ປະລິມານ ນໍ້າຝົນ ສະເລ່ຍປະຈໍາປີ"
 
 #: apps/configuration/configuration_translations.py:1076
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Annual rainfall"
 msgctxt "technologies label_filter"
@@ -2043,7 +2041,6 @@ msgid "Specify the goal of the Technology with regard to land degradation"
 msgstr "ໃຫ້ລະບຸ ເປົ້າໝາຍ ເຕັກໂນໂລຢີ ທີ່ພົວພັນ ກັບຄວາມເຊື່ອມໂຊມຂອງດິນ"
 
 #: apps/configuration/configuration_translations.py:1443
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Specify the goal of the Technology with regard to land degradation"
 msgctxt "technologies label_filter"
@@ -8370,7 +8367,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5260
 #: apps/configuration/configuration_translations.py:5261
-#, fuzzy
 #| msgid "Project"
 msgctxt "approaches label_filter"
 msgid "Project"
@@ -8416,7 +8412,6 @@ msgstr "ຊື່ໂຄງການ ທີ່ອໍານວຍຄວາມສ�
 
 #: apps/configuration/configuration_translations.py:5270
 #: apps/configuration/configuration_translations.py:5271
-#, fuzzy
 #| msgid "Project"
 msgctxt "technologies label_filter"
 msgid "Project"
@@ -8442,7 +8437,6 @@ msgstr "ຊື່ໂຄງການ ທີ່ອໍານວຍຄວາມສ�
 
 #: apps/configuration/configuration_translations.py:5276
 #: apps/configuration/configuration_translations.py:5277
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Name of project which facilitated the documentation/ evaluation of the "
@@ -8454,7 +8448,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5278
 #: apps/configuration/configuration_translations.py:5279
-#, fuzzy
 #| msgid "Project"
 msgctxt "wocat label_filter"
 msgid "Project"
@@ -8481,7 +8474,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5284
 #: apps/configuration/configuration_translations.py:5285
-#, fuzzy
 #| msgid "Institution"
 msgctxt "approaches label_filter"
 msgid "Institution"
@@ -8529,7 +8521,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5294
 #: apps/configuration/configuration_translations.py:5295
-#, fuzzy
 #| msgid "Institution"
 msgctxt "technologies label_filter"
 msgid "Institution"
@@ -8556,7 +8547,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5300
 #: apps/configuration/configuration_translations.py:5301
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Name of the institution(s) which facilitated the documentation/ "
@@ -8568,7 +8558,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5302
 #: apps/configuration/configuration_translations.py:5303
-#, fuzzy
 #| msgid "Institution"
 msgctxt "wocat label_filter"
 msgid "Institution"
@@ -11104,7 +11093,6 @@ msgid ""
 msgstr "ລະບຸ ຄົນທີ່ຕັດສິນໃຈ ກ່ຽວກັບການຄັດເລືອກຂອງ ເຕັກໂນໂລຢີ / ເຕັກໂນໂລຢີ ຈະໄດ້ຮັບການປະຕິບັດ"
 
 #: apps/configuration/configuration_translations.py:7161
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Specify who decided on the selection of the Technology/ Technologies to "
@@ -11161,7 +11149,6 @@ msgid ""
 msgstr "ລະບຸ ທາງສະຖາບັນ ໄດ້ສ້າງຄວາມເຂັ້ມແຂງ ໃນລະດັບໃດ (ຫຼາຍ)"
 
 #: apps/configuration/configuration_translations.py:7169
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Specify the level(s) at which institutions have been strengthened or "
@@ -11221,11 +11208,10 @@ msgid "If precise annual budget is not known, indicate range"
 msgstr "ຖ້າຫາກບໍ່ຮູ້ຈັດງົບປະມານທີ່ແນ່ນອນ ແມ່ນໃຫ້ປະມານເອົາ"
 
 #: apps/configuration/configuration_translations.py:7182
-#, fuzzy
 #| msgid "Precise annual budget: {}"
 msgctxt "approaches label_filter"
 msgid "Range of annual budget"
-msgstr "ງົບປະມານປະຈຳປີທີ່ຊັດເຈນ: {}"
+msgstr "ງົບປະມານປະຈຳປີທີ່ຊັດເຈນ"
 
 #: apps/configuration/configuration_translations.py:7183
 msgctxt "approaches label"
@@ -15869,7 +15855,6 @@ msgstr ""
 "ໃນເດືອນສິງຫາ ປີ 2016."
 
 #: apps/questionnaire/conf.py:77
-#, fuzzy
 #| msgid "All SLM Data"
 msgid "ALL SLM Data"
 msgstr "ຖານ​ຂໍ້​ມູນ​ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງທັງ​ໝົດ"
@@ -15972,7 +15957,6 @@ msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "ບໍ່ສາມາດຈັດລໍາດັບ​ແບບສອບຖາມໄດ້ ໂດຍບໍ່ມີການຕັ້ງຄ່າທີ່ຖືກຕ້ອງ."
 
 #: apps/questionnaire/templates/active_filters.html:33
-#, fuzzy
 #| msgid "Search"
 msgid "New Search"
 msgstr "ຄົ້ນ​ຫາ"
@@ -17418,7 +17402,6 @@ msgid "File is too big"
 msgstr "ເອກະສານແມ່ນຂະໜາດໃຫຍ່ເກີນໄປ"
 
 #: apps/questionnaire/utils.py:655
-#, fuzzy
 #| msgid "My SLM Data"
 msgid "SLM Data"
 msgstr "ຂໍ້ມູນ ການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງຂອງຂ້ອຍ"
@@ -17588,7 +17571,6 @@ msgid "References"
 msgstr "ເອກກະສານອ້າງອີງ"
 
 #: apps/summary/renderers.py:301
-#, fuzzy
 #| msgid "Date of implementation"
 msgid "Date of documentation"
 msgstr "ວັນທີຂອງການປະຕິບັດ"
@@ -17778,10 +17760,9 @@ msgid "Establishment activities"
 msgstr "ກິດຈະກໍາການສ້າງຕັ້ງ"
 
 #: apps/summary/renderers.py:768
-#, fuzzy
 #| msgid "Establishment inputs and costs"
 msgid "Establishment inputs and costs{}"
-msgstr "ປັດໄຈນໍາເຂົ້າໃນການຈັດຕັ້ງ ແລະ ຄ່າໃຊ້ຈ່າຍ"
+msgstr "ປັດໄຈນໍາເຂົ້າໃນການຈັດຕັ້ງ ແລະ ຄ່າໃຊ້ຈ່າຍ{}"
 
 #: apps/summary/renderers.py:773
 msgid "Total establishment costs (estimation)"
@@ -17792,17 +17773,15 @@ msgid "Maintenance activities"
 msgstr "ກິດຈະກໍາບໍາລຸງຮັກສາ"
 
 #: apps/summary/renderers.py:785
-#, fuzzy
 #| msgid "Maintenance inputs and costs"
 msgid "Maintenance inputs and costs{}"
-msgstr "ປັດໄຈນໍາເຂົ້າໃນການບໍາລຸງຮັກສາ ແລະ ຄ່າໃຊ້ຈ່າຍ"
+msgstr "ປັດໄຈນໍາເຂົ້າໃນການບໍາລຸງຮັກສາ ແລະ ຄ່າໃຊ້ຈ່າຍ{}"
 
 #: apps/summary/renderers.py:790
 msgid "Total maintenance costs (estimation)"
 msgstr "ຕົ້ນທຶນທັງໝົດ ໃນການບໍາລຸງຮັກສາ (ໂດຍການປະມານ)"
 
 #: apps/summary/renderers.py:806
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Timing/ frequency"
 msgid "Timing/ frequency"
@@ -17953,7 +17932,6 @@ msgid "Access to services and infrastructure"
 msgstr "ການເຂົ້າເຖິງການບໍລິການ ແລະ ພື້ນຖານໂຄງລ່າງ"
 
 #: apps/summary/renderers.py:991
-#, fuzzy
 #| msgctxt "cca label"
 #| msgid "Impact"
 msgid "Impacts"
@@ -17976,7 +17954,6 @@ msgid "Off-site impacts"
 msgstr "ຜົນກະທົບນອກ​ສະ​ຖານ​ທີ່"
 
 #: apps/summary/renderers.py:1014
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Cost-benefit analysis"
 msgid "Cost-benefit analysis"
@@ -18011,7 +17988,6 @@ msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "ອັດຕາສ່ວນຂອງຜູ້ຊົມໃຊ້ທີ່ດິນໃນເຂດພື້ນທີ່ທີ່ໄດ້ຮັບຮອງເອົາເຕັກໂນໂລຢີ"
 
 #: apps/summary/renderers.py:1049
-#, fuzzy
 #| msgid ""
 #| "Of all those who have adopted the Technology, how many have did so "
 #| "without receiving material incentives?"
@@ -18074,10 +18050,9 @@ msgid "Stakeholders involved in the Approach and their roles"
 msgstr "ພາລະບົດບາດຂອງພາກສ່ວນທີ່ກ່ຽວຂ້ອງ ທີ່ມີສ່ວນຮ່ວມໃນການຈັດຕັ້ງປະຕິບັດແນວທາງ"
 
 #: apps/summary/renderers.py:1162
-#, fuzzy
 #| msgid "Lead agency: {}"
 msgid "Lead agency"
-msgstr "ອົງການທີ່ເປັນຕົວແທນໃນການຈັດຕັ້ງປະຕິບັດ: {}"
+msgstr "ອົງການທີ່ເປັນຕົວແທນໃນການຈັດຕັ້ງປະຕິບັດ"
 
 #: apps/summary/renderers.py:1167 apps/summary/renderers.py:1171
 msgid ""
@@ -18098,7 +18073,6 @@ msgid "Decisions were taken by"
 msgstr "ການຕັດສິນໃຈໂດຍ"
 
 #: apps/summary/renderers.py:1194
-#, fuzzy
 #| msgid "Decisions were made based on:"
 msgid "Decisions were made based on"
 msgstr "ການຕັດສິນໃຈບົນພື້ນຖານ:"
@@ -18650,7 +18624,6 @@ msgstr ""
 "ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ ແລະ ອື່ນໆ)."
 
 #: apps/wocat/templates/wocat/home.html:92
-#, fuzzy
 #| msgid ""
 #| "For further information please contact the <a href=\"https://www.wocat."
 #| "net/en/about-wocat/contact.html\" target=\"_blank\" class=\"link\">WOCAT "

@@ -321,7 +321,6 @@ msgstr ""
 "землепользователей) "
 
 #: apps/configuration/configuration_translations.py:1008
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Main purpose(s) of the Technology"
 msgctxt "technologies label_filter"
@@ -620,7 +619,6 @@ msgid "Average annual rainfall"
 msgstr "Среднегодовое количество осадков"
 
 #: apps/configuration/configuration_translations.py:1076
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Annual rainfall"
 msgctxt "technologies label_filter"
@@ -2100,7 +2098,6 @@ msgid "Specify the goal of the Technology with regard to land degradation"
 msgstr "Укажите цель Технологии по отношению к деградации земель "
 
 #: apps/configuration/configuration_translations.py:1443
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Specify the goal of the Technology with regard to land degradation"
 msgctxt "technologies label_filter"
@@ -8769,7 +8766,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5260
 #: apps/configuration/configuration_translations.py:5261
-#, fuzzy
 #| msgid "Project"
 msgctxt "approaches label_filter"
 msgid "Project"
@@ -8817,7 +8813,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5270
 #: apps/configuration/configuration_translations.py:5271
-#, fuzzy
 #| msgid "Project"
 msgctxt "technologies label_filter"
 msgid "Project"
@@ -8845,7 +8840,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5276
 #: apps/configuration/configuration_translations.py:5277
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Name of project which facilitated the documentation/ evaluation of the "
@@ -8858,7 +8852,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5278
 #: apps/configuration/configuration_translations.py:5279
-#, fuzzy
 #| msgid "Project"
 msgctxt "wocat label_filter"
 msgid "Project"
@@ -8886,7 +8879,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5284
 #: apps/configuration/configuration_translations.py:5285
-#, fuzzy
 #| msgid "Institution"
 msgctxt "approaches label_filter"
 msgid "Institution"
@@ -8934,7 +8926,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5294
 #: apps/configuration/configuration_translations.py:5295
-#, fuzzy
 #| msgid "Institution"
 msgctxt "technologies label_filter"
 msgid "Institution"
@@ -8962,7 +8953,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5300
 #: apps/configuration/configuration_translations.py:5301
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Name of the institution(s) which facilitated the documentation/ "
@@ -8975,7 +8965,6 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5302
 #: apps/configuration/configuration_translations.py:5303
-#, fuzzy
 #| msgid "Institution"
 msgctxt "wocat label_filter"
 msgid "Institution"
@@ -11607,7 +11596,6 @@ msgstr ""
 "Укажите, кто принимал решение по выбору применяемой Технологии/ Технологий"
 
 #: apps/configuration/configuration_translations.py:7161
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Specify who decided on the selection of the Technology/ Technologies to "
@@ -11666,7 +11654,6 @@ msgid ""
 msgstr "Укажите уровень, на котором структуры были укреплены или вновь созданы"
 
 #: apps/configuration/configuration_translations.py:7169
-#, fuzzy
 #| msgctxt "approaches label"
 #| msgid ""
 #| "Specify the level(s) at which institutions have been strengthened or "
@@ -11727,11 +11714,10 @@ msgstr ""
 "Если точный годовой бюжет неизвестен, укажите примерный диапазон затрат"
 
 #: apps/configuration/configuration_translations.py:7182
-#, fuzzy
 #| msgid "Precise annual budget: {}"
 msgctxt "approaches label_filter"
 msgid "Range of annual budget"
-msgstr "Точный годовой бюжет: {}"
+msgstr "Точный годовой бюжет"
 
 #: apps/configuration/configuration_translations.py:7183
 msgctxt "approaches label"
@@ -16551,7 +16537,6 @@ msgstr ""
 "работы в августе 2016."
 
 #: apps/questionnaire/conf.py:77
-#, fuzzy
 #| msgid "All SLM Data"
 msgid "ALL SLM Data"
 msgstr "Все данные по УЗП"
@@ -18238,7 +18223,6 @@ msgid "File is too big"
 msgstr "Файл слишком велик"
 
 #: apps/questionnaire/utils.py:655
-#, fuzzy
 #| msgid "My SLM Data"
 msgid "SLM Data"
 msgstr "Мои данные по УЗП"
@@ -18411,7 +18395,6 @@ msgid "References"
 msgstr "Справочные материалы"
 
 #: apps/summary/renderers.py:301
-#, fuzzy
 #| msgid "Date of implementation"
 msgid "Date of documentation"
 msgstr "Продолжительность применения Технологии"
@@ -18602,10 +18585,9 @@ msgid "Establishment activities"
 msgstr "Мероприятия, необходимые для начала реализации"
 
 #: apps/summary/renderers.py:768
-#, fuzzy
 #| msgid "Establishment inputs and costs"
 msgid "Establishment inputs and costs{}"
-msgstr "Стоимость вложений и затрат по запуску"
+msgstr "Стоимость вложений и затрат по запуску{}"
 
 #: apps/summary/renderers.py:773
 msgid "Total establishment costs (estimation)"
@@ -18616,17 +18598,15 @@ msgid "Maintenance activities"
 msgstr "Текущее обслуживание"
 
 #: apps/summary/renderers.py:785
-#, fuzzy
 #| msgid "Maintenance inputs and costs"
 msgid "Maintenance inputs and costs{}"
-msgstr "Стоимость вложений и затрат по эксплуатации"
+msgstr "Стоимость вложений и затрат по эксплуатации{}"
 
 #: apps/summary/renderers.py:790
 msgid "Total maintenance costs (estimation)"
 msgstr "Суммарная стоимость эксплуатации (оценка)"
 
 #: apps/summary/renderers.py:806
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Timing/ frequency"
 msgid "Timing/ frequency"
@@ -18777,7 +18757,6 @@ msgid "Access to services and infrastructure"
 msgstr "Доступ к базовым услугам и инфраструктуре"
 
 #: apps/summary/renderers.py:991
-#, fuzzy
 #| msgctxt "cca label"
 #| msgid "Impact"
 msgid "Impacts"
@@ -18800,7 +18779,6 @@ msgid "Off-site impacts"
 msgstr "Влияние за пределами территории применения"
 
 #: apps/summary/renderers.py:1014
-#, fuzzy
 #| msgctxt "technologies label"
 #| msgid "Cost-benefit analysis"
 msgid "Cost-benefit analysis"
@@ -18841,7 +18819,6 @@ msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "Доля землепользователей (в процентах), применяющих Технологию"
 
 #: apps/summary/renderers.py:1049
-#, fuzzy
 #| msgid ""
 #| "Of all those who have adopted the Technology, how many have did so "
 #| "without receiving material incentives?"
@@ -18911,10 +18888,9 @@ msgid "Stakeholders involved in the Approach and their roles"
 msgstr "Заинтересованные стороны, участвующие в реализации Подхода, и их роли"
 
 #: apps/summary/renderers.py:1162
-#, fuzzy
 #| msgid "Lead agency: {}"
 msgid "Lead agency"
-msgstr "Ведущая организация: {}"
+msgstr "Ведущая организация"
 
 #: apps/summary/renderers.py:1167 apps/summary/renderers.py:1171
 msgid ""
@@ -18937,7 +18913,6 @@ msgid "Decisions were taken by"
 msgstr "Кто принимал решения? "
 
 #: apps/summary/renderers.py:1194
-#, fuzzy
 #| msgid "Decisions were made based on:"
 msgid "Decisions were made based on"
 msgstr "Принятие решений было основано на:"
@@ -19519,7 +19494,6 @@ msgstr ""
 "сторон и др.).   "
 
 #: apps/wocat/templates/wocat/home.html:92
-#, fuzzy
 #| msgid ""
 #| "For further information please contact the <a href=\"https://www.wocat."
 #| "net/en/about-wocat/contact.html\" target=\"_blank\" class=\"link\">WOCAT "
