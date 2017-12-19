@@ -216,8 +216,10 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         # group, add a newline
         if isinstance(values, str):
             text = values
-        else:
+        elif values:
             text = ', '.join([choices_labels[choice] for choice in values])
+        else:
+            text = ''
 
         text_parts = dict(
             label='{}: '.format(child_question.label) if has_label else '',
@@ -419,9 +421,9 @@ class TechnologyParser(QuestionnaireParser):
                     value = items.get(group.children[value_child].keyword)
                     label_left = items.get(group.children[1].keyword)
                     label_right = items.get(group.children[3].keyword)
-                    before_label = group.children[4].label
+                    before_label = _(group.children[4].label)
                     before_value = items.get(group.children[4].keyword)
-                    after_label = group.children[5].label
+                    after_label = _(group.children[5].label)
                     after_value = items.get(group.children[5].keyword)
                     comment_value = items.get(group.children[6].keyword)
                     yield from self._get_impact_row(
@@ -437,9 +439,9 @@ class TechnologyParser(QuestionnaireParser):
                 value = self._get_qg_selected_value(group.children[value_child])
                 label_left = group.children[0].additional_translations.get('label_left')
                 label_right = group.children[0].additional_translations.get('label_right')
-                before_label = group.children[1].label
+                before_label = _(group.children[1].label)
                 before_value = self._get_qg_selected_value(group.children[1])
-                after_label = group.children[2].label
+                after_label = _(group.children[2].label)
                 after_value = self._get_qg_selected_value(group.children[2])
                 comment_value = self._get_qg_selected_value(group.children[3])
                 yield from self._get_impact_row(
@@ -519,7 +521,7 @@ class TechnologyParser(QuestionnaireParser):
                 # Indicator for direction of development (increased/decreased)
                 question_label = values.get(question.keyword)
                 if question_label:
-                    label += ' {}'.format(question_label)
+                    label = f'{label} {question_label}'
 
             elif question.keyword == 'tech_exposure_sensitivity':
                 # The actual value for our range-field.
@@ -542,7 +544,7 @@ class TechnologyParser(QuestionnaireParser):
                     value = choice_keys.index(value)
 
             elif 'other' in question.keyword:
-                label = values.get(question.keyword)
+                label = values.get(question.keyword, '')
 
             else:
                 # All other fields, such as 'season' go into the comments.
@@ -696,7 +698,9 @@ class ApproachParser(QuestionnaireParser):
                 if self.values.get(questiongroup.keyword):
                     selected_groups.append(questiongroup.keyword)
                     nested_elements[questiongroup.keyword] = questiongroup.keyword
-                    labels[questiongroup.keyword] = self.values[questiongroup.keyword][0][other_question]
+                    labels[questiongroup.keyword] = self.values[questiongroup.keyword][0].get(
+                        other_question, ''
+                    )
                 break
 
         for group in selected_groups:

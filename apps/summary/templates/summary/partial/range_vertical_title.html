@@ -1,16 +1,14 @@
 {% load questionnaire_tags %}
 
 {% if list_items.items2 %}
-  <div class="row rotate-container avoidbreak">
+  <div class="row rotate-container avoidbreak vertical-title">
     <div class="small-3 columns">
     </div>
     <div class="small-9 columns">
       <div class="rotate">
         {% for label_item in list_items.labels %}
           <div style="margin-bottom: 0rem">
-            <div>
-              {{ label_item }}
-            </div>
+            {{ label_item }}
           </div>
         {% endfor %}
       </div>

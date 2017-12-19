@@ -66,3 +66,22 @@
 .rotate.no-line-wrap {
   margin-left: -15px !important;
 }
+.overcome {
+  .subtext {
+      margin-left: 0.8rem;
+      font-weight: normal;
+    &::before {
+      font-size: 1rem;
+      content: '\2192';
+      height: 0;
+      width: 0;
+      left: -0.5em;
+      top: 0.1rem;
+      position: relative;
+      line-height: 0.8rem;
+    }
+  }
+}
+.participation_table thead {
+  font-weight: bold;
+}

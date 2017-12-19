@@ -1,6 +1,5 @@
 import contextlib
 import logging
-
 from os.path import join, isfile
 
 from django.conf import settings
@@ -57,7 +56,7 @@ class CachedPDFTemplateResponse(PDFTemplateResponse):
         return self.content_with_file_cache()
 
 
-class DocTemplateResponse(TemplateResponse):
+class RawTemplateResponse(TemplateResponse):
     """
     Create HTML with the default template response, cast the markup to a table. 
     """
@@ -87,6 +86,7 @@ class DocTemplateResponse(TemplateResponse):
 
             for i, class_name in enumerate(column.attrs['class']):
                 if class_name.startswith('small'):
+                    # Use number of grid rows for colspan
                     column.attrs['colspan'] = class_name[6:]
                     del column.attrs['class'][i]
 
@@ -97,12 +97,81 @@ class DocTemplateResponse(TemplateResponse):
         for highlight in self.soup.select('.highlights_list > .true'):
             highlight.wrap(self.soup.new_tag('strong'))
 
+    def header_image_to_foreground(self):
+        """
+        Copy the background-image to the front, so it is copied automatically.
+        """
+        header = self.soup.select('div.header-img')
+        if header:
+            style_tag = header[0].attrs['style']
+            url = style_tag[style_tag.index('(') + 1:-1]
+            image = self.soup.new_tag('img', src=url, **{'class': 'header-img'})
+            header[0].attrs['style'] = ''
+            header[0].insert(0, image)
+
     def range_to_table(self):
         """
-        Cast the 'ranges' to a more basic format.
+        Cast the 'ranges' to a more basic format: wrap the parent container with a table, and 
+        cast the divs to tds.
         """
-        for row in self.soup.select('.range'):
-            pass
+        for range_min in self.soup.select('.range_min'):
+            range_container = range_min.parent.parent
+
+            range_table = self.soup.new_tag('table')
+            range_container.insert(0, range_table)
+
+            for i, div in enumerate(range_container.select('div')):
+                div.name = 'td'
+                extracted = div.extract()
+                range_table.insert(i, extracted)
+
+        for selected in self.soup.select('.range_true'):
+            selected.insert(0, bs4.NavigableString('x'))
+
+    def normalize_rotated_range(self):
+        """
+        Normalize 'rotated' ranges, indicated by the class 'vertical-title'
+        """
+        for container in self.soup.select('.vertical-title'):
+
+            # Extract the labels from the header.
+            for header_labels in container.select('.rotate'):
+                labels = []
+                header_labels.wrap(self.soup.new_tag('table'))
+                for div in header_labels.select('div'):
+                    labels.append(div.text)
+
+                # Fill in the checked value as text, remove all ranges.
+                for sibling in container.find_next_siblings('div'):
+                    squares = sibling.select('.range_square')
+                    if squares:
+                        # Get the position of the selected element
+                        for i, square in enumerate(squares[0].parent.select('div')):
+                            if 'range_true' in square.get('class', []):
+                                # Print the text-label
+                                squares[0].parent.parent.insert(0, bs4.NavigableString(labels[i]))
+
+                        # Remove the squares.
+                        squares[0].parent.decompose()
+
+            # Remove the header row.
+            container.decompose()
+
+        # Remove the additional lines with 'hr' tags.
+        for inline_comment in self.soup.select('.inline-comment'):
+            for hr in inline_comment.select('hr'):
+                hr.parent.decompose()
+
+    def approach_flow_chart_header(self):
+        """
+        Move chart to bottom of the text.
+
+        """
+        flow_chart_container = self.soup.select('.approach-flow-chart')
+        if flow_chart_container:
+            image = flow_chart_container[0].select('.img_in_text')
+            if image:
+                flow_chart_container[0].insert(-1, image[0].extract())
 
     def html_to_table(self, html: str) -> str:
         """
@@ -117,9 +186,12 @@ class DocTemplateResponse(TemplateResponse):
         css.attrs['href'] = css.attrs['href'].replace(
             'summary.css', 'summary_raw.css'
         )
+        self.header_image_to_foreground()
+        self.approach_flow_chart_header()
         self.highlight_list_to_bold()
-        self.range_to_table()
         self.columns_to_td()
+        self.range_to_table()
+        self.normalize_rotated_range()
         self.rows_to_tr()
         return str(self.soup)
 
@@ -133,7 +205,7 @@ class SummaryPDFCreateView(PDFTemplateView):
     Put the questionnaire data to the context and return the rendered pdf.
     """
     response_class = CachedPDFTemplateResponse
-    doc_response_class = DocTemplateResponse
+    doc_response_class = RawTemplateResponse
     summary_type = 'full'  # Only one summary type is available right now
     base_template_path = 'summary/'
     http_method_names = ['get']

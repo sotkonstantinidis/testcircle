@@ -542,7 +542,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def header_image(self):
         data = super().header_image()
-        if self.raw_data_getter('header_image_sustainability') == 'Yes':
+        if self.raw_data_getter('header_image_sustainability') == _('Yes'):
             data['partials']['note'] = _(
                 'This technology is problematic with regard to land '
                 'degradation, so it cannot be declared a sustainable land '
