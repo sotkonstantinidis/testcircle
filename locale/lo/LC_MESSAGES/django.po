@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-30 10:13+0100\n"
+"POT-Creation-Date: 2017-12-18 09:56+0100\n"
 "PO-Revision-Date: 2017-09-23 23:08+0000\n"
 "Last-Translator: Bounthanom Bouahom <bounthanom.b@gmail.com>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -15903,7 +15903,7 @@ msgstr "ປະຕິເສດ"
 msgid "Inactive"
 msgstr "​ຊັກ​ຊ້າ"
 
-#: apps/questionnaire/models.py:60 apps/summary/renderers.py:284
+#: apps/questionnaire/models.py:60 apps/summary/renderers.py:310
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr "ການລວບລວມ"
@@ -16022,7 +16022,7 @@ msgid "Editor:"
 msgstr "ບັນ​ນາ​ທິ​ການ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:84
-#: apps/questionnaire/templates/details/category/approaches_header.html:98
+#: apps/questionnaire/templates/details/category/approaches_header.html:99
 #: apps/questionnaire/templates/details/category/cca_header.html:80
 #: apps/questionnaire/templates/details/category/cca_header.html:85
 #: apps/questionnaire/templates/details/category/cca_header.html:94
@@ -16030,7 +16030,7 @@ msgstr "ບັນ​ນາ​ທິ​ການ"
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:87
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:96
 #: apps/questionnaire/templates/details/category/technologies_header.html:84
-#: apps/questionnaire/templates/details/category/technologies_header.html:98
+#: apps/questionnaire/templates/details/category/technologies_header.html:99
 #: apps/questionnaire/templates/details/category/unccd_header.html:75
 #: apps/questionnaire/templates/details/category/unccd_header.html:80
 #: apps/questionnaire/templates/details/category/unccd_header.html:89
@@ -16083,44 +16083,51 @@ msgstr "ສັງລວມເປັນບົດ PDF  ເພື່ອສັ່ງ
 msgid "Full summary in the browser"
 msgstr "ສັງລວມເປັນບົດ ຢູ່ໃນ browser"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:100
+#: apps/questionnaire/templates/details/category/approaches_header.html:96
+#: apps/questionnaire/templates/details/category/technologies_header.html:96
+#, fuzzy
+#| msgid "Full summary as PDF"
+msgid "Full summary (unformatted)"
+msgstr "ສະຫຼຸບສັງລວມຢ່າງທັງ​ໝົດທີ່ເປັນ  PDF"
+
+#: apps/questionnaire/templates/details/category/approaches_header.html:101
 #: apps/questionnaire/templates/details/category/cca_header.html:96
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
-#: apps/questionnaire/templates/details/category/technologies_header.html:100
+#: apps/questionnaire/templates/details/category/technologies_header.html:101
 #: apps/questionnaire/templates/details/category/unccd_header.html:91
 #: apps/questionnaire/templates/details/category/watershed_header.html:100
 #: apps/questionnaire/templates/details/category/with_metadata.html:98
 msgid "Export"
 msgstr "ການສົ່ງອອກ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:108
+#: apps/questionnaire/templates/details/category/approaches_header.html:109
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:106
-#: apps/questionnaire/templates/details/category/technologies_header.html:108
+#: apps/questionnaire/templates/details/category/technologies_header.html:109
 #: apps/questionnaire/templates/details/category/unccd_header.html:99
 #: apps/questionnaire/templates/details/category/watershed_header.html:108
 #: apps/questionnaire/templates/details/category/with_metadata.html:106
 msgid "See history"
 msgstr "​ເບິ່ງ​ປະ​ຫວັດ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:114
+#: apps/questionnaire/templates/details/category/approaches_header.html:115
 #: apps/wocat/templates/wocat/partial/add.html:39
 msgid "SLM Approach"
 msgstr "ແນວທາງໃນການຈັດການຄຸ້ມຄອງດິນແບບຍືນຍົງ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:119
+#: apps/questionnaire/templates/details/category/approaches_header.html:120
 #: apps/questionnaire/templates/details/category/cca_header.html:109
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
-#: apps/questionnaire/templates/details/category/technologies_header.html:119
+#: apps/questionnaire/templates/details/category/technologies_header.html:120
 #: apps/questionnaire/templates/details/category/unccd_header.html:110
 #: apps/questionnaire/templates/details/category/watershed_header.html:119
 #: apps/questionnaire/templates/details/category/with_metadata.html:118
 msgid "View sections"
 msgstr "ເບິ່ງພາກສ່ວນ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:121
+#: apps/questionnaire/templates/details/category/approaches_header.html:122
 #: apps/questionnaire/templates/details/category/cca_header.html:111
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:118
-#: apps/questionnaire/templates/details/category/technologies_header.html:121
+#: apps/questionnaire/templates/details/category/technologies_header.html:122
 #: apps/questionnaire/templates/details/category/unccd_header.html:112
 #: apps/questionnaire/templates/details/category/watershed_header.html:121
 #: apps/questionnaire/templates/details/category/with_metadata.html:120
@@ -16128,10 +16135,10 @@ msgstr "ເບິ່ງພາກສ່ວນ"
 msgid "Expand all"
 msgstr "ຂະຫຍາຍທັງໝົດ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:122
+#: apps/questionnaire/templates/details/category/approaches_header.html:123
 #: apps/questionnaire/templates/details/category/cca_header.html:112
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:119
-#: apps/questionnaire/templates/details/category/technologies_header.html:122
+#: apps/questionnaire/templates/details/category/technologies_header.html:123
 #: apps/questionnaire/templates/details/category/unccd_header.html:113
 #: apps/questionnaire/templates/details/category/watershed_header.html:122
 #: apps/questionnaire/templates/details/category/with_metadata.html:121
@@ -16139,30 +16146,30 @@ msgstr "ຂະຫຍາຍທັງໝົດ"
 msgid "Collapse all"
 msgstr "ຍຸບທັງໝົດ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:127
+#: apps/questionnaire/templates/details/category/approaches_header.html:128
 #: apps/questionnaire/templates/details/category/cca_header.html:117
-#: apps/questionnaire/templates/details/category/technologies_header.html:127
+#: apps/questionnaire/templates/details/category/technologies_header.html:128
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/watershed_header.html:127
 msgid "Completeness:"
 msgstr "ຄວາມສົມບູນ:"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:146
+#: apps/questionnaire/templates/details/category/approaches_header.html:147
 #: apps/questionnaire/templates/details/category/cca_header.html:136
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:138
-#: apps/questionnaire/templates/details/category/technologies_header.html:146
+#: apps/questionnaire/templates/details/category/technologies_header.html:147
 #: apps/questionnaire/templates/details/category/unccd_header.html:137
 #: apps/questionnaire/templates/details/category/watershed_header.html:146
 #: apps/questionnaire/templates/details/category/with_metadata.html:140
 msgid "Edit this section"
 msgstr "ແກ້​ໄຂ​​ບ່ອນ​ນີ້"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:162
+#: apps/questionnaire/templates/details/category/approaches_header.html:163
 #: apps/questionnaire/templates/details/category/cca_header.html:152
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:152
-#: apps/questionnaire/templates/details/category/technologies_header.html:162
+#: apps/questionnaire/templates/details/category/technologies_header.html:163
 #: apps/questionnaire/templates/details/category/unccd_header.html:153
 #: apps/questionnaire/templates/details/category/watershed_header.html:162
 #: apps/questionnaire/templates/details/category/with_metadata.html:154
@@ -16186,7 +16193,7 @@ msgstr "ເຕັກໂນໂລຢີ"
 msgid "New SLM Technology"
 msgstr "ເຕັກ​ໂນ​ໂລ​ຢີໃໝ່ຂອງການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/questionnaire/templates/details/category/technologies_header.html:114
+#: apps/questionnaire/templates/details/category/technologies_header.html:115
 #: apps/wocat/templates/wocat/partial/add.html:19
 msgid "SLM Technology"
 msgstr "ເຕັກ​ໂນ​ໂລ​ຢີການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
@@ -17540,98 +17547,100 @@ msgstr "ຫຼາກຫຼາຍຕົວຢ່າງ"
 msgid "Only data declared as public are visible."
 msgstr "ສະ​ເພາະ​ຂໍ້​ມູນ​ທີ່​ປະ​ກາດ​ສູ່​ສາ​ທາ​ລະ​ນະ​ຈຶ່ງ​ສາ​ມາດ​ເຫັນ​ໄດ້."
 
-#: apps/summary/parsers.py:535
+#: apps/summary/parsers.py:540
 msgid " Answer: {}"
 msgstr "ຄໍາຕອບ {}"
 
-#: apps/summary/parsers.py:711
+#: apps/summary/parsers.py:743
 msgid "Subsidies for specific inputs"
 msgstr "ຫຼຸດປັດໃຈນໍາເຂົ້າ"
 
-#: apps/summary/renderers.py:165
+#: apps/summary/renderers.py:178
 msgid "Description"
 msgstr "ຄຳອະທິບາຍ"
 
-#: apps/summary/renderers.py:222
+#: apps/summary/renderers.py:235
 msgid "land user's view"
 msgstr "ທັດສະນະມູມມອງ ຂອງຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/summary/renderers.py:223
+#: apps/summary/renderers.py:236
 msgid "compiler’s or other key resource person’s view"
 msgstr "ທັດສະນະມຸມມອງ ຂອງຜູ້ປ້ອນຂໍ້ມູນເອງ"
 
-#: apps/summary/renderers.py:251
+#: apps/summary/renderers.py:268
 msgid "Conclusions and lessons learnt"
 msgstr "ບົດສະຫຼຸບ ແລະ ບົດຮຽນທີ່ໄດ້ຮັບ"
 
-#: apps/summary/renderers.py:254
+#: apps/summary/renderers.py:271
 msgid "Strengths"
 msgstr "ຄວາມເຂັ້ມແຂງ"
 
-#: apps/summary/renderers.py:258
+#: apps/summary/renderers.py:284
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "ຈຸດອ່ອນ / ຂໍ້ເສຍ / ຄວາມສ່ຽງ"
 
-#: apps/summary/renderers.py:259
+#: apps/summary/renderers.py:285
 msgid "how to overcome"
 msgstr "ວິທີການແກ້ໄຂແນວໃດ"
 
-#: apps/summary/renderers.py:271
+#: apps/summary/renderers.py:297
 msgid "References"
 msgstr "ເອກກະສານອ້າງອີງ"
 
-#: apps/summary/renderers.py:275
-msgid "Questionnaire created"
-msgstr "ສ້າງແບບສອບຖາມ"
+#: apps/summary/renderers.py:301
+#, fuzzy
+#| msgid "Date of implementation"
+msgid "Date of documentation"
+msgstr "ວັນທີຂອງການປະຕິບັດ"
 
-#: apps/summary/renderers.py:279
+#: apps/summary/renderers.py:305
 msgid "Last update"
 msgstr "ປັບປຸງລ່າສຸດ"
 
-#: apps/summary/renderers.py:289
+#: apps/summary/renderers.py:315
 msgid "Resource persons"
 msgstr "ບຸກຄົນທີ່ສໍາຄັນ"
 
-#: apps/summary/renderers.py:294
+#: apps/summary/renderers.py:320
 msgid "Full description in the WOCAT database"
 msgstr "ການບັນຍາຍລາຍລະອຽດ ໃນຖານຂໍ້ມູນ ຂອງ WOCAT"
 
-#: apps/summary/renderers.py:299
+#: apps/summary/renderers.py:325
 msgid "Linked SLM data"
 msgstr "ຂໍ້ມູນການເຊື່ອມໂຍງຂໍ້ມູນການຄຸ້ມຄອງການນໍາໃຊ້ດິນແບບຍືນຍົງ"
 
-#: apps/summary/renderers.py:304
+#: apps/summary/renderers.py:330
 msgid "Key references"
 msgstr "ການອ້າງອີງທີ່ສໍາຄັນ"
 
-#: apps/summary/renderers.py:309
+#: apps/summary/renderers.py:335
 msgid "Links to relevant information which is available online"
 msgstr "ເຊື່ອມໂຍງກັບ ຂໍ້ມູນຕ່າງໆ ທີ່ກ່ຽວຂ້ອງທີ່ມີ"
 
-#: apps/summary/renderers.py:314
+#: apps/summary/renderers.py:340
 msgid "Documentation was faciliated by"
 msgstr "ເອກກະສານ ແມ່ນໄດ້ອໍານວຍຄວາມສະດວກໂດຍ"
 
-#: apps/summary/renderers.py:316
+#: apps/summary/renderers.py:342
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:53
 msgid "Project"
 msgstr "​ໂຄງ​ການ"
 
-#: apps/summary/renderers.py:320
+#: apps/summary/renderers.py:346
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:64
 msgid "Institution"
 msgstr "ສະຖາບັນ"
 
-#: apps/summary/renderers.py:394
+#: apps/summary/renderers.py:420
 #, python-brace-format
 msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
 msgstr ""
 
-#: apps/summary/renderers.py:410
+#: apps/summary/renderers.py:436
 msgid "Video"
 msgstr "ວີດີໂອ"
 
-#: apps/summary/renderers.py:521
+#: apps/summary/renderers.py:547
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
@@ -17639,575 +17648,594 @@ msgstr ""
 "ເຕັກໂນໂລຢີ ນີ້ເປັນປັນຫາໃນເລື່ອງກ່ຽວກັບການເຊື່ອມໂຊມຂອງທີ່ດິນ, ດັ່ງນັ້ນຈຶ່ງບໍ່ສາມາດປະກາດໃຫ້ເປັນເຕັກໂນໂລຢີ "
 "ສຳລັບການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/summary/renderers.py:538 apps/summary/renderers.py:548
-#: apps/summary/renderers.py:1035 apps/summary/renderers.py:1045
+#: apps/summary/renderers.py:564 apps/summary/renderers.py:574
+#: apps/summary/renderers.py:1087 apps/summary/renderers.py:1097
 msgid "Location"
 msgstr "ສະຖານທີ່"
 
-#: apps/summary/renderers.py:554
+#: apps/summary/renderers.py:580
 msgid "No. of Technology sites analysed"
 msgstr "ຈໍານວນ ພື້ນທີ່ ທີ່ໃຊ້ ເຕັກໂນໂລຢີ ທີ່ໄດ້ວິເຄາະ"
 
-#: apps/summary/renderers.py:557 apps/summary/renderers.py:1050
+#: apps/summary/renderers.py:583 apps/summary/renderers.py:1102
 msgid "Geo-reference of selected sites"
 msgstr "ການຄັດເລືອກພື້ນທີ່ ທີ່ອີງໃສ່ຂໍ້ມູນທາງພູມີສາດ"
 
-#: apps/summary/renderers.py:562
+#: apps/summary/renderers.py:588
 msgid "Spread of the Technology"
 msgstr "ການແຜ່ກະຈາຍຂອງເຕັກໂນໂລຢີ"
 
-#: apps/summary/renderers.py:566
+#: apps/summary/renderers.py:592
 msgid "Date of implementation"
 msgstr "ວັນທີຂອງການປະຕິບັດ"
 
-#: apps/summary/renderers.py:573
+#: apps/summary/renderers.py:599
 msgid "Type of introduction"
 msgstr "ປະເພດຂອງການນໍາສະເໜີ"
 
-#: apps/summary/renderers.py:605
+#: apps/summary/renderers.py:634
 msgid "Classification of the Technology"
 msgstr "ການໄຈ້ແຍກເຕັກໂນໂລຢີ"
 
-#: apps/summary/renderers.py:608
+#: apps/summary/renderers.py:637
 msgid "Main purpose"
 msgstr "ຈຸດປະສົງຕົ້ນຕໍ"
 
-#: apps/summary/renderers.py:612
+#: apps/summary/renderers.py:641
 msgid "Land use"
 msgstr "ການນໍາໃຊ້ດິນ"
 
-#: apps/summary/renderers.py:616
+#: apps/summary/renderers.py:645
 msgid "Water supply"
 msgstr "ການສະໜອງນໍ້າ"
 
-#: apps/summary/renderers.py:621
+#: apps/summary/renderers.py:650
 msgid "Number of growing seasons per year"
 msgstr "ຈໍານວນລະດູການປູກພືດຕໍ່ປີ"
 
-#: apps/summary/renderers.py:625
+#: apps/summary/renderers.py:654
 msgid "Land use before implementation of the Technology"
 msgstr "ການນໍາໃຊ້ທີ່ດິນ ກ່ອນທີ່ຈະປະຕິບັດ ເຕັກໂນໂລຢີ"
 
-#: apps/summary/renderers.py:629
+#: apps/summary/renderers.py:658
 msgid "Livestock density"
 msgstr "ຄວາມໜາແໜ້ນຂອງສັດລ້ຽງ"
 
-#: apps/summary/renderers.py:636
+#: apps/summary/renderers.py:665
 msgid "Purpose related to land degradation"
 msgstr "ຈຸດປະສົງທີ່ກ່ຽວຂ້ອງກັບການເຊື່ອມໂຊມຂອງດິນ"
 
-#: apps/summary/renderers.py:640
+#: apps/summary/renderers.py:669
 msgid "Degradation addressed"
 msgstr "ການເຊື່ອມໂຊມ ທີ່ຕ້ອງໄດ້ເອົາໃຈໃສ່"
 
-#: apps/summary/renderers.py:644
+#: apps/summary/renderers.py:673
 msgid "SLM group"
 msgstr "ກຸ່ມການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/summary/renderers.py:648
+#: apps/summary/renderers.py:677
 msgid "SLM measures"
 msgstr "ມາດຕະການ ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/summary/renderers.py:668 apps/summary/renderers.py:1121
+#: apps/summary/renderers.py:697 apps/summary/renderers.py:1179
 msgid "Author: {}"
 msgstr "ຜູ້ຂຽນ: {}"
 
-#: apps/summary/renderers.py:672
+#: apps/summary/renderers.py:703
 msgid "Technical drawing"
 msgstr "​ເທັກ​ນິກ​ການ​ແຕ້ມ​ຮ​ູບ"
 
-#: apps/summary/renderers.py:674
+#: apps/summary/renderers.py:705
 msgid "Technical specifications"
 msgstr "​ຂໍ​ກຳ​ນົດ​ທາງ​ເທັກ​ນິກ"
 
-#: apps/summary/renderers.py:692
+#: apps/summary/renderers.py:723
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr ": ກໍານົດເປັນຫົວໜ່ວຍ ໜື່ງ ເຮັກຕາ:<b>1 ເຮັກຕາ= {}</b>"
 
-#: apps/summary/renderers.py:693
+#: apps/summary/renderers.py:724
 msgid " (size and area unit: <b>{}</b>{})"
 msgstr "(ຂະໜາດ ແລະ ຫົວໜ່ວຍ ຂອງພື້ນທີ່:<b>{}</b>{})"
 
-#: apps/summary/renderers.py:698
+#: apps/summary/renderers.py:729
 msgid "unit: <b>{}</b>"
 msgstr "ຫົວໜ່ວຍ:<b>{}</b>"
 
-#: apps/summary/renderers.py:711 apps/summary/renderers.py:712
+#: apps/summary/renderers.py:746 apps/summary/renderers.py:747
 msgid "n.a"
 msgstr "ບໍ່ມີຂໍ້ມູນ"
 
-#: apps/summary/renderers.py:715
+#: apps/summary/renderers.py:750
 msgid "Establishment and maintenance: activities, inputs and costs"
 msgstr "ການຈັດຕັ້ງ  ແລະ ບໍາລຸງຮັກສາ: ກິດຈະກໍາ, ວັດຖຸດິບ ແລະ ຄ່າໃຊ້ຈ່າຍ"
 
-#: apps/summary/renderers.py:718
+#: apps/summary/renderers.py:753
 msgid "Calculation of inputs and costs"
 msgstr "ການ​ຄຳ​ນວນ​ ປັດ​ໃຈ​ການ​ຜະ​ລິດ ແລະ ຄ່າ​ໃຊ້​ຈ່າຍ"
 
-#: apps/summary/renderers.py:720
+#: apps/summary/renderers.py:755
 msgid "Costs are calculated: {}"
 msgstr "ຄິດໄລ່ຄ່າໃຊ້ຈ່າຍ: {}"
 
-#: apps/summary/renderers.py:721
+#: apps/summary/renderers.py:756
 msgid "Currency used for cost calculation: <b>{}</b>"
 msgstr "ສະກຸນເງິນທີ່ໃຊ້ສໍາລັບການຄິດໄລ່ຄ່າໃຊ້ຈ່າຍ: <b> {} </ b>"
 
-#: apps/summary/renderers.py:722
+#: apps/summary/renderers.py:757
 msgid "Exchange rate (to USD): 1 USD = {}."
 msgstr "ອັດຕາແລກປ່ຽນ (ກັບ USD): 1 USD = {}."
 
-#: apps/summary/renderers.py:723
+#: apps/summary/renderers.py:758
 msgid "Average wage cost of hired labour per day: {}."
 msgstr "ຄ່າໃຊ້ຈ່າຍຄ່າແຮງງານສະເລ່ຍຂອງແຮງງານຈ້າງຕໍ່ວັນ: {}."
 
-#: apps/summary/renderers.py:726
+#: apps/summary/renderers.py:761
 msgid "Most important factors affecting the costs"
 msgstr "ປັດໄຈທີ່ສໍາຄັນສຸດທີ່​ສົ່ງຜົນກະທົບຕໍ່ຄ່າໃຊ້ຈ່າຍ"
 
-#: apps/summary/renderers.py:729
+#: apps/summary/renderers.py:764
 msgid "Establishment activities"
 msgstr "ກິດຈະກໍາການສ້າງຕັ້ງ"
 
-#: apps/summary/renderers.py:733
-msgid "Establishment inputs and costs"
+#: apps/summary/renderers.py:768
+#, fuzzy
+#| msgid "Establishment inputs and costs"
+msgid "Establishment inputs and costs{}"
 msgstr "ປັດໄຈນໍາເຂົ້າໃນການຈັດຕັ້ງ ແລະ ຄ່າໃຊ້ຈ່າຍ"
 
-#: apps/summary/renderers.py:738
+#: apps/summary/renderers.py:773
 msgid "Total establishment costs (estimation)"
 msgstr "ຕົ້ນທຶນທັງໝົດ ໃນການຈັດຕັ້ງປະຕິບັດ (ໂດຍການປະມານ)"
 
-#: apps/summary/renderers.py:744
+#: apps/summary/renderers.py:781
 msgid "Maintenance activities"
 msgstr "ກິດຈະກໍາບໍາລຸງຮັກສາ"
 
-#: apps/summary/renderers.py:748
-msgid "Maintenance inputs and costs"
+#: apps/summary/renderers.py:785
+#, fuzzy
+#| msgid "Maintenance inputs and costs"
+msgid "Maintenance inputs and costs{}"
 msgstr "ປັດໄຈນໍາເຂົ້າໃນການບໍາລຸງຮັກສາ ແລະ ຄ່າໃຊ້ຈ່າຍ"
 
-#: apps/summary/renderers.py:753
+#: apps/summary/renderers.py:790
 msgid "Total maintenance costs (estimation)"
 msgstr "ຕົ້ນທຶນທັງໝົດ ໃນການບໍາລຸງຮັກສາ (ໂດຍການປະມານ)"
 
-#: apps/summary/renderers.py:801
+#: apps/summary/renderers.py:806
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Timing/ frequency"
+msgid "Timing/ frequency"
+msgstr "ໄລຍະເວລາ / ຄວາມຖີ່"
+
+#: apps/summary/renderers.py:828
 msgid "Average annual rainfall in mm: {}"
 msgstr "ປະລິມານນໍ້າຝົນສະເລ່ຍຕໍ່ປີເປັນມິລິແມັດ: {}"
 
-#: apps/summary/renderers.py:803
+#: apps/summary/renderers.py:830
 msgid "Name of the meteorological station: {}"
 msgstr "ຊື່ຂອງສະຖານີອຸຕຸນິຍົມ: {}"
 
-#: apps/summary/renderers.py:810
+#: apps/summary/renderers.py:837
 msgid "Natural environment"
 msgstr "ສະພາບແວດລ້ອມທໍາມະຊາດ"
 
-#: apps/summary/renderers.py:813
+#: apps/summary/renderers.py:840
 msgid "Average annual rainfall"
 msgstr "ສະເລ່ຍປະລິມານນໍ້າຝົນປະຈໍາປີ"
 
-#: apps/summary/renderers.py:817
+#: apps/summary/renderers.py:844
 msgid "Agro-climatic zone"
 msgstr "ເຂດກະສິກໍາ-ສະພາບອາກາດ"
 
-#: apps/summary/renderers.py:821
+#: apps/summary/renderers.py:848
 msgid "Specifications on climate"
 msgstr "ຂໍ້ມູນຈໍາເພາະກ່ຽວກັບສະພາບອາກາດ"
 
-#: apps/summary/renderers.py:825
+#: apps/summary/renderers.py:852
 msgid "Slope"
 msgstr "​ຄວາມຄ້ອຍ​ຊັນ"
 
-#: apps/summary/renderers.py:829
+#: apps/summary/renderers.py:856
 msgid "Landforms"
 msgstr "ຮູບແບບຂອງດິນ"
 
-#: apps/summary/renderers.py:833
+#: apps/summary/renderers.py:860
 msgid "Altitude"
 msgstr "ລະດັບຄວາມສູງ"
 
-#: apps/summary/renderers.py:837
+#: apps/summary/renderers.py:864
 msgid "Technology is applied in"
 msgstr "ເຕັກໂນໂລຢີໄດ້ຖືກນໍາໃຊ້ໃນ"
 
-#: apps/summary/renderers.py:841
+#: apps/summary/renderers.py:868
 msgid "Soil depth"
 msgstr "ຄວາມເລິກຂອງດິນ"
 
-#: apps/summary/renderers.py:845
+#: apps/summary/renderers.py:872
 msgid "Soil texture (topsoil)"
 msgstr "ໂຄງສ້າງຂອງດິນ (ເທີງໜ້າດິນ)"
 
-#: apps/summary/renderers.py:849
+#: apps/summary/renderers.py:876
 msgid "Soil texture (> 20 cm below surface)"
 msgstr "ໂຄງສ້າງຂອງດິນ (ເລິກລົງ 20 ຊັງຕີແມັດ)"
 
-#: apps/summary/renderers.py:853
+#: apps/summary/renderers.py:880
 msgid "Topsoil organic matter content"
 msgstr "ທາດອິນຊີຢູ່ເທິງໜ້າດິນ"
 
-#: apps/summary/renderers.py:857
+#: apps/summary/renderers.py:884
 msgid "Groundwater table"
 msgstr "​ນ້ຳ​ໃຕ້​ດິນ"
 
-#: apps/summary/renderers.py:861
+#: apps/summary/renderers.py:888
 msgid "Availability of surface water"
 msgstr "ມີນໍ້າໜ້າດິນ"
 
-#: apps/summary/renderers.py:865
+#: apps/summary/renderers.py:892
 msgid "Water quality (untreated)"
 msgstr "ຄຸນນະພາບນໍ້າ (ການຮັກສາ)"
 
-#: apps/summary/renderers.py:869
+#: apps/summary/renderers.py:896
 msgid "Occurrence of flooding"
 msgstr "ການເກີດນໍ້າຖ້ວມ"
 
-#: apps/summary/renderers.py:873
+#: apps/summary/renderers.py:900
 msgid "Is salinity a problem?"
 msgstr "ດິນ​ເຄັມ​ເປັນ​ບັນ​ຫາ​ບໍ່?"
 
-#: apps/summary/renderers.py:877
+#: apps/summary/renderers.py:904
 msgid "Species diversity"
 msgstr "ຄວາມຫຼາກຫຼາຍຂອງຊະນິດ"
 
-#: apps/summary/renderers.py:881
+#: apps/summary/renderers.py:908
 msgid "Habitat diversity"
 msgstr "ຄວາມຫຼາກຫຼາຍຂອງສິ່ງທີ່ມີຊີວິດ"
 
-#: apps/summary/renderers.py:889
+#: apps/summary/renderers.py:916
 msgid "Characteristics of land users applying the Technology"
 msgstr "ຄຸນລັກສະນະຂອງຜູ້ນຳໃຊ້ທີ່ດິນການນໍາໃຊ້ເຕັກໂນໂລຢີ"
 
-#: apps/summary/renderers.py:892
+#: apps/summary/renderers.py:919
 msgid "Market orientation"
 msgstr "ການວາງແນວທາງຕະຫຼາດ"
 
-#: apps/summary/renderers.py:896
+#: apps/summary/renderers.py:923
 msgid "Off-farm income"
 msgstr "ລາຍຮັບທີ່ໄດ້ມາຈາກກິດຈະກໍາອື່ນໆ ທີ່ບໍ່ແມ່ນການຜະລິດກະສິກໍາ"
 
-#: apps/summary/renderers.py:900
+#: apps/summary/renderers.py:927
 msgid "Relative level of wealth"
 msgstr "ລະດັບຄວາມຮັ່ງມີ"
 
-#: apps/summary/renderers.py:904
+#: apps/summary/renderers.py:931
 msgid "Level of mechanization"
 msgstr "ລະດັບຂອງການຫັນເປັນກົນຈັກ"
 
-#: apps/summary/renderers.py:908
+#: apps/summary/renderers.py:935
 msgid "Sedentary or nomadic"
 msgstr "ຢູ່​ປະ​ຈຳ ຫຼື ເລ​ລ້ອນ"
 
-#: apps/summary/renderers.py:912
+#: apps/summary/renderers.py:942
 msgid "Individuals or groups"
 msgstr "ບຸກຄົນ ຫຼື ກຸ່ມ"
 
-#: apps/summary/renderers.py:916
+#: apps/summary/renderers.py:946
 msgid "Gender"
 msgstr "ເພດ"
 
-#: apps/summary/renderers.py:920
+#: apps/summary/renderers.py:950
 msgid "Age"
 msgstr "ອາ​ຍຸ"
 
-#: apps/summary/renderers.py:924
+#: apps/summary/renderers.py:954
 msgid "Area used per household"
 msgstr "ເຂດພື້ນທີ່ການນໍາໃຊ້ຕໍ່ຄົວເຮືອນ"
 
-#: apps/summary/renderers.py:928
+#: apps/summary/renderers.py:958
 msgid "Scale"
 msgstr "ຂະໜາດ"
 
-#: apps/summary/renderers.py:932
+#: apps/summary/renderers.py:962
 msgid "Land ownership"
 msgstr "ເຈົ້າຂອງທີ່ດິນ"
 
-#: apps/summary/renderers.py:936
+#: apps/summary/renderers.py:969
 msgid "Land use rights"
 msgstr "ສິດທິການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/summary/renderers.py:940
+#: apps/summary/renderers.py:976
 msgid "Water use rights"
 msgstr "ສິດທິການນໍາໃຊ້ນໍ້າ"
 
-#: apps/summary/renderers.py:944
+#: apps/summary/renderers.py:983
 msgid "Access to services and infrastructure"
 msgstr "ການເຂົ້າເຖິງການບໍລິການ ແລະ ພື້ນຖານໂຄງລ່າງ"
 
-#: apps/summary/renderers.py:952
-msgid "Impacts - Benefits and disadvantages"
-msgstr "ຜົນກະທົບ-ຜົນປະໂຫຍດ ແລະ ຂໍ້ເສຍ"
+#: apps/summary/renderers.py:991
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Impact"
+msgid "Impacts"
+msgstr "ຜົນກະທົບ"
 
-#: apps/summary/renderers.py:955
+#: apps/summary/renderers.py:994
 msgid "Socio-economic impacts"
 msgstr "ຜົນກະທົບທາງສັງຄົມ ແລະ ເສດຖະກິດ"
 
-#: apps/summary/renderers.py:959
+#: apps/summary/renderers.py:998
 msgid "Socio-cultural impacts"
 msgstr "ຜົນກະທົບທາງສັງຄົມ ວັດທະນະທໍາ"
 
-#: apps/summary/renderers.py:963
+#: apps/summary/renderers.py:1002
 msgid "Ecological impacts"
 msgstr "ຜົນກະທົບຕໍ່ລະບົບນິເວດ"
 
-#: apps/summary/renderers.py:967
+#: apps/summary/renderers.py:1006
 msgid "Off-site impacts"
 msgstr "ຜົນກະທົບນອກ​ສະ​ຖານ​ທີ່"
 
-#: apps/summary/renderers.py:971
+#: apps/summary/renderers.py:1014
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Cost-benefit analysis"
+msgid "Cost-benefit analysis"
+msgstr "ການວິເຄາະຕົ້ນທຶນ ແລະ ຜົນປະໂຫຍດ"
+
+#: apps/summary/renderers.py:1017
 msgid "Benefits compared with establishment costs"
 msgstr "ຜົນປະໂຫຍດເມື່ອທຽບກັບຄ່າໃຊ້ຈ່າຍໃນການສ້າງຕັ້ງ"
 
-#: apps/summary/renderers.py:975
+#: apps/summary/renderers.py:1022
 msgid "Benefits compared with maintenance costs"
 msgstr "ຜົນປະໂຫຍດເມື່ອທຽບກັບຄ່າໃຊ້ຈ່າຍບໍາລຸງຮັກສາ"
 
-#: apps/summary/renderers.py:983
+#: apps/summary/renderers.py:1032
 msgid "Climate change"
 msgstr "ການປ່ຽນແປງສະພາບດິນຟ້າອາກາດ"
 
-#: apps/summary/renderers.py:985
+#: apps/summary/renderers.py:1034
 msgid "Climate change/ extreme to which the Technology is exposed"
 msgstr "ການປ່ຽນແປງອາກາດ/ທີ່ເຮັດໃຫ້ເກີດມີ ການຈັດຕັ້ງປະຕິບັດເຕັກໂນໂລຢີ"
 
-#: apps/summary/renderers.py:986
+#: apps/summary/renderers.py:1035
 msgid "How the Technology copes with these changes/extremes"
 msgstr "ວິທີເຕັກໂນໂລຢີສາມາດຮັບມືກັບການປ່ຽນແປງເຫຼົ່ານີ້ / ສຸດ"
 
-#: apps/summary/renderers.py:993
+#: apps/summary/renderers.py:1042
 msgid "Adoption and adaptation"
 msgstr "ການຍອມຮັບ ແລະ ການປັບຕົວ"
 
-#: apps/summary/renderers.py:996
+#: apps/summary/renderers.py:1045
 msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "ອັດຕາສ່ວນຂອງຜູ້ຊົມໃຊ້ທີ່ດິນໃນເຂດພື້ນທີ່ທີ່ໄດ້ຮັບຮອງເອົາເຕັກໂນໂລຢີ"
 
-#: apps/summary/renderers.py:1000
+#: apps/summary/renderers.py:1049
+#, fuzzy
+#| msgid ""
+#| "Of all those who have adopted the Technology, how many have did so "
+#| "without receiving material incentives?"
 msgid ""
-"Of all those who have adopted the Technology, how many have did so without "
+"Of all those who have adopted the Technology, how many have done so without "
 "receiving material incentives?"
 msgstr "ທັງໝົດນັ້ນ ມີໃຜແດ່ທີ່ສາມາດປັບຕົວຕໍ່ເຕັກໂນໂລຢີ,​ ມີຈັກຄົນທີ່ໄດ້ຮັບການກະຕຸກຊຸກຍູ້ ແລະ ອຸປະກອນ?"
 
-#: apps/summary/renderers.py:1004
+#: apps/summary/renderers.py:1053
 msgid "Number of households and/ or area covered"
 msgstr "ຈໍານວນຄົວເຮືອນ ແລະ / ຫຼືບໍລິເວນກວມເອົາ"
 
-#: apps/summary/renderers.py:1008
+#: apps/summary/renderers.py:1057
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
 msgstr "ໄດ້ມີການດັດແປງເຕັກໂນໂລຢີ ເພື່ອປັບໃຫ້ເຂົ້າກັບເງື່ອນໄຂການປ່ຽນແປງບໍ່?"
 
-#: apps/summary/renderers.py:1012
+#: apps/summary/renderers.py:1061
 msgid "To which changing conditions?"
 msgstr "ໄດ້ປ່ຽນແປງເງື່ອນໄຂຫຍັງແດ່?"
 
-#: apps/summary/renderers.py:1055
+#: apps/summary/renderers.py:1107
 msgid "Initiation date"
 msgstr "ວັນທີເລີ່ມຕົ້ນ"
 
-#: apps/summary/renderers.py:1060
+#: apps/summary/renderers.py:1112
 msgid "Year of termination"
 msgstr "ປີ​ຂອງ​ການ​ສິ້ນ​ສຸດ"
 
-#: apps/summary/renderers.py:1065
+#: apps/summary/renderers.py:1117
 msgid "Type of Approach"
 msgstr "ປະເພດຂອງແນວທາງ"
 
-#: apps/summary/renderers.py:1074
+#: apps/summary/renderers.py:1129
 msgid "Approach aims and enabling environment"
 msgstr "ເປົ້າໝາຍຂອງແນວທາງ ແລະ ການປົກປັກຮັກສາສິ່ງແວດລ້ອມ"
 
-#: apps/summary/renderers.py:1077
+#: apps/summary/renderers.py:1132
 msgid "Main aims / objectives of the approach"
 msgstr "ເປົ້າໝາຍ / ຈຸດປະສົງຫຼັກໃນການຈັດຕັ້ງປະຕິບັດແນວທາງ"
 
-#: apps/summary/renderers.py:1082
+#: apps/summary/renderers.py:1137
 msgid ""
 "Conditions enabling the implementation of the Technology/ ies applied under "
 "the Approach"
 msgstr "ເງື່ອນໄຂທີ່ສະໜັບສະໜູນໃຫ້ການຈັດຕັ້ງປະຕິບັດເຕັກໂນໂລຢີ ບົນພື້ນຖານແນວທາງ"
 
-#: apps/summary/renderers.py:1086
+#: apps/summary/renderers.py:1141
 msgid ""
 "Conditions hindering the implementation of the Technology/ ies applied under "
 "the Approach"
 msgstr "ເງື່ອນໄຂທີ່ເຊື່ອງຊ້ອນໃຫ້ການຈັດຕັ້ງປະຕິບັດເຕັກໂນໂລຢີ ບົນພື້ນຖານແນວທາງ"
 
-#: apps/summary/renderers.py:1101
+#: apps/summary/renderers.py:1156
 msgid "Participation and roles of stakeholders involved"
 msgstr "ການມີສ່ວນຮ່ວມ ແລະ ບົດບາດຂອງພາກສ່ວນທີ່ກ່ຽວຂ້ອງທີ່ມີສ່ວນຮ່ວມ"
 
-#: apps/summary/renderers.py:1104
+#: apps/summary/renderers.py:1159
 msgid "Stakeholders involved in the Approach and their roles"
 msgstr "ພາລະບົດບາດຂອງພາກສ່ວນທີ່ກ່ຽວຂ້ອງ ທີ່ມີສ່ວນຮ່ວມໃນການຈັດຕັ້ງປະຕິບັດແນວທາງ"
 
-#: apps/summary/renderers.py:1106
-msgid "Lead agency: {}"
+#: apps/summary/renderers.py:1162
+#, fuzzy
+#| msgid "Lead agency: {}"
+msgid "Lead agency"
 msgstr "ອົງການທີ່ເປັນຕົວແທນໃນການຈັດຕັ້ງປະຕິບັດ: {}"
 
-#: apps/summary/renderers.py:1109 apps/summary/renderers.py:1113
+#: apps/summary/renderers.py:1167 apps/summary/renderers.py:1171
 msgid ""
 "Involvement of local land users/ local communities in the different phases "
 "of the Approach"
 msgstr "ການລວບລວມເອົາຜູ້ນໍາໃຊ້ທີ່ດິນໃນທ້ອງຖິ່ນ/ຊຸມຊົນທ້ອງຖິ່ນ ໃນການຈັດຕັ້ງປະຕິບັດແນວທາງ ແຕ່ລະໄລຍະ"
 
-#: apps/summary/renderers.py:1122
+#: apps/summary/renderers.py:1180
 msgid "Flow chart"
 msgstr "ແຜ່ນວາດສະແດງ"
 
-#: apps/summary/renderers.py:1126
+#: apps/summary/renderers.py:1184
 msgid "Decision-making on the selection of SLM Technology"
 msgstr "ການຕັດສິນໃຈໃນການເລືອກເຕັກໂນໂລຢີ ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/summary/renderers.py:1129
+#: apps/summary/renderers.py:1187
 msgid "Decisions were taken by"
 msgstr "ການຕັດສິນໃຈໂດຍ"
 
-#: apps/summary/renderers.py:1133
-msgid "Decisions were made based on:"
+#: apps/summary/renderers.py:1194
+#, fuzzy
+#| msgid "Decisions were made based on:"
+msgid "Decisions were made based on"
 msgstr "ການຕັດສິນໃຈບົນພື້ນຖານ:"
 
-#: apps/summary/renderers.py:1143
-msgid ""
-"This documentation is <i>not</i> intended to be used for monitoring and "
-"evaluation"
-msgstr "ເອກກະສານນີ້ ບໍ່ສາມາດນຳໃຊ້ໄດ້ໃນການຕິດຕາມ ແລະ ປະເມີນຜົນ "
-
-#: apps/summary/renderers.py:1145
-msgid "This documentation is intended to be used for monitoring and evaluation"
-msgstr "ເອກກະສານນີ້ ບໍ່ສາມາດນຳໃຊ້ໄດ້ໃນການຕິດຕາມ ແລະ ປະເມີນຜົນ "
-
-#: apps/summary/renderers.py:1148
+#: apps/summary/renderers.py:1207
 msgid "Technical support, capacity building, and knowledge management"
 msgstr "ການສະໜັບສະໜູນເຕັກໂນໂລຢີ, ການສ້າງຄວາມອາດສາມາດ ແລະ ການຄຸ້ມຄອງຄວາມຮູ້"
 
-#: apps/summary/renderers.py:1151
+#: apps/summary/renderers.py:1210
 msgid "The following activities or services have been part of the approach"
 msgstr "ກິດຈະກຳ ດັ່ງລຸ່ມນີ້ ແມ່ນເປັນພາກໜຶ່ງຂອງແນວທາງ"
 
-#: apps/summary/renderers.py:1161
+#: apps/summary/renderers.py:1220
 msgid "Capacity building/ training"
 msgstr "ການສ້າງຄວາມອາດສາມາດ / ຝຶກອົບຮົມ"
 
-#: apps/summary/renderers.py:1164
+#: apps/summary/renderers.py:1223
 msgid "Training was provided to the following stakeholders"
 msgstr "ໄດ້ສະໜັບສະໜູນຝຶກອົບຮົມໃຫ້ແກ່ພາກສ່ວນກ່ຽວຂ້ອງດັ່ງລຸ່ມນີ້"
 
-#: apps/summary/renderers.py:1168
+#: apps/summary/renderers.py:1230
 msgid "Form of training"
 msgstr "ຮູບແບບການຝຶກອົບຮົມ"
 
-#: apps/summary/renderers.py:1173
+#: apps/summary/renderers.py:1238
 msgid "Subjects covered"
 msgstr "ກວມເອົາຫົວຂໍ້"
 
-#: apps/summary/renderers.py:1178
+#: apps/summary/renderers.py:1243
 msgid "Advisory service"
 msgstr "ການບໍລິການທາງດ້ານການໃຫ້ຄໍາປຶກສາ"
 
-#: apps/summary/renderers.py:1181
+#: apps/summary/renderers.py:1246
 msgid "Advisory service was provided"
 msgstr "ໄດ້ຮັບການບໍລິການທາງດ້ານການໃຫ້ຄໍາປຶກສາ"
 
-#: apps/summary/renderers.py:1188
+#: apps/summary/renderers.py:1256
 msgid "Institution strengthening"
 msgstr "ຄວາມເຂັ້ມແຂງຂອງສະຖາບັນ"
 
-#: apps/summary/renderers.py:1190
+#: apps/summary/renderers.py:1258
 msgid "Institutions have been strengthened / established"
 msgstr "ສະຖາບັນ ໄດ້ຮັບການສ້າງຄວາມເຂັ້ມແຂງ"
 
-#: apps/summary/renderers.py:1194
+#: apps/summary/renderers.py:1262
 msgid "at the following level"
 msgstr "ໃນລະດັບດັ່ງລຸ່ມນີ້:"
 
-#: apps/summary/renderers.py:1197
+#: apps/summary/renderers.py:1268
 msgid "Describe institution, roles and responsibilities, members, etc."
 msgstr "ອະທິບາຍສະຖາບັນ, ພາລະບົດບາດແລະຄວາມຮັບຜິດຊອບ, ສະມາຊິກ, ແລະອື່ນໆ"
 
-#: apps/summary/renderers.py:1200
+#: apps/summary/renderers.py:1271
 msgid "Type of support"
 msgstr "ຮູບແບບການສະໜັບສະໜູນ"
 
-#: apps/summary/renderers.py:1203
+#: apps/summary/renderers.py:1277
 msgid "Further details"
 msgstr "ລາຍລະອຽດເພີ່ມເຕີມ"
 
-#: apps/summary/renderers.py:1207
+#: apps/summary/renderers.py:1281
 msgid "Monitoring and evaluation"
 msgstr "ການຕິດຕາມ ແລະ ປະເມີນຜົນ"
 
-#: apps/summary/renderers.py:1212
+#: apps/summary/renderers.py:1285
 msgid "Research"
 msgstr "ການຄົ້ນຄວ້າ"
 
-#: apps/summary/renderers.py:1213
+#: apps/summary/renderers.py:1286
 msgid "Research treated the following topics"
 msgstr "ການວິໄຈໄດ້ຮັບການຮັກສາຫົວຂໍ້ຕໍ່ໄປນີ້"
 
-#: apps/summary/renderers.py:1222
+#: apps/summary/renderers.py:1298
 msgid "Financing and external material support"
 msgstr "ການສະໜັບສະໜູນທາງດ້ານການເງິນ ແລະ ອຸປະກອນຈາກພາຍນອກ"
 
-#: apps/summary/renderers.py:1225
+#: apps/summary/renderers.py:1301
 msgid "Annual budget in USD for the SLM component"
 msgstr "ງົບປະມານປະຈຳປີ ໃນກິດຈະກຳ ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ ທີ່ເປັນສະກຸນເງິນໂດລາ "
 
-#: apps/summary/renderers.py:1228
+#: apps/summary/renderers.py:1304
 msgid "Precise annual budget: {}"
 msgstr "ງົບປະມານປະຈຳປີທີ່ຊັດເຈນ: {}"
 
-#: apps/summary/renderers.py:1231
+#: apps/summary/renderers.py:1307
 msgid "The following services or incentives have been provided to land users"
 msgstr "ການບໍລິການ ຫຼື ສິ່ງກະຕຸກຊຸກຍູ້ ດັ່ງລຸ່ມນີ້ ແມ່ນໄດ້ສະໜອງໂດຍຜູ້ນຳໃຊ້ທີ່ດິນເອງ"
 
-#: apps/summary/renderers.py:1242
+#: apps/summary/renderers.py:1318
 msgid "Labour by land users was"
 msgstr "ແຮງງານຂອງຜູ້ນໍ້າໃຊ້ທີ່ດິນ"
 
-#: apps/summary/renderers.py:1246
+#: apps/summary/renderers.py:1322
 msgid "Financial/ material support provided to land users"
 msgstr "ເງິນສະໜັບສະໜູນອຸປະກອນ / ສະໜອງໃຫ້ຜູ້ຊົມໃຊ້ທີ່ດິນ"
 
-#: apps/summary/renderers.py:1250
+#: apps/summary/renderers.py:1326
 msgid "Credit"
 msgstr "ເຄດິດ"
 
-#: apps/summary/renderers.py:1252
+#: apps/summary/renderers.py:1328
 msgid "Conditions: {}"
 msgstr "ເງື່ອນໄຂ: {}"
 
-#: apps/summary/renderers.py:1255
+#: apps/summary/renderers.py:1331
 msgid "Credit providers: {}"
 msgstr "ຜູ້ສະໜອງສິນເຊື່ອ: {}"
 
-#: apps/summary/renderers.py:1258
+#: apps/summary/renderers.py:1334
 msgid "Credit receivers: {}"
 msgstr "ຜຸ້ໄດ້ຮັບສິນເຊື່ອ: {}"
 
-#: apps/summary/renderers.py:1264
+#: apps/summary/renderers.py:1340
 msgid "Other incentives or instruments"
 msgstr "ສີ່ງກະຕຸກຊຸກຍູ້ອື່ນໆ "
 
-#: apps/summary/renderers.py:1273
+#: apps/summary/renderers.py:1349
 msgid "Impact analysis and concluding statements"
 msgstr "ການວິເຄາະຜົນກະທົບ ແລະ ສະຫຼຸບລວມ"
 
-#: apps/summary/renderers.py:1276
+#: apps/summary/renderers.py:1352
 msgid "Impacts of the Approach"
 msgstr "ຜົນກະທົບຂອງການນໍາໃຊ້ແນວທາງ"
 
-#: apps/summary/renderers.py:1277
+#: apps/summary/renderers.py:1353
 msgid "Did the approach..."
 msgstr "ແມ່ນແນວທາງ ...."
 
-#: apps/summary/renderers.py:1281
+#: apps/summary/renderers.py:1357
 msgid "Main motivation of land users to implement SLM"
 msgstr "ສິ່ງກະຕຸກຊຸກຍູ້ໃຫ້ຜູ້ນໍາໃຊ້ທີ່ດິນ ໃນການປະຕິບັດການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/summary/renderers.py:1285
+#: apps/summary/renderers.py:1364
 msgid "Sustainability of Approach activities"
 msgstr "ຄວາມຍືນຍົງຂອງການຈັດຕັ້ງປະຕິບັດກິດຈະກໍາຂອງແນວທາງ"
 
-#: apps/summary/renderers.py:1286
+#: apps/summary/renderers.py:1365
 msgid ""
 "Can the land users sustain what hat been implemented through the Approach "
 "(without external support)?"
@@ -18979,6 +19007,21 @@ msgstr ""
 
 #~ msgid "The migration of the data from the old WOCAT database is in process!"
 #~ msgstr "ການເຄື່ອນຍ້າຍຂອງຂໍ້ມູນຈາກຖານຂໍ້ມູນເກົ່າWOCATແມ່ນຢູ່ໃນຂະບວນການ!"
+
+#~ msgid "Questionnaire created"
+#~ msgstr "ສ້າງແບບສອບຖາມ"
+
+#~ msgid "Impacts - Benefits and disadvantages"
+#~ msgstr "ຜົນກະທົບ-ຜົນປະໂຫຍດ ແລະ ຂໍ້ເສຍ"
+
+#~ msgid ""
+#~ "This documentation is <i>not</i> intended to be used for monitoring and "
+#~ "evaluation"
+#~ msgstr "ເອກກະສານນີ້ ບໍ່ສາມາດນຳໃຊ້ໄດ້ໃນການຕິດຕາມ ແລະ ປະເມີນຜົນ "
+
+#~ msgid ""
+#~ "This documentation is intended to be used for monitoring and evaluation"
+#~ msgstr "ເອກກະສານນີ້ ບໍ່ສາມາດນຳໃຊ້ໄດ້ໃນການຕິດຕາມ ແລະ ປະເມີນຜົນ "
 
 #~ msgid "No SLM Technologies found."
 #~ msgstr "ບໍ່ພົບເຕັກໂນໂລຢີ SLM ."
