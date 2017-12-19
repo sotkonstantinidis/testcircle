@@ -7,9 +7,9 @@ import contextlib
 import itertools
 import logging
 import operator
-from django.conf import settings
 
-from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _, pgettext
 
 from configuration.configuration import QuestionnaireQuestion, \
     QuestionnaireSubcategory, QuestionnaireQuestiongroup
@@ -521,7 +521,10 @@ class TechnologyParser(QuestionnaireParser):
                 # Indicator for direction of development (increased/decreased)
                 question_label = values.get(question.keyword)
                 if question_label:
-                    label = f'{label} {question_label}'
+                    # context is important here; a label may be named differently according to
+                    # configuration,
+                    translated = pgettext(f'{self.config_object.keyword} label', question_label)
+                    label = f'{label} {translated}'
 
             elif question.keyword == 'tech_exposure_sensitivity':
                 # The actual value for our range-field.
