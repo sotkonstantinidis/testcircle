@@ -167,6 +167,10 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                         selected_children_keyword, {}
                     )[0]
                 except (IndexError, KeyError):
+                    yield {
+                        'url': value[1],
+                        'text': child_text
+                    }
                     continue
 
                 # Load the configured question for the children and get their
