@@ -20,7 +20,9 @@
 
         // load data when clicking on pagination item
         elem.on('click', 'ul.pagination li a', function(event) {
-            page = $(this).attr('href');
+            var pageString = $(this).attr('href');
+            var captured = /page=([^&]+)/.exec(pageString)[1];
+            page = captured ? captured : 1;
             loadContent();
             return false;
         });
