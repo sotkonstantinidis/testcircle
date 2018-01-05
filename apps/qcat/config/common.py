@@ -309,6 +309,7 @@ class BaseSettings(Configuration):
     # for the latest supported firefox version.
     TESTING_FIREFOX_PATH = values.Value(environ_prefix='')
 
+    # Flag for caching of the whole configuration object. Sections are always cached.
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
     KEY_PREFIX = values.Value(environ_prefix='', default='')

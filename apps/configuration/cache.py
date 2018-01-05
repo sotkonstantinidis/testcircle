@@ -3,8 +3,7 @@ from functools import lru_cache
 
 from django.conf import settings
 from django.core.cache import cache
-from django.utils.translation import get_language
-
+from django.utils.translation import get_language, activate
 
 logger = logging.getLogger('config_cache')
 
@@ -87,18 +86,35 @@ def get_configuration_by_code(configuration_code):
 
 def delete_configuration_cache(configuration_object):
     """
-    Delete a configuration object from the cache (incl. lru_cache) if it exists.
+    Delete a configuration object from the cache (incl. lru_cache) if it exists. Also remove all
+    QuestionnaireSections from the cache.
+    cache.clear() is not used, as the cache is shared on some hosts.
 
     Args:
         ``configuration_object`` (``QuestionnaireConfiguration``): The
         configuration object whose configuration is to be deleted.
     """
-
-    cache_key = get_cache_key(configuration_object.code)
+    delete_section_caches(configuration_code=configuration_object.code)
 
     if settings.USE_CACHING:
+        cache_key = get_cache_key(configuration_object.code)
         cache.delete(cache_key)
         get_cached_configuration.cache_clear()
+
+
+def delete_section_caches(configuration_code: str):
+    """
+    Delete all cached sections for a configuration.
+    """
+    current_language = get_language()
+    config = get_configuration(configuration_code=configuration_code)
+    for language in settings.LANGUAGES:
+        activate(language[0])
+        for section in config.sections:
+            cache_key = config.get_section_cache_key(section.keyword)
+            cache.delete(cache_key)
+
+    activate(current_language)
 
 
 def get_cache_key(configuration_code):

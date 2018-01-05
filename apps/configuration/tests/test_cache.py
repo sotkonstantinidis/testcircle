@@ -1,5 +1,6 @@
+from django.core.cache.backends.dummy import DummyCache
 from django.test.utils import override_settings
-from unittest.mock import patch, Mock
+from unittest.mock import patch, Mock, MagicMock, call
 
 from configuration.cache import (
     get_cache_key,
@@ -55,6 +56,8 @@ class GetConfigurationQueryFilterTest(TestCase):
 @patch('configuration.cache.cache')
 class DeleteConfigurationCacheTest(TestCase):
 
+    fixtures = ['global_key_values', 'sample']
+
     @override_settings(USE_CACHING=True)
     def test_calls_delete_many(self, mock_cache):
         conf = Mock()
@@ -68,3 +71,15 @@ class DeleteConfigurationCacheTest(TestCase):
         conf = Mock()
         delete_configuration_cache(conf)
         self.assertEqual(mock_cache.delete_many.call_count, 0)
+
+    @override_settings(USE_CACHING=False, LANGUAGES=(('fo', 'Foo'), ('ba', 'Bar')))
+    def test_delete_section_cache(self, mock_cache):
+        conf = MagicMock(code='sample')
+        delete_configuration_cache(conf)
+        method_calls = [
+            call.delete('fo_sample_section_1'),
+            call.delete('fo_sample_section_2'),
+            call.delete('ba_sample_section_1'),
+            call.delete('ba_sample_section_2'),
+        ]
+        self.assertListEqual(mock_cache.method_calls, method_calls)
