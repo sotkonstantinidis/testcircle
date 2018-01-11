@@ -423,7 +423,7 @@ class Project(models.Model):
 
     Only "active" Projects can be selected in the form.
     """
-    id = models.IntegerField(
+    id = models.AutoField(
         primary_key=True,
         help_text="The ID must be exactly the same as on the WOCAT website!")
     name = models.CharField(max_length=255)
