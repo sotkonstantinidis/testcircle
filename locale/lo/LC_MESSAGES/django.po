@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-18 09:56+0100\n"
+"POT-Creation-Date: 2018-01-11 09:10+0100\n"
 "PO-Revision-Date: 2017-09-23 23:08+0000\n"
 "Last-Translator: Bounthanom Bouahom <bounthanom.b@gmail.com>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -285,7 +285,7 @@ msgstr "ການປັບຕົວ ຕໍ່ກັບສະພາບ ການ�
 msgid "This Module is linked to a SLM Technology"
 msgstr "ໂມດູນນີ້ ໄດ້ເຊື່ອມໂຍງກັບ ເຕັກໂນໂລຢີ ໃນການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ"
 
-#: apps/configuration/configuration.py:376
+#: apps/configuration/configuration.py:376 apps/summary/renderers.py:545
 msgid "Yes"
 msgstr "ແມ່ນ"
 
@@ -17530,11 +17530,11 @@ msgstr "ຫຼາກຫຼາຍຕົວຢ່າງ"
 msgid "Only data declared as public are visible."
 msgstr "ສະ​ເພາະ​ຂໍ້​ມູນ​ທີ່​ປະ​ກາດ​ສູ່​ສາ​ທາ​ລະ​ນະ​ຈຶ່ງ​ສາ​ມາດ​ເຫັນ​ໄດ້."
 
-#: apps/summary/parsers.py:540
+#: apps/summary/parsers.py:549
 msgid " Answer: {}"
 msgstr "ຄໍາຕອບ {}"
 
-#: apps/summary/parsers.py:743
+#: apps/summary/parsers.py:754
 msgid "Subsidies for specific inputs"
 msgstr "ຫຼຸດປັດໃຈນໍາເຂົ້າ"
 

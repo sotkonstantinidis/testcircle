@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-18 09:56+0100\n"
+"POT-Creation-Date: 2018-01-11 09:10+0100\n"
 "PO-Revision-Date: 2017-09-27 13:09+0000\n"
 "Last-Translator: Julia Johnson <yukuleshova@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -285,7 +285,7 @@ msgstr "Адаптация к изменениям климата"
 msgid "This Module is linked to a SLM Technology"
 msgstr "Данный Модуль связан с Технологией УЗП"
 
-#: apps/configuration/configuration.py:376
+#: apps/configuration/configuration.py:376 apps/summary/renderers.py:545
 msgid "Yes"
 msgstr "Да"
 
@@ -18354,11 +18354,11 @@ msgstr "SAMPLEMULTI"
 msgid "Only data declared as public are visible."
 msgstr "Просмотреть можно только данные, находящиеся в открытом доступе.  "
 
-#: apps/summary/parsers.py:540
+#: apps/summary/parsers.py:549
 msgid " Answer: {}"
 msgstr "Ответ: {}"
 
-#: apps/summary/parsers.py:743
+#: apps/summary/parsers.py:754
 msgid "Subsidies for specific inputs"
 msgstr "Субсидии на отдельные затраты"
 

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-18 09:56+0100\n"
+"POT-Creation-Date: 2018-01-11 09:10+0100\n"
 "PO-Revision-Date: 2017-09-22 22:30+0000\n"
 "Last-Translator: DE CHOUDENS BARBARA <barbara.dc@dimensionsud.com>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -286,7 +286,7 @@ msgstr "Adaptation aux changements climatiques"
 msgid "This Module is linked to a SLM Technology"
 msgstr "Ce module est lié à une Technologie de GDT"
 
-#: apps/configuration/configuration.py:376
+#: apps/configuration/configuration.py:376 apps/summary/renderers.py:545
 msgid "Yes"
 msgstr "Oui"
 
@@ -18561,11 +18561,11 @@ msgstr "MULTIECHANTILLON"
 msgid "Only data declared as public are visible."
 msgstr "Seules les données déclarées publiques sont visibles."
 
-#: apps/summary/parsers.py:540
+#: apps/summary/parsers.py:549
 msgid " Answer: {}"
 msgstr "Réponse: {}"
 
-#: apps/summary/parsers.py:743
+#: apps/summary/parsers.py:754
 msgid "Subsidies for specific inputs"
 msgstr "Subventions pour des intrants spécifiques"
 

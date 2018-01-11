@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-18 09:56+0100\n"
+"POT-Creation-Date: 2018-01-11 09:10+0100\n"
 "PO-Revision-Date: 2017-09-22 22:30+0000\n"
 "Last-Translator: Sebastian Manger <s.manger@gmx.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -283,7 +283,7 @@ msgstr "Adaptación al Cambio Climático "
 msgid "This Module is linked to a SLM Technology"
 msgstr "Este módulo se vincula a una Tecnología MST"
 
-#: apps/configuration/configuration.py:376
+#: apps/configuration/configuration.py:376 apps/summary/renderers.py:545
 msgid "Yes"
 msgstr "Sí"
 
@@ -8835,6 +8835,7 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5284
 #: apps/configuration/configuration_translations.py:5285
+#, fuzzy
 #| msgid "Institution"
 msgctxt "approaches label_filter"
 msgid "Institution"
@@ -8885,7 +8886,7 @@ msgstr ""
 #| msgid "Institution"
 msgctxt "technologies label_filter"
 msgid "Institution"
-msgstr "Institución "
+msgstr "Institución"
 
 #: apps/configuration/configuration_translations.py:5296
 #: apps/configuration/configuration_translations.py:5297
@@ -8924,7 +8925,7 @@ msgstr ""
 #| msgid "Institution"
 msgctxt "wocat label_filter"
 msgid "Institution"
-msgstr "Institución "
+msgstr "Institución"
 
 #: apps/configuration/configuration_translations.py:5304
 msgctxt "approaches label"
@@ -18392,11 +18393,11 @@ msgstr "SAMPLEMULTI"
 msgid "Only data declared as public are visible."
 msgstr "Solo los datos declarados públicos son visibles."
 
-#: apps/summary/parsers.py:540
+#: apps/summary/parsers.py:549
 msgid " Answer: {}"
 msgstr " Respuesta: {}"
 
-#: apps/summary/parsers.py:743
+#: apps/summary/parsers.py:754
 msgid "Subsidies for specific inputs"
 msgstr "Subsidios para insumos específicos"
 
