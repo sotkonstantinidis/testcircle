@@ -1,5 +1,9 @@
 import urllib
-from datetime import datetime
+import time
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 def find_dict_in_list(list_, key, value, not_found={}):
@@ -73,3 +77,23 @@ def url_with_querystring(path, **kwargs):
         ``str``. A URL with query strings.
     """
     return path + '?' + urllib.parse.urlencode(kwargs)
+
+
+def time_cache_read(method):
+    """
+    Log spent time for configuration reading to file.
+    This is slightly problematic, as sections are always cached so the comparison is unfair. We are
+    mainly interested if there are 'spikes' are huge delays for the method get_configuration_by_code.
+    """
+    def timed(*args, **kwargs):
+        ts = time.time()
+        result = method(*args, **kwargs)
+        te = time.time()
+        logger.info(
+            msg=';%2.2f ms;%s;%s' % (
+                (te - ts) * 1000, method.__name__, kwargs.get('configuration_code')
+            )
+        )
+        return result
+
+    return timed

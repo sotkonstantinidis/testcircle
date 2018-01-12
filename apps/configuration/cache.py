@@ -1,11 +1,16 @@
 import logging
+
 from functools import lru_cache
 
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.translation import get_language, activate
+from qcat.utils import time_cache_read
+
 
 logger = logging.getLogger('config_cache')
+
+feature_toggles = {'is_cde_user': False}
 
 
 def get_configuration(configuration_code):
@@ -23,11 +28,11 @@ def get_configuration(configuration_code):
         either returned from cache or newly created.
     """
 
-    if settings.USE_CACHING:
+    if settings.USE_CACHING and feature_toggles['is_cde_user']:
         cache_key = get_cache_key(configuration_code)
         configuration = get_cached_configuration(
-            cache_key,
-            configuration_code
+            cache_key=cache_key,
+            configuration_code=configuration_code
         )
         cache_info = get_cached_configuration.cache_info()
         logger.info(f'"{configuration_code}" (cache_key {cache_key}) - '
@@ -35,7 +40,7 @@ def get_configuration(configuration_code):
                        f'size: {cache_info.currsize}')
         return configuration
 
-    return get_configuration_by_code(configuration_code)
+    return get_configuration_by_code(configuration_code=configuration_code)
 
 
 # This is deactivated to enable CI. Reactivate when tests are run before
@@ -59,6 +64,7 @@ def get_configuration(configuration_code):
 
 
 @lru_cache(maxsize=16)
+@time_cache_read
 def get_cached_configuration(cache_key, configuration_code):
     """
     Simple retrieval. If object is not in the lru_cache, use the default cache
@@ -76,6 +82,7 @@ def get_cached_configuration(cache_key, configuration_code):
     return configuration
 
 
+@time_cache_read
 def get_configuration_by_code(configuration_code):
     """
     Get the configuration object.
