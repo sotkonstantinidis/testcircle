@@ -1,18 +1,13 @@
 from django.conf import settings
-
-from configuration.cache import feature_toggles
+from django.core.cache import cache
 
 
 class StaffFeatureToggleMiddleware:
     """
     Staff members are either logged in, or are making requests from the CDE subnet.
     """
-
-    def __init__(self):
-        self.feature_toggles = feature_toggles
-
     def process_request(self, request):
-        self.feature_toggles['is_cde_user'] = self.is_cde_user(request=request)
+        cache.set(key='is_cde_user', value=self.is_cde_user(request=request))
 
     def is_cde_user(self, request) -> bool:
         """
