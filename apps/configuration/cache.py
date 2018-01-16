@@ -1,12 +1,16 @@
 import logging
+
 from functools import lru_cache
 
 from django.conf import settings
 from django.core.cache import cache
-from django.utils.translation import get_language
+from django.utils.translation import get_language, activate
+from qcat.utils import time_cache_read
 
 
 logger = logging.getLogger('config_cache')
+
+feature_toggles = {'is_cde_user': False}
 
 
 def get_configuration(configuration_code):
@@ -24,11 +28,11 @@ def get_configuration(configuration_code):
         either returned from cache or newly created.
     """
 
-    if settings.USE_CACHING:
+    if settings.USE_CACHING and feature_toggles['is_cde_user']:
         cache_key = get_cache_key(configuration_code)
         configuration = get_cached_configuration(
-            cache_key,
-            configuration_code
+            cache_key=cache_key,
+            configuration_code=configuration_code
         )
         cache_info = get_cached_configuration.cache_info()
         logger.info(f'"{configuration_code}" (cache_key {cache_key}) - '
@@ -36,7 +40,7 @@ def get_configuration(configuration_code):
                        f'size: {cache_info.currsize}')
         return configuration
 
-    return get_configuration_by_code(configuration_code)
+    return get_configuration_by_code(configuration_code=configuration_code)
 
 
 # This is deactivated to enable CI. Reactivate when tests are run before
@@ -60,6 +64,7 @@ def get_configuration(configuration_code):
 
 
 @lru_cache(maxsize=16)
+@time_cache_read
 def get_cached_configuration(cache_key, configuration_code):
     """
     Simple retrieval. If object is not in the lru_cache, use the default cache
@@ -77,6 +82,7 @@ def get_cached_configuration(cache_key, configuration_code):
     return configuration
 
 
+@time_cache_read
 def get_configuration_by_code(configuration_code):
     """
     Get the configuration object.
@@ -87,18 +93,35 @@ def get_configuration_by_code(configuration_code):
 
 def delete_configuration_cache(configuration_object):
     """
-    Delete a configuration object from the cache (incl. lru_cache) if it exists.
+    Delete a configuration object from the cache (incl. lru_cache) if it exists. Also remove all
+    QuestionnaireSections from the cache.
+    cache.clear() is not used, as the cache is shared on some hosts.
 
     Args:
         ``configuration_object`` (``QuestionnaireConfiguration``): The
         configuration object whose configuration is to be deleted.
     """
-
-    cache_key = get_cache_key(configuration_object.code)
+    delete_section_caches(configuration_code=configuration_object.code)
 
     if settings.USE_CACHING:
+        cache_key = get_cache_key(configuration_object.code)
         cache.delete(cache_key)
         get_cached_configuration.cache_clear()
+
+
+def delete_section_caches(configuration_code: str):
+    """
+    Delete all cached sections for a configuration.
+    """
+    current_language = get_language()
+    config = get_configuration(configuration_code=configuration_code)
+    for language in settings.LANGUAGES:
+        activate(language[0])
+        for section in config.sections:
+            cache_key = config.get_section_cache_key(section.keyword)
+            cache.delete(cache_key)
+
+    activate(current_language)
 
 
 def get_cache_key(configuration_code):

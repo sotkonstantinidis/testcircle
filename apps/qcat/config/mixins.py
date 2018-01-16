@@ -82,6 +82,14 @@ class LogMixin:
                     'filename': '{}/logs/caches.log'.format(super().BASE_DIR),
                     'formatter': 'verbose'
                 },
+                'time_cache': {
+                    'level': 'INFO',
+                    'class': 'logging.handlers.TimedRotatingFileHandler',
+                    'when': 'midnight',
+                    'backupCount': 20,
+                    'filename': '{}/logs/config_cache.log'.format(super().BASE_DIR),
+                    'formatter': 'verbose'
+                },
             },
             'loggers': {
                 '': {
@@ -92,6 +100,11 @@ class LogMixin:
                 'config_cache': {
                     'handlers': ['cache_info'],
                     'propagate': True,
+                    'level': 'INFO'
+                },
+                'qcat.utils': {
+                    'handlers': ['time_cache'],
+                    'propagate': False,
                     'level': 'INFO'
                 },
                 'notifications': {
@@ -126,7 +139,9 @@ class CompressMixin:
 class AuthenticationFeatureSwitch:
     """
     The new authentication is a feature switch, not just a new backend.
+    todo: remove me!
     """
+    #todo: remove me!
     USE_NEW_WOCAT_AUTHENTICATION = values.BooleanValue(
         environ_prefix='', default=False
     )

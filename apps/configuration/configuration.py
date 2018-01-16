@@ -2,12 +2,12 @@ import collections
 import datetime
 
 import floppyforms as forms
-from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, get_language
 
 from configuration.models import (
     Category,
@@ -2578,6 +2578,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         question.form_options.get('display_field'), user_role))
         return user_fields
 
+    def get_section_cache_key(self, section_keyword) -> str:
+        return f'{get_language()}_{self.keyword}_{section_keyword}'
+
     def read_configuration(self):
         """
         This function reads an active configuration of a Questionnaire.
@@ -2622,7 +2625,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             conf_sections, list, 'sections', 'list of dicts', '-')
 
         for conf_section in conf_sections:
-            self.sections.append(QuestionnaireSection(self, conf_section))
+            self.sections.append(self.get_section(conf_section=conf_section))
         self.children = self.sections
 
         self.modules = self.configuration.get('modules', [])
@@ -2637,6 +2640,16 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 inherited_data[
                     qg.inherited_configuration] = inherited_by_configuration
         self.inherited_data = inherited_data
+
+    def get_section(self, conf_section: dict) -> QuestionnaireSection:
+        # 1755: add version of config here.
+        cache_key = self.get_section_cache_key(section_keyword=conf_section['keyword'])
+        section = cache.get(cache_key)
+        if not section:
+            section = QuestionnaireSection(self, conf_section)
+            cache.set(cache_key, section)
+
+        return section
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

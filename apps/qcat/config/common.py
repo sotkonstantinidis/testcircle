@@ -77,6 +77,7 @@ class BaseSettings(Configuration):
         'accounts.middleware.WocatAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'qcat.middleware.StaffFeatureToggleMiddleware',
         'maintenancemode.middleware.MaintenanceModeMiddleware',
     )
 
@@ -309,6 +310,7 @@ class BaseSettings(Configuration):
     # for the latest supported firefox version.
     TESTING_FIREFOX_PATH = values.Value(environ_prefix='')
 
+    # Flag for caching of the whole configuration object. Sections are always cached.
     USE_CACHING = values.BooleanValue(default=True)
     CACHES = values.CacheURLValue(default='locmem://')
     KEY_PREFIX = values.Value(environ_prefix='', default='')
@@ -364,3 +366,5 @@ class BaseSettings(Configuration):
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')
+
+    CDE_SUBNET_ADDR = values.Value(environ_prefix='', default='0.0.0.')
