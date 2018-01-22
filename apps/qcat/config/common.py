@@ -77,7 +77,6 @@ class BaseSettings(Configuration):
         'accounts.middleware.WocatAuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'qcat.middleware.StaffFeatureToggleMiddleware',
         'maintenancemode.middleware.MaintenanceModeMiddleware',
     )
 

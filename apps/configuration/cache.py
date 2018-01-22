@@ -26,7 +26,7 @@ def get_configuration(configuration_code):
         either returned from cache or newly created.
     """
 
-    if settings.USE_CACHING and not cache.get('is_cde_user'):
+    if settings.USE_CACHING:
         cache_key = get_cache_key(configuration_code)
         configuration = get_cached_configuration(
             cache_key=cache_key,
@@ -61,8 +61,7 @@ def get_configuration(configuration_code):
 #     return 1 << (total_configs - 1).bit_length()
 
 
-@time_cache_read
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=24)
 def get_cached_configuration(cache_key, configuration_code):
     """
     Simple retrieval. If object is not in the lru_cache, use the default cache
@@ -80,7 +79,6 @@ def get_cached_configuration(cache_key, configuration_code):
     return configuration
 
 
-@time_cache_read
 def get_configuration_by_code(configuration_code):
     """
     Get the configuration object.
