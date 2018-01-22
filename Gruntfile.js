@@ -199,7 +199,8 @@ module.exports = function(grunt) {
           'static/css/chosen-sprite.png': 'bower_components/chosen/chosen-sprite.png',
           'static/css/jquery-ui.min.css': 'bower_components/jquery-ui/themes/base/jquery-ui.min.css',
           'static/css/ol.css': 'bower_components/openlayers/ol.css',
-          'static/css/ol3gm.css': 'bower_components/ol3gm/ol3gm.css'
+          'static/css/ol3gm.css': 'bower_components/ol3gm/ol3gm.css',
+          'static/js/slick.js': 'bower_components/slick-carousel/slick/slick.js'
         }
         ,{
           expand: true,

@@ -248,18 +248,107 @@
         </script>
       {% endif %}
       <footer class="row page-footer large-collapse" role="contentinfo">
-        <nav class="sub-nav-footer medium-4 columns">
-          <a href="https://www.wocat.net/global-slm-database" target="_blank" class="link">{% trans "About" %}</a> | <a href="https://www.wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" class="link">{% trans "Contact" %}</a>
-        </nav>
-        <div class="medium-4 columns text-center">
-            <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
-            <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
+        <div class="medium-6 columns text-left">
+          <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
+          <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
         </div>
-        <div class="page-footer-copy medium-4 columns">
-          &copy; {% now "Y" %} - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
+        <div class="medium-6 columns supported-by-carousel-container">
+          <div class="supported-by-carousel">
+            <div>
+              <a href="https://ciat.cgiar.org/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/ciat.png" %}" alt="CIAT" class="slick-loading">
+              </a>
+            </div>
+            <div>
+              <a href="http://www.fao.org/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/fao.jpg" %}" alt="FAO" class="slick-loading">
+              </a>
+            </div>
+            <div>
+              <a href="https://www.giz.de/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/giz.jpg" %}" alt="GIZ" class="slick-loading">
+              </a>
+            </div>
+            <div>
+              <a href="http://www.icarda.org/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/icarda.jpg" %}" alt="ICARDA" class="slick-loading">
+              </a></div>
+            <div>
+              <a href="https://www.giz.de/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/icimod.jpg" %}" alt="ICIMOD" class="slick-loading">
+              </a>
+            </div>
+            <div>
+             <a href="https://www.ifad.org/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/ifad.jpg" %}" alt="IFAD" class="slick-loading">
+              </a>
+            </div>
+            <div>
+              <a href="http://www.isric.org/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/isric.png" %}" alt="ISRIC" class="slick-loading">
+              </a>
+            </div>
+            <div>
+              <a href="https://www.eda.admin.ch/sdc" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/sdc.jpg" %}" alt="SDC" class="slick-loading">
+              </a>
+            </div>
+            <div>
+              <a href="http://unibe.ch/" target="_blank">
+                <img data-lazy="{% static "assets/img/supporter-organizations/unibe.jpg" %}" alt="{% trans "University of Berne" %}" class="slick-loading">
+              </a>
+            </div>
+          </div>
+          <div class="right">
+            <a href="https://www.wocat.net/global-slm-database" target="_blank" class="link">{% trans "About" %}</a>
+            <a href="https://www.wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" class="link">{% trans "Contact" %}</a>
+            &copy; {% now "Y" %} - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
+          </div>
         </div>
-
       </footer>
+      {% addtoblock "js" %}
+        {% compress js %}
+          <script type="text/javascript" src="{% static "js/slick.js" %}"></script>
+          <script>
+              $(document).ready(function () {
+                  $('.supported-by-carousel').slick({
+                      infinite: true,
+                      slidesToShow: 3,
+                      slidesToScroll: 3,
+                      lazyLoad: 'ondemand',
+                      centerMode: true,
+                      variableWidth: true,
+                      autoplay: true,
+                      autoplaySpeed: 2000,
+                      nextArrow: '<span class="slick-next">Next</span>',
+                      prevArrow: '<span class="slick-prev">Prev</span>',
+                      responsive: [
+                          {
+                              breakpoint: 1024,
+                              settings: {
+                                  slidesToShow: 3,
+                                  slidesToScroll: 3,
+                              }
+                          },
+                          {
+                              breakpoint: 600,
+                              settings: {
+                                  slidesToShow: 2,
+                                  slidesToScroll: 2
+                              }
+                          },
+                          {
+                              breakpoint: 480,
+                              settings: {
+                                  slidesToShow: 1,
+                                  slidesToScroll: 1
+                              }
+                          }]
+                  });
+              });
+          </script>
+        {% endcompress %}
+      {% endaddtoblock %}
     {% endblock %}
 
     {% block help_tour %}{% endblock %}
