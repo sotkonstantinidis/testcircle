@@ -248,11 +248,11 @@
         </script>
       {% endif %}
       <footer class="row page-footer large-collapse" role="contentinfo">
-        <div class="medium-6 columns text-left">
+        <div class="medium-4 columns text-left">
           <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
-          <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
+          <a href="http://www2.unccd.int/" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
         </div>
-        <div class="medium-6 columns supported-by-carousel-container">
+        <div class="medium-8 columns supported-by-carousel-container">
           <div class="supported-by-carousel">
             <div>
               <a href="https://ciat.cgiar.org/" target="_blank">
@@ -261,31 +261,31 @@
             </div>
             <div>
               <a href="http://www.fao.org/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/fao.jpg" %}" alt="FAO" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/fao.png" %}" alt="FAO" class="slick-loading">
               </a>
             </div>
             <div>
               <a href="https://www.giz.de/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/giz.jpg" %}" alt="GIZ" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/giz.png" %}" alt="GIZ" class="slick-loading">
               </a>
             </div>
             <div>
               <a href="http://www.icarda.org/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/icarda.jpg" %}" alt="ICARDA" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/icarda.png" %}" alt="ICARDA" class="slick-loading">
               </a></div>
             <div>
               <a href="https://www.icimod.org/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/icimod.jpg" %}" alt="ICIMOD" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/icimod.png" %}" alt="ICIMOD" class="slick-loading">
               </a>
             </div>
             <div>
              <a href="https://www.ifad.org/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/ifad.jpg" %}" alt="IFAD" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/ifad.png" %}" alt="IFAD" class="slick-loading">
               </a>
             </div>
             <div>
               <a href="http://www.isric.org/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/isric.jpg" %}" alt="ISRIC" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/isric.png" %}" alt="ISRIC" class="slick-loading">
               </a>
             </div>
             <div>
@@ -295,7 +295,7 @@
             </div>
             <div>
               <a href="http://www.cde.unibe.ch/" target="_blank">
-                <img data-lazy="{% static "assets/img/supporter-organizations/unibe.jpg" %}" alt="{% trans "University of Berne" %}" class="slick-loading">
+                <img data-lazy="{% static "assets/img/supporter-organizations/unibe.png" %}" alt="{% trans "University of Berne" %}" class="slick-loading">
               </a>
             </div>
           </div>
@@ -316,22 +316,14 @@
                       slidesToShow: 3,
                       slidesToScroll: 2,
                       lazyLoad: 'progressive',
-{#                      centerMode: true,#}
                       variableWidth: true,
                       autoplay: true,
                       autoplaySpeed: 3000,
-                      nextArrow: '<span class="slick-next">Next</span>',
-                      prevArrow: '<span class="slick-prev">Prev</span>',
+                      nextArrow: '<span class="slick-next"></span>',
+                      prevArrow: '<span class="slick-prev"></span>',
                       responsive: [
                           {
                               breakpoint: 1024,
-                              settings: {
-                                  slidesToShow: 3,
-                                  slidesToScroll: 3,
-                              }
-                          },
-                          {
-                              breakpoint: 600,
                               settings: {
                                   slidesToShow: 2,
                                   slidesToScroll: 2
