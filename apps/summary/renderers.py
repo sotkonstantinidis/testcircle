@@ -309,7 +309,12 @@ class GlobalValuesMixin:
                 'compiler': {
                     'title': _('Compiler'),
                     'css_class': 'bullets',
-                    'items': self.get_reference_compiler()
+                    'items': self.get_reference_person(role_name='QUESTIONNAIRE_COMPILER')
+                },
+                'reviewer': {
+                    'title': _('Reviewer'),
+                    'css_class': 'bullets',
+                    'items': self.get_reference_person(role_name='QUESTIONNAIRE_REVIEWER')
                 },
                 'people': {
                     'title': _('Resource persons'),
@@ -350,9 +355,9 @@ class GlobalValuesMixin:
             }
         }
 
-    def get_reference_compiler(self):
+    def get_reference_person(self, role_name: str) -> []:
         members = self.questionnaire.questionnairemembership_set.filter(
-            role=settings.QUESTIONNAIRE_COMPILER
+            role=getattr(settings, role_name)
         ).select_related('user')
         if members.exists():
             return [

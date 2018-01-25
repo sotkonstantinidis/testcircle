@@ -5,9 +5,13 @@
 </div>
 
 <div class="row avoidbreak">
-  <div class="small-12 columns">
+  <div class="small-6 columns">
     <h5>{{ content.compiler.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with list_items=content.compiler.items class="compact" %}
+  </div>
+  <div class="small-6 columns">
+    <h5>{{ content.reviewer.title }}</h5>
+    {% include 'summary/partial/unordered_list.html' with list_items=content.reviewer.items class="compact" %}
   </div>
 </div>
 
