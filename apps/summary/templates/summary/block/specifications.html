@@ -4,18 +4,17 @@
       <h5>{{ content.title }}</h5>
     	<div>
     		{% if content.images %}
-          <div class="img_in_text">
-            {% for image in content.images %}
-              <div>
-                <img src="{{ image.url }}">
-                {% if image.author %}
-                  <div class="img-caption">{{ image.author }}</div>
-                {% endif %}
-              </div>
-            {% endfor %}
-          </div>
+          {% for image in content.images %}
+            {% if forloop.first %}<div class="img_in_text">{% endif %}
+            <div>
+              <img src="{{ image.url }}">
+              {% if image.author %}
+                <div class="img-caption">{{ image.author }}</div>
+              {% endif %}
+            </div>
+          {% if forloop.first %}</div>{{ content.text|linebreaksbr }}{% endif %}
+          {% endfor %}
         {% endif %}
-    		{{ content.text|linebreaksbr }}
     	</div>
   </div>
 </div>
