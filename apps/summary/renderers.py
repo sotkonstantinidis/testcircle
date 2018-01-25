@@ -701,8 +701,6 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'url': self.get_thumbnail_url(preview, 'flow_chart'),
                     'author': _('Author: {}').format(author) if author else ''
                 })
-                # Display only one image.
-                break
 
         return {
             'title': _('Technical drawing'),

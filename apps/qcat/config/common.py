@@ -168,8 +168,8 @@ class BaseSettings(Configuration):
                     'size': (560, 0)
                 },
                 'flow_chart': {
-                    'size': (900, 0),
-                    'upscale': True
+                    'size': (0, 600),
+                    'upscale': False
                 }
             },
             'print': {
@@ -187,8 +187,8 @@ class BaseSettings(Configuration):
                     'size': (2240, 0)
                 },
                 'flow_chart': {
-                    'size': (3600, 0),
-                    'upscale': True
+                    'size': (0, 2400),
+                    'upscale': False
                 }
             }
         }
