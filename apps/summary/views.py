@@ -1,5 +1,7 @@
 import contextlib
 import logging
+
+import requests
 from os.path import join, isfile
 
 from django.conf import settings
@@ -240,6 +242,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         self.filename = self.get_filename()
         if self.is_doc_file:
             self.response_class = self.doc_response_class
+        self.track_request()
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
@@ -326,3 +329,23 @@ class SummaryPDFCreateView(PDFTemplateView):
                 or self.request.LANGUAGE_CODE in settings.WORD_WRAP_LANGUAGES:
             context['break_words'] = True
         return context
+
+    def track_request(self):
+        """
+        Submit a summary-download event to piwik.
+        """
+        if settings.PIWIK_SITE_ID:
+            request_url = f'{settings.PIWIK_URL}?' \
+                          f'idSite={settings.PIWIK_SITE_ID}&' \
+                          f'token_auth={settings.PIWIK_AUTH_TOKEN}&' \
+                          f'rec=1&' \
+                          f'action_name=summary_download&' \
+                          f'url={self.request.get_full_path()}&' \
+                          f'e_c=summary&' \
+                          f'e_a=download&' \
+                          f'e_a={self.questionnaire.code}&' \
+                          f'e_a={self.request.GET.urlencode()}'
+            if self.request.user.is_authenticated():
+                request_url += f'&_id={self.request.user.id}'
+            with contextlib.suppress(Exception):
+                requests.get(request_url)
