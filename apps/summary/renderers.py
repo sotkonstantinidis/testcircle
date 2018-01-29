@@ -688,7 +688,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     def technical_drawing(self):
         drawing_files = self.raw_data.get('tech_drawing_image', [])
         drawing_authors = self.raw_data.get('tech_drawing_author', [])
-        images = []
+        main_drawing = {}
+        additional_drawings = []
 
         for index, file in enumerate(drawing_files):
             preview = file.get('preview_image')
@@ -697,17 +698,27 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     author = drawing_authors[index]['value']
                 except (KeyError, IndexError):
                     author = ''
-                images.append({
-                    'url': self.get_thumbnail_url(preview, 'flow_chart'),
-                    'author': _('Author: {}').format(author) if author else ''
-                })
+
+                author_title = _('Author: {}').format(author) if author else ''
+
+                if index == 0:
+                    main_drawing = {
+                        'url': self.get_thumbnail_url(preview, 'flow_chart'),
+                        'author': author_title
+                    }
+                else:
+                    additional_drawings.append({
+                        'url': self.get_thumbnail_url(preview, 'half_height'),
+                        'caption': author_title
+                    })
 
         return {
             'title': _('Technical drawing'),
             'partials': {
                 'title': _('Technical specifications'),
                 'text': self.raw_data_getter('tech_drawing_text'),
-                'images': images
+                'main_drawing': main_drawing,
+                'images': additional_drawings
             }
         }
 

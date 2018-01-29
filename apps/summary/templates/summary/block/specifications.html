@@ -3,18 +3,25 @@
     {% include 'summary/partial/title_bar.html' with title=title %}
       <h5>{{ content.title }}</h5>
     	<div>
-    		{% if content.images %}
-          {% for image in content.images %}
-            {% if forloop.first %}<div class="img_in_text">{% endif %}
-            <div>
-              <img src="{{ image.url }}">
-              {% if image.author %}
-                <div class="img-caption">{{ image.author }}</div>
-              {% endif %}
-            </div>
-          {% if forloop.first %}</div>{{ content.text|linebreaksbr }}{% endif %}
-          {% endfor %}
+        {% if content.main_drawing %}
+          <div class="img_in_text">
+          <div>
+            <img src="{{ content.main_drawing.url }}">
+            {% if content.main_drawing.author %}
+              <div class="img-caption">{{ content.main_drawing.author }}</div>
+            {% endif %}
+          </div>
         {% endif %}
+        </div>{{ content.text|linebreaksbr }}
+      {% if content.images %}
+        </div>
+        </div>
+        </div>
+        <div class="row">
+        <div class="small-12 columns">
+        <div>
+        {% include 'summary/block/two_images_with_caption.html' with content=content %}
+      {% endif %}
     	</div>
   </div>
 </div>
