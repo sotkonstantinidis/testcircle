@@ -53,7 +53,10 @@ class CachedPDFTemplateResponse(PDFTemplateResponse):
 
     @property
     def rendered_content(self):
-        return self.content_with_file_cache()
+        if settings.DEBUG:
+            return self.get_rendered_content()
+        else:
+            return self.content_with_file_cache()
 
 
 class RawTemplateResponse(TemplateResponse):

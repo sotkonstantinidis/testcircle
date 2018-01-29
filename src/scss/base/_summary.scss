@@ -212,15 +212,14 @@ body.summary {
   {
     float: right;
     margin: 0 0 20px 20px;
-    display:table;
 
     img {
-      //max-width: 66%;
-      max-height: 400px;
+      max-height: 350px;
     }
 
-    &.flowchart img {
-      max-height: 500px;
+    &.flowchart {
+      max-width: 66%;
+      max-height: auto;
     }
   }
 
