@@ -170,6 +170,10 @@ class BaseSettings(Configuration):
                 'flow_chart': {
                     'size': (900, 0),
                     'upscale': False
+                },
+                'flow_chart_half_height': {
+                    'size': (640, 640),
+                    'upscale': True,
                 }
             },
             'print': {
@@ -189,6 +193,10 @@ class BaseSettings(Configuration):
                 'flow_chart': {
                     'size': (3600, 0),
                     'upscale': False
+                },
+                'flow_chart_half_height': {
+                    'size': (2560, 2560),
+                    'upscale': True,
                 }
             }
         }

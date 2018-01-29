@@ -708,7 +708,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     }
                 else:
                     additional_drawings.append({
-                        'url': self.get_thumbnail_url(preview, 'half_height'),
+                        'url': self.get_thumbnail_url(preview, 'flow_chart_half_height'),
                         'caption': author_title
                     })
 

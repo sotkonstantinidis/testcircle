@@ -218,6 +218,10 @@ body.summary {
       //max-width: 66%;
       max-height: 400px;
     }
+
+    &.flowchart img {
+      max-height: 500px;
+    }
   }
 
   ol.numbers {
