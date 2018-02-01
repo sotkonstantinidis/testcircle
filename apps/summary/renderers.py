@@ -768,8 +768,11 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     'items': [
                         _('Costs are calculated: {}').format(calculation),
                         _('Currency used for cost calculation: <b>{}</b>').format(currency),
-                        _('Exchange rate (to USD): 1 USD = {}.').format(exchange_rate),
-                        _('Average wage cost of hired labour per day: {}.').format(wage)
+                        _('Exchange rate (to USD): 1 USD = {} {}').format(
+                            exchange_rate,
+                            national_currency if national_currency else ''
+                        ),
+                        _('Average wage cost of hired labour per day: {}').format(wage)
                     ],
                     'main_factors': self.raw_data_getter('establishment_determinate_factors') or self.n_a,
                     'main_factors_title': _('Most important factors affecting the costs')
