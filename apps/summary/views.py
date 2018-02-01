@@ -337,8 +337,10 @@ class SummaryPDFCreateView(PDFTemplateView):
         if settings.PIWIK_SITE_ID:
             payload = dict(
                 idsite=settings.PIWIK_SITE_ID,
+                token_auth=settings.PIWIK_AUTH_TOKEN,
                 rec=1,
-                action_name='summary/download',
+                apiv=1,
+                action_name='summary',
                 url=self.request.get_full_path(),
                 download=self.request.get_full_path(),
                 e_c='summary',
@@ -350,4 +352,4 @@ class SummaryPDFCreateView(PDFTemplateView):
             if self.request.user.is_authenticated():
                 payload['_id'] = self.request.user.id
             with contextlib.suppress(Exception):
-                requests.get(f'{settings.PIWIK_URL}', params=payload)
+                requests.get(f'{settings.PIWIK_URL}piwik.php', params=payload)
