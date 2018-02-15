@@ -55,6 +55,10 @@ $slick-opacity-not-active: 0.25 !default;
 
 .supported-by-carousel {
     margin: 0 20px;
+
+  .slick-plain-text {
+    margin-top: 25px;
+  }
 }
 
 /* Arrows */
@@ -199,7 +203,7 @@ $slick-opacity-not-active: 0.25 !default;
     }
     img {
         display: block;
-        max-height: 70px;
+        max-height: 80px;
         width: auto;
         -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
         filter: grayscale(100%);
