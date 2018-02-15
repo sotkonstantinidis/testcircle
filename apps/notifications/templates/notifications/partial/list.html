@@ -77,17 +77,15 @@
       {{ log.text|safe }}
       {% if log.next_status_text %} {% trans "Please manage its" %} {{ log.next_status_text }}.{% endif %}
     </div>
-    <div class="small-2 columns">
-      {% if log.is_todo %}
-          <svg class="icon alert is-inline has-tip"
-               data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
-               title="{% trans "You may continue with the next step on the publication workflow." %}">
-            <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
-          </svg>
-      {% endif %}
+    <div class="small-2 columns log-todo">
+      <svg class="icon alert is-inline has-tip"
+           data-tooltip aria-haspopup="true" data-options="disable_for_touch:true;"
+           title="{% trans "You may continue with the next step on the publication workflow." %}">
+        <use xlink:href="#icon-alert" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+      </svg>
     </div>
     <div class="small-1 columns text-center read-toggle" data-equalizer-watch>
-      <input type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>
+      <input data-log-id="{{ log.id }}" type="checkbox" value="{{ log.id }}" class="mark-done" {% if log.is_read %}checked="checked"{% endif %}>
     </div>
   </div>
 {% empty %}

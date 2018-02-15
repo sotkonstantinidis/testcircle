@@ -12,6 +12,10 @@ urlpatterns = patterns(
         views.LogListView.as_view(),
         name='notification_partial_list'
         ),
+    url(r'^partial/todo/$',
+        views.LogTodoView.as_view(),
+        name='notification_todo_list'
+        ),
     url(r'^read/$',
         views.ReadLogUpdateView.as_view(),
         name='notification_read'

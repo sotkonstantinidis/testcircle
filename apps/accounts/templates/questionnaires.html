@@ -79,6 +79,7 @@
             csrfToken: '{{ csrf_token }}',
             readUrl: '{% url 'notification_read' %}',
             notificationsUrl: '{% url 'notification_partial_list' %}',
+            todoUrl: '{% url 'notification_todo_list' %}',
             initialParams: '?is_teaser',
             isTeaser: true,
             questionnairesUrl: '{% url 'notification_questionnaire_logs' %}',

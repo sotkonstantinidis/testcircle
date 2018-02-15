@@ -110,6 +110,9 @@
   &.is-read {
     opacity: 0.4;
   }
+  .log-todo {
+    visibility: hidden;
+  }
 }
 #notifications-list {
   .pagination-centered {

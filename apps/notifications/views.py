@@ -1,4 +1,5 @@
 import contextlib
+import json
 import logging
 
 from django.conf import settings
@@ -51,34 +52,22 @@ class LogListView(LoginRequiredMixin, ListView):
         Provide all info required for the template, so as little logic as
         possible is required within the template.
         """
-        # All logs with the status 'read' for the logs on display.
-        readlog_list = Log.actions.read_id_list(
-            user=self.request.user,
-            log_id__in=list(logs.values_list('id', flat=True))
+        # Don't filter out only the logs on display, as running this subquery is very expensive.
+        readlog_list = set(
+            Log.actions.read_id_list(user=self.request.user)
         )
 
-        # A list with all logs that are pending for the user
-        pending_questionnaires = Log.actions.user_pending_list(
-            user=self.request.user
-        ).values_list(
-            'id', flat=True
-        )
-
-        for log in logs:
-            is_read = log.id in readlog_list
-            # if a notification is read, it is assumed that it is resolved.
-            is_todo = not is_read and log.id in pending_questionnaires
-            next_status_text = settings.NOTIFICATIONS_QUESTIONNAIRE_NEXT_STATUS_TEXT.get(log.questionnaire.status) if is_todo else False
+        for log in logs.iterator():
             yield {
                 'id': log.id,
                 'created': log.created,
                 'subject': log.subject,
                 'text': log.get_html(user=self.request.user),
                 'action_icon': log.action_icon(),
-                'is_read': is_read,
-                'is_todo': is_todo,
-                'edit_url': log.questionnaire.get_edit_url() if is_todo else '',
-                'next_status_text': next_status_text
+                'is_read': log.id in readlog_list,
+                'is_todo': False,
+                'edit_url': '',
+                'next_status_text': False
             }
 
     @property
@@ -209,6 +198,22 @@ class LogCountView(LoginRequiredMixin, View):
             ).user_log_count(
                 user=self.request.user
             )
+        )
+
+
+class LogTodoView(LoginRequiredMixin, View):
+    """
+    Check 'pending' logs. Expects a list of log-ids as POST data, and returns
+    a filtered list of logs that are 'to do'.
+    """
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        pending = Log.actions.user_pending_list(user=request.user).values_list('id', flat=True)
+        log_ids = [int(log_id) for log_id in request.POST.getlist('logs[]', [])]
+        return HttpResponse(
+            content=json.dumps(list(set(pending).intersection(log_ids))),
+            content_type='application/json'
         )
 
 
