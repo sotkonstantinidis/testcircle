@@ -1,6 +1,6 @@
-	<div class="row compact">
+	<div class="row compact avoidbreak">
 		{% for list_item in content.images  %}
-		  <div class="{% if content.images|length == 1 %} small-12 columns {% else %} small-6 columns {% endif %}">
+		  <div class="small-{% if content.images|length == 1 %}12{% else %}6{% endif %} columns">
         <div class="img-column-container">
           <img class="img-column" src="{{ list_item.url }}">
         </div>
