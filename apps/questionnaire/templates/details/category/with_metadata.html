@@ -41,6 +41,14 @@
           &ndash;
         {% endfor %}
       </li>
+      <li>
+        <span class="is-muted">{% if metadata.reviewers|length > 1 %}{% trans "Reviewers:" %}{% else %}{% trans "Reviewer:" %}{% endif %}</span>
+        {% for reviewer in metadata.reviewers %}
+          <a rel="author" href="{% url 'user_details' reviewer.id %}" class="link">{{ reviewer.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% empty %}
+          &ndash;
+        {% endfor %}
+      </li>
     </ul>
 
     <p class="is-large subheader">SAMPLE/SAMPLEMULTI Subtitle</p>

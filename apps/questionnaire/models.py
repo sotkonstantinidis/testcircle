@@ -1019,6 +1019,10 @@ class Questionnaire(models.Model):
         return self._get_role_list(settings.QUESTIONNAIRE_COMPILER)
 
     @cached_property
+    def reviewers(self):
+        return self._get_role_list(settings.QUESTIONNAIRE_REVIEWER)
+
+    @cached_property
     def status_property(self):
         status = next((x for x in STATUSES if x[0] == self.status), (None, ''))
         status_code = next(

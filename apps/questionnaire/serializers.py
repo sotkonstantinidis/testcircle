@@ -18,6 +18,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     configurations = serializers.ListField(source='configurations_property')
     data = serializers.DictField()
     editors = serializers.ListField()
+    reviewers = serializers.ListField()
     links = serializers.ListField(source='links_property')
     list_data = serializers.SerializerMethodField()
     name = serializers.SerializerMethodField()
@@ -31,7 +32,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     class Meta:
         model = Questionnaire
         fields = ('code', 'compilers', 'configurations', 'created', 'data',
-                  'editors', 'links', 'list_data', 'name', 'original_locale',
+                  'editors', 'links', 'list_data', 'name', 'original_locale', 'reviewers',
                   'serializer_config', 'status', 'translations', 'updated',
                   'url', 'flags', )
 

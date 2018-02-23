@@ -39,6 +39,7 @@ class QuestionnaireConf(AppConf):
         'updated',
         'compilers',
         'editors',
+        'reviewers',
         'code',
         'configurations',
         'translations',
