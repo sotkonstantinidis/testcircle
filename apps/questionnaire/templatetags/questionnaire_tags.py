@@ -104,7 +104,7 @@ def prepare_image(image):
         url = image.get('image')
 
     return {
-        'interchange': interchange,
+        'interchange': ','.join(interchange) if isinstance(interchange, list) else interchange,
         'src': url
     }
 
