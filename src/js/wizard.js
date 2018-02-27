@@ -1278,6 +1278,10 @@ function updateDropzones(emptyNew) {
 
         if (emptyNew === true) {
             $('input#' + dz.element.id.replace('file_', '')).val('');
+            // 'copied' element has a special class indicating that the file upload limit is reached.
+            // remove this, so 'add more' works as intended.
+            $(this).removeClass('dz-max-files-reached');
+            $(this).children('div.dz-message').css('opacity', 1);
         }
     });
 }
