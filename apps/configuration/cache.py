@@ -32,10 +32,6 @@ def get_configuration(configuration_code):
             cache_key=cache_key,
             configuration_code=configuration_code
         )
-        # cache_info = get_cached_configuration.cache_info()
-        # logger.info(f'"{configuration_code}" (cache_key {cache_key}) - '
-        #                f'misses: {cache_info.misses}, '
-        #                f'size: {cache_info.currsize}')
         return configuration
 
     return get_configuration_by_code(configuration_code=configuration_code)
@@ -61,7 +57,7 @@ def get_configuration(configuration_code):
 #     return 1 << (total_configs - 1).bit_length()
 
 
-@lru_cache(maxsize=24)
+@lru_cache(maxsize=32)
 def get_cached_configuration(cache_key, configuration_code):
     """
     Simple retrieval. If object is not in the lru_cache, use the default cache

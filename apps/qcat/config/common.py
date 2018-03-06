@@ -319,7 +319,9 @@ class BaseSettings(Configuration):
 
     # Flag for caching of the whole configuration object. Sections are always cached.
     USE_CACHING = values.BooleanValue(default=True)
-    CACHES = values.CacheURLValue(default='locmem://')
+    # django-cache-url doesn't support the redis package of our choice, set the redis location as
+    # common environment (dict)value.
+    CACHES = values.DictValue(environ_prefix='')
     KEY_PREFIX = values.Value(environ_prefix='', default='')
 
     # If set to true, the template 503.html is displayed.
