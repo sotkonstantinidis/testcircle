@@ -16,6 +16,7 @@
         // load initial data
         elem.load(settings.notificationsUrl + settings.initialParams, function() {
             showTooltips();
+            markTodoLogs();
         });
 
         // load data when clicking on pagination item
@@ -147,6 +148,29 @@
             }).done(function(data) {
                 elem.html(data);
                 showTooltips();
+            });
+        }
+
+        /*
+         * Highlight all items that are 'to do'.
+         */
+        function markTodoLogs() {
+            var logs = $.find("input[data-log-id]:not(:checked)").map(
+                function(line) {return $(line).data('log-id')}
+            );
+            $.ajax({
+                url: settings.todoUrl,
+                method: 'POST',
+                data: ({
+                    csrfmiddlewaretoken: settings.csrfToken,
+                    logs: logs
+                })
+            }).done(function(data) {
+                $.each(data, function(i, log_id) {
+                    $('input[data-log-id="' + log_id + '"]').parent().prev('.log-todo').css(
+                        'visibility', 'visible'
+                    );
+                });
             });
         }
     };

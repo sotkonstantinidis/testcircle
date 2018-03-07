@@ -61,6 +61,7 @@
               csrfToken: '{{ csrf_token }}',
               readUrl: '{% url 'notification_read' %}',
               notificationsUrl: '{% url 'notification_partial_list' %}',
+              todoUrl: '{% url 'notification_todo_list' %}',
               initialParams: {% if request.META.QUERY_STRING %}'?{{ request.META.QUERY_STRING }}'{% else %}''{% endif %},
               questionnaire: {% if 'questionnaire' in request.GET.keys %}'{{ request.GET.questionnaire }}'{% else %}''{% endif %},
               questionnairesUrl: '{% url 'notification_questionnaire_logs' %}',
