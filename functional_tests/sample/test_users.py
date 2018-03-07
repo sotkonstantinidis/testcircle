@@ -10,8 +10,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
-from accounts.middleware import WocatAuthenticationMiddleware
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
@@ -23,7 +21,6 @@ from sample.tests.test_views import route_questionnaire_new_step
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class UserTest(FunctionalTest):
 
     fixtures = [
@@ -78,7 +75,7 @@ class UserTest(FunctionalTest):
         (reviewed by user 101, assigned to user 106)
     """
 
-    def test_user_questionnaires(self, mock_get_user_id):
+    def test_user_questionnaires(self):
 
         user_alice = User.objects.get(pk=101)
         user_bob = User.objects.get(pk=102)
@@ -223,7 +220,7 @@ class UserTest(FunctionalTest):
         #     'xpath', '//p[@class="questionnaire-list-empty" and contains('
         #     'text(), "No WOCAT and UNCCD SLM practices found.")]')
 
-    def test_questionnaire_search(self, mock_get_user_id):
+    def test_questionnaire_search(self):
         alice = mommy.make(
             get_user_model(),
             is_superuser=True
@@ -276,7 +273,7 @@ class UserTest(FunctionalTest):
             )
         )
 
-    def test_questionnaire_search_normal_user(self, mock_get_user_id):
+    def test_questionnaire_search_normal_user(self):
         # bob is not a superuser and visits the my slm data page
         bob = mommy.make(get_user_model())
         self.doLogin(bob)
@@ -291,12 +288,11 @@ class UserTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class UserTest2(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
-    def test_add_user(self, mock_get_user_id):
+    def test_add_user(self):
 
         # Alice logs in
         self.doLogin()
@@ -435,7 +431,7 @@ class UserTest2(FunctionalTest):
             self.assertIn(user_tuple[0], ['compiler', 'landuser'])
             self.assertIn(user_tuple[1].id, [1, 2365])
 
-    def test_add_new_person(self, mock_get_user_id):
+    def test_add_new_person(self):
 
         # Alice logs in
         self.doLogin()
@@ -597,7 +593,7 @@ class UserTest2(FunctionalTest):
         self.assertEqual(questionnaire_users[0][0], 'compiler')
         self.assertEqual(questionnaire_users[0][1].id, 1)
 
-    def test_add_multiple_users_persons(self, mock_get_user_id):
+    def test_add_multiple_users_persons(self):
 
         # Alice logs in
         self.doLogin()
@@ -805,10 +801,8 @@ class UserTest2(FunctionalTest):
             self.assertIn(user_tuple[0], ['compiler', 'landuser'])
             self.assertIn(user_tuple[1].id, [1, 1055, 2365])
 
-    @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_remove_user(self, mock_process_request, mock_get_user_id):
+    def test_remove_user(self):
 
-        mock_process_request.return_value = {}
         # Alice logs in
         self.doLogin()
 
@@ -882,14 +876,13 @@ class UserTest2(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class UserTest3(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
-    def test_user_questionnaires_no_duplicates(self, mock_get_user_id):
+    def test_user_questionnaires_no_duplicates(self):
 
         # Alice logs in
         user = create_new_user()
@@ -1018,7 +1011,7 @@ class UserDetailTest(FunctionalTest):
         self.findBy('xpath', '//a[text()="Switzerland"]')
 
 # @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-# @patch.object(Typo3Client, 'get_user_id')
+# @patch('accounts.client.typo3_client.get_user_id')
 # class UserTestFixtures(FunctionalTest):
 #
 #     fixtures = [

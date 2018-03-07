@@ -1,4 +1,3 @@
-from accounts.middleware import WocatAuthenticationMiddleware
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
 from django.test.utils import override_settings
@@ -26,13 +25,13 @@ from search.tests.test_index import create_temp_indices
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-@patch.object(WocatAuthenticationMiddleware, 'process_request')
+
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
-    def test_translation(self, mock_process_request):
+    def test_translation(self):
 
         # Alice logs in
         self.doLogin()
@@ -2590,9 +2589,7 @@ class QuestionnaireTestIndex(FunctionalTest):
         super(QuestionnaireTestIndex, self).tearDown()
         delete_all_indices()
 
-    @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_enter_questionnaire(self, mock_process_request):
-        mock_process_request.return_value = {}
+    def test_enter_questionnaire(self):
         # Alice logs in
         self.doLogin()
 
@@ -2731,8 +2728,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
         'sample_samplemulti_questionnaires.json']
 
-    @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_add_questionnaire_link(self, mock_process_request):
+    def test_add_questionnaire_link(self):
         mock_process_request.return_value = None
 
         # Alice logs in
@@ -2861,9 +2857,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         # There is a link back
         self.findBy('xpath', '//a[contains(@href, "sample/view/")]')
 
-    @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_edit_questionnaire_link(self, mock_process_request):
-        mock_process_request.return_value = None
+    def test_edit_questionnaire_link(self):
         # Alice logs in
         user = User.objects.get(pk=101)
         self.doLogin(user=user)
@@ -2918,9 +2912,7 @@ class QuestionnaireLinkTest(FunctionalTest):
         self.findByNot(
             'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
 
-    @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_edit_questionnaire_multiple_links(self, mock_process_request):
-        mock_process_request.return_value = None
+    def test_edit_questionnaire_multiple_links(self):
 
         # Alice logs in
         user = User.objects.get(pk=101)
@@ -3071,10 +3063,7 @@ class QuestionnaireTestProjects(FunctionalTest):
     fixtures = ['global_key_values.json', 'sample.json',
                 'sample_projects.json', 'sample_institutions.json']
 
-    @patch.object(WocatAuthenticationMiddleware, 'process_request')
-    def test_select_project(self, mock_process_request):
-
-        mock_process_request.return_value = None
+    def test_select_project(self):
 
         # Alice logs in
         self.doLogin()

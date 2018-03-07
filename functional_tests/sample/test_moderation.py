@@ -9,7 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from accounts.tests.test_views import accounts_route_questionnaires
@@ -33,7 +32,6 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
     NOTIFICATIONS_CREATE='create_foo',
     NOTIFICATIONS_CHANGE_STATUS='change_foo'
 )
-@patch.object(Typo3Client, 'get_user_id')
 class ModerationTest(FunctionalTest):
 
     fixtures = [
@@ -173,7 +171,6 @@ class ModerationTest(FunctionalTest):
 @override_settings(
     ES_INDEX_PREFIX=TEST_INDEX_PREFIX,
 )
-@patch.object(Typo3Client, 'get_user_id')
 class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
@@ -195,7 +192,7 @@ class ModerationTestFixture(FunctionalTest):
         super(ModerationTestFixture, self).tearDown()
         delete_all_indices()
 
-    def test_review_locked_questionnaire(self, mock_get_user_id):
+    def test_review_locked_questionnaire(self):
         # Secretariat user logs in
         self.doLogin(user=self.user_secretariat)
 
@@ -219,8 +216,7 @@ class ModerationTestFixture(FunctionalTest):
         # He sees the questionnaire is now reviewed
         self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
 
-    def test_review_locked_questionnaire_blocked_by_other(
-            self, mock_get_user_id):
+    def test_review_locked_questionnaire_blocked_by_other(self):
 
         # Reviewer logs in
         self.doLogin(user=self.user_reviewer)
@@ -250,7 +246,7 @@ class ModerationTestFixture(FunctionalTest):
         # He sees the questionnaire is still submitted
         self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
 
-    def test_secretariat_edit(self, mock_get_user_id):
+    def test_secretariat_edit(self):
 
         # Secretariat user logs in
         self.doLogin(user=self.user_secretariat)
@@ -294,7 +290,7 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(
             Questionnaire.objects.filter(code='sample_3').count(), 2)
 
-    def test_secretariat_delete(self, mock_get_user_id):
+    def test_secretariat_delete(self):
         # Secretariat user logs in
         self.doLogin(user=self.user_secretariat)
 
@@ -415,7 +411,7 @@ class ModerationTestFixture(FunctionalTest):
             self.browser.current_url,
             self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
 
-    def test_review_panel(self, mock_get_user_id):
+    def test_review_panel(self):
 
         # Editor logs in
         self.doLogin(user=self.user_editor)
@@ -633,7 +629,7 @@ class ModerationTestFixture(FunctionalTest):
         NOTIFICATIONS_REMOVE_MEMBER='delete_member'
     )
     @patch('questionnaire.signals.change_member.send')
-    def test_secretariat_can_assign_reviewer(self, mock_member_change, mock_get_user_id):
+    def test_secretariat_can_assign_reviewer(self, mock_member_change):
 
         identifier = 'sample_2'
 
@@ -821,8 +817,7 @@ class ModerationTestFixture(FunctionalTest):
         USE_NEW_WOCAT_AUTHENTICATION=True,
     )
     @patch('questionnaire.signals.change_member.send')
-    def test_secretariat_can_assign_reviewer_2(
-            self, mock_member_change, mock_get_user_id):
+    def test_secretariat_can_assign_reviewer_2(self, mock_member_change):
         identifier = 'sample_3'
 
         old_compiler = 'Foo Bar'
@@ -1071,7 +1066,7 @@ class ModerationTestFixture(FunctionalTest):
             '"tech-infos")]/li[text()="Compiler: {}"]'.format(
                 result_list_position, new_compiler_2))
 
-    def test_reviewer_can_edit_questionnaire(self, mock_get_user_id):
+    def test_reviewer_can_edit_questionnaire(self):
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
         identifier = 'sample_2'
@@ -1117,7 +1112,7 @@ class ModerationTestFixture(FunctionalTest):
         self.review_action('review')
         self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
 
-    def test_reviewer_can_reject_questionnaire(self, mock_get_user_id):
+    def test_reviewer_can_reject_questionnaire(self):
 
         identifier = 'sample_2'
 
@@ -1152,7 +1147,7 @@ class ModerationTestFixture(FunctionalTest):
             route_questionnaire_details, kwargs={'identifier': identifier}))
         self.findBy('xpath', '//span[contains(@class, "is-draft")]')
 
-    def test_publishers_can_edit_questionnaire(self, mock_get_user_id):
+    def test_publishers_can_edit_questionnaire(self):
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
         identifier = 'sample_7'
@@ -1199,7 +1194,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
         self.review_action('publish')
 
-    def test_publisher_can_reject_questionnaire(self, mock_get_user_id):
+    def test_publisher_can_reject_questionnaire(self):
 
         identifier = 'sample_7'
 

@@ -110,6 +110,7 @@ class TestCachedPDFTemplateResponse(TestCase):
         )
         self.obj.filename = 'foo'
 
+    @override_settings(DEBUG=False)
     @patch('summary.views.isfile')
     def test_rendered_content_existing_file(self, mock_isfile):
         mock_isfile.return_value = True

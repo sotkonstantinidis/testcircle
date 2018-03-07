@@ -192,7 +192,7 @@ class TechnologyParserTest(ParserTestMixin, TestCase):
         values = list(self.parser.get_picto_and_nested_values(child))
         self.assertEquals(len(list(values)), 1)
         self.assertListEqual(
-            list(values[0].keys()), ['url', 'title', 'text']
+            list(values[0].keys()), ['url', 'text']
         )
 
     def test_get_impact(self):
@@ -360,10 +360,19 @@ class ApproachParserTest(ParserTestMixin, TestCase):
             list(values[0].keys()), ['title', 'comments', 'items']
         )
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
+    from nose.plugins.attrib import attr
+    @attr('foo')
     def test_get_stakeholders_roles(self):
         child = self.get_child('app_qg_100', 'app_stakeholders_roles')
         self.assertListEqual(
             list(self.parser.get_stakeholders_roles(child)),
-            ['local land users/ local communities']
+            [('What stakeholders / implementing bodies were involved in the Approach?',
+              'Specify stakeholders', 'Describe roles of stakeholders'),
+             ('local land users/ local communities', '', ''),
+             ('community-based organizations', '', ''),
+             ('SLM specialists/ agricultural advisers', '', ''), ('researchers', '', ''),
+             ('teachers/ school children/ students', '', ''), ('NGO', '', ''),
+             ('private sector', '', ''), ('local government', '', ''), (
+             'national government (planners, decision-makers)', 'Ministry of Agriculture',
+             'Umbrella organisation of project'), ('international organization', '', '')]
         )

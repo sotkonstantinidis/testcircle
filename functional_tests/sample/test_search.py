@@ -6,7 +6,6 @@ from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import route_home as sample_route_home
@@ -97,7 +96,6 @@ class SearchTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class SearchTestAdmin(FunctionalTest):
 
     fixtures = [
@@ -116,7 +114,7 @@ class SearchTestAdmin(FunctionalTest):
         super(SearchTestAdmin, self).tearDown()
         delete_all_indices()
 
-    def test_search_admin(self, mock_get_user_id):
+    def test_search_admin(self):
 
         # Alice logs in
         self.doLogin(user=self.user)

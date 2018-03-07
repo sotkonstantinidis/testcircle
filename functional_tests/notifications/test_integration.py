@@ -6,7 +6,6 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from model_mommy import mommy
 
-from accounts.middleware import WocatAuthenticationMiddleware
 from configuration.models import Configuration
 from questionnaire.models import Questionnaire, QuestionnaireMembership, \
     QuestionnaireConfiguration
@@ -14,7 +13,6 @@ from questionnaire.models import Questionnaire, QuestionnaireMembership, \
 from functional_tests.base import FunctionalTest
 
 
-@patch.object(WocatAuthenticationMiddleware, 'process_request')
 class NotificationsIntegrationTest(FunctionalTest):
     """
     Specific tests for triggering and displaying of notifications
@@ -68,16 +66,14 @@ class NotificationsIntegrationTest(FunctionalTest):
             self.questionnaire.get_edit_url()
         )
 
-    def test_compiler_edit_questionnaire(self, mock_process_request):
-        mock_process_request.return_value = None
+    def test_compiler_edit_questionnaire(self):
         # The compiler logs in and doesn't see the button to finish editing.
         self.doLogin(user=self.jay)
         self.browser.get(self.questionnaire_edit_url)
         self.findBy('id', 'confirm-submit')
         self.findByNot('class_name', 'is-finished-editing')
 
-    def test_create_message(self, mock_process_request):
-        mock_process_request.return_value = None
+    def test_create_message(self):
         """
         Note: I'm not sure if time.sleep is correct here, but self.wait_until
         seems to defeat the purpose.
@@ -130,5 +126,3 @@ class NotificationsIntegrationTest(FunctionalTest):
             modal.find_element_by_tag_name('p').text,
             'i am done'
         )
-
-

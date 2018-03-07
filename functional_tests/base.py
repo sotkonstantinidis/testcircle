@@ -21,7 +21,7 @@ from selenium.webdriver.common.by import By
 
 from accounts.authentication import WocatAuthenticationBackend, \
     WocatCMSAuthenticationBackend
-from accounts.client import Typo3Client, WocatWebsiteUserClient
+from accounts.client import WocatWebsiteUserClient
 from qcat.tests import TEST_CACHES
 from unittest.mock import patch
 from accounts.tests.test_models import create_new_user
@@ -457,11 +457,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @patch.object(WocatCMSAuthenticationBackend, 'authenticate')
     @patch.object(WocatWebsiteUserClient, 'get_and_update_django_user')
-    @patch.object(Typo3Client, 'get_and_update_django_user')
     @patch.object(WocatAuthenticationBackend, 'authenticate')
     @patch('django.contrib.auth.authenticate')
-    def _doLogin(self, user, mock_django_auth,
-                 mock_authenticate, mock_get_and_update_django_user,
+    def _doLogin(self, user, mock_django_auth, mock_authenticate,
                  mock_cms_get_and_update_django_user, mock_cms_authenticate):
         """
         Mock the authentication to return the given user and put it to the
@@ -477,7 +475,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         mock_django_auth.return_value = auth_user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
-        mock_get_and_update_django_user.return_value = user
         mock_cms_authenticate.return_value = user
         mock_cms_get_and_update_django_user.return_value = user
 

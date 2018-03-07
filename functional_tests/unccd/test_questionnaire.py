@@ -6,7 +6,6 @@ from unittest.mock import patch
 
 from django.test.utils import override_settings
 
-from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from accounts.tests.test_views import accounts_route_user, \
@@ -21,12 +20,11 @@ from sample.tests.test_views import route_questionnaire_details, \
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'unccd.json']
 
-    def test_questionnaire_is_available(self, mock_get_user_id):
+    def test_questionnaire_is_available(self):
 
         # Alice logs in
         self.doLogin()
@@ -57,7 +55,6 @@ class QuestionnaireTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class FlaggingTest(FunctionalTest):
 
     fixtures = ['groups_permissions', 'global_key_values', 'flags', 'sample',
@@ -73,7 +70,7 @@ class FlaggingTest(FunctionalTest):
         delete_all_indices()
 
     @unittest.skip("Disabling this until further info about UNCCD flagging")
-    def test_unccd_focal_point(self, mock_get_user_id):
+    def test_unccd_focal_point(self):
 
         unccd_user = create_new_user()
         unccd_user.update(usergroups=[{
@@ -92,7 +89,7 @@ class FlaggingTest(FunctionalTest):
         self.findBy('xpath', '//*[contains(text(), "UNCCD focal point")]')
         self.findBy('xpath', '//a[contains(text(), "Switzerland")]')
 
-    def test_unccd_flag_elasticsearch(self, mock_get_user_id):
+    def test_unccd_flag_elasticsearch(self):
         unccd_user = create_new_user(id=1, email='a@b.com')
         unccd_user.update(usergroups=[{
             'name': 'UNCCD Focal Point',
@@ -147,7 +144,7 @@ class FlaggingTest(FunctionalTest):
             'xpath', '(//article[contains(@class, "tech-item")])[1]'
                      '//span[contains(@class, "is-unccd_bp")]')
 
-    def test_unccd_flag(self, mock_get_user_id):
+    def test_unccd_flag(self):
 
         unccd_user = create_new_user(id=1, email='a@b.com')
         unccd_user.update(usergroups=[{

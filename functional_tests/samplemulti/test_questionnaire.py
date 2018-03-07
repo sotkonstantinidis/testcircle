@@ -3,7 +3,6 @@ from django.test.utils import override_settings
 from functional_tests.base import FunctionalTest
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
 from samplemulti.tests.test_views import (
     route_home,
     route_questionnaire_new_step,
@@ -15,12 +14,11 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'samplemulti.json']
 
-    def test_questionnaire_is_available(self, mock_get_user_id):
+    def test_questionnaire_is_available(self):
 
         # Alice logs in
         self.doLogin()
@@ -51,7 +49,7 @@ class QuestionnaireTest(FunctionalTest):
             '//div[@class="tech-section-progress"]/span[@class="steps"]')
         self.assertEqual(len(progress_indicators), get_category_count())
 
-    def test_questionnaire_can_be_entered(self, mock_get_user_id):
+    def test_questionnaire_can_be_entered(self):
 
         # Alice logs in
         self.doLogin()

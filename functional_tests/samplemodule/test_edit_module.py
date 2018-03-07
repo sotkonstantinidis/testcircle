@@ -3,7 +3,6 @@ from unittest.mock import patch
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
-from accounts.client import Typo3Client
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import route_questionnaire_new
 
@@ -11,7 +10,6 @@ route_add_module = 'sample:add_module'
 
 
 @override_settings(IS_ACTIVE_FEATURE_MODULE=True)
-@patch.object(Typo3Client, 'get_user_id')
 class EditModuleTest(FunctionalTest):
 
     fixtures = [
@@ -19,7 +17,7 @@ class EditModuleTest(FunctionalTest):
         'samplemodule.json'
     ]
 
-    def test_edit_module(self, mock_get_user_id):
+    def test_edit_module(self):
 
         # Alice logs in
         self.doLogin()

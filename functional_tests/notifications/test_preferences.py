@@ -17,7 +17,6 @@ class MailPreferencesTest(FunctionalTest):
         self.user = mommy.make(get_user_model(), firstname='jay')
         self.obj = self.user.mailpreferences
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
     def test_signed_preferences(self):
         # jay opens the link with the signed url stated in the mail.
         signed_url = self.live_server_url + str(self.obj.get_signed_url())

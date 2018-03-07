@@ -104,18 +104,11 @@ class LoginViewTest(TestCase):
         self.assertEqual(request.user, self.user)
         self.assertEqual(response.url, reverse('home'))
 
-    @override_settings(USE_NEW_WOCAT_AUTHENTICATION=False)
-    def test_form_invalid_old_auth_backend(self):
-        response = self.view.form_invalid(form=None)
-        self.assertIsInstance(response, TemplateResponse)
-
-    @override_settings(USE_NEW_WOCAT_AUTHENTICATION=True)
     def test_form_invalid_new_auth_backend_unkknown_user(self):
         form = MagicMock(cleaned_data={'username': 'foo'})
         response = self.view.form_invalid(form)
         self.assertIsInstance(response, TemplateResponse)
 
-    @override_settings(USE_NEW_WOCAT_AUTHENTICATION=True)
     @patch('accounts.client.typo3_client.get_user_information')
     def test_form_invalid_new_auth_backend_unkknown_api_user(self, mock_get_info):
         form = MagicMock(cleaned_data={'username': 'a@b.com'})
@@ -124,7 +117,6 @@ class LoginViewTest(TestCase):
         mock_get_info.assert_called_once_with(1)
 
     @override_settings(
-        USE_NEW_WOCAT_AUTHENTICATION=True,
         REACTIVATE_WOCAT_ACCOUNT_URL='42'
     )
     @patch('accounts.client.typo3_client.get_user_information')
@@ -293,21 +285,25 @@ class UserUpdateTest(TestCase):
         self.assertFalse(json_ret['success'])
         self.assertIn('message', json_ret)
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
     @patch('accounts.client.typo3_client.get_user_information')
     def test_creates_user(self, mock_get_user_information):
         self.assertEqual(User.objects.count(), 1)
-        mock_get_user_information.return_value = {'username': 'foo@bar.com'}
+        mock_get_user_information.return_value = {
+            'username': 'foo@bar.com',
+            'email': 'foo@bar.com',
+            'first_name': 'Faz',
+            'last_name': 'Taz',
+        }
         user_update(self.request)
         users = User.objects.all()
         self.assertEqual(len(users), 1)
         self.assertEqual(users[0].email, 'foo@bar.com')
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
-    @patch('accounts.client.Typo3Client.get_user_information')
+    @patch('accounts.client.typo3_client.get_user_information')
     def test_updates_user(self, mock_get_user_information):
         mock_get_user_information.return_value = {
             'username': 'foo@bar.com',
+            'email': 'foo@bar.com',
             'first_name': 'Faz',
             'last_name': 'Taz',
         }
@@ -319,11 +315,11 @@ class UserUpdateTest(TestCase):
         self.assertEqual(users[1].firstname, 'Faz')
         self.assertEqual(users[1].lastname, 'Taz')
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
     @patch('accounts.client.typo3_client.get_user_information')
     def test_returns_user_name(self, mock_get_user_information):
         mock_get_user_information.return_value = {
             'username': 'foo@bar.com',
+            'email': 'foo@bar.com',
             'first_name': 'Faz',
             'last_name': 'Taz',
         }
@@ -359,12 +355,13 @@ class UserDetailsTest(TestCase):
         self.view.get_object()
         mock_get_user_information.assert_called_once_with(self.user.id)
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
     @patch('accounts.client.typo3_client.get_user_information')
     def test_updates_user(self, mock_get_user_information):
         mock_get_user_information.return_value = {
             'first_name': 'Faz',
             'last_name': 'Taz',
+            'email': 'a@b.com',
+            'username': 'a@b.com'
         }
         self.view.get_object()
         users = User.objects.all()

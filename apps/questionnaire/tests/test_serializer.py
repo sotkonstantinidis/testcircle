@@ -34,6 +34,7 @@ class SerializerTest(TestCase):
             'compilers': [{'name': 'bar foo', 'id': 1}],
             'list_data': {},
             'editors': [],
+            'reviewers': [],
             'links': [
                 {
                     'code': linked_code,
@@ -52,7 +53,7 @@ class SerializerTest(TestCase):
                     }
                 }
             ],
-            'url': '/en/sample/view/{}/'.format(code),
+            'url': '/sample/view/{}/'.format(code),
             'serializer_config': 'sample',
             'translations': ['en'],
             'status': ['draft', 'Draft'],
@@ -92,7 +93,7 @@ class SerializerTest(TestCase):
         native = QuestionnaireSerializer(data=self.serialized)
         self.assertTrue(native.is_valid())
         self.assertEqual(
-            self.questionnaire.get_absolute_url(), native.validated_data['url']
+            self.questionnaire.get_absolute_url().replace('/en/', '/'), native.validated_data['url']
         )
 
     def test_complete_serialization(self):
@@ -100,7 +101,7 @@ class SerializerTest(TestCase):
         # datetimes are not relevant to the structure.
         del data['created']
         del data['updated']
-
+        self.maxDiff = None
         self.assertDictEqual(data, self.expected)
 
     def test_complete_to_native(self):

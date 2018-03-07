@@ -59,15 +59,17 @@ class DeleteConfigurationCacheTest(TestCase):
     fixtures = ['global_key_values', 'sample']
 
     @override_settings(USE_CACHING=True)
-    def test_calls_delete_many(self, mock_cache):
+    @patch('configuration.cache.delete_section_caches')
+    def test_calls_delete_many(self, mock_delete_section_caches, mock_cache):
         conf = Mock()
         delete_configuration_cache(conf)
-        mock_cache.delete.assert_called_once_with(
-            get_cache_key(conf.code))
+        mock_cache.delete.assert_any_call(get_cache_key(conf.code))
+        self.assertTrue(mock_delete_section_caches.called)
 
     @override_settings(USE_CACHING=False)
+    @patch('configuration.cache.delete_section_caches')
     def test_does_not_call_delete_many_if_use_caching_settings_false(
-            self, mock_cache):
+            self, mock_delete_section_caches, mock_cache):
         conf = Mock()
         delete_configuration_cache(conf)
         self.assertEqual(mock_cache.delete_many.call_count, 0)

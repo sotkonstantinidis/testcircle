@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_views import accounts_route_questionnaires
 from model_mommy import mommy
@@ -76,7 +75,6 @@ def get_sample_5_5_options(testcase, index=0):
             index))
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class EditTest(FunctionalTest):
 
     fixtures = [
@@ -207,7 +205,7 @@ class EditTest(FunctionalTest):
     #     self.findByNot('xpath', '//article//*[text()="Foo"]')
     #     self.findBy('xpath', '//article//*[text()="Faz"]')
 
-    def test_creation_date_does_not_change(self, mock_get_user_id):
+    def test_creation_date_does_not_change(self):
 
         # Alice logs in
         user = User.objects.get(pk=102)
@@ -283,7 +281,7 @@ class EditTest(FunctionalTest):
         self.assertEqual(creation_date, dates[0].text)
         self.assertTrue(update_date != dates[1].text)
 
-    def test_edit_draft(self, mock_get_user_id):
+    def test_edit_draft(self):
 
         code = 'sample_1'
 
@@ -332,7 +330,7 @@ class EditTest(FunctionalTest):
         # Also there was no additional version created in the database
         self.assertEqual(Questionnaire.objects.count(), 10)
 
-    def test_edit_public(self, mock_get_user_id):
+    def test_edit_public(self):
 
         code = 'sample_3'
 
@@ -409,7 +407,7 @@ class EditTest(FunctionalTest):
         self.toggle_all_sections()
         self.checkOnPage('asdf')
 
-    def test_edit_questionnaire(self, mock_get_user_id):
+    def test_edit_questionnaire(self):
 
         user = create_new_user(id=6, email='mod@bar.com')
         user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
@@ -481,7 +479,7 @@ class EditTest(FunctionalTest):
             'xpath', '//a[contains(text(), "Edit this section")]')
         self.assertEqual(len(edit_buttons), 0)
 
-    # def test_show_message_of_changed_versions(self, mock_get_user_id):
+    # def test_show_message_of_changed_versions(self):
     #
     #     user = create_new_user(id=6, email='mod@bar.com')
     #     user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
@@ -619,12 +617,11 @@ class EditTest(FunctionalTest):
     #     has_no_old_version_overview(self)
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class CustomToOptionsTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values', 'sample']
 
-    def test_custom_to_options(self, mock_get_user_id):
+    def test_custom_to_options(self):
         # Alice logs in
         self.doLogin()
 
@@ -794,12 +791,11 @@ class CustomToOptionsTest(FunctionalTest):
                     '@class, "disabled"))]/a/span[text()="Value 66 3A Right"]')
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class LinkedChoicesTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values', 'sample']
 
-    def test_linked_across_step(self, mock_get_user_id):
+    def test_linked_across_step(self):
         # Alice logs in
         self.doLogin()
 
@@ -901,7 +897,7 @@ class LinkedChoicesTest(FunctionalTest):
         # She sees that in 5.5, there is only one option left
         self.assertEqual(len(get_sample_5_5_options(self)), 1)
 
-    def test_linked_choices_within_step(self, mock_get_user_id):
+    def test_linked_choices_within_step(self):
         # Alice logs in
         self.doLogin()
 
@@ -1049,7 +1045,7 @@ class LinkedChoicesTest(FunctionalTest):
             self.findBy('id', 'id_qg_43-1-original_key_59').get_attribute(
                 'value'), 'Bar')
 
-    def test_linked_choices_order(self, mock_get_user_id):
+    def test_linked_choices_order(self):
         # Alice logs in
         self.doLogin()
 
@@ -1088,7 +1084,6 @@ class LinkedChoicesTest(FunctionalTest):
                     'results"]/li[3][contains(text(), "QG 41")]')
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class LockTest(FunctionalTest):
     """
     Tests for questionnaire locking.
@@ -1141,7 +1136,7 @@ class LockTest(FunctionalTest):
             self.questionnaire.get_absolute_url()
         )
 
-    def test_edit_adds_lock(self, mock_get_user_id):
+    def test_edit_adds_lock(self):
         # Jay loggs in and starts editing a section.
         self.doLogin(user=self.jay)
         self.browser.get(self.questionnaire_edit_url)
@@ -1166,7 +1161,7 @@ class LockTest(FunctionalTest):
                              'and contains(@class, "warning")]')
         # maybe: should the edit buttons be disabled?
 
-    def test_edit_locked(self, mock_get_user_id):
+    def test_edit_locked(self):
         # The questionnaire is locked for Jay
         Lock.objects.create(
             questionnaire_code='sample_1', user=self.jay
@@ -1179,7 +1174,7 @@ class LockTest(FunctionalTest):
         self.browser.implicitly_wait(3)
         self.assertEqual(self.browser.current_url, self.questionnaire_view_url)
 
-    def test_refresh_lock(self, mock_get_user_id):
+    def test_refresh_lock(self):
         self.doLogin(user=self.jay)
         self.browser.get(self.questionnaire_edit_url)
         self.findManyBy('link_text', 'Edit this section')[0].click()

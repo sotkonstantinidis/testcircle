@@ -163,6 +163,17 @@ def get_mappings(questionnaire_configuration):
                         },
                     }
                 },
+                'reviewers': {
+                    'type': 'nested',
+                    'properties': {
+                        'id': {
+                            'type': 'integer',
+                        },
+                        'name': {
+                            'type': 'string',
+                        },
+                    }
+                },
                 'links': {
                     'type': 'nested',
                     'properties': link_structure,

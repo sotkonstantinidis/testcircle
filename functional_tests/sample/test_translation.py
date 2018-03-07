@@ -2,7 +2,6 @@ from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
@@ -10,14 +9,13 @@ from sample.tests.test_views import (
 )
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class TranslationTest(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'sample_global_key_values.json',
         'sample.json']
 
-    def test_enter_questionnaire_in_spanish_freetext(self, mock_get_user_id):
+    def test_enter_questionnaire_in_spanish_freetext(self):
 
         # Alice logs in
         self.doLogin()
@@ -76,7 +74,7 @@ class TranslationTest(FunctionalTest):
             'xpath', '//ul[contains(@class, "tech-lang-list")]/li')
         self.assertEqual(len(translations), 2)
 
-    def test_enter_translation_in_review_process(self, mock_get_user_id):
+    def test_enter_translation_in_review_process(self):
         # Alice logs in
         user_alice = create_new_user()
         user_alice.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]

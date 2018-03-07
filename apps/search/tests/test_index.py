@@ -119,10 +119,13 @@ class GetMappingsTest(TestCase):
         mock_Conf.get_questiongroups.return_value = []
         mappings = get_mappings(mock_Conf)
         q_props = mappings.get('questionnaire').get('properties')
-        self.assertEqual(len(q_props), 11)
+        self.assertEqual(len(q_props), 12)
         default_props = {}
         for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
             default_props[global_questiongroup] = {'properties': {}, 'type': 'nested'}
+            if global_questiongroup == 'qg_location':
+                default_props[global_questiongroup]['properties'] = {'country': {'type': 'string'}}
+
         self.assertEqual(q_props['data'], {'properties': default_props})
         self.assertEqual(q_props['created'], {'type': 'date'})
         self.assertEqual(q_props['updated'], {'type': 'date'})

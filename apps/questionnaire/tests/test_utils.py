@@ -1005,6 +1005,8 @@ class GetListValuesTest(TestCase):
         serializer_data = get_list_values(
             es_hits=[{'_source': serializer}]
         )[0]
+        # url is language agnostic
+        object_data['url'] = object_data['url'].replace('/en/', '/')
         keys = ['url', 'compilers', 'data']
         for key in keys:
             self.assertEqual(serializer_data[key], object_data[key])

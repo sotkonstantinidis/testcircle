@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
+from accounts.client import WocatWebsiteUserClient
 from cca.tests.test_views import route_questionnaire_new
 from functional_tests.base import FunctionalTest
 
@@ -17,14 +17,13 @@ def get_cca_3_1_options(testcase):
                  'option[not(@value="")]')
 
 
-@patch.object(Typo3Client, 'get_user_id')
 class LinkedChoicesTest(FunctionalTest):
 
     fixtures = [
         'global_key_values.json', 'technologies.json', 'cca.json'
     ]
 
-    def test_linked_across_step(self, mock_get_user_id):
+    def test_linked_across_step(self):
 
         # Alice logs in
         self.doLogin()
@@ -71,7 +70,7 @@ class LinkedChoicesTest(FunctionalTest):
         self.findBy('xpath',
                     '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]').click()
 
-    def test_linked_choices_within_step(self, mock_get_user_id):
+    def test_linked_choices_within_step(self):
 
         # Alice logs in
         self.doLogin()

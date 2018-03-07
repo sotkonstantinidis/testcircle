@@ -5,7 +5,6 @@ from unittest.mock import patch
 
 from selenium import webdriver
 
-from accounts.client import Typo3Client
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
@@ -15,13 +14,12 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['groups_permissions.json', 'global_key_values.json',
                 'sample.json']
 
-    def test_add_points(self, mock_get_user_id):
+    def test_add_points(self):
 
         # cat_3_position = get_position_of_category('cat_3', start0=True)
 

@@ -1,5 +1,5 @@
 import contextlib
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
@@ -52,7 +52,7 @@ class CacheTest(TestCase):
         request = MagicMock()
         request.user.is_superuser = True
 
-        # Missing messages-framework will throw a type error.
+        # Missing messages-framework will raise a type error.
         with contextlib.suppress(TypeError):
             delete_caches(request)
             self.assertIsNone(cache.get(cache_key))

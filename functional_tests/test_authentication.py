@@ -1,19 +1,13 @@
-from accounts.middleware import WocatAuthenticationMiddleware
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
-from unittest.mock import patch
 
 from functional_tests.base import FunctionalTest
-from accounts.authentication import WocatAuthenticationBackend
-from accounts.client import Typo3Client
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from accounts.tests.test_views import accounts_route_questionnaires
 
 
 # @patch('wocat.views.generic_questionnaire_list')
-# @patch.object(Typo3Client, 'get_and_update_django_user')
-# @patch.object(Typo3Client, 'get_user_id')
 # @patch.object(WocatAuthenticationBackend, 'authenticate')
 # class LoginTest(FunctionalTest):
 #
@@ -65,12 +59,11 @@ from accounts.tests.test_views import accounts_route_questionnaires
 #         self.checkOnPage('Logout')
 
 
-@patch.object(WocatAuthenticationMiddleware, 'process_request')
 class UserTest(FunctionalTest):
 
     fixtures = ['groups_permissions.json']
 
-    def test_superusers(self, mock_process_request):
+    def test_superusers(self):
 
         user = create_new_user()
         user.is_superuser = True
@@ -87,7 +80,7 @@ class UserTest(FunctionalTest):
             'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
             'admin")]')
 
-    def test_administrators(self, mock_process_request):
+    def test_administrators(self):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=1)]
@@ -103,7 +96,7 @@ class UserTest(FunctionalTest):
             'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
             'admin")]')
 
-    def test_moderators(self, mock_process_request):
+    def test_moderators(self):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=3)]
@@ -119,7 +112,7 @@ class UserTest(FunctionalTest):
             'xpath', '//ul[@class="dropdown"]/li/a[contains(@href, "search/'
             'admin")]')
 
-    def test_translators(self, mock_process_request):
+    def test_translators(self):
 
         user = create_new_user()
         user.groups = [Group.objects.get(pk=2)]

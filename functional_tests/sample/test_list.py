@@ -8,7 +8,6 @@ from unittest.mock import patch
 
 from functional_tests.base import FunctionalTest
 
-from accounts.client import Typo3Client
 from accounts.models import User
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
@@ -1251,7 +1250,6 @@ class ListTest(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class ListTestLinks(FunctionalTest):
 
     fixtures = [
@@ -1293,7 +1291,7 @@ class ListTestLinks(FunctionalTest):
         super(ListTestLinks, self).tearDown()
         delete_all_indices()
 
-    def test_list_displays_links_user_questionnaires(self, mock_get_user_id):
+    def test_list_displays_links_user_questionnaires(self):
 
         user_alice = User.objects.get(pk=101)
 
@@ -1339,7 +1337,7 @@ class ListTestLinks(FunctionalTest):
                      'contains(@class, "tech-attached")]/li/a')
         self.assertEqual(link_count.text, '')  # No number
 
-    def test_list_displays_links_search(self, mock_get_user_id):
+    def test_list_displays_links_search(self):
 
         # Alice logs in and creates a new questionnaire with some basic data and
         # a linked questionnaire
@@ -1396,7 +1394,6 @@ class ListTestLinks(FunctionalTest):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class ListTestStatus(FunctionalTest):
 
     fixtures = [
@@ -1412,7 +1409,7 @@ class ListTestStatus(FunctionalTest):
         super(ListTestStatus, self).tearDown()
         delete_all_indices()
 
-    # def test_unknown_name(self, mock_get_user_id):
+    # def test_unknown_name(self):
     #     user = create_new_user()
     #     user.groups = [
     #         Group.objects.get(pk=3), Group.objects.get(pk=4)]
@@ -1452,7 +1449,7 @@ class ListTestStatus(FunctionalTest):
     #     self.findByNot('xpath', '//a[contains(text(), "{}")]'.format(
     #         "{'en': 'Unknown name'}"))
 
-    def test_list_status_public(self, mock_get_user_id):
+    def test_list_status_public(self):
 
         # She goes to the list view and sees the same questionnaires
         self.browser.get(self.live_server_url + reverse(
@@ -1470,7 +1467,7 @@ class ListTestStatus(FunctionalTest):
         ]
         self.check_list_results(expected_results)
 
-    def test_list_status_logged_in(self, mock_get_user_id):
+    def test_list_status_logged_in(self):
 
         # Alice logs in as user 1.
         user = User.objects.get(pk=101)
@@ -1508,7 +1505,7 @@ class ListTestStatus(FunctionalTest):
 
         self.check_list_results(expected_results)
 
-    def test_list_shows_only_one_public(self, mock_get_user_id):
+    def test_list_shows_only_one_public(self):
 
         code = 'sample_3'
 

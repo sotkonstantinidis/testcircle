@@ -491,7 +491,7 @@ class QuestionnaireModelTest(TestCase):
             configuration_code='sample', data={}, user=self.user)
         metadata = questionnaire.get_metadata()
         self.assertIsInstance(metadata, dict)
-        self.assertEqual(len(metadata), 10)
+        self.assertEqual(len(metadata), 11)
         self.assertEqual(metadata['created'], questionnaire.created)
         self.assertEqual(metadata['updated'], questionnaire.updated)
         self.assertEqual(

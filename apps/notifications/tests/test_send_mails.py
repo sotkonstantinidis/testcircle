@@ -129,7 +129,6 @@ class SendMailRecipientMixin(TestCase):
             yield outbox
 
 
-@unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
 class SettingsMailTest(SendMailRecipientMixin):
 
     @override_settings(DO_SEND_STAFF_ONLY=True)
@@ -202,7 +201,6 @@ class SettingsMailTest(SendMailRecipientMixin):
         self.assert_no_unsent_logs(3)
 
 
-@unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
 @override_settings(DO_SEND_STAFF_ONLY=False)
 class PublicationWorkflowMailTest(SendMailRecipientMixin):
     """

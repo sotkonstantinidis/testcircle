@@ -55,7 +55,6 @@ class MaintenanceAnnouncementTest(TestCase):
         MaintenanceAnnouncement(self.request)
         self.assertEquals(len(mock_cache.method_calls), 1)
 
-    @unittest.skip("Temporarily disabled. @Sebastian, please reactivate")
     @patch('qcat.context_processors.cache')
     def test_flush_cache(self, mock_cache):
         mock_cache.get = MagicMock(return_value=None)

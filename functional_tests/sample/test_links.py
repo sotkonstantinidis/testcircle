@@ -3,7 +3,6 @@ from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from unittest.mock import patch
 
-from accounts.client import Typo3Client
 from accounts.models import User
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import route_questionnaire_list, \
@@ -18,7 +17,6 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-@patch.object(Typo3Client, 'get_user_id')
 class LinkTests(FunctionalTest):
 
     fixtures = [
@@ -60,7 +58,7 @@ class LinkTests(FunctionalTest):
         super(LinkTests, self).tearDown()
         delete_all_indices()
 
-    def test_do_not_show_deleted_links_in_form(self, mock_get_user_id):
+    def test_do_not_show_deleted_links_in_form(self):
 
         # Alice logs in
         user = User.objects.get(pk=101)
@@ -108,7 +106,7 @@ class LinkTests(FunctionalTest):
         # She submits the form and sees there is no error
         self.submit_form_step()
 
-    def test_show_only_one_linked_version(self, mock_get_user_id):
+    def test_show_only_one_linked_version(self):
 
         # Alice logs in
         user = User.objects.get(pk=101)
@@ -236,7 +234,7 @@ class LinkTests(FunctionalTest):
                 'contains(@class, "tech-status")]'.format(xpath))
 
     def test_add_only_one_side_of_link_to_es_when_publishing(
-            self, mock_get_user_id):
+            self):
 
         sample_name = 'asdfasdf'
         samplemulti_name = 'foobar'
@@ -368,7 +366,7 @@ class LinkTests(FunctionalTest):
                      'contains(@class, "tech-attached")]/li/a')
         self.assertEqual(link_count.text, '')
 
-    def test_do_not_add_duplicate_links_when_editing(self, mock_get_user_id):
+    def test_do_not_add_duplicate_links_when_editing(self):
         # Alice logs in
         user_alice = User.objects.get(pk=101)
         user_alice.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]

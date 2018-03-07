@@ -3,7 +3,6 @@ from unittest.mock import patch
 
 from django.test.utils import override_settings
 
-from accounts.client import Typo3Client
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire, QuestionnaireLink
 from sample.tests.test_views import route_questionnaire_new
@@ -12,7 +11,6 @@ route_add_module = 'sample:add_module'
 
 
 @override_settings(IS_ACTIVE_FEATURE_MODULE=True)
-@patch.object(Typo3Client, 'get_user_id')
 class AddModuleTest(FunctionalTest):
 
     fixtures = [
@@ -20,7 +18,7 @@ class AddModuleTest(FunctionalTest):
         'samplemodule.json'
     ]
 
-    def test_add_module(self, mock_get_user_id):
+    def test_add_module(self):
 
         # Alice is not logged in. She sees that adding a module requires a login
         self.browser.get(self.live_server_url + reverse(route_add_module))

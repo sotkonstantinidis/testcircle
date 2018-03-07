@@ -4,8 +4,7 @@ from django.contrib.auth import get_user_model
 from unittest.mock import patch
 
 from qcat.tests import TestCase
-from ..authentication import WocatAuthenticationBackend
-from ..client import typo3_client, Typo3Client, WocatWebsiteUserClient
+from ..client import WocatWebsiteUserClient
 
 User = get_user_model()
 
@@ -67,40 +66,3 @@ class WOCATCMSAuthenticateTest(TestCase):
         self.assertEqual(user.email, user_info['email'])
         self.assertEqual(user.firstname, user_info['first_name'])
         self.assertEqual(user.lastname, user_info['last_name'])
-
-
-class ValidateSessionTest(TestCase):
-
-    def setUp(self):
-        self.typo3_client = Typo3Client()
-
-    @patch('accounts.client.typo3_client.get_user_id')
-    def test_returns_None_if_api_login_is_not_valid(self, mock_api_login):
-        mock_api_login.return_value = None
-        user_id = self.typo3_client.get_user_id('foo')
-        self.assertIsNone(user_id)
-
-
-@patch('accounts.client.typo3_client.api_login')
-class GetUserInformationTest(TestCase):
-
-    def setUp(self):
-        self.typo3_client = Typo3Client()
-
-    def test_returns_None_if_api_login_is_not_valid(self, mock_api_login):
-        mock_api_login.return_value = None
-        user_info = self.typo3_client.get_user_information(1)
-        self.assertIsNone(user_info)
-
-
-class SearchUsersTest(TestCase):
-
-    def setUp(self):
-        self.typo3_client = Typo3Client()
-
-    @patch.object(Typo3Client, 'api_login')
-    def test_returns_empty_dict_if_api_login_is_not_valid(
-            self, mock_api_login):
-        mock_api_login.return_value = None
-        search_results = self.typo3_client.search_users(name='foo')
-        self.assertEqual(search_results, {})
