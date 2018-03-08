@@ -310,7 +310,7 @@ def get_indices_alias():
         list.
     """
     indices = []
-    for aliases in es.indices.get_aliases().values():
+    for aliases in es.indices.get_alias('*').values():
         for alias in aliases.get('aliases', {}).keys():
             if settings.ES_INDEX_PREFIX not in alias:
                 continue
