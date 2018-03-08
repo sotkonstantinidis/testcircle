@@ -351,5 +351,10 @@ class SummaryPDFCreateView(PDFTemplateView):
 
             if self.request.user.is_authenticated():
                 payload['_id'] = self.request.user.id
-            with contextlib.suppress(Exception):
+            try:
                 requests.get(f'{settings.PIWIK_URL}piwik.php', params=payload)
+            except Exception:  # Don't raise any kind of exception for failed tracking.
+                logger.error(
+                    f'Cannot track summary download for url %s (%s)',
+                    f'{settings.PIWIK_URL}piwik.php', payload
+                )
