@@ -77,6 +77,7 @@ class BaseSettings(Configuration):
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'maintenancemode.middleware.MaintenanceModeMiddleware',
+        'qcat.middleware.ProfilerMiddleware',
     )
 
     ROOT_URLCONF = 'qcat.urls'
@@ -332,6 +333,9 @@ class BaseSettings(Configuration):
         environ_prefix='', default=True
     )
     IS_ACTIVE_FEATURE_WATERSHED = values.BooleanValue(
+        environ_prefix='', default=False
+    )
+    IS_ACTIVE_FEATURE_MEMORY_PROFILER = values.BooleanValue(
         environ_prefix='', default=False
     )
 

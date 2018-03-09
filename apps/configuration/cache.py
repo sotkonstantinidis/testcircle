@@ -1,14 +1,14 @@
 import logging
-
+import os
+import psutil
 from functools import lru_cache
 
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.translation import get_language, activate
-from qcat.utils import time_cache_read
 
 
-logger = logging.getLogger('config_cache')
+logger = logging.getLogger('profile_log')
 
 
 def get_configuration(configuration_code):
@@ -68,10 +68,26 @@ def get_cached_configuration(cache_key, configuration_code):
     twice the memory usage!). configurations should probably be cached by
     section or such.
     """
+    django_process = psutil.Process(pid=os.getpid())
+    memory_before = django_process.memory_info().vms
+    profile_type = 'cache-get'
+    delimiter = ';'
     configuration = cache.get(cache_key)
+
     if not configuration:
+        profile_type = 'cache-set'
         configuration = get_configuration_by_code(configuration_code)
         cache.set(key=cache_key, value=configuration)
+
+    memory_after = django_process.memory_info().vms
+    increment = memory_after - memory_before
+    logger.info(
+        msg=f'{delimiter}{profile_type}'
+            f'{delimiter}{cache_key}'
+            f'{delimiter}{memory_before}'
+            f'{delimiter}{increment}'
+    )
+
     return configuration
 
 

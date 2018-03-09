@@ -78,18 +78,10 @@ class LogMixin:
                     'level': 'DEBUG',
                     'class': 'logging.handlers.TimedRotatingFileHandler',
                     'when': 'midnight',
-                    'backupCount': 2,
+                    'backupCount': 14,
                     'filename': '{}/logs/caches.log'.format(super().BASE_DIR),
                     'formatter': 'verbose'
-                },
-                'time_cache': {
-                    'level': 'INFO',
-                    'class': 'logging.handlers.TimedRotatingFileHandler',
-                    'when': 'midnight',
-                    'backupCount': 20,
-                    'filename': '{}/logs/config_cache.log'.format(super().BASE_DIR),
-                    'formatter': 'verbose'
-                },
+                }
             },
             'loggers': {
                 '': {
@@ -97,19 +89,14 @@ class LogMixin:
                     'propagate': True,
                     'level': 'WARNING',
                 },
-                'config_cache': {
-                    'handlers': ['cache_info'],
-                    'propagate': True,
-                    'level': 'INFO'
-                },
-                'qcat.utils': {
-                    'handlers': ['time_cache'],
-                    'propagate': False,
-                    'level': 'INFO'
-                },
                 'notifications': {
                     'handlers': ['file'],
                     'propagate': True,
+                    'level': 'INFO'
+                },
+                'profile_log': {
+                    'handlers': ['cache_info'],
+                    'propagate': False,
                     'level': 'INFO'
                 }
             },
