@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from django.core.management.base import BaseCommand
-from django.db.models import Avg, Sum
+from django.db.models import Avg, Sum, Max
 from django.utils.dateparse import parse_datetime
 from django.utils.timezone import make_aware
 from tabulate import tabulate
@@ -87,30 +87,60 @@ class Command(BaseCommand):
         - largest sum of increments
 
         """
-        largest = MemoryLog.objects.values(
+        self.display_largest_increments()
+        self.display_largest_distinct_increments()
+        self.display_average_increments()
+        self.display_sum_increments()
+
+    def display_largest_increments(self):
+        qs = MemoryLog.objects.values(
             'params', 'increment'
         ).order_by(
             '-increment'
         )
         self.print_rows(
             title='Largest absolute (single) increments',
-            queryset=largest
+            queryset=qs
         )
 
-        increment_avg = MemoryLog.objects.values('params').annotate(
+    def display_largest_distinct_increments(self):
+        qs = MemoryLog.objects.values(
+            'params'
+        ).annotate(
+            Max('increment')
+        ).order_by(
+            '-increment'
+        )
+
+        self.print_rows(
+            title='Largest absolute (single) distinct increments',
+            queryset=qs
+        )
+
+    def display_average_increments(self):
+        qs = MemoryLog.objects.values(
+            'params'
+        ).annotate(
             Avg('increment')
-        ).order_by('-increment__avg')
+        ).order_by(
+            '-increment__avg'
+        )
         self.print_rows(
             title='Highest average increments',
-            queryset=increment_avg
+            queryset=qs
         )
 
-        increment_sum = MemoryLog.objects.values('params').annotate(
+    def display_sum_increments(self):
+        qs = MemoryLog.objects.values(
+            'params'
+        ).annotate(
             Sum('increment')
-        ).order_by('-increment__sum')[0:self.slice_size]
+        ).order_by(
+            '-increment__sum'
+        )
         self.print_rows(
             title='Highest sum of increments',
-            queryset=increment_sum
+            queryset=qs
         )
 
     def print_rows(self, title, queryset):
@@ -118,7 +148,9 @@ class Command(BaseCommand):
         print(title.upper())
         rows = []
         for item in queryset[0:self.slice_size]:
+            # Use 'values', as dict keys may vary (increment, increment__sum, ...)
             values = list(item.values())
+            # Meh - cast increment to size in MB.
             values[1] = int(values[1]) >> 20
             rows.append(values)
         print(tabulate(
