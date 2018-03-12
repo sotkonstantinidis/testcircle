@@ -15,7 +15,7 @@ class Command(BaseCommand):
     # Delimiter in the log files
     delimiter = ';'
     # Glob pattern for log file names
-    cache_file_name = 'caches*.log'
+    cache_file_name = 'caches.log*'
     # Number of results to display
     slice_size = 10
 
@@ -49,7 +49,8 @@ class Command(BaseCommand):
         log_files = Path(path).glob(self.cache_file_name)
         for log in log_files:
             with log.open() as f:
-                self.parse_line(*f.readlines())
+                print(f'Importing {log.name}')
+                self.parse_lines(*f.readlines())
 
     @property
     def titles(self):
@@ -58,10 +59,11 @@ class Command(BaseCommand):
         """
         return [field.name for field in MemoryLog._meta.get_fields()[1:]]
 
-    def parse_line(self, *lines):
+    def parse_lines(self, *lines):
         """
         Split given lines according to delimiter, and prepare model row generation.
         """
+        memory_logs = []
         for line in lines:
             attrs = {}
             for index, param in enumerate(line.split(self.delimiter)):
@@ -70,7 +72,8 @@ class Command(BaseCommand):
                 if index is 0:
                     param = make_aware(parse_datetime(param[5:21]))
                 attrs[self.titles[index]] = param
-            MemoryLog(**attrs).save()
+            memory_logs.append(MemoryLog(**attrs))
+        MemoryLog.objects.bulk_create(memory_logs)
 
     @staticmethod
     def truncate_logs_in_db():
