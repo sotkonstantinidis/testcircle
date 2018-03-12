@@ -42,8 +42,7 @@ class LoginView(FormView):
     @method_decorator(never_cache)
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, *args, **kwargs):
-        if hasattr(self.request, 'user') and \
-                self.request.user.is_authenticated():
+        if hasattr(self.request, 'user') and self.request.user.is_authenticated():
             return redirect(self.get_success_url())
         return super(LoginView, self).dispatch(*args, **kwargs)
 
@@ -75,7 +74,6 @@ class LoginView(FormView):
                 return HttpResponseRedirect(settings.REACTIVATE_WOCAT_ACCOUNT_URL)
 
         return super().form_invalid(form)
-
 
     def get_success_url(self):
         # Explicitly passed ?next= url takes precedence.
