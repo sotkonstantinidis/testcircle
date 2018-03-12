@@ -40,3 +40,4 @@ markdown==2.6.8  # For better documentation of DRF API
 lxml==4.1.0
 beautifulsoup4==4.6.0
 tabulate==0.8.2
+psutil==5.4.3
