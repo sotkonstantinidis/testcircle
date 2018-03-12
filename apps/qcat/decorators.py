@@ -32,12 +32,19 @@ def log_memory_usage(func):
 
         if settings.IS_ACTIVE_FEATURE_MEMORY_PROFILER:
             increment = django_process.memory_info().vms - memory_before
-            called_from = inspect.stack()[1]
-            callee_module = inspect.getmodule(called_from[0])
+
             if increment:
+                called_from = inspect.stack()[1]
+                callee_module = inspect.getmodule(called_from[0])
+
+                # Don't log any params for sensitive vars, the record type should be sufficient.
+                params = callee_module.__name__
+                if not hasattr(func, 'sensitive_variables'):
+                    params = ",".join(kwargs.values())
+
                 logger.info(
                     msg=f'{delimiter}{callee_module.__name__}'
-                        f'{delimiter}{",".join(kwargs.values())}'
+                        f'{delimiter}{params}'
                         f'{delimiter}{memory_before}'
                         f'{delimiter}{increment}'
                 )

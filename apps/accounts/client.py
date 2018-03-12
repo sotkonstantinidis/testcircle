@@ -3,13 +3,11 @@ import logging
 import requests
 
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.db import IntegrityError
-from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.debug import sensitive_variables
 
-from accounts.models import User
+from qcat.decorators import log_memory_usage
 from .conf import settings
+from .models import User
 
 logger = logging.getLogger(__name__)
 
@@ -19,12 +17,15 @@ class WocatWebsiteUserClient:
     Client with endpoints of the relaunched wocat website.
     """
 
+    @log_memory_usage
     def _get(self, url: str) -> requests.Response:
         """
         Simple helper to request api; all requests are GET.
         """
         return requests.get(**self._get_request_params(url=url))
 
+    @log_memory_usage
+    @sensitive_variables()
     def _post(self, url: str, **data) -> requests.Response:
         data.update(self._get_request_params(url=url))
         return requests.post(**data)

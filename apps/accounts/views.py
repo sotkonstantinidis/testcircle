@@ -12,7 +12,6 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
-from django.utils.timezone import now
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
