@@ -813,8 +813,7 @@ class ModerationTestFixture(FunctionalTest):
         NOTIFICATIONS_ADD_MEMBER='add_member',
         NOTIFICATIONS_REMOVE_MEMBER='delete_member',
         QUESTIONNAIRE_COMPILER = 'compiler',
-        QUESTIONNAIRE_EDITOR = 'editor',
-        USE_NEW_WOCAT_AUTHENTICATION=True,
+        QUESTIONNAIRE_EDITOR = 'editor'
     )
     @patch('questionnaire.signals.change_member.send')
     def test_secretariat_can_assign_reviewer_2(self, mock_member_change):

@@ -268,14 +268,6 @@ Example::
     }
 
 
-``USE_NEW_WOCAT_AUTHENTICATION``
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-A boolean indicating whether to use the new (2017) WOCAT website as
-authentication service or not.
-
-Default: ``False``
-
 ``WARN_HEADER``
 ^^^^^^^^^^^^^^^
 Text to display as warn header at the bottom of the page.

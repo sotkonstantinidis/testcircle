@@ -104,10 +104,4 @@ class WocatWebsiteUserClient:
             )
 
 
-def get_remote_user_client():
-    return WocatWebsiteUserClient()
-
-
-# Backward compatibility for old tests (typo3_client). Also: bad naming. 'typo3_client' should be
-# 'remote_user_client'
-typo3_client = WocatWebsiteUserClient()
+remote_user_client = WocatWebsiteUserClient()

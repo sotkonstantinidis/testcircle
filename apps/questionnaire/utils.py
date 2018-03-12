@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from django.utils.functional import Promise
 from django.utils.translation import ugettext as _, get_language
 
-from accounts.client import typo3_client
+from accounts.client import remote_user_client
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.configuration import (
@@ -1481,12 +1481,12 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         user_error = []
         for user_id in user_ids:
             # Create or update the user
-            user_info = typo3_client.get_user_information(user_id)
+            user_info = remote_user_client.get_user_information(user_id)
             if not user_info:
                 user_error.append(user_id)
                 continue
             user, created = User.objects.get_or_create(pk=user_id)
-            typo3_client.update_user(user, user_info)
+            remote_user_client.update_user(user, user_info)
 
             # Add the user
             questionnaire_object.add_user(user, role)
@@ -1545,13 +1545,13 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             return
 
         # Create or update the user
-        user_info = typo3_client.get_user_information(user_id)
+        user_info = remote_user_client.get_user_information(user_id)
         if not user_info:
             messages.error(
                 request,
                 'No user information found for user {}'.format(user_id))
         new_compiler, created = User.objects.get_or_create(pk=user_id)
-        typo3_client.update_user(new_compiler, user_info)
+        remote_user_client.update_user(new_compiler, user_info)
 
         role_compiler = settings.QUESTIONNAIRE_COMPILER
 

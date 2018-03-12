@@ -223,7 +223,10 @@ class BaseSettings(Configuration):
 
     AUTH_USER_MODEL = 'accounts.User'
     AUTHENTICATION_BACKENDS = (
-        'accounts.authentication.WocatAuthenticationBackend',
+        'accounts.authentication.WocatCMSAuthenticationBackend',
+    )
+    REACTIVATE_WOCAT_ACCOUNT_URL = values.URLValue(
+        environ_prefix='', default='https://wocat.net/accounts/reactivate/'
     )
     LOGIN_URL = 'login'
 
@@ -294,9 +297,8 @@ class BaseSettings(Configuration):
 
     SECRET_KEY = values.SecretValue(environ_required=True)
 
-    # The base URL of the Typo3 REST API used for authentication
-    AUTH_API_URL = values.Value(environ_prefix='',
-                                default='https://beta.wocat.net/api/v1/')
+    # The base URL of the REST API used for authentication
+    AUTH_API_URL = values.Value(environ_prefix='', default='https://wocat.net/api/v1/')
 
     # The username used for API login
     AUTH_API_USER = values.Value(environ_prefix='')

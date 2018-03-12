@@ -42,14 +42,14 @@ def get_mock_user_information_values_cms():
 class WOCATCMSAuthenticateTest(TestCase):
 
     def setUp(self):
-        self.typo3_client = WocatWebsiteUserClient()
+        self.remote_user_client = WocatWebsiteUserClient()
 
     def test_existing_user_updates(self):
         # Existing users have their information updated
         user_info = get_mock_user_information_values_cms()
         User.objects.create(id=user_info['pk'], email=user_info['email'])
 
-        user = self.typo3_client.get_and_update_django_user(**user_info)
+        user = self.remote_user_client.get_and_update_django_user(**user_info)
 
         self.assertEqual(user.id, user_info['pk'])
         self.assertEqual(user.email, user_info['email'])
@@ -60,7 +60,7 @@ class WOCATCMSAuthenticateTest(TestCase):
         # New users should also have their information updated
         user_info = get_mock_user_information_values_cms()
 
-        user = self.typo3_client.get_and_update_django_user(**user_info)
+        user = self.remote_user_client.get_and_update_django_user(**user_info)
 
         self.assertEqual(user.id, user_info['pk'])
         self.assertEqual(user.email, user_info['email'])
