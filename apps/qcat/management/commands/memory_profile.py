@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 
 from django.core.management.base import BaseCommand
@@ -18,6 +19,8 @@ class Command(BaseCommand):
     cache_file_name = 'caches.log*'
     # Number of results to display
     slice_size = 10
+    # temporary file path, to store downloaded logs
+    tmp = '/tmp/qcat-logs'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -27,6 +30,14 @@ class Command(BaseCommand):
             default=False,
             help='Do not truncate db if a path for log files is given!'
         )
+
+        parser.add_argument(
+            '--download-logs',
+            dest='download',
+            default='',
+            help='SSH path (user@server:/path/to/logs/) to fetch logs from. Logs are stored in /tmp'
+        )
+
         parser.add_argument(
             '--path',
             dest='path',
@@ -35,12 +46,19 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
+        if options['download']:
+            self.download_logs(ssh_cmd=options['download'])
+            options['path'] = f'{self.tmp}'
+
         if options['path']:
             if not options['no-truncate']:
                 self.truncate_logs_in_db()
             self.save_logs_to_db(path=options['path'])
 
         self.display_stats()
+
+    def download_logs(self, ssh_cmd):
+        subprocess.call(f'rsync -avz -e "ssh" {ssh_cmd} {self.tmp}', shell=True)
 
     def save_logs_to_db(self, path):
         """
