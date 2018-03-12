@@ -5,7 +5,10 @@ from os.path import join
 class DevMixin:
     DEBUG = values.BooleanValue(True)
     TEMPLATE_DEBUG = values.BooleanValue(True)
-    CACHES = values.CacheURLValue('dummy://')
+    CACHES = values.DictValue(
+        environ_prefix='',
+        default={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache',}}
+    )
     EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
 
     @property
