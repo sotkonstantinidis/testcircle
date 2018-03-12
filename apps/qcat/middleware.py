@@ -25,15 +25,18 @@ class StaffFeatureToggleMiddleware:
 class ProfilerMiddleware:
     """
     Write following info to a logfile, separated by a delimiter (for csv import):
-    - path of the request
+    - source of record (middleware, caching)
+    - params (identifying the action)
     - memory in use
     - memory increment
+
+    When adding info to the log at a different layer (e.g. db), this structure must remain in place!
 
     """
     logger = logging.getLogger('profile_log')
     memory_at_request = 'memory_at_request'
     delimiter = ';'
-    profile_type = 'middleware'
+    record_type = 'middleware'
 
     def process_request(self, request):
         if settings.IS_ACTIVE_FEATURE_MEMORY_PROFILER:
@@ -46,7 +49,7 @@ class ProfilerMiddleware:
             # Exclude logging of static assets (favicon, etc.)
             if increment:
                 self.logger.info(
-                    msg=f'{self.delimiter}{self.profile_type}'
+                    msg=f'{self.delimiter}{self.record_type}'
                         f'{self.delimiter}{request.path}'
                         f'{self.delimiter}{current_memory}'
                         f'{self.delimiter}{increment}'

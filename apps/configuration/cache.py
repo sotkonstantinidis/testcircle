@@ -70,19 +70,19 @@ def get_cached_configuration(cache_key, configuration_code):
     """
     django_process = psutil.Process(pid=os.getpid())
     memory_before = django_process.memory_info().vms
-    profile_type = 'cache-get'
+    record_type = 'cache-get'
     delimiter = ';'
     configuration = cache.get(cache_key)
 
     if not configuration:
-        profile_type = 'cache-set'
+        record_type = 'cache-set'
         configuration = get_configuration_by_code(configuration_code)
         cache.set(key=cache_key, value=configuration)
 
     memory_after = django_process.memory_info().vms
     increment = memory_after - memory_before
     logger.info(
-        msg=f'{delimiter}{profile_type}'
+        msg=f'{delimiter}{record_type}'
             f'{delimiter}{cache_key}'
             f'{delimiter}{memory_before}'
             f'{delimiter}{increment}'
