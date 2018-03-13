@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
-from unittest.mock import patch
 
 from accounts.models import User
 from functional_tests.base import FunctionalTest
@@ -115,7 +114,8 @@ class LinkTests(FunctionalTest):
         # She goes to the SAMPLE questionnaire and sees the link
         self.open_questionnaire_details('sample', identifier='sample_1')
         self.findBy(
-            'xpath', '//a[contains(text(), "This is key 1a")]').click()
+            'xpath', '//a[contains(text(), "This is key 1a")]',
+            wait=True).click()
 
         # She goes to the MULTISAMPLE questionnaire and sees the link
         section_xpath = '//section[@id="mcat_1"]'

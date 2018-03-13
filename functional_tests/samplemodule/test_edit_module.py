@@ -28,17 +28,15 @@ class EditModuleTest(FunctionalTest):
         self.click_edit_section('cat_1')
         self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
         self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        self.findBy('xpath', '//div[@id="id_qg_3_0_key_4_chosen"]').click()
-        self.findBy('xpath',
-                    '//div[@id="id_qg_3_0_key_4_chosen"]//'
-                    'ul[@class="chosen-results"]/li[text()="Germany"]').click()
+        self.select_chosen_element('id_qg_3_0_key_4_chosen', 'Germany')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
         sample_url = self.browser.current_url
 
-        # She adds a module for this questionnaire
-        self.toggle_all_sections()
+        # She adds a module for this questionnaire (toggle section manually)
+        self.findBy('xpath', '(//a[contains(@class, "js-expand-all-sections")])[2]').click()
+        self.wait_for('xpath', '//a[contains(@class, "js-show-embedded-modules-form")]')
         self.findBy('xpath', '//a[contains(@class, "js-show-embedded-modules-form")]').click()
         samplemodule_radio = self.findBy(
             'xpath',
@@ -82,10 +80,7 @@ class EditModuleTest(FunctionalTest):
         # She edits some values
         self.click_edit_section('cat_1')
         self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
-        self.findBy('xpath', '//div[@id="id_qg_3_0_key_4_chosen"]').click()
-        self.findBy('xpath',
-                    '//div[@id="id_qg_3_0_key_4_chosen"]//'
-                    'ul[@class="chosen-results"]/li[text()="Switzerland"]').click()
+        self.select_chosen_element('id_qg_3_0_key_4_chosen', 'Switzerland')
         self.findBy('id', 'button-submit').click()
         self.findBy('xpath', '//div[contains(@class, "success")]')
 
@@ -137,13 +132,4 @@ class EditModuleTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Switzerland")]]')
         self.findBy('xpath', '//*[text()[contains(.,"ModKey 1")]]')
         self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"spam")]]')
-
-        # She goes to the questionnaire and sees the same values there.
-        self.browser.get(sample_url)
-        self.findBy('xpath', '//*[text()[contains(.,"Key 1 (Samplemodule)")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo (changed)")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Bar")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 4 (Samplemodule)")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Switzerland")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"spam")]]')

@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
-from unittest.mock import patch
 
 from selenium import webdriver
 

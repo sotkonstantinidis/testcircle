@@ -65,8 +65,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         if '-pop' not in sys.argv[1:]:
             self.display = Display(visible=0, size=(1600, 900))
             self.display.start()
-        self.browser = webdriver.Firefox(
-            firefox_binary=FirefoxBinary(settings.TESTING_FIREFOX_PATH))
+        self.browser = webdriver.Chrome(
+            executable_path=settings.TESTING_CHROMEDRIVER_PATH)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -93,9 +93,11 @@ class FunctionalTest(StaticLiveServerTestCase):
         except NoSuchElementException:
             pass
 
-    def findBy(self, by, el, base=None):
+    def findBy(self, by, el, base=None, wait=False):
         if base is None:
             base = self.browser
+        if wait is True:
+            self.wait_for(by, el)
         f = None
         try:
             if by == 'class_name':
@@ -262,22 +264,21 @@ class FunctionalTest(StaticLiveServerTestCase):
         if exists_not is True:
             self.findByNot('xpath', btn_xpath)
             return
-        btn = self.findBy(
-            'xpath', btn_xpath)
+        self.wait_for('xpath', btn_xpath)
+        btn = self.findBy('xpath', btn_xpath)
         if return_button is True:
             return btn
-        btn.click()
+        # Clicking does work reliably. Instead opening the URL manually.
+        self.browser.get(btn.get_attribute('href'))
         self.rearrangeFormHeader()
 
     def toggle_all_sections(self):
         self.wait_for('class_name', 'js-expand-all-sections')
-        for el in self.findManyBy('xpath', '//div[contains(@class, "success")]'):
-            self.browser.execute_script("""
-                var element = arguments[0];
-                element.parentNode.removeChild(element);
-                """, el)
+        # Remove all notifications so the buttons to expand the sections are
+        # clickable
+        self.hide_notifications()
         links = self.findManyBy('class_name', 'js-expand-all-sections')
-        for link in links:
+        for link in reversed(links):
             link.click()
 
     def open_questionnaire_details(self, configuration, identifier=None):
@@ -435,6 +436,22 @@ class FunctionalTest(StaticLiveServerTestCase):
             return this.nodeType == Node.TEXT_NODE;
         }).text();
         """, element)
+
+    def hide_notifications(self):
+        for el in self.findManyBy(
+                'xpath', '//div[contains(@class, "notification alert-box")]'):
+            self.browser.execute_script("""
+                var element = arguments[0];
+                element.parentNode.removeChild(element);
+                """, el)
+
+    def select_chosen_element(self, chosen_id: str, chosen_value: str):
+        chosen_el = self.findBy('xpath', '//div[@id="{}"]'.format(chosen_id))
+        self.scroll_to_element(chosen_el)
+        chosen_el.click()
+        self.findBy(
+            'xpath', '//div[@id="{}"]//ul[@class="chosen-results"]/li[text()='
+                     '"{}"]'.format(chosen_id, chosen_value)).click()
 
     def clickUserMenu(self, user):
         self.findBy(

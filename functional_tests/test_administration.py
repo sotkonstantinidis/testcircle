@@ -83,7 +83,7 @@ class AdminTest(FunctionalTest):
                              '/add/")]').click()
 
         textfields = self.findManyBy('xpath', '//input[@type="text"]')
-        self.assertEqual(len(textfields), 3)
+        self.assertEqual(len(textfields), 2)
 
         # She goes back to the admin page
         self.browser.execute_script("window.history.go(-1)")

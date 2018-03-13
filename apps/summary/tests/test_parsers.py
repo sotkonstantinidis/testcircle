@@ -360,8 +360,6 @@ class ApproachParserTest(ParserTestMixin, TestCase):
             list(values[0].keys()), ['title', 'comments', 'items']
         )
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_get_stakeholders_roles(self):
         child = self.get_child('app_qg_100', 'app_stakeholders_roles')
         self.assertListEqual(
