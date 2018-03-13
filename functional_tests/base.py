@@ -10,7 +10,6 @@ from nose.plugins.attrib import attr
 from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
 from selenium.webdriver.remote.webelement import WebElement
@@ -19,8 +18,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from accounts.authentication import WocatAuthenticationBackend, \
-    WocatCMSAuthenticationBackend
+from accounts.authentication import WocatCMSAuthenticationBackend
 from accounts.client import WocatWebsiteUserClient
 from qcat.tests import TEST_CACHES
 from unittest.mock import patch
@@ -65,8 +63,8 @@ class FunctionalTest(StaticLiveServerTestCase):
         if '-pop' not in sys.argv[1:]:
             self.display = Display(visible=0, size=(1600, 900))
             self.display.start()
-        self.browser = webdriver.Firefox(
-            firefox_binary=FirefoxBinary(settings.TESTING_FIREFOX_PATH))
+        self.browser = webdriver.Chrome(
+            executable_path=settings.TESTING_CHROMEDRIVER_PATH)
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -93,9 +91,11 @@ class FunctionalTest(StaticLiveServerTestCase):
         except NoSuchElementException:
             pass
 
-    def findBy(self, by, el, base=None):
+    def findBy(self, by, el, base=None, wait=False):
         if base is None:
             base = self.browser
+        if wait is True:
+            self.wait_for(by, el)
         f = None
         try:
             if by == 'class_name':
@@ -262,22 +262,21 @@ class FunctionalTest(StaticLiveServerTestCase):
         if exists_not is True:
             self.findByNot('xpath', btn_xpath)
             return
-        btn = self.findBy(
-            'xpath', btn_xpath)
+        self.wait_for('xpath', btn_xpath)
+        btn = self.findBy('xpath', btn_xpath)
         if return_button is True:
             return btn
-        btn.click()
+        # Clicking does work reliably. Instead opening the URL manually.
+        self.browser.get(btn.get_attribute('href'))
         self.rearrangeFormHeader()
 
     def toggle_all_sections(self):
         self.wait_for('class_name', 'js-expand-all-sections')
-        for el in self.findManyBy('xpath', '//div[contains(@class, "success")]'):
-            self.browser.execute_script("""
-                var element = arguments[0];
-                element.parentNode.removeChild(element);
-                """, el)
+        # Remove all notifications so the buttons to expand the sections are
+        # clickable
+        self.hide_notifications()
         links = self.findManyBy('class_name', 'js-expand-all-sections')
-        for link in links:
+        for link in reversed(links):
             link.click()
 
     def open_questionnaire_details(self, configuration, identifier=None):
@@ -436,6 +435,22 @@ class FunctionalTest(StaticLiveServerTestCase):
         }).text();
         """, element)
 
+    def hide_notifications(self):
+        for el in self.findManyBy(
+                'xpath', '//div[contains(@class, "notification alert-box")]'):
+            self.browser.execute_script("""
+                var element = arguments[0];
+                element.parentNode.removeChild(element);
+                """, el)
+
+    def select_chosen_element(self, chosen_id: str, chosen_value: str):
+        chosen_el = self.findBy('xpath', '//div[@id="{}"]'.format(chosen_id))
+        self.scroll_to_element(chosen_el)
+        chosen_el.click()
+        self.findBy(
+            'xpath', '//div[@id="{}"]//ul[@class="chosen-results"]/li[text()='
+                     '"{}"]'.format(chosen_id, chosen_value)).click()
+
     def clickUserMenu(self, user):
         self.findBy(
             'xpath', '//li[contains(@class, "has-dropdown")]/a[contains(text(),'
@@ -457,9 +472,8 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @patch.object(WocatCMSAuthenticationBackend, 'authenticate')
     @patch.object(WocatWebsiteUserClient, 'get_and_update_django_user')
-    @patch.object(WocatAuthenticationBackend, 'authenticate')
     @patch('django.contrib.auth.authenticate')
-    def _doLogin(self, user, mock_django_auth, mock_authenticate,
+    def _doLogin(self, user, mock_authenticate,
                  mock_cms_get_and_update_django_user, mock_cms_authenticate):
         """
         Mock the authentication to return the given user and put it to the
@@ -469,7 +483,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         """
         auth_user = user
         auth_user.backend = 'accounts.authentication.WocatCMSAuthenticationBackend'
-        mock_django_auth.return_value = auth_user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_cms_authenticate.return_value = user
@@ -558,3 +571,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             "IQW6gu10bE/JG2VnCZGfo4R4d0sdQoBAHhPjhIB94v/wRoRKQWGRHgrhGSQJxCS+0"
             "pCZbEhAAOw==';var dz = Dropzone.forElement('#%s'); dz.addFile("
             "base64toBlob(base64Image, 'image/gif'));" % dropzone_id)
+        # Wait for preview image
+        self.wait_for(
+            'xpath',
+            f'//div[@id="preview-{dropzone_id}"]/div[@class="image-preview"]/img')

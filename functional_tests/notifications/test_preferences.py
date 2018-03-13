@@ -24,17 +24,12 @@ class MailPreferencesTest(FunctionalTest):
         # no spam please - change the value in the subscription box
         select = Select(self.findBy('id', 'id_subscription'))
         select.select_by_value('none')
-        # the actions are disabled now.
-        action = self.findBy('id', 'id_wanted_actions_2')
-        self.assertTrue(
-            action.get_attribute('disabled')
-        )
         # submit the form
         self.findBy('xpath', '//input[@type="submit"]').click()
         # the success message is shown
         self.wait_for('class_name', 'notification')
         self.assertEqual(
-            self.browser.current_url, signed_url
+            self.browser.current_url, signed_url + '#'
         )
         select = Select(self.findBy('id', 'id_subscription'))
         self.assertEqual(
@@ -57,7 +52,7 @@ class MailPreferencesTest(FunctionalTest):
         # and still, the url without signed id is used.
         self.assertEqual(
             self.browser.current_url,
-            unsigned_url
+            unsigned_url + '#'
         )
         # jay now changes the language and saves again.
         select = Select(self.findBy('id', 'id_language'))

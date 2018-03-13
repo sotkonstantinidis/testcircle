@@ -48,6 +48,8 @@ class NotificationSetupMixin:
         )
         self.notifications_xpath = "//div[(contains(@class, 'notification-list') " \
                                    " and not(contains(@class, 'header')))]"
+        self.notifications_read_xpath = "//div[(contains(@class, 'notification-list') " \
+                                        "and not(contains(@class, 'header')) and contains(@class, 'is-read'))]"
 
     def create_status_log(self, user):
         log = mommy.make(
@@ -97,7 +99,7 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         checkbox.click()
         # After a little processing, the whole row is now marked as read and a
         # model entry is stored
-        time.sleep(1)
+        self.wait_for('xpath', self.notifications_read_xpath)
         self.assertTrue('is-read' in logs[0].get_attribute('class'))
         self.assertTrue(
             ReadLog.objects.filter(
@@ -107,6 +109,7 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         # But the click was a mistake, the notification is not done yet, so
         # the checkbox is clicked again - and all is back to normal.
         checkbox.click()
+        self.wait_for('xpath', self.notifications_read_xpath)
         self.assertTrue('is-read' not in logs[0].get_attribute('class'))
         self.assertTrue(
             ReadLog.objects.filter(

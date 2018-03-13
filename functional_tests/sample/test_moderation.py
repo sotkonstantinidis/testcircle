@@ -15,11 +15,11 @@ from accounts.tests.test_views import accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
-    route_home,
     route_questionnaire_new,
     route_questionnaire_details,
     get_position_of_category,
     route_questionnaire_list)
+from wocat.tests.test_views import route_home
 from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
@@ -49,8 +49,8 @@ class ModerationTest(FunctionalTest):
 
     @patch('questionnaire.signals.create_questionnaire.send')
     @patch('questionnaire.signals.change_status.send')
-    def test_questionnaire_permissions(self, mock_change_status,
-                                       mock_create_signal, mock_get_user_id):
+    def test_questionnaire_permissions(
+            self, mock_change_status, mock_create_signal):
 
         cat_1_position = get_position_of_category('cat_1', start0=True)
 
@@ -758,6 +758,7 @@ class ModerationTestFixture(FunctionalTest):
         )
         delete_user = re.findall('\d+', remove_button.get_attribute('onclick'))
 
+        self.hide_notifications()
         remove_button.click()
         selected_users = self.findManyBy(
             'xpath',
@@ -880,6 +881,7 @@ class ModerationTestFixture(FunctionalTest):
 
         # She presses the "change compiler" button without selecting a new
         # compiler first
+        self.hide_notifications()
         self.findBy('xpath', '//a[contains(@class, "button") and '
                              'text()="Change compiler"]').click()
         self.wait_for('id', 'button-change-compiler')
@@ -1080,6 +1082,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
 
         # He changes the name and submits the step
+        self.hide_notifications()
         self.findManyBy(
             'xpath',
             '//main//a[contains(@href, "edit/{}/cat")]'.format(identifier))[
@@ -1161,6 +1164,7 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
 
         # He changes the name and submits the step
+        self.hide_notifications()
         self.findManyBy(
             'xpath',
             '//a[contains(@href, "edit/{}/cat")]'.format(identifier))[

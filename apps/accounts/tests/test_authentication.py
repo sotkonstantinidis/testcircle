@@ -1,10 +1,7 @@
-import unittest
-
+from accounts.client import WocatWebsiteUserClient
 from django.contrib.auth import get_user_model
-from unittest.mock import patch
 
 from qcat.tests import TestCase
-from ..client import WocatWebsiteUserClient
 
 User = get_user_model()
 

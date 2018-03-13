@@ -21,6 +21,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         self.request = self.factory.get(self.base_url)
         self.request.user = MagicMock()
         self.request.LANGUAGE_CODE = ''
+        self.request.META['HTTP_HOST'] = 'foo'
         self.view = self.setup_view(self.base_view, self.request, id=1)
         self.view.code = 'sample'
         self.view.quality = 'screen'
@@ -69,7 +70,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         view = self.setup_view(base_view, self.request, id=1)
         view.get_summary_data()
         renderer.assert_called_once_with(
-            base_url='http://testserver/',
+            base_url='http://foo/',
             config=mock_config,
             quality='screen',
             questionnaire=base_view.questionnaire
@@ -121,7 +122,7 @@ class TestCachedPDFTemplateResponse(TestCase):
             )
 
     @patch('summary.views.isfile')
-    @override_settings(SUMMARY_PDF_PATH = 'pdf_path')
+    @override_settings(SUMMARY_PDF_PATH = 'pdf_path', DEBUG=False)
     def test_rendered_content_creates_file(self, mock_isfile):
         mock_isfile.return_value = False
         with patch('summary.views.open') as open_mock:

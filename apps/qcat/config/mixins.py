@@ -126,13 +126,13 @@ class CompressMixin:
     # maybe: use different (faster) filters for css and js.
 
 
-class OpBeatMixin:
+class ElasticAPMMixin:
 
     @property
     def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ('opbeat.contrib.django', )
+        return super().INSTALLED_APPS + ('elasticapm.contrib.django', )
 
     @property
     def MIDDLEWARE_CLASSES(self):
-        return ('opbeat.contrib.django.middleware.OpbeatAPMMiddleware', ) + \
+        return ('elasticapm.contrib.django.middleware.TracingMiddleware', ) + \
                super().MIDDLEWARE_CLASSES

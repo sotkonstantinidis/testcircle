@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from unittest.mock import patch
 
 from accounts.models import User
 from accounts.tests.test_views import accounts_route_questionnaires
@@ -260,6 +259,7 @@ class EditTest(FunctionalTest):
 
         # She makes an edit
         self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        self.hide_notifications()
         self.findManyBy(
             'xpath',
             '//a[contains(@href, "edit/sample_1/cat")]')[
@@ -304,6 +304,7 @@ class EditTest(FunctionalTest):
 
         # She edits a category and sees that the URL still contains the
         # code of the Questionnaire
+        self.hide_notifications()
         self.findManyBy(
             'xpath',
             '//a[contains(@href, "edit/{}/cat")]'.format(code))[
@@ -813,20 +814,20 @@ class LinkedChoicesTest(FunctionalTest):
 
         # She selects some options in 4.4
         self.findBy('xpath', '//input[@id="subcat_4_4"]').click()
-        self.findBy('xpath', '//input[@data-container="qg_40"]').click()
-        self.findBy('xpath',
-                    '//select[@id="id_qg_40-0-key_57"]/option['
-                    '@value="value_57_1"]').click()
+        self.findBy(
+            'xpath', '//input[@data-container="qg_40"]', wait=True).click()
+        xpath = '//select[@id="id_qg_40-0-key_57"]/option[@value="value_57_1"]'
+        self.findBy('xpath', xpath, wait=True).click()
 
-        self.findBy('xpath', '//input[@data-container="qg_41"]').click()
-        self.findBy('xpath',
-                    '//select[@id="id_qg_41-0-key_57"]/option['
-                    '@value="value_57_2"]').click()
+        self.findBy(
+            'xpath', '//input[@data-container="qg_41"]', wait=True).click()
+        xpath = '//select[@id="id_qg_41-0-key_57"]/option[@value="value_57_2"]'
+        self.findBy('xpath', xpath, wait=True).click()
 
-        self.findBy('xpath', '//input[@data-container="qg_42"]').click()
-        self.findBy('xpath',
-                    '//select[@id="id_qg_42-0-key_57"]/option['
-                    '@value="value_57_3"]').click()
+        self.findBy(
+            'xpath', '//input[@data-container="qg_42"]', wait=True).click()
+        xpath = '//select[@id="id_qg_42-0-key_57"]/option[@value="value_57_3"]'
+        self.findBy('xpath', xpath, wait=True).click()
 
         # She submits the step and goes to step 5 again
         self.submit_form_step()
@@ -836,11 +837,7 @@ class LinkedChoicesTest(FunctionalTest):
         self.assertEqual(len(get_sample_5_4_options(self)), 3)
 
         # She fills out a first questiongroup
-        self.findBy('xpath',
-                    '//div[@id="id_qg_44_0_key_60_chosen"]').click()
-        self.findBy('xpath',
-                    '//div[@id="id_qg_44_0_key_60_chosen"]//ul[@class="chosen-'
-                    'results"]/li[contains(text(), "QG 40")]').click()
+        self.select_chosen_element('id_qg_44_0_key_60_chosen', 'QG 40')
         self.findBy('id', 'id_qg_44-0-original_key_61').send_keys('Foo')
 
         # She also fills out a second questiongroup
@@ -866,9 +863,8 @@ class LinkedChoicesTest(FunctionalTest):
         self.click_edit_section('cat_4')
 
         # She deselects a value
-        self.findBy('xpath',
-                    '//select[@id="id_qg_40-0-key_57"]/option['
-                    '@value=""]').click()
+        xpath = '//select[@id="id_qg_40-0-key_57"]/option[@value=""]'
+        self.findBy('xpath', xpath, wait=True).click()
 
         # She submits the step and goes back to step 5
         self.submit_form_step()
@@ -912,7 +908,8 @@ class LinkedChoicesTest(FunctionalTest):
         # She selects some questiongroups in 4.4 and sees that they are now
         # available for selection in 4.5
         self.findBy('xpath', '//input[@id="subcat_4_4"]').click()
-        self.findBy('xpath', '//input[@data-container="qg_40"]').click()
+        self.findBy(
+            'xpath', '//input[@data-container="qg_40"]', wait=True).click()
         # It is not sufficient to click the checkbox of the questiongroup, an
         # actual value of the questiongroup must be selected.
         self.assertEqual(len(get_sample_4_5_options(self)), 0)
@@ -950,28 +947,22 @@ class LinkedChoicesTest(FunctionalTest):
         # She also selects another value in 4.4
         self.findBy('xpath', '//input[@data-container="qg_41"]').click()
         self.assertEqual(len(get_sample_4_5_options(self)), 1)
-        self.findBy('xpath',
-                    '//select[@id="id_qg_41-0-key_57"]/option['
-                    '@value="value_57_1"]').click()
+        xpath = '//select[@id="id_qg_41-0-key_57"]/option[@value="value_57_1"]'
+        self.findBy('xpath', xpath, wait=True).click()
         self.assertEqual(len(get_sample_4_5_options(self)), 2)
 
         # The same option is also available in 4.6
         self.assertEqual(len(get_sample_4_6_options(self)), 2)
 
         # She selects an option in 4.6
-        self.findBy('xpath',
-                    '//div[@id="id_qg_46_0_key_63_chosen"]').click()
-        self.findBy('xpath',
-                '//div[@id="id_qg_46_0_key_63_chosen"]//ul[@class="chosen-'
-                'results"]/li[contains(text(), "QG 41")]').click()
+        self.select_chosen_element('id_qg_46_0_key_63_chosen', 'QG 41')
 
         # She also selects value 3 of 4.4, but sees that this one is not in the
         # list of options for 4.5
         self.findBy('xpath', '//input[@data-container="qg_42"]').click()
         self.assertEqual(len(get_sample_4_5_options(self)), 2)
-        self.findBy('xpath',
-                    '//select[@id="id_qg_42-0-key_57"]/option['
-                    '@value="value_57_1"]').click()
+        xpath = '//select[@id="id_qg_42-0-key_57"]/option[@value="value_57_1"]'
+        self.findBy('xpath', xpath, wait=True).click()
         self.assertEqual(len(get_sample_4_5_options(self)), 2)
 
         # However, the same option appears in 4.6
@@ -1060,17 +1051,18 @@ class LinkedChoicesTest(FunctionalTest):
         # She selects some questiongroups in 4.4 and sees that they are now
         # available for selection in 4.5
         self.findBy('xpath', '//input[@id="subcat_4_4"]').click()
-        self.findBy('xpath', '//input[@data-container="qg_41"]').click()
+        self.findBy(
+            'xpath', '//input[@data-container="qg_41"]', wait=True).click()
         self.findBy('xpath',
                     '//select[@id="id_qg_41-0-key_57"]/option['
-                    '@value="value_57_1"]').click()
+                    '@value="value_57_1"]', wait=True).click()
         self.assertEqual(len(get_sample_4_5_options(self)), 1)
 
         # She selects another option
         self.findBy('xpath', '//input[@data-container="qg_40"]').click()
         self.findBy('xpath',
                     '//select[@id="id_qg_40-0-key_57"]/option['
-                    '@value="value_57_2"]').click()
+                    '@value="value_57_2"]', wait=True).click()
         self.assertEqual(len(get_sample_4_5_options(self)), 2)
 
         self.findBy('xpath',
@@ -1140,6 +1132,7 @@ class LockTest(FunctionalTest):
         # Jay loggs in and starts editing a section.
         self.doLogin(user=self.jay)
         self.browser.get(self.questionnaire_edit_url)
+        self.hide_notifications()
         self.findManyBy('link_text', 'Edit this section')[0].click()
 
         # Robin logs in and views the questionnaire
@@ -1177,6 +1170,7 @@ class LockTest(FunctionalTest):
     def test_refresh_lock(self):
         self.doLogin(user=self.jay)
         self.browser.get(self.questionnaire_edit_url)
+        self.hide_notifications()
         self.findManyBy('link_text', 'Edit this section')[0].click()
         interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
         self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(interval))

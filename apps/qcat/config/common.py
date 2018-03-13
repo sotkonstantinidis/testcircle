@@ -231,10 +231,6 @@ class BaseSettings(Configuration):
     LOGIN_URL = 'login'
 
     TEST_RUNNER = 'qcat.discover_runner.QcatTestSuiteRunner'
-    NOSE_ARGS = [
-        '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
-        '--cover-package=accounts,configuration,qcat,questionnaire,unccd',
-        '--nologcapture']
 
     GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
     GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
@@ -318,6 +314,8 @@ class BaseSettings(Configuration):
     # https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
     # for the latest supported firefox version.
     TESTING_FIREFOX_PATH = values.Value(environ_prefix='')
+    TESTING_CHROMEDRIVER_PATH = values.Value(
+        environ_prefix='', default='/usr/local/bin/chromedriver')
 
     # Flag for caching of the whole configuration object. Sections are always cached.
     USE_CACHING = values.BooleanValue(default=True)
@@ -350,8 +348,7 @@ class BaseSettings(Configuration):
     TOUCH_FILE_DEMO = values.Value(environ_prefix='')
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
-    # 'OPBEAT' is set according to host in settings.py
-    OPBEAT = values.DictValue(environ_prefix='')
+    ELASTIC_APM = values.DictValue(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
     NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')

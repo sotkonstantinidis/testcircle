@@ -292,6 +292,8 @@ class UserTest2(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
+    id_user_kurt = 1560
+
     def test_add_user(self):
 
         # Alice logs in
@@ -347,7 +349,7 @@ class UserTest2(FunctionalTest):
 
         # She sees that a hidden field with the id was added
         self.findBy(
-            'xpath', '//input[@id="id_qg_31-0-key_39" and @value="1055"]')
+            'xpath', f'//input[@id="id_qg_31-0-key_39" and @value="{self.id_user_kurt}"]')
 
         # She removes the user
         self.findBy(
@@ -362,7 +364,7 @@ class UserTest2(FunctionalTest):
 
         # She hidden field does not contain the ID anymore
         self.findByNot(
-            'xpath', '//input[@id="id_qg_31-0-key_39" and @value="1055"]')
+            'xpath', f'//input[@id="id_qg_31-0-key_39" and @value="{self.id_user_kurt}"]')
 
         # She selects the user again
         search_user.send_keys('kurt')
@@ -395,7 +397,7 @@ class UserTest2(FunctionalTest):
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
             '"Kurt Gerber")]')
         self.findBy(
-            'xpath', '//input[@id="id_qg_31-0-key_39" and @value="1055"]')
+            'xpath', f'//input[@id="id_qg_31-0-key_39" and @value="{self.id_user_kurt}"]')
 
         # She removes the user and selects another one
         self.findBy(
@@ -534,7 +536,7 @@ class UserTest2(FunctionalTest):
 
         # She enters a new name
         new_name.send_keys('Other New Person')
-        self.findBy('xpath', '//html').click()  # Lose focus
+        self.findBy('xpath', '//body').click()  # Lose focus
         self.assertTrue(new_name.is_displayed())
 
         # She goes back to the other tab and sees the selected user is gone
@@ -748,7 +750,7 @@ class UserTest2(FunctionalTest):
                 By.XPATH, '{}//div[contains(@class, "form-user-selected")]/div['
                 'contains(@class, "secondary")]'.format(qg_1_xpath))))
         self.assertEqual(self.findBy(
-            'id', 'id_qg_31-0-key_39').get_attribute('value'), '1055')
+            'id', 'id_qg_31-0-key_39').get_attribute('value'), str(self.id_user_kurt))
         self.assertEqual(self.findBy(
             'id', 'id_qg_31-0-original_key_41').get_attribute('value'), '')
 
@@ -799,7 +801,7 @@ class UserTest2(FunctionalTest):
         self.assertEqual(len(questionnaire_users), 3)
         for user_tuple in questionnaire_users:
             self.assertIn(user_tuple[0], ['compiler', 'landuser'])
-            self.assertIn(user_tuple[1].id, [1, 1055, 2365])
+            self.assertIn(user_tuple[1].id, [1, self.id_user_kurt, 2365])
 
     def test_remove_user(self):
 
