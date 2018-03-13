@@ -354,7 +354,8 @@ class ListTest(FunctionalTest):
         self.toggle_selected_advanced_filters(display=True)
         self.findBy('xpath',
                     '//input[@name="filter-value-select" and '
-                    '@value="value_14_2" and @checked="checked"]').click()
+                    '@value="value_14_2" and @checked="checked"]',
+                    wait=True).click()
 
         self.apply_filter()
 
@@ -393,7 +394,7 @@ class ListTest(FunctionalTest):
         self.toggle_selected_advanced_filters(display=True)
         self.findBy('xpath',
                     '//input[@name="filter-value-select" and '
-                    '@value="value_14_3"]').click()
+                    '@value="value_14_3"]', wait=True).click()
         self.apply_filter()
 
         WebDriverWait(self.browser, 10).until(
@@ -444,7 +445,7 @@ class ListTest(FunctionalTest):
         self.toggle_selected_advanced_filters(display=True)
         self.findBy('xpath',
                     '//input[@name="filter-value-select" and '
-                    '@value="value_14_2"]').click()
+                    '@value="value_14_2"]', wait=True).click()
         self.findBy('xpath',
                     '//input[@name="filter-value-select" and '
                     '@value="value_14_3"]').click()
@@ -462,7 +463,7 @@ class ListTest(FunctionalTest):
         self.toggle_selected_advanced_filters(display=True)
         self.findBy('xpath',
                     '//input[@name="filter-value-select" and '
-                    '@value="value_14_2" and @checked="checked"]').click()
+                    '@value="value_14_2" and @checked="checked"]', wait=True).click()
 
     # def test_filter_flags(self):
     #

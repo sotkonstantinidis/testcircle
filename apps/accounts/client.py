@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import logging
 import requests
+from accounts.models import User
 
 from django.contrib.auth import get_user_model
 from django.views.decorators.debug import sensitive_variables
 
 from qcat.decorators import log_memory_usage
 from .conf import settings
-from .models import User
 
 logger = logging.getLogger(__name__)
 

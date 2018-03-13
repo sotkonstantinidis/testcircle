@@ -157,9 +157,11 @@ class AddModuleTest(FunctionalTest):
             'xpath',
             '//li[@class="ui-menu-item"]//strong[text()="Foo"'
             ']').click()
-        samplemodule_radio = self.findBy(
-            'xpath',
-            '//input[@value="samplemodule" and @name="module"]')
+
+        # Wait for radio visibility before clicking it
+        radio_xpath = '//input[@value="samplemodule" and @name="module"]'
+        self.wait_for('xpath', radio_xpath)
+        samplemodule_radio = self.findBy('xpath', radio_xpath)
         samplemodule_radio.click()
 
         self.assertEqual(Questionnaire.objects.count(), 1)

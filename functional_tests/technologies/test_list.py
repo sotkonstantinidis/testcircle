@@ -178,6 +178,6 @@ class ListTest(FunctionalTest):
             self.browser.find_element_by_tag_name('body').text)
         self.assertEqual(len(json_response['results']), 2)
         self.assertEqual(
-            json_response['results'][0]['name'], 'WOCAT Tech 2 en espaÃ±ol')
+            json_response['results'][0]['name'], 'WOCAT Tech 2 en español')
         self.assertEqual(
             json_response['results'][1]['name'], 'WOCAT Technology 1')

@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from configuration.models import Country, ValueUser
 from .conf import settings
