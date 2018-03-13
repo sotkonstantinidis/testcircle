@@ -35,7 +35,8 @@ class Command(BaseCommand):
             '--download-logs',
             dest='download',
             default='',
-            help='SSH path (user@server:/path/to/logs/) to fetch logs from. Logs are stored in /tmp'
+            help='SSH path (user@server:/path/to/logs/) to fetch logs from. They are stored in the '
+                 'folder as defined in self.tmp (/tmp/qcat-logs).'
         )
 
         parser.add_argument(
@@ -58,7 +59,10 @@ class Command(BaseCommand):
         self.display_stats()
 
     def download_logs(self, ssh_cmd):
-        subprocess.call(f'rsync -avz -e "ssh" {ssh_cmd} {self.tmp}', shell=True)
+        subprocess.call(
+            args=f'rsync -avz --delete -e "ssh" {ssh_cmd} {self.tmp}',
+            shell=True
+        )
 
     def save_logs_to_db(self, path):
         """
