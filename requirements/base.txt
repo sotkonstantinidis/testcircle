@@ -15,7 +15,7 @@ django-imagekit==3.3
 easy-thumbnails==2.3
 Pillow==3.1.1
 python-magic==0.4.6
-requests==2.9.1
+requests==2.18.4
 elasticsearch==2.3.0
 djangorestframework==3.5.4
 django-rest-swagger==2.0.7
@@ -39,3 +39,5 @@ django-wkhtmltopdf==3.1.0
 markdown==2.6.8  # For better documentation of DRF API
 lxml==4.1.0
 beautifulsoup4==4.6.0
+tabulate==0.8.2
+psutil==5.4.3

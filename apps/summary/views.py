@@ -335,21 +335,29 @@ class SummaryPDFCreateView(PDFTemplateView):
         Submit a summary-download event to piwik.
         """
         if settings.PIWIK_SITE_ID:
+            # Downloads are not properly registered for relative urls, so build the complete url.
+            url = f'{self.request.scheme}://{self.request.META["HTTP_HOST"]}{self.request.path}'
             payload = dict(
                 idsite=settings.PIWIK_SITE_ID,
                 token_auth=settings.PIWIK_AUTH_TOKEN,
                 rec=1,
                 apiv=1,
-                action_name='summary',
-                url=self.request.get_full_path(),
-                download=self.request.get_full_path(),
-                e_c='summary',
-                e_a='download',
-                e_n=self.questionnaire.code,
-                e_v=self.is_doc_file
+                url=url,
+                download=url
             )
 
             if self.request.user.is_authenticated():
                 payload['_id'] = self.request.user.id
-            with contextlib.suppress(Exception):
+
+            if settings.DEBUG:
+                # Also see https://developer.matomo.org/api-reference/tracking-api >
+                # Debugging the Tracker
+                payload['debug'] = 1
+
+            try:
                 requests.get(f'{settings.PIWIK_URL}piwik.php', params=payload)
+            except Exception:  # Don't raise any kind of exception for failed tracking.
+                logger.error(
+                    f'Cannot track summary download for url %s (%s)',
+                    f'{settings.PIWIK_URL}piwik.php', payload
+                )

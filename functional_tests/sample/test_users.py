@@ -1011,7 +1011,7 @@ class UserDetailTest(FunctionalTest):
         self.findBy('xpath', '//a[text()="Switzerland"]')
 
 # @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-# @patch('accounts.client.typo3_client.get_user_id')
+# @patch('accounts.client.remote_user_client.get_user_id')
 # class UserTestFixtures(FunctionalTest):
 #
 #     fixtures = [

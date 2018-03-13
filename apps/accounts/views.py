@@ -12,7 +12,6 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, resolve_url
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
-from django.utils.timezone import now
 from django.utils.translation import ugettext as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.debug import sensitive_post_parameters
@@ -25,7 +24,7 @@ from django.views.generic import ListView
 from questionnaire.models import Questionnaire, STATUSES
 from questionnaire.utils import query_questionnaires, get_list_values
 from questionnaire.view_utils import get_paginator, get_pagination_parameters
-from .client import typo3_client
+from .client import remote_user_client
 from .conf import settings
 from .forms import WocatAuthenticationForm
 from .models import User
@@ -42,8 +41,7 @@ class LoginView(FormView):
     @method_decorator(never_cache)
     @method_decorator(sensitive_post_parameters('password'))
     def dispatch(self, *args, **kwargs):
-        if hasattr(self.request, 'user') and \
-                self.request.user.is_authenticated():
+        if hasattr(self.request, 'user') and self.request.user.is_authenticated():
             return redirect(self.get_success_url())
         return super(LoginView, self).dispatch(*args, **kwargs)
 
@@ -60,21 +58,7 @@ class LoginView(FormView):
         user = form.get_user()
         django_login(self.request, user)
         messages.info(self.request, _('Welcome {}').format(user.firstname))
-
-        # Get the response, add a cookie and return it.
-        response = HttpResponseRedirect(self.get_success_url())
-        # We really should set a signed cookie - but the same cookie is used
-        # on wocat.net.
-        response.set_cookie(
-            key=settings.AUTH_COOKIE_NAME,
-            value=user.typo3_session_id
-        )
-        response.set_signed_cookie(
-            key=settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME,
-            value=now(),
-            salt=settings.ACCOUNTS_ENFORCE_LOGIN_SALT
-        )
-        return response
+        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):
         """
@@ -82,15 +66,13 @@ class LoginView(FormView):
         when relaunching the wocat website. If so, return a redirect to the
         reactivation view on the new wocat website.
         """
-        if hasattr(settings, 'USE_NEW_WOCAT_AUTHENTICATION') and settings.USE_NEW_WOCAT_AUTHENTICATION:
-            has_user = User.objects.filter(email=form.cleaned_data['username'])
-            if has_user.exists() and has_user.count() == 1:
-                user_info = typo3_client.get_user_information(has_user[0].pk)
-                if user_info and not user_info.get('is_active', True):
-                    return HttpResponseRedirect(settings.REACTIVATE_WOCAT_ACCOUNT_URL)
+        has_user = User.objects.filter(email=form.cleaned_data.get('username'))
+        if has_user.exists() and has_user.count() == 1:
+            user_info = remote_user_client.get_user_information(has_user[0].pk)
+            if user_info and not user_info.get('is_active', True):
+                return HttpResponseRedirect(settings.REACTIVATE_WOCAT_ACCOUNT_URL)
 
         return super().form_invalid(form)
-
 
     def get_success_url(self):
         # Explicitly passed ?next= url takes precedence.
@@ -169,8 +151,8 @@ class UserDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         # Update the user details
-        user_info = typo3_client.get_user_information(obj.id)
-        typo3_client.update_user(obj, user_info)
+        user_info = remote_user_client.get_user_information(obj.id)
+        remote_user_client.update_user(obj, user_info)
         return obj
 
     def get_context_data(self, **kwargs):
@@ -376,26 +358,8 @@ def logout(request):
     Returns:
         ``HttpResponse``. A rendered Http Response.
     """
-    url = reverse('home')
-
     django_logout(request)
-
-    if not hasattr(settings, 'USE_NEW_WOCAT_AUTHENTICATION') or not settings.USE_NEW_WOCAT_AUTHENTICATION:
-        ses_id = request.COOKIES.get(settings.AUTH_COOKIE_NAME)
-        if ses_id is not None:
-            response = HttpResponseRedirect(
-                typo3_client.get_logout_url(request.build_absolute_uri(url))
-            )
-            # The cookie is not always removed on wocat.net
-            response.delete_cookie(settings.AUTH_COOKIE_NAME)
-        else:
-            response = HttpResponseRedirect(url)
-
-        response.delete_cookie(settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME)
-    else:
-        response = HttpResponseRedirect(url)
-
-    return response
+    return HttpResponseRedirect(reverse('home'))
 
 
 def user_search(request):
@@ -411,7 +375,7 @@ def user_search(request):
     Returns:
         ``JsonResponse``. A rendered JSON response.
     """
-    search = typo3_client.search_users(name=request.GET.get('name', ''))
+    search = remote_user_client.search_users(name=request.GET.get('name', ''))
     if not search:
         search = {
             'success': False,
@@ -446,7 +410,7 @@ def user_update(request):
         return JsonResponse(ret)
 
     # Try to find the user in the authentication DB
-    user_info = typo3_client.get_user_information(user_uid)
+    user_info = remote_user_client.get_user_information(user_uid)
     if not user_info:
         ret['message'] = 'No user with ID {} found in the authentication '
         'database.'.format(user_uid)
@@ -460,7 +424,7 @@ def user_update(request):
             user_info.get('username'))
         return JsonResponse(ret)
 
-    typo3_client.update_user(user, user_info)
+    remote_user_client.update_user(user, user_info)
 
     ret = {
         'name': user.get_display_name(),

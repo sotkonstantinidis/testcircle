@@ -1315,9 +1315,9 @@ class HandleReviewActionsTest(TestCase):
             self.request,
             'Assigned users were successfully updated')
 
-    @patch('questionnaire.utils.typo3_client')
+    @patch('questionnaire.utils.remote_user_client')
     @patch('questionnaire.signals.change_member.send')
-    def test_assign_adds_new_user(self, mock_change_member, mock_typo3_client, mock_messages):
+    def test_assign_adds_new_user(self, mock_change_member, remote_user_client, mock_messages):
         self.obj.status = 2
         self.request.POST = {
             'assign': 'foo',
@@ -1328,7 +1328,7 @@ class HandleReviewActionsTest(TestCase):
         self.obj.get_roles_permissions.return_value = RolesPermissions(
             roles=[], permissions=['assign_questionnaire'])
         self.obj.get_users_by_role.return_value = []
-        mock_typo3_client.get_user_information.return_value = {
+        remote_user_client.get_user_information.return_value = {
             'username': 'user'
         }
         handle_review_actions(self.request, self.obj, 'sample')
@@ -1439,10 +1439,10 @@ class HandleReviewActionsTestFixtures(TestCase):
         self.request.user = create_new_user(lastname='1')
         self.request.user.groups = [Group.objects.get(pk=5)]
 
-    @patch('questionnaire.utils.typo3_client')
+    @patch('questionnaire.utils.remote_user_client')
     @patch('questionnaire.signals.change_member.send')
     def test_change_compiler(
-            self, mock_change_member, mock_typo3_client, mock_messages):
+            self, mock_change_member, remote_user_client, mock_messages):
 
         old_compiler = create_new_user(id=2, email='2@foo.com', lastname='2')
         questionnaire = get_valid_questionnaire(old_compiler)
@@ -1453,7 +1453,7 @@ class HandleReviewActionsTestFixtures(TestCase):
             'change-compiler': 'foo',
             'compiler-id': '3',
         }
-        mock_typo3_client.get_user_information.return_value = {
+        remote_user_client.get_user_information.return_value = {
             'username': 'user'
         }
         self.assertEqual(
@@ -1467,10 +1467,10 @@ class HandleReviewActionsTestFixtures(TestCase):
             self.request,
             'Compiler was changed successfully')
 
-    @patch('questionnaire.utils.typo3_client')
+    @patch('questionnaire.utils.remote_user_client')
     @patch('questionnaire.signals.change_member.send')
     def test_keep_compiler_as_editor(
-            self, mock_change_member, mock_typo3_client, mock_messages):
+            self, mock_change_member, remote_user_client, mock_messages):
         old_compiler = create_new_user(id=2, email='2@foo.com', lastname='2')
         questionnaire = get_valid_questionnaire(old_compiler)
 
@@ -1481,7 +1481,7 @@ class HandleReviewActionsTestFixtures(TestCase):
             'compiler-id': '3',
             'change-compiler-keep-editor': 'foo',
         }
-        mock_typo3_client.get_user_information.return_value = {
+        remote_user_client.get_user_information.return_value = {
             'username': 'user'
         }
         self.assertEqual(

@@ -485,10 +485,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         against the login API.
         """
         auth_user = user
-        if settings.USE_NEW_WOCAT_AUTHENTICATION:
-            auth_user.backend = 'accounts.authentication.WocatCMSAuthenticationBackend'
-        else:
-            auth_user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        auth_user.backend = 'accounts.authentication.WocatCMSAuthenticationBackend'
         mock_django_auth.return_value = auth_user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''

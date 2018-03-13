@@ -18,7 +18,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 from django.utils.translation import activate
 
-from accounts.client import typo3_client
+from accounts.client import remote_user_client
 from accounts.models import User
 from configuration.cache import get_configuration
 from notifications.receivers import create_questionnaire
@@ -265,7 +265,7 @@ class ImportObject(Logger):
         """
         Set the owner of the current import object. If the user does not yet
         exist in the local database, its user details are queried through the
-        typo3 client and a new user is created.
+        remote user client and a new user is created.
 
         Args:
             user_id: The ID of the user.
@@ -287,7 +287,7 @@ class ImportObject(Logger):
             user = User.objects.get(pk=user_id)
         except User.DoesNotExist:
             # If User does not exist, create and update it.
-            user_info = typo3_client.get_user_information(user_id)
+            user_info = remote_user_client.get_user_information(user_id)
 
             if not user_info:
                 self.add_error(
@@ -296,7 +296,7 @@ class ImportObject(Logger):
                 return
 
             user, created = User.objects.get_or_create(pk=user_info['uid'])
-            typo3_client.update_user(user, user_info)
+            remote_user_client.update_user(user, user_info)
 
         self.questionnaire_owner = user
 

@@ -71,9 +71,9 @@ class LoginViewTest(TestCase):
 
     @patch('accounts.forms.WocatAuthenticationForm.get_user')
     @patch('accounts.authentication.WocatAuthenticationBackend.authenticate')
-    @patch('accounts.client.typo3_client.remote_login')
-    @patch('accounts.client.typo3_client.get_user_id')
-    @patch('accounts.client.typo3_client.get_and_update_django_user')
+    @patch('accounts.client.remote_user_client.remote_login')
+    @patch('accounts.client.remote_user_client.get_user_id')
+    @patch('accounts.client.remote_user_client.get_and_update_django_user')
     def test_form_valid(self, mock_get_auth_user, mock_auth, mock_remote_login,
                         mock_get_user_id, mock_get_and_update_user):
         # Fake user and required attributes
@@ -109,7 +109,7 @@ class LoginViewTest(TestCase):
         response = self.view.form_invalid(form)
         self.assertIsInstance(response, TemplateResponse)
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_form_invalid_new_auth_backend_unkknown_api_user(self, mock_get_info):
         form = MagicMock(cleaned_data={'username': 'a@b.com'})
         response = self.view.form_invalid(form)
@@ -119,7 +119,7 @@ class LoginViewTest(TestCase):
     @override_settings(
         REACTIVATE_WOCAT_ACCOUNT_URL='42'
     )
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_form_invalid_new_auth_backend_known_user(self, mock_get_info):
         form = MagicMock(cleaned_data={'username': 'a@b.com'})
         mock_get_info.return_value = {'is_active': True}
@@ -270,13 +270,13 @@ class UserUpdateTest(TestCase):
         self.assertFalse(json_ret['success'])
         self.assertIn('message', json_ret)
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_calls_get_user_information(self, mock_get_user_information):
         mock_get_user_information.return_value = {}
         user_update(self.request)
         mock_get_user_information.assert_called_once_with(1)
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_returns_error_if_no_user_info_found(
             self, mock_get_user_information):
         mock_get_user_information.return_value = {}
@@ -285,7 +285,7 @@ class UserUpdateTest(TestCase):
         self.assertFalse(json_ret['success'])
         self.assertIn('message', json_ret)
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_creates_user(self, mock_get_user_information):
         self.assertEqual(User.objects.count(), 1)
         mock_get_user_information.return_value = {
@@ -299,7 +299,7 @@ class UserUpdateTest(TestCase):
         self.assertEqual(len(users), 1)
         self.assertEqual(users[0].email, 'foo@bar.com')
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_updates_user(self, mock_get_user_information):
         mock_get_user_information.return_value = {
             'username': 'foo@bar.com',
@@ -315,7 +315,7 @@ class UserUpdateTest(TestCase):
         self.assertEqual(users[1].firstname, 'Faz')
         self.assertEqual(users[1].lastname, 'Taz')
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_returns_user_name(self, mock_get_user_information):
         mock_get_user_information.return_value = {
             'username': 'foo@bar.com',
@@ -343,19 +343,19 @@ class UserDetailsTest(TestCase):
         with self.assertRaises(Http404):
             view.get(self.request)
 
-    @patch('accounts.client.typo3_client.get_user_information')
-    @patch('accounts.client.typo3_client.update_user')
+    @patch('accounts.client.remote_user_client.get_user_information')
+    @patch('accounts.client.remote_user_client.update_user')
     def test_returns_user(self, mock_update_user, mock_get_information):
         mock_get_information.return_value = []
         self.assertEqual(self.view.get_object(), self.user)
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_calls_get_user_information(self, mock_get_user_information):
         mock_get_user_information.return_value = {}
         self.view.get_object()
         mock_get_user_information.assert_called_once_with(self.user.id)
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_updates_user(self, mock_get_user_information):
         mock_get_user_information.return_value = {
             'first_name': 'Faz',

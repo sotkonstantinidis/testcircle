@@ -5,7 +5,10 @@ from os.path import join
 class DevMixin:
     DEBUG = values.BooleanValue(True)
     TEMPLATE_DEBUG = values.BooleanValue(True)
-    CACHES = values.CacheURLValue('dummy://')
+    CACHES = values.DictValue(
+        environ_prefix='',
+        default={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache',}}
+    )
     EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
 
     @property
@@ -78,18 +81,10 @@ class LogMixin:
                     'level': 'DEBUG',
                     'class': 'logging.handlers.TimedRotatingFileHandler',
                     'when': 'midnight',
-                    'backupCount': 2,
+                    'backupCount': 14,
                     'filename': '{}/logs/caches.log'.format(super().BASE_DIR),
                     'formatter': 'verbose'
-                },
-                'time_cache': {
-                    'level': 'INFO',
-                    'class': 'logging.handlers.TimedRotatingFileHandler',
-                    'when': 'midnight',
-                    'backupCount': 20,
-                    'filename': '{}/logs/config_cache.log'.format(super().BASE_DIR),
-                    'formatter': 'verbose'
-                },
+                }
             },
             'loggers': {
                 '': {
@@ -97,19 +92,14 @@ class LogMixin:
                     'propagate': True,
                     'level': 'WARNING',
                 },
-                'config_cache': {
-                    'handlers': ['cache_info'],
-                    'propagate': True,
-                    'level': 'INFO'
-                },
-                'qcat.utils': {
-                    'handlers': ['time_cache'],
-                    'propagate': False,
-                    'level': 'INFO'
-                },
                 'notifications': {
                     'handlers': ['file'],
                     'propagate': True,
+                    'level': 'INFO'
+                },
+                'profile_log': {
+                    'handlers': ['cache_info'],
+                    'propagate': False,
                     'level': 'INFO'
                 }
             },
@@ -134,37 +124,6 @@ class CompressMixin:
     """Settings for the django-compressor"""
     COMPRESS_ENABLED = True
     # maybe: use different (faster) filters for css and js.
-
-
-class AuthenticationFeatureSwitch:
-    """
-    The new authentication is a feature switch, not just a new backend.
-    todo: remove me!
-    """
-    #todo: remove me!
-    USE_NEW_WOCAT_AUTHENTICATION = values.BooleanValue(
-        environ_prefix='', default=False
-    )
-    REACTIVATE_WOCAT_ACCOUNT_URL = values.URLValue(
-        environ_prefix='', default='https://beta.wocat.net/accounts/reactivate/'
-    )
-
-    @property
-    def AUTHENTICATION_BACKENDS(self):
-        if self.USE_NEW_WOCAT_AUTHENTICATION:
-            return ('accounts.authentication.WocatCMSAuthenticationBackend', )
-        else:
-            return super().AUTHENTICATION_BACKENDS
-
-    @property
-    def MIDDLEWARE_CLASSES(self):
-        middlewares = super().MIDDLEWARE_CLASSES
-        old_middleware = 'accounts.middleware.WocatAuthenticationMiddleware'
-        if old_middleware in middlewares:
-            middlewares = list(middlewares)
-            middlewares.remove(old_middleware)
-            middlewares = tuple(middlewares)
-        return middlewares
 
 
 class OpBeatMixin:

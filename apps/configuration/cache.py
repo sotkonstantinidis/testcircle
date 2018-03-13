@@ -1,14 +1,10 @@
-import logging
-
 from functools import lru_cache
 
 from django.conf import settings
 from django.core.cache import cache
 from django.utils.translation import get_language, activate
-from qcat.utils import time_cache_read
 
-
-logger = logging.getLogger('config_cache')
+from qcat.decorators import log_memory_usage
 
 
 def get_configuration(configuration_code):
@@ -37,26 +33,7 @@ def get_configuration(configuration_code):
     return get_configuration_by_code(configuration_code=configuration_code)
 
 
-# This is deactivated to enable CI. Reactivate when tests are run before
-# the deployment.
-# def get_total_configs():
-#     """
-#     Helper to set the maxsize for the lru_cache.
-#     """
-#     from .models import Configuration
-#
-#     try:
-#         configs = Configuration.objects.filter(active=True).count()
-#     except ProgrammingError:
-#         # Except error: db does not exist yet.
-#         configs = 3
-#
-#     languages = len(settings.LANGUAGES)
-#     total_configs = configs * languages
-#     # lru_cache works best if size is power of two.
-#     return 1 << (total_configs - 1).bit_length()
-
-
+@log_memory_usage
 @lru_cache(maxsize=32)
 def get_cached_configuration(cache_key, configuration_code):
     """
@@ -69,9 +46,11 @@ def get_cached_configuration(cache_key, configuration_code):
     section or such.
     """
     configuration = cache.get(cache_key)
+
     if not configuration:
         configuration = get_configuration_by_code(configuration_code)
         cache.set(key=cache_key, value=configuration)
+
     return configuration
 
 

@@ -9,7 +9,7 @@ from ..client import WocatWebsiteUserClient
 
 class TestClient(TestCase):
     def setUp(self):
-        self.typo3_client = WocatWebsiteUserClient()
+        self.remote_user_client = WocatWebsiteUserClient()
         self.user = create_new_user()
 
     def api_login_response(self, status_code, login_status='foo'):
@@ -18,7 +18,7 @@ class TestClient(TestCase):
         api_response.json = lambda: {'status': login_status}
         return api_response
 
-    @patch('accounts.client.typo3_client.get_user_information')
+    @patch('accounts.client.remote_user_client.get_user_information')
     def test_get_and_update_django_user(self, mock_user_information):
         user_mock = dict(
             pk=self.user.id,
@@ -30,7 +30,7 @@ class TestClient(TestCase):
         )
         with patch.object(WocatWebsiteUserClient, 'get_user_information') as user_info:
             user_info.return_value = user_mock
-            user = self.typo3_client.get_and_update_django_user(**user_mock)
+            user = self.remote_user_client.get_and_update_django_user(**user_mock)
             self.assertEqual(user.lastname, 'last_test')
             self.assertEqual(user.firstname, 'first_test')
             self.assertEqual(user.email, self.user.email)
@@ -46,7 +46,7 @@ class TestClient(TestCase):
             request_post.json = lambda: dict(success=True)
             mock_request_post.return_value = request_post
             self.assertIsInstance(
-                self.typo3_client.get_user_information('123'), dict
+                self.remote_user_client.get_user_information('123'), dict
             )
 
     @patch('requests.post')
@@ -58,7 +58,7 @@ class TestClient(TestCase):
         request_post.json = lambda: dict(success=True)
         mock_request_post.return_value = request_post
         self.assertIsInstance(
-            self.typo3_client.search_users('foo'), dict
+            self.remote_user_client.search_users('foo'), dict
         )
 
     def test_update_user(self):
