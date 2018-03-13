@@ -686,8 +686,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 25")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Faz")]]')
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_selects_with_chosen(self):
 
         # Alice logs in
@@ -733,11 +731,7 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(chosen_field.text, '-')
 
         # She sees that she can select a Value by mouse click
-        self.findBy(
-            'xpath', '//div[contains(@class, "chosen-container")]').click()
-        self.findBy(
-            'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]')\
-            .click()
+        self.select_chosen_element('id_qg_3_0_key_4_chosen', 'Afghanistan')
         self.assertEqual(chosen_field.text, 'Afghanistan')
 
         # She sees that the form progress was updated
@@ -765,11 +759,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She selects another value, sees that the form progress is still at
         # the same value
-        self.findBy(
-            'xpath', '//div[contains(@class, "chosen-container")]').click()
-        self.findBy(
-            'xpath', '//ul[@class="chosen-results"]/li[text()="Germany"]')\
-            .click()
+        self.select_chosen_element('id_qg_3_0_key_4_chosen', 'Germany')
         self.assertEqual(chosen_field.text, 'Germany')
         self.findBy(
             'xpath', '//span[@class="meter" and @style="width: 50%;"]')
@@ -784,8 +774,6 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"Key 4")]]')
         self.findBy('xpath', '//*[text()[contains(.,"Germany")]]')
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_selects_with_chosen_repeating(self):
 
         # Alice logs in
@@ -810,11 +798,7 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(chosen_fields[0].text, '-')
 
         # She sees that she can select a Value by mouse click
-        self.findBy(
-            'xpath', '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]').click()
-        self.findBy(
-            'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]') \
-            .click()
+        self.select_chosen_element('id_qg_31_0_key_4_chosen', 'Afghanistan')
         self.assertEqual(chosen_fields[0].text, 'Afghanistan')
 
         # She adds another questiongroup
@@ -835,8 +819,7 @@ class QuestionnaireTest(FunctionalTest):
         self.assertEqual(chosen_fields[0].text, 'Afghanistan')
         self.assertEqual(chosen_fields[1].text, '-')
 
-        self.findBy('xpath', '//div[@id="id_qg_31_1_key_4_chosen"]').click()
-        self.findBy('xpath', '//div[@id="id_qg_31_1_key_4_chosen"]//ul[@class="chosen-results"]/li[text()="Germany"]').click()
+        self.select_chosen_element('id_qg_31_1_key_4_chosen', 'Germany')
         chosen_fields = self.findManyBy('xpath',
                                         '//div[contains(@class, "form-user-tab-create")]//a[@class="chosen-single"]')
         self.assertEqual(len(chosen_fields), 2)
@@ -2436,8 +2419,6 @@ class QuestionnaireTest(FunctionalTest):
     #     # She sees that she is logged in and was redirected back to the form.
     #     # self.checkOnPage('Category 1')
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_header_image(self):
 
         # Alice logs in
@@ -2711,7 +2692,6 @@ class QuestionnaireLinkTest(FunctionalTest):
         'sample_samplemulti_questionnaires.json']
 
     def test_add_questionnaire_link(self):
-        mock_process_request.return_value = None
 
         # Alice logs in
         self.doLogin()

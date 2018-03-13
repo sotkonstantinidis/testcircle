@@ -29,7 +29,7 @@ class MailPreferencesTest(FunctionalTest):
         # the success message is shown
         self.wait_for('class_name', 'notification')
         self.assertEqual(
-            self.browser.current_url, signed_url
+            self.browser.current_url, signed_url + '#'
         )
         select = Select(self.findBy('id', 'id_subscription'))
         self.assertEqual(
@@ -52,7 +52,7 @@ class MailPreferencesTest(FunctionalTest):
         # and still, the url without signed id is used.
         self.assertEqual(
             self.browser.current_url,
-            unsigned_url
+            unsigned_url + '#'
         )
         # jay now changes the language and saves again.
         select = Select(self.findBy('id', 'id_language'))

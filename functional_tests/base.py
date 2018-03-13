@@ -10,7 +10,6 @@ from nose.plugins.attrib import attr
 from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from unittest import skipUnless
 
 from selenium.webdriver.remote.webelement import WebElement
@@ -19,8 +18,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from accounts.authentication import WocatAuthenticationBackend, \
-    WocatCMSAuthenticationBackend
+from accounts.authentication import WocatCMSAuthenticationBackend
 from accounts.client import WocatWebsiteUserClient
 from qcat.tests import TEST_CACHES
 from unittest.mock import patch
@@ -474,9 +472,8 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @patch.object(WocatCMSAuthenticationBackend, 'authenticate')
     @patch.object(WocatWebsiteUserClient, 'get_and_update_django_user')
-    @patch.object(WocatAuthenticationBackend, 'authenticate')
     @patch('django.contrib.auth.authenticate')
-    def _doLogin(self, user, mock_django_auth, mock_authenticate,
+    def _doLogin(self, user, mock_authenticate,
                  mock_cms_get_and_update_django_user, mock_cms_authenticate):
         """
         Mock the authentication to return the given user and put it to the
@@ -486,7 +483,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         """
         auth_user = user
         auth_user.backend = 'accounts.authentication.WocatCMSAuthenticationBackend'
-        mock_django_auth.return_value = auth_user
         mock_authenticate.return_value = user
         mock_authenticate.__name__ = ''
         mock_cms_authenticate.return_value = user
@@ -575,3 +571,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             "IQW6gu10bE/JG2VnCZGfo4R4d0sdQoBAHhPjhIB94v/wRoRKQWGRHgrhGSQJxCS+0"
             "pCZbEhAAOw==';var dz = Dropzone.forElement('#%s'); dz.addFile("
             "base64toBlob(base64Image, 'image/gif'));" % dropzone_id)
+        # Wait for preview image
+        self.wait_for(
+            'xpath',
+            f'//div[@id="preview-{dropzone_id}"]/div[@class="image-preview"]/img')

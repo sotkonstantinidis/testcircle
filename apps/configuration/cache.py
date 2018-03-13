@@ -33,8 +33,8 @@ def get_configuration(configuration_code):
     return get_configuration_by_code(configuration_code=configuration_code)
 
 
-@log_memory_usage
 @lru_cache(maxsize=32)
+@log_memory_usage
 def get_cached_configuration(cache_key, configuration_code):
     """
     Simple retrieval. If object is not in the lru_cache, use the default cache
