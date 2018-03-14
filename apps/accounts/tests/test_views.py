@@ -70,7 +70,7 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     @patch('accounts.forms.WocatAuthenticationForm.get_user')
-    @patch('accounts.authentication.WocatAuthenticationBackend.authenticate')
+    @patch('accounts.authentication.WocatCMSAuthenticationBackend.authenticate')
     @patch('accounts.client.remote_user_client.remote_login')
     @patch('accounts.client.remote_user_client.get_user_id')
     @patch('accounts.client.remote_user_client.get_and_update_django_user')
@@ -78,7 +78,7 @@ class LoginViewTest(TestCase):
                         mock_get_user_id, mock_get_and_update_user):
         # Fake user and required attributes
         user = self.user
-        user.backend = 'accounts.authentication.WocatAuthenticationBackend'
+        user.backend = 'accounts.authentication.WocatCMSAuthenticationBackend'
         mock_get_auth_user.return_value = user
         mock_auth.return_value = user
 
