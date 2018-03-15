@@ -231,7 +231,6 @@ class BaseSettings(Configuration):
     LOGIN_URL = 'login'
 
     TEST_RUNNER = 'qcat.discover_runner.QcatTestSuiteRunner'
-    NOSE_ARGS = ['--nologcapture']
 
     GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
     GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
