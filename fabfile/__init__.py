@@ -139,7 +139,7 @@ def deploy_host(environment):
 
     print(green("Everything OK"))
     _access_project()
-    _register_deployment()
+    # _register_deployment()
 
 
 def _get_latest_source():
