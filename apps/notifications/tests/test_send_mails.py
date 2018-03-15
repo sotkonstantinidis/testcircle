@@ -18,6 +18,7 @@ from qcat.tests import TestCase
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
 
+@override_settings(DO_SEND_EMAILS=True)
 class SendMailRecipientMixin(TestCase):
     """
     Helpers to create logs, mock sending with django email backend, and check

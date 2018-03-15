@@ -31,6 +31,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
     @patch('summary.views.get_configuration')
     def test_get(self, mock_get_configuration, mock_prepared_data, mock_object):
         mock_object.return_value = MagicMock()
+        self.request.user = MagicMock()
         view = self.view.get(request=self.request)
         self.assertIsInstance(view, PDFTemplateResponse)
 

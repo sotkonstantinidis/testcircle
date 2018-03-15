@@ -36,18 +36,16 @@ class TestClient(TestCase):
             self.assertEqual(user.email, self.user.email)
             self.assertEqual(user, self.user)
 
-    @patch('requests.post')
-    def test_get_user_info(self, mock_request_post):
-        with patch.object(WocatWebsiteUserClient, 'api_login') as api_login:
-            api_login.return_value = MagicMock()
-            request_post = MagicMock()
-            request_post.status_code = 200
-            request_post.ok = PropertyMock(return_value=True)
-            request_post.json = lambda: dict(success=True)
-            mock_request_post.return_value = request_post
-            self.assertIsInstance(
-                self.remote_user_client.get_user_information('123'), dict
-            )
+    @patch('requests.get')
+    def test_get_user_info(self, mock_request_get):
+        api_request = MagicMock()
+        api_request.status_code = 200
+        api_request.ok = PropertyMock(return_value=True)
+        api_request.json = lambda: dict(success=True)
+        mock_request_get.return_value = api_request
+        self.assertIsInstance(
+            self.remote_user_client.get_user_information('123'), dict
+        )
 
     @patch('requests.post')
     def test_search_users(self, mock_request_post):

@@ -1,10 +1,12 @@
-import unittest
 from datetime import timedelta
 from unittest.mock import MagicMock, patch, mock_open, sentinel, call
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.test import override_settings
 from django.utils.timezone import now
+from model_mommy import mommy
 
 from qcat.context_processors import template_settings, MaintenanceAnnouncement
 from qcat.tests import TestCase
@@ -43,7 +45,7 @@ class MaintenanceAnnouncementTest(TestCase):
     @patch('qcat.context_processors.cache')
     def test_get_next_maintenance_anonymous(self, mock_cache):
         request = MagicMock()
-        request.user.is_authenticated.return_value = False
+        request.user = AnonymousUser()
         announcement = MaintenanceAnnouncement(request)
         self.assertDictEqual(announcement.overlay, {})
         self.assertFalse(mock_cache.called)
@@ -51,19 +53,22 @@ class MaintenanceAnnouncementTest(TestCase):
     @patch('qcat.context_processors.cache')
     @patch('qcat.context_processors.messages')
     def test_next_maintenance_access_cache(self, mock_messages, mock_cache):
+        self.request.user = mommy.make(get_user_model())
         mock_cache.get = MagicMock(return_value=self.when)
         MaintenanceAnnouncement(self.request)
         self.assertEquals(len(mock_cache.method_calls), 1)
 
     @patch('qcat.context_processors.cache')
     def test_flush_cache(self, mock_cache):
+        self.request.user = mommy.make(get_user_model())
         mock_cache.get = MagicMock(return_value=None)
-        MaintenanceAnnouncement(self.request)
-        mock_cache.set.assert_called_once_with(
-            key='next_maintenance',
-            timeout=MaintenanceAnnouncement.file_read_timeout,
-            value=''
-        )
+        with patch('qcat.context_processors.open', mock_open(read_data='foo')):
+            MaintenanceAnnouncement(self.request)
+            mock_cache.set.assert_called_once_with(
+                key='next_maintenance',
+                timeout=MaintenanceAnnouncement.file_read_timeout,
+                value='foo'
+            )
 
     @override_settings(CACHES={'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
@@ -86,8 +91,8 @@ class MaintenanceAnnouncementTest(TestCase):
     @patch('qcat.context_processors.messages')
     def test_set_maintenance_overlay(self, mock_messsages, mock_cache):
         mock_cache.get = MagicMock(return_value=None)
-        with patch('qcat.context_processors.open',
-                   mock_open(read_data=self.when), create=True):
+        self.request.user = mommy.make(get_user_model())
+        with patch('qcat.context_processors.open', mock_open(read_data=self.when)):
             announcement = MaintenanceAnnouncement
             announcement.get_full_maintenance_text = \
                 lambda self, next_maintenance_time: sentinel.text
