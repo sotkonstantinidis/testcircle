@@ -245,23 +245,29 @@ def _register_deployment():
     branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
     author = local('git log -1 --pretty=format:"%an"', capture=True)
     commit = local('git log -1 --pretty=format:"%B"', capture=True)
+    git_url = f'https://github.com/CDE-UNIBE/qcat/tree/{branch}'
+
     sc = SlackClient(settings.ELASTIC_APM['slack_token'])
 
     sc.api_call(
         'chat.postMessage',
         channel='server-info',
         username='Deploy bot',
+        text=f'Branch "{branch}" deployed: {git_url}',
         attachments=[
             {
-                'pretext': f'Successful deploy: {branch}!',
-                'author_name': author,
+                'pretext': f'Great success!',
                 'title': commit,
-                'title_link': f'https://github.com/CDE-UNIBE/qcat/tree/{branch}',
-                'text': 'Successful deploy',
+                'title_link': git_url,
                 'fields': [
                     {
                         'title': 'Branch',
                         'value': 'develop',
+                        'short': False
+                    },
+                    {
+                        'title': 'Author',
+                        'value': author,
                         'short': False
                     }
                 ],
