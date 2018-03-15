@@ -9,12 +9,13 @@ import configurations
 from fabric.context_managers import cd, prefix
 from fabric.contrib.files import exists
 from fabric.api import run, env
-from fabric.colors import green
 from fabric.decorators import task, runs_once, parallel
 from fabric.contrib import django
 from fabric.operations import local
 from fabric.tasks import execute
 from django.conf import settings
+from slackclient import SlackClient
+
 
 # Load the django settings. This needs to read the env-variables and setup
 # django-configurations, before the settings_module can be accessed.
@@ -30,7 +31,6 @@ ENVIRONMENTS = {
         'host_string': settings.HOST_STRING_DEV,
         'touch_file': settings.TOUCH_FILE_DEV,
         'use_deploy_announcement': False,
-        'opbeat_app_id': '484c3eb0d1'
     },
     'demo': {
         'branch': 'master',
@@ -39,7 +39,6 @@ ENVIRONMENTS = {
         'touch_file': settings.TOUCH_FILE_DEMO,
         'use_deploy_announcement': False,
         'url': 'https://qcat-demo.wocat.net/{}/wocat/list/?type=all',
-        'opbeat_app_id': '0d1c0e6ae4'
     },
     'master': {
         'branch': 'master',
@@ -48,7 +47,6 @@ ENVIRONMENTS = {
         'touch_file': settings.TOUCH_FILE_LIVE,
         'use_deploy_announcement': True,
         'url': 'https://qcat.wocat.net/{}/wocat/list/?type=all',
-        'opbeat_app_id': '91ea7668a2'
     },
     'common': {
         'project_name': 'qcat',
@@ -137,9 +135,8 @@ def deploy_host(environment):
         _purge_summary_pdfs()
     _set_maintenance_mode(False)
 
-    print(green("Everything OK"))
     _access_project()
-    # _register_deployment()
+    _register_deployment()
 
 
 def _get_latest_source():
@@ -245,15 +242,34 @@ def _set_maintenance_warning():
 
 
 def _register_deployment():
-    revision = local('git log -n 1 --pretty="format:%H"', capture=True)
     branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
-    local(f'curl https://intake.opbeat.com/api/v1/organizations/'
-          f'{settings.OPBEAT["ORGANIZATION_ID"]}/apps/'
-          f'{env.opbeat_app_id}/releases/'
-          f' -H "Authorization: Bearer {settings.OPBEAT["SECRET_TOKEN"]}"'
-          f' -d rev="{revision}"'
-          f' -d branch="{branch}"'
-          f' -d status=completed')
+    author = local('git log -1 --pretty=format:"%an"', capture=True)
+    commit = local('git log -1 --pretty=format:"%B"', capture=True)
+    sc = SlackClient(settings.ELASTIC_APM['slack_token'])
+
+    sc.api_call(
+        'chat.postMessage',
+        channel='server-info',
+        username='Deploy bot',
+        attachments=[
+            {
+                'pretext': f'Successful deploy: {branch}!',
+                'author_name': author,
+                'title': commit,
+                'title_link': f'https://github.com/CDE-UNIBE/qcat/tree/{branch}',
+                'text': 'Successful deploy',
+                'fields': [
+                    {
+                        'title': 'Branch',
+                        'value': 'develop',
+                        'short': False
+                    }
+                ],
+                'image_url': 'https://qcat.wocat.net/static/assets/favicons/favicon-32x32.png'
+            }
+        ]
+    )
+
 
 def _manage_py(command):
     with virtualenv():
