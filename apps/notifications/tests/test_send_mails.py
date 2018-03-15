@@ -1,8 +1,7 @@
 import contextlib
-import unittest
+import itertools
 from unittest.mock import patch
 
-import itertools
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, User

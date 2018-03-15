@@ -54,15 +54,13 @@ class BaseTemplateTest(FunctionalTest):
         # shown
         call_command('set_next_maintenance')
         self.browser.refresh()
-
+        alert_box_path = '//div[contains(@class, "notification") and contains(@class, "alert-box")]'
         self.wait_for('id', 'deploy-modal')
+
         modal = self.findBy('id', 'deploy-modal')
         self.assertTrue(modal.text.startswith('Maintenance announcement'))
         # a flash-message is shown too.
-        alert_box = self.findBy(
-            'xpath', '//div[contains(@class, "notification") and '
-                     'contains(@class, "alert-box")]'
-        )
+        alert_box = self.findBy('xpath', alert_box_path)
         # alert_box.text is empty when the element is hidden
         self.assertTrue(
             alert_box.get_attribute('textContent').startswith('Maintenance '
@@ -72,26 +70,17 @@ class BaseTemplateTest(FunctionalTest):
         # on the next page, only the flash-message is shown.
         self.browser.refresh()
         self.findByNot('id', 'deploy-modal')
-        self.findBy(
-            'xpath', '//div[contains(@class, "notification") and '
-                     'contains(@class, "alert-box")]'
-        )
+        self.findBy('xpath', alert_box_path)
 
         # After a logout, the message is not shown anymore.
         self.doLogout()
         self.browser.get(self.live_server_url)
-        self.findByNot(
-            'xpath', '//div[contains(@class, "notification") and '
-                     'contains(@class, "alert-box")]'
-        )
+        self.findByNot('xpath', alert_box)
 
         # When logging in again, the deploy is over - no message is shown.
-        os.remove('envs/TEST_NEXT_MAINTENANCE')
+        self.remove_maintenance_file()
         self.doLogin(jay)
-        self.findByNot(
-            'xpath', '//div[contains(@class, "notification") and '
-                     'contains(@class, "alert-box")]'
-        )
+        self.findByNot('xpath', alert_box)
 
         # After the next page load, the next deploy is announced.
         call_command('set_next_maintenance')
