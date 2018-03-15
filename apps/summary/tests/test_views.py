@@ -1,11 +1,13 @@
 from unittest.mock import sentinel, MagicMock, patch, mock_open, call
 
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import Http404
 from django.test import RequestFactory
 from django.test import override_settings
 from django.utils.timezone import now
+from model_mommy import mommy
 from wkhtmltopdf.views import PDFTemplateResponse
 
 from qcat.tests import TestCase
@@ -19,7 +21,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         self.base_view = SummaryPDFCreateView()
         self.base_url = reverse('questionnaire_summary', kwargs={'id': 1})
         self.request = self.factory.get(self.base_url)
-        self.request.user = MagicMock()
+        self.request.user = mommy.make(get_user_model())
         self.request.LANGUAGE_CODE = ''
         self.request.META['HTTP_HOST'] = 'foo'
         self.view = self.setup_view(self.base_view, self.request, id=1)

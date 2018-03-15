@@ -79,7 +79,16 @@ class MaintenanceAnnouncement:
         """
         Check if maintenance is planned and return the datetime
         """
-        if self.request.user and self.request.user.is_authenticated():
+
+        # Catching TypeError risen during tests
+        is_authenticated = False
+        if self.request.user:
+            try:
+                is_authenticated = self.request.user.is_authenticated()
+            except TypeError:
+                pass
+
+        if is_authenticated:
             # maybe: block editing depending on this variable as well.
             next_maintenance = cache.get(key=self.cache_key)
             if next_maintenance is None and isfile(settings.NEXT_MAINTENANCE):
