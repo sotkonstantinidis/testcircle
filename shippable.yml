@@ -25,6 +25,11 @@ build:
     - echo "123" > envs/DJANGO_SECRET_KEY
     - pip install -r requirements/development.txt
     - pip install -r requirements/production.txt
+    # Tests
+    - export DISPLAY=:99.0
+    - mkdir -p shippable/testresults
+    - mkdir -p shippable/codecoverage
+    - xvfb-run --server-args="-ac" python manage.py test -a unit --with-xunit --xunit-file=shippable/testresults/nosetests.xml --with-coverage --cover-package=apps --cover-xml --cover-xml-file=shippable/codecoverage/coverage.xml
     - unset LC_ALL
 
   on_success:

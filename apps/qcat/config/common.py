@@ -231,10 +231,7 @@ class BaseSettings(Configuration):
     LOGIN_URL = 'login'
 
     TEST_RUNNER = 'qcat.discover_runner.QcatTestSuiteRunner'
-    NOSE_ARGS = [
-        '--cover-html', '--cover-html-dir=coverage_html', '--cover-erase',
-        '--cover-package=accounts,configuration,qcat,questionnaire,unccd',
-        '--nologcapture']
+    NOSE_ARGS = ['--nologcapture']
 
     GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
     GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'
