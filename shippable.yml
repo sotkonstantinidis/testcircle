@@ -43,6 +43,7 @@ build:
     - echo "postgis://shippable:123456@localhost:5432/qcat" > envs/DATABASE_URL
     - echo "123" > envs/DJANGO_SECRET_KEY
     - echo "True" > envs/DJANGO_DEBUG
+    - echo "" > envs/NEXT_MAINTENANCE
     # Install python packages.
     - pip install -r requirements/development.txt
     - pip install -r requirements/production.txt

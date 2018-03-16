@@ -40,21 +40,21 @@ class LinkedChoicesTest(FunctionalTest):
         self.submit_form_step()
         self.click_edit_section('cca__2')
 
-        self.findBy('xpath', '//input[@id="cca__2__2__meteorological"]').click()
-        self.findBy('xpath', '//input[@data-container="cca_qg_9"]').click()
+        self.findBy('xpath', '//input[@id="cca__2__2__meteorological"]', wait=True).click()
+        self.findBy('xpath', '//input[@data-container="cca_qg_9"]', wait=True).click()
         self.findBy('xpath',
-                    '//select[@id="id_cca_qg_9-0-cca_exposure_decrstabincr"]/option[@value="stable"]').click()
+                    '//select[@id="id_cca_qg_9-0-cca_exposure_decrstabincr"]/option[@value="stable"]', wait=True).click()
 
-        self.findBy('xpath', '//input[@id="cca__2__2__biological"]').click()
-        self.findBy('xpath', '//input[@data-container="cca_qg_29"]').click()
+        self.findBy('xpath', '//input[@id="cca__2__2__biological"]', wait=True).click()
+        self.findBy('xpath', '//input[@data-container="cca_qg_29"]', wait=True).click()
         self.findBy('xpath',
-                    '//select[@id="id_cca_qg_29-0-cca_exposure_decrstabincr_other"]/option[@value="cca_decrease"]').click()
+                    '//select[@id="id_cca_qg_29-0-cca_exposure_decrstabincr_other"]/option[@value="cca_decrease"]', wait=True).click()
 
         # She also selects a gradual climate change
-        self.findBy('xpath', '//input[@id="cca__2__2__gradual"]').click()
-        self.findBy('xpath', '//input[@data-container="cca_qg_2"]').click()
+        self.findBy('xpath', '//input[@id="cca__2__2__gradual"]', wait=True).click()
+        self.findBy('xpath', '//input[@data-container="cca_qg_2"]', wait=True).click()
         self.findBy('xpath',
-                    '//select[@id="id_cca_qg_2-0-cca_exposure_decrstabincr"]/option[@value="cca_decrease"]').click()
+                    '//select[@id="id_cca_qg_2-0-cca_exposure_decrstabincr"]/option[@value="cca_decrease"]', wait=True).click()
 
         # She saves and goes to step 3 again and sees she can now select them.
         self.submit_form_step()
@@ -62,13 +62,13 @@ class LinkedChoicesTest(FunctionalTest):
         self.assertEqual(len(get_cca_3_1_options(self)), 3)
 
         self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]').click()
+                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]', wait=True).click()
         self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "annual temperature")]')
+                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "annual temperature")]', wait=True)
         self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "local rainstorm")]')
+                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "local rainstorm")]', wait=True)
         self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]').click()
+                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]', wait=True).click()
 
     def test_linked_choices_within_step(self):
 
@@ -85,42 +85,42 @@ class LinkedChoicesTest(FunctionalTest):
 
         # She selects some disasters in 2.2 and sees that they are now available
         # for selection in 2.3
-        self.findBy('xpath', '//input[@id="cca__2__2__meteorological"]').click()
-        self.findBy('xpath', '//input[@data-container="cca_qg_9"]').click()
+        self.findBy('xpath', '//input[@id="cca__2__2__meteorological"]', wait=True).click()
+        self.findBy('xpath', '//input[@data-container="cca_qg_9"]', wait=True).click()
         # It is not sufficient to click the checkbox of the questiongroup, an
         # actual value of the questiongroup must be selected.
         self.assertEqual(len(get_cca_2_3_options(self)), 0)
-        self.findBy('xpath', '//select[@id="id_cca_qg_9-0-cca_exposure_decrstabincr"]/option[@value="stable"]').click()
+        self.findBy('xpath', '//select[@id="id_cca_qg_9-0-cca_exposure_decrstabincr"]/option[@value="stable"]', wait=True).click()
         self.assertEqual(len(get_cca_2_3_options(self)), 1)
 
-        self.findBy('xpath', '//input[@id="cca__2__2__biological"]').click()
-        self.findBy('xpath', '//input[@data-container="cca_qg_29"]').click()
+        self.findBy('xpath', '//input[@id="cca__2__2__biological"]', wait=True).click()
+        self.findBy('xpath', '//input[@data-container="cca_qg_29"]', wait=True).click()
         self.assertEqual(len(get_cca_2_3_options(self)), 1)
         self.findBy('xpath',
-                    '//select[@id="id_cca_qg_29-0-cca_exposure_decrstabincr_other"]/option[@value="cca_decrease"]').click()
+                    '//select[@id="id_cca_qg_29-0-cca_exposure_decrstabincr_other"]/option[@value="cca_decrease"]', wait=True).click()
         self.assertEqual(len(get_cca_2_3_options(self)), 2)
 
         # She also selects a gradual climate change and sees it is not an option
         # in 2.3
-        self.findBy('xpath', '//input[@id="cca__2__2__gradual"]').click()
-        self.findBy('xpath', '//input[@data-container="cca_qg_2"]').click()
+        self.findBy('xpath', '//input[@id="cca__2__2__gradual"]', wait=True).click()
+        self.findBy('xpath', '//input[@data-container="cca_qg_2"]', wait=True).click()
         self.findBy('xpath',
-                    '//select[@id="id_cca_qg_2-0-cca_exposure_decrstabincr"]/option[@value="cca_decrease"]').click()
+                    '//select[@id="id_cca_qg_2-0-cca_exposure_decrstabincr"]/option[@value="cca_decrease"]', wait=True).click()
         self.assertEqual(len(get_cca_2_3_options(self)), 2)
 
         # She selects an extreme in 2.3
         cca_2_3_radio = self.findBy(
             'id', 'id_cca_qg_38-0-technology_exposed_to_disasters_1')
         cca_2_3_radio.click()
-        self.findBy('xpath', '//div[@id="id_cca_qg_39_0_climate_related_extreme_chosen"]').click()
+        self.findBy('xpath', '//div[@id="id_cca_qg_39_0_climate_related_extreme_chosen"]', wait=True).click()
         self.findBy('xpath', '//div[@id="id_cca_qg_39_0_climate_related_extreme_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "local rainstorm")]')
-        self.findBy('xpath', '//div[@id="id_cca_qg_39_0_climate_related_extreme_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]').click()
+        self.findBy('xpath', '//div[@id="id_cca_qg_39_0_climate_related_extreme_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]', wait=True).click()
 
         # She adds another row and can again select the same extremes
-        self.findBy('xpath', '//a[@data-questiongroup-keyword="cca_qg_39"]').click()
-        self.findBy('xpath', '//div[@id="id_cca_qg_39_1_climate_related_extreme_chosen"]').click()
+        self.findBy('xpath', '//a[@data-questiongroup-keyword="cca_qg_39"]', wait=True).click()
+        self.findBy('xpath', '//div[@id="id_cca_qg_39_1_climate_related_extreme_chosen"]', wait=True).click()
         self.findBy('xpath', '//div[@id="id_cca_qg_39_1_climate_related_extreme_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]')
-        self.findBy('xpath', '//div[@id="id_cca_qg_39_1_climate_related_extreme_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "local rainstorm")]').click()
+        self.findBy('xpath', '//div[@id="id_cca_qg_39_1_climate_related_extreme_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "local rainstorm")]', wait=True).click()
 
         # She submits the step and sees the values are submitted correctly
         self.submit_form_step()
