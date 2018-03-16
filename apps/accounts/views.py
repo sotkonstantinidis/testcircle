@@ -1,5 +1,6 @@
 import functools
 import operator
+import logging
 
 from django.contrib import messages
 from django.contrib.auth import logout as django_logout, login as django_login
@@ -28,6 +29,9 @@ from .client import remote_user_client
 from .conf import settings
 from .forms import WocatAuthenticationForm
 from .models import User
+
+
+logger = logging.getLogger(__name__)
 
 
 class LoginView(FormView):
@@ -72,6 +76,9 @@ class LoginView(FormView):
             if user_info and not user_info.get('is_active', True):
                 return HttpResponseRedirect(settings.REACTIVATE_WOCAT_ACCOUNT_URL)
 
+        remote_addr = getattr(self.request, 'META', {}).get('REMOTE_ADDR')
+        if remote_addr:
+            logger.warning('Invalid login attempt: %s' % remote_addr)
         return super().form_invalid(form)
 
     def get_success_url(self):
