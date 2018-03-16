@@ -53,6 +53,43 @@ def create_temp_indices(indices):
                 configurations__code=index).filter(status=4))
 
 
+class ESIndexMixin:
+
+    def setUp(self):
+        """
+        Create a new index with a random name for testing. Will be deleted
+        after the tests ran.
+        """
+        try:
+            es.indices.create(index=TEST_INDEX)
+            es.indices.put_alias(index=TEST_INDEX, name=TEST_ALIAS_PREFIXED)
+        except TransportError:
+            raise Exception(
+                'No connection to Elasticsearch possible. Make sure it is '
+                'running and the configuration is correct.')
+        self.default_body = {
+            'settings': {'index': {'mapping': {
+                'nested_fields': {'limit': 250}}}
+            }, 'mappings': {}}
+
+    def tearDown(self):
+        """
+        Delete the index used for testing.
+
+        Use the following to delete all test indices::
+            curl -XDELETE '[ES_HOST]:[ES_PORT]/[TEST_INDEX_PREFIX]*'
+
+        Example::
+            curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
+        """
+        try:
+            es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
+        except TransportError:
+            raise Exception(
+                'Index of Elasticsearch could not be deleted, manual cleanup '
+                'necessary.')
+
+
 class GetMappingsTest(TestCase):
     def test_calls_get_questiongroups(self):
         mock_Conf = Mock()
@@ -147,43 +184,9 @@ class GetMappingsTest(TestCase):
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
-class CreateOrUpdateIndexTest(TestCase):
+class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 
     fixtures = ['sample.json', 'sample_global_key_values.json']
-
-    def setUp(self):
-        """
-        Create a new index with a random name for testing. Will be deleted
-        after the tests ran.
-        """
-        try:
-            es.indices.create(index=TEST_INDEX)
-            es.indices.put_alias(index=TEST_INDEX, name=TEST_ALIAS_PREFIXED)
-        except TransportError:
-            raise Exception(
-                'No connection to Elasticsearch possible. Make sure it is '
-                'running and the configuration is correct.')
-        self.default_body = {
-            'settings': {'index': {'mapping': {
-                'nested_fields': {'limit': 250}}}
-            }, 'mappings': {}}
-
-    def tearDown(self):
-        """
-        Delete the index used for testing.
-
-        Use the following to delete all test indices::
-            curl -XDELETE '[ES_HOST]:[ES_PORT]/[TEST_INDEX_PREFIX]*'
-
-        Example::
-            curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
-        """
-        try:
-            es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
-        except TransportError:
-            raise Exception(
-                'Index of Elasticsearch could not be deleted, manual cleanup '
-                'necessary.')
 
     @patch('search.index.get_alias')
     def test_calls_get_alias(self, mock_get_alias):

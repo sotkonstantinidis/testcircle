@@ -1,16 +1,15 @@
 from unittest.mock import patch, Mock
 
+from django.conf import settings
 from django.db.models import Q
 
-from configuration.models import Configuration
 from configuration.utils import (
     create_new_code,
     get_configuration_index_filter,
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.tests import TestCase
-from questionnaire.models import Questionnaire
-from questionnaire.tests.test_models import get_valid_questionnaire
+from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED
 
 DEFAULT_WOCAT_CONFIGURATIONS = [
     'unccd', 'technologies', 'approaches', 'watershed']
@@ -42,7 +41,18 @@ class GetConfigurationQueryFilterTest(TestCase):
         self.assertEqual(attrs[0][1], 'wocat')
 
 
-class GetConfigurationIndexFilterTest(TestCase):
+class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
+
+    fixtures = ['sample']
+
+    @property
+    def test_alias(self):
+        # Replace the 'key_prefix' of the index ('qcat_')
+        return TEST_ALIAS_PREFIXED.replace(settings.ES_INDEX_PREFIX, '')
+
+    def setUp(self):
+        super().setUp()
+        create_temp_indices(['sample'])
 
     @patch('configuration.utils.check_aliases')
     def test_returns_single_configuration(self, mock_check_aliases):
@@ -60,22 +70,23 @@ class GetConfigurationIndexFilterTest(TestCase):
         self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
 
     def test_unccd_returns_single_configuration(self):
-        index_filter = get_configuration_index_filter('unccd')
-        self.assertEqual(index_filter, ['unccd'])
+        index_filter = get_configuration_index_filter(self.test_alias)
+        self.assertEqual(index_filter, [self.test_alias])
 
     def test_wocat_returns_multiple_configurations(self):
         index_filter = get_configuration_index_filter('wocat')
         self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
 
-    def test_wocat_with_only_current_returns_only_wocat(self):
-        index_filter = get_configuration_index_filter(
-            'wocat', only_current=True)
+    @patch('configuration.utils.check_aliases')
+    def test_wocat_with_only_current_returns_only_wocat(self, mock_check_aliases):
+        mock_check_aliases.return_value = True
+        index_filter = get_configuration_index_filter('wocat', only_current=True)
         self.assertEqual(index_filter, ['wocat'])
 
     def test_returns_query_params_lower_case(self):
         index_filter = get_configuration_index_filter(
-            'foo', query_param_filter=('UNCCD',))
-        self.assertEqual(index_filter, ['unccd'])
+            'foo', query_param_filter=(self.test_alias.upper(),))
+        self.assertEqual(index_filter, [self.test_alias.lower()])
 
 
 class CreateNewCodeTest(TestCase):

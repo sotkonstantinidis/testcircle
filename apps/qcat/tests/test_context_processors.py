@@ -3,6 +3,7 @@ from unittest.mock import MagicMock, patch, mock_open, sentinel, call
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AnonymousUser
 from django.test import override_settings
 from django.utils.timezone import now
 from model_mommy import mommy
@@ -44,7 +45,7 @@ class MaintenanceAnnouncementTest(TestCase):
     @patch('qcat.context_processors.cache')
     def test_get_next_maintenance_anonymous(self, mock_cache):
         request = MagicMock()
-        request.user = None
+        request.user = AnonymousUser()
         announcement = MaintenanceAnnouncement(request)
         self.assertDictEqual(announcement.overlay, {})
         self.assertFalse(mock_cache.called)
@@ -61,12 +62,13 @@ class MaintenanceAnnouncementTest(TestCase):
     def test_flush_cache(self, mock_cache):
         self.request.user = mommy.make(get_user_model())
         mock_cache.get = MagicMock(return_value=None)
-        MaintenanceAnnouncement(self.request)
-        mock_cache.set.assert_called_once_with(
-            key='next_maintenance',
-            timeout=MaintenanceAnnouncement.file_read_timeout,
-            value=''
-        )
+        with patch('qcat.context_processors.open', mock_open(read_data='foo')):
+            MaintenanceAnnouncement(self.request)
+            mock_cache.set.assert_called_once_with(
+                key='next_maintenance',
+                timeout=MaintenanceAnnouncement.file_read_timeout,
+                value='foo'
+            )
 
     @override_settings(CACHES={'default': {
         'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
@@ -90,8 +92,7 @@ class MaintenanceAnnouncementTest(TestCase):
     def test_set_maintenance_overlay(self, mock_messsages, mock_cache):
         mock_cache.get = MagicMock(return_value=None)
         self.request.user = mommy.make(get_user_model())
-        with patch('qcat.context_processors.open',
-                   mock_open(read_data=self.when), create=True):
+        with patch('qcat.context_processors.open', mock_open(read_data=self.when)):
             announcement = MaintenanceAnnouncement
             announcement.get_full_maintenance_text = \
                 lambda self, next_maintenance_time: sentinel.text
