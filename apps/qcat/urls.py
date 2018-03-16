@@ -14,7 +14,7 @@ urlpatterns = patterns(
     '',
     url(r'^about/$', 'qcat.views.about', name='about'),
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^admin/login/', RedirectView.as_view(url=reverse_lazy('login'))),
+    url(r'^admin/login/', RedirectView.as_view(url=reverse_lazy('login'), permanent=False)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': static_sitemap},
         name='django.contrib.sitemaps.views.sitemap'),
