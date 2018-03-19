@@ -64,8 +64,8 @@ def get_mappings(questionnaire_configuration):
                 qg_properties[question.keyword] = {
                     'properties': q_properties,
                 }
-            elif question.field_type in ['checkbox', 'select_type']:
-                qg_properties[question.keyword] = {'type': 'text'}
+            elif question.field_type in ['checkbox', 'image_checkbox', 'select_type']:
+                qg_properties[question.keyword] = {'type': 'keyword'}
             elif question.field_type in ['date']:
                 qg_properties[question.keyword] = {'type': 'text'}
 
