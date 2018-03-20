@@ -8,10 +8,10 @@ import django.db.models.deletion
 def restore_configuration(apps, schema_editor):
     Questionnaire = apps.get_model("questionnaire", "Questionnaire")
     Configuration = apps.get_model("configuration", "Configuration")
-    available_configurations = dict(Configuration.objects.values('type', 'id'))
+    available_configurations = dict(Configuration.objects.values_list('type', 'id'))
     for questionnaire in Questionnaire.objects.all():
         configuration_type = questionnaire.code.split('_')[0]
-        questionnaire.configuration = available_configurations[configuration_type]
+        questionnaire.configuration_id = available_configurations[configuration_type]
         questionnaire.save()
 
 

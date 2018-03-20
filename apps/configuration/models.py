@@ -27,7 +27,8 @@ class Configuration(models.Model):
         ('cca', 'cca'),
         ('technologies', 'technologies'),
         ('unccd', 'unccd'),
-        ('watershed', 'watershed')
+        ('watershed', 'watershed'),
+        ('wocat', 'wocat'),
     )
     data = JsonBField(help_text="""
             The JSON configuration. See section "Questionnaire
