@@ -47,22 +47,13 @@ class Configuration(models.Model):
         return cls.objects.filter(type=type).latest('created')
 
     def __str__(self):
-        return f'{self.type} (edition {self.edition})'
+        return f'{self.type} {self.edition}'
 
+    def get_previous_edition(self):
+        return self.get_previous_by_created(type=self.type)
 
-def update_configuration_cache(sender, instance, **kwargs):
-    """
-    Trigger: If a new Configuration is stored in the database, delete
-    the existing Configuration in the cache.
-    """
-    from .cache import delete_configuration_cache
-    if instance.active is True:
-        delete_configuration_cache(instance)
-
-
-post_save.connect(
-    update_configuration_cache, sender=Configuration,
-    dispatch_uid='update_configuration_cache')
+    def get_next_edition(self):
+        return self.get_next_by_created(type=self.type)
 
 
 class Translation(models.Model):
