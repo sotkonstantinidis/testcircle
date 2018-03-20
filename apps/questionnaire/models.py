@@ -95,8 +95,8 @@ class Questionnaire(models.Model):
     version = models.IntegerField()
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
-    configurations = models.ManyToManyField(
-        'configuration.Configuration', through='QuestionnaireConfiguration')
+    configuration = models.ForeignKey(
+        'configuration.Configuration', on_delete=models.PROTECT)
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+')
@@ -301,7 +301,7 @@ class Questionnaire(models.Model):
             uuid = uuid4()
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))
-        configuration = Configuration.get_active_by_code(configuration_code)
+        configuration = Configuration.latest_by_type(configuration_code)
         if configuration is None:
             raise ValidationError(
                 'No active configuration found for code "{}"'.format(
