@@ -502,7 +502,7 @@ class LinkTests(FunctionalTest):
                 '@class, "is-submitted")]'.format(xpath))
 
         # She publishes the Sample Questionnaire and still, only one link
-        import time; time.sleep(1)
+        self.hide_notifications()
         self.review_action('review')
         self.review_action('publish')
         section_xpath = '//section[@id="cat_5"]'
