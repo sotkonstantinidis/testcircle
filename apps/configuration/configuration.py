@@ -1,7 +1,9 @@
+import contextlib
 import collections
 import datetime
 
 import floppyforms as forms
+from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
 from django.core.urlresolvers import reverse, NoReverseMatch
@@ -728,7 +730,6 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 required=self.required)
         elif self.field_type == 'select_model':
             attrs.update({
-                'data-select-display-field': self.form_options.get('display_field'),
                 'data-key-keyword': self.keyword,
             })
             widget = Select(attrs=attrs)
@@ -958,14 +959,27 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 })
             else:
                 return '\n'
-        elif self.field_type in ['hidden', 'select_model']:
+
+        elif self.field_type == 'hidden':
             template_name = 'hidden'
             template_values.update({
                 'key': self.label_view,
                 'value': value,
             })
+
+        elif self.field_type == 'select_model':
+            template_name = 'select_model'
+            model = apps.get_model(app_label='configuration', model_name=self.form_options['model'])
+            template_values.update({
+                'value': value,
+                'label': self.label_view,
+            })
+            with contextlib.suppress(model.DoesNotExist):
+                template_values['text'] = model.objects.get(id=value).__str__()
+
         elif self.field_type in ['link_id']:
             return '\n'
+
         elif self.field_type in ['wms_layer']:
             template_name = 'wms_layer'
             template_values.update({

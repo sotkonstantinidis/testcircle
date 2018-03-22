@@ -6319,8 +6319,7 @@
       "configuration": {
         "type": "select_model",
         "form_options": {
-          "model": "Project",
-          "display_field": "funding_project_display"
+          "model": "Project"
         },
         "summary": {
           "types": ["full"],
@@ -6841,8 +6840,7 @@
       "configuration": {
         "type": "select_model",
         "form_options": {
-          "model": "Institution",
-          "display_field": "funding_institution_display"
+          "model": "Institution"
         },
         "summary": {
           "types": ["full"],
@@ -6854,36 +6852,6 @@
     },
     "model": "configuration.key",
     "pk": 49
-  },
-  {
-    "fields": {
-      "keyword": "funding_institution_display",
-      "translation": 5054,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 50
-  },
-  {
-    "fields": {
-      "keyword": "funding_project_display",
-      "translation": 5053,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 51
   },
   {
     "fields": {
