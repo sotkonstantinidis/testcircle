@@ -3,6 +3,7 @@ import logging
 import uuid
 from datetime import datetime
 
+from configuration.cache import get_cached_configuration
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
 from django.core.exceptions import ValidationError
@@ -59,12 +60,13 @@ class QuestionnaireModelTest(TestCase):
 
     def setUp(self):
         self.user = create_new_user()
+        get_cached_configuration.cache_clear()
 
     def get_questionnaire_with_name(self):
         return mommy.make(
             Questionnaire,
             data={'qg_1': [{'key_1': {'en': 'bread', 'fr': 'le baguette'}}]},
-            configurations=[Configuration.objects.get(code='sample_core')]
+            configuration=Configuration.objects.get(code='sample')
         )
 
     def test_requires_data(self):
@@ -206,18 +208,11 @@ class QuestionnaireModelTest(TestCase):
         questionnaire = get_valid_questionnaire(self.user)
         self.assertEqual(questionnaire.version, 1)
 
-    def test_create_new_raises_error_if_no_active_configuration(self):
-        with self.assertRaises(ValidationError):
-            Questionnaire.create_new(
-                configuration_code='foo', data={}, user=self.user)
-
     def test_create_new_adds_configuration(self):
-        configuration = Configuration.get_active_by_code('sample')
+        configuration = Configuration.latest_by_code('sample')
         ret = Questionnaire.create_new(
             configuration_code='sample', data={}, user=self.user)
-        ret_configurations = ret.configurations.all()
-        self.assertEqual(len(ret_configurations), 1)
-        self.assertEqual(ret_configurations[0].id, configuration.id)
+        self.assertEqual(ret.configuration, configuration)
 
     @patch('questionnaire.models.get_language')
     def test_create_new_calls_get_language(self, mock_get_language):
@@ -499,7 +494,9 @@ class QuestionnaireModelTest(TestCase):
             [{'id': self.user.id, 'name': str(self.user)}])
         self.assertEqual(metadata['editors'], [])
         self.assertEqual(metadata['code'], questionnaire.code)
-        self.assertEqual(metadata['configurations'], ['sample'])
+        self.assertEqual(
+            metadata['configuration'],
+            Configuration.objects.get(code='sample', edition='2015'))
         self.assertEqual(metadata['translations'], ['en'])
         self.assertEqual(metadata['status'], ('draft', 'Draft'))
         self.assertEqual(metadata['flags'], [])

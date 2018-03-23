@@ -50,9 +50,12 @@ class AdminTest(TestCase):
 @patch('search.views.messages')
 class IndexTest(TestCase):
 
+    fixtures = ['sample']
+
     def setUp(self):
         self.factory = RequestFactory()
-        self.url = reverse(route_search_index, kwargs={'configuration': 'foo'})
+        self.url = reverse(
+            route_search_index, kwargs={'configuration': 'sample'})
         user = create_new_user()
         user.is_superuser = True
         self.request = self.factory.get(self.url)
@@ -72,14 +75,14 @@ class IndexTest(TestCase):
 
     @patch('search.views.get_configuration')
     def test_calls_QuestionnaireConfiguration(self, mock_conf, mock_messages):
-        index(self.request, 'foo')
-        mock_conf.assert_called_once_with('foo')
+        index(self.request, 'sample')
+        mock_conf.assert_called_once_with(code='sample', edition='2015')
 
     @patch('search.views.get_configuration')
     def test_returns_bad_request_if_errors_in_configuration(
             self, mock_conf, mock_messages):
         mock_conf.configuration_error = 'error'
-        res = index(self.request, 'foo')
+        res = index(self.request, 'sample')
         self.assertEqual(res.status_code, 400)
 
     @patch('search.views.get_mappings')
@@ -90,7 +93,7 @@ class IndexTest(TestCase):
             mock_messages):
         mock_conf.return_value.get_configuration_errors.return_value = None
         mock_create_index.return_value = None, None, ''
-        index(self.request, 'foo')
+        index(self.request, 'sample')
         mock_get_mappings.assert_called_once_with(mock_conf.return_value)
 
     @patch('search.views.get_mappings')
@@ -103,9 +106,9 @@ class IndexTest(TestCase):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
         mock_create_index.return_value = None, None, ''
-        index(self.request, 'foo')
+        index(self.request, 'sample')
         mock_create_index.assert_called_once_with(
-            'foo', mock_get_mappings.return_value)
+            'sample', mock_get_mappings.return_value)
 
     @patch('search.views.get_mappings')
     @patch('search.views.create_or_update_index')
@@ -117,7 +120,7 @@ class IndexTest(TestCase):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
         mock_create_index.return_value = None, None, 'error_msg'
-        res = index(self.request, 'foo')
+        res = index(self.request, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request, 'The following error(s) occured: error_msg')
         self.assertEqual(res.status_code, 302)
@@ -132,19 +135,21 @@ class IndexTest(TestCase):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
         mock_create_index.return_value = True, None, ''
-        res = index(self.request, 'foo')
+        res = index(self.request, 'sample')
         mock_messages.success.assert_called_once_with(
-            self.request, 'Index "foo" was created or updated.')
+            self.request, 'Index "sample" was created or updated.')
         self.assertEqual(res.status_code, 302)
 
 
 @patch('search.views.messages')
 class UpdateTest(TestCase):
 
+    fixtures = ['sample']
+
     def setUp(self):
         self.factory = RequestFactory()
         self.url = reverse(
-            route_search_update, kwargs={'configuration': 'foo'})
+            route_search_update, kwargs={'configuration': 'sample'})
         user = create_new_user()
         user.is_superuser = True
         self.request = self.factory.get(self.url)
@@ -160,18 +165,18 @@ class UpdateTest(TestCase):
         request.user = create_new_user(id=99, email='foo@bar.com')
         request.session = {}
         with self.assertRaises(PermissionDenied):
-            update(request, 'foo')
+            update(request, 'sample')
 
     @patch('search.views.get_configuration')
     def test_calls_get_configuration(self, mock_conf, mock_messages):
-        update(self.request, 'foo')
-        mock_conf.assert_called_once_with('foo')
+        update(self.request, 'sample')
+        mock_conf.assert_called_once_with(code='sample', edition='2015')
 
     @patch('search.views.get_configuration')
     def test_returns_bad_request_if_errors_in_configuration(
             self, mock_conf, mock_messages):
         mock_conf.configuration_error = 'error'
-        res = update(self.request, 'foo')
+        res = update(self.request, 'sample')
         self.assertEqual(res.status_code, 400)
 
     @patch('search.views.put_questionnaire_data')
@@ -183,7 +188,7 @@ class UpdateTest(TestCase):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
         mock_put_questionnaire_data.return_value = None, []
-        update(self.request, 'foo')
+        update(self.request, 'sample')
         self.assertEqual(mock_put_questionnaire_data.call_count, 1)
 
     @patch('search.views.put_questionnaire_data')
@@ -195,7 +200,7 @@ class UpdateTest(TestCase):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
         mock_put_questionnaire_data.return_value = None, ['error_msg']
-        res = update(self.request, 'foo')
+        res = update(self.request, 'sample')
         mock_messages.error.assert_called_once_with(
             self.request, 'The following error(s) occured: error_msg')
         self.assertEqual(res.status_code, 302)
@@ -209,10 +214,10 @@ class UpdateTest(TestCase):
         mock_Conf.return_value = None
         mock_get_conf_errors.return_value = None
         mock_put_questionnaire_data.return_value = 0, []
-        res = update(self.request, 'foo')
+        res = update(self.request, 'sample')
         mock_messages.success.assert_called_once_with(
             self.request,
-            '0 Questionnaires of configuration "foo" successfully indexed.')
+            '0 Questionnaires of configuration "sample" successfully indexed.')
         self.assertEqual(res.status_code, 302)
 
 

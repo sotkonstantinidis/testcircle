@@ -9844,9 +9844,7 @@
   {
     "fields": {
       "code": "approaches",
-      "description": "Description of WOCAT Approach Configuration",
-      "active": true,
-      "activated": "2015-01-08T10:12:59.337Z",
+      "edition": "2015",
       "data": {
         "sections": [
           {
@@ -13364,9 +13362,7 @@
           }
         ]
       },
-      "created": "2015-07-09T10:12:59.337Z",
-      "base_code": "",
-      "name": "WOCAT SLM Approach"
+      "created": "2015-07-09T10:12:59.337Z"
     },
     "model": "configuration.configuration",
     "pk": 3001

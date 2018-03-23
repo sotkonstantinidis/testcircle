@@ -7,8 +7,7 @@ from accounts.tests.test_views import accounts_route_questionnaires
 from model_mommy import mommy
 
 from functional_tests.base import FunctionalTest
-from questionnaire.models import Questionnaire, QuestionnaireConfiguration, \
-    QuestionnaireMembership, Lock
+from questionnaire.models import Questionnaire, QuestionnaireMembership, Lock
 from configuration.models import Configuration
 from sample.tests.test_views import (
     get_position_of_category,
@@ -1101,12 +1100,12 @@ class LockTest(FunctionalTest):
             status=settings.QUESTIONNAIRE_DRAFT,
         )
         # Create a valid questionnaire with the least required data.
-        mommy.make(
-            model=QuestionnaireConfiguration,
-            questionnaire=self.questionnaire,
-            configuration=Configuration.objects.filter(code='sample').first(),
-            original_configuration=True
-        )
+        # mommy.make(
+        #     model=QuestionnaireConfiguration,
+        #     questionnaire=self.questionnaire,
+        #     configuration=Configuration.objects.filter(code='sample').first(),
+        #     original_configuration=True
+        # )
         mommy.make(
             model=QuestionnaireMembership,
             user=self.jay,

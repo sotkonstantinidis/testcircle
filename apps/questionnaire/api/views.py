@@ -65,7 +65,8 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         loaded again.
         """
         matching_keys = self.setting_keys.intersection(item.keys())
-        config = get_configuration(item['serializer_config'])
+        config = get_configuration(
+            code=item['serializer_config'], edition=item['serializer_edition'])
         if matching_keys:
             for key in matching_keys:
                 definition = self.language_text_mapping(
@@ -218,7 +219,7 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
         self.obj = self.get_current_object()
         item = get_element(
             self.obj.id,
-            self.obj.configurations.all().first().code
+            self.obj.configuration.code
         )
         if not item:
             raise Http404()

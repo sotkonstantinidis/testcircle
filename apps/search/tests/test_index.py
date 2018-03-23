@@ -50,7 +50,7 @@ def create_temp_indices(indices):
         create_or_update_index(index, mappings)
         put_questionnaire_data(
             index, Questionnaire.objects.filter(
-                configurations__code=index).filter(status=4))
+                configuration__code=index).filter(status=4))
 
 
 class ESIndexMixin:
@@ -330,12 +330,12 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 
     def test_keeps_data(self):
         m = get_valid_questionnaire()
-        put_questionnaire_data(TEST_ALIAS, [m])
-        search = simple_search('bar', configuration_codes=[TEST_ALIAS])
+        put_questionnaire_data('sample', [m])
+        search = simple_search('bar', configuration_codes=['sample'])
         hits = search.get('hits', {}).get('hits', [])
         self.assertEqual(len(hits), 1)
         create_or_update_index(TEST_ALIAS, {})
-        search = simple_search('bar', configuration_codes=[TEST_ALIAS])
+        search = simple_search('bar', configuration_codes=['sample'])
         hits = search.get('hits', {}).get('hits', [])
         self.assertEqual(len(hits), 1)
 
@@ -351,7 +351,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
     def test_calls_force_string(self, mock_force_strings):
         m = get_valid_questionnaire()
         mock_force_strings.return_value = {}
-        put_questionnaire_data(TEST_ALIAS, [m])
+        put_questionnaire_data('sample', [m])
         mock_force_strings.assert_called_once_with({})
 
 
@@ -361,29 +361,23 @@ class PutQuestionnaireDataTest(TestCase):
     fixtures = ['sample.json', 'sample_global_key_values.json']
 
     @patch('search.index.es')
-    @patch('search.index.ConfigurationList')
-    def test_creates_configuration_list(self, mock_ConfList, mock_es):
-        put_questionnaire_data('foo', [])
-        mock_ConfList.assert_called_once_with()
-
-    @patch('search.index.es')
     @patch('search.index.get_alias')
     def test_calls_get_alias(self, mock_get_alias, mock_es):
-        put_questionnaire_data('foo', [])
-        mock_get_alias.assert_called_once_with(['foo'])
+        put_questionnaire_data('sample', [])
+        mock_get_alias.assert_called_once_with(['sample'])
 
     @patch('search.index.es')
     @patch('search.index.bulk')
     def test_calls_bulk(self, mock_bulk, mock_es):
         mock_bulk.return_value = 0, []
         questionnaire = get_valid_questionnaire()
-        put_questionnaire_data('foo', [questionnaire])
+        put_questionnaire_data('sample', [questionnaire])
         source = dict(QuestionnaireSerializer(
             questionnaire,
-            config=get_configuration('foo')
+            config=get_configuration(code='sample', edition='2015')
         ).data)
         data = [{
-            '_index': '{}foo'.format(TEST_INDEX_PREFIX),
+            '_index': '{}sample'.format(TEST_INDEX_PREFIX),
             '_type': 'questionnaire',
             '_id': questionnaire.id,
             '_source': source
@@ -392,15 +386,15 @@ class PutQuestionnaireDataTest(TestCase):
 
     @patch('search.index.es')
     def test_calls_indices_refresh(self, mock_es):
-        put_questionnaire_data('foo', [])
+        put_questionnaire_data('sample', [])
         mock_es.indices.refresh.assert_called_once_with(
-            index='{}foo'.format(TEST_INDEX_PREFIX))
+            index='{}sample'.format(TEST_INDEX_PREFIX))
 
     @patch('search.index.es')
     @patch('search.index.bulk')
     def test_returns_values(self, mock_bulk, mock_es):
         mock_bulk.return_value = 'foo', 'bar'
-        actions, errors = put_questionnaire_data('foo', [])
+        actions, errors = put_questionnaire_data('sample', [])
         self.assertEqual(actions, 'foo')
         self.assertEqual(errors, 'bar')
 

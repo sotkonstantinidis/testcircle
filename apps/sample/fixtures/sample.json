@@ -4242,12 +4242,10 @@
     "pk": 11791
   },
   {
-    "pk": 11001,
+    "pk": 11002,
     "fields": {
-      "code": "sample_core",
-      "description": "Description of Sample Core Configuration",
-      "active": true,
-      "activated": "2015-01-08T10:12:59.337Z",
+      "code": "sample",
+      "edition": "2015",
       "data": {
         "sections": [
           {
@@ -4456,6 +4454,9 @@
                                 ">0|sample_qg_22"
                               ]
                             }
+                          },
+                          {
+                            "keyword": "key_6"
                           }
                         ],
                         "keyword": "qg_3"
@@ -5320,49 +5321,7 @@
           "samplemodule"
         ]
       },
-      "created": "2015-01-08T10:12:59.337Z",
-      "base_code": "",
-      "name": "Sample Core Configuration"
-    },
-    "model": "configuration.configuration"
-  },
-  {
-    "pk": 11002,
-    "fields": {
-      "code": "sample",
-      "description": "Description of Sample Configuration",
-      "active": true,
-      "activated": "2015-01-08T10:12:59.337Z",
-      "data": {
-        "sections": [
-          {
-            "keyword": "section_1",
-            "categories": [
-              {
-                "keyword": "cat_1",
-                "subcategories": [
-                  {
-                    "keyword": "subcat_1_2",
-                    "questiongroups": [
-                      {
-                        "questions": [
-                          {
-                            "keyword": "key_6"
-                          }
-                        ],
-                        "keyword": "qg_3"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "created": "2015-01-09T10:12:59.337Z",
-      "base_code": "sample_core",
-      "name": "Sample Configuration"
+      "created": "2015-01-08T10:12:59.337Z"
     },
     "model": "configuration.configuration"
   }

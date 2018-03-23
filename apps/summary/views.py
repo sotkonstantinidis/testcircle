@@ -228,6 +228,7 @@ class SummaryPDFCreateView(PDFTemplateView):
     default_quality = 'screen'
 
     def get(self, request, *args, **kwargs):
+        # TODO: More work needed here
         self.questionnaire = self.get_object(questionnaire_id=self.kwargs['id'])
         try:
             self.code = self.questionnaire.configurations.filter(
@@ -235,7 +236,7 @@ class SummaryPDFCreateView(PDFTemplateView):
             ).first().code
         except AttributeError:
             raise Http404
-        self.config = get_configuration(configuration_code=self.code)
+        self.config = get_configuration(code=self.code)
         self.quality = self.request.GET.get('quality', self.default_quality)
         # filename is set withing render_to_response, this is too late as it's
         # used for caching.

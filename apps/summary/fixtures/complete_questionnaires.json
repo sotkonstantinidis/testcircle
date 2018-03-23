@@ -25,7 +25,8 @@
           "status": 4,
           "version": 1,
           "created": "2017-02-10T16:07:20.847Z",
-          "updated": "2017-02-10T16:07:20.847Z"
+          "updated": "2017-02-10T16:07:20.847Z",
+          "configuration": 1001
       }
   },
   {
@@ -83,7 +84,8 @@
           "status": 4,
           "version": 1,
           "created": "2017-02-10T16:07:20.847Z",
-          "updated": "2017-02-10T16:07:20.847Z"
+          "updated": "2017-02-10T16:07:20.847Z",
+          "configuration": 3001
       }
   }
 ]

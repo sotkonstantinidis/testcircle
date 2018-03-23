@@ -127,19 +127,11 @@ class Questionnaire(models.Model):
         If some day, the configurations code is not the exact same string as
         the application name, a 'mapping' dict is required.
         """
-        conf = self.configurations.filter(
-            active=True
-        ).exclude(
-            code=''
-        ).only(
-            'code'
-        )
-        if conf.exists() and conf.count() == 1:
-            with contextlib.suppress(NoReverseMatch):
-                return reverse('{app_name}:{url_name}'.format(
-                    app_name=conf.first().code,
-                    url_name=url_name
-                ), kwargs={'identifier': self.code})
+        with contextlib.suppress(NoReverseMatch):
+            return reverse('{app_name}:{url_name}'.format(
+                app_name=self.configuration.code,
+                url_name=url_name
+            ), kwargs={'identifier': self.code})
         return None
 
     def get_absolute_url(self):
@@ -301,14 +293,14 @@ class Questionnaire(models.Model):
             uuid = uuid4()
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))
-        configuration = Configuration.latest_by_type(configuration_code)
+        configuration = Configuration.latest_by_code(configuration_code)
         if configuration is None:
             raise ValidationError(
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
             data=data, uuid=uuid, code=code, version=version, status=status,
-            created=created, updated=updated)
+            created=created, updated=updated, configuration=configuration)
 
         if not previous_version:
             # Generate and set a new code for the questionnaire
@@ -325,11 +317,6 @@ class Questionnaire(models.Model):
         )
 
         questionnaire.update_geometry(configuration_code=configuration_code)
-
-        # TODO: Not all configurations should be the original ones!
-        QuestionnaireConfiguration.objects.create(
-            questionnaire=questionnaire, configuration=configuration,
-            original_configuration=True)
 
         if not languages:
             questionnaire.add_translation_language(original=True)
@@ -551,14 +538,10 @@ class Questionnaire(models.Model):
         """
         Return the name of the questionnaire, based on the configuration.
         """
-        active_config = self.configurations.filter(
-            active=True
-        ).first()
-        if not active_config:
-            raise ConfigurationError(
-                'No active configuration for questionnaire {}'.format(self.id)
-            )
-        config = get_configuration(active_config.code)
+        configuration_object = self.configuration
+        config = get_configuration(
+            code=configuration_object.code,
+            edition=configuration_object.edition)
         names = config.get_questionnaire_name(self.data) or {}
         name = names.get(locale or get_language())
         if name:
@@ -630,7 +613,8 @@ class Questionnaire(models.Model):
             else:
                 return None
 
-        conf_object = get_configuration(configuration_code)
+        conf_object = get_configuration(
+            code=configuration_code, edition=self.configuration.edition)
         geometry_value = conf_object.get_questionnaire_geometry(self.data)
         geometry = get_geometry_from_string(geometry_value)
 
@@ -816,7 +800,9 @@ class Questionnaire(models.Model):
             ``compiler`` (accounts.models.User): A user figuring as the
             compiler of the questionnaire.
         """
-        questionnaire_configuration = get_configuration(configuration_code)
+        edition = Configuration.latest_by_code(configuration_code).edition
+        questionnaire_configuration = get_configuration(
+            code=configuration_code, edition=edition)
         user_fields = questionnaire_configuration.get_user_fields()
 
         # Collect the users appearing in the data dictionary.
@@ -1030,15 +1016,6 @@ class Questionnaire(models.Model):
         return status_code[1], status[1]
 
     @cached_property
-    def configurations_property(self):
-        return list(self.configurations.values_list('code', flat=True))
-
-    def get_original_configuration(self):
-        return self.configurations.filter(
-            questionnaire__questionnaireconfiguration__original_configuration=True
-        ).first()
-
-    @cached_property
     def translations(self):
         return list(self.questionnairetranslation_set.values_list(
             'language', flat=True
@@ -1062,16 +1039,14 @@ class Questionnaire(models.Model):
         Returns: list
 
         """
-        from configuration.utils import ConfigurationList
-
         links = []
-        config_list = ConfigurationList()
         current_language = get_language()
 
-        for link in self.links.filter(configurations__isnull=False).filter(
-                status=settings.QUESTIONNAIRE_PUBLIC):
+        for link in self.links.filter(status=settings.QUESTIONNAIRE_PUBLIC):
 
-            link_configuration = config_list.get(link.configurations.first().code)
+            link_configuration = get_configuration(
+                code=link.configuration.code,
+                edition=link.configuration.edition)
             name_data = link_configuration.get_questionnaire_name(link.data)
 
             try:
@@ -1122,20 +1097,6 @@ class Questionnaire(models.Model):
         return self.status == settings.QUESTIONNAIRE_PUBLIC or self._meta.model.with_status.not_deleted().filter(
             code=self.code, status=settings.QUESTIONNAIRE_PUBLIC
         ).exists()
-
-
-class QuestionnaireConfiguration(models.Model):
-    """
-    Represents a many-to-many relationship between Questionnaires and
-    Configurations with additional fields. Additional fields mark the
-    configuration in which the Questionnaire was originally entered.
-    """
-    questionnaire = models.ForeignKey('Questionnaire')
-    configuration = models.ForeignKey('configuration.Configuration')
-    original_configuration = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['-original_configuration']
 
 
 class QuestionnaireTranslation(models.Model):

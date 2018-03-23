@@ -40,7 +40,8 @@ class SendMailRecipientMixin(TestCase):
 
         self.questionnaire = mommy.make(
             Questionnaire, status=settings.QUESTIONNAIRE_DRAFT,
-            configurations=[Configuration.objects.get(code='sample')]
+            configuration=Configuration.objects.get(
+                code='sample', edition='2015')
         )
 
         self.editors = [self.editor_none, self.editor_todo, self.editor_all]

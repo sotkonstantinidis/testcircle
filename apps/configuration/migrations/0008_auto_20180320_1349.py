@@ -4,13 +4,6 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 
 
-def copy_code_to_type(apps, schema_editor):
-    Configuration = apps.get_model("configuration", "Configuration")
-    for config in Configuration.objects.all():
-        config.type = config.code
-        config.save()
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -30,16 +23,10 @@ class Migration(migrations.Migration):
             model_name='configuration',
             name='base_code',
         ),
-        migrations.AddField(
-            model_name='configuration',
-            name='type',
-            field=models.CharField(max_length=20, default='', choices=[('approaches', 'approaches'), ('cca', 'cca'), ('technologies', 'technologies'), ('unccd', 'unccd'), ('watershed', 'watershed')]),
-            preserve_default=False,
-        ),
-        migrations.RunPython(copy_code_to_type),
-        migrations.RemoveField(
+        migrations.AlterField(
             model_name='configuration',
             name='code',
+            field=models.CharField(max_length=20, choices=[('approaches', 'approaches'), ('cca', 'cca'), ('technologies', 'technologies'), ('unccd', 'unccd'), ('watershed', 'watershed'), ('wocat', 'wocat')]),
         ),
         migrations.RemoveField(
             model_name='configuration',

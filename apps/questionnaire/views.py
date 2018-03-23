@@ -4,7 +4,7 @@ import logging
 from itertools import chain, groupby
 
 import operator
-from configuration.models import Project, Institution
+from configuration.models import Project, Institution, Configuration
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
@@ -102,7 +102,7 @@ class QuestionnaireLinkSearchView(QuestionnaireSearchView, LoginRequiredMixin):
         return Questionnaire.with_status.not_deleted().filter(
             get_query_status_filter(self.request)
         ).filter(
-            configurations__code=self.configuration_code
+            configuration__code=self.configuration_code
         ).filter(
             Q(data__qs_data=data_lookup_params),
         ).distinct()
@@ -208,13 +208,21 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
 
     @property
     def questionnaire_configuration(self):
-        return get_configuration(self.get_configuration_code())
+        return get_configuration(
+            code=self.get_configuration_code(),
+            edition=self.get_configuration_edition())
 
     def get_template_names(self):
         return self.template_name or 'questionnaire/details.html'
 
     def get_configuration_code(self):
         return self.configuration_code or self.url_namespace
+
+    def get_configuration_edition(self):
+        obj = self.get_object()
+        if obj:
+            return obj.configuration.edition
+        return None
 
     @property
     def has_object(self):
@@ -241,8 +249,7 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
         if not self.has_object:
             return []
         status_filter = get_query_status_filter(self.request)
-        return self.object.links.filter(
-            status_filter, configurations__isnull=False, is_deleted=False)
+        return self.object.links.filter(status_filter, is_deleted=False)
 
     def get_detail_url(self, step):
         """
@@ -629,7 +636,7 @@ class QuestionnaireMapView(TemplateResponseMixin, View):
     def get(self, request, *args, **kwargs):
         questionnaire_object = self.get_object()
 
-        configuration = get_configuration(configuration_code=self.url_namespace)
+        configuration = get_configuration(code=self.url_namespace)
         geometry = configuration.get_questionnaire_geometry(
             questionnaire_object.data)
 
@@ -854,12 +861,12 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         status_filter = get_query_status_filter(self.request)
 
         linked_questionnaires = self.object.links.filter(
-            status_filter, configurations__isnull=False, is_deleted=False)
+            status_filter, is_deleted=False)
         links_by_configuration = collections.defaultdict(list)
         links_by_configuration_codes = collections.defaultdict(list)
 
         for linked in linked_questionnaires:
-            configuration_code = linked.configurations.first().code
+            configuration_code = linked.configuration.code
             linked_questionnaire_code = linked.code
             if linked_questionnaire_code not in links_by_configuration_codes[
                     configuration_code]:
@@ -1072,7 +1079,13 @@ class ESQuestionnaireQueryMixin:
         self.template_configuration_code = self.configuration_code
         self.configuration_code = self.request.GET.get(
             'type', self.configuration_code)
-        self.configuration = get_configuration(self.configuration_code)
+        try:
+            edition = self.configuration_edition
+        except AttributeError:
+            edition = Configuration.latest_by_code(
+                self.configuration_code).edition
+        self.configuration = get_configuration(
+            code=self.configuration_code, edition=edition)
         self.search_configuration_codes = get_configuration_index_filter(
             self.configuration_code)
 
@@ -1484,7 +1497,7 @@ class QuestionnaireModuleMixin(LoginRequiredMixin):
 
     def get_questionnaire_configuration(self):
         configuration_code = self.request.POST.get('configuration')
-        return get_configuration(configuration_code=configuration_code)
+        return get_configuration(code=configuration_code)
 
     def get_available_modules(self):
         return self.questionnaire_configuration.get_modules()

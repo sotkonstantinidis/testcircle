@@ -30,8 +30,7 @@ def delete_caches(request):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    active_configurations = Configuration.objects.filter(active=True)
-    for configuration in active_configurations:
+    for configuration in Configuration.objects.all():
         delete_configuration_cache(configuration)
 
     messages.success(request, 'Caches deleted.')

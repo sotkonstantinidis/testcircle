@@ -1,5 +1,21 @@
 [
 {
+    "pk": 101,
+    "model": "accounts.user",
+    "fields": {
+        "groups": [
+        ],
+        "date_joined": "2015-01-13T08:24:26.031Z",
+        "is_superuser": false,
+        "last_login": "2015-01-13T08:24:26.047Z",
+        "user_permissions": [],
+        "password": "",
+        "email": "foo@bar.com",
+        "firstname": "Foo",
+        "lastname": "Bar"
+    }
+},
+{
     "model": "questionnaire.questionnaire",
     "pk": 1,
     "fields": {
@@ -9,16 +25,18 @@
         "status": 4,
         "version": 1,
         "created": "2015-02-10T16:07:20.847Z",
-        "updated": "2015-02-10T16:07:20.847Z"
+        "updated": "2015-02-10T16:07:20.847Z",
+        "configuration": 12001
     }
 },
 {
-    "model": "questionnaire.questionnaireconfiguration",
+    "pk": 1011,
     "fields": {
-        "configuration": 12001,
         "questionnaire": 1,
-        "original_configuration": true
-    }
+        "user": 101,
+        "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
 },
 {
     "model": "questionnaire.questionnaire",
@@ -30,15 +48,17 @@
         "status": 4,
         "version": 1,
         "created": "2015-02-10T16:08:20.904Z",
-        "updated": "2015-02-10T16:08:20.904Z"
+        "updated": "2015-02-10T16:08:20.904Z",
+        "configuration": 12001
     }
 },
 {
-    "model": "questionnaire.questionnaireconfiguration",
+    "pk": 1012,
     "fields": {
-        "configuration": 12001,
         "questionnaire": 2,
-        "original_configuration": true
-    }
+        "user": 101,
+        "role": "compiler"
+    },
+    "model": "questionnaire.questionnairemembership"
 }
 ]

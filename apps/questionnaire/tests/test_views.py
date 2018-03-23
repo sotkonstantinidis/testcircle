@@ -1,5 +1,6 @@
 import json
 
+from configuration.cache import get_cached_configuration
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
@@ -190,6 +191,7 @@ class QuestionnaireViewTest(TestCase):
         self.request.session = dict()
         self.request._messages = MagicMock()
         self.view = self.setup_view(view, self.request, identifier='sample_1')
+        get_cached_configuration.cache_clear()
 
     def test_get_obj_raises_404(self):
         view = self.setup_view(self.view, self.request, identifier='404')

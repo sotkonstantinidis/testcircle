@@ -3,6 +3,7 @@ import json
 import logging
 from uuid import UUID
 
+from configuration.models import Configuration
 from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
@@ -18,10 +19,8 @@ from configuration.cache import get_configuration
 from configuration.configuration import (
     QuestionnaireQuestion,
 )
-from configuration.utils import (
-    ConfigurationList,
-    get_configuration_query_filter,
-    get_choices_from_model, get_choices_from_questiongroups)
+from configuration.utils import get_configuration_query_filter, \
+    get_choices_from_model, get_choices_from_questiongroups
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.receivers import prevent_updates_on_published_items
@@ -345,8 +344,7 @@ def clean_questionnaire_data(
                     questiongroups = question.form_options.get(
                         'options_by_questiongroups', [])
                     question.choices = get_choices_from_questiongroups(
-                        cleaned_data, questiongroups,
-                        configuration.configuration_keyword)
+                        cleaned_data, questiongroups, configuration)
 
                     if value in [c[0] for c in question.choices]:
                         # Only copy values which are valid options.
@@ -825,12 +823,13 @@ def get_link_data(linked_objects, link_configuration_code=None):
               ]
             }
     """
-    configuration_list = ConfigurationList()
     links = {}
     for link in linked_objects:
         if link_configuration_code is None:
-            link_configuration_code = link.configurations.first().code
-        link_configuration = configuration_list.get(link_configuration_code)
+            link_configuration_code = link.configuration.code
+        link_configuration = get_configuration(
+            code=link_configuration_code,
+            edition=link.configuration.edition)
 
         name_data = link_configuration.get_questionnaire_name(link.data)
         try:
@@ -838,11 +837,6 @@ def get_link_data(linked_objects, link_configuration_code=None):
         except AttributeError:
             original_lang = None
         name = name_data.get(get_language(), name_data.get(original_lang, ''))
-
-        configuration = 'unknown'
-        original_configuration = link.get_original_configuration()
-        if original_configuration:
-            configuration = original_configuration.code
 
         link_list = links.get(link_configuration_code, [])
 
@@ -855,7 +849,7 @@ def get_link_data(linked_objects, link_configuration_code=None):
             'code': link.code,
             'name': name,
             'link': get_link_display(link_configuration_code, name, link.code),
-            'configuration': configuration,
+            'configuration': link.configuration.code,
         })
         links[link_configuration_code] = link_list
 
@@ -1120,7 +1114,10 @@ def get_list_values(
         if result.get('_source'):
 
             if configuration_code and configuration_code != 'wocat':
-                config = get_configuration(configuration_code)
+                edition = Configuration.latest_by_code(
+                    configuration_code).edition
+                config = get_configuration(
+                    code=configuration_code, edition=edition)
             else:
                 config = None
 
@@ -1134,24 +1131,31 @@ def get_list_values(
             else:
                 logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
 
-    configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
         # Results from database query. List values have to be retrieved
         # through the configuration of the questionnaires.
 
         # Fall back to the original configuration if viewed from "wocat"
         # or no configuration selected
+        current_configuration_edition = ''
         if configuration_code is None or configuration_code == 'wocat':
-            configuration_object = obj.configurations.first()
+            configuration_object = obj.configuration
             if configuration_object is not None:
                 current_configuration_code = configuration_object.code
+                current_configuration_edition = configuration_object.edition
             else:
                 current_configuration_code = 'technologies'
         else:
             current_configuration_code = configuration_code
 
-        questionnaire_config = configuration_list.get(
-            current_configuration_code)
+        # TODO: Check this properly
+        if not current_configuration_edition:
+            current_configuration_edition = Configuration.latest_by_code(
+                current_configuration_code).edition
+
+        questionnaire_config = get_configuration(
+            code=current_configuration_code,
+            edition=current_configuration_edition)
 
         template_value = {
             'list_data': questionnaire_config.get_list_data([obj.data])[0]
@@ -1641,7 +1645,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # First, create a new Questionnaire version
         compiler = questionnaire_object.get_users_by_role('compiler')[0]
-        configuration = questionnaire_object.configurations.first()
+        configuration = questionnaire_object.configuration
         next_status = settings.QUESTIONNAIRE_REVIEWED
         new_version = Questionnaire.create_new(
             configuration.code, questionnaire_object.data, compiler,
@@ -1687,7 +1691,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # First, create a new Questionnaire version
         compiler = questionnaire_object.get_users_by_role('compiler')[0]
-        configuration = questionnaire_object.configurations.first()
+        configuration = questionnaire_object.configuration
         next_status = settings.QUESTIONNAIRE_REVIEWED
         new_version = Questionnaire.create_new(
             configuration.code, questionnaire_object.data, compiler,
@@ -1831,9 +1835,9 @@ def prepare_list_values(data, config, **kwargs):
 
     data['configuration'] = config.keyword
     # dict key is suffixed with _property when called from the serializer.
-    data['native_configuration'] = (
-        config.keyword in data.get('configurations_property',
-                                   data.get('configurations'))
-    )
+
+    # TODO: Is this attribute used anymore? Right now, there does not seem to be
+    # a way to determine native or un-native configurations anymore ...
+    data['native_configuration'] = True
 
     return data

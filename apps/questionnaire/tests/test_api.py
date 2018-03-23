@@ -36,6 +36,7 @@ class QuestionnaireListViewTest(TestCase):
         self.view = self.setup_view(
             QuestionnaireListView(), self.request, identifier='sample_1'
         )
+        self.view.configuration_code = 'sample'
 
     def tearDown(self):
         delete_all_indices()
@@ -50,6 +51,7 @@ class QuestionnaireListViewTest(TestCase):
         force_authenticate(request, user=user)
         with patch('api.models.RequestLog.save') as mock_save:
             view = QuestionnaireListView()
+            view.configuration_code = 'sample'
             view.get_es_results = Mock()
             view.get_es_results.return_value = {}
             view.dispatch(request)
@@ -68,6 +70,7 @@ class QuestionnaireListViewTest(TestCase):
         request.version = 'v1'
         view = self.setup_view(self.view, request, identifier='sample_1')
         view.set_attributes()
+        view.configuration_code = 'sample'
         view.get_elasticsearch_items()
         self.assertEqual(view.current_page, 5)
 
@@ -122,8 +125,8 @@ class QuestionnaireListViewTest(TestCase):
         config.get_questionnaire_name.return_value = {'en': 'name'}
         mock_get_configuration.return_value = config
         item = self.view.replace_keys(dict(
-            name='name', foo='bar', serializer_config='', data={},
-            code='sample_1')
+            name='name', foo='bar', serializer_config='', serializer_edition='',
+            data={}, code='sample_1')
         )
         self.assertEqual(
             item['bar'], [{'language': 'en', 'text': 'foo'}]

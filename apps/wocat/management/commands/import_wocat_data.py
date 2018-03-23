@@ -1578,7 +1578,7 @@ class WOCATImport(Logger):
         self.import_objects = []
 
         self.configuration = get_configuration(
-            configuration_code=self.configuration_code)
+            code=self.configuration_code)
 
     def collect_import_objects(self):
         """

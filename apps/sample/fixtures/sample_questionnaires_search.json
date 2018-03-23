@@ -50,15 +50,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-10T16:07:20.847Z",
-      "updated": "2015-02-10T16:07:20.847Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 11002,
-      "questionnaire": 1,
-      "original_configuration": true
+      "updated": "2015-02-10T16:07:20.847Z",
+      "configuration": 11002
     }
   },
   {
@@ -112,15 +105,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-11T16:08:20.904Z",
-      "updated": "2015-02-11T16:08:20.904Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 11002,
-      "questionnaire": 2,
-      "original_configuration": true
+      "updated": "2015-02-11T16:08:20.904Z",
+      "configuration": 11002
     }
   },
   {
@@ -150,15 +136,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-11T16:08:20.904Z",
-      "updated": "2015-02-11T16:08:20.904Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 12001,
-      "questionnaire": 3,
-      "original_configuration": true
+      "updated": "2015-02-11T16:08:20.904Z",
+      "configuration": 12001
     }
   },
   {
@@ -191,15 +170,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-11T16:08:20.904Z",
-      "updated": "2015-02-11T16:08:20.904Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 11002,
-      "questionnaire": 4,
-      "original_configuration": true
+      "updated": "2015-02-11T16:08:20.904Z",
+      "configuration": 11002
     }
   },
   {
@@ -227,15 +199,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-11T16:08:20.904Z",
-      "updated": "2015-02-11T16:08:20.904Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 11002,
-      "questionnaire": 5,
-      "original_configuration": true
+      "updated": "2015-02-11T16:08:20.904Z",
+      "configuration": 11002
     }
   },
   {

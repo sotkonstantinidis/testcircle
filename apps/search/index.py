@@ -1,9 +1,9 @@
+from configuration.cache import get_configuration
 from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
 
 from configuration.models import Configuration
-from configuration.utils import ConfigurationList
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
 from .utils import (
@@ -319,8 +319,9 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
 
         ``list``. A list of errors occurred.
     """
-    config_list = ConfigurationList()
-    questionnaire_configuration = config_list.get(configuration_code)
+    edition = Configuration.latest_by_code(configuration_code).edition
+    questionnaire_configuration = get_configuration(
+        code=configuration_code, edition=edition)
     alias = get_alias([configuration_code])
 
     # Before looping through the objects, prepare a list of all (checkbox)

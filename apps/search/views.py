@@ -47,16 +47,16 @@ def admin(request, log=''):
         raise PermissionDenied()
 
     configurations = []
-    for active_configuration in Configuration.objects.filter(active=True):
+    for configuration in Configuration.objects.all():
         db_count = Questionnaire.with_status.public().filter(
-            configurations__code=active_configuration.code).count()
+            configuration__code=configuration.code).count()
         try:
             index_count = es.count(
-                index=get_alias([active_configuration.code])).get('count')
+                index=get_alias([configuration.code])).get('count')
         except TransportError:
             index_count = None
         config_entry = {
-            'object': active_configuration,
+            'object': configuration,
             'db_count': db_count,
             'index_count': index_count,
         }
@@ -86,7 +86,11 @@ def index(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    questionnaire_configuration = get_configuration(configuration)
+    # TODO: This should probably not always be the latest configuraion?
+    # Instead, maybe an index for each edition of a configuration?
+    edition = Configuration.latest_by_code(configuration).edition
+    questionnaire_configuration = get_configuration(
+        code=configuration, edition=edition)
     if questionnaire_configuration.get_configuration_errors() is not None:
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
@@ -124,7 +128,11 @@ def update(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    questionnaire_configuration = get_configuration(configuration)
+    # TODO: This should probably not always be the latest configuraion?
+    # Instead, maybe an index for each edition of a configuration?
+    edition = Configuration.latest_by_code(configuration).edition
+    questionnaire_configuration = get_configuration(
+        code=configuration, edition=edition)
     if questionnaire_configuration.get_configuration_errors() is not None:
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
@@ -132,7 +140,7 @@ def update(request, configuration):
     processed, errors = put_questionnaire_data(
         configuration,
         Questionnaire.with_status.public().filter(
-            configurations__code=configuration)
+            configuration__code=configuration)
     )
 
     if len(errors) > 0:

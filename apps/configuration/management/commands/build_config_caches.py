@@ -12,8 +12,7 @@ class Command(NoArgsCommand):
     """
     def handle_noargs(self, **options):
         languages = dict(settings.LANGUAGES).keys()
-        configurations = Configuration.objects.filter(active=True)
-        for configuration in configurations:
+        for configuration in Configuration.objects.all():
             for language in languages:
                 activate(language)
-                get_configuration(configuration.code)
+                get_configuration(configuration.code, configuration.edition)

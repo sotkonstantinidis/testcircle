@@ -10,15 +10,9 @@
         <img src="{% static "assets/img/picture.svg" %}" alt="{{ item.name }}">
       {% endif %}
     </a>
-    {% if item.configurations_property.0 %}
-      <figcaption class="tech-type is-{{ item.configurations_property.0 }}">
-        <span>{{ item.configurations_property.0 }}</span>
-      </figcaption>
-    {% elif item.configurations.0 %}
-      <figcaption class="tech-type is-{{ item.configurations.0 }}">
-        <span class="is-{{ item.configurations.0 }}">{{ item.configurations.0 }}</span>
-      </figcaption>
-    {% endif %}
+    <figcaption class="tech-type is-{{ item.configuration }}">
+      <span>{{ item.configuration }}</span>
+    </figcaption>
   </figure>
 
   <div class="tech-item-content">

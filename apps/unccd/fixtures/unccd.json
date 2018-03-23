@@ -3691,9 +3691,7 @@
   {
     "fields": {
       "code": "unccd",
-      "description": "The UNCCD Configuration as in PRAIS",
-      "active": true,
-      "activated": "2015-01-08T10:12:59.337Z",
+      "edition": "2015",
       "data": {
         "sections": [
           {
@@ -4486,9 +4484,7 @@
           }
         ]
       },
-      "created": "2015-01-08T10:12:59.337Z",
-      "base_code": "",
-      "name": "UNCCD PRAIS Questionnaire"
+      "created": "2015-01-08T10:12:59.337Z"
     },
     "model": "configuration.configuration",
     "pk": 2001

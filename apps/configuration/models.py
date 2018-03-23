@@ -22,14 +22,14 @@ class Configuration(models.Model):
     The model representing a configuration of the
     :class:`questionnaire.models.Questionnaire`.
     """
-    TYPE_CHOICES = (
+    CODE_CHOICES = [
         ('approaches', 'approaches'),
         ('cca', 'cca'),
         ('technologies', 'technologies'),
         ('unccd', 'unccd'),
         ('watershed', 'watershed'),
         ('wocat', 'wocat'),
-    )
+    ]
     data = JsonBField(help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
@@ -39,21 +39,21 @@ class Configuration(models.Model):
             <a href="https://jqplay.org/">jq play</a> to format your
             JSON.""")
     edition = models.CharField(max_length=10)
-    type = models.CharField(choices=TYPE_CHOICES, max_length=20)
+    code = models.CharField(choices=CODE_CHOICES, max_length=20)
     created = models.DateTimeField(auto_now=True)
 
     @classmethod
-    def latest_by_type(cls, type):
-        return cls.objects.filter(type=type).latest('created')
+    def latest_by_code(cls, code):
+        return cls.objects.filter(code=code).latest('created')
 
     def __str__(self):
-        return f'{self.type} {self.edition}'
+        return f'{self.code} {self.edition}'
 
     def get_previous_edition(self):
-        return self.get_previous_by_created(type=self.type)
+        return self.get_previous_by_created(type=self.code)
 
     def get_next_edition(self):
-        return self.get_next_by_created(type=self.type)
+        return self.get_next_by_created(type=self.code)
 
 
 class Translation(models.Model):

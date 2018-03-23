@@ -9,6 +9,7 @@ from configuration.utils import (
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.tests import TestCase
+from search.index import delete_all_indices
 from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED
 
 DEFAULT_WOCAT_CONFIGURATIONS = [
@@ -22,7 +23,7 @@ class GetConfigurationQueryFilterTest(TestCase):
         self.assertIsInstance(query_filter, Q)
         attrs = query_filter.children
         self.assertEqual(len(attrs), 1)
-        self.assertEqual(attrs[0][0], 'configurations__code')
+        self.assertEqual(attrs[0][0], 'configuration__code')
         self.assertEqual(attrs[0][1], 'foo')
 
     def test_returns_combined_query_for_wocat(self):
@@ -37,7 +38,7 @@ class GetConfigurationQueryFilterTest(TestCase):
         self.assertIsInstance(query_filter, Q)
         attrs = query_filter.children
         self.assertEqual(len(attrs), 1)
-        self.assertEqual(attrs[0][0], 'configurations__code')
+        self.assertEqual(attrs[0][0], 'configuration__code')
         self.assertEqual(attrs[0][1], 'wocat')
 
 
@@ -52,7 +53,12 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
 
     def setUp(self):
         super().setUp()
+        delete_all_indices()
         create_temp_indices(['sample'])
+
+    def tearDown(self):
+        super().tearDown()
+        delete_all_indices()
 
     @patch('configuration.utils.check_aliases')
     def test_returns_single_configuration(self, mock_check_aliases):
@@ -69,7 +75,9 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
         index_filter = get_configuration_index_filter('foo')
         self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
 
-    def test_unccd_returns_single_configuration(self):
+    @patch('configuration.utils.check_aliases')
+    def test_unccd_returns_single_configuration(self, mock_check_aliases):
+        mock_check_aliases.return_value = True
         index_filter = get_configuration_index_filter(self.test_alias)
         self.assertEqual(index_filter, [self.test_alias])
 
@@ -83,9 +91,11 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
         index_filter = get_configuration_index_filter('wocat', only_current=True)
         self.assertEqual(index_filter, ['wocat'])
 
-    def test_returns_query_params_lower_case(self):
+    @patch('configuration.utils.check_aliases')
+    def test_returns_query_params_lower_case(self, mock_check_aliases):
+        mock_check_aliases.return_value = True
         index_filter = get_configuration_index_filter(
-            'foo', query_param_filter=(self.test_alias.upper(),))
+            'sample', query_param_filter=(self.test_alias.upper(),))
         self.assertEqual(index_filter, [self.test_alias.lower()])
 
 

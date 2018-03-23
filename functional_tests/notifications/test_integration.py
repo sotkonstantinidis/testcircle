@@ -7,8 +7,7 @@ from django.core.urlresolvers import reverse
 from model_mommy import mommy
 
 from configuration.models import Configuration
-from questionnaire.models import Questionnaire, QuestionnaireMembership, \
-    QuestionnaireConfiguration
+from questionnaire.models import Questionnaire, QuestionnaireMembership
 
 from functional_tests.base import FunctionalTest
 
@@ -38,13 +37,13 @@ class NotificationsIntegrationTest(FunctionalTest):
             code='sample_1',
             status=settings.QUESTIONNAIRE_DRAFT,
         )
-        # Create a valid questionnaire with the least required data.
-        mommy.make(
-            model=QuestionnaireConfiguration,
-            questionnaire=self.questionnaire,
-            configuration=Configuration.objects.filter(code='sample').first(),
-            original_configuration=True
-        )
+        # # Create a valid questionnaire with the least required data.
+        # mommy.make(
+        #     model=QuestionnaireConfiguration,
+        #     questionnaire=self.questionnaire,
+        #     configuration=Configuration.objects.filter(code='sample').first(),
+        #     original_configuration=True
+        # )
         mommy.make(
             model=QuestionnaireMembership,
             user=self.jay,

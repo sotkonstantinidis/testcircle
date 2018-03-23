@@ -14,9 +14,8 @@
       <table class="small-12 columns">
         <thead>
           <tr>
-            <th>Name</th>
             <th>Code</th>
-            <th>Base Code</th>
+            <th>Edition</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -24,11 +23,8 @@
         <tbody>
           {% for config in configurations %}
             <tr>
-              <td>
-                <span data-tooltip aria-haspopup="true" class="has-tip" title="{{ config.object.description }}">{{ config.object.name }}</span>
-              </td>
               <td>{{ config.object.code }}</td>
-              <td>{{ config.object.base_code|default:"-" }}</td>
+              <td>{{ config.object.edition }}</td>
               <td>
                   {% if config.index_count == None %}
                     <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>No index for this configuration.</strong></p><p>There is no index yet for this configuration. Please create one and update it to index the questionnaires.</p>">

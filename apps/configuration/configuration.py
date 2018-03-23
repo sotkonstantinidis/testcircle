@@ -1,3 +1,5 @@
+import contextlib
+
 import collections
 import datetime
 
@@ -145,74 +147,6 @@ class BaseConfigurationObject(object):
         if len(invalid_options) > 0:
             raise ConfigurationErrorInvalidOption(
                 invalid_options[0], self.configuration, self)
-
-    @staticmethod
-    def merge_configurations(obj, base_configuration, specific_configuration):
-        """
-        Merges two configuration dicts into a single one. The base
-        configuration is extended by the specific configuration.
-
-        Children are identified by their keyword and merged. The merging
-        of the children is handled by the respective class.
-
-        Args:
-            ``obj`` (BaseConfigurationObject): A configuration object.
-
-            ``base_configuration`` (dict): The base configuration on which the
-            specific configuration is based.
-
-            ``specific_configuration`` (dict): The specific configuration
-            extending the base configuration.
-
-        Returns:
-            ``dict``. The merged configuration.
-        """
-        validate_type(
-            base_configuration, dict, obj.name_current, dict, obj.name_parent)
-        validate_type(
-            specific_configuration, dict, obj.name_current, dict,
-            obj.name_parent)
-
-        merged_children = []
-        base_children = base_configuration.get(obj.name_children, [])
-        specific_children = specific_configuration.get(obj.name_children, [])
-
-        if base_children:
-            validate_type(
-                base_children, list, obj.name_children, list, obj.name_current)
-        validate_type(
-            specific_children, list, obj.name_children, list, obj.name_current)
-
-        # Collect all base configurations and find eventual specific
-        # configurations for these children
-        for base_child in base_children:
-            specific_child = find_dict_in_list(
-                specific_children, 'keyword', base_child.get('keyword'))
-            merged_children.append(
-                obj.Child.merge_configurations(
-                    obj.Child, base_child.copy(), specific_child.copy()))
-
-        # Collect all specific configurations which are not part of the
-        # base children
-        for specific_child in specific_children:
-            base_child = find_dict_in_list(
-                base_children, 'keyword', specific_child.get('keyword'))
-            if not base_child:
-                merged_children.append(specific_child.copy())
-
-        # Collect all remaining attributes of specific, except the
-        # children which are already copied.
-        for specific_key, specific_value in specific_configuration.items():
-            if specific_key == obj.name_children:
-                continue
-            base_configuration[specific_key] = specific_value
-
-        if obj.name_children:
-            base_configuration[obj.name_children] = merged_children
-        else:
-            base_configuration.update(specific_configuration)
-
-        return base_configuration
 
 
 class QuestionnaireQuestion(BaseConfigurationObject):
@@ -2186,8 +2120,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         self.inherited_data = {}
         self.configuration_object = configuration_object
         if self.configuration_object is None:
-            self.configuration_object = Configuration.get_active_by_code(
-                self.keyword)
+            # read_configuration will handle errors if it does not exist
+            with contextlib.suppress(Configuration.DoesNotExist):
+                self.configuration_object = Configuration.latest_by_code(
+                    keyword)
+        # Also store edition for easier access
+        self.edition = None
+        if self.configuration_object:
+            self.edition = self.configuration_object.edition
         self.configuration_error = None
         try:
             self.read_configuration()
@@ -2578,9 +2518,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         question.form_options.get('display_field'), user_role))
         return user_fields
 
-    def get_section_cache_key(self, section_keyword) -> str:
-        return f'{get_language()}_{self.keyword}_{section_keyword}'
-
     def read_configuration(self):
         """
         This function reads an active configuration of a Questionnaire.
@@ -2606,18 +2543,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if self.configuration_object is None:
             raise ConfigurationErrorNoConfigurationFound(self.keyword)
 
-        specific_configuration = self.configuration_object.data
-        base_configuration = {}
-        if self.configuration_object.base_code:
-            base_code = self.configuration_object.base_code
-            base_configuration_object = Configuration.get_active_by_code(
-                base_code)
-            if base_configuration_object is None:
-                raise ConfigurationErrorNoConfigurationFound(base_code)
-            base_configuration = base_configuration_object.data
-
-        self.configuration = self.merge_configurations(
-            self, base_configuration, specific_configuration)
+        self.configuration = self.configuration_object.data
         self.validate_options()
 
         conf_sections = self.configuration.get('sections')
@@ -2625,7 +2551,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             conf_sections, list, 'sections', 'list of dicts', '-')
 
         for conf_section in conf_sections:
-            self.sections.append(self.get_section(conf_section=conf_section))
+            self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
 
         self.modules = self.configuration.get('modules', [])
@@ -2640,16 +2566,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 inherited_data[
                     qg.inherited_configuration] = inherited_by_configuration
         self.inherited_data = inherited_data
-
-    def get_section(self, conf_section: dict) -> QuestionnaireSection:
-        # 1755: add version of config here.
-        cache_key = self.get_section_cache_key(section_keyword=conf_section['keyword'])
-        section = cache.get(cache_key)
-        if not section:
-            section = QuestionnaireSection(self, conf_section)
-            cache.set(cache_key, section)
-
-        return section
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):

@@ -1,6 +1,5 @@
 from django.apps import apps
 from django.db.models import Q
-from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
 from search.utils import check_aliases
 
@@ -36,12 +35,12 @@ def get_configuration_query_filter(configuration, only_current=False):
         ``django.db.models.Q``. A filter object.
     """
     if only_current is True:
-        return Q(configurations__code=configuration)
+        return Q(configuration__code=configuration)
 
     if configuration == 'wocat':
         return Q()
 
-    return Q(configurations__code=configuration)
+    return Q(configuration__code=configuration)
 
 
 def get_configuration_index_filter(
@@ -100,25 +99,6 @@ def get_configuration_index_filter(
         return default_configurations
 
 
-class ConfigurationList(object):
-    """
-    Helper object to keep track of QuestionnaireConfiguration objects.
-    Check if a given configuration already exists and returns it if so.
-    If not, it is created and added to the internal list. This prevents
-    having to create a new configuration every time when looping objects
-    of mixed configurations.
-    """
-    def __init__(self):
-        self.configurations = {}
-
-    def get(self, code):
-        configuration = self.configurations.get(code)
-        if configuration is None:
-            configuration = get_configuration(code)
-            self.configurations[code] = configuration
-        return configuration
-
-
 def create_new_code(questionnaire, configuration):
     """
     Create a new code for a Questionnaire based on the configuration.
@@ -163,8 +143,7 @@ def get_choices_from_model(model_name, only_active=True):
 
 
 def get_choices_from_questiongroups(
-        questionnaire_data: dict, questiongroups: list,
-        configuration_keyword: str) -> list:
+        questionnaire_data: dict, questiongroups: list, configuration) -> list:
     """
     Return a list of valid choices based on the presence of certain
     questiongroups within a questionnaire data JSON.
@@ -173,12 +152,11 @@ def get_choices_from_questiongroups(
         questionnaire_data: The questionnaire data dict
         questiongroups: A list of questiongroup keywords (basically a list of
           all possible choices)
-        configuration_keyword: The keyword of the current configuration
+        configuration: QuestionnaireConfiguration
 
     Returns:
         A list of possible choices [(keyword, label)]
     """
-    configuration = get_configuration(configuration_keyword)
     choices = []
     for questiongroup in questiongroups:
         if questiongroup in questionnaire_data:
