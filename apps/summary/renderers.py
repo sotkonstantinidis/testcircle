@@ -450,15 +450,12 @@ class GlobalValuesMixin:
         if not links.exists():
             yield {'text': self.n_a}
         for link in links:
-            config = link.to_questionnaire.configurations.filter(active=True)
-            if config.exists():
-                yield {'text': '{config}: {name} <a href="{base_url}{url}">'
-                               '{base_url}{url}</a>'.format(
-                    config=config.first().name,
-                    name=link.to_questionnaire.get_name(),
-                    base_url=self.base_url.rstrip('/'),
-                    url=link.to_questionnaire.get_absolute_url())
-                }
+            yield {'text': '{config}: {name} <a href="{base_url}{url}">{base_url}{url}</a>'.format(
+                config=link.to_questionnaire.configuration.code.title(),
+                name=link.to_questionnaire.get_name(),
+                base_url=self.base_url.rstrip('/'),
+                url=link.to_questionnaire.get_absolute_url())
+            }
 
     def get_reference_articles(self):
         titles = self.raw_data.get('references_title', [])

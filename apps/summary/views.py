@@ -13,7 +13,6 @@ import bs4
 
 from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 
-from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_query_status_filter, \
     get_questionnaire_data_in_single_language
@@ -228,15 +227,7 @@ class SummaryPDFCreateView(PDFTemplateView):
     default_quality = 'screen'
 
     def get(self, request, *args, **kwargs):
-        # TODO: More work needed here
         self.questionnaire = self.get_object(questionnaire_id=self.kwargs['id'])
-        try:
-            self.code = self.questionnaire.configurations.filter(
-                active=True
-            ).first().code
-        except AttributeError:
-            raise Http404
-        self.config = get_configuration(code=self.code)
         self.quality = self.request.GET.get('quality', self.default_quality)
         # filename is set withing render_to_response, this is too late as it's
         # used for caching.
@@ -247,7 +238,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
-        template = self.request.GET.get('template', self.code)
+        template = self.request.GET.get('template', self.questionnaire.configuration.code)
         return '{}/layout/{}.html'.format(self.base_template_path, template)
 
     def get_filename(self) -> str:
@@ -286,11 +277,11 @@ class SummaryPDFCreateView(PDFTemplateView):
         Get summary data from renderer according to configuration.
         """
         try:
-            renderer = self.render_classes[self.config.keyword][self.summary_type]
+            renderer = self.render_classes[self.questionnaire.configuration.code][self.summary_type]
         except KeyError:
             raise Http404
         return renderer(
-            config=self.config,
+            config=self.questionnaire.configuration_object,
             questionnaire=self.questionnaire,
             quality=self.quality,
             base_url=self.request.build_absolute_uri('/'), **data
@@ -316,7 +307,7 @@ class SummaryPDFCreateView(PDFTemplateView):
             name = '{}...'.format(name[:67])
         return {
             'footer_name': name,
-            'footer_config': self.code.title()
+            'footer_config': self.questionnaire.configuration.code.title()
         }
 
     def get_context_data(self, **kwargs):

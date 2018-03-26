@@ -1149,6 +1149,8 @@ def get_list_values(
             current_configuration_code = configuration_code
 
         # TODO: Check this properly
+        # To discuss: validate the instance of given obj (must be a Questionnaire obj) - if so,
+        # the config can easily be loaded according to the required field 'configuration'.
         if not current_configuration_edition:
             current_configuration_edition = Configuration.latest_by_code(
                 current_configuration_code).edition

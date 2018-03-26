@@ -14,7 +14,6 @@ from django.contrib.gis.db import models
 from django.contrib.messages import WARNING, SUCCESS
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.db.models import Q
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
@@ -24,8 +23,7 @@ from staticmap import StaticMap, CircleMarker, Polygon
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration, Value
-from qcat.errors import ConfigurationError
-from .signals import change_status, create_questionnaire
+from .signals import create_questionnaire
 
 from .conf import settings
 from .errors import QuestionnaireLockedException
@@ -534,15 +532,19 @@ class Questionnaire(models.Model):
                         data.append(value)
         return data
 
+    @property
+    def configuration_object(self):
+        return get_configuration(
+            code=self.configuration.code,
+            edition=self.configuration.edition
+        )
+
     def get_name(self, locale='') -> str:
         """
         Return the name of the questionnaire, based on the configuration.
         """
-        configuration_object = self.configuration
-        config = get_configuration(
-            code=configuration_object.code,
-            edition=configuration_object.edition)
-        names = config.get_questionnaire_name(self.data) or {}
+
+        names = self.configuration_object.get_questionnaire_name(self.data) or {}
         name = names.get(locale or get_language())
         if name:
             # omit additional query
@@ -613,9 +615,7 @@ class Questionnaire(models.Model):
             else:
                 return None
 
-        conf_object = get_configuration(
-            code=configuration_code, edition=self.configuration.edition)
-        geometry_value = conf_object.get_questionnaire_geometry(self.data)
+        geometry_value = self.configuration_object.get_questionnaire_geometry(self.data)
         geometry = get_geometry_from_string(geometry_value)
 
         geometry_changed = self.geom != geometry
@@ -800,10 +800,8 @@ class Questionnaire(models.Model):
             ``compiler`` (accounts.models.User): A user figuring as the
             compiler of the questionnaire.
         """
-        edition = Configuration.latest_by_code(configuration_code).edition
-        questionnaire_configuration = get_configuration(
-            code=configuration_code, edition=edition)
-        user_fields = questionnaire_configuration.get_user_fields()
+
+        user_fields = self.configuration_object.get_user_fields()
 
         # Collect the users appearing in the data dictionary.
         submitted_users = []
