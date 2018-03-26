@@ -348,7 +348,7 @@ class BaseSettings(Configuration):
     TOUCH_FILE_DEMO = values.Value(environ_prefix='')
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
-    ELASTIC_APM = values.DictValue(environ_prefix='')
+    OPBEAT = values.DictValue(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
     NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')
