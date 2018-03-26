@@ -2,7 +2,7 @@ from os.path import join
 
 from .config.common import BaseSettings
 from .config.mixins import CompressMixin, DevMixin, ProdMixin, SecurityMixin, \
-    LogMixin, TestMixin, ElasticAPMMixin
+    LogMixin, TestMixin, APMMixin
 
 
 class DevDefaultSite(DevMixin, BaseSettings):
@@ -13,7 +13,7 @@ class TestDefaultSite(TestMixin, DevDefaultSite):
     pass
 
 
-class ProdDefaultSite(ProdMixin, CompressMixin, SecurityMixin, ElasticAPMMixin, LogMixin, BaseSettings):
+class ProdDefaultSite(ProdMixin, CompressMixin, SecurityMixin, APMMixin, LogMixin, BaseSettings):
     """
     Settings for live and demo hosting.
     """
