@@ -385,10 +385,10 @@ def put_all_data():
     """
     Put data from all configurations to the es index.
     """
-    configurations = Configuration.objects.filter(active=True)
+    configurations = Configuration.objects.all()
     for configuration in configurations:
         questionnaires = Questionnaire.with_status.public().filter(
-            configurations=configuration
+            configuration=configuration
         )
         if questionnaires.exists():
             put_questionnaire_data(

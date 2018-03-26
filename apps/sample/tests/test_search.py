@@ -290,7 +290,6 @@ class GetListValuesTest(TestCase):
             for r in res:
                 self.assertEqual(r.get('configuration'), 'sample')
                 # self.assertEqual(r.get('configurations'), ['sample'])
-                self.assertTrue(r.get('native_configuration'))
                 self.assertIn('key_1', r)
                 self.assertIn('key_5', r)
                 self.assertIn('created', r)
@@ -307,7 +306,6 @@ class GetListValuesTest(TestCase):
         self.assertEqual(res.get('configuration'), 'sample')
         # After introduction of versioned configuration, there does not seem to
         # be a way to flag un-native configurations anymore?
-        self.assertTrue(res.get('native_configuration'))
         self.assertNotIn('key_1', res)
         self.assertNotIn('key_5', res)
         self.assertIn('created', res)

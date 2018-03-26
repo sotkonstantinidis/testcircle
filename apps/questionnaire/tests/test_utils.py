@@ -953,7 +953,6 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('configurations'), ['configuration'])
         self.assertEqual(ret_1.get('created', ''), 'created')
         self.assertEqual(ret_1.get('updated', ''), 'updated')
-        self.assertEqual(ret_1.get('native_configuration'), True)
         self.assertEqual(ret_1.get('id'), obj.id)
         self.assertEqual(ret_1.get('translations'), [['en', 'English']])
         self.assertEqual(ret_1.get('code'), 'code')

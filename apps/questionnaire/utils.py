@@ -1834,10 +1834,4 @@ def prepare_list_values(data, config, **kwargs):
         data['translations'] = translations
 
     data['configuration'] = config.keyword
-    # dict key is suffixed with _property when called from the serializer.
-
-    # TODO: Is this attribute used anymore? Right now, there does not seem to be
-    # a way to determine native or un-native configurations anymore ...
-    data['native_configuration'] = True
-
     return data

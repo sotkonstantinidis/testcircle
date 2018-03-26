@@ -27,7 +27,7 @@
     <header>
       <h2 class="tech-item-title">
         <a href="{% url 'technologies:questionnaire_details' item.code %}">
-          {% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}{{ item.name|default:""|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
+          {{ item.name|default:""|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
         </a>
       </h2>
     </header>

@@ -29,7 +29,7 @@
       <h2 class="tech-item-title">
         <a href="{% url 'cca:questionnaire_details' item.code %}">
           {% trans "Climate Change Adaptation Module" as no_title %}
-          {% if not item.native_configuration %}<small>[{{ item.configurations|join:"|" }}]</small> {% endif %}{{ item.name|default:no_title|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
+          {{ item.name|default:no_title|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
         </a>
       </h2>
     </header>

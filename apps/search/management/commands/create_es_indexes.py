@@ -21,12 +21,12 @@ class Command(NoArgsCommand):
             **options: None
 
         """
-        configurations = Configuration.objects.filter(active=True)
+        configurations = Configuration.objects.all()
         for language in dict(settings.LANGUAGES).keys():
             activate(language)
             for configuration in configurations:
                 questionnaire_configuration = get_configuration(
-                    configuration.code
+                    code=configuration.code, edition=configuration.edition
                 )
                 mappings = get_mappings(questionnaire_configuration)
                 create_or_update_index(configuration.code, mappings)
