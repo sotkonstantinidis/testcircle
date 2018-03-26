@@ -5,13 +5,9 @@ class Technologies(Edition):
     """
     Questionnaire updates for carbon benefit.
     """
-    type = 'technologies'
+    code = 'technologies'
     edition = 2018
 
     @operation
-    def country_as_checkbox(self):
-        return {
-            'diff': '',
-            'question_keyword': 'path to the question in the current structure? is this relevant?',
-            'help_text': 'Unstructured text is now a list of given options'
-        }
+    def change_type(self, **data) -> dict:
+        return data

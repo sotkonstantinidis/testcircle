@@ -1,69 +1,77 @@
-from ..configuration import QuestionnaireConfiguration
-from ..models import Configuration
+from configuration.models import Configuration
 
 
 class Edition:
     """
-    Base class for a new edition of a questionnaire configuration.
+    Base class for a new edition of a questionnaire configuration, providing a central interface for:
 
-    Provides a central interface for:
-    - callable to migrate data (run_migration); forwards migrations only!
-    - helpers for changes in the configuration ('diff')
-    - some global utilities (help texts and such).
+    - Simple, explicit definition for changes in configuration
+      - Re-use of operations, with possibility of customizing them (callables)
+      - Changes can be tracked per question between editions
+
+    - Verbose display of changes before application
+
+    - Generic helper methods for help texts, release notes and such
 
     """
 
-    type = ''
+    code = ''
     edition = ''
     operations = []
 
     def __init__(self):
         """
         Load operations, and validate the required instance variables.
-        """
-        self._set_operations()
 
-        for required_variable in ['type', 'edition', 'operations']:
+        """
+        self._set_operation_methods()
+        self.validate_instance_variables()
+
+    def validate_instance_variables(self):
+        for required_variable in ['code', 'edition', 'operations']:
             if not getattr(self, required_variable):
                 raise NotImplementedError('Instance variable "%s" is required' % required_variable)
 
-    def _set_operations(self):
+        if self.code not in [code[0] for code in Configuration.CODE_CHOICES]:
+            raise AttributeError('Code %s is not a valid configuration code choice' % self.code)
+
+    def _set_operation_methods(self):
         """
-        Collect all methods decorated with @callable and append them to the operations-list.
+        Collect all methods decorated with @operation and append them to the operations-list.
+
         """
         for method_name in filter(lambda name: not name.startswith('__'), dir(self)):
             method = getattr(self, method_name)
             if hasattr(method, 'is_operation') and getattr(method, 'is_operation'):
+                #_operation = method()
+                #if not isinstance(_operation, Operation):
+                #    raise ValueError('Only subclasses of "Operation" are allowed')
                 self.operations.append(method)
 
     def run_operations(self, configuration: Configuration):
         """
-        - Collect 'previous' configuration,
-        - Apply operations, as defined by self.operations[]
-        - save it (if valid)
+        Apply operations, as defined by self.operations
 
         """
-        data = Configuration.latest_by_type(type=self.type).data
+        data = configuration.latest_by_code(code=self.code).data
+        for _operation in self.operations:
+            # data = _operation.migrate(**data)
+            data = _operation(**data)
 
-        for operation in self.operations:
+        self.save_object(configuration=configuration, **data)
 
-            # as of now, 'diff' is a callable.
-            # how is it executed?
-            # where is the help-text needed?
-            # the current solution is nasty - this needs discussion!
-            data = operation()['diff'](data)
+    def save_object(self, configuration: Configuration, **data) -> Configuration:
+        """
+        Create or update the configuration with the modified data.
 
-        # Check: Must a configuration be saved before it can be loaded / validated?
-        obj = self.save_object(configuration=configuration, data=data)
-
-        QuestionnaireConfiguration(keyword=obj.type)
-
-    def save_object(self, configuration: Configuration, data: dict):
-        obj = configuration(
+        """
+        obj, _ = configuration.objects.get_or_create(
             edition=self.edition,
-            type=self.type,
-            data=data
+            code=self.code
         )
+        obj.data = data
+
+        # @TODO: validate data before calling save
         obj.save()
         return obj
 
@@ -73,14 +81,14 @@ class Edition:
     @classmethod
     def run_migration(cls, apps, schema_editor):
         """
-        Callable for your migration file. Create an empty migration with:
+        Callable for the django migration file. Create an empty migration with:
 
         ```python manage.py makemigrations configuration --empty```
 
         Add this tho the operations list:
 
         operations = [
-            migrations.RunPython(run_migration)
+            migrations.RunPython(<Subclass>.run_migration)
         ]
 
         """
@@ -88,9 +96,30 @@ class Edition:
         cls().run_operations(configuration=Configuration)
 
 
+class Operation:
+    """
+    Data structure for an 'operation' method.
+    Centralized wrapper for all operations, so they can be extended / modified in a single class.
+
+    As of now, simply apply the transformation to given data.
+    At a later point, this should also include the 'keywords' of changed questions, so the context
+    aware help can be built easily.
+
+    @todo: discuss - is this over-engineering or necessary for future development? right now,
+    this is not in use...
+
+    """
+    def __init__(self, transformation: callable):
+        self.transformation = transformation
+
+    def migrate(self, **data) -> dict:
+        return self.transformation(**data)
+
+
 def operation(func):
     """
     Set an attribute to the wrapped method, so it is appended to the list of operations.
+
     """
     func.is_operation = True
     return func
