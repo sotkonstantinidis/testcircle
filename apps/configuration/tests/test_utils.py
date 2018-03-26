@@ -10,7 +10,8 @@ from configuration.utils import (
     get_choices_from_model)
 from qcat.tests import TestCase
 from search.index import delete_all_indices
-from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED
+from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED, \
+    TEST_INDEX_PREFIX
 
 DEFAULT_WOCAT_CONFIGURATIONS = [
     'unccd', 'technologies', 'approaches', 'watershed']
@@ -53,12 +54,12 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
 
     def setUp(self):
         super().setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample'])
 
     def tearDown(self):
         super().tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @patch('configuration.utils.check_aliases')
     def test_returns_single_configuration(self, mock_check_aliases):

@@ -50,12 +50,12 @@ class LinkTests(FunctionalTest):
 
     def setUp(self):
         super(LinkTests, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
         super(LinkTests, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_do_not_show_deleted_links_in_form(self):
 

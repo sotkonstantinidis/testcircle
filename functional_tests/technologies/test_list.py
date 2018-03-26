@@ -25,13 +25,13 @@ class ListTest(FunctionalTest):
 
     def setUp(self):
         super(ListTest, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['technologies', 'approaches', 'wocat', 'unccd',
                              'cca', 'watershed'])
 
     def tearDown(self):
         super(ListTest, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_list_is_available(self):
 

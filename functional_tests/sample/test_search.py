@@ -27,12 +27,12 @@ class SearchTest(FunctionalTest):
 
     def setUp(self):
         super(SearchTest, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
         super(SearchTest, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_search_home(self, mock_get_configuration_index_filter):
@@ -104,7 +104,7 @@ class SearchTestAdmin(FunctionalTest):
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         user = create_new_user()
         user.is_superuser = True
         user.save()
@@ -112,7 +112,7 @@ class SearchTestAdmin(FunctionalTest):
 
     def tearDown(self):
         super(SearchTestAdmin, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_search_admin(self):
 

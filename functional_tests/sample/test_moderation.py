@@ -40,12 +40,12 @@ class ModerationTest(FunctionalTest):
 
     def setUp(self):
         super(ModerationTest, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample'])
 
     def tearDown(self):
         super(ModerationTest, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @patch('questionnaire.signals.create_questionnaire.send')
     @patch('questionnaire.signals.change_status.send')
@@ -179,7 +179,7 @@ class ModerationTestFixture(FunctionalTest):
 
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample'])
 
         self.user_compiler = User.objects.get(pk=101)
@@ -190,7 +190,7 @@ class ModerationTestFixture(FunctionalTest):
 
     def tearDown(self):
         super(ModerationTestFixture, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_review_locked_questionnaire(self):
         # Secretariat user logs in

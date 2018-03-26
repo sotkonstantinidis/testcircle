@@ -62,12 +62,12 @@ class FlaggingTest(FunctionalTest):
 
     def setUp(self):
         super(FlaggingTest, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'unccd'])
 
     def tearDown(self):
         super(FlaggingTest, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @unittest.skip("Disabling this until further info about UNCCD flagging")
     def test_unccd_focal_point(self):

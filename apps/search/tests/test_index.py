@@ -419,21 +419,21 @@ class DeleteQuestionnairesFromEsTest(TestCase):
 class DeleteAllIndicesTest(TestCase):
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         mock_es.indices.delete.assert_called_once_with(index='{}*'.format(
             TEST_INDEX_PREFIX))
 
     @patch('search.index.es')
     def test_returns_false_if_no_success(self, mock_es):
         mock_es.indices.delete.return_value = {'acknowledged': False}
-        success, error_msg = delete_all_indices()
+        success, error_msg = delete_all_indices(prefix=TEST_INDEX_PREFIX)
         self.assertFalse(success)
         self.assertEqual(error_msg, 'Indices could not be deleted')
 
     @patch('search.index.es')
     def test_returns_true_if_no_success(self, mock_es):
         mock_es.indices.delete.return_value = {'acknowledged': True}
-        success, error_msg = delete_all_indices()
+        success, error_msg = delete_all_indices(prefix=TEST_INDEX_PREFIX)
         self.assertTrue(success)
         self.assertEqual(error_msg, '')
 

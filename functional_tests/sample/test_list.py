@@ -37,12 +37,12 @@ class ListTest(FunctionalTest):
         self.url_questionnaire_filter_sample = self.live_server_url + reverse(
             route_questionnaire_filter) + '?type=sample'
         super(ListTest, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'unccd'])
 
     def tearDown(self):
         super(ListTest, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_list_is_available(self):
 
@@ -1285,12 +1285,12 @@ class ListTestLinks(FunctionalTest):
 
     def setUp(self):
         super(ListTestLinks, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
         super(ListTestLinks, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_list_displays_links_user_questionnaires(self):
 
@@ -1403,12 +1403,12 @@ class ListTestStatus(FunctionalTest):
 
     def setUp(self):
         super(ListTestStatus, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample'])
 
     def tearDown(self):
         super(ListTestStatus, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     # def test_unknown_name(self):
     #     user = create_new_user()

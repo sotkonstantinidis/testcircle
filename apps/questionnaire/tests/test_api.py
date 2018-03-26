@@ -27,7 +27,7 @@ class QuestionnaireListViewTest(TestCase):
     fixtures = ['global_key_values', 'sample', 'sample_questionnaires']
 
     def setUp(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample'])
         self.factory = RequestFactory()
         self.url = '/en/api/v1/questionnaires/sample_1/'
@@ -39,7 +39,7 @@ class QuestionnaireListViewTest(TestCase):
         self.view.configuration_code = 'sample'
 
     def tearDown(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_logs_call(self):
         """

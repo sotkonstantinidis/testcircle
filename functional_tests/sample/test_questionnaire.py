@@ -2545,12 +2545,12 @@ class QuestionnaireTestIndex(FunctionalTest):
 
     def setUp(self):
         super(QuestionnaireTestIndex, self).setUp()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
         super(QuestionnaireTestIndex, self).tearDown()
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_enter_questionnaire(self):
         # Alice logs in

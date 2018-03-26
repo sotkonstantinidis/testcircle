@@ -419,7 +419,7 @@ def delete_questionnaires_from_es(configuration_code, questionnaire_objects):
             pass
 
 
-def delete_all_indices():
+def delete_all_indices(prefix=settings.ES_INDEX_PREFIX):
     """
     Delete all the indices starting with the prefix as specified in the
     settings (``ES_INDEX_PREFIX``).
@@ -431,9 +431,9 @@ def delete_all_indices():
         ``str``. An optional error message if the operation was not
         successful.
     """
-    deleted = es.indices.delete(index='{}*'.format(settings.ES_INDEX_PREFIX))
+    deleted = es.indices.delete(index=f'{prefix}*')
     if deleted.get('acknowledged') is not True:
-        return (False, 'Indices could not be deleted')
+        return False, 'Indices could not be deleted'
 
     return True, ''
 

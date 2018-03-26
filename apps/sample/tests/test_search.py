@@ -34,11 +34,11 @@ class SimpleSearchTest(TestCase):
         'sample_questionnaires_search.json']
 
     def setUp(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_simple_search_returns_results_of_code(self):
         key_search = simple_search(
@@ -69,11 +69,11 @@ class AdvancedSearchTest(TestCase):
         'sample_questionnaires_search.json']
 
     def setUp(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_advanced_search(self):
         filter_param = FilterParam(
@@ -269,11 +269,11 @@ class GetListValuesTest(TestCase):
         'sample_questionnaires_search.json']
 
     def setUp(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices(['sample', 'samplemulti'])
 
     def tearDown(self):
-        delete_all_indices()
+        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_returns_same_result_for_es_search_and_db_objects(self):
         res_1 = get_list_values(
