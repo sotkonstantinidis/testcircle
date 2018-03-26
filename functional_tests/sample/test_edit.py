@@ -708,11 +708,7 @@ class CustomToOptionsTest(FunctionalTest):
                     'Value 66 1 Right"]')
 
         # She selects Value 2 of key 64
-        self.findBy('xpath',
-                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
-        self.findBy('xpath',
-                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
-                    'results"]/li[contains(text(), "Value 64 2")]').click()
+        self.select_chosen_element('id_qg_47_0_key_64_chosen', 'Value 64 2')
 
         # She sees the labels were updated in key_65 and key_67
         self.findBy('xpath',
@@ -731,11 +727,7 @@ class CustomToOptionsTest(FunctionalTest):
                     '"disabled")]/a/span[text()="Value 66 2 Right"]')
 
         # She selects Value 3 of key 64
-        self.findBy('xpath',
-                    '//div[@id="id_qg_47_0_key_64_chosen"]').click()
-        self.findBy('xpath',
-                    '//div[@id="id_qg_47_0_key_64_chosen"]//ul[@class="chosen-'
-                    'results"]/li[contains(text(), "Value 64 3")]').click()
+        self.select_chosen_element('id_qg_47_0_key_64_chosen', 'Value 64 3')
 
         # She sees the labels were updated and show the first value possible
         self.findBy('xpath',

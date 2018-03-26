@@ -63,12 +63,15 @@ class LinkedChoicesTest(FunctionalTest):
 
         self.findBy('xpath',
                     '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]', wait=True).click()
-        self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "annual temperature")]', wait=True)
-        self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "local rainstorm")]', wait=True)
-        self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]//ul[@class="chosen-results"]/li[contains(text(), "insect/ worm infestation")]', wait=True).click()
+        self.select_chosen_element(
+            'id_cca_qg_40_0_climate_related_extreme_conditional_chosen',
+            'annual temperature')
+        self.select_chosen_element(
+            'id_cca_qg_40_0_climate_related_extreme_conditional_chosen',
+            'local rainstorm')
+        self.select_chosen_element(
+            'id_cca_qg_40_0_climate_related_extreme_conditional_chosen',
+            'insect/ worm infestation')
 
     def test_linked_choices_within_step(self):
 

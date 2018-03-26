@@ -2373,7 +2373,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                     value = question_data.get(list_entry[1])
                     if list_entry[2] == 'image':
                         key = 'image'
-                        if key in questionnaire_value:
+                        if questionnaire_value.get(key):
                             # If there is already an image, do not add it again
                             continue
                         image_data = File.get_data(uid=value)
