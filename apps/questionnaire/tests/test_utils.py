@@ -706,8 +706,6 @@ class GetLinkDataTest(TestCase):
             'foo', mock_get_configuration().get_questionnaire_name().get(),
             link.code)
 
-    from nose.plugins.attrib import attr
-    @attr('foo')
     def test_return_values(self, mock_get_link_display, mock_get_configuration):
         link = Mock()
         link.configuration.code = 'foo'
@@ -906,7 +904,7 @@ class GetListValuesTest(TestCase):
     fixtures = ['sample_global_key_values.json', 'sample.json', 'samplemulti.json']
 
     def setUp(self):
-        self.values_length = 13
+        self.values_length = 12
         self.es_hits = [{'_id': 1}]
 
     def test_serializer_uses_provided_configuration(self):

@@ -27,11 +27,11 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         self.view = self.setup_view(self.base_view, self.request, id=1)
         self.view.code = 'sample'
         self.view.quality = 'screen'
+        self.view.questionnaire = MagicMock(configuration=MagicMock(code='test_code'))
 
     @patch.object(SummaryPDFCreateView, 'get_object')
     @patch.object(SummaryPDFCreateView, 'get_prepared_data')
-    @patch('summary.views.get_configuration')
-    def test_get(self, mock_get_configuration, mock_prepared_data, mock_object):
+    def test_get(self, mock_prepared_data, mock_object):
         mock_object.return_value = MagicMock()
         self.request.user = mommy.make(get_user_model())
         view = self.view.get(request=self.request)
@@ -59,22 +59,22 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
             expected, self.view.get_filename()
         )
 
-    @patch('summary.views.get_configuration')
-    def test_get_summary_data(self, mock_config):
+    def test_get_summary_data(self):
         renderer = MagicMock()
         base_view = SummaryPDFCreateView()
         base_view.code = 'code'
         base_view.quality = 'screen'
         base_view.summary_type = 'summary_type'
         base_view.render_classes = {'config_type': {'summary_type': renderer}}
-        base_view.questionnaire = MagicMock()
-        mock_config.keyword = 'config_type'
-        base_view.config = mock_config
+        base_view.questionnaire = MagicMock(
+            configuration=MagicMock(code='config_type'),
+            configuration_object=sentinel.config
+        )
         view = self.setup_view(base_view, self.request, id=1)
         view.get_summary_data()
         renderer.assert_called_once_with(
             base_url='http://foo/',
-            config=mock_config,
+            config=sentinel.config,
             quality='screen',
             questionnaire=base_view.questionnaire
         )
@@ -87,9 +87,8 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         mock_status_filter.assert_called_once_with(self.request)
 
     def test_get_template_names(self):
-        self.view.code = 'bar'
         self.assertEqual(
-            '{}/layout/bar.html'.format(self.view.base_template_path),
+            '{}/layout/test_code.html'.format(self.view.base_template_path),
             self.view.get_template_names()
         )
 
@@ -99,6 +98,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         view = self.setup_view(self.base_view, self.factory.get(url), id=1)
         view.code = 'bar'
         view.base_template_path = base_path
+        view.questionnaire = MagicMock(configuration=MagicMock(code='test_code'))
         self.assertEqual(
             '{}/layout/foo.html'.format(base_path), view.get_template_names()
         )
