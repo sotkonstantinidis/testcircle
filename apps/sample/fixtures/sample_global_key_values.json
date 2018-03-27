@@ -179,8 +179,7 @@
       "configuration": {
         "type": "select_model",
         "form_options": {
-          "model": "Project",
-          "display_field": "funding_project_display"
+          "model": "Project"
         }
       }
     },
@@ -200,21 +199,6 @@
     },
     "model": "configuration.key",
     "pk": 47
-  },
-  {
-    "fields": {
-      "keyword": "funding_project_display",
-      "translation": 5053,
-      "configuration": {
-        "type": "display_only",
-        "form_options": {
-          "template": "no_label",
-          "helptext_position": "none"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 51
   },
   {
     "fields": {

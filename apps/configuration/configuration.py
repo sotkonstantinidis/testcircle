@@ -1,4 +1,3 @@
-import contextlib
 import collections
 import datetime
 
@@ -974,9 +973,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': value,
                 'label': self.label_view,
             })
-            with contextlib.suppress(model.DoesNotExist):
+            try:
                 template_values['text'] = model.objects.get(id=value).__str__()
-
+            except model.DoesNotExist:
+                # Edge condition for old cases without ID but with display value
+                template_values['text'] = data.get(f'{self.keyword}_display', '')
         elif self.field_type in ['link_id']:
             return '\n'
 

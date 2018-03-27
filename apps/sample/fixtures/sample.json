@@ -2944,17 +2944,6 @@
   },
   {
     "fields": {
-      "keyword": "key_53",
-      "translation": 11053,
-      "configuration": {
-        "type": "display_only"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 11053
-  },
-  {
-    "fields": {
       "keyword": "key_54",
       "translation": 11054,
       "configuration": {
@@ -2963,17 +2952,6 @@
     },
     "model": "configuration.key",
     "pk": 11054
-  },
-  {
-    "fields": {
-      "keyword": "key_55",
-      "translation": 11055,
-      "configuration": {
-        "type": "display_only"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 11055
   },
   {
     "fields": {
@@ -4295,9 +4273,6 @@
                         "questions": [
                           {
                             "keyword": "funding_project"
-                          },
-                          {
-                            "keyword": "funding_project_display"
                           }
                         ]
                       }
@@ -4541,14 +4516,7 @@
                           {
                             "keyword": "key_52",
                             "form_options": {
-                              "model": "Project",
-                              "display_field": "key_53"
-                            }
-                          },
-                          {
-                            "keyword": "key_53",
-                            "form_options": {
-                              "template": "no_label"
+                              "model": "Project"
                             }
                           }
                         ]
@@ -4559,12 +4527,8 @@
                           {
                             "keyword": "key_54",
                             "form_options": {
-                              "model": "Institution",
-                              "display_field": "key_55"
+                              "model": "Institution"
                             }
-                          },
-                          {
-                            "keyword": "key_55"
                           }
                         ]
                       }

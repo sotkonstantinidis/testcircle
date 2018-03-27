@@ -401,9 +401,6 @@ function removeFilter(questiongroup, key) {
         keyParameter = 'q';
     } else if (['created', 'updated', 'flag', 'type', 'lang'].indexOf(key) >= 0) {
         keyParameter = key;
-    } else if (key == 'funding_project_display') {
-        key = key.replace('_display', '');
-        keyParameter = createKeyParameter(questiongroup, key);
     } else {
         keyParameter = createKeyParameter(questiongroup, key);
     }
