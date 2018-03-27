@@ -1,3 +1,5 @@
+from django.template.loader import render_to_string
+
 from configuration.models import Configuration
 
 
@@ -37,15 +39,12 @@ class Edition:
 
     def _set_operation_methods(self):
         """
-        Collect all methods decorated with @operation and append them to the operations-list.
+        Collect all properties that provide an Operation.
 
         """
         for method_name in filter(lambda name: not name.startswith('__'), dir(self)):
             method = getattr(self, method_name)
-            if hasattr(method, 'is_operation') and getattr(method, 'is_operation'):
-                #_operation = method()
-                #if not isinstance(_operation, Operation):
-                #    raise ValueError('Only subclasses of "Operation" are allowed')
+            if isinstance(method, Operation):
                 self.operations.append(method)
 
     def run_operations(self, configuration: Configuration):
@@ -55,8 +54,7 @@ class Edition:
         """
         data = configuration.latest_by_code(code=self.code).data
         for _operation in self.operations:
-            # data = _operation.migrate(**data)
-            data = _operation(**data)
+            data = _operation.migrate(**data)
 
         self.save_object(configuration=configuration, **data)
 
@@ -75,8 +73,9 @@ class Edition:
         obj.save()
         return obj
 
-    def get_help_text(self):
-        pass
+    def get_release_notes(self):
+        for _operation in self.operations:
+            _operation.render()
 
     @classmethod
     def run_migration(cls, apps, schema_editor):
@@ -101,25 +100,19 @@ class Operation:
     Data structure for an 'operation' method.
     Centralized wrapper for all operations, so they can be extended / modified in a single class.
 
-    As of now, simply apply the transformation to given data.
-    At a later point, this should also include the 'keywords' of changed questions, so the context
-    aware help can be built easily.
-
-    @todo: discuss - is this over-engineering or necessary for future development? right now,
-    this is not in use...
-
     """
-    def __init__(self, transformation: callable):
+    default_template = ''
+
+    def __init__(self, transformation: callable, release_note: str, **kwargs):
         self.transformation = transformation
+        self.release_note = release_note
+        self.template_name = kwargs.get('template_name', self.default_template)
 
     def migrate(self, **data) -> dict:
         return self.transformation(**data)
 
-
-def operation(func):
-    """
-    Set an attribute to the wrapped method, so it is appended to the list of operations.
-
-    """
-    func.is_operation = True
-    return func
+    def render(self) -> str:
+        return render_to_string(
+            template_name=self.template_name,
+            context={'note': self.release_note}
+        )
