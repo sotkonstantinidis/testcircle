@@ -347,6 +347,25 @@ class TranslationModelTest(TestCase):
         self.assertIsNone(self.translation.get_translation(
             'keyword', configuration='foo'), None)
 
+    def test_get_translation_edition(self):
+        translation = Translation(data={
+            'configuration': {'keyword': {'en': 'foo'}},
+            'configuration_edition': {'keyword': {'en': 'all new'}}
+        })
+        self.assertEqual(
+            translation.get_translation('keyword', 'configuration', edition='edition'),
+            'all new'
+        )
+
+    def test_get_translation_fallback(self):
+        translation = Translation(data={
+            'configuration': {'keyword': {'en': 'foo'}},
+            'configuration_edition': {'keyword': {'en': 'all new'}}
+        })
+        self.assertEqual(
+            translation.get_translation('keyword', 'configuration'),
+            'foo'
+        )
 
 class ValueUserTest(TestCase):
 

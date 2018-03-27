@@ -1,78 +1,58 @@
 from unittest import mock
 
-from configuration.models import Configuration
 from qcat.tests import TestCase
+from configuration.models import Configuration, Key, Value, Translation
 from ..editions.base import Edition
-from ..editions.technologies_2018 import Technologies
 
 
 class EditionsTest(TestCase):
 
-    def setUp(self):
-        super().setUp()
-        self.mock_choices = [('test_code', 'test_code'), ]
+    @property
+    def model_kwargs(self):
+        return dict(
+            key=mock.MagicMock(spec=Key),
+            value=mock.MagicMock(spec=Value),
+            configuration=mock.MagicMock(spec=Configuration),
+            translation=mock.MagicMock(spec=Translation)
+        )
 
-    @staticmethod
-    def get_edition():
+    def get_edition(self, code='test_code', edition='1234'):
+
         class TestEdition(Edition):
-            code = 'test_code'
-            edition = '1234'
+            def __init__(self, code, edition, **kwargs):
+                self.code = code
+                self.edition = edition
+                super().__init__(**kwargs)
 
-        return TestEdition
+        return TestEdition(
+            code=code,
+            edition=edition,
+            **self.model_kwargs
+        )
 
     def test_invalid_code(self):
-        operation = mock.MagicMock(is_operation=True)
-        edition = self.get_edition()
-        edition.foo = operation
         with self.assertRaises(AttributeError):
-            edition()
+            self.get_edition()
 
     @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
     def test_no_operations(self, mock_choices):
-        mock_choices.return_value = self.mock_choices
+        mock_choices.return_value = [('test_code', 'test_code'), ]
         with self.assertRaises(NotImplementedError):
-            ed = self.get_edition()()
+            self.get_edition().operations
 
     @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
-    def test_decorated_operation(self, mock_choices):
+    def test_new_translation(self, mock_choices):
+        mock_choices.return_value = [('test_code', 'test_code'), ]
+
+        new_translation = {'label': 'bar'}
         edition = self.get_edition()
-        mock_choices.return_value = self.mock_choices
-        operation = mock.MagicMock(is_operation=True)
-        edition.foo = operation
-        no_operation = mock.MagicMock(is_operation=False)
-        edition.bar = no_operation
+        translation_obj = mock.MagicMock()
+        edition.translation.objects.get.return_value = translation_obj
 
-        self.assertEqual(
-            edition().operations,
-            [operation]
+        edition.update_translation(
+            update_pk=1, **new_translation
         )
-
-    def test_new_type(self):
-        data = {
-            "keyword": "some_keyword",
-            "configuration": {
-                "type": "text"
-            }
-        }
-        expected = {
-            "keyword": "some_keyword",
-            "configuration": {
-                "type": "checkbox"
-            },
-            "value": [1, 2, 3]
-        }
-        edition = Technologies
-        self.assertDictEqual(
-            edition().change_type(**data),
-            expected
+        self.assertIn(
+            mock.call.data.update({'test_code_1234': new_translation}),
+            translation_obj.method_calls
         )
-
-    @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
-    def test_operations_called(self, mock_choices):
-        mock_choices.return_value = self.mock_choices
-        operation = mock.MagicMock(is_operation=True)
-        edition = self.get_edition()
-        edition.foo = operation
-        edition.save_object = mock.MagicMock()
-        edition().run_operations(configuration=mock.MagicMock())
-        operation.assert_called_once()

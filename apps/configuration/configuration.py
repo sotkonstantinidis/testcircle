@@ -101,6 +101,7 @@ class BaseConfigurationObject(object):
             raise Exception('Unknown instance')
 
         self.configuration_keyword = parent_object.configuration_keyword
+        self.edition = parent_object.edition
         self.parent_object = parent_object
 
         self.helptext = ''
@@ -108,17 +109,22 @@ class BaseConfigurationObject(object):
         self.label_view = ''
         translation = self.configuration_object.translation
         if translation:
+            translation_kwargs = dict(configuration=self.configuration_keyword, edition=self.edition)
             self.helptext = translation.get_translation(
-                'helptext', self.configuration_keyword)
+                keyword='helptext', **translation_kwargs
+            )
             self.label = translation.get_translation(
-                'label', self.configuration_keyword)
+                keyword='label', **translation_kwargs
+            )
             self.label_view = translation.get_translation(
-                'label_view', self.configuration_keyword)
+                keyword='label_view', **translation_kwargs
+            )
             if self.label_view is None:
                 self.label_view = self.label
             if isinstance(self, QuestionnaireQuestion):
                 self.label_filter = translation.get_translation(
-                    'label_filter', self.configuration_keyword)
+                    keyword='label_filter', **translation_kwargs
+                )
                 if self.label_filter is None:
                     self.label_filter = self.label_view
 
@@ -307,6 +313,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.choices = ()
         self.choices_helptexts = []
         self.value_objects = []
+        translation_kwargs = dict(configuration=self.configuration_keyword, edition=self.edition)
+
         if self.field_type in ['bool']:
             self.choices = ((1, _('Yes')), (0, _('No')))
         elif self.field_type in ['cb_bool']:
@@ -328,15 +336,17 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 if v.order_value:
                     ordered_values = True
                 if self.field_type in ['measure']:
-                    choices.append((i + 1, v.get_translation(
-                        'label', self.configuration_keyword),
-                        v.get_translation(
-                            'helptext', self.configuration_keyword)))
+                    choices.append((
+                        i + 1,
+                        v.get_translation(keyword='label', **translation_kwargs),
+                        v.get_translation(keyword='helptext', **translation_kwargs)
+                    ))
                 else:
-                    choices.append((v.keyword, v.get_translation(
-                        'label', self.configuration_keyword),
-                        v.get_translation(
-                            'helptext', self.configuration_keyword)))
+                    choices.append((
+                        v.keyword,
+                        v.get_translation(keyword='label', **translation_kwargs),
+                        v.get_translation(keyword='helptext', **translation_kwargs)
+                    ))
                 if self.field_type in ['image_checkbox']:
                     self.images.append('{}{}'.format(
                         self.value_image_path,
@@ -353,9 +363,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         if self.field_type in ['measure']:
             translation = self.configuration_object.translation
             label_left = translation.get_translation(
-                'label_left', self.configuration_keyword)
+                keyword='label_left', **translation_kwargs
+            )
             label_right = translation.get_translation(
-                'label_right', self.configuration_keyword)
+                keyword='label_right', **translation_kwargs
+            )
             self.additional_translations.update(
                 {'label_left': label_left, 'label_right': label_right})
 

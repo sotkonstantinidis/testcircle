@@ -20,6 +20,10 @@ class Edition:
     code = ''
     edition = ''
 
+    @property
+    def operations(self):
+        raise NotImplementedError('A list of operations is required.')
+
     def __init__(self, key: Key, value: Value, configuration: Configuration, translation: Translation):
         """
         Load operations, and validate the required instance variables.
@@ -29,42 +33,40 @@ class Edition:
         self.value = value
         self.configuration = configuration
         self.translation = translation
-        self.operations = []
-        self._set_operation_methods()
         self.validate_instance_variables()
 
     def validate_instance_variables(self):
-        for required_variable in ['code', 'edition', 'operations']:
+        for required_variable in ['code', 'edition']:
             if not getattr(self, required_variable):
                 raise NotImplementedError('Instance variable "%s" is required' % required_variable)
 
         if self.code not in [code[0] for code in Configuration.CODE_CHOICES]:
             raise AttributeError('Code %s is not a valid configuration code choice' % self.code)
 
-    def _set_operation_methods(self):
-        """
-        Collect all properties that provide an Operation.
-
-        """
-        for method_name in filter(lambda name: not name.startswith('__'), dir(self)):
-            method = getattr(self, method_name)
-            if isinstance(method, Operation):
-                self.operations.append(method)
-
     def run_operations(self):
         """
         Apply operations, as defined by self.operations
 
         """
-        data = self.configuration.objects.filter(
-            code=self.code
-        ).exclude(
-            code=self.code, edition=self.edition
-        ).latest('created').data
+        data = self.get_base_configuration_data()
+
         for _operation in self.operations:
             data = _operation.migrate(**data)
 
         self.save_object(**data)
+
+    def get_base_configuration_data(self):
+        """
+        Get configuration data from the 'previous' version, which is the base for this edition.
+
+        """
+        return self.configuration.objects.filter(
+            code=self.code
+        ).exclude(
+            code=self.code, edition=self.edition
+        ).latest(
+            'created'
+        ).data
 
     def save_object(self, **data) -> Configuration:
         """
@@ -99,11 +101,26 @@ class Edition:
         ]
 
         """
-        Configuration = apps.get_model("configuration", "Configuration")
-        Key = apps.get_model("configuration", "Key")
-        Value = apps.get_model("configuration", "Value")
-        Translation = apps.get_model("configuration", "Translation")
-        cls(key=Key, value=Value, configuration=Configuration, translation=Translation).run_operations()
+        # Models are loaded here, so they are available in the context of a migration.
+        model_names = ['Configuration', 'Key', 'Value', 'Translation']
+        kwargs = {}
+
+        for model in model_names:
+            kwargs[model.lower()] = apps.get_model('configuration', model)
+
+        cls(**kwargs).run_operations()
+
+    def update_translation(self, update_pk: int, **data):
+        """
+        Helper to replace texts (for choices, checkboxes, labels, etc.).
+
+        Create a new translation for this edition. Adds this configuration with edition as a new
+        key to the given (update_pk) translation object.
+
+        """
+        obj = self.translation.objects.get(pk=update_pk)
+        obj.data.update({f'{self.code}_{self.edition}': data})
+        obj.save()
 
 
 class Operation:

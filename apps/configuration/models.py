@@ -105,7 +105,7 @@ class Translation(models.Model):
             translation_types.append(related.related_model.translation_type)
         return translation_types
 
-    def get_translation(self, keyword, configuration='wocat', locale=None):
+    def get_translation(self, keyword, configuration='wocat', locale=None, edition=''):
         """
         Return the translation of the instance by looking it up in the
         TranslationContent text and getting the translated content.
@@ -133,21 +133,9 @@ class Translation(models.Model):
             ``str`` or ``None``. The translation or ``None`` if no entry
             for the given locale was not found.
         """
-
-        # translation = self.translationcontent_set.filter(
-        #     configuration__in=[configuration, 'wocat'],
-        #     keyword=keyword,
-        # )
-        # if not translation.exists():
-        #     return ''
-        # Use the configuration as dict-key.
-        # values = dict(translation.values_list('configuration', 'text'))
-        # text = values.get(configuration, values.get('wocat'))
-
-        # Performance improvement: omit query by trusting that 'makemessages'
-        # was executed and translation exists.
         text = self.data.get(
-            configuration, self.data.get('wocat', {})
+            f'{configuration}_{edition}',
+            self.data.get(configuration, self.data.get('wocat', {}))
         ).get(
             keyword, {}
         ).get('en')
