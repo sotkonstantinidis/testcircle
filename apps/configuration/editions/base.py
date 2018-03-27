@@ -17,13 +17,13 @@ class Edition:
 
     code = ''
     edition = ''
-    operations = []
 
     def __init__(self):
         """
         Load operations, and validate the required instance variables.
 
         """
+        self.operations = []
         self._set_operation_methods()
         self.validate_instance_variables()
 
