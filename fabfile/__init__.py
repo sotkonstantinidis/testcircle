@@ -247,7 +247,7 @@ def _register_deployment():
     commit = local('git log -1 --pretty=format:"%B"', capture=True)
     git_url = f'https://github.com/CDE-UNIBE/qcat/tree/{branch}'
 
-    sc = SlackClient(settings.ELASTIC_APM['slack_token'])
+    sc = SlackClient(settings.SLACK_TOKEN)
 
     sc.api_call(
         'chat.postMessage',

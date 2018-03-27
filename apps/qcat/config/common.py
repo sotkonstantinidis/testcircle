@@ -349,6 +349,7 @@ class BaseSettings(Configuration):
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
     OPBEAT = values.DictValue(environ_prefix='')
+    SLACK_TOKEN = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
     NEXT_MAINTENANCE = join(BASE_DIR, 'envs/NEXT_MAINTENANCE')
