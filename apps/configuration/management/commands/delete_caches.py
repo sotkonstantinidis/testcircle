@@ -9,6 +9,6 @@ class Command(NoArgsCommand):
     This command deletes all configuration caches.
     """
     def handle_noargs(self, **options):
-        active_configurations = Configuration.objects.filter(active=True)
+        active_configurations = Configuration.objects.all()
         for configuration in active_configurations:
             delete_configuration_cache(configuration)
