@@ -303,14 +303,14 @@ class CleanQuestionnaireDataTest(TestCase):
 
     def test_select_model_checks_valid_model(self):
         data = {"qg_37": [
-            {"key_52": "4", "key_53": "Non-existing project"}
+            {"key_52": "4"}  # No project with this ID
         ]}
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(len(errors), 1)
 
     def test_select_model_parses_to_int(self):
         data = {"qg_37": [
-            {"key_52": "2", "key_53": "Some project"}
+            {"key_52": "2"}
         ]}
         cleaned, errors = clean_questionnaire_data(data, self.conf)
         self.assertEqual(errors, [])

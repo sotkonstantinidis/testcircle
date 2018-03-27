@@ -10080,9 +10080,6 @@
                         "questions": [
                           {
                             "keyword": "funding_project"
-                          },
-                          {
-                            "keyword": "funding_project_display"
                           }
                         ]
                       },
@@ -10091,9 +10088,6 @@
                         "questions": [
                           {
                             "keyword": "funding_institution"
-                          },
-                          {
-                            "keyword": "funding_institution_display"
                           }
                         ]
                       }

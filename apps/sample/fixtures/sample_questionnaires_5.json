@@ -318,8 +318,7 @@
         ],
         "qg_funding_project": [
           {
-            "funding_project": 1,
-            "funding_project_display": "The first Project (TFP)"
+            "funding_project": 1
           }
         ]
       },
