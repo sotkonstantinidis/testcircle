@@ -1,6 +1,6 @@
 from django.template.loader import render_to_string
 
-from configuration.models import Configuration
+from configuration.models import Configuration, Key, Value, Translation
 
 
 class Edition:
@@ -20,11 +20,15 @@ class Edition:
     code = ''
     edition = ''
 
-    def __init__(self):
+    def __init__(self, key: Key, value: Value, configuration: Configuration, translation: Translation):
         """
         Load operations, and validate the required instance variables.
 
         """
+        self.key = key
+        self.value = value
+        self.configuration = configuration
+        self.translation = translation
         self.operations = []
         self._set_operation_methods()
         self.validate_instance_variables()
@@ -47,23 +51,27 @@ class Edition:
             if isinstance(method, Operation):
                 self.operations.append(method)
 
-    def run_operations(self, configuration: Configuration):
+    def run_operations(self):
         """
         Apply operations, as defined by self.operations
 
         """
-        data = configuration.latest_by_code(code=self.code).data
+        data = self.configuration.objects.filter(
+            code=self.code
+        ).exclude(
+            code=self.code, edition=self.edition
+        ).latest('created').data
         for _operation in self.operations:
             data = _operation.migrate(**data)
 
-        self.save_object(configuration=configuration, **data)
+        self.save_object(**data)
 
-    def save_object(self, configuration: Configuration, **data) -> Configuration:
+    def save_object(self, **data) -> Configuration:
         """
         Create or update the configuration with the modified data.
 
         """
-        obj, _ = configuration.objects.get_or_create(
+        obj, _ = self.configuration.objects.get_or_create(
             edition=self.edition,
             code=self.code
         )
@@ -92,7 +100,10 @@ class Edition:
 
         """
         Configuration = apps.get_model("configuration", "Configuration")
-        cls().run_operations(configuration=Configuration)
+        Key = apps.get_model("configuration", "Key")
+        Value = apps.get_model("configuration", "Value")
+        Translation = apps.get_model("configuration", "Translation")
+        cls(key=Key, value=Value, configuration=Configuration, translation=Translation).run_operations()
 
 
 class Operation:

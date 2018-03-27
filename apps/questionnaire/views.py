@@ -222,7 +222,8 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
         obj = self.get_object()
         if obj:
             return obj.configuration.edition
-        return None
+        return Configuration.latest_by_code(
+            self.get_configuration_code()).edition
 
     @property
     def has_object(self):
