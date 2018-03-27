@@ -42,6 +42,9 @@ class Configuration(models.Model):
     code = models.CharField(choices=CODE_CHOICES, max_length=20)
     created = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        unique_together = ('code', 'edition')
+
     @classmethod
     def latest_by_code(cls, code):
         return cls.objects.filter(code=code).latest('created')
