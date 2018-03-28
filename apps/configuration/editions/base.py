@@ -1,3 +1,4 @@
+import copy
 from django.template.loader import render_to_string
 
 from configuration.models import Configuration, Key, Value, Translation
@@ -19,6 +20,9 @@ class Edition:
 
     code = ''
     edition = ''
+    hierarchy = [
+        'sections', 'categories', 'subcategories', 'questiongroups',
+        'questions']
 
     @property
     def operations(self):
@@ -114,20 +118,132 @@ class Edition:
         """
         Helper to replace texts (for choices, checkboxes, labels, etc.).
 
-        Create a new translation for this edition. Adds this configuration with edition as a new
-        key to the given (update_pk) translation object.
-
+        Create a new translation for this edition. Adds this configuration with
+        edition as a new key to the given (update_pk) translation object.
         """
         obj = self.translation.objects.get(pk=update_pk)
         obj.data.update({f'{self.code}_{self.edition}': data})
         obj.save()
 
+    def create_new_translation(self, translation_type, **data) -> Translation:
+        """
+        Create and return a new translation entry.
+        """
+        return self.translation.objects.create(
+            translation_type=translation_type,
+            data={f'{self.code}_{self.edition}': data})
+
+    def create_new_question(
+            self, keyword: str, translation: dict or int, question_type: str,
+            values: list=None) -> Key:
+        """
+        Create and return a new question (actually, in DB terms, a key), with a
+        translation.
+        """
+        if isinstance(translation, dict):
+            translation_obj = self.create_new_translation(
+                translation_type='key', **translation)
+        else:
+            translation_obj = self.translation.objects.get(pk=translation)
+        configuration_data = {'type': question_type}
+        key = self.key.objects.create(
+            keyword=keyword, translation=translation_obj,
+            configuration=configuration_data)
+        if values:
+            key.values.add(*values)
+        return key
+
+    def create_new_value(
+            self, keyword: str, translation: dict or int, order_value: int=None,
+            configuration: dict=None) -> Value:
+        """
+        Create and return a new value, with a translation.
+        """
+        if isinstance(translation, dict):
+            translation_obj = self.create_new_translation(
+                translation_type='value', **translation)
+        else:
+            translation_obj = self.translation.objects.get(pk=translation)
+        return self.value.objects.create(
+            keyword=keyword, translation=translation_obj,
+            order_value=order_value, configuration=configuration)
+
+    def find_in_data(self, path: tuple, **data: dict) -> dict:
+        """
+        Helper to find and return an element inside a configuration data dict.
+        Provide a path with keywords pointing to the desired element.
+
+        Drills down to the element assuming the following hierarchy of
+        configuration data:
+
+        "data": {
+          "sections": [
+            {
+              "keyword": "<section_keyword>",
+              "categories": [
+                {
+                  "keyword": "<category_keyword>",
+                  "subcategories": [
+                    {
+                      "keyword": "<subcategory_keyword>"
+                      "questiongroups": [
+                        {
+                          "keyword": "<questiongroup_keyword>",
+                          "questions": [
+                            {
+                              "keyword": "<question_keyword>"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+        """
+        for hierarchy_level, path_keyword in enumerate(path):
+            # Get the list of elements at the current hierarchy.
+            element_list = data[self.hierarchy[hierarchy_level]]
+            # Find the element by its keyword.
+            data = next((item for item in element_list
+                         if item['keyword'] == path_keyword), None)
+            if data is None:
+                raise KeyError(
+                    'No element with keyword %s found in list of %s' % (
+                        path_keyword, self.hierarchy[hierarchy_level]))
+        return data
+
+    def update_data(self, path: tuple, updated, level=0, **data):
+        """
+        Helper to update a portion of the nested configuration data dict.
+        """
+        current_hierarchy = self.hierarchy[level]
+
+        # Make a copy of the current data, but reset the children.
+        new_data = copy.deepcopy(data)
+        new_data[current_hierarchy] = []
+
+        for element in data[current_hierarchy]:
+            if element['keyword'] != path[0]:
+                new_element = element
+            elif len(path) > 1:
+                new_element = self.update_data(
+                    path=path[1:], updated=updated, level=level+1, **element)
+            else:
+                new_element = updated
+            new_data[current_hierarchy].append(new_element)
+
+        return new_data
+
 
 class Operation:
     """
     Data structure for an 'operation' method.
-    Centralized wrapper for all operations, so they can be extended / modified in a single class.
-
+    Centralized wrapper for all operations, so they can be extended / modified
+    in a single class.
     """
     default_template = ''
 
