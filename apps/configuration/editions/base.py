@@ -114,6 +114,14 @@ class Edition:
 
         cls(**kwargs).run_operations()
 
+    @property
+    def translation_key(self) -> str:
+        """
+        Name of the current configuration, used as dict-key in the translation-data
+        (see Translation.get_translation)
+        """
+        return f'{self.code}_{self.edition}'
+
     def update_translation(self, update_pk: int, **data):
         """
         Helper to replace texts (for choices, checkboxes, labels, etc.).
@@ -122,7 +130,7 @@ class Edition:
         edition as a new key to the given (update_pk) translation object.
         """
         obj = self.translation.objects.get(pk=update_pk)
-        obj.data.update({f'{self.code}_{self.edition}': data})
+        obj.data.update({self.translation_key: data})
         obj.save()
 
     def create_new_translation(self, translation_type, **data) -> Translation:
@@ -131,7 +139,7 @@ class Edition:
         """
         return self.translation.objects.create(
             translation_type=translation_type,
-            data={f'{self.code}_{self.edition}': data})
+            data={self.translation_key: data})
 
     def create_new_question(
             self, keyword: str, translation: dict or int, question_type: str,
