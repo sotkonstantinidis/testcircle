@@ -2164,6 +2164,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             else:
                 raise e
 
+    @property
+    def has_new_edition(self):
+        return self.configuration_object.has_new_edition
+
     def get_modules(self):
         return self.modules
 

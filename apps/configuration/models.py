@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 from django.contrib.gis.db import models
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db.models import Q
-from django.db.models.signals import post_save
+from django.utils.functional import cached_property
 from django.utils.translation import pgettext_lazy, get_language, activate, \
     ugettext as _
 from django_pgjson.fields import JsonBField
@@ -52,11 +51,20 @@ class Configuration(models.Model):
     def __str__(self):
         return f'{self.code} {self.edition}'
 
+    @cached_property
+    def has_new_edition(self) -> bool:
+        """
+        Use a cached property, as new configuration editions are imported through a migration, which
+        is always followed by reloading the application.
+        Using .exists() is faster than try/except self.get_next_edition
+        """
+        return self._default_manager.filter(code=self.code, created__gt=self.created).exists()
+
     def get_previous_edition(self):
-        return self.get_previous_by_created(type=self.code)
+        return self.get_previous_by_created(code=self.code)
 
     def get_next_edition(self):
-        return self.get_next_by_created(type=self.code)
+        return self.get_next_by_created(code=self.code)
 
 
 class Translation(models.Model):

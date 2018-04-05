@@ -1836,4 +1836,5 @@ def prepare_list_values(data, config, **kwargs):
         data['translations'] = translations
 
     data['configuration'] = config.keyword
+    data['has_new_configuration_edition'] = config.has_new_edition
     return data

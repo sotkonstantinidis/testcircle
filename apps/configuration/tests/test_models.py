@@ -1,5 +1,6 @@
+from datetime import datetime
 from django.core.exceptions import ValidationError
-from unittest.mock import patch
+from unittest.mock import patch, call
 
 from django.utils.translation import get_language
 
@@ -382,3 +383,22 @@ class ValueUserTest(TestCase):
     def test_get_returns_none_if_not_found(self):
         notfound = Country.get('foo')
         self.assertIsNone(notfound)
+
+
+class ConfigurationTest(TestCase):
+
+    def test_has_new_version(self):
+        """
+        This tests the queryset, but it is an important one.
+
+        """
+        config = get_valid_configuration_model()
+        config.code = 'test'
+        config.created = datetime(2000, 1, 1)
+        with patch.object(config, '_default_manager') as default_mngr:
+            config.has_new_edition  # noqa
+            self.assertListEqual(
+                default_mngr.method_calls,
+                [call.filter(code='test', created__gt=config.created)]
+            )
+
