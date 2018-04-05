@@ -2427,6 +2427,23 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         if list_entry[2] in ['bool', 'measure', 'select_type']:
                             value = values[0]
                     questionnaire_value[key] = value
+            # 'remap' keys for description field, providing a consistent access key.
+            mapping = {
+                'approaches': 'app_definition',
+                'cca': 'tech_definition',
+                'sample': 'key_5',
+                'samplemodule': 'modkey_01',
+                'samplemulti': 'key_5',
+                'technologies': 'tech_definition',
+                'unccd': 'unccd_description',
+                'watershed': 'app_definition'
+            }
+
+            # If configuration mapping is not set up, a KeyError will be raised.
+            questionnaire_value['definition'] = questionnaire_value.get(
+                mapping[self.keyword], {'en': ''}
+            )
+
             questionnaire_value_list.append(questionnaire_value)
         return questionnaire_value_list
 

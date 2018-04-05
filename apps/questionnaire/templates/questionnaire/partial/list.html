@@ -12,9 +12,7 @@
 {% load i18n %}
 
 {% for list_entry in list_values %}
-  {% with configuration=list_entry.configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
-    {% include configuration with item=list_entry %}
-  {% endwith %}
+  {% include "questionnaire/partial/list_item.html" with item=list_entry %}
 {% empty %}
   <p class="questionnaire-list-empty">{% trans "No results found." %}</p>
 {% endfor %}

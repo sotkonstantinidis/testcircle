@@ -23,6 +23,7 @@ def get_elasticsearch():
     return Elasticsearch(
         [{'host': settings.ES_HOST, 'port': settings.ES_PORT}])
 
+
 es = get_elasticsearch()
 
 

@@ -352,7 +352,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         m = get_valid_questionnaire()
         mock_force_strings.return_value = {}
         put_questionnaire_data('sample', [m])
-        mock_force_strings.assert_called_once_with({})
+        mock_force_strings.assert_called_once_with({'definition': {'en': ''}})
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
