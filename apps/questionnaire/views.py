@@ -1109,7 +1109,7 @@ class ESQuestionnaireQueryMixin:
             # If the page is not within the valid total return an empty response
             if total < self.offset:
                 if call_from == 'api':
-                    logger.warn('Potential issue from skbp: Invalid API '
+                    logger.warning('Potential issue from skbp: Invalid API '
                                 'request with offset {}.'.format(self.offset))
                 es_search_results = {}
             else:
