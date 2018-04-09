@@ -36,8 +36,7 @@ def get_alias(configuration_codes):
     """
     if not configuration_codes:
         configuration_codes = ['*']
-    return ','.join(['{}{}'.format(
-        settings.ES_INDEX_PREFIX, c) for c in configuration_codes])
+    return ','.join([f'{settings.ES_INDEX_PREFIX}{c}' for c in configuration_codes])
 
 
 def check_connection(es, index=None):

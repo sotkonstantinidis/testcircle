@@ -1,4 +1,3 @@
-import collections
 from django.conf import settings
 from elasticsearch import TransportError
 
