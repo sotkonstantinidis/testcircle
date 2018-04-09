@@ -48,17 +48,8 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         If a model instance is serialized, the 'instance' kwarg is passed.
         If an elasticsearch result is deserialized, the 'data' kwar is passed.
         """
-        config = kwargs.pop('config', None)
-        is_valid_config = isinstance(config, QuestionnaireConfiguration)
-
-        # Set config
-        if is_valid_config:
-            self.config = config
-
-        elif instance:
-            config = instance.configuration
-            self.config = get_configuration(
-                code=config.code, edition=config.edition)
+        if instance:
+            self.config = instance.configuration_object
 
         elif data != empty and data.get('serializer_config'):
             # Restore object from json data. Make sure the serializer_config

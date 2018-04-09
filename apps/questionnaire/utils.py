@@ -1113,16 +1113,8 @@ def get_list_values(
         # Results from Elasticsearch. List values are already available.
         if result.get('_source'):
 
-            if configuration_code and configuration_code != 'wocat':
-                edition = Configuration.latest_by_code(
-                    configuration_code).edition
-                config = get_configuration(
-                    code=configuration_code, edition=edition)
-            else:
-                config = None
-
             serializer = QuestionnaireSerializer(
-                data=result['_source'], config=config
+                data=result['_source']
             )
 
             if serializer.is_valid():
@@ -1134,40 +1126,15 @@ def get_list_values(
     for obj in questionnaire_objects:
         # Results from database query. List values have to be retrieved
         # through the configuration of the questionnaires.
-
-        # Fall back to the original configuration if viewed from "wocat"
-        # or no configuration selected
-        current_configuration_edition = ''
-        if configuration_code is None or configuration_code == 'wocat':
-            configuration_object = obj.configuration
-            if configuration_object is not None:
-                current_configuration_code = configuration_object.code
-                current_configuration_edition = configuration_object.edition
-            else:
-                current_configuration_code = 'technologies'
-        else:
-            current_configuration_code = configuration_code
-
-        # TODO: Check this properly
-        # To discuss: validate the instance of given obj (must be a Questionnaire obj) - if so,
-        # the config can easily be loaded according to the required field 'configuration'.
-        if not current_configuration_edition:
-            current_configuration_edition = Configuration.latest_by_code(
-                current_configuration_code).edition
-
-        questionnaire_config = get_configuration(
-            code=current_configuration_code,
-            edition=current_configuration_edition)
-
         template_value = {
-            'list_data': questionnaire_config.get_list_data([obj.data])[0]
+            'list_data': obj.configuration_object.get_list_data([obj.data])[0]
         }
 
         metadata = obj.get_metadata()
         template_value.update(metadata)
 
         template_value = prepare_list_values(
-            data=template_value, config=questionnaire_config,
+            data=template_value, config=obj.configuration_object,
             lang=get_language()
         )
 

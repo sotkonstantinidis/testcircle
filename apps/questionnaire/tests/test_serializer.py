@@ -60,22 +60,6 @@ class SerializerTest(TestCase):
             'status': ['draft', 'Draft'],
         }
 
-    def test_init_with_config(self):
-        configuration = QuestionnaireConfiguration(self.questionnaire.code)
-        serializer = QuestionnaireSerializer(
-            instance=self.questionnaire, config=configuration
-        )
-        self.assertEqual(serializer.config, configuration)
-
-    def test_init_without_config(self):
-        config = self.questionnaire.configuration
-        config_object = get_configuration(
-            code=config.code, edition=config.edition)
-        serializer = QuestionnaireSerializer(
-            instance=self.questionnaire
-        )
-        self.assertEqual(serializer.config.keyword, config_object.keyword)
-
     def test_get_links_serialize(self):
         self.assertListEqual(self.serialized['links'], self.questionnaire.links_property)
 

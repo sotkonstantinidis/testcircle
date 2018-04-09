@@ -907,21 +907,6 @@ class GetListValuesTest(TestCase):
         self.values_length = 12
         self.es_hits = [{'_id': 1}]
 
-    def test_serializer_uses_provided_configuration(self):
-        # get_valid_questionnaire uses the config 'sample' by default.
-        serialized = QuestionnaireSerializer(
-            get_valid_questionnaire(),
-            config=QuestionnaireConfiguration('samplemulti')
-        )
-        ret = get_list_values(
-            es_hits=[{'_source': serialized.data}],
-            configuration_code='samplemulti'
-        )
-        self.assertEqual(len(ret), 1)
-        ret_1 = ret[0]
-
-        self.assertEqual(ret_1.get('configuration'), 'samplemulti')
-
     def test_es_wocat_uses_default_configuration(self):
         serialized = QuestionnaireSerializer(
             get_valid_questionnaire()

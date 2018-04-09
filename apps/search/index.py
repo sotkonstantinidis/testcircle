@@ -327,9 +327,7 @@ def put_questionnaire_data(questionnaire_objects, **kwargs):
         alias = get_alias([obj.configuration.code])
         refresh_aliases.add(alias)
 
-        serialized = QuestionnaireSerializer(
-            obj, config=obj.configuration_object
-        ).data
+        serialized = QuestionnaireSerializer(instance=obj).data
 
         # The serializer calls a method (get_list_data) on the configuration
         # object, which returns values that are prepared to be presented on the
