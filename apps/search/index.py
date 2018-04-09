@@ -53,7 +53,7 @@ def get_mappings(questionnaire_configuration):
                 q_properties = {}
                 for language_code in language_codes:
                     q = {
-                        'type': 'string',
+                        'type': 'text',
                     }
                     analyzer = get_analyzer(language_code)
                     if analyzer:
@@ -64,10 +64,10 @@ def get_mappings(questionnaire_configuration):
                 qg_properties[question.keyword] = {
                     'properties': q_properties,
                 }
-            elif question.field_type in ['checkbox', 'select_type']:
-                qg_properties[question.keyword] = {'type': 'string'}
+            elif question.field_type in ['checkbox', 'image_checkbox', 'select_type']:
+                qg_properties[question.keyword] = {'type': 'keyword'}
             elif question.field_type in ['date']:
-                qg_properties[question.keyword] = {'type': 'string'}
+                qg_properties[question.keyword] = {'type': 'text'}
 
         data_properties[questiongroup.keyword] = {
             'type': 'nested',
@@ -76,7 +76,7 @@ def get_mappings(questionnaire_configuration):
 
     name_properties = {}
     for language_code in language_codes:
-        q = {'type': 'string'}
+        q = {'type': 'text'}
         analyzer = get_analyzer(language_code)
         if analyzer:
             q.update({'analyzer': analyzer})
@@ -85,14 +85,14 @@ def get_mappings(questionnaire_configuration):
     multilanguage_string_properties = {}
     for language_code in language_codes:
         multilanguage_string_properties[language_code] = {
-            'type': 'string'
+            'type': 'text'
         }
     link_structure = {
         'code': {
-            'type': 'string',
+            'type': 'text',
         },
         'configuration': {
-            'type': 'string',
+            'type': 'text',
         },
         'name': {
             'properties': multilanguage_string_properties,
@@ -111,7 +111,7 @@ def get_mappings(questionnaire_configuration):
             properties = {}
             for global_filter in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
                 if global_filter[0] == global_questiongroup:
-                    properties = {global_filter[1]: {'type': 'string'}}
+                    properties = {global_filter[1]: {'type': 'text'}}
             data_properties[global_questiongroup] = {
                 'type': 'nested',
                 'properties': properties,
@@ -130,13 +130,13 @@ def get_mappings(questionnaire_configuration):
                     'type': 'date'
                 },
                 'translations': {
-                    'type': 'string'
+                    'type': 'text'
                 },
                 'configurations': {
-                    'type': 'string'
+                    'type': 'text'
                 },
                 'code': {
-                    'type': 'string'
+                    'type': 'text'
                 },
                 'name': {
                     'properties': name_properties
@@ -148,7 +148,7 @@ def get_mappings(questionnaire_configuration):
                             'type': 'integer',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -159,7 +159,7 @@ def get_mappings(questionnaire_configuration):
                             'type': 'integer',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -170,7 +170,7 @@ def get_mappings(questionnaire_configuration):
                             'type': 'integer',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -182,10 +182,10 @@ def get_mappings(questionnaire_configuration):
                     'type': 'nested',
                     'properties': {
                         'flag': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -240,7 +240,10 @@ def create_or_update_index(configuration_code, mappings):
             'index': {
                 'mapping': {
                     'nested_fields': {
-                        'limit': settings.ES_NESTED_FIELDS_LIMIT
+                        'limit': settings.ES_NESTED_FIELDS_LIMIT,
+                    },
+                    'total_fields': {
+                        'limit': 6000
                     }
                 }
             }

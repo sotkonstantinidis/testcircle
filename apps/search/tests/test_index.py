@@ -70,8 +70,13 @@ class ESIndexMixin:
                 'No connection to Elasticsearch possible. Make sure it is '
                 'running and the configuration is correct.')
         self.default_body = {
-            'settings': {'index': {'mapping': {
-                'nested_fields': {'limit': 250}}}
+            'settings': {
+                'index': {
+                    'mapping': {
+                        'nested_fields': {'limit': 250},
+                        'total_fields': {'limit': 6000}
+                    }
+                }
             }, 'mappings': {}}
 
     def tearDown(self):
@@ -148,10 +153,10 @@ class GetMappingsTest(TestCase):
             q = qs.get(q_name)
             self.assertEqual(
                 q.get('properties').get('es'),
-                {'analyzer': 'spanish', 'type': 'string'})
+                {'analyzer': 'spanish', 'type': 'text'})
             self.assertEqual(
                 q.get('properties').get('en'),
-                {'analyzer': 'english', 'type': 'string'})
+                {'analyzer': 'english', 'type': 'text'})
 
     def test_adds_basic_mappings(self):
         mock_Conf = Mock()
@@ -163,26 +168,26 @@ class GetMappingsTest(TestCase):
         for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
             default_props[global_questiongroup] = {'properties': {}, 'type': 'nested'}
             if global_questiongroup == 'qg_location':
-                default_props[global_questiongroup]['properties'] = {'country': {'type': 'string'}}
+                default_props[global_questiongroup]['properties'] = {'country': {'type': 'text'}}
 
         self.assertEqual(q_props['data'], {'properties': default_props})
         self.assertEqual(q_props['created'], {'type': 'date'})
         self.assertEqual(q_props['updated'], {'type': 'date'})
-        self.assertEqual(q_props['translations'], {'type': 'string'})
-        self.assertEqual(q_props['configurations'], {'type': 'string'})
-        self.assertEqual(q_props['code'], {'type': 'string'})
+        self.assertEqual(q_props['translations'], {'type': 'text'})
+        self.assertEqual(q_props['configurations'], {'type': 'text'})
+        self.assertEqual(q_props['code'], {'type': 'text'})
         self.assertIn('name', q_props)
         self.assertIn('links', q_props)
         self.assertEqual(
             q_props['compilers'],
             {'type': 'nested', 'properties': {
                 'id': {'type': 'integer'},
-                'name': {'type': 'string'}}})
+                'name': {'type': 'text'}}})
         self.assertEqual(
             q_props['editors'],
             {'type': 'nested', 'properties': {
                 'id': {'type': 'integer'},
-                'name': {'type': 'string'}}})
+                'name': {'type': 'text'}}})
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
