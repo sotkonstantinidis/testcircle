@@ -1358,8 +1358,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             else:
                 return
 
-        added, errors = put_questionnaire_data(
-            configuration_code, [questionnaire_object])
+        added, errors = put_questionnaire_data([questionnaire_object])
 
         # It is important to also put the data of the linked
         # questionnaires so changes (eg. name change) appear in their
@@ -1377,7 +1376,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             links_by_configuration[configuration_object.code].append(link)
 
         for link_configuration, links in links_by_configuration.items():
-            added, errors = put_questionnaire_data(link_configuration, links)
+            added, errors = put_questionnaire_data(links)
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
@@ -1613,8 +1612,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             delete_questionnaires_from_es(
                 configuration_code, [questionnaire_object])
-            added, errors = put_questionnaire_data(
-                configuration_code, [questionnaire_object])
+            added, errors = put_questionnaire_data([questionnaire_object])
 
         messages.success(request, 'Compiler was changed successfully')
 

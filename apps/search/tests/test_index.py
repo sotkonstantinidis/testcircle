@@ -49,8 +49,10 @@ def create_temp_indices(indices):
         mappings = get_mappings(configuration)
         create_or_update_index(index, mappings)
         put_questionnaire_data(
-            index, Questionnaire.objects.filter(
-                configuration__code=index).filter(status=4))
+            Questionnaire.with_status.public(
+                configuration__code=index
+            )
+        )
 
 
 class ESIndexMixin:
@@ -330,7 +332,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 
     def test_keeps_data(self):
         m = get_valid_questionnaire()
-        put_questionnaire_data('sample', [m])
+        put_questionnaire_data([m])
         search = simple_search('bar', configuration_codes=['sample'])
         hits = search.get('hits', {}).get('hits', [])
         self.assertEqual(len(hits), 1)
@@ -351,7 +353,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
     def test_calls_force_string(self, mock_force_strings):
         m = get_valid_questionnaire()
         mock_force_strings.return_value = {}
-        put_questionnaire_data('sample', [m])
+        put_questionnaire_data([m])
         mock_force_strings.assert_called_once_with({'definition': {'en': ''}})
 
 
@@ -363,7 +365,7 @@ class PutQuestionnaireDataTest(TestCase):
     @patch('search.index.es')
     @patch('search.index.get_alias')
     def test_calls_get_alias(self, mock_get_alias, mock_es):
-        put_questionnaire_data('sample', [])
+        put_questionnaire_data([])
         mock_get_alias.assert_called_once_with(['sample'])
 
     @patch('search.index.es')
@@ -371,7 +373,7 @@ class PutQuestionnaireDataTest(TestCase):
     def test_calls_bulk(self, mock_bulk, mock_es):
         mock_bulk.return_value = 0, []
         questionnaire = get_valid_questionnaire()
-        put_questionnaire_data('sample', [questionnaire])
+        put_questionnaire_data([questionnaire])
         source = dict(QuestionnaireSerializer(
             questionnaire,
             config=get_configuration(code='sample', edition='2015')
@@ -386,7 +388,7 @@ class PutQuestionnaireDataTest(TestCase):
 
     @patch('search.index.es')
     def test_calls_indices_refresh(self, mock_es):
-        put_questionnaire_data('sample', [])
+        put_questionnaire_data([])
         mock_es.indices.refresh.assert_called_once_with(
             index='{}sample'.format(TEST_INDEX_PREFIX))
 
@@ -394,7 +396,7 @@ class PutQuestionnaireDataTest(TestCase):
     @patch('search.index.bulk')
     def test_returns_values(self, mock_bulk, mock_es):
         mock_bulk.return_value = 'foo', 'bar'
-        actions, errors = put_questionnaire_data('sample', [])
+        actions, errors = put_questionnaire_data([])
         self.assertEqual(actions, 'foo')
         self.assertEqual(errors, 'bar')
 

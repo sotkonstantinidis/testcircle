@@ -1,9 +1,8 @@
-from configuration.cache import get_configuration
 from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
 
-from configuration.models import Configuration
+from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
 from .utils import (
@@ -303,7 +302,7 @@ def create_or_update_index(configuration_code, mappings):
     return True, logs, ''
 
 
-def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
+def put_questionnaire_data(questionnaire_objects, **kwargs):
     """
     Add a list of documents to the index. New documents will be created,
     existing documents will be updated.
@@ -320,36 +319,16 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
 
         ``list``. A list of errors occurred.
     """
-    edition = Configuration.latest_by_code(configuration_code).edition
-    questionnaire_configuration = get_configuration(
-        code=configuration_code, edition=edition)
-    alias = get_alias([configuration_code])
-
-    # Before looping through the objects, prepare a list of all (checkbox)
-    # values which are ordered
-    ordered_filter_values = []
-    for filter_key in questionnaire_configuration.get_filter_keys():
-        if filter_key.filter_type not in [
-                'checkbox', 'image_checkbox', 'select_type', 'select_model',
-                'radio', 'bool']:
-            continue
-
-        filter_question = questionnaire_configuration.get_question_by_keyword(
-            filter_key.questiongroup, filter_key.key)
-        if filter_question is None:
-            continue
-
-        values = [(v.order_value, v.keyword) for v in
-                  filter_question.value_objects]
-        ordered_values = sorted(values, key=lambda v: v[0])
-
-        ordered_filter_values.append(
-            (filter_key.questiongroup, filter_key.key, ordered_values))
+    refresh_aliases = set()
 
     actions = []
     for obj in questionnaire_objects:
+
+        alias = get_alias([obj.configuration.code])
+        refresh_aliases.add(alias)
+
         serialized = QuestionnaireSerializer(
-            obj, config=questionnaire_configuration
+            obj, config=obj.configuration_object
         ).data
 
         # The serializer calls a method (get_list_data) on the configuration
@@ -358,7 +337,7 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
         serialized['list_data'] = force_strings(serialized['list_data'])
 
         # Add ordered values to document data
-        for ordered_filter in ordered_filter_values:
+        for ordered_filter in get_ordered_filter_values(obj.configuration_object):
             ordered_qg_data = serialized.get(
                 'data', {}).get(ordered_filter[0], [])
 
@@ -378,25 +357,43 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
 
     actions_executed, errors = bulk(es, actions, **kwargs)
 
-    es.indices.refresh(index=alias)
+    es.indices.refresh(index=','.join(refresh_aliases))
     return actions_executed, errors
+
+
+def get_ordered_filter_values(configuration: QuestionnaireConfiguration) -> list:
+    """
+    Get a list of all (checkbox) values which are ordered. This (may) be used for filters (?).
+    """
+    ordered_filter_values = []
+    for filter_key in configuration.get_filter_keys():
+        if filter_key.filter_type not in [
+                'checkbox', 'image_checkbox', 'select_type', 'select_model',
+                'radio', 'bool']:
+            continue
+
+        filter_question = configuration.get_question_by_keyword(
+            filter_key.questiongroup, filter_key.key)
+        if filter_question is None:
+            continue
+
+        values = [(v.order_value, v.keyword) for v in
+                  filter_question.value_objects]
+        ordered_values = sorted(values, key=lambda v: v[0])
+
+        ordered_filter_values.append((filter_key.questiongroup, filter_key.key, ordered_values))
+
+    return ordered_filter_values
 
 
 def put_all_data():
     """
     Put data from all configurations to the es index.
     """
-    configurations = Configuration.objects.all()
-    for configuration in configurations:
-        questionnaires = Questionnaire.with_status.public().filter(
-            configuration=configuration
-        )
-        if questionnaires.exists():
-            put_questionnaire_data(
-                configuration_code=configuration.code,
-                questionnaire_objects=questionnaires,
-                request_timeout=60
-            )
+    put_questionnaire_data(
+        questionnaire_objects=Questionnaire.with_status.public(),
+        request_timeout=60
+    )
 
 
 def delete_questionnaires_from_es(configuration_code, questionnaire_objects):

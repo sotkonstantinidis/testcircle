@@ -130,17 +130,11 @@ def update(request, configuration):
 
     # TODO: This should probably not always be the latest configuraion?
     # Instead, maybe an index for each edition of a configuration?
-    edition = Configuration.latest_by_code(configuration).edition
-    questionnaire_configuration = get_configuration(
-        code=configuration, edition=edition)
-    if questionnaire_configuration.get_configuration_errors() is not None:
-        return HttpResponseBadRequest(
-            questionnaire_configuration.configuration_error)
 
     processed, errors = put_questionnaire_data(
-        configuration,
         Questionnaire.with_status.public().filter(
-            configuration__code=configuration)
+            configuration__code=configuration
+        )
     )
 
     if len(errors) > 0:
