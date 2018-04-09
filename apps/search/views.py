@@ -47,9 +47,10 @@ def admin(request, log=''):
         raise PermissionDenied()
 
     configurations = []
-    for configuration in Configuration.objects.all():
+    for configuration in Configuration.objects.all().distinct('code'):
         db_count = Questionnaire.with_status.public().filter(
-            configuration__code=configuration.code).count()
+            configuration__code=configuration.code
+        ).count()
         try:
             index_count = es.count(
                 index=get_alias([configuration.code])).get('count')

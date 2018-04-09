@@ -15,7 +15,6 @@
         <thead>
           <tr>
             <th>Code</th>
-            <th>Edition</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -24,7 +23,6 @@
           {% for config in configurations %}
             <tr>
               <td>{{ config.object.code }}</td>
-              <td>{{ config.object.edition }}</td>
               <td>
                   {% if config.index_count == None %}
                     <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>No index for this configuration.</strong></p><p>There is no index yet for this configuration. Please create one and update it to index the questionnaires.</p>">
