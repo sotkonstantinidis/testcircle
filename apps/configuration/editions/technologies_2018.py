@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 from .base import Edition, Operation
 
 
@@ -13,11 +15,11 @@ class Technologies(Edition):
         return [
             Operation(
                 transformation=self.rename_tech_lu_grazingland_pastoralism,
-                release_note=''
+                release_note=_('x.x: Rename label')
             ),
             Operation(
                 transformation=self.add_tech_lu_initial,
-                release_note='3.2: Added new question about initial land use'
+                release_note=_('3.2: Added new question about initial land use')
             )
         ]
 

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+
+{% block title %}{% trans "Changes in the questionnaires structure" %}{% endblock %}
+
+{% block content %}
+
+  <main class="row large-collapse" role="main">
+  <h1>{% trans "Rationale" %}</h1>
+  <div>
+    {% blocktrans %}
+      The structure of the questionnaire is updated periodically.
+      This reflects the continuous process of enhancing the data quality.
+      Questions may be altered (e.g. an open text answer is changed into a structured answer), added or deleted.
+      Existing data can be updated if the compiler of the questionnaire starts editing a published case.
+      The specific changes are listed below.
+    {% endblocktrans %}
+  </div>
+
+  {% for edition in editions %}
+    <h2>{{ edition|title }}</h2>
+    {% for note in edition.get_release_notes %}
+      <p>{{ note }}</p>
+    {% endfor %}
+  {% endfor %}
+
+  </main>
+
+{% endblock %}

@@ -21,8 +21,15 @@ class Edition:
     code = ''
     edition = ''
     hierarchy = [
-        'sections', 'categories', 'subcategories', 'questiongroups',
-        'questions']
+        'sections',
+        'categories',
+        'subcategories',
+        'questiongroups',
+        'questions'
+    ]
+
+    def __str__(self):
+        return f'{self.code}: {self.edition}'
 
     @property
     def operations(self):
@@ -89,7 +96,7 @@ class Edition:
 
     def get_release_notes(self):
         for _operation in self.operations:
-            _operation.render()
+            yield _operation.render()
 
     @classmethod
     def run_migration(cls, apps, schema_editor):
@@ -253,7 +260,7 @@ class Operation:
     Centralized wrapper for all operations, so they can be extended / modified
     in a single class.
     """
-    default_template = ''
+    default_template = 'configuration/partials/release_note.html'
 
     def __init__(self, transformation: callable, release_note: str, **kwargs):
         self.transformation = transformation
