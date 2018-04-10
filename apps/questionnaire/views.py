@@ -1078,16 +1078,17 @@ class ESQuestionnaireQueryMixin:
         self.offset = self.current_page * self.page_size - self.page_size
         self.template_configuration_code = self.configuration_code
         self.configuration_code = self.request.GET.get(
-            'type', self.configuration_code)
-        try:
-            edition = self.configuration_edition
-        except AttributeError:
-            edition = Configuration.latest_by_code(
-                self.configuration_code).edition
-        self.configuration = get_configuration(
-            code=self.configuration_code, edition=edition)
+            'type', self.configuration_code
+        )
+
         self.search_configuration_codes = get_configuration_index_filter(
-            self.configuration_code)
+            self.configuration_code
+        )
+        # to discuss: how do we handle editions?
+        # self.configuration = get_configuration(
+        #   code=self.configuration_code,
+        #   edition=edition
+        # )
 
     def get_es_results(self, call_from=None):
         """
@@ -1222,11 +1223,15 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         }
 
         # Global keys
-        for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
-            filter_question = self.configuration.get_question_by_keyword(
-                questiongroup, question)
-            if filter_question:
-                filter_configuration[filter_keyword] = filter_question.choices[1:]
+        # to discuss: global filters and editions
+        # - when selecting a 'code', filters may vary between editions
+        # - selecting an edition seems 'counter-intuitive' for users
+        # for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
+        #     filter_question = self.configuration.get_question_by_keyword(
+        #         questiongroup, question
+        #     )
+        #     if filter_question:
+        #         filter_configuration[filter_keyword] = filter_question.choices[1:]
 
         return filter_configuration
 

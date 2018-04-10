@@ -20,7 +20,7 @@ from .index import (
     put_questionnaire_data,
 )
 from .search import simple_search, get_aggregated_values
-from .utils import get_alias
+from .utils import get_alias, ElasticsearchAlias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 from questionnaire.models import Questionnaire
@@ -30,7 +30,7 @@ es = get_elasticsearch()
 
 
 @login_required
-def admin(request, log=''):
+def admin(request):
     """
     The search admin overview. Allow superusers to update the indices
     and execute other administrative tasks.
@@ -45,15 +45,20 @@ def admin(request, log=''):
         raise PermissionDenied()
 
     configurations = []
-    for configuration in Configuration.objects.all().distinct('code'):
+    for configuration in Configuration.objects.all().order_by('code', 'created'):
         db_count = Questionnaire.with_status.public().filter(
-            configuration__code=configuration.code
+            configuration=configuration
         ).count()
+
         try:
             index_count = es.count(
-                index=get_alias([configuration.code])).get('count')
+                index=get_alias(ElasticsearchAlias(
+                    code=configuration.code, edition=configuration.edition)
+                )
+            ).get('count')
         except TransportError:
             index_count = None
+
         config_entry = {
             'object': configuration,
             'db_count': db_count,
@@ -67,7 +72,7 @@ def admin(request, log=''):
 
 
 @login_required
-def index(request, configuration):
+def index(request, configuration, edition):
     """
     Create or update the mapping of an index.
 
@@ -77,6 +82,9 @@ def index(request, configuration):
         ``configuration`` (str): The code of the Questionnaire
         configuration.
 
+        ``edition`` (str): The edition of the Questionnaire
+        configuration.
+
     Returns:
         ``HttpResponse``. A rendered Http Response (redirected to the
         search admin home page).
@@ -84,18 +92,19 @@ def index(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    # TODO: This should probably not always be the latest configuraion?
-    # Instead, maybe an index for each edition of a configuration?
-    edition = Configuration.latest_by_code(configuration).edition
     questionnaire_configuration = get_configuration(
-        code=configuration, edition=edition)
+        code=configuration, edition=edition
+    )
     if questionnaire_configuration.get_configuration_errors() is not None:
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
 
     mappings = get_mappings(questionnaire_configuration)
 
-    success, logs, error_msg = create_or_update_index(configuration, mappings)
+    success, logs, error_msg = create_or_update_index(
+        configuration=questionnaire_configuration,
+        mappings=mappings
+    )
     if success is not True:
         messages.error(request, 'The following error(s) occured: {}'.format(
             error_msg))
@@ -108,7 +117,7 @@ def index(request, configuration):
 
 
 @login_required
-def update(request, configuration):
+def update(request, configuration, edition):
     """
     Add the questionnaires of a configuration to the index.
 
@@ -118,6 +127,9 @@ def update(request, configuration):
         ``configuration`` (str): The code of the Questionnaire
         configuration.
 
+        ``edition`` (str): The edition of the Questionnaire
+        configuration.
+
     Returns:
         ``HttpResponse``. A rendered Http Response (redirected to the
         search admin home page).
@@ -125,12 +137,9 @@ def update(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    # TODO: This should probably not always be the latest configuraion?
-    # Instead, maybe an index for each edition of a configuration?
-
     processed, errors = put_questionnaire_data(
         Questionnaire.with_status.public().filter(
-            configuration__code=configuration
+            configuration__code=configuration, configuration__edition=edition
         )
     )
 
@@ -171,7 +180,7 @@ def delete_all(request):
 
 
 @login_required
-def delete_one(request, configuration):
+def delete_one(request, configuration, edition):
     """
     Delete a single index.
 
@@ -188,7 +197,9 @@ def delete_one(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    success, error_msg = delete_single_index(configuration)
+    success, error_msg = delete_single_index(
+        ElasticsearchAlias(code=configuration, edition=edition)
+    )
     if success is not True:
         messages.error(request, 'The following error(s) occured: {}'.format(
             error_msg))

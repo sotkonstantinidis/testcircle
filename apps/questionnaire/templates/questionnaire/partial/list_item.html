@@ -33,7 +33,7 @@
     {% endif %}
     <header>
       <h2 class="tech-item-title">
-        <a href="{{ detail_url }}">
+        <a href="{{ item.url }}">
           {{ item.name|default:""|truncatewords:8 }} <span class="is-light">{% if item.country %}[{{ item.country }}]{% endif %}</span>
         </a>
       </h2>

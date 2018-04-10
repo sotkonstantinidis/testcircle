@@ -218,8 +218,7 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
         """
         self.obj = self.get_current_object()
         item = get_element(
-            self.obj.id,
-            self.obj.configuration.code
+            questionnaire=self.obj
         )
         if not item:
             raise Http404()

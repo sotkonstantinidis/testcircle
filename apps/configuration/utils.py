@@ -72,8 +72,8 @@ def get_configuration_index_filter(
         be searched.
     """
     default_configurations = [
-        'unccd', 'technologies', 'approaches', 'watershed']
-
+        'unccd_*', 'technologies_*', 'approaches_*', 'watershed_*'
+    ]
     if query_param_filter:
         query_configurations = []
         for q in query_param_filter:
@@ -93,10 +93,7 @@ def get_configuration_index_filter(
     if only_current is False and configuration == 'wocat':
         configurations = default_configurations
 
-    if check_aliases(configurations) is True:
-        return configurations
-    else:
-        return default_configurations
+    return configurations if check_aliases(configurations) else default_configurations
 
 
 def create_new_code(questionnaire, configuration):

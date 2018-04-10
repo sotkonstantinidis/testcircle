@@ -29,4 +29,7 @@ class Command(NoArgsCommand):
                     code=configuration.code, edition=configuration.edition
                 )
                 mappings = get_mappings(questionnaire_configuration)
-                create_or_update_index(configuration.code, mappings)
+                create_or_update_index(
+                    configuration=questionnaire_configuration,
+                    mappings=mappings
+                )

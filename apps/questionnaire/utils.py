@@ -1299,7 +1299,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         for previous_object in previously_public:
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
-            delete_questionnaires_from_es(configuration_code, [previous_object])
+            delete_questionnaires_from_es(previous_object)
             change_status.send(
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
@@ -1577,8 +1577,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Re-add the questionnaire to ES if it was public
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
-            delete_questionnaires_from_es(
-                configuration_code, [questionnaire_object])
+            delete_questionnaires_from_es([questionnaire_object])
             added, errors = put_questionnaire_data([questionnaire_object])
 
         messages.success(request, 'Compiler was changed successfully')
@@ -1689,8 +1688,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
-            delete_questionnaires_from_es(
-                configuration_code, [questionnaire_object])
+            delete_questionnaires_from_es([questionnaire_object])
             pre_save.connect(
                 prevent_updates_on_published_items, sender=Questionnaire)
         messages.success(request, _('The questionnaire was succesfully removed'))

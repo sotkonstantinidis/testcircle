@@ -5,10 +5,7 @@ from elasticsearch.helpers import reindex, bulk
 from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
-from .utils import (
-    get_analyzer,
-    get_alias,
-    force_strings)
+from .utils import get_analyzer, get_alias, force_strings, ElasticsearchAlias
 
 
 def get_elasticsearch():
@@ -197,7 +194,7 @@ def get_mappings(questionnaire_configuration):
     return mappings
 
 
-def create_or_update_index(configuration_code, mappings):
+def create_or_update_index(configuration: QuestionnaireConfiguration, mappings: dict) -> tuple:
     """
     Create or update an index for a configuration.
 
@@ -251,7 +248,7 @@ def create_or_update_index(configuration_code, mappings):
     }
 
     # Check if there is already an alias pointing to the index.
-    alias = get_alias([configuration_code])
+    alias = get_alias(ElasticsearchAlias.from_configuration(configuration=configuration))
     alias_exists = es.indices.exists_alias(name=alias)
 
     if alias_exists is not True:
@@ -327,7 +324,9 @@ def put_questionnaire_data(questionnaire_objects, **kwargs):
     actions = []
     for obj in questionnaire_objects:
 
-        alias = get_alias([obj.configuration.code])
+        alias = get_alias(
+            ElasticsearchAlias.from_configuration(configuration=obj.configuration_object)
+        )
         refresh_aliases.add(alias)
 
         serialized = QuestionnaireSerializer(instance=obj).data
@@ -397,20 +396,20 @@ def put_all_data():
     )
 
 
-def delete_questionnaires_from_es(configuration_code, questionnaire_objects):
+def delete_questionnaires_from_es(questionnaire_objects):
     """
     Remove specific Questionnaires from the index.
 
     Args:
-        ``configuration_code`` (str): The code of the Questionnaire
-        configuration corresponding to the data.
-
         ``questionnaire_objects`` (list): A list (queryset) of
         :class:`questionnaire.models.Questionnaire` objects to be
         removed.
     """
-    alias = get_alias([configuration_code])
+
     for questionnaire in questionnaire_objects:
+        alias = get_alias(
+            ElasticsearchAlias.from_configuration(configuration=questionnaire.configuration_object)
+        )
         try:
             es.delete(
                 index=alias, doc_type='questionnaire', id=questionnaire.id)
@@ -454,7 +453,7 @@ def delete_single_index(index):
     deleted = es.indices.delete(
         index='{}{}'.format(settings.ES_INDEX_PREFIX, index), ignore=[404])
     if deleted.get('acknowledged') is not True:
-        return (False, 'Index could not be deleted')
+        return False, 'Index could not be deleted'
 
     return True, ''
 
