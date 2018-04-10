@@ -9,7 +9,6 @@ from django.http import HttpResponseBadRequest
 from django.views.generic import TemplateView
 from elasticsearch import TransportError
 
-from accounts.decorators import force_login_check
 from questionnaire.views import ESQuestionnaireQueryMixin
 
 from .index import (
@@ -31,7 +30,6 @@ es = get_elasticsearch()
 
 
 @login_required
-@force_login_check
 def admin(request, log=''):
     """
     The search admin overview. Allow superusers to update the indices
@@ -69,7 +67,6 @@ def admin(request, log=''):
 
 
 @login_required
-@force_login_check
 def index(request, configuration):
     """
     Create or update the mapping of an index.
@@ -111,7 +108,6 @@ def index(request, configuration):
 
 
 @login_required
-@force_login_check
 def update(request, configuration):
     """
     Add the questionnaires of a configuration to the index.
@@ -150,7 +146,6 @@ def update(request, configuration):
 
 
 @login_required
-@force_login_check
 def delete_all(request):
     """
     Delete all the indices.
@@ -176,7 +171,6 @@ def delete_all(request):
 
 
 @login_required
-@force_login_check
 def delete_one(request, configuration):
     """
     Delete a single index.

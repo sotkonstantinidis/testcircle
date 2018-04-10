@@ -32,7 +32,6 @@ from django.views.generic.base import TemplateResponseMixin, TemplateView
 from braces.views import LoginRequiredMixin
 from elasticsearch import TransportError
 
-from accounts.decorators import force_login_check
 from accounts.views import QuestionnaireSearchView
 from configuration.cache import get_configuration
 from configuration.utils import get_configuration_index_filter
@@ -1364,7 +1363,6 @@ class QuestionnaireFilterView(QuestionnaireListView):
 
 @login_required
 @require_POST
-@force_login_check
 def generic_file_upload(request):
     """
     A view to handle file uploads. Can only be called with POST requests

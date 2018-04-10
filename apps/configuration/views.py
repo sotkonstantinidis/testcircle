@@ -9,13 +9,11 @@ from django.shortcuts import redirect
 from django.views.generic import RedirectView
 from django.utils.translation import ugettext_lazy as _
 
-from accounts.decorators import force_login_check
 from configuration.cache import delete_configuration_cache
 from configuration.models import Configuration
 
 
 @login_required
-@force_login_check
 def delete_caches(request):
     """
     Delete all the caches.
