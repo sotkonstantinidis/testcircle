@@ -29,22 +29,23 @@ urlpatterns += i18n_patterns(
         url=reverse_lazy('wocat:home'),
         permanent=False
     ), name='home'),
-    url(r'^questionnaire/', include('questionnaire.urls')),
     url(r'^accounts/', include('accounts.urls')),
-    url(r'^wocat/', include('wocat.urls', namespace='wocat')),
-    url(r'^wocat/technologies/', include('technologies.urls',
-        namespace='technologies')),
-    url(r'^wocat/approaches/', include('approaches.urls',
-        namespace='approaches')),
-    url(r'^wocat/watershed/', include(
-        'watershed.urls', namespace='watershed')),
-    url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
-    url(r'^unccd/', include('unccd.urls', namespace='unccd')),
-    url(r'^search/', include('search.urls', namespace='search')),
-    url(r'^summary/', include('summary.urls')),
     url(r'^api/', include('api.urls')),
+    url(r'^configuration', include('configuration.urls', namespace='configuration')),
     url(r'^notifications/', include('notifications.urls')),
     url(r'^qcat/facts_teaser', FactsTeaserView.as_view(), name='facts_teaser'),
+    url(r'^questionnaire/', include('questionnaire.urls')),
+    url(r'^search/', include('search.urls', namespace='search')),
+    url(r'^summary/', include('summary.urls')),
+    url(r'^unccd/', include('unccd.urls', namespace='unccd')),
+    url(r'^wocat/', include('wocat.urls', namespace='wocat')),
+    url(r'^wocat/approaches/', include('approaches.urls',
+        namespace='approaches')),
+    url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
+    url(r'^wocat/technologies/', include('technologies.urls',
+        namespace='technologies')),
+    url(r'^wocat/watershed/', include(
+        'watershed.urls', namespace='watershed')),
 )
 
 if settings.DEBUG:
