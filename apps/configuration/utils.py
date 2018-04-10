@@ -43,8 +43,7 @@ def get_configuration_query_filter(configuration, only_current=False):
     return Q(configuration__code=configuration)
 
 
-def get_configuration_index_filter(
-        configuration, only_current=False, query_param_filter=()):
+def get_configuration_index_filter(configuration):
     """
     Return the name of the index / indices to be searched by
     Elasticsearch based on their configuration code.
@@ -54,18 +53,9 @@ def get_configuration_index_filter(
     * By default, only questionnaires of the provided configuration
       are visible.
 
-    * For ``wocat``, additionally configuration ``unccd`` is visible.
-
     Args:
         ``configuration`` (str): The code of the (current)
         configuration.
-
-    Kwargs:
-        ``only_current`` (bool): If ``True``, always only the current
-        configuration_code is returned. Defaults to ``False``.
-
-        ``query_param_filter`` (tuple): If provided, takes precedence over the
-        default rules.
 
     Returns:
         ``list``. A list of configuration codes (the index/indices) to
@@ -74,26 +64,11 @@ def get_configuration_index_filter(
     default_configurations = [
         'unccd_*', 'technologies_*', 'approaches_*', 'watershed_*'
     ]
-    if query_param_filter:
-        query_configurations = []
-        for q in query_param_filter:
-            if q == 'wocat':
-                query_configurations.extend(default_configurations)
-            else:
-                query_configurations.append(q.lower())
-        configurations = list(set(query_configurations))
-
-        if check_aliases(configurations) is True:
-            return configurations
-        else:
-            return default_configurations
-
     configurations = [configuration.lower()]
 
-    if only_current is False and configuration == 'wocat':
-        configurations = default_configurations
+    is_valid_configuration = check_aliases(configurations) and configurations != ['wocat']
 
-    return configurations if check_aliases(configurations) else default_configurations
+    return configurations if is_valid_configuration else default_configurations
 
 
 def create_new_code(questionnaire, configuration):
