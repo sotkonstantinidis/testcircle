@@ -113,6 +113,7 @@ class EditionNotesView(TemplateView):
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
 
+        # Filter dunder attributes, as only Edition subclasses are looked for.
         for name in filter(lambda name: not name.startswith('__'), dir(module)):
             klass = getattr(module, name)
             with contextlib.suppress(TypeError):
