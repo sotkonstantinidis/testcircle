@@ -11,7 +11,6 @@ from django.core.management.base import BaseCommand
 from django.db.models import Count
 from django.db.models.signals import pre_save
 
-from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire, QuestionnaireLink
 from questionnaire.receivers import prevent_updates_on_published_items
 from questionnaire.utils import clean_questionnaire_data
@@ -50,56 +49,47 @@ class Command(BaseCommand):
         error_questionnaires = []
         grouped_errors = {}
         for questionnaire in questionnaires:
-            configurations = questionnaire.configurations_property
 
-            if not configurations:
-                print("\nQuestionnaire with ID {} has no configuration!".format(
-                    questionnaire.id))
+            cleaned_data, errors = clean_questionnaire_data(
+                questionnaire.data, questionnaire.configuration_object)
 
-            for configuration_code in configurations:
+            if errors:
+                error_questionnaires.append(questionnaire)
 
-                configuration = get_configuration(configuration_code)
+                questionnaire_data = questionnaire.data
+                cleaned = False
 
-                cleaned_data, errors = clean_questionnaire_data(
-                    questionnaire.data, configuration)
+                print_questionnaire_name(questionnaire)
 
-                if errors:
-                    error_questionnaires.append(questionnaire)
+                for error in errors:
 
-                    questionnaire_data = questionnaire.data
-                    cleaned = False
+                    if error not in grouped_errors:
+                        grouped_errors[error] = []
 
-                    print_questionnaire_name(questionnaire)
+                    fixable = error in automatic_fixes
+                    if fixable:
+                        fixable_string = self.style.SQL_COLTYPE('Fixable')
+                    else:
+                        fixable_string = self.style.NOTICE('Not fixable')
 
-                    for error in errors:
+                    fixed_string = ''
+                    if do_data_clean and fixable:
+                        fix_function = automatic_fixes[error]
+                        questionnaire_data = fix_function(
+                            questionnaire_data)
+                        cleaned = True
+                        fixed_string = self.style.SQL_COLTYPE('Fixed.')
 
-                        if error not in grouped_errors:
-                            grouped_errors[error] = []
+                    print_error_message(fixable_string, error, fixed_string)
 
-                        fixable = error in automatic_fixes
-                        if fixable:
-                            fixable_string = self.style.SQL_COLTYPE('Fixable')
-                        else:
-                            fixable_string = self.style.NOTICE('Not fixable')
+                    grouped_errors[error].append(questionnaire.id)
 
-                        fixed_string = ''
-                        if do_data_clean and fixable:
-                            fix_function = automatic_fixes[error]
-                            questionnaire_data = fix_function(
-                                questionnaire_data)
-                            cleaned = True
-                            fixed_string = self.style.SQL_COLTYPE('Fixed.')
+                print('---')
+                print(self.style.WARNING("{} error(s)".format(len(errors))))
 
-                        print_error_message(fixable_string, error, fixed_string)
-
-                        grouped_errors[error].append(questionnaire.id)
-
-                    print('---')
-                    print(self.style.WARNING("{} error(s)".format(len(errors))))
-
-                    if cleaned is True:
-                        questionnaire.data = questionnaire_data
-                        questionnaire.save()
+                if cleaned is True:
+                    questionnaire.data = questionnaire_data
+                    questionnaire.save()
 
                 # Fix the problem if there are too many header images. This can
                 # happen if more than one image were uploaded (if upload is

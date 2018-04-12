@@ -25,7 +25,7 @@ class Command(NoArgsCommand):
 
         configuration_code = 'unccd'
 
-        config = get_configuration(configuration_code)
+        config = get_configuration(configuration_code, edition='2015')
         questionnaires = Questionnaire.objects.filter(
             code__startswith=configuration_code)
         self.find_int_values(questionnaires, config)

@@ -84,15 +84,20 @@ class QuestionnaireLinkSearchView(QuestionnaireSearchView, LoginRequiredMixin):
         return 11
 
     def get_queryset(self):
+        """
+        Search questionnaires by name.
+        """
         term = self.request.GET.get('term', '')
         name_questiongroup = 'qg_name'
         if self.configuration_code in ['sample', 'samplemulti']:
             # This is mainly for historic reasons. "sample" and "samplemulti"
             # (these are exclusively used for testing) do not have a
             # questiongroup "qg_name". Get their name questiongroups from the
-            # configuration.
-            configuration = get_configuration(self.configuration_code)
+            # configuration. Use the base edition (2015), no further editions
+            # are expected.
+            configuration = get_configuration(self.configuration_code, '2015')
             __, name_questiongroup = configuration.get_name_keywords()
+
         data_lookup_params = {
             'questiongroup': name_questiongroup,
             'lookup_by': 'string',
@@ -140,8 +145,7 @@ def generic_questionnaire_view_step(
 
     data = questionnaire_object.data
 
-    questionnaire_configuration = get_configuration(configuration_code)
-    category = questionnaire_configuration.get_category(step)
+    category = questionnaire_object.configuration_object.get_category(step)
 
     if category is None:
         raise Http404
@@ -636,8 +640,7 @@ class QuestionnaireMapView(TemplateResponseMixin, View):
     def get(self, request, *args, **kwargs):
         questionnaire_object = self.get_object()
 
-        configuration = get_configuration(code=self.url_namespace)
-        geometry = configuration.get_questionnaire_geometry(
+        geometry = questionnaire_object.configuration_object.get_questionnaire_geometry(
             questionnaire_object.data)
 
         context = {
@@ -1499,10 +1502,6 @@ class QuestionnaireModuleMixin(LoginRequiredMixin):
         except Questionnaire.DoesNotExist:
             return None
 
-    def get_questionnaire_configuration(self):
-        configuration_code = self.request.POST.get('configuration')
-        return get_configuration(code=configuration_code)
-
     def get_available_modules(self):
         return self.questionnaire_configuration.get_modules()
 
@@ -1531,7 +1530,7 @@ class QuestionnaireAddModule(QuestionnaireModuleMixin, View):
                 'Module cannot be added - Questionnaire not found.')
             return redirect(error_redirect)
 
-        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.questionnaire_configuration = self.questionnaire_object.configuration_object
         self.available_modules = self.get_available_modules()
         self.existing_modules = self.get_existing_modules()
 
@@ -1572,7 +1571,7 @@ class QuestionnaireCheckModulesView(
                 context={
                     'module_error': 'No modules found for this questionnaire.'})
 
-        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.questionnaire_configuration = self.questionnaire_object.configuration_object
         self.available_modules = self.get_available_modules()
         self.existing_modules = self.get_existing_modules()
 
