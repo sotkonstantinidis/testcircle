@@ -34,7 +34,6 @@ class BaseSettings(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.humanize',
         'compressor',
-        'django_nose',
         'django_extensions',
         'django_filters',
         'easy_thumbnails',
@@ -229,8 +228,6 @@ class BaseSettings(Configuration):
         environ_prefix='', default='https://wocat.net/accounts/reactivate/'
     )
     LOGIN_URL = 'login'
-
-    TEST_RUNNER = 'qcat.discover_runner.QcatTestSuiteRunner'
 
     GRAPPELLI_ADMIN_TITLE = 'QCAT Administration'
     GRAPPELLI_INDEX_DASHBOARD = 'qcat.dashboard.CustomIndexDashboard'

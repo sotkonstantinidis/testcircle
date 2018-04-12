@@ -12,7 +12,7 @@ qcat_virtualenv
 # Ignore testing-related files
 .coverage
 coverage_html
-.noseids
+.pytest_cache/*
 test_output.txt
 
 # Ignore bower components, node modules and static files

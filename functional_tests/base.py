@@ -6,12 +6,12 @@ from django.core import signing
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.utils.timezone import now
-from nose.plugins.attrib import attr
 from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from unittest import skipUnless
 
+import pytest
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -52,7 +52,7 @@ def check_firefox_path():
 @skipUnless(check_firefox_path(), "Firefox path not specified")
 @override_settings(DEBUG=True)
 @override_settings(CACHES=TEST_CACHES)
-@attr('functional')
+@pytest.mark.functional
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
