@@ -697,7 +697,8 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
                 permissions = ['edit_questionnaire']
 
             review_config = self.get_review_config(
-                permissions=permissions, roles=roles,
+                permissions=permissions,
+                roles=roles,
                 blocked_by=blocked_by if not can_edit else False,
                 other_version_status=other_version_status
             )
@@ -835,6 +836,10 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             else:
                 url = self.object.get_edit_url()
 
+        is_public = status is settings.QUESTIONNAIRE_PUBLIC
+        is_compiler = settings.QUESTIONNAIRE_COMPILER in [role[0] for role in roles]
+        has_new_config_edition = is_public and is_compiler and self.object.configuration_object.has_new_edition
+
         return {
             'review_status': status,
             'csrf_token_value': get_token(self.request),
@@ -848,6 +853,7 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             # flag if this questionnaire has a published version - controlling the first tab.
             'has_release': self.has_release(),
             'other_version_status': kwargs.get('other_version_status'),
+            'has_new_configuration_edition': has_new_config_edition,
             **workflow_users,
             **welcome_info,
         }
