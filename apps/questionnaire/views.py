@@ -1138,7 +1138,11 @@ class ESQuestionnaireQueryMixin:
 
     def get_filter_params(self):
         # Get the filters and prepare them to be passed to the search.
-        query_string, filter_params = self.get_filters()
+        # to discuss!
+        if self.configuration_code == 'wocat':
+            query_string, filter_params = '', []
+        else:
+            query_string, filter_params = self.get_filters()
 
         return {
             'filter_params': filter_params,
@@ -1148,7 +1152,8 @@ class ESQuestionnaireQueryMixin:
 
     def get_filters(self):
         active_filters = get_active_filters(
-            self.configuration, self.request.GET)
+            questionnaire_configuration=self.configuration, query_dict=self.request.GET
+        )
         query_string = ''
         filter_params = []
 
@@ -1246,7 +1251,8 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
             'list_values': list_values,
             'filter_configuration': self.get_global_filter_configuration(),
             'active_filters': get_active_filters(
-                self.configuration, self.request.GET),
+                questionnaire_configuration=self.configuration, query_dict=self.request.GET
+            ),
             'request': self.request,
         }
 

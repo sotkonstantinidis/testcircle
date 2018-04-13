@@ -99,6 +99,7 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
                 'name': item.get('name'),
                 'updated': item.get('updated'),
                 'code': item.get('code'),
+                'edition': item.get('serializer_edition'),
                 'url': reverse(
                     viewname='{configuration}:questionnaire_details'.format(
                         configuration=item['configuration']

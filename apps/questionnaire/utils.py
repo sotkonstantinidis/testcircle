@@ -583,7 +583,7 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configuration, query_dict):
+def get_active_filters(questionnaire_configuration: Configuration, query_dict: dict) -> list:
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on
