@@ -450,8 +450,7 @@ def delete_single_index(index):
         ``str``. An optional error message if the operation was not
         successful.
     """
-    deleted = es.indices.delete(
-        index='{}{}'.format(settings.ES_INDEX_PREFIX, index), ignore=[404])
+    deleted = es.indices.delete(index=index, ignore=[404])
     if deleted.get('acknowledged') is not True:
         return False, 'Index could not be deleted'
 

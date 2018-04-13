@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -197,9 +198,10 @@ def delete_one(request, configuration, edition):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    success, error_msg = delete_single_index(
-        ElasticsearchAlias(code=configuration, edition=edition)
-    )
+    alias = ElasticsearchAlias(code=configuration, edition=edition)
+    es_index = es.indices.get_alias(name=f'{settings.ES_INDEX_PREFIX}{alias}')
+    for index_name in es_index.keys():
+        success, error_msg = delete_single_index(index_name)
     if success is not True:
         messages.error(request, 'The following error(s) occured: {}'.format(
             error_msg))
