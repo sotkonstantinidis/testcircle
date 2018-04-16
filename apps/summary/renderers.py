@@ -1,12 +1,12 @@
 """
 Prepare data as required for the summary frontend templates.
 """
-import itertools
 import os
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
+from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.exceptions import InvalidImageFormatError
@@ -56,15 +56,7 @@ class SummaryRenderer:
         ).data
         self.questionnaire = questionnaire
         self.quality = quality
-        self.data = dict(self.get_data())
         self.base_url = base_url
-
-    def get_data(self):
-        """
-        call all methods as named in the list of contents
-        """
-        for section in self.content:
-            yield section, getattr(self, section)
 
     @property
     def summary_type(self):
@@ -84,10 +76,26 @@ class SummaryRenderer:
         """
         raise NotImplementedError
 
+    def render(self):
+        """
+        Render all contents, as defined by the @content property.
+
+        """
+        for section in self.content:
+            method = getattr(self, section)()
+            yield render_to_string(
+                template_name=method['template_name'],
+                context={
+                    'content': method.get('partials', {}),
+                    'title': method.get('title', '')
+                }
+            )
+
 
 class GlobalValuesMixin:
     """
     Mixin for globally configured values
+
     """
     def raw_data_getter(self, key: str, value='value') -> str:
         """
@@ -147,6 +155,7 @@ class GlobalValuesMixin:
                 self.raw_data['images_photographer'].pop(0)
 
         return {
+            'template_name': 'summary/block/header_image.html',
             'partials': {
                 'image': {
                     'url': self.get_thumbnail_url(
@@ -166,19 +175,11 @@ class GlobalValuesMixin:
 
     def title(self):
         return {
+            'template_name': 'summary/block/title.html',
             'partials': {
                 'title': self.raw_data_getter('title_name'),
                 'country': self.raw_data_getter('country'),
                 'local_name': self.raw_data_getter('title_name_local'),
-            }
-        }
-
-    def description(self):
-        return {
-            'title': _('Description'),
-            'partials': {
-                'lead': self.raw_data_getter('definition'),
-                'text': self.raw_data_getter('description')
             }
         }
 
@@ -211,6 +212,7 @@ class GlobalValuesMixin:
                     'caption': self.get_image_caption(index)
                 })
         return {
+            'template_name': 'summary/block/two_images_with_caption.html',
             'partials': {
                 'images': images
             }
@@ -265,6 +267,7 @@ class GlobalValuesMixin:
                 })
 
         return {
+            'template_name': 'summary/block/conclusion.html',
             'title': _('Conclusions and lessons learnt'),
             'partials': {
                 'pro': {
@@ -294,6 +297,7 @@ class GlobalValuesMixin:
 
     def references(self):
         return {
+            'template_name': 'summary/block/references.html',
             'title': _('References'),
             'partials': {
                 'meta': {
@@ -536,7 +540,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description', 'images',
+        return ['header_image', 'title', 'location', 'images',
                 'classification', 'technical_drawing', 'establishment_costs',
                 'natural_environment', 'human_environment', 'impacts',
                 'cost_benefit', 'climate_change', 'adoption_adaptation',
@@ -563,8 +567,14 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             )
 
         return {
+            'template_name': 'summary/block/location.html',
             'title': _('Location'),
             'partials': {
+                'description': {
+                'title': _('Description'),
+                    'lead': self.raw_data_getter('definition'),
+                    'text': self.raw_data_getter('description')
+                },
                 'map': {
                     'url': self.get_thumbnail_url(
                         image=self.raw_data.get('location_map_data', {}).get('img_url'),
@@ -633,6 +643,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
             water_supply.append({'highlighted': True, 'text': water_supply_other})
 
         return {
+            'template_name': 'summary/block/classification.html',
             'title': _('Classification of the Technology'),
             'partials': {
                 'main_purpose': {
@@ -710,6 +721,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                     })
 
         return {
+            'template_name': 'summary/block/specifications.html',
             'title': _('Technical drawing'),
             'partials': {
                 'title': _('Technical specifications'),
@@ -758,6 +770,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         exchange_rate = self.raw_data_getter('establishment_exchange_rate') or _('n.a')
 
         return {
+            'template_name': 'summary/block/establishment_and_maintenance.html',
             'title': _('Establishment and maintenance: activities, inputs and costs'),
             'partials': {
                 'introduction': {
@@ -848,6 +861,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 specifications += text + '\n'
 
         return {
+            'template_name': 'summary/block/natural_environment.html',
             'title': _('Natural environment'),
             'partials': {
                 'rainfall': {
@@ -927,6 +941,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     
     def human_environment(self):
         return {
+            'template_name': 'summary/block/human_environment.html',
             'title': _('Characteristics of land users applying the Technology'),
             'partials': {
                 'market': {
@@ -1002,6 +1017,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def impacts(self):
         return {
+            'template_name': 'summary/block/impacts.html',
             'title': _('Impacts'),
             'partials': {
                 'economic': {
@@ -1025,6 +1041,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def cost_benefit(self):
         return {
+            'template_name': 'summary/block/cost_benefit_analysis.html',
             'title': _('Cost-benefit analysis'),
             'partials': {
                 'establishment': {
@@ -1043,6 +1060,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def climate_change(self):
         return {
+            'template_name': 'summary/block/climate_change.html',
             'title': _('Climate change'),
             'labels': {
                 'left': _('Climate change/ extreme to which the Technology is exposed'),
@@ -1053,6 +1071,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     
     def adoption_adaptation(self):
         return {
+            'template_name': 'summary/block/adoption_adaptation.html',
             'title': _('Adoption and adaptation'),
             'partials': {
                 'adopted': {
@@ -1092,14 +1111,20 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     @property
     def content(self):
-        return ['header_image', 'title', 'location', 'description', 'images',
+        return ['header_image', 'title', 'location', 'images',
                 'aims', 'participation', 'technical_support', 'financing',
                 'impacts', 'conclusion', 'references']
 
     def location(self):
         return {
+            'template_name': 'summary/block/location_approach.html',
             'title': _('Location'),
             'partials': {
+                'description': {
+                    'title': _('Description'),
+                    'lead': self.raw_data_getter('definition'),
+                    'text': self.raw_data_getter('description')
+                },
                 'map': {
                     'url': self.get_thumbnail_url(
                         image=self.raw_data.get('location_map_data', {}).get('img_url'),
@@ -1140,6 +1165,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def aims(self):
         return {
+            'template_name': 'summary/block/aims.html',
             'title': _('Approach aims and enabling environment'),
             'partials': {
                 'main': {
@@ -1167,6 +1193,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         if len(flowchart_data) >= 1:
             flowchart_preview = flowchart_data[0].get('preview_image', '')
         return {
+            'template_name': 'summary/block/participation.html',
             'title': _('Participation and roles of stakeholders involved'),
             'partials': {
                 'stakeholders': {
@@ -1218,6 +1245,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def technical_support(self):
         return {
+            'template_name': 'summary/block/technical_support.html',
             'title': _('Technical support, capacity building, and knowledge management'),
             'partials': {
                 'activities': {
@@ -1309,6 +1337,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def financing(self):
         return {
+            'template_name': 'summary/block/financing.html',
             'title': _('Financing and external material support'),
             'partials': {
                 'budget': {
@@ -1360,6 +1389,7 @@ class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
     def impacts(self):
         return {
+            'template_name': 'summary/block/impacts_approach.html',
             'title': _('Impact analysis and concluding statements'),
             'partials': {
                 'impacts': {

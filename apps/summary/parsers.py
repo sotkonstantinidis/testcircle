@@ -247,8 +247,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
 
     def get_table(self, child: QuestionnaireQuestion):
         """
-        Feedback was requested, but no answer given. This output format is
-        assumed to be fine.
+        Table-like format for maintenance and establishment cost.
         """
         table = {
             'head': collections.defaultdict(dict),
