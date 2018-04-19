@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from questionnaire.views import QuestionnaireEditView, QuestionnaireStepView, \
     QuestionnaireMapView, QuestionnaireAddModule, \
     QuestionnaireCheckModulesView, QuestionnaireView, \
-    QuestionnaireLinkSearchView
+    QuestionnaireLinkSearchView, QuestionnairePermaView
 
 urlpatterns = patterns(
     '',
@@ -13,6 +13,9 @@ urlpatterns = patterns(
     url(r'^view/(?P<identifier>[^/]+)/$',
         QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
+    url(r'^view/permalink/(?P<pk>[^/]+)/$',
+        QuestionnairePermaView.as_view(url_namespace=__package__),
+        name='questionnaire_permalink'),
     url(r'^view/(?P<identifier>[^/]+)/map/$',
         QuestionnaireMapView.as_view(url_namespace=__package__),
         name='questionnaire_view_map'),

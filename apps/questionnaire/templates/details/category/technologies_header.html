@@ -110,10 +110,17 @@
     <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">
       <li><a href="#">PDF</a></li>
     </ul>
-    <a href="" class="button">
-      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
-      {% trans "See history" %}
-    </a>
+    {% if history %}
+      <button href="#" class="button dropdown" data-dropdown="tech-details-history" aria-controls="tech-details-history" aria-expanded="false">
+        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
+        {% trans "See history" %}
+      </button>
+      <ul id="tech-details-history" data-dropdown-content class="f-dropdown" aria-hidden="true">
+        {% for item in history %}
+          <li><a href="{{ item.url }}">{{ item.name }}: <strong>{{ item.updated|date }}</strong></a></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 
   {% if review_config %}

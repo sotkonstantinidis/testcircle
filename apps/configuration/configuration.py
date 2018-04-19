@@ -1941,7 +1941,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
-                'completeness_percentage': completeness_percentage
+                'completeness_percentage': completeness_percentage,
+                'history': questionnaire_object.get_previous_public_versions()
             })
 
     def get_raw_category_data(self, questionnaire_data):

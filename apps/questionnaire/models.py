@@ -146,6 +146,18 @@ class Questionnaire(models.Model):
         """
         return self._get_url_from_configured_app('questionnaire_edit')
 
+    def get_perma_url(self) -> str:
+        """
+        Detail view url of this specific version, matched by its ID. 'Pseudo-Permalink',
+        not the URL that shows the current version of the questionnaire.
+        """
+        with contextlib.suppress(NoReverseMatch):
+            return reverse(
+                f'{self.configuration.code}:questionnaire_permalink',
+                kwargs={'pk': self.pk}
+            )
+        return ''
+
     def update_data(self, data, updated, configuration_code):
         """
         Helper function to just update the data of the questionnaire
@@ -568,6 +580,21 @@ class Questionnaire(models.Model):
             if values.exists():
                 return [value.get_translation(keyword='label') for value in values]
         return []
+
+    def get_previous_public_versions(self) -> list:
+        item = collections.namedtuple('Item', 'name, url, updated')
+        history = Questionnaire.with_status.not_deleted().exclude(
+            pk=self.pk
+        ).filter(
+            code=self.code,
+            status__in=[settings.QUESTIONNAIRE_PUBLIC, settings.QUESTIONNAIRE_INACTIVE]
+        ).order_by(
+            'created'
+        )
+        return [
+            item(questionnaire.get_name(), questionnaire.get_perma_url(), questionnaire.updated)
+            for questionnaire in history
+        ]
 
     def update_geometry(self, configuration_code, force_update=False):
         """

@@ -916,6 +916,28 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         return super().get_detail_url(step='top')
 
 
+class QuestionnairePermaView(QuestionnaireView):
+    """
+    Show an inactive or public version of the questionnaire by ID.
+    """
+
+    @property
+    def identifier(self):
+        return self.kwargs['pk']
+
+    def get_review_config(self, permissions, roles, **kwargs):
+        # Disable review panel.
+        return {}
+
+    def get_object(self):
+        return get_object_or_404(
+            Questionnaire.with_status.not_deleted().filter(
+                status__in=[settings.QUESTIONNAIRE_INACTIVE, settings.QUESTIONNAIRE_PUBLIC]
+            ),
+            pk=self.kwargs['pk']
+        )
+
+
 class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
