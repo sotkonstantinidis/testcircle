@@ -12,4 +12,5 @@ class RequestLogAdmin(admin.ModelAdmin):
 
 @admin.register(NoteToken)
 class NoteTokenAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'user', 'requests_from_user']
+    fields = ('user', 'notes', )
+    list_display = ['__str__', 'user', 'created', 'requests_from_user']
