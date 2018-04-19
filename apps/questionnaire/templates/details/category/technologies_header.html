@@ -110,12 +110,10 @@
     <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">
       <li><a href="#">PDF</a></li>
     </ul>
-    {% if notifications_href %}
-      <a href="{{ notifications_href }}" class="button">
-        <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
-        {% trans "See history" %}
-      </a>
-    {% endif %}
+    <a href="" class="button">
+      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
+      {% trans "See history" %}
+    </a>
   </div>
 
   {% if review_config %}

@@ -1941,11 +1941,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
-                'notifications_href': Log.actions.get_url_for_questionnaire(
-                    user=user,
-                    questionnaire_code=questionnaire_object.code if questionnaire_object else None
-                ),
-                'completeness_percentage': completeness_percentage,
+                'completeness_percentage': completeness_percentage
             })
 
     def get_raw_category_data(self, questionnaire_data):
