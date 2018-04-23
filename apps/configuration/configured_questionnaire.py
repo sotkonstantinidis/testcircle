@@ -43,6 +43,15 @@ class ConfiguredQuestionnaire:
             if isinstance(child, QuestionnaireQuestion):
                 self.put_question_data(child)
             else:
+                # Edge case: there is one question containing links per configuration type.
+                # If available, they the are stored in self.values['links']
+                if hasattr(child, 'form_options') and child.form_options.get('has_links'):
+                    self.active_child_in_store[child.keyword] = {
+                        'label': str(child.label),
+                        'value': self.values.get('links')
+                    }
+                    continue
+
                 # Add the 'path' to the current element, so the next iteration
                 # can access this element and append to it.
                 self.tmp_path.extend([child.keyword, 'children'])

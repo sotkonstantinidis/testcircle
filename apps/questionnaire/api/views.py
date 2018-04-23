@@ -275,12 +275,28 @@ class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
             locale=get_language(),
             original_locale=serializer.validated_data['original_locale']
         )
+        # Links are removed from the 'data' dict, but available on the
+        # serialized element.
+        data['links'] = self.prepare_link_data(
+            *serializer.validated_data['links']
+        )
         configured_questionnaire = ConfiguredQuestionnaire(
             config=serializer.config,
             questionnaire=self.obj,
             **data
         )
         return configured_questionnaire.store
+
+    @staticmethod
+    def prepare_link_data(*links):
+        """
+        Get data in current language; see: Questionnaire.links_property
+        """
+        translate_fields = ['name', 'url']
+        for link in links:
+            for field in translate_fields:
+                link[field] = link[field].get(get_language(), link[field]['default'])
+        return links
 
     def get(self, request, *args, **kwargs):
         item = self.get_elasticsearch_item()
