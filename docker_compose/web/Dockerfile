@@ -20,7 +20,3 @@ RUN pip install -r development.txt
 RUN pip install -r production.txt
 
 ADD . /code/
-
-# Change environment variables linking to other containers
-ADD ./docker_compose/web/entrypoint.sh /entrypoint/entrypoint.sh
-RUN chmod +x /entrypoint/entrypoint.sh

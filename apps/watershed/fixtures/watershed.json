@@ -1456,9 +1456,7 @@
   {
     "fields": {
       "code": "watershed",
-      "description": "WOCAT Watershed configuration",
-      "active": true,
-      "activated": "2016-10-25T12:00:00.000Z",
+      "edition": "2015",
       "data": {
         "sections": [
           {
@@ -2183,9 +2181,7 @@
           }
         ]
       },
-      "created": "2016-10-28T12:00:00.000Z",
-      "base_code": "",
-      "name": "WOCAT Watershed"
+      "created": "2016-10-28T12:00:00.000Z"
     },
     "model": "configuration.configuration",
     "pk": 30001
