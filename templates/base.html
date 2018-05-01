@@ -26,6 +26,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load sekizai_tags %}
+{% load cookielaw_tags %}
 
 <!DOCTYPE html>
   <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -342,11 +343,15 @@
                               }
                           }]
                   });
+                  $('#CookielawBanner').foundation('reveal', 'open');
               });
           </script>
+          <script src="{% static 'cookielaw/js/cookielaw.js' %}"></script>
         {% endcompress %}
       {% endaddtoblock %}
     {% endblock %}
+
+    {% cookielaw_banner %}
 
     {% block help_tour %}{% endblock %}
     {% block bottom %}
