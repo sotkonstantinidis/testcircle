@@ -1299,7 +1299,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         for previous_object in previously_public:
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
-            delete_questionnaires_from_es(previous_object)
+            delete_questionnaires_from_es([previous_object])
             change_status.send(
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
