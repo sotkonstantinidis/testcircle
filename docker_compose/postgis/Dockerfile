@@ -1,4 +1,6 @@
-FROM camptocamp/postgis:9.5
+FROM camptocamp/postgres:9.5
 
 ENV POSTGRES_USER qcat
 ENV POSTGRES_DB qcat
+
+COPY ./docker_compose/postgis/restore/qcat.* /docker-entrypoint-initdb.d/

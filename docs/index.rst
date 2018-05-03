@@ -82,11 +82,10 @@ Contributions
 
 QCAT is currently under heavy development. If you are interested in the
 progress of the development, have a look at the issues on the `Redmine`_
-page of the project. Or see the `List of ToDo's`_ for open issues.
+page of the project.
 `Opbeat`_ provides great services for application monitoring and error reporting.
 
-.. _Redmine: https://redmine.cde.unibe.ch/projects/unccd-bp/issues
-.. _List of ToDo's: todos.html
+.. _Redmine: https://redmine.cde.unibe.ch/projects/qcat
 .. _Opbeat: https://opbeat.com
 
 API
