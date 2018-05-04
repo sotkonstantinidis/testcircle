@@ -2,7 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django_pgjson.fields
+import django
+if django.VERSION[:2] >= (1, 11):
+    from django.contrib.postgres.fields import JSONField
+    DjangoJsonField = JSONField
+else:
+    import django_pgjson.fields
+    DjangoJsonField = django_pgjson.fields.JsonBField
 
 
 class Migration(migrations.Migration):
@@ -26,7 +32,7 @@ class Migration(migrations.Migration):
             name='Configuration',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('data', django_pgjson.fields.JsonBField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong style="color:red;">Warning!</strong> You should not\n            edit existing JSON configurations directly. Instead, create\n            a new version and edit there.<br/><strong>Hint</strong>: Use\n            <a href="https://jqplay.org/">jq play</a> to format your\n            JSON.')),
+                ('data', DjangoJsonField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong style="color:red;">Warning!</strong> You should not\n            edit existing JSON configurations directly. Instead, create\n            a new version and edit there.<br/><strong>Hint</strong>: Use\n            <a href="https://jqplay.org/">jq play</a> to format your\n            JSON.')),
                 ('code', models.CharField(help_text='\n            The internal code of the configuration, e.g. "core", "wocat"\n            or "unccd". The same code can be used multiple times but\n            only one configuration per code can be "active".', max_length=63)),
                 ('base_code', models.CharField(help_text='\n            The code of the base configuration from which the\n            configuration inherits. An active configuration with the\n            given code needs to exist.', blank=True, max_length=63)),
                 ('name', models.CharField(max_length=255)),
@@ -44,7 +50,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('keyword', models.CharField(max_length=63, unique=True)),
-                ('configuration', django_pgjson.fields.JsonBField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq\n            play</a> to format your JSON.')),
+                ('configuration', DjangoJsonField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq\n            play</a> to format your JSON.')),
             ],
             options={
             },
@@ -55,7 +61,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('keyword', models.CharField(max_length=63, unique=True)),
-                ('configuration', django_pgjson.fields.JsonBField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq\n            play</a> to format your JSON.', blank=True)),
+                ('configuration', DjangoJsonField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq\n            play</a> to format your JSON.', blank=True)),
             ],
             options={
             },
@@ -66,7 +72,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('translation_type', models.CharField(max_length=63)),
-                ('data', django_pgjson.fields.JsonBField()),
+                ('data', DjangoJsonField()),
             ],
             options={
             },
@@ -78,7 +84,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
                 ('keyword', models.CharField(max_length=63, unique=True)),
                 ('order_value', models.IntegerField(blank=True, null=True)),
-                ('configuration', django_pgjson.fields.JsonBField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq\n            play</a> to format your JSON.', blank=True)),
+                ('configuration', DjangoJsonField(help_text='\n            The JSON configuration. See section "Questionnaire\n            Configuration" of the manual for more information.<br/>\n            <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq\n            play</a> to format your JSON.', blank=True)),
                 ('translation', models.ForeignKey(to='configuration.Translation')),
             ],
             options={

@@ -2,14 +2,14 @@
 Helper script to extract the names of all Questionnaires.
 """
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from questionnaire.models import Questionnaire
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         for questionnaire in Questionnaire.objects.all():
 

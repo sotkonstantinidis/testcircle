@@ -1,27 +1,28 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
-from questionnaire.views import QuestionnaireEditView, \
-    QuestionnaireStepView, QuestionnaireMapView, QuestionnaireView
+from questionnaire import views
 
-urlpatterns = patterns(
-    '',
+from . import views as watershed_views
+
+
+urlpatterns = [
     # The 'home' route points to the list
     url(r'^view/(?P<identifier>[^/]+)/$',
-        QuestionnaireView.as_view(url_namespace=__package__),
+        views.QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/map/$',
-        QuestionnaireMapView.as_view(url_namespace=__package__),
+        views.QuestionnaireMapView.as_view(url_namespace=__package__),
         name='questionnaire_view_map'),
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        'watershed.views.questionnaire_view_step',
+        watershed_views.questionnaire_view_step,
         name='questionnaire_view_step'),
     url(r'^edit/new/$',
-        QuestionnaireEditView.as_view(url_namespace=__package__),
+        views.QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_new'),
     url(r'^edit/(?P<identifier>[^/]+)/$',
-        QuestionnaireEditView.as_view(url_namespace=__package__),
+        views.QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        QuestionnaireStepView.as_view(url_namespace=__package__),
+        views.QuestionnaireStepView.as_view(url_namespace=__package__),
         name='questionnaire_new_step'),
-)
+]

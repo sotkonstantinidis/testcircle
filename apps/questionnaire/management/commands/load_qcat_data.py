@@ -1,8 +1,8 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.core.management import call_command
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     This Command handles the creation of the static initial values of
     QCAT, namely:
@@ -17,7 +17,7 @@ class Command(NoArgsCommand):
         Running this command will erase existing content in the given
         tables and insert new data. Handle with care!
     """
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         call_command('loaddata', 'groups_permissions')
         call_command('loaddata', 'global_key_values')

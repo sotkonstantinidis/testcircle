@@ -1,18 +1,18 @@
+from django.core.cache import cache
+from django.core.management.base import BaseCommand
+
 from accounts.client import WocatWebsiteUserClient
 from configuration.models import Institution, Country
-from django.core.cache import cache
-from django.core.management.base import NoArgsCommand
-
 from configuration.conf import settings
 
 
-class Command(NoArgsCommand, WocatWebsiteUserClient):
+class Command(BaseCommand, WocatWebsiteUserClient):
 
     created = []
     updated = []
     deleted = []
 
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         institutions = self.fetch_institutions()
 

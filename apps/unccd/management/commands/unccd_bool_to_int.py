@@ -1,4 +1,4 @@
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.db.models.signals import pre_save
 
 from configuration.cache import get_configuration
@@ -6,7 +6,7 @@ from questionnaire.models import Questionnaire
 from questionnaire.receivers import prevent_updates_on_published_items
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     Cast all integer values to booleans for configured field type 'boolean'
 
@@ -18,7 +18,7 @@ class Command(NoArgsCommand):
 
     This is not efficient or nice, but needs to be run just once.
     """
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         pre_save.disconnect(
             prevent_updates_on_published_items, sender=Questionnaire
         )

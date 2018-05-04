@@ -203,22 +203,34 @@ class BaseSettings(Configuration):
 
     SUMMARY_PDF_PATH = join(MEDIA_ROOT, 'summary-pdf')
 
-    TEMPLATE_DIRS = (
-        join(BASE_DIR, 'templates'),
-    )
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [
+                join(BASE_DIR, 'templates'),
+            ],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.contrib.auth.context_processors.auth',
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.i18n',
+                    'django.template.context_processors.media',
+                    'django.template.context_processors.static',
+                    'django.template.context_processors.tz',
+                    'django.contrib.messages.context_processors.messages',
+                    'django.template.context_processors.request',
+                    'sekizai.context_processors.sekizai',
+                    'qcat.context_processors.template_settings'
+                ],
+                'debug': values.BooleanValue(
+                    environ_name='DJANGO_TEMPLATE_DEBUG', default=False
+                )
+            }
+        }
+    ]
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.contrib.auth.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media",
-        "django.core.context_processors.static",
-        "django.core.context_processors.tz",
-        "django.contrib.messages.context_processors.messages",
-        'django.core.context_processors.request',
-        'sekizai.context_processors.sekizai',
-        'qcat.context_processors.template_settings'
-    )
+
 
     AUTH_USER_MODEL = 'accounts.User'
     AUTHENTICATION_BACKENDS = (
@@ -271,6 +283,7 @@ class BaseSettings(Configuration):
         },
         'DEFAULT_VERSIONING_CLASS':
             'rest_framework.versioning.NamespaceVersioning',
+        'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
         'PAGE_SIZE': 25,
     }
     SWAGGER_SETTINGS = {
@@ -283,8 +296,6 @@ class BaseSettings(Configuration):
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = values.BooleanValue(default=False)
-
-    TEMPLATE_DEBUG = values.BooleanValue(default=False)
 
     ALLOWED_HOSTS = values.ListValue(default=['localhost', '127.0.0.1'])
 

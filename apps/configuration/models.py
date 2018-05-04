@@ -2,11 +2,11 @@
 from django.contrib.gis.db import models
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
+from django.contrib.postgres.fields import JSONField
 from django.db.models import Q
 from django.utils.functional import cached_property
 from django.utils.translation import pgettext_lazy, get_language, activate, \
     ugettext as _
-from django_pgjson.fields import JsonBField
 
 from .conf import settings
 
@@ -29,7 +29,7 @@ class Configuration(models.Model):
         ('watershed', 'watershed'),
         ('wocat', 'wocat'),
     ]
-    data = JsonBField(help_text="""
+    data = JSONField(help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong style="color:red;">Warning!</strong> You should not
@@ -58,7 +58,10 @@ class Configuration(models.Model):
         is always followed by reloading the application.
         Using .exists() is faster than try/except self.get_next_edition
         """
-        return self._default_manager.filter(code=self.code, created__gt=self.created).exists()
+
+        return self.__class__.objects.filter(
+            code=self.code, created__gt=self.created
+        ).exists()
 
     def get_previous_edition(self):
         return self.get_previous_by_created(code=self.code)
@@ -76,7 +79,7 @@ class Translation(models.Model):
         to have a static attribute ``translation_type`` defined.
     """
     translation_type = models.CharField(max_length=63)
-    data = JsonBField()
+    data = JSONField()
 
     def clean(self):
         """
@@ -206,7 +209,7 @@ class Key(models.Model):
     keyword = models.CharField(max_length=63, unique=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
-    configuration = JsonBField(help_text="""
+    configuration = JSONField(help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
@@ -250,7 +253,7 @@ class Value(models.Model):
     order_value = models.IntegerField(blank=True, null=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
-    configuration = JsonBField(blank=True, help_text="""
+    configuration = JSONField(blank=True, help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq
@@ -284,7 +287,7 @@ class Questiongroup(models.Model):
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type},
         null=True, blank=True)
-    configuration = JsonBField(blank=True, help_text="""
+    configuration = JSONField(blank=True, help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq

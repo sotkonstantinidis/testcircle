@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import django
 from django.db import migrations, models
 from django.conf import settings
-import django_pgjson.fields
 import django.db.models.deletion
+
+if django.VERSION[:2] >= (1, 11):
+    from django.contrib.postgres.fields import JSONField
+    DjangoJsonField = JSONField
+else:
+    import django_pgjson.fields
+    DjangoJsonField = django_pgjson.fields.JsonBField
 
 
 class Migration(migrations.Migration):
@@ -19,7 +26,7 @@ class Migration(migrations.Migration):
             name='ContentUpdate',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('data', django_pgjson.fields.JsonBField()),
+                ('data', DjangoJsonField()),
             ],
         ),
         migrations.CreateModel(

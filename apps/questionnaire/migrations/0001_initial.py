@@ -1,10 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import django
 from django.db import models, migrations
-import uuid
-import django_pgjson.fields
 from django.conf import settings
+import uuid
+
+if django.VERSION[:2] >= (1, 11):
+    from django.contrib.postgres.fields import JSONField
+    DjangoJsonField = JSONField
+else:
+    import django_pgjson.fields
+    DjangoJsonField = django_pgjson.fields.JsonBField
 
 
 class Migration(migrations.Migration):
@@ -23,7 +30,7 @@ class Migration(migrations.Migration):
                 ('uploaded', models.DateTimeField(auto_now=True)),
                 ('content_type', models.CharField(max_length=64)),
                 ('size', models.BigIntegerField(null=True)),
-                ('thumbnails', django_pgjson.fields.JsonBField()),
+                ('thumbnails', DjangoJsonField()),
             ],
             options={
             },
@@ -33,7 +40,7 @@ class Migration(migrations.Migration):
             name='Questionnaire',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, primary_key=True, serialize=False)),
-                ('data', django_pgjson.fields.JsonBField()),
+                ('data', DjangoJsonField()),
                 ('created', models.DateTimeField()),
                 ('updated', models.DateTimeField()),
                 ('uuid', models.CharField(max_length=64, default=uuid.uuid4)),

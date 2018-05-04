@@ -1,6 +1,6 @@
 import logging
 
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.timezone import now
 
 from notifications.models import Log
@@ -8,11 +8,11 @@ from notifications.models import Log
 logger = logging.getLogger(__name__)
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     Send notification mails.
     """
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         logs = Log.objects.filter(was_processed=False)
         for log in self.logged_generator(logs):
             log.send_mails()

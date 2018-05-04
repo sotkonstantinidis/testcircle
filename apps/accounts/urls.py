@@ -2,33 +2,32 @@
 This module contains the URL routing patterns for the :mod:`accounts`
 app.
 """
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-from .views import LoginView, ProfileView, QuestionnaireStatusListView, \
-    PublicQuestionnaireListView, UserDetailView, QuestionnaireSearchView
+from . import views
 
-urlpatterns = patterns(
-    '',
-    url(r'^login/$', LoginView.as_view(), name='login'),
-    url(r'^logout/$', 'accounts.views.logout', name='logout'),
-    url(r'^search/$', 'accounts.views.user_search', name='user_search'),
-    url(r'^update/$', 'accounts.views.user_update', name='user_update'),
-    url(r'^user/(?P<pk>\d+)/$', UserDetailView.as_view(), name='user_details'),
+
+urlpatterns = [
+    url(r'^login/$', views.LoginView.as_view(), name='login'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^search/$', views.user_search, name='user_search'),
+    url(r'^update/$', views.user_update, name='user_update'),
+    url(r'^user/(?P<pk>\d+)/$', views.UserDetailView.as_view(), name='user_details'),
     url(r'^questionnaires/$',
-        ProfileView.as_view(),
+        views.ProfileView.as_view(),
         name='account_questionnaires'
         ),
     url(r'^questionnaires/status/(?P<user_id>\d+)/$',
-        PublicQuestionnaireListView.as_view(),
+        views.PublicQuestionnaireListView.as_view(),
         name='questionnaires_public_list'
         ),
     url(r'^questionnaires/status/$',
-        QuestionnaireStatusListView.as_view(),
+        views.QuestionnaireStatusListView.as_view(),
         name='questionnaires_status_list'
         ),
     url(r'^questionnaires/search/$',
-        QuestionnaireSearchView.as_view(),
+        views.QuestionnaireSearchView.as_view(),
         name='staff_questionnaires_search'
         ),
 
-)
+]

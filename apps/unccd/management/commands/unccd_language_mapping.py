@@ -1,7 +1,7 @@
 import csv
 
 import os
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.db.models.signals import pre_save
 
 from questionnaire.models import Questionnaire
@@ -9,7 +9,7 @@ from questionnaire.receivers import prevent_updates_on_published_items
 from questionnaire.conf import settings
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     This command updates the UNCCD PRAIS questionnaires to assign their original
     language based on a CSV file which was provided by UNCCD. Also
@@ -20,7 +20,7 @@ class Command(NoArgsCommand):
     Usage:
         (env)$ python3 manage.py unccd_language_mapping
     """
-    def handle_noargs(self, **options):
+    def handle(self, **options):
 
         # Temporarily disconnect the signal preventing updates on published
         # Questionnaires.

@@ -1,13 +1,13 @@
 from django.contrib.auth import get_user_model
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 
 from notifications.models import MailPreferences
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     Set default mailpreferences for existing users.
     """
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         for user in get_user_model().objects.all():
             MailPreferences(user=user).set_defaults()

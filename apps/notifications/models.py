@@ -4,6 +4,7 @@ import itertools
 import logging
 import operator
 
+from django.contrib.postgres.fields import JSONField
 from django.core import signing
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -13,7 +14,6 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, get_language, activate
 from django.utils.functional import cached_property
 
-from django_pgjson.fields import JsonBField
 from accounts.models import User
 from questionnaire.models import Questionnaire, QuestionnaireMembership, STATUSES
 
@@ -499,7 +499,7 @@ class ContentUpdate(models.Model):
     Store the previous questionnaires data.
     """
     log = models.OneToOneField(Log)
-    data = JsonBField()
+    data = JSONField()
 
     def difference(self) -> dict:
         """

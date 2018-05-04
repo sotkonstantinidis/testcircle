@@ -12,12 +12,12 @@ from uuid import uuid4
 from django.contrib.auth import get_user_model
 from django.contrib.gis.db import models
 from django.contrib.messages import WARNING, SUCCESS
+from django.contrib.postgres.fields import JSONField
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
-from django_pgjson.fields import JsonBField
 from staticmap import StaticMap, CircleMarker, Polygon
 
 from accounts.models import User
@@ -82,7 +82,7 @@ class Questionnaire(models.Model):
     denominator for all version (:class:`QuestionnaireVersion`) of a
     Questionnaire.
     """
-    data = JsonBField()
+    data = JSONField()
     created = models.DateTimeField()
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
@@ -1183,7 +1183,7 @@ class File(models.Model):
     uploaded = models.DateTimeField(auto_now=True)
     content_type = models.CharField(max_length=64)
     size = models.BigIntegerField(null=True)
-    thumbnails = JsonBField()
+    thumbnails = JSONField()
 
     @staticmethod
     def handle_upload(uploaded_file):
