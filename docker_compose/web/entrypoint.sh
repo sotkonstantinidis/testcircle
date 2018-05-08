@@ -30,7 +30,6 @@ if [ "$1" = 'build' ]; then
     # refresh elasticsearch
     echo "Create and populate Elasticsearch indexes"
     python manage.py rebuild_es_indexes
-
+else
+    exec "$@"
 fi
-
-#exec "$@"
