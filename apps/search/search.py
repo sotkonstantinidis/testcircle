@@ -177,15 +177,16 @@ def get_es_query(
                 es_bool: es_queries
             }
         },
-        "sort": [
-            {
-                "data.qg_location.country": {
-                    "order": "asc",
-                    "nested_path": "data.qg_location"
-                }
-            },
-            "_score",
-        ]
+        # TODO: Use filter_values of Elasticsearch for the ordering by country
+        # "sort": [
+        #     {
+        #         "data.qg_location.country": {
+        #             "order": "asc",
+        #             "nested_path": "data.qg_location"
+        #         }
+        #     },
+        #     "_score",
+        # ]
     }
 
 

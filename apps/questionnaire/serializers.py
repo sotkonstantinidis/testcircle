@@ -15,7 +15,6 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     Serializes the questionnaire with given configuration.
     """
     compilers = serializers.ListField()
-    data = serializers.DictField()
     editors = serializers.ListField()
     reviewers = serializers.ListField()
     links = serializers.ListField(source='links_property')
@@ -31,7 +30,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionnaire
-        fields = ('code', 'compilers', 'created', 'data',
+        fields = ('code', 'compilers', 'created',
                   'editors', 'links', 'list_data', 'name', 'original_locale', 'reviewers',
                   'serializer_config', 'serializer_edition', 'status', 'translations', 'updated',
                   'url', 'flags', )
@@ -91,13 +90,13 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         internal_value = dict(super().to_internal_value(data))
-        # Add fields to rep that are defined, but not yet set and require the
-        # configuration.
-        internal_value['serializer_config'] = self.get_serializer_config(None)
-        internal_value['serializer_edition'] = self.get_serializer_edition(None)
-        internal_value['list_data'] = self.get_list_data(data['data'], False)
-        internal_value['name'] = self.get_name(data['data'], False)
-        internal_value['url'] = data.get('url', '')
+        # Restore readonly fields.
+        readonly_fields = [
+            'serializer_config', 'serializer_edition', 'list_data', 'name',
+            'url']
+        for key in readonly_fields:
+            internal_value[key] = data[key]
+        # Remove "_property" from key
         replace_property_keys = filter(lambda item: item.endswith('_property'), internal_value.keys())
         for key in replace_property_keys:
             internal_value[key.replace('_property', '')] = internal_value.pop(key)

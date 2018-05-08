@@ -204,45 +204,21 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     add_detail_url = False
 
     def get(self, request, *args, **kwargs):
-        item = self.get_elasticsearch_item()
+        item = self.get_current_object()
+        # TODO: Refactor (API v1)
         serialized = self.serialize_item(item)
         return Response(self.replace_keys(serialized))
-
-    def get_elasticsearch_item(self):
-        """
-        Get a single element from elasticsearch. As the _id used for
-        elasticsearch is the actual objects id, and not the
-        code, resolve the id first.
-
-        Returns: dict
-
-        """
-        self.obj = self.get_current_object()
-        item = get_element(
-            questionnaire=self.obj
-        )
-        if not item:
-            raise Http404()
-
-        return item
 
     def serialize_item(self, item):
         """
         Serialize the data and get the list values -- the same as executed
         within advanced_search (get_list_values) in the QuestionnaireListView.
         """
-        serializer = QuestionnaireSerializer(data=item)
-
-        if serializer.is_valid():
-            return self.prepare_data(serializer)
-        else:
-            logger.warning('Invalid data on the serializer: {}'.format(
-                serializer.errors)
-            )
-            raise Http404()
+        serializer = QuestionnaireSerializer(instance=item)
+        return self.prepare_data(serializer)
 
     def prepare_data(self, serializer):
-        serializer.to_list_values(lang=get_language())
+        # serializer.to_list_values(lang=get_language())
         return serializer.validated_data
 
     def get_current_object(self):
@@ -267,23 +243,22 @@ class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
     ``identifier``: The identifier / code of the questionnaire.
     """
 
-    def prepare_data(self, serializer: QuestionnaireSerializer) -> dict:
+    def prepare_data(self) -> dict:
         """
         Merge configuration keyword, label and questionnaire data to a dict.
         """
+        questionnaire = self.get_current_object()
         data = get_questionnaire_data_in_single_language(
-            questionnaire_data=serializer.validated_data['data'],
+            questionnaire_data=questionnaire.data,
             locale=get_language(),
-            original_locale=serializer.validated_data['original_locale']
+            original_locale=questionnaire.original_locale
         )
         configured_questionnaire = ConfiguredQuestionnaire(
-            config=serializer.config,
-            questionnaire=self.obj,
+            config=questionnaire.configuration_object,
+            questionnaire=questionnaire,
             **data
         )
         return configured_questionnaire.store
 
     def get(self, request, *args, **kwargs):
-        item = self.get_elasticsearch_item()
-        serialized = self.serialize_item(item)
-        return Response(serialized)
+        return Response(self.prepare_data())

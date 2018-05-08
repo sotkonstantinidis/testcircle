@@ -117,9 +117,6 @@ def get_mappings(questionnaire_configuration):
     mappings = {
         'questionnaire': {
             'properties': {
-                'data': {
-                    'properties': data_properties,
-                },
                 'created': {
                     'type': 'date'
                 },
