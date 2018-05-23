@@ -126,13 +126,20 @@ class CompressMixin:
     # maybe: use different (faster) filters for css and js.
 
 
-class APMMixin:
+class MetricsMixin:
+    """
+    Error reporting on production environments.
+    """
 
     @property
     def INSTALLED_APPS(self):
-        return super().INSTALLED_APPS + ('opbeat.contrib.django', )
+        return super().INSTALLED_APPS + ('raven.contrib.django.raven_compat', )
 
     @property
-    def MIDDLEWARE_CLASSES(self):
-        return ('opbeat.contrib.django.middleware.OpbeatAPMMiddleware', ) + \
-               super().MIDDLEWARE_CLASSES
+    def RAVEN_CONFIG(self):
+        import raven
+
+        return {
+            'dsn': str(super().SENTRY_DSN),
+            'release': raven.fetch_git_sha(super().BASE_DIR),
+        }

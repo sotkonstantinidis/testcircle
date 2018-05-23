@@ -349,7 +349,7 @@ class BaseSettings(Configuration):
     TOUCH_FILE_DEMO = values.Value(environ_prefix='')
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
-    OPBEAT = values.DictValue(environ_prefix='')
+    SENTRY_DSN = values.Value(environ_prefix='')
     SLACK_TOKEN = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')
