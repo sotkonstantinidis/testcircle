@@ -34,6 +34,7 @@ class BaseSettings(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.humanize',
         'compressor',
+        'cookielaw',
         'django_nose',
         'django_extensions',
         'django_filters',

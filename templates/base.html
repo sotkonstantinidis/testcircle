@@ -26,6 +26,7 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load sekizai_tags %}
+{% load cookielaw_tags %}
 
 <!DOCTYPE html>
   <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -305,8 +306,11 @@
             </div>
           </div>
           <div class="right">
-            <a href="https://www.wocat.net/global-slm-database" target="_blank" class="link">{% trans "About" %}</a>
-            <a href="https://www.wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" class="link">{% trans "Contact" %}</a>
+            <a href="{% url "imprint" %}" class="link">{% trans "Imprint" %}</a> |
+            <a href="{% url "privacy-policy" %}" class="link">{% trans "Privacy Policy" %}</a> |
+            <a href="{% url "terms-of-agreement" %}" class="link">{% trans "Terms of Agreement" %}</a> |
+            <a href="https://www.wocat.net/global-slm-database" target="_blank" class="link">{% trans "About" %}</a> |
+            <a href="https://www.wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" class="link">{% trans "Contact" %}</a> |
             &copy; {% now "Y" %} - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
           </div>
         </div>
@@ -342,11 +346,15 @@
                               }
                           }]
                   });
+                  $('#CookielawBanner').foundation('reveal', 'open');
               });
           </script>
+          <script src="{% static 'cookielaw/js/cookielaw.js' %}"></script>
         {% endcompress %}
       {% endaddtoblock %}
     {% endblock %}
+
+    {% cookielaw_banner %}
 
     {% block help_tour %}{% endblock %}
     {% block bottom %}
