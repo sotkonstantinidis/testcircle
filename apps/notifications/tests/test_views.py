@@ -32,17 +32,17 @@ class LogListViewTest(TestCase):
             view=self.view, request=self.request
         )
         member_add_log = mommy.make(
-            model=Log,
+            _model=Log,
             id=8,
             action=settings.NOTIFICATIONS_ADD_MEMBER
         )
         self.change_log = mommy.make(
-            model=Log,
+            _model=Log,
             id=42,
             action=settings.NOTIFICATIONS_CHANGE_STATUS
         )
-        mommy.make(model=StatusUpdate, log=self.change_log)
-        mommy.make(model=MemberUpdate, log=member_add_log)
+        mommy.make(_model=StatusUpdate, log=self.change_log)
+        mommy.make(_model=MemberUpdate, log=member_add_log)
 
     def get_view_with_get_querystring(self, param):
         request = RequestFactory().get(
@@ -237,16 +237,16 @@ class LogCountViewTest(TestCase):
     def setUp(self):
         super().setUp()
         self.request = RequestFactory().get(reverse('notification_new_count'))
-        self.request.user = mommy.make(get_user_model())
+        self.request.user = mommy.make(_model=get_user_model())
         self.view = self.setup_view(view=LogCountView(), request=self.request)
         mommy.make(
-            model=Log,
+            _model=Log,
             catalyst=self.request.user,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             _quantity=4
         )
         mommy.make(
-            model=Log,
+            _model=Log,
             catalyst=self.request.user,
             action=settings.NOTIFICATIONS_EDIT_CONTENT,
             _quantity=2
@@ -265,7 +265,7 @@ class LogCountViewTest(TestCase):
 
     def test_log_count_one_read(self):
         mommy.make(
-            model=ReadLog,
+            _model=ReadLog,
             log=Log.objects.filter(action=settings.NOTIFICATIONS_CHANGE_STATUS).first(),
             user=self.request.user,
             is_read=True
@@ -375,7 +375,7 @@ class LogSubscriptionPreferencesMixinTest(TestCase):
         self.url = reverse('notification_preferences')
         self.view = LogSubscriptionPreferencesView()
         self.request = RequestFactory().get(self.url)
-        self.user = mommy.make(get_user_model())
+        self.user = mommy.make(_model=get_user_model())
         self.obj = self.user.mailpreferences
         self.request.user = self.user
         self.request._messages = mock.MagicMock()
@@ -405,7 +405,7 @@ class LogSubscriptionPreferencesMixinTest(TestCase):
 class SignedLogSubscriptionPreferencesViewTest(TestCase):
 
     def setUp(self):
-        self.user = mommy.make(get_user_model())
+        self.user = mommy.make(_model=get_user_model())
         self.obj = self.user.mailpreferences
         self.view = SignedLogSubscriptionPreferencesView()
         self.request = RequestFactory().get(str(self.obj.get_signed_url()))
@@ -415,7 +415,6 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
 
     def test_get_success_url_signed(self):
         self.request.user = mock.MagicMock
-        self.request.user.is_authenticated = lambda: False
         self.assertEqual(
             self.view.get_success_url(),
             self.obj.get_signed_url()
@@ -423,7 +422,6 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
 
     def test_get_success_url_user(self):
         self.request.user = self.user
-        self.request.user.is_authenticated = lambda: True
         self.assertEqual(
             self.view.get_success_url(),
             reverse('notification_preferences')
@@ -431,7 +429,6 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
 
     def test_get_object_user(self):
         self.request.user = self.user
-        self.request.user.is_authenticated = lambda: True
         self.assertEqual(
             self.view.get_object(),
             self.obj
@@ -439,7 +436,6 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
 
     def test_get_signed_object(self):
         self.request.user = mock.MagicMock()
-        self.request.user.is_authenticated = lambda: False
         self.view.kwargs['token'] = mock.MagicMock()
         with mock.patch.object(Signer, 'unsign') as mock_unsign:
             mock_unsign.return_value = self.obj.id
@@ -450,7 +446,6 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
 
     def test_get_signed_object_404(self):
         self.request.user = mock.MagicMock()
-        self.request.user.is_authenticated = lambda: False
         self.view.kwargs['token'] = mock.MagicMock()
         with self.assertRaises(Http404):
             self.view.get_object()

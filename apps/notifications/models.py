@@ -497,23 +497,11 @@ class MemberUpdate(models.Model):
 class ContentUpdate(models.Model):
     """
     Store the previous questionnaires data.
+    This used to be the basis for a 'comparison of case versions', but the diff / full data
+    is not stored anymore, as this feature is not on the radar anymore and the sysadmin
+    complained about the large, unused fields.
     """
     log = models.OneToOneField(Log)
-    data = JSONField()
-
-    def difference(self) -> dict:
-        """
-        If the selected package provides consistent results, we may store the
-        diff only. Until then, store the whole data and calculate the diff when
-        required.
-        """
-        with contextlib.suppress(Log.DoesNotExist):
-            previous = self.log.get_previous_by_created(
-                contentupdate__isnull=False
-            )
-            # calculate diff here.
-            return self.data
-        return {}
 
 
 class ReadLog(models.Model):

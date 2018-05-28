@@ -37,8 +37,7 @@ class ContentLog(CreateLog):
     """
     def create(self):
         ContentUpdate.objects.create(
-            log=self.log,
-            data=self.questionnaire.data
+            log=self.log
         )
 
 

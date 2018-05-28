@@ -39,7 +39,7 @@ class SendMailRecipientMixin(TestCase):
         self.create_users()
 
         self.questionnaire = mommy.make(
-            Questionnaire, status=settings.QUESTIONNAIRE_DRAFT,
+            _model=Questionnaire, status=settings.QUESTIONNAIRE_DRAFT,
             configuration=Configuration.objects.get(
                 code='sample', edition='2015')
         )
@@ -65,7 +65,7 @@ class SendMailRecipientMixin(TestCase):
                 self._create_user(username, preference, **user_kwargs)
 
     def _create_user(self, username, preference, **user_kwargs):
-        setattr(self, username, mommy.make(get_user_model(), **user_kwargs))
+        setattr(self, username, mommy.make(_model=get_user_model(), **user_kwargs))
         mail_preferences = MailPreferences.objects.get(user__firstname=username)
         mail_preferences.subscription = preference
         mail_preferences.save()
@@ -73,7 +73,7 @@ class SendMailRecipientMixin(TestCase):
     def add_questionnairememberships(self, role: str, *users):
         for user in users:
             mommy.make(
-                model=QuestionnaireMembership,
+                _model=QuestionnaireMembership,
                 role=role, user=user, questionnaire=self.questionnaire
             )
 
