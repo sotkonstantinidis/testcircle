@@ -10,28 +10,6 @@ from .utils import get_alias, ElasticsearchAlias
 es = get_elasticsearch()
 
 
-def simple_search(query_string, configuration_codes=[]):
-    """
-    Perform a simple full text search based on a query string.
-
-    https://www.elastic.co/guide/en/elasticsearch/reference/1.6/search-search.html
-
-    Args:
-        ``query_string`` (str): The query string to be provided as ``q``
-        parameter.
-
-    Kwargs:
-        ``configuration_codes`` (list): An optional list of
-        configuration codes to limit the search to certain indices.
-
-    Returns:
-        ``dict``. The search results as returned by
-        ``elasticsearch.Elasticsearch.search``.
-    """
-    alias = get_alias(*ElasticsearchAlias.from_code_list(*configuration_codes))
-    return es.search(index=alias, q=get_escaped_string(query_string))
-
-
 def get_es_query(
         filter_params: list=None, query_string: str='',
         match_all: bool=True) -> dict:

@@ -20,12 +20,11 @@ from .index import (
     get_mappings,
     put_questionnaire_data,
 )
-from .search import simple_search, get_aggregated_values
+from .search import get_aggregated_values
 from .utils import get_alias, ElasticsearchAlias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 from questionnaire.models import Questionnaire
-from questionnaire.utils import get_list_values
 
 es = get_elasticsearch()
 
@@ -210,23 +209,6 @@ def delete_one(request, configuration, edition):
             configuration))
 
     return redirect('search:admin')
-
-
-def search(request):
-    """
-    Do a full text search.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-    """
-    search = simple_search(request.GET.get('q', ''))
-    hits = search.get('hits', {}).get('hits', [])
-
-    list_values = get_list_values(configuration_code=None, es_hits=hits)
-
-    return render(request, 'sample/questionnaire/list.html', {
-        'list_values': list_values,
-    })
 
 
 class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):

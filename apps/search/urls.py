@@ -5,7 +5,6 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^$', views.search, name='search'),
     url(r'^admin/$', views.admin, name='admin'),
     url(r'^delete/$', views.delete_all, name='delete_all'),
     url(r'^delete/(?P<configuration>\w+)/(?P<edition>\w+)/$',
