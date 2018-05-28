@@ -323,7 +323,7 @@ class InheritedDataMixin:
         inherited_data = self.questionnaire_configuration.get_inherited_data()
         for inherited_config, inherited_qgs in inherited_data.items():
             inherited_obj = self.object.links.filter(
-                configurations__code=inherited_config).first()
+                configuration__code=inherited_config).first()
 
             if inherited_obj is None:
                 continue
@@ -442,9 +442,6 @@ class QuestionnaireSaveMixin(StepsMixin):
 
         Returns:
             tuple: is_valid, data
-
-        Todo: discuss with lukas: what happens if the section data is valid, but the whole questionnaire is invalid?
-
         """
         if self.has_object:
             self.object.data.update(data)
@@ -1111,15 +1108,19 @@ class ESQuestionnaireQueryMixin:
         self.configuration_code = self.request.GET.get(
             'type', self.configuration_code
         )
+        valid_configurations = [c[0] for c in Configuration.CODE_CHOICES]
+        is_valid_configuration = self.configuration_code in valid_configurations
+        is_test_running = settings.DEBUG is True
+        # Fallback configuration: wocat
+        if not is_valid_configuration and not is_test_running:
+            self.configuration_code = 'wocat'
+        self.configuration = get_configuration(
+            self.configuration_code,
+            Configuration.latest_by_code(self.configuration_code).edition)
 
         self.search_configuration_codes = get_configuration_index_filter(
             self.configuration_code
         )
-        # to discuss: how do we handle editions?
-        # self.configuration = get_configuration(
-        #   code=self.configuration_code,
-        #   edition=edition
-        # )
 
     def get_es_results(self, call_from=None):
         """
@@ -1166,11 +1167,7 @@ class ESQuestionnaireQueryMixin:
 
     def get_filter_params(self):
         # Get the filters and prepare them to be passed to the search.
-        # to discuss!
-        if self.configuration_code == 'wocat':
-            query_string, filter_params = '', []
-        else:
-            query_string, filter_params = self.get_filters()
+        query_string, filter_params = self.get_filters()
 
         return {
             'filter_params': filter_params,
@@ -1259,15 +1256,13 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         }
 
         # Global keys
-        # to discuss: global filters and editions
-        # - when selecting a 'code', filters may vary between editions
-        # - selecting an edition seems 'counter-intuitive' for users
-        # for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
-        #     filter_question = self.configuration.get_question_by_keyword(
-        #         questiongroup, question
-        #     )
-        #     if filter_question:
-        #         filter_configuration[filter_keyword] = filter_question.choices[1:]
+        # Always use the latest configuration for the filter.
+        for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
+            filter_question = self.configuration.get_question_by_keyword(
+                questiongroup, question
+            )
+            if filter_question:
+                filter_configuration[filter_keyword] = filter_question.choices[1:]
 
         return filter_configuration
 
@@ -1367,12 +1362,13 @@ class QuestionnaireFilterView(QuestionnaireListView):
                 continue
 
             aggregated_values = get_aggregated_values(
-                questiongroup, key, **self.get_filter_params())
+                questiongroup, key, active_filter['type'],
+                **self.get_filter_params())
 
             values_counted = []
             for c in active_filter.get('choices', []):
                 values_counted.append(
-                    (c[0], c[1], aggregated_values.get(c[0], 0)))
+                    (str(c[0]), c[1], aggregated_values.get(c[0], 0)))
 
             active_filter.update({
                 'choices_counted': values_counted,

@@ -1,6 +1,5 @@
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from unittest.mock import patch
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest

@@ -2546,7 +2546,7 @@ class QuestionnaireTestIndex(FunctionalTest):
     def setUp(self):
         super(QuestionnaireTestIndex, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample', 'samplemulti'])
+        create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
 
     def tearDown(self):
         super(QuestionnaireTestIndex, self).tearDown()
@@ -3063,11 +3063,11 @@ class QuestionnaireTestProjects(FunctionalTest):
         # She submits the step
         self.submit_form_step()
 
-        # She sees that the display value is visible in the overview (as Key 53)
-        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        # She sees that the field is visible as Key 52. Previously, there used
+        # to be a Key 53 only holding the display value. This was now improved.
+        self.findBy('xpath', '//*[text()[contains(.,"Key 52")]]')
         self.findBy('xpath', '//*[text()[contains(.,"International Project for '
                              'Collecting Technologies")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
 
         # She goes back to the step and deselects the project
         self.click_edit_section('cat_2')
@@ -3079,7 +3079,6 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She submits the step and sees the project is gone in the overview
         self.submit_form_step()
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 53")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
 
         # She goes back to the step and selects another project
@@ -3101,22 +3100,18 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She submits the step
         self.submit_form_step()
-        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 52")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"The first Project (TFP)")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 55")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 54")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"Global Institution")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 54")]]')
 
         # She submits the questionnaire and sees the project is submitted
         self.review_action('submit')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 52")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"The first Project (TFP)")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 55")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 54")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"Global Institution")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 54")]]')

@@ -2,7 +2,6 @@ import unittest
 
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from unittest.mock import patch
 
 from django.test.utils import override_settings
 
@@ -63,7 +62,7 @@ class FlaggingTest(FunctionalTest):
     def setUp(self):
         super(FlaggingTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample', 'unccd'])
+        create_temp_indices([('sample', '2015'), ('unccd', '2015')])
 
     def tearDown(self):
         super(FlaggingTest, self).tearDown()

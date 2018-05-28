@@ -55,7 +55,8 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
     def setUp(self):
         super().setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample'])
+        create_temp_indices([('sample', '2015')])
+        self.default_aliases = [f'{c}_*' for c in DEFAULT_WOCAT_CONFIGURATIONS]
 
     def tearDown(self):
         super().tearDown()
@@ -74,7 +75,7 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
 
     def test_returns_default_configurations_if_not_valid_alias(self):
         index_filter = get_configuration_index_filter('foo')
-        self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
+        self.assertEqual(index_filter, self.default_aliases)
 
     @patch('configuration.utils.check_aliases')
     def test_unccd_returns_single_configuration(self, mock_check_aliases):
@@ -84,20 +85,13 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
 
     def test_wocat_returns_multiple_configurations(self):
         index_filter = get_configuration_index_filter('wocat')
-        self.assertEqual(index_filter, DEFAULT_WOCAT_CONFIGURATIONS)
-
-    @patch('configuration.utils.check_aliases')
-    def test_wocat_with_only_current_returns_only_wocat(self, mock_check_aliases):
-        mock_check_aliases.return_value = True
-        index_filter = get_configuration_index_filter('wocat', only_current=True)
-        self.assertEqual(index_filter, ['wocat'])
+        self.assertEqual(index_filter, self.default_aliases)
 
     @patch('configuration.utils.check_aliases')
     def test_returns_query_params_lower_case(self, mock_check_aliases):
         mock_check_aliases.return_value = True
-        index_filter = get_configuration_index_filter(
-            'sample', query_param_filter=(self.test_alias.upper(),))
-        self.assertEqual(index_filter, [self.test_alias.lower()])
+        index_filter = get_configuration_index_filter('SAMPLE')
+        self.assertEqual(index_filter, ['sample'])
 
 
 class CreateNewCodeTest(TestCase):

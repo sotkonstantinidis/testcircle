@@ -30,13 +30,9 @@ class AdminTest(FunctionalTest):
         user_module = self.findBy('id', 'module_1', base=column_1)
         user_module.find_element_by_link_text('Users')
         configurations_module = self.findBy('id', 'module_3', base=column_1)
-        configurations_module.find_element_by_link_text('Categories')
-        configurations_module.find_element_by_link_text('Configurations')
-        configurations_module.find_element_by_link_text('Keys')
-        translations_module = self.findBy('id', 'module_6', base=column_1)
-        translations_module.find_element_by_link_text('Translations')
-
+        configurations_module.find_element_by_link_text('Projects')
         with self.assertRaises(NoSuchElementException):
+            column_1.find_element_by_id('module_6')
             column_1.find_element_by_id('module_7')
 
     def test_admin_page_translators(self):
@@ -54,11 +50,9 @@ class AdminTest(FunctionalTest):
         navbar.find_element_by_link_text('Administration').click()
 
         column_1 = self.findBy('id', 'column_1')
-        translations_module = self.findBy('id', 'module_6', base=column_1)
-        translations_module.find_element_by_link_text('Translations')
-
         with self.assertRaises(NoSuchElementException):
             column_1.find_element_by_id('module_2')
+            column_1.find_element_by_id('module_6')
 
     def test_admin_page_wocat_secretariat(self):
         user = create_new_user(id=2, email='foo@bar.com')

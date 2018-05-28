@@ -30,9 +30,8 @@ class SerializerTest(TestCase):
             'flags': [],
             'code': code,
             'name': {'en': 'Unknown name'},
-            'data': {'foo': 'bar'},
             'compilers': [{'name': 'bar foo', 'id': 1}],
-            'list_data': {},
+            'list_data': {'definition': {'en': ''}},
             'editors': [],
             'reviewers': [],
             'links': [

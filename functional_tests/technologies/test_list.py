@@ -20,14 +20,15 @@ class ListTest(FunctionalTest):
 
     fixtures = [
         'global_key_values.json', 'wocat.json', 'technologies.json',
-        'unccd.json', 'technologies_questionnaires.json',
-        'unccd_questionnaires.json']
+        'unccd.json', 'approaches.json', 'cca.json', 'watershed.json',
+        'technologies_questionnaires.json', 'unccd_questionnaires.json']
 
     def setUp(self):
         super(ListTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['technologies', 'approaches', 'wocat', 'unccd',
-                             'cca', 'watershed'])
+        create_temp_indices([
+            ('technologies', '2015'), ('approaches', '2015'), ('wocat', '2015'),
+            ('unccd', '2015'), ('cca', '2015'), ('watershed', '2015')])
 
     def tearDown(self):
         super(ListTest, self).tearDown()
@@ -41,20 +42,20 @@ class ListTest(FunctionalTest):
 
         expected_results = [
             {
-                'title': 'WOCAT Tech 2 en español',
-                'description': 'Descripción 2 en español',
-            },
-            {
-                'title': 'WOCAT Technology 1',
-                'description': 'This is the definition of the first WOCAT Technology.',
-            },
-            {
                 'title': 'UNCCD practice 2',
                 'description': 'This is the description of the second UNCCD practice.',
             },
             {
                 'title': 'UNCCD practice 1',
                 'description': 'This is the description of the first UNCCD practice.',
+            },
+            {
+                'title': 'WOCAT Tech 2 en español',
+                'description': 'Descripción 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1',
+                'description': 'This is the definition of the first WOCAT Technology.',
             },
         ]
         self.check_list_results(expected_results)
@@ -157,12 +158,12 @@ class ListTest(FunctionalTest):
         # She sees there are 2 results left
         expected_results = [
             {
-                'title': 'WOCAT Tech 2 en español',
-                'description': 'Descripción 2 en español',
-            },
-            {
                 'title': 'WOCAT Technology 1',
                 'description': 'This is the definition of the first WOCAT Technology.',
+            },
+            {
+                'title': 'WOCAT Tech 2 en español',
+                'description': 'Descripción 2 en español',
             },
         ]
         self.check_list_results(expected_results)
@@ -178,6 +179,6 @@ class ListTest(FunctionalTest):
             self.browser.find_element_by_tag_name('body').text)
         self.assertEqual(len(json_response['results']), 2)
         self.assertEqual(
-            json_response['results'][0]['name'], 'WOCAT Tech 2 en español')
+            json_response['results'][0]['name'], 'WOCAT Technology 1')
         self.assertEqual(
-            json_response['results'][1]['name'], 'WOCAT Technology 1')
+            json_response['results'][1]['name'], 'WOCAT Tech 2 en español')

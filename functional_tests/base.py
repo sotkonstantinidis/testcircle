@@ -60,7 +60,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         Use FF as browser for functional tests.
         Create a virtual display, so the browser doesn't keep popping up.
         """
-        if '-pop' not in sys.argv[1:]:
+        if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display = Display(visible=0, size=(1600, 900))
             self.display.start()
         self.browser = webdriver.Chrome(
@@ -69,7 +69,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def tearDown(self):
         self.browser.quit()
-        if '-pop' not in sys.argv[1:]:
+        if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display.stop()
 
     def findByNot(self, by, el):
@@ -142,6 +142,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             locator = By.XPATH
         elif by == 'id':
             locator = By.ID
+        elif by == 'name':
+            locator = By.NAME
         else:
             self.fail('Argument "by" = "%s" is not valid.' % by)
 
@@ -410,6 +412,22 @@ class FunctionalTest(StaticLiveServerTestCase):
                     'xpath',
                     f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
                     f'a[contains(text(), "{lang}")]')
+
+    def get_compiler(self) -> str:
+        """From the details view, return the name of the compiler"""
+        return self.findBy(
+            'xpath',
+            '//ul[@class="tech-infos"]/li/span[text()="Compiler:"]/../a'
+        ).text
+
+    def get_editors(self) -> list:
+        """From the details view, return the names of the editors"""
+        editors = []
+        for el in self.findManyBy(
+                'xpath',
+                '//ul[@class="tech-infos"]/li/span[text()="Editors:"]/../a'):
+            editors.append(el.text)
+        return editors
 
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)

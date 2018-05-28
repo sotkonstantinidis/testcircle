@@ -4,8 +4,6 @@
 
 django==1.11.13
 psycopg2-binary==2.7.4
-selenium==3.11.0
-PyVirtualDisplay==0.2.1
 django-cookie-law==2.0.1
 django-pgjson==0.3.1  # legacy
 django-grappelli==2.11.1

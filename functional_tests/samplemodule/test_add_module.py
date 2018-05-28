@@ -1,5 +1,4 @@
 from django.core.urlresolvers import reverse
-from unittest.mock import patch
 
 from django.test.utils import override_settings
 
@@ -127,7 +126,7 @@ class AddModuleTest(FunctionalTest):
         # She selects the samplemodule module
         samplemodule_radio = self.findBy(
             'xpath',
-            '//input[@value="samplemodule" and @name="module"]')
+            '//input[@value="samplemodule" and @name="module"]', wait=True)
         samplemodule_radio.click()
 
         # She sees that step 3 is now visible.

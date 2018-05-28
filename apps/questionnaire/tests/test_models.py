@@ -216,6 +216,7 @@ class QuestionnaireModelTest(TestCase):
 
     @patch('questionnaire.models.get_language')
     def test_create_new_calls_get_language(self, mock_get_language):
+        mock_get_language.return_value = 'en'
         Questionnaire.create_new(
             configuration_code='sample', data={}, user=self.user)
         mock_get_language.assert_called_once_with()

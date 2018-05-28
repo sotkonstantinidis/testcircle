@@ -1,7 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
-from configuration.tests.test_utils import DEFAULT_WOCAT_CONFIGURATIONS
 from functional_tests.base import FunctionalTest
 
 from search.index import delete_all_indices
@@ -18,13 +17,16 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'technologies.json', 'unccd.json',
+        'global_key_values.json', 'wocat.json', 'technologies.json',
+        'unccd.json', 'approaches.json', 'cca.json', 'watershed.json',
         'technologies_questionnaires.json', 'unccd_questionnaires.json']
 
     def setUp(self):
         super(ListTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(DEFAULT_WOCAT_CONFIGURATIONS)
+        create_temp_indices([
+            ('unccd', '2015'), ('technologies', '2015'), ('approaches', '2015'),
+            ('watershed', '2015')])
 
     def tearDown(self):
         super(ListTest, self).tearDown()
@@ -38,6 +40,15 @@ class ListTest(FunctionalTest):
 
         expected_results = [
             {
+                'title': 'UNCCD practice 2',
+                'description': 'This is the description of the second UNCCD practice.',
+            },
+            {
+                'title': 'UNCCD practice 1',
+                'description': 'This is the description of the first UNCCD practice.',
+                'translations': ['es'],
+            },
+            {
                 'title': 'WOCAT Tech 2 en español',
                 'description': 'Descripción 2 en español',
                 'translations': ['es'],
@@ -46,15 +57,6 @@ class ListTest(FunctionalTest):
                 'title': 'WOCAT Technology 1',
                 'description': 'This is the definition of the first WOCAT Technology.',
                 'translations': ['fr'],
-            },
-            {
-                'title': 'UNCCD practice 2',
-                'description': 'This is the description of the second UNCCD practice.',
-            },
-            {
-                'title': 'UNCCD practice 1',
-                'description': 'This is the description of the first UNCCD practice.',
-                'translations': ['es'],
             },
         ]
         self.check_list_results(expected_results)
@@ -104,6 +106,15 @@ class ListTest(FunctionalTest):
         # English
         expected_results = [
             {
+                'title': 'UNCCD practice 2',
+                'description': 'This is the description of the second UNCCD practice.',
+            },
+            {
+                'title': 'UNCCD practice 1',
+                'description': 'This is the description of the first UNCCD practice.',
+                'translations': ['es'],
+            },
+            {
                 'title': 'WOCAT Tech 2 en español',
                 'description': 'Descripción 2 en español',
                 'translations': ['es'],
@@ -113,15 +124,6 @@ class ListTest(FunctionalTest):
                 'description': 'This is the definition of the first WOCAT Technology.',
                 'translations': ['fr'],
             },
-            {
-                'title': 'UNCCD practice 2',
-                'description': 'This is the description of the second UNCCD practice.',
-            },
-            {
-                'title': 'UNCCD practice 1',
-                'description': 'This is the description of the first UNCCD practice.',
-                'translations': ['es'],
-            },
         ]
         self.check_list_results(expected_results)
 
@@ -130,15 +132,6 @@ class ListTest(FunctionalTest):
         # SPANISH
         expected_results = [
             {
-                'title': 'WOCAT Tech 2 en español',
-                'description': 'Descripción 2 en español',
-            },
-            {
-                'title': 'WOCAT Technology 1 en français',
-                'description': 'Ceci est la déscription 1 en français.',
-                'translations': ['en', 'fr'],
-            },
-            {
                 'title': 'UNCCD practice 2',
                 'description': 'This is the description of the second UNCCD practice.',
             },
@@ -146,6 +139,15 @@ class ListTest(FunctionalTest):
                 'title': 'UNCCD 1 en español',
                 'description': 'Descripción 1 en español',
                 'translations': ['en'],
+            },
+            {
+                'title': 'WOCAT Tech 2 en español',
+                'description': 'Descripción 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1 en français',
+                'description': 'Ceci est la déscription 1 en français.',
+                'translations': ['en', 'fr'],
             },
         ]
         self.check_list_results(expected_results)

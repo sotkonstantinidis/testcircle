@@ -4262,7 +4262,10 @@
                         "keyword": "qg_location",
                         "questions": [
                           {
-                            "keyword": "country"
+                            "keyword": "country",
+                            "view_options": {
+                              "in_list": true
+                            }
                           }
                         ]
                       },

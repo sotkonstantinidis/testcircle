@@ -1,11 +1,16 @@
 import os
 
+from django.conf import settings
 from django.core.management import call_command
 from django.test import override_settings
 from rest_framework.reverse import reverse
 
 from accounts.tests.test_commands import create_new_user
 from functional_tests.base import FunctionalTest
+
+
+TEST_MAINTENANCE_FILE = os.path.join(
+    settings.BASE_DIR, 'envs/TEST_NEXT_MAINTENANCE')
 
 
 class BaseTemplateTest(FunctionalTest):
@@ -39,7 +44,7 @@ class BaseTemplateTest(FunctionalTest):
 
     @override_settings(
         DEPLOY_TIMEOUT=600,
-        NEXT_MAINTENANCE='envs/TEST_NEXT_MAINTENANCE',
+        NEXT_MAINTENANCE=TEST_MAINTENANCE_FILE,
         CACHES={'default': {
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache'}
         }
@@ -75,12 +80,12 @@ class BaseTemplateTest(FunctionalTest):
         # After a logout, the message is not shown anymore.
         self.doLogout()
         self.browser.get(self.live_server_url)
-        self.findByNot('xpath', alert_box)
+        self.findByNot('xpath', alert_box_path)
 
         # When logging in again, the deploy is over - no message is shown.
         self.remove_maintenance_file()
         self.doLogin(jay)
-        self.findByNot('xpath', alert_box)
+        self.findByNot('xpath', alert_box_path)
 
         # When running the tests with -pop, this part runs fine. Without it, the tests fail.
         # @todo: fixme!
@@ -93,8 +98,8 @@ class BaseTemplateTest(FunctionalTest):
 
     @staticmethod
     def remove_maintenance_file():
-        if os.path.isfile('envs/TEST_NEXT_MAINTENANCE'):
-            os.remove('envs/TEST_NEXT_MAINTENANCE')
+        if os.path.isfile(TEST_MAINTENANCE_FILE):
+            os.remove(TEST_MAINTENANCE_FILE)
 
     def test_factsheet(self):
         # jay opens the start page

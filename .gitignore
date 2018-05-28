@@ -14,6 +14,7 @@ qcat_virtualenv
 coverage_html
 .pytest_cache/*
 test_output.txt
+.cache
 
 # Ignore bower components, node modules and static files
 bower_components

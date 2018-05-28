@@ -1,3 +1,4 @@
+from configuration.cache import get_configuration
 from django.apps import apps
 from django.db.models import Q
 from questionnaire.models import Questionnaire
@@ -43,7 +44,7 @@ def get_configuration_query_filter(configuration, only_current=False):
     return Q(configuration__code=configuration)
 
 
-def get_configuration_index_filter(configuration):
+def get_configuration_index_filter(configuration: str):
     """
     Return the name of the index / indices to be searched by
     Elasticsearch based on their configuration code.
@@ -115,7 +116,8 @@ def get_choices_from_model(model_name, only_active=True):
 
 
 def get_choices_from_questiongroups(
-        questionnaire_data: dict, questiongroups: list, configuration) -> list:
+        questionnaire_data: dict, questiongroups: list, configuration_code: str,
+        configuration_edition: str) -> list:
     """
     Return a list of valid choices based on the presence of certain
     questiongroups within a questionnaire data JSON.
@@ -130,6 +132,8 @@ def get_choices_from_questiongroups(
         A list of possible choices [(keyword, label)]
     """
     choices = []
+    configuration = get_configuration(
+        code=configuration_code, edition=configuration_edition)
     for questiongroup in questiongroups:
         if questiongroup in questionnaire_data:
             questiongroup_object = configuration.get_questiongroup_by_keyword(

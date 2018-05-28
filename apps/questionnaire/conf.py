@@ -66,6 +66,12 @@ class QuestionnaireConf(AppConf):
         ('qg_location', 'country', 'countries'),
     ]
 
+    GLOBAL_FILTER_PATHS = [
+        ('qg_location', 'country'),
+        ('qg_funding_project', 'funding_project'),
+        ('qg_funding_institution', 'funding_institution'),
+    ]
+
     SLM_DATA_TYPES = (
         ('wocat', _('ALL SLM Data')),
         ('technologies', _('SLM Technologies')),

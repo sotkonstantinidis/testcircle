@@ -41,7 +41,7 @@ class ModerationTest(FunctionalTest):
     def setUp(self):
         super(ModerationTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample'])
+        create_temp_indices([('sample', '2015')])
 
     def tearDown(self):
         super(ModerationTest, self).tearDown()
@@ -180,7 +180,7 @@ class ModerationTestFixture(FunctionalTest):
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample'])
+        create_temp_indices([('sample', '2015')])
 
         self.user_compiler = User.objects.get(pk=101)
         self.user_editor = User.objects.get(pk=102)
@@ -753,8 +753,8 @@ class ModerationTestFixture(FunctionalTest):
 
         # She removes one of the user
         remove_button = self.findBy(
-            'xpath', '//div[@id="review-new-user"]/div'
-                     '[contains(@class, ''"alert-box")][1]/a'
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box") and contains(text(), "Kurt Gerber")]/a'
         )
         delete_user = re.findall('\d+', remove_button.get_attribute('onclick'))
 
@@ -853,11 +853,10 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('id', 'review-change-compiler-panel')
 
         # There is only one compiler
-        compiler = self.findBy('xpath', '//a[@rel="author"][1]').text
-        self.assertEqual(compiler, old_compiler)
+        self.assertEqual(self.get_compiler(), old_compiler)
 
         # There is no editor
-        self.findByNot('xpath', '//a[@rel="author"][2]')
+        self.assertEqual(self.get_editors(), [])
 
         # She goes to the list view and sees the compiler there
         self.browser.get(
@@ -938,11 +937,10 @@ class ModerationTestFixture(FunctionalTest):
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details
-        compiler = self.findBy('xpath', '//a[@rel="author"][1]').text
-        self.assertEqual(compiler, new_compiler_1)
+        self.assertEqual(self.get_compiler(), new_compiler_1)
 
         # There is no editor
-        self.findByNot('xpath', '//a[@rel="author"][2]')
+        self.assertEqual(self.get_editors(), [])
 
         # In the list, the new compiler is visible
         self.browser.get(
@@ -1048,12 +1046,10 @@ class ModerationTestFixture(FunctionalTest):
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details
-        compiler = self.findBy('xpath', '//a[@rel="author"][1]').text
-        self.assertEqual(compiler, new_compiler_2)
+        self.assertEqual(self.get_compiler(), new_compiler_2)
 
         # The old compiler is now an editor
-        compiler = self.findBy('xpath', '//a[@rel="author"][2]').text
-        self.assertEqual(compiler, new_compiler_1)
+        self.assertIn(new_compiler_1, self.get_editors())
 
         # In the list, the new compiler is visible
         self.browser.get(

@@ -23,7 +23,7 @@ def get_elasticsearch():
 es = get_elasticsearch()
 
 
-def get_mappings(questionnaire_configuration):
+def get_mappings():
     """
     Return the mappings of the questiongroups of a Questionnaire. This
     is used to identify the types of fields, making it possible to query
@@ -41,35 +41,6 @@ def get_mappings(questionnaire_configuration):
         fields.
     """
     language_codes = [l[0] for l in settings.LANGUAGES]
-
-    data_properties = {}
-    for questiongroup in questionnaire_configuration.get_questiongroups():
-        qg_properties = {}
-        for question in questiongroup.questions:
-            if question.field_type in ['char', 'text']:
-                q_properties = {}
-                for language_code in language_codes:
-                    q = {
-                        'type': 'text',
-                    }
-                    analyzer = get_analyzer(language_code)
-                    if analyzer:
-                        q.update({
-                            'analyzer': analyzer,
-                        })
-                    q_properties[language_code] = q
-                qg_properties[question.keyword] = {
-                    'properties': q_properties,
-                }
-            elif question.field_type in ['checkbox', 'image_checkbox', 'select_type']:
-                qg_properties[question.keyword] = {'type': 'keyword'}
-            elif question.field_type in ['date']:
-                qg_properties[question.keyword] = {'type': 'text'}
-
-        data_properties[questiongroup.keyword] = {
-            'type': 'nested',
-            'properties': qg_properties,
-        }
 
     name_properties = {}
     for language_code in language_codes:
@@ -98,21 +69,6 @@ def get_mappings(questionnaire_configuration):
             'properties': multilanguage_string_properties,
         }
     }
-
-    # Add the global questiongroups to the mapping if they are not already part
-    # of it. This is needed to prevent crashes when filtering (nested) by these
-    # questiongroups in configurations that do not have these questiongroups
-    # (e.g. UNCCD configuration).
-    for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
-        if global_questiongroup not in data_properties.keys():
-            properties = {}
-            for global_filter in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
-                if global_filter[0] == global_questiongroup:
-                    properties = {global_filter[1]: {'type': 'text'}}
-            data_properties[global_questiongroup] = {
-                'type': 'nested',
-                'properties': properties,
-            }
 
     mappings = {
         'questionnaire': {
@@ -184,6 +140,7 @@ def get_mappings(questionnaire_configuration):
                     }
                 },
                 # 'list_data' is added dynamically
+                # 'filter_data' is added dynamically (automatic mapping)
             }
         }
     }
@@ -332,6 +289,32 @@ def put_questionnaire_data(questionnaire_objects, **kwargs):
         # object, which returns values that are prepared to be presented on the
         # frontend and include lazy translation objects. Cast them to strings.
         serialized['list_data'] = force_strings(serialized['list_data'])
+
+        # The country field is used as default order of the list and needs to be
+        # set in the ES data. Set it manually if not available (usually only
+        # when using test data of the sample app).
+        if 'country' not in serialized['list_data']:
+            serialized['list_data']['country'] = ''
+
+        # Collect the filter values as specified in the configuration
+        # Global filter keys first
+        filter_paths = [
+            (f'{qg}__{key}', key, qg)
+            for qg, key in settings.QUESTIONNAIRE_GLOBAL_FILTER_PATHS]
+        # Extend with specific filter keys for this configuration.
+        filter_paths.extend([
+            (filter_key.path, filter_key.key, filter_key.questiongroup)
+            for filter_key in obj.configuration_object.get_filter_keys()])
+
+        filter_data = {}
+        for path, key, questiongroup in filter_paths:
+            q_data = [
+                qg_data.get(key) for qg_data in obj.data.get(questiongroup, [])]
+            # Remove None values and add only if not empty.
+            q_data = [v for v in q_data if v is not None]
+            if q_data:
+                filter_data[path] = q_data
+        serialized['filter_data'] = filter_data
 
         # Add ordered values to document data
         for ordered_filter in get_ordered_filter_values(obj.configuration_object):

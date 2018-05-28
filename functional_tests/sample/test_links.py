@@ -20,7 +20,7 @@ class LinkTests(FunctionalTest):
 
     fixtures = [
         'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'samplemulti', 'sample_samplemulti_questionnaires.json']
+        'samplemulti.json', 'sample_samplemulti_questionnaires.json']
 
     """
     1
@@ -51,7 +51,7 @@ class LinkTests(FunctionalTest):
     def setUp(self):
         super(LinkTests, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample', 'samplemulti'])
+        create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
 
     def tearDown(self):
         super(LinkTests, self).tearDown()
@@ -233,8 +233,7 @@ class LinkTests(FunctionalTest):
                 '{}//article[contains(@class, "is-samplemulti")]//span['
                 'contains(@class, "tech-status")]'.format(xpath))
 
-    def test_add_only_one_side_of_link_to_es_when_publishing(
-            self):
+    def test_add_only_one_side_of_link_to_es_when_publishing(self):
 
         sample_name = 'asdfasdf'
         samplemulti_name = 'foobar'
@@ -245,12 +244,10 @@ class LinkTests(FunctionalTest):
         self.doLogin(user=user_alice)
 
         # She goes to the list page
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_list))
+        self.browser.get(self.live_server_url + reverse(route_questionnaire_list))
 
         # She sees two entries
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
+        list_entries = self.findManyBy('xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 2)
 
         # She goes to the SAMPLEMULTI list view and sees 2 entries

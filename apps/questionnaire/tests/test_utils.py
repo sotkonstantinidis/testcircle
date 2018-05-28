@@ -4,6 +4,7 @@ from unittest.mock import patch, Mock, call, MagicMock
 
 from collections import namedtuple
 
+from configuration.cache import get_configuration
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.http import QueryDict
@@ -904,7 +905,7 @@ class GetListValuesTest(TestCase):
     fixtures = ['sample_global_key_values.json', 'sample.json', 'samplemulti.json']
 
     def setUp(self):
-        self.values_length = 12
+        self.values_length = 14
         self.es_hits = [{'_id': 1}]
 
     def test_es_wocat_uses_default_configuration(self):
@@ -927,6 +928,8 @@ class GetListValuesTest(TestCase):
         obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
+        obj.configuration_object = get_configuration(
+            code='sample', edition='2015')
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
@@ -953,6 +956,8 @@ class GetListValuesTest(TestCase):
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
         obj.data = {}
+        obj.configuration_object = get_configuration(
+            code='sample', edition='2015')
         questionnaires = [obj]
         ret = get_list_values(
             questionnaire_objects=questionnaires, configuration_code='sample')
@@ -960,26 +965,6 @@ class GetListValuesTest(TestCase):
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
         self.assertEqual(ret_1.get('configuration'), 'sample')
-
-    @patch('questionnaire.utils.get_configuration')
-    @patch('questionnaire.utils.Configuration.latest_by_code')
-    @patch('questionnaire.utils.get_link_data')
-    def test_db_wocat_uses_default_configuration(
-            self, mock_get_link_data, mock_latest_by_code,
-            mock_get_configuration):
-        obj = Mock()
-        obj.configuration = None
-        obj.links.all.return_value = []
-        obj.questionnairetranslation_set.all.return_value = []
-        obj.get_metadata.return_value = get_valid_metadata()
-        obj.data = {}
-        questionnaires = [obj]
-        ret = get_list_values(
-            questionnaire_objects=questionnaires, configuration_code='wocat')
-        self.assertEqual(len(ret), 1)
-        ret_1 = ret[0]
-        self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), mock_get_configuration().keyword)
 
     @patch.object(QuestionnaireSerializer, 'to_list_values')
     def test_to_value_calls_prepare_data(self, mock_to_list_values):
@@ -999,7 +984,7 @@ class GetListValuesTest(TestCase):
         )[0]
         # url is language agnostic
         object_data['url'] = object_data['url'].replace('/en/', '/')
-        keys = ['url', 'compilers', 'data']
+        keys = ['url', 'compilers']
         for key in keys:
             self.assertEqual(serializer_data[key], object_data[key])
 
@@ -1212,7 +1197,7 @@ class HandleReviewActionsTest(TestCase):
         prev = Mock()
         mock_Questionnaire.objects.filter.return_value = [prev]
         handle_review_actions(self.request, self.obj, 'sample')
-        mock_delete_data.assert_called_once_with('sample', [prev])
+        mock_delete_data.assert_called_once_with([prev])
 
     @patch('questionnaire.utils.put_questionnaire_data')
     @patch('questionnaire.signals.change_status.send')
@@ -1249,7 +1234,7 @@ class HandleReviewActionsTest(TestCase):
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
-        mock_put_data.assert_called_once_with('sample', [self.obj])
+        mock_put_data.assert_called_once_with([self.obj])
 
     @patch('questionnaire.utils.put_questionnaire_data')
     @patch('questionnaire.signals.change_status.send')
@@ -1268,9 +1253,8 @@ class HandleReviewActionsTest(TestCase):
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(mock_put_data.call_count, 2)
-        call_1 = call('sample', [self.obj])
-        call_2 = call(
-            mock_link.configurations.first.return_value.code, [mock_link])
+        call_1 = call([self.obj])
+        call_2 = call([mock_link])
         mock_put_data.assert_has_calls([call_1, call_2])
 
     def test_assign_needs_status(self, mock_messages):

@@ -21,22 +21,22 @@ class NotificationSetupMixin:
     def setUp(self):
         super().setUp()
         # create some users.
-        self.robin = mommy.make(get_user_model(), firstname='robin')
-        self.jay = mommy.make(get_user_model(), firstname='jay')
+        self.robin = mommy.make(_model=get_user_model(), firstname='robin')
+        self.jay = mommy.make(_model=get_user_model(), firstname='jay')
 
         # and a log that is ready for review.
         questionnaire = mommy.make(
-            model=Questionnaire,
+            _model=Questionnaire,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
         self.review_log = mommy.make(
-            model=Log,
+            _model=Log,
             questionnaire=questionnaire,
             catalyst=self.jay,
             action=settings.NOTIFICATIONS_CHANGE_STATUS
         )
         mommy.make(
-            model=StatusUpdate,
+            _model=StatusUpdate,
             log=self.review_log,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
@@ -53,11 +53,11 @@ class NotificationSetupMixin:
 
     def create_status_log(self, user):
         log = mommy.make(
-            Log,
+            _model=Log,
             catalyst=user,
             action=settings.NOTIFICATIONS_CHANGE_STATUS
         )
-        mommy.make(model=StatusUpdate, log=log)
+        mommy.make(_model=StatusUpdate, log=log)
 
 
 class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):

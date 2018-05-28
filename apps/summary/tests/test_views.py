@@ -44,30 +44,34 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         mock_data.return_value = sentinel.summary_data
         context = self.view.get_context_data()
         self.assertEqual(
-            context['block'], sentinel.summary_data
+            context['sections'], sentinel.summary_data
         )
 
     def test_get_filename(self):
         this_moment = now()
-        expected = 'wocat-id-en-full-screen-summary-{}.pdf'.format(
-            this_moment.strftime('%Y-%m-%d-%H-%M')
-        )
         self.view.questionnaire = MagicMock(
             id='id', updated=this_moment
+        )
+        expected = 'wocat-id-{}-en-full-screen-{}.pdf'.format(
+            self.view.questionnaire.configuration.id,
+            this_moment.strftime('%Y-%m-%d-%H-%M')
         )
         self.assertEqual(
             expected, self.view.get_filename()
         )
 
+    @override_settings(ALLOWED_HOSTS=['foo'])
     def test_get_summary_data(self):
         renderer = MagicMock()
         base_view = SummaryPDFCreateView()
         base_view.code = 'code'
         base_view.quality = 'screen'
         base_view.summary_type = 'summary_type'
-        base_view.render_classes = {'config_type': {'summary_type': renderer}}
+        base_view.render_classes = {
+            'config_type_config_edition': {'summary_type': renderer}}
         base_view.questionnaire = MagicMock(
-            configuration=MagicMock(code='config_type'),
+            configuration=MagicMock(
+                code='config_type', edition='config_edition'),
             configuration_object=sentinel.config
         )
         view = self.setup_view(base_view, self.request, id=1)
@@ -88,7 +92,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
 
     def test_get_template_names(self):
         self.assertEqual(
-            '{}/layout/test_code.html'.format(self.view.base_template_path),
+            '{}/layout/base.html'.format(self.view.base_template_path),
             self.view.get_template_names()
         )
 

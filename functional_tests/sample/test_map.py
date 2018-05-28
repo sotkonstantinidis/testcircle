@@ -37,6 +37,7 @@ class QuestionnaireTest(FunctionalTest):
         self.click_edit_section('cat_3')
         map = self.findBy(
             'xpath', '//div[contains(@class, "map-form-container")]')
+        self.scroll_to_element(map)
         map.click()
 
         # She saves the step

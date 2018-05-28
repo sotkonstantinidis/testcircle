@@ -20,12 +20,11 @@ from .index import (
     get_mappings,
     put_questionnaire_data,
 )
-from .search import simple_search, get_aggregated_values
+from .search import get_aggregated_values
 from .utils import get_alias, ElasticsearchAlias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 from questionnaire.models import Questionnaire
-from questionnaire.utils import get_list_values
 
 es = get_elasticsearch()
 
@@ -100,7 +99,7 @@ def index(request, configuration, edition):
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
 
-    mappings = get_mappings(questionnaire_configuration)
+    mappings = get_mappings()
 
     success, logs, error_msg = create_or_update_index(
         configuration=questionnaire_configuration,
@@ -212,23 +211,6 @@ def delete_one(request, configuration, edition):
     return redirect('search:admin')
 
 
-def search(request):
-    """
-    Do a full text search.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-    """
-    search = simple_search(request.GET.get('q', ''))
-    hits = search.get('hits', {}).get('hits', [])
-
-    list_values = get_list_values(configuration_code=None, es_hits=hits)
-
-    return render(request, 'sample/questionnaire/list.html', {
-        'list_values': list_values,
-    })
-
-
 class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
     """
     Get the available values and operator types for a given configuration and 
@@ -252,9 +234,17 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
 
         questiongroup, key = key_path_parts
 
+        try:
+            filter_configuration = next(
+                k for k in self.configuration.get_filter_keys()
+                if k.path == key_path)
+        except StopIteration:
+            return self.render_to_response(context={})
+
         # Query ES to see how many results are available for each option
         aggregated_values = get_aggregated_values(
-            questiongroup, key, **self.get_filter_params())
+            questiongroup, key, filter_configuration.filter_type,
+            **self.get_filter_params())
 
         question = None
         if len(key_path_parts) == 2:
@@ -263,7 +253,8 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
 
         counted_choices = []
         for c in question.choices:
-            counted_choices.append((c[0], c[1], aggregated_values.get(c[0], 0)))
+            counted_choices.append(
+                (str(c[0]), c[1], aggregated_values.get(c[0], 0)))
 
         context = {
             'choices': counted_choices,

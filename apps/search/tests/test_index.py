@@ -3,7 +3,7 @@ import logging
 
 from django.conf import settings
 from django.test.utils import override_settings
-from elasticsearch import TransportError
+from elasticsearch import TransportError, RequestError
 from unittest.mock import patch, Mock
 
 from configuration.cache import get_configuration
@@ -22,7 +22,6 @@ from search.index import (
     get_mappings,
     put_questionnaire_data,
 )
-from ..search import simple_search
 
 # Prevent logging of Elasticsearch queries
 logging.disable(logging.CRITICAL)
@@ -35,7 +34,7 @@ TEST_ALIAS_PREFIXED = '{}{}'.format(TEST_INDEX_PREFIX, TEST_ALIAS)
 TEST_INDEX = '{}_1'.format(TEST_ALIAS_PREFIXED)
 
 
-def create_temp_indices(indices):
+def create_temp_indices(configuration_list: list):
     """
     For each index, create the index and update it with the
     questionnaires of the corresponding configuration as found in the
@@ -43,15 +42,20 @@ def create_temp_indices(indices):
 
     Make sure to override the settings and use a custom prefix for the
     indices.
+
+    Args:
+        ``configuration_list`` (list): A list of tuples containing the
+            configurations for which a ES index shall be created and consisting
+            of
+            - [0]: code of the configuration
+            - [1]: edition of the configuration
     """
-    for index in indices:
-        configuration = QuestionnaireConfiguration(index)
-        mappings = get_mappings(configuration)
-        create_or_update_index(index, mappings)
+    for code, edition in configuration_list:
+        mappings = get_mappings()
+        create_or_update_index(
+            get_configuration(code=code, edition=edition), mappings)
         put_questionnaire_data(
-            Questionnaire.with_status.public(
-                configuration__code=index
-            )
+            Questionnaire.with_status.public().filter(configuration__code=code)
         )
 
 
@@ -98,79 +102,41 @@ class ESIndexMixin:
 
 
 class GetMappingsTest(TestCase):
-    def test_calls_get_questiongroups(self):
-        mock_Conf = Mock()
-        mock_Conf.get_questiongroups.return_value = []
-        get_mappings(mock_Conf)
-        mock_Conf.get_questiongroups.assert_called_once_with()
-
     def test_returns_dictionary(self):
-        mock_Conf = Mock()
-        mock_Conf.get_questiongroups.return_value = []
-        mappings = get_mappings(mock_Conf)
+        mappings = get_mappings()
         self.assertIsInstance(mappings, dict)
         self.assertIn('questionnaire', mappings)
         self.assertIn('properties', mappings['questionnaire'])
-        self.assertIn('data', mappings['questionnaire']['properties'])
-
-    def test_adds_each_questiongroup(self):
-        mock_Conf = Mock()
-        mock_qg_1 = Mock()
-        mock_qg_1.questions = []
-        mock_qg_1.keyword = 'foo'
-        mock_qg_2 = Mock()
-        mock_qg_2.questions = []
-        mock_qg_2.keyword = 'bar'
-        mock_Conf.get_questiongroups.return_value = [mock_qg_1, mock_qg_2]
-        mappings = get_mappings(mock_Conf)
-        qgs = mappings.get('questionnaire', {}).get('properties', {}).get(
-            'data', {}).get('properties')
-        self.assertEqual(len(qgs), 2+len(settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS))
-        for qg_name in ['foo', 'bar']:
-            qg = qgs.get(qg_name)
-            self.assertEqual(qg.get('type'), 'nested')
-            self.assertEqual(qg.get('properties'), {})
+        # 'data' is not part of Elasticsearch index anymore
+        self.assertNotIn('data', mappings['questionnaire']['properties'])
+        # 'list_data' and 'filter_data' will be added dynamically to the mapping
+        self.assertNotIn('list_data', mappings['questionnaire']['properties'])
+        self.assertNotIn('filter_data', mappings['questionnaire']['properties'])
 
     @override_settings(ES_ANALYZERS=(('en', 'english'), ('es', 'spanish')))
     def test_adds_analyzer_for_strings(self):
-        mock_Conf = Mock()
-        mock_q_1 = Mock()
-        mock_q_1.keyword = 'a'
-        mock_q_1.field_type = 'char'
-        mock_q_2 = Mock()
-        mock_q_2.keyword = 'b'
-        mock_q_2.field_type = 'char'
-        mock_qg_1 = Mock()
-        mock_qg_1.questions = [mock_q_1, mock_q_2]
-        mock_qg_1.keyword = 'foo'
-        mock_Conf.get_questiongroups.return_value = [mock_qg_1]
-        mappings = get_mappings(mock_Conf)
-        qgs = mappings.get('questionnaire', {}).get('properties', {}).get(
-            'data', {}).get('properties')
-        self.assertEqual(len(qgs), 1+len(settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS))
-        qs = qgs.get('foo', {}).get('properties', {})
-        for q_name in ['a', 'b']:
-            q = qs.get(q_name)
-            self.assertEqual(
-                q.get('properties').get('es'),
-                {'analyzer': 'spanish', 'type': 'text'})
-            self.assertEqual(
-                q.get('properties').get('en'),
-                {'analyzer': 'english', 'type': 'text'})
+        mappings = get_mappings()
+        name_properties = mappings['questionnaire']['properties']['name'][
+            'properties']
+        self.assertEqual(
+            name_properties['es'],
+            {'analyzer': 'spanish', 'type': 'text'}
+        )
+        self.assertEqual(
+            name_properties['en'],
+            {'analyzer': 'english', 'type': 'text'}
+        )
 
     def test_adds_basic_mappings(self):
-        mock_Conf = Mock()
-        mock_Conf.get_questiongroups.return_value = []
-        mappings = get_mappings(mock_Conf)
+        mappings = get_mappings()
         q_props = mappings.get('questionnaire').get('properties')
-        self.assertEqual(len(q_props), 12)
+        self.assertEqual(len(q_props), 11)
         default_props = {}
         for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
             default_props[global_questiongroup] = {'properties': {}, 'type': 'nested'}
             if global_questiongroup == 'qg_location':
                 default_props[global_questiongroup]['properties'] = {'country': {'type': 'text'}}
 
-        self.assertEqual(q_props['data'], {'properties': default_props})
         self.assertEqual(q_props['created'], {'type': 'date'})
         self.assertEqual(q_props['updated'], {'type': 'date'})
         self.assertEqual(q_props['translations'], {'type': 'text'})
@@ -195,33 +161,46 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 
     fixtures = ['sample.json', 'sample_global_key_values.json']
 
+    def setUp(self):
+        super().setUp()
+        self.keyword = 'foo'
+        self.edition = '2015'
+        self.configuration = Mock(
+            spec=QuestionnaireConfiguration, keyword=self.keyword,
+            edition=self.edition)
+
+    @patch('search.index.ElasticsearchAlias')
     @patch('search.index.get_alias')
-    def test_calls_get_alias(self, mock_get_alias):
-        mock_get_alias.return_value = 'foo'
-        create_or_update_index('foo', {})
-        mock_get_alias.assert_called_once_with(['foo'])
+    def test_calls_get_alias(self, mock_get_alias, mock_es_alias):
+        with self.assertRaises(RequestError):
+            create_or_update_index(self.configuration, {})
+        mock_es_alias.from_configuration.assert_called_once_with(
+            configuration=self.configuration)
+        mock_get_alias.assert_called_once_with(
+            mock_es_alias.from_configuration.return_value)
 
     @patch('search.index.es')
     def test_calls_indices_exists_alias(self, mock_es):
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.exists_alias.assert_called_once_with(
-            name='{}foo'.format(TEST_INDEX_PREFIX))
+            name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.es')
     def test_calls_indices_create_if_no_alias(self, mock_es):
         mock_es.indices.exists_alias.return_value = False
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.create.assert_called_once_with(
-            index='{}foo_1'.format(TEST_INDEX_PREFIX), body=self.default_body)
+            index=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}_1',
+            body=self.default_body)
 
     @patch('search.index.es')
     def test_calls_indices_put_alias_if_no_alias(self, mock_es):
         mock_es.indices.exists_alias.return_value = False
         mock_es.indices.create.return_value = {'acknowledged': True}
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.put_alias.assert_called_once_with(
-            index='{}foo_1'.format(TEST_INDEX_PREFIX),
-            name='{}foo'.format(TEST_INDEX_PREFIX))
+            index=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}_1',
+            name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.get_current_and_next_index')
     @patch('search.index.es')
@@ -229,9 +208,9 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
             self, mock_es, mock_get_current_and_next_index):
         mock_es.indices.exists_alias.return_value = True
         mock_get_current_and_next_index.return_value = 'a', 'b'
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_get_current_and_next_index.assert_called_once_with(
-            '{}foo'.format(TEST_INDEX_PREFIX))
+            f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.get_current_and_next_index')
     @patch('search.index.es')
@@ -239,7 +218,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
             self, mock_es, mock_get_current_and_next_index):
         mock_es.indices.exists_alias.return_value = True
         mock_get_current_and_next_index.return_value = 'a', 'b'
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.create.assert_called_once_with(
             index='b', body=self.default_body)
 
@@ -252,7 +231,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_es.indices.create.return_value = {'acknowledged': True}
         mock_get_current_and_next_index.return_value = 'a', 'b'
         mock_reindex.return_value = 0, []
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_reindex.assert_called_once_with(mock_es, 'a', 'b')
 
     @patch('search.index.reindex')
@@ -264,7 +243,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_es.indices.create.return_value = {'acknowledged': True}
         mock_get_current_and_next_index.return_value = 'a', 'b'
         mock_reindex.return_value = 0, []
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.refresh.assert_called_once_with(index='b')
 
     @patch('search.index.reindex')
@@ -276,9 +255,9 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_es.indices.create.return_value = {'acknowledged': True}
         mock_get_current_and_next_index.return_value = 'a', 'b'
         mock_reindex.return_value = 0, []
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.put_alias.assert_called_once_with(
-            index='b', name='{}foo'.format(TEST_INDEX_PREFIX))
+            index='b', name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.reindex')
     @patch('search.index.get_current_and_next_index')
@@ -290,9 +269,9 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_get_current_and_next_index.return_value = 'a', 'b'
         mock_reindex.return_value = 0, []
         mock_es.indices.put_alias.return_value = {'acknowledged': True}
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.delete_alias.assert_called_once_with(
-            index='a', name='{}foo'.format(TEST_INDEX_PREFIX))
+            index='a', name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.reindex')
     @patch('search.index.get_current_and_next_index')
@@ -305,53 +284,39 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_reindex.return_value = 0, []
         mock_es.indices.put_alias.return_value = {'acknowledged': True}
         mock_es.indices.delete_alias.return_value = {'acknowledged': True}
-        create_or_update_index('foo', {})
+        create_or_update_index(self.configuration, {})
         mock_es.indices.delete.assert_called_once_with(index='a')
 
-    def test_creates_new_index(self):
+    @patch('search.index.get_alias')
+    def test_creates_new_index(self, mock_get_alias):
         alias = uuid.uuid4()
         alias_prefixed = '{}{}'.format(TEST_INDEX_PREFIX, alias)
+        mock_get_alias.return_value = alias_prefixed
         index = '{}{}_1'.format(TEST_INDEX_PREFIX, alias)
         self.assertFalse(es.indices.exists_alias(name=alias_prefixed))
         self.assertFalse(es.indices.exists(index=index))
-        create_or_update_index(alias, {})
+        create_or_update_index(self.configuration, {})
         self.assertTrue(es.indices.exists_alias(name=alias_prefixed))
         self.assertTrue(es.indices.exists(index=index))
         es.indices.delete(index=index)
 
-    def test_updates_index(self):
-        # An index and alias exists already
-        self.assertTrue(es.indices.exists_alias(name=TEST_ALIAS_PREFIXED))
-        current_index, next_index = get_current_and_next_index(
-            TEST_ALIAS_PREFIXED)
-        self.assertTrue(es.indices.exists(index=current_index))
-        # The index is updated
-        create_or_update_index(TEST_ALIAS, {})
-        # There is still an alias
-        self.assertTrue(es.indices.exists_alias(name=TEST_ALIAS_PREFIXED))
-        # The old index does not exist anymore
-        self.assertFalse(es.indices.exists(index=current_index))
-        # A new index has been created
-        self.assertTrue(
-            es.indices.exists(index=next_index))
-
-    def test_keeps_data(self):
-        m = get_valid_questionnaire()
-        put_questionnaire_data([m])
-        search = simple_search('bar', configuration_codes=['sample'])
-        hits = search.get('hits', {}).get('hits', [])
-        self.assertEqual(len(hits), 1)
-        create_or_update_index(TEST_ALIAS, {})
-        search = simple_search('bar', configuration_codes=['sample'])
-        hits = search.get('hits', {}).get('hits', [])
-        self.assertEqual(len(hits), 1)
+    # def test_keeps_data(self):
+    #     m = get_valid_questionnaire()
+    #     put_questionnaire_data([m])
+    #     search = simple_search('bar', configuration_codes=['sample'])
+    #     hits = search.get('hits', {}).get('hits', [])
+    #     self.assertEqual(len(hits), 1)
+    #     create_or_update_index(self.configuration, {})
+    #     search = simple_search('bar', configuration_codes=['sample'])
+    #     hits = search.get('hits', {}).get('hits', [])
+    #     self.assertEqual(len(hits), 1)
 
     def test_returns_correct_values(self):
-        success, logs, error_msg = create_or_update_index(TEST_ALIAS, {})
+        success, logs, error_msg = create_or_update_index(self.configuration, {})
         self.assertIsInstance(success, bool)
         self.assertTrue(success)
         self.assertIsInstance(logs, list)
-        self.assertEqual(len(logs), 7)
+        self.assertEqual(len(logs), 3)
         self.assertEqual(error_msg, '')
 
     @patch('search.index.force_strings')
@@ -367,11 +332,14 @@ class PutQuestionnaireDataTest(TestCase):
 
     fixtures = ['sample.json', 'sample_global_key_values.json']
 
+    @patch('search.index.bulk')
     @patch('search.index.es')
     @patch('search.index.get_alias')
-    def test_calls_get_alias(self, mock_get_alias, mock_es):
-        put_questionnaire_data([])
-        mock_get_alias.assert_called_once_with(['sample'])
+    def test_calls_get_alias(self, mock_get_alias, mock_es, mock_bulk):
+        mock_get_alias.return_value = ''
+        mock_bulk.return_value = None, None
+        put_questionnaire_data([get_valid_questionnaire()])
+        mock_get_alias.assert_called_once()
 
     @patch('search.index.es')
     @patch('search.index.bulk')
@@ -380,22 +348,22 @@ class PutQuestionnaireDataTest(TestCase):
         questionnaire = get_valid_questionnaire()
         put_questionnaire_data([questionnaire])
         source = dict(QuestionnaireSerializer(
-            questionnaire,
-            config=get_configuration(code='sample', edition='2015')
+            questionnaire
         ).data)
+        source['filter_data'] = {}
+        source['list_data']['country'] = ''
         data = [{
-            '_index': '{}sample'.format(TEST_INDEX_PREFIX),
+            '_index': '{}sample_2015'.format(TEST_INDEX_PREFIX),
             '_type': 'questionnaire',
             '_id': questionnaire.id,
-            '_source': source
+            '_source': source,
         }]
         mock_bulk.assert_called_once_with(mock_es, data)
 
     @patch('search.index.es')
     def test_calls_indices_refresh(self, mock_es):
         put_questionnaire_data([])
-        mock_es.indices.refresh.assert_called_once_with(
-            index='{}sample'.format(TEST_INDEX_PREFIX))
+        mock_es.indices.refresh.assert_called_once_with(index='')
 
     @patch('search.index.es')
     @patch('search.index.bulk')
@@ -413,13 +381,16 @@ class DeleteQuestionnairesFromEsTest(TestCase):
 
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):
-        delete_questionnaires_from_es('sample', self.objects)
+        obj = self.objects[0]
+        obj_configuration = obj.configuration_object
+        delete_questionnaires_from_es(self.objects)
         mock_es.delete.assert_called_once_with(
-            index='{}{}'.format(TEST_INDEX_PREFIX, 'sample'),
-            doc_type='questionnaire', id=self.objects[0].id)
+            index=f'{TEST_INDEX_PREFIX}{obj_configuration.keyword}_'
+                  f'{obj_configuration.edition}',
+            doc_type='questionnaire', id=obj.id)
 
     def test_fails_silently_if_no_such_object(self):
-        delete_questionnaires_from_es('sample', self.objects)
+        delete_questionnaires_from_es(self.objects)
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
@@ -450,8 +421,8 @@ class DeleteSingleIndexTest(TestCase):
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):
         delete_single_index('index')
-        mock_es.indices.delete.assert_called_once_with(index='{}{}'.format(
-            TEST_INDEX_PREFIX, 'index'), ignore=[404])
+        mock_es.indices.delete.assert_called_once_with(
+            index='index', ignore=[404])
 
     @patch('search.index.es')
     def test_returns_false_if_no_success(self, mock_es):

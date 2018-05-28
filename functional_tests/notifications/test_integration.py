@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from model_mommy import mommy
 
 from configuration.models import Configuration
+from notifications.models import Log
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
 from functional_tests.base import FunctionalTest
@@ -24,18 +25,19 @@ class NotificationsIntegrationTest(FunctionalTest):
     def setUp(self):
         super().setUp()
         self.jay = mommy.make(
-            get_user_model(),
+            _model=get_user_model(),
             firstname='jay'
         )
         self.robin = mommy.make(
-            get_user_model(),
+            _model=get_user_model(),
             firstname='robin'
         )
         self.questionnaire = mommy.make(
-            model=Questionnaire,
+            _model=Questionnaire,
             data={},
             code='sample_1',
             status=settings.QUESTIONNAIRE_DRAFT,
+            configuration=Configuration.objects.filter(code='sample').first()
         )
         # # Create a valid questionnaire with the least required data.
         # mommy.make(
@@ -45,13 +47,13 @@ class NotificationsIntegrationTest(FunctionalTest):
         #     original_configuration=True
         # )
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             user=self.jay,
             questionnaire=self.questionnaire,
             role='compiler'
         )
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             user=self.robin,
             questionnaire=self.questionnaire,
             role='editor'
@@ -115,9 +117,11 @@ class NotificationsIntegrationTest(FunctionalTest):
             'sample_1 editing has been finalized by robin' in boxes[7].text
         )
         # jay clicks on the mail icon and the message is revealed in full.
-        self.findBy('xpath', '//a[@data-reveal-id="show-message-1"]').click()
-        self.wait_for('id', 'show-message-1')
-        modal = self.findBy('id', 'show-message-1')
+        log_id = Log.objects.latest('id').id
+        self.findBy(
+            'xpath', f'//a[@data-reveal-id="show-message-{log_id}"]').click()
+        self.wait_for('id', f'show-message-{log_id}')
+        modal = self.findBy('id', f'show-message-{log_id}')
         self.assertTrue(
             modal.is_displayed()
         )

@@ -16,4 +16,6 @@ django-eml-email-backend==0.1
 pytest-cov==2.5.1
 pytest-django==3.2.1
 pytest-sugar==0.9.1
+PyVirtualDisplay==0.2.1
+selenium==3.12.0
 pytest-xdist==1.22.2

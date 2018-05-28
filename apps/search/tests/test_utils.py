@@ -34,15 +34,15 @@ class GetAnalyzerTest(TestCase):
 class GetAliasTest(TestCase):
 
     def test_returns_single_configuration_code(self):
-        alias = get_alias(['foo'])
+        alias = get_alias('foo')
         self.assertEqual(alias, 'prefix_foo')
 
     def test_returns_no_configuration_code(self):
-        alias = get_alias([])
-        self.assertEqual(alias, 'prefix_*')
+        alias = get_alias('')
+        self.assertEqual(alias, 'prefix_')
 
     def test_returns_multiple_configuration_codes(self):
-        alias = get_alias(['foo', 'bar'])
+        alias = get_alias('foo', 'bar')
         self.assertEqual(alias, 'prefix_foo,prefix_bar')
 
 

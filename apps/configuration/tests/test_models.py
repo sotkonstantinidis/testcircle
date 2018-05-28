@@ -79,10 +79,6 @@ class CategoryModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.category.full_clean()
 
-    def test_translation_is_mandatory(self):
-        with self.assertRaises(ValueError):
-            self.category.translation = None
-
     def test_translation_needs_correct_type(self):
         translation = get_valid_translation_model()
         translation.translation_type = 'foo'
@@ -146,10 +142,6 @@ class KeyModelTest(TestCase):
         self.key.keyword = None
         with self.assertRaises(ValidationError):
             self.key.full_clean()
-
-    def test_translation_is_mandatory(self):
-        with self.assertRaises(ValueError):
-            self.key.translation = None
 
     def test_translation_needs_correct_type(self):
         translation = get_valid_translation_model()
@@ -219,10 +211,6 @@ class ValueModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.value.full_clean()
 
-    def test_translation_is_mandatory(self):
-        with self.assertRaises(ValueError):
-            self.value.translation = None
-
     def test_translation_needs_correct_type(self):
         translation = get_valid_translation_model()
         translation.translation_type = 'foo'
@@ -287,23 +275,6 @@ class TranslationModelTest(TestCase):
         self.translation.translation_type = 'foo'
         with self.assertRaises(ValidationError):
             self.translation.full_clean()
-
-    def test_data_is_mandatory(self):
-        self.translation.data = None
-        with self.assertRaises(ValidationError):
-            self.translation.full_clean()
-
-    def test_data_cannot_be_empty(self):
-        self.translation.data = {}
-        with self.assertRaises(ValidationError):
-            self.translation.full_clean()
-
-    def test_get_translation_types_returns_list(self):
-        self.assertIsInstance(self.translation.get_translation_types(), list)
-
-    def test_get_translation_types_returns_valid_types(self):
-        valid_types = self.translation.get_translation_types()
-        self.assertEqual(len(valid_types), 5)
 
     def test_empty_response_for_translation_without_content(self):
         self.assertIsNone(
@@ -392,13 +363,13 @@ class ConfigurationTest(TestCase):
         This tests the queryset, but it is an important one.
 
         """
-        config = get_valid_configuration_model()
-        config.code = 'test'
-        config.created = datetime(2000, 1, 1)
-        with patch.object(config, '_default_manager') as default_mngr:
-            config.has_new_edition  # noqa
-            self.assertListEqual(
-                default_mngr.method_calls,
-                [call.filter(code='test', created__gt=config.created)]
-            )
-
+        old_edition = get_valid_configuration_model()
+        old_edition.edition = '2000'
+        old_edition.created = datetime(2000, 1, 1)
+        old_edition.save()
+        new_edition = get_valid_configuration_model()
+        new_edition.edition = '2001'
+        new_edition.created = datetime(2001, 1, 1)
+        new_edition.save()
+        self.assertTrue(old_edition.has_new_edition)
+        self.assertFalse(new_edition.has_new_edition)

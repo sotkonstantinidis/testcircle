@@ -348,7 +348,8 @@ class LogTest(TestCase):
         Build a log with valid properties to get reviewers
         """
         questionnaire = mommy.make(
-            _model=Questionnaire, status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
+            _model=Questionnaire,
+            status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
         )
         log = mommy.make(
             _model=Log,

@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
