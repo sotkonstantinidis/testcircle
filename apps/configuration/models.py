@@ -95,26 +95,12 @@ class Translation(models.Model):
         Raises:
             ``ValidationError``.
         """
-        if self.translation_type not in self.get_translation_types():
+        valid_types = [
+            'category', 'questiongroup', 'key', 'value']
+        if self.translation_type not in valid_types:
             raise ValidationError(
                 'Translation.translation_type needs to be one of: {}'.format(
-                    ', '.join(self.get_translation_types())))
-
-    @staticmethod
-    def get_translation_types():
-        """
-        Return all ``translation_type`` attributes of the translated
-        models. In order to do this, all related objects are looped
-        dynamically.
-
-        Returns:
-            ``list``. A list with the ``validation_types`` of the
-            translated models, e.g. ``['key', 'value', 'category']``.
-        """
-        translation_types = []
-        for related in Translation._meta.get_all_related_objects():
-            translation_types.append(related.related_model.translation_type)
-        return translation_types
+                    ', '.join(valid_types)))
 
     def get_translation(self, keyword, configuration='wocat', locale=None, edition=''):
         """
@@ -253,7 +239,7 @@ class Value(models.Model):
     order_value = models.IntegerField(blank=True, null=True)
     translation = models.ForeignKey(
         'Translation', limit_choices_to={'translation_type': translation_type})
-    configuration = JSONField(blank=True, help_text="""
+    configuration = JSONField(blank=True, null=True, help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
             <strong>Hint</strong>: Use <a href="https://jqplay.org/">jq

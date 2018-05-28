@@ -16,12 +16,12 @@
       <li class="{% if review_config.review_status == 3 %}is-current{% else %}is-done{% endif %}">{% trans "Publish" %}</li>
     </ol>
     <div class="review-panel-content">
-      {% if review_config.roles %}
-        <div>
-          <h3>{% trans "Review status" %}</h3>
-            <p><a href="{% url 'wocat:help_review_process' %}" class="link">{% trans "Learn more about the review process." %}</a></p>
-        </div>
-        <form action="{{ review_config.form_action_url }}" method="POST" id="review_form">
+      <form action="{{ review_config.form_action_url }}" method="POST" id="review_form">
+        {% if review_config.roles %}
+          <div>
+            <h3>{% trans "Review status" %}</h3>
+              <p><a href="{% url 'wocat:help_review_process' %}" class="link">{% trans "Learn more about the review process." %}</a></p>
+          </div>
           <div data-alert class="alert-box success" tabindex="0" aria-live="assertive" role="alertdialog">
             {% for role_code, role_name in review_config.roles %}
             <div class="process-single-role">

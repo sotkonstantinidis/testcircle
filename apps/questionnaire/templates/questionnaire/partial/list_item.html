@@ -19,7 +19,7 @@
 
   <div class="tech-item-content">
     {% for flag in item.flags %}
-      <span class="label tech-flag is-{{ item.configuration }}"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
+      <span class="label tech-flag is-{{ flag.flag }}"{% if flag.helptext %} data-tooltip="" title="{{ flag.helptext }}"{% endif %}>
         {{ flag.name }}
       </span>
     {% endfor %}

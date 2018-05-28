@@ -528,6 +528,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             )
 
         attrs.update(self.form_options.get('field_options', {}))
+        attrs.update({
+            'conditional': self.conditional,
+            'questiongroup_conditions': ','.join(
+                self.questiongroup_conditions)
+        })
 
         # Disable inherited questions.
         if self.parent_object.inherited_configuration:
@@ -698,7 +703,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'options_by_questiongroups', [])
             widget.options_order = questiongroups
             choices.extend(get_choices_from_questiongroups(
-                questionnaire_data, questiongroups, self.configuration_keyword))
+                questionnaire_data, questiongroups, self.configuration_keyword,
+                self.edition))
             field = ConditionalQuestiongroupChoiceField(
                 label=self.label, widget=widget, choices=choices,
                 required=self.required, question=self)
@@ -760,7 +766,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if questionnaire_object:
                 questionnaire_data = questionnaire_object.data
             self.choices = get_choices_from_questiongroups(
-                questionnaire_data, questiongroups, self.configuration_keyword)
+                questionnaire_data, questiongroups, self.configuration_keyword,
+                self.edition)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
                 'select_type', 'select', 'cb_bool', 'radio',
@@ -1159,7 +1166,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'min_num': self.min_num,
             'extra': 0,
             'validate_max': True,
-            'validate_min': True,
+            'validate_min': False,
         }
 
         if self.required is True:
@@ -1918,6 +1925,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
         categories_with_content = self.get_subcategories()
 
+        history = []
+        if questionnaire_object is not None:
+            history = questionnaire_object.get_previous_public_versions()
+
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1942,7 +1953,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'review_config': review_config,
                 'user': user,
                 'completeness_percentage': completeness_percentage,
-                'history': questionnaire_object.get_previous_public_versions()
+                'history': history,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -2430,11 +2441,22 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 'cca': 'tech_definition',
                 'sample': 'key_5',
                 'samplemodule': 'modkey_01',
-                'samplemulti': 'key_5',
+                'samplemulti': 'mkey_01',
                 'technologies': 'tech_definition',
                 'unccd': 'unccd_description',
                 'watershed': 'app_definition'
             }
+
+            # For testing configurations (e.g. 'sample', 'samplemulti'), there
+            # is no qg_name/name questiongroup/key. Instead, it relies on the
+            # (probably deprecated) "is_name" key in the configuration json. In
+            # order to add their name correctly to the list data, they are added
+            # manually here.
+            if 'name' not in questionnaire_value:
+                name_key, name_qg = self.get_name_keywords()
+                if name_key is not None:
+                    questionnaire_value['name'] = questionnaire_data.get(
+                        name_qg, [{}])[0].get(name_key, {})
 
             # If configuration mapping is not set up, a KeyError will be raised.
             questionnaire_value['definition'] = questionnaire_value.get(
@@ -2685,7 +2707,18 @@ class HiddenInput(forms.TextInput):
         return ctx
 
 
-class RadioSelect(forms.RadioSelect):
+class ConditionalMixin:
+
+    def get_context_data(self):
+        ctx = super().get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.attrs['questiongroup_conditions'],
+            'conditional': self.attrs['conditional'],
+        })
+        return ctx
+
+
+class RadioSelect(ConditionalMixin, forms.RadioSelect):
     """
     A custom form class for a Radio Select field. Allows to overwrite
     the template used.
@@ -2699,13 +2732,12 @@ class RadioSelect(forms.RadioSelect):
         """
         ctx = super(RadioSelect, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class Select(forms.Select):
+class Select(ConditionalMixin, forms.Select):
     template_name = 'form/field/select.html'
 
     def get_context_data(self):
@@ -2726,7 +2758,7 @@ class Select(forms.Select):
         return ctx
 
 
-class MeasureSelect(forms.RadioSelect):
+class MeasureSelect(ConditionalMixin, forms.RadioSelect):
     template_name = 'form/field/measure.html'
 
     def get_context_data(self):
@@ -2736,13 +2768,12 @@ class MeasureSelect(forms.RadioSelect):
         """
         ctx = super(MeasureSelect, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class MeasureSelectStacked(forms.RadioSelect):
+class MeasureSelectStacked(ConditionalMixin, forms.RadioSelect):
     template_name = 'form/field/measure_stacked.html'
 
     def get_context_data(self):
@@ -2752,13 +2783,12 @@ class MeasureSelectStacked(forms.RadioSelect):
         """
         ctx = super(MeasureSelectStacked, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class Checkbox(forms.CheckboxSelectMultiple):
+class Checkbox(ConditionalMixin, forms.CheckboxSelectMultiple):
     template_name = 'form/field/checkbox.html'
 
     def get_context_data(self):
@@ -2768,13 +2798,12 @@ class Checkbox(forms.CheckboxSelectMultiple):
         """
         ctx = super(Checkbox, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class ImageCheckbox(forms.CheckboxSelectMultiple):
+class ImageCheckbox(ConditionalMixin, forms.CheckboxSelectMultiple):
     template_name = 'form/field/image_checkbox.html'
 
     def get_context_data(self):
@@ -2785,13 +2814,12 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
         ctx = super(ImageCheckbox, self).get_context_data()
         ctx.update({
             'images': self.images,
-            'conditional': self.conditional,
             'options': self.options,
         })
         return ctx
 
 
-class ConditionalQuestiongroupChoiceField(forms.ChoiceField):
+class ConditionalQuestiongroupChoiceField(ConditionalMixin, forms.ChoiceField):
     """
     A Choice field whose choices are based on the presence of certain
     questiongroups in the data JSON.
@@ -2815,6 +2843,7 @@ class RequiredFormSet(BaseFormSet):
         super(RequiredFormSet, self).__init__(*args, **kwargs)
         for form in self.forms:
             form.empty_permitted = True
+
 
 class MeasureCheckbox(forms.CheckboxSelectMultiple):
     template_name = 'form/field/checkbox_measure.html'

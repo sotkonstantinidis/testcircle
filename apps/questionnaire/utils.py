@@ -344,7 +344,8 @@ def clean_questionnaire_data(
                     questiongroups = question.form_options.get(
                         'options_by_questiongroups', [])
                     question.choices = get_choices_from_questiongroups(
-                        cleaned_data, questiongroups, configuration)
+                        cleaned_data, questiongroups, configuration.keyword,
+                        configuration.edition)
 
                     if value in [c[0] for c in question.choices]:
                         # Only copy values which are valid options.
@@ -1335,9 +1336,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         links_by_configuration = {}
         for link in questionnaire_object.links.filter(
                 status=settings.QUESTIONNAIRE_PUBLIC):
-            configuration_object = link.configurations.first()
-            if configuration_object is None:
-                continue
+            configuration_object = link.configuration
             if configuration_object.code not in links_by_configuration:
                 links_by_configuration[configuration_object.code] = []
             links_by_configuration[configuration_object.code].append(link)

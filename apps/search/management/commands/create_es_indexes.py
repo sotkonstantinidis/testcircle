@@ -28,7 +28,7 @@ class Command(BaseCommand):
                 questionnaire_configuration = get_configuration(
                     code=configuration.code, edition=configuration.edition
                 )
-                mappings = get_mappings(questionnaire_configuration)
+                mappings = get_mappings()
                 create_or_update_index(
                     configuration=questionnaire_configuration,
                     mappings=mappings
