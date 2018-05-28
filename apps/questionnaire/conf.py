@@ -66,14 +66,6 @@ class QuestionnaireConf(AppConf):
         ('qg_location', 'country', 'countries'),
     ]
 
-    # Mapping for consistent field names on the API. See
-    # questionnaire.api.views.QuestionnaireAPIMixin for usage.
-    API_CHANGE_KEYS = {
-        'app_definition': 'definition',
-        'tech_definition': 'definition',
-        'unccd_description': 'definition',
-    }
-
     SLM_DATA_TYPES = (
         ('wocat', _('ALL SLM Data')),
         ('technologies', _('SLM Technologies')),

@@ -2,7 +2,6 @@ from collections import OrderedDict
 import logging
 
 from django.core.paginator import EmptyPage
-from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
@@ -10,9 +9,9 @@ from rest_framework.reverse import reverse
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 
 from api.views import LogUserMixin, PermissionMixin
-from configuration.cache import get_configuration
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
 from questionnaire.views import ESQuestionnaireQueryMixin
+from search.search import get_element
 from ..conf import settings
 from ..models import Questionnaire
 from ..serializers import QuestionnaireSerializer
@@ -27,11 +26,7 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
     """
     add_detail_url = False
 
-    @cached_property
-    def setting_keys(self):
-        return set(settings.QUESTIONNAIRE_API_CHANGE_KEYS.keys())
-
-    def update_dict_keys(self, items):
+    def update_dict_keys(self, es_hits):
         """
         Some keys need to be updated (e.g. description has a different key
         depending on the config) for a more consistent behavior of the APIs
@@ -42,8 +37,8 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         the content is used as key, i.e.: 'unccd_description': 'a title' becomes
         'definition: {'en': 'a title'}
         """
-        for item in items:
-            yield self.replace_keys(item)
+        for es_hit in es_hits:
+            yield self.replace_keys(es_hit)
 
     def language_text_mapping(self, **item) -> list:
         """
@@ -55,38 +50,37 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         """
         return [{'language': key, 'text': value} for key, value in item.items()]
 
-    def replace_keys(self, item):
+    def replace_keys(self, es_hit):
         """
         Replace all keys as defined by the configuration. Also, list all
         translated versions. This was requested by the consumers of the API.
         To access description and name in all versions, the config must be
         loaded again.
         """
-        matching_keys = self.setting_keys.intersection(item.keys())
-        config = get_configuration(
-            code=item['serializer_config'], edition=item['serializer_edition'])
-        if matching_keys:
-            for key in matching_keys:
-                definition = self.language_text_mapping(
-                    **config.get_questionnaire_description(item['data'], key)
-                )
-                del item[key]
-                item[settings.QUESTIONNAIRE_API_CHANGE_KEYS[key]] = definition
+        list_values = get_list_values(es_hits=[es_hit])[0]
 
         # Special case: 'name' must include all translations.
-        if item.get('name'):
-            item['name'] = self.language_text_mapping(
-                **config.get_questionnaire_name(item['data'])
-            )
+        list_values['name'] = es_hit['_source']['list_data']['name']
+        list_values['definition'] = es_hit['_source']['list_data']['name']
 
         if self.add_detail_url:
-            item['api_url'] = reverse(
+            list_values['api_url'] = reverse(
                 '{api_version}:questionnaires-api-detail'.format(
                     api_version=self.request.version
                 ),
-                kwargs={'identifier': item['code']}
+                kwargs={'identifier': list_values['code']}
             )
-        return item
+
+        list_values['configurations'] = [list_values['configuration']]
+        list_values['native_configuration'] = True
+
+        delete_keys = ['serializer_config', 'serializer_edition', 'has_new_configuration_edition']
+        for key in delete_keys:
+            del list_values[key]
+
+        list_values['data'] = self.obj.data or self.get_current_object().data
+
+        return list_values
 
     def filter_dict(self, items):
         """
@@ -110,6 +104,16 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
                     ), kwargs={'identifier': item['code']}
                 ),
             }
+
+    def get_current_object(self):
+        """
+        Check if the model entry is still valid.
+
+        Returns: object (Questionnaire instance)
+        """
+        return get_object_or_404(
+            Questionnaire.with_status.public(), code=self.kwargs['identifier']
+        )
 
 
 class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
@@ -143,11 +147,12 @@ class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
         questionnaires, self.pagination = self.get_es_pagination(es_pagination)
 
         # Combine configuration and questionnaire values.
-        list_values = get_list_values(es_hits=questionnaires)
         if self.request.version == 'v1':
-            return self.update_dict_keys(list_values)
+            return self.update_dict_keys(es_hits=questionnaires)
         else:
-            return self.filter_dict(list_values)
+            return self.filter_dict(
+                get_list_values(es_hits=questionnaires)
+            )
 
     def get_paginated_response(self, data):
         """
@@ -202,10 +207,9 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     add_detail_url = False
 
     def get(self, request, *args, **kwargs):
-        item = self.get_current_object()
-        # TODO: Refactor (API v1)
-        serialized = self.serialize_item(item)
-        return Response(self.replace_keys(serialized))
+        self.obj = self.get_current_object()
+        es_hit = get_element(questionnaire=self.obj)
+        return Response(self.replace_keys(es_hit={'_source': es_hit}))
 
     def serialize_item(self, item):
         """
@@ -218,17 +222,6 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     def prepare_data(self, serializer):
         # serializer.to_list_values(lang=get_language())
         return serializer.validated_data
-
-    def get_current_object(self):
-        """
-        Check if the model entry is still valid.
-
-        Returns: object (Questionnaire instance)
-
-        """
-        return get_object_or_404(
-            Questionnaire.with_status.public(), code=self.kwargs['identifier']
-        )
 
 
 class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
@@ -254,7 +247,7 @@ class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
         # Links are removed from the 'data' dict, but available on the
         # serialized element.
         data['links'] = self.prepare_link_data(
-            *serializer.validated_data['links']
+            *questionnaire.links_property
         )
         configured_questionnaire = ConfiguredQuestionnaire(
             config=questionnaire.configuration_object,
