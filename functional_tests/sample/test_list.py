@@ -22,8 +22,6 @@ from search.tests.test_index import create_temp_indices
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-cat_1_position = get_position_of_category('cat_1', start0=True)
-
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
 class ListTest(FunctionalTest):
@@ -38,7 +36,7 @@ class ListTest(FunctionalTest):
             route_questionnaire_filter) + '?type=sample'
         super(ListTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample', 'unccd'])
+        create_temp_indices([('sample', '2015'), ('unccd', '2015')])
 
     def tearDown(self):
         super(ListTest, self).tearDown()
@@ -218,7 +216,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 1")]')
+            'contains(text(), "Foo 4")]')
 
         pagination = self.findManyBy(
             'xpath', '//ul[contains(@class, "pagination")]/li')
@@ -236,7 +234,7 @@ class ListTest(FunctionalTest):
         self.assertEqual(len(list_entries), 1)
         self.findBy(
             'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+            'contains(text(), "Foo 1")]')
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_list_with_foreign_configuration(self, mock_config_index_filter):
@@ -251,30 +249,29 @@ class ListTest(FunctionalTest):
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 5)
 
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 3")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//p['
-            'text()="Faz 3"]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//p['
-            'text()="Faz 4"]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
-            'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//p['
-            'text()="Faz 2"]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
-            'contains(text(), "Foo 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//p['
-            'text()="Faz 1"]')
+        expected_list_order = [
+            {
+                'name': 'Foo 3',
+                'description': 'Faz 3',
+            },
+            {
+                'name': 'UNCCD practice 1',
+                'description': 'This is the description of the first UNCCD practice.',
+            },
+            {
+                'name': 'Foo 4',
+                'description': 'Faz 4',
+            },
+            {
+                'name': 'Foo 2',
+                'description': 'Faz 2',
+            },
+            {
+                'name': 'Foo 1',
+                'description': 'Faz 1',
+            },
+        ]
+        self.check_list_results(expected_list_order)
 
     def test_list_database_es(self):
 
@@ -369,15 +366,15 @@ class ListTest(FunctionalTest):
         # She selects the first checkbox and updates the filter
         self.add_advanced_filter('qg_11__key_14', 'value_14_1')
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 4")]')
+        expected_list = [
+            {
+                'title': 'Foo 4'
+            },
+            {
+                'title': 'Foo 1'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # The number of Questionnaires in the title is updated
         count = self.findBy(
@@ -402,18 +399,18 @@ class ListTest(FunctionalTest):
                 (By.CLASS_NAME, "loading-indicator")))
 
         # The filters are joined by OR, therefore there are now more results
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 3")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
-                     'contains(text(), "Foo 1")]')
+        expected_list = [
+            {
+                'title': 'Foo 3'
+            },
+            {
+                'title': 'Foo 4'
+            },
+            {
+                'title': 'Foo 1'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # The active filter updated in the list of active filters
         active_filters = self.get_active_filters()
@@ -961,28 +958,27 @@ class ListTest(FunctionalTest):
         self.add_advanced_filter('qg_11__key_14', 'value_14_1')
 
         # She sees the results are filtered
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 4")]')
+        expected_list = [
+            {
+                'title': 'Foo 4'
+            },
+            {
+                'title': 'Foo 1'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # She also searches for a word
         self.findBy('xpath', '//input[@type="search"]').send_keys(search_term)
         self.apply_filter()
 
         # She sees that both filters are applied, they are joined by AND
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
+        expected_list = [
+            {
+                'title': 'Foo 4'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters(has_any=True)
@@ -1042,12 +1038,12 @@ class ListTest(FunctionalTest):
         self.add_advanced_filter('qg_11__key_14', 'value_14_1')
 
         # The results are filtered
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 4")]')
+        expected_list = [
+            {
+                'title': 'Foo 4'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters(has_any=True)
@@ -1167,19 +1163,18 @@ class ListTest(FunctionalTest):
 
         # She sees that the filter was submitted in the url and the results
         # are filtered
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-
-        self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 4")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
-            'contains(text(), "Foo 1")]')
+        expected_list = [
+            {
+                'title': 'Foo 4'
+            },
+            {
+                'title': 'Foo 2'
+            },
+            {
+                'title': 'Foo 1'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters()
@@ -1211,12 +1206,12 @@ class ListTest(FunctionalTest):
         self.browser.get(url)
 
         # She sees the filter is set
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-            'contains(text(), "Foo 3")]')
+        expected_list = [
+            {
+                'title': 'Foo 3'
+            }
+        ]
+        self.check_list_results(expected_list)
 
         # The filter was added to the list of active filters
         active_filters = self.get_active_filters()
@@ -1286,7 +1281,7 @@ class ListTestLinks(FunctionalTest):
     def setUp(self):
         super(ListTestLinks, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample', 'samplemulti'])
+        create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
 
     def tearDown(self):
         super(ListTestLinks, self).tearDown()
@@ -1404,7 +1399,7 @@ class ListTestStatus(FunctionalTest):
     def setUp(self):
         super(ListTestStatus, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample'])
+        create_temp_indices([('sample', '2015')])
 
     def tearDown(self):
         super(ListTestStatus, self).tearDown()
@@ -1525,10 +1520,7 @@ class ListTestStatus(FunctionalTest):
         # She edits the Questionnaire and sees that the URL contains the
         # code of the Questionnaire
         self.review_action('edit')
-        self.findManyBy(
-            'xpath',
-            '//a[contains(@href, "edit/{}/cat")]'.format(code))[
-                cat_1_position].click()
+        self.click_edit_section('cat_1')
         self.assertIn(code, self.browser.current_url)
 
         key_1 = self.findBy('name', 'qg_1-0-original_key_1')

@@ -64,7 +64,6 @@ class LoginViewTest(TestCase):
     def test_dispatch(self):
         request = self.factory.get(reverse('login'))
         setattr(request, 'user', self.user)
-        request.user.is_authenticated = MagicMock(return_value=True)
         view = self.setup_view(LoginView(), request)
         response = view.dispatch(view.request, *view.args, **view.kwargs)
         self.assertEqual(response.status_code, 302)

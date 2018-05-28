@@ -15,15 +15,15 @@ class CreateLogTest(TestCase):
         self.catalyst = mommy.make(get_user_model())
         self.subscriber = mommy.make(get_user_model())
         self.questionnaire = mommy.make(
-            Questionnaire
+            _model=Questionnaire
         )
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=self.catalyst
         )
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=self.subscriber
         )

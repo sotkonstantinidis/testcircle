@@ -142,6 +142,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             locator = By.XPATH
         elif by == 'id':
             locator = By.ID
+        elif by == 'name':
+            locator = By.NAME
         else:
             self.fail('Argument "by" = "%s" is not valid.' % by)
 
@@ -410,6 +412,22 @@ class FunctionalTest(StaticLiveServerTestCase):
                     'xpath',
                     f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
                     f'a[contains(text(), "{lang}")]')
+
+    def get_compiler(self) -> str:
+        """From the details view, return the name of the compiler"""
+        return self.findBy(
+            'xpath',
+            '//ul[@class="tech-infos"]/li/span[text()="Compiler:"]/../a'
+        ).text
+
+    def get_editors(self) -> list:
+        """From the details view, return the names of the editors"""
+        editors = []
+        for el in self.findManyBy(
+                'xpath',
+                '//ul[@class="tech-infos"]/li/span[text()="Editors:"]/../a'):
+            editors.append(el.text)
+        return editors
 
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)

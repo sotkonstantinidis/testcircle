@@ -144,7 +144,7 @@ $(function () {
     // When toggling the advanced filter panel, wait for the toggling and check
     // if the filter button needs to be made sticky or not
     .on('click', '.js-toggle-advanced-filters', function(e) {
-        setTimeout(function() { console.log("bar"); resetStickyFilterButton(); }, 400);
+        setTimeout(function() { resetStickyFilterButton(); }, 400);
     })
 
     // When selecting a key, query the available values for this key.

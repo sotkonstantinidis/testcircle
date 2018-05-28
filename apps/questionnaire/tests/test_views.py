@@ -337,10 +337,11 @@ class QuestionnaireStepViewTest(TestCase):
     @patch('questionnaire.signals.change_questionnaire_data.send')
     def test_next_section_route(self, mock_change_data,
                                 get_success_url_next_section, create_new):
-        request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
+        request = self.factory.post(
+            '/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0',
+            data={'goto-next-section': 'true'})
         request.user = self.request.user
         request._messages = MagicMock()
-        request.POST['goto-next-section'] = 'true'
         view = self.setup_view(self.view, request, step='cat_0')
         view.object = MagicMock()
         view.object.code = 'foo'

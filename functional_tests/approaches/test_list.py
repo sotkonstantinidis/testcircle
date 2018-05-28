@@ -16,14 +16,22 @@ TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'approaches.json', 'unccd.json',
-        'approaches_questionnaires.json', 'unccd_questionnaires.json']
+        'global_key_values.json',
+        'approaches.json',
+        'unccd.json',
+        'technologies.json',
+        'wocat.json',
+        'approaches_questionnaires.json',
+        'unccd_questionnaires.json']
 
     def setUp(self):
         super(ListTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['approaches', 'technologies', 'wocat', 'unccd',
-                             'cca', 'watershed'])
+        create_temp_indices([
+            ('approaches', '2015'),
+            ('technologies', '2015'),
+            ('unccd', '2015'),
+        ])
 
     def tearDown(self):
         super(ListTest, self).tearDown()

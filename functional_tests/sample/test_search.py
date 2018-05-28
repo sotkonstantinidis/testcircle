@@ -23,12 +23,12 @@ class SearchTest(FunctionalTest):
 
     fixtures = [
         'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
-        'sample_questionnaires_search.json']
+        'wocat.json', 'sample_questionnaires_search.json']
 
     def setUp(self):
         super(SearchTest, self).setUp()
         delete_all_indices(prefix=TEST_INDEX_PREFIX)
-        create_temp_indices(['sample', 'samplemulti'])
+        create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
 
     def tearDown(self):
         super(SearchTest, self).tearDown()
@@ -129,19 +129,11 @@ class SearchTestAdmin(FunctionalTest):
         # them having no index
         self.findBy(
             'xpath',
-            '//tbody/tr[1]/td/span[text()="Sample Core Configuration"]')
+            '//tbody/tr[1]/td[text()="sample 2015"]')
         self.assertEqual(
             self.findBy(
                 'xpath',
                 '//tbody/tr[1]/td/span/strong[@class="text-warning"]').text,
-            'No Index!')
-        self.findBy(
-            'xpath',
-            '//tbody/tr[2]/td/span[text()="Sample Configuration"]')
-        self.assertEqual(
-            self.findBy(
-                'xpath',
-                '//tbody/tr[2]/td/span/strong[@class="text-warning"]').text,
             'No Index!')
 
         # She creates the index for the sample configuration
@@ -153,11 +145,6 @@ class SearchTestAdmin(FunctionalTest):
             self.findBy(
                 'xpath',
                 '//tbody/tr[1]/td/span/strong[@class="text-warning"]').text,
-            'No Index!')
-        self.assertEqual(
-            self.findBy(
-                'xpath',
-                '//tbody/tr[2]/td/span/strong[@class="text-warning"]').text,
             '0 / 2')
 
         # She updates the newly created index
@@ -165,17 +152,12 @@ class SearchTestAdmin(FunctionalTest):
 
         # She sees that the index was updated successfully
         self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.assertEqual(
-            self.findBy(
-                'xpath',
-                '//tbody/tr[1]/td/span/strong[@class="text-warning"]').text,
-            'No Index!')
         self.findByNot(
-            'xpath', '//tbody/tr[2]/td/span/strong[@class="text-warning"]')
+            'xpath', '//tbody/tr[1]/td/span/strong[@class="text-warning"]')
         self.assertEqual(
             self.findBy(
                 'xpath',
-                '//tbody/tr[2]/td/span/strong[@class="text-ok"]').text,
+                '//tbody/tr[1]/td/span/strong[@class="text-ok"]').text,
             '2 / 2')
 
         # She decides to delete all indices
@@ -185,17 +167,9 @@ class SearchTestAdmin(FunctionalTest):
         self.findBy('xpath', '//div[contains(@class, "success")]')
         self.findBy(
             'xpath',
-            '//tbody/tr[1]/td/span[text()="Sample Core Configuration"]')
+            '//tbody/tr[1]/td[text()="sample 2015"]')
         self.assertEqual(
             self.findBy(
                 'xpath',
                 '//tbody/tr[1]/td/span/strong[@class="text-warning"]').text,
-            'No Index!')
-        self.findBy(
-            'xpath',
-            '//tbody/tr[2]/td/span[text()="Sample Configuration"]')
-        self.assertEqual(
-            self.findBy(
-                'xpath',
-                '//tbody/tr[2]/td/span/strong[@class="text-warning"]').text,
             'No Index!')

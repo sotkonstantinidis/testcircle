@@ -174,18 +174,21 @@ class ModerationTest(FunctionalTest):
 
         # She sees all the Questionnaires which are submitted plus the one where
         # he is compiler
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 6")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+            'contains(text(), "Foo 2")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+            'contains(text(), "Foo 8")]',
+            wait=True)
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 3)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 6")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-            'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
-            'contains(text(), "Foo 8")]')
 
         # He logs in as WOCAT secretariat
         self.doLogin(user=user_secretariat)
@@ -197,24 +200,30 @@ class ModerationTest(FunctionalTest):
 
         # She sees all the Questionnaires (2 drafts, 2 submitted, 2 reviewed and
         # 1 rejected)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
+                     'contains(text(), "Foo 1")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
+                     'contains(text(), "Foo 6")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
+                     'contains(text(), "Foo 2")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
+                     'contains(text(), "Foo 8")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[5]//a['
+                     'contains(text(), "Foo 7")]',
+            wait=True)
+        self.findBy(
+            'xpath', '(//article[contains(@class, "tech-item")])[6]//a['
+                     'contains(text(), "Foo 9")]',
+            wait=True)
         list_entries = self.findManyBy(
             'xpath', '//article[contains(@class, "tech-item")]')
         self.assertEqual(len(list_entries), 6)
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//a['
-                     'contains(text(), "Foo 1")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[2]//a['
-                     'contains(text(), "Foo 6")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[3]//a['
-                     'contains(text(), "Foo 2")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[4]//a['
-                     'contains(text(), "Foo 8")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[5]//a['
-                     'contains(text(), "Foo 7")]')
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[6]//a['
-                     'contains(text(), "Foo 9")]')

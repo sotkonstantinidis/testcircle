@@ -20,7 +20,7 @@ class ActionContextTest(TestCase):
         but creating groups and permissions is too much overhead.
         """
         user = mommy.make(
-            model=get_user_model(),
+            _model=get_user_model(),
             **attributes,
         )
         user.get_all_permissions = lambda: permissions
@@ -48,21 +48,21 @@ class ActionContextTest(TestCase):
 
         # Notification for a submitted questionnaire
         self.catalyst_change = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             catalyst=self.catalyst,
             questionnaire=self.questionnaire
         )
         self.catalyst_change.subscribers.add(self.subscriber)
         mommy.make(
-            StatusUpdate,
+            _model=StatusUpdate,
             log=self.catalyst_change,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
 
         # Notification the should not be listed
         self.catalyst_edit = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_EDIT_CONTENT,
             catalyst=self.catalyst,
             questionnaire=self.questionnaire
@@ -104,7 +104,7 @@ class ActionContextTest(TestCase):
     def test_permissions_questionnaire_membership(self):
         user = mommy.make(get_user_model())
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=user,
             role=settings.QUESTIONNAIRE_REVIEWER
@@ -149,7 +149,7 @@ class ActionContextTest(TestCase):
 
     def test_list_includes_edit_for_compiler(self):
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=self.catalyst,
             role=settings.QUESTIONNAIRE_COMPILER
@@ -179,7 +179,7 @@ class ActionContextTest(TestCase):
     def test_user_log_count(self):
         # Test count for all unread questionnaires
         catalyst_change_old = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             catalyst=self.catalyst,
             questionnaire=self.questionnaire
@@ -210,7 +210,7 @@ class ActionContextTest(TestCase):
 
     def test_only_unread_logs_is_read(self):
         mommy.make(
-            model=ReadLog,
+            _model=ReadLog,
             is_read=True,
             user=self.catalyst,
             log=self.catalyst_edit
@@ -223,7 +223,7 @@ class ActionContextTest(TestCase):
 
     def test_only_unread_logs_is_not_read(self):
         mommy.make(
-            model=ReadLog,
+            _model=ReadLog,
             is_read=False,
             user=self.catalyst,
             log=self.catalyst_edit
@@ -283,31 +283,31 @@ class LogTest(TestCase):
 
     def setUp(self):
         self.catalyst = mommy.make(
-            model=get_user_model()
+            _model=get_user_model()
         )
         self.status_log = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             catalyst=self.catalyst
         )
         mommy.make(
-            model=StatusUpdate,
+            _model=StatusUpdate,
             log=self.status_log
         )
         self.content_log = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_EDIT_CONTENT
         )
         mommy.make(
-            model=ContentUpdate,
+            _model=ContentUpdate,
             log=self.content_log
         )
         self.member_log = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_ADD_MEMBER
         )
         mommy.make(
-            MemberUpdate,
+            _model=MemberUpdate,
             log=self.member_log
         )
 
@@ -348,15 +348,16 @@ class LogTest(TestCase):
         Build a log with valid properties to get reviewers
         """
         questionnaire = mommy.make(
-            Questionnaire, status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
+            _model=Questionnaire,
+            status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
         )
         log = mommy.make(
-            Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire
         )
         mommy.make(
-            model=StatusUpdate,
+            _model=StatusUpdate,
             log=log,
             status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
         )

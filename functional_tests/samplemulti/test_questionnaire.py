@@ -1,7 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from functional_tests.base import FunctionalTest
-from unittest.mock import patch
 
 from samplemulti.tests.test_views import (
     route_home,
