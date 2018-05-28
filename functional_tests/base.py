@@ -60,7 +60,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         Use FF as browser for functional tests.
         Create a virtual display, so the browser doesn't keep popping up.
         """
-        if '-pop' not in sys.argv[1:]:
+        if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display = Display(visible=0, size=(1600, 900))
             self.display.start()
         self.browser = webdriver.Chrome(
@@ -69,7 +69,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def tearDown(self):
         self.browser.quit()
-        if '-pop' not in sys.argv[1:]:
+        if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display.stop()
 
     def findByNot(self, by, el):
