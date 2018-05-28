@@ -34,6 +34,7 @@ class BaseSettings(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.humanize',
         'compressor',
+        'cookielaw',
         'django_extensions',
         'django_filters',
         'easy_thumbnails',
@@ -356,7 +357,7 @@ class BaseSettings(Configuration):
     TOUCH_FILE_DEMO = values.Value(environ_prefix='')
     TOUCH_FILE_LIVE = values.Value(environ_prefix='')
 
-    OPBEAT = values.DictValue(environ_prefix='')
+    SENTRY_DSN = values.Value(environ_prefix='')
     SLACK_TOKEN = values.Value(environ_prefix='')
 
     WARN_HEADER = values.Value(environ_prefix='')

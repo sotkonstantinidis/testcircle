@@ -8,4 +8,4 @@ django-redis-cache==1.7.1
 hiredis==0.2.0
 pylibmc==1.5.2
 redis==2.10.6
-opbeat==3.6.1
+raven==6.8.0

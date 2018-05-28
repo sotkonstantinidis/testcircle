@@ -273,6 +273,7 @@ class ConfiguredQuestionnaireDetailViewTest(TestCase):
         mock_get_language.return_value = sentinel.language
         mock_serializer = MagicMock(validated_data={
             'data': sentinel.data,
+            'links': [],
             'original_locale': sentinel.original_locale
         })
         self.view.prepare_data(mock_serializer)
