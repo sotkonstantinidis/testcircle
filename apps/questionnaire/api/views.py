@@ -2,7 +2,6 @@ from collections import OrderedDict
 import logging
 
 from django.core.paginator import EmptyPage
-from django.http import Http404
 from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from rest_framework.generics import GenericAPIView, get_object_or_404
@@ -14,7 +13,6 @@ from api.views import LogUserMixin, PermissionMixin
 from configuration.cache import get_configuration
 from configuration.configured_questionnaire import ConfiguredQuestionnaire
 from questionnaire.views import ESQuestionnaireQueryMixin
-from search.search import get_element
 from ..conf import settings
 from ..models import Questionnaire
 from ..serializers import QuestionnaireSerializer
