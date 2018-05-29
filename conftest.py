@@ -6,7 +6,35 @@ integrated (clickable) test feature.
 import os
 import envdir
 import configurations
+import pytest
 
 envdir.read(os.path.join(os.path.dirname(__file__), 'envs'))
 os.environ.__setitem__('DJANGO_CONFIGURATION', 'TestDefaultSite')
 configurations.setup()
+
+
+@pytest.fixture
+def es(request):
+    """
+    In order to allow multiple Elasticsearch indices when running tests in
+    parallel, overwrite ES_INDEX_PREFIX settings for each test function
+    according to its slave id.
+
+    Usage for tests that require Elasticsearch:
+    @pytest.mark.usefixtures('es')
+    """
+    from django.conf import settings
+    from search.index import get_elasticsearch
+
+    # Test setup
+    xdist_suffix = getattr(
+        request.config, 'slaveinput', {}
+    ).get('slaveid', 'es_test_index')
+    es_prefix = f'{settings.ES_INDEX_PREFIX}{xdist_suffix}'
+    setattr(settings, 'ES_INDEX_PREFIX', es_prefix)
+
+    # Actual test
+    yield
+
+    # Test teardown
+    get_elasticsearch().indices.delete(index=f'{es_prefix}*')

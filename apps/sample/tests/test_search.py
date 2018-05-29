@@ -21,14 +21,12 @@ from search.search import (
 )
 from search.tests.test_index import create_temp_indices
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
-
 FilterParam = collections.namedtuple(
             'FilterParam',
             ['questiongroup', 'key', 'values', 'operator', 'type'])
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class AdvancedSearchTest(TestCase):
 
     fixtures = [
@@ -36,11 +34,7 @@ class AdvancedSearchTest(TestCase):
         'sample_questionnaires_search.json']
 
     def setUp(self):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
-
-    def tearDown(self):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_advanced_search(self):
         filter_param = FilterParam(
@@ -231,7 +225,7 @@ class AdvancedSearchTest(TestCase):
         self.assertEqual(hit_ids, ['5', '4', '1'])
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class GetListValuesTest(TestCase):
 
     fixtures = [
@@ -239,11 +233,7 @@ class GetListValuesTest(TestCase):
         'sample_questionnaires_search.json']
 
     def setUp(self):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
-
-    def tearDown(self):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_returns_same_result_for_es_search_and_db_objects(self):
         es_hits = advanced_search(
