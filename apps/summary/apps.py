@@ -18,8 +18,11 @@ class SummaryConfig(AppConfig):
         the file-hash only once: at application start.
         """
         summary_css_path = finders.find('css/summary.css')
-        with open(summary_css_path, 'rb') as f:
-            d = hashlib.md5()
-            for buf in iter(functools.partial(f.read, 128), b''):
-                d.update(buf)
-        return d.hexdigest()
+        if summary_css_path:
+            # summary-css is not built on integration server.
+            with open(summary_css_path, 'rb') as f:
+                d = hashlib.md5()
+                for buf in iter(functools.partial(f.read, 128), b''):
+                    d.update(buf)
+            return d.hexdigest()
+        return ''
