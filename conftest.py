@@ -8,4 +8,5 @@ import envdir
 import configurations
 
 envdir.read(os.path.join(os.path.dirname(__file__), 'envs'))
+os.environ.__setitem__('DJANGO_CONFIGURATION', 'TestDefaultSite')
 configurations.setup()
