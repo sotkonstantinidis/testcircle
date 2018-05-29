@@ -16,19 +16,14 @@ from questionnaire.serializers import QuestionnaireSerializer
 from questionnaire.api.views import QuestionnaireListView, \
     QuestionnaireDetailView,  QuestionnaireAPIMixin, \
     ConfiguredQuestionnaireDetailView
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
-
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireListViewTest(TestCase):
     fixtures = ['global_key_values', 'sample', 'sample_questionnaires']
 
     def setUp(self):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015')])
         self.factory = RequestFactory()
         self.url = '/en/api/v1/questionnaires/sample_1/'
@@ -38,9 +33,6 @@ class QuestionnaireListViewTest(TestCase):
             QuestionnaireListView(), self.request, identifier='sample_1'
         )
         self.view.configuration_code = 'sample'
-
-    def tearDown(self):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_logs_call(self):
         """
@@ -58,11 +50,10 @@ class QuestionnaireListViewTest(TestCase):
             view.dispatch(request)
             mock_save.assert_called_once_with()
 
-    @pytest.mark.skip('TODO: Fix me when details of API v1 works again')
     def test_api_detail_url(self):
         questionnaire = Questionnaire.objects.get(code='sample_1')
         serialized = QuestionnaireSerializer(questionnaire).data
-        item = self.view.replace_keys(serialized)
+        item = self.view.replace_keys(es_hit={'_source': serialized})
         self.assertEqual(
             item.get('api_url'), '/en/api/v1/questionnaires/sample_1/'
         )
@@ -191,8 +182,7 @@ class QuestionnaireListViewTest(TestCase):
                                      kwargs={'identifier': 'spam'})
 
 
-@pytest.mark.skip('TODO: Fix me when details of API v1 works again')
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireDetailViewTest(TestCase):
     """
     Tests for v1
@@ -215,16 +205,6 @@ class QuestionnaireDetailViewTest(TestCase):
         questionnaire = Questionnaire.objects.get(code=self.identifier)
         return QuestionnaireSerializer(questionnaire).data
 
-    @patch('questionnaire.api.views.get_element')
-    def test_access_elasticsearch(self, mock_get_element):
-        mock_get_element.return_value = {'oo': 'bar'}
-        self.view.get_elasticsearch_item()
-        mock_get_element.assert_called_once_with(1, 'sample')
-
-    def test_elasticsearch_error(self):
-        with self.assertRaises(Http404):
-            self.view.get_elasticsearch_item()
-
     def test_invalid_element(self):
         with self.assertRaises(Http404):
             self.view.get(self.invalid_request)
@@ -234,12 +214,11 @@ class QuestionnaireDetailViewTest(TestCase):
         self.assertEqual(item.id, 1)
         self.assertEqual(item.code, self.identifier)
 
-    def test_get_invalid_object(self):
-        with self.assertRaises(Http404):
-            self.view.get(self.invalid_request)
-
     def test_api_detail_url(self):
-        item = self.view.replace_keys(self.get_serialized_data())
+        serialized = self.get_serialized_data()
+        serialized['list_data']['name'] = 'foo'
+        serialized['list_data']['definition'] = 'bar'
+        item = self.view.replace_keys({'_source': serialized})
         with self.assertRaises(KeyError):
             foo = item['api_url']  # noqa
 
@@ -255,7 +234,7 @@ class QuestionnaireDetailViewTest(TestCase):
             self.view.serialize_item(serialized)
 
 
-@pytest.mark.skip('TODO: Fix me when details of API v1 works again')
+@pytest.mark.usefixtures('es')
 class ConfiguredQuestionnaireDetailViewTest(TestCase):
 
     def setUp(self):
@@ -275,12 +254,11 @@ class ConfiguredQuestionnaireDetailViewTest(TestCase):
     def test_prepare_data_one_language(self, mock_single_language,
                                        mock_get_language):
         mock_get_language.return_value = sentinel.language
-        mock_serializer = MagicMock(validated_data={
-            'data': sentinel.data,
-            'links': [],
-            'original_locale': sentinel.original_locale
-        })
-        self.view.prepare_data(mock_serializer)
+        self.view.object = MagicMock(
+            data=sentinel.data,
+            original_locale=sentinel.original_locale
+        )
+        self.view.prepare_data()
         mock_single_language.assert_called_once_with(
             locale=sentinel.language,
             original_locale=sentinel.original_locale,
@@ -291,5 +269,5 @@ class ConfiguredQuestionnaireDetailViewTest(TestCase):
     @patch('questionnaire.api.views.ConfiguredQuestionnaire')
     def test_prepare_data(self, mock_conf, mock_single_language):
         mock_single_language.return_value = {}
-        self.view.prepare_data(MagicMock())
+        self.view.prepare_data()
         self.assertTrue(mock_conf.called)

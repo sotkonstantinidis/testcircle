@@ -2,6 +2,7 @@ from collections import OrderedDict
 import logging
 
 from django.core.paginator import EmptyPage
+from django.http import Http404
 from django.utils.translation import get_language
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
@@ -14,7 +15,6 @@ from questionnaire.views import ESQuestionnaireQueryMixin
 from search.search import get_element
 from ..conf import settings
 from ..models import Questionnaire
-from ..serializers import QuestionnaireSerializer
 from ..utils import get_list_values, get_questionnaire_data_in_single_language
 
 logger = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
     """
     add_detail_url = False
 
-    def update_dict_keys(self, es_hits):
+    def update_dict_keys(self, es_hits: list):
         """
         Some keys need to be updated (e.g. description has a different key
         depending on the config) for a more consistent behavior of the APIs
@@ -50,7 +50,7 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         """
         return [{'language': key, 'text': value} for key, value in item.items()]
 
-    def replace_keys(self, es_hit):
+    def replace_keys(self, es_hit: dict) -> dict:
         """
         Replace all keys as defined by the configuration. Also, list all
         translated versions. This was requested by the consumers of the API.
@@ -58,10 +58,21 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         loaded again.
         """
         list_values = get_list_values(es_hits=[es_hit])[0]
-
-        # Special case: 'name' must include all translations.
+        # 'name' and 'definition' must include all translations.
         list_values['name'] = es_hit['_source']['list_data']['name']
-        list_values['definition'] = es_hit['_source']['list_data']['name']
+        list_values['definition'] = es_hit['_source']['list_data']['definition']
+
+        # Restore state of configuration for v1.
+        list_values['configurations'] = [list_values['configuration']]
+        list_values['native_configuration'] = True
+
+        # Remove keys that are not available on v1.
+        delete_keys = ['serializer_config', 'serializer_edition', 'has_new_configuration_edition']
+        for key in delete_keys:
+            del list_values[key]
+
+        # Add 'full' data, even for the list view.
+        list_values['data'] = self.get_object_data(code=list_values['code'])
 
         if self.add_detail_url:
             list_values['api_url'] = reverse(
@@ -71,18 +82,13 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
                 kwargs={'identifier': list_values['code']}
             )
 
-        list_values['configurations'] = [list_values['configuration']]
-        list_values['native_configuration'] = True
-
-        delete_keys = ['serializer_config', 'serializer_edition', 'has_new_configuration_edition']
-        for key in delete_keys:
-            del list_values[key]
-
-        list_values['data'] = self.obj.data or self.get_current_object().data
-
         return list_values
 
-    def filter_dict(self, items):
+    def get_object_data(self, code: str) -> dict:
+        obj = self.object if hasattr(self, 'object') else self.get_current_object(code=code)
+        return obj.data
+
+    def filter_dict(self, items: dict):
         """
         Starting with API v2 only name and url to the detail page are displayed.
         """
@@ -105,20 +111,20 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
                 ),
             }
 
-    def get_current_object(self):
+    def get_current_object(self, code='') -> Questionnaire:
         """
         Check if the model entry is still valid.
 
         Returns: object (Questionnaire instance)
         """
         return get_object_or_404(
-            Questionnaire.with_status.public(), code=self.kwargs['identifier']
+            Questionnaire.with_status.public(), code=self.kwargs.get('identifier', code)
         )
 
 
 class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
     """
-    Get a list of Questionnaires.
+    Get a list of Questionnaires, for v1 and v2
 
     Return a list of Questionnaires. The same filter parameters as for the list
     view (search/filter in QCAT) can be passed.
@@ -129,7 +135,7 @@ class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
     add_detail_url = True
     configuration_code = 'wocat'
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs) -> Response:
         self.set_attributes()
         items = self.get_elasticsearch_items()
         return self.get_paginated_response(items)
@@ -154,7 +160,7 @@ class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
                 get_list_values(es_hits=questionnaires)
             )
 
-    def get_paginated_response(self, data):
+    def get_paginated_response(self, data) -> Response:
         """
         Build a response as if it were from the django rest framework. This
         will be replaced after the refactor.
@@ -173,7 +179,7 @@ class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
             ('results', list(data))
         ]))
 
-    def _get_paginate_link(self, page_number):
+    def _get_paginate_link(self, page_number) -> str:
         """
         Args:
             page_number: int
@@ -192,10 +198,10 @@ class QuestionnaireListView(QuestionnaireAPIMixin, ESQuestionnaireQueryMixin):
             return remove_query_param(url, 'page')
         return replace_query_param(url, 'page', page_number)
 
-    def get_next_link(self):
+    def get_next_link(self) -> str:
         return self._get_paginate_link(self.current_page + 1)
 
-    def get_previous_link(self):
+    def get_previous_link(self)  -> str:
         return self._get_paginate_link(self.current_page - 1)
 
 
@@ -203,30 +209,28 @@ class QuestionnaireDetailView(QuestionnaireAPIMixin):
     """
     Return a single item from elasticsearch, if object is still valid on the
     model.
+
+    Used for API v1 only
     """
     add_detail_url = False
 
     def get(self, request, *args, **kwargs):
-        self.obj = self.get_current_object()
-        es_hit = get_element(questionnaire=self.obj)
+        """
+        Set the current object to 'self', so the query is not executed again
+        in the method 'replace_keys'.
+        """
+        self.object = self.get_current_object()
+        # Get the single element from ES.
+        es_hit = get_element(questionnaire=self.object)
+        if not es_hit:
+            raise Http404
+
         return Response(self.replace_keys(es_hit={'_source': es_hit}))
-
-    def serialize_item(self, item):
-        """
-        Serialize the data and get the list values -- the same as executed
-        within advanced_search (get_list_values) in the QuestionnaireListView.
-        """
-        serializer = QuestionnaireSerializer(instance=item)
-        return self.prepare_data(serializer)
-
-    def prepare_data(self, serializer):
-        # serializer.to_list_values(lang=get_language())
-        return serializer.validated_data
 
 
 class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
     """
-    Get a single Questionnaire.
+    Get a single Questionnaire for API v2.
 
     Return a single Questionnaire by its code. The returned data contains the
     full configuration (including labels of sections, questiongroups etc.).
@@ -238,23 +242,17 @@ class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
         """
         Merge configuration keyword, label and questionnaire data to a dict.
         """
-        questionnaire = self.get_current_object()
         data = get_questionnaire_data_in_single_language(
-            questionnaire_data=questionnaire.data,
+            questionnaire_data=self.object.data,
             locale=get_language(),
-            original_locale=questionnaire.original_locale
+            original_locale=self.object.original_locale
         )
         # Links are removed from the 'data' dict, but available on the
         # serialized element.
         data['links'] = self.prepare_link_data(
-            *questionnaire.links_property
+            *self.object.links_property
         )
-        configured_questionnaire = ConfiguredQuestionnaire(
-            config=questionnaire.configuration_object,
-            questionnaire=questionnaire,
-            **data
-        )
-        return configured_questionnaire.store
+        return data
 
     @staticmethod
     def prepare_link_data(*links):
@@ -267,5 +265,14 @@ class ConfiguredQuestionnaireDetailView(QuestionnaireDetailView):
                 link[field] = link[field].get(get_language(), link[field]['default'])
         return links
 
+    def get_configured_questionnaire(self, **data):
+        return ConfiguredQuestionnaire(
+            config=self.object.configuration_object,
+            questionnaire=self.object,
+            **data
+        ).store
+
     def get(self, request, *args, **kwargs):
-        return Response(self.prepare_data())
+        self.object = self.get_current_object()
+        prepared_data = self.prepare_data()
+        return Response(self.get_configured_questionnaire(**prepared_data))
