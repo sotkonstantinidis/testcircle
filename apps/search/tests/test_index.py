@@ -92,12 +92,7 @@ class ESIndexMixin:
         Example::
             curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
         """
-        try:
-            es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
-        except TransportError:
-            raise Exception(
-                'Index of Elasticsearch could not be deleted, manual cleanup '
-                'necessary.')
+        es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
 
 
 class GetMappingsTest(TestCase):
