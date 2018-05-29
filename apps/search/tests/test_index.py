@@ -17,7 +17,6 @@ from search.index import (
     delete_all_indices,
     delete_questionnaires_from_es,
     delete_single_index,
-    get_current_and_next_index,
     get_elasticsearch,
     get_mappings,
     put_questionnaire_data,
@@ -324,7 +323,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         m = get_valid_questionnaire()
         mock_force_strings.return_value = {}
         put_questionnaire_data([m])
-        mock_force_strings.assert_called_once_with({'definition': {'en': ''}})
+        mock_force_strings.assert_called_once_with({'name': {}, 'definition': {'en': ''}})
 
 
 @override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)

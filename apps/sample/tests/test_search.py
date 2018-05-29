@@ -8,17 +8,11 @@ logging.disable(logging.CRITICAL)
 import collections
 
 from django.db.models import Q
-from django.test.utils import override_settings
 
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_list_values
-from search.index import (
-    delete_all_indices,
-)
-from search.search import (
-    advanced_search,
-)
+from search.search import advanced_search
 from search.tests.test_index import create_temp_indices
 
 FilterParam = collections.namedtuple(

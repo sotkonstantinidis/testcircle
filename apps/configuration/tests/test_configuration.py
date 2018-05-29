@@ -6,7 +6,6 @@ from configuration.configuration import (
     QuestionnaireSubcategory,
     QuestionnaireQuestiongroup,
     QuestionnaireQuestion,
-    QuestionnaireSection,
     validate_type,
 )
 from configuration.tests.test_models import get_valid_configuration_model
@@ -48,7 +47,7 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         list_data = conf.get_list_data([q.data for q in questionnaires])
         self.assertEqual(len(list_data), 2)
         for d in list_data:
-            self.assertEqual(len(d), 2)
+            self.assertEqual(len(d), 3)  # keys: 'key_1', 'name', 'definition'
             self.assertIn('key_1', d)
             self.assertIn('definition', d)
 

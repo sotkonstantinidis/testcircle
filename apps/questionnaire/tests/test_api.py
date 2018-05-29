@@ -110,21 +110,6 @@ class QuestionnaireListViewTest(TestCase):
         response = self.view.get(self.request)
         self.assertIsInstance(response, Response)
 
-    @override_settings(QUESTIONNAIRE_API_CHANGE_KEYS={'foo': 'bar'})
-    @patch('questionnaire.api.views.get_configuration')
-    def test_replace_keys(self, mock_get_configuration):
-        config = MagicMock()
-        config.get_questionnaire_description.return_value = {'en': 'foo'}
-        config.get_questionnaire_name.return_value = {'en': 'name'}
-        mock_get_configuration.return_value = config
-        item = self.view.replace_keys(dict(
-            name='name', foo='bar', serializer_config='', serializer_edition='',
-            data={}, code='sample_1')
-        )
-        self.assertEqual(
-            item['bar'], [{'language': 'en', 'text': 'foo'}]
-        )
-
     def test_language_text_mapping(self):
         data = {'a': 'foo'}
         self.assertEqual(
@@ -222,17 +207,6 @@ class QuestionnaireDetailViewTest(TestCase):
         with self.assertRaises(KeyError):
             foo = item['api_url']  # noqa
 
-    def test_serialized_item(self):
-        with patch.object(QuestionnaireSerializer, 'to_list_values') as values:
-            self.view.serialize_item(self.get_serialized_data())
-            values.assert_called_once_with(lang='en')
-
-    def test_failed_serialization(self):
-        serialized = self.get_serialized_data()
-        del serialized['status']
-        with self.assertRaises(Http404):
-            self.view.serialize_item(serialized)
-
 
 @pytest.mark.usefixtures('es')
 class ConfiguredQuestionnaireDetailViewTest(TestCase):
@@ -264,10 +238,3 @@ class ConfiguredQuestionnaireDetailViewTest(TestCase):
             original_locale=sentinel.original_locale,
             questionnaire_data=sentinel.data
         )
-
-    @patch('questionnaire.api.views.get_questionnaire_data_in_single_language')
-    @patch('questionnaire.api.views.ConfiguredQuestionnaire')
-    def test_prepare_data(self, mock_conf, mock_single_language):
-        mock_single_language.return_value = {}
-        self.view.prepare_data()
-        self.assertTrue(mock_conf.called)

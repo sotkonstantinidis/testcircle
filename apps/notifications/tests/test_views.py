@@ -414,7 +414,7 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
         self.view.object = self.obj
 
     def test_get_success_url_signed(self):
-        self.request.user = mock.MagicMock
+        self.request.user = mock.MagicMock(is_authenticated=lambda: False)
         self.assertEqual(
             self.view.get_success_url(),
             self.obj.get_signed_url()
@@ -435,7 +435,7 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
         )
 
     def test_get_signed_object(self):
-        self.request.user = mock.MagicMock()
+        self.request.user = mock.MagicMock(is_authenticated=lambda: False)
         self.view.kwargs['token'] = mock.MagicMock()
         with mock.patch.object(Signer, 'unsign') as mock_unsign:
             mock_unsign.return_value = self.obj.id
@@ -445,7 +445,7 @@ class SignedLogSubscriptionPreferencesViewTest(TestCase):
             mock_unsign.assert_called_with(self.view.kwargs['token'])
 
     def test_get_signed_object_404(self):
-        self.request.user = mock.MagicMock()
+        self.request.user = mock.MagicMock(is_authenticated=lambda: False)
         self.view.kwargs['token'] = mock.MagicMock()
         with self.assertRaises(Http404):
             self.view.get_object()
