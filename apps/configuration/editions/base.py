@@ -86,12 +86,10 @@ class Edition:
         """
         obj, _ = self.configuration.objects.get_or_create(
             edition=self.edition,
-            code=self.code
+            code=self.code,
+            defaults={'data': data}
         )
-        obj.data = data
-
         # @TODO: validate data before calling save
-        obj.save()
         return obj
 
     def get_release_notes(self):
