@@ -281,10 +281,6 @@ class QuestionnaireEditViewTest(TestCase):
         self.request._messages = MagicMock()
         self.view = self.setup_view(view, self.request, identifier='sample_1')
 
-    def test_force_login(self, ):
-        self.view.dispatch(self.request)
-        self.assertTrue(self.request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME])
-
     def test_require_user(self):
         self.request.user = AnonymousUser()
         self.assertEqual(

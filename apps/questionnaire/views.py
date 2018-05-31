@@ -294,16 +294,6 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
         return kwargs
 
 
-class QuestionnaireEditMixin(LoginRequiredMixin):
-    """
-    Require login for editing questionnaires.
-    """
-
-    def dispatch(self, request, *args, **kwargs):
-        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
-        return super().dispatch(request, *args, **kwargs)
-
-
 class InheritedDataMixin:
     """
     Get the inherited data of linked questionnaires. Used to add read-only data
@@ -935,7 +925,7 @@ class QuestionnairePermaView(QuestionnaireView):
         )
 
 
-class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
+class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -950,7 +940,7 @@ class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
         return QuestionnaireRetrieveMixin.get_object(self)
 
 
-class QuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireRetrieveMixin,
+class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
                             InheritedDataMixin, QuestionnaireSaveMixin, View):
     """
     A section of the questionnaire.
