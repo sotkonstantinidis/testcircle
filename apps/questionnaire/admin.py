@@ -16,7 +16,7 @@ class LockAdmin(admin.ModelAdmin):
 
 
 class NewEditionFilter(admin.SimpleListFilter):
-    title = _('Latest edition')
+    title = _('Edition update required')
     parameter_name = 'has_new_edition'
 
     def lookups(self, request, model_admin):
