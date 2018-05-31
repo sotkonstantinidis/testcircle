@@ -1,4 +1,6 @@
 import copy
+
+from django.conf import settings
 from django.template.loader import render_to_string
 
 from configuration.models import Configuration, Key, Value, Translation
@@ -110,6 +112,10 @@ class Edition:
         ]
 
         """
+        if settings.IS_TEST_RUN:
+            # This needs discussion! What is expected of this migration in test mode?
+            return
+
         # Models are loaded here, so they are available in the context of a migration.
         model_names = ['Configuration', 'Key', 'Value', 'Translation']
         kwargs = {}
