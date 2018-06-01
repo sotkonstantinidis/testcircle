@@ -211,9 +211,16 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
 
     @property
     def questionnaire_configuration(self):
+        if hasattr(self, '_questionnaire_configuration'):
+            return self._questionnaire_configuration
         return get_configuration(
             code=self.get_configuration_code(),
-            edition=self.get_configuration_edition())
+            edition=self.get_configuration_edition()
+        )
+
+    @questionnaire_configuration.setter
+    def questionnaire_configuration(self, config):
+        self._questionnaire_configuration = config
 
     def get_template_names(self):
         return self.template_name or 'questionnaire/details.html'
@@ -917,9 +924,13 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
 
         """
         while self.questionnaire_configuration.has_new_edition:
-            self.questionnaire_configuration = self.questionnaire_configuration.get_next_edition()
+            next_configuration = self.object.configuration.get_next_edition()
+            config = get_configuration(
+                code=next_configuration.code, edition=next_configuration.edition
+            )
+            self.questionnaire_configuration = config
             # Update case data if edition is found.
-            edition = questionnaire_data = self.questionnaire_configuration.get_edition()
+            edition = next_configuration.get_edition()
             if edition:
                 questionnaire_data = edition.update_questionnaire_data(
                    **questionnaire_data

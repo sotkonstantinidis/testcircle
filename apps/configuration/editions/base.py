@@ -272,20 +272,20 @@ class Operation:
     """
     default_template = 'configuration/partials/release_note.html'
 
-    def __init__(self, transformation_configuration: callable, release_note: str, **kwargs):
+    def __init__(self, transform_configuration: callable, release_note: str, **kwargs):
         """
 
         Args:
-            transformation_configuration: callable for the update on the configuration data
+            transform_configuration: callable for the update on the configuration data
             release_note: string with release note
             **kwargs:
                 transform_questionnaire: callable. Used to transform the
                 questionnaire data, e.g. for deleted/moved questions.
         """
-        self.transform_configuration = transformation_configuration
+        self.transform_configuration = transform_configuration
         self.release_note = release_note
         self.template_name = kwargs.get('template_name', self.default_template)
-        self.transform_questionnaire = kwargs.get('transform_questionnaire', False)
+        self.transform_questionnaire = kwargs.get('transform_questionnaire')
 
     def migrate(self, **data) -> dict:
         return self.transform_configuration(**data)
@@ -296,7 +296,7 @@ class Operation:
             context={'note': self.release_note}
         )
 
-    def transform_questionnaire(self, **data):
+    def update_questionnaire_data(self, **data):
         if self.transform_questionnaire:
             return self.transform_questionnaire(**data)
         return data
