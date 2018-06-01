@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+import contextlib
+import importlib
+from pathlib import Path
+
 from django.contrib.gis.db import models
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
@@ -29,6 +33,8 @@ class Configuration(models.Model):
         ('watershed', 'watershed'),
         ('wocat', 'wocat'),
     ]
+    EDITION_ROOT = Path(settings.BASE_DIR, 'apps', 'configuration', 'editions')
+
     data = JSONField(help_text="""
             The JSON configuration. See section "Questionnaire
             Configuration" of the manual for more information.<br/>
@@ -68,6 +74,41 @@ class Configuration(models.Model):
 
     def get_next_edition(self):
         return self.get_next_by_created(code=self.code)
+
+    def get_edition(self):
+        """
+        Get the Edition class of the current configuration
+        """
+        # See glob pattern: https://pymotw.com/3/glob/
+        for module in self.EDITION_ROOT.glob('[!base][!__init__]*.py'):
+            subclass = self.find_subclass(module)
+            if subclass and subclass.code == self.code and str(subclass.edition) == self.edition:
+                return subclass
+        return None
+
+    @staticmethod
+    def find_subclass(module: Path):
+        """
+        Load given module, and return the subclass of self.edition_class
+        """
+        from .editions.base import Edition
+
+        # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
+        spec = importlib.util.spec_from_file_location(
+            name='configuration.editions', location=str(module), submodule_search_locations=[]
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        # Filter dunder attributes, as only Edition subclasses are looked for.
+        for name in filter(lambda name: not name.startswith('__'), dir(module)):
+            klass = getattr(module, name)
+            with contextlib.suppress(TypeError):
+                is_not_base = klass is not Edition
+                is_subclass = issubclass(klass, Edition)
+                if is_not_base and is_subclass:
+                    # Don't pass references to actual models, as they are not used.
+                    return klass(key={}, value={}, configuration={}, translation={})
 
 
 class Translation(models.Model):

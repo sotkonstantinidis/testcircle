@@ -71,8 +71,6 @@ class EditionNotesView(TemplateView):
 
     """
     template_name = 'configuration/edition_notes.html'
-    edition_root = Path(settings.BASE_DIR, 'apps', 'configuration', 'editions')
-    edition_base_class = Edition
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -80,45 +78,13 @@ class EditionNotesView(TemplateView):
         return context
 
     @staticmethod
-    def get_configuration_codes():
+    def get_editions():
         """
         Filter configurations with at least one edition. Only editions that are 'applied' to the
         database should be listed on the release notes page.
         """
-        return Configuration.objects.exclude(
-            edition=2015
-        ).values(
-            'code', 'edition'
-        )
+        configurations = Configuration.objects.exclude(edition=2015)
+        for configuration in configurations:
+            yield configuration.get_edition()
 
-    def get_editions(self):
-        """
-        Get all subclasses of the edition_class ('Edition') that are applied to the database.
-        """
-        codes = self.get_configuration_codes()
-        # See glob pattern: https://pymotw.com/3/glob/
-        for module in self.edition_root.glob('[!base][!__init__]*.py'):
-            subclass = self.find_subclass(module)
-            if {'code': subclass.code, 'edition': str(subclass.edition)} in codes:
-                yield subclass
 
-    def find_subclass(self, module: Path) -> Edition:
-        """
-        Load given module, and return the subclass of self.edition_class
-        """
-        # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
-        spec = importlib.util.spec_from_file_location(
-            name='configuration.editions', location=str(module), submodule_search_locations=[]
-        )
-        module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(module)
-
-        # Filter dunder attributes, as only Edition subclasses are looked for.
-        for name in filter(lambda name: not name.startswith('__'), dir(module)):
-            klass = getattr(module, name)
-            with contextlib.suppress(TypeError):
-                is_not_base = klass is not self.edition_base_class
-                is_subclass = issubclass(klass, self.edition_base_class)
-                if is_not_base and is_subclass:
-                    # Don't pass references to actual models, as they are not used.
-                    return klass(key={}, value={}, configuration={}, translation={})

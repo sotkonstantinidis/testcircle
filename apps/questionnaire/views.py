@@ -653,6 +653,11 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             inherited_data = self.get_inherited_data()
             questionnaire_data.update(inherited_data)
 
+            # Stub!
+            is_edit_mode = self.view_mode == 'edit'
+            if is_edit_mode and self.object.configuration_object.has_new_edition:
+                questionnaire_data = self.update_case_data_for_editions(**questionnaire_data)
+
         data = get_questionnaire_data_in_single_language(
             questionnaire_data=questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
@@ -901,6 +906,25 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
 
     def get_detail_url(self, step):
         return super().get_detail_url(step='top')
+
+    def update_case_data_for_editions(self, **questionnaire_data):
+        """
+        If a questionnaire moves from 'public' to 'draft', the data of the questionnaire
+        may have changed depending on the new configuration(s). E.g. deleted/moved questions.
+
+        This updates the contents of the questionnaire before opening the first form, so the
+        data is as expected by the user from the start, and all questions/questiongroups are valid.
+
+        """
+        while self.questionnaire_configuration.has_new_edition:
+            self.questionnaire_configuration = self.questionnaire_configuration.get_next_edition()
+            # Update case data if edition is found.
+            edition = questionnaire_data = self.questionnaire_configuration.get_edition()
+            if edition:
+                questionnaire_data = edition.update_questionnaire_data(
+                   **questionnaire_data
+                )
+        return questionnaire_data
 
 
 class QuestionnairePermaView(QuestionnaireView):

@@ -64,44 +64,13 @@ class CacheTest(TestCase):
 class EditionNotesViewTest(TestCase):
 
     def setUp(self):
-        self.valid_edition = MagicMock(code='valid', edition='sub')
-        self.invalid_edition = MagicMock(code='invalid', edition='sub')
-        self.configs = [
-            {'code': 'valid', 'edition': 'sub'},
-        ]
-
-    def get_view(self):
-        view = self.setup_view(
+        self.request = RequestFactory().get(reverse('configuration:release_notes'))
+        self.view = self.setup_view(
             view=EditionNotesView(),
-            request=RequestFactory().get(reverse('configuration:release_notes'))
+            request=self.request
         )
-        view.get_configuration_codes = lambda : self.configs
-        return view
 
-    def test_get_valid_edition(self):
-        view = self.get_view()
-        with patch.object(view, 'find_subclass') as subclass:
-            subclass.return_value = self.valid_edition
-            self.assertListEqual(list(view.get_editions()), [self.valid_edition])
-
-    def test_exclude_unapplied_editions(self):
-        view = self.get_view()
-        with patch.object(view, 'find_subclass') as subclass:
-            subclass.return_value = self.invalid_edition
-            self.assertEqual(list(view.get_editions()), [])
-
-    def test_find_subclass(self):
-        view = self.get_view()
-
-        # Minimal version of an edition
-        class Foo(view.edition_base_class):
-            code = 'technologies'
-            edition = 'sub'
-
-        # Mock a 'module' with the attribute Foo, so it is found by dir(module).
-        module = MagicMock()
-        module.Foo = Foo
-
-        with patch('configuration.views.importlib.util') as importlib:
-            importlib.module_from_spec.return_value = module
-            self.assertIsInstance(view.find_subclass(''), Foo)
+    def test_get(self):
+        with patch.object(EditionNotesView, 'get_editions') as get_editions_mock:
+            self.view.get(request=self.request)
+            self.assertTrue(get_editions_mock.called)

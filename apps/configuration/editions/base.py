@@ -98,6 +98,12 @@ class Edition:
         for _operation in self.operations:
             yield _operation.render()
 
+    def update_questionnaire_data(self, **data) -> dict:
+        # Stub!
+        for _operation in self.operations:
+            data = _operation.update_questionnaire_data(**data)
+        return data
+
     @classmethod
     def run_migration(cls, apps, schema_editor):
         """
@@ -266,16 +272,31 @@ class Operation:
     """
     default_template = 'configuration/partials/release_note.html'
 
-    def __init__(self, transformation: callable, release_note: str, **kwargs):
-        self.transformation = transformation
+    def __init__(self, transformation_configuration: callable, release_note: str, **kwargs):
+        """
+
+        Args:
+            transformation_configuration: callable for the update on the configuration data
+            release_note: string with release note
+            **kwargs:
+                transform_questionnaire: callable. Used to transform the
+                questionnaire data, e.g. for deleted/moved questions.
+        """
+        self.transform_configuration = transformation_configuration
         self.release_note = release_note
         self.template_name = kwargs.get('template_name', self.default_template)
+        self.transform_questionnaire = kwargs.get('transform_questionnaire', False)
 
     def migrate(self, **data) -> dict:
-        return self.transformation(**data)
+        return self.transform_configuration(**data)
 
     def render(self) -> str:
         return render_to_string(
             template_name=self.template_name,
             context={'note': self.release_note}
         )
+
+    def transform_questionnaire(self, **data):
+        if self.transform_questionnaire:
+            return self.transform_questionnaire(**data)
+        return data
