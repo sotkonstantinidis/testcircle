@@ -167,7 +167,7 @@ class QuestionnaireModelTest(TestCase):
             previous_version=previous)
         self.assertEqual(len(q.translations), 3)
         self.assertEqual(q.original_locale, 'en')
-        self.assertEqual(previous.translations, q.translations)
+        self.assertEqual(sorted(previous.translations), sorted(q.translations))
 
     def test_create_new_keeps_users_from_previous_version(self):
         user2 = create_new_user(
@@ -258,11 +258,14 @@ class QuestionnaireModelTest(TestCase):
         questionnaire.add_user(user_3, 'editor')
         questionnaire.status = 4
         users = questionnaire.get_users()
-        self.assertEqual(len(users), 3)
+        users_ids = [u[1].id for u in users]
+        self.assertEqual(len(users_ids), 3)
         questionnaire_2 = Questionnaire.create_new(
             configuration_code='sample', data=questionnaire.data,
             user=self.user, previous_version=questionnaire)
-        self.assertEqual(users, questionnaire_2.get_users())
+        new_users = questionnaire_2.get_users()
+        new_users_ids = [u[1].id for u in new_users]
+        self.assertListEqual(sorted(users_ids), sorted(new_users_ids))
 
     def test_get_roles_permissions_returns_empty(self):
         other_user = create_new_user(

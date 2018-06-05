@@ -10,7 +10,7 @@ from configuration.utils import (
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.tests import TestCase
-from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED
+from search.tests.test_index import ESIndexMixin, create_temp_indices
 
 
 DEFAULT_WOCAT_CONFIGURATIONS = [
@@ -51,7 +51,7 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
     @property
     def test_alias(self):
         # Replace the 'key_prefix' of the index ('qcat_')
-        return TEST_ALIAS_PREFIXED.replace(settings.ES_INDEX_PREFIX, '')
+        return 'es_test_index'.replace(settings.ES_INDEX_PREFIX, '')
 
     def setUp(self):
         super().setUp()

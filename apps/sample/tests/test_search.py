@@ -160,48 +160,45 @@ class AdvancedSearchTest(TestCase):
         hit_ids = [r.get('_id') for r in search.get('hits')]
         self.assertListEqual(hit_ids, ['5', '2', '4', '1'])
 
-    @pytest.mark.skip('Filtering by GTE/LTE is disabled until actually needed.')
     def test_advanced_search_gte(self):
         filter_param = FilterParam(
             questiongroup='qg_11', key='key_14', values=['2'],
             operator='gte', type='image_checkbox')
-        search = advanced_search(
-            filter_params=[filter_param],
-            configuration_codes=['sample']
-        ).get('hits')
-        self.assertEqual(search.get('total'), 2)
-        hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['4', '1'])
+        with self.assertRaises(NotImplementedError):
+            search = advanced_search(
+                filter_params=[filter_param],
+                configuration_codes=['sample']
+            ).get('hits')
+            self.assertEqual(search.get('total'), 2)
+            hit_ids = [r.get('_id') for r in search.get('hits')]
+            self.assertEqual(hit_ids, ['4', '1'])
 
-    # TODO: Raise notimplementederror
-
-    @pytest.mark.skip('Filtering by GTE/LTE is disabled until actually needed.')
     def test_advanced_search_lt(self):
         filter_param = FilterParam(
             questiongroup='qg_11', key='key_14', values=['2'],
             operator='lt', type='image_checkbox')
-        search = advanced_search(
-            filter_params=[filter_param],
-            configuration_codes=['sample']
-        ).get('hits')
-        self.assertEqual(search.get('total'), 2)
-        hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['5', '1'])
+        with self.assertRaises(NotImplementedError):
+            search = advanced_search(
+                filter_params=[filter_param],
+                configuration_codes=['sample']
+            ).get('hits')
+            self.assertEqual(search.get('total'), 2)
+            hit_ids = [r.get('_id') for r in search.get('hits')]
+            self.assertEqual(hit_ids, ['5', '1'])
 
-    @pytest.mark.skip('Filtering by GTE/LTE is disabled until actually needed.')
     def test_advanced_search_lte(self):
         filter_param = FilterParam(
             questiongroup='qg_35', key='key_48', values=['2'],
             operator='lte', type='radio')
-        search = advanced_search(
-            filter_params=[filter_param],
-            configuration_codes=['sample']
-        ).get('hits')
-        self.assertEqual(search.get('total'), 2)
-        hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['2', '1'])
+        with self.assertRaises(NotImplementedError):
+            search = advanced_search(
+                filter_params=[filter_param],
+                configuration_codes=['sample']
+            ).get('hits')
+            self.assertEqual(search.get('total'), 2)
+            hit_ids = [r.get('_id') for r in search.get('hits')]
+            self.assertEqual(hit_ids, ['2', '1'])
 
-    @pytest.mark.skip('Filtering by GTE/LTE is disabled until actually needed.')
     def test_advanced_search_gte_lte(self):
         filter_param_1 = FilterParam(
             questiongroup='qg_11', key='key_14', values=['1'],
@@ -209,14 +206,15 @@ class AdvancedSearchTest(TestCase):
         filter_param_2 = FilterParam(
             questiongroup='qg_11', key='key_14', values=['3'],
             operator='gte', type='image_checkbox')
-        search = advanced_search(
-            filter_params=[filter_param_1, filter_param_2],
-            configuration_codes=['sample'],
-            match_all=False,
-        ).get('hits')
-        self.assertEqual(search.get('total'), 3)
-        hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['5', '4', '1'])
+        with self.assertRaises(NotImplementedError):
+            search = advanced_search(
+                filter_params=[filter_param_1, filter_param_2],
+                configuration_codes=['sample'],
+                match_all=False,
+            ).get('hits')
+            self.assertEqual(search.get('total'), 3)
+            hit_ids = [r.get('_id') for r in search.get('hits')]
+            self.assertEqual(hit_ids, ['5', '4', '1'])
 
 
 @pytest.mark.usefixtures('es')
