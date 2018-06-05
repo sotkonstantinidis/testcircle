@@ -14,11 +14,11 @@ class Technologies(Edition):
     def operations(self):
         return [
             Operation(
-                transformation=self.rename_tech_lu_grazingland_pastoralism,
+                transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
                 release_note=_('x.x: Rename label')
             ),
             Operation(
-                transformation=self.add_tech_lu_initial,
+                transform_configuration=self.add_tech_lu_initial,
                 release_note=_('3.2: Added new question about initial land use')
             )
         ]

@@ -50,7 +50,7 @@ class AdminTest(TestCase):
 @patch('search.views.messages')
 class IndexTest(TestCase):
 
-    fixtures = ['sample']
+    fixtures = ['sample', 'sample_global_key_values']
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -87,15 +87,9 @@ class IndexTest(TestCase):
         self.assertEqual(res.status_code, 400)
 
     @patch('search.views.get_mappings')
-    @patch('search.views.create_or_update_index')
-    @patch('search.views.get_configuration')
-    def test_calls_get_mappings(
-            self, mock_conf, mock_create_index, mock_get_mappings,
-            mock_messages):
-        mock_conf.return_value.get_configuration_errors.return_value = None
-        mock_create_index.return_value = None, None, ''
+    def test_calls_get_mappings(self, mock_get_mappings, mock_messages):
         index(self.request, 'sample', '2015')
-        mock_get_mappings.assert_called_once_with(mock_conf.return_value)
+        mock_get_mappings.assert_called_once_with()
 
     @patch('search.views.get_mappings')
     @patch('search.views.create_or_update_index')

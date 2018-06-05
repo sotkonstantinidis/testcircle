@@ -129,7 +129,7 @@ class TestCachedPDFTemplateResponse(TestCase):
             )
 
     @patch('summary.views.isfile')
-    @override_settings(SUMMARY_PDF_PATH = 'pdf_path', DEBUG=False)
+    @override_settings(SUMMARY_PDF_PATH='pdf_path', DEBUG=False)
     def test_rendered_content_creates_file(self, mock_isfile):
         mock_isfile.return_value = False
         with patch('summary.views.open') as open_mock:

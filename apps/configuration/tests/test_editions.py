@@ -2,7 +2,7 @@ from unittest import mock
 
 from qcat.tests import TestCase
 from configuration.models import Configuration, Key, Value, Translation
-from ..editions.base import Edition
+from ..editions.base import Edition, Operation
 
 
 class EditionsTest(TestCase):
@@ -270,3 +270,17 @@ class EditionsTest(TestCase):
                 path=('section_2', 'category_2'),
                 **updated_data)['foo'],
             'bar')
+
+
+class OperationTest(TestCase):
+
+    def test_update_questionnaire_data(self):
+        mock_fn = mock.Mock()
+        operation = Operation(
+            transform_configuration='',
+            release_note='',
+            transform_questionnaire=mock_fn
+        )
+        data = {'foo': 'bar'}
+        operation.update_questionnaire_data(**data)
+        mock_fn.assert_called_once_with(**data)

@@ -10,10 +10,6 @@ class AccountConf(AppConf):
     PID = 3
     LOGIN_TYPE = 'login'
     LOGIN_SUCCESS_URL = 'home'
-    ENFORCE_LOGIN_TIMEOUT = 300  # 5 Minutes
-    ENFORCE_LOGIN_COOKIE_NAME = 'login_expiry'
-    ENFORCE_LOGIN_SALT = settings.AUTH_API_USER
-    ENFORCE_LOGIN_NAME = 'force_login_check'
 
     # The name of the UNCCD role as provided by the remote system.
     UNCCD_ROLE_NAME = 'UNCCD Focal Point'

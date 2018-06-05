@@ -211,9 +211,16 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
 
     @property
     def questionnaire_configuration(self):
+        if hasattr(self, '_questionnaire_configuration'):
+            return self._questionnaire_configuration
         return get_configuration(
             code=self.get_configuration_code(),
-            edition=self.get_configuration_edition())
+            edition=self.get_configuration_edition()
+        )
+
+    @questionnaire_configuration.setter
+    def questionnaire_configuration(self, config):
+        self._questionnaire_configuration = config
 
     def get_template_names(self):
         return self.template_name or 'questionnaire/details.html'
@@ -292,16 +299,6 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
         if 'view' not in kwargs:
             kwargs['view'] = self
         return kwargs
-
-
-class QuestionnaireEditMixin(LoginRequiredMixin):
-    """
-    Require login for editing questionnaires.
-    """
-
-    def dispatch(self, request, *args, **kwargs):
-        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
-        return super().dispatch(request, *args, **kwargs)
 
 
 class InheritedDataMixin:
@@ -663,6 +660,11 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             inherited_data = self.get_inherited_data()
             questionnaire_data.update(inherited_data)
 
+            # Stub!
+            is_edit_mode = self.view_mode == 'edit'
+            if is_edit_mode and self.object.configuration_object.has_new_edition:
+                questionnaire_data = self.update_case_data_for_editions(**questionnaire_data)
+
         data = get_questionnaire_data_in_single_language(
             questionnaire_data=questionnaire_data, locale=get_language(),
             original_locale=self.object.original_locale if self.object else None
@@ -912,6 +914,29 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
     def get_detail_url(self, step):
         return super().get_detail_url(step='top')
 
+    def update_case_data_for_editions(self, **questionnaire_data):
+        """
+        If a questionnaire moves from 'public' to 'draft', the data of the questionnaire
+        may have changed depending on the new configuration(s). E.g. deleted/moved questions.
+
+        This updates the contents of the questionnaire before opening the first form, so the
+        data is as expected by the user from the start, and all questions/questiongroups are valid.
+
+        """
+        while self.questionnaire_configuration.has_new_edition:
+            next_configuration = self.object.configuration.get_next_edition()
+            config = get_configuration(
+                code=next_configuration.code, edition=next_configuration.edition
+            )
+            self.questionnaire_configuration = config
+            # Update case data if edition is found.
+            edition = next_configuration.get_edition()
+            if edition:
+                questionnaire_data = edition.update_questionnaire_data(
+                   **questionnaire_data
+                )
+        return questionnaire_data
+
 
 class QuestionnairePermaView(QuestionnaireView):
     """
@@ -935,7 +960,7 @@ class QuestionnairePermaView(QuestionnaireView):
         )
 
 
-class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
+class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -950,7 +975,7 @@ class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
         return QuestionnaireRetrieveMixin.get_object(self)
 
 
-class QuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireRetrieveMixin,
+class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
                             InheritedDataMixin, QuestionnaireSaveMixin, View):
     """
     A section of the questionnaire.

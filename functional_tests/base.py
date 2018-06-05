@@ -3,10 +3,8 @@ import sys
 
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.core import signing
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
-from django.utils.timezone import now
 from pyvirtualdisplay import Display
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, \
@@ -535,16 +533,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.add_cookie({
             'name': 'sessionid',
             'value': self.client.cookies['sessionid'].value
-        })
-        self.browser.add_cookie({
-            'name': 'fe_typo_user',
-            'value': 'foo'
-        })
-        key = settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME
-        salt = settings.ACCOUNTS_ENFORCE_LOGIN_SALT
-        self.browser.add_cookie({
-            'name': key,
-            'value': signing.get_cookie_signer(salt=key + salt).sign(now())
         })
         self.browser.get(self.live_server_url + reverse(loginRouteName))
 

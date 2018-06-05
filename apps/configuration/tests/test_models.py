@@ -1,9 +1,12 @@
 from datetime import datetime
-from django.core.exceptions import ValidationError
-from unittest.mock import patch, call
 
+import pytest
+from unittest.mock import patch, MagicMock
+
+from django.core.exceptions import ValidationError
 from django.utils.translation import get_language
 
+from configuration.editions.base import Edition
 from configuration.models import (
     Category,
     Configuration,
@@ -339,6 +342,7 @@ class TranslationModelTest(TestCase):
             'foo'
         )
 
+
 class ValueUserTest(TestCase):
 
     fixtures = ['global_key_values']
@@ -356,6 +360,16 @@ class ValueUserTest(TestCase):
         self.assertIsNone(notfound)
 
 
+@pytest.fixture(scope='class')
+def mock_edition(request):
+    class MockEdition(Edition):
+        code = 'technologies'
+        edition = 'sub'
+
+    request.cls.mock_edition = MockEdition
+
+
+@pytest.mark.usefixtures('mock_edition')
 class ConfigurationTest(TestCase):
 
     def test_has_new_version(self):
@@ -373,3 +387,25 @@ class ConfigurationTest(TestCase):
         new_edition.save()
         self.assertTrue(old_edition.has_new_edition)
         self.assertFalse(new_edition.has_new_edition)
+
+    def test_get_none_edition(self):
+        with patch.object(Configuration, 'find_subclass') as find_mock:
+            find_mock.return_value = self.mock_edition({},{},{},{})
+            config = Configuration(code='foo', edition='bar')
+            self.assertIsNone(config.get_edition())
+
+    def test_get_valid_edition(self):
+        with patch.object(Configuration, 'find_subclass') as find_mock:
+            find_mock.return_value = self.mock_edition({},{},{},{})
+            config = Configuration(code='technologies', edition='sub')
+            self.assertEqual(config.get_edition(), find_mock.return_value)
+
+    def test_find_subclass(self):
+        # Mock a 'module' with the attribute Foo, so it is found by dir(module).
+        module = MagicMock()
+        module.Foo = self.mock_edition
+        config = Configuration()
+
+        with patch('configuration.models.importlib.util') as importlib:
+            importlib.module_from_spec.return_value = module
+            self.assertIsInstance(config.find_subclass(''), self.mock_edition)

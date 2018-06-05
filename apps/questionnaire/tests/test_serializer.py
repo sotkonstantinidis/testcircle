@@ -31,7 +31,7 @@ class SerializerTest(TestCase):
             'code': code,
             'name': {'en': 'Unknown name'},
             'compilers': [{'name': 'bar foo', 'id': 1}],
-            'list_data': {'definition': {'en': ''}},
+            'list_data': {'definition': {'en': ''}, 'name': {}},
             'editors': [],
             'reviewers': [],
             'links': [

@@ -905,7 +905,7 @@ class GetListValuesTest(TestCase):
     fixtures = ['sample_global_key_values.json', 'sample.json', 'samplemulti.json']
 
     def setUp(self):
-        self.values_length = 14
+        self.values_length = 15
         self.es_hits = [{'_id': 1}]
 
     def test_es_wocat_uses_default_configuration(self):

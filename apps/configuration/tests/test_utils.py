@@ -1,5 +1,6 @@
 from unittest.mock import patch, Mock
 
+import pytest
 from django.conf import settings
 from django.db.models import Q
 
@@ -9,9 +10,8 @@ from configuration.utils import (
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.tests import TestCase
-from search.index import delete_all_indices
-from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED, \
-    TEST_INDEX_PREFIX
+from search.tests.test_index import ESIndexMixin, create_temp_indices, TEST_ALIAS_PREFIXED
+
 
 DEFAULT_WOCAT_CONFIGURATIONS = [
     'unccd', 'technologies', 'approaches', 'watershed']
@@ -43,6 +43,7 @@ class GetConfigurationQueryFilterTest(TestCase):
         self.assertEqual(attrs[0][1], 'wocat')
 
 
+@pytest.mark.usefixtures('es')
 class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
 
     fixtures = ['sample']
@@ -54,13 +55,8 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
 
     def setUp(self):
         super().setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015')])
         self.default_aliases = [f'{c}_*' for c in DEFAULT_WOCAT_CONFIGURATIONS]
-
-    def tearDown(self):
-        super().tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @patch('configuration.utils.check_aliases')
     def test_returns_single_configuration(self, mock_check_aliases):
