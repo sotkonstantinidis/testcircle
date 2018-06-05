@@ -15,6 +15,7 @@ coverage_html
 .pytest_cache/*
 test_output.txt
 .cache
+functional_tests/failed_screenshots
 
 # Ignore bower components, node modules and static files
 bower_components

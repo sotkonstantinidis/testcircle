@@ -1,3 +1,4 @@
+import os
 import sys
 
 from django.conf import settings
@@ -72,9 +73,20 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
+        # self.save_failed_screenshots()
         self.browser.quit()
         if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display.stop()
+
+    def save_failed_screenshots(self):
+        if self._outcome.errors:
+            path = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                'failed_screenshots')
+            if not os.path.exists(path):
+                os.makedirs(path)
+            file = os.path.join(path, f'failed_{self.id()}.png')
+            self.browser.save_screenshot(file)
 
     def findByNot(self, by, el):
         try:
