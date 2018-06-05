@@ -27,29 +27,6 @@ class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
 
-    def test_translation(self):
-
-        # Alice logs in
-        self.doLogin()
-
-        # She goes to the form and sees the categories in English
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new))
-        self.checkOnPage('English')
-        self.findBy('xpath', '//h2[contains(text(), "Category 1")]')
-
-        # She changes the language to Spanish and sees the translated
-        # categories
-        self.changeLanguage('es')
-        self.checkOnPage('Español')
-        self.checkOnPage('English')
-
-        # She changes the language to French and sees there is no
-        # translation but the original English categories are displayed
-        self.changeLanguage('fr')
-        self.checkOnPage('Français')
-        self.checkOnPage('English')
-
     # def test_numbered_questiongroups(self):
     #
     #     # Alice logs in
