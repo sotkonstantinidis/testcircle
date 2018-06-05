@@ -1,58 +1,70 @@
-from django.core.urlresolvers import reverse
-from unittest.mock import patch
-
 from functional_tests.base import FunctionalTest
-from technologies.tests.test_views import (
-    route_questionnaire_new_step,
-    get_category_count,
-    get_categories,
-)
-from wocat.tests.test_views import route_home
+from functional_tests.pages.qcat import HomePage
+from functional_tests.pages.questionnaire import QuestionnaireStepPage
+from functional_tests.pages.technologies import TechnologiesNewPage
+from functional_tests.pages.wocat import AddDataPage
 
 
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'technologies.json']
+    fixtures = [
+        'global_key_values.json',
+        'technologies.json',
+    ]
 
     def test_questionnaire_is_available(self):
 
-        # Alice logs in
-        self.doLogin()
+        # User logs in and goes to the home page.
+        home_page = HomePage(self)
+        home_page.open(login=True)
 
-        # She goes to the landing page
-        self.browser.get(self.live_server_url + reverse(route_home))
+        # User clicks a link to add data in the top menu.
+        home_page.click_add_slm_data()
 
-        # She clicks "Add SLM data" in the top menu
-        self.findBy('xpath', '//section[contains(@class, "top-bar-section")]//'
-                             'a[contains(@href, "/wocat/add")]').click()
+        # User clicks a link to add a new Technology.
+        add_page = AddDataPage(self)
+        add_page.click_add_technology()
 
-        # She is taken to a page where she can click "add new Tech"
-        self.findBy(
-            'xpath', '//div[contains(@class, "card")]//a[contains('
-                     '@href, "/technologies/edit/new")]').click()
+        # User sees an empty edit page and the categories of the Technology.
+        edit_page = TechnologiesNewPage(self)
+        progress_indicators = edit_page.get_progress_indicators()
+        categories = edit_page.CATEGORIES
+        assert len(progress_indicators) == len(categories)
 
-        # She is taken to the form and sees the steps
-        progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="tech-section-progress"]')
+        # All the categories are listed.
+        for __, category in categories:
+            edit_page.get_category_by_name(category)
 
-        self.assertEqual(len(progress_indicators), get_category_count())
+        # User edits the first category.
+        edit_page.click_edit_category(categories[0][0])
 
-        # She sees that all the categories are there with their correct name
-        # Except the first one which is not displayed in the header template
-        for category in [c[1] for c in get_categories()][1:]:
-            self.findBy('xpath', '//h2[contains(text(), "' + category + '")]')
+        # The focal point is available
+        step_page = QuestionnaireStepPage(self)
+        step_page.is_focal_point_available()
 
-        # She goes to the first step and sees the link works.
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, kwargs={
-                'identifier': 'new', 'step': get_categories()[0][0]}))
+        # User saves the first category.
+        step_page.submit_step()
 
-        # The script to set the focus point for the image is loaded, and the
-        # hidden field is in the DOM.
-        self.browser.execute_script("return $.addFocusPoint();")
-        self.findBy('id', 'id_qg_image-0-image_target')
+        # All the categories are still there.
+        progress_indicators = edit_page.get_progress_indicators()
+        categories = edit_page.CATEGORIES
+        assert len(progress_indicators) == len(categories)
+        for __, category in categories:
+            edit_page.get_category_by_name(category)
 
-        self.findBy('id', 'button-submit').click()
-        progress_indicators = self.findManyBy(
-            'xpath', '//div[@class="tech-section-progress"]')
-        self.assertEqual(len(progress_indicators), get_category_count())
+    def test_translation(self):
+
+        # User logs in and goes to the Edit page.
+        page = TechnologiesNewPage(self)
+        page.open(login=True)
+
+        # User sees the category names in English.
+        for __, category in page.CATEGORIES:
+            page.get_category_by_name(category)
+
+        # User changes the language.
+        page.change_language('es')
+
+        # User sees the category names in Spanish.
+        for __, category in page.CATEGORIES_TRANSLATED:
+            page.get_category_by_name(category)

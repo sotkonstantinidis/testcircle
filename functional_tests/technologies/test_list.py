@@ -1,41 +1,43 @@
-import json
-
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
+import pytest
 
 from functional_tests.base import FunctionalTest
-
-from search.index import delete_all_indices
+from functional_tests.pages.api import ApiV2ListPage
+from functional_tests.pages.wocat import ListPage
 from search.tests.test_index import create_temp_indices
-from wocat.tests.test_views import route_questionnaire_list as route_wocat_list
 
-
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 @pytest.mark.usefixtures('es')
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'wocat.json', 'technologies.json',
-        'unccd.json', 'approaches.json', 'cca.json', 'watershed.json',
-        'technologies_questionnaires.json', 'unccd_questionnaires.json']
+        'approaches.json',
+        'cca.json',
+        'global_key_values.json',
+        'technologies.json',
+        'unccd.json',
+        'watershed.json',
+        'wocat.json',
+        'technologies_questionnaires.json',
+        'unccd_questionnaires.json',
+    ]
 
     def setUp(self):
-        super(ListTest, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
+        super().setUp()
         create_temp_indices([
-            ('technologies', '2015'), ('approaches', '2015'), ('wocat', '2015'),
-            ('unccd', '2015'), ('cca', '2015'), ('watershed', '2015')])
-
-    def tearDown(self):
-        super(ListTest, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
+            ('approaches', '2015'),
+            ('cca', '2015'),
+            ('technologies', '2015'),
+            ('unccd', '2015'),
+            ('watershed', '2015'),
+            ('wocat', '2015'),
+        ])
 
     def test_list_is_available(self):
 
-        # She goes to the WOCAT list and sees that both Technologies and
-        # UNCCD practices are listed, each with details.
-        self.browser.get(self.live_server_url + reverse(route_wocat_list))
+        # User goes to the WOCAT list and sees both Technologies and UNCCD
+        # practices are listed.
+        page = ListPage(self)
+        page.open()
 
         expected_results = [
             {
@@ -55,13 +57,11 @@ class ListTest(FunctionalTest):
                 'description': 'This is the definition of the first WOCAT Technology.',
             },
         ]
-        self.check_list_results(expected_results)
+        page.check_list_results(expected_results)
 
-        # Alice applies the type filter and sees that only technologies are
-        # listed
-        self.findBy('id', 'search-type-display').click()
-        self.findBy('xpath', '//li/a[@data-type="technologies"]').click()
-        self.apply_filter()
+        # User filters by type "technologies".
+        page.filter_by_type('technologies')
+        page.apply_filter()
 
         expected_results = [
             {
@@ -73,86 +73,64 @@ class ListTest(FunctionalTest):
                 'description': 'This is the definition of the first WOCAT Technology.',
             },
         ]
-        self.check_list_results(expected_results)
+        page.check_list_results(expected_results)
 
     def test_filter(self):
 
-        # Alice goes to the list view and filters by technologies.
-        self.browser.get(self.live_server_url + reverse(route_wocat_list))
-        self.findBy('id', 'search-type-display').click()
+        # User goes to the list view and filters by technologies, two entries
+        # remain.
+        page = ListPage(self)
+        page.open()
+        page.filter_by_type('technologies')
+        page.apply_filter()
+        assert page.count_list_results() == 2
 
-        self.wait_for('xpath', '//li/a[@data-type="technologies"]')
-        self.findBy('xpath', '//li/a[@data-type="technologies"]').click()
-        self.apply_filter()
+        # User also filters by country (Switzerland), one entry remains.
+        page.filter_by_country('Switzerland')
+        page.apply_filter()
+        assert page.count_list_results() == 1
 
-        # She also filters by country
-        self.findBy('xpath', '//div[contains(@class,'
-                             ' "chosen-container")]').click()
-
-        self.findBy(
-            'xpath', '//ul[@class="chosen-results"]/li[contains(text(), '
-                     '"Switzerland")]').click()
-        self.apply_filter()
-
-        # She sees that she has been redirected to the list view and the filter
-        # is set, only 1 entry is visible
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 1)
-
-        # The filter was added to the list of active filters
-        active_filters = self.get_active_filters()
-        self.assertEqual(len(active_filters), 2)
-        self.assertEqual(active_filters[0].text, 'SLM Data: SLM Technologies')
-        self.assertEqual(active_filters[1].text, 'Country: Switzerland')
+        # Two filters are active.
+        active_filters = page.get_active_filters()
+        assert active_filters == [
+            'SLM Data: SLM Technologies',
+            'Country: Switzerland',
+        ]
 
     def test_filter_also_in_api(self):
-        api_url = reverse('v2:questionnaires-api-list')
 
-        # Alice goes to the list view
-        self.browser.get(self.live_server_url + reverse(route_wocat_list))
+        # User goes to the list view and sees 4 results
+        list_page = ListPage(self)
+        list_page.open()
+        assert list_page.count_list_results() == 4
 
-        # She sees there are 4 Questionnaires in the list
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 4)
+        # User filters by type (technologies) and country (Switzerland), 1
+        # result remains
+        list_page.filter_by_type('technologies')
+        list_page.filter_by_country('Switzerland')
+        list_page.apply_filter()
 
-        # She filters by country = Switzerland
-        country_filter = self.findBy(
-            'xpath', '//div/label[@for="filter-country"]/../div')
-        country_filter.click()
-        country_filter.find_element_by_xpath(
-            '//ul[@class="chosen-results"]/li[text()="Switzerland"]'
-        ).click()
-        self.apply_filter()
-
-        # She sees there is 1 results left
         expected_results = [
             {
                 'title': 'WOCAT Technology 1',
                 'description': 'This is the definition of the first WOCAT Technology.',
             },
         ]
-        self.check_list_results(expected_results)
+        list_page.check_list_results(expected_results)
 
-        # She adds the same filter params to the API url
-        url = self.browser.current_url
-        filter_params = url.split('?')[1]
-        self.browser.get(self.live_server_url + api_url + '?' + filter_params + '&format=json')
+        # User adds the same filter to the API URL
+        query_dict = list_page.get_query_dict()
+        api_page = ApiV2ListPage(self)
+        api_page.open(query_dict=query_dict)
 
-        # She sees the API results are filtered
-        json_response = json.loads(
-            self.browser.find_element_by_tag_name('body').text)
-        self.assertEqual(len(json_response['results']), 1)
-        self.assertEqual(
-            json_response['results'][0]['name'], 'WOCAT Technology 1')
+        # There is only one result (the same as in the list) in the result
+        api_page.check_list_results(expected_results)
 
-        # She goes back to the list view and does a search
-        self.browser.get(self.live_server_url + reverse(route_wocat_list))
-        self.findBy('xpath', '//input[@type="search"]').send_keys('wocat')
-        self.apply_filter()
+        # User does a search (by "wocat") in the list, there are 2 results
+        list_page.open()
+        list_page.search('wocat')
+        list_page.apply_filter()
 
-        # She sees there are 2 results left
         expected_results = [
             {
                 'title': 'WOCAT Technology 1',
@@ -163,19 +141,10 @@ class ListTest(FunctionalTest):
                 'description': 'Descripción 2 en español',
             },
         ]
-        self.check_list_results(expected_results)
+        list_page.check_list_results(expected_results)
 
-        # Again, she adds the same filter params to the API url
-        url = self.browser.current_url
-        filter_params = url.split('?')[1]
-        self.browser.get(
-            self.live_server_url + api_url + '?' + filter_params + '&format=json')
-
-        # She sees the API results are filtered
-        json_response = json.loads(
-            self.browser.find_element_by_tag_name('body').text)
-        self.assertEqual(len(json_response['results']), 2)
-        self.assertEqual(
-            json_response['results'][0]['name'], 'WOCAT Technology 1')
-        self.assertEqual(
-            json_response['results'][1]['name'], 'WOCAT Tech 2 en español')
+        # The same search (with the same results) is possible in the API
+        query_dict = list_page.get_query_dict()
+        api_page = ApiV2ListPage(self)
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(expected_results)
