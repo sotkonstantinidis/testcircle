@@ -1,9 +1,10 @@
 import uuid
 import logging
 
+import pytest
 from django.conf import settings
 from django.test.utils import override_settings
-from elasticsearch import TransportError, RequestError
+from elasticsearch import RequestError
 from unittest.mock import patch, Mock
 
 from configuration.cache import get_configuration
@@ -17,7 +18,6 @@ from search.index import (
     delete_all_indices,
     delete_questionnaires_from_es,
     delete_single_index,
-    get_current_and_next_index,
     get_elasticsearch,
     get_mappings,
     put_questionnaire_data,
@@ -28,10 +28,6 @@ logging.disable(logging.CRITICAL)
 
 
 es = get_elasticsearch()
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
-TEST_ALIAS = uuid.uuid4()
-TEST_ALIAS_PREFIXED = '{}{}'.format(TEST_INDEX_PREFIX, TEST_ALIAS)
-TEST_INDEX = '{}_1'.format(TEST_ALIAS_PREFIXED)
 
 
 def create_temp_indices(configuration_list: list):
@@ -66,13 +62,6 @@ class ESIndexMixin:
         Create a new index with a random name for testing. Will be deleted
         after the tests ran.
         """
-        try:
-            es.indices.create(index=TEST_INDEX)
-            es.indices.put_alias(index=TEST_INDEX, name=TEST_ALIAS_PREFIXED)
-        except TransportError:
-            raise Exception(
-                'No connection to Elasticsearch possible. Make sure it is '
-                'running and the configuration is correct.')
         self.default_body = {
             'settings': {
                 'index': {
@@ -82,23 +71,6 @@ class ESIndexMixin:
                     }
                 }
             }, 'mappings': {}}
-
-    def tearDown(self):
-        """
-        Delete the index used for testing.
-
-        Use the following to delete all test indices::
-            curl -XDELETE '[ES_HOST]:[ES_PORT]/[TEST_INDEX_PREFIX]*'
-
-        Example::
-            curl -XDELETE 'http://localhost:9200/qcat_test_prefix_*'
-        """
-        try:
-            es.indices.delete(index='{}*'.format(TEST_INDEX_PREFIX))
-        except TransportError:
-            raise Exception(
-                'Index of Elasticsearch could not be deleted, manual cleanup '
-                'necessary.')
 
 
 class GetMappingsTest(TestCase):
@@ -156,7 +128,7 @@ class GetMappingsTest(TestCase):
                 'name': {'type': 'text'}}})
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 
     fixtures = ['sample.json', 'sample_global_key_values.json']
@@ -183,14 +155,14 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
     def test_calls_indices_exists_alias(self, mock_es):
         create_or_update_index(self.configuration, {})
         mock_es.indices.exists_alias.assert_called_once_with(
-            name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
+            name=f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.es')
     def test_calls_indices_create_if_no_alias(self, mock_es):
         mock_es.indices.exists_alias.return_value = False
         create_or_update_index(self.configuration, {})
         mock_es.indices.create.assert_called_once_with(
-            index=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}_1',
+            index=f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}_1',
             body=self.default_body)
 
     @patch('search.index.es')
@@ -199,8 +171,8 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_es.indices.create.return_value = {'acknowledged': True}
         create_or_update_index(self.configuration, {})
         mock_es.indices.put_alias.assert_called_once_with(
-            index=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}_1',
-            name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
+            index=f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}_1',
+            name=f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.get_current_and_next_index')
     @patch('search.index.es')
@@ -210,7 +182,7 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_get_current_and_next_index.return_value = 'a', 'b'
         create_or_update_index(self.configuration, {})
         mock_get_current_and_next_index.assert_called_once_with(
-            f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
+            f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.get_current_and_next_index')
     @patch('search.index.es')
@@ -257,7 +229,8 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_reindex.return_value = 0, []
         create_or_update_index(self.configuration, {})
         mock_es.indices.put_alias.assert_called_once_with(
-            index='b', name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
+            index='b',
+            name=f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.reindex')
     @patch('search.index.get_current_and_next_index')
@@ -271,7 +244,8 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         mock_es.indices.put_alias.return_value = {'acknowledged': True}
         create_or_update_index(self.configuration, {})
         mock_es.indices.delete_alias.assert_called_once_with(
-            index='a', name=f'{TEST_INDEX_PREFIX}{self.keyword}_{self.edition}')
+            index='a',
+            name=f'{settings.ES_INDEX_PREFIX}{self.keyword}_{self.edition}')
 
     @patch('search.index.reindex')
     @patch('search.index.get_current_and_next_index')
@@ -290,9 +264,9 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
     @patch('search.index.get_alias')
     def test_creates_new_index(self, mock_get_alias):
         alias = uuid.uuid4()
-        alias_prefixed = '{}{}'.format(TEST_INDEX_PREFIX, alias)
+        alias_prefixed = '{}{}'.format(settings.ES_INDEX_PREFIX, alias)
         mock_get_alias.return_value = alias_prefixed
-        index = '{}{}_1'.format(TEST_INDEX_PREFIX, alias)
+        index = '{}{}_1'.format(settings.ES_INDEX_PREFIX, alias)
         self.assertFalse(es.indices.exists_alias(name=alias_prefixed))
         self.assertFalse(es.indices.exists(index=index))
         create_or_update_index(self.configuration, {})
@@ -324,10 +298,12 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
         m = get_valid_questionnaire()
         mock_force_strings.return_value = {}
         put_questionnaire_data([m])
-        mock_force_strings.assert_called_once_with({'definition': {'en': ''}})
+        mock_force_strings.assert_called_once_with({
+            'name': {},
+            'definition': {'en': ''}})
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class PutQuestionnaireDataTest(TestCase):
 
     fixtures = ['sample.json', 'sample_global_key_values.json']
@@ -353,7 +329,7 @@ class PutQuestionnaireDataTest(TestCase):
         source['filter_data'] = {}
         source['list_data']['country'] = ''
         data = [{
-            '_index': '{}sample_2015'.format(TEST_INDEX_PREFIX),
+            '_index': '{}sample_2015'.format(settings.ES_INDEX_PREFIX),
             '_type': 'questionnaire',
             '_id': questionnaire.id,
             '_source': source,
@@ -374,7 +350,7 @@ class PutQuestionnaireDataTest(TestCase):
         self.assertEqual(errors, 'bar')
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class DeleteQuestionnairesFromEsTest(TestCase):
     def setUp(self):
         self.objects = [Mock()]
@@ -385,7 +361,7 @@ class DeleteQuestionnairesFromEsTest(TestCase):
         obj_configuration = obj.configuration_object
         delete_questionnaires_from_es(self.objects)
         mock_es.delete.assert_called_once_with(
-            index=f'{TEST_INDEX_PREFIX}{obj_configuration.keyword}_'
+            index=f'{settings.ES_INDEX_PREFIX}{obj_configuration.keyword}_'
                   f'{obj_configuration.edition}',
             doc_type='questionnaire', id=obj.id)
 
@@ -393,30 +369,30 @@ class DeleteQuestionnairesFromEsTest(TestCase):
         delete_questionnaires_from_es(self.objects)
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class DeleteAllIndicesTest(TestCase):
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
+        delete_all_indices(prefix=settings.ES_INDEX_PREFIX)
         mock_es.indices.delete.assert_called_once_with(index='{}*'.format(
-            TEST_INDEX_PREFIX))
+            settings.ES_INDEX_PREFIX))
 
     @patch('search.index.es')
     def test_returns_false_if_no_success(self, mock_es):
         mock_es.indices.delete.return_value = {'acknowledged': False}
-        success, error_msg = delete_all_indices(prefix=TEST_INDEX_PREFIX)
+        success, error_msg = delete_all_indices(prefix=settings.ES_INDEX_PREFIX)
         self.assertFalse(success)
         self.assertEqual(error_msg, 'Indices could not be deleted')
 
     @patch('search.index.es')
     def test_returns_true_if_no_success(self, mock_es):
         mock_es.indices.delete.return_value = {'acknowledged': True}
-        success, error_msg = delete_all_indices(prefix=TEST_INDEX_PREFIX)
+        success, error_msg = delete_all_indices(prefix=settings.ES_INDEX_PREFIX)
         self.assertTrue(success)
         self.assertEqual(error_msg, '')
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class DeleteSingleIndexTest(TestCase):
     @patch('search.index.es')
     def test_calls_indices_delete(self, mock_es):

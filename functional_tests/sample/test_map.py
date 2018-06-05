@@ -1,6 +1,6 @@
+import pytest
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 
 from selenium import webdriver
 
@@ -9,10 +9,8 @@ from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import route_questionnaire_new
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['groups_permissions.json', 'global_key_values.json',
@@ -38,6 +36,7 @@ class QuestionnaireTest(FunctionalTest):
         map = self.findBy(
             'xpath', '//div[contains(@class, "map-form-container")]')
         self.scroll_to_element(map)
+        import time; time.sleep(1)
         map.click()
 
         # She saves the step
@@ -52,11 +51,8 @@ class QuestionnaireTest(FunctionalTest):
         self.assertIsNotNone(geom)
 
         self.click_edit_section('cat_0')
-        self.findBy(
-            'xpath', '//div[contains(@class, "chosen-container")]').click()
-        self.findBy(
-            'xpath', '//ul[@class="chosen-results"]/li[text()="Afghanistan"]') \
-            .click()
+        self.select_chosen_element(
+            'id_qg_location_0_country_chosen', 'Afghanistan')
         self.submit_form_step()
 
         # In the overview, there is still the map with the point.
@@ -66,6 +62,8 @@ class QuestionnaireTest(FunctionalTest):
         self.click_edit_section('cat_3')
         map = self.findBy(
             'xpath', '//div[contains(@class, "map-form-container")]')
+        self.scroll_to_element(map)
+        import time; time.sleep(1)
         self.findBy('xpath', '//label[@for="qg_39_1_1"]').click()
         self.findBy('xpath', '//label[@for="qg_39_1_1"]').click()
         action = webdriver.common.action_chains.ActionChains(self.browser)

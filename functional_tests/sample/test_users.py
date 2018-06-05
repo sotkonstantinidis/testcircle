@@ -1,3 +1,4 @@
+import pytest
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
@@ -17,8 +18,6 @@ from functional_tests.sample.test_search import LIST_EMPTY_RESULTS_TEXT
 from questionnaire.tests.test_models import get_valid_questionnaire
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import route_questionnaire_new_step
-
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
 class UserTest(FunctionalTest):
@@ -287,7 +286,7 @@ class UserTest(FunctionalTest):
         self.findByNot('id', 'search-questionnaires')
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class UserTest2(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
@@ -877,7 +876,7 @@ class UserTest2(FunctionalTest):
             self.assertIn(user_tuple[1].id, [1])
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class UserTest3(FunctionalTest):
 
     fixtures = [

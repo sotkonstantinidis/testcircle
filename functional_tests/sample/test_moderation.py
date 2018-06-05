@@ -1,6 +1,8 @@
 import re
 
 import time
+
+import pytest
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
 from django.test.utils import override_settings
@@ -20,15 +22,11 @@ from sample.tests.test_views import (
     get_position_of_category,
     route_questionnaire_list)
 from wocat.tests.test_views import route_home
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
-
-
+@pytest.mark.usefixtures('es')
 @override_settings(
-    ES_INDEX_PREFIX=TEST_INDEX_PREFIX,
     NOTIFICATIONS_CREATE='create_foo',
     NOTIFICATIONS_CHANGE_STATUS='change_foo'
 )
@@ -40,12 +38,7 @@ class ModerationTest(FunctionalTest):
 
     def setUp(self):
         super(ModerationTest, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015')])
-
-    def tearDown(self):
-        super(ModerationTest, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @patch('questionnaire.signals.create_questionnaire.send')
     @patch('questionnaire.signals.change_status.send')
@@ -168,9 +161,7 @@ class ModerationTest(FunctionalTest):
         self.review_action('edit', exists_only=True)
 
 
-@override_settings(
-    ES_INDEX_PREFIX=TEST_INDEX_PREFIX,
-)
+@pytest.mark.usefixtures('es')
 class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
@@ -179,7 +170,6 @@ class ModerationTestFixture(FunctionalTest):
 
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015')])
 
         self.user_compiler = User.objects.get(pk=101)
@@ -187,10 +177,6 @@ class ModerationTestFixture(FunctionalTest):
         self.user_reviewer = User.objects.get(pk=103)
         self.user_publisher = User.objects.get(pk=104)
         self.user_secretariat = User.objects.get(pk=107)
-
-    def tearDown(self):
-        super(ModerationTestFixture, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_review_locked_questionnaire(self):
         # Secretariat user logs in

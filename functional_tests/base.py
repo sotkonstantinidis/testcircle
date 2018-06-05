@@ -8,7 +8,8 @@ from django.test.utils import override_settings
 from django.utils.timezone import now
 from pyvirtualdisplay import Display
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, \
+    WebDriverException
 from unittest import skipUnless
 
 import pytest
@@ -50,8 +51,11 @@ def check_firefox_path():
 
 
 @skipUnless(check_firefox_path(), "Firefox path not specified")
-@override_settings(DEBUG=True)
-@override_settings(CACHES=TEST_CACHES)
+@override_settings(
+    CACHES=TEST_CACHES,
+    DEBUG=True,
+    LANGUAGES=(('en', 'English'), ('es', 'Spanish'), ('fr', 'French')),
+)
 @pytest.mark.functional
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -246,7 +250,15 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.findBy('xpath', '//div[contains(@class, "reveal-modal") and contains(@class, "open")]//a[contains(@class, "close-reveal-modal")]').click()
             import time; time.sleep(1)
             return
-        self.findBy('xpath', btn_xpath).click()
+        self.wait_for('xpath', btn_xpath)
+        # Sometimes, the click on the button in the modal happens too fast
+        # (modal not yet correctly displayed), which results in an error saying
+        # another (underlying) element would receive the click. In this case,
+        # simply try again (hopefully modal showing by now)
+        try:
+            self.findBy('xpath', btn_xpath).click()
+        except WebDriverException:
+            self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
         if action not in ['reject', 'delete']:

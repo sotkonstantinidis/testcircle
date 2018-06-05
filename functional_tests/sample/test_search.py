@@ -2,23 +2,22 @@
 import logging
 logging.disable(logging.CRITICAL)
 
+import pytest
+
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from unittest.mock import patch
 
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
 from sample.tests.test_views import route_home as sample_route_home
 from samplemulti.tests.test_views import route_home as samplemulti_route_home
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
 LIST_EMPTY_RESULTS_TEXT = 'No results found.'
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class SearchTest(FunctionalTest):
 
     fixtures = [
@@ -27,12 +26,7 @@ class SearchTest(FunctionalTest):
 
     def setUp(self):
         super(SearchTest, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
-
-    def tearDown(self):
-        super(SearchTest, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_search_home(self, mock_get_configuration_index_filter):
@@ -95,7 +89,7 @@ class SearchTest(FunctionalTest):
         self.assertEqual(len(results), 1)
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class SearchTestAdmin(FunctionalTest):
 
     fixtures = [
@@ -104,15 +98,10 @@ class SearchTestAdmin(FunctionalTest):
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         user = create_new_user()
         user.is_superuser = True
         user.save()
         self.user = user
-
-    def tearDown(self):
-        super(SearchTestAdmin, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_search_admin(self):
 

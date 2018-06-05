@@ -1107,12 +1107,15 @@ class ESQuestionnaireQueryMixin:
         self.template_configuration_code = self.configuration_code
         self.configuration_code = self.request.GET.get(
             'type', self.configuration_code
-        )
+        ).lower()
         valid_configurations = [c[0] for c in Configuration.CODE_CHOICES]
+        is_test_running = getattr(settings, 'IS_TEST_RUN', False) is True
+        if is_test_running:
+            valid_configurations += ['sample', 'samplemulti', 'samplemodule']
+
         is_valid_configuration = self.configuration_code in valid_configurations
-        is_test_running = settings.DEBUG is True
         # Fallback configuration: wocat
-        if not is_valid_configuration and not is_test_running:
+        if not is_valid_configuration:
             self.configuration_code = 'wocat'
         self.configuration = get_configuration(
             self.configuration_code,

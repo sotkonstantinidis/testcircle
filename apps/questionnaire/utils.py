@@ -3,7 +3,6 @@ import json
 import logging
 from uuid import UUID
 
-from configuration.models import Configuration
 from django.apps import apps
 from django.contrib import messages
 from django.db.models import Q
@@ -16,9 +15,8 @@ from django.utils.translation import ugettext as _, get_language
 from accounts.client import remote_user_client
 from accounts.models import User
 from configuration.cache import get_configuration
-from configuration.configuration import (
-    QuestionnaireQuestion,
-)
+from configuration.configuration import QuestionnaireQuestion, \
+    QuestionnaireConfiguration
 from configuration.utils import get_configuration_query_filter, \
     get_choices_from_model, get_choices_from_questiongroups
 from qcat.errors import QuestionnaireFormatError
@@ -584,7 +582,9 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configuration: Configuration, query_dict: dict) -> list:
+def get_active_filters(
+        questionnaire_configuration: QuestionnaireConfiguration,
+        query_dict: dict) -> list:
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on

@@ -1,6 +1,6 @@
+import pytest
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -11,19 +11,15 @@ from functional_tests.base import FunctionalTest
 from accounts.models import User
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
-    get_position_of_category,
     route_home,
     route_questionnaire_details,
     route_questionnaire_list,
     route_questionnaire_filter,
     route_questionnaire_new_step)
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class ListTest(FunctionalTest):
 
     fixtures = [
@@ -32,15 +28,10 @@ class ListTest(FunctionalTest):
         'sample_institutions.json']
 
     def setUp(self):
+        super(ListTest, self).setUp()
         self.url_questionnaire_filter_sample = self.live_server_url + reverse(
             route_questionnaire_filter) + '?type=sample'
-        super(ListTest, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015'), ('unccd', '2015')])
-
-    def tearDown(self):
-        super(ListTest, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_list_is_available(self):
 
@@ -1245,7 +1236,7 @@ class ListTest(FunctionalTest):
                 self.live_server_url + reverse(route_questionnaire_list)))
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class ListTestLinks(FunctionalTest):
 
     fixtures = [
@@ -1280,12 +1271,7 @@ class ListTestLinks(FunctionalTest):
 
     def setUp(self):
         super(ListTestLinks, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
-
-    def tearDown(self):
-        super(ListTestLinks, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_list_displays_links_user_questionnaires(self):
 
@@ -1389,7 +1375,7 @@ class ListTestLinks(FunctionalTest):
         self.assertEqual(link_count_3.text, '')
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class ListTestStatus(FunctionalTest):
 
     fixtures = [
@@ -1398,12 +1384,7 @@ class ListTestStatus(FunctionalTest):
 
     def setUp(self):
         super(ListTestStatus, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015')])
-
-    def tearDown(self):
-        super(ListTestStatus, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     # def test_unknown_name(self):
     #     user = create_new_user()

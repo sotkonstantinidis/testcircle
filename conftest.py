@@ -25,6 +25,10 @@ def es(request):
     """
     from django.conf import settings
     from search.index import get_elasticsearch
+    from search.search import get_indices_alias
+
+    # Clear lru_cache of Elasticsearch indices.
+    get_indices_alias.cache_clear()
 
     # Test setup
     xdist_suffix = getattr(

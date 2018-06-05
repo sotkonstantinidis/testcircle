@@ -1,5 +1,6 @@
 from configuration.cache import get_configuration
 from django.apps import apps
+from django.conf import settings
 from django.db.models import Q
 from questionnaire.models import Questionnaire
 from search.utils import check_aliases
@@ -68,6 +69,10 @@ def get_configuration_index_filter(configuration: str):
     configurations = [configuration.lower()]
 
     is_valid_configuration = check_aliases(configurations) and configurations != ['wocat']
+
+    is_test_running = getattr(settings, 'IS_TEST_RUN', False) is True
+    if is_test_running and configuration in ['sample', 'samplemulti', 'samplemodule']:
+        return configurations
 
     return configurations if is_valid_configuration else default_configurations
 

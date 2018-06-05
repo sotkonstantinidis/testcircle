@@ -1,6 +1,6 @@
+import pytest
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 
 from accounts.models import User
 from functional_tests.base import FunctionalTest
@@ -9,13 +9,10 @@ from sample.tests.test_views import route_questionnaire_list, \
 from samplemulti.tests.test_views import route_questionnaire_new as \
     route_questionnaire_new_samplemulti, route_questionnaire_list as \
     route_questionnaire_list_samplemulti
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class LinkTests(FunctionalTest):
 
     fixtures = [
@@ -50,12 +47,7 @@ class LinkTests(FunctionalTest):
 
     def setUp(self):
         super(LinkTests, self).setUp()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
-
-    def tearDown(self):
-        super(LinkTests, self).tearDown()
-        delete_all_indices(prefix=TEST_INDEX_PREFIX)
 
     def test_do_not_show_deleted_links_in_form(self):
 
