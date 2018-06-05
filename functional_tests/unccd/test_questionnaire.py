@@ -2,24 +2,19 @@ import unittest
 
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from unittest.mock import patch
-
-from django.test.utils import override_settings
 
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from accounts.tests.test_views import accounts_route_user, \
     accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 from unccd.tests.test_views import route_home
 from sample.tests.test_views import route_questionnaire_details, \
     route_questionnaire_list
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-
+@unittest.skip("Disabling this until further info about UNCCD flagging")
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'unccd.json']
@@ -54,22 +49,16 @@ class QuestionnaireTest(FunctionalTest):
         # self.assertEqual(len(progress_indicators), get_category_count())
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@unittest.skip("Disabling this until further info about UNCCD flagging")
 class FlaggingTest(FunctionalTest):
 
     fixtures = ['groups_permissions', 'global_key_values', 'flags', 'sample',
-                'unccd', 'sample_questionnaires_5']
+                'unccd', 'wocat', 'sample_questionnaires_5']
 
     def setUp(self):
         super(FlaggingTest, self).setUp()
-        delete_all_indices()
-        create_temp_indices(['sample', 'unccd'])
+        create_temp_indices([('sample', '2015'), ('unccd', '2015')])
 
-    def tearDown(self):
-        super(FlaggingTest, self).tearDown()
-        delete_all_indices()
-
-    @unittest.skip("Disabling this until further info about UNCCD flagging")
     def test_unccd_focal_point(self):
 
         unccd_user = create_new_user()

@@ -27,6 +27,7 @@ def template_settings(request):
         'GOOGLE_MAPS_JAVASCRIPT_API_KEY',
         'IS_ACTIVE_FEATURE_MODULE',
         'IS_ACTIVE_FEATURE_WATERSHED',
+        'IS_TEST_RUN',
         'PIWIK_URL',
         'PIWIK_SITE_ID',
         'WARN_HEADER',
@@ -34,7 +35,7 @@ def template_settings(request):
     ]
     return {
         **maintenance_announcement.overlay,
-        **{value: getattr(settings, value) for value in setting_values}
+        **{value: getattr(settings, value, '') for value in setting_values}
     }
 
 

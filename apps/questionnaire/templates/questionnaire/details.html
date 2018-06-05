@@ -73,9 +73,7 @@
         <div class="output hide tech-links-content" id="links-content">
           {% for configuration, list_values in links.items %}
             {% for list_entry in list_values %}
-              {% with configuration=configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
-                {% include configuration with item=list_entry %}
-              {% endwith %}
+              {% include "questionnaire/partial/list_item.html" with item=list_entry %}
             {% endfor %}
           {% empty %}
             <p>{% trans "No links" %}</p>
@@ -91,9 +89,7 @@
         <div class="output hide tech-links-content" id="modules-content">
           {% for configuration, list_values in modules.items %}
             {% for list_entry in list_values %}
-              {% with configuration=configuration|stringformat:"s"|add:"/questionnaire/partial/list_item.html" %}
-                {% include configuration with item=list_entry %}
-              {% endwith %}
+              {% include "questionnaire/partial/list_item.html" with item=list_entry %}
             {% endfor %}
           {% empty %}
             <p>{% trans "No modules" %}</p>

@@ -11317,9 +11317,7 @@
   {
     "fields": {
       "code": "cca",
-      "description": "Description of WOCAT Climate Change Adaptation Configuration",
-      "active": true,
-      "activated": "2016-09-01T16:33:59.337Z",
+      "edition": "2015",
       "data": {
         "sections": [
           {
@@ -16117,9 +16115,7 @@
           }
         ]
       },
-      "created": "2016-09-01T16:47:59.337Z",
-      "base_code": "",
-      "name": "WOCAT SLM Climate Change Adaptation"
+      "created": "2016-09-01T16:47:59.337Z"
     },
     "model": "configuration.configuration",
     "pk": 20001

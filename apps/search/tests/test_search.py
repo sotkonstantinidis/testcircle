@@ -1,40 +1,10 @@
 from unittest.mock import patch
 
 from qcat.tests import TestCase
-from search.search import (
-    simple_search,
-    advanced_search,
-)
+from search.search import advanced_search
 
 
 TEST_INDEX_PREFIX = 'qcat_test_prefix_'
-
-
-class SimpleSearchTest(TestCase):
-
-    @patch('search.search.es')
-    @patch('search.search.get_alias')
-    def test_calls_get_alias_with_code(self, mock_get_alias, mock_es):
-        simple_search('key', configuration_codes=['code'])
-        mock_get_alias.assert_called_once_with(['code'])
-
-    @patch('search.search.es')
-    @patch('search.search.get_alias')
-    def test_calls_get_alias_if_no_code(self, mock_get_alias, mock_es):
-        simple_search('key', configuration_codes=[])
-        mock_get_alias.assert_called_once_with([])
-
-    @patch('search.search.get_alias')
-    @patch('search.search.es')
-    def test_calls_search(self, mock_es, mock_get_alias):
-        simple_search('key')
-        mock_es.search.assert_called_once_with(
-            index=mock_get_alias.return_value, q='key')
-
-    @patch('search.search.es')
-    def test_returns_search(self, mock_es):
-        ret = simple_search('key')
-        self.assertEqual(ret, mock_es.search())
 
 
 class AdvancedSearchTest(TestCase):
@@ -43,24 +13,35 @@ class AdvancedSearchTest(TestCase):
     @patch('search.search.get_alias')
     def test_calls_get_alias_with_code(self, mock_get_alias, mock_es):
         advanced_search(filter_params=[], configuration_codes=['code'])
-        mock_get_alias.assert_called_once_with(['code'])
+        mock_get_alias.assert_called_once_with('code_*')
 
     @patch('search.search.es')
     @patch('search.search.get_alias')
     def test_calls_get_alias_if_no_code(self, mock_get_alias, mock_es):
         advanced_search(filter_params=[], configuration_codes=[])
-        mock_get_alias.assert_called_once_with([])
+        mock_get_alias.assert_called_once_with()
 
     @patch('search.search.get_alias')
     @patch('search.search.es')
-    def test_calls_search(self, mock_es, mock_get_alias):
-        advanced_search(filter_params=[])
+    def test_calls_search_no_query_string(self, mock_es, mock_get_alias):
+        advanced_search(filter_params=[], query_string='')
         mock_es.search.assert_called_once_with(
             index=mock_get_alias.return_value,
-            body={'query': {'bool': {'must': []}}, 'sort': [
-                {'data.qg_location.country': {
-                    'order': 'asc', 'nested_path': 'data.qg_location'}},
-                '_score']}, size=10, from_=0)
+            body={
+                'query': {'bool': {'must': []}},
+                'sort': [{'list_data.country.keyword': {'order': 'asc'}}, '_score']},
+            size=10, from_=0)
+
+    @patch('search.search.get_alias')
+    @patch('search.search.es')
+    def test_calls_search_with_query_string(self, mock_es, mock_get_alias):
+        advanced_search(filter_params=[], query_string='foo')
+        mock_es.search.assert_called_once_with(
+            index=mock_get_alias.return_value,
+            body={
+                'query': {'bool': {'must': [{'multi_match': {'query': 'foo', 'fields': ['list_data.name.*^4', 'list_data.definition.*', 'list_data.country'], 'type': 'cross_fields', 'operator': 'and'}}]}},
+                'sort': ['_score']},
+            size=10, from_=0)
 
     @patch('search.search.es')
     def test_returns_search(self, mock_es):

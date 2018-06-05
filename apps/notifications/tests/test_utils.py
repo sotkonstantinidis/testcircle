@@ -12,18 +12,18 @@ from notifications.utils import CreateLog, ContentLog, StatusLog, MemberLog, \
 class CreateLogTest(TestCase):
 
     def setUp(self):
-        self.catalyst = mommy.make(get_user_model())
-        self.subscriber = mommy.make(get_user_model())
+        self.catalyst = mommy.make(_model=get_user_model())
+        self.subscriber = mommy.make(_model=get_user_model())
         self.questionnaire = mommy.make(
-            Questionnaire
+            _model=Questionnaire
         )
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=self.catalyst
         )
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=self.subscriber
         )
@@ -65,7 +65,7 @@ class ContentLogTest(TestCase):
         instance.log = 'log'
         instance.questionnaire.data = 'data'
         ContentLog.create(self=instance)
-        mock_create.assert_called_once_with(log='log', data='data')
+        mock_create.assert_called_once_with(log='log')
 
 
 class StatusLogTest(TestCase):

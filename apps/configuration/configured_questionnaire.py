@@ -71,6 +71,8 @@ class ConfiguredQuestionnaire:
 
     def get_value(self, child: QuestionnaireQuestion):
         """
+        Default 'value getter' for all fields without a specified method in the
+        configuration.
         Get the template values as defined in the QuestionnaireQuestion config.
         """
         # Copy the original value, so it can be re-applied. This is important

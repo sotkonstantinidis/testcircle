@@ -133,3 +133,8 @@ def get_flat_roles(roles: list) -> list:
     Return a flat list of role keywords present in the current roles.
     """
     return [role[0] for role in roles]
+
+
+@register.filter
+def is_in_compilers_list(user, compilers):
+    return user.is_authenticated() and user.id in [compiler['id'] for compiler in compilers]

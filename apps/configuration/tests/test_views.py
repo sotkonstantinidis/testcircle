@@ -8,8 +8,8 @@ from django.utils.translation import get_language
 
 from qcat.tests import TestCase
 from configuration.models import Configuration
-from configuration.cache import get_configuration
-from ..views import BuildAllCachesView, delete_caches
+from configuration.cache import get_configuration, get_cached_configuration
+from configuration.views import BuildAllCachesView, delete_caches, EditionNotesView
 
 
 class CacheTest(TestCase):
@@ -20,6 +20,8 @@ class CacheTest(TestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
+        # Initially clear cache
+        get_cached_configuration.cache_clear()
 
     def setup_view(self, view, request, *args, **kwargs):
         """
@@ -32,7 +34,7 @@ class CacheTest(TestCase):
         view.kwargs = kwargs
         return view
 
-    @override_settings(CACHES=locmem)
+    @override_settings(CACHES=locmem, USE_CACHING=True)
     def test_build_cache(self):
         """
         Integration test: check valid cache after call to view.
@@ -41,13 +43,14 @@ class CacheTest(TestCase):
         request._messages = MagicMock()
         view = self.setup_view(BuildAllCachesView(), request)
         view.get(request)
-        self.assertIsNotNone(cache.get('sample_{}'.format(get_language())))
+        self.assertIsNotNone(cache.get('sample_2015_{}'.format(get_language())))
 
-    @override_settings(CACHES=locmem)
+    @override_settings(CACHES=locmem, USE_CACHING=True)
     def test_clear_cache(self):
         config = Configuration.objects.all().first()
-        get_configuration(config.code)
-        cache_key = '{}_{}'.format(config.code, get_language())
+        get_configuration(code=config.code, edition=config.edition)
+        cache_key = '{}_{}_{}'.format(
+            config.code, config.edition, get_language())
         self.assertIsNotNone(cache.get(cache_key))
         request = MagicMock()
         request.user.is_superuser = True
@@ -56,3 +59,18 @@ class CacheTest(TestCase):
         with contextlib.suppress(TypeError):
             delete_caches(request)
             self.assertIsNone(cache.get(cache_key))
+
+
+class EditionNotesViewTest(TestCase):
+
+    def setUp(self):
+        self.request = RequestFactory().get(reverse('configuration:release_notes'))
+        self.view = self.setup_view(
+            view=EditionNotesView(),
+            request=self.request
+        )
+
+    def test_get(self):
+        with patch.object(EditionNotesView, 'get_editions') as get_editions_mock:
+            self.view.get(request=self.request)
+            self.assertTrue(get_editions_mock.called)

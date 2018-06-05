@@ -1,19 +1,18 @@
 from django.conf import settings
-from django.core.management.base import NoArgsCommand
+from django.core.management.base import BaseCommand
 from django.utils.translation import activate
 
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 
 
-class Command(NoArgsCommand):
+class Command(BaseCommand):
     """
     This command creates all configuration caches for the current process.
     """
-    def handle_noargs(self, **options):
+    def handle(self, **options):
         languages = dict(settings.LANGUAGES).keys()
-        configurations = Configuration.objects.filter(active=True)
-        for configuration in configurations:
+        for configuration in Configuration.objects.all():
             for language in languages:
                 activate(language)
-                get_configuration(configuration.code)
+                get_configuration(configuration.code, configuration.edition)

@@ -1,17 +1,17 @@
+import os
 import sys
 
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.core import signing
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
-from django.utils.timezone import now
-from nose.plugins.attrib import attr
 from pyvirtualdisplay import Display
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, \
+    WebDriverException
 from unittest import skipUnless
 
+import pytest
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -50,9 +50,12 @@ def check_firefox_path():
 
 
 @skipUnless(check_firefox_path(), "Firefox path not specified")
-@override_settings(DEBUG=True)
-@override_settings(CACHES=TEST_CACHES)
-@attr('functional')
+@override_settings(
+    CACHES=TEST_CACHES,
+    DEBUG=True,
+    LANGUAGES=(('en', 'English'), ('es', 'Spanish'), ('fr', 'French')),
+)
+@pytest.mark.functional
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
@@ -60,7 +63,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         Use FF as browser for functional tests.
         Create a virtual display, so the browser doesn't keep popping up.
         """
-        if '-pop' not in sys.argv[1:]:
+        if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display = Display(visible=0, size=(1600, 900))
             self.display.start()
         self.browser = webdriver.Chrome(
@@ -68,9 +71,20 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
+        # self.save_failed_screenshots()
         self.browser.quit()
-        if '-pop' not in sys.argv[1:]:
+        if '-pop' not in sys.argv[1:] and settings.TESTING_POP_BROWSER is False:
             self.display.stop()
+
+    def save_failed_screenshots(self):
+        if self._outcome.errors:
+            path = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                'failed_screenshots')
+            if not os.path.exists(path):
+                os.makedirs(path)
+            file = os.path.join(path, f'failed_{self.id()}.png')
+            self.browser.save_screenshot(file)
 
     def findByNot(self, by, el):
         try:
@@ -142,6 +156,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             locator = By.XPATH
         elif by == 'id':
             locator = By.ID
+        elif by == 'name':
+            locator = By.NAME
         else:
             self.fail('Argument "by" = "%s" is not valid.' % by)
 
@@ -244,7 +260,15 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.findBy('xpath', '//div[contains(@class, "reveal-modal") and contains(@class, "open")]//a[contains(@class, "close-reveal-modal")]').click()
             import time; time.sleep(1)
             return
-        self.findBy('xpath', btn_xpath).click()
+        self.wait_for('xpath', btn_xpath)
+        # Sometimes, the click on the button in the modal happens too fast
+        # (modal not yet correctly displayed), which results in an error saying
+        # another (underlying) element would receive the click. In this case,
+        # simply try again (hopefully modal showing by now)
+        try:
+            self.findBy('xpath', btn_xpath).click()
+        except WebDriverException:
+            self.findBy('xpath', btn_xpath).click()
         self.findBy(
             'xpath', '//div[contains(@class, "{}")]'.format(expected_msg_class))
         if action not in ['reject', 'delete']:
@@ -411,6 +435,22 @@ class FunctionalTest(StaticLiveServerTestCase):
                     f'(//article[contains(@class, "tech-item")])[{i_xpath}]//'
                     f'a[contains(text(), "{lang}")]')
 
+    def get_compiler(self) -> str:
+        """From the details view, return the name of the compiler"""
+        return self.findBy(
+            'xpath',
+            '//ul[@class="tech-infos"]/li/span[text()="Compiler:"]/../a'
+        ).text
+
+    def get_editors(self) -> list:
+        """From the details view, return the names of the editors"""
+        editors = []
+        for el in self.findManyBy(
+                'xpath',
+                '//ul[@class="tech-infos"]/li/span[text()="Editors:"]/../a'):
+            editors.append(el.text)
+        return editors
+
     def checkOnPage(self, text):
         xpath = '//*[text()[contains(.,"{}")]]'.format(text)
         WebDriverWait(self.browser, 10).until(
@@ -493,16 +533,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.add_cookie({
             'name': 'sessionid',
             'value': self.client.cookies['sessionid'].value
-        })
-        self.browser.add_cookie({
-            'name': 'fe_typo_user',
-            'value': 'foo'
-        })
-        key = settings.ACCOUNTS_ENFORCE_LOGIN_COOKIE_NAME
-        salt = settings.ACCOUNTS_ENFORCE_LOGIN_SALT
-        self.browser.add_cookie({
-            'name': key,
-            'value': signing.get_cookie_signer(salt=key + salt).sign(now())
         })
         self.browser.get(self.live_server_url + reverse(loginRouteName))
 

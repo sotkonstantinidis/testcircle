@@ -4,6 +4,7 @@ from unittest.mock import patch, Mock, call, MagicMock
 
 from collections import namedtuple
 
+from configuration.cache import get_configuration
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.http import QueryDict
@@ -676,46 +677,47 @@ class GetActiveFiltersTest(TestCase):
         self.assertEqual(filter_2['value_label'], 'Value 14_1')
 
 
+@patch('questionnaire.utils.get_configuration')
+@patch('questionnaire.utils.get_link_display')
 class GetLinkDataTest(TestCase):
 
-    @patch('questionnaire.utils.ConfigurationList')
-    def test_creates_configuration_list(self, mock_ConfigurationList):
-        get_link_data([])
-        mock_ConfigurationList.assert_called_once_with()
-
-    @patch('questionnaire.utils.get_link_display')
-    def test_uses_first_code_if_none_provided(self, mock_get_link_display):
+    def test_uses_conf_code_if_none_provided(
+            self, mock_get_link_display, mock_get_configuration):
         link = Mock()
-        link.configurations.first.return_value.code = 'foo'
+        link.configuration.code = 'foo'
+        link.configuration.edition = 'edition'
         link_data = get_link_data([link])
         self.assertIn('foo', link_data)
 
-    @patch('questionnaire.utils.get_link_display')
-    def test_uses_code_provided(self, mock_get_link_display):
+    def test_uses_code_provided(
+            self, mock_get_link_display, mock_get_configuration):
         link = Mock()
-        link.configurations.first.return_value.code = 'faz'
+        link.configuration.code = 'foo'
+        link.configuration.edition = 'edition'
         link_data = get_link_data([link], link_configuration_code='foo')
         self.assertIn('foo', link_data)
 
-    @patch('questionnaire.utils.get_link_display')
-    def test_calls_get_link_display(self, mock_get_link_display):
+    def test_calls_get_link_display(
+            self, mock_get_link_display, mock_get_configuration):
         link = Mock()
-        link.configurations.first.return_value.code = 'foo'
+        link.configuration.code = 'foo'
+        link.configuration.edition = 'edition'
         get_link_data([link])
         mock_get_link_display.assert_called_once_with(
-            'foo', 'Unknown name', link.code)
+            'foo', mock_get_configuration().get_questionnaire_name().get(),
+            link.code)
 
-    @patch('questionnaire.utils.get_link_display')
-    def test_return_values(self, mock_get_link_display):
+    def test_return_values(self, mock_get_link_display, mock_get_configuration):
         link = Mock()
-        link.configurations.first.return_value.code = 'foo'
+        link.configuration.code = 'foo'
+        link.configuration.edition = 'edition'
         link_data = get_link_data([link])
         self.assertEqual(link_data, {'foo': [{
             'code': link.code,
-            'configuration': link.get_original_configuration().code,
+            'configuration': link.configuration.code,
             'id': link.id,
-            'link': mock_get_link_display.return_value,
-            'name': 'Unknown name',
+            'link': mock_get_link_display(),
+            'name': mock_get_configuration().get_questionnaire_name().get(),
         }]})
 
 
@@ -900,26 +902,11 @@ class QueryQuestionnairesTest(TestCase):
 @override_settings(USE_CACHING=False)
 class GetListValuesTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = ['sample_global_key_values.json', 'sample.json', 'samplemulti.json']
 
     def setUp(self):
-        self.values_length = 13
+        self.values_length = 15
         self.es_hits = [{'_id': 1}]
-
-    def test_serializer_uses_provided_configuration(self):
-        # get_valid_questionnaire uses the config 'sample' by default.
-        serialized = QuestionnaireSerializer(
-            get_valid_questionnaire(),
-            config=QuestionnaireConfiguration('sample_core')
-        )
-        ret = get_list_values(
-            es_hits=[{'_source': serialized.data}],
-            configuration_code='sample_core'
-        )
-        self.assertEqual(len(ret), 1)
-        ret_1 = ret[0]
-
-        self.assertEqual(ret_1.get('configuration'), 'sample_core')
 
     def test_es_wocat_uses_default_configuration(self):
         serialized = QuestionnaireSerializer(
@@ -935,21 +922,23 @@ class GetListValuesTest(TestCase):
     @patch('questionnaire.utils.get_link_data')
     def test_returns_values_from_database(self, mock_get_link_data):
         obj = Mock()
-        obj.configurations.all.return_value = []
-        obj.configurations.first.return_value = None
+        obj.configuration.code = 'sample'
+        obj.configuration.edition = '2015'
+        obj.data = {}
         obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
+        obj.configuration_object = get_configuration(
+            code='sample', edition='2015')
         questionnaires = [obj]
         ret = get_list_values(questionnaire_objects=questionnaires)
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), 'technologies')
+        self.assertEqual(ret_1.get('configuration'), 'sample')
         self.assertEqual(ret_1.get('configurations'), ['configuration'])
         self.assertEqual(ret_1.get('created', ''), 'created')
         self.assertEqual(ret_1.get('updated', ''), 'updated')
-        self.assertEqual(ret_1.get('native_configuration'), False)
         self.assertEqual(ret_1.get('id'), obj.id)
         self.assertEqual(ret_1.get('translations'), [['en', 'English']])
         self.assertEqual(ret_1.get('code'), 'code')
@@ -958,36 +947,24 @@ class GetListValuesTest(TestCase):
         self.assertEqual(ret_1.get('links'), {})
 
     @patch('questionnaire.utils.get_link_data')
-    def test_db_uses_provided_configuration(self, mock_get_link_data):
+    def test_db_uses_provided_configuration(
+            self, mock_get_link_data):
         obj = Mock()
-        obj.configurations.all.return_value = []
-        obj.configurations.first.return_value = None
+        obj.configuration.code = 'sample'
+        obj.configuration.edition = '2015'
         obj.links.all.return_value = []
         obj.questionnairetranslation_set.all.return_value = []
         obj.get_metadata.return_value = get_valid_metadata()
+        obj.data = {}
+        obj.configuration_object = get_configuration(
+            code='sample', edition='2015')
         questionnaires = [obj]
         ret = get_list_values(
-            questionnaire_objects=questionnaires, configuration_code='foo')
+            questionnaire_objects=questionnaires, configuration_code='sample')
         self.assertEqual(len(ret), 1)
         ret_1 = ret[0]
         self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), 'foo')
-
-    @patch('questionnaire.utils.get_link_data')
-    def test_db_wocat_uses_default_configuration(self, mock_get_link_data):
-        obj = Mock()
-        obj.configurations.all.return_value = []
-        obj.configurations.first.return_value = None
-        obj.links.all.return_value = []
-        obj.questionnairetranslation_set.all.return_value = []
-        obj.get_metadata.return_value = get_valid_metadata()
-        questionnaires = [obj]
-        ret = get_list_values(
-            questionnaire_objects=questionnaires, configuration_code='wocat')
-        self.assertEqual(len(ret), 1)
-        ret_1 = ret[0]
-        self.assertEqual(len(ret_1), self.values_length)
-        self.assertEqual(ret_1.get('configuration'), 'technologies')
+        self.assertEqual(ret_1.get('configuration'), 'sample')
 
     @patch.object(QuestionnaireSerializer, 'to_list_values')
     def test_to_value_calls_prepare_data(self, mock_to_list_values):
@@ -1007,7 +984,7 @@ class GetListValuesTest(TestCase):
         )[0]
         # url is language agnostic
         object_data['url'] = object_data['url'].replace('/en/', '/')
-        keys = ['url', 'compilers', 'data']
+        keys = ['url', 'compilers']
         for key in keys:
             self.assertEqual(serializer_data[key], object_data[key])
 
@@ -1220,7 +1197,7 @@ class HandleReviewActionsTest(TestCase):
         prev = Mock()
         mock_Questionnaire.objects.filter.return_value = [prev]
         handle_review_actions(self.request, self.obj, 'sample')
-        mock_delete_data.assert_called_once_with('sample', [prev])
+        mock_delete_data.assert_called_once_with([prev])
 
     @patch('questionnaire.utils.put_questionnaire_data')
     @patch('questionnaire.signals.change_status.send')
@@ -1257,7 +1234,7 @@ class HandleReviewActionsTest(TestCase):
         self.request.user = Mock()
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
-        mock_put_data.assert_called_once_with('sample', [self.obj])
+        mock_put_data.assert_called_once_with([self.obj])
 
     @patch('questionnaire.utils.put_questionnaire_data')
     @patch('questionnaire.signals.change_status.send')
@@ -1276,9 +1253,8 @@ class HandleReviewActionsTest(TestCase):
         self.request.POST = {'publish': 'foo'}
         handle_review_actions(self.request, self.obj, 'sample')
         self.assertEqual(mock_put_data.call_count, 2)
-        call_1 = call('sample', [self.obj])
-        call_2 = call(
-            mock_link.configurations.first.return_value.code, [mock_link])
+        call_1 = call([self.obj])
+        call_2 = call([mock_link])
         mock_put_data.assert_has_calls([call_1, call_2])
 
     def test_assign_needs_status(self, mock_messages):

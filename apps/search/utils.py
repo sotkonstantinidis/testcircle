@@ -20,7 +20,28 @@ def get_analyzer(language_code):
         return None
 
 
-def get_alias(configuration_codes):
+class ElasticsearchAlias:
+    """
+    Wrapper for consistent access to a unique string identifying a configuration edition.
+
+    """
+
+    def __str__(self):
+        return self.alias
+
+    def __init__(self, code, edition):
+        self.alias = f'{code}_{edition}'
+
+    @classmethod
+    def from_configuration(cls, configuration):
+        return cls(code=configuration.keyword, edition=configuration.edition)
+
+    @classmethod
+    def from_code_list(cls, *codes):
+        return [str(cls(code=code, edition='*')) for code in codes]
+
+
+def get_alias(*configuration_codes):
     """
     Return the alias of a configuration code. The alias is composed of
     the prefix as specified in the settings (``ES_INDEX_PREFIX``)
@@ -36,8 +57,7 @@ def get_alias(configuration_codes):
     """
     if not configuration_codes:
         configuration_codes = ['*']
-    return ','.join(['{}{}'.format(
-        settings.ES_INDEX_PREFIX, c) for c in configuration_codes])
+    return ','.join([f'{settings.ES_INDEX_PREFIX}{c}' for c in configuration_codes])
 
 
 def check_connection(es, index=None):

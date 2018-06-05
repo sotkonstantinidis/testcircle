@@ -20,7 +20,7 @@ class ActionContextTest(TestCase):
         but creating groups and permissions is too much overhead.
         """
         user = mommy.make(
-            model=get_user_model(),
+            _model=get_user_model(),
             **attributes,
         )
         user.get_all_permissions = lambda: permissions
@@ -42,34 +42,34 @@ class ActionContextTest(TestCase):
         self.publisher = self.make_user(publish_permissions)
 
         self.questionnaire = mommy.make(
-            Questionnaire,
+            _model=Questionnaire,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
 
         # Notification for a submitted questionnaire
         self.catalyst_change = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             catalyst=self.catalyst,
             questionnaire=self.questionnaire
         )
         self.catalyst_change.subscribers.add(self.subscriber)
         mommy.make(
-            StatusUpdate,
+            _model=StatusUpdate,
             log=self.catalyst_change,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
 
         # Notification the should not be listed
         self.catalyst_edit = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_EDIT_CONTENT,
             catalyst=self.catalyst,
             questionnaire=self.questionnaire
         )
 
         self.admin_read_log = mommy.make(
-            ReadLog,
+            _model=ReadLog,
             user=self.admin,
             log=self.catalyst_change,
             is_read=True
@@ -104,7 +104,7 @@ class ActionContextTest(TestCase):
     def test_permissions_questionnaire_membership(self):
         user = mommy.make(get_user_model())
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=user,
             role=settings.QUESTIONNAIRE_REVIEWER
@@ -149,7 +149,7 @@ class ActionContextTest(TestCase):
 
     def test_list_includes_edit_for_compiler(self):
         mommy.make(
-            model=QuestionnaireMembership,
+            _model=QuestionnaireMembership,
             questionnaire=self.questionnaire,
             user=self.catalyst,
             role=settings.QUESTIONNAIRE_COMPILER
@@ -179,13 +179,13 @@ class ActionContextTest(TestCase):
     def test_user_log_count(self):
         # Test count for all unread questionnaires
         catalyst_change_old = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             catalyst=self.catalyst,
             questionnaire=self.questionnaire
         )
         mommy.make(
-            StatusUpdate,
+            _model=StatusUpdate,
             log=catalyst_change_old,
             status=settings.QUESTIONNAIRE_SUBMITTED
         )
@@ -210,7 +210,7 @@ class ActionContextTest(TestCase):
 
     def test_only_unread_logs_is_read(self):
         mommy.make(
-            model=ReadLog,
+            _model=ReadLog,
             is_read=True,
             user=self.catalyst,
             log=self.catalyst_edit
@@ -223,7 +223,7 @@ class ActionContextTest(TestCase):
 
     def test_only_unread_logs_is_not_read(self):
         mommy.make(
-            model=ReadLog,
+            _model=ReadLog,
             is_read=False,
             user=self.catalyst,
             log=self.catalyst_edit
@@ -272,7 +272,7 @@ class ActionContextTest(TestCase):
         )
 
     def test_delete_all_read_logs(self):
-        mommy.make(ReadLog, user=self.subscriber)
+        mommy.make(_model=ReadLog, user=self.subscriber)
         Log.actions.delete_all_read_logs(user=self.subscriber)
         self.assertFalse(
             ReadLog.objects.filter(user=self.subscriber)
@@ -283,31 +283,31 @@ class LogTest(TestCase):
 
     def setUp(self):
         self.catalyst = mommy.make(
-            model=get_user_model()
+            _model=get_user_model()
         )
         self.status_log = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             catalyst=self.catalyst
         )
         mommy.make(
-            model=StatusUpdate,
+            _model=StatusUpdate,
             log=self.status_log
         )
         self.content_log = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_EDIT_CONTENT
         )
         mommy.make(
-            model=ContentUpdate,
+            _model=ContentUpdate,
             log=self.content_log
         )
         self.member_log = mommy.make(
-            model=Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_ADD_MEMBER
         )
         mommy.make(
-            MemberUpdate,
+            _model=MemberUpdate,
             log=self.member_log
         )
 
@@ -348,15 +348,16 @@ class LogTest(TestCase):
         Build a log with valid properties to get reviewers
         """
         questionnaire = mommy.make(
-            Questionnaire, status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
+            _model=Questionnaire,
+            status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
         )
         log = mommy.make(
-            Log,
+            _model=Log,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire
         )
         mommy.make(
-            model=StatusUpdate,
+            _model=StatusUpdate,
             log=log,
             status=settings.QUESTIONNAIRE_WORKFLOW_STEPS[0]
         )
@@ -402,7 +403,7 @@ class ReadLogTest(TestCase):
 class MailPreferencesTest(TestCase):
 
     def setUp(self):
-        self.user = mommy.make(get_user_model())
+        self.user = mommy.make(_model=get_user_model())
         self.obj = self.user.mailpreferences
 
     def test_get_defaults_staff(self):
@@ -430,13 +431,13 @@ class MailPreferencesTest(TestCase):
             self.assertTrue(self.obj.is_allowed_send_mails)
 
     def test_is_allowed_send_mails_staff_settings_is_no_staff(self):
-        user = mommy.make(get_user_model(), is_superuser=False)
+        user = mommy.make(_model=get_user_model(), is_superuser=False)
         user.mailpreferences.subscription = 'all'
         with override_settings(DO_SEND_STAFF_ONLY=True, DO_SEND_EMAILS=True):
             self.assertFalse(user.mailpreferences.is_allowed_send_mails)
 
     def test_is_allowed_send_mails_staff_settings_is_staff(self):
-        superuser = mommy.make(get_user_model(), is_superuser=True)
+        superuser = mommy.make(_model=get_user_model(), is_superuser=True)
         superuser.mailpreferences.subscription = 'all'
         with override_settings(DO_SEND_STAFF_ONLY=True, DO_SEND_EMAILS=True):
             self.assertTrue(superuser.mailpreferences.is_allowed_send_mails)

@@ -15,8 +15,6 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     Serializes the questionnaire with given configuration.
     """
     compilers = serializers.ListField()
-    configurations = serializers.ListField(source='configurations_property')
-    data = serializers.DictField()
     editors = serializers.ListField()
     reviewers = serializers.ListField()
     links = serializers.ListField(source='links_property')
@@ -24,6 +22,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
     name = serializers.SerializerMethodField()
     original_locale = serializers.CharField()
     serializer_config = serializers.SerializerMethodField()
+    serializer_edition = serializers.SerializerMethodField()
     status = serializers.ListField(source='status_property')
     translations = serializers.ListField()
     flags = serializers.ListField(source='flags_property')
@@ -31,9 +30,9 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Questionnaire
-        fields = ('code', 'compilers', 'configurations', 'created', 'data',
+        fields = ('code', 'compilers', 'created',
                   'editors', 'links', 'list_data', 'name', 'original_locale', 'reviewers',
-                  'serializer_config', 'status', 'translations', 'updated',
+                  'serializer_config', 'serializer_edition', 'status', 'translations', 'updated',
                   'url', 'flags', )
 
     def __init__(self, instance=None, data=empty, **kwargs):
@@ -48,32 +47,15 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         If a model instance is serialized, the 'instance' kwarg is passed.
         If an elasticsearch result is deserialized, the 'data' kwar is passed.
         """
-        config = kwargs.pop('config', None)
-        is_valid_config = isinstance(config, QuestionnaireConfiguration)
-
-        # Set config
-        if is_valid_config:
-            self.config = config
-
-        elif instance:
-            config = instance.configurations.filter(
-                questionnaireconfiguration__original_configuration=True
-            )
-            if config.exists():
-                self.config = get_configuration(config.first().code)
-            else:
-                raise ValueError(_(u"Couldn't load configuration for "
-                                   u"questionnaire."))
+        if instance:
+            self.config = instance.configuration_object
 
         elif data != empty and data.get('serializer_config'):
             # Restore object from json data. Make sure the serializer_config
             # is valid / exists in the db.
-            config = Configuration.get_active_by_code(data['serializer_config'])
-            if not config:
-                raise ValueError(_(u"Invalid configuration code stored in"
-                                   u"elasticsearch."))
-
-            self.config = get_configuration(data['serializer_config'])
+            self.config = get_configuration(
+                code=data['serializer_config'],
+                edition=data['serializer_edition'])
 
         else:
             raise ValueError(_(u"Can't serialize questionnaire without a valid "
@@ -96,6 +78,9 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         """
         return self.config.keyword
 
+    def get_serializer_edition(self, obj):
+        return self.config.edition
+
     def get_url(self, obj):
         # Remove language from url, as this is 'None' if executed from command
         # line, or whichever active language if called from the search-admin panel.
@@ -105,12 +90,13 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         internal_value = dict(super().to_internal_value(data))
-        # Add fields to rep that are defined, but not yet set and require the
-        # configuration.
-        internal_value['serializer_config'] = self.get_serializer_config(None)
-        internal_value['list_data'] = self.get_list_data(data['data'], False)
-        internal_value['name'] = self.get_name(data['data'], False)
-        internal_value['url'] = data.get('url', '')
+        # Restore readonly fields.
+        readonly_fields = [
+            'serializer_config', 'serializer_edition', 'list_data', 'name',
+            'url']
+        for key in readonly_fields:
+            internal_value[key] = data[key]
+        # Remove "_property" from key
         replace_property_keys = filter(lambda item: item.endswith('_property'), internal_value.keys())
         for key in replace_property_keys:
             internal_value[key.replace('_property', '')] = internal_value.pop(key)

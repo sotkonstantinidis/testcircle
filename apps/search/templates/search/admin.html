@@ -14,9 +14,7 @@
       <table class="small-12 columns">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Code</th>
-            <th>Base Code</th>
+            <th>Configuration</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -24,11 +22,7 @@
         <tbody>
           {% for config in configurations %}
             <tr>
-              <td>
-                <span data-tooltip aria-haspopup="true" class="has-tip" title="{{ config.object.description }}">{{ config.object.name }}</span>
-              </td>
-              <td>{{ config.object.code }}</td>
-              <td>{{ config.object.base_code|default:"-" }}</td>
+              <td>{{ config.object }}</td>
               <td>
                   {% if config.index_count == None %}
                     <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>No index for this configuration.</strong></p><p>There is no index yet for this configuration. Please create one and update it to index the questionnaires.</p>">
@@ -45,13 +39,13 @@
               <td>
                 <span data-tooltip aria-haspopup="true" class="has-tip" title="
                 <p><strong>Create or update the index.</strong></p><p>Use this if you made changes to the configuration (eg. after adding or modifying a field of the questionnaire).</p><p><i>This does not scan or index the questionnaires, this has to be done separately.</i></p>">
-                  <a href="{% url 'search:index' config.object.code %}" class="small button" style="margin-top: 0;">Create</a>
+                  <a href="{% url 'search:index' config.object.code config.object.edition %}" class="small button" style="margin-top: 0;">Create</a>
                 </span>
                 <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Update the index.</strong></p><p>Scan all the questionnaires of the configuration in the database and add them to the index.</p>">
-                  <a href="{% url 'search:update' config.object.code %}" class="small button" style="margin-top: 0;">Update</a>
+                  <a href="{% url 'search:update' config.object.code config.object.edition %}" class="small button" style="margin-top: 0;">Update</a>
                 </span>
                 <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Delete the index.</strong></p><p>Delete the given index.</p>">
-                  <a href="{% url 'search:delete_one' config.object.code %}" class="small button" style="margin-top: 0;">Delete</a>
+                  <a href="{% url 'search:delete_one' config.object.code config.object.edition %}" class="small button" style="margin-top: 0;">Delete</a>
                 </span>
               </td>
             </tr>
@@ -63,7 +57,6 @@
         <span data-tooltip aria-haspopup="true" class="has-tip" title="<p><strong>Delete all indices.</strong></p><p>Delete all the indices.</p><p><strong>HANDLE WITH CARE!</strong></p>">
           <a href="{% url 'search:delete_all' %}" class="small button alert" style="margin-top: 0;">Delete all</a>
         </span>
-        <span data-tooltip arias-haspopup="true" class="right has-tip" title="<p><strong>UNCCD Import</strong></p><p><i>This might take a while, please be patient and do not click the button twice!</i></p><p>Import the UNCCD data. In order for this to work, you need to have a function called 'data_import' in module 'unccd.data_import'.</p><p><strong>This should only be done once!</strong></p>"><a href="{% url 'unccd:data_import' %}" class="small button alert">UNCCD Import</a></span>
       </p>
     {% else %}
       <p>No active configurations found</p>

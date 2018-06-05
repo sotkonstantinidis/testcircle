@@ -1,3 +1,6 @@
+import os
+from django.conf import settings
+
 from django.test.utils import override_settings
 from django.core.files.uploadedfile import SimpleUploadedFile
 from unittest.mock import patch, Mock
@@ -45,6 +48,10 @@ class CreateThumbnailsTest(TestCase):
 @patch('questionnaire.upload.os.makedirs')
 class StoreFileTest(TestCase):
 
+    def get_valid_file(self):
+        # Return the full path to a valid file
+        return os.path.join(settings.BASE_DIR, valid_file)
+
     @patch('questionnaire.upload.magic.from_buffer')
     def test_uses_magic_to_determine_content_type(self, mock_magic, mock_os):
         file = Mock()
@@ -55,7 +62,8 @@ class StoreFileTest(TestCase):
     @override_settings(UPLOAD_VALID_FILES=TEST_UPLOAD_VALID_FILES)
     @patch('questionnaire.upload.get_file_extension_by_content_type')
     def test_calls_get_file_extension_by_content_type(self, mock_func, mock_os):
-        file = SimpleUploadedFile('img.png', open(valid_file, 'rb').read())
+        file = SimpleUploadedFile(
+            'img.png', open(self.get_valid_file(), 'rb').read())
         file.content_type = 'image/png'
         with patch('questionnaire.upload.open') as mock_open:
             store_file(file)
@@ -63,7 +71,8 @@ class StoreFileTest(TestCase):
 
     @override_settings(UPLOAD_VALID_FILES=TEST_UPLOAD_VALID_FILES)
     def test_raises_exception_if_invalid_file_extension(self, mock_os):
-        file = SimpleUploadedFile('img.png', open(valid_file, 'rb').read())
+        file = SimpleUploadedFile(
+            'img.png', open(self.get_valid_file(), 'rb').read())
         file.content_type = 'foo'
         with self.assertRaises(Exception):
             store_file(file)

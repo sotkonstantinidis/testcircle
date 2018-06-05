@@ -4,7 +4,7 @@ import logging
 from itertools import chain, groupby
 
 import operator
-from configuration.models import Project, Institution
+from configuration.models import Project, Institution, Configuration
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
@@ -32,7 +32,6 @@ from django.views.generic.base import TemplateResponseMixin, TemplateView
 from braces.views import LoginRequiredMixin
 from elasticsearch import TransportError
 
-from accounts.decorators import force_login_check
 from accounts.views import QuestionnaireSearchView
 from configuration.cache import get_configuration
 from configuration.utils import get_configuration_index_filter
@@ -85,15 +84,20 @@ class QuestionnaireLinkSearchView(QuestionnaireSearchView, LoginRequiredMixin):
         return 11
 
     def get_queryset(self):
+        """
+        Search questionnaires by name.
+        """
         term = self.request.GET.get('term', '')
         name_questiongroup = 'qg_name'
         if self.configuration_code in ['sample', 'samplemulti']:
             # This is mainly for historic reasons. "sample" and "samplemulti"
             # (these are exclusively used for testing) do not have a
             # questiongroup "qg_name". Get their name questiongroups from the
-            # configuration.
-            configuration = get_configuration(self.configuration_code)
+            # configuration. Use the base edition (2015), no further editions
+            # are expected.
+            configuration = get_configuration(self.configuration_code, '2015')
             __, name_questiongroup = configuration.get_name_keywords()
+
         data_lookup_params = {
             'questiongroup': name_questiongroup,
             'lookup_by': 'string',
@@ -102,7 +106,7 @@ class QuestionnaireLinkSearchView(QuestionnaireSearchView, LoginRequiredMixin):
         return Questionnaire.with_status.not_deleted().filter(
             get_query_status_filter(self.request)
         ).filter(
-            configurations__code=self.configuration_code
+            configuration__code=self.configuration_code
         ).filter(
             Q(data__qs_data=data_lookup_params),
         ).distinct()
@@ -141,8 +145,7 @@ def generic_questionnaire_view_step(
 
     data = questionnaire_object.data
 
-    questionnaire_configuration = get_configuration(configuration_code)
-    category = questionnaire_configuration.get_category(step)
+    category = questionnaire_object.configuration_object.get_category(step)
 
     if category is None:
         raise Http404
@@ -208,13 +211,29 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
 
     @property
     def questionnaire_configuration(self):
-        return get_configuration(self.get_configuration_code())
+        if hasattr(self, '_questionnaire_configuration'):
+            return self._questionnaire_configuration
+        return get_configuration(
+            code=self.get_configuration_code(),
+            edition=self.get_configuration_edition()
+        )
+
+    @questionnaire_configuration.setter
+    def questionnaire_configuration(self, config):
+        self._questionnaire_configuration = config
 
     def get_template_names(self):
         return self.template_name or 'questionnaire/details.html'
 
     def get_configuration_code(self):
         return self.configuration_code or self.url_namespace
+
+    def get_configuration_edition(self):
+        obj = self.get_object()
+        if obj:
+            return obj.configuration.edition
+        return Configuration.latest_by_code(
+            self.get_configuration_code()).edition
 
     @property
     def has_object(self):
@@ -241,8 +260,7 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
         if not self.has_object:
             return []
         status_filter = get_query_status_filter(self.request)
-        return self.object.links.filter(
-            status_filter, configurations__isnull=False, is_deleted=False)
+        return self.object.links.filter(status_filter, is_deleted=False)
 
     def get_detail_url(self, step):
         """
@@ -283,16 +301,6 @@ class QuestionnaireRetrieveMixin(TemplateResponseMixin):
         return kwargs
 
 
-class QuestionnaireEditMixin(LoginRequiredMixin):
-    """
-    Require login for editing questionnaires.
-    """
-
-    def dispatch(self, request, *args, **kwargs):
-        request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME] = True
-        return super().dispatch(request, *args, **kwargs)
-
-
 class InheritedDataMixin:
     """
     Get the inherited data of linked questionnaires. Used to add read-only data
@@ -312,7 +320,7 @@ class InheritedDataMixin:
         inherited_data = self.questionnaire_configuration.get_inherited_data()
         for inherited_config, inherited_qgs in inherited_data.items():
             inherited_obj = self.object.links.filter(
-                configurations__code=inherited_config).first()
+                configuration__code=inherited_config).first()
 
             if inherited_obj is None:
                 continue
@@ -431,9 +439,6 @@ class QuestionnaireSaveMixin(StepsMixin):
 
         Returns:
             tuple: is_valid, data
-
-        Todo: discuss with lukas: what happens if the section data is valid, but the whole questionnaire is invalid?
-
         """
         if self.has_object:
             self.object.data.update(data)
@@ -629,8 +634,7 @@ class QuestionnaireMapView(TemplateResponseMixin, View):
     def get(self, request, *args, **kwargs):
         questionnaire_object = self.get_object()
 
-        configuration = get_configuration(configuration_code=self.url_namespace)
-        geometry = configuration.get_questionnaire_geometry(
+        geometry = questionnaire_object.configuration_object.get_questionnaire_geometry(
             questionnaire_object.data)
 
         context = {
@@ -655,6 +659,11 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         if self.has_object:
             inherited_data = self.get_inherited_data()
             questionnaire_data.update(inherited_data)
+
+            # Stub!
+            is_edit_mode = self.view_mode == 'edit'
+            if is_edit_mode and self.object.configuration_object.has_new_edition:
+                questionnaire_data = self.update_case_data_for_editions(**questionnaire_data)
 
         data = get_questionnaire_data_in_single_language(
             questionnaire_data=questionnaire_data, locale=get_language(),
@@ -687,7 +696,8 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
                 permissions = ['edit_questionnaire']
 
             review_config = self.get_review_config(
-                permissions=permissions, roles=roles,
+                permissions=permissions,
+                roles=roles,
                 blocked_by=blocked_by if not can_edit else False,
                 other_version_status=other_version_status
             )
@@ -825,6 +835,10 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             else:
                 url = self.object.get_edit_url()
 
+        is_public = status is settings.QUESTIONNAIRE_PUBLIC
+        is_compiler = settings.QUESTIONNAIRE_COMPILER in [role[0] for role in roles]
+        has_new_config_edition = is_public and is_compiler and self.object.configuration_object.has_new_edition
+
         return {
             'review_status': status,
             'csrf_token_value': get_token(self.request),
@@ -838,6 +852,7 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             # flag if this questionnaire has a published version - controlling the first tab.
             'has_release': self.has_release(),
             'other_version_status': kwargs.get('other_version_status'),
+            'has_new_configuration_edition': has_new_config_edition,
             **workflow_users,
             **welcome_info,
         }
@@ -854,12 +869,12 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         status_filter = get_query_status_filter(self.request)
 
         linked_questionnaires = self.object.links.filter(
-            status_filter, configurations__isnull=False, is_deleted=False)
+            status_filter, is_deleted=False)
         links_by_configuration = collections.defaultdict(list)
         links_by_configuration_codes = collections.defaultdict(list)
 
         for linked in linked_questionnaires:
-            configuration_code = linked.configurations.first().code
+            configuration_code = linked.configuration.code
             linked_questionnaire_code = linked.code
             if linked_questionnaire_code not in links_by_configuration_codes[
                     configuration_code]:
@@ -899,8 +914,53 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
     def get_detail_url(self, step):
         return super().get_detail_url(step='top')
 
+    def update_case_data_for_editions(self, **questionnaire_data):
+        """
+        If a questionnaire moves from 'public' to 'draft', the data of the questionnaire
+        may have changed depending on the new configuration(s). E.g. deleted/moved questions.
 
-class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
+        This updates the contents of the questionnaire before opening the first form, so the
+        data is as expected by the user from the start, and all questions/questiongroups are valid.
+
+        """
+        while self.questionnaire_configuration.has_new_edition:
+            next_configuration = self.object.configuration.get_next_edition()
+            config = get_configuration(
+                code=next_configuration.code, edition=next_configuration.edition
+            )
+            self.questionnaire_configuration = config
+            # Update case data if edition is found.
+            edition = next_configuration.get_edition()
+            if edition:
+                questionnaire_data = edition.update_questionnaire_data(
+                   **questionnaire_data
+                )
+        return questionnaire_data
+
+
+class QuestionnairePermaView(QuestionnaireView):
+    """
+    Show an inactive or public version of the questionnaire by ID.
+    """
+
+    @property
+    def identifier(self):
+        return self.kwargs['pk']
+
+    def get_review_config(self, permissions, roles, **kwargs):
+        # Disable review panel.
+        return {}
+
+    def get_object(self):
+        return get_object_or_404(
+            Questionnaire.with_status.not_deleted().filter(
+                status__in=[settings.QUESTIONNAIRE_INACTIVE, settings.QUESTIONNAIRE_PUBLIC]
+            ),
+            pk=self.kwargs['pk']
+        )
+
+
+class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
     """
@@ -915,7 +975,7 @@ class QuestionnaireEditView(QuestionnaireEditMixin, QuestionnaireView):
         return QuestionnaireRetrieveMixin.get_object(self)
 
 
-class QuestionnaireStepView(QuestionnaireEditMixin, QuestionnaireRetrieveMixin,
+class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
                             InheritedDataMixin, QuestionnaireSaveMixin, View):
     """
     A section of the questionnaire.
@@ -1071,10 +1131,24 @@ class ESQuestionnaireQueryMixin:
         self.offset = self.current_page * self.page_size - self.page_size
         self.template_configuration_code = self.configuration_code
         self.configuration_code = self.request.GET.get(
-            'type', self.configuration_code)
-        self.configuration = get_configuration(self.configuration_code)
+            'type', self.configuration_code
+        ).lower()
+        valid_configurations = [c[0] for c in Configuration.CODE_CHOICES]
+        is_test_running = getattr(settings, 'IS_TEST_RUN', False) is True
+        if is_test_running:
+            valid_configurations += ['sample', 'samplemulti', 'samplemodule']
+
+        is_valid_configuration = self.configuration_code in valid_configurations
+        # Fallback configuration: wocat
+        if not is_valid_configuration:
+            self.configuration_code = 'wocat'
+        self.configuration = get_configuration(
+            self.configuration_code,
+            Configuration.latest_by_code(self.configuration_code).edition)
+
         self.search_configuration_codes = get_configuration_index_filter(
-            self.configuration_code)
+            self.configuration_code
+        )
 
     def get_es_results(self, call_from=None):
         """
@@ -1095,7 +1169,7 @@ class ESQuestionnaireQueryMixin:
             # If the page is not within the valid total return an empty response
             if total < self.offset:
                 if call_from == 'api':
-                    logger.warn('Potential issue from skbp: Invalid API '
+                    logger.warning('Potential issue from skbp: Invalid API '
                                 'request with offset {}.'.format(self.offset))
                 es_search_results = {}
             else:
@@ -1131,7 +1205,8 @@ class ESQuestionnaireQueryMixin:
 
     def get_filters(self):
         active_filters = get_active_filters(
-            self.configuration, self.request.GET)
+            questionnaire_configuration=self.configuration, query_dict=self.request.GET
+        )
         query_string = ''
         filter_params = []
 
@@ -1209,9 +1284,11 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
         }
 
         # Global keys
+        # Always use the latest configuration for the filter.
         for questiongroup, question, filter_keyword in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
             filter_question = self.configuration.get_question_by_keyword(
-                questiongroup, question)
+                questiongroup, question
+            )
             if filter_question:
                 filter_configuration[filter_keyword] = filter_question.choices[1:]
 
@@ -1225,7 +1302,8 @@ class QuestionnaireListView(TemplateView, ESQuestionnaireQueryMixin):
             'list_values': list_values,
             'filter_configuration': self.get_global_filter_configuration(),
             'active_filters': get_active_filters(
-                self.configuration, self.request.GET),
+                questionnaire_configuration=self.configuration, query_dict=self.request.GET
+            ),
             'request': self.request,
         }
 
@@ -1312,12 +1390,13 @@ class QuestionnaireFilterView(QuestionnaireListView):
                 continue
 
             aggregated_values = get_aggregated_values(
-                questiongroup, key, **self.get_filter_params())
+                questiongroup, key, active_filter['type'],
+                **self.get_filter_params())
 
             values_counted = []
             for c in active_filter.get('choices', []):
                 values_counted.append(
-                    (c[0], c[1], aggregated_values.get(c[0], 0)))
+                    (str(c[0]), c[1], aggregated_values.get(c[0], 0)))
 
             active_filter.update({
                 'choices_counted': values_counted,
@@ -1350,7 +1429,6 @@ class QuestionnaireFilterView(QuestionnaireListView):
 
 @login_required
 @require_POST
-@force_login_check
 def generic_file_upload(request):
     """
     A view to handle file uploads. Can only be called with POST requests
@@ -1482,10 +1560,6 @@ class QuestionnaireModuleMixin(LoginRequiredMixin):
         except Questionnaire.DoesNotExist:
             return None
 
-    def get_questionnaire_configuration(self):
-        configuration_code = self.request.POST.get('configuration')
-        return get_configuration(configuration_code=configuration_code)
-
     def get_available_modules(self):
         return self.questionnaire_configuration.get_modules()
 
@@ -1514,7 +1588,7 @@ class QuestionnaireAddModule(QuestionnaireModuleMixin, View):
                 'Module cannot be added - Questionnaire not found.')
             return redirect(error_redirect)
 
-        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.questionnaire_configuration = self.questionnaire_object.configuration_object
         self.available_modules = self.get_available_modules()
         self.existing_modules = self.get_existing_modules()
 
@@ -1555,7 +1629,7 @@ class QuestionnaireCheckModulesView(
                 context={
                     'module_error': 'No modules found for this questionnaire.'})
 
-        self.questionnaire_configuration = self.get_questionnaire_configuration()
+        self.questionnaire_configuration = self.questionnaire_object.configuration_object
         self.available_modules = self.get_available_modules()
         self.existing_modules = self.get_existing_modules()
 

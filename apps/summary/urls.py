@@ -1,10 +1,10 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
 from .views import SummaryPDFCreateView
 
-urlpatterns = patterns(
-    '',
+
+urlpatterns = [
     url(r'^(?P<id>[\d]+)/$',
         SummaryPDFCreateView.as_view(),
         name='questionnaire_summary'),
-)
+]

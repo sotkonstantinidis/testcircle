@@ -1,5 +1,4 @@
-.DS_Store
-
+# Python cache files
 __pycache__
 *.pyc
 
@@ -7,21 +6,18 @@ __pycache__
 qcat_virtualenv
 /qcat
 
-# Ignore CodeIntel files
-.codeintel
-
 # Ignore documentation builds
 /docs/_build/*
 
-# Ignore coverage files
+# Ignore testing-related files
 .coverage
 coverage_html
-.noseids
+.pytest_cache/*
+test_output.txt
+.cache
+functional_tests/failed_screenshots
 
 # Ignore bower components, node modules and static files
 bower_components
 node_modules
 /static
-
-# new relic config file
-newrelic.ini

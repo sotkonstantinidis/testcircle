@@ -1,8 +1,12 @@
-from django.core.exceptions import ValidationError
-from unittest.mock import patch
+from datetime import datetime
 
+import pytest
+from unittest.mock import patch, MagicMock
+
+from django.core.exceptions import ValidationError
 from django.utils.translation import get_language
 
+from configuration.editions.base import Edition
 from configuration.models import (
     Category,
     Configuration,
@@ -15,8 +19,8 @@ from qcat.tests import TestCase
 
 
 def get_valid_configuration_model():
-    return Configuration(
-        code='sample', name='name', data={"sections": []})
+    Configuration.CODE_CHOICES += [('sample', 'sample')]
+    return Configuration(code='sample', edition='2015', data={"sections": []})
 
 
 def get_valid_translation_model():
@@ -77,10 +81,6 @@ class CategoryModelTest(TestCase):
         self.category.keyword = None
         with self.assertRaises(ValidationError):
             self.category.full_clean()
-
-    def test_translation_is_mandatory(self):
-        with self.assertRaises(ValueError):
-            self.category.translation = None
 
     def test_translation_needs_correct_type(self):
         translation = get_valid_translation_model()
@@ -145,10 +145,6 @@ class KeyModelTest(TestCase):
         self.key.keyword = None
         with self.assertRaises(ValidationError):
             self.key.full_clean()
-
-    def test_translation_is_mandatory(self):
-        with self.assertRaises(ValueError):
-            self.key.translation = None
 
     def test_translation_needs_correct_type(self):
         translation = get_valid_translation_model()
@@ -218,10 +214,6 @@ class ValueModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.value.full_clean()
 
-    def test_translation_is_mandatory(self):
-        with self.assertRaises(ValueError):
-            self.value.translation = None
-
     def test_translation_needs_correct_type(self):
         translation = get_valid_translation_model()
         translation.translation_type = 'foo'
@@ -287,23 +279,6 @@ class TranslationModelTest(TestCase):
         with self.assertRaises(ValidationError):
             self.translation.full_clean()
 
-    def test_data_is_mandatory(self):
-        self.translation.data = None
-        with self.assertRaises(ValidationError):
-            self.translation.full_clean()
-
-    def test_data_cannot_be_empty(self):
-        self.translation.data = {}
-        with self.assertRaises(ValidationError):
-            self.translation.full_clean()
-
-    def test_get_translation_types_returns_list(self):
-        self.assertIsInstance(self.translation.get_translation_types(), list)
-
-    def test_get_translation_types_returns_valid_types(self):
-        valid_types = self.translation.get_translation_types()
-        self.assertEqual(len(valid_types), 5)
-
     def test_empty_response_for_translation_without_content(self):
         self.assertIsNone(
             self.translation.get_translation('keyword'),
@@ -347,139 +322,25 @@ class TranslationModelTest(TestCase):
         self.assertIsNone(self.translation.get_translation(
             'keyword', configuration='foo'), None)
 
+    def test_get_translation_edition(self):
+        translation = Translation(data={
+            'configuration': {'keyword': {'en': 'foo'}},
+            'configuration_edition': {'keyword': {'en': 'all new'}}
+        })
+        self.assertEqual(
+            translation.get_translation('keyword', 'configuration', edition='edition'),
+            'all new'
+        )
 
-class ConfigurationModelTest(TestCase):
-
-    def test_id_is_primary_key(self):
-        conf = get_valid_configuration_model()
-        self.assertTrue(hasattr(conf, 'id'))
-
-    def test_data_is_mandatory(self):
-        conf = get_valid_configuration_model()
-        conf.data = None
-        with self.assertRaises(ValidationError):
-            conf.full_clean()
-
-    def test_data_cannot_be_empty(self):
-        conf = get_valid_configuration_model()
-        conf.data = {}
-        with self.assertRaises(ValidationError):
-            conf.full_clean()
-
-    def test_base_code_is_not_mandatory(self):
-        conf = get_valid_configuration_model()
-        conf.full_clean()  # Should not raise
-
-    def test_base_code_throws_error_if_not_exists(self):
-        conf = get_valid_configuration_model()
-        conf.base_code = 'foo'
-        with self.assertRaises(ValidationError):
-            conf.full_clean()
-
-    def test_base_code_throws_error_if_not_active(self):
-        base_conf = get_valid_configuration_model()
-        base_conf.save()
-        conf = get_valid_configuration_model()
-        conf.base_code = 'sample'
-        with self.assertRaises(ValidationError):
-            conf.full_clean()
-
-    def test_base_code_is_valid_if_exists_and_active(self):
-        base_conf = get_valid_configuration_model()
-        base_conf.active = True
-        base_conf.save()
-        conf = get_valid_configuration_model()
-        conf.base_code = 'sample'
-        conf.full_clean()  # Should not raise
-
-    def test_name_is_mandatory(self):
-        conf = get_valid_configuration_model()
-        conf.name = None
-        with self.assertRaises(ValidationError):
-            conf.full_clean()
-
-    def test_description_is_not_mandatory(self):
-        conf = get_valid_configuration_model()
-        conf.description = None
-        conf.full_clean()  # Should not raise
-
-    def test_created_is_set_on_save(self):
-        conf = get_valid_configuration_model()
-        self.assertIsNone(conf.created)
-        conf.save()
-        self.assertIsNotNone(conf.created)
-
-    def test_active_is_set_to_false(self):
-        conf = get_valid_configuration_model()
-        self.assertFalse(conf.active)
-
-    def test_activated_is_not_set_on_save(self):
-        conf = get_valid_configuration_model()
-        self.assertIsNone(conf.activated)
-        conf.save()
-        self.assertIsNone(conf.activated)
-
-    def test_activated_is_set_if_active_is_true(self):
-        conf = get_valid_configuration_model()
-        conf.active = True
-        conf.save()
-        self.assertIsNotNone(conf.activated)
-
-    @patch.object(Configuration, 'get_active_by_code')
-    def test_clean_calls_get_active_by_code(
-            self, mock_Configuration_get_active_by_code):
-        conf = get_valid_configuration_model()
-        conf.clean()
-        mock_Configuration_get_active_by_code.assert_called_once_with('sample')
-
-    def test_get_active_by_code_returns_active(self):
-        conf_1 = get_valid_configuration_model()
-        conf_1.save()
-        conf_2 = get_valid_configuration_model()
-        conf_2.active = True
-        conf_2.save()
-        self.assertEqual(conf_2, Configuration.get_active_by_code('sample'))
-
-    def test_get_active_by_code_returns_None_if_not_found(self):
-        conf_1 = get_valid_configuration_model()
-        conf_1.save()
-        self.assertIsNone(Configuration.get_active_by_code('sample'))
-
-    @patch('configuration.cache.delete_configuration_cache')
-    def test_save_calls_not_delete_configuration_cache_if_not_active(
-            self, mock_update_configuration_cache):
-        conf_1 = get_valid_configuration_model()
-        conf_1.active = False
-        conf_1.save()
-        self.assertEqual(mock_update_configuration_cache.call_count, 0)
-
-    @patch('configuration.cache.delete_configuration_cache')
-    def test_save_calls_delete_configuration_cache_if_active(
-            self, mock_update_configuration_cache):
-        conf_1 = get_valid_configuration_model()
-        conf_1.active = True
-        conf_1.save()
-        mock_update_configuration_cache.assert_called_once_with(conf_1)
-
-
-class ConfigurationModelTestFixtures(TestCase):
-
-    def test_active_can_only_be_set_once_per_code(self):
-        conf_1_ret = get_valid_configuration_model()
-        conf_1_ret.active = True
-        conf_1_ret.name = 'conf_1'
-        conf_1_ret.save()
-        self.assertTrue(conf_1_ret.active)
-        conf_2 = get_valid_configuration_model()
-        conf_2.active = True
-        conf_2.data = conf_1_ret.data
-        conf_2.full_clean()
-        conf_1_ret = Configuration.objects.get(name='conf_1')
-        self.assertFalse(conf_1_ret.active)
-        conf_2.save()
-        active = Configuration.objects.filter(active=True).all()
-        self.assertEqual(len(active), 1)
-        self.assertEqual(active[0], conf_2)
+    def test_get_translation_fallback(self):
+        translation = Translation(data={
+            'configuration': {'keyword': {'en': 'foo'}},
+            'configuration_edition': {'keyword': {'en': 'all new'}}
+        })
+        self.assertEqual(
+            translation.get_translation('keyword', 'configuration'),
+            'foo'
+        )
 
 
 class ValueUserTest(TestCase):
@@ -497,3 +358,54 @@ class ValueUserTest(TestCase):
     def test_get_returns_none_if_not_found(self):
         notfound = Country.get('foo')
         self.assertIsNone(notfound)
+
+
+@pytest.fixture(scope='class')
+def mock_edition(request):
+    class MockEdition(Edition):
+        code = 'technologies'
+        edition = 'sub'
+
+    request.cls.mock_edition = MockEdition
+
+
+@pytest.mark.usefixtures('mock_edition')
+class ConfigurationTest(TestCase):
+
+    def test_has_new_version(self):
+        """
+        This tests the queryset, but it is an important one.
+
+        """
+        old_edition = get_valid_configuration_model()
+        old_edition.edition = '2000'
+        old_edition.created = datetime(2000, 1, 1)
+        old_edition.save()
+        new_edition = get_valid_configuration_model()
+        new_edition.edition = '2001'
+        new_edition.created = datetime(2001, 1, 1)
+        new_edition.save()
+        self.assertTrue(old_edition.has_new_edition)
+        self.assertFalse(new_edition.has_new_edition)
+
+    def test_get_none_edition(self):
+        with patch.object(Configuration, 'find_subclass') as find_mock:
+            find_mock.return_value = self.mock_edition({},{},{},{})
+            config = Configuration(code='foo', edition='bar')
+            self.assertIsNone(config.get_edition())
+
+    def test_get_valid_edition(self):
+        with patch.object(Configuration, 'find_subclass') as find_mock:
+            find_mock.return_value = self.mock_edition({},{},{},{})
+            config = Configuration(code='technologies', edition='sub')
+            self.assertEqual(config.get_edition(), find_mock.return_value)
+
+    def test_find_subclass(self):
+        # Mock a 'module' with the attribute Foo, so it is found by dir(module).
+        module = MagicMock()
+        module.Foo = self.mock_edition
+        config = Configuration()
+
+        with patch('configuration.models.importlib.util') as importlib:
+            importlib.module_from_spec.return_value = module
+            self.assertIsInstance(config.find_subclass(''), self.mock_edition)

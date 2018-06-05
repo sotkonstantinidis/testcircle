@@ -1,6 +1,8 @@
 import re
 
 import time
+
+import pytest
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Group
 from django.test.utils import override_settings
@@ -20,15 +22,11 @@ from sample.tests.test_views import (
     get_position_of_category,
     route_questionnaire_list)
 from wocat.tests.test_views import route_home
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
-
-
+@pytest.mark.usefixtures('es')
 @override_settings(
-    ES_INDEX_PREFIX=TEST_INDEX_PREFIX,
     NOTIFICATIONS_CREATE='create_foo',
     NOTIFICATIONS_CHANGE_STATUS='change_foo'
 )
@@ -40,12 +38,7 @@ class ModerationTest(FunctionalTest):
 
     def setUp(self):
         super(ModerationTest, self).setUp()
-        delete_all_indices()
-        create_temp_indices(['sample'])
-
-    def tearDown(self):
-        super(ModerationTest, self).tearDown()
-        delete_all_indices()
+        create_temp_indices([('sample', '2015')])
 
     @patch('questionnaire.signals.create_questionnaire.send')
     @patch('questionnaire.signals.change_status.send')
@@ -168,9 +161,7 @@ class ModerationTest(FunctionalTest):
         self.review_action('edit', exists_only=True)
 
 
-@override_settings(
-    ES_INDEX_PREFIX=TEST_INDEX_PREFIX,
-)
+@pytest.mark.usefixtures('es')
 class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
@@ -179,18 +170,13 @@ class ModerationTestFixture(FunctionalTest):
 
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
-        delete_all_indices()
-        create_temp_indices(['sample'])
+        create_temp_indices([('sample', '2015')])
 
         self.user_compiler = User.objects.get(pk=101)
         self.user_editor = User.objects.get(pk=102)
         self.user_reviewer = User.objects.get(pk=103)
         self.user_publisher = User.objects.get(pk=104)
         self.user_secretariat = User.objects.get(pk=107)
-
-    def tearDown(self):
-        super(ModerationTestFixture, self).tearDown()
-        delete_all_indices()
 
     def test_review_locked_questionnaire(self):
         # Secretariat user logs in
@@ -753,8 +739,8 @@ class ModerationTestFixture(FunctionalTest):
 
         # She removes one of the user
         remove_button = self.findBy(
-            'xpath', '//div[@id="review-new-user"]/div'
-                     '[contains(@class, ''"alert-box")][1]/a'
+            'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
+                     '"alert-box") and contains(text(), "Kurt Gerber")]/a'
         )
         delete_user = re.findall('\d+', remove_button.get_attribute('onclick'))
 
@@ -853,11 +839,10 @@ class ModerationTestFixture(FunctionalTest):
         self.findBy('id', 'review-change-compiler-panel')
 
         # There is only one compiler
-        compiler = self.findBy('xpath', '//a[@rel="author"][1]').text
-        self.assertEqual(compiler, old_compiler)
+        self.assertEqual(self.get_compiler(), old_compiler)
 
         # There is no editor
-        self.findByNot('xpath', '//a[@rel="author"][2]')
+        self.assertEqual(self.get_editors(), [])
 
         # She goes to the list view and sees the compiler there
         self.browser.get(
@@ -938,11 +923,10 @@ class ModerationTestFixture(FunctionalTest):
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details
-        compiler = self.findBy('xpath', '//a[@rel="author"][1]').text
-        self.assertEqual(compiler, new_compiler_1)
+        self.assertEqual(self.get_compiler(), new_compiler_1)
 
         # There is no editor
-        self.findByNot('xpath', '//a[@rel="author"][2]')
+        self.assertEqual(self.get_editors(), [])
 
         # In the list, the new compiler is visible
         self.browser.get(
@@ -1048,12 +1032,10 @@ class ModerationTestFixture(FunctionalTest):
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details
-        compiler = self.findBy('xpath', '//a[@rel="author"][1]').text
-        self.assertEqual(compiler, new_compiler_2)
+        self.assertEqual(self.get_compiler(), new_compiler_2)
 
         # The old compiler is now an editor
-        compiler = self.findBy('xpath', '//a[@rel="author"][2]').text
-        self.assertEqual(compiler, new_compiler_1)
+        self.assertIn(new_compiler_1, self.get_editors())
 
         # In the list, the new compiler is visible
         self.browser.get(

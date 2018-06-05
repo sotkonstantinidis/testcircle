@@ -1,6 +1,4 @@
-import operator
 from datetime import timedelta
-from functools import reduce
 
 from django.db import models
 from django.db.models import Q

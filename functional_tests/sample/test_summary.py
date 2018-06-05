@@ -58,12 +58,9 @@ class SummaryTest(FunctionalTest):
     @patch.object(SummaryPDFCreateView, 'get_template_names')
     @patch.object(SummaryPDFCreateView, 'get_summary_data')
     def test_summary_html(self, mock_get_summary, mock_template_names):
-        mock_get_summary.return_value = self.data_title_mock
-        mock_template_names.return_value = 'summary/layout/technologies.html'
+        rendered_summary = 'summary'
+        mock_get_summary.return_value = rendered_summary
+        mock_template_names.return_value = 'summary/layout/base.html'
 
         self.browser.get('{}?as=html'.format(self.url))
-        title = self.findBy('class_name', 'tech-output-title')
-        self.assertEqual(
-            title.text,
-            'Success story (Wonderland)'
-        )
+        self.assertIn(rendered_summary, self.browser.page_source)

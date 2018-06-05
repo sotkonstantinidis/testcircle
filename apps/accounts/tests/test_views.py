@@ -1,5 +1,4 @@
 import json
-import unittest
 from unittest.mock import patch, MagicMock
 
 from braces.views import LoginRequiredMixin
@@ -52,7 +51,8 @@ class LoginViewTest(TestCase):
         view.kwargs = kwargs
         return view
 
-    def test_form_invalid_credentials(self):
+    @patch('accounts.views.logger')
+    def test_form_invalid_credentials(self, mock_logger):
         """Invalid data must return a form with errors"""
         response = self.client.post(
             path=reverse('login'),
@@ -64,7 +64,6 @@ class LoginViewTest(TestCase):
     def test_dispatch(self):
         request = self.factory.get(reverse('login'))
         setattr(request, 'user', self.user)
-        request.user.is_authenticated = MagicMock(return_value=True)
         view = self.setup_view(LoginView(), request)
         response = view.dispatch(view.request, *view.args, **view.kwargs)
         self.assertEqual(response.status_code, 302)

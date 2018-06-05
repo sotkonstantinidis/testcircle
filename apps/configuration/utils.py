@@ -1,6 +1,7 @@
-from django.apps import apps
-from django.db.models import Q
 from configuration.cache import get_configuration
+from django.apps import apps
+from django.conf import settings
+from django.db.models import Q
 from questionnaire.models import Questionnaire
 from search.utils import check_aliases
 
@@ -36,16 +37,15 @@ def get_configuration_query_filter(configuration, only_current=False):
         ``django.db.models.Q``. A filter object.
     """
     if only_current is True:
-        return Q(configurations__code=configuration)
+        return Q(configuration__code=configuration)
 
     if configuration == 'wocat':
         return Q()
 
-    return Q(configurations__code=configuration)
+    return Q(configuration__code=configuration)
 
 
-def get_configuration_index_filter(
-        configuration, only_current=False, query_param_filter=()):
+def get_configuration_index_filter(configuration: str):
     """
     Return the name of the index / indices to be searched by
     Elasticsearch based on their configuration code.
@@ -55,68 +55,26 @@ def get_configuration_index_filter(
     * By default, only questionnaires of the provided configuration
       are visible.
 
-    * For ``wocat``, additionally configuration ``unccd`` is visible.
-
     Args:
         ``configuration`` (str): The code of the (current)
         configuration.
-
-    Kwargs:
-        ``only_current`` (bool): If ``True``, always only the current
-        configuration_code is returned. Defaults to ``False``.
-
-        ``query_param_filter`` (tuple): If provided, takes precedence over the
-        default rules.
 
     Returns:
         ``list``. A list of configuration codes (the index/indices) to
         be searched.
     """
     default_configurations = [
-        'unccd', 'technologies', 'approaches', 'watershed']
-
-    if query_param_filter:
-        query_configurations = []
-        for q in query_param_filter:
-            if q == 'wocat':
-                query_configurations.extend(default_configurations)
-            else:
-                query_configurations.append(q.lower())
-        configurations = list(set(query_configurations))
-
-        if check_aliases(configurations) is True:
-            return configurations
-        else:
-            return default_configurations
-
+        'unccd_*', 'technologies_*', 'approaches_*', 'watershed_*'
+    ]
     configurations = [configuration.lower()]
 
-    if only_current is False and configuration == 'wocat':
-        configurations = default_configurations
+    is_valid_configuration = check_aliases(configurations) and configurations != ['wocat']
 
-    if check_aliases(configurations) is True:
+    is_test_running = getattr(settings, 'IS_TEST_RUN', False) is True
+    if is_test_running and configuration in ['sample', 'samplemulti', 'samplemodule']:
         return configurations
-    else:
-        return default_configurations
 
-
-class ConfigurationList(object):
-    """
-    Helper object to keep track of QuestionnaireConfiguration objects.
-    Check if a given configuration already exists and returns it if so.
-    If not, it is created and added to the internal list. This prevents
-    having to create a new configuration every time when looping objects
-    of mixed configurations.
-    """
-    def __init__(self):
-        self.configurations = {}
-
-    def get(self, code):
-        configuration = self.configurations.get(code)
-        if configuration is None:
-            configuration = get_configuration(code)
-            self.configurations[code] = configuration
-        return configuration
+    return configurations if is_valid_configuration else default_configurations
 
 
 def create_new_code(questionnaire, configuration):
@@ -163,8 +121,8 @@ def get_choices_from_model(model_name, only_active=True):
 
 
 def get_choices_from_questiongroups(
-        questionnaire_data: dict, questiongroups: list,
-        configuration_keyword: str) -> list:
+        questionnaire_data: dict, questiongroups: list, configuration_code: str,
+        configuration_edition: str) -> list:
     """
     Return a list of valid choices based on the presence of certain
     questiongroups within a questionnaire data JSON.
@@ -173,13 +131,14 @@ def get_choices_from_questiongroups(
         questionnaire_data: The questionnaire data dict
         questiongroups: A list of questiongroup keywords (basically a list of
           all possible choices)
-        configuration_keyword: The keyword of the current configuration
+        configuration: QuestionnaireConfiguration
 
     Returns:
         A list of possible choices [(keyword, label)]
     """
-    configuration = get_configuration(configuration_keyword)
     choices = []
+    configuration = get_configuration(
+        code=configuration_code, edition=configuration_edition)
     for questiongroup in questiongroups:
         if questiongroup in questionnaire_data:
             questiongroup_object = configuration.get_questiongroup_by_keyword(

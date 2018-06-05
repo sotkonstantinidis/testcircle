@@ -4,6 +4,7 @@ import itertools
 import logging
 import operator
 
+from django.contrib.postgres.fields import JSONField
 from django.core import signing
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -13,7 +14,6 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _, get_language, activate
 from django.utils.functional import cached_property
 
-from django_pgjson.fields import JsonBField
 from accounts.models import User
 from questionnaire.models import Questionnaire, QuestionnaireMembership, STATUSES
 
@@ -497,23 +497,11 @@ class MemberUpdate(models.Model):
 class ContentUpdate(models.Model):
     """
     Store the previous questionnaires data.
+    This used to be the basis for a 'comparison of case versions', but the diff / full data
+    is not stored anymore, as this feature is not on the radar anymore and the sysadmin
+    complained about the large, unused fields.
     """
     log = models.OneToOneField(Log)
-    data = JsonBField()
-
-    def difference(self) -> dict:
-        """
-        If the selected package provides consistent results, we may store the
-        diff only. Until then, store the whole data and calculate the diff when
-        required.
-        """
-        with contextlib.suppress(Log.DoesNotExist):
-            previous = self.log.get_previous_by_created(
-                contentupdate__isnull=False
-            )
-            # calculate diff here.
-            return self.data
-        return {}
 
 
 class ReadLog(models.Model):

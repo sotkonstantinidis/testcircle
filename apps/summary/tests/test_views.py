@@ -27,11 +27,11 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         self.view = self.setup_view(self.base_view, self.request, id=1)
         self.view.code = 'sample'
         self.view.quality = 'screen'
+        self.view.questionnaire = MagicMock(configuration=MagicMock(code='test_code'))
 
     @patch.object(SummaryPDFCreateView, 'get_object')
     @patch.object(SummaryPDFCreateView, 'get_prepared_data')
-    @patch('summary.views.get_configuration')
-    def test_get(self, mock_get_configuration, mock_prepared_data, mock_object):
+    def test_get(self, mock_prepared_data, mock_object):
         mock_object.return_value = MagicMock()
         self.request.user = mommy.make(get_user_model())
         view = self.view.get(request=self.request)
@@ -44,37 +44,41 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         mock_data.return_value = sentinel.summary_data
         context = self.view.get_context_data()
         self.assertEqual(
-            context['block'], sentinel.summary_data
+            context['sections'], sentinel.summary_data
         )
 
     def test_get_filename(self):
         this_moment = now()
-        expected = 'wocat-id-en-full-screen-summary-{}.pdf'.format(
-            this_moment.strftime('%Y-%m-%d-%H-%M')
-        )
         self.view.questionnaire = MagicMock(
             id='id', updated=this_moment
+        )
+        expected = 'wocat-id-{}-en-full-screen-{}.pdf'.format(
+            self.view.questionnaire.configuration.id,
+            this_moment.strftime('%Y-%m-%d-%H-%M')
         )
         self.assertEqual(
             expected, self.view.get_filename()
         )
 
-    @patch('summary.views.get_configuration')
-    def test_get_summary_data(self, mock_config):
+    @override_settings(ALLOWED_HOSTS=['foo'])
+    def test_get_summary_data(self):
         renderer = MagicMock()
         base_view = SummaryPDFCreateView()
         base_view.code = 'code'
         base_view.quality = 'screen'
         base_view.summary_type = 'summary_type'
-        base_view.render_classes = {'config_type': {'summary_type': renderer}}
-        base_view.questionnaire = MagicMock()
-        mock_config.keyword = 'config_type'
-        base_view.config = mock_config
+        base_view.render_classes = {
+            'config_type_config_edition': {'summary_type': renderer}}
+        base_view.questionnaire = MagicMock(
+            configuration=MagicMock(
+                code='config_type', edition='config_edition'),
+            configuration_object=sentinel.config
+        )
         view = self.setup_view(base_view, self.request, id=1)
         view.get_summary_data()
         renderer.assert_called_once_with(
             base_url='http://foo/',
-            config=mock_config,
+            config=sentinel.config,
             quality='screen',
             questionnaire=base_view.questionnaire
         )
@@ -87,9 +91,8 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         mock_status_filter.assert_called_once_with(self.request)
 
     def test_get_template_names(self):
-        self.view.code = 'bar'
         self.assertEqual(
-            '{}/layout/bar.html'.format(self.view.base_template_path),
+            '{}/layout/base.html'.format(self.view.base_template_path),
             self.view.get_template_names()
         )
 
@@ -99,6 +102,7 @@ class QuestionnaireSummaryPDFCreateViewTest(TestCase):
         view = self.setup_view(self.base_view, self.factory.get(url), id=1)
         view.code = 'bar'
         view.base_template_path = base_path
+        view.questionnaire = MagicMock(configuration=MagicMock(code='test_code'))
         self.assertEqual(
             '{}/layout/foo.html'.format(base_path), view.get_template_names()
         )
@@ -125,7 +129,7 @@ class TestCachedPDFTemplateResponse(TestCase):
             )
 
     @patch('summary.views.isfile')
-    @override_settings(SUMMARY_PDF_PATH = 'pdf_path', DEBUG=False)
+    @override_settings(SUMMARY_PDF_PATH='pdf_path', DEBUG=False)
     def test_rendered_content_creates_file(self, mock_isfile):
         mock_isfile.return_value = False
         with patch('summary.views.open') as open_mock:

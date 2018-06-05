@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields.jsonb import JsonAdapter
 from django.db.models import Lookup, Field
 
 
@@ -36,6 +37,11 @@ class DataLookup(Lookup):
     def as_postgresql(self, compiler, connection):
         lhs, lhs_params = self.process_lhs(compiler, connection)
         rhs, rhs_params = self.process_rhs(compiler, connection)
+
+        # This fix was needed after upgrading Django (to 1.11) to access the
+        # dict of the rhs_param.
+        if len(rhs_params) == 1 and isinstance(rhs_params[0], JsonAdapter):
+            rhs_params = [rhs_params[0].adapted]
 
         # Check general format of params
         if len(rhs_params) != 1 or not isinstance(rhs_params[0], dict):

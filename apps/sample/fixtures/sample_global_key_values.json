@@ -49,6 +49,11 @@
           "label": {
             "en": "Country"
           }
+        },
+        "wocat": {
+          "label": {
+            "en": "Country"
+          }
         }
       }
     },

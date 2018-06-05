@@ -2,7 +2,6 @@ import logging
 
 from django.conf import settings
 from questionnaire.models import Questionnaire
-from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import BrowsableAPIRenderer, JSONRenderer, \
     CoreJSONRenderer
@@ -10,13 +9,11 @@ from rest_framework.reverse import reverse
 from rest_framework.response import Response
 from rest_framework.schemas import SchemaGenerator
 from rest_framework.settings import api_settings
-from rest_framework.throttling import AnonRateThrottle
 from rest_framework.views import APIView
 from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 
 from .authentication import NoteTokenAuthentication
-from .models import RequestLog, NoteToken
-from .serializers import NoteAuthTokenSerializer
+from .models import RequestLog
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +31,10 @@ class APIRoot(APIView):
     interactive documentation allowing to try out available requests visit the
     "documentation" endpoint below.
 
+    Please contact the Wocat secretariat if you want to access the API, stating
+    your activated Wocat account (required) and the purpose of your API requests.
+    An authentication token will then be created for your account.
+
     More information on the API can be found in the [QCAT Documentation][doc].
 
     [doc]: https://qcat.readthedocs.io/en/latest/api/docs.html
@@ -49,8 +50,6 @@ class APIRoot(APIView):
             'questionnaire details': reverse(
                 'v2:questionnaires-api-detail', kwargs={'identifier': identifier},
                 request=request, format=format),
-            'auth token': reverse('v2:obtain-api-token', request=request,
-                                  format=format),
             'documentation': reverse('api-docs', request=request, format=format),
         }
         return Response(urls)
@@ -73,31 +72,6 @@ class SwaggerSchemaView(APIView):
             title='QCAT API v2', url='/api/v2/', urlconf='api.urls.v2')
         schema = generator.get_schema(request=request)
         return Response(schema)
-
-
-class ObtainNoteAuthTokenView(ObtainAuthToken):
-    """
-    Create a token for given user.
-
-    A note is required to indicate the purpose of the token (e.g. used for
-    testing etc.)
-
-    ``note``: Indicating the purpose of the token.
-    """
-    serializer_class = NoteAuthTokenSerializer
-    throttle_classes = (AnonRateThrottle, )
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        token, created = NoteToken.objects.get_or_create(
-            user=user, defaults={'notes': serializer.validated_data['notes']}
-        )
-        if not created:
-            token.notes = serializer.validated_data['notes']
-            token.save()
-        return Response({'token': token.key})
 
 
 class LogUserMixin:

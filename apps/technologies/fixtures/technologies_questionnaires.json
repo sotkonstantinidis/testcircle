@@ -47,15 +47,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-10T16:07:20.847Z",
-      "updated": "2015-02-10T16:07:20.847Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 1001,
-      "questionnaire": 101,
-      "original_configuration": true
+      "updated": "2015-02-10T16:07:20.847Z",
+      "configuration": 1001
     }
   },
   {
@@ -115,15 +108,8 @@
       "status": 4,
       "version": 1,
       "created": "2015-02-10T16:08:20.904Z",
-      "updated": "2015-02-10T16:08:20.904Z"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 1001,
-      "questionnaire": 102,
-      "original_configuration": true
+      "updated": "2015-02-10T16:08:20.904Z",
+      "configuration": 1001
     }
   },
   {

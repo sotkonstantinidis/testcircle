@@ -28,7 +28,7 @@ class MenuIndicatorTest(FunctionalTest):
 
         # Someone else triggers an action which creates a new task for Alice
         mommy.make(
-            model=Log,
+            _model=Log,
             catalyst=user,
             action=settings.NOTIFICATIONS_CHANGE_STATUS,
             _quantity=5

@@ -42,4 +42,6 @@ class SuperUserCommandTest(TestCase):
             is_superuser=True
         ).values_list('email', flat=True)
 
-        self.assertListEqual(list(superuser_emails), make_superuser)
+        self.assertListEqual(
+            sorted(list(superuser_emails)),
+            sorted(make_superuser))

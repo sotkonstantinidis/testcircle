@@ -1,22 +1,24 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 
-from questionnaire.views import QuestionnaireEditView, QuestionnaireStepView, \
-    QuestionnaireView
+from questionnaire import views
 
-urlpatterns = patterns(
-    '',
+from . import views as samplemodule_views
+
+
+urlpatterns = [
     url(r'^view/(?P<identifier>[^/]+)/$',
-        QuestionnaireView.as_view(url_namespace=__package__),
+        views.QuestionnaireView.as_view(url_namespace=__package__),
         name='questionnaire_details'),
     url(r'^view/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        'samplemodule.views.questionnaire_view_step',
+        samplemodule_views.questionnaire_view_step,
         name='questionnaire_view_step'),
-    url(r'^edit/new/$', QuestionnaireEditView.as_view(url_namespace=__package__),
+    url(r'^edit/new/$',
+        views.QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_new'),
     url(r'^edit/(?P<identifier>[^/]+)/$',
-        QuestionnaireEditView.as_view(url_namespace=__package__),
+        views.QuestionnaireEditView.as_view(url_namespace=__package__),
         name='questionnaire_edit'),
     url(r'^edit/(?P<identifier>[^/]+)/(?P<step>\w+)/$',
-        QuestionnaireStepView.as_view(url_namespace=__package__),
+        views.QuestionnaireStepView.as_view(url_namespace=__package__),
         name='questionnaire_new_step'),
-)
+]

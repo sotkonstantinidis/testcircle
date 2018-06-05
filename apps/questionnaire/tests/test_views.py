@@ -1,5 +1,6 @@
 import json
 
+from configuration.cache import get_cached_configuration
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
@@ -190,6 +191,7 @@ class QuestionnaireViewTest(TestCase):
         self.request.session = dict()
         self.request._messages = MagicMock()
         self.view = self.setup_view(view, self.request, identifier='sample_1')
+        get_cached_configuration.cache_clear()
 
     def test_get_obj_raises_404(self):
         view = self.setup_view(self.view, self.request, identifier='404')
@@ -279,10 +281,6 @@ class QuestionnaireEditViewTest(TestCase):
         self.request._messages = MagicMock()
         self.view = self.setup_view(view, self.request, identifier='sample_1')
 
-    def test_force_login(self, ):
-        self.view.dispatch(self.request)
-        self.assertTrue(self.request.session[settings.ACCOUNTS_ENFORCE_LOGIN_NAME])
-
     def test_require_user(self):
         self.request.user = AnonymousUser()
         self.assertEqual(
@@ -293,6 +291,31 @@ class QuestionnaireEditViewTest(TestCase):
     def test_get_object_new(self):
         view = self.setup_view(self.view, self.request, identifier='new')
         self.assertEquals(view.get_object(), {})
+
+    def test_create_new_version(self):
+        view = self.setup_view(self.view, self.request, identifier='sample_1')
+        with patch.object(QuestionnaireConfiguration, 'has_new_edition'):
+            with patch.object(view, 'update_case_data_for_editions') as mock_update:
+                try:
+                    view.get(request=self.request)
+                except Exception:  # catch all, as we only want to check if the method is called.
+                    pass
+                mock_update.assert_called_once()
+
+    def test_update_case_data_for_editions(self):
+        view = self.setup_view(self.view, self.request, identifier='sample_1')
+        view.questionnaire_configuration = MagicMock()
+        view.object = MagicMock()
+        with patch('questionnaire.views.get_configuration') as mock_config:
+            # test just one iteration.
+            mock_config.return_value = MagicMock(has_new_edition=False)
+            view.update_case_data_for_editions(**{})
+            # This seems more readable than mocking all the objects.
+            self.assertTrue(
+                view.object.configuration.get_next_edition.return_value.
+                    get_edition.return_value.
+                    update_questionnaire_data.called
+            )
 
 
 class QuestionnaireStepViewTest(TestCase):
@@ -335,10 +358,11 @@ class QuestionnaireStepViewTest(TestCase):
     @patch('questionnaire.signals.change_questionnaire_data.send')
     def test_next_section_route(self, mock_change_data,
                                 get_success_url_next_section, create_new):
-        request = self.factory.post('/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0')
+        request = self.factory.post(
+            '/en/sample/view/app_1/cat_0/', identifier='sample_1', step='cat_0',
+            data={'goto-next-section': 'true'})
         request.user = self.request.user
         request._messages = MagicMock()
-        request.POST['goto-next-section'] = 'true'
         view = self.setup_view(self.view, request, step='cat_0')
         view.object = MagicMock()
         view.object.code = 'foo'

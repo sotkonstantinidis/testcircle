@@ -1578,7 +1578,8 @@ class WOCATImport(Logger):
         self.import_objects = []
 
         self.configuration = get_configuration(
-            configuration_code=self.configuration_code)
+            code=self.configuration_code, edition='2015'
+        )
 
     def collect_import_objects(self):
         """
@@ -1907,7 +1908,7 @@ class WOCATImport(Logger):
     def write_mapping_messages(self):
 
         file = open(MAPPING_MESSAGES_FILENAME, 'w')
-        configuration = get_configuration('technologies')
+        configuration = get_configuration('technologies', '2015')
 
         print('Mapping messages of WOCAT import on {}\n\n'.format(
             datetime.now()), file=file)

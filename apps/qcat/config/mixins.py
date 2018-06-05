@@ -4,7 +4,6 @@ from os.path import join
 
 class DevMixin:
     DEBUG = values.BooleanValue(True)
-    TEMPLATE_DEBUG = values.BooleanValue(True)
     CACHES = values.DictValue(
         environ_prefix='',
         default={'default': {'BACKEND': 'django.core.cache.backends.dummy.DummyCache',}}
@@ -19,12 +18,7 @@ class DevMixin:
 
 
 class TestMixin:
-    """
-    Provide random content generator for the jsonbfield used for unit tests.
-    """
-    MOMMY_CUSTOM_FIELDS_GEN = {
-        'django_pgjson.fields.JsonBField': lambda : {'very': 'random'}
-    }
+    IS_TEST_RUN = True
 
 
 class DebugToolbarMixin:

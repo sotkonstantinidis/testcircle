@@ -1,6 +1,6 @@
+import pytest
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.test.utils import override_settings
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -19,13 +19,10 @@ from sample.tests.test_views import (
 )
 from samplemulti.tests.test_views import route_questionnaire_details as \
     route_questionnaire_details_samplemulti
-from search.index import delete_all_indices
 from search.tests.test_index import create_temp_indices
 
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
 
-
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = ['sample_global_key_values.json', 'sample.json']
@@ -2535,7 +2532,7 @@ class QuestionnaireTest(FunctionalTest):
         self.review_action('submit')
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireTestIndex(FunctionalTest):
     # Tests requiring an index
 
@@ -2545,12 +2542,7 @@ class QuestionnaireTestIndex(FunctionalTest):
 
     def setUp(self):
         super(QuestionnaireTestIndex, self).setUp()
-        delete_all_indices()
-        create_temp_indices(['sample', 'samplemulti'])
-
-    def tearDown(self):
-        super(QuestionnaireTestIndex, self).tearDown()
-        delete_all_indices()
+        create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
 
     def test_enter_questionnaire(self):
         # Alice logs in
@@ -3019,7 +3011,7 @@ class QuestionnaireLinkTest(FunctionalTest):
     """
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireTestProjects(FunctionalTest):
 
     fixtures = ['global_key_values.json', 'sample.json',
@@ -3063,11 +3055,11 @@ class QuestionnaireTestProjects(FunctionalTest):
         # She submits the step
         self.submit_form_step()
 
-        # She sees that the display value is visible in the overview (as Key 53)
-        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        # She sees that the field is visible as Key 52. Previously, there used
+        # to be a Key 53 only holding the display value. This was now improved.
+        self.findBy('xpath', '//*[text()[contains(.,"Key 52")]]')
         self.findBy('xpath', '//*[text()[contains(.,"International Project for '
                              'Collecting Technologies")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
 
         # She goes back to the step and deselects the project
         self.click_edit_section('cat_2')
@@ -3079,7 +3071,6 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She submits the step and sees the project is gone in the overview
         self.submit_form_step()
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 53")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
 
         # She goes back to the step and selects another project
@@ -3101,22 +3092,18 @@ class QuestionnaireTestProjects(FunctionalTest):
 
         # She submits the step
         self.submit_form_step()
-        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 52")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"The first Project (TFP)")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 55")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 54")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"Global Institution")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 54")]]')
 
         # She submits the questionnaire and sees the project is submitted
         self.review_action('submit')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 53")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 52")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"The first Project (TFP)")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 52")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Key 55")]]')
+        self.findBy('xpath', '//*[text()[contains(.,"Key 54")]]')
         self.findBy('xpath',
                     '//*[text()[contains(.,"Global Institution")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"Key 54")]]')

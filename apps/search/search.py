@@ -1,34 +1,13 @@
-import collections
+from functools import lru_cache
+
 from django.conf import settings
 from elasticsearch import TransportError
 
+from questionnaire.models import Questionnaire
 from .index import get_elasticsearch
-from .utils import get_alias
-
+from .utils import get_alias, ElasticsearchAlias
 
 es = get_elasticsearch()
-
-
-def simple_search(query_string, configuration_codes=[]):
-    """
-    Perform a simple full text search based on a query string.
-
-    https://www.elastic.co/guide/en/elasticsearch/reference/1.6/search-search.html
-
-    Args:
-        ``query_string`` (str): The query string to be provided as ``q``
-        parameter.
-
-    Kwargs:
-        ``configuration_codes`` (list): An optional list of
-        configuration codes to limit the search to certain indices.
-
-    Returns:
-        ``dict``. The search results as returned by
-        ``elasticsearch.Elasticsearch.search``.
-    """
-    alias = get_alias(configuration_codes)
-    return es.search(index=alias, q=get_escaped_string(query_string))
 
 
 def get_es_query(
@@ -63,10 +42,10 @@ def get_es_query(
 
     es_queries = []
 
-    def _get_match(qg, k, v):
+    def _get_terms(qg, k, v):
         return {
-            'match': {
-                f'data.{qg}.{k}': v
+            'terms': {
+                f'filter_data.{qg}__{k}': [v.lower()]
             }
         }
 
@@ -82,18 +61,20 @@ def get_es_query(
             # even make sense to have multiple of these joined by OR with the
             # same operator?
             if filter_param.operator in ['gt', 'gte', 'lt', 'lte']:
-                query = {
-                    'range': {
-                        f'data.{filter_param.questiongroup}.'
-                        f'{filter_param.key}_order': {
-                            filter_param.operator: filter_param.values[0]
-                        }
-                    }
-                }
+                raise NotImplementedError(
+                    'Filtering by range is not yet implemented.')
+                # query = {
+                #     'range': {
+                #         f'data.{filter_param.questiongroup}.'
+                #         f'{filter_param.key}_order': {
+                #             filter_param.operator: filter_param.values[0]
+                #         }
+                #     }
+                # }
             else:
                 if len(filter_param.values) > 1:
                     matches = [
-                        _get_match(filter_param.questiongroup,
+                        _get_terms(filter_param.questiongroup,
                                           filter_param.key, v) for v in
                         filter_param.values]
                     query = {
@@ -102,57 +83,56 @@ def get_es_query(
                         }
                     }
                 else:
-                    query = _get_match(
+                    query = _get_terms(
                         filter_param.questiongroup, filter_param.key,
                         filter_param.values[0])
 
-            es_queries.append({
-                'nested': {
-                    'path': f'data.{filter_param.questiongroup}',
-                    'query': query
-                }
-            })
+            es_queries.append(query)
 
         elif filter_param.type in ['text', 'char']:
-            es_queries.append({
-                "nested": {
-                    "path": "data.{}".format(filter_param.questiongroup),
-                    "query": {
-                        "multi_match": {
-                            "query": filter_param.values[0],
-                            "fields": ["data.{}.{}.*".format(
-                                filter_param.questiongroup, filter_param.key)],
-                            "type": "most_fields",
-                        }
-                    }
-                }
-            })
+            raise NotImplementedError(
+                'Filtering by text or char is not yet implemented/supported.')
+            # es_queries.append({
+            #     "nested": {
+            #         "path": "data.{}".format(filter_param.questiongroup),
+            #         "query": {
+            #             "multi_match": {
+            #                 "query": filter_param.values[0],
+            #                 "fields": ["data.{}.{}.*".format(
+            #                     filter_param.questiongroup, filter_param.key)],
+            #                 "type": "most_fields",
+            #             }
+            #         }
+            #     }
+            # })
 
         elif filter_param.type in ['_date']:
-            years = filter_param.values[0].split('-')
-            if len(years) != 2:
-                continue
-            es_queries.append({
-                'range': {
-                    filter_param.key: {
-                        'from': '{}||/y'.format(years[0]),
-                        'to': '{}||/y'.format(years[1]),
-                    }
-                }
-            })
+            raise NotImplementedError('Not yet implemented.')
+            # years = filter_param.values[0].split('-')
+            # if len(years) != 2:
+            #     continue
+            # es_queries.append({
+            #     'range': {
+            #         filter_param.key: {
+            #             'from': '{}||/y'.format(years[0]),
+            #             'to': '{}||/y'.format(years[1]),
+            #         }
+            #     }
+            # })
 
         elif filter_param.type in ['_flag']:
-            es_queries.append({
-                'nested': {
-                    'path': 'flags',
-                    'query': {
-                        'query_string': {
-                            'query': filter_param.values[0],
-                            'fields': ['flags.flag'],
-                        }
-                    }
-                }
-            })
+            raise NotImplementedError('Not yet implemented.')
+            # es_queries.append({
+            #     'nested': {
+            #         'path': 'flags',
+            #         'query': {
+            #             'query_string': {
+            #                 'query': filter_param.values[0],
+            #                 'fields': ['flags.flag'],
+            #             }
+            #         }
+            #     }
+            # })
 
         elif filter_param.type in ['_lang']:
             es_queries.append({
@@ -163,28 +143,41 @@ def get_es_query(
 
     if query_string:
         es_queries.append({
-            "query_string": {
-                "query": get_escaped_string(query_string)
+            'multi_match': {
+                'query': get_escaped_string(query_string),
+                'fields': [
+                    'list_data.name.*^4',
+                    'list_data.definition.*',
+                    'list_data.country'
+                ],
+                'type': 'cross_fields',
+                'operator': 'and',
             }
         })
 
     es_bool = 'must' if match_all is True else 'should'
 
+    if query_string == '':
+        # Default sort: By country, then by score.
+        sort = [
+            {
+                'list_data.country.keyword': {
+                    'order': 'asc'
+                }
+            },
+            '_score',
+        ]
+    else:
+        # If a phrase search is done, then only use the score to sort.
+        sort = ['_score']
+
     return {
-        "query": {
-            "bool": {
+        'query': {
+            'bool': {
                 es_bool: es_queries
             }
         },
-        "sort": [
-            {
-                "data.qg_location.country": {
-                    "order": "asc",
-                    "nested_path": "data.qg_location"
-                }
-            },
-            "_score",
-        ]
+        'sort': sort,
     }
 
 
@@ -228,13 +221,17 @@ def advanced_search(
         filter_params=filter_params, query_string=query_string,
         match_all=match_all)
 
-    alias = get_alias(configuration_codes)
+    if configuration_codes is None:
+        configuration_codes = []
+
+    alias = get_alias(*ElasticsearchAlias.from_code_list(*configuration_codes))
     return es.search(index=alias, body=query, size=limit, from_=offset)
 
 
 def get_aggregated_values(
-        questiongroup, key, filter_params: list = None, query_string: str='',
-        configuration_codes: list=None, match_all: bool=True) -> dict:
+        questiongroup, key, filter_type, filter_params: list=None,
+        query_string: str='', configuration_codes: list=None,
+        match_all: bool=True) -> dict:
 
     if filter_params is None:
         filter_params = []
@@ -249,45 +246,44 @@ def get_aggregated_values(
         filter_params=relevant_filter_params, query_string=query_string,
         match_all=match_all)
 
+    # For text values, use the keyword. This does not work for integer values
+    # (the way boolean values are stored).
+    # https://www.elastic.co/guide/en/elasticsearch/reference/current/fielddata.html
+    if filter_type == 'bool':
+        field = f'filter_data.{questiongroup}__{key}'
+    else:
+        field = f'filter_data.{questiongroup}__{key}.keyword'
+
     query.update({
         'aggs': {
-            'qg': {
-                'nested': {
-                    'path': f'data.{questiongroup}'
-                },
-                'aggs': {
-                    'values': {
-                        'terms': {
-                            'field': f'data.{questiongroup}.{key}',
-                            # Include all aggregations, not only 10. Setting
-                            # "size": 0 is deprecated, therefore setting a
-                            # (hopefully) reasonably high limit manually.
-                            # See https://github.com/elastic/elasticsearch/issues/18838
-                            'size': 200,
-                        }
-                    }
+            'values': {
+                'terms': {
+                    'field': field,
+                    # Limit needs to be high enough to include all values.
+                    'size': 1000,
                 }
             }
         },
         'size': 0,  # Do not include the actual hits
     })
 
-    alias = get_alias(configuration_codes)
+    alias = get_alias(*ElasticsearchAlias.from_code_list(*configuration_codes))
     es_query = es.search(index=alias, body=query)
 
-    buckets = es_query.get('aggregations', {}).get('qg', {}).get(
-        'values', {}).get('buckets', [])
+    buckets = es_query.get('aggregations', {}).get('values', {}).get('buckets', [])
 
     return {b.get('key'): b.get('doc_count') for b in buckets}
 
 
-def get_element(object_id: int, *configuration_codes) -> dict:
+def get_element(questionnaire: Questionnaire) -> dict:
     """
     Get a single element from elasticsearch.
     """
-    alias = get_alias(configuration_codes)
+    alias = get_alias(
+        ElasticsearchAlias.from_configuration(configuration=questionnaire.configuration_object)
+    )
     try:
-        return es.get_source(index=alias, id=object_id, doc_type='questionnaire')
+        return es.get_source(index=alias, id=questionnaire.pk, doc_type='questionnaire')
     except TransportError:
         return {}
 
@@ -301,18 +297,18 @@ def get_escaped_string(query_string: str) -> str:
     return query_string
 
 
-def get_indices_alias():
+@lru_cache(maxsize=1)
+def get_indices_alias() -> list:
     """
     Return a list of all elasticsearch index aliases. Only ES indices which
-    start with the QCAT prefix are respected.
+    start with the QCAT prefix are respected. Editions are stripped away, only the 'type' of the
+    index / configuration is relevant.
 
-    Returns:
-        list.
     """
     indices = []
-    for aliases in es.indices.get_aliases().values():
+    for aliases in es.indices.get_alias('*').values():
         for alias in aliases.get('aliases', {}).keys():
             if settings.ES_INDEX_PREFIX not in alias:
                 continue
-            indices.append(alias.replace(settings.ES_INDEX_PREFIX, ''))
+            indices.append(alias.replace(settings.ES_INDEX_PREFIX, '').rsplit('_', 1)[0])
     return indices

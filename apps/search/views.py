@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -9,7 +10,6 @@ from django.http import HttpResponseBadRequest
 from django.views.generic import TemplateView
 from elasticsearch import TransportError
 
-from accounts.decorators import force_login_check
 from questionnaire.views import ESQuestionnaireQueryMixin
 
 from .index import (
@@ -20,19 +20,17 @@ from .index import (
     get_mappings,
     put_questionnaire_data,
 )
-from .search import simple_search, get_aggregated_values
-from .utils import get_alias
+from .search import get_aggregated_values
+from .utils import get_alias, ElasticsearchAlias
 from configuration.cache import get_configuration
 from configuration.models import Configuration
 from questionnaire.models import Questionnaire
-from questionnaire.utils import get_list_values
 
 es = get_elasticsearch()
 
 
 @login_required
-@force_login_check
-def admin(request, log=''):
+def admin(request):
     """
     The search admin overview. Allow superusers to update the indices
     and execute other administrative tasks.
@@ -47,16 +45,22 @@ def admin(request, log=''):
         raise PermissionDenied()
 
     configurations = []
-    for active_configuration in Configuration.objects.filter(active=True):
+    for configuration in Configuration.objects.all().order_by('code', 'created'):
         db_count = Questionnaire.with_status.public().filter(
-            configurations__code=active_configuration.code).count()
+            configuration=configuration
+        ).count()
+
         try:
             index_count = es.count(
-                index=get_alias([active_configuration.code])).get('count')
+                index=get_alias(ElasticsearchAlias(
+                    code=configuration.code, edition=configuration.edition)
+                )
+            ).get('count')
         except TransportError:
             index_count = None
+
         config_entry = {
-            'object': active_configuration,
+            'object': configuration,
             'db_count': db_count,
             'index_count': index_count,
         }
@@ -68,8 +72,7 @@ def admin(request, log=''):
 
 
 @login_required
-@force_login_check
-def index(request, configuration):
+def index(request, configuration, edition):
     """
     Create or update the mapping of an index.
 
@@ -79,6 +82,9 @@ def index(request, configuration):
         ``configuration`` (str): The code of the Questionnaire
         configuration.
 
+        ``edition`` (str): The edition of the Questionnaire
+        configuration.
+
     Returns:
         ``HttpResponse``. A rendered Http Response (redirected to the
         search admin home page).
@@ -86,14 +92,19 @@ def index(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    questionnaire_configuration = get_configuration(configuration)
+    questionnaire_configuration = get_configuration(
+        code=configuration, edition=edition
+    )
     if questionnaire_configuration.get_configuration_errors() is not None:
         return HttpResponseBadRequest(
             questionnaire_configuration.configuration_error)
 
-    mappings = get_mappings(questionnaire_configuration)
+    mappings = get_mappings()
 
-    success, logs, error_msg = create_or_update_index(configuration, mappings)
+    success, logs, error_msg = create_or_update_index(
+        configuration=questionnaire_configuration,
+        mappings=mappings
+    )
     if success is not True:
         messages.error(request, 'The following error(s) occured: {}'.format(
             error_msg))
@@ -106,8 +117,7 @@ def index(request, configuration):
 
 
 @login_required
-@force_login_check
-def update(request, configuration):
+def update(request, configuration, edition):
     """
     Add the questionnaires of a configuration to the index.
 
@@ -117,6 +127,9 @@ def update(request, configuration):
         ``configuration`` (str): The code of the Questionnaire
         configuration.
 
+        ``edition`` (str): The edition of the Questionnaire
+        configuration.
+
     Returns:
         ``HttpResponse``. A rendered Http Response (redirected to the
         search admin home page).
@@ -124,15 +137,10 @@ def update(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    questionnaire_configuration = get_configuration(configuration)
-    if questionnaire_configuration.get_configuration_errors() is not None:
-        return HttpResponseBadRequest(
-            questionnaire_configuration.configuration_error)
-
     processed, errors = put_questionnaire_data(
-        configuration,
         Questionnaire.with_status.public().filter(
-            configurations__code=configuration)
+            configuration__code=configuration, configuration__edition=edition
+        )
     )
 
     if len(errors) > 0:
@@ -147,7 +155,6 @@ def update(request, configuration):
 
 
 @login_required
-@force_login_check
 def delete_all(request):
     """
     Delete all the indices.
@@ -173,8 +180,7 @@ def delete_all(request):
 
 
 @login_required
-@force_login_check
-def delete_one(request, configuration):
+def delete_one(request, configuration, edition):
     """
     Delete a single index.
 
@@ -191,7 +197,10 @@ def delete_one(request, configuration):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    success, error_msg = delete_single_index(configuration)
+    alias = ElasticsearchAlias(code=configuration, edition=edition)
+    es_index = es.indices.get_alias(name=f'{settings.ES_INDEX_PREFIX}{alias}')
+    for index_name in es_index.keys():
+        success, error_msg = delete_single_index(index_name)
     if success is not True:
         messages.error(request, 'The following error(s) occured: {}'.format(
             error_msg))
@@ -200,23 +209,6 @@ def delete_one(request, configuration):
             configuration))
 
     return redirect('search:admin')
-
-
-def search(request):
-    """
-    Do a full text search.
-
-    Args:
-        ``request`` (django.http.HttpRequest): The request object.
-    """
-    search = simple_search(request.GET.get('q', ''))
-    hits = search.get('hits', {}).get('hits', [])
-
-    list_values = get_list_values(configuration_code=None, es_hits=hits)
-
-    return render(request, 'sample/questionnaire/list.html', {
-        'list_values': list_values,
-    })
 
 
 class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
@@ -242,9 +234,17 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
 
         questiongroup, key = key_path_parts
 
+        try:
+            filter_configuration = next(
+                k for k in self.configuration.get_filter_keys()
+                if k.path == key_path)
+        except StopIteration:
+            return self.render_to_response(context={})
+
         # Query ES to see how many results are available for each option
         aggregated_values = get_aggregated_values(
-            questiongroup, key, **self.get_filter_params())
+            questiongroup, key, filter_configuration.filter_type,
+            **self.get_filter_params())
 
         question = None
         if len(key_path_parts) == 2:
@@ -253,7 +253,8 @@ class FilterValueView(TemplateView, ESQuestionnaireQueryMixin):
 
         counted_choices = []
         for c in question.choices:
-            counted_choices.append((c[0], c[1], aggregated_values.get(c[0], 0)))
+            counted_choices.append(
+                (str(c[0]), c[1], aggregated_values.get(c[0], 0)))
 
         context = {
             'choices': counted_choices,

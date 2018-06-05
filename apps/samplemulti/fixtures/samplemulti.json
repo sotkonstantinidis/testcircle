@@ -139,9 +139,7 @@
     "pk": 12001,
     "fields": {
       "code": "samplemulti",
-      "description": "Description of Sample Approaches Configuration",
-      "active": true,
-      "activated": "2015-01-08T10:12:59.337Z",
+      "edition": "2015",
       "data": {
         "sections": [
           {
@@ -209,9 +207,7 @@
           }
         ]
       },
-      "created": "2015-01-09T10:12:59.337Z",
-      "base_code": "",
-      "name": "SampleMulti Configuration"
+      "created": "2015-01-09T10:12:59.337Z"
     },
     "model": "configuration.configuration"
   }

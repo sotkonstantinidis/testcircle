@@ -1,7 +1,5 @@
 from django.core.urlresolvers import reverse
-from unittest.mock import patch
 
-from accounts.client import WocatWebsiteUserClient
 from cca.tests.test_views import route_questionnaire_new
 from functional_tests.base import FunctionalTest
 
@@ -10,6 +8,7 @@ def get_cca_2_3_options(testcase):
     return testcase.findManyBy(
         'xpath', '//select[@id="id_cca_qg_39-0-climate_related_extreme"]/'
                  'option[not(@value="")]')
+
 
 def get_cca_3_1_options(testcase):
     return testcase.findManyBy(
@@ -61,8 +60,6 @@ class LinkedChoicesTest(FunctionalTest):
         self.click_edit_section('cca__3')
         self.assertEqual(len(get_cca_3_1_options(self)), 3)
 
-        self.findBy('xpath',
-                    '//div[@id="id_cca_qg_40_0_climate_related_extreme_conditional_chosen"]', wait=True).click()
         self.select_chosen_element(
             'id_cca_qg_40_0_climate_related_extreme_conditional_chosen',
             'annual temperature')

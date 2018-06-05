@@ -1,31 +1,28 @@
-from django.core.urlresolvers import reverse
 from functional_tests.base import FunctionalTest
-
-from wocat.tests.test_views import (
-    route_home,
-)
+from functional_tests.pages.qcat import HomePage
 
 
 class TranslationTest(FunctionalTest):
 
     def test_change_languages(self):
+        # A user can change the language in the top menu. The same page is
+        # reloaded, language is switched.
 
-        # Alice goes to the UNCCD app
-        self.browser.get(self.live_server_url + reverse(
-            route_home))
+        # User loads the page
+        page = HomePage(self)
+        page.open()
 
-        # She sees that the page is in English because the available languages
-        # are written in English.
-        self.checkOnPage('English')
-        self.checkOnPage('Español')
+        # The page is in English
+        assert page.has_text('Home')
 
-        url = self.browser.current_url
+        en_url = self.browser.current_url
 
-        # She changes the language to Spanish and sees that the available
-        # languages are now written in Spanish.
-        self.changeLanguage('es')
-        self.checkOnPage('English')
-        self.checkOnPage('Español')
+        # User changes the language
+        page.change_language('es')
 
-        # She sees that she is still on the same page as before
-        self.assertEqual(url.replace('/en/', '/es/'), self.browser.current_url)
+        # The language has changed.
+        assert page.has_text('Inicio')
+
+        # The URL is basically still the same, save for the language prefix
+        es_url = self.browser.current_url
+        assert en_url.replace('/en/', '/es/') == es_url

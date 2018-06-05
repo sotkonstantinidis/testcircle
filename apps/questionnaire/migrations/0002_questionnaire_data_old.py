@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import django
 from django.db import models, migrations
-import django_pgjson.fields
+if django.VERSION[:2] >= (1, 11):
+    from django.contrib.postgres.fields import JSONField
+    DjangoJsonField = JSONField
+else:
+    import django_pgjson.fields
+    DjangoJsonField = django_pgjson.fields.JsonBField
 
 
 class Migration(migrations.Migration):
@@ -15,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questionnaire',
             name='data_old',
-            field=django_pgjson.fields.JsonBField(null=True),
+            field=DjangoJsonField(null=True),
             preserve_default=True,
         ),
     ]

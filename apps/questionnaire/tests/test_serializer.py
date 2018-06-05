@@ -30,9 +30,8 @@ class SerializerTest(TestCase):
             'flags': [],
             'code': code,
             'name': {'en': 'Unknown name'},
-            'data': {'foo': 'bar'},
             'compilers': [{'name': 'bar foo', 'id': 1}],
-            'list_data': {},
+            'list_data': {'definition': {'en': ''}, 'name': {}},
             'editors': [],
             'reviewers': [],
             'links': [
@@ -55,29 +54,10 @@ class SerializerTest(TestCase):
             ],
             'url': '/sample/view/{}/'.format(code),
             'serializer_config': 'sample',
+            'serializer_edition': '2015',
             'translations': ['en'],
             'status': ['draft', 'Draft'],
-            'configurations': ['sample']
         }
-
-    def test_init_with_config(self):
-        configuration = QuestionnaireConfiguration(self.questionnaire.code)
-        serializer = QuestionnaireSerializer(
-            instance=self.questionnaire, config=configuration
-        )
-        self.assertEqual(serializer.config, configuration)
-
-    def test_init_without_config(self):
-        config = self.questionnaire.questionnaireconfiguration_set.filter(
-            original_configuration=True
-        ).first()
-        original_config = get_configuration(config.configuration.code)
-
-        serializer = QuestionnaireSerializer(
-            instance=self.questionnaire
-        )
-
-        self.assertEqual(serializer.config.keyword, original_config.keyword)
 
     def test_get_links_serialize(self):
         self.assertListEqual(self.serialized['links'], self.questionnaire.links_property)

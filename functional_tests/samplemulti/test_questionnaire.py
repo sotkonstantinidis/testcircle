@@ -1,75 +1,67 @@
-from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
+import pytest
+
 from functional_tests.base import FunctionalTest
-from unittest.mock import patch
-
-from samplemulti.tests.test_views import (
-    route_home,
-    route_questionnaire_new_step,
-    get_category_count,
-    get_categories,
-)
-
-TEST_INDEX_PREFIX = 'qcat_test_prefix_'
+from functional_tests.pages.questionnaire import QuestionnaireStepPage
+from functional_tests.pages.samplemulti import SamplemultiNewPage, \
+    SamplemultiStepPage
 
 
-@override_settings(ES_INDEX_PREFIX=TEST_INDEX_PREFIX)
+@pytest.mark.usefixtures('es')
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'samplemulti.json']
+    fixtures = [
+        'global_key_values.json',
+        'samplemulti.json',
+    ]
 
     def test_questionnaire_is_available(self):
 
-        # Alice logs in
-        self.doLogin()
+        # User logs in and goes to the SAMPLEMULTI edit page.
+        edit_page = SamplemultiNewPage(self)
+        edit_page.open(login=True)
 
-        # She goes to the SAMPLEMULTI app
-        self.browser.get(self.live_server_url + reverse(route_home))
+        # User sees an empty edit page and the categories of the SAMPLEMULTI.
+        progress_indicators = edit_page.get_progress_indicators()
+        categories = edit_page.CATEGORIES
+        assert len(progress_indicators) == len(categories)
 
-        # She sees a link to enter a new questionnaire and clicks it
-        self.findBy(
-            'xpath', '//a[@href="/en/samplemulti/edit/new/" and '
-            'contains(@class, "button")]'
-        ).click()
+        # All the categories are listed.
+        for __, category in categories:
+            edit_page.get_category_by_name(category)
 
-        # She is taken to the form and sees the steps
-        progress_indicators = self.findManyBy(
-            'xpath',
-            '//div[@class="tech-section-progress"]/span[@class="steps"]')
-        self.assertEqual(len(progress_indicators), get_category_count())
+        # User edits the first category.
+        edit_page.click_edit_category(categories[0][0])
 
-        # She goes to the first step and sees the link works.
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step, kwargs={
-                'identifier': 'new', 'step': get_categories()[0][0]}))
+        # User saves the first category.
+        step_page = QuestionnaireStepPage(self)
+        step_page.submit_step()
 
-        self.submit_form_step()
-        progress_indicators = self.findManyBy(
-            'xpath',
-            '//div[@class="tech-section-progress"]/span[@class="steps"]')
-        self.assertEqual(len(progress_indicators), get_category_count())
+        # All the categories are still there.
+        progress_indicators = edit_page.get_progress_indicators()
+        categories = edit_page.CATEGORIES
+        assert len(progress_indicators) == len(categories)
+        for __, category in categories:
+            edit_page.get_category_by_name(category)
 
     def test_questionnaire_can_be_entered(self):
 
-        # Alice logs in
-        self.doLogin()
-        # import time; time.sleep(1)
-        # She goes directly to the first step of the form
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'mcat_1'}))
-        # import time; time.sleep(30)
-        # She enters some values for Key 1
-        self.findBy('name', 'mqg_01-0-original_mkey_01').send_keys('Foo')
+        # User logs in and goes to the SAMPLEMULTI edit page.
+        edit_page = SamplemultiNewPage(self)
+        edit_page.open(login=True)
 
-        # She submits the form and sees the values are in the overview
-        self.submit_form_step()
+        # User edits first category and enters some data.
+        edit_page.click_edit_category('mcat_1')
+        step_page = SamplemultiStepPage(self)
+        step_page.enter_text(step_page.LOC_QUESTION_MQG01_MKEY01, 'Foo')
 
-        self.findBy('xpath', '//*[text()[contains(.,"MKey 1")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        # User saves step.
+        step_page.submit_step()
 
-        # She submits the form and sees the values are in the details
-        self.review_action('submit')
+        # User sees the entered data is there.
+        edit_page.has_text('MKey 1')
+        edit_page.has_text('Foo')
 
-        self.findBy('xpath', '//*[text()[contains(.,"MKey 1")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        # User submits the questionnaire and sees the data is still there.
+        edit_page.submit_questionnaire()
+        edit_page.has_text('MKey 1')
+        edit_page.has_text('Foo')

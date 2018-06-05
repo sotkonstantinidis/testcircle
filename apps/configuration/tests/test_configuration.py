@@ -6,7 +6,6 @@ from configuration.configuration import (
     QuestionnaireSubcategory,
     QuestionnaireQuestiongroup,
     QuestionnaireQuestion,
-    QuestionnaireSection,
     validate_type,
 )
 from configuration.tests.test_models import get_valid_configuration_model
@@ -32,10 +31,9 @@ class QuestionnaireConfigurationTest(TestCase):
 
     @patch.object(QuestionnaireConfiguration, 'read_configuration')
     def test_QuestionnaireConfiguration_init_calls_read_configuration(
-            self, mock_QuestionnaireConfiguration_read_configuration):
+            self, mock_read_configuration):
         get_valid_questionnaire_configuration()
-        mock_QuestionnaireConfiguration_read_configuration.\
-            assert_called_once_with()
+        mock_read_configuration.assert_called_once_with()
 
 
 class QuestionnaireConfigurationGetListDataTest(TestCase):
@@ -49,8 +47,9 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         list_data = conf.get_list_data([q.data for q in questionnaires])
         self.assertEqual(len(list_data), 2)
         for d in list_data:
-            self.assertEqual(len(d), 1)
+            self.assertEqual(len(d), 3)  # keys: 'key_1', 'name', 'definition'
             self.assertIn('key_1', d)
+            self.assertIn('definition', d)
 
 
 class QuestionnaireConfigurationGeometryTest(TestCase):
@@ -71,153 +70,15 @@ class QuestionnaireConfigurationReadConfigurationTest(TestCase):
         with self.assertRaises(ConfigurationErrorNoConfigurationFound):
             conf.read_configuration()
 
-    @patch.object(QuestionnaireConfiguration, 'merge_configurations')
-    def test_calls_merge_configurations(
-            self, mock_Configuration_merge_configurations):
-        conf = get_valid_questionnaire_configuration()
-        conf_object = get_valid_configuration_model()
-        conf.configuration_object = conf_object
-        with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-            conf.read_configuration()
-        mock_Configuration_merge_configurations.assert_called_once_with(
-            conf, {}, conf_object.data)
-
-    @patch('configuration.configuration.validate_type')
-    @patch.object(QuestionnaireConfiguration, 'merge_configurations')
-    def test_calls_validate_type(
-            self, mock_Configuration_merge_configurations,
-            mock_validate_type):
-        conf = get_valid_questionnaire_configuration()
-        conf_object = get_valid_configuration_model()
-        conf.configuration_object = conf_object
-        # with self.assertRaises(ConfigurationErrorInvalidConfiguration):
-        conf.read_configuration()
-        mock_validate_type.assert_called_once_with(
-            mock_Configuration_merge_configurations.return_value.get(
-                'sections'),
-            list, 'sections', 'list of dicts', '-')
-
-
-class QuestionnaireConfigurationMergeConfigurationsTest(TestCase):
-
-    def setUp(self):
-        self.obj = Mock()
-        self.obj.name_children = 'sections'
-        self.obj.Child = QuestionnaireSection
-
     @patch('configuration.configuration.validate_type')
     def test_calls_validate_type(self, mock_validate_type):
-        QuestionnaireConfiguration.merge_configurations(self.obj, {}, {})
-        self.assertEqual(mock_validate_type.call_count, 3)
-
-    @patch('configuration.configuration.validate_type')
-    @patch.object(QuestionnaireSection, 'merge_configurations')
-    def test_calls_validate_type_base_categories(
-            self, mock_Category_merge_configurations, mock_validate_type):
-        QuestionnaireConfiguration.merge_configurations(
-            self.obj, {"sections": [{}]}, {})
-        self.assertEqual(mock_validate_type.call_count, 4)
-
-    def test_returns_dict(self):
-        base = {"sections": [{}]}
-        ret = QuestionnaireConfiguration.merge_configurations(
-            self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    def test_returns_base_dict(self):
-        base = {"sections": [{"foo": "bar"}]}
-        ret = QuestionnaireConfiguration.merge_configurations(
-            self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    def test_returns_base_dict_with_other_attributes(self):
-        base = {"sections": [{"foo": "bar"}], "links": [{"faz": "bar"}]}
-        ret = QuestionnaireConfiguration.merge_configurations(
-            self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    def test_returns_specific_dict_with_other_attributes(self):
-        specific = {"sections": [{"foo": "bar"}], "links": [{"faz": "bar"}]}
-        ret = QuestionnaireConfiguration.merge_configurations(
-            self.obj, {}, specific)
-        self.assertEqual(ret, specific)
-
-    @patch.object(QuestionnaireSection, 'merge_configurations')
-    def test_calls_category_merge_configurations(
-            self, mock_Category_merge_configurations):
-        base = {"sections": [{"foo": "bar"}]}
-        QuestionnaireConfiguration.merge_configurations(self.obj, base, {})
-        mock_Category_merge_configurations.assert_called_once_with(
-            self.obj.Child, {"foo": "bar"}, {})
-
-    def test_merges_with_base_empty(self):
-        base = {}
-        specific = {
-            "sections": [
-                {
-                    "categories": [
-                        {
-                            "keyword": "unccd_cat_1",
-                            "subcategories": [
-                                {
-                                    "keyword": "unccd_subcat_1_1",
-                                    "questiongroups": [
-                                        {
-                                            "questions": [
-                                                {
-                                                    "key": "unccd_key_1",
-                                                    "list_position": 1
-                                                }
-                                            ],
-                                            "keyword": "unccd_qg_1"
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-        conf = QuestionnaireConfiguration.merge_configurations(
-            self.obj, base, specific)
-        self.assertIn('sections', conf)
-        self.assertNotIn('categories', conf)
-        self.assertNotIn('subcategories', conf)
-        self.assertNotIn('questions', conf)
-        self.assertNotIn('questiongroups', conf)
-        self.assertEqual(len(conf['sections']), 1)
-        section = conf['sections'][0]
-        self.assertNotIn('sections', section)
-        self.assertIn('categories', section)
-        self.assertNotIn('subcategories', section)
-        self.assertNotIn('questions', section)
-        self.assertNotIn('questiongroups', section)
-        self.assertEqual(len(section['categories']), 1)
-        category = section['categories'][0]
-        self.assertIn('subcategories', category)
-        self.assertNotIn('questions', category)
-        self.assertNotIn('questiongroups', category)
-        self.assertIn('keyword', category)
-        self.assertEqual(len(category['subcategories']), 1)
-        subcategory = category['subcategories'][0]
-        self.assertIn('questiongroups', subcategory)
-        self.assertNotIn('questions', subcategory)
-        self.assertIn('keyword', subcategory)
-        questiongroups = subcategory['questiongroups']
-        self.assertEqual(len(questiongroups), 1)
-        self.assertIn('questions', questiongroups[0])
-        questions = questiongroups[0]['questions']
-        self.assertEqual(len(questions), 1)
-
-    def test_appends_specific(self):
-        base = {"sections": [{"keyword": "foo", "subcategories": []}]}
-        specific = {"sections": [{"keyword": "bar", "subcategories": []}]}
-        conf = QuestionnaireConfiguration.merge_configurations(
-            self.obj, base, specific)
-        self.assertEqual(len(conf['sections']), 2)
-        for cat in conf['sections']:
-            self.assertIn(cat['keyword'], ['foo', 'bar'])
+        conf = get_valid_questionnaire_configuration()
+        conf_object = get_valid_configuration_model()
+        conf.configuration_object = conf_object
+        conf.read_configuration()
+        mock_validate_type.assert_called_once_with(
+            conf_object.data.get('sections'),
+            list, 'sections', 'list of dicts', '-')
 
 
 class QuestionnaireCategoryTest(TestCase):
@@ -264,55 +125,6 @@ class QuestionnaireCategoryTest(TestCase):
         }
         with self.assertRaises(ConfigurationErrorInvalidConfiguration):
             QuestionnaireCategory(self.configuration, configuration_dict)
-
-
-class QuestionnaireCategoryMergeConfigurationsTest(TestCase):
-
-    def setUp(self):
-        self.obj = Mock()
-        self.obj.name_children = 'subcategories'
-        self.obj.Child = QuestionnaireSubcategory
-
-    @patch('configuration.configuration.validate_type')
-    def test_calls_validate_type(self, mock_validate_type):
-        QuestionnaireCategory.merge_configurations(self.obj, {}, {})
-        self.assertEqual(mock_validate_type.call_count, 3)
-
-    @patch('configuration.configuration.validate_type')
-    @patch.object(QuestionnaireSubcategory, 'merge_configurations')
-    def test_calls_validate_type_base_categories(
-            self, mock_Category_merge_configurations, mock_validate_type):
-        QuestionnaireCategory.merge_configurations(
-            self.obj, {"subcategories": [{}]}, {})
-        self.assertEqual(mock_validate_type.call_count, 4)
-
-    def test_returns_dict(self):
-        base = {"subcategories": [{}]}
-        ret = QuestionnaireCategory.merge_configurations(self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    def test_returns_base_dict(self):
-        base = {"subcategories": [{"foo": "bar"}]}
-        ret = QuestionnaireCategory.merge_configurations(self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    @patch.object(QuestionnaireSubcategory, 'merge_configurations')
-    def test_calls_category_merge_configurations(
-            self, mock_Category_merge_configurations):
-        base = {"subcategories": [{"foo": "bar"}]}
-        QuestionnaireCategory.merge_configurations(self.obj, base, {})
-        mock_Category_merge_configurations.assert_called_once_with(
-            self.obj.Child, {"foo": "bar"}, {})
-
-    def test_appends_specific(self):
-        base = {"subcategories": [{"keyword": "foo", "questiongroups": []}]}
-        specific = {
-            "subcategories": [{"keyword": "bar", "questiongroups": []}]}
-        conf = QuestionnaireCategory.merge_configurations(
-            self.obj, base, specific)
-        self.assertEqual(len(conf['subcategories']), 2)
-        for cat in conf['subcategories']:
-            self.assertIn(cat['keyword'], ['foo', 'bar'])
 
 
 class QuestionnaireSubcategoryTest(TestCase):
@@ -442,100 +254,6 @@ class QuestionnaireQuestiongroupTest(TestCase):
             QuestionnaireQuestiongroup(self.subcategory, configuration_dict)
 
 
-class QuestionnaireQuestiongroupMergeConfigurationsTest(TestCase):
-
-    def setUp(self):
-        self.obj = Mock()
-        self.obj.name_children = 'questions'
-        self.obj.Child = QuestionnaireQuestion
-
-    @patch('configuration.configuration.validate_type')
-    def test_calls_validate_type(self, mock_validate_type):
-        QuestionnaireQuestiongroup.merge_configurations(self.obj, {}, {})
-        self.assertEqual(mock_validate_type.call_count, 3)
-
-    @patch('configuration.configuration.validate_type')
-    def test_calls_validate_type_base_categories(
-            self, mock_validate_type):
-        QuestionnaireQuestiongroup.merge_configurations(
-            self.obj, {"questions": [{}]}, {})
-        self.assertEqual(mock_validate_type.call_count, 7)
-
-    def test_returns_dict(self):
-        base = {"questions": [{}]}
-        ret = QuestionnaireQuestiongroup.merge_configurations(
-            self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    def test_returns_base_dict(self):
-        base = {"questions": [{"foo": "bar"}]}
-        ret = QuestionnaireQuestiongroup.merge_configurations(
-            self.obj, base, {})
-        self.assertEqual(ret, base)
-
-    def test_merge_configurations_merges_questions(self):
-        base = {
-            "questions": [
-                {
-                    "keyword": "bar_1"
-                }, {
-                    "keyword": "bar_2"
-                }
-            ]
-        }
-        specific = {
-            "questions": [
-                {
-                    "keyword": "bar_3"
-                }
-            ]
-        }
-        merged = QuestionnaireQuestiongroup.merge_configurations(
-            self.obj, base, specific)
-        self.assertEqual(len(merged.get('questions', [])), 3)
-
-    def test_merge_configurations_merges_question_if_base_empty(self):
-        base = {}
-        specific = {
-            "questions": [
-                {
-                    "keyword": "bar_1"
-                }, {
-                    "keyword": "bar_2"
-                }
-            ]
-        }
-        merged = QuestionnaireQuestiongroup.merge_configurations(
-            self.obj, base, specific)
-        self.assertEqual(len(merged.get('questions', [])), 2)
-
-    def test_merge_configurations_overwrites_existing_question(self):
-        base = {
-            "questions": [
-                {
-                    "keyword": "foo",
-                    "foo": "bar_1"
-                }, {
-                    "keyword": "bar"
-                }
-            ]
-        }
-        specific = {
-            "questions": [
-                {
-                    "keyword": "foo",
-                    "foo": "bar_2"
-                }
-            ]
-        }
-        merged = QuestionnaireQuestiongroup.merge_configurations(
-            self.obj, base, specific)
-        self.assertEqual(len(merged.get('questions', [])), 2)
-        for q in merged.get('questions', []):
-            if q.get('keyword') == 'foo':
-                self.assertEqual(q.get('foo'), 'bar_2')
-
-
 class QuestionnaireQuestionTest(TestCase):
 
     fixtures = ['sample.json']
@@ -635,55 +353,6 @@ class QuestionnaireQuestionTest(TestCase):
                     'keyword': 'key_16',
                     'form_options': {
                         'questiongroup_conditions': [qg_condition]}})
-
-
-class BaseConfigurationObjectMergeConfigurationTest(TestCase):
-
-    @patch('configuration.configuration.validate_type')
-    def test_calls_validate_type(self, mock_validate_type):
-        conf = get_valid_questionnaire_configuration()
-        mock = Mock()
-        conf.merge_configurations(mock, {"foo": "base"}, {"foo": "specific"})
-        self.assertEqual(mock_validate_type.call_count, 3)
-        # mock_validate_type.assert_any_call(
-        #     {"foo": "base"}, dict, mock.name_current, dict, mock.name_parent)
-        mock_validate_type.assert_any_call(
-            {"foo": "specific"}, dict, mock.name_current, dict,
-            mock.name_parent)
-        mock_validate_type.assert_any_call(
-            [], list, mock.name_children, list, mock.name_current)
-
-    @patch('configuration.configuration.validate_type')
-    def test_calls_validate_type_with_children(self, mock_validate_type):
-        conf = get_valid_questionnaire_configuration()
-        mock = Mock()
-        mock.name_children = 'foo'
-        conf.merge_configurations(
-            mock, {"foo": [{"bar": "faz"}]}, {"foo": [{"bar": "fuz"}]})
-        self.assertEqual(mock_validate_type.call_count, 4)
-        # mock_validate_type.assert_any_call(
-        #     {"foo": [{"bar": "faz"}]}, dict, mock.name_current, dict,
-        #     mock.name_parent)
-        mock_validate_type.assert_any_call(
-            {"foo": [{"bar": "fuz"}]}, dict, mock.name_current, dict,
-            mock.name_parent)
-        mock_validate_type.assert_any_call(
-            [{"bar": "faz"}], list, mock.name_children, list,
-            mock.name_current)
-        mock_validate_type.assert_any_call(
-            [{"bar": "fuz"}], list, mock.name_children, list,
-            mock.name_current)
-
-    def test_calls_merge_configuration_of_child_obj(self):
-        conf = get_valid_questionnaire_configuration()
-        mock_child = Mock()
-        mock = Mock()
-        mock.name_children = 'foo'
-        mock.Child = mock_child
-        conf.merge_configurations(
-            mock, {"foo": [{"bar": "faz"}]}, {"foo": [{"bar": "fuz"}]})
-        mock.Child.merge_configurations.assert_called_once_with(
-            mock.Child, {'bar': 'faz'}, {})
 
 
 class BaseConfigurationObjectValidateOptions(TestCase):

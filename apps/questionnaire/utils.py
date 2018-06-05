@@ -15,13 +15,10 @@ from django.utils.translation import ugettext as _, get_language
 from accounts.client import remote_user_client
 from accounts.models import User
 from configuration.cache import get_configuration
-from configuration.configuration import (
-    QuestionnaireQuestion,
-)
-from configuration.utils import (
-    ConfigurationList,
-    get_configuration_query_filter,
-    get_choices_from_model, get_choices_from_questiongroups)
+from configuration.configuration import QuestionnaireQuestion, \
+    QuestionnaireConfiguration
+from configuration.utils import get_configuration_query_filter, \
+    get_choices_from_model, get_choices_from_questiongroups
 from qcat.errors import QuestionnaireFormatError
 from questionnaire.errors import QuestionnaireLockedException
 from questionnaire.receivers import prevent_updates_on_published_items
@@ -345,8 +342,8 @@ def clean_questionnaire_data(
                     questiongroups = question.form_options.get(
                         'options_by_questiongroups', [])
                     question.choices = get_choices_from_questiongroups(
-                        cleaned_data, questiongroups,
-                        configuration.configuration_keyword)
+                        cleaned_data, questiongroups, configuration.keyword,
+                        configuration.edition)
 
                     if value in [c[0] for c in question.choices]:
                         # Only copy values which are valid options.
@@ -585,7 +582,9 @@ def get_questiongroup_data_from_translation_form(
     return questiongroup_data_cleaned
 
 
-def get_active_filters(questionnaire_configuration, query_dict):
+def get_active_filters(
+        questionnaire_configuration: QuestionnaireConfiguration,
+        query_dict: dict) -> list:
     """
     Get the currently active filters based on the query dict (eg. from
     the request). Only valid filters (correct format, based on
@@ -825,12 +824,13 @@ def get_link_data(linked_objects, link_configuration_code=None):
               ]
             }
     """
-    configuration_list = ConfigurationList()
     links = {}
     for link in linked_objects:
         if link_configuration_code is None:
-            link_configuration_code = link.configurations.first().code
-        link_configuration = configuration_list.get(link_configuration_code)
+            link_configuration_code = link.configuration.code
+        link_configuration = get_configuration(
+            code=link_configuration_code,
+            edition=link.configuration.edition)
 
         name_data = link_configuration.get_questionnaire_name(link.data)
         try:
@@ -838,11 +838,6 @@ def get_link_data(linked_objects, link_configuration_code=None):
         except AttributeError:
             original_lang = None
         name = name_data.get(get_language(), name_data.get(original_lang, ''))
-
-        configuration = 'unknown'
-        original_configuration = link.get_original_configuration()
-        if original_configuration:
-            configuration = original_configuration.code
 
         link_list = links.get(link_configuration_code, [])
 
@@ -855,7 +850,7 @@ def get_link_data(linked_objects, link_configuration_code=None):
             'code': link.code,
             'name': name,
             'link': get_link_display(link_configuration_code, name, link.code),
-            'configuration': configuration,
+            'configuration': link.configuration.code,
         })
         links[link_configuration_code] = link_list
 
@@ -1119,13 +1114,8 @@ def get_list_values(
         # Results from Elasticsearch. List values are already available.
         if result.get('_source'):
 
-            if configuration_code and configuration_code != 'wocat':
-                config = get_configuration(configuration_code)
-            else:
-                config = None
-
             serializer = QuestionnaireSerializer(
-                data=result['_source'], config=config
+                data=result['_source']
             )
 
             if serializer.is_valid():
@@ -1134,34 +1124,18 @@ def get_list_values(
             else:
                 logger.warning('Invalid data on the serializer: {}'.format(serializer.errors))
 
-    configuration_list = ConfigurationList()
     for obj in questionnaire_objects:
         # Results from database query. List values have to be retrieved
         # through the configuration of the questionnaires.
-
-        # Fall back to the original configuration if viewed from "wocat"
-        # or no configuration selected
-        if configuration_code is None or configuration_code == 'wocat':
-            configuration_object = obj.configurations.first()
-            if configuration_object is not None:
-                current_configuration_code = configuration_object.code
-            else:
-                current_configuration_code = 'technologies'
-        else:
-            current_configuration_code = configuration_code
-
-        questionnaire_config = configuration_list.get(
-            current_configuration_code)
-
         template_value = {
-            'list_data': questionnaire_config.get_list_data([obj.data])[0]
+            'list_data': obj.configuration_object.get_list_data([obj.data])[0]
         }
 
         metadata = obj.get_metadata()
         template_value.update(metadata)
 
         template_value = prepare_list_values(
-            data=template_value, config=questionnaire_config,
+            data=template_value, config=obj.configuration_object,
             lang=get_language()
         )
 
@@ -1326,7 +1300,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         for previous_object in previously_public:
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
-            delete_questionnaires_from_es(configuration_code, [previous_object])
+            delete_questionnaires_from_es([previous_object])
             change_status.send(
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
@@ -1352,8 +1326,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             else:
                 return
 
-        added, errors = put_questionnaire_data(
-            configuration_code, [questionnaire_object])
+        added, errors = put_questionnaire_data([questionnaire_object])
 
         # It is important to also put the data of the linked
         # questionnaires so changes (eg. name change) appear in their
@@ -1363,15 +1336,13 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         links_by_configuration = {}
         for link in questionnaire_object.links.filter(
                 status=settings.QUESTIONNAIRE_PUBLIC):
-            configuration_object = link.configurations.first()
-            if configuration_object is None:
-                continue
+            configuration_object = link.configuration
             if configuration_object.code not in links_by_configuration:
                 links_by_configuration[configuration_object.code] = []
             links_by_configuration[configuration_object.code].append(link)
 
         for link_configuration, links in links_by_configuration.items():
-            added, errors = put_questionnaire_data(link_configuration, links)
+            added, errors = put_questionnaire_data(links)
 
         messages.success(
             request, _('The questionnaire was successfully set public.'))
@@ -1605,10 +1576,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # Re-add the questionnaire to ES if it was public
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
-            delete_questionnaires_from_es(
-                configuration_code, [questionnaire_object])
-            added, errors = put_questionnaire_data(
-                configuration_code, [questionnaire_object])
+            delete_questionnaires_from_es([questionnaire_object])
+            added, errors = put_questionnaire_data([questionnaire_object])
 
         messages.success(request, 'Compiler was changed successfully')
 
@@ -1641,7 +1610,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # First, create a new Questionnaire version
         compiler = questionnaire_object.get_users_by_role('compiler')[0]
-        configuration = questionnaire_object.configurations.first()
+        configuration = questionnaire_object.configuration
         next_status = settings.QUESTIONNAIRE_REVIEWED
         new_version = Questionnaire.create_new(
             configuration.code, questionnaire_object.data, compiler,
@@ -1687,7 +1656,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
         # First, create a new Questionnaire version
         compiler = questionnaire_object.get_users_by_role('compiler')[0]
-        configuration = questionnaire_object.configurations.first()
+        configuration = questionnaire_object.configuration
         next_status = settings.QUESTIONNAIRE_REVIEWED
         new_version = Questionnaire.create_new(
             configuration.code, questionnaire_object.data, compiler,
@@ -1718,8 +1687,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         questionnaire_object.is_deleted = True
         questionnaire_object.save()
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
-            delete_questionnaires_from_es(
-                configuration_code, [questionnaire_object])
+            delete_questionnaires_from_es([questionnaire_object])
             pre_save.connect(
                 prevent_updates_on_published_items, sender=Questionnaire)
         messages.success(request, _('The questionnaire was succesfully removed'))
@@ -1830,10 +1798,5 @@ def prepare_list_values(data, config, **kwargs):
         data['translations'] = translations
 
     data['configuration'] = config.keyword
-    # dict key is suffixed with _property when called from the serializer.
-    data['native_configuration'] = (
-        config.keyword in data.get('configurations_property',
-                                   data.get('configurations'))
-    )
-
+    data['has_new_configuration_edition'] = config.has_new_edition
     return data

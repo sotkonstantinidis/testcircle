@@ -2,14 +2,10 @@ from django.conf import settings
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import reindex, bulk
 
-from configuration.models import Configuration
-from configuration.utils import ConfigurationList
+from configuration.configuration import QuestionnaireConfiguration
 from questionnaire.models import Questionnaire
 from questionnaire.serializers import QuestionnaireSerializer
-from .utils import (
-    get_analyzer,
-    get_alias,
-    force_strings)
+from .utils import get_analyzer, get_alias, force_strings, ElasticsearchAlias
 
 
 def get_elasticsearch():
@@ -23,10 +19,11 @@ def get_elasticsearch():
     return Elasticsearch(
         [{'host': settings.ES_HOST, 'port': settings.ES_PORT}])
 
+
 es = get_elasticsearch()
 
 
-def get_mappings(questionnaire_configuration):
+def get_mappings():
     """
     Return the mappings of the questiongroups of a Questionnaire. This
     is used to identify the types of fields, making it possible to query
@@ -45,38 +42,9 @@ def get_mappings(questionnaire_configuration):
     """
     language_codes = [l[0] for l in settings.LANGUAGES]
 
-    data_properties = {}
-    for questiongroup in questionnaire_configuration.get_questiongroups():
-        qg_properties = {}
-        for question in questiongroup.questions:
-            if question.field_type in ['char', 'text']:
-                q_properties = {}
-                for language_code in language_codes:
-                    q = {
-                        'type': 'string',
-                    }
-                    analyzer = get_analyzer(language_code)
-                    if analyzer:
-                        q.update({
-                            'analyzer': analyzer,
-                        })
-                    q_properties[language_code] = q
-                qg_properties[question.keyword] = {
-                    'properties': q_properties,
-                }
-            elif question.field_type in ['checkbox', 'select_type']:
-                qg_properties[question.keyword] = {'type': 'string'}
-            elif question.field_type in ['date']:
-                qg_properties[question.keyword] = {'type': 'string'}
-
-        data_properties[questiongroup.keyword] = {
-            'type': 'nested',
-            'properties': qg_properties,
-        }
-
     name_properties = {}
     for language_code in language_codes:
-        q = {'type': 'string'}
+        q = {'type': 'text'}
         analyzer = get_analyzer(language_code)
         if analyzer:
             q.update({'analyzer': analyzer})
@@ -85,14 +53,14 @@ def get_mappings(questionnaire_configuration):
     multilanguage_string_properties = {}
     for language_code in language_codes:
         multilanguage_string_properties[language_code] = {
-            'type': 'string'
+            'type': 'text'
         }
     link_structure = {
         'code': {
-            'type': 'string',
+            'type': 'text',
         },
         'configuration': {
-            'type': 'string',
+            'type': 'text',
         },
         'name': {
             'properties': multilanguage_string_properties,
@@ -102,27 +70,9 @@ def get_mappings(questionnaire_configuration):
         }
     }
 
-    # Add the global questiongroups to the mapping if they are not already part
-    # of it. This is needed to prevent crashes when filtering (nested) by these
-    # questiongroups in configurations that do not have these questiongroups
-    # (e.g. UNCCD configuration).
-    for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
-        if global_questiongroup not in data_properties.keys():
-            properties = {}
-            for global_filter in settings.QUESTIONNAIRE_GLOBAL_FILTERS:
-                if global_filter[0] == global_questiongroup:
-                    properties = {global_filter[1]: {'type': 'string'}}
-            data_properties[global_questiongroup] = {
-                'type': 'nested',
-                'properties': properties,
-            }
-
     mappings = {
         'questionnaire': {
             'properties': {
-                'data': {
-                    'properties': data_properties,
-                },
                 'created': {
                     'type': 'date'
                 },
@@ -130,13 +80,13 @@ def get_mappings(questionnaire_configuration):
                     'type': 'date'
                 },
                 'translations': {
-                    'type': 'string'
+                    'type': 'text'
                 },
                 'configurations': {
-                    'type': 'string'
+                    'type': 'text'
                 },
                 'code': {
-                    'type': 'string'
+                    'type': 'text'
                 },
                 'name': {
                     'properties': name_properties
@@ -148,7 +98,7 @@ def get_mappings(questionnaire_configuration):
                             'type': 'integer',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -159,7 +109,7 @@ def get_mappings(questionnaire_configuration):
                             'type': 'integer',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -170,7 +120,7 @@ def get_mappings(questionnaire_configuration):
                             'type': 'integer',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
@@ -182,14 +132,15 @@ def get_mappings(questionnaire_configuration):
                     'type': 'nested',
                     'properties': {
                         'flag': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                         'name': {
-                            'type': 'string',
+                            'type': 'text',
                         },
                     }
                 },
                 # 'list_data' is added dynamically
+                # 'filter_data' is added dynamically (automatic mapping)
             }
         }
     }
@@ -197,7 +148,7 @@ def get_mappings(questionnaire_configuration):
     return mappings
 
 
-def create_or_update_index(configuration_code, mappings):
+def create_or_update_index(configuration: QuestionnaireConfiguration, mappings: dict) -> tuple:
     """
     Create or update an index for a configuration.
 
@@ -240,7 +191,10 @@ def create_or_update_index(configuration_code, mappings):
             'index': {
                 'mapping': {
                     'nested_fields': {
-                        'limit': settings.ES_NESTED_FIELDS_LIMIT
+                        'limit': settings.ES_NESTED_FIELDS_LIMIT,
+                    },
+                    'total_fields': {
+                        'limit': 6000
                     }
                 }
             }
@@ -248,7 +202,7 @@ def create_or_update_index(configuration_code, mappings):
     }
 
     # Check if there is already an alias pointing to the index.
-    alias = get_alias([configuration_code])
+    alias = get_alias(ElasticsearchAlias.from_configuration(configuration=configuration))
     alias_exists = es.indices.exists_alias(name=alias)
 
     if alias_exists is not True:
@@ -302,7 +256,7 @@ def create_or_update_index(configuration_code, mappings):
     return True, logs, ''
 
 
-def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
+def put_questionnaire_data(questionnaire_objects, **kwargs):
     """
     Add a list of documents to the index. New documents will be created,
     existing documents will be updated.
@@ -319,44 +273,51 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
 
         ``list``. A list of errors occurred.
     """
-    config_list = ConfigurationList()
-    questionnaire_configuration = config_list.get(configuration_code)
-    alias = get_alias([configuration_code])
-
-    # Before looping through the objects, prepare a list of all (checkbox)
-    # values which are ordered
-    ordered_filter_values = []
-    for filter_key in questionnaire_configuration.get_filter_keys():
-        if filter_key.filter_type not in [
-                'checkbox', 'image_checkbox', 'select_type', 'select_model',
-                'radio', 'bool']:
-            continue
-
-        filter_question = questionnaire_configuration.get_question_by_keyword(
-            filter_key.questiongroup, filter_key.key)
-        if filter_question is None:
-            continue
-
-        values = [(v.order_value, v.keyword) for v in
-                  filter_question.value_objects]
-        ordered_values = sorted(values, key=lambda v: v[0])
-
-        ordered_filter_values.append(
-            (filter_key.questiongroup, filter_key.key, ordered_values))
+    refresh_aliases = set()
 
     actions = []
     for obj in questionnaire_objects:
-        serialized = QuestionnaireSerializer(
-            obj, config=questionnaire_configuration
-        ).data
+
+        alias = get_alias(
+            ElasticsearchAlias.from_configuration(configuration=obj.configuration_object)
+        )
+        refresh_aliases.add(alias)
+
+        serialized = QuestionnaireSerializer(instance=obj).data
 
         # The serializer calls a method (get_list_data) on the configuration
         # object, which returns values that are prepared to be presented on the
         # frontend and include lazy translation objects. Cast them to strings.
         serialized['list_data'] = force_strings(serialized['list_data'])
 
+        # The country field is used as default order of the list and needs to be
+        # set in the ES data. Set it manually if not available (usually only
+        # when using test data of the sample app).
+        if 'country' not in serialized['list_data']:
+            serialized['list_data']['country'] = ''
+
+        # Collect the filter values as specified in the configuration
+        # Global filter keys first
+        filter_paths = [
+            (f'{qg}__{key}', key, qg)
+            for qg, key in settings.QUESTIONNAIRE_GLOBAL_FILTER_PATHS]
+        # Extend with specific filter keys for this configuration.
+        filter_paths.extend([
+            (filter_key.path, filter_key.key, filter_key.questiongroup)
+            for filter_key in obj.configuration_object.get_filter_keys()])
+
+        filter_data = {}
+        for path, key, questiongroup in filter_paths:
+            q_data = [
+                qg_data.get(key) for qg_data in obj.data.get(questiongroup, [])]
+            # Remove None values and add only if not empty.
+            q_data = [v for v in q_data if v is not None]
+            if q_data:
+                filter_data[path] = q_data
+        serialized['filter_data'] = filter_data
+
         # Add ordered values to document data
-        for ordered_filter in ordered_filter_values:
+        for ordered_filter in get_ordered_filter_values(obj.configuration_object):
             ordered_qg_data = serialized.get(
                 'data', {}).get(ordered_filter[0], [])
 
@@ -376,41 +337,59 @@ def put_questionnaire_data(configuration_code, questionnaire_objects, **kwargs):
 
     actions_executed, errors = bulk(es, actions, **kwargs)
 
-    es.indices.refresh(index=alias)
+    es.indices.refresh(index=','.join(refresh_aliases))
     return actions_executed, errors
+
+
+def get_ordered_filter_values(configuration: QuestionnaireConfiguration) -> list:
+    """
+    Get a list of all (checkbox) values which are ordered. This (may) be used for filters (?).
+    """
+    ordered_filter_values = []
+    for filter_key in configuration.get_filter_keys():
+        if filter_key.filter_type not in [
+                'checkbox', 'image_checkbox', 'select_type', 'select_model',
+                'radio', 'bool']:
+            continue
+
+        filter_question = configuration.get_question_by_keyword(
+            filter_key.questiongroup, filter_key.key)
+        if filter_question is None:
+            continue
+
+        values = [(v.order_value, v.keyword) for v in
+                  filter_question.value_objects]
+        ordered_values = sorted(values, key=lambda v: v[0])
+
+        ordered_filter_values.append((filter_key.questiongroup, filter_key.key, ordered_values))
+
+    return ordered_filter_values
 
 
 def put_all_data():
     """
     Put data from all configurations to the es index.
     """
-    configurations = Configuration.objects.filter(active=True)
-    for configuration in configurations:
-        questionnaires = Questionnaire.with_status.public().filter(
-            configurations=configuration
-        )
-        if questionnaires.exists():
-            put_questionnaire_data(
-                configuration_code=configuration.code,
-                questionnaire_objects=questionnaires,
-                request_timeout=60
-            )
+    put_questionnaire_data(
+        questionnaire_objects=Questionnaire.with_status.public(),
+        request_timeout=60
+    )
 
 
-def delete_questionnaires_from_es(configuration_code, questionnaire_objects):
+def delete_questionnaires_from_es(questionnaire_objects):
     """
     Remove specific Questionnaires from the index.
 
     Args:
-        ``configuration_code`` (str): The code of the Questionnaire
-        configuration corresponding to the data.
-
         ``questionnaire_objects`` (list): A list (queryset) of
         :class:`questionnaire.models.Questionnaire` objects to be
         removed.
     """
-    alias = get_alias([configuration_code])
+
     for questionnaire in questionnaire_objects:
+        alias = get_alias(
+            ElasticsearchAlias.from_configuration(configuration=questionnaire.configuration_object)
+        )
         try:
             es.delete(
                 index=alias, doc_type='questionnaire', id=questionnaire.id)
@@ -418,7 +397,7 @@ def delete_questionnaires_from_es(configuration_code, questionnaire_objects):
             pass
 
 
-def delete_all_indices():
+def delete_all_indices(prefix=settings.ES_INDEX_PREFIX):
     """
     Delete all the indices starting with the prefix as specified in the
     settings (``ES_INDEX_PREFIX``).
@@ -430,9 +409,9 @@ def delete_all_indices():
         ``str``. An optional error message if the operation was not
         successful.
     """
-    deleted = es.indices.delete(index='{}*'.format(settings.ES_INDEX_PREFIX))
+    deleted = es.indices.delete(index=f'{prefix}*')
     if deleted.get('acknowledged') is not True:
-        return (False, 'Indices could not be deleted')
+        return False, 'Indices could not be deleted'
 
     return True, ''
 
@@ -451,10 +430,9 @@ def delete_single_index(index):
         ``str``. An optional error message if the operation was not
         successful.
     """
-    deleted = es.indices.delete(
-        index='{}{}'.format(settings.ES_INDEX_PREFIX, index), ignore=[404])
+    deleted = es.indices.delete(index=index, ignore=[404])
     if deleted.get('acknowledged') is not True:
-        return (False, 'Index could not be deleted')
+        return False, 'Index could not be deleted'
 
     return True, ''
 

@@ -1,3 +1,5 @@
+import contextlib
+
 import collections
 import datetime
 
@@ -99,6 +101,7 @@ class BaseConfigurationObject(object):
             raise Exception('Unknown instance')
 
         self.configuration_keyword = parent_object.configuration_keyword
+        self.edition = parent_object.edition
         self.parent_object = parent_object
 
         self.helptext = ''
@@ -106,17 +109,22 @@ class BaseConfigurationObject(object):
         self.label_view = ''
         translation = self.configuration_object.translation
         if translation:
+            translation_kwargs = dict(configuration=self.configuration_keyword, edition=self.edition)
             self.helptext = translation.get_translation(
-                'helptext', self.configuration_keyword)
+                keyword='helptext', **translation_kwargs
+            )
             self.label = translation.get_translation(
-                'label', self.configuration_keyword)
+                keyword='label', **translation_kwargs
+            )
             self.label_view = translation.get_translation(
-                'label_view', self.configuration_keyword)
+                keyword='label_view', **translation_kwargs
+            )
             if self.label_view is None:
                 self.label_view = self.label
             if isinstance(self, QuestionnaireQuestion):
                 self.label_filter = translation.get_translation(
-                    'label_filter', self.configuration_keyword)
+                    keyword='label_filter', **translation_kwargs
+                )
                 if self.label_filter is None:
                     self.label_filter = self.label_view
 
@@ -146,74 +154,6 @@ class BaseConfigurationObject(object):
         if len(invalid_options) > 0:
             raise ConfigurationErrorInvalidOption(
                 invalid_options[0], self.configuration, self)
-
-    @staticmethod
-    def merge_configurations(obj, base_configuration, specific_configuration):
-        """
-        Merges two configuration dicts into a single one. The base
-        configuration is extended by the specific configuration.
-
-        Children are identified by their keyword and merged. The merging
-        of the children is handled by the respective class.
-
-        Args:
-            ``obj`` (BaseConfigurationObject): A configuration object.
-
-            ``base_configuration`` (dict): The base configuration on which the
-            specific configuration is based.
-
-            ``specific_configuration`` (dict): The specific configuration
-            extending the base configuration.
-
-        Returns:
-            ``dict``. The merged configuration.
-        """
-        validate_type(
-            base_configuration, dict, obj.name_current, dict, obj.name_parent)
-        validate_type(
-            specific_configuration, dict, obj.name_current, dict,
-            obj.name_parent)
-
-        merged_children = []
-        base_children = base_configuration.get(obj.name_children, [])
-        specific_children = specific_configuration.get(obj.name_children, [])
-
-        if base_children:
-            validate_type(
-                base_children, list, obj.name_children, list, obj.name_current)
-        validate_type(
-            specific_children, list, obj.name_children, list, obj.name_current)
-
-        # Collect all base configurations and find eventual specific
-        # configurations for these children
-        for base_child in base_children:
-            specific_child = find_dict_in_list(
-                specific_children, 'keyword', base_child.get('keyword'))
-            merged_children.append(
-                obj.Child.merge_configurations(
-                    obj.Child, base_child.copy(), specific_child.copy()))
-
-        # Collect all specific configurations which are not part of the
-        # base children
-        for specific_child in specific_children:
-            base_child = find_dict_in_list(
-                base_children, 'keyword', specific_child.get('keyword'))
-            if not base_child:
-                merged_children.append(specific_child.copy())
-
-        # Collect all remaining attributes of specific, except the
-        # children which are already copied.
-        for specific_key, specific_value in specific_configuration.items():
-            if specific_key == obj.name_children:
-                continue
-            base_configuration[specific_key] = specific_value
-
-        if obj.name_children:
-            base_configuration[obj.name_children] = merged_children
-        else:
-            base_configuration.update(specific_configuration)
-
-        return base_configuration
 
 
 class QuestionnaireQuestion(BaseConfigurationObject):
@@ -373,6 +313,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         self.choices = ()
         self.choices_helptexts = []
         self.value_objects = []
+        translation_kwargs = dict(configuration=self.configuration_keyword, edition=self.edition)
+
         if self.field_type in ['bool']:
             self.choices = ((1, _('Yes')), (0, _('No')))
         elif self.field_type in ['cb_bool']:
@@ -394,15 +336,17 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 if v.order_value:
                     ordered_values = True
                 if self.field_type in ['measure']:
-                    choices.append((i + 1, v.get_translation(
-                        'label', self.configuration_keyword),
-                        v.get_translation(
-                            'helptext', self.configuration_keyword)))
+                    choices.append((
+                        i + 1,
+                        v.get_translation(keyword='label', **translation_kwargs),
+                        v.get_translation(keyword='helptext', **translation_kwargs)
+                    ))
                 else:
-                    choices.append((v.keyword, v.get_translation(
-                        'label', self.configuration_keyword),
-                        v.get_translation(
-                            'helptext', self.configuration_keyword)))
+                    choices.append((
+                        v.keyword,
+                        v.get_translation(keyword='label', **translation_kwargs),
+                        v.get_translation(keyword='helptext', **translation_kwargs)
+                    ))
                 if self.field_type in ['image_checkbox']:
                     self.images.append('{}{}'.format(
                         self.value_image_path,
@@ -419,9 +363,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         if self.field_type in ['measure']:
             translation = self.configuration_object.translation
             label_left = translation.get_translation(
-                'label_left', self.configuration_keyword)
+                keyword='label_left', **translation_kwargs
+            )
             label_right = translation.get_translation(
-                'label_right', self.configuration_keyword)
+                keyword='label_right', **translation_kwargs
+            )
             self.additional_translations.update(
                 {'label_left': label_left, 'label_right': label_right})
 
@@ -582,6 +528,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             )
 
         attrs.update(self.form_options.get('field_options', {}))
+        attrs.update({
+            'conditional': self.conditional,
+            'questiongroup_conditions': ','.join(
+                self.questiongroup_conditions)
+        })
 
         # Disable inherited questions.
         if self.parent_object.inherited_configuration:
@@ -752,7 +703,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'options_by_questiongroups', [])
             widget.options_order = questiongroups
             choices.extend(get_choices_from_questiongroups(
-                questionnaire_data, questiongroups, self.configuration_keyword))
+                questionnaire_data, questiongroups, self.configuration_keyword,
+                self.edition))
             field = ConditionalQuestiongroupChoiceField(
                 label=self.label, widget=widget, choices=choices,
                 required=self.required, question=self)
@@ -814,7 +766,8 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if questionnaire_object:
                 questionnaire_data = questionnaire_object.data
             self.choices = get_choices_from_questiongroups(
-                questionnaire_data, questiongroups, self.configuration_keyword)
+                questionnaire_data, questiongroups, self.configuration_keyword,
+                self.edition)
         if self.field_type in [
                 'bool', 'measure', 'checkbox', 'image_checkbox',
                 'select_type', 'select', 'cb_bool', 'radio',
@@ -1213,7 +1166,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             'min_num': self.min_num,
             'extra': 0,
             'validate_max': True,
-            'validate_min': True,
+            'validate_min': False,
         }
 
         if self.required is True:
@@ -1972,6 +1925,10 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
         categories_with_content = self.get_subcategories()
 
+        history = []
+        if questionnaire_object is not None:
+            history = questionnaire_object.get_previous_public_versions()
+
         return render_to_string(
             view_template, {
                 'subcategories': rendered_subcategories,
@@ -1995,11 +1952,8 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 'has_changes': has_changes,
                 'review_config': review_config,
                 'user': user,
-                'notifications_href': Log.actions.get_url_for_questionnaire(
-                    user=user,
-                    questionnaire_code=questionnaire_object.code if questionnaire_object else None
-                ),
                 'completeness_percentage': completeness_percentage,
+                'history': history,
             })
 
     def get_raw_category_data(self, questionnaire_data):
@@ -2201,8 +2155,14 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         self.inherited_data = {}
         self.configuration_object = configuration_object
         if self.configuration_object is None:
-            self.configuration_object = Configuration.get_active_by_code(
-                self.keyword)
+            # read_configuration will handle errors if it does not exist
+            with contextlib.suppress(Configuration.DoesNotExist):
+                self.configuration_object = Configuration.latest_by_code(
+                    keyword)
+        # Also store edition for easier access
+        self.edition = None
+        if self.configuration_object:
+            self.edition = self.configuration_object.edition
         self.configuration_error = None
         try:
             self.read_configuration()
@@ -2211,6 +2171,10 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 self.configuration_error = e
             else:
                 raise e
+
+    @property
+    def has_new_edition(self):
+        return self.configuration_object.has_new_edition
 
     def get_modules(self):
         return self.modules
@@ -2471,6 +2435,34 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         if list_entry[2] in ['bool', 'measure', 'select_type']:
                             value = values[0]
                     questionnaire_value[key] = value
+            # 'remap' keys for description field, providing a consistent access key.
+            mapping = {
+                'approaches': 'app_definition',
+                'cca': 'tech_definition',
+                'sample': 'key_5',
+                'samplemodule': 'modkey_01',
+                'samplemulti': 'mkey_01',
+                'technologies': 'tech_definition',
+                'unccd': 'unccd_description',
+                'watershed': 'app_definition'
+            }
+
+            # For testing configurations (e.g. 'sample', 'samplemulti'), there
+            # is no qg_name/name questiongroup/key. Instead, it relies on the
+            # (probably deprecated) "is_name" key in the configuration json. In
+            # order to add their name correctly to the list data, they are added
+            # manually here.
+            if 'name' not in questionnaire_value:
+                name_key, name_qg = self.get_name_keywords()
+                if name_key is not None:
+                    questionnaire_value['name'] = questionnaire_data.get(
+                        name_qg, [{}])[0].get(name_key, {})
+
+            # If configuration mapping is not set up, a KeyError will be raised.
+            questionnaire_value['definition'] = questionnaire_value.get(
+                mapping[self.keyword], {'en': ''}
+            )
+
             questionnaire_value_list.append(questionnaire_value)
         return questionnaire_value_list
 
@@ -2593,9 +2585,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                         question.form_options.get('display_field'), user_role))
         return user_fields
 
-    def get_section_cache_key(self, section_keyword) -> str:
-        return f'{get_language()}_{self.keyword}_{section_keyword}'
-
     def read_configuration(self):
         """
         This function reads an active configuration of a Questionnaire.
@@ -2621,18 +2610,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         if self.configuration_object is None:
             raise ConfigurationErrorNoConfigurationFound(self.keyword)
 
-        specific_configuration = self.configuration_object.data
-        base_configuration = {}
-        if self.configuration_object.base_code:
-            base_code = self.configuration_object.base_code
-            base_configuration_object = Configuration.get_active_by_code(
-                base_code)
-            if base_configuration_object is None:
-                raise ConfigurationErrorNoConfigurationFound(base_code)
-            base_configuration = base_configuration_object.data
-
-        self.configuration = self.merge_configurations(
-            self, base_configuration, specific_configuration)
+        self.configuration = self.configuration_object.data
         self.validate_options()
 
         conf_sections = self.configuration.get('sections')
@@ -2640,7 +2618,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             conf_sections, list, 'sections', 'list of dicts', '-')
 
         for conf_section in conf_sections:
-            self.sections.append(self.get_section(conf_section=conf_section))
+            self.sections.append(QuestionnaireSection(self, conf_section))
         self.children = self.sections
 
         self.modules = self.configuration.get('modules', [])
@@ -2655,16 +2633,6 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
                 inherited_data[
                     qg.inherited_configuration] = inherited_by_configuration
         self.inherited_data = inherited_data
-
-    def get_section(self, conf_section: dict) -> QuestionnaireSection:
-        # 1755: add version of config here.
-        cache_key = self.get_section_cache_key(section_keyword=conf_section['keyword'])
-        section = cache.get(cache_key)
-        if not section:
-            section = QuestionnaireSection(self, conf_section)
-            cache.set(cache_key, section)
-
-        return section
 
 
 def validate_type(obj, type_, conf_name, type_name, parent_conf_name):
@@ -2739,7 +2707,18 @@ class HiddenInput(forms.TextInput):
         return ctx
 
 
-class RadioSelect(forms.RadioSelect):
+class ConditionalMixin:
+
+    def get_context_data(self):
+        ctx = super().get_context_data()
+        ctx.update({
+            'questiongroup_conditions': self.attrs['questiongroup_conditions'],
+            'conditional': self.attrs['conditional'],
+        })
+        return ctx
+
+
+class RadioSelect(ConditionalMixin, forms.RadioSelect):
     """
     A custom form class for a Radio Select field. Allows to overwrite
     the template used.
@@ -2753,13 +2732,12 @@ class RadioSelect(forms.RadioSelect):
         """
         ctx = super(RadioSelect, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class Select(forms.Select):
+class Select(ConditionalMixin, forms.Select):
     template_name = 'form/field/select.html'
 
     def get_context_data(self):
@@ -2780,7 +2758,7 @@ class Select(forms.Select):
         return ctx
 
 
-class MeasureSelect(forms.RadioSelect):
+class MeasureSelect(ConditionalMixin, forms.RadioSelect):
     template_name = 'form/field/measure.html'
 
     def get_context_data(self):
@@ -2790,13 +2768,12 @@ class MeasureSelect(forms.RadioSelect):
         """
         ctx = super(MeasureSelect, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class MeasureSelectStacked(forms.RadioSelect):
+class MeasureSelectStacked(ConditionalMixin, forms.RadioSelect):
     template_name = 'form/field/measure_stacked.html'
 
     def get_context_data(self):
@@ -2806,13 +2783,12 @@ class MeasureSelectStacked(forms.RadioSelect):
         """
         ctx = super(MeasureSelectStacked, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class Checkbox(forms.CheckboxSelectMultiple):
+class Checkbox(ConditionalMixin, forms.CheckboxSelectMultiple):
     template_name = 'form/field/checkbox.html'
 
     def get_context_data(self):
@@ -2822,13 +2798,12 @@ class Checkbox(forms.CheckboxSelectMultiple):
         """
         ctx = super(Checkbox, self).get_context_data()
         ctx.update({
-            'questiongroup_conditions': self.questiongroup_conditions,
             'options': self.options,
         })
         return ctx
 
 
-class ImageCheckbox(forms.CheckboxSelectMultiple):
+class ImageCheckbox(ConditionalMixin, forms.CheckboxSelectMultiple):
     template_name = 'form/field/image_checkbox.html'
 
     def get_context_data(self):
@@ -2839,13 +2814,12 @@ class ImageCheckbox(forms.CheckboxSelectMultiple):
         ctx = super(ImageCheckbox, self).get_context_data()
         ctx.update({
             'images': self.images,
-            'conditional': self.conditional,
             'options': self.options,
         })
         return ctx
 
 
-class ConditionalQuestiongroupChoiceField(forms.ChoiceField):
+class ConditionalQuestiongroupChoiceField(ConditionalMixin, forms.ChoiceField):
     """
     A Choice field whose choices are based on the presence of certain
     questiongroups in the data JSON.
@@ -2869,6 +2843,7 @@ class RequiredFormSet(BaseFormSet):
         super(RequiredFormSet, self).__init__(*args, **kwargs)
         for form in self.forms:
             form.empty_permitted = True
+
 
 class MeasureCheckbox(forms.CheckboxSelectMultiple):
     template_name = 'form/field/checkbox_measure.html'

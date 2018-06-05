@@ -67,15 +67,8 @@
       "version": 1,
       "created": "2015-02-10T16:07:20.847Z",
       "updated": "2015-02-10T16:07:20.847Z",
-      "code": "sample_1"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 11002,
-      "questionnaire": 1,
-      "original_configuration": true
+      "code": "sample_1",
+      "configuration": 11002
     }
   },
   {
@@ -125,15 +118,8 @@
       "version": 1,
       "created": "2015-02-10T16:08:20.904Z",
       "updated": "2015-02-10T16:08:20.904Z",
-      "code": "sample_2"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 11002,
-      "questionnaire": 2,
-      "original_configuration": true
+      "code": "sample_2",
+      "configuration": 11002
     }
   },
   {
@@ -162,15 +148,8 @@
       "version": 1,
       "created": "2015-02-10T16:07:20.847Z",
       "updated": "2015-02-10T16:07:20.847Z",
-      "code": "samplemulti_1"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 12001,
-      "questionnaire": 3,
-      "original_configuration": true
+      "code": "samplemulti_1",
+      "configuration": 12001
     }
   },
   {
@@ -207,15 +186,8 @@
       "version": 1,
       "created": "2015-02-10T16:08:20.904Z",
       "updated": "2015-02-10T16:08:20.904Z",
-      "code": "samplemulti_2"
-    }
-  },
-  {
-    "model": "questionnaire.questionnaireconfiguration",
-    "fields": {
-      "configuration": 12001,
-      "questionnaire": 4,
-      "original_configuration": true
+      "code": "samplemulti_2",
+      "configuration": 12001
     }
   },
   {

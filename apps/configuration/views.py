@@ -1,21 +1,25 @@
 # -*- coding: utf-8 -*-
+import contextlib
+import importlib.util
+from pathlib import Path
+
 from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.core.management import call_command
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 from django.utils.translation import ugettext_lazy as _
 
-from accounts.decorators import force_login_check
-from configuration.cache import delete_configuration_cache
-from configuration.models import Configuration
+from .cache import delete_configuration_cache
+from .editions.base import Edition
+from .models import Configuration
 
 
 @login_required
-@force_login_check
 def delete_caches(request):
     """
     Delete all the caches.
@@ -30,8 +34,7 @@ def delete_caches(request):
     if request.user.is_superuser is not True:
         raise PermissionDenied()
 
-    active_configurations = Configuration.objects.filter(active=True)
-    for configuration in active_configurations:
+    for configuration in Configuration.objects.all():
         delete_configuration_cache(configuration)
 
     messages.success(request, 'Caches deleted.')
@@ -60,3 +63,28 @@ class BuildAllCachesView(LoginRequiredMixin, SuperuserRequiredMixin,
         call_command('build_config_caches')
 
         messages.success(request, _(u"Built configuration caches."))
+
+
+class EditionNotesView(TemplateView):
+    """
+    'Release notes' for configurations.
+
+    """
+    template_name = 'configuration/edition_notes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['editions'] = self.get_editions()
+        return context
+
+    @staticmethod
+    def get_editions():
+        """
+        Filter configurations with at least one edition. Only editions that are 'applied' to the
+        database should be listed on the release notes page.
+        """
+        configurations = Configuration.objects.exclude(edition=2015)
+        for configuration in configurations:
+            yield configuration.get_edition()
+
+

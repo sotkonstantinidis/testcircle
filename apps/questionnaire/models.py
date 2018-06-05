@@ -12,20 +12,18 @@ from uuid import uuid4
 from django.contrib.auth import get_user_model
 from django.contrib.gis.db import models
 from django.contrib.messages import WARNING, SUCCESS
+from django.contrib.postgres.fields import JSONField
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse, NoReverseMatch
-from django.db.models import Q
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _, get_language, activate
 from django.utils import timezone
-from django_pgjson.fields import JsonBField
 from staticmap import StaticMap, CircleMarker, Polygon
 
 from accounts.models import User
 from configuration.cache import get_configuration
 from configuration.models import Configuration, Value
-from qcat.errors import ConfigurationError
-from .signals import change_status, create_questionnaire
+from .signals import create_questionnaire
 
 from .conf import settings
 from .errors import QuestionnaireLockedException
@@ -84,7 +82,7 @@ class Questionnaire(models.Model):
     denominator for all version (:class:`QuestionnaireVersion`) of a
     Questionnaire.
     """
-    data = JsonBField()
+    data = JSONField()
     created = models.DateTimeField()
     updated = models.DateTimeField()
     uuid = models.CharField(max_length=64, default=uuid4)
@@ -95,8 +93,8 @@ class Questionnaire(models.Model):
     version = models.IntegerField()
     members = models.ManyToManyField(
         settings.AUTH_USER_MODEL, through='QuestionnaireMembership')
-    configurations = models.ManyToManyField(
-        'configuration.Configuration', through='QuestionnaireConfiguration')
+    configuration = models.ForeignKey(
+        'configuration.Configuration', on_delete=models.PROTECT)
     links = models.ManyToManyField(
         'self', through='QuestionnaireLink', symmetrical=False,
         related_name='linked_to+')
@@ -127,19 +125,11 @@ class Questionnaire(models.Model):
         If some day, the configurations code is not the exact same string as
         the application name, a 'mapping' dict is required.
         """
-        conf = self.configurations.filter(
-            active=True
-        ).exclude(
-            code=''
-        ).only(
-            'code'
-        )
-        if conf.exists() and conf.count() == 1:
-            with contextlib.suppress(NoReverseMatch):
-                return reverse('{app_name}:{url_name}'.format(
-                    app_name=conf.first().code,
-                    url_name=url_name
-                ), kwargs={'identifier': self.code})
+        with contextlib.suppress(NoReverseMatch):
+            return reverse('{app_name}:{url_name}'.format(
+                app_name=self.configuration.code,
+                url_name=url_name
+            ), kwargs={'identifier': self.code})
         return None
 
     def get_absolute_url(self):
@@ -155,6 +145,18 @@ class Questionnaire(models.Model):
         Edit view url of the questionnaire
         """
         return self._get_url_from_configured_app('questionnaire_edit')
+
+    def get_perma_url(self) -> str:
+        """
+        Detail view url of this specific version, matched by its ID. 'Pseudo-Permalink',
+        not the URL that shows the current version of the questionnaire.
+        """
+        with contextlib.suppress(NoReverseMatch):
+            return reverse(
+                f'{self.configuration.code}:questionnaire_permalink',
+                kwargs={'pk': self.pk}
+            )
+        return ''
 
     def update_data(self, data, updated, configuration_code):
         """
@@ -301,14 +303,14 @@ class Questionnaire(models.Model):
             uuid = uuid4()
         if status not in [s[0] for s in STATUSES]:
             raise ValidationError('"{}" is not a valid status'.format(status))
-        configuration = Configuration.get_active_by_code(configuration_code)
+        configuration = Configuration.latest_by_code(configuration_code)
         if configuration is None:
             raise ValidationError(
                 'No active configuration found for code "{}"'.format(
                     configuration_code))
         questionnaire = Questionnaire.objects.create(
             data=data, uuid=uuid, code=code, version=version, status=status,
-            created=created, updated=updated)
+            created=created, updated=updated, configuration=configuration)
 
         if not previous_version:
             # Generate and set a new code for the questionnaire
@@ -325,11 +327,6 @@ class Questionnaire(models.Model):
         )
 
         questionnaire.update_geometry(configuration_code=configuration_code)
-
-        # TODO: Not all configurations should be the original ones!
-        QuestionnaireConfiguration.objects.create(
-            questionnaire=questionnaire, configuration=configuration,
-            original_configuration=True)
 
         if not languages:
             questionnaire.add_translation_language(original=True)
@@ -547,19 +544,19 @@ class Questionnaire(models.Model):
                         data.append(value)
         return data
 
+    @property
+    def configuration_object(self):
+        return get_configuration(
+            code=self.configuration.code,
+            edition=self.configuration.edition
+        )
+
     def get_name(self, locale='') -> str:
         """
         Return the name of the questionnaire, based on the configuration.
         """
-        active_config = self.configurations.filter(
-            active=True
-        ).first()
-        if not active_config:
-            raise ConfigurationError(
-                'No active configuration for questionnaire {}'.format(self.id)
-            )
-        config = get_configuration(active_config.code)
-        names = config.get_questionnaire_name(self.data) or {}
+
+        names = self.configuration_object.get_questionnaire_name(self.data) or {}
         name = names.get(locale or get_language())
         if name:
             # omit additional query
@@ -583,6 +580,21 @@ class Questionnaire(models.Model):
             if values.exists():
                 return [value.get_translation(keyword='label') for value in values]
         return []
+
+    def get_previous_public_versions(self) -> list:
+        item = collections.namedtuple('Item', 'name, url, updated')
+        history = Questionnaire.with_status.not_deleted().exclude(
+            pk=self.pk
+        ).filter(
+            code=self.code,
+            status__in=[settings.QUESTIONNAIRE_PUBLIC, settings.QUESTIONNAIRE_INACTIVE]
+        ).order_by(
+            'created'
+        )
+        return [
+            item(questionnaire.get_name(), questionnaire.get_perma_url(), questionnaire.updated)
+            for questionnaire in history
+        ]
 
     def update_geometry(self, configuration_code, force_update=False):
         """
@@ -630,8 +642,7 @@ class Questionnaire(models.Model):
             else:
                 return None
 
-        conf_object = get_configuration(configuration_code)
-        geometry_value = conf_object.get_questionnaire_geometry(self.data)
+        geometry_value = self.configuration_object.get_questionnaire_geometry(self.data)
         geometry = get_geometry_from_string(geometry_value)
 
         geometry_changed = self.geom != geometry
@@ -816,8 +827,8 @@ class Questionnaire(models.Model):
             ``compiler`` (accounts.models.User): A user figuring as the
             compiler of the questionnaire.
         """
-        questionnaire_configuration = get_configuration(configuration_code)
-        user_fields = questionnaire_configuration.get_user_fields()
+
+        user_fields = self.configuration_object.get_user_fields()
 
         # Collect the users appearing in the data dictionary.
         submitted_users = []
@@ -1030,15 +1041,6 @@ class Questionnaire(models.Model):
         return status_code[1], status[1]
 
     @cached_property
-    def configurations_property(self):
-        return list(self.configurations.values_list('code', flat=True))
-
-    def get_original_configuration(self):
-        return self.configurations.filter(
-            questionnaire__questionnaireconfiguration__original_configuration=True
-        ).first()
-
-    @cached_property
     def translations(self):
         return list(self.questionnairetranslation_set.values_list(
             'language', flat=True
@@ -1062,16 +1064,14 @@ class Questionnaire(models.Model):
         Returns: list
 
         """
-        from configuration.utils import ConfigurationList
-
         links = []
-        config_list = ConfigurationList()
         current_language = get_language()
 
-        for link in self.links.filter(configurations__isnull=False).filter(
-                status=settings.QUESTIONNAIRE_PUBLIC):
+        for link in self.links.filter(status=settings.QUESTIONNAIRE_PUBLIC):
 
-            link_configuration = config_list.get(link.configurations.first().code)
+            link_configuration = get_configuration(
+                code=link.configuration.code,
+                edition=link.configuration.edition)
             name_data = link_configuration.get_questionnaire_name(link.data)
 
             try:
@@ -1122,20 +1122,6 @@ class Questionnaire(models.Model):
         return self.status == settings.QUESTIONNAIRE_PUBLIC or self._meta.model.with_status.not_deleted().filter(
             code=self.code, status=settings.QUESTIONNAIRE_PUBLIC
         ).exists()
-
-
-class QuestionnaireConfiguration(models.Model):
-    """
-    Represents a many-to-many relationship between Questionnaires and
-    Configurations with additional fields. Additional fields mark the
-    configuration in which the Questionnaire was originally entered.
-    """
-    questionnaire = models.ForeignKey('Questionnaire')
-    configuration = models.ForeignKey('configuration.Configuration')
-    original_configuration = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['-original_configuration']
 
 
 class QuestionnaireTranslation(models.Model):
@@ -1197,7 +1183,7 @@ class File(models.Model):
     uploaded = models.DateTimeField(auto_now=True)
     content_type = models.CharField(max_length=64)
     size = models.BigIntegerField(null=True)
-    thumbnails = JsonBField()
+    thumbnails = JSONField()
 
     @staticmethod
     def handle_upload(uploaded_file):

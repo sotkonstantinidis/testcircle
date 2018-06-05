@@ -67,9 +67,11 @@
     text-decoration: underline;
   }
 }
+.is-technologies .tech-item-title > a,
 .is-tech .tech-item-title > a {
   color: $color-tech;
 }
+.is-approaches .tech-item-title > a,
 .is-approach .tech-item-title > a {
   color: $color-approach;
 }

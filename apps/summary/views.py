@@ -4,6 +4,7 @@ import logging
 import requests
 from os.path import join, isfile
 
+from django.apps import apps
 from django.conf import settings
 from django.db.models import Q
 from django.http import Http404
@@ -13,7 +14,6 @@ import bs4
 
 from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 
-from configuration.cache import get_configuration
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_query_status_filter, \
     get_questionnaire_data_in_single_language
@@ -215,8 +215,8 @@ class SummaryPDFCreateView(PDFTemplateView):
     base_template_path = 'summary/'
     http_method_names = ['get']
     render_classes = {
-        'technologies': {'full': TechnologyFullSummaryRenderer},
-        'approaches': {'full': ApproachesFullSummaryRenderer}
+        'technologies_2015': {'full': TechnologyFullSummaryRenderer},
+        'approaches_2015': {'full': ApproachesFullSummaryRenderer}
     }
     footer_template = '{}layout/footer.html'.format(base_template_path)
     # see: http://wkhtmltopdf.org/usage/wkhtmltopdf.txt
@@ -227,15 +227,16 @@ class SummaryPDFCreateView(PDFTemplateView):
     }
     default_quality = 'screen'
 
+    @property
+    def is_doc_file(self):
+        return self.request.GET.get('as', '') == 'doc'
+
+    @property
+    def css_class(self):
+        return f'is-{self.questionnaire.configuration.code}'
+
     def get(self, request, *args, **kwargs):
         self.questionnaire = self.get_object(questionnaire_id=self.kwargs['id'])
-        try:
-            self.code = self.questionnaire.configurations.filter(
-                active=True
-            ).first().code
-        except AttributeError:
-            raise Http404
-        self.config = get_configuration(configuration_code=self.code)
         self.quality = self.request.GET.get('quality', self.default_quality)
         # filename is set withing render_to_response, this is too late as it's
         # used for caching.
@@ -246,7 +247,7 @@ class SummaryPDFCreateView(PDFTemplateView):
         return super().get(request, *args, **kwargs)
 
     def get_template_names(self):
-        template = self.request.GET.get('template', self.code)
+        template = self.request.GET.get('template', 'base')
         return '{}/layout/{}.html'.format(self.base_template_path, template)
 
     def get_filename(self) -> str:
@@ -254,18 +255,15 @@ class SummaryPDFCreateView(PDFTemplateView):
         The filename is specific enough to be used as 'pseudo cache-key' in the
         CachedPDFTemplateResponse.
         """
-        return 'wocat-{identifier}-{language}-{summary_type}-{quality}-' \
-               'summary-{update}.pdf'.format(
+        return 'wocat-{identifier}-{edition}-{language}-{summary_type}-' \
+               '{quality}-{update}.pdf'.format(
             identifier=self.questionnaire.id,
+            edition=self.questionnaire.configuration.id,
             language=get_language(),
             summary_type=self.summary_type,
             quality=self.quality,
             update=self.questionnaire.updated.strftime('%Y-%m-%d-%H-%M')
         )
-
-    @property
-    def is_doc_file(self):
-        return self.request.GET.get('as', '') == 'doc'
 
     def get_object(self, questionnaire_id: int) -> Questionnaire:
         """
@@ -284,16 +282,18 @@ class SummaryPDFCreateView(PDFTemplateView):
         """
         Get summary data from renderer according to configuration.
         """
+        identifier = f'{self.questionnaire.configuration.code}_' \
+                     f'{self.questionnaire.configuration.edition}'
         try:
-            renderer = self.render_classes[self.config.keyword][self.summary_type]
+            renderer = self.render_classes[identifier][self.summary_type]
         except KeyError:
             raise Http404
         return renderer(
-            config=self.config,
+            config=self.questionnaire.configuration_object,
             questionnaire=self.questionnaire,
             quality=self.quality,
             base_url=self.request.build_absolute_uri('/'), **data
-        ).data
+        ).render()
 
     def get_prepared_data(self, questionnaire: Questionnaire) -> dict:
         """
@@ -315,12 +315,14 @@ class SummaryPDFCreateView(PDFTemplateView):
             name = '{}...'.format(name[:67])
         return {
             'footer_name': name,
-            'footer_config': self.code.title()
+            'footer_config': self.questionnaire.configuration.code.title()
         }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['block'] = self.get_prepared_data(self.questionnaire)
+        context['css_file_hash'] = apps.get_app_config('summary').css_file_hash
+        context['css_class'] = self.css_class
+        context['sections'] = self.get_prepared_data(self.questionnaire)
         context.update(self.get_footer_context())
         # For languages with no spaces between words (e.g. Lao, Khmer), add CSS
         # line break rule if either the questionnaire or its original version is

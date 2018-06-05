@@ -84,7 +84,7 @@ QCAT is currently under heavy development. If you are interested in the
 progress of the development, have a look at the issues on the `Redmine`_
 page of the project. Or see the `List of ToDo's`_ for open issues.
 
-.. _Redmine: https://redmine.cde.unibe.ch/projects/unccd-bp/issues
+.. _Redmine: https://redmine.cde.unibe.ch/projects/qcat
 .. _List of ToDo's: todos.html
 
 API

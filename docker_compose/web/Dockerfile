@@ -2,7 +2,6 @@ FROM python:3.6
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
-RUN mkdir /entrypoint
 WORKDIR /code
 
 # Django-gis packages and dependencies for static assets
@@ -21,6 +20,6 @@ RUN pip install -r production.txt
 
 ADD . /code/
 
-# Change environment variables linking to other containers
-ADD ./docker_compose/web/entrypoint.sh /entrypoint/entrypoint.sh
-RUN chmod +x /entrypoint/entrypoint.sh
+# Make 'wait' script available for the entrypoint-script.
+ADD https://raw.githubusercontent.com/eficode/wait-for/master/wait-for /usr/local/bin/waitfor
+RUN chmod +x /usr/local/bin/waitfor
