@@ -5,7 +5,6 @@ import pytest
 from django.conf import settings
 from django.http import Http404
 from django.test import RequestFactory
-from django.test import override_settings
 from rest_framework.test import force_authenticate, APIRequestFactory
 from rest_framework.response import Response
 

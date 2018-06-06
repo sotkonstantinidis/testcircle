@@ -1,7 +1,6 @@
 from unittest.mock import patch, Mock
 
 import pytest
-from django.conf import settings
 from django.db.models import Q
 
 from configuration.utils import (
@@ -10,7 +9,6 @@ from configuration.utils import (
     get_configuration_query_filter,
     get_choices_from_model)
 from qcat.tests import TestCase
-from search.tests.test_index import ESIndexMixin, create_temp_indices
 
 
 DEFAULT_WOCAT_CONFIGURATIONS = [
@@ -44,18 +42,11 @@ class GetConfigurationQueryFilterTest(TestCase):
 
 
 @pytest.mark.usefixtures('es')
-class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
+class GetConfigurationIndexFilterTest(TestCase):
 
     fixtures = ['sample']
 
-    @property
-    def test_alias(self):
-        # Replace the 'key_prefix' of the index ('qcat_')
-        return 'es_test_index'.replace(settings.ES_INDEX_PREFIX, '')
-
     def setUp(self):
-        super().setUp()
-        create_temp_indices([('sample', '2015')])
         self.default_aliases = [f'{c}_*' for c in DEFAULT_WOCAT_CONFIGURATIONS]
 
     @patch('configuration.utils.check_aliases')
@@ -72,12 +63,6 @@ class GetConfigurationIndexFilterTest(ESIndexMixin, TestCase):
     def test_returns_default_configurations_if_not_valid_alias(self):
         index_filter = get_configuration_index_filter('foo')
         self.assertEqual(index_filter, self.default_aliases)
-
-    @patch('configuration.utils.check_aliases')
-    def test_unccd_returns_single_configuration(self, mock_check_aliases):
-        mock_check_aliases.return_value = True
-        index_filter = get_configuration_index_filter(self.test_alias)
-        self.assertEqual(index_filter, [self.test_alias])
 
     def test_wocat_returns_multiple_configurations(self):
         index_filter = get_configuration_index_filter('wocat')
