@@ -52,7 +52,8 @@ build:
     - mkdir -p shippable/testresults
     - mkdir -p shippable/codecoverage
     - mkdir ../upload
-    - xvfb-run --server-args="-ac" pytest --junitxml=shippable/testresults/nosetests.xml --cov apps --cov-report xml:shippable/codecoverage/coverage.xml
+    - xvfb-run --server-args="-ac" pytest -m unit --junitxml=shippable/testresults/nosetests.xml --cov apps --cov-report xml:shippable/codecoverage/coverage.xml
+    - xvfb-run --server-args="-ac" pytest -m functional
     - unset LC_ALL
 
   on_success:
