@@ -155,6 +155,31 @@ class BaseConfigurationObject(object):
             raise ConfigurationErrorInvalidOption(
                 invalid_options[0], self.configuration, self)
 
+    def get_translation_ids(self) -> list:
+        # Recursively get the IDs of all translations objects of the
+        # configuration object and its children.
+
+        # Not all configuration objects have a translation
+        # (e.g. QuestionnaireConfiguration).
+        try:
+            res = [self.configuration_object.translation.id]
+        except AttributeError:
+            res = []
+
+        # Not all configuration objects have children (e.g.
+        # QuestionnaireQuestion).
+        try:
+            for child in self.children:
+                res += child.get_translation_ids()
+        except AttributeError:
+            pass
+
+        # QuestionnaireQuestion objects have values.
+        if isinstance(self, QuestionnaireQuestion):
+            res += [v.translation.id for v in self.value_objects]
+
+        return res
+
 
 class QuestionnaireQuestion(BaseConfigurationObject):
     """
