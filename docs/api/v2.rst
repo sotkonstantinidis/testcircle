@@ -16,37 +16,9 @@ the GUI application `Postman`_.
 Authorization
 -------------
 Requests to the QCAT API require an authorization token in the header of the
-request. The token can be obtained with this endpoint, a WOCAT user account is
-required to obtain a token. Please specify what you will use the token for as
-"notes".
-
-Endpoint: ``/api/v2/auth-token/``
-
-Allowed method: ``POST``
-
-Post data:
-    ``username``: The username of your WOCAT account
-
-    ``password``: The password of your WOCAT account
-
-    ``notes``: A short note indicating the purpose of the token
-
-Example request with curl
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Request::
-
-    curl -X POST -d '{"username": "WOCAT_USERNAME", "password": "WOCAT_PASSWORD", "notes": "This token will be used for testing"}' -H "Content-Type: application/json" https://qcat.wocat.net/en/api/v2/auth-token/
-
-Response::
-
-    {"token":"0e03f8061c83e58d1595c3b21ddce9712233cb4e"}
-
-Example request with Postman
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. image:: ../images/qcat_api_v2_authorization_postman.png
-
+request. Please contact the Wocat secretariat if you want to access the API, stating
+your activated Wocat account (required) and the purpose of your API requests.
+An authentication token will then be created for your account.
 
 List of questionnaires
 ----------------------
