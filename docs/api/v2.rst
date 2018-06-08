@@ -16,37 +16,9 @@ the GUI application `Postman`_.
 Authorization
 -------------
 Requests to the QCAT API require an authorization token in the header of the
-request. The token can be obtained with this endpoint, a WOCAT user account is
-required to obtain a token. Please specify what you will use the token for as
-"notes".
-
-Endpoint: ``/api/v2/auth-token/``
-
-Allowed method: ``POST``
-
-Post data:
-    ``username``: The username of your WOCAT account
-
-    ``password``: The password of your WOCAT account
-
-    ``notes``: A short note indicating the purpose of the token
-
-Example request with curl
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Request::
-
-    curl -X POST -d '{"username": "WOCAT_USERNAME", "password": "WOCAT_PASSWORD", "notes": "This token will be used for testing"}' -H "Content-Type: application/json" https://qcat.wocat.net/en/api/v2/auth-token/
-
-Response::
-
-    {"token":"0e03f8061c83e58d1595c3b21ddce9712233cb4e"}
-
-Example request with Postman
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. image:: ../images/qcat_api_v2_authorization_postman.png
-
+request. Please contact the Wocat secretariat if you want to access the API, stating
+your activated Wocat account (required) and the purpose of your API requests.
+An authentication token will then be created for your account.
 
 List of questionnaires
 ----------------------
@@ -56,6 +28,8 @@ Return a list of Questionnaires. The same filter parameters as for the list view
 Endpoint: ``/api/v2/questionnaires/``
 
 Allowed method: ``GET``
+
+Filters: Pass as query string, see filtering_.
 
 Request headers:
     ``Authorization``: Your authorization token for the QCAT API. Specified in
@@ -101,6 +75,36 @@ Response::
       ]
     }
 
+.. hint::
+If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
+
+Filtering
+^^^^^^^^^
+.. _filtering:
+
+Filters can be passed as `query string`_ to the GET request.
+As an example, ``?type=technology`` will list technologies only (full URL: https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology).
+
+.. hint::
+The query string for filtering on the API is the same as the one used on the default QCAT search
+(https://qcat.wocat.net/en/wocat/list/). So the easiest way to combine filters is to use the default search, and copy its query string to your API call.
+
+Example URLs using the filters:
+
+* Get all Technologies::
+
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology
+
+* Get all Approaches in Nepal::
+
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=approaches&filter__qg_location__country=country_NPL
+
+* Get all Technologies in altitudes from 3'000 to 4'000 m a.s.l. and with annual rainfall < 250 mm.::
+
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technologies&filter__tech_qg_56__tech_altitudinalzone=tech_altitudinalzone_3000_4000&filter__tech_qg_54__tech_rainfall=tech_rainfall_less_250
+
+
 Example request with Postman
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -112,7 +116,7 @@ Code examples
 
 * `Example code to collect all Questionnaires`_ (in Python, using the
   `Requests library`_)
-
+* `Script library for download`_
 
 Details of questionnaire
 ------------------------
@@ -190,6 +194,10 @@ Response::
       // ...
     }
 
+.. hint::
+If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
+
 Example request with Postman
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -201,3 +209,5 @@ Example request with Postman
 .. _Postman: https://www.getpostman.com/
 .. _Example code to collect all Questionnaires: https://gist.github.com/lvonlanthen/a11eb62838af3a294fc54e74d380a1ff
 .. _Requests library: http://docs.python-requests.org/en/master/
+.. _query string: https://en.wikipedia.org/wiki/Query_string
+.. _Script library for download: https://github.com/CDE-UNIBE/qcat-api-scripts
