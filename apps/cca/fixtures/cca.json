@@ -719,20 +719,6 @@
       "data": {
         "cca": {
           "label": {
-            "en": "Currency"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 28067
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "cca": {
-          "label": {
             "en": "other/ national currency (specify)"
           }
         }
@@ -6944,17 +6930,6 @@
     },
     "model": "configuration.key",
     "pk": 28066
-  },
-  {
-    "fields": {
-      "keyword": "cca_input_currency",
-      "translation": 28067,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 28067
   },
   {
     "fields": {
