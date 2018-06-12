@@ -1,3 +1,5 @@
+from unittest import mock
+
 from configuration.models import Configuration
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -338,6 +340,37 @@ class EditTest(FunctionalTest):
         edit_buttons = self.findManyBy(
             'xpath', '//a[contains(text(), "Edit this section")]')
         self.assertEqual(len(edit_buttons), 0)
+
+    def test_edit_public_new_config_edition(self):
+        """
+        If a public version is edited, and a new configuration edition exists, the
+        method to update the case data must be called.
+        """
+        code = 'sample_3'
+
+        # Alice logs in, she is a member of the secretariat
+        user = User.objects.get(pk=107)
+        self.doLogin(user=user)
+
+        self.browser.get(
+            self.live_server_url +
+            reverse(route_questionnaire_details, kwargs={'identifier': code})
+        )
+
+        # Meanwhile, a new configuration edition is created.
+        questionnaire = Questionnaire.objects.get(code=code)
+        config = questionnaire.configuration
+        config.id = None
+        config.edition = '007'
+        config.save()
+
+        # She starts editing the public version - as a new version of the
+        # configuration is available, the data is migrated in between.
+        with mock.patch.object(Configuration, 'get_edition') as mock_edition:
+            mock_edition.return_value.update_questionnaire_data.return_value = \
+                questionnaire.data
+            self.review_action('edit')
+            self.assertTrue(mock_edition.return_value.update_questionnaire_data.called)
 
 
 class CustomToOptionsTest(FunctionalTest):
