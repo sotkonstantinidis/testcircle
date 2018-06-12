@@ -52,6 +52,14 @@
 
   <article role="main">
     <main class="is-rhythmed-4">
+      {% if is_inactive_version %}
+        <section class="row">
+          <div class="medium-12 columns tech-section-header alert-inactive">
+            {% trans "This is an outdated, inactive version of this case" %},
+            <a href="{{ current_url }}">{% trans "go to the current one" %}</a>
+          </div>
+        </section>
+      {% endif %}
       {% for section in sections %}
         {{ section }}
       {% endfor %}

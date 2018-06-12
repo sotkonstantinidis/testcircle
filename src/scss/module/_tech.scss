@@ -8,6 +8,10 @@
 // Item
 // -----------------------------------------------------------------------------
 
+.is-technologies .tech-section-header.alert-inactive {
+  background: scale-color($alert-color, $lightness: 75%);
+  padding: rem-calc(12);
+}
 .tech-item {
   display: flex;
   align-items: stretch;

@@ -771,6 +771,11 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
             'questionnaires_in_progress': self.questionnaires_in_progress(),
             'base_template': '{}/base.html'.format(self.url_namespace),
         }
+
+        # Provide 'default' method for context modification.
+        if hasattr(self, 'get_context_data'):
+            context = self.get_context_data(**context)
+
         return self.render_to_response(context=context)
 
     def post(self, request, *args, **kwargs):
@@ -958,6 +963,12 @@ class QuestionnairePermaView(QuestionnaireView):
             ),
             pk=self.kwargs['pk']
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_inactive_version'] = self.object.status is settings.QUESTIONNAIRE_INACTIVE
+        context['current_url'] = self.object.get_absolute_url()
+        return context
 
 
 class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
