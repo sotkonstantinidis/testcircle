@@ -18,6 +18,9 @@ class BaseSettings(Configuration):
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
     BASE_DIR = join(dirname(dirname(dirname(dirname(__file__)))))
 
+    # SECURITY WARNING: don't run with debug turned on in production!
+    DEBUG = values.BooleanValue(default=False)
+
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
@@ -224,9 +227,6 @@ class BaseSettings(Configuration):
                     'sekizai.context_processors.sekizai',
                     'qcat.context_processors.template_settings'
                 ],
-                'debug': values.BooleanValue(
-                    environ_name='DJANGO_TEMPLATE_DEBUG', default=False
-                )
             }
         }
     ]
@@ -294,9 +294,6 @@ class BaseSettings(Configuration):
     API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
 
     DATABASES = values.DatabaseURLValue(environ_required=True)
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = values.BooleanValue(default=False)
 
     ALLOWED_HOSTS = values.ListValue(default=['localhost', '127.0.0.1'])
 
