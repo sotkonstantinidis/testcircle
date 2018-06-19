@@ -249,7 +249,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         btn_xpath = '//button[@name="{}"]'.format(action)
         if action == 'edit':
             # No button for "edit"
-            btn_xpath = '//a[text()="Edit" and @type="submit"]'
+            btn_xpath = '//a[@type="submit"]'
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located(
                 (By.XPATH, btn_xpath)))
@@ -257,7 +257,10 @@ class FunctionalTest(StaticLiveServerTestCase):
             self.findBy('name', 'reject-message').send_keys("spam")
 
         if exists_only is True:
-            self.findBy('xpath', '//div[contains(@class, "reveal-modal") and contains(@class, "open")]//a[contains(@class, "close-reveal-modal")]').click()
+            self.findBy(
+                'xpath', '//div[contains(@class, "reveal-modal") and contains('
+                         '@class, "open")]//a[contains(@class, '
+                         '"close-reveal-modal")]', wait=True).click()
             import time; time.sleep(1)
             return
         self.wait_for('xpath', btn_xpath)

@@ -183,7 +183,7 @@ class Translation(models.Model):
 
         # When creating the values, the configuration and keyword was used as
         # context. Recreate this.
-        context = '{} {}'.format(configuration, keyword)
+        context = f'{configuration} {keyword}'
         fallback_context = 'wocat {}'.format(keyword)
 
         current_language = get_language()
@@ -194,6 +194,14 @@ class Translation(models.Model):
             # (and reverse it again).
             activate(locale)
             translated = pgettext_lazy(context, text.replace('%', '%%'))
+
+            # It is possible that the translation was not found because in newer
+            # editions, the context also contains the edition,
+            # e.g. "technologies_2018 label"
+            if translated == text and configuration != 'wocat':
+                context = f'{configuration}_{edition} {keyword}'
+                translated = pgettext_lazy(context, text.replace('%', '%%'))
+
             if translated == text and configuration != 'wocat':
                 # TODO: Find a better way to handle "wocat" translations
                 # For "global" keys and values (eg. countries), the translation

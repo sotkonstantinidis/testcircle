@@ -6,7 +6,8 @@ from django.core.management import call_command
 from django.core.management.commands import makemessages
 from django.db.models import Q
 
-from configuration.models import Translation, TranslationContent
+from configuration.cache import get_configuration
+from configuration.models import Translation, TranslationContent, Configuration
 
 
 class Command(makemessages.Command):
@@ -49,35 +50,74 @@ class Command(makemessages.Command):
             'apps', 'configuration', 'configuration_translations.py'
         )
 
-        # If a new 'Translation' row was added: copy the values to
-        # 'TranslationContent'.
-        new_translations = Translation.objects.filter(
-            translationcontent=None
-        ).only(
-            'data'
-        ).order_by(
-            'id'
-        )
+        # Get a list of all used Translations by all configurations. This can
+        # then be used to remove unused translations.
+        used_translation_ids = []
+        for configuration in Configuration.objects.all():
+            questionnaire_configuration = get_configuration(
+                code=configuration.code, edition=configuration.edition)
+            used_translation_ids.extend(
+                questionnaire_configuration.get_translation_ids())
 
-        if new_translations.exists():
-            print('New texts to translate for the configuration. Creating DB '
-                  'entries and temporary file to extract strings.')
+        # Remove duplicates
+        used_translation_ids = set(used_translation_ids)
 
-            for translation in new_translations:
-                for configuration, contents in sorted(translation.data.items()):
-                    for keyword, translated_items in sorted(contents.items()):
-                        # Only English texts are expected. If 'en' is not
-                        # available, this must raise an exception.
-                        TranslationContent(
-                            translation=translation,
-                            configuration=configuration,
-                            keyword=keyword,
-                            text=translated_items['en']
-                        ).save()
+        # It is not enough to check for new 'Translation' rows as new
+        # configuration editions can update only the translation for the new
+        # edition which creates a new entry in the existing 'Translation' data
+        # json.
+        # Instead, first get all existing content of TranslationContent, group
+        # it by configuration and keyword. Then extract all entries in the
+        # 'Translation' table and see if they are already available in the
+        # 'TranslationContent' table. If not, create them later.
+        existing_translation_content = {}
+        for existing in TranslationContent.objects.all():
+            (existing_translation_content
+                .setdefault(existing.configuration, {})
+                .setdefault(existing.keyword, [])
+                .append(existing.text))
 
-                        if len(translated_items.keys()) != 1:
-                            print(u'Warning: More than one translation in the'
-                                  u'fixtures. Only the English text is used.')
+        unused_translation_ids = []
+        for translation in Translation.objects.all():
+
+            if translation.id not in used_translation_ids:
+                unused_translation_ids.append(translation.id)
+                continue
+
+            for configuration, contents in translation.data.items():
+                for keyword, translated_items in contents.items():
+
+                    # Only English texts are expected. If 'en' is not available,
+                    # this must raise an exception.
+                    translation_string = translated_items['en']
+
+                    if translation_string in existing_translation_content.get(
+                            configuration, {}).get(keyword, []):
+                        # String already in TranslationContent, do nothing.
+                        continue
+
+                    # Add new strings to TranslationContent
+                    TranslationContent(
+                        translation=translation,
+                        configuration=configuration,
+                        keyword=keyword,
+                        text=translation_string
+                    ).save()
+
+                    if len(translated_items.keys()) != 1:
+                        print(u'Warning: More than one translation in the'
+                              u'fixtures. Only the English text is used.')
+
+        if unused_translation_ids:
+            print(
+                'The following translations are not needed anymore. They will '
+                'be deleted. You should also remove these from the fixtures, '
+                'along with the keys/values/categories they belong to (if they '
+                'still exist). \n%s' %
+                '\n'.join([str(i) for i in sorted(unused_translation_ids)]))
+            TranslationContent.objects.filter(
+                translation__id__in=unused_translation_ids).delete()
+            Translation.objects.filter(id__in=unused_translation_ids).delete()
 
         # All translations must be written to the file again.
         # By using pgettext and contextual markers, one separate

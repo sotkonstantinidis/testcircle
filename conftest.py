@@ -42,3 +42,9 @@ def es(request):
 
     # Test teardown
     get_elasticsearch().indices.delete(index=f'{es_prefix}*')
+
+
+@pytest.fixture(scope='session', autouse=True)
+def clear_configuration_cache():
+    from configuration.cache import get_cached_configuration
+    get_cached_configuration.cache_clear()

@@ -5,34 +5,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Definition of the SLM Approach"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7001
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Aims/ objectives"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7002
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "What stakeholders / implementing bodies were involved in the Approach?"
           },
           "label_view": {
@@ -64,82 +36,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specify stakeholders and describe their roles."
-          },
-          "helptext": {
-            "en": "If relevant, also specify gender, age, status, ethnicity, etc."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7005
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Methods used"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7006
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Stages of implementation"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7007
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Roles of involved stakeholders"
-          },
-          "helptext": {
-            "en": "If relevant, indicate gender, status, and ethnicity, and mention who accepted/ resisted, who benefited/ was excluded and if equity was advanced."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7008
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Conclusions/ lessons learnt (major strengths and weaknesses)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7009
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Indicate year of initiation"
           }
         }
@@ -154,34 +50,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "If precise year is not known, was the Approach initiated"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7011
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Indicate year of termination (if not continued to date)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7012
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Type of Approach"
           }
         }
@@ -189,20 +57,6 @@
     },
     "model": "configuration.translation",
     "pk": 7013
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Other (specify)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7014
   },
   {
     "fields": {
@@ -252,20 +106,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Were decisions on the selection of the Technology(ies) made"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7018
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Explain"
           }
         }
@@ -273,20 +113,6 @@
     },
     "model": "configuration.translation",
     "pk": 7019
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Is decision-making based on"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7020
   },
   {
     "fields": {
@@ -304,20 +130,6 @@
     },
     "model": "configuration.translation",
     "pk": 7021
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Who was trained"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7022
   },
   {
     "fields": {
@@ -452,96 +264,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Do land users have access to an advisory service?"
-          },
-          "helptext": {
-            "en": "<p><strong>Advisory service</strong>: technical assistance provided to land users by extension workers/ advisors from government, NGOs, projects, etc.</p><p>If yes, please answer the following sub-questions.</p><p>If no, go to question 4.3.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7031
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "If yes, is the service provided"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7032
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Other (specify)"
-          },
-          "label_view": {
-            "en": "If yes, is the service provided"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7033
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Describe/ comment"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7034
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Have institutions been established or strengthened through the Approach?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7035
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "At what level have institutions been strengthened or established"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7036
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Other (specify)"
           },
           "label_view": {
@@ -573,20 +295,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specify support"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7039
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Other (specify)"
           },
           "label_view": {
@@ -597,79 +305,6 @@
     },
     "model": "configuration.translation",
     "pk": 7040
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Specify"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7041
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Indicate the annual budget for the SLM component of the Approach (including training and extension, research, implementation of the Technology) in US$"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7042
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "If precise budget is not known, indicate range"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7043
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Were contributions made per area, per unit, or per product?"
-          },
-          "helptext": {
-            "en": "E.g. tax exemptions, compensation payments, subsidies, etc."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7044
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "If yes, specify contributions (type, conditions and provider)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7045
   },
   {
     "fields": {
@@ -809,34 +444,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specify credit provider"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7055
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Specify credit receiver"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7056
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Were other incentives or instruments used to promote implementation of SLM Technologies?"
           }
         }
@@ -865,34 +472,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Did the Approach empower local land users, improve stakeholder involvement?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7059
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "If yes, specify improvements. If no, give reasons."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7060
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Did the Approach enable evidence-based decision-making?"
           }
         }
@@ -900,20 +479,6 @@
     },
     "model": "configuration.translation",
     "pk": 7061
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Did the Approach help land users to implement and maintain SLM technologies?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7062
   },
   {
     "fields": {
@@ -998,34 +563,6 @@
     },
     "model": "configuration.translation",
     "pk": 7068
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Did the Approach empower socially and economically disadvantaged groups (gender, ethnic, etc.)?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7069
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Did the Approach improve land tenure issues/ user rights that hindered the implementation of the Technology?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7070
   },
   {
     "fields": {
@@ -1201,76 +738,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Indicate name of project (if relevant)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7088
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Is monitoring and evaluation part of the Approach?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7089
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "If yes, is systematic documentation of SLM technologies part of reporting procedures?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7090
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Description of the Approach"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7091
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Is advisory service provided"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7092
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Other (specify)"
           },
           "label_view": {
@@ -1312,37 +779,6 @@
     },
     "model": "configuration.translation",
     "pk": 7095
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Have land users received financial/ material support for the implementation of the technology?"
-          },
-          "helptext": {
-            "en": "E.g. tax exemptions, compensation payments, subsidies"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7096
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "If yes, specify contributions (type, conditions and provider)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7097
   },
   {
     "fields": {
@@ -1937,23 +1373,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "local land users/ community"
-          },
-          "helptext": {
-            "en": "land users themselves without international agencies, government and non-governmental interventions"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7501
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "community-based organizations"
           }
         }
@@ -1961,20 +1380,6 @@
     },
     "model": "configuration.translation",
     "pk": 7502
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "SLM specialists/ agricultural advisors"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7503
   },
   {
     "fields": {
@@ -2136,90 +1541,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "by land users alone (self-initiative)?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7515
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "mainly by land users supported by SLM specialists?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7516
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "through a participatory approach involving all relevant actors?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7517
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "mainly by SLM specialists with consultation of land users?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7518
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "by SLM specialists alone?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7519
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "by politicians/ leaders?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7520
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "evaluation of well-documented SLM knowledge (evidence-based decision-making)"
           }
         }
@@ -2248,20 +1569,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "personal experience and opinions (not documented)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7523
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "land users"
           }
         }
@@ -2276,20 +1583,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "field staff/ advisors"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7525
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "on-the-job"
           }
         }
@@ -2297,20 +1590,6 @@
     },
     "model": "configuration.translation",
     "pk": 7526
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "farmer to farmer"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7527
   },
   {
     "fields": {
@@ -2374,20 +1653,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "permanent centres"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7532
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "no"
           }
         }
@@ -2395,20 +1660,6 @@
     },
     "model": "configuration.translation",
     "pk": 7533
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "yes, little"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7534
   },
   {
     "fields": {
@@ -2437,20 +1688,6 @@
     },
     "model": "configuration.translation",
     "pk": 7536
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "community"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7537
   },
   {
     "fields": {
@@ -2493,20 +1730,6 @@
     },
     "model": "configuration.translation",
     "pk": 7540
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "training"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7541
   },
   {
     "fields": {
@@ -3049,20 +2272,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "customs and beliefs, moral"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7580
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "enhanced SLM knowledge and skills"
           }
         }
@@ -3070,20 +2279,6 @@
     },
     "model": "configuration.translation",
     "pk": 7581
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "aesthetic"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 7582
   },
   {
     "fields": {
@@ -3652,34 +2847,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "land governance (decision making, implementation and enforcement)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8207
-  },
-  {
-    "fields": {
-      "translation_type": "questiongroup",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "knowledge on SLM, access to technical support"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8208
-  },
-  {
-    "fields": {
-      "translation_type": "questiongroup",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "markets (to purchase inputs, sell products) and prices"
           }
         }
@@ -3757,23 +2924,6 @@
     },
     "model": "configuration.translation",
     "pk": 8214
-  },
-  {
-    "fields": {
-      "translation_type": "questiongroup",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Key resource person(s)"
-          },
-          "helptext": {
-            "en": "Person(s) who provided most of the information documented in this questionnaire. These can be land users, or local or regional experts/ SLM specialists."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8215
   },
   {
     "fields": {
@@ -3882,43 +3032,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Name of the SLM Approach (hereafter referred to as the Approach)"
-          },
-          "label_view": {
-            "en": "Name of the SLM Approach"
-          },
-          "helptext": {
-            "en": "Name of the SLM Approach: Do not use exactly the same name as used for the corresponding Technology (QT); try to name the main characteristic of the Approach (name of project/ programme/ initiative; name of implementation/ extension/ promotion method used, etc.)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8701
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Definition of the Approach"
-          },
-          "helptext": {
-            "en": "<p>Describe the Approach in one sentence containing key words. The definition of an approach is very important as it determines whether anyone searching the database will read further.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8702
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Image"
           },
           "helptext": {
@@ -3964,40 +3077,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Country/ region/ locations where the Approach has been applied"
-          },
-          "helptext": {
-            "en": "If you have already filled in Questionnaires on SLM Technologies that were implemented under this Approach, refer to the information given there in section QT 2.4"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8706
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Description of the Approach"
-          },
-          "helptext": {
-            "en": "Make sure the description contains the key characteristics/ distinct features of the Approach, its aims/ objectives, methods used, stages of implementation, roles of involved stakeholders, strengths, and weaknesses. This summary has to provide a comprehensive/ concise picture of the Approach to outsiders. After having gone through the whole questionnaire, come back and revise/ complement this section."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8707
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Stakeholders involved in the Approach and their roles"
           }
         }
@@ -4005,23 +3084,6 @@
     },
     "model": "configuration.translation",
     "pk": 8708
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Photos showing impressions of the Approach"
-          },
-          "helptext": {
-            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing/ in training, etc.</p><p>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</p><p>Maximum file size: 3 MB.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8709
   },
   {
     "fields": {
@@ -4043,85 +3105,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Type of Approach"
-          },
-          "helptext": {
-            "en": "Specify and indicate implementing agencies in question 3.1"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8711
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Conditions enabling or hindering the implementation of the Technology"
-          },
-          "helptext": {
-            "en": "Several answers possible. If for the same condition there are enabling as well as hindering factors, tick and specify both of them."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8712
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Flow chart (if available)"
-          },
-          "helptext": {
-            "en": "<p>Provide a visual summary pointing out important actors, acitivites, key stages of implementation, etc. You could also use different colours to distinguish stakeholders.</p><p>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</p><p><strong>Example</strong>: Process of Participatory Technology Development through close researcher-farmer interaction in Syria<br><img src=\"/static/assets/img/qa_flowchart.png\"></img></p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8713
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Decision-making on the selection of SLM Technology(ies)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8714
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Training/ awareness raising"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8715
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Advisory service"
           }
         }
@@ -4129,20 +3112,6 @@
     },
     "model": "configuration.translation",
     "pk": 8716
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Institution strengthening (organisational development)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8717
   },
   {
     "fields": {
@@ -4171,20 +3140,6 @@
     },
     "model": "configuration.translation",
     "pk": 8719
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Contributions per area, per unit, or per product"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8720
   },
   {
     "fields": {
@@ -4237,37 +3192,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Impacts of the Approach"
-          },
-          "helptext": {
-            "en": "<p>The term Approach refers to the implementation of one or several Technology(ies). It may have been introduced through a project/ programme, or be part of an indigenous system, or refer to a spontaneous adoption/ adaptation based on individual initiative.</p><p>First, tick relevant impacts. Then for each selected impact, tick the extent and specify / give reasons.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8724
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Main motivation of the land user to implement SLM"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8725
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Sustainability of Approach activities"
           }
         }
@@ -4289,119 +3213,6 @@
     },
     "model": "configuration.translation",
     "pk": 8727
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Weaknesses/ disadvantages of the Approach and ways of overcoming these"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8728
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Reference(s) to Questionnaire(s) on SLM Technologies"
-          },
-          "helptext": {
-            "en": "<p>Indicate SLM Technologies which were promoted by and implemented through this Approach.</p><p>The major Technologies promoted by and implemented through this Approach must be described in separate SLM Technology questionnaires. WOCAT recommends that you first fill in the Technology questionnaire and that you focus the description of the Approach to the Technology(ies) documented.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8729
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Videos of the Approach"
-          },
-          "helptext": {
-            "en": "If available, upload video files visualizing the Approach activities on a public platform (e.g. <a href=\"https://vimeo.com/\" target=\"_blank\" class=\"link\">vimeo.com</a>, <a href=\"https://www.youtube.com/\" target=\"_blank\" class=\"link\">youtube.com</a>) and indicate a link and a short description for each video linked below."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8730
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Which of the following methods/ sources of information were used?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8731
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Description of the Approach"
-          },
-          "helptext": {
-            "en": "<p>The description should provide a concise but comprehensive picture of the Approach to outsiders and addresses key questions such as:</p><ol><li>What are the main characteristics/ distinct features of the Approach?</li><li>What are the aims/ objectives of the Approach?</li><li>Which methods were used?</li><li>Which were the stages of implementation?</li><li>Which stakeholders were involved and what were their roles?</li><li>What did land users like / dislike about the Approach?</li></ol><p>Max. 2500 characters. Fill in this information at the beginning but revise the description when you have completed the questionnaire.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8732
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Country/ region/ locations where the Approach has been applied"
-          },
-          "helptext": {
-            "en": "If you have already filled in Questionnaires on SLM Technologies that were implemented under this Approach, refer to the information given there in section QT 2.5"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8733
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Conditions enabling or hindering the implementation of the Technology/ies applied under the Approach"
-          },
-          "helptext": {
-            "en": "Several answers possible. If for the same condition there are enabling as well as hindering factors, tick and specify both of them."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8734
   },
   {
     "fields": {
@@ -4487,23 +3298,6 @@
     },
     "model": "configuration.translation",
     "pk": 8739
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Photos showing impressions of the Approach"
-          },
-          "helptext": {
-            "en": "<p>Provide photos showing stakeholders interacting with each other/ implementing measures/ undergoing training, etc.</p><p>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</p><p>Maximum file size: 3 MB.</p><p>Photos should be of high quality/ high resolution and not manipulated or distorted.</p><p>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8740
   },
   {
     "fields": {
@@ -4801,23 +3595,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Specification of the SLM Approach"
-          },
-          "helptext": {
-            "en": "<p>The <strong>SLM Approach</strong> (hereafter referred to as the Approach) defines the ways and means used to implement one or several SLM Technology(ies), including technical and material support, involvement and roles of different stakeholders, etc. All types of Approaches may be documented using this questionnaire: Besides SLM technologies introduced through projects or programmes, WOCAT includes traditional SLM practices and spontaneous adoptions or adaptations of Technologies. <strong>In the case of a project, WOCAT asks you to document only those components or activities that are relevant to SLM.</strong></p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8902
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Participation and roles of stakeholders involved"
           }
         }
@@ -4839,57 +3616,6 @@
     },
     "model": "configuration.translation",
     "pk": 8904
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Financing and external material support"
-          },
-          "helptext": {
-            "en": "<p><strong>External material support</strong>: includes in-kind and financial support or incentives from government or private organisations.</p><p>Questions regarding financing consider all costs of the Approach including the implementation of the Technology.</p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8905
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Impact analysis"
-          },
-          "helptext": {
-            "en": "Impact analysis is crucial to assess investments made in SLM, which are often poorly assessed and documented; please provide as much information as possible. Note: Impacts of the Technology on natural resources, production, etc. must be specified in the corresponding questionnaire(s) on SLM Technologies."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8906
-  },
-  {
-    "fields": {
-      "translation_type": "category",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Conclusions and lessons learnt"
-          },
-          "helptext": {
-            "en": "The concluding statements should concentrate on the Approach you described in this document. Concluding statements for the Technologies associated with this Approach are to be made in the separate Questionnaire on SLM Technologies."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 8907
   },
   {
     "fields": {
@@ -4975,17 +3701,6 @@
   },
   {
     "fields": {
-      "keyword": "app_desc_aims",
-      "translation": 7002,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3003
-  },
-  {
-    "fields": {
       "keyword": "app_stakeholders",
       "translation": 7003,
       "configuration": {
@@ -5040,50 +3755,6 @@
     },
     "model": "configuration.key",
     "pk": 3006
-  },
-  {
-    "fields": {
-      "keyword": "app_desc_methods",
-      "translation": 7006,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3007
-  },
-  {
-    "fields": {
-      "keyword": "app_desc_stages",
-      "translation": 7007,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3008
-  },
-  {
-    "fields": {
-      "keyword": "app_desc_roles",
-      "translation": 7008,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3009
-  },
-  {
-    "fields": {
-      "keyword": "app_desc_conclusions",
-      "translation": 7009,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3010
   },
   {
     "fields": {
@@ -5826,28 +4497,6 @@
     },
     "model": "configuration.key",
     "pk": 3046
-  },
-  {
-    "fields": {
-      "keyword": "app_contributions",
-      "translation": 7044,
-      "configuration": {
-        "type": "bool"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3047
-  },
-  {
-    "fields": {
-      "keyword": "app_contributions_specify",
-      "translation": 7045,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3048
   },
   {
     "fields": {
@@ -7205,17 +5854,6 @@
     },
     "model": "configuration.key",
     "pk": 3148
-  },
-  {
-    "fields": {
-      "keyword": "app_stakeholders_project",
-      "translation": 7088,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 3149
   },
   {
     "fields": {
@@ -9691,14 +8329,6 @@
   },
   {
     "fields": {
-      "keyword": "app__7__4",
-      "translation": 8728
-    },
-    "model": "configuration.category",
-    "pk": 3028
-  },
-  {
-    "fields": {
       "keyword": "app__1__4",
       "translation": 8737
     },
@@ -9712,14 +8342,6 @@
     },
     "model": "configuration.category",
     "pk": 3030
-  },
-  {
-    "fields": {
-      "keyword": "app__refs__sources",
-      "translation": 8731
-    },
-    "model": "configuration.category",
-    "pk": 3031
   },
   {
     "fields": {

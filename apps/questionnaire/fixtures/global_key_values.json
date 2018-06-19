@@ -78,36 +78,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Locally used name"
-          },
-          "helptext": {
-            "en": "In latin letters"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Locally used name"
-          },
-          "helptext": {
-            "en": "In latin letters"
-          }
-        },
-        "unccd": {
-          "label": {
-            "en": "Local name"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5003
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Comments"
           }
         },
@@ -297,64 +267,6 @@
     "fields": {
       "translation_type": "key",
       "data": {
-        "technologies": {
-          "label": {
-            "en": "General remarks regarding photos"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5011
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Name of project/ institution which funded the documentation/ evaluation of the Approach (if relevant)"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Name of project/ institution which funded the documentation/ evaluation of the Technology (if relevant)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5012
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
-          },
-          "helptext": {
-            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT you will not be able to enter and edit data in the WOCAT database."
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"
-          },
-          "helptext": {
-            "en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT you will not be able to enter and edit data in the WOCAT database."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5013
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
         "approaches": {
           "label": {
             "en": "User ID"
@@ -526,82 +438,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Address of institution"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Address of institution"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5020
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Postal Code"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Postal Code"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5021
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "City"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "City"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5022
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "State or District"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "State or District"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5023
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Phone no. 1"
           }
         },
@@ -711,25 +547,6 @@
     },
     "model": "configuration.translation",
     "pk": 5027
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Key resource person type"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Key resource person type"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5028
   },
   {
     "fields": {
@@ -919,63 +736,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Date of documentation (in the field)"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Date of documentation (in the field)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5035
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Language"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Language"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5036
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Link"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Link"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5037
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "Comments, short description"
           }
         },
@@ -1050,25 +810,6 @@
     },
     "model": "configuration.translation",
     "pk": 5041
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Specify (number of informants, documents, etc.)"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Specify (number of informants, documents, etc.)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5042
   },
   {
     "fields": {
@@ -1177,44 +918,6 @@
       "data": {
         "approaches": {
           "label": {
-            "en": "Define type of key resource person"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Define type of key resource person"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5047
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "When was data compiled (in the field)?"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "When was data compiled (in the field)?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5048
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
             "en": "General remarks regarding photos"
           }
         },
@@ -1232,44 +935,6 @@
     },
     "model": "configuration.translation",
     "pk": 5049
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Name of project which funded the documentation/ evaluation of the Approach (if relevant)"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Name of project which funded the documentation/ evaluation of the Technology (if relevant)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5050
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "Name of institution which funded the documentation/ evaluation of the Approach (if relevant)"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "Name of institution which funded the documentation/ evaluation of the Technology (if relevant)"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5051
   },
   {
     "fields": {
@@ -1409,25 +1074,6 @@
     },
     "model": "configuration.translation",
     "pk": 5054
-  },
-  {
-    "fields": {
-      "translation_type": "key",
-      "data": {
-        "approaches": {
-          "label": {
-            "en": "When were the data compiled (in the field)?"
-          }
-        },
-        "technologies": {
-          "label": {
-            "en": "When were the data compiled (in the field)?"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5055
   },
   {
     "fields": {
@@ -5275,90 +4921,6 @@
       "data": {
         "technologies": {
           "label": {
-            "en": "0%"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5753
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "1-25%"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5754
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "26-50%"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5755
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "51-75%"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5756
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "76-99%"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5757
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "100%"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5758
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
             "en": "more than 50 years ago (traditional)"
           }
         },
@@ -5467,50 +5029,6 @@
     },
     "model": "configuration.translation",
     "pk": 5763
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "land user"
-          },
-          "helptext": {
-            "en": "the person/ entity who implements/ maintains the Technology(ies). The term land user may refer to individual small-/ large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
-          }
-        },
-        "approaches": {
-          "label": {
-            "en": "land user"
-          },
-          "helptext": {
-            "en": "the person/ entity who implements/ maintains the Technology(ies). The term land user may refer to individual small-/ large-scale farmers, groups (gender, age, status, interest), cooperatives, industrial companies (e.g. mining), government institutions (e.g. state forest), etc."
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5764
-  },
-  {
-    "fields": {
-      "translation_type": "value",
-      "data": {
-        "technologies": {
-          "label": {
-            "en": "SLM specialist/ technical advisor"
-          }
-        },
-        "approaches": {
-          "label": {
-            "en": "SLM specialist/ technical advisor"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5765
   },
   {
     "fields": {
@@ -5712,35 +5230,6 @@
     },
     "model": "configuration.translation",
     "pk": 5773
-  },
-  {
-    "fields": {
-      "translation_type": "questiongroup",
-      "data": {
-        "approaches": {
-          "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented approach.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
-          }
-        },
-        "technologies": {
-          "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
-          }
-        },
-        "cca": {
-          "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented Technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>Non-Commercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
-          }
-        },
-        "watershed": {
-          "helptext": {
-            "en": "<p><strong>Conditions regarding the use of data documented through WOCAT</strong></p><ul><li>Data captured through WOCAT questionnaires will be entered, edited, and stored in the WOCAT online database by the compiler or a data entry person assigned by the compiler. Overall responsibility for compilation and data quality lies with the compiler. The compiler, resource persons, and data entry person will be recorded and given credit for the data in the database as well as in any compilation or publication of the documented technology.</li><li>Data stored in the WOCAT database are open access.</li><li>Data are made available for users under the <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/\" target=\"_blank\" class=\"link\">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.</a></li></ul><p>You are free to:</p><ul><li><strong>Share</strong> — copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — remix, transform, and build upon the material</li></ul><p>The licensor cannot revoke these freedoms as long as you follow the following license terms:</p><ul><li><strong>Attribution</strong> — You must give appropriate credit, provide a link to the license, and indicate if changes were made.</li><li><strong>NonCommercial</strong> — You may not use the material for commercial purposes.</li><li><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</li><li><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</li></ul><p><strong>Full license terms</strong>: <a href=\"http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode\" target=\"_blank\" class=\"link\">http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode</a></p>"
-          }
-        }
-      }
-    },
-    "model": "configuration.translation",
-    "pk": 5901
   },
   {
     "fields": {
@@ -6436,50 +5925,6 @@
   },
   {
     "fields": {
-      "keyword": "person_institution_address",
-      "translation": 5020,
-      "configuration": {
-        "type": "text"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 20
-  },
-  {
-    "fields": {
-      "keyword": "person_postal_code",
-      "translation": 5021,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 21
-  },
-  {
-    "fields": {
-      "keyword": "person_city",
-      "translation": 5022,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 22
-  },
-  {
-    "fields": {
-      "keyword": "person_state",
-      "translation": 5023,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 23
-  },
-  {
-    "fields": {
       "keyword": "person_phone_1",
       "translation": 5024,
       "configuration": {
@@ -6679,31 +6124,6 @@
     },
     "model": "configuration.key",
     "pk": 35
-  },
-  {
-    "fields": {
-      "keyword": "name_local_language",
-      "translation": 5036,
-      "configuration": {
-        "type": "char"
-      }
-    },
-    "model": "configuration.key",
-    "pk": 36
-  },
-  {
-    "fields": {
-      "keyword": "video_link",
-      "translation": 5037,
-      "configuration": {
-        "type": "char",
-        "view_options": {
-          "template": "link"
-        }
-      }
-    },
-    "model": "configuration.key",
-    "pk": 37
   },
   {
     "fields": {
@@ -9001,60 +8421,6 @@
     },
     "model": "configuration.value",
     "pk": 252
-  },
-  {
-    "fields": {
-      "keyword": "percentage_q0",
-      "translation": 5753,
-      "order_value": 1
-    },
-    "model": "configuration.value",
-    "pk": 253
-  },
-  {
-    "fields": {
-      "keyword": "percentage_q1",
-      "translation": 5754,
-      "order_value": 2
-    },
-    "model": "configuration.value",
-    "pk": 254
-  },
-  {
-    "fields": {
-      "keyword": "percentage_q2",
-      "translation": 5755,
-      "order_value": 3
-    },
-    "model": "configuration.value",
-    "pk": 255
-  },
-  {
-    "fields": {
-      "keyword": "percentage_q3",
-      "translation": 5756,
-      "order_value": 4
-    },
-    "model": "configuration.value",
-    "pk": 256
-  },
-  {
-    "fields": {
-      "keyword": "percentage_q4",
-      "translation": 5757,
-      "order_value": 5
-    },
-    "model": "configuration.value",
-    "pk": 257
-  },
-  {
-    "fields": {
-      "keyword": "percentage_q5",
-      "translation": 5758,
-      "order_value": 6
-    },
-    "model": "configuration.value",
-    "pk": 258
   },
   {
     "fields": {
