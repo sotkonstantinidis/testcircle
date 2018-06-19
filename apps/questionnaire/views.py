@@ -959,7 +959,8 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
 
     def get(self, request, *args, **kwargs):
         """
-        To discuss: move this to post?
+        Create new questionnaire object in case new edition of configuration is
+        available.
         """
         self.object = self.get_object()
         if self.object.status is settings.QUESTIONNAIRE_PUBLIC:
