@@ -327,7 +327,7 @@ class PutQuestionnaireDataTest(TestCase):
             questionnaire
         ).data)
         source['filter_data'] = {}
-        source['list_data']['country'] = ''
+        source['list_data']['country'] = None
         data = [{
             '_index': '{}sample_2015'.format(settings.ES_INDEX_PREFIX),
             '_type': 'questionnaire',
