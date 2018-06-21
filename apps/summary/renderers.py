@@ -87,7 +87,8 @@ class SummaryRenderer:
                 template_name=method['template_name'],
                 context={
                     'content': method.get('partials', {}),
-                    'title': method.get('title', '')
+                    'title': method.get('title', ''),
+                    'base_url': self.base_url
                 }
             )
 
@@ -514,14 +515,11 @@ class GlobalValuesMixin:
         except InvalidImageFormatError:
             return ''
 
-        # Return full url, not file path. Use 'abspath' to remove '..' from dir.
-        return thumbnail.url.replace(
-            os.path.abspath(settings.MEDIA_ROOT),
-            '{base}{upload}'.format(
-                base=self.base_url.rstrip('/'),
-                upload=settings.MEDIA_URL
-            )
-        )
+        # Use 'abspath' to remove '..' from path.
+        media_path = os.path.abspath(settings.MEDIA_ROOT)
+        #  Strip away the media folder info - only the last part is required for the url.
+        file_path = thumbnail.url[thumbnail.url.find(media_path) + len(media_path):]
+        return f'{self.base_url.rstrip("/")}{settings.MEDIA_URL}{file_path}'
 
     def get_location_values(self, *fields):
         for field in fields:
