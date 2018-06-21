@@ -41,7 +41,7 @@ class SummaryRenderer:
 
     """
     parser = QuestionnaireParser
-    n_a = 'n.a.'
+    n_a = _('n.a.')
 
     def __init__(self, config: QuestionnaireConfiguration,
                  questionnaire: Questionnaire, quality: str,
@@ -426,10 +426,9 @@ class GlobalValuesMixin:
                 type=person_type)}
 
     def get_reference_links(self):
-        text = _('<a href="{base_url}{url}">{base_url}{url}</a>'.format(
+        text = '<a href="{base_url}{url}">{base_url}{url}</a>'.format(
             base_url=self.base_url.rstrip('/'),
             url=self.questionnaire.get_absolute_url())
-        )
 
         link_items = [
             {'text': text}

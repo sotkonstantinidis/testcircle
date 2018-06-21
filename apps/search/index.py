@@ -291,10 +291,9 @@ def put_questionnaire_data(questionnaire_objects, **kwargs):
         serialized['list_data'] = force_strings(serialized['list_data'])
 
         # The country field is used as default order of the list and needs to be
-        # set in the ES data. Set it manually if not available (usually only
-        # when using test data of the sample app).
+        # set in the ES data. Set it manually if not available.
         if 'country' not in serialized['list_data']:
-            serialized['list_data']['country'] = ''
+            serialized['list_data']['country'] = None
 
         # Collect the filter values as specified in the configuration
         # Global filter keys first

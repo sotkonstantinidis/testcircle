@@ -63,14 +63,6 @@ def get_es_query(
             if filter_param.operator in ['gt', 'gte', 'lt', 'lte']:
                 raise NotImplementedError(
                     'Filtering by range is not yet implemented.')
-                # query = {
-                #     'range': {
-                #         f'data.{filter_param.questiongroup}.'
-                #         f'{filter_param.key}_order': {
-                #             filter_param.operator: filter_param.values[0]
-                #         }
-                #     }
-                # }
             else:
                 if len(filter_param.values) > 1:
                     matches = [
@@ -92,47 +84,12 @@ def get_es_query(
         elif filter_param.type in ['text', 'char']:
             raise NotImplementedError(
                 'Filtering by text or char is not yet implemented/supported.')
-            # es_queries.append({
-            #     "nested": {
-            #         "path": "data.{}".format(filter_param.questiongroup),
-            #         "query": {
-            #             "multi_match": {
-            #                 "query": filter_param.values[0],
-            #                 "fields": ["data.{}.{}.*".format(
-            #                     filter_param.questiongroup, filter_param.key)],
-            #                 "type": "most_fields",
-            #             }
-            #         }
-            #     }
-            # })
 
         elif filter_param.type in ['_date']:
             raise NotImplementedError('Not yet implemented.')
-            # years = filter_param.values[0].split('-')
-            # if len(years) != 2:
-            #     continue
-            # es_queries.append({
-            #     'range': {
-            #         filter_param.key: {
-            #             'from': '{}||/y'.format(years[0]),
-            #             'to': '{}||/y'.format(years[1]),
-            #         }
-            #     }
-            # })
 
         elif filter_param.type in ['_flag']:
             raise NotImplementedError('Not yet implemented.')
-            # es_queries.append({
-            #     'nested': {
-            #         'path': 'flags',
-            #         'query': {
-            #             'query_string': {
-            #                 'query': filter_param.values[0],
-            #                 'fields': ['flags.flag'],
-            #             }
-            #         }
-            #     }
-            # })
 
         elif filter_param.type in ['_lang']:
             es_queries.append({

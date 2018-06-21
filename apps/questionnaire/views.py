@@ -963,7 +963,7 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
         available.
         """
         self.object = self.get_object()
-        if self.object.status is settings.QUESTIONNAIRE_PUBLIC:
+        if self.object and self.object.status is settings.QUESTIONNAIRE_PUBLIC:
             questionnaire_data = self.object.data
             inherited_data = self.get_inherited_data()
             questionnaire_data.update(inherited_data)
