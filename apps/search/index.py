@@ -139,7 +139,23 @@ def get_mappings():
                         },
                     }
                 },
-                # 'list_data' is added dynamically
+                # The rest of 'list_data' is added dynamically, but 'country'
+                # needs to be present because of the default sort order.
+                # Otherwise, questionnaires which do not have a 'country'
+                # question (e.g. CCA) would throw an error.
+                'list_data': {
+                    'properties': {
+                        'country': {
+                            'type': 'text',
+                            'fields': {
+                                'keyword': {
+                                    'type': 'keyword',
+                                    'ignore_above': 256,
+                                }
+                            }
+                        }
+                    }
+                }
                 # 'filter_data' is added dynamically (automatic mapping)
             }
         }
