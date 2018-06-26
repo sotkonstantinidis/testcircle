@@ -1,25 +1,21 @@
 import contextlib
-
 import collections
 import datetime
 
 import floppyforms as forms
 from django.apps import apps
 from django.contrib.auth import get_user_model
-from django.core.cache import cache
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _
 
 from configuration.models import (
     Category,
     Configuration,
     Key,
     Questiongroup)
-from configuration.utils import get_choices_from_model, \
-    get_choices_from_questiongroups
-from notifications.models import Log
+from configuration.utils import get_choices_from_model, get_choices_from_questiongroups
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -29,11 +25,10 @@ from qcat.errors import (
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
 )
-from qcat.utils import (
-    find_dict_in_list,
-    is_empty_list_of_dicts,
-)
+from qcat.utils import is_empty_list_of_dicts
 from questionnaire.models import File
+from .fields import XMLCompatCharField
+
 
 User = get_user_model()
 
@@ -576,10 +571,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 translation_widget = TextInput(attrs)
             widget.options = field_options
             translation_widget.options = field_options
-            field = forms.CharField(
+            field = XMLCompatCharField(
                 label=self.label, widget=widget,
                 required=self.required, max_length=max_length)
-            translation_field = forms.CharField(
+            translation_field = XMLCompatCharField(
                 label=self.label, widget=translation_widget,
                 required=self.required, max_length=max_length)
         elif self.field_type == 'link_video':
@@ -625,10 +620,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if show_translation is True:
                 widget = forms.HiddenInput(attrs=attrs)
                 translation_widget = forms.Textarea(attrs=attrs)
-            field = forms.CharField(
+            field = XMLCompatCharField(
                 label=self.label, widget=widget,
                 required=self.required, max_length=max_length)
-            translation_field = forms.CharField(
+            translation_field = XMLCompatCharField(
                 label=self.label, widget=translation_widget,
                 required=self.required)
         elif self.field_type == 'bool':
