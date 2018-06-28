@@ -32,7 +32,16 @@
           If you submit a new version of this {{ questionnaire_type }}, a new release of this case with status: "draft" will be created. It can be edited by you and all editors.
         {% endblocktrans %}
       </p>
-      <a class="button success" type="submit" href="{{ review_config.url }}">{% trans "Create new version" %}</a>
+      {% comment %}
+        This templates parent (review_panel.html) encolses this part with a <form> tag, but
+        a POST request is needed here, as the questionnaire data may be migrated to a new configuration
+        edition.
+      {% endcomment %}
+      <input class="button success" type="submit" form="review_form" value="{% trans "Create new version" %}">
+      <input type="hidden" name="create_new_version" form="review_form" value="true">
+      <script>
+        document.getElementById('review_form').setAttribute('action', '{{ review_config.url }}');
+      </script>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
   </div>

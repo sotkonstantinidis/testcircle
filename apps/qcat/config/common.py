@@ -323,6 +323,7 @@ class BaseSettings(Configuration):
     TESTING_CHROMEDRIVER_PATH = values.Value(
         environ_prefix='', default='/usr/local/bin/chromedriver')
     TESTING_POP_BROWSER = values.BooleanValue(environ_prefix='', default=False)
+    IS_TEST_RUN = False
 
     # Flag for caching of the whole configuration object. Sections are always cached.
     USE_CACHING = values.BooleanValue(default=True)
