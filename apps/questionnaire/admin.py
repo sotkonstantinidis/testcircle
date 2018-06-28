@@ -61,6 +61,7 @@ class CountryFilter(admin.SimpleListFilter):
             return queryset
         return queryset.filter(data__qg_location__0__country__icontains=self.value())
 
+
 @admin.register(Questionnaire)
 class QuestionnaireAdmin(admin.ModelAdmin):
     list_display = [
