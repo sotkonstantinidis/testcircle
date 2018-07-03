@@ -57,7 +57,13 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         To access description and name in all versions, the config must be
         loaded again.
         """
-        list_values = get_list_values(es_hits=[es_hit])[0]
+        try:
+            list_values = get_list_values(es_hits=[es_hit])[0]
+        except IndexError:
+            # We want to know about these errors.
+            raise Exception('Possibly invalid data in ES (unable to serialize)'
+                            ': %s' % es_hit)
+
         # 'name' and 'definition' must include all translations.
         list_values['name'] = es_hit['_source']['list_data']['name']
         list_values['definition'] = es_hit['_source']['list_data']['definition']
