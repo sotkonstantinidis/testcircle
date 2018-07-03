@@ -290,6 +290,7 @@ class BaseSettings(Configuration):
     SWAGGER_SETTINGS = {
         'DOC_EXPANSION': 'list',
         'JSON_EDITOR': True,
+        'VALIDATOR_URL': None,
     }
     API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
 
