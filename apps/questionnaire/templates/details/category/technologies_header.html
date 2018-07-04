@@ -92,7 +92,7 @@
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
       {% trans "View full content" %}
     </a>
-    <button href="#" class="button dropdown" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+    <button href="#" class="button dropdown{% if questionnaire_object.status == 6 or not questionnaire_object.id %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
       {% trans "Print summary" %}
     </button>
