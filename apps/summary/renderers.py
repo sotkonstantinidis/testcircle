@@ -1100,7 +1100,11 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'comments': self.raw_data_getter('adoption_comments')
             }
         }
-    
+
+
+class Technology2018FullSummaryRenderer(TechnologyFullSummaryRenderer):
+    pass
+
 
 class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
