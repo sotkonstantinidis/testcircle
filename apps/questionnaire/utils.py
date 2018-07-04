@@ -1003,7 +1003,7 @@ def get_query_status_filter(request):
     """
     status_filter = Q()
 
-    if request.user.is_authenticated():
+    if request.user and request.user.is_authenticated():
 
         permissions = request.user.get_all_permissions()
 

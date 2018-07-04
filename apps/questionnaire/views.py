@@ -929,10 +929,11 @@ class QuestionnairePermaView(QuestionnaireView):
         return {}
 
     def get_object(self):
+        status_filter = get_query_status_filter(self.request)
+        # Inactive versions (previously active) are always visible
+        status_filter |= Q(status=settings.QUESTIONNAIRE_INACTIVE)
         return get_object_or_404(
-            Questionnaire.with_status.not_deleted().filter(
-                status__in=[settings.QUESTIONNAIRE_INACTIVE, settings.QUESTIONNAIRE_PUBLIC]
-            ),
+            Questionnaire.with_status.not_deleted().filter(status_filter),
             pk=self.kwargs['pk']
         )
 

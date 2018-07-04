@@ -6,6 +6,7 @@ import os
 import requests
 from django.contrib.gis.gdal.error import GDALException
 from django.contrib.gis.geos import GeometryCollection, GEOSGeometry
+from django.db.models import Q
 from os.path import join
 from uuid import uuid4
 
@@ -581,18 +582,30 @@ class Questionnaire(models.Model):
                 return [value.get_translation(keyword='label') for value in values]
         return []
 
-    def get_previous_public_versions(self) -> list:
-        item = collections.namedtuple('Item', 'name, url, updated')
-        history = Questionnaire.with_status.not_deleted().exclude(
-            pk=self.pk
-        ).filter(
+    def get_history_versions(self, user: User or None) -> list:
+        item = collections.namedtuple('Item', 'id, name, url, updated, status')
+
+        # Function get_query_status_filter requires a request object, which we
+        # will fake here.
+        pseudo_request = collections.namedtuple('MockRequest', 'user')
+
+        from questionnaire.utils import get_query_status_filter
+        status_filter = get_query_status_filter(pseudo_request(user))
+        # Inactive versions (previously active) are always visible
+        status_filter |= Q(status=settings.QUESTIONNAIRE_INACTIVE)
+
+        history = Questionnaire.with_status.not_deleted().filter(
+            status_filter,
             code=self.code,
-            status__in=[settings.QUESTIONNAIRE_PUBLIC, settings.QUESTIONNAIRE_INACTIVE]
         ).order_by(
             'created'
         )
         return [
-            item(questionnaire.get_name(), questionnaire.get_perma_url(), questionnaire.updated)
+            item(
+                questionnaire.id, questionnaire.get_name(),
+                questionnaire.get_perma_url(), questionnaire.updated,
+                questionnaire.status_property
+            )
             for questionnaire in history
         ]
 

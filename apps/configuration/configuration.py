@@ -1954,7 +1954,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
         history = []
         if questionnaire_object is not None:
-            history = questionnaire_object.get_previous_public_versions()
+            history = questionnaire_object.get_history_versions(user)
 
         return render_to_string(
             view_template, {
