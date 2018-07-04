@@ -9,6 +9,28 @@
 
 {% block content %}
 
+  {# If a new edition is available (only for compilers), show a modal. #}
+  {% if review_config.has_new_configuration_edition %}
+    <div id="modal-new-edition" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
+      <h3 class="alert-box-title">
+        <svg class="icon-lines is-inline"><use xlink:href="#icon-alert"></use></svg>{% trans "New edition of the questionnaire is available." %}
+      </h3>
+      <p>{% trans "The structure of the questionnaire was updated:" %} <a href="{% url 'configuration:release_notes' %}">{% trans "see all details" %}</a>.</p>
+      <p>{% trans "Please start editing the questionnaire in order to update your case data." %}</p>
+      <div class="text-right">
+        <a class="close-modal-new-edition button">
+          {% trans "Close" %}
+        </a>
+      </div>
+    </div>
+    {% addtoblock 'js' %}
+      <script>
+          $(document).ready(function(){$('#modal-new-edition').foundation('reveal', 'open')});
+          $('a.close-modal-new-edition').on('click', function() {$('#modal-new-edition').foundation('reveal', 'close')});
+      </script>
+    {% endaddtoblock %}
+  {% endif %}
+
   {% if 'assign_questionnaire' in permissions or 'change_compiler' in permissions %}
     {% addtoblock 'js' %}
       <script src="{% static 'js/jquery-ui.min.js' %}"></script>
