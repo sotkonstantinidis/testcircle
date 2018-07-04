@@ -1,6 +1,7 @@
 import copy
 
 from django.conf import settings
+from django.db.models import F
 from django.template.loader import render_to_string
 
 from configuration.models import Configuration, Key, Value, Translation
@@ -154,9 +155,10 @@ class Edition:
         """
         Create and return a new translation entry.
         """
-        return self.translation.objects.create(
+        translation, __ = self.translation.objects.get_or_create(
             translation_type=translation_type,
             data={self.translation_key: data})
+        return translation
 
     def create_new_question(
             self, keyword: str, translation: dict or int, question_type: str,
@@ -171,10 +173,10 @@ class Edition:
         else:
             translation_obj = self.translation.objects.get(pk=translation)
         configuration_data = {'type': question_type}
-        key = self.key.objects.create(
+        key, created = self.key.objects.get_or_create(
             keyword=keyword, translation=translation_obj,
             configuration=configuration_data)
-        if values:
+        if values and created:
             key.values.add(*values)
         return key
 
@@ -189,9 +191,29 @@ class Edition:
                 translation_type='value', **translation)
         else:
             translation_obj = self.translation.objects.get(pk=translation)
-        return self.value.objects.create(
+        value, __ = self.value.objects.get_or_create(
             keyword=keyword, translation=translation_obj,
             order_value=order_value, configuration=configuration)
+        return value
+
+    def add_new_value(
+            self, question_keyword: str, value: Value, order_value: int=None):
+        """
+        Add a new value to an existing question.
+        """
+        key = self.key.objects.get(keyword=question_keyword)
+        if order_value and not key.values.filter(pk=value.pk).exists():
+            # If order_value is provided and the value was not yet added to the
+            # question, update the ordering of the existing values.
+            key.values.filter(
+                order_value__gte=order_value
+            ).update(
+                order_value=F('order_value') + 1
+            )
+        key.values.add(value)
+
+    def get_value(self, keyword: str) -> Value:
+        return self.value.objects.get(keyword=keyword)
 
     def find_in_data(self, path: tuple, **data: dict) -> dict:
         """

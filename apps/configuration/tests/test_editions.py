@@ -9,11 +9,16 @@ class EditionsTest(TestCase):
 
     @property
     def model_kwargs(self):
+        mock_translation = mock.MagicMock(spec=Translation)
+        mock_key = mock.MagicMock(spec=Key)
+        mock_value = mock.MagicMock(spec=Value)
+        for mock_obj in [mock_translation, mock_key, mock_value]:
+            mock_obj.objects.get_or_create.return_value = (mock.sentinel, True)
         return dict(
-            key=mock.MagicMock(spec=Key),
-            value=mock.MagicMock(spec=Value),
+            key=mock_key,
+            value=mock_value,
             configuration=mock.MagicMock(spec=Configuration),
-            translation=mock.MagicMock(spec=Translation)
+            translation=mock_translation,
         )
 
     def get_edition(self, code='test_code', edition='1234'):
@@ -68,7 +73,7 @@ class EditionsTest(TestCase):
             translation_type='type', **new_translation)
 
         self.assertIn(
-            mock.call.create(
+            mock.call.get_or_create(
                 data={'test_code_1234': new_translation},
                 translation_type='type'),
             edition.translation.objects.method_calls
@@ -85,16 +90,16 @@ class EditionsTest(TestCase):
 
         # Creates translation
         self.assertIn(
-            mock.call.create(
+            mock.call.get_or_create(
                 data={'test_code_1234': translation},
                 translation_type='value'),
             edition.translation.objects.method_calls
         )
         # Creates value
         self.assertIn(
-            mock.call.create(
+            mock.call.get_or_create(
                 configuration=None, keyword='keyword', order_value=None,
-                translation=edition.translation.objects.create.return_value),
+                translation=edition.translation.objects.get_or_create.return_value[0]),
             edition.value.objects.method_calls
         )
 
@@ -116,7 +121,7 @@ class EditionsTest(TestCase):
         )
         # Creates value
         self.assertIn(
-            mock.call.create(
+            mock.call.get_or_create(
                 configuration=config, keyword='keyword', order_value=1,
                 translation=edition.translation.objects.get.return_value),
             edition.value.objects.method_calls
@@ -134,16 +139,16 @@ class EditionsTest(TestCase):
 
         # Creates translation
         self.assertIn(
-            mock.call.create(
+            mock.call.get_or_create(
                 data={'test_code_1234': translation},
                 translation_type='key'),
             edition.translation.objects.method_calls
         )
         # Creates value
         self.assertIn(
-            mock.call.create(
+            mock.call.get_or_create(
                 configuration={'type': 'text'}, keyword='keyword',
-                translation=edition.translation.objects.create.return_value),
+                translation=edition.translation.objects.get_or_create.return_value[0]),
             edition.key.objects.method_calls
         )
 

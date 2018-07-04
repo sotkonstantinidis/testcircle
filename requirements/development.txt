@@ -20,3 +20,4 @@ PyVirtualDisplay==0.2.1
 selenium==3.12.0
 pytest-xdist==1.22.2
 pytest-rerunfailures==4.1
+pytest-tldr==0.1.3
