@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from configuration.models import Configuration
+from configuration.models import Configuration, Country
 from .models import Lock, Questionnaire
 
 
@@ -45,16 +45,50 @@ class NewEditionFilter(admin.SimpleListFilter):
             return queryset.filter(configuration__id__in=latest_configurations)
 
 
+class CountryFilter(admin.SimpleListFilter):
+    title = _('Country')
+    parameter_name = 'country'
+
+    def lookups(self, request, model_admin):
+        return ((country.keyword, country.__str__()) for country in Country.all().order_by('keyword'))
+
+    def queryset(self, request, queryset):
+        """
+        This lookup assumes that only one country is stored per questionnaire, in the
+        key 'qq_location'.
+        """
+        if self.value() is None:
+            return queryset
+        return queryset.filter(data__qg_location__0__country__icontains=self.value())
+
+
 @admin.register(Questionnaire)
 class QuestionnaireAdmin(admin.ModelAdmin):
-    list_display = ['id', 'code', 'get_name', 'status', 'updated', 'has_new_edition', 'edit_url']
-    list_filter = ['configuration', 'status', NewEditionFilter]
+    list_display = [
+        'id', 'code', 'get_name', 'status', 'updated', 'get_compilers', 'get_countries',
+        'has_new_edition', 'edit_url'
+    ]
+    list_filter = ['configuration', 'status', NewEditionFilter, CountryFilter]
 
     def has_new_edition(self, obj):
         return obj.configuration_object.has_new_edition
     has_new_edition.boolean = True
+    has_new_edition.short_description = _('Edition update available')
+
+    def get_compilers(selfs, obj):
+        return [compiler.get('name', '') for compiler in obj.compilers]
+    get_compilers.short_description = _('Compiler')
+
+    def get_countries(self, obj):
+        return obj.get_countries()
+    get_countries.short_description = _('Country')
 
     def edit_url(self, obj):
+        # Currently, the detail url is used instead of the edit url. The latter
+        # creates new versions for public versions, which is undesired behaviour
+        # in this case. Use a POST request to create new versions of a public
+        # questionnaire, then use the edit url again here.
+        # TODO: Revert this to get_edit_url.
         return mark_safe(
-            f'<a href="{obj.get_edit_url()}" target="_blank">Edit</a>'
+            f'<a href="{obj.get_absolute_url()}" target="_blank">Edit</a>'
         )

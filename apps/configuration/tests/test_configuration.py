@@ -47,9 +47,10 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
         list_data = conf.get_list_data([q.data for q in questionnaires])
         self.assertEqual(len(list_data), 2)
         for d in list_data:
-            self.assertEqual(len(d), 3)  # keys: 'key_1', 'name', 'definition'
+            self.assertEqual(len(d), 4)
             self.assertIn('key_1', d)
             self.assertIn('definition', d)
+            self.assertIn('country', d)
 
 
 class QuestionnaireConfigurationGeometryTest(TestCase):

@@ -83,7 +83,7 @@ class AdvancedSearchTest(TestCase):
         ).get('hits')
         self.assertEqual(search.get('total'), 2)
         hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['1', '2'])
+        self.assertEqual(hit_ids, ['2', '1'])
 
     def test_advanced_search_multiple_arguments_2_match_one(self):
         query_string = 'key'
@@ -98,7 +98,7 @@ class AdvancedSearchTest(TestCase):
         ).get('hits')
         self.assertEqual(search.get('total'), 3)
         hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['1', '2', '5'])
+        self.assertEqual(hit_ids, ['2', '1', '5'])
 
     def test_advanced_search_multiple_arguments_2(self):
         query_string = 'key'
@@ -125,7 +125,7 @@ class AdvancedSearchTest(TestCase):
         ).get('hits')
         self.assertEqual(search.get('total'), 3)
         hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertEqual(hit_ids, ['5', '4', '1'])
+        self.assertEqual(hit_ids, ['1', '5', '4'])
 
     def test_advanced_search_multiple_arguments_same_filter_2(self):
         filter_param_1 = FilterParam(
@@ -158,7 +158,7 @@ class AdvancedSearchTest(TestCase):
         ).get('hits')
         self.assertEqual(search.get('total'), 4)
         hit_ids = [r.get('_id') for r in search.get('hits')]
-        self.assertListEqual(hit_ids, ['5', '2', '4', '1'])
+        self.assertListEqual(hit_ids, ['1', '2', '5', '4'])
 
     def test_advanced_search_gte(self):
         filter_param = FilterParam(

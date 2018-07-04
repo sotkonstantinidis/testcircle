@@ -44,6 +44,11 @@
           {
             "key_48": "value_1"
           }
+        ],
+        "qg_location": [
+          {
+            "country": "country_AFG"
+          }
         ]
       },
       "code": "sample_1",
@@ -99,6 +104,11 @@
           {
             "key_48": "value_2"
           }
+        ],
+        "qg_location": [
+          {
+            "country": "country_CHE"
+          }
         ]
       },
       "code": "sample_2",
@@ -129,6 +139,11 @@
             "mkey_01": {
               "en": "The first key of Multisample"
             }
+          }
+        ],
+        "qg_location": [
+          {
+            "country": "country_CHE"
           }
         ]
       },
