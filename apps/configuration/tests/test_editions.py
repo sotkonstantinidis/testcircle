@@ -218,7 +218,7 @@ class EditionsTest(TestCase):
             edition.find_in_data(path=('does', 'not', 'exist'), **data)
 
     @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
-    def test_update_data(self, mock_choices):
+    def test_update_config_data(self, mock_choices):
         mock_choices.return_value = [('test_code', 'test_code'), ]
 
         edition = self.get_edition()
@@ -268,7 +268,7 @@ class EditionsTest(TestCase):
         }
 
         updated_value = {'keyword': 'category_2', 'foo': 'bar'}
-        updated_data = edition.update_data(
+        updated_data = edition.update_config_data(
             path=('section_2', 'category_2'), updated=updated_value, **data)
         self.assertEqual(
             edition.find_in_data(

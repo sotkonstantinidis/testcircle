@@ -31,10 +31,12 @@ class Technologies(Edition):
             ),
             Operation(
                 transform_configuration=self.remove_tech_est_type,
+                transform_questionnaire=self.delete_tech_est_type,
                 release_note=_('4.4: Removed "Type of measure" from Establishment activities.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_maint_type,
+                transform_questionnaire=self.delete_tech_maint_type,
                 release_note=_('4.6: Removed "Type of measure" from Maintenance activities.')
             ),
             Operation(
@@ -70,7 +72,7 @@ class Technologies(Edition):
                 question['form_options'] = {'helptext_position': 'tooltip'}
             questions.append(question)
         qg_data['questions'] = questions
-        data = self.update_data(path=qg_path, updated=qg_data, **data)
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
         self.update_translation(
             update_pk=1139,
             **{
@@ -101,7 +103,7 @@ class Technologies(Edition):
         qg_data = self.find_in_data(path=qg_path, **data)
         del qg_data['form_options']
         del qg_data['view_options']
-        data = self.update_data(path=qg_path, updated=qg_data, **data)
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
         return data
 
     def rename_tech_input_est_total_estimation(self, **data) -> dict:
@@ -121,7 +123,7 @@ class Technologies(Edition):
         qg_data = self.find_in_data(path=qg_path, **data)
         del qg_data['form_options']
         del qg_data['view_options']
-        data = self.update_data(path=qg_path, updated=qg_data, **data)
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
         return data
 
     def remove_tech_maint_type(self, **data) -> dict:
@@ -130,8 +132,11 @@ class Technologies(Edition):
         qg_data = self.find_in_data(path=qg_path, **data)
         qg_data['questions'] = [
             q for q in qg_data['questions'] if q['keyword'] != 'tech_maint_type']
-        data = self.update_data(path=qg_path, updated=qg_data, **data)
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
         return data
+
+    def delete_tech_maint_type(self, **data) -> dict:
+        return self.update_data('tech_qg_43', 'tech_maint_type', None, **data)
 
     def remove_tech_est_type(self, **data) -> dict:
         qg_path = (
@@ -139,8 +144,11 @@ class Technologies(Edition):
         qg_data = self.find_in_data(path=qg_path, **data)
         qg_data['questions'] = [
             q for q in qg_data['questions'] if q['keyword'] != 'tech_est_type']
-        data = self.update_data(path=qg_path, updated=qg_data, **data)
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
         return data
+
+    def delete_tech_est_type(self, **data: dict) -> dict:
+        return self.update_data('tech_qg_165', 'tech_est_type', None, **data)
 
     def add_option_tech_lu_mixed_integrated(self, **data) -> dict:
         self.add_new_value(
@@ -211,5 +219,5 @@ class Technologies(Edition):
             ])
 
         qg_data['questions'] = [{'keyword': 'tech_lu_initial'}] + qg_data['questions']
-        data = self.update_data(path=qg_path, updated=qg_data, **data)
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
         return data

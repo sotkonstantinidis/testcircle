@@ -100,7 +100,10 @@ class Edition:
             yield _operation.render()
 
     def update_questionnaire_data(self, **data) -> dict:
-        # Stub!
+        """
+        Gets called when creating a new version of a questionnaire in a new
+        edition. Calls each operation's "transform_questionnaire" method.
+        """
         for _operation in self.operations:
             data = _operation.update_questionnaire_data(**data)
         return data
@@ -263,7 +266,7 @@ class Edition:
                         path_keyword, self.hierarchy[hierarchy_level]))
         return data
 
-    def update_data(self, path: tuple, updated, level=0, **data):
+    def update_config_data(self, path: tuple, updated, level=0, **data):
         """
         Helper to update a portion of the nested configuration data dict.
         """
@@ -277,13 +280,30 @@ class Edition:
             if element['keyword'] != path[0]:
                 new_element = element
             elif len(path) > 1:
-                new_element = self.update_data(
+                new_element = self.update_config_data(
                     path=path[1:], updated=updated, level=level+1, **element)
             else:
                 new_element = updated
             new_data[current_hierarchy].append(new_element)
 
         return new_data
+
+    def update_data(self, qg_keyword, q_keyword, updated, **data: dict) -> dict:
+        """
+        Helper to update a question of the questionnaire data dict.
+        """
+        questiongroup_data = data.get(qg_keyword, [])
+        if not questiongroup_data:
+            return data
+
+        updated_questiongroup_data = []
+        for qg_data in questiongroup_data:
+            if q_keyword not in qg_data:
+                continue
+            qg_data[q_keyword] = updated
+            updated_questiongroup_data.append(qg_data)
+        data[qg_keyword] = updated_questiongroup_data
+        return data
 
 
 class Operation:
