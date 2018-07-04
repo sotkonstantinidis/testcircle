@@ -255,7 +255,7 @@ def clean_questionnaire_data(
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(
                             question.field_type))
-                if value or isinstance(value, (bool, int)):
+                if value or isinstance(value, (bool, int, float)):
                     cleaned_qg[key] = value
             if cleaned_qg:
                 if len(cleaned_qg) == 1 and '__order' in cleaned_qg:

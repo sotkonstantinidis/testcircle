@@ -6,11 +6,10 @@ import datetime
 import floppyforms as forms
 from django.apps import apps
 from django.contrib.auth import get_user_model
-from django.core.cache import cache
 from django.core.urlresolvers import reverse, NoReverseMatch
 from django.forms import BaseFormSet, formset_factory
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _, get_language
+from django.utils.translation import ugettext as _
 
 from configuration.models import (
     Category,
@@ -19,7 +18,6 @@ from configuration.models import (
     Questiongroup)
 from configuration.utils import get_choices_from_model, \
     get_choices_from_questiongroups
-from notifications.models import Log
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -29,10 +27,7 @@ from qcat.errors import (
     ConfigurationErrorNoConfigurationFound,
     ConfigurationErrorNotInDatabase,
 )
-from qcat.utils import (
-    find_dict_in_list,
-    is_empty_list_of_dicts,
-)
+from qcat.utils import is_empty_list_of_dicts
 from questionnaire.models import File
 
 User = get_user_model()
@@ -1633,6 +1628,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         for q in q_order:
                             if q not in qg:
                                 qg[q] = []
+
+                        # Remove data entries not in q_order anymore (e.g.
+                        # removed questions after edition update) to prevent
+                        # error when sorting below.
+                        for k in set(qg.keys()) - set(q_order):
+                            del qg[k]
+
                     sorted_questiongroup_data = [
                         sorted(qg.items(), key=lambda i: q_order.index(i[0]))
                         for qg in questiongroup_data]
