@@ -763,6 +763,13 @@ $(function () {
             $t.data('questiongroup-to-options-is-option', qgHasContent);
         })
 
+        .on('change', '[name$=input_national_currency]', function() {
+            updateCurrencies(this)
+        })
+        .on('change', '[name$=input_dollar]', function() {
+            updateCurrencies(this);
+        })
+
         .on('click', '.cb-toggle-questiongroup', function () {
             var container = $(this).data('container');
             if ($(this).prop('checked')) {
@@ -814,6 +821,8 @@ $(function () {
     }
     updateChosen();
 
+    // Initially update currencies
+    updateCurrencies();
 
     if ($.fn.datepicker) {
         var datepickerOptions = {
@@ -1122,6 +1131,25 @@ function updateUser(qg, user_id) {
             qg.find('.form-user-search-error').html('Error: ' + response.statusText).show();
         }
     });
+}
+
+/**
+ * Update the currency (displayed in the table header of the input table) based
+ * on user input.
+ */
+function updateCurrencies() {
+    var usd = $('[name$=input_dollar]');
+    if (!usd.length) return;
+    var national = $('[name$=input_national_currency][type=text]');
+    if (!national.length) return;
+    var currency = '-';
+    if (usd.is(':checked')) {
+        currency = usd.next('span').text();
+    }
+    if (national[0].value) {
+        currency = national[0].value;
+    }
+    $('.js-form-currency').html(currency);
 }
 
 
