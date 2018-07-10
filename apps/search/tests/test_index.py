@@ -81,8 +81,11 @@ class GetMappingsTest(TestCase):
         self.assertIn('properties', mappings['questionnaire'])
         # 'data' is not part of Elasticsearch index anymore
         self.assertNotIn('data', mappings['questionnaire']['properties'])
-        # 'list_data' and 'filter_data' will be added dynamically to the mapping
-        self.assertNotIn('list_data', mappings['questionnaire']['properties'])
+        # 'list_data' (partly) and 'filter_data' will be added dynamically to
+        # the mapping
+        self.assertIn('list_data', mappings['questionnaire']['properties'])
+        self.assertIn('country', mappings['questionnaire']['properties'][
+            'list_data']['properties'])
         self.assertNotIn('filter_data', mappings['questionnaire']['properties'])
 
     @override_settings(ES_ANALYZERS=(('en', 'english'), ('es', 'spanish')))
@@ -102,7 +105,7 @@ class GetMappingsTest(TestCase):
     def test_adds_basic_mappings(self):
         mappings = get_mappings()
         q_props = mappings.get('questionnaire').get('properties')
-        self.assertEqual(len(q_props), 11)
+        self.assertEqual(len(q_props), 12)
         default_props = {}
         for global_questiongroup in settings.QUESTIONNAIRE_GLOBAL_QUESTIONGROUPS:
             default_props[global_questiongroup] = {'properties': {}, 'type': 'nested'}
@@ -327,7 +330,7 @@ class PutQuestionnaireDataTest(TestCase):
             questionnaire
         ).data)
         source['filter_data'] = {}
-        source['list_data']['country'] = ''
+        source['list_data']['country'] = None
         data = [{
             '_index': '{}sample_2015'.format(settings.ES_INDEX_PREFIX),
             '_type': 'questionnaire',

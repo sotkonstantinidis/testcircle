@@ -1,5 +1,4 @@
 import contextlib
-
 import collections
 import datetime
 
@@ -16,8 +15,7 @@ from configuration.models import (
     Configuration,
     Key,
     Questiongroup)
-from configuration.utils import get_choices_from_model, \
-    get_choices_from_questiongroups
+from configuration.utils import get_choices_from_model, get_choices_from_questiongroups
 from qcat.errors import (
     ConfigurationError,
     ConfigurationErrorInvalidCondition,
@@ -29,6 +27,8 @@ from qcat.errors import (
 )
 from qcat.utils import is_empty_list_of_dicts
 from questionnaire.models import File
+from .fields import XMLCompatCharField
+
 
 User = get_user_model()
 
@@ -571,10 +571,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 translation_widget = TextInput(attrs)
             widget.options = field_options
             translation_widget.options = field_options
-            field = forms.CharField(
+            field = XMLCompatCharField(
                 label=self.label, widget=widget,
                 required=self.required, max_length=max_length)
-            translation_field = forms.CharField(
+            translation_field = XMLCompatCharField(
                 label=self.label, widget=translation_widget,
                 required=self.required, max_length=max_length)
         elif self.field_type == 'link_video':
@@ -620,10 +620,10 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             if show_translation is True:
                 widget = forms.HiddenInput(attrs=attrs)
                 translation_widget = forms.Textarea(attrs=attrs)
-            field = forms.CharField(
+            field = XMLCompatCharField(
                 label=self.label, widget=widget,
                 required=self.required, max_length=max_length)
-            translation_field = forms.CharField(
+            translation_field = XMLCompatCharField(
                 label=self.label, widget=translation_widget,
                 required=self.required)
         elif self.field_type == 'bool':

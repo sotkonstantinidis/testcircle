@@ -75,6 +75,9 @@ Response::
       ]
     }
 
+.. hint::
+If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
 
 Filtering
 ^^^^^^^^^
@@ -83,8 +86,23 @@ Filtering
 Filters can be passed as `query string`_ to the GET request.
 As an example, ``?type=technology`` will list technologies only (full URL: https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology).
 
+.. hint::
 The query string for filtering on the API is the same as the one used on the default QCAT search
 (https://qcat.wocat.net/en/wocat/list/). So the easiest way to combine filters is to use the default search, and copy its query string to your API call.
+
+Example URLs using the filters:
+
+* Get all Technologies::
+
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology
+
+* Get all Approaches in Nepal::
+
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=approaches&filter__qg_location__country=country_NPL
+
+* Get all Technologies in altitudes from 3'000 to 4'000 m a.s.l. and with annual rainfall < 250 mm.::
+
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technologies&filter__tech_qg_56__tech_altitudinalzone=tech_altitudinalzone_3000_4000&filter__tech_qg_54__tech_rainfall=tech_rainfall_less_250
 
 
 Example request with Postman
@@ -175,6 +193,10 @@ Response::
       },
       // ...
     }
+
+.. hint::
+If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
 
 Example request with Postman
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^

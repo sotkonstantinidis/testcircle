@@ -345,6 +345,11 @@
           "questionnaire"
         ],
         [
+          "change_questionnaire",
+          "questionnaire",
+          "questionnaire"
+        ],
+        [
           "edit_questionnaire",
           "questionnaire",
           "questionnaire"

@@ -290,6 +290,7 @@ class BaseSettings(Configuration):
     SWAGGER_SETTINGS = {
         'DOC_EXPANSION': 'list',
         'JSON_EDITOR': True,
+        'VALIDATOR_URL': None,
     }
     API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
 
@@ -387,3 +388,7 @@ class BaseSettings(Configuration):
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')
 
     CDE_SUBNET_ADDR = values.Value(environ_prefix='', default='0.0.0.')
+
+    # Prevent error when submitting very large forms. Default is 1000.
+    # (https://docs.djangoproject.com/en/2.0/ref/settings/#data-upload-max-number-fields)
+    DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000

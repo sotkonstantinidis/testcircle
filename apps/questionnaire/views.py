@@ -970,14 +970,19 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
             questionnaire_data.update(inherited_data)
 
             if self.object.configuration_object.has_new_edition:
-                questionnaire_data = self.update_case_data_for_editions(**questionnaire_data)
+                questionnaire_data = self.update_case_data_for_editions(
+                    **questionnaire_data)
 
-            Questionnaire.create_new(
+            new_questionnaire = Questionnaire.create_new(
                 configuration_code=self.get_configuration_code(),
                 data=questionnaire_data,
                 user=self.request.user,
                 previous_version=self.object
             )
+
+            # Also add previous links to new questionnaire.
+            for linked_questionnaire in self.object.links.all():
+                new_questionnaire.add_link(linked_questionnaire)
 
         return super().get(request, *args, **kwargs)
 

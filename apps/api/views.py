@@ -70,7 +70,7 @@ class SwaggerSchemaView(APIView):
         # but did not find another way.
         generator = SchemaGenerator(
             title='QCAT API v2', url='/api/v2/', urlconf='api.urls.v2')
-        schema = generator.get_schema(request=request)
+        schema = generator.get_schema(request=request, public=True)
         return Response(schema)
 
 
