@@ -729,6 +729,18 @@ def get_active_filters(
                     'questiongroup': filter_param,
                 })
 
+        if filter_param == 'edition':
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_edition',
+                    'key': filter_param,
+                    'key_label': 'Edition',  # No translation: only used in API
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': filter_value,
+                    'questiongroup': filter_param,
+                })
+
         if not filter_param.startswith('filter__'):
             continue
 

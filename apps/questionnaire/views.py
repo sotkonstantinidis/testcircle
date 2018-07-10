@@ -1195,7 +1195,8 @@ class ESQuestionnaireQueryMixin:
         try:
             # Blank search returns all items within all indexes.
             es_search_results = advanced_search(
-                limit=self.page_size, offset=self.offset, **self.get_filter_params()
+                limit=self.page_size, offset=self.offset,
+                **self.get_filter_params()
             )
         except TransportError:
             # See https://redmine.cde.unibe.ch/issues/1093
@@ -1257,7 +1258,7 @@ class ESQuestionnaireQueryMixin:
                 query_string = active_filter.get('value', '')
             elif filter_type in [
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
-                'select_model', 'radio', 'bool', '_lang']:
+                'select_model', 'radio', 'bool', '_lang', '_edition']:
                 filter_params.append(
                     FilterParam(
                         active_filter.get('questiongroup'),
