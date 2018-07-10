@@ -2241,6 +2241,7 @@ class QuestionnaireTest(FunctionalTest):
         key_38_value = self.findBy(
             'xpath',
             '//input[@name="qg_29-0-original_key_38" and @value="Bar"]')
+        import time; time.sleep(1)
         self.assertTrue(key_37_value.is_displayed())
         self.assertTrue(key_38_value.is_displayed())
 

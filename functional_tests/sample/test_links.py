@@ -11,6 +11,10 @@ from samplemulti.tests.test_views import route_questionnaire_new as \
     route_questionnaire_list_samplemulti
 from search.tests.test_index import create_temp_indices
 
+from functional_tests.pages.questionnaire import QuestionnaireStepPage
+from functional_tests.pages.sample import SampleDetailPage, SampleEditPage
+from functional_tests.pages.samplemulti import SampleMultiDetailPage
+
 
 @pytest.mark.usefixtures('es')
 class LinkTests(FunctionalTest):
@@ -51,51 +55,50 @@ class LinkTests(FunctionalTest):
 
     def test_do_not_show_deleted_links_in_form(self):
 
-        # Alice logs in
         user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        samplemulti_link = 'This is key 1a'
+        sample_link = 'This is the first key.'
 
-        # She goes to the SAMPLE questionnaire and sees the link
-        self.open_questionnaire_details('sample', identifier='sample_1')
-        self.findBy('xpath', '//a[contains(text(), "This is key 1a")]')
+        # User goes to the SAMPLE questionnaire and sees the link
+        detail_page_sample = SampleDetailPage(self)
+        detail_page_sample.route_kwargs = {'identifier': 'sample_1'}
+        detail_page_sample.open(login=True, user=user)
+        assert detail_page_sample.has_text(samplemulti_link)
 
-        # She starts editing the questionnaire
-        self.review_action('edit')
-        self.findBy('xpath', '//a[contains(text(), "This is key 1a")]')
+        # User starts editing the questionnaire
+        detail_page_sample.create_new_version()
+        edit_page = SampleEditPage(self)
+        assert edit_page.has_text(samplemulti_link)
 
-        # She opens the step with the link and sees the link is there
-        self.click_edit_section('cat_5')
-        links = self.findManyBy(
-            'xpath',
-            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
-        self.assertEqual(len(links), 1)
+        # User opens the step with the link and sees the link is there
+        edit_page.click_edit_category('cat_5')
+        step_page = QuestionnaireStepPage(self)
+        assert step_page.check_links([samplemulti_link])
 
-        # She opens the SAMPLEMULTI questionnaire
-        self.open_questionnaire_details(
-            'samplemulti', identifier='samplemulti_1')
+        # User opens the details page of the SAMPLEMULTI questionnaire
+        detail_page_multi = SampleMultiDetailPage(self)
+        detail_page_multi.route_kwargs = {'identifier': 'samplemulti_1'}
+        detail_page_multi.open()
+        assert detail_page_multi.has_text(sample_link)
 
-        # She deletes the questionnaire
-        self.review_action('delete')
+        # User deletes the questionnaire
+        detail_page_multi.delete_questionnaire()
 
-        # She goes back to the SAMPLE questionnaire
-        self.open_questionnaire_details('sample', identifier='sample_1')
+        # User opens the detail page of the SAMPLE questionnaire again. The link
+        # is not there anymore.
+        detail_page_sample.open()
+        assert not detail_page_sample.has_text(samplemulti_link)
 
-        # Now she does not see the link anymore
-        self.findByNot('xpath', '//a[contains(text(), "This is key 1a")]')
+        # The link is not on the edit page either
+        detail_page_sample.edit_questionnaire()
+        assert not detail_page_sample.has_text(samplemulti_link)
 
-        # In the edit view, it is not there either
-        self.review_action('edit')
-        self.findByNot('xpath', '//a[contains(text(), "This is key 1a")]')
+        # Also on the step edit page, no link
+        edit_page.click_edit_category('cat_5')
+        assert step_page.check_links([])
 
-        # She opens the step with the link and sees the link is NOT there
-        self.click_edit_section('cat_5')
-        links = self.findManyBy(
-            'xpath',
-            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
-        self.assertEqual(len(links), 0)
-
-        # She submits the form and sees there is no error
-        self.submit_form_step()
+        # The step can be submitted without an error
+        step_page.submit_step()
 
     def test_show_only_one_linked_version(self):
 

@@ -148,3 +148,61 @@ class ListTest(FunctionalTest):
         api_page = ApiV2ListPage(self)
         api_page.open(query_dict=query_dict)
         api_page.check_list_results(expected_results)
+
+
+@pytest.mark.usefixtures('es')
+class ListTestEditions(FunctionalTest):
+
+    fixtures = [
+        'approaches.json',
+        'cca.json',
+        'global_key_values.json',
+        'technologies.json',
+        'technologies_2018.json',
+        'unccd.json',
+        'watershed.json',
+        'wocat.json',
+        'technologies_questionnaires.json',
+        'technologies_2018_questionnaires.json',
+        'unccd_questionnaires.json',
+    ]
+
+    def setUp(self):
+        super().setUp()
+        create_temp_indices([
+            ('technologies', '2015'),
+            ('technologies', '2018'),
+        ])
+
+    def test_filter_edition_in_api(self):
+        expected_results_2018 = [
+            {
+                'title': 'WOCAT Technology 2018',
+            },
+        ]
+        expected_results_2015 = [
+            {
+                'title': 'WOCAT Tech 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1',
+            },
+        ]
+
+        api_page = ApiV2ListPage(self)
+
+        # Filtering edition 2018
+        query_dict = {'type': 'technologies', 'edition': '2018'}
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(expected_results_2018)
+
+        # Filtering edition 2015
+        query_dict = {'type': 'technologies', 'edition': '2015'}
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(expected_results_2015)
+
+        # No edition filter (showing all)
+        query_dict = {'type': 'technologies'}
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(
+            expected_results_2015 + expected_results_2018)

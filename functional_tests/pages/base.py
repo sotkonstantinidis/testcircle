@@ -30,7 +30,7 @@ class Page:
 
     def get_url(self):
         return self.test_case.live_server_url + reverse(
-            self.route_name, **self.route_kwargs)
+            self.route_name, kwargs=self.route_kwargs)
 
     def open(self, query_dict: dict=None, login: bool=False, user: User=None):
         if login is True:
@@ -114,6 +114,14 @@ class Page:
         )
         self.get_el(value_locator).click()
 
+    def select_autocomplete(self, value: str):
+        # Jquery UI Autocomplete
+        self.wait_for((By.CLASS_NAME, 'ui-menu-item'))
+        value_locator = (
+            By.XPATH,
+            f'//li[@class="ui-menu-item"]//*[contains(text(), "{value}")]')
+        self.get_el(value_locator).click()
+
 
 class QcatPage(Page):
     LOC_MENU_LANGUAGE_SWITCHER = (
@@ -125,6 +133,10 @@ class QcatPage(Page):
         By.XPATH, '//section[contains(@class, "top-bar-section")]//a[contains('
                   '@href, "/wocat/add")]')
     LOC_SUCCESS_MESSAGE = (By.XPATH, '//div[contains(@class, "success")]')
+    LOC_MESSAGE_WITH_TEXT = (
+        By.XPATH, '//div[contains(@class, "notification-group")]/div[contains('
+                  '@class, "{cls}") and text()="{msg}"]')
+    LOC_NOTIFICATIONS_CONTAINER = (By.CLASS_NAME, 'notification-group')
 
     def change_language(self, locale):
         self.get_el(self.LOC_MENU_LANGUAGE_SWITCHER).click()
@@ -135,8 +147,29 @@ class QcatPage(Page):
     def click_add_slm_data(self):
         self.get_el(self.LOC_MENU_ADD_SLM_DATA).click()
 
-    def has_success_message(self) -> bool:
+    def has_success_message(self, msg: str='') -> bool:
+        if msg:
+            return self.exists_el(
+                self.format_locator(
+                    self.LOC_MESSAGE_WITH_TEXT, cls='success', msg=msg))
         return self.exists_el(self.LOC_SUCCESS_MESSAGE)
+
+    def has_error_message(self, msg: str) -> bool:
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_MESSAGE_WITH_TEXT, cls='error', msg=msg))
+
+    def has_notice_message(self, msg: str) -> bool:
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_MESSAGE_WITH_TEXT, cls='secondary', msg=msg))
+
+    def hide_notifications(self):
+        # Actually, there is only one notification container. But it might not
+        # always be there, therefore using get_els which does not fail if it
+        # does not exist.
+        for el in self.get_els(self.LOC_NOTIFICATIONS_CONTAINER):
+            self.hide_element(el)
 
 
 class ApiPage(Page):

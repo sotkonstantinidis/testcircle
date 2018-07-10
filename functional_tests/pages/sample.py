@@ -1,5 +1,5 @@
 from functional_tests.pages.base import QcatPage
-from functional_tests.pages.mixins import EditMixin
+from functional_tests.pages.mixins import EditMixin, DetailMixin, ListMixin
 
 
 class Sample2015Mixin:
@@ -15,3 +15,15 @@ class Sample2015Mixin:
 
 class SampleNewPage(Sample2015Mixin, EditMixin, QcatPage):
     route_name = 'sample:questionnaire_new'
+
+
+class SampleEditPage(Sample2015Mixin, EditMixin, QcatPage):
+    route_name = 'sample:questionnaire_edit'
+
+
+class SampleDetailPage(Sample2015Mixin, DetailMixin, QcatPage):
+    route_name = 'sample:questionnaire_details'
+
+
+class SampleListPage(ListMixin, QcatPage):
+    route_name = 'sample:questionnaire_list'

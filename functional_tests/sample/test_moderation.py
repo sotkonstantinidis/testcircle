@@ -19,10 +19,11 @@ from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
     route_questionnaire_new,
     route_questionnaire_details,
-    get_position_of_category,
-    route_questionnaire_list)
+    get_position_of_category)
 from wocat.tests.test_views import route_home
 from search.tests.test_index import create_temp_indices
+
+from functional_tests.pages.sample import SampleDetailPage, SampleListPage
 
 
 @pytest.mark.usefixtures('es')
@@ -804,105 +805,77 @@ class ModerationTestFixture(FunctionalTest):
     )
     @patch('questionnaire.signals.change_member.send')
     def test_secretariat_can_assign_reviewer_2(self, mock_member_change):
-        identifier = 'sample_3'
 
+        identifier = 'sample_3'
+        editor = 'Faz Taz'
         old_compiler = 'Foo Bar'
         old_compiler_id = 101
         new_compiler_1 = 'test2 wocat'
         new_compiler_1_id = 3034
         new_compiler_2 = 'test3 wocat'
         new_compiler_2_id = 3035
-        result_list_position = 2
 
-        # A user logs in
-        self.doLogin(user=self.user_publisher)
+        # User (publisher) opens the details of a public questionnaire
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': identifier}
+        detail_page.open(login=True, user=self.user_publisher)
 
-        # He goes to a submitted questionnaire
-        url = self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': identifier}
-        )
-        self.browser.get(url)
+        # User (publisher) sees he can neither edit nor change compiler
+        assert not detail_page.can_create_new_version()
+        assert not detail_page.can_change_compiler()
+        assert not detail_page.can_delete_questionnaire()
 
-        # He sees he can neither edit nor change compiler
-        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
-        self.findByNot('id', 'review-change-compiler-panel')
+        # User (secretariat) opens the details of a public questionnaire
+        detail_page.route_kwargs = {'identifier': identifier}
+        detail_page.open(login=True, user=self.user_secretariat)
 
-        # Secretariat logs in
-        self.doLogin(user=self.user_secretariat)
+        # User (secretariat) can edit and review and assign users
+        assert detail_page.can_create_new_version()
+        assert detail_page.can_change_compiler()
+        assert detail_page.can_delete_questionnaire()
 
-        # She goes to the public questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': identifier}))
+        # The compiler and the editors are correct.
+        assert detail_page.get_compiler() == old_compiler
+        assert detail_page.get_editors() == [editor]
 
-        # She sees he can edit and review and assign users
-        self.findBy('xpath', '//a[contains(text(), "Edit")]')
-        self.findBy('id', 'review-change-compiler-panel')
+        # User goes to the list view and sees the compiler there
+        list_page = SampleListPage(self)
+        list_page.open()
 
-        # There is only one compiler
-        self.assertEqual(self.get_compiler(), old_compiler)
+        list_results = [
+            {
+            },
+            {
+                'title': 'Foo 3',
+                'compiler': old_compiler
+            }
+        ]
+        list_page.check_list_results(list_results)
 
-        # There is no editor
-        self.assertEqual(self.get_editors(), [])
+        # User goes back to the questionnaire details
+        detail_page.open()
+        detail_page.hide_notifications()
 
-        # She goes to the list view and sees the compiler there
-        self.browser.get(
-            self.live_server_url + reverse(route_questionnaire_list))
-
-        # She sees 2 entries
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        # She sees the compiler of the first entry is correct
-        self.findBy(
-            'xpath',
-            '//article[contains(@class, "tech-item")][{}]//ul[contains(@class, '
-            '"tech-infos")]/li[text()="Compiler: {}"]'.format(
-                result_list_position, old_compiler))
-
-        # She goes back to the questionnaire details
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': identifier}))
-
-        # She presses the "change compiler" button without selecting a new
-        # compiler first
-        self.hide_notifications()
-        self.findBy('xpath', '//a[contains(@class, "button") and '
-                             'text()="Change compiler"]').click()
-        self.wait_for('id', 'button-change-compiler')
-        self.findBy('id', 'button-change-compiler').click()
+        # User changes compiler but does not enter a name
+        detail_page.open_change_compiler_panel()
+        detail_page.click_change_compiler()
 
         # No notifications were created
         self.assertEqual(mock_member_change.call_count, 0)
+        assert detail_page.has_error_message(
+            detail_page.TEXT_MESSAGE_NO_VALID_NEW_COMPILER)
+        detail_page.hide_notifications()
 
-        self.findBy('xpath', '//div[contains(@class, "notification-group")]/'
-                             'div[contains(@class, "error") and '
-                             'text()="No valid new compiler provided!"]')
+        # User selects a new compiler
+        detail_page.change_compiler(new_compiler_1, submit=False)
 
-        # She selects a new compiler
-        self.findBy('xpath', '//a[contains(@class, "button") and '
-                             'text()="Change compiler"]').click()
-        self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(
-            new_compiler_1.split(' ')[0])
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="{}"]'.format(
-                new_compiler_1)
-        ).click()
-        selected_compiler = self.findManyBy(
-            'xpath', '//div[@id="review-new-compiler"]/div[contains(@class, '
-                     '"alert-box")]')
-        self.assertEqual(len(selected_compiler), 1)
-        self.assertTrue(new_compiler_1 in selected_compiler[0].text)
-        self.findBy('id', 'button-change-compiler').click()
+        # The new compiler is listed
+        assert detail_page.get_selected_compilers() == [new_compiler_1]
 
-        # She sees a success message
-        self.findBy('xpath', '//div[contains(@class, "notification-group")]/'
-                             'div[contains(@class, "success") and '
-                             'text()="Compiler was changed successfully"]')
+        # User confirms and sees a success message
+        detail_page.click_change_compiler()
+        assert detail_page.has_success_message(
+            detail_page.TEXT_MESSAGE_COMPILER_CHANGED)
 
         # Two notifications were created
         self.assertEqual(mock_member_change.call_count, 2)
@@ -922,89 +895,53 @@ class ModerationTestFixture(FunctionalTest):
         )
         mock_member_change.reset_mock()
 
-        # The new compiler is visible in the details
-        self.assertEqual(self.get_compiler(), new_compiler_1)
-
-        # There is no editor
-        self.assertEqual(self.get_editors(), [])
+        # The new compiler is visible in the details, editor did not change
+        assert detail_page.get_compiler() == new_compiler_1
+        assert detail_page.get_editors() == [editor]
 
         # In the list, the new compiler is visible
-        self.browser.get(
-            self.live_server_url + reverse(route_questionnaire_list))
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-        self.findBy(
-            'xpath',
-            '//article[contains(@class, "tech-item")][{}]//ul[contains(@class, '
-            '"tech-infos")]/li[text()="Compiler: {}"]'.format(
-                result_list_position, new_compiler_1))
+        list_page.open()
+        list_results = [
+            {
+            },
+            {
+                'title': 'Foo 3',
+                'compiler': new_compiler_1
+            }
+        ]
+        list_page.check_list_results(list_results)
 
-        # She goes back to the questionnaire details
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': identifier}))
+        # In the details page, the user changes the compiler and enters the
+        # current compiler once again
+        detail_page.open()
+        detail_page.hide_notifications()
+        detail_page.change_compiler(new_compiler_1, submit=False)
 
-        # She wants to change the compiler but enters the old compiler once
-        # again
-        self.findBy('xpath', '//a[contains(@class, "button") and '
-                             'text()="Change compiler"]').click()
-        self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(
-            new_compiler_1.split(' ')[0])
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="{}"]'.format(new_compiler_1)
-        ).click()
-        selected_compiler = self.findManyBy(
-            'xpath', '//div[@id="review-new-compiler"]/div[contains(@class, '
-                     '"alert-box")]')
-        self.assertEqual(len(selected_compiler), 1)
-        self.assertTrue(new_compiler_1 in selected_compiler[0].text)
-        self.findBy('id', 'button-change-compiler').click()
+        # The compiler is listed
+        assert detail_page.get_selected_compilers() == [new_compiler_1]
 
-        # She sees a notice
-        self.findBy('xpath', '//div[contains(@class, "notification-group")]/'
-                             'div[contains(@class, "secondary") and '
-                             'text()="This user is already the compiler."]')
+        # User confirms and sees an error message
+        detail_page.click_change_compiler()
+        assert detail_page.has_notice_message(
+            detail_page.TEXT_MESSAGE_USER_ALREADY_COMPILER)
 
         # No notifications were created
         self.assertEqual(mock_member_change.call_count, 0)
 
-        # She changes the compiler yet again.
-        self.findBy('xpath', '//a[contains(@class, "button") and '
-                             'text()="Change compiler"]').click()
-        self.wait_for('id', 'review-change-compiler')
-        self.findBy('id', 'review-change-compiler').send_keys(
-            new_compiler_2.split(' ')[0])
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="{}"]'.format(
-                new_compiler_2)
-        ).click()
-        selected_compiler = self.findManyBy(
-            'xpath', '//div[@id="review-new-compiler"]/div[contains(@class, '
-                     '"alert-box")]')
-        self.assertEqual(len(selected_compiler), 1)
-        self.assertTrue(new_compiler_2 in selected_compiler[0].text)
+        # User changes the compiler yet again.
+        detail_page.hide_notifications()
+        detail_page.change_compiler(new_compiler_2, submit=False)
+        assert detail_page.get_selected_compilers() == [new_compiler_2]
 
-        # She sees the search box is now disabled
-        search_field = self.findBy('id', 'review-change-compiler')
-        self.assertTrue(search_field.get_attribute('disabled'))
+        # User sees the search box is now disabled
+        assert not detail_page.can_enter_new_compiler()
 
-        # This time, she marks the checkbox which keeps the old compiler as
-        # editor
-        self.findBy('xpath', '//input[@name="change-compiler-keep-editor"]').click()
+        # User marks the checkbox which keeps the old compiler as editor
+        detail_page.select_keep_compiler_as_editor()
 
-        self.findBy('id', 'button-change-compiler').click()
-
-        # She sees a success message
-        self.findBy('xpath', '//div[contains(@class, "notification-group")]/'
-                             'div[contains(@class, "success") and '
-                             'text()="Compiler was changed successfully"]')
+        detail_page.click_change_compiler()
+        assert detail_page.has_success_message(
+            detail_page.TEXT_MESSAGE_COMPILER_CHANGED)
 
         # Three notifications were created
         self.assertEqual(mock_member_change.call_count, 3)
@@ -1032,22 +969,21 @@ class ModerationTestFixture(FunctionalTest):
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details
-        self.assertEqual(self.get_compiler(), new_compiler_2)
+        assert detail_page.get_compiler() == new_compiler_2
 
         # The old compiler is now an editor
-        self.assertIn(new_compiler_1, self.get_editors())
+        assert new_compiler_1 in detail_page.get_editors()
 
-        # In the list, the new compiler is visible
-        self.browser.get(
-            self.live_server_url + reverse(route_questionnaire_list))
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-        self.findBy(
-            'xpath',
-            '//article[contains(@class, "tech-item")][{}]//ul[contains(@class, '
-            '"tech-infos")]/li[text()="Compiler: {}"]'.format(
-                result_list_position, new_compiler_2))
+        list_page.open()
+        list_results = [
+            {
+            },
+            {
+                'title': 'Foo 3',
+                'compiler': new_compiler_2
+            }
+        ]
+        list_page.check_list_results(list_results)
 
     def test_reviewer_can_edit_questionnaire(self):
 
