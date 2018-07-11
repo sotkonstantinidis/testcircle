@@ -132,6 +132,10 @@ class QcatPage(Page):
     LOC_MENU_ADD_SLM_DATA = (
         By.XPATH, '//section[contains(@class, "top-bar-section")]//a[contains('
                   '@href, "/wocat/add")]')
+    LOC_MENU_USER = (By.XPATH, '//li[contains(@class, "user-menu")]/a')
+    LOC_MENU_USER_LOGOUT = (
+        By.XPATH, '//ul[@class="dropdown"]/li/a[contains(@href, '
+                  '"/accounts/logout/")]')
     LOC_SUCCESS_MESSAGE = (By.XPATH, '//div[contains(@class, "success")]')
     LOC_MESSAGE_WITH_TEXT = (
         By.XPATH, '//div[contains(@class, "notification-group")]/div[contains('
@@ -170,6 +174,13 @@ class QcatPage(Page):
         # does not exist.
         for el in self.get_els(self.LOC_NOTIFICATIONS_CONTAINER):
             self.hide_element(el)
+
+    def logout(self):
+        self.get_el(self.LOC_MENU_USER).click()
+        self.get_el(self.LOC_MENU_USER_LOGOUT).click()
+
+    def is_not_found_404(self) -> bool:
+        return self.has_text('404') and self.has_text('ot found')
 
 
 class ApiPage(Page):

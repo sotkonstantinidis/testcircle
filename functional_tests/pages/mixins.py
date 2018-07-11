@@ -123,21 +123,34 @@ class ReviewMixin:
         By.XPATH,
         # Can be "Editor/s:" ...
         '//ul[@class="tech-infos"]/li/span[contains(text(), "Editor")]/../a')
+    LOC_STATUS_LABEL = (By.XPATH, '//span[contains(@class, "is-{status}")]')
     TEXT_REVIEW_ACTION_CHANGE_COMPILER = 'Change compiler'
     TEXT_REVIEW_ACTION_DELETE_QUESTIONNAIRE = 'Delete'
     TEXT_MESSAGE_NO_VALID_NEW_COMPILER = 'No valid new compiler provided!'
     TEXT_MESSAGE_COMPILER_CHANGED = 'Compiler was changed successfully'
     TEXT_MESSAGE_USER_ALREADY_COMPILER = 'This user is already the compiler.'
 
-    def delete_questionnaire(self):
+    def do_review_action(self, action: str):
         btn_locator = self.format_locator(
-            self.LOC_BUTTON_REVIEW_ACTION, action='delete')
+            self.LOC_BUTTON_REVIEW_ACTION, action=action)
         self.get_el(btn_locator).click()
         confirm_locator = self.format_locator(
-            self.LOC_BUTTON_REVIEW_CONFIRM, action='delete')
+            self.LOC_BUTTON_REVIEW_CONFIRM, action=action)
         self.wait_for(confirm_locator)
         self.get_el(confirm_locator).click()
         assert self.has_success_message()
+
+    def delete_questionnaire(self):
+        self.do_review_action('delete')
+
+    def submit_questionnaire(self):
+        self.do_review_action('submit')
+
+    def review_questionnaire(self):
+        self.do_review_action('review')
+
+    def publish_questionnaire(self):
+        self.do_review_action('publish')
 
     def get_review_actions(self) -> list:
         return [el.text for el in self.get_els(self.LOC_BUTTONS_REVIEW_ACTIONS)]
@@ -188,6 +201,9 @@ class ReviewMixin:
         """From the details view, return the names of the editors"""
         return [el.text for el in self.get_els(self.LOC_EDITORS)]
 
+    def check_status(self, status: str):
+        self.get_el(self.format_locator(self.LOC_STATUS_LABEL, status=status))
+
 
 class EditMixin(ReviewMixin):
 
@@ -197,6 +213,9 @@ class EditMixin(ReviewMixin):
     LOC_BUTTON_EDIT_CATEGORY = (
         By.XPATH, '//a[contains(@href, "/edit/") and contains('
                   '@href, "{keyword}")]')
+    LOC_BUTTON_VIEW_QUESTIONNAIRE = (
+        By.XPATH, '//div[contains(@class, "review-panel")]//a[contains(@class, '
+                  '"success") and contains(@href, "/view/")]')
 
     def get_progress_indicators(self):
         return self.get_els(self.LOC_CATEGORIES_PROGRESS_INDICATORS)
@@ -211,14 +230,8 @@ class EditMixin(ReviewMixin):
             self.LOC_BUTTON_EDIT_CATEGORY, keyword=keyword)
         self.get_el(locator).click()
 
-    def submit_questionnaire(self):
-        btn_locator = self.format_locator(
-            self.LOC_BUTTON_REVIEW_ACTION, action='submit')
-        self.get_el(btn_locator).click()
-        confirm_locator = self.format_locator(
-            self.LOC_BUTTON_REVIEW_CONFIRM, action='submit')
-        self.wait_for(confirm_locator)
-        self.get_el(confirm_locator).click()
+    def view_questionnaire(self):
+        self.get_el(self.LOC_BUTTON_VIEW_QUESTIONNAIRE).click()
         assert self.has_success_message()
 
 
@@ -228,8 +241,9 @@ class DetailMixin(ReviewMixin):
         By.XPATH, '//a[@type="submit" and contains(@href, "/edit/")]')
     LOC_BUTTON_EDIT_QUESTIONNAIRE = (
         By.XPATH, '//div[contains(@class, "review-panel")]//a[contains(@class, '
-                  '"success") and contains(@href, "/edit/")]')
+                  '"button") and contains(@href, "/edit/")]')
     TEXT_REVIEW_ACTION_CREATE_NEW_VERSION = 'Create new version'
+    TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE = 'Edit'
 
     def create_new_version(self):
         btn_locator = self.format_locator(
@@ -246,4 +260,8 @@ class DetailMixin(ReviewMixin):
 
     def can_create_new_version(self):
         return self.TEXT_REVIEW_ACTION_CREATE_NEW_VERSION in \
+               self.get_review_actions()
+
+    def can_edit_questionnaire(self):
+        return self.TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE in \
                self.get_review_actions()

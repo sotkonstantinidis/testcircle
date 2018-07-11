@@ -23,7 +23,8 @@ from sample.tests.test_views import (
 from wocat.tests.test_views import route_home
 from search.tests.test_index import create_temp_indices
 
-from functional_tests.pages.sample import SampleDetailPage, SampleListPage
+from functional_tests.pages.sample import SampleDetailPage, SampleListPage, \
+    SampleNewPage, SampleEditPage
 
 
 @pytest.mark.usefixtures('es')
@@ -34,8 +35,10 @@ from functional_tests.pages.sample import SampleDetailPage, SampleListPage
 class ModerationTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json']
+        'groups_permissions.json',
+        'sample_global_key_values.json',
+        'sample.json',
+    ]
 
     def setUp(self):
         super(ModerationTest, self).setUp()
@@ -46,128 +49,110 @@ class ModerationTest(FunctionalTest):
     def test_questionnaire_permissions(
             self, mock_change_status, mock_create_signal):
 
-        cat_1_position = get_position_of_category('cat_1', start0=True)
+        key_1 = 'Foo'
+        key_3 = 'Bar'
 
-        user_alice = create_new_user()
-        user_bob = create_new_user(id=2, email='bob@bar.com')
-        user_moderator = create_new_user(id=3, email='foo@bar.com')
-        user_moderator.groups = [
-            Group.objects.get(pk=3), Group.objects.get(pk=4)]
-        user_moderator.save()
+        user_1 = self.create_new_user(email='user_1@foo.com')
+        user_2 = self.create_new_user(email='user_2@foo.com')
+        user_moderator = self.create_new_user(
+            email='moderator@foo.com', groups=['Reviewers', 'Publishers'])
 
-        # Alice logs in
-        self.doLogin(user=user_alice)
+        # User 1 logs in and creates a questionnaire
+        new_page = SampleNewPage(self)
+        new_page.open(login=True, user=user_1)
+        new_page.create_new_questionnaire(key_1=key_1, key_3=key_3)
 
-        # She creates a questionnaire and saves it
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new))
-        self.click_edit_section('cat_1')
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
         # A new notification should be created
         mock_create_signal.assert_called_once_with(
             questionnaire=Questionnaire.objects.latest('created'),
             sender='create_foo',
-            user=user_alice
+            user=user_1
         )
-        # She changes to the view mode
-        self.review_action('view')
-        url = self.browser.current_url
 
-        # She refreshes the page and sees the questionnaire
-        self.browser.get(url)
-        self.toggle_all_sections()
-        self.checkOnPage('Foo')
+        # User 1 changes to the view mode
+        new_page.view_questionnaire()
 
-        # She logs out and cannot see the questionnaire
-        self.doLogout()
-        self.browser.get(url)
-        self.checkOnPage('404')
+        # User 1 refreshes the page and sees the questionnaire
+        view_page = SampleDetailPage(self)
+        view_page.route_kwargs = {
+            'identifier': Questionnaire.objects.latest('pk').code}
+        view_page.open()
+        view_page.has_text(key_1)
 
-        # Bob logs in and cannot see the questionnaire
-        self.doLogin(user=user_bob)
-        self.browser.get(url)
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.XPATH, "//span[contains(text(), '404')]")))
-        # self.checkOnPage('404')
+        # User 1 logs out and cannot see the questionnaire
+        view_page.logout()
+        view_page.open()
+        assert new_page.is_not_found_404()
 
-        # The moderator logs in and cannot see the questionnaire
-        self.doLogin(user=user_moderator)
-        self.browser.get(url)
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.XPATH, "//span[contains(text(), '404')]")))
+        # User 2 logs in and cannot see the questionnaire
+        view_page.open(login=True, user=user_2)
+        assert view_page.is_not_found_404()
 
-        # Alice submits the questionnaire
-        self.doLogin(user=user_alice)
-        self.browser.get(url)
-        self.review_action('submit')
+        # Moderator logs in and cannot see the questionnaire
+        view_page.open(login=True, user=user_moderator)
+        assert view_page.is_not_found_404()
+
+        # User 1 submits the questionnaire
+        view_page.open(login=True, user=user_1)
+        view_page.submit_questionnaire()
+
         # A notification for the new status is created
         mock_change_status.assert_called_once_with(
             message='',
             questionnaire=Questionnaire.objects.latest('created'),
             sender='change_foo',
-            user=user_alice
+            user=user_1
         )
 
-        # She logs out and cannot see the questionnaire
-        self.doLogout()
-        self.browser.get(url)
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.XPATH, "//span[contains(text(), '404')]")))
+        # User 1 logs out and cannot see the questionnaire
+        view_page.logout()
+        view_page.open()
+        assert view_page.is_not_found_404()
 
-        # Bob logs in and cannot see the questionnaire
-        self.doLogin(user=user_bob)
-        self.browser.get(url)
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located(
-                (By.XPATH, "//span[contains(text(), '404')]")))
+        # User 2 logs in and cannot see the questionnaire
+        view_page.open(login=True, user=user_2)
+        assert view_page.is_not_found_404()
 
-        # The moderator logs in and sees the questionnaire
-        self.doLogin(user=user_moderator)
-        self.browser.get(url)
-        self.toggle_all_sections()
-        self.checkOnPage('Foo')
+        # Moderator logs in and sees the questionnaire
+        view_page.open(login=True, user=user_moderator)
+        assert view_page.has_text(key_1)
 
-        # He publishes the questionnaire
-        self.review_action('review')
-        self.review_action('publish')
+        # Moderator publishes the questionnaire
+        view_page.review_questionnaire()
+        view_page.publish_questionnaire()
 
-        # The moderator cannot edit the questionnaire
-        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        # The moderator cannot create a new version
+        assert not view_page.can_create_new_version()
 
         # Logged out users can see the questionnaire
-        self.doLogout()
-        self.browser.get(url)
-        self.toggle_all_sections()
-        self.checkOnPage('Foo')
+        view_page.logout()
+        view_page.open()
+        assert view_page.has_text(key_1)
 
-        # Logged out users cannot edit the questionnaire
-        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        # Logged out users cannot create a new version
+        assert not view_page.can_create_new_version()
 
-        # Bob cannot edit the questionnaire
-        self.doLogin(user=user_bob)
-        self.browser.get(url)
-        self.findByNot('xpath', '//a[contains(text(), "Edit")]')
+        # User 2 cannot edit the questionnaire
+        view_page.open(login=True, user=user_2)
+        assert view_page.has_text(key_1)
+        assert not view_page.can_create_new_version()
 
-        # Alice can edit the questionnaire
-        self.doLogin(user=user_alice)
-        self.browser.get(url)
-        self.toggle_all_sections()
-        self.checkOnPage('Foo')
-        self.review_action('edit', exists_only=True)
+        # User 1 can edit the questionnaire
+        view_page.open(login=True, user=user_1)
+        assert view_page.has_text(key_1)
+        assert view_page.can_create_new_version()
 
 
 @pytest.mark.usefixtures('es')
 class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json', 'sample_questionnaire_status.json', 'sample_user.json']
+        'groups_permissions.json',
+        'sample_global_key_values.json',
+        'sample.json',
+        'sample_questionnaire_status.json',
+        'sample_user.json',
+    ]
 
     def setUp(self):
         super(ModerationTestFixture, self).setUp()
@@ -179,29 +164,30 @@ class ModerationTestFixture(FunctionalTest):
         self.user_publisher = User.objects.get(pk=104)
         self.user_secretariat = User.objects.get(pk=107)
 
+        self.sample_2_text = 'Foo 2'
+
     def test_review_locked_questionnaire(self):
-        # Secretariat user logs in
-        self.doLogin(user=self.user_secretariat)
+        # Secretariat user logs in and goes to the details of a SUBMITTED
+        # questionnaire
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': 'sample_2'}
+        detail_page.open(login=True, user=self.user_secretariat)
+        assert detail_page.has_text(self.sample_2_text)
 
-        # He goes to the details of a SUBMITTED questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 2")]]')
-
-        # He starts to edit the first section (this sets a lock on the
+        # User starts to edit the first section (this sets a lock on the
         # questionnaire)
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-        self.click_edit_section('cat_1')
+        detail_page.edit_questionnaire()
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category(edit_page.CATEGORIES[0][0])
 
-        # He goes back (without saving!)
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
+        # User goes back to the details (without saving!)
+        detail_page.open()
 
-        # He reviews the questionnaire and sees there is no exception thrown
-        self.review_action('review')
+        # User reviews the questionnaire and sees there is no exception thrown
+        detail_page.review_questionnaire()
 
         # He sees the questionnaire is now reviewed
-        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+        detail_page.check_status('reviewed')
 
     def test_review_locked_questionnaire_blocked_by_other(self):
 

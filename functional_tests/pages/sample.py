@@ -1,5 +1,8 @@
+from selenium.webdriver.common.by import By
+
 from functional_tests.pages.base import QcatPage
 from functional_tests.pages.mixins import EditMixin, DetailMixin, ListMixin
+from functional_tests.pages.questionnaire import QuestionnaireStepPage
 
 
 class Sample2015Mixin:
@@ -15,6 +18,27 @@ class Sample2015Mixin:
 
 class SampleNewPage(Sample2015Mixin, EditMixin, QcatPage):
     route_name = 'sample:questionnaire_new'
+
+    def create_new_questionnaire(self, **kwargs):
+        step_page = SampleStepPage(self.test_case)
+
+        def _enter_text_fields(keys: list):
+            for text_key in keys:
+                if text_key in kwargs:
+                    locator = getattr(
+                        step_page, f'LOC_FORM_INPUT_{text_key.upper()}')
+                    step_page.enter_text(locator, kwargs[text_key])
+
+        if {'key_1', 'key_3'}.intersection(kwargs.keys()):
+            self.click_edit_category('cat_1')
+            _enter_text_fields(['key_1', 'key_3'])
+
+        step_page.submit_step()
+
+
+class SampleStepPage(QuestionnaireStepPage):
+    LOC_FORM_INPUT_KEY_1 = (By.NAME, 'qg_1-0-original_key_1')
+    LOC_FORM_INPUT_KEY_3 = (By.NAME, 'qg_1-0-original_key_3')
 
 
 class SampleEditPage(Sample2015Mixin, EditMixin, QcatPage):
