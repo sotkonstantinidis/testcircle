@@ -14,5 +14,7 @@ class XMLCompatCharField(fields.CharField):
         return self.remove_control_characters(value)
 
     @staticmethod
-    def remove_control_characters(str):
-        return "".join(ch for ch in str if unicodedata.category(ch)[0] != "C")
+    def remove_control_characters(input):
+        valid_chars = ['\n', '\r']
+        return "".join(ch for ch in input if
+                       unicodedata.category(ch)[0] != "C" or ch in valid_chars)
