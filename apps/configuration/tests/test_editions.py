@@ -80,6 +80,45 @@ class EditionsTest(TestCase):
         )
 
     @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
+    def test_create_translation_configurations(self, mock_choices):
+        mock_choices.return_value = [('test_code', 'test_code'), ]
+
+        new_translation = {'label': 'bar'}
+        edition = self.get_edition()
+
+        edition.create_new_translation(
+            translation_type='type', translation_keys=['foo', 'bar'],
+            **new_translation)
+
+        self.assertIn(
+            mock.call.get_or_create(
+                data={'foo': new_translation, 'bar': new_translation},
+                translation_type='type'),
+            edition.translation.objects.method_calls
+        )
+
+    @mock.patch.object(Edition, 'create_new_translation')
+    @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
+    def test_create_new_value_configuration_editions(
+            self, mock_choices, mock_create_new_translation):
+        mock_choices.return_value = [('test_code', 'test_code'), ]
+
+        edition = self.get_edition()
+
+        translation = {'label': 'bar'}
+        conf_editions = ['foo', 'bar']
+        edition.create_new_value(
+            keyword='keyword', translation=translation,
+            configuration_editions=conf_editions)
+
+        self.assertIn(
+            mock.call(
+                label='bar', translation_type='value',
+                translation_keys=conf_editions),
+            mock_create_new_translation.call_args_list
+        )
+
+    @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
     def test_create_new_value_new_translation(self, mock_choices):
         mock_choices.return_value = [('test_code', 'test_code'), ]
 
@@ -275,6 +314,58 @@ class EditionsTest(TestCase):
                 path=('section_2', 'category_2'),
                 **updated_data)['foo'],
             'bar')
+
+    @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
+    def test_update_data_single(self, mock_choices):
+        mock_choices.return_value = [('test_code', 'test_code'), ]
+
+        edition = self.get_edition()
+
+        data = {
+            'qg_1': [
+                {
+                    'key_1': 'Foo',
+                    'key_2': 'Bar'
+                }
+            ],
+            'qg_2': [
+                {
+                    'key_3': 'Faz'
+                }
+            ]
+        }
+        updated = edition.update_data('qg_1', 'key_2', None, **data)
+        data['qg_1'][0]['key_2'] = None
+        self.assertDictEqual(updated, data)
+
+        updated = edition.update_data('qg_1', 'key_2', 'Taz', **data)
+        data['qg_1'][0]['key_2'] = 'Taz'
+        self.assertDictEqual(updated, data)
+
+    @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
+    def test_update_data_multiple(self, mock_choices):
+        mock_choices.return_value = [('test_code', 'test_code'), ]
+
+        edition = self.get_edition()
+
+        data = {
+            'qg_1': [
+                {
+                    'key_2': 'Faz'
+                },
+                {
+                    'key_1': 'Foo',
+                },
+                {
+                    'key_1': 'Faz',
+                    'key_2': 'Taz'
+                }
+            ]
+        }
+        updated = edition.update_data('qg_1', 'key_2', None, **data)
+        for i in range(len(data['qg_1'])):
+            data['qg_1'][i]['key_2'] = None
+        self.assertDictEqual(updated, data)
 
 
 class OperationTest(TestCase):

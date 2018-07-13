@@ -10,9 +10,25 @@ class Technologies(Edition):
     code = 'technologies'
     edition = 2018
 
+    all_configuration_editions = [
+        'technologies_2018', 'technologies', 'approaches', 'cca', 'watershed']
+
     @property
     def operations(self):
         return [
+            Operation(
+                transform_configuration=self.add_option_user_resourceperson_type,
+                release_note=_('1.2: Added option "co-compiler" to "Key resource persons".')
+            ),
+            Operation(
+                transform_configuration=self.remove_person_address_questions,
+                transform_questionnaire=self.delete_person_address_data,
+                release_note=_('1.2: Removed "Address", "Phone" and "E-Mail" of "Key resource persons".')
+            ),
+            Operation(
+                transform_configuration=self.remove_subcategory_1_6,
+                release_note=''
+            ),
             Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
                 release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
@@ -22,22 +38,47 @@ class Technologies(Edition):
                 release_note=_('3.2: Added option "transhumant pastoralism" to land use type "Grazing land".')
             ),
             Operation(
-                transform_configuration=self.add_option_tech_lu_mixed_integrated,
-                release_note=_('3.2: Added option "integrated crop-livestock" to land use type "Mixed".')
+                transform_configuration=self.rename_option_tech_lu_mixed_integrated,
+                release_note=''
+            ),
+            # Operation(
+            #     transform_configuration=self.add_tech_lu_initial,
+            #     release_note=_('3.2: Added new question "Initial land use".')
+            # ),
+            Operation(
+                transform_configuration=self.add_question_tech_agronomic_tillage,
+                release_note=_('3.6: Added new question "Differentiate tillage systems" when selecting agronomic measure "A3: Soil surface treatment".')
             ),
             Operation(
-                transform_configuration=self.add_tech_lu_initial,
-                release_note=_('3.2: Added new question "Initial land use".')
+                transform_configuration=self.add_option_a6_residue_management,
+                release_note=_('3.6: Added new option "A6: Residue Management" to "agronomic measures".')
+            ),
+            Operation(
+                transform_configuration=self.rename_option_a6_others,
+                release_note=_('3.6 Renamed option "A6: Others" of "agronomic measures" to "A7: Others".')
+            ),
+            Operation(
+                transform_configuration=self.add_question_tech_residue_management,
+                release_note=_('3.6: Added new question "Specify residue management" when selecting agronomic measure "A6: residue management".')
+            ),
+            Operation(
+                transform_configuration=self.do_nothing,
+                release_note=_('4: Updated numbering (4.2 was removed).')
+            ),
+            Operation(
+                transform_configuration=self.move_technical_specification,
+                transform_questionnaire=self.delete_technical_specification,
+                release_note=_('4.1: Previous question "4.2 Technical specifications" is now integrated into "4.1 Technical drawing".')
             ),
             Operation(
                 transform_configuration=self.remove_tech_est_type,
                 transform_questionnaire=self.delete_tech_est_type,
-                release_note=_('4.4: Removed "Type of measure" from Establishment activities.')
+                release_note=_('4.3 (previously 4.4): Removed "Type of measure" from Establishment activities.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_maint_type,
                 transform_questionnaire=self.delete_tech_maint_type,
-                release_note=_('4.6: Removed "Type of measure" from Maintenance activities.')
+                release_note=_('4.5 (previously 4.6): Removed "Type of measure" from Maintenance activities.')
             ),
             Operation(
                 transform_configuration=self.move_tech_input_est_total_estimation,
@@ -58,8 +99,324 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.rename_tech_individuals,
                 release_note='',
-            )
+            ),
+            Operation(
+                transform_configuration=self.rename_us_dollars,
+                release_note=''
+            ),
         ]
+
+    def move_technical_specification(self, **data) -> dict:
+
+        # Add tech_specifications to 4.1
+        qg_path = (
+            'section_specifications', 'tech__4', 'tech__4__1', 'tech_qg_185')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'].insert(1, {'keyword': 'tech_specifications'})
+        # Adjust template
+        qg_data['form_options'].update({
+            'template': 'columns_custom',
+            'columns_custom': [['12'], ['12'], ['6', '6']]
+        })
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Update translation of tech_specifications (insert helptext previously
+        # in subcategory)
+        self.update_translation(
+            update_pk=1036,
+            **{
+                "label": {
+                    "en": "Technical specifications (related to technical drawing)"
+                },
+                "helptext": {
+                    "en": "<p>Summarize technical specifications, e.g.:</p><ul><li>Dimensions (height, depth, width, length) of structures or vegetative elements;</li><li>Spacing between structures or plants/ vegetative measures</li><li>Vertical intervals structures or vegetative measures</li><li>Slope angle (before and after implementation of the Technology)</li><li>Lateral gradient of structures</li><li>Capacity of dams, ponds, etc.</li><li>Catchment area and beneficial area of dams, ponds, other water harvesting systems</li><li>Construction material used</li><li>Species used</li><li>Quantity/ density of plants (per ha)</li></ul>"
+                }
+            }
+        )
+
+        # Remove 4.2
+        cat_path = (
+            'section_specifications', 'tech__4')
+        cat_data = self.find_in_data(path=cat_path, **data)
+        new_subcats = []
+        for subcat in cat_data['subcategories']:
+            # Exclude 4.2
+            if subcat['keyword'] == 'tech__4__2':
+                continue
+
+            # Update numbering
+            if subcat['keyword'] != 'tech__4__1':
+                old_numbering = subcat['form_options']['numbering']
+                new_numbering = str(round(float(old_numbering) - 0.1, 1))
+                subcat['form_options']['numbering'] = new_numbering
+
+            new_subcats.append(subcat)
+        cat_data['subcategories'] = new_subcats
+        data = self.update_config_data(path=cat_path, updated=cat_data, **data)
+
+        # Update helptexts of new subcategories 4.4 and 4.6 (pointing to
+        # previous subcategories where numbering has changed)
+        self.update_translation(
+            update_pk=2792,
+            **{
+                "label": {
+                    "en": "Costs and inputs needed for establishment"
+                },
+                "helptext": {
+                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2 and to the activities listed in 4.3. Use the currency indicated in 4.2.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2793,
+            **{
+                "label": {
+                    "en": "Costs and inputs needed for maintenance/ recurrent activities (per year)"
+                },
+                "helptext": {
+                    "en": "<strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2, and to the activities listed in 4.5. Use the currency indicated in 4.2."
+                }
+            }
+        )
+
+        return data
+
+    def delete_technical_specification(self, **data) -> dict:
+        if 'tech_qg_161' in data:
+            del data['tech_qg_161']
+        return data
+
+    def add_question_tech_agronomic_tillage(self, **data) -> dict:
+        # Create key and values
+        q_keyword = 'tech_agronomic_tillage'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Differentiate tillage systems'
+                }
+            },
+            question_type='select',
+            values=[
+                self.create_new_value(
+                    keyword='tillage_no',
+                    translation={
+                        'label': {
+                            'en': 'A 3.1: No tillage (>> 30% coverage)'
+                        }
+                    },
+                    order_value=1,
+                ),
+                self.create_new_value(
+                    keyword='tillage_reduced',
+                    translation={
+                        'label': {
+                            'en': 'A 3.2: Reduced tillage (> 30% coverage)'
+                        }
+                    },
+                    order_value=2,
+                ),
+                self.create_new_value(
+                    keyword='tillage_full',
+                    translation={
+                        'label': {
+                            'en': 'A 3.3: Full tillage (< 30% coverage)'
+                        }
+                    },
+                    order_value=3,
+                ),
+            ]
+        )
+
+        # Prepare configuration (with condition)
+        question_configuration = {
+            'keyword': q_keyword,
+            'form_options': {
+                'question_condition': q_keyword
+            }
+        }
+
+        qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__6', 'tech_qg_21')
+        qg_data = self.find_in_data(path=qg_path, **data)
+
+        # Add question
+        qg_data['questions'] = qg_data['questions'] + [
+            question_configuration]
+
+        # Add condition to the first question
+        new_condition = f"=='measures_agronomic_a3'|{q_keyword}"
+        question_conditions = qg_data['questions'][0]['form_options'].get(
+            'question_conditions', [])
+        question_conditions.append(new_condition)
+        qg_data['questions'][0]['form_options'][
+            'question_conditions'] = question_conditions
+
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+        return data
+
+    def rename_option_a6_others(self, **data) -> dict:
+        self.update_translation(
+            update_pk=1516,
+            **{
+                'label': {
+                    'en': 'A7: Others'
+                }
+            }
+        )
+        return data
+
+    def add_option_a6_residue_management(self, **data) -> dict:
+        self.add_new_value(
+            question_keyword='tech_measures_agronomic_sub',
+            value=self.create_new_value(
+                keyword='measures_agronomic_a6_residue_management',
+                translation={
+                    'label': {
+                        'en': 'A6: Residue management'
+                    }
+                },
+                order_value=6,
+            ),
+            order_value=6,
+        )
+        return data
+
+    def add_question_tech_residue_management(self, **data) -> dict:
+        # Create key and values
+        q_keyword = 'tech_residue_management'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Specify residue management'  # If this text changes, also adapt the release notes above
+                }
+            },
+            question_type='select',
+            values=[
+                self.create_new_value(
+                    keyword='residue_management_burned',
+                    translation={
+                        'label': {
+                            'en': 'A 6.1: burned'
+                        }
+                    },
+                    order_value=1,
+                ),
+                self.create_new_value(
+                    keyword='residue_management_grazed',
+                    translation={
+                        'label': {
+                            'en': 'A 6.2: grazed'
+                        }
+                    },
+                    order_value=2,
+                ),
+                self.create_new_value(
+                    keyword='residue_management_collected',
+                    translation={
+                        'label': {
+                            'en': 'A 6.3: collected'
+                        }
+                    },
+                    order_value=3,
+                ),
+                self.create_new_value(
+                    keyword='residue_management_retained',
+                    translation={
+                        'label': {
+                            'en': 'A 6.4: retained'
+                        }
+                    },
+                    order_value=4,
+                ),
+            ]
+        )
+
+        # Prepare configuration (with condition)
+        question_configuration = {
+            'keyword': q_keyword,
+            'form_options': {
+                'question_condition': q_keyword
+            }
+        }
+
+        qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__6', 'tech_qg_21')
+        qg_data = self.find_in_data(path=qg_path, **data)
+
+        # Add question
+        qg_data['questions'] = qg_data['questions'] + [
+            question_configuration]
+
+        # Add condition to the first question
+        new_condition = f"=='measures_agronomic_a6_residue_management'|{q_keyword}"
+        question_conditions = qg_data['questions'][0]['form_options'].get(
+            'question_conditions', [])
+        question_conditions.append(new_condition)
+        qg_data['questions'][0]['form_options'][
+            'question_conditions'] = question_conditions
+
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+        return data
+
+    def remove_subcategory_1_6(self, **data) -> dict:
+        cat_path = ('section_general_information', 'tech__1')
+        cat_data = self.find_in_data(path=cat_path, **data)
+        cat_data['subcategories'] = [
+            subcat for subcat in cat_data['subcategories']
+            if subcat['keyword'] != 'tech__1__6'
+        ]
+        data = self.update_config_data(path=cat_path, updated=cat_data, **data)
+        return data
+
+    def remove_person_address_questions(self, **data) -> dict:
+        qg_path = (
+            'section_general_information', 'tech__1', 'tech__1__2',
+            'tech_qg_184')
+        remove_questions = [
+            'person_address',
+            'person_phone_1',
+            'person_phone_2',
+            'person_email_1',
+            'person_email_2',
+        ]
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] not in remove_questions]
+        # Also update the view template
+        qg_data['view_options']['template'] = 'select_user_2018'
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+        return data
+
+    def delete_person_address_data(self, **data) -> dict:
+        delete_questions = [
+            'person_address',
+            'person_phone_1',
+            'person_phone_2',
+            'person_email_1',
+            'person_email_2',
+        ]
+        for question in delete_questions:
+            data = self.update_data('tech_qg_184', question, None, **data)
+        return data
+
+    def add_option_user_resourceperson_type(self, **data) -> dict:
+        self.add_new_value(
+            question_keyword='user_resourceperson_type',
+            value=self.create_new_value(
+                keyword='resourceperson_cocompiler',
+                translation={
+                    'label': {
+                        'en': 'co-compiler'
+                    }
+                },
+                order_value=3,
+                configuration_editions=self.all_configuration_editions
+            ),
+        )
+        return data
 
     def rename_tech_individuals(self, **data) -> dict:
         # Add option to show helptext as tooltip. Then add tooltip.
@@ -91,7 +448,7 @@ class Technologies(Edition):
             update_pk=1321,
             **{
                 'label': {
-                    'en': 'If you are unable to break down the costs, give an estimation of the total costs of maintaining the Technology'
+                    'en': 'If you are unable to break down the costs in the table above, give an estimation of the total costs of maintaining the Technology'
                 }
             }
         )
@@ -111,7 +468,7 @@ class Technologies(Edition):
             update_pk=1319,
             **{
                 'label': {
-                    'en': 'If you are unable to break down the costs, give an estimation of the total costs of establishing the Technology'
+                    'en': 'If you are unable to break down the costs in the table above, give an estimation of the total costs of establishing the Technology'
                 }
             }
         )
@@ -150,19 +507,17 @@ class Technologies(Edition):
     def delete_tech_est_type(self, **data: dict) -> dict:
         return self.update_data('tech_qg_165', 'tech_est_type', None, **data)
 
-    def add_option_tech_lu_mixed_integrated(self, **data) -> dict:
-        self.add_new_value(
-            question_keyword='tech_lu_mixed_sub',
-            value=self.create_new_value(
-                keyword='lu_mixed_integrated',
-                translation={
-                    'label': {
-                        'en': 'Agro-pastoralism, integrated crop-livestock'
-                    }
+    def rename_option_tech_lu_mixed_integrated(self, **data) -> dict:
+        self.update_translation(
+            update_pk=1513,
+            **{
+                "label": {
+                    "en": "Agro-pastoralism (incl. integrated crop-livestock)"
                 },
-                order_value=2
-            ),
-            order_value=2
+                "helptext": {
+                    "en": "<strong>Mp: Agro-pastoralism</strong>: cropland and grazing land (including seasonal change between crops and livestock)"
+                }
+            }
         )
         return data
 
@@ -195,29 +550,43 @@ class Technologies(Edition):
         )
         return data
 
-    def add_tech_lu_initial(self, **data) -> dict:
-        qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_7')
-        qg_data = self.find_in_data(path=qg_path, **data)
-
-        self.create_new_question(
-            keyword='tech_lu_initial',
-            translation={
-                'label': {
-                    'en': 'Initial land use'
+    def rename_us_dollars(self, **data) -> dict:
+        self.update_translation(
+            update_pk=1904,
+            **{
+                "label": {
+                    "en": "USD"
                 }
-            },
-            question_type='select',
-            values=[
-                self.get_value('tech_lu_cropland'),
-                self.get_value('tech_lu_grazingland'),
-                self.get_value('tech_lu_forest'),
-                self.get_value('tech_lu_mixed'),
-                self.get_value('tech_lu_settlements'),
-                self.get_value('tech_lu_waterways'),
-                self.get_value('tech_lu_mines'),
-                self.get_value('tech_lu_unproductive'),
-            ])
-
-        qg_data['questions'] = [{'keyword': 'tech_lu_initial'}] + qg_data['questions']
-        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+            }
+        )
         return data
+
+    def do_nothing(self, **data) -> dict:
+        return data
+
+    # def add_tech_lu_initial(self, **data) -> dict:
+    #     qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_7')
+    #     qg_data = self.find_in_data(path=qg_path, **data)
+    #
+    #     self.create_new_question(
+    #         keyword='tech_lu_initial',
+    #         translation={
+    #             'label': {
+    #                 'en': 'Initial land use'
+    #             }
+    #         },
+    #         question_type='select',
+    #         values=[
+    #             self.get_value('tech_lu_cropland'),
+    #             self.get_value('tech_lu_grazingland'),
+    #             self.get_value('tech_lu_forest'),
+    #             self.get_value('tech_lu_mixed'),
+    #             self.get_value('tech_lu_settlements'),
+    #             self.get_value('tech_lu_waterways'),
+    #             self.get_value('tech_lu_mines'),
+    #             self.get_value('tech_lu_unproductive'),
+    #         ])
+    #
+    #     qg_data['questions'] = [{'keyword': 'tech_lu_initial'}] + qg_data['questions']
+    #     data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+    #     return data

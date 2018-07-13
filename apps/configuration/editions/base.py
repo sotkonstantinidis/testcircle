@@ -154,13 +154,18 @@ class Edition:
         obj.data.update({self.translation_key: data})
         obj.save()
 
-    def create_new_translation(self, translation_type, **data) -> Translation:
+    def create_new_translation(
+            self, translation_type, translation_keys: list=None,
+            **data) -> Translation:
         """
         Create and return a new translation entry.
         """
+        if translation_keys:
+            data = {t: data for t in translation_keys}
+        else:
+            data = {self.translation_key: data}
         translation, __ = self.translation.objects.get_or_create(
-            translation_type=translation_type,
-            data={self.translation_key: data})
+            translation_type=translation_type, data=data)
         return translation
 
     def create_new_question(
@@ -185,13 +190,14 @@ class Edition:
 
     def create_new_value(
             self, keyword: str, translation: dict or int, order_value: int=None,
-            configuration: dict=None) -> Value:
+            configuration: dict=None, configuration_editions: list=None) -> Value:
         """
         Create and return a new value, with a translation.
         """
         if isinstance(translation, dict):
             translation_obj = self.create_new_translation(
-                translation_type='value', **translation)
+                translation_type='value',
+                translation_keys=configuration_editions, **translation)
         else:
             translation_obj = self.translation.objects.get(pk=translation)
         value, __ = self.value.objects.get_or_create(
@@ -298,9 +304,8 @@ class Edition:
 
         updated_questiongroup_data = []
         for qg_data in questiongroup_data:
-            if q_keyword not in qg_data:
-                continue
-            qg_data[q_keyword] = updated
+            if q_keyword in qg_data:
+                qg_data[q_keyword] = updated
             updated_questiongroup_data.append(qg_data)
         data[qg_keyword] = updated_questiongroup_data
         return data
