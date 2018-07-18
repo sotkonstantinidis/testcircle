@@ -770,7 +770,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         return formfields, templates, options
 
     def get_details(
-            self, data={}, measure_label=None, questionnaire_object=None):
+            self, data=None, measure_label=None, questionnaire_object=None):
+        if data is None:
+            data = {}
         MAX_MEASURE_LEVEL = 5
         template_values = self.view_options
         template_values.update({
@@ -1146,7 +1148,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data=None, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[], initial_links=None,
+            edit_mode='edit', edited_questiongroups=None, initial_links=None,
             questionnaire_data=None):
         """
         Returns:
@@ -1154,6 +1156,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             more form fields representing a set of questions belonging
             together and which can possibly be repeated multiple times.
         """
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         form_template = 'form/questiongroup/{}.html'.format(
             self.form_options.get('template', 'default'))
         # todo: this is a workaround.
@@ -1289,7 +1293,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             questiongroups.append(rendered_questions)
         return questiongroups
 
-    def get_details(self, data=[], links=None, questionnaire_object=None):
+    def get_details(self, data=None, links=None, questionnaire_object=None):
+        if data is None:
+            data = []
         view_template = 'details/questiongroup/{}.html'.format(
             self.view_options.get('template', 'default'))
         questiongroups = self.get_rendered_questions(
@@ -1504,14 +1510,18 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         self.table_helptexts.append(question.helptext)
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[], initial_links=None):
+            self, post_data=None, initial_data=None, show_translation=False,
+            edit_mode='edit', edited_questiongroups=None, initial_links=None):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
             ``list``. A list of formsets of question groups, together
             forming a subcategory.
         """
+        if initial_data is None:
+            initial_data = {}
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         form_template = 'form/subcategory/{}.html'.format(
             self.form_options.get('template', 'default'))
         formsets = []
@@ -1582,7 +1592,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 return True
         return False
 
-    def get_details(self, data={}, links=None, questionnaire_object=None):
+    def get_details(self, data=None, links=None, questionnaire_object=None):
         """
         Returns:
             ``string``. A rendered representation of the subcategory
@@ -1591,6 +1601,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             ``bool``. A boolean indicating whether the subcategory and
             its questiongroups have some data in them or not.
         """
+        if data is None:
+            data = {}
         view_template = 'details/subcategory/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_questiongroups = []
@@ -1810,13 +1822,15 @@ class QuestionnaireCategory(BaseConfigurationObject):
         return qg
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[], initial_links=None):
+            self, post_data=None, initial_data=None, show_translation=False,
+            edit_mode='edit', edited_questiongroups=None, initial_links=None):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
             ``list``. A list of a list of subcategory formsets.
         """
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         subcategory_formsets = []
         for subcategory in self.subcategories:
             subcategory_formsets.append(
@@ -1876,10 +1890,16 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 c.questiongroups or c.subcategories]
 
     def get_details(
-            self, data={}, permissions=[], edit_step_route='',
+            self, data=None, permissions=None, edit_step_route='',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None,
+            edited_questiongroups=None, view_mode='view', links=None,
             review_config=None, user=None, completeness_percentage=0):
+        if data is None:
+            data = {}
+        if permissions is None:
+            permissions = []
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -2108,9 +2128,9 @@ class QuestionnaireSection(BaseConfigurationObject):
         return complete, total
 
     def get_details(
-            self, data={}, permissions=[], review_config={},
+            self, data=None, permissions=None, review_config=None,
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None, user=None,
+            edited_questiongroups=None, view_mode='view', links=None, user=None,
             completeness_percentage=0):
 
         view_template = 'details/section/{}.html'.format(
@@ -2282,9 +2302,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         return complete, total
 
     def get_details(
-            self, data={}, permissions=[], review_config={},
+            self, data=None, permissions=None, review_config=None,
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None, user=None,
+            edited_questiongroups=None, view_mode='view', links=None, user=None,
             completeness_percentage=0):
         rendered_sections = []
         for section in self.sections:

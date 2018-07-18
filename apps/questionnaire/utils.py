@@ -34,8 +34,7 @@ from .signals import change_status, change_member, delete_questionnaire
 logger = logging.getLogger(__name__)
 
 
-def clean_questionnaire_data(
-        data, configuration, deep_clean=True, users=[], no_limit_check=False):
+def clean_questionnaire_data(data, configuration, no_limit_check=False):
     """
     Clean a questionnaire data dictionary so it can be saved to the
     database. This namely removes all empty values and parses measured
@@ -1076,7 +1075,7 @@ def get_query_status_filter(request):
 
 
 def get_list_values(
-        configuration_code=None, es_hits=[], questionnaire_objects=[],
+        configuration_code=None, es_hits=None, questionnaire_objects=None,
         with_links=True, status_filter=None):
     """
     Retrieves and prepares data to be used in a list representation.
@@ -1120,6 +1119,10 @@ def get_list_values(
         specified in the settings to appear in the list, some metadata
         is returned for each entry.
     """
+    if es_hits is None:
+        es_hits = []
+    if questionnaire_objects is None:
+        questionnaire_objects = []
     list_entries = []
 
     for result in es_hits:

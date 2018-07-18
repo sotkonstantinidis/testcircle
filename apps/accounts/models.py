@@ -157,7 +157,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return user
 
     def update(
-            self, email=None, lastname='', firstname='', usergroups=[]):
+            self, email=None, lastname='', firstname='', usergroups=None):
         """
         Handles the one-way synchronization of the user database by
         updating the values.
@@ -169,6 +169,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             usergroups: A list of dicts representing the usergroups as provided
               by the remote service.
         """
+        if usergroups is None:
+            usergroups = []
         if (email is None and lastname == self.lastname and
                 firstname == self.firstname):
             return
