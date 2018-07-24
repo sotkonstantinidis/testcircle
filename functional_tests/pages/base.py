@@ -40,11 +40,13 @@ class Page:
             url = f'{url}?{self.get_query_string(query_dict)}'
         self.browser.get(url)
 
-    def get_el(self, locator: tuple) -> WebElement:
+    def get_el(self, locator: tuple, base: WebElement=None) -> WebElement:
         """
         Shortcut to get an element.
         """
-        return self.browser.find_element(*locator)
+        if base is None:
+            base = self.browser
+        return base.find_element(*locator)
 
     def get_els(self, locator: tuple) -> list:
         """
@@ -141,6 +143,10 @@ class QcatPage(Page):
         By.XPATH, '//div[contains(@class, "notification-group")]/div[contains('
                   '@class, "{cls}") and text()="{msg}"]')
     LOC_NOTIFICATIONS_CONTAINER = (By.CLASS_NAME, 'notification-group')
+    LOC_UNREAD_MESSAGES = (By.CLASS_NAME, 'has-unread-messages')
+    LOC_MODAL_OPEN = (
+        By.XPATH, '//div[contains(@class, "reveal-modal") and contains(@class, '
+                  '"open") and contains(@style, "opacity: 1")]')
 
     def change_language(self, locale):
         self.get_el(self.LOC_MENU_LANGUAGE_SWITCHER).click()
@@ -163,6 +169,11 @@ class QcatPage(Page):
             self.format_locator(
                 self.LOC_MESSAGE_WITH_TEXT, cls='error', msg=msg))
 
+    def has_warning_message(self, msg: str) -> bool:
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_MESSAGE_WITH_TEXT, cls='warning', msg=msg))
+
     def has_notice_message(self, msg: str) -> bool:
         return self.exists_el(
             self.format_locator(
@@ -175,9 +186,15 @@ class QcatPage(Page):
         for el in self.get_els(self.LOC_NOTIFICATIONS_CONTAINER):
             self.hide_element(el)
 
+    def has_unread_messages(self) -> bool:
+        return self.exists_el(self.LOC_UNREAD_MESSAGES)
+
     def logout(self):
         self.get_el(self.LOC_MENU_USER).click()
         self.get_el(self.LOC_MENU_USER_LOGOUT).click()
+
+    def wait_for_modal(self, visibility: bool=True):
+        self.wait_for(self.LOC_MODAL_OPEN, visibility=visibility)
 
     def is_not_found_404(self) -> bool:
         return self.has_text('404') and self.has_text('ot found')

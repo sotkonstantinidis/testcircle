@@ -100,6 +100,11 @@ class ListMixin:
                     compiler=e['compiler'])
                 self.get_el(locator)
 
+    def click_list_entry(self, index: int):
+        self.get_el(
+            self.format_locator(self.LOC_LIST_ENTRY_TITLE, i=index+1, title='')
+        ).click()
+
 
 class ReviewMixin:
     LOC_BUTTON_REVIEW_ACTION = (
@@ -112,6 +117,10 @@ class ReviewMixin:
         By.XPATH, '//a[@data-toggle="review-change-compiler-panel" and '
                   'contains(@class, "expand")]')
     LOC_BUTTON_CHANGE_COMPILER = (By.ID, 'button-change-compiler')
+    LOC_BUTTON_CLOSE_EDITION_MODAL = (
+        By.XPATH, '//a[contains(@class, "close-modal-new-edition")]')
+    LOC_BUTTONS_EDIT_CATEGORIES = (
+        By.XPATH, '//div[contains(@class, "tech-section-action")]/a')
     LOC_INPUT_NEW_COMPILER = (By.ID, 'review-change-compiler')
     LOC_INPUT_KEEP_COMPILER_AS_EDITOR = (By.NAME, 'change-compiler-keep-editor')
     LOC_CHANGE_COMPILER_SELECTED = (
@@ -124,33 +133,41 @@ class ReviewMixin:
         # Can be "Editor/s:" ...
         '//ul[@class="tech-infos"]/li/span[contains(text(), "Editor")]/../a')
     LOC_STATUS_LABEL = (By.XPATH, '//span[contains(@class, "is-{status}")]')
+    TEXT_REVIEW_ACTION_CREATE_NEW_VERSION = 'Create new version'
+    TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE = 'Edit'
+    TEXT_REVIEW_ACTION_SUBMIT_QUESTIONNAIRE = 'Submit'
+    TEXT_REVIEW_ACTION_REVIEW_QUESTIONNAIRE = 'Approve'
+    TEXT_REVIEW_ACTION_PUBLISH_QUESTIONNAIRE = 'Publish'
     TEXT_REVIEW_ACTION_CHANGE_COMPILER = 'Change compiler'
     TEXT_REVIEW_ACTION_DELETE_QUESTIONNAIRE = 'Delete'
     TEXT_MESSAGE_NO_VALID_NEW_COMPILER = 'No valid new compiler provided!'
     TEXT_MESSAGE_COMPILER_CHANGED = 'Compiler was changed successfully'
     TEXT_MESSAGE_USER_ALREADY_COMPILER = 'This user is already the compiler.'
+    TEXT_NEW_EDITION_AVAILABLE = 'New edition of the questionnaire is available'
 
-    def do_review_action(self, action: str):
+    def do_review_action(self, action: str, check_success: bool=True):
         btn_locator = self.format_locator(
             self.LOC_BUTTON_REVIEW_ACTION, action=action)
         self.get_el(btn_locator).click()
+        self.wait_for_modal()
         confirm_locator = self.format_locator(
             self.LOC_BUTTON_REVIEW_CONFIRM, action=action)
         self.wait_for(confirm_locator)
         self.get_el(confirm_locator).click()
-        assert self.has_success_message()
+        if check_success is True:
+            assert self.has_success_message()
 
-    def delete_questionnaire(self):
-        self.do_review_action('delete')
+    def delete_questionnaire(self, check_success: bool=True):
+        self.do_review_action('delete', check_success=check_success)
 
-    def submit_questionnaire(self):
-        self.do_review_action('submit')
+    def submit_questionnaire(self, check_success: bool=True):
+        self.do_review_action('submit', check_success=check_success)
 
-    def review_questionnaire(self):
-        self.do_review_action('review')
+    def review_questionnaire(self, check_success: bool=True):
+        self.do_review_action('review', check_success=check_success)
 
-    def publish_questionnaire(self):
-        self.do_review_action('publish')
+    def publish_questionnaire(self, check_success: bool=True):
+        self.do_review_action('publish', check_success=check_success)
 
     def get_review_actions(self) -> list:
         return [el.text for el in self.get_els(self.LOC_BUTTONS_REVIEW_ACTIONS)]
@@ -185,6 +202,18 @@ class ReviewMixin:
             el.text.replace('\n×', '') for el in
             self.get_els(self.LOC_CHANGE_COMPILER_SELECTED)]
 
+    def can_submit_questionnaire(self) -> bool:
+        return self.TEXT_REVIEW_ACTION_SUBMIT_QUESTIONNAIRE in \
+               self.get_review_actions()
+
+    def can_review_questionnaire(self) -> bool:
+        return self.TEXT_REVIEW_ACTION_REVIEW_QUESTIONNAIRE in \
+               self.get_review_actions()
+
+    def can_publish_questionnaire(self) -> bool:
+        return self.TEXT_REVIEW_ACTION_PUBLISH_QUESTIONNAIRE in \
+               self.get_review_actions()
+
     def can_change_compiler(self) -> bool:
         return self.TEXT_REVIEW_ACTION_CHANGE_COMPILER in \
                self.get_review_actions()
@@ -204,6 +233,39 @@ class ReviewMixin:
     def check_status(self, status: str):
         self.get_el(self.format_locator(self.LOC_STATUS_LABEL, status=status))
 
+    def check_review_actions(
+            self, create_new: bool, edit: bool, submit: bool, review: bool,
+            publish: bool, delete: bool, change_compiler: bool):
+        review_actions = self.get_review_actions()
+        assert (self.TEXT_REVIEW_ACTION_CREATE_NEW_VERSION in review_actions) \
+                is create_new
+        assert (self.TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE in review_actions) \
+                is edit
+        assert (self.TEXT_REVIEW_ACTION_SUBMIT_QUESTIONNAIRE in review_actions)\
+                is submit
+        assert (self.TEXT_REVIEW_ACTION_REVIEW_QUESTIONNAIRE in review_actions)\
+                is review
+        assert (self.TEXT_REVIEW_ACTION_PUBLISH_QUESTIONNAIRE in review_actions)\
+                is publish
+        assert (self.TEXT_REVIEW_ACTION_DELETE_QUESTIONNAIRE in review_actions)\
+                is delete
+        assert (self.TEXT_REVIEW_ACTION_CHANGE_COMPILER in review_actions) \
+                is change_compiler
+
+    def can_edit_category(self, keyword: str) -> bool:
+        category_buttons = self.get_els(self.LOC_BUTTONS_EDIT_CATEGORIES)
+        for cat in category_buttons:
+            if keyword in cat.get_attribute('href'):
+                return True
+        return False
+
+    def close_edition_modal(self):
+        self.get_el(self.LOC_BUTTON_CLOSE_EDITION_MODAL).click()
+        self.wait_for_modal(visibility=False)
+
+    def has_new_edition(self) -> bool:
+        return self.has_text(self.TEXT_NEW_EDITION_AVAILABLE)
+
 
 class EditMixin(ReviewMixin):
 
@@ -211,8 +273,8 @@ class EditMixin(ReviewMixin):
         By.XPATH, '//div[@class="tech-section-progress"]')
     LOC_CATEGORY_TITLE = (By.XPATH, '//h2[contains(text(), "{category}")]')
     LOC_BUTTON_EDIT_CATEGORY = (
-        By.XPATH, '//a[contains(@href, "/edit/") and contains('
-                  '@href, "{keyword}")]')
+        By.XPATH, '//div[contains(@class, "tech-section-action")]/a['
+                  'contains(@href, "/edit/") and contains(@href, "{keyword}")]')
     LOC_BUTTON_VIEW_QUESTIONNAIRE = (
         By.XPATH, '//div[contains(@class, "review-panel")]//a[contains(@class, '
                   '"success") and contains(@href, "/view/")]')
@@ -242,13 +304,13 @@ class DetailMixin(ReviewMixin):
     LOC_BUTTON_EDIT_QUESTIONNAIRE = (
         By.XPATH, '//div[contains(@class, "review-panel")]//a[contains(@class, '
                   '"button") and contains(@href, "/edit/")]')
-    TEXT_REVIEW_ACTION_CREATE_NEW_VERSION = 'Create new version'
-    TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE = 'Edit'
+    TEXT_IS_LOCKED_BY = 'This questionnaire is locked for editing by {user}.'
 
     def create_new_version(self):
         btn_locator = self.format_locator(
             EditMixin.LOC_BUTTON_REVIEW_ACTION, action='edit')
         self.get_el(btn_locator).click()
+        self.wait_for_modal()
         confirm_locator = self.LOC_BUTTON_CREATE_NEW_VERSION
         self.wait_for(confirm_locator)
         self.get_el(confirm_locator).click()
@@ -265,3 +327,35 @@ class DetailMixin(ReviewMixin):
     def can_edit_questionnaire(self):
         return self.TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE in \
                self.get_review_actions()
+
+    def is_locked_by(self, user) -> bool:
+        return self.has_warning_message(
+            self.TEXT_IS_LOCKED_BY.format(user=user))
+
+
+class PaginationMixin:
+    LOC_PAGINATION_PREVIOUS = (
+        By.XPATH, '//ul[@class="pagination"]/li[contains(@class, "arrow")]/a['
+                  'text()="«"]/..')
+    LOC_PAGINATION_CURRENT = (
+        By.XPATH, '//ul[@class="pagination"]/li[contains(@class, "current")]')
+    LOC_PAGINATION_CURRENT_PAGE = (
+        By.XPATH, '//ul[@class="pagination"]/li[contains(@class, "current")]/'
+                  'a[text()="{page}"]')
+    LOC_PAGINATION_PAGE_LINK = (
+        By.XPATH, '//ul[@class="pagination"]/li/a[text()="{page}"]')
+    CLASS_IS_UNAVAILABLE = 'unavailable'
+
+    def is_prev_page_disabled(self) -> bool:
+        return self.CLASS_IS_UNAVAILABLE in self.get_el(
+            self.LOC_PAGINATION_PREVIOUS).get_attribute('class')
+
+    def get_current_page(self) -> int:
+        return int(self.get_el(self.LOC_PAGINATION_CURRENT).text)
+
+    def click_page(self, page: int):
+        self.get_el(
+            self.format_locator(self.LOC_PAGINATION_PAGE_LINK, page=page)
+        ).click()
+        self.wait_for(
+            self.format_locator(self.LOC_PAGINATION_CURRENT_PAGE, page=page))

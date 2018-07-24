@@ -11,6 +11,7 @@ from notifications.views import LogListView, LogQuestionnairesListView
 from questionnaire.models import Questionnaire
 
 from functional_tests.base import FunctionalTest
+from functional_tests.pages.qcat import MyDataPage
 
 
 class NotificationSetupMixin:
@@ -64,53 +65,62 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
 
     @override_settings(NOTIFICATIONS_TEASER_PAGINATE_BY=1)
     def test_notification_display(self):
-        # From a logged in state, open the profile page
-        self.doLogin(user=self.robin)
-        self.browser.get(self.profile_url)
-        # no notifications are available
-        self.assertTrue(
-            'No notifications.' in
-            self.findBy('id', 'latest-notification-updates').text
-        )
-        # create a new notification
+        # User opens the My SLM Data page
+        page = MyDataPage(self)
+        page.open(login=True, user=self.robin)
+
+        # No notifications are available
+        assert page.has_no_notifications()
+
+        # A new notifications is created.
         self.create_status_log(self.robin)
-        self.create_status_log(self.robin)
-        # After a reload, the notification for robin is shown, displaying one
+
+        # After a reload, the notification for the User is shown, displaying one
         # notification log.
-        self.browser.get(self.profile_url)
-        self.browser.implicitly_wait(1)
-        logs = self.findManyBy('xpath', self.notifications_xpath)
-        self.assertEqual(len(logs), 1)
+        page.open()
+        logs = page.get_logs()
+        assert len(logs) == 1
 
     @patch('django.contrib.auth.backends.ModelBackend.get_all_permissions')
     def test_todo_notification(self, mock_permissions):
-        # Robin is now also a reviewer and logs in
+        # User is a reviewer
         mock_permissions.return_value = ['questionnaire.review_questionnaire']
-        self.doLogin(user=self.robin)
-        self.browser.get(self.profile_url)
 
-        # Exactly one notification and the label for 'pending' is shown.
-        logs = self.findManyBy('xpath', self.notifications_xpath)
-        self.assertEqual(len(logs), 1)
-        self.findBy('class_name', 'has-unread-messages')
+        # User opens the My SLM Data page
+        page = MyDataPage(self)
+        page.open(login=True, user=self.robin)
 
-        # There is only one checkbox, so click it.
-        checkbox = self.findBy('class_name', 'mark-done')
-        checkbox.click()
+        # There is one message
+        logs = page.get_logs()
+        assert len(logs) == 1
+
+        # The top bar indicates unread messages
+        assert page.has_unread_messages()
+
+        # User marks the message as read
+        page.mark_read(index=0)
+
         # After a little processing, the whole row is now marked as read and a
         # model entry is stored
-        self.wait_for('xpath', self.notifications_read_xpath)
-        self.assertTrue('is-read' in logs[0].get_attribute('class'))
+        page.wait_marked_read(index=0, is_read=True)
+        logs = page.get_logs()
+        assert len(logs) == 1
+        assert logs[0].is_read
+        assert logs[0].is_todo
         self.assertTrue(
             ReadLog.objects.filter(
                 user=self.robin, log=self.review_log, is_read=True
             )
         )
+
         # But the click was a mistake, the notification is not done yet, so
         # the checkbox is clicked again - and all is back to normal.
-        checkbox.click()
-        self.wait_for('xpath', self.notifications_read_xpath)
-        self.assertTrue('is-read' not in logs[0].get_attribute('class'))
+        page.mark_read(index=0)
+        page.wait_marked_read(index=0, is_read=False)
+        logs = page.get_logs()
+        assert len(logs) == 1
+        assert not logs[0].is_read
+        assert logs[0].is_todo
         self.assertTrue(
             ReadLog.objects.filter(
                 user=self.robin, log=self.review_log, is_read=False
@@ -118,56 +128,42 @@ class ProfileNotificationsTest(NotificationSetupMixin, FunctionalTest):
         )
 
     def test_no_todo_notification(self):
-        # For the compiler of this log, jay, the is-pending label is not shown.
-        self.doLogin(user=self.jay)
-        self.browser.get(self.profile_url)
-        logs = self.findManyBy('xpath', self.notifications_xpath)
-        self.assertEqual(len(logs), 1)
-        self.findByNot('xpath', "//svg[(contains(@class, 'alert')]")
+
+        # The compiler user of a log does not see an action required label
+        page = MyDataPage(self)
+        page.open(login=True, user=self.jay)
+
+        logs = page.get_logs()
+        assert len(logs) == 1
+        assert not logs[0].is_todo
 
     def test_pagination(self):
         for i in range(9):
             self.create_status_log(self.jay)
-        # Jay has many notifications, but only a slice is shown.
-        self.doLogin(user=self.jay)
-        self.browser.get(self.profile_url)
-        logs = self.findManyBy('xpath', self.notifications_xpath)
-        self.assertEqual(len(logs), settings.NOTIFICATIONS_TEASER_PAGINATE_BY)
+
+        # User has many notifications, but only a slice is shown.
+        page = MyDataPage(self)
+        page.open(login=True, user=self.jay)
+
+        logs = page.get_logs()
+        assert len(logs) == settings.NOTIFICATIONS_TEASER_PAGINATE_BY
 
         # The other notifications are paginated. The 'previous' button is not
         # available on the first page.
-        pagination = self.findBy(
-            'id', 'latest-notification-updates'
-        ).find_element_by_class_name(
-            'pagination'
-        )
-        pagination_elements = pagination.find_elements_by_tag_name('li')
-        self.assertTrue(
-            'unavailable' in pagination_elements[0].get_attribute('class')
-        )
+        assert page.is_prev_page_disabled()
+
         # The first page is marked as current page.
-        self.assertTrue(
-            pagination_elements[1].get_attribute('class') == 'current'
-        )
-        # When clicking on the next page
-        pagination_elements[2].click()
-        time.sleep(1)
-        pagination = self.findBy(
-            'id', 'latest-notification-updates'
-        ).find_element_by_class_name(
-            'pagination'
-        )
-        pagination_elements = pagination.find_elements_by_tag_name('li')
-        # the second page is 'current'
-        self.assertTrue(
-            pagination_elements[2].get_attribute('class') == 'current'
-        )
-        # the 'previous' arrow is available
-        self.assertTrue(
-            'unavailable' not in pagination_elements[0].get_attribute('class')
-        )
-        # and new notifications are shown
-        self.assertFalse(logs == self.findManyBy('class_name', 'notification-list'))
+        assert page.get_current_page() == 1
+
+        # User clicks the next page
+        page.click_page(page=2)
+
+        # Now the second page is current and the previous link is enabled
+        assert page.get_current_page() == 2
+        assert not page.is_prev_page_disabled()
+
+        # New notifications are shown
+        assert page.get_logs() != logs
 
 
 class NotificationsListTest(NotificationSetupMixin, FunctionalTest):

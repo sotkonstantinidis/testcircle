@@ -1,5 +1,3 @@
-from unittest import mock
-
 from configuration.models import Configuration
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -18,6 +16,10 @@ from sample.tests.test_views import (
 
 from django.contrib.auth.models import Group
 from accounts.tests.test_models import create_new_user
+
+from functional_tests.pages.qcat import MyDataPage
+from functional_tests.pages.sample import SampleDetailPage, SampleEditPage, \
+    SampleStepPage
 
 
 def has_old_version_step(browser):
@@ -199,75 +201,77 @@ class EditTest(FunctionalTest):
     def test_edit_public(self):
 
         code = 'sample_3'
-
-        # Alice logs in
         user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        old_text = 'Faz 3'
+        new_text = 'asdf'
 
-        # She goes to the detail page of a "public" Questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': code}))
-        self.assertIn(code, self.browser.current_url)
+        # User logs in and goes to the detail page of a "public" Questionnaire
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': code}
+        detail_page.open(login=True, user=user)
+        assert code in self.browser.current_url
 
-        self.findBy('xpath', '//*[text()[contains(.,"Faz 3")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"asdf")]]')
+        assert detail_page.has_text(old_text)
+        assert not detail_page.has_text(new_text)
 
-        # She edits the Questionnaire and sees that the URL contains the
+        # There is only one version of this questionnaire in the db
+        assert Questionnaire.objects.filter(code=code).count() == 1
+
+        # User edits the Questionnaire (creates a new version) and sees that
+        # the URL contains the code of the Questionnaire
+        detail_page.create_new_version()
+        assert code in self.browser.current_url
+
+        # User edits a category and sees that the URL still contains the
         # code of the Questionnaire
-        self.review_action('edit')
-        self.assertIn(code, self.browser.current_url)
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category('cat_2')
+        assert code in self.browser.current_url
 
-        #  She edits a category and sees that the URL still contains the
-        # code of the Questionnaire
-        self.click_edit_section('cat_2')
-        self.assertIn(code, self.browser.current_url)
+        # User makes some changes and submits the category
+        step_page = SampleStepPage(self)
+        step_page.enter_text(
+            step_page.LOC_FORM_INPUT_KEY_5, new_text, clear=True)
+        step_page.submit_step()
 
-        # She makes some changes and submits the category
-        key_1 = self.findBy('name', 'qg_19-0-original_key_5')
-        key_1.clear()
-        self.findBy('name', 'qg_19-0-original_key_5').send_keys('asdf')
-        self.findBy('id', 'button-submit').click()
-
-        # She is back on the overview page and sees that the URL still
+        # User is back on the overview page and sees that the URL still
         # contains the code of the Questionnaire
-        self.assertIn(code, self.browser.current_url)
-
-        # She sees that no new code was created.
-        self.assertIn(code, self.browser.current_url)
+        assert code in self.browser.current_url
+        assert edit_page.has_text(code)
 
         # She sees that the value of Key 1 was updated
-        self.findByNot('xpath', '//*[text()[contains(.,"Faz 3")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
+        assert not edit_page.has_text(old_text)
+        assert edit_page.has_text(new_text)
 
         # Also there was an additional version created in the database
-        self.assertEqual(Questionnaire.objects.count(), 11)
+        assert Questionnaire.objects.count() == 11
 
         # The newly created version has the same code
-        self.assertEqual(Questionnaire.objects.filter(code=code).count(), 2)
+        assert Questionnaire.objects.filter(code=code).count() == 2
 
         # She goes to see her own questionnaire and sees sample_3 appears only
         # once
-        self.browser.get(self.live_server_url + reverse(
-            accounts_route_questionnaires))
-        self.wait_for(
-            'xpath', '//img[@src="/static/assets/img/ajax-loader.gif"]',
-            visibility=False)
+        my_page = MyDataPage(self)
+        my_page.open()
 
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 6)
-
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"asdf")]]', base=list_entries[0])
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"Faz 1")]]', base=list_entries[1])
+        my_page.wait_for_lists()
+        expected_list = [
+            {
+                'description': new_text,
+            },
+            {
+                # Just to check that description is there ...
+                'description': 'Faz 1'
+            },
+            # ... the rest does not really matter
+        ]
+        assert my_page.count_list_results() == 6
+        my_page.check_list_results(expected_list, count=False)
 
         # She clicks the first entry and sees that she is taken to the
         # details page of the latest (pending) version.
-        self.findBy(
-            'xpath', '(//article[contains(@class, "tech-item")])[1]//*[text()[contains(.,"asdf")]]/../../../figure/a').click()
-        self.toggle_all_sections()
-        self.checkOnPage('asdf')
+        my_page.click_list_entry(index=0)
+        assert detail_page.has_text(new_text)
 
     def test_edit_questionnaire(self):
 
@@ -340,37 +344,6 @@ class EditTest(FunctionalTest):
         edit_buttons = self.findManyBy(
             'xpath', '//a[contains(text(), "Edit this section")]')
         self.assertEqual(len(edit_buttons), 0)
-
-    def test_edit_public_new_config_edition(self):
-        """
-        If a public version is edited, and a new configuration edition exists, the
-        method to update the case data must be called.
-        """
-        code = 'sample_3'
-
-        # Alice logs in, she is a member of the secretariat
-        user = User.objects.get(pk=107)
-        self.doLogin(user=user)
-
-        self.browser.get(
-            self.live_server_url +
-            reverse(route_questionnaire_details, kwargs={'identifier': code})
-        )
-
-        # Meanwhile, a new configuration edition is created.
-        questionnaire = Questionnaire.objects.get(code=code)
-        config = questionnaire.configuration
-        config.id = None
-        config.edition = '007'
-        config.save()
-
-        # She starts editing the public version - as a new version of the
-        # configuration is available, the data is migrated in between.
-        with mock.patch.object(Configuration, 'get_edition') as mock_edition:
-            mock_edition.return_value.update_questionnaire_data.return_value = \
-                questionnaire.data
-            self.review_action('edit')
-            self.assertTrue(mock_edition.return_value.update_questionnaire_data.called)
 
 
 class CustomToOptionsTest(FunctionalTest):

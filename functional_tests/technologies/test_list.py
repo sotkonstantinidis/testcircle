@@ -41,20 +41,20 @@ class ListTest(FunctionalTest):
 
         expected_results = [
             {
-                'title': 'UNCCD practice 2',
-                'description': 'This is the description of the second UNCCD practice.',
-            },
-            {
-                'title': 'UNCCD practice 1',
-                'description': 'This is the description of the first UNCCD practice.',
-            },
-            {
                 'title': 'WOCAT Tech 2 en español',
                 'description': 'Descripción 2 en español',
             },
             {
                 'title': 'WOCAT Technology 1',
                 'description': 'This is the definition of the first WOCAT Technology.',
+            },
+            {
+                'title': 'UNCCD practice 2',
+                'description': 'This is the description of the second UNCCD practice.',
+            },
+            {
+                'title': 'UNCCD practice 1',
+                'description': 'This is the description of the first UNCCD practice.',
             },
         ]
         page.check_list_results(expected_results)

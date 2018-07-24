@@ -39,6 +39,8 @@ class SampleNewPage(Sample2015Mixin, EditMixin, QcatPage):
 class SampleStepPage(QuestionnaireStepPage):
     LOC_FORM_INPUT_KEY_1 = (By.NAME, 'qg_1-0-original_key_1')
     LOC_FORM_INPUT_KEY_3 = (By.NAME, 'qg_1-0-original_key_3')
+    LOC_FORM_INPUT_KEY_5 = (By.NAME, 'qg_19-0-original_key_5')  # cat_2
+    LOC_FORM_INPUT_KEY_68 = (By.NAME, 'qg_12-0-original_key_68')
 
 
 class SampleEditPage(Sample2015Mixin, EditMixin, QcatPage):
