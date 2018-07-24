@@ -80,7 +80,7 @@ class Configuration(models.Model):
         Get the Edition class of the current configuration
         """
         # See glob pattern: https://pymotw.com/3/glob/
-        for module in self.EDITION_ROOT.glob('[!base][!__init__]*.py'):
+        for module in self.EDITION_ROOT.glob('*[!base][!__init__].py'):
             subclass = self.find_subclass(module)
             if subclass and subclass.code == self.code and str(subclass.edition) == self.edition:
                 return subclass
