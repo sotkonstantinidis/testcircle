@@ -30,6 +30,16 @@ class Technologies(Edition):
                 release_note=''
             ),
             Operation(
+                transform_configuration=self.do_nothing,
+                # This happened in self.merge_subcategory_3_5_into_2_5 ...
+                release_note=_('2.5: Integrated questions about "Spread of the Technology" (previously in 3.5).')
+            ),
+            Operation(
+                transform_configuration=self.do_nothing,
+                # This happened in self.merge_subcategory_3_5_into_2_5 ...
+                release_note=_('2.5: Added new question "If precise area is known, please specify".')
+            ),
+            Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
                 release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
             ),
@@ -45,6 +55,16 @@ class Technologies(Edition):
             #     transform_configuration=self.add_tech_lu_initial,
             #     release_note=_('3.2: Added new question "Initial land use".')
             # ),
+            Operation(
+                transform_configuration=self.merge_subcategory_3_5_into_2_5,
+                transform_questionnaire=self.delete_tech_spread_tech_comments,
+                release_note=_('3.5: Previous questions of "3.5 Spread of the Technology" were integrated into "2.5 Country/ region/ locations where the Technology has been applied and which are covered by this assessment".')
+            ),
+            Operation(
+                transform_configuration=self.do_nothing,
+                # This happened in self.merge_subcategory_3_5_into_2_5 ...
+                release_note=_('3.5: Question "Comments" about "Spread of the Technology" (previously 3.5) was removed, its content needs to be merged with "Comments" of 2.5.')
+            ),
             Operation(
                 transform_configuration=self.add_question_tech_agronomic_tillage,
                 release_note=_('3.6: Added new question "Differentiate tillage systems" when selecting agronomic measure "A3: Soil surface treatment".')
@@ -109,6 +129,65 @@ class Technologies(Edition):
                 release_note='5.8: Added new question about traditional land use rights'
             ),
         ]
+
+    def delete_tech_spread_tech_comments(self, **data) -> dict:
+        return self.update_data('tech_qg_4', 'tech_spread_tech_comments', None, **data)
+
+    def merge_subcategory_3_5_into_2_5(self, **data) -> dict:
+
+        old_subcat_path = ('section_specifications', 'tech__3', 'tech__3__5')
+        old_subcat_data = self.find_in_data(path=old_subcat_path, **data)
+
+        questiongroup = old_subcat_data['questiongroups'][0]  # There is only 1
+
+        # Remove the entire old subcategory
+        old_cat_path = ('section_specifications', 'tech__3')
+        old_cat_data = self.find_in_data(path=old_cat_path, **data)
+        old_cat_data['subcategories'] = [
+            s for s in old_cat_data['subcategories']
+            if s['keyword'] != 'tech__3__5'
+        ]
+        data = self.update_config_data(
+            path=old_cat_path, updated=old_cat_data, **data)
+
+        # Delete comments question of questiongroup
+        questiongroup['questions'] = [
+            q for q in questiongroup['questions'] if
+            q['keyword'] != 'tech_spread_tech_comments']
+
+        # Add new question
+        q_keyword = 'tech_spread_area_precise'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'If precise area is known, please specify'
+                }
+            },
+            question_type='float'
+        )
+        question_configuration = {
+            'keyword': q_keyword,
+            'form_options': {
+                'field_options': {
+                    'min': 0
+                }
+            }
+        }
+        questiongroup['questions'] += [question_configuration]
+
+        new_subcat_path = ('section_specifications', 'tech__2', 'tech__2__5')
+        new_subcat_data = self.find_in_data(path=new_subcat_path, **data)
+
+        # Add to questiongroups of new subcategory
+        new_questiongroups = new_subcat_data['questiongroups']
+        new_questiongroups.insert(3, questiongroup)
+        new_subcat_data['questiongroups'] = new_questiongroups
+
+        data = self.update_config_data(
+            path=new_subcat_path, updated=new_subcat_data, **data)
+
+        return data
 
     def add_question_tech_traditional_rights(self, **data) -> dict:
 
