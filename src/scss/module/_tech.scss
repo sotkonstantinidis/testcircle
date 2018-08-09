@@ -305,6 +305,7 @@ a:hover .tech-icon {
   }
 
   @media #{$medium-up} {
+    height: 80vh;
     margin-bottom: rem-calc(-180);
   }
 

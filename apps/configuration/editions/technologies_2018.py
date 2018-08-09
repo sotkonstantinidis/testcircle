@@ -104,7 +104,55 @@ class Technologies(Edition):
                 transform_configuration=self.rename_us_dollars,
                 release_note=''
             ),
+            Operation(
+                transform_configuration=self.add_question_tech_traditional_rights,
+                release_note='5.8: Added new question about traditional land use rights'
+            ),
         ]
+
+    def add_question_tech_traditional_rights(self, **data) -> dict:
+
+        q_keyword = 'tech_traditional_rights'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Are land use rights based on a traditional legal system?'
+                }
+            },
+            question_type='bool'
+        )
+        question_configuration = {
+            'keyword': q_keyword,
+            'form_options': {
+                'question_conditions': [
+                    '=="1"|tech_traditional_rights_specify'
+                ]
+            }
+        }
+
+        q_keyword_specify = 'tech_traditional_rights_specify'
+        self.create_new_question(
+            keyword=q_keyword_specify,
+            translation={
+                'label': {
+                    'en': 'Specify'
+                }
+            },
+            question_type='text'
+        )
+        question_specify_configuration = {
+            'keyword': q_keyword_specify,
+            'form_options': {
+                'question_condition': 'tech_traditional_rights_specify'
+            }
+        }
+
+        qg_path = ('section_specifications', 'tech__5', 'tech__5__8', 'tech_qg_73')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] += [question_configuration, question_specify_configuration]
+
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
 
     def move_technical_specification(self, **data) -> dict:
 
@@ -193,7 +241,7 @@ class Technologies(Edition):
             keyword=q_keyword,
             translation={
                 'label': {
-                    'en': 'Differentiate tillage systems'
+                    'en': 'A3: Differentiate tillage systems'
                 }
             },
             question_type='select',
@@ -202,7 +250,7 @@ class Technologies(Edition):
                     keyword='tillage_no',
                     translation={
                         'label': {
-                            'en': 'A 3.1: No tillage (>> 30% coverage)'
+                            'en': 'A 3.1: No tillage'
                         }
                     },
                     order_value=1,
@@ -211,7 +259,7 @@ class Technologies(Edition):
                     keyword='tillage_reduced',
                     translation={
                         'label': {
-                            'en': 'A 3.2: Reduced tillage (> 30% coverage)'
+                            'en': 'A 3.2: Reduced tillage (> 30% soil cover)'
                         }
                     },
                     order_value=2,
@@ -220,7 +268,7 @@ class Technologies(Edition):
                     keyword='tillage_full',
                     translation={
                         'label': {
-                            'en': 'A 3.3: Full tillage (< 30% coverage)'
+                            'en': 'A 3.3: Full tillage (< 30% soil cover)'
                         }
                     },
                     order_value=3,
@@ -289,7 +337,7 @@ class Technologies(Edition):
             keyword=q_keyword,
             translation={
                 'label': {
-                    'en': 'Specify residue management'  # If this text changes, also adapt the release notes above
+                    'en': 'A6: Specify residue management'  # If this text changes, also adapt the release notes above
                 }
             },
             question_type='select',
