@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-09 07:54+0200\n"
-"PO-Revision-Date: 2018-08-09 05:52+0000\n"
+"POT-Creation-Date: 2018-08-10 08:56+0200\n"
+"PO-Revision-Date: 2018-08-09 05:56+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Portuguese (http://www.transifex.com/university-of-bern-cde/"
 "qcat/language/pt/)\n"
@@ -14366,11 +14366,8 @@ msgid "Imprint"
 msgstr ""
 
 #: apps/qcat/templates/qcat/imprint.html:15
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Ed: deflation and deposition"
 msgid "Operation and Hosting"
-msgstr "Ed: deflação e deposição"
+msgstr ""
 
 #: apps/qcat/templates/qcat/imprint.html:34
 msgid "Content and Design"
@@ -14432,11 +14429,8 @@ msgid "Country"
 msgstr ""
 
 #: apps/questionnaire/admin.py:76
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "irrigation water availability"
 msgid "Edition update available"
-msgstr "Disponibilidade de água para irrigação"
+msgstr ""
 
 #: apps/questionnaire/admin.py:80 apps/questionnaire/models.py:58
 #: apps/summary/renderers.py:315
