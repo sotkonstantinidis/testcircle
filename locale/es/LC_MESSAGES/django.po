@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-09 07:54+0200\n"
-"PO-Revision-Date: 2018-08-09 05:52+0000\n"
+"POT-Creation-Date: 2018-08-10 08:56+0200\n"
+"PO-Revision-Date: 2018-08-09 05:56+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
@@ -15797,11 +15797,8 @@ msgid "Afrikaans"
 msgstr "Afrikaans"
 
 #: apps/qcat/config/common.py:109
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "Thailand"
 msgid "Thai"
-msgstr "Tailandia"
+msgstr ""
 
 #: apps/qcat/context_processors.py:154
 msgid ""
@@ -15822,11 +15819,8 @@ msgid "Imprint"
 msgstr ""
 
 #: apps/qcat/templates/qcat/imprint.html:15
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "Ed: deflation and deposition"
 msgid "Operation and Hosting"
-msgstr "Ed; deflación y deposición "
+msgstr ""
 
 #: apps/qcat/templates/qcat/imprint.html:34
 msgid "Content and Design"
@@ -15894,11 +15888,8 @@ msgid "Country"
 msgstr "País"
 
 #: apps/questionnaire/admin.py:76
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "irrigation water availability"
 msgid "Edition update available"
-msgstr "disponibilidad de agua para irrigar"
+msgstr ""
 
 #: apps/questionnaire/admin.py:80 apps/questionnaire/models.py:58
 #: apps/summary/renderers.py:315
@@ -16725,15 +16716,7 @@ msgid "Edit version"
 msgstr "Editar versión"
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:7
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "        If you want to make changes to a published %(questionnaire_type)s "
-#| "you can create a new release of this %(questionnaire_type)s. The current "
-#| "version of the questionnaire remains public until the new version is "
-#| "published. The previous / old version will be archived and remains "
-#| "available to public users.\n"
-#| "      "
+#, python-format
 msgid ""
 "\n"
 "        If you want to make changes to a published %(questionnaire_type)s "
@@ -16743,20 +16726,11 @@ msgid ""
 "to public users.\n"
 "      "
 msgstr ""
-"\n"
-"        Si usted desea efectuar cambios en un %(questionnaire_type)s puede "
-"crear una nueva versión de este %(questionnaire_type)s. La versión actual "
-"del cuestionario permanece público hasta que se publique la nueva versión. "
-"La versión previa/ antigua se archivará y se mantendrá disponible para los "
-"usuarios públicos.\n"
-"      "
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:18
 #: apps/questionnaire/templates/details/review_panel/edit.html:35
-#, fuzzy
-#| msgid "Draft version"
 msgid "Create new version"
-msgstr "Versión del borrador"
+msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:23
 #, python-format
@@ -16777,13 +16751,7 @@ msgid "Confirm creation of a new version."
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:31
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "          If you submit a new version of this %(questionnaire_type)s, a "
-#| "new version (status: \"draft\") will be created. It can be edited by you "
-#| "and all editors.\n"
-#| "        "
+#, python-format
 msgid ""
 "\n"
 "          If you submit a new version of this %(questionnaire_type)s, a new "
@@ -16791,11 +16759,6 @@ msgid ""
 "edited by you and all editors.\n"
 "        "
 msgstr ""
-"\n"
-"         Si envía una nueva versión de este %(questionnaire_type)s, se "
-"creará una nueva versión (estado: \"borrador\"). Usted y todos los editores "
-"podrán editarla.\n"
-"        "
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:53
 msgid "Flag as UNCCD best practice"
@@ -19303,6 +19266,3 @@ msgid ""
 msgstr ""
 "La base de datos WOCAT de prácticas MST (Tecnologías y Enfoques) contiene "
 "una gran cantidad de buenas prácticas de todo el mundo. "
-
-#~ msgid "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
-#~ msgstr "<a href=\"{base_url}{url}\">{base_url}{url}</a>"
