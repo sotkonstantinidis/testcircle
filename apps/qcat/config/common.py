@@ -113,6 +113,7 @@ class BaseSettings(Configuration):
     WORD_WRAP_LANGUAGES = [
         'km',
         'lo',
+        'th',
     ]
 
     TIME_ZONE = 'Europe/Zurich'
