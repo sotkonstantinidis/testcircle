@@ -4,7 +4,8 @@ from django.conf import settings
 from django.db.models import F
 from django.template.loader import render_to_string
 
-from configuration.models import Configuration, Key, Value, Translation
+from configuration.models import Configuration, Key, Value, Translation, \
+    Questiongroup
 
 
 class Edition:
@@ -38,13 +39,16 @@ class Edition:
     def operations(self):
         raise NotImplementedError('A list of operations is required.')
 
-    def __init__(self, key: Key, value: Value, configuration: Configuration, translation: Translation):
+    def __init__(
+            self, key: Key, value: Value, questiongroup: Questiongroup,
+            configuration: Configuration, translation: Translation):
         """
         Load operations, and validate the required instance variables.
 
         """
         self.key = key
         self.value = value
+        self.questiongroup = questiongroup
         self.configuration = configuration
         self.translation = translation
         self.validate_instance_variables()
@@ -168,9 +172,24 @@ class Edition:
             translation_type=translation_type, data=data)
         return translation
 
+    def create_new_questiongroup(
+            self, keyword: str, translation: dict or int or None) -> Questiongroup:
+        if isinstance(translation, dict):
+            translation_obj = self.create_new_translation(
+                translation_type='questiongroup', **translation)
+        elif isinstance(translation, int):
+            translation_obj = self.translation.objects.get(pk=translation)
+        else:
+            translation_obj = None
+        configuration = {}
+        questiongroup, __ = self.questiongroup.objects.get_or_create(
+            keyword=keyword, translation=translation_obj,
+            configuration=configuration)
+        return questiongroup
+
     def create_new_question(
             self, keyword: str, translation: dict or int, question_type: str,
-            values: list=None) -> Key:
+            values: list=None, configuration: dict=None) -> Key:
         """
         Create and return a new question (actually, in DB terms, a key), with a
         translation.
@@ -180,7 +199,8 @@ class Edition:
                 translation_type='key', **translation)
         else:
             translation_obj = self.translation.objects.get(pk=translation)
-        configuration_data = {'type': question_type}
+        configuration_data = configuration if configuration is not None else {}
+        configuration_data.update({'type': question_type})
         key, created = self.key.objects.get_or_create(
             keyword=keyword, translation=translation_obj,
             configuration=configuration_data)

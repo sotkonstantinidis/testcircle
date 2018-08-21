@@ -96,9 +96,17 @@ class Technologies(Edition):
                 release_note=_('4.3 (previously 4.4): Removed "Type of measure" from Establishment activities.')
             ),
             Operation(
+                transform_configuration=self.add_question_tech_input_est_total_costs_usd,
+                release_note=_('4.4 (previously 4.5): Added question "Total costs for establishment of the Technology in USD" (automatically calculated).')
+            ),
+            Operation(
                 transform_configuration=self.remove_tech_maint_type,
                 transform_questionnaire=self.delete_tech_maint_type,
                 release_note=_('4.5 (previously 4.6): Removed "Type of measure" from Maintenance activities.')
+            ),
+            Operation(
+                transform_configuration=self.add_question_tech_input_maint_total_costs_usd,
+                release_note=_('4.6 (previously 4.7): Added question "Total costs for maintenance of the Technology in USD" (automatically calculated).')
             ),
             Operation(
                 transform_configuration=self.move_tech_input_est_total_estimation,
@@ -129,6 +137,115 @@ class Technologies(Edition):
                 release_note='5.8: Added new question about traditional land use rights'
             ),
         ]
+
+    def add_question_tech_input_maint_total_costs_usd(self, **data) -> dict:
+
+        # Create a new question
+        k_keyword = 'tech_input_maint_total_costs_usd'
+        self.create_new_question(
+            keyword=k_keyword,
+            translation={
+                'label': {
+                    'en': 'Total costs for maintenance of the Technology in USD'
+                }
+            },
+            question_type='float',
+            configuration={
+                'form_options': {
+                    'label': 'placeholder',
+                    'field_options': {
+                        'min': 0,
+                        'decimals': 2,
+                        'readonly': 'readonly',
+                        'data-local-currency-calculation': 'tech_qg_164|tech_input_exchange_rate|tech_qg_223|tech_input_maint_total_costs'
+                    }
+                }
+            }
+        )
+
+        # Create new questiongroup and add the question to it.
+        qg_keyword = 'tech_qg_233'
+        self.create_new_questiongroup(
+            keyword=qg_keyword, translation=None)
+        qg_configuration = {
+            'keyword': qg_keyword,
+            'questions': [
+                {
+                    'keyword': k_keyword
+                }
+            ]
+        }
+
+        subcat_path = ('section_specifications', 'tech__4', 'tech__4__7')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+
+        # Update table grouping options
+        subcat_data['view_options']['table_grouping'][1] += [qg_keyword]
+
+        # Add the questiongroup
+        questiongroups = subcat_data['questiongroups']
+
+        questiongroups.insert(8, qg_configuration)
+        subcat_data['questiongroups'] = questiongroups
+
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        return data
+
+    def add_question_tech_input_est_total_costs_usd(self, **data) -> dict:
+
+        # Create a new question
+        k_keyword = 'tech_input_est_total_costs_usd'
+        self.create_new_question(
+            keyword=k_keyword,
+            translation={
+                'label': {
+                    'en': 'Total costs for establishment of the Technology in USD'
+                }
+            },
+            question_type='float',
+            configuration={
+                'form_options': {
+                    'label': 'placeholder',
+                    'field_options': {
+                        'min': 0,
+                        'decimals': 2,
+                        'readonly': 'readonly',
+                        'data-local-currency-calculation': 'tech_qg_164|tech_input_exchange_rate|tech_qg_222|tech_input_est_total_costs'
+                    }
+                }
+            }
+        )
+
+        # Create new questiongroup and add the question to it.
+        qg_keyword = 'tech_qg_232'
+        self.create_new_questiongroup(
+            keyword=qg_keyword, translation=None)
+        qg_configuration = {
+            'keyword': qg_keyword,
+            'questions': [
+                {
+                    'keyword': k_keyword
+                }
+            ]
+        }
+
+        subcat_path = ('section_specifications', 'tech__4', 'tech__4__5')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+
+        # Update table grouping options
+        subcat_data['view_options']['table_grouping'][1] += [qg_keyword]
+
+        # Add the questiongroup
+        questiongroups = subcat_data['questiongroups']
+        questiongroups.insert(8, qg_configuration)
+        subcat_data['questiongroups'] = questiongroups
+
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        return data
 
     def delete_tech_spread_tech_comments(self, **data) -> dict:
         return self.update_data('tech_qg_4', 'tech_spread_tech_comments', None, **data)

@@ -75,7 +75,7 @@ function watchFormProgress() {
     // While we're at it, also check if "other" checkboxes are to be ticked
     $('input.checkbox-other').each(function () {
         var $el = $(this);
-        if ($el.parent('label').find('input:text').val() != '') {
+        if ($el.parent('label').find('input:text').val() !== '') {
             $($el.prop('checked', true));
         }
         // Toggle readonly
@@ -96,7 +96,6 @@ function watchFormProgress() {
  * [data-auto-sum]. Such fields are currently used for the input tables.
  */
 function updateAutoMultiplication() {
-    var check_sum = false;
     $('[data-auto-multiplication]').each(function() {
 
         // Get the prefix of the current questiongroup
@@ -107,7 +106,7 @@ function updateAutoMultiplication() {
         var data_sum = $(this).data('auto-multiplication').split('|');
         for (var i in data_sum) {
             var el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-' + data_sum[i] + ']');
-            if (el.length == 0) {
+            if (el.length === 0) {
                 // Try to find with "original"
                 el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-original_' + data_sum[i] + ']');
             }
@@ -118,27 +117,55 @@ function updateAutoMultiplication() {
         } else {
             $(this).val('');
         }
-        check_sum = true;
     });
-    if (check_sum) {
-        $('[data-auto-sum]').each(function() {
-            var identifier = $(this).data('auto-sum');
-            var sum = 0;
-            var has_value = false;
-            $('input[name$=' + identifier + ']').each(function() {
-                var x = parseFloat($(this).val());
-                if (x) {
-                    has_value = true;
-                    sum += x;
-                }
-            });
-            if (has_value) {
-                $(this).val(sum.toFixed(2));
-            } else {
-                $(this).val('');
+    $('[data-auto-sum]').each(function() {
+        var identifier = $(this).data('auto-sum');
+        var sum = 0;
+        var has_value = false;
+        $('input[name$=' + identifier + ']').each(function() {
+            var x = parseFloat($(this).val());
+            if (x) {
+                has_value = true;
+                sum += x;
             }
         });
+        if (has_value) {
+            $(this).val(sum.toFixed(2));
+        } else {
+            $(this).val('');
+        }
+    });
+    $('[data-local-currency-calculation]').each(function() {
+        doLocalCurrencyCalculation(this);
+    });
+}
+
+
+/**
+ * Calculate the sum of the local currency in USD based on the exchange rate.
+ *
+ * @param el: The input element in which the calculated sum will be written. Has
+ * to have a data-local-currency-calculation attribute containing
+ *   questiongroup_exchange_rate
+ *   key_exchange_rate
+ *   questiongroup_local_sum
+ *   key_local_sum
+ * separated with "|"
+ */
+function doLocalCurrencyCalculation(el) {
+    var $el = $(el);
+    var dataMultiParts = $el.data('local-currency-calculation').split('|');
+    var exchangeRate = $('input[name=' + dataMultiParts[0] + '-0-' + dataMultiParts[1] + ']').val();
+    var localSum = $('input[name=' + dataMultiParts[2] + '-0-' + dataMultiParts[3] + ']').val();
+    var sum = '';
+    if (localSum) {
+        if (!exchangeRate) {
+            // No exchange rate, use 1
+            exchangeRate = 1;
+        }
+        sum = (parseFloat(localSum) / parseFloat(exchangeRate)).toFixed(2);
     }
+    $el.val(sum);
 }
 
 /**
