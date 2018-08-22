@@ -272,13 +272,23 @@ class Technologies(Edition):
             q for q in questiongroup['questions'] if
             q['keyword'] != 'tech_spread_tech_comments']
 
+        # Update translation of previous question about categorized area
+        self.update_translation(
+            update_pk=1311,
+            **{
+                "label": {
+                    "en": "If precise area is not known, indicate approximate area covered"
+                }
+            }
+        )
+
         # Add new question
         q_keyword = 'tech_spread_area_precise'
         self.create_new_question(
             keyword=q_keyword,
             translation={
                 'label': {
-                    'en': 'If precise area is known, please specify'
+                    'en': 'If the Technology is evenly spread over an area, specify area covered (in km2)'
                 }
             },
             question_type='float'
@@ -288,10 +298,14 @@ class Technologies(Edition):
             'form_options': {
                 'field_options': {
                     'min': 0
-                }
+                },
+                'question_condition': 'tech_spread_area',
             }
         }
-        questiongroup['questions'] += [question_configuration]
+
+        new_questions = questiongroup['questions']
+        new_questions.insert(1, question_configuration)
+        questiongroup['questions'] = new_questions
 
         new_subcat_path = ('section_specifications', 'tech__2', 'tech__2__5')
         new_subcat_data = self.find_in_data(path=new_subcat_path, **data)
