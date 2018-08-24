@@ -20,6 +20,78 @@ request. Please contact the Wocat secretariat if you want to access the API, sta
 your activated Wocat account (required) and the purpose of your API requests.
 An authentication token will then be created for your account.
 
+Structure of configuration
+--------------------------
+Return the structure of the configuration of a questionnaire. Contains
+information about the categories, questiongroups and questions that build a
+questionnaire.
+
+Endpoint: ``/api/v2/configuration/{code}/{edition}/``
+
+Allowed method: ``GET``
+
+Request headers:
+    ``Authorization``: Your authorization token for the QCAT API. Specified in
+    the format ``Token AUTH_TOKEN``
+
+    ``Accept``: Optionally specify the format of the response. Available formats
+    are JSON (``application/json``), XML (``application/xml``) and
+    CSV (``text/csv``). Default: ``application/json``
+
+Optional Get parameters: ``flat``: If present, the structure will be a flat list
+of questions.
+
+Example request with curl
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Request::
+
+    curl -X GET -H 'Authorization: Token 0e03f8061c83e58d1595c3b21ddce9712233cb4e' -H 'Accept: application/json' https://qcat.wocat.net/en/api/v2/configuration/technologies/2018/
+
+Response::
+
+    [
+      {
+        "categories_label": "1. General information",
+        "categories_keyword": "tech__1",
+        "subcategories": [
+          {
+            "subcategories_label": "Image",
+            "subcategories_keyword": "tech__0__1",
+            "questiongroups": [
+              {
+                "questiongroups_repeating": null,
+                "questiongroups_label": "",
+                "questiongroups_keyword": "qg_image",
+                "questions": [
+                  {
+                    "questions_label": "Image",
+                    "questions_keyword": "image",
+                    "questions_type": "image",
+                    "questions_choices": []
+                  },
+                  {
+                    "questions_label": "Caption, explanation of photo",
+                    "questions_keyword": "image_caption",
+                    "questions_type": "char",
+                    "questions_choices": []
+                  },
+                  // ...
+                ]
+              }
+            ]
+          },
+          // ...
+        ]
+      },
+      // ...
+    ]
+
+
+.. hint::
+    If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
+
 List of questionnaires
 ----------------------
 Return a list of Questionnaires. The same filter parameters as for the list view
