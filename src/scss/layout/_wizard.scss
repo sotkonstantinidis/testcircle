@@ -211,6 +211,11 @@ select[disabled]+div.chosen-disabled {
   }
 }
 
+// No border/shadow around chosen search field
+ul.chosen-choices>li.search-field {
+  box-shadow: none;
+}
+
 /* USER SEARCH */
 .form-user-tabs-content {
   margin-top: 1rem;

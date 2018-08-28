@@ -148,7 +148,7 @@ def clean_questionnaire_data(data, configuration, no_limit_check=False):
                     # This is checked later.
                     pass
                 elif question.field_type in [
-                        'checkbox', 'image_checkbox', 'cb_bool']:
+                        'checkbox', 'image_checkbox', 'cb_bool', 'multi_select']:
                     if not isinstance(value, list):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a list'.format(

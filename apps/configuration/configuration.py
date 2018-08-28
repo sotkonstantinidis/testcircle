@@ -194,6 +194,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'cb_bool',
         'char',
         'checkbox',
+        'multi_select',
         'date',
         'file',
         'hidden',
@@ -341,7 +342,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.choices = ((1, self.label),)
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type',
-                'select', 'radio', 'select_conditional_custom']:
+                'select', 'radio', 'select_conditional_custom', 'multi_select']:
             self.value_objects = self.configuration_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
@@ -665,6 +666,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
+        elif self.field_type in ['multi_select']:
+            widget = MultiSelect(attrs=attrs)
+            widget.options = field_options
+            field = forms.MultipleChoiceField(
+                label=self.label, widget=widget, choices=self.choices,
+                required=self.required)
         elif self.field_type == 'image_checkbox':
             # Make the image paths available to the widget
             widget = ImageCheckbox(attrs=attrs)
@@ -794,7 +801,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'bool', 'measure', 'checkbox', 'image_checkbox',
                 'select_type', 'select', 'cb_bool', 'radio',
                 'select_conditional_questiongroup',
-                'select_conditional_custom']:
+                'select_conditional_custom', 'multi_select']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -853,7 +860,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
                 'level': level,
             })
-        elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
+        elif self.field_type in ['checkbox', 'cb_bool', 'radio', 'multi_select']:
             # Keep only values which were selected.
             values = [v for v in values if v]
 
@@ -2831,6 +2838,18 @@ class MeasureSelectStacked(ConditionalMixin, forms.RadioSelect):
         ctx = super(MeasureSelectStacked, self).get_context_data()
         ctx.update({
             'options': self.options,
+        })
+        return ctx
+
+
+class MultiSelect(ConditionalMixin, forms.SelectMultiple):
+    template_name = 'form/field/select.html'
+
+    def get_context_data(self):
+        ctx = super(MultiSelect, self).get_context_data()
+        ctx.update({
+            'options': self.options,
+            'searchable': True,
         })
         return ctx
 
