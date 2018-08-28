@@ -14,6 +14,7 @@ class Sample2015Mixin:
         ('cat_4', 'Category 4'),
         ('cat_5', 'Category 5'),
     ]
+    TEXT_SAMPLEMULTI_LINKS_SUBCATEGORY = 'Subcategory 5_3 (links)'
 
 
 class SampleNewPage(Sample2015Mixin, EditMixin, QcatPage):
@@ -41,6 +42,8 @@ class SampleStepPage(QuestionnaireStepPage):
     LOC_FORM_INPUT_KEY_3 = (By.NAME, 'qg_1-0-original_key_3')
     LOC_FORM_INPUT_KEY_5 = (By.NAME, 'qg_19-0-original_key_5')  # cat_2
     LOC_FORM_INPUT_KEY_68 = (By.NAME, 'qg_12-0-original_key_68')
+    LOC_FORM_INPUT_SAMPLEMULTI_LINK_ID = (
+        By.NAME, 'qg_33__samplemulti-0-link_id')  # cat_5
 
 
 class SampleEditPage(Sample2015Mixin, EditMixin, QcatPage):

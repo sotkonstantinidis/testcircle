@@ -1182,6 +1182,21 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     Handle review and form submission actions. Updates the Questionnaire
     object and adds a message.
 
+    Completely overloaded method, handling too many cases, depending on
+    request.POST values. The following cases are available:
+    * submit: Change status from draft to submitted
+    * review: Change status from submitted to reviewed
+    * publish: Change status from reviewed to published, also put data in ES
+    * reject: Change status from [submitted, reviewed] to draft
+    * assign: Update the members (editors, reviewers, publishers) of a
+        questionnaire
+    * change-compiler: Change the compiler of the questionnaire
+    * flag-unccd: Flag the questionnaire as one of UNCCD's cases
+    * unflag-unccd: Unflag the questionnaire from being a UNCCD case
+    * delete: Delete (set is_deleted) a questionnaire
+    * new-version: Create a new (draft) version of a public questionnaire
+
+
     * "draft" Questionnaires can be submitted, sets them "submitted".
 
     * "submitted" Questionnaires can be reviewed, sets them "reviewed".

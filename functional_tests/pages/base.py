@@ -93,6 +93,11 @@ class Page:
             arguments[0].style.visibility='hidden';
         ''', element)
 
+    def show_element(self, element: WebElement):
+        self.browser.execute_script('''
+            arguments[0].style.display='block';
+        ''', element)
+
     def has_text(self, text):
         return text in self.browser.page_source
 

@@ -1,6 +1,7 @@
 import re
 
 import pytest
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,7 +10,6 @@ from selenium.webdriver.common.by import By
 from unittest.mock import patch
 
 from accounts.models import User
-from accounts.tests.test_views import accounts_route_questionnaires
 from functional_tests.base import FunctionalTest
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
@@ -18,6 +18,7 @@ from sample.tests.test_views import (
 from wocat.tests.test_views import route_home
 from search.tests.test_index import create_temp_indices
 
+from functional_tests.pages.qcat import MyDataPage
 from functional_tests.pages.sample import SampleDetailPage, SampleListPage, \
     SampleNewPage, SampleEditPage, SampleStepPage
 
@@ -217,167 +218,130 @@ class ModerationTestFixture(FunctionalTest):
     def test_secretariat_edit(self):
 
         # Secretariat user logs in
-        self.doLogin(user=self.user_secretariat)
-
         # He goes to the details of a DRAFT questionnaire which he did not enter
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 1")]]')
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': 'sample_1'}
+        detail_page.open(login=True, user=self.user_secretariat)
+        assert detail_page.has_text('Foo 1')
 
         # He sees a button to edit the questionnaire, he clicks it
-        self.findBy('xpath', '//form[@id="review_form"]')
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
+        detail_page.edit_questionnaire()
 
         # In edit mode, he sees that he can edit the first section
-        self.click_edit_section('cat_1')
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category('cat_1')
 
         # He saves the step and returns
-        self.submit_form_step()
+        step_page = SampleStepPage(self)
+        step_page.submit_step()
 
         # He also opens a public questionnaire which he did not enter
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
+        detail_page.route_kwargs = {'identifier': 'sample_3'}
+        detail_page.open()
+        assert detail_page.has_text('Foo 3')
 
         # In the database, there is only 1 version
-        self.assertEqual(
-            Questionnaire.objects.filter(code='sample_3').count(), 1)
+        assert Questionnaire.objects.filter(code='sample_3').count() == 1
 
         # He sees a button to edit the questionnaire, he clicks it and creates a
         # new version
-        self.findBy('xpath', '//form[@id="review_form"]')
-        self.review_action('edit')
-
-        # In edit mode, he sees that he can edit the first section
-        self.click_edit_section('cat_1')
-
-        # He saves the step and returns
-        self.submit_form_step()
+        detail_page.create_new_version()
 
         # In the database, there are now 2 versions
-        self.assertEqual(
-            Questionnaire.objects.filter(code='sample_3').count(), 2)
+        assert Questionnaire.objects.filter(code='sample_3').count() == 2
 
     def test_secretariat_delete(self):
         # Secretariat user logs in
-        self.doLogin(user=self.user_secretariat)
-
         # He goes to the details of a DRAFT questionnaire which he did not enter
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 1")]]')
-        self.findBy('xpath', '//span[contains(@class, "is-draft")]')
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': 'sample_1'}
+        detail_page.open(login=True, user=self.user_secretariat)
+        assert detail_page.has_text('Foo 1')
+        detail_page.check_status('draft')
 
-        # He sees a button to delete the questionnaire
-        self.review_action('delete')
+        # He deletes the questionnaire.
+        detail_page.delete_questionnaire()
 
         # He sees that he has been redirected to the "My SLM Practices" page
-        self.assertEqual(
-            self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+        my_data_page = MyDataPage(self)
+        assert my_data_page.get_url() in self.browser.current_url
 
         # He goes to the details of a SUBMITTED questionnaire which he did not
         # enter
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_2'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 2")]]')
-        self.findBy('xpath', '//span[contains(@class, "is-submitted")]')
+        detail_page.route_kwargs = {'identifier': 'sample_2'}
+        detail_page.open()
+        assert detail_page.has_text('Foo 2')
+        detail_page.check_status('submitted')
 
-        # He sees a button to delete the questionnaire
-        self.review_action('delete')
+        # He deletes the questionnaire.
+        detail_page.delete_questionnaire()
 
         # He sees that he has been redirected to the "My SLM Practices" page
-        self.assertEqual(
-            self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+        assert my_data_page.get_url() in self.browser.current_url
 
         # He goes to the details of a REVIEWED questionnaire which he did not
         # enter
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_7'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 7")]]')
-        self.findBy('xpath', '//span[contains(@class, "is-reviewed")]')
+        detail_page.route_kwargs = {'identifier': 'sample_7'}
+        detail_page.open()
+        assert detail_page.has_text('Foo 7')
+        detail_page.check_status('reviewed')
 
-        # He sees a button to delete the questionnaire
-        self.review_action('delete')
+        # He deletes the questionnaire.
+        detail_page.delete_questionnaire()
 
         # He sees that he has been redirected to the "My SLM Practices" page
-        self.assertEqual(
-            self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+        assert my_data_page.get_url() in self.browser.current_url
 
         # He also opens a PUBLIC questionnaire which he did not enter
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
-        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
-        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
-        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+        detail_page.route_kwargs = {'identifier': 'sample_3'}
+        detail_page.open()
+        assert detail_page.has_text('Foo 3')
 
         # In the database, there is only 1 version
-        self.assertEqual(
-            Questionnaire.objects.filter(code='sample_3').count(), 1)
+        query_sample_3 = Questionnaire.objects.get(code='sample_3')
+        assert query_sample_3.status == settings.QUESTIONNAIRE_PUBLIC
+        assert not query_sample_3.is_deleted
 
-        # He sees a button to edit the questionnaire, he clicks it and creates a
-        # new version
-        self.findBy('xpath', '//form[@id="review_form"]')
-        self.review_action('delete')
+        # He deletes the questionnaire.
+        detail_page.delete_questionnaire()
 
         # He sees that he has been redirected to the "My SLM Practices" page
-        self.assertEqual(
-            self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+        assert my_data_page.get_url() in self.browser.current_url
 
         # In the database, there is still only 1 version
-        self.assertEqual(
-            Questionnaire.objects.filter(code='sample_3').count(), 1)
+        query_sample_3 = Questionnaire.objects.get(code='sample_3')
+        assert query_sample_3.status == settings.QUESTIONNAIRE_PUBLIC
+        assert query_sample_3.is_deleted
 
         # He opens another PUBLIC questionnaire and edits it
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_5'}))
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
-        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
-        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
-        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
-        self.review_action('edit')
-        self.click_edit_section('cat_1')
-        self.submit_form_step()
+        detail_page.route_kwargs = {'identifier': 'sample_5'}
+        detail_page.open()
+        assert detail_page.has_text('Foo 5')
+
+        detail_page.create_new_version()
 
         # He deletes the newly created draft version
-        self.findBy('xpath', '//span[contains(@class, "is-draft")]')
-        self.review_action('delete')
+        detail_page.check_status('draft')
+        detail_page.delete_questionnaire()
 
         # He sees that he has been redirected to the PUBLIC version of the
         # questionnaire, not the "My SLM Practices" page
-        self.assertEqual(
-            self.browser.current_url,
-            self.live_server_url + reverse(
-                route_questionnaire_details,
-                kwargs={'identifier': 'sample_5'}) + '#top')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 5")]]')
-        self.findByNot('xpath', '//span[contains(@class, "is-draft")]')
-        self.findByNot('xpath', '//span[contains(@class, "is-submitted")]')
-        self.findByNot('xpath', '//span[contains(@class, "is-reviewed")]')
+        assert detail_page.get_url() in self.browser.current_url
 
         # He creates another version by editing it
-        self.review_action('edit')
-        self.click_edit_section('cat_1')
-        self.submit_form_step()
+        detail_page.create_new_version()
 
         # This time, he publishes the new version
-        self.review_action('view')
-        self.review_action('submit')
-        self.review_action('review')
-        self.review_action('publish')
+        detail_page.submit_questionnaire()
+        detail_page.review_questionnaire()
+        detail_page.publish_questionnaire()
 
         # Now he deletes it
-        self.review_action('delete')
+        detail_page.delete_questionnaire()
 
         # He is now redirected to the "My SLM Practices" page as there is no
         # version to show
-        self.assertEqual(
-            self.browser.current_url,
-            self.live_server_url + reverse(accounts_route_questionnaires) + '#top')
+        assert my_data_page.get_url() in self.browser.current_url
 
     def test_review_panel(self):
 

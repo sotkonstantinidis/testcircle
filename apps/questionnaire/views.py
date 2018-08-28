@@ -948,7 +948,7 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
     """
-    http_method_names = ['get']
+    http_method_names = ['get', 'post']
     view_mode = 'edit'
 
     @method_decorator(ensure_csrf_cookie)
@@ -958,13 +958,16 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     def get_object(self):
         return QuestionnaireRetrieveMixin.get_object(self)
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Create new questionnaire object in case new edition of configuration is
         available.
         """
         self.object = self.get_object()
-        if self.object and self.object.status is settings.QUESTIONNAIRE_PUBLIC:
+        is_create_request = request.POST.get('create_new_version')
+        is_public_questionnaire = self.object.status is settings.QUESTIONNAIRE_PUBLIC
+
+        if is_create_request and is_public_questionnaire:
             questionnaire_data = self.object.data
             inherited_data = self.get_inherited_data()
             questionnaire_data.update(inherited_data)
@@ -984,7 +987,7 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
             for linked_questionnaire in self.object.links.all():
                 new_questionnaire.add_link(linked_questionnaire)
 
-        return super().get(request, *args, **kwargs)
+        return HttpResponseRedirect(redirect_to=self.object.get_edit_url())
 
     def update_case_data_for_editions(self, **questionnaire_data):
         """

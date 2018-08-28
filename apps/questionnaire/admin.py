@@ -84,11 +84,6 @@ class QuestionnaireAdmin(admin.ModelAdmin):
     get_countries.short_description = _('Country')
 
     def edit_url(self, obj):
-        # Currently, the detail url is used instead of the edit url. The latter
-        # creates new versions for public versions, which is undesired behaviour
-        # in this case. Use a POST request to create new versions of a public
-        # questionnaire, then use the edit url again here.
-        # TODO: Revert this to get_edit_url.
         return mark_safe(
-            f'<a href="{obj.get_absolute_url()}" target="_blank">Edit</a>'
+            f'<a href="{obj.get_edit_url()}" target="_blank">Edit</a>'
         )

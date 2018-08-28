@@ -11,15 +11,17 @@ from accounts.models import User
 from functional_tests.base import FunctionalTest
 from questionnaire.views import QuestionnaireLinkSearchView
 from sample.tests.test_views import (
-    route_questionnaire_details,
     route_questionnaire_list,
     route_questionnaire_new,
     route_questionnaire_new_step,
     get_category_count,
 )
-from samplemulti.tests.test_views import route_questionnaire_details as \
-    route_questionnaire_details_samplemulti
 from search.tests.test_index import create_temp_indices
+
+from functional_tests.pages.sample import SampleDetailPage, SampleEditPage, \
+    SampleStepPage
+from functional_tests.pages.samplemulti import SampleMultiDetailPage, \
+    SampleMultiEditPage, SampleMultiStepPage
 
 
 @pytest.mark.usefixtures('es')
@@ -2789,137 +2791,139 @@ class QuestionnaireLinkTest(FunctionalTest):
         # There is a link back
         self.findBy('xpath', '//a[contains(@href, "sample/view/")]')
 
-    def test_edit_questionnaire_link(self):
-        # Alice logs in
+    def test_delete_questionnaire_link(self):
+
         user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        sample_title = 'This is the first key.'
+        samplemulti_title = 'This is key 1a'
+        samplemulti_id = 3
+        expected_links_to_samplemulti = [
+            {
+                'title': samplemulti_title,
+                'configuration': 'samplemulti',
+            }
+        ]
+        expected_links_to_sample = [
+            {
+                'title': sample_title,
+                'configuration': 'sample'
+            }
+        ]
 
-        # She opens an existing questionnaire and sees the link
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, args=['sample_1']))
-        self.toggle_all_sections()
+        # User logs in and opens an existing questionnaire
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': 'sample_1'}
+        detail_page.open(login=True, user=user)
 
-        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
-        self.wait_for('xpath', '//figure[contains(@class, "tech-thumbnail")]')
-        self.findBy(
-            'xpath',
-            '//figure[contains(@class, "tech-thumbnail")]/a[contains(@href, '
-            '"samplemulti/view/")]').click()
+        # User sees the linked questionnaire
+        detail_page.expand_details()
+        detail_page.check_linked_questionnaires(
+            expected=expected_links_to_samplemulti)
 
-        self.toggle_all_sections()
-        self.wait_for('xpath', '//figure[contains(@class, "tech-thumbnail")]')
-        self.findBy(
-            'xpath', '//figure[contains(@class, "tech-thumbnail")]/a[contains('
-                     '@href, "sample/view/")]').click()
+        # User clicks the link
+        detail_page.click_linked_questionnaire(index=0)
 
-        # She decides to edit the questionnaire
-        self.review_action('edit')
+        # On the linked questionnaire details page, there is a link back
+        detail_page.expand_details()
+        detail_page.check_linked_questionnaires(
+            expected=expected_links_to_sample)
+        detail_page.click_linked_questionnaire(index=0)
 
-        # She sees the link in the edit overview
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"This is key 1a")]]')
+        # The user edits the questionnaire
+        detail_page.create_new_version()
 
-        # She edits the link form and sees the values are populated correctly
-        self.click_edit_section('cat_5')
+        # The links are still there
+        edit_page = SampleEditPage(self)
+        edit_page.check_linked_questionnaires(
+            expected=expected_links_to_samplemulti)
 
-        self.findBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"This is key 1a")]')
-        id_field = self.findBy('name', 'qg_33__samplemulti-0-link_id')
-        self.assertEqual(id_field.get_attribute('value'), '3')
+        assert edit_page.has_text(edit_page.TEXT_SAMPLEMULTI_LINKS_SUBCATEGORY)
+
+        # The user opens the link form and sees the values are populated
+        # correctly
+        edit_page.click_edit_category('cat_5')
+        step_page = SampleStepPage(self)
+        step_page.check_links([samplemulti_title])
+        assert step_page.get_value(
+            step_page.get_el(step_page.LOC_FORM_INPUT_SAMPLEMULTI_LINK_ID)
+        ) == str(samplemulti_id)
 
         # She deletes the link and submits the entire form
-        self.findBy(
-            'xpath',
-            '//div[contains(@class, "alert-box")][1]/a[@class="close"]')\
-            .click()
+        step_page.delete_link(index=0)
+        step_page.submit_step()
 
-        self.submit_form_step()
-        self.findByNot(
-            'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
+        assert edit_page.count_linked_questionnaires() == 0
+        assert not edit_page.has_text(
+            edit_page.TEXT_SAMPLEMULTI_LINKS_SUBCATEGORY)
 
-        self.review_action('submit')
-
-        self.findByNot(
-            'xpath', '//*[text()[contains(.,"Subcategory 5_3 (links)")]]')
+        # She submits the questionnaire
+        edit_page.submit_questionnaire()
+        assert edit_page.count_linked_questionnaires() == 0
+        assert not edit_page.has_text(
+            edit_page.TEXT_SAMPLEMULTI_LINKS_SUBCATEGORY)
 
     def test_edit_questionnaire_multiple_links(self):
 
-        # Alice logs in
         user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        samplemulti_identifier = 'samplemulti_1'
+        sample_title_1 = 'This is the first key.'
+        sample_id_1 = 1
+        sample_title_2 = 'Foo'
 
-        # She opens an existing questionnaire (samplemulti) and sees the link
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details_samplemulti, args=['samplemulti_1']))
+        # User logs in and opens an existing questionnaire with a link
+        detail_page = SampleMultiDetailPage(self)
+        detail_page.route_kwargs = {'identifier': samplemulti_identifier}
+        detail_page.open(login=True, user=user)
 
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+        expected_links = [
+            {
+                'title': sample_title_1,
+                'configuration': 'sample'
+            }
+        ]
+        detail_page.check_linked_questionnaires(expected=expected_links)
 
-        # She decides to edit the questionnaire
-        self.review_action('edit')
+        # User edits the questionnaire
+        detail_page.create_new_version()
+        edit_page = SampleMultiEditPage(self)
 
-        # She sees the link in the edit overview
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"MSubcategory 1_2 (links)")]]')
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"This is the first key")]]')
+        # The links are there
+        edit_page.check_linked_questionnaires(expected=expected_links)
+        assert edit_page.has_text(edit_page.TEXT_SAMPLE_LINKS_SUBCATEGORY)
 
-        # She decides to edit the link and sees that the field is
-        # populated correctly
-        self.click_edit_section('mcat_1')
-        self.rearrangeFormHeader()
-        self.findBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"This is the first key")]')
-        id_field = self.findBy('name', 'mqg_02__sample-0-link_id')
-        self.assertEqual(id_field.get_attribute('value'), '1')
-
-        # She clicks the button to add another link
-        self.findBy('xpath', '//a[@data-questiongroup-keyword="mqg_02__sample" '
-                             'and @data-add-item]').click()
+        # User edits the link and sees the field is populated correctly
+        edit_page.click_edit_category('mcat_1')
+        step_page = SampleMultiStepPage(self)
+        step_page.check_links([sample_title_1])
+        assert step_page.get_value(
+            step_page.get_el(step_page.LOC_FORM_INPUT_SAMPLE_LINK_ID)
+        ) == str(sample_id_1)
 
         # She tries to add the same link again, this does not work.
-        self.findBy(
-            'xpath', '//div[@data-questiongroup-keyword="mqg_02__sample"][2]//'
-                     'input[contains(@class, "link-search-field")]'
-        ).send_keys('key')
-        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="This is the first '
-            'key."]').click()
-        x = self.findManyBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            ' "This is the first key")]')
-        self.assertEqual(len(x), 1)
+        step_page.add_link(
+            qg_keyword='mqg_02__sample', link_name='key', add_more=True)
+        step_page.check_links([sample_title_1])
 
         # She adds another link
-        self.findBy(
-            'xpath', '//div[@data-questiongroup-keyword="mqg_02__sample"][2]//'
-                     'input[contains(@class, "link-search-field")]'
-        ).send_keys('foo')
-        self.wait_for('xpath', '//li[@class="ui-menu-item"]')
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Foo"]').\
-            click()
+        step_page.add_link(qg_keyword='mqg_02__sample', link_name='Foo', add_more=False)
+        step_page.check_links([sample_title_1, sample_title_2])
 
         # She submits the step
         self.submit_form_step()
 
         # She sees that both links were added
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"This is the first key")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        expected_links = [
+            {
+                'title': sample_title_2,
+                'configuration': 'sample'
+            }
+        ] + expected_links
+        edit_page.check_linked_questionnaires(expected=expected_links)
 
         # She submits the form and sees that both links were correctly
         # submitted.
-        self.review_action('submit')
-        self.findBy(
-            'xpath', '//*[text()[contains(.,"This is the first key")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"Foo")]]')
+        edit_page.submit_questionnaire()
+        detail_page.check_linked_questionnaires(expected=expected_links)
 
     @patch.object(QuestionnaireLinkSearchView, 'dispatch')
     def test_search(self, mock_link_search):

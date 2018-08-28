@@ -1,3 +1,4 @@
+import pytest
 from configuration.models import Configuration
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -19,7 +20,7 @@ from accounts.tests.test_models import create_new_user
 
 from functional_tests.pages.qcat import MyDataPage
 from functional_tests.pages.sample import SampleDetailPage, SampleEditPage, \
-    SampleStepPage
+    SampleStepPage, SampleNewPage
 
 
 def has_old_version_step(browser):
@@ -84,72 +85,54 @@ class EditTest(FunctionalTest):
 
         # Alice logs in
         user = User.objects.get(pk=102)
-        self.doLogin(user=user)
 
         # She goes to the details of an existing questionnaire and takes
         # note of the creation and update dates
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_3'}))
-        dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
-        self.assertEqual(len(dates), 2)
-        creation_date = dates[0].text
-        update_date = dates[1].text
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': 'sample_3'}
+        detail_page.open(login=True, user=user)
 
-        # She edits the questionnaire
-        self.review_action('edit')
-        self.click_edit_section('cat_1')
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+        creation_date = detail_page.get_el(detail_page.LOC_CREATION_DATE).text
+        update_date = detail_page.get_el(detail_page.LOC_UPDATE_DATE).text
 
-        # She submits the questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-
-        # She sees the changes were submitted
-        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+        # She creates a new version
+        detail_page.create_new_version()
 
         # She notices that the creation date did not change while the
         # update date changed.
-        dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
-        self.assertEqual(len(dates), 2)
-        self.assertEqual(creation_date, dates[0].text)
-        self.assertTrue(update_date != dates[1].text)
+        creation_date_1 = detail_page.get_el(detail_page.LOC_CREATION_DATE).text
+        update_date_1 = detail_page.get_el(detail_page.LOC_UPDATE_DATE).text
+        assert creation_date == creation_date_1
+        assert update_date != update_date_1
 
         # Alice logs in as a different user
-        user = User.objects.get(pk=101)
-        self.doLogin(user=user)
-
         # She also opens a draft version of a questionnaire and takes
         # note of the creation and update dates
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': 'sample_1'}))
-        dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
-        self.assertEqual(len(dates), 2)
-        creation_date = dates[0].text
-        update_date = dates[1].text
+        user = User.objects.get(pk=101)
+        detail_page.route_kwargs = {'identifier': 'sample_1'}
+        detail_page.open(login=True, user=user)
+        creation_date = detail_page.get_el(detail_page.LOC_CREATION_DATE).text
+        update_date = detail_page.get_el(detail_page.LOC_UPDATE_DATE).text
 
         # She makes an edit
-        self.findBy('xpath', '//a[contains(text(), "Edit")]').click()
-        self.hide_notifications()
-        self.click_edit_section('cat_1')
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys(' (changed)')
+        detail_page.edit_questionnaire()
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category('cat_1')
+        step_page = SampleStepPage(self)
+        step_page.enter_text(step_page.LOC_FORM_INPUT_KEY_1, ' (changed)')
 
         # She submits the questionnaire
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        step_page.submit_step()
 
         # She sees the changes were submitted
-        self.findBy('xpath', '//*[text()[contains(.," (changed)")]]')
+        assert edit_page.has_text(' (changed)')
 
         # She notices that the creation date did not change while the
         # update date changed.
-        dates = self.findManyBy(
-            'xpath', '//ul[contains(@class, "tech-infos")]/li/time')
-        self.assertEqual(len(dates), 2)
-        self.assertEqual(creation_date, dates[0].text)
-        self.assertTrue(update_date != dates[1].text)
+        creation_date_1 = edit_page.get_el(edit_page.LOC_CREATION_DATE).text
+        update_date_1 = edit_page.get_el(edit_page.LOC_UPDATE_DATE).text
+        assert creation_date == creation_date_1
+        assert update_date != update_date_1
 
     def test_edit_draft(self):
 
@@ -217,14 +200,23 @@ class EditTest(FunctionalTest):
         # There is only one version of this questionnaire in the db
         assert Questionnaire.objects.filter(code=code).count() == 1
 
+        # User uses the direct link to go to the edit page of the questionnaire
+        # and sees no new version of the questionnaire is created in the DB.
+        # This prevents the issue when new versions were created upon GET of the
+        # edit page, which should be fixed now.
+        edit_page = SampleEditPage(self)
+        edit_page.route_kwargs = {'identifier': code}
+        edit_page.open()
+        assert Questionnaire.objects.filter(code=code).count() == 1
+
         # User edits the Questionnaire (creates a new version) and sees that
         # the URL contains the code of the Questionnaire
+        detail_page.open()
         detail_page.create_new_version()
         assert code in self.browser.current_url
 
         # User edits a category and sees that the URL still contains the
         # code of the Questionnaire
-        edit_page = SampleEditPage(self)
         edit_page.click_edit_category('cat_2')
         assert code in self.browser.current_url
 
@@ -275,75 +267,73 @@ class EditTest(FunctionalTest):
 
     def test_edit_questionnaire(self):
 
-        user = create_new_user(id=6, email='mod@bar.com')
-        user.groups = [Group.objects.get(pk=3), Group.objects.get(pk=4)]
-        user.save()
+        user = self.create_new_user(
+            email='mod@bar.com', groups=['Reviewers', 'Publishers'])
 
         # Alice logs in
-        self.doLogin(user=user)
-
         # She enters a Questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new))
-        self.click_edit_section('cat_1')
+        new_page = SampleNewPage(self)
+        new_page.open(login=True, user=user)
 
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('Foo')
-        self.findBy('name', 'qg_1-0-original_key_3').send_keys('Bar')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        new_page.click_edit_category('cat_1')
+
+        step_page = SampleStepPage(self)
+        step_page.enter_text(step_page.LOC_FORM_INPUT_KEY_1, 'Foo')
+        step_page.enter_text(step_page.LOC_FORM_INPUT_KEY_3, 'Bar')
+        step_page.submit_step()
 
         # The questionnaire is already saved as draft
         # She submits it for review
-        self.review_action('submit')
+        edit_page = SampleEditPage(self)
+        edit_page.submit_questionnaire()
 
         # She reviews it
-        self.review_action('review')
+        detail_page = SampleDetailPage(self)
+        detail_page.review_questionnaire()
 
         # She publishes it
-        self.review_action('publish')
+        detail_page.publish_questionnaire()
 
         # She sees it is public and visible
-        self.findBy('xpath', '//p[text()="Foo"]')
-        self.findBy('xpath', '//p[text()="Bar"]')
+        assert detail_page.has_text('Foo')
+        assert detail_page.has_text('Bar')
 
         url = self.browser.current_url
 
+        # She creates a new version
+        detail_page.create_new_version()
+
         # She edits it
-        self.review_action('edit')
-        self.findBy(
-            'xpath', '(//a[contains(text(), "Edit this section")])[2]').click()
+        edit_page.click_edit_category('cat_1')
 
         # She changes some values
-        self.findBy('name', 'qg_1-0-original_key_1').clear()
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        step_page.enter_text(step_page.LOC_FORM_INPUT_KEY_1, 'asdf', clear=True)
+        step_page.submit_step()
 
         # The questionnaire is already saved as draft
         # She is taken to the overview page where she sees the latest
         # (pending) changes of the draft
-        self.findBy('xpath', '//p[text()="Bar"]')
-        self.findByNot('xpath', '//p[text()="Foo"]')
-        self.findBy('xpath', '//p[text()="asdf"]')
+        edit_page.check_status('draft')
+        assert not edit_page.has_text('Foo')
+        assert edit_page.has_text('asdf')
+        assert edit_page.has_text('Bar')
 
         # She sees the edit buttons
-        edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(text(), "Edit this section")]')
-        self.assertEqual(len(edit_buttons), len(get_categories()))
+        assert edit_page.exists_el(edit_page.format_locator(
+            edit_page.LOC_BUTTON_EDIT_CATEGORY, keyword='cat_1'))
 
         # She sees the possibility to view the questionnaire
-        self.review_action('view')
+        edit_page.view_questionnaire()
         self.assertIn(url, self.browser.current_url + '#top')
 
         # All the changes are there
-        self.findBy('xpath', '//p[text()="Bar"]')
-        self.findByNot('xpath', '//p[text()="Foo"]')
-        self.findBy('xpath', '//p[text()="asdf"]')
+        assert not detail_page.has_text('Foo')
+        assert detail_page.has_text('asdf')
+        assert detail_page.has_text('Bar')
 
         # There are no buttons to edit the sections anymore
-        edit_buttons = self.findManyBy(
-            'xpath', '//a[contains(text(), "Edit this section")]')
-        self.assertEqual(len(edit_buttons), 0)
+        assert not detail_page.exists_el(detail_page.format_locator(
+            edit_page.LOC_BUTTON_EDIT_CATEGORY, keyword='cat_1'))
 
 
 class CustomToOptionsTest(FunctionalTest):

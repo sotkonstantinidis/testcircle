@@ -132,7 +132,23 @@ class ReviewMixin:
         By.XPATH,
         # Can be "Editor/s:" ...
         '//ul[@class="tech-infos"]/li/span[contains(text(), "Editor")]/../a')
+    LOC_CONTENT_DETAILS = (
+        By.XPATH, '//div[contains(@class, "tech-section-content")]')
+    LOC_LINK_DETAILS = (
+        By.XPATH, '//div[contains(@class, "tech-links-content")]')
+    LOC_LINKED_QUESTIONNAIRE_ENTRY = (
+        By.XPATH, '//section[@id="links"]//article')
+    LOC_LINKED_QUESTIONNAIRE_ENTRY_TITLE = (
+        By.XPATH, '(//section[@id="links"]//article)[{i}]'
+                  '//h2/a[contains(text(), "{title}")]')  # 1-based!
+    LOC_LINKED_QUESTIONNAIRE_ENTRY_CONFIGURATION = (
+        By.XPATH, '(//section[@id="links"]//article)[{i}]'
+                  '//figcaption[contains(@class, "is-{configuration}")]')
+    LOC_LINKED_QUESTIONNAIRE_LINK = (
+        By.XPATH, '(//section[@id="links"]//article)[{index}]//h2/a')  # 1-based!
     LOC_STATUS_LABEL = (By.XPATH, '//span[contains(@class, "is-{status}")]')
+    LOC_CREATION_DATE = (By.XPATH, '(//ul[contains(@class, "tech-infos")]/li/time)[1]')
+    LOC_UPDATE_DATE = (By.XPATH, '(//ul[contains(@class, "tech-infos")]/li/time)[2]')
     TEXT_REVIEW_ACTION_CREATE_NEW_VERSION = 'Create new version'
     TEXT_REVIEW_ACTION_EDIT_QUESTIONNAIRE = 'Edit'
     TEXT_REVIEW_ACTION_SUBMIT_QUESTIONNAIRE = 'Submit'
@@ -259,12 +275,50 @@ class ReviewMixin:
                 return True
         return False
 
+    def expand_details(self):
+        for el in self.get_els(self.LOC_LINK_DETAILS):
+            self.show_element(el)
+        for el in self.get_els(self.LOC_CONTENT_DETAILS):
+            self.show_element(el)
+
     def close_edition_modal(self):
         self.get_el(self.LOC_BUTTON_CLOSE_EDITION_MODAL).click()
         self.wait_for_modal(visibility=False)
 
     def has_new_edition(self) -> bool:
         return self.has_text(self.TEXT_NEW_EDITION_AVAILABLE)
+
+    def count_linked_questionnaires(self) -> int:
+        return len(self.get_els(self.LOC_LINKED_QUESTIONNAIRE_ENTRY))
+
+    def check_linked_questionnaires(self, expected: list, count: bool=True):
+        """
+        Args:
+            expected: list of dicts. Can contain
+                - title
+            count: bool. Check whether length of expected list matches length of
+                actual list results.
+        """
+        if count is True:
+            assert self.count_linked_questionnaires() == len(expected)
+        for i, e in enumerate(expected):
+            i_xpath = i + 1
+            if e.get('title'):
+                locator = self.format_locator(
+                    self.LOC_LINKED_QUESTIONNAIRE_ENTRY_TITLE, i=i_xpath,
+                    title=e['title'])
+                self.get_el(locator)
+            if e.get('configuration'):
+                locator = self.format_locator(
+                    self.LOC_LINKED_QUESTIONNAIRE_ENTRY_CONFIGURATION,
+                    i=i_xpath, configuration=e['configuration'])
+                self.get_el(locator)
+
+    def click_linked_questionnaire(self, index: int):
+        self.get_el(
+            self.format_locator(
+                self.LOC_LINKED_QUESTIONNAIRE_LINK, index=index + 1)
+        ).click()
 
 
 class EditMixin(ReviewMixin):
@@ -300,7 +354,7 @@ class EditMixin(ReviewMixin):
 class DetailMixin(ReviewMixin):
 
     LOC_BUTTON_CREATE_NEW_VERSION = (
-        By.XPATH, '//a[@type="submit" and contains(@href, "/edit/")]')
+        By.XPATH, '//input[@type="submit" and @value="Create new version"]')
     LOC_BUTTON_EDIT_QUESTIONNAIRE = (
         By.XPATH, '//div[contains(@class, "review-panel")]//a[contains(@class, '
                   '"button") and contains(@href, "/edit/")]')
