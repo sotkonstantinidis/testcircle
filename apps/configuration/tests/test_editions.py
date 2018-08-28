@@ -1,7 +1,8 @@
 from unittest import mock
 
 from qcat.tests import TestCase
-from configuration.models import Configuration, Key, Value, Translation
+from configuration.models import Configuration, Key, Value, Translation, \
+    Questiongroup
 from ..editions.base import Edition, Operation
 
 
@@ -12,11 +13,13 @@ class EditionsTest(TestCase):
         mock_translation = mock.MagicMock(spec=Translation)
         mock_key = mock.MagicMock(spec=Key)
         mock_value = mock.MagicMock(spec=Value)
+        mock_questiongroup = mock.MagicMock(spec=Questiongroup)
         for mock_obj in [mock_translation, mock_key, mock_value]:
             mock_obj.objects.get_or_create.return_value = (mock.sentinel, True)
         return dict(
             key=mock_key,
             value=mock_value,
+            questiongroup=mock_questiongroup,
             configuration=mock.MagicMock(spec=Configuration),
             translation=mock_translation,
         )

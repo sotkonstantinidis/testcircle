@@ -110,7 +110,9 @@ class Configuration(models.Model):
                 if is_not_base and is_subclass:
                     # Don't pass references to actual models, as they are not used.
                     return klass(
-                        key={}, value={}, configuration={}, translation={})
+                        key={}, value={}, questiongroup={}, configuration={},
+                        translation={}
+                    )
 
 
 class Translation(models.Model):
