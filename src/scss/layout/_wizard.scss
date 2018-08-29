@@ -215,6 +215,10 @@ select[disabled]+div.chosen-disabled {
 ul.chosen-choices>li.search-field {
   box-shadow: none;
 }
+.chosen-container .chosen-choices .search-field:only-child,
+.chosen-container .chosen-choices .search-field:only-child input {
+  width: 100% !important;
+}
 
 /* USER SEARCH */
 .form-user-tabs-content {
