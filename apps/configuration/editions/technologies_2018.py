@@ -40,6 +40,10 @@ class Technologies(Edition):
                 release_note=_('2.5: Added new question "If precise area is known, please specify".')
             ),
             Operation(
+                transform_configuration=self.add_tech_location_protected,
+                release_note=_('2.5: Added new question "Is/are the technology site(s) located in a permanently protected area?"')
+            ),
+            Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
                 release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
             ),
@@ -443,6 +447,62 @@ class Technologies(Edition):
         if 'tech_qg_161' in data:
             del data['tech_qg_161']
         return data
+
+    def add_tech_location_protected(self, **data) -> dict:
+        qg_keyword = 'tech_qg_234'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        question_keyword = 'tech_location_protected'
+        self.create_new_question(
+            keyword=question_keyword,
+            translation={
+                'label': {
+                    'en': 'Is/are the technology site(s) located in a permanently protected area?'
+                },
+                'helptext': {
+                    'en': 'I.e. national reserve/ national park'
+                }
+            },
+            question_type='bool',
+        )
+        specify_keyword = 'tech_location_protected_specify'
+        self.create_new_question(
+            keyword=specify_keyword,
+            translation={
+                'label': {
+                    'en': 'If yes, specify'
+                }
+            },
+            question_type='text',
+        )
+        qg_configuration = {
+            'keyword': qg_keyword,
+            'questions': [
+                {
+                    'keyword': question_keyword,
+                    'form_options': {
+                        'question_conditions': [
+                            f"=='1'|{specify_keyword}"
+                        ],
+                        'helptext_position': 'tooltip'
+                    }
+                },
+                {
+                    'keyword': specify_keyword,
+                    'form_options': {
+                        'question_condition': specify_keyword
+                    }
+                }
+            ]
+        }
+        subcat_path = ('section_specifications', 'tech__2', 'tech__2__5')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        questiongroups = subcat_data['questiongroups']
+        questiongroups.insert(3, qg_configuration)
+        subcat_data['questiongroups'] = questiongroups
+        return self.update_config_data(path=subcat_path, updated=subcat_data, **data)
 
     def add_question_tech_agronomic_tillage(self, **data) -> dict:
         # Create key and values
