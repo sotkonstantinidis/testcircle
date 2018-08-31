@@ -44,6 +44,15 @@ class Technologies(Edition):
                 release_note=_('2.5: Added new question "Is/are the technology site(s) located in a permanently protected area?"')
             ),
             Operation(
+                transform_configuration=self.add_questions_tech_lu_cropland,
+                release_note=_('3.2: Added additional questions about crops, intercropping and crop rotation to land use type "Cropland".'),
+            ),
+            Operation(
+                transform_configuration=self.remove_tech_lu_cropland_specify,
+                transform_questionnaire=self.delete_tech_lu_cropland_specify_data,
+                release_note=_('3.2: Removed text question "Main crops" of land use type "Cropland".')
+            ),
+            Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
                 release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
             ),
@@ -55,10 +64,11 @@ class Technologies(Edition):
                 transform_configuration=self.rename_option_tech_lu_mixed_integrated,
                 release_note=''
             ),
-            # Operation(
-            #     transform_configuration=self.add_tech_lu_initial,
-            #     release_note=_('3.2: Added new question "Initial land use".')
-            # ),
+            Operation(
+                transform_configuration=self.move_tech_growing_seasons,
+                transform_questionnaire=self.delete_tech_growing_seasons,
+                release_note=_('3.4 (previously 3.3): Moved question "Number of growing seasons per year" to 3.2 - land use type "Cropland".')
+            ),
             Operation(
                 transform_configuration=self.merge_subcategory_3_5_into_2_5,
                 transform_questionnaire=self.delete_tech_spread_tech_comments,
@@ -504,6 +514,235 @@ class Technologies(Edition):
         subcat_data['questiongroups'] = questiongroups
         return self.update_config_data(path=subcat_path, updated=subcat_data, **data)
 
+    def remove_tech_lu_cropland_specify(self, **data) -> dict:
+        qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_10')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] != 'tech_lu_cropland_specify'
+        ]
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def delete_tech_lu_cropland_specify_data(self, **data) -> dict:
+        return self.update_data(
+            'tech_qg_10', 'tech_lu_cropland_specify', None, **data)
+
+    def add_questions_tech_lu_cropland(self, **data) -> dict:
+        qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_10'
+        )
+
+        # Annual cropping list of crops
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword='tech_lu_cropland_annual_cropping_crops',
+            label='Annual cropping - Select crops',
+            values_list=[
+                ('annual_crops_1', 'Some annual crop'),
+                ('annual_crops_2', 'Other annual crop'),
+                ('annual_crops_3', 'Third annual crop'),
+            ],
+            other_label='If crop type is not listed above, specify other crop',
+            conditional_value='lu_cropland_ca',
+            **data
+        )
+
+        # Search cropping system
+        cropping_system_keyword = 'tech_lu_cropland_cropping_system'
+        self.create_new_question(
+            keyword=cropping_system_keyword,
+            translation={
+                'label': {
+                    'en': 'If data will be linked to CBP, specify annual cropping system'
+                }
+            },
+            question_type='select_type',
+            values=self.create_new_values_list([
+                ('cropping_system_1', 'First cropping system'),
+                ('cropping_system_2', 'Second cropping system'),
+                ('cropping_system_3', 'Third cropping system'),
+            ])
+        )
+        cropping_system_configuration = {
+            'keyword': cropping_system_keyword,
+            'form_options': {
+                'question_condition': 'tech_lu_cropland_annual_cropping_crops',
+            }
+        }
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = qg_data['questions'] + [
+            cropping_system_configuration]
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Perennial cropping list of crops
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword='tech_lu_cropland_perennial_cropping_crops',
+            label='Perennial (non-woody) cropping - Select crops',
+            values_list=[
+                ('perennial_crops_1', 'Some perennial crop'),
+                ('perennial_crops_2', 'Other perennial crop'),
+                ('perennial_crops_3', 'Third perennial crop'),
+            ],
+            other_label='If crop type is not listed above, specify other crop',
+            conditional_value='lu_cropland_cp',
+            **data
+        )
+
+        # Tree and shrub cropping list of crops
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword='tech_lu_cropland_tree_shrub_cropping_crops',
+            label='Tree and shrub cropping - Select crops',
+            values_list=[
+                ('tree_shrub_crops_1', 'Some tree and shrub crop'),
+                ('tree_shrub_crops_2', 'Other tree and shrub crop'),
+                ('tree_shrub_crops_3', 'Third tree and shrub crop'),
+            ],
+            other_label='If crop type is not listed above, specify other crop',
+            conditional_value='lu_cropland_ct',
+            **data
+        )
+
+        # Add questions about intercropping and crop rotation
+        intercropping_keyword = 'tech_intercropping'
+        intercropping_specify_keyword = 'tech_intercropping_specify'
+        self.create_new_question(
+            keyword=intercropping_keyword,
+            translation={
+                'label': {
+                    'en': 'Is intercropping practiced?'
+                }
+            },
+            question_type='bool'
+        )
+        self.create_new_question(
+            keyword=intercropping_specify_keyword,
+            translation={
+                'label': {
+                    'en': 'If yes, specify which crops are intercropped'
+                }
+            },
+            question_type='text'
+        )
+        croprotation_keyword = 'tech_crop_rotation'
+        croprotation_specify_keyword = 'tech_crop_rotation_specify'
+        self.create_new_question(
+            keyword=croprotation_keyword,
+            translation={
+                'label': {
+                    'en': 'Is crop rotation practiced?'
+                }
+            },
+            question_type='bool'
+        )
+        self.create_new_question(
+            keyword=croprotation_specify_keyword,
+            translation={
+                'label': {
+                    'en': 'If yes, specify'
+                },
+                'helptext': {
+                    'en': 'E.g. sequence of crops, fallow periods, green manuring'
+                }
+            },
+            question_type='text'
+        )
+        qg_path = qg_path
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = qg_data['questions'] + [
+            {
+                'keyword': intercropping_keyword,
+                'form_options': {
+                    'question_conditions': [
+                        f"=='1'|{intercropping_specify_keyword}"
+                    ],
+                    'row_class': 'top-margin',
+                }
+            },
+            {
+                'keyword': intercropping_specify_keyword,
+                'form_options': {
+                    'question_condition': intercropping_specify_keyword
+                }
+            },
+            {
+                'keyword': croprotation_keyword,
+                'form_options': {
+                    'question_conditions': [
+                        f"=='1'|{croprotation_specify_keyword}"
+                    ],
+                    'row_class': 'top-margin',
+                }
+            },
+            {
+                'keyword': croprotation_specify_keyword,
+                'form_options': {
+                    'question_condition': croprotation_specify_keyword,
+                    'helptext_position': 'tooltip'
+                }
+            }
+        ]
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+        return data
+
+    def delete_tech_growing_seasons(self, **data) -> dict:
+
+        moved_questions = {}
+        for qg_data in data.get('tech_qg_19', []):
+            old_data = {}
+            for key, value in qg_data.items():
+                if key in [
+                    'tech_growing_seasons', 'tech_growing_seasons_specify'
+                ]:
+                    moved_questions[key] = value
+                else:
+                    old_data[key] = value
+            if old_data:
+                data['tech_qg_19'] = [old_data]
+
+        if moved_questions:
+            new_data = data.get('tech_qg_10', [{}])
+            new_data[0].update(moved_questions)
+            data['tech_qg_10'] = new_data
+
+        return data
+
+    def move_tech_growing_seasons(self, **data) -> dict:
+
+        # Remove questions from old questiongroup
+        old_qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__3', 'tech_qg_19')
+        old_qg_data = self.find_in_data(path=old_qg_path, **data)
+        old_qg_data['questions'] = [
+            q for q in old_qg_data['questions']
+            if q['keyword'] not in [
+                'tech_growing_seasons', 'tech_growing_seasons_specify'
+            ]
+        ]
+        data = self.update_config_data(
+            path=old_qg_path, updated=old_qg_data, **data)
+
+        # Add questions to new questiongroup
+        new_qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_10')
+        new_qg_data = self.find_in_data(path=new_qg_path, **data)
+
+        questions = new_qg_data['questions']
+        position = 9
+        questions.insert(position, {
+            'keyword': 'tech_growing_seasons_specify'
+        })
+        questions.insert(position, {
+            'keyword': 'tech_growing_seasons',
+            'form_options': {
+                'row_class': 'top-margin',
+            }
+        })
+        new_qg_data['questions'] = questions
+        data = self.update_config_data(path=new_qg_path, updated=new_qg_data, **data)
+        return data
+
     def add_question_tech_agronomic_tillage(self, **data) -> dict:
         # Create key and values
         q_keyword = 'tech_agronomic_tillage'
@@ -882,29 +1121,62 @@ class Technologies(Edition):
     def do_nothing(self, **data) -> dict:
         return data
 
-    # def add_tech_lu_initial(self, **data) -> dict:
-    #     qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_7')
-    #     qg_data = self.find_in_data(path=qg_path, **data)
-    #
-    #     self.create_new_question(
-    #         keyword='tech_lu_initial',
-    #         translation={
-    #             'label': {
-    #                 'en': 'Initial land use'
-    #             }
-    #         },
-    #         question_type='select',
-    #         values=[
-    #             self.get_value('tech_lu_cropland'),
-    #             self.get_value('tech_lu_grazingland'),
-    #             self.get_value('tech_lu_forest'),
-    #             self.get_value('tech_lu_mixed'),
-    #             self.get_value('tech_lu_settlements'),
-    #             self.get_value('tech_lu_waterways'),
-    #             self.get_value('tech_lu_mines'),
-    #             self.get_value('tech_lu_unproductive'),
-    #         ])
-    #
-    #     qg_data['questions'] = [{'keyword': 'tech_lu_initial'}] + qg_data['questions']
-    #     data = self.update_config_data(path=qg_path, updated=qg_data, **data)
-    #     return data
+    def _create_land_use_subquestions(
+            self, qg_path: tuple, keyword: str, label: str, values_list: list,
+            other_label: str, conditional_value: str, **data) -> dict:
+
+        # Create question
+        self.create_new_question(
+            keyword=keyword,
+            translation={
+                'label': {
+                    'en': label
+                }
+            },
+            question_type='multi_select',
+            values=self.create_new_values_list(values_list),
+        )
+        question_configuration = {
+            'keyword': keyword,
+            'form_options': {
+                'question_condition': keyword,
+                'row_class': 'top-margin'
+            }
+        }
+
+        # Create "other" question
+        other_keyword = f'{keyword}_other'
+        self.create_new_question(
+            keyword=other_keyword,
+            translation={
+                'label': {
+                    'en': other_label
+                }
+            },
+            question_type='char'
+        )
+        other_configuration = {
+            'keyword': other_keyword,
+            'form_options': {
+                'question_condition': keyword,
+                'template': 'checkbox_other',
+                'label_position': 'placeholder',
+                'label_class': 'input-full-width'
+            },
+            'view_options': {
+                'template': 'checkbox_other',
+            }
+        }
+
+        # Add configuration
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = qg_data['questions'] + [
+            question_configuration, other_configuration]
+        new_condition = f"=='{conditional_value}'|{keyword}"
+        question_conditions = qg_data['questions'][0]['form_options'].get(
+            'question_conditions', [])
+        question_conditions += [new_condition]
+        qg_data['questions'][0]['form_options'][
+            'question_conditions'] = question_conditions
+
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)

@@ -225,6 +225,19 @@ class Edition:
             order_value=order_value, configuration=configuration)
         return value
 
+    def create_new_values_list(self, values_list: list) -> list:
+        """Create and return a list of simple values."""
+        return [
+            self.create_new_value(
+                keyword=k,
+                translation={
+                    'label': {
+                        'en': l
+                    }
+                })
+            for k, l in values_list
+        ]
+
     def add_new_value(
             self, question_keyword: str, value: Value, order_value: int=None):
         """
