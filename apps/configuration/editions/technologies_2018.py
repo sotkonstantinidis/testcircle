@@ -58,6 +58,15 @@ class Technologies(Edition):
                 release_note=_('3.2: Removed text question "Main crops" of land use type "Cropland".')
             ),
             Operation(
+                transform_configuration=self.add_questions_tech_lu_grazingland,
+                release_note=_('3.2: Added additional questions about grazing land (animal type, crop-livestock management practices, products and services).')
+            ),
+            Operation(
+                transform_configuration=self.remove_tech_lu_grazingland_specify,
+                transform_questionnaire=self.delete_tech_lu_grazingland_specify,
+                release_note=_('3.2: Removed text question "Main animal species and products" of land use type "Cropland".')
+            ),
+            Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
                 release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
             ),
@@ -725,6 +734,80 @@ class Technologies(Edition):
 
         return data
 
+    def add_questions_tech_lu_grazingland(self, **data) -> dict:
+        qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_11'
+        )
+
+        # Search animal type
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword='tech_lu_grazingland_animals',
+            label='Search animal type',
+            values_list=[
+                ('animal_1', 'Some animal'),
+                ('animal_2', 'Other animal'),
+                ('animal_3', 'Third animal'),
+            ],
+            other_label='If animal type is not listed above, specify other animal',
+            conditional_value=None,
+            **data
+        )
+
+        # Crop-livestock management
+        crop_livestock_keyword = 'tech_crop_livestock_management'
+        crop_livestock_specify_keyword = 'tech_crop_livestock_management_specify'
+        self.create_new_question(
+            keyword=crop_livestock_keyword,
+            translation={
+                'label': {
+                    'en': 'Is crop-livestock management practiced?'
+                }
+            },
+            question_type='bool'
+        )
+        self.create_new_question(
+            keyword=crop_livestock_specify_keyword,
+            translation={
+                'label': {
+                    'en': 'If yes, specify'
+                }
+            },
+            question_type='text'
+        )
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = qg_data['questions'] + [
+            {
+                'keyword': crop_livestock_keyword,
+                'form_options': {
+                    'question_conditions': [
+                        f"=='1'|{crop_livestock_specify_keyword}"
+                    ],
+                    'row_class': 'top-margin',
+                }
+            },
+            {
+                'keyword': crop_livestock_specify_keyword,
+                'form_options': {
+                    'question_condition': crop_livestock_specify_keyword
+                }
+            },
+        ]
+        return data
+
+    def remove_tech_lu_grazingland_specify(self, **data) -> dict:
+        qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_11')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] != 'tech_lu_grazingland_specify'
+        ]
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def delete_tech_lu_grazingland_specify(self, **data) -> dict:
+        return self.update_data(
+            'tech_qg_11', 'tech_lu_grazingland_specify', None, **data)
+
     def remove_tech_lu_cropland_specify(self, **data) -> dict:
         qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_10')
         qg_data = self.find_in_data(path=qg_path, **data)
@@ -1320,7 +1403,7 @@ class Technologies(Edition):
 
     def _create_land_use_subquestions(
             self, qg_path: tuple, keyword: str, label: str, values_list: list,
-            other_label: str, conditional_value: str, **data) -> dict:
+            other_label: str, conditional_value: str or None, **data) -> dict:
 
         # Create question
         self.create_new_question(
@@ -1369,11 +1452,12 @@ class Technologies(Edition):
         qg_data = self.find_in_data(path=qg_path, **data)
         qg_data['questions'] = qg_data['questions'] + [
             question_configuration, other_configuration]
-        new_condition = f"=='{conditional_value}'|{keyword}"
-        question_conditions = qg_data['questions'][0]['form_options'].get(
-            'question_conditions', [])
-        question_conditions += [new_condition]
-        qg_data['questions'][0]['form_options'][
-            'question_conditions'] = question_conditions
+        if conditional_value:
+            new_condition = f"=='{conditional_value}'|{keyword}"
+            question_conditions = qg_data['questions'][0]['form_options'].get(
+                'question_conditions', [])
+            question_conditions += [new_condition]
+            qg_data['questions'][0]['form_options'][
+                'question_conditions'] = question_conditions
 
         return self.update_config_data(path=qg_path, updated=qg_data, **data)
