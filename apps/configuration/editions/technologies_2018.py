@@ -75,9 +75,19 @@ class Technologies(Edition):
                 release_note=_('3.2: Added option "transhumant pastoralism" to land use type "Grazing land".')
             ),
             Operation(
+                transform_configuration=self.remove_tech_lu_change,
+                transform_questionnaire=self.delete_tech_lu_change,
+                release_note=_('3.2: Removed text question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology". This information can now be entered in 3.3.')
+            ),
+            Operation(
                 transform_configuration=self.move_tech_growing_seasons,
                 transform_questionnaire=self.delete_tech_growing_seasons,
                 release_note=_('3.4 (previously 3.3): Moved question "Number of growing seasons per year" to 3.2 - land use type "Cropland".')
+            ),
+            Operation(
+                transform_configuration=self.remove_tech_livestock_density,
+                transform_questionnaire=self.delete_tech_livestock_density,
+                release_note=_('3.4 (previously 3.3): Removed question "Livestock density (if relevant). Use "Comments" of "3.2 Current land use type(s)".')
             ),
             Operation(
                 transform_configuration=self.merge_subcategory_3_5_into_2_5,
@@ -1001,6 +1011,31 @@ class Technologies(Edition):
             data['tech_qg_10'] = new_data
 
         return data
+
+    def remove_tech_lu_change(self, **data) -> dict:
+        qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_7')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] != 'tech_lu_change'
+        ]
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def delete_tech_lu_change(self, **data) -> dict:
+        return self.update_data('tech_qg_7', 'tech_lu_change', None, **data)
+
+    def remove_tech_livestock_density(self, **data) -> dict:
+        qg_path = ('section_specifications', 'tech__3', 'tech__3__3', 'tech_qg_19')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] != 'tech_livestock_density'
+        ]
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def delete_tech_livestock_density(self, **data) -> dict:
+        return self.update_data(
+            'tech_qg_19', 'tech_livestock_density', None, **data)
 
     def move_tech_growing_seasons(self, **data) -> dict:
 
