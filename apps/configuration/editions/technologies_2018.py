@@ -803,6 +803,22 @@ class Technologies(Edition):
                 }
             },
         ]
+
+        # Products and services
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword='tech_lu_grazingland_products',
+            label='Search products and services',
+            values_list=[
+                ('service_1', 'Some product or service'),
+                ('service_2', 'Other product or service'),
+                ('service_3', 'Third product or service'),
+            ],
+            other_label='If product or service is not listed above, specify other product or service',
+            conditional_value=None,
+            **data
+        )
+
         return data
 
     def remove_tech_lu_grazingland_specify(self, **data) -> dict:
