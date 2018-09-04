@@ -257,6 +257,9 @@ class Edition:
     def get_value(self, keyword: str) -> Value:
         return self.value.objects.get(keyword=keyword)
 
+    def get_question(self, keyword: str) -> Key:
+        return self.key.objects.get(keyword=keyword)
+
     def find_in_data(self, path: tuple, **data: dict) -> dict:
         """
         Helper to find and return an element inside a configuration data dict.

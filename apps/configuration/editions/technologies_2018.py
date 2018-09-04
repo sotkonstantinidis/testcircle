@@ -44,6 +44,11 @@ class Technologies(Edition):
                 release_note=_('2.5: Added new question "Is/are the technology site(s) located in a permanently protected area?"')
             ),
             Operation(
+                transform_configuration=self.add_tech_lu_mixed,
+                transform_questionnaire=self.remove_tech_lu_mixed,
+                release_note=_('3.2: Added separate question about "Mixed land use".')
+            ),
+            Operation(
                 transform_configuration=self.add_questions_tech_lu_cropland,
                 release_note=_('3.2: Added additional questions about crops, intercropping and crop rotation to land use type "Cropland".'),
             ),
@@ -59,10 +64,6 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.add_option_tech_lu_grazingland_transhumant,
                 release_note=_('3.2: Added option "transhumant pastoralism" to land use type "Grazing land".')
-            ),
-            Operation(
-                transform_configuration=self.rename_option_tech_lu_mixed_integrated,
-                release_note=''
             ),
             Operation(
                 transform_configuration=self.move_tech_growing_seasons,
@@ -513,6 +514,216 @@ class Technologies(Edition):
         questiongroups.insert(3, qg_configuration)
         subcat_data['questiongroups'] = questiongroups
         return self.update_config_data(path=subcat_path, updated=subcat_data, **data)
+
+    def remove_tech_lu_mixed(self, **data) -> dict:
+
+        # Migrate values of tech_landuse to tech_landuse_2018 (tech_qg_9)
+        new_landuse_qg = []
+        for landuse_qg in data.get('tech_qg_9', []):
+            new_lu_values = [
+                v for v in landuse_qg.get('tech_landuse', [])
+                if v != 'tech_lu_mixed']
+            landuse_qg['tech_landuse_2018'] = new_lu_values
+            del landuse_qg['tech_landuse']
+            new_landuse_qg.append(landuse_qg)
+        data['tech_qg_9'] = new_landuse_qg
+
+        # Remove entire questiongroup tech_qg_13
+        if 'tech_qg_13' in data:
+            del data['tech_qg_13']
+
+        return data
+
+    def add_tech_lu_mixed(self, **data) -> dict:
+
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__2')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+
+        # Remove tech_lu_mixed from questiongroup_conditions
+        subcat_data['form_options']['questiongroup_conditions'] = [
+            c for c in subcat_data['form_options']['questiongroup_conditions']
+            if c != "=='tech_lu_mixed'|tech_qg_13"
+        ]
+
+        # Remove questiongroup tech_qg_13 (lu_mixed)
+        subcat_data['questiongroups'] = [
+            qg for qg in subcat_data['questiongroups']
+            if qg['keyword'] != 'tech_qg_13'
+        ]
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        # Remove tech_lu_mixed from questiongroup_conditions (of tech_qg_9)
+        old_cond_qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_9')
+        old_cond_qg_data = self.find_in_data(path=old_cond_qg_path, **data)
+        old_cond_qg_data['questions'][0]['form_options']['questiongroup_conditions'] = [
+            c for c in old_cond_qg_data['questions'][0]['form_options']['questiongroup_conditions']
+            if c != "=='tech_lu_mixed'|tech_qg_13"
+        ]
+
+        # Instead of removing value "tech_lu_mixed" of question "tech_landuse",
+        # create a new question "tech_landuse_2018". Just deleting the value
+        # from the existing question would mean that technologies in the
+        # previous edition would also automatically have this value removed,
+        # which is not correct behaviour.
+        old_question = self.get_question(keyword='tech_landuse')
+        old_configuration = old_question.configuration
+        old_configuration['form_options']['field_options']['data-cb-max-choices'] = 3
+        new_keyword = 'tech_landuse_2018'
+        self.create_new_question(
+            keyword=new_keyword,
+            translation={
+                "label": {
+                    "en": "Select land use type"
+                },
+                "label_view": {
+                    "en": "Land use type"
+                }
+            },
+            question_type='image_checkbox',
+            values=[
+                self.get_value(keyword='tech_lu_cropland'),
+                self.get_value(keyword='tech_lu_grazingland'),
+                self.get_value(keyword='tech_lu_forest'),
+                self.get_value(keyword='tech_lu_settlements'),
+                self.get_value(keyword='tech_lu_waterways'),
+                self.get_value(keyword='tech_lu_mines'),
+                self.get_value(keyword='tech_lu_unproductive'),
+                self.get_value(keyword='tech_lu_other'),
+            ],
+            configuration=old_configuration,
+        )
+        old_cond_qg_data['questions'][0]['keyword'] = new_keyword
+        data = self.update_config_data(
+            path=old_cond_qg_path, updated=old_cond_qg_data, **data)
+
+        # Add new question about mixed land use at the beginning of the
+        # subcategory
+
+        # Update the translations of the values
+        self.update_translation(
+            update_pk=1512,
+            **{
+                'label': {
+                    'en': 'Agroforestry'
+                },
+                'helptext': {
+                    'en': '<strong>Mf: Agroforestry</strong>: cropland and trees.<br>Select "Cropland" and "Forest/ woodlands" below and fill out the relevant sections.'
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1513,
+            **{
+                'label': {
+                    'en': 'Agro-pastoralism (incl. integrated crop-livestock)'
+                },
+                'helptext': {
+                    'en': '<strong>Mp: Agro-pastoralism</strong>: cropland and grazing land (including seasonal change between crops and livestock).<br>Select "Cropland" and "Grazing land" below and fill out the relevant sections.'
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1514,
+            **{
+                'label': {
+                    'en': 'Agro-silvopastoralism'
+                },
+                'helptext': {
+                    'en': '<strong>Ma: Agro-silvopastoralism</strong>: cropland, grazing land and trees (including seasonal change between crops and livestock).<br>Select "Cropland", "Grazing land" and "Forest/ woodlands" below and fill out the relevant sections.'
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1515,
+            **{
+                'label': {
+                    'en': 'Silvo-pastoralism'
+                },
+                'helptext': {
+                    'en': '<strong>Ms: Silvo-pastoralism</strong>: forest and grazing land.<br>Select "Grazing land" and "Forest/ woodlands" below and fill out the relevant sections.'
+                }
+            }
+        )
+        new_mixed_keyword = 'tech_lu_mixed'
+        self.create_new_question(
+            keyword=new_mixed_keyword,
+            translation={
+                'label': {
+                    'en': 'Is land use mixed within the same land unit?'
+                },
+                'helptext': {
+                    'en': 'If land use is mixed within the same land unit, specify the mixture of the land use types.'
+                }
+            },
+            question_type='bool'
+        )
+
+        new_mixed_keyword_specify = 'tech_lu_mixed_select'
+        self.create_new_question(
+            keyword=new_mixed_keyword_specify,
+            translation={
+                'label': {
+                    'en': 'Specify mixed land use (crops/ grazing/ trees)'
+                },
+            },
+            question_type='radio',
+            values=[
+                self.get_value('lu_mixed_mf'),
+                self.get_value('lu_mixed_mp'),
+                self.get_value('lu_mixed_ma'),
+                self.get_value('lu_mixed_ms'),
+            ]
+        )
+
+        new_qg_keyword = 'tech_qg_235'
+        self.create_new_questiongroup(
+            keyword=new_qg_keyword,
+            translation=None
+        )
+
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['questiongroups'] = [
+            {
+                'keyword': new_qg_keyword,
+                'questions': [
+                    {
+                        'keyword': new_mixed_keyword,
+                        'form_options': {
+                            'question_conditions': [
+                                f"=='1'|{new_mixed_keyword_specify}"
+                            ],
+                            'helptext_position': 'tooltip',
+                        }
+                    },
+                    {
+                        'keyword': new_mixed_keyword_specify,
+                        'form_options': {
+                            'question_condition': new_mixed_keyword_specify,
+                        }
+                    }
+                ]
+            }
+        ] + subcat_data['questiongroups']
+        subcat_data['form_options']['template'] = 'tech_lu_2018'
+
+        self.update_translation(
+            update_pk=2781,
+            **{
+                "label": {
+                    "en": "Current land use type(s) where the Technology is applied"
+                },
+                "helptext": {
+                    "en": "<p><strong>Land use</strong>: human activities which are directly related to land, making use of its resources or having an impact upon it.<br><strong>Land cover</strong>: Vegetation (natural or planted) or man-made structures (buildings, etc.) that cover the earth’s surface.</p>"
+                }
+            }
+        )
+
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        return data
 
     def remove_tech_lu_cropland_specify(self, **data) -> dict:
         qg_path = ('section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_10')
@@ -1063,20 +1274,6 @@ class Technologies(Edition):
 
     def delete_tech_est_type(self, **data: dict) -> dict:
         return self.update_data('tech_qg_165', 'tech_est_type', None, **data)
-
-    def rename_option_tech_lu_mixed_integrated(self, **data) -> dict:
-        self.update_translation(
-            update_pk=1513,
-            **{
-                "label": {
-                    "en": "Agro-pastoralism (incl. integrated crop-livestock)"
-                },
-                "helptext": {
-                    "en": "<strong>Mp: Agro-pastoralism</strong>: cropland and grazing land (including seasonal change between crops and livestock)"
-                }
-            }
-        )
-        return data
 
     def add_option_tech_lu_grazingland_transhumant(self, **data) -> dict:
         self.add_new_value(
