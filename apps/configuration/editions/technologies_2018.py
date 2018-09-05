@@ -79,6 +79,10 @@ class Technologies(Edition):
                 release_note=_('3.2: Added option "transhumant pastoralism" to land use type "Grazing land".')
             ),
             Operation(
+                transform_configuration=self.add_questions_tech_lu_woodlands,
+                release_note=_('3.2: Added optional questions about forest type and trees for land use type "Forest/ woodlands".')
+            ),
+            Operation(
                 transform_configuration=self.remove_tech_lu_change,
                 transform_questionnaire=self.delete_tech_lu_change,
                 release_note=_('3.2: Removed text question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology". This information can now be entered in 3.3.')
@@ -745,6 +749,192 @@ class Technologies(Edition):
 
         data = self.update_config_data(
             path=subcat_path, updated=subcat_data, **data)
+
+        return data
+
+    def add_questions_tech_lu_woodlands(self, **data) -> dict:
+
+        qg_path = (
+            'section_specifications', 'tech__3', 'tech__3__2', 'tech_qg_12'
+        )
+        qg_data = self.find_in_data(path=qg_path, **data)
+
+        # Update the "other" question to have the label appear as placeholder
+        qg_data['questions'][2]['form_options']['label_position'] = 'placeholder'
+        del qg_data['questions'][2]['form_options']['row_class']
+
+        # Update the conditions of the sub checkbox questions
+        qg_data['questions'][0]['form_options']['question_condition'] = 'tech_lu_forest_natural'
+        qg_data['questions'][1]['form_options']['question_condition'] = 'tech_lu_forest_plantation'
+
+        # Update the translations of these questions
+        self.update_translation(
+            update_pk=1339,
+            **{
+                'label': {
+                    'en': '(Semi-)natural forests/ woodlands: Specify management type'
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1240,
+            **{
+                'label': {
+                    'en': 'Tree plantation, afforestation: Specify origin and composition of species'
+                }
+            }
+        )
+
+        # Create a new first checkbox question which triggers the conditions
+        forest_question_keyword = 'tech_lu_forest_type'
+        forest_value_natural = 'lu_forest_natural'
+        forest_value_plantation = 'lu_forest_plantation'
+        self.create_new_question(
+            keyword=forest_question_keyword,
+            translation={},
+            question_type='checkbox',
+            values=[
+                self.create_new_value(
+                    keyword=k,
+                    translation={
+                        'label': {
+                            'en': l
+                        },
+                        'helptext': {
+                            'en': h
+                        }
+                    }
+                )
+                for i, (k, l, h) in enumerate([
+                    (forest_value_natural, '(Semi-)natural forests/ woodlands', '<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of indigenous trees, not planted by man'),
+                    (forest_value_plantation, 'Tree plantation, afforestation', '<strong>Fp: Plantations, afforestations:</strong>: forest stands established by planting or/ and seeding in the process of afforestation or reforestation'),
+                ])
+            ]
+        )
+        qg_data['questions'] += [
+            {
+                'keyword': forest_question_keyword,
+                'form_options': {
+                    'template': 'no_label',
+                    'question_conditions': [
+                        f"=='{forest_value_natural}'|tech_lu_forest_natural",
+                        f"=='{forest_value_plantation}'|tech_lu_forest_plantation",
+                    ]
+                },
+                'view_options': {
+                    'label_position': 'none'
+                }
+            }
+        ]
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Add new question about type of forest (natural)
+        type_natural_keyword = 'tech_lu_forest_natural_type'
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword=type_natural_keyword,
+            label='(Semi-)natural forests/ woodlands: Search type of forest',
+            values_list=[
+                ('natural_forest_1', 'Some natural forest type'),
+                ('natural_forest_2', 'Other natural forest type'),
+                ('natural_forest_3', 'Third natural forest type'),
+            ],
+            other_label='If type of forest is not listed above, specify other type',
+            conditional_value=None,
+            question_condition_keyword='tech_lu_forest_natural',
+            **data
+        )
+
+        # Add new question about type of forest (plantation)
+        type_plantation_keyword = 'tech_lu_forest_plantation_type'
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword=type_plantation_keyword,
+            label='Tree plantation, afforestation: Search type of forest',
+            values_list=[
+                ('plantation_forest_1', 'Some plantation forest type'),
+                ('plantation_forest_2', 'Other plantation forest type'),
+                ('plantation_forest_3', 'Third plantation forest type'),
+            ],
+            other_label='If type of forest is not listed above, specify other type',
+            conditional_value=None,
+            question_condition_keyword='tech_lu_forest_plantation',
+            **data
+        )
+
+        # Add new question about type of trees
+        type_tree_keyword = 'tech_lu_forest_tree_type'
+        data = self._create_land_use_subquestions(
+            qg_path=qg_path,
+            keyword=type_tree_keyword,
+            label='Search type of tree',
+            values_list=[
+                ('tree_type_1', 'Some tree type'),
+                ('tree_type_2', 'Other tree type'),
+                ('tree_type_3', 'Third tree type'),
+            ],
+            other_label='If type of tree is not listed above, specify other type',
+            conditional_value=None,
+            **data
+        )
+
+        # Add new question about decidiuous or evergreen trees
+        deciduous_trees_keyword = 'tech_lu_forest_deciduous'
+        self.create_new_question(
+            keyword=deciduous_trees_keyword,
+            translation={
+                'label': {
+                    'en': 'Are the trees specified above deciduous or evergreen?'
+                }
+            },
+            question_type='radio',
+            values=[
+                self.create_new_value(
+                    keyword=k,
+                    translation={
+                        'label': {
+                            'en': l
+                        }
+                    },
+                    order_value=i
+                )
+                for i, (k, l) in enumerate([
+                    ('trees_deciduous', 'deciduous'),
+                    ('trees_deciduous_mixed', 'mixed deciduous/ evergreen'),
+                    ('trees_evergreen', 'evergreen'),
+                ])
+            ]
+        )
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] += [
+            {
+                'keyword': deciduous_trees_keyword,
+                'form_options': {
+                    'row_class': 'top-margin',
+                }
+            }
+        ]
+
+        # Rearrange order of questions
+        order = [
+            forest_question_keyword,
+            'tech_lu_sub_other',
+            'tech_lu_forest_natural',
+            type_natural_keyword,
+            f'{type_natural_keyword}_other',
+            'tech_lu_forest_plantation',
+            type_plantation_keyword,
+            f'{type_plantation_keyword}_other',
+            type_tree_keyword,
+            f'{type_tree_keyword}_other',
+            deciduous_trees_keyword,
+            'tech_lu_forest_products',
+            'tech_lu_forest_other',
+        ]
+        qg_data['questions'] = sorted(
+            qg_data['questions'], key=lambda q: order.index(q['keyword']))
+
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
 
         return data
 
@@ -1545,7 +1735,11 @@ class Technologies(Edition):
 
     def _create_land_use_subquestions(
             self, qg_path: tuple, keyword: str, label: str, values_list: list,
-            other_label: str, conditional_value: str or None, **data) -> dict:
+            other_label: str, conditional_value: str or None,
+            question_condition_keyword: str or None=None, **data) -> dict:
+
+        if question_condition_keyword is None:
+            question_condition_keyword = keyword
 
         # Create question
         self.create_new_question(
@@ -1561,7 +1755,7 @@ class Technologies(Edition):
         question_configuration = {
             'keyword': keyword,
             'form_options': {
-                'question_condition': keyword,
+                'question_condition': question_condition_keyword,
                 'row_class': 'top-margin'
             }
         }
@@ -1580,7 +1774,7 @@ class Technologies(Edition):
         other_configuration = {
             'keyword': other_keyword,
             'form_options': {
-                'question_condition': keyword,
+                'question_condition': question_condition_keyword,
                 'template': 'checkbox_other',
                 'label_position': 'placeholder',
                 'label_class': 'input-full-width'
