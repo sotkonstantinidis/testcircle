@@ -64,7 +64,11 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.remove_tech_lu_grazingland_specify,
                 transform_questionnaire=self.delete_tech_lu_grazingland_specify,
-                release_note=_('3.2: Removed text question "Main animal species and products" of land use type "Cropland".')
+                release_note=_('3.2: Removed text question "Main animal species and products" of land use type "Grazing land".')
+            ),
+            Operation(
+                transform_configuration=self.add_tech_livestock_population,
+                release_note=_('3.2: Added additional question "Livestock population" for land use type "Grazing land"')
             ),
             Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
@@ -755,6 +759,7 @@ class Technologies(Edition):
             keyword='tech_lu_grazingland_animals',
             label='Search animal type',
             values_list=[
+                # TODO: When modifying values here, also update values in add_tech_livestock_population
                 ('animal_1', 'Some animal'),
                 ('animal_2', 'Other animal'),
                 ('animal_3', 'Third animal'),
@@ -818,6 +823,92 @@ class Technologies(Edition):
             conditional_value=None,
             **data
         )
+
+        return data
+
+    def add_tech_livestock_population(self, **data) -> dict:
+
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__2')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+
+        # Create new questions
+        keyword_species = 'tech_lu_grazingland_pop_species'
+        keyword_count = 'tech_lu_grazingland_pop_count'
+        self.create_new_question(
+            keyword=keyword_species,
+            translation={
+                'label': {
+                    'en': 'Species'
+                }
+            },
+            question_type='select_type',
+            values=[
+                self.get_value('animal_1'),
+                self.get_value('animal_2'),
+                self.get_value('animal_3'),
+            ]
+        )
+        self.create_new_question(
+            keyword=keyword_count,
+            translation={
+                'label': {
+                    'en': 'Count'
+                }
+            },
+            question_type='int',
+            configuration={
+                'form_options': {
+                    'field_options': {
+                        'min': 0,
+                    }
+                }
+            }
+        )
+
+        qg_keyword = 'tech_qg_236'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation={
+                'label': {
+                    'en': 'Livestock population',
+                }
+            },
+        )
+
+        questiongroups = subcat_data['questiongroups']
+        questiongroups.insert(4, {
+            'keyword': qg_keyword,
+            'form_options': {
+                'questiongroup_condition': qg_keyword,
+                'max_num': 5,
+                'template': 'table1',
+                'column_widths': ['70%', '30%'],
+            },
+            'view_options': {
+                'conditional_question': 'tech_lu_grazingland',
+            },
+            'questions': [
+                {
+                    'keyword': keyword_species,
+                },
+                {
+                    'keyword': keyword_count,
+                }
+            ]
+        })
+        subcat_data['questiongroups'] = questiongroups
+
+        # Add conditions
+        condition = f"=='tech_lu_grazingland'|{qg_keyword}"
+        subcat_data['form_options']['questiongroup_conditions'] += [condition]
+        subcat_data['questiongroups'][1]['questions'][0]['form_options'][
+            'questiongroup_conditions'] += [condition]
+
+        # Update template used for subcategory details
+        subcat_data['view_options']['template'] = 'image_questiongroups_2018'
+
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
 
         return data
 

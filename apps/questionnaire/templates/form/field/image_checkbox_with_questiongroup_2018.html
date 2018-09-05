@@ -40,7 +40,9 @@
       <div class="small-8 columns image-cb-has-condition">
         {% conditional_questiongroups additional_qg questiongroup_conditions choice.0 as cond_qg_list %}
         {% for cond_qg in cond_qg_list %}
-          {% form form using cond_qg.0.template with config=cond_qg.0 formset=cond_qg.1 %}
+          {% with value=None %}
+            {% form form using cond_qg.0.template with config=cond_qg.0 formset=cond_qg.1 %}
+          {% endwith %}
         {% endfor %}
       </div>
     </div>

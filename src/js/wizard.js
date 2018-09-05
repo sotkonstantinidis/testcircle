@@ -397,6 +397,7 @@ $('.select-link-id').each(function () {
  */
 function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:text, textarea').val('').change();
+    questiongroup.find(':input[type="number"]').val('').change();
     questiongroup.find('input:radio').prop('checked', false).change();
     questiongroup.find('input:checkbox').prop('checked', false).change();
     questiongroup.find('select').prop('selectedIndex', 0).change();
