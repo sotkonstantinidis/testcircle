@@ -684,10 +684,10 @@ class Technologies(Edition):
             keyword=new_mixed_keyword,
             translation={
                 'label': {
-                    'en': 'Is land use mixed within the same land unit?'
+                    'en': 'Is land use mixed within the same land unit (e.g. agroforestry)?'
                 },
                 'helptext': {
-                    'en': 'If land use is mixed within the same land unit, specify the mixture of the land use types.'
+                    'en': 'A mixture of crops, grazing and trees within the same land unit, e.g. agroforestry, agro-silvopastoralism.'
                 }
             },
             question_type='bool'
