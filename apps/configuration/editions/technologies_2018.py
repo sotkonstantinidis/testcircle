@@ -1,3 +1,5 @@
+import copy
+
 from django.utils.translation import ugettext_lazy as _
 
 from .base import Edition, Operation
@@ -86,6 +88,10 @@ class Technologies(Edition):
                 transform_configuration=self.remove_tech_lu_change,
                 transform_questionnaire=self.delete_tech_lu_change,
                 release_note=_('3.2: Removed text question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology". This information can now be entered in 3.3.')
+            ),
+            Operation(
+                transform_configuration=self.add_subcategory_initial_landuse,
+                release_note=_('3.3 (new): Added new subcategory about initial land use')
             ),
             Operation(
                 transform_configuration=self.move_tech_growing_seasons,
@@ -1317,6 +1323,179 @@ class Technologies(Edition):
             if q['keyword'] != 'tech_lu_change'
         ]
         return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def add_subcategory_initial_landuse(self, **data) -> dict:
+        cat_path = ('section_specifications', 'tech__3')
+        cat_data = self.find_in_data(path=cat_path, **data)
+
+        # New subcategory 3.3
+        subcat_keyword = 'tech__3__3__initial_landuse'
+        self.create_new_category(
+            keyword=subcat_keyword,
+            translation={
+                'label': {
+                    'en': 'Has land use changed due to the implementation of the Technology?'
+                },
+                'helptext': {
+                    'en': 'This section is not relevant for traditional systems'
+                }
+            }
+        )
+
+        # New question about whether land use has changed
+        qg_keyword = 'tech_qg_237'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation={
+                'helptext': {
+                    'en': '<p>If land use <strong>has not changed</strong>, continue with question 3.4.</p><p>If land use <strong>has changed</strong>, please fill out the questions below with regard to the land use <strong>before</strong> implementation of the Technology.</p>'
+                }
+            }
+        )
+        q_keyword = 'tech_initial_landuse_changed'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Has land use changed due to the implementation of the Technology?'
+                }
+            },
+            question_type='bool'
+        )
+
+        # Basically copy subcategory 3.2
+        original_subcat_path = ('section_specifications', 'tech__3', 'tech__3__2')
+        original_subcat_data = self.find_in_data(path=original_subcat_path, **data)
+        original_qgs = copy.deepcopy(original_subcat_data['questiongroups'])
+
+        # Re-map the questiongroups to ones newly created
+        qg_mapping = {
+            'tech_qg_235': 'tech_qg_238',  # mixed landuse?
+            'tech_qg_9': 'tech_qg_239',    # main checkbox about land use
+            'tech_qg_10': 'tech_qg_240',   # cropland (details)
+            'tech_qg_11': 'tech_qg_241',   # grazingland (details)
+            'tech_qg_236': 'tech_qg_242',  # grazingland (details, population)
+            'tech_qg_12': 'tech_qg_243',   # forest (details)
+            'tech_qg_14': 'tech_qg_244',   # settlements (details)
+            'tech_qg_15': 'tech_qg_245',   # waterways (details)
+            'tech_qg_16': 'tech_qg_246',   # mines (details)
+            'tech_qg_17': 'tech_qg_247',   # unproductive (details)
+            'tech_qg_18': 'tech_qg_248',   # other (details)
+            'tech_qg_7': 'tech_qg_249',    # comments
+        }
+        # Re-map conditions
+        questiongroup_conditions = [
+            "=='tech_lu_cropland'|tech_qg_240",
+            "=='tech_lu_grazingland'|tech_qg_241",
+            "=='tech_lu_forest'|tech_qg_243",
+            "=='tech_lu_settlements'|tech_qg_244",
+            "=='tech_lu_waterways'|tech_qg_245",
+            "=='tech_lu_mines'|tech_qg_246",
+            "=='tech_lu_unproductive'|tech_qg_247",
+            "=='tech_lu_other'|tech_qg_248",
+            "=='tech_lu_grazingland'|tech_qg_242"
+        ]
+
+        new_qgs = []
+        for qg in original_qgs:
+            # Create a new questiongroup, use previous translation
+            new_qg_keyword = qg_mapping[qg['keyword']]
+            original_qg = self.get_questiongroup(qg['keyword'])
+            self.create_new_questiongroup(
+                keyword=new_qg_keyword,
+                translation=original_qg.translation
+            )
+            qg['keyword'] = new_qg_keyword
+
+            # Update questiongroup_condition where relevant
+            if new_qg_keyword in [
+                'tech_qg_240',
+                'tech_qg_241',
+                'tech_qg_243',
+                'tech_qg_244',
+                'tech_qg_245',
+                'tech_qg_246',
+                'tech_qg_247',
+                'tech_qg_248',
+                'tech_qg_242',
+            ]:
+                qg['form_options']['questiongroup_condition'] = new_qg_keyword
+
+            # Update conditions of subquestions
+            for question in qg['questions']:
+                question_conditions = question.get('form_options', {}).get('question_conditions', [])
+                if question_conditions:
+                    question['form_options']['question_conditions'] = [
+                        f'{cond}_initial' for cond in question_conditions
+                    ]
+                question_condition = question.get('form_options', {}).get('question_condition')
+                if question_condition:
+                    question['form_options']['question_condition'] = f'{question_condition}_initial'
+
+            # Add questiongroup conditions to land use question
+            if qg['questions'][0]['keyword'] == 'tech_landuse_2018':
+                qg['questions'][0]['form_options']['questiongroup_conditions'] = questiongroup_conditions
+
+            new_qgs.append(qg)
+
+        # Configuration of new subcategory
+        subcategory_data = {
+            'keyword': subcat_keyword,
+            'form_options': {
+                'numbering': '3.3',
+                'questiongroup_conditions': questiongroup_conditions,
+                'template': 'tech_lu_2018'
+            },
+            'view_options': {
+                'raw_questions': True,
+                'template': 'image_questiongroups_2018'
+            },
+            'questiongroups': [
+                {
+                    'keyword': qg_keyword,
+                    'form_options': {
+                        'helptext_position': 'bottom',
+                    },
+                    'questions': [
+                        {
+                            'keyword': q_keyword,
+                        }
+                    ]
+                }
+            ] + new_qgs
+        }
+        # Insert at correct position
+        subcategories = cat_data['subcategories']
+        subcategories.insert(2, subcategory_data)
+        cat_data['subcategories'] = subcategories
+        data = self.update_config_data(path=cat_path, updated=cat_data, **data)
+
+        # Update numbering of following subcategories (3.5 was removed,
+        # therefore numbering of 3.6 and following stays the same)
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__3')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['form_options']['numbering'] = '3.4'
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__4')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['form_options']['numbering'] = '3.5'
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        # Update translation of 3.4 (previously Further information about land
+        # use)
+        self.update_translation(
+            update_pk=2788,
+            **{
+                'label': {
+                    'en': 'Water supply'
+                }
+            }
+        )
+
+        return data
 
     def delete_tech_lu_change(self, **data) -> dict:
         return self.update_data('tech_qg_7', 'tech_lu_change', None, **data)

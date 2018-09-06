@@ -28,7 +28,7 @@
     {% include "form/helptext.html" with helptext=config.helptext helptext_length=config.helptext_length %}
 
     {% for questiongroup_config, questiongroup_formset in formsets %}
-      {% if questiongroup_config.keyword == 'tech_qg_9' %}
+      {% if questiongroup_config.keyword == 'tech_qg_9' or questiongroup_config.keyword == 'tech_qg_239' %}
         <div class="questiongroup top-margin">
           {{ questiongroup_formset.management_form }}
           {% for qg_form in questiongroup_formset.forms %}
@@ -44,7 +44,7 @@
             </div>
           {% endfor %}
         </div>
-      {% elif questiongroup_config.keyword == 'tech_qg_235' or questiongroup_config.keyword == 'tech_qg_7' %}
+      {% elif questiongroup_config.keyword == 'tech_qg_235' or questiongroup_config.keyword == 'tech_qg_7' or questiongroup_config.keyword == 'tech_qg_237' or questiongroup_config.keyword == 'tech_qg_238' or questiongroup_config.keyword == 'tech_qg_249' %}
         {% form form using questiongroup_config.template with config=questiongroup_config formset=questiongroup_formset %}
       {% endif %}
     {% endfor %}

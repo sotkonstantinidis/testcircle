@@ -5,7 +5,7 @@ from django.db.models import F
 from django.template.loader import render_to_string
 
 from configuration.models import Configuration, Key, Value, Translation, \
-    Questiongroup
+    Questiongroup, Category
 
 
 class Edition:
@@ -41,7 +41,8 @@ class Edition:
 
     def __init__(
             self, key: Key, value: Value, questiongroup: Questiongroup,
-            configuration: Configuration, translation: Translation):
+            category: Category, configuration: Configuration,
+            translation: Translation):
         """
         Load operations, and validate the required instance variables.
 
@@ -49,6 +50,7 @@ class Edition:
         self.key = key
         self.value = value
         self.questiongroup = questiongroup
+        self.category = category
         self.configuration = configuration
         self.translation = translation
         self.validate_instance_variables()
@@ -172,6 +174,19 @@ class Edition:
             translation_type=translation_type, data=data)
         return translation
 
+    def create_new_category(
+            self, keyword: str, translation: dict or int or None) -> Category:
+        if isinstance(translation, dict):
+            translation_obj = self.create_new_translation(
+                translation_type='category', **translation)
+        elif isinstance(translation, int):
+            translation_obj = self.translation.objects.get(pk=translation)
+        else:
+            translation_obj = None
+        category, __ = self.category.objects.get_or_create(
+            keyword=keyword, translation=translation_obj)
+        return category
+
     def create_new_questiongroup(
             self, keyword: str, translation: dict or int or None) -> Questiongroup:
         if isinstance(translation, dict):
@@ -259,6 +274,9 @@ class Edition:
 
     def get_question(self, keyword: str) -> Key:
         return self.key.objects.get(keyword=keyword)
+
+    def get_questiongroup(self, keyword: str) -> Questiongroup:
+        return self.questiongroup.objects.get(keyword=keyword)
 
     def find_in_data(self, path: tuple, **data: dict) -> dict:
         """
