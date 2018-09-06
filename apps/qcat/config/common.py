@@ -38,6 +38,7 @@ class BaseSettings(Configuration):
         'django.contrib.humanize',
         'compressor',
         'cookielaw',
+        'corsheaders',
         'django_extensions',
         'django_filters',
         'easy_thumbnails',
@@ -73,6 +74,7 @@ class BaseSettings(Configuration):
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'django.middleware.locale.LocaleMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -106,12 +108,14 @@ class BaseSettings(Configuration):
         ('ar', _('Arabic')),
         ('pt', _('Portuguese')),
         ('af', _('Afrikaans')),
+        ('th', _('Thai')),
     )
     # languages with extraordinarily long words that need 'forced' line breaks
     # to remain consistent in the box-layout.
     WORD_WRAP_LANGUAGES = [
         'km',
         'lo',
+        'th',
     ]
 
     TIME_ZONE = 'Europe/Zurich'
@@ -293,6 +297,8 @@ class BaseSettings(Configuration):
         'VALIDATOR_URL': None,
     }
     API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
+
+    CORS_ORIGIN_WHITELIST = values.ListValue(environ_prefix='', default=[])
 
     DATABASES = values.DatabaseURLValue(environ_required=True)
 
