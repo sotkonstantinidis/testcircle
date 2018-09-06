@@ -15,7 +15,8 @@ pytest-cov==2.5.1
 pytest-django==3.3.2
 pytest-rerunfailures==4.1
 pytest-sugar==0.9.1
-pytest-tldr==0.1.5
+# Deactivating tldr plugin as this caused issues in Shippable
+# pytest-tldr==0.1.5
 pytest-xdist==1.22.2
 PyVirtualDisplay==0.2.1
 selenium==3.12.0
