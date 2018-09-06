@@ -1097,7 +1097,50 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
                 'comments': self.raw_data_getter('adoption_comments')
             }
         }
-    
+
+
+class Technology2018FullSummaryRenderer(TechnologyFullSummaryRenderer):
+
+    def technical_drawing(self):
+        # No more separate repeating drawing-questiongroup and single
+        # specifications text questiongroup. Instead, repeating questiongroups
+        # with drawing and specifications together.
+        drawing_files = self.raw_data.get('tech_drawing_image', [])
+        drawing_authors = self.raw_data.get('tech_drawing_author', [])
+        drawing_texts = self.raw_data.get('tech_drawing_text', [])
+
+        drawings = []
+
+        for index, file in enumerate(drawing_files):
+            preview = file.get('preview_image')
+            if preview:
+                try:
+                    author = drawing_authors[index]['value']
+                except (KeyError, IndexError):
+                    author = ''
+
+                try:
+                    text = drawing_texts[index]['value']
+                except (KeyError, IndexError):
+                    text = ''
+
+                author_title = f"{_('Author:')} {author}" if author else ''
+
+                drawings.append({
+                    'url': self.get_thumbnail_url(preview, 'flow_chart'),
+                    'author': author_title,
+                    'text': text,
+                })
+
+        return {
+            'template_name': 'summary/tech_2018/block/specifications.html',
+            'title': _('Technical drawing'),
+            'partials': {
+                'title': _('Technical specifications'),
+                'drawings': drawings,
+            }
+        }
+
 
 class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """

@@ -4,4 +4,4 @@
        name="{{ name }}"
         {% if value %} value="{{ value }}"{% endif %}
         {% include "floppyforms/attrs.html" %}
-        {% if options.label != 'placeholder' %} placeholder="{% if options.field_type == 'int' %}{% trans 'Enter a whole number' %}{% else %}{% trans 'Enter a number' %}{% endif %}"{% endif %}>
+        {% if options.label != 'placeholder' %} placeholder="{% if options.field_type == 'int' %}{% trans 'Enter full number' %}{% else %}{% trans 'Enter a number' %}{% endif %}"{% endif %}>

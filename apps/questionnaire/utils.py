@@ -34,8 +34,7 @@ from .signals import change_status, change_member, delete_questionnaire
 logger = logging.getLogger(__name__)
 
 
-def clean_questionnaire_data(
-        data, configuration, deep_clean=True, users=[], no_limit_check=False):
+def clean_questionnaire_data(data, configuration, no_limit_check=False):
     """
     Clean a questionnaire data dictionary so it can be saved to the
     database. This namely removes all empty values and parses measured
@@ -149,7 +148,7 @@ def clean_questionnaire_data(
                     # This is checked later.
                     pass
                 elif question.field_type in [
-                        'checkbox', 'image_checkbox', 'cb_bool']:
+                        'checkbox', 'image_checkbox', 'cb_bool', 'multi_select']:
                     if not isinstance(value, list):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a list'.format(
@@ -255,7 +254,7 @@ def clean_questionnaire_data(
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(
                             question.field_type))
-                if value or isinstance(value, (bool, int)):
+                if value or isinstance(value, (bool, int, float)):
                     cleaned_qg[key] = value
             if cleaned_qg:
                 if len(cleaned_qg) == 1 and '__order' in cleaned_qg:
@@ -729,6 +728,18 @@ def get_active_filters(
                     'questiongroup': filter_param,
                 })
 
+        if filter_param == 'edition':
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_edition',
+                    'key': filter_param,
+                    'key_label': 'Edition',  # No translation: only used in API
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': filter_value,
+                    'questiongroup': filter_param,
+                })
+
         if not filter_param.startswith('filter__'):
             continue
 
@@ -1003,7 +1014,7 @@ def get_query_status_filter(request):
     """
     status_filter = Q()
 
-    if request.user.is_authenticated():
+    if request.user and request.user.is_authenticated():
 
         permissions = request.user.get_all_permissions()
 
@@ -1064,7 +1075,7 @@ def get_query_status_filter(request):
 
 
 def get_list_values(
-        configuration_code=None, es_hits=[], questionnaire_objects=[],
+        configuration_code=None, es_hits=None, questionnaire_objects=None,
         with_links=True, status_filter=None):
     """
     Retrieves and prepares data to be used in a list representation.
@@ -1108,6 +1119,10 @@ def get_list_values(
         specified in the settings to appear in the list, some metadata
         is returned for each entry.
     """
+    if es_hits is None:
+        es_hits = []
+    if questionnaire_objects is None:
+        questionnaire_objects = []
     list_entries = []
 
     for result in es_hits:
@@ -1166,6 +1181,21 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     """
     Handle review and form submission actions. Updates the Questionnaire
     object and adds a message.
+
+    Completely overloaded method, handling too many cases, depending on
+    request.POST values. The following cases are available:
+    * submit: Change status from draft to submitted
+    * review: Change status from submitted to reviewed
+    * publish: Change status from reviewed to published, also put data in ES
+    * reject: Change status from [submitted, reviewed] to draft
+    * assign: Update the members (editors, reviewers, publishers) of a
+        questionnaire
+    * change-compiler: Change the compiler of the questionnaire
+    * flag-unccd: Flag the questionnaire as one of UNCCD's cases
+    * unflag-unccd: Unflag the questionnaire from being a UNCCD case
+    * delete: Delete (set is_deleted) a questionnaire
+    * new-version: Create a new (draft) version of a public questionnaire
+
 
     * "draft" Questionnaires can be submitted, sets them "submitted".
 

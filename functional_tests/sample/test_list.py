@@ -12,11 +12,13 @@ from accounts.models import User
 from questionnaire.models import Questionnaire
 from sample.tests.test_views import (
     route_home,
-    route_questionnaire_details,
     route_questionnaire_list,
     route_questionnaire_filter,
     route_questionnaire_new_step)
 from search.tests.test_index import create_temp_indices
+
+from functional_tests.pages.sample import SampleDetailPage, SampleEditPage, \
+    SampleStepPage, SampleListPage
 
 
 @pytest.mark.usefixtures('es')
@@ -1485,95 +1487,93 @@ class ListTestStatus(FunctionalTest):
     def test_list_shows_only_one_public(self):
 
         code = 'sample_3'
+        old_key_1 = 'Foo 3'
+        new_key_1 = 'asdf'
 
-        # Alice logs in
+        old_questionnaire_count = Questionnaire.objects.count()
+
+        # Alice logs in and goes to the detail page of a "public" Questionnaire
         user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': code}
+        detail_page.open(login=True, user=user)
+        assert code in self.browser.current_url
 
-        # She goes to the detail page of a "public" Questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_details, kwargs={'identifier': code}))
-        self.assertIn(code, self.browser.current_url)
-
-        self.findBy('xpath', '//*[text()[contains(.,"Foo 3")]]')
-        self.findByNot('xpath', '//*[text()[contains(.,"asdf")]]')
+        assert detail_page.has_text(old_key_1)
+        assert not detail_page.has_text(new_key_1)
 
         # She edits the Questionnaire and sees that the URL contains the
         # code of the Questionnaire
-        self.review_action('edit')
-        self.click_edit_section('cat_1')
-        self.assertIn(code, self.browser.current_url)
+        detail_page.create_new_version()
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category('cat_1')
+        assert code in self.browser.current_url
 
-        key_1 = self.findBy('name', 'qg_1-0-original_key_1')
-        key_1.clear()
-        self.findBy('name', 'qg_1-0-original_key_1').send_keys('asdf')
-        self.findBy('id', 'button-submit').click()
+        step_page = SampleStepPage(self)
+        step_page.enter_text(
+            step_page.LOC_FORM_INPUT_KEY_1, new_key_1, clear=True)
+        step_page.submit_step()
 
         # She sees that the value of Key 1 was updated
-        self.findByNot('xpath', '//*[text()[contains(.,"Foo 3")]]')
-        self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
+        assert not edit_page.has_text(old_key_1)
+        assert edit_page.has_text(new_key_1)
 
         # Also there was an additional version created in the database
-        self.assertEqual(Questionnaire.objects.count(), 11)
+        assert Questionnaire.objects.count() == old_questionnaire_count + 1
 
         # The newly created version has the same code
-        self.assertEqual(Questionnaire.objects.filter(code=code).count(), 2)
+        assert Questionnaire.objects.filter(code=code).count() == 2
 
-        # She goes to the list view and sees only two entries: Foo 6 and Foo 3
-        self.browser.get(
-            self.live_server_url + reverse(route_questionnaire_list))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '//a[contains(text(), "Foo 3")]', base=list_entries[0])
-        self.findBy(
-            'xpath', '//a[contains(text(), "Foo 5")]', base=list_entries[1])
+        # She goes to the list view and sees only two entries: Foo 5 and Foo 3
+        list_page = SampleListPage(self)
+        list_page.open()
+        list_results = [
+            {
+                'title': 'Foo 5'
+            },
+            {
+                'title': old_key_1,
+            }
+        ]
+        list_page.check_list_results(list_results)
 
         # She goes to the detail page of the questionnaire and sees the
         # draft version.
-        self.findBy(
-            'xpath', '//a[contains(text(), "Foo 3")]').click()
-        self.toggle_all_sections()
-        self.checkOnPage('asdf')
+        list_page.click_list_entry(index=1)
+        detail_page.expand_details()
+        assert not detail_page.has_text(old_key_1)
+        assert detail_page.has_text(new_key_1)
 
         # She submits the questionnaire
-        self.review_action('submit')
-        url = self.browser.current_url
+        detail_page.submit_questionnaire()
+
+        # In the DB, there is one active version
+        db_q = Questionnaire.objects.filter(code=code, status=4)
+        assert db_q.count() == 1
+        db_q_id = db_q[0].id
 
         # Bob (the moderator) logs in
-        user_moderator = User.objects.get(pk=105)
-        self.doLogin(user=user_moderator)
-
-        # In the DB, there is one active version (id: 3)
-        db_q = Questionnaire.objects.filter(code=code, status=4)
-        self.assertEqual(len(db_q), 1)
-        self.assertEqual(db_q[0].id, 3)
-
         # The moderator publishes the questionnaire
-        self.browser.get(url)
-        self.wait_for('id', 'review-panel')
-        self.review_action('review')
-        self.review_action('publish')
+        user_moderator = User.objects.get(pk=105)
+        detail_page.open(login=True, user=user_moderator)
+        detail_page.review_questionnaire()
+        detail_page.publish_questionnaire()
 
-        # In the DB, there is still only one active version (now id: 8)
+        # In the DB, there is still only one active version but it has a
+        # different ID now.
         db_q = Questionnaire.objects.filter(code=code, status=4)
-        self.assertEqual(len(db_q), 1)
-        self.assertEqual(db_q[0].id, 11)
+        assert db_q.count() == 1
+        assert db_q_id != db_q[0].id
 
         # He goes to the list view and sees only two entries: asdf and Foo 6.
-        self.browser.get(
-            self.live_server_url + reverse(route_questionnaire_list))
-
-        list_entries = self.findManyBy(
-            'xpath', '//article[contains(@class, "tech-item")]')
-        self.assertEqual(len(list_entries), 2)
-
-        self.findBy(
-            'xpath', '//a[contains(text(), "asdf")]',
-            base=list_entries[0])
-        self.findBy(
-            'xpath', '//a[contains(text(), "Foo 5")]',
-            base=list_entries[1])
+        list_page = SampleListPage(self)
+        list_page.open()
+        list_results = [
+            {
+                'title': 'Foo 5'
+            },
+            {
+                'title': new_key_1
+            },
+        ]
+        list_page.check_list_results(list_results)

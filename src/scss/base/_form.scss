@@ -60,6 +60,9 @@ label.inline {
     display: inline-block;
     margin-left: rem-calc(24);
   }
+  &.input-full-width {
+    display: grid;
+  }
 }
 
 .list-gallery-item.without-label {

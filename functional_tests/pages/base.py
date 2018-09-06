@@ -30,7 +30,7 @@ class Page:
 
     def get_url(self):
         return self.test_case.live_server_url + reverse(
-            self.route_name, **self.route_kwargs)
+            self.route_name, kwargs=self.route_kwargs)
 
     def open(self, query_dict: dict=None, login: bool=False, user: User=None):
         if login is True:
@@ -40,11 +40,13 @@ class Page:
             url = f'{url}?{self.get_query_string(query_dict)}'
         self.browser.get(url)
 
-    def get_el(self, locator: tuple) -> WebElement:
+    def get_el(self, locator: tuple, base: WebElement=None) -> WebElement:
         """
         Shortcut to get an element.
         """
-        return self.browser.find_element(*locator)
+        if base is None:
+            base = self.browser
+        return base.find_element(*locator)
 
     def get_els(self, locator: tuple) -> list:
         """
@@ -91,6 +93,11 @@ class Page:
             arguments[0].style.visibility='hidden';
         ''', element)
 
+    def show_element(self, element: WebElement):
+        self.browser.execute_script('''
+            arguments[0].style.display='block';
+        ''', element)
+
     def has_text(self, text):
         return text in self.browser.page_source
 
@@ -114,6 +121,14 @@ class Page:
         )
         self.get_el(value_locator).click()
 
+    def select_autocomplete(self, value: str):
+        # Jquery UI Autocomplete
+        self.wait_for((By.CLASS_NAME, 'ui-menu-item'))
+        value_locator = (
+            By.XPATH,
+            f'//li[@class="ui-menu-item"]//*[contains(text(), "{value}")]')
+        self.get_el(value_locator).click()
+
 
 class QcatPage(Page):
     LOC_MENU_LANGUAGE_SWITCHER = (
@@ -124,7 +139,19 @@ class QcatPage(Page):
     LOC_MENU_ADD_SLM_DATA = (
         By.XPATH, '//section[contains(@class, "top-bar-section")]//a[contains('
                   '@href, "/wocat/add")]')
+    LOC_MENU_USER = (By.XPATH, '//li[contains(@class, "user-menu")]/a')
+    LOC_MENU_USER_LOGOUT = (
+        By.XPATH, '//ul[@class="dropdown"]/li/a[contains(@href, '
+                  '"/accounts/logout/")]')
     LOC_SUCCESS_MESSAGE = (By.XPATH, '//div[contains(@class, "success")]')
+    LOC_MESSAGE_WITH_TEXT = (
+        By.XPATH, '//div[contains(@class, "notification-group")]/div[contains('
+                  '@class, "{cls}") and text()="{msg}"]')
+    LOC_NOTIFICATIONS_CONTAINER = (By.CLASS_NAME, 'notification-group')
+    LOC_UNREAD_MESSAGES = (By.CLASS_NAME, 'has-unread-messages')
+    LOC_MODAL_OPEN = (
+        By.XPATH, '//div[contains(@class, "reveal-modal") and contains(@class, '
+                  '"open") and contains(@style, "opacity: 1")]')
 
     def change_language(self, locale):
         self.get_el(self.LOC_MENU_LANGUAGE_SWITCHER).click()
@@ -135,8 +162,47 @@ class QcatPage(Page):
     def click_add_slm_data(self):
         self.get_el(self.LOC_MENU_ADD_SLM_DATA).click()
 
-    def has_success_message(self) -> bool:
+    def has_success_message(self, msg: str='') -> bool:
+        if msg:
+            return self.exists_el(
+                self.format_locator(
+                    self.LOC_MESSAGE_WITH_TEXT, cls='success', msg=msg))
         return self.exists_el(self.LOC_SUCCESS_MESSAGE)
+
+    def has_error_message(self, msg: str) -> bool:
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_MESSAGE_WITH_TEXT, cls='error', msg=msg))
+
+    def has_warning_message(self, msg: str) -> bool:
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_MESSAGE_WITH_TEXT, cls='warning', msg=msg))
+
+    def has_notice_message(self, msg: str) -> bool:
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_MESSAGE_WITH_TEXT, cls='secondary', msg=msg))
+
+    def hide_notifications(self):
+        # Actually, there is only one notification container. But it might not
+        # always be there, therefore using get_els which does not fail if it
+        # does not exist.
+        for el in self.get_els(self.LOC_NOTIFICATIONS_CONTAINER):
+            self.hide_element(el)
+
+    def has_unread_messages(self) -> bool:
+        return self.exists_el(self.LOC_UNREAD_MESSAGES)
+
+    def logout(self):
+        self.get_el(self.LOC_MENU_USER).click()
+        self.get_el(self.LOC_MENU_USER_LOGOUT).click()
+
+    def wait_for_modal(self, visibility: bool=True):
+        self.wait_for(self.LOC_MODAL_OPEN, visibility=visibility)
+
+    def is_not_found_404(self) -> bool:
+        return self.has_text('404') and self.has_text('ot found')
 
 
 class ApiPage(Page):

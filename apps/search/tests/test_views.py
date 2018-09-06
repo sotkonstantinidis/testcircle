@@ -91,19 +91,18 @@ class IndexTest(TestCase):
         index(self.request, 'sample', '2015')
         mock_get_mappings.assert_called_once_with()
 
+    @patch('search.views.get_configuration')
     @patch('search.views.get_mappings')
     @patch('search.views.create_or_update_index')
-    @patch.object(QuestionnaireConfiguration, '__init__')
-    @patch.object(QuestionnaireConfiguration, 'get_configuration_errors')
     def test_calls_create_or_update_index(
-            self, mock_get_conf_errors, mock_Conf, mock_create_index,
-            mock_get_mappings, mock_messages):
-        mock_Conf.return_value = None
-        mock_get_conf_errors.return_value = None
+            self, mock_create_index, mock_get_mappings, mock_get_configuration,
+            mock_messages):
+        mock_get_configuration.return_value.get_configuration_errors.return_value = None
         mock_create_index.return_value = None, None, ''
         index(self.request, 'sample', '2015')
+
         mock_create_index.assert_called_once_with(
-            configuration=get_configuration('sample', '2015'),
+            configuration=mock_get_configuration.return_value,
             mappings=mock_get_mappings.return_value)
 
     @patch('search.views.get_mappings')

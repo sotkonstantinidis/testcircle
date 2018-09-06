@@ -4068,6 +4068,14 @@
   };
 }(jQuery, window, window.document));
 ;
+// This is mostly an exact copy of
+//   bower_components/foundation/js/foundation/foundation.tooltip.js
+// . Tooltips were creating performance issues in the form. According to
+//   https://github.com/zurb/foundation-sites/issues/6944#issuecomment-246867176
+// this can be fixed by adding/replacing the following code. Now it works much
+// more smoothly.
+// See STARTFIX and ENDFIX below for the actual fix.
+
 ;(function ($, window, document, undefined) {
   'use strict';
 
@@ -4124,8 +4132,19 @@
     },
 
     events : function (instance) {
+
+      // STARTFIX
       var self = this,
           S = self.S;
+
+      self.create(this.S(instance));
+
+      if (this.isInitted) {
+          return;
+      }
+
+      this.isInitted = true;
+      // ENDFIX
 
       self.create(this.S(instance));
 
@@ -4169,7 +4188,7 @@
           if (/mouse/i.test(e.type) && self.ie_touch(e)) {
             return false;
           }
-          
+
           if ($this.hasClass('open')) {
             if (Modernizr.touch && /touchstart|MSPointerDown/i.test(e.type)) {
               e.preventDefault();
@@ -4303,7 +4322,7 @@
           'right' : (right) ? right : 'auto'
         }).end();
       };
-      
+
       var o_top = target.offset().top;
       var o_left = target.offset().left;
       var outerHeight = target.outerHeight();
@@ -4315,7 +4334,7 @@
         tip.addClass('tip-override');
         objPos(nub, -nubHeight, 'auto', 'auto', o_left);
       } else {
-        
+
         if (Foundation.rtl) {
           nub.addClass('rtl');
           o_left = o_left + target.outerWidth() - tip.outerWidth();
@@ -4326,11 +4345,11 @@
         if (nub.attr('style')) {
           nub.removeAttr('style');
         }
-        
+
         tip.removeClass('tip-override');
-        
+
         var tip_outerHeight = tip.outerHeight();
-        
+
         if (classes && classes.indexOf('tip-top') > -1) {
           if (Foundation.rtl) {
             nub.addClass('rtl');

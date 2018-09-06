@@ -1,7 +1,7 @@
 import urllib
 
 
-def find_dict_in_list(list_, key, value, not_found={}):
+def find_dict_in_list(list_, key, value, not_found=None):
     """
     A helper function to find a dict based on a given key and value pair
     inside a list of dicts. Only the first occurence is returned if
@@ -22,6 +22,8 @@ def find_dict_in_list(list_, key, value, not_found={}):
         ``dict``. The dict if found. If not found, the return value as
         provided is returned or an empty dict by default.
     """
+    if not_found is None:
+        not_found = {}
     if value is not None:
         for el in list_:
             if el.get(key) == value:

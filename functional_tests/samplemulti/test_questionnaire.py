@@ -3,7 +3,7 @@ import pytest
 from functional_tests.base import FunctionalTest
 from functional_tests.pages.questionnaire import QuestionnaireStepPage
 from functional_tests.pages.samplemulti import SamplemultiNewPage, \
-    SamplemultiStepPage
+    SampleMultiStepPage
 
 
 @pytest.mark.usefixtures('es')
@@ -51,7 +51,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # User edits first category and enters some data.
         edit_page.click_edit_category('mcat_1')
-        step_page = SamplemultiStepPage(self)
+        step_page = SampleMultiStepPage(self)
         step_page.enter_text(step_page.LOC_QUESTION_MQG01_MKEY01, 'Foo')
 
         # User saves step.

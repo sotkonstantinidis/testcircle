@@ -19,7 +19,7 @@ from questionnaire.utils import get_query_status_filter, \
     get_questionnaire_data_in_single_language
 
 from .renderers import TechnologyFullSummaryRenderer, \
-    ApproachesFullSummaryRenderer
+    ApproachesFullSummaryRenderer, Technology2018FullSummaryRenderer
 
 logger = logging.getLogger(__name__)
 
@@ -215,6 +215,7 @@ class SummaryPDFCreateView(PDFTemplateView):
     base_template_path = 'summary/'
     http_method_names = ['get']
     render_classes = {
+        'technologies_2018': {'full': Technology2018FullSummaryRenderer},
         'technologies_2015': {'full': TechnologyFullSummaryRenderer},
         'approaches_2015': {'full': ApproachesFullSummaryRenderer}
     }

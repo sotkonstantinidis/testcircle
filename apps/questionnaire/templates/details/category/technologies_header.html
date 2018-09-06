@@ -92,7 +92,7 @@
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
       {% trans "View full content" %}
     </a>
-    <button href="#" class="button dropdown" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
+    <button href="#" class="button dropdown{% if questionnaire_object.status == 6 or not questionnaire_object.id %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
       {% trans "Print summary" %}
     </button>
@@ -115,9 +115,14 @@
         <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
         {% trans "See history" %}
       </button>
-      <ul id="tech-details-history" data-dropdown-content class="f-dropdown" aria-hidden="true">
+      <ul id="tech-details-history" data-dropdown-content class="f-dropdown details-history-dropdown is-technologies" aria-hidden="true">
         {% for item in history %}
-          <li><a href="{{ item.url }}">{{ item.name }}: <strong>{{ item.updated|date }}</strong></a></li>
+          <li{% if item.id == questionnaire_object.id %} class="active"{% endif %}>
+            <a href="{{ item.url }}">
+              {{ item.name }}: <strong>{{ item.updated|date }}</strong>
+              <span class="right">({{ item.status.0 }})</span>
+            </a>
+          </li>
         {% endfor %}
       </ul>
     {% endif %}

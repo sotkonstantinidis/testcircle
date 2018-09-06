@@ -1,7 +1,9 @@
 import os
 import sys
 
+from accounts.models import User
 from django.conf import settings
+from django.contrib.auth.models import Group
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
@@ -85,6 +87,25 @@ class FunctionalTest(StaticLiveServerTestCase):
                 os.makedirs(path)
             file = os.path.join(path, f'failed_{self.id()}.png')
             self.browser.save_screenshot(file)
+
+    def create_new_user(
+            self, email: str='a@b.com', last_name: str='foo',
+            first_name: str='bar', groups: list=None) -> User:
+        defaults = {
+            'firstname': first_name,
+            'lastname': last_name
+        }
+        user, __ = User.objects.get_or_create(email=email, defaults=defaults)
+
+        for group in groups or []:
+            # 1. Translators
+            # 2. Administrators
+            # 3. Reviewers
+            # 4. Publishers
+            # 5. WOCAT Secretariat
+            user.groups.add(Group.objects.get(name=group))
+
+        return user
 
     def findByNot(self, by, el):
         try:

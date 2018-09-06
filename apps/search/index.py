@@ -1,5 +1,5 @@
 from django.conf import settings
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, RequestError
 from elasticsearch.helpers import reindex, bulk
 
 from configuration.configuration import QuestionnaireConfiguration
@@ -233,10 +233,13 @@ def create_or_update_index(configuration: QuestionnaireConfiguration, mappings: 
             return False, logs, 'Index could not be created: {}'.format(
                 index_created)
         logs.append('Index "{}" was created'.format(index))
-        alias_created = es.indices.put_alias(index=index, name=alias)
-        if alias_created.get('acknowledged') is not True:
-            return False, logs, 'Alias could not be created: {}'.format(
-                alias_created)
+        try:
+            alias_created = es.indices.put_alias(index=index, name=alias)
+            if alias_created.get('acknowledged') is not True:
+                return False, logs, 'Alias could not be created: {}'.format(
+                    alias_created)
+        except RequestError:
+            pass
         logs.append('Alias "{}" was created'.format(alias))
     else:
         logs.append('Alias "{}" found'.format(alias))
