@@ -1346,11 +1346,7 @@ class Technologies(Edition):
         qg_keyword = 'tech_qg_237'
         self.create_new_questiongroup(
             keyword=qg_keyword,
-            translation={
-                'helptext': {
-                    'en': '<p>If land use <strong>has not changed</strong>, continue with question 3.4.</p><p>If land use <strong>has changed</strong>, please fill out the questions below with regard to the land use <strong>before</strong> implementation of the Technology.</p>'
-                }
-            }
+            translation=None
         )
         q_keyword = 'tech_initial_landuse_changed'
         self.create_new_question(
@@ -1360,7 +1356,11 @@ class Technologies(Edition):
                     'en': 'Has land use changed due to the implementation of the Technology?'
                 }
             },
-            question_type='bool'
+            question_type='radio',
+            values=self.create_new_values_list([
+                ('initial_landuse_changed_yes', 'Yes (Please fill out the questions below with regard to the land use before implementation of the Technology)'),
+                ('initial_landuse_changed_no', 'No (Continue with question 3.4)')
+            ])
         )
 
         # Basically copy subcategory 3.2
