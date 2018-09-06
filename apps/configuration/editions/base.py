@@ -33,7 +33,7 @@ class Edition:
     ]
 
     def __str__(self):
-        return f'{self.code}: {self.edition}'
+        return f'{self.code}: Edition {self.edition}'
 
     @property
     def operations(self):
