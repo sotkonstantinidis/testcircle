@@ -96,7 +96,7 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.move_tech_growing_seasons,
                 transform_questionnaire=self.delete_tech_growing_seasons,
-                release_note=_('3.4 (previously 3.3): Moved question "Number of growing seasons per year" to 3.2 - land use type "Cropland".')
+                release_note=_('3.4 (previously 3.3): Moved question "Number of growing seasons per year" to 3.2 - land use type "Cropland". Data was only migrated automatically, if land use type "Cropland" was selected.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_livestock_density,
@@ -1496,9 +1496,16 @@ class Technologies(Edition):
                 data['tech_qg_19'] = [old_data]
 
         if moved_questions:
-            new_data = data.get('tech_qg_10', [{}])
-            new_data[0].update(moved_questions)
-            data['tech_qg_10'] = new_data
+            # Only move data if the corresponding conditional value
+            # (tech_lu_cropland of tech_qg_9.tech_landuse_2018) is selected.
+            # Otherwise, do not move the data (as this would block the form from
+            # being submitted)
+            cond_question_values = data.get('tech_qg_9', [{}])[0].get(
+                'tech_landuse_2018', [])
+            if 'tech_lu_cropland' in cond_question_values:
+                new_data = data.get('tech_qg_10', [{}])
+                new_data[0].update(moved_questions)
+                data['tech_qg_10'] = new_data
 
         return data
 
