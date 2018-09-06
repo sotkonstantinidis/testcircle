@@ -1154,7 +1154,7 @@ class Technologies(Edition):
             keyword=cropping_system_keyword,
             translation={
                 'label': {
-                    'en': 'If data will be linked to CBP, specify annual cropping system'
+                    'en': 'If data will be linked to CBP (simple assessment), specify annual cropping system'
                 }
             },
             question_type='select_type',
