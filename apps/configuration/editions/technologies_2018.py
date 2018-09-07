@@ -518,6 +518,14 @@ class Technologies(Edition):
                 }
             },
             question_type='bool',
+            configuration={
+                'summary': {
+                    'types': ['full'],
+                    'default': {
+                        'field_name': 'location_protected_area'
+                    }
+                }
+            }
         )
         specify_keyword = 'tech_location_protected_specify'
         self.create_new_question(
@@ -528,6 +536,14 @@ class Technologies(Edition):
                 }
             },
             question_type='text',
+            configuration={
+                'summary': {
+                    'types': ['full'],
+                    'default': {
+                        'field_name': 'location_protected_area_specify'
+                    }
+                }
+            }
         )
         qg_configuration = {
             'keyword': qg_keyword,
