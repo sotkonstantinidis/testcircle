@@ -218,7 +218,7 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         has_label = child_question.view_options.get('label_position') != 'none'
         # If more than one element is selected for the current
         # group, add a newline
-        if isinstance(values, str):
+        if isinstance(values, str) or isinstance(values, int):
             text = values
         elif values:
             text = ', '.join([choices_labels[choice] for choice in values])
