@@ -1141,6 +1141,51 @@ class Technology2018FullSummaryRenderer(TechnologyFullSummaryRenderer):
             }
         }
 
+    def get_reference_resource_persons(self):
+        """
+        Resource persons is either a dictionary with only one element or a list
+        which always contains a type and either a user-id or a first/last name.
+        The order of type and name correlates, so starting from the type the
+        users details are appended.
+
+        Changes in edition 2018: e-mail was removed.
+        """
+        resoureperson_types = self.raw_data_getter(
+            'references_resourceperson_type', value=''
+        )
+        person_firstnames = self.raw_data_getter(
+            'references_person_firstname', value=''
+        )
+        person_lastnames = self.raw_data_getter(
+            'references_resourceperson_lastname', value=''
+        )
+        person_user_id = self.raw_data_getter(
+            'references_resourceperson_user_id', value=''
+        )
+        person_types_other = self.raw_data_getter(
+            'references_person_type_other', value=''
+        )
+
+        for index, person in enumerate(resoureperson_types):
+            if person_user_id[index] and isinstance(person_user_id[index], dict):
+                name = person_user_id[index].get('value')
+            elif len(person_firstnames) >= index and len(person_lastnames) >= index:
+                name = '{first_name} {last_name}'.format(
+                    first_name=person_firstnames[index].get('value') or '',
+                    last_name=person_lastnames[index].get('value') or ''
+                )
+            else:
+                continue
+
+            if person.get('values'):
+                person_type = ', '.join(person.get('values', []))
+            else:
+                person_type = person_types_other[index].get('value', '')
+
+            yield {'text': '{name} - {type}'.format(
+                name=name,
+                type=person_type)}
+
 
 class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
     """
