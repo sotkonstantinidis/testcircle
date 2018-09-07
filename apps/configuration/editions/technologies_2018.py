@@ -339,7 +339,15 @@ class Technologies(Edition):
                     'en': 'If the Technology is evenly spread over an area, specify area covered (in km2)'
                 }
             },
-            question_type='float'
+            question_type='float',
+            configuration={
+                'summary': {
+                    'types': ['full'],
+                    'default': {
+                        'field_name': 'location_spread_area_precise'
+                    }
+                }
+            }
         )
         question_configuration = {
             'keyword': q_keyword,

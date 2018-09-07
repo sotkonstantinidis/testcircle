@@ -558,10 +558,7 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
         spread = self.string_from_list('location_spread')
         spread_area = self.string_from_list('location_spread_area')
         if spread_area:
-            spread = '{spread} (approx. {area})'.format(
-                spread=spread,
-                area=spread_area
-            )
+            spread = f'{spread} ({_("approx.")} {spread_area})'
 
         return {
             'template_name': 'summary/block/location.html',
@@ -1185,6 +1182,29 @@ class Technology2018FullSummaryRenderer(TechnologyFullSummaryRenderer):
             yield {'text': '{name} - {type}'.format(
                 name=name,
                 type=person_type)}
+
+    def location(self):
+        location_data = super().location()
+
+        # Use new template
+        location_data['template_name'] = 'summary/tech_2018/block/location.html'
+
+        # New question about precise area was added. Use this value if
+        # available, else the approximate range (as before).
+        spread_area_precise = self.raw_data_getter(
+            'location_spread_area_precise')
+        if spread_area_precise:
+            spread = self.string_from_list('location_spread')
+            location_data['partials']['infos']['spread']['text'] = \
+                f'{spread} ({spread_area_precise} {_("km²")})'
+
+        # New question about location in permanently protected area was added.
+        location_data['partials']['infos']['protected_area'] = {
+            'title': _('In a permanently protected area?'),
+            'text': 'Foo',
+        }
+
+        return location_data
 
 
 class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
