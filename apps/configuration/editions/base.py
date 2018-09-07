@@ -1,6 +1,7 @@
 import copy
 
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
 from django.template.loader import render_to_string
 
@@ -216,11 +217,25 @@ class Edition:
             translation_obj = self.translation.objects.get(pk=translation)
         configuration_data = configuration if configuration is not None else {}
         configuration_data.update({'type': question_type})
-        key, created = self.key.objects.get_or_create(
-            keyword=keyword, translation=translation_obj,
-            configuration=configuration_data)
-        if values and created:
-            key.values.add(*values)
+
+        try:
+            key = self.key.objects.get(keyword=keyword)
+            key.translation = translation_obj
+            key.configuration = configuration_data
+            key.save()
+        except ObjectDoesNotExist:
+            key = self.key.objects.create(
+                keyword=keyword,
+                translation=translation_obj,
+                configuration=configuration_data
+            )
+
+        if values is not None:
+            existing_values = key.values.all()
+            for new_value in values:
+                if new_value not in existing_values:
+                    key.values.add(new_value)
+
         return key
 
     def create_new_value(

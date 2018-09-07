@@ -1,5 +1,7 @@
 from unittest import mock
 
+import pytest
+from django.core.exceptions import ObjectDoesNotExist
 from qcat.tests import TestCase
 from configuration.models import Configuration, Key, Value, Translation, \
     Questiongroup, Category
@@ -176,6 +178,7 @@ class EditionsTest(TestCase):
         mock_choices.return_value = [('test_code', 'test_code'), ]
 
         edition = self.get_edition()
+        edition.key.objects.get.side_effect = ObjectDoesNotExist
 
         translation = {'label': 'bar'}
         edition.create_new_question(
@@ -188,13 +191,30 @@ class EditionsTest(TestCase):
                 translation_type='key'),
             edition.translation.objects.method_calls
         )
-        # Creates value
+        # Creates question
         self.assertIn(
-            mock.call.get_or_create(
+            mock.call.create(
                 configuration={'type': 'text'}, keyword='keyword',
                 translation=edition.translation.objects.get_or_create.return_value[0]),
             edition.key.objects.method_calls
         )
+
+    @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
+    def test_create_new_question_exists(self, mock_choices):
+        mock_choices.return_value = [('test_code', 'test_code'), ]
+
+        edition = self.get_edition()
+        translation = {'label': 'bar'}
+        mock_key = mock.MagicMock(
+            spec=Key, translation=translation,
+            configuration={'configuration': 'initial'})
+        edition.key.objects.get.return_value = mock_key
+
+        edition.create_new_question(
+            keyword='keyword', translation=translation, question_type='text',
+            configuration={'configuration': 'updated'})
+
+        assert mock_key.configuration['configuration'] == 'updated'
 
     @mock.patch.object(Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock)
     def test_find_in_data(self, mock_choices):
