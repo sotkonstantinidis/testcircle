@@ -156,6 +156,8 @@ class Technology2018Parser(Technology2015Parser):
             'tech_intercropping',
             'tech_crop_rotation',
         ]
+        # Don't add a line break for the first line after the <li>.
+        linebr = ''
         for i, additional in enumerate(additional_questions):
             val = self._get_concatenated_values(
                 question=question_dict.get(additional),
@@ -163,9 +165,8 @@ class Technology2018Parser(Technology2015Parser):
                 add_label=True,
             )
             if val:
-                # Don't add a line break for the first line after the <li>.
-                linebr = '<br>' if i > 0 else ''
                 render_text += f'{linebr}{val}'
+                linebr = '<br>'
 
         return render_text
 
