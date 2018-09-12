@@ -629,6 +629,7 @@ class Technologies(Edition):
         old_configuration['form_options']['field_options']['data-cb-max-choices'] = 3
         # Use custom method to extract values in summary.
         old_configuration['summary']['default']['get_value'] = {'name': 'get_landuse_2018_values'}
+        old_configuration['summary']['default']['field_name'] = 'classification_landuse_current'
         new_keyword = 'tech_landuse_2018'
         self.create_new_question(
             keyword=new_keyword,
@@ -712,11 +713,25 @@ class Technologies(Edition):
                 'label': {
                     'en': 'Is land use mixed within the same land unit (e.g. agroforestry)?'
                 },
+                'label_view': {
+                    'en': 'Land use mixed within the same land unit:'
+                },
                 'helptext': {
                     'en': 'A mixture of crops, grazing and trees within the same land unit, e.g. agroforestry, agro-silvopastoralism.'
-                }
+                },
             },
-            question_type='bool'
+            question_type='bool',
+            configuration={
+                'summary': {
+                    'types': ['full'],
+                    'default': {
+                        'field_name': 'landuse_current_mixed',
+                        'get_value': {
+                            'name': 'get_landuse_mixed_values'
+                        }
+                    }
+                }
+            }
         )
 
         new_mixed_keyword_specify = 'tech_lu_mixed_select'
@@ -1660,8 +1675,28 @@ class Technologies(Edition):
                 if question_condition:
                     question['form_options']['question_condition'] = f'{question_condition}_initial'
 
+                if question['keyword'] == 'tech_lu_mixed':
+                    question['summary'] = {
+                        'types': ['full'],
+                        'default': {
+                            'field_name': 'landuse_initial_mixed',
+                            'get_value': {
+                                'name': 'get_landuse_mixed_values'
+                            }
+                        }
+                    }
+
             # Add questiongroup conditions to land use question
             if qg['questions'][0]['keyword'] == 'tech_landuse_2018':
+                qg['questions'][0]['summary'] = {
+                    'types': ['full'], 
+                    'default': {
+                        'get_value': {
+                            'name': 'get_landuse_2018_values'
+                        }, 
+                        'field_name': 'classification_landuse_initial'
+                    }
+                }
                 qg['questions'][0]['form_options']['questiongroup_conditions'] = questiongroup_conditions
 
             new_qgs.append(qg)

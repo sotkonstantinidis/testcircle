@@ -196,6 +196,10 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
             'text': child_text
         }
 
+    def _get_choice_label(
+            self, child: QuestionnaireQuestion, value: any) -> str or None:
+        return dict(child.choices).get(value)
+
     def _get_qg_selected_value(self, child: QuestionnaireQuestion,
                                all_values=False, index=0):
         values = {}

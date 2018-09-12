@@ -317,6 +317,24 @@ class Technology2018Parser(Technology2015Parser):
 
         return render_text
 
+    def get_landuse_mixed_values(self, child: QuestionnaireQuestion) -> str:
+
+        selected_values = self._get_qg_selected_value(child, all_values=True)
+        if selected_values.get('tech_lu_mixed') is None:
+            return ''
+
+        value = self._get_choice_label(child, selected_values['tech_lu_mixed'])
+        ret = f'{child.label_view} {value}'
+        if selected_values['tech_lu_mixed'] == 1 \
+                and 'tech_lu_mixed_select' in selected_values:
+            select_child = child.questiongroup.get_question_by_key_keyword(
+                'tech_lu_mixed_select')
+            select_value = self._get_choice_label(
+                select_child, selected_values['tech_lu_mixed_select'])
+            ret += f' - {select_value}'
+
+        return ret
+
     def _get_concatenated_values(
             self, question: QuestionnaireQuestion, values: list,
             other_value: str=None, add_label: bool=None) -> str:
