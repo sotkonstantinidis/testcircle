@@ -1600,7 +1600,7 @@ class QuestionnaireModuleMixin(LoginRequiredMixin):
     def get_existing_modules(self):
         existing_modules = []
         for link in self.questionnaire_object.links.all():
-            link_configuration = link.configurations.first()
+            link_configuration = link.configuration
             if link_configuration.code in self.available_modules:
                 existing_modules.append(link_configuration.code)
         return existing_modules

@@ -1,3 +1,4 @@
+from accounts.models import User
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 
@@ -131,3 +132,33 @@ class EditModuleTest(FunctionalTest):
         self.findBy('xpath', '//*[text()[contains(.,"ModKey 1")]]')
         self.findBy('xpath', '//*[text()[contains(.,"asdf")]]')
         self.findByNot('xpath', '//*[text()[contains(.,"spam")]]')
+
+
+@override_settings(IS_ACTIVE_FEATURE_MODULE=True)
+class EditModuleWithLink(FunctionalTest):
+
+    fixtures = [
+        'groups_permissions.json',
+        'global_key_values.json',
+        'sample.json',
+        'samplemodule.json',
+        'samplemulti.json',
+        'sample_samplemulti_questionnaires.json'
+    ]
+
+    def test_edit_module_with_link(self):
+        """
+        This tests a bugfix where there was an error when trying to add a module
+        to a questionnaire which has a link.
+        """
+        # Alice logs in
+        user = User.objects.get(pk=101)
+        self.doLogin(user=user)
+
+        # She goes to a SAMPLE questionnaire which has a link
+        self.open_questionnaire_details('sample', identifier='sample_1')
+
+        # She opens the panel to add a module and sees there is no error.
+        self.wait_for('xpath', '//a[contains(@class, "js-show-embedded-modules-form")]')
+        self.findBy('xpath', '//a[contains(@class, "js-show-embedded-modules-form")]').click()
+        self.findBy('xpath', '//input[@value="samplemodule" and @name="module"]')
