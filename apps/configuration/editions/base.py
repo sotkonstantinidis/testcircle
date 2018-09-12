@@ -1,5 +1,6 @@
 import copy
 
+from configuration.configuration import QuestionnaireConfiguration
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
@@ -92,14 +93,21 @@ class Edition:
     def save_object(self, **data) -> Configuration:
         """
         Create or update the configuration with the modified data.
-
         """
-        obj, _ = self.configuration.objects.get_or_create(
-            edition=self.edition,
-            code=self.code,
-            defaults={'data': data}
-        )
-        # @TODO: validate data before calling save
+        try:
+            obj = self.configuration.objects.get(
+                edition=self.edition, code=self.code)
+        except self.configuration.DoesNotExist:
+            obj = self.configuration(edition=self.edition, code=self.code)
+        obj.data = data
+
+        # Validate the data before saving.
+        questionnaire_configuration = QuestionnaireConfiguration(
+            keyword=self.code, configuration_object=obj)
+        if questionnaire_configuration.configuration_error:
+            raise Exception('Configuration error: %s' %
+                            questionnaire_configuration.configuration_error)
+        obj.save()
         return obj
 
     def get_release_notes(self):
