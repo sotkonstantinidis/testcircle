@@ -329,7 +329,11 @@ class QuestionnaireQuestion(BaseConfigurationObject):
 
         self.filter_options = self.key_config.get('filter_options', {})
 
-        self.summary = self.key_config.get('summary')
+        summary_config = self.key_config.get('summary', {})
+        if configuration.get('summary'):
+            summary_config.update(configuration.get('summary'))
+        self.summary = summary_config
+
         self.images = []
         self.choices = ()
         self.choices_helptexts = []
