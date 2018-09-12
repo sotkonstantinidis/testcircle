@@ -627,6 +627,8 @@ class Technologies(Edition):
         old_question = self.get_question(keyword='tech_landuse')
         old_configuration = old_question.configuration
         old_configuration['form_options']['field_options']['data-cb-max-choices'] = 3
+        # Use custom method to extract values in summary.
+        old_configuration['summary']['default']['get_value'] = {'name': 'get_landuse_2018_values'}
         new_keyword = 'tech_landuse_2018'
         self.create_new_question(
             keyword=new_keyword,

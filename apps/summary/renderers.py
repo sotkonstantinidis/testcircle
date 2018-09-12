@@ -16,7 +16,7 @@ from configuration.configuration import QuestionnaireConfiguration
 from configuration.models import Project, Institution
 from questionnaire.models import Questionnaire, QuestionnaireLink
 from .parsers import QuestionnaireParser, TechnologyParser, \
-    ApproachParser
+    ApproachParser, Technology2018Parser
 
 
 class SummaryRenderer:
@@ -1098,6 +1098,8 @@ class TechnologyFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
 
 class Technology2018FullSummaryRenderer(TechnologyFullSummaryRenderer):
 
+    parser = Technology2018Parser
+
     def technical_drawing(self):
         # No more separate repeating drawing-questiongroup and single
         # specifications text questiongroup. Instead, repeating questiongroups
@@ -1209,6 +1211,37 @@ class Technology2018FullSummaryRenderer(TechnologyFullSummaryRenderer):
         }
 
         return location_data
+
+    def classification(self):
+        classification_data = super().classification()
+
+        # Use new template
+        classification_data['template_name'] = 'summary/tech_2018/block/classification.html'
+
+        # Current land use: Add new question about mixed land use
+        classification_data['partials']['landuse'] = {
+            'title': _('Current land use'),
+            'partials': {
+                'landuse': {
+                    'list': self.raw_data.get('classification_landuse'),
+                },
+                'mixed': {
+                    'text': 'Foo',
+                }
+            },
+        }
+
+        # Add new section about initial land use
+        classification_data['partials']['landuse_initial'] = {
+            'title': _('Initial land use'),
+            'partials': {}
+        }
+
+        # Remove questions about growing seasons (moved), initial land use
+        # (moved) and livestock density (deleted).
+        del classification_data['partials']['water_supply']['partials']['text']
+
+        return classification_data
 
 
 class ApproachesFullSummaryRenderer(GlobalValuesMixin, SummaryRenderer):
