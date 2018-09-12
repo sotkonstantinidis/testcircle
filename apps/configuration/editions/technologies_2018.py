@@ -864,6 +864,7 @@ class Technologies(Edition):
             qg_path=qg_path,
             keyword=type_natural_keyword,
             label='(Semi-)natural forests/ woodlands: Search type of forest',
+            label_view='Type of (semi-)natural forest',
             values_list=[
                 ('natural_forest_1715', 'Boreal coniferous forest natural vegetation'),
                 ('natural_forest_1716', 'Boreal mountain systems natural vegetation'),
@@ -897,6 +898,7 @@ class Technologies(Edition):
             qg_path=qg_path,
             keyword=type_plantation_keyword,
             label='Tree plantation, afforestation: Search type of forest',
+            label_view='Type of tree plantation, afforestation',
             values_list=[
                 ('plantation_forest_1773', 'Boreal coniferous forest plantation'),
                 ('plantation_forest_1774', 'Boreal mountain systems plantation'),
@@ -962,6 +964,7 @@ class Technologies(Edition):
             qg_path=qg_path,
             keyword=type_tree_keyword,
             label='Search type of tree',
+            label_view='Type of tree',
             values_list=[
                 ('tree_type_1700', 'Acacia albida'),
                 ('tree_type_1701', 'Acacia auriculiformis'),
@@ -1093,6 +1096,7 @@ class Technologies(Edition):
             qg_path=qg_path,
             keyword='tech_lu_grazingland_animals',
             label='Search animal type',
+            label_view='Animal type',
             values_list=[
                 ('animals_50', 'Dairy Cattle'),
                 ('animals_51', 'Non-Dairy Beef Cattle'),
@@ -1159,6 +1163,7 @@ class Technologies(Edition):
             qg_path=qg_path,
             keyword='tech_lu_grazingland_products',
             label='Search products and services',
+            label_view='Products and services',
             values_list=[
                 ('prod_service_meat', 'meat'),
                 ('prod_service_milk', 'milk'),
@@ -1322,6 +1327,9 @@ class Technologies(Edition):
             translation={
                 'label': {
                     'en': 'If data will be linked to CBP (simple assessment), specify annual cropping system'
+                },
+                'label_view': {
+                    'en': 'Annual cropping system'
                 }
             },
             question_type='select_type',
@@ -2133,17 +2141,22 @@ class Technologies(Edition):
     def _create_land_use_subquestions(
             self, qg_path: tuple, keyword: str, label: str, values_list: list,
             other_label: str, conditional_value: str or None,
-            question_condition_keyword: str or None=None, **data) -> dict:
+            question_condition_keyword: str or None=None,
+            label_view: str or None=None, **data) -> dict:
 
         if question_condition_keyword is None:
             question_condition_keyword = keyword
 
         # Create question
+        label_view = label_view or label
         self.create_new_question(
             keyword=keyword,
             translation={
                 'label': {
                     'en': label
+                },
+                'label_view': {
+                    'en': label_view,
                 }
             },
             question_type='multi_select',
