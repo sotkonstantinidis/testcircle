@@ -149,45 +149,54 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
         )
         # ..and split the strings to a more usable dict.
         nested_elements = dict(self.split_raw_children(*nested_elements_config))
-        is_in_child_list = lambda child: child.keyword in child_values
         for value in selected:
-            child_text = '<strong>{title}</strong> - '.format(title=value[0])
-            # 'value' is a tuple of four elements: title, icon-url, ?, keyword
-            # this represents the 'parent' question with an image
-            selected_children_keyword = nested_elements.get(value[3])
-            # selected_children are the 'sub-selections' of given 'value'
-            if selected_children_keyword:
-                # To keep ordering as defined on the questiongroup, loop over
-                # the children, skipping the ones not filled in.
-                selected_qg = self.config_object.get_questiongroup_by_keyword(
-                    selected_children_keyword
-                )
-                try:
-                    child_values = self.values.get(
-                        selected_children_keyword, {}
-                    )[0]
-                except (IndexError, KeyError):
-                    yield {
-                        'url': value[1],
-                        'text': child_text
-                    }
-                    continue
+            yield self.get_default_picto_values(
+                value_tuple=value,
+                nested_children=nested_elements
+            )
 
-                # Load the configured question for the children and get their
-                # labels - they will be concatenated as 'text' below.
-                # the structure is nested as follows:
-                # [{'keyword': 'value'}, {'keyword', 'value'}]
-                for child in filter(is_in_child_list, selected_qg.children):
-                    child_value = child_values.get(child.keyword)
-                    child_text += self._concatenate_child_question_texts(
-                        child_question=child,
-                        selected_child_len=len(child_values),
-                        values=child_value
-                    )
-            yield {
-                'url': value[1],
-                'text': child_text
-            }
+    def get_default_picto_values(
+            self, value_tuple: tuple, nested_children: dict):
+        """
+        Return the nested picto values (subquestions) as concatenated string.
+        """
+        is_in_child_list = lambda child: child.keyword in child_values
+        child_text = '<strong>{title}</strong> - '.format(title=value_tuple[0])
+        # 'value_tuple' is a tuple of four elements: title, icon-url, ?, keyword
+        # this represents the 'parent' question with an image
+        selected_children_keyword = nested_children.get(value_tuple[3])
+        # selected_children are the 'sub-selections' of given 'value'
+        if selected_children_keyword:
+            # To keep ordering as defined on the questiongroup, loop over
+            # the children, skipping the ones not filled in.
+            selected_qg = self.config_object.get_questiongroup_by_keyword(
+                selected_children_keyword
+            )
+            try:
+                child_values = self.values.get(
+                    selected_children_keyword, {}
+                )[0]
+            except (IndexError, KeyError):
+                return {
+                    'url': value_tuple[1],
+                    'text': child_text
+                }
+
+            # Load the configured question for the children and get their
+            # labels - they will be concatenated as 'text' below.
+            # the structure is nested as follows:
+            # [{'keyword': 'value'}, {'keyword', 'value'}]
+            for child in filter(is_in_child_list, selected_qg.children):
+                child_value = child_values.get(child.keyword)
+                child_text += self._concatenate_child_question_texts(
+                    child_question=child,
+                    selected_child_len=len(child_values),
+                    values=child_value
+                )
+        return {
+            'url': value_tuple[1],
+            'text': child_text
+        }
 
     def _get_qg_selected_value(self, child: QuestionnaireQuestion,
                                all_values=False, index=0):
