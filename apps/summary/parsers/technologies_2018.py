@@ -335,6 +335,15 @@ class Technology2018Parser(Technology2015Parser):
 
         return ret
 
+    def get_initial_landuse_changed(self, child: QuestionnaireQuestion) -> dict:
+        selected = self._get_qg_selected_value(child)
+        if selected is not None:
+            selected = selected == 'initial_landuse_changed_yes'
+        return {
+            'label': child.label_view,
+            'bool': selected,
+        }
+
     def _get_concatenated_values(
             self, question: QuestionnaireQuestion, values: list,
             other_value: str=None, add_label: bool=None) -> str:

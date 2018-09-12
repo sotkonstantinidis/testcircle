@@ -1603,7 +1603,18 @@ class Technologies(Edition):
             values=self.create_new_values_list([
                 ('initial_landuse_changed_yes', 'Yes (Please fill out the questions below with regard to the land use before implementation of the Technology)'),
                 ('initial_landuse_changed_no', 'No (Continue with question 3.4)')
-            ])
+            ]),
+            configuration={
+                'summary': {
+                    'types': ['full'],
+                    'default': {
+                        'field_name': 'initial_landuse_changed',
+                        'get_value': {
+                            'name': 'get_initial_landuse_changed'
+                        }
+                    }
+                }
+            }
         )
 
         # Basically copy subcategory 3.2

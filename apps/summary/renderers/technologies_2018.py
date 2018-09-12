@@ -147,6 +147,7 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
         classification_data['partials']['landuse_initial'] = {
             'title': _('Initial land use'),
             'partials': {
+                'changed': self.raw_data.get('initial_landuse_changed'),
                 'landuse': {
                     'list': self.raw_data.get('classification_landuse_initial'),
                 },
