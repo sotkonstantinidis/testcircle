@@ -286,11 +286,26 @@ class QuestionnaireParser(ConfiguredQuestionnaire):
                 # Special case: the total is saved in the last question. Skip
                 # creating the table header and such, and only fill in the
                 # minimal necessary values.
-                if question.keyword.endswith('_total_costs'):
-                    table['total'] = {
-                        'label': values[0].get('key'),
-                        'value': values[0].get('value'),
-                    }
+                special_cases = (
+                    ('_total_costs', 'total'),
+                    ('_total_costs_usd', 'total_usd'),
+                )
+                is_special = False
+                for sc in special_cases:
+                    if question.keyword.endswith(sc[0]):
+                        # Try to format it a bit nicer
+                        val = values[0].get('value')
+                        try:
+                            val = '{:,}'.format(val).replace(',', "'")
+                        except ValueError:
+                            pass
+                        table[sc[1]] = {
+                            'label': values[0].get('key'),
+                            'value': val,
+                        }
+                        is_special = True
+
+                if is_special:
                     continue
 
                 for row, value in enumerate(values):
