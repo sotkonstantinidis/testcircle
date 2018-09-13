@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from summary.parsers.technologies_2018 import Technology2018Parser
@@ -51,6 +52,15 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
                 'drawings': drawings,
             }
         }
+
+    def get_reference_person(self, role_name: str) -> []:
+        members = self.questionnaire.questionnairemembership_set.filter(
+            role=getattr(settings, role_name)
+        ).select_related('user')
+        if members.exists():
+            return [
+                {'text': member.user.get_display_name()} for member in members]
+        return []
 
     def get_reference_resource_persons(self):
         """
