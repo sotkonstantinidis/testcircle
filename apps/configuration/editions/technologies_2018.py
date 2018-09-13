@@ -1689,7 +1689,8 @@ class Technologies(Edition):
                         }
                     }
 
-            # Add questiongroup conditions to land use question
+            # Add questiongroup conditions to land use question, as well as
+            # summary information.
             if qg['questions'][0]['keyword'] == 'tech_landuse_2018':
                 qg['questions'][0]['summary'] = {
                     'types': ['full'], 
@@ -1701,6 +1702,10 @@ class Technologies(Edition):
                     }
                 }
                 qg['questions'][0]['form_options']['questiongroup_conditions'] = questiongroup_conditions
+                # Remove initial land use from filter. Otherwise, there would be
+                # two questions with the same label in the filter. And it was
+                # never a requirement that initial land use is filterable.
+                qg['questions'][0]['filter_options'] = {'order': None}
 
             new_qgs.append(qg)
 
