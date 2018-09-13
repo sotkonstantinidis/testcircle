@@ -1,6 +1,8 @@
 import copy
 
+from configuration.configuration import QuestionnaireConfiguration
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
 from django.template.loader import render_to_string
 
@@ -91,14 +93,21 @@ class Edition:
     def save_object(self, **data) -> Configuration:
         """
         Create or update the configuration with the modified data.
-
         """
-        obj, _ = self.configuration.objects.get_or_create(
-            edition=self.edition,
-            code=self.code,
-            defaults={'data': data}
-        )
-        # @TODO: validate data before calling save
+        try:
+            obj = self.configuration.objects.get(
+                edition=self.edition, code=self.code)
+        except self.configuration.DoesNotExist:
+            obj = self.configuration(edition=self.edition, code=self.code)
+        obj.data = data
+
+        # Validate the data before saving.
+        questionnaire_configuration = QuestionnaireConfiguration(
+            keyword=self.code, configuration_object=obj)
+        if questionnaire_configuration.configuration_error:
+            raise Exception('Configuration error: %s' %
+                            questionnaire_configuration.configuration_error)
+        obj.save()
         return obj
 
     def get_release_notes(self):
@@ -216,11 +225,25 @@ class Edition:
             translation_obj = self.translation.objects.get(pk=translation)
         configuration_data = configuration if configuration is not None else {}
         configuration_data.update({'type': question_type})
-        key, created = self.key.objects.get_or_create(
-            keyword=keyword, translation=translation_obj,
-            configuration=configuration_data)
-        if values and created:
-            key.values.add(*values)
+
+        try:
+            key = self.key.objects.get(keyword=keyword)
+            key.translation = translation_obj
+            key.configuration = configuration_data
+            key.save()
+        except ObjectDoesNotExist:
+            key = self.key.objects.create(
+                keyword=keyword,
+                translation=translation_obj,
+                configuration=configuration_data
+            )
+
+        if values is not None:
+            existing_values = key.values.all()
+            for new_value in values:
+                if new_value not in existing_values:
+                    key.values.add(new_value)
+
         return key
 
     def create_new_value(

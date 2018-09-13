@@ -11,15 +11,17 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 from django.utils.translation import get_language
 import bs4
+from summary.renderers.approaches_2015 import Approaches2015FullSummaryRenderer
+from summary.renderers.technologies_2015 import \
+    Technology2015FullSummaryRenderer
+from summary.renderers.technologies_2018 import \
+    Technology2018FullSummaryRenderer
 
 from wkhtmltopdf.views import PDFTemplateView, PDFTemplateResponse
 
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_query_status_filter, \
     get_questionnaire_data_in_single_language
-
-from .renderers import TechnologyFullSummaryRenderer, \
-    ApproachesFullSummaryRenderer, Technology2018FullSummaryRenderer
 
 logger = logging.getLogger(__name__)
 
@@ -216,8 +218,8 @@ class SummaryPDFCreateView(PDFTemplateView):
     http_method_names = ['get']
     render_classes = {
         'technologies_2018': {'full': Technology2018FullSummaryRenderer},
-        'technologies_2015': {'full': TechnologyFullSummaryRenderer},
-        'approaches_2015': {'full': ApproachesFullSummaryRenderer}
+        'technologies_2015': {'full': Technology2015FullSummaryRenderer},
+        'approaches_2015': {'full': Approaches2015FullSummaryRenderer}
     }
     footer_template = '{}layout/footer.html'.format(base_template_path)
     # see: http://wkhtmltopdf.org/usage/wkhtmltopdf.txt

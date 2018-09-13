@@ -1,8 +1,8 @@
 from unittest.mock import patch, sentinel, MagicMock
 
 from qcat.tests import TestCase
-from summary.parsers import QuestionnaireParser
-from summary.renderers import SummaryRenderer, GlobalValuesMixin
+from summary.parsers.questionnaire import QuestionnaireParser
+from summary.renderers.summary import SummaryRenderer, GlobalValuesMixin
 
 
 class SummaryDataProviderTest(TestCase):

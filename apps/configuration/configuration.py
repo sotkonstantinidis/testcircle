@@ -327,9 +327,16 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.max_length = None
         self.num_rows = self.form_options.get('num_rows', 3)
 
-        self.filter_options = self.key_config.get('filter_options', {})
+        filter_options = self.key_config.get('filter_options', {})
+        if configuration.get('filter_options'):
+            filter_options.update(configuration.get('filter_options', {}))
+        self.filter_options = filter_options
 
-        self.summary = self.key_config.get('summary')
+        summary_config = self.key_config.get('summary', {})
+        if configuration.get('summary'):
+            summary_config.update(configuration.get('summary'))
+        self.summary = summary_config
+
         self.images = []
         self.choices = ()
         self.choices_helptexts = []
@@ -2421,7 +2428,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         filter_keys = []
         for questiongroup in self.get_questiongroups():
             for question in questiongroup.questions:
-                if question.filter_options:
+                if question.filter_options and question.filter_options.get('order') is not None:
                     section = questiongroup.get_top_subcategory().parent_object
                     filter_keys.append(FilterKey(
                         path=f'{questiongroup.keyword}__{question.keyword}',
