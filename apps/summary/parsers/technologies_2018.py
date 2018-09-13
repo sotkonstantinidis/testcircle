@@ -2,7 +2,8 @@ import collections
 
 from django.utils.translation import ugettext_lazy as _
 
-from configuration.configuration import QuestionnaireQuestion
+from configuration.configuration import QuestionnaireQuestion, \
+    QuestionnaireQuestiongroup
 from summary.parsers.technologies_2015 import Technology2015Parser
 
 
@@ -343,6 +344,109 @@ class Technology2018Parser(Technology2015Parser):
             'label': child.label_view,
             'bool': selected,
         }
+
+    def get_classification_measures(self, child: QuestionnaireQuestion):
+        """
+        Get selected element with parents and pictos. The given question may
+        be a child of several nested questiongroups.
+
+        This is basically a variant of get_picto_and_nested_values.
+        """
+        try:
+            selected = self.get_value(child)[0]['values']
+        except (KeyError, IndexError):
+            return None
+
+        # get all nested elements in the form '==question|nested'...
+        nested_elements_config = child.form_options.get(
+            'questiongroup_conditions', []
+        )
+        # ..and split the strings to a more usable dict. A difference to
+        # get_picto_and_nested_values here: There can be multiple values for the
+        # same key.
+        nested_elements = collections.defaultdict(list)
+        for el in self.split_raw_children(*nested_elements_config):
+            nested_elements[el[0]].append(el[1])
+
+        default_picto_subquestions = [
+            'tech_measures_vegetative',
+            'tech_measures_structural',
+            'tech_measures_management',
+        ]
+
+        for value in selected:
+            # These subquestions are handled the same as in
+            # get_picto_and_nested_values. There is always only one value per
+            # key, we need to prepare the data correspondingly.
+            if value[3] in default_picto_subquestions:
+                nested = {value[3]: nested_elements.get(value[3], [{}])[0]}
+                yield self.get_default_picto_values(
+                    value_tuple=value,
+                    nested_children=nested
+                )
+            else:
+                child_text = f'<strong>{value[0]}</strong>'
+                # 'value' is a tuple of four elements: title, icon-url, ?, keyword
+                # this represents the 'parent' question with an image
+                selected_children_keyword_list = nested_elements.get(value[3], [])
+
+                # selected_children are the 'sub-selections' of given 'value'
+                for selected_children_keyword in selected_children_keyword_list:
+                    # To keep ordering as defined on the questiongroup, loop over
+                    # the children, skipping the ones not filled in.
+                    selected_qg = self.config_object.get_questiongroup_by_keyword(
+                        selected_children_keyword
+                    )
+
+                    try:
+                        child_values = self.values.get(
+                            selected_children_keyword, {}
+                        )[0]
+                    except (IndexError, KeyError):
+                        continue
+
+                    if selected_qg and selected_qg.keyword == 'tech_qg_21':
+                        child_text = self.get_agronomic_measures_picto_values(
+                            questiongroup=selected_qg,
+                            values=child_values,
+                            render_text=child_text,
+                        )
+
+                yield {
+                    'url': value[1],
+                    'text': child_text,
+                }
+
+    def get_agronomic_measures_picto_values(
+            self, questiongroup: QuestionnaireQuestiongroup, values: dict,
+            render_text: str):
+        """
+        Return a comma-separated list of values. If there is a sub-question, add
+        it in brackets right after the corresponding value.
+        """
+        render_list = []
+
+        main_question = questiongroup.get_question_by_key_keyword(
+            'tech_measures_agronomic_sub')
+        main_value_labels = dict(main_question.choices)
+
+        sub_question_mapping = {
+            'measures_agronomic_a3': 'tech_agronomic_tillage',
+            'measures_agronomic_a6_residue_management': 'tech_residue_management',
+        }
+
+        for main_value in values.get('tech_measures_agronomic_sub', []):
+            rendered_value = main_value_labels[main_value]
+            if main_value in sub_question_mapping.keys():
+                sub_keyword = sub_question_mapping[main_value]
+                sub_question = questiongroup.get_question_by_key_keyword(
+                    sub_keyword)
+                sub_value = self._get_choice_label(
+                    sub_question, values.get(sub_keyword))
+                if sub_value:
+                    rendered_value += f' ({sub_value})'
+            render_list.append(rendered_value)
+        return render_text + ' - ' + ', '.join(render_list)
 
     def _get_concatenated_values(
             self, question: QuestionnaireQuestion, values: list,

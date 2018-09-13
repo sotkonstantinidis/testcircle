@@ -1889,6 +1889,27 @@ class Technologies(Edition):
             'question_conditions'] = question_conditions
 
         data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Update summary options of the main question (checkbox about SLM
+        # measures).
+        q_path = (
+            'section_specifications', 'tech__3', 'tech__3__6', 'tech_qg_8',
+            'tech_measures')
+        q_data = self.find_in_data(path=q_path, **data)
+
+        q_data['summary'] = {
+            'types': ['full'],
+            'default': {
+                'field_name': 'classification_measures',
+                'get_value': {
+                    # Use a new getter which includes the subquestions
+                    'name': 'get_classification_measures'
+                }
+            }
+        }
+
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
+
         return data
 
     def rename_option_a6_others(self, **data) -> dict:
