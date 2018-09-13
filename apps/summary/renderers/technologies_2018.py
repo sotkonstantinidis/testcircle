@@ -113,13 +113,9 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
                 f'{spread} ({spread_area_precise} {_("km²")})'
 
         # New question about location in permanently protected area was added.
-        protected_area = self.raw_data_getter('location_protected_area')
-        protected_area_specify = self.raw_data_getter('location_protected_area_specify')
-        if protected_area_specify:
-            protected_area = f'{protected_area}: {protected_area_specify}'
         location_data['partials']['infos']['protected_area'] = {
             'title': _('In a permanently protected area?'),
-            'text': protected_area,
+            'text': self.raw_data_getter('location_protected_area'),
         }
 
         return location_data
