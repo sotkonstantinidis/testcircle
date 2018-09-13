@@ -184,13 +184,12 @@ class Technology2018Parser(Technology2015Parser):
 
         bullets = []
         for keyword in type_keywords:
-            val = self._get_concatenated_values(
-                question=question_dict.get(keyword),
-                values=value_dict.get(keyword),
-                add_label=True
-            )
-            if val:
-                bullets.append(val)
+            values = value_dict.get(keyword)
+            if not values:
+                continue
+            choices_labelled = dict(question_dict[keyword].choices)
+            for val in values:
+                bullets.append(choices_labelled[val])
 
         # Add "other"
         other = value_dict.get('tech_lu_sub_other')
