@@ -440,10 +440,11 @@ class Technologies(Edition):
         }
 
         qg_data['questions'].insert(1, tech_specs)
-        # Adjust template
+        # Adjust template and update max_num
         qg_data['form_options'].update({
             'template': 'columns_custom',
-            'columns_custom': [['12'], ['12'], ['6', '6']]
+            'columns_custom': [['12'], ['12'], ['6', '6']],
+            'max_num': 10
         })
         data = self.update_config_data(path=qg_path, updated=qg_data, **data)
 
