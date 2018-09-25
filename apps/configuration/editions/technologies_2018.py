@@ -188,6 +188,10 @@ class Technologies(Edition):
                 transform_configuration=self.add_question_tech_traditional_rights,
                 release_note='5.8: Added new question about traditional land use rights'
             ),
+            Operation(
+                transform_configuration=self.various_translation_updates,
+                release_note=''
+            ),
         ]
 
     def add_question_tech_input_maint_total_costs_usd(self, **data) -> dict:
@@ -2234,6 +2238,20 @@ class Technologies(Edition):
             **{
                 "label": {
                     "en": "USD"
+                }
+            }
+        )
+        return data
+
+    def various_translation_updates(self, **data) -> dict:
+        self.update_translation(
+            update_pk=1939,
+            **{
+                "label": {
+                    "en": "per Technology area"
+                },
+                "helptext": {
+                    "en": "e.g. area of terraced cropland, area closed for natural regeneration, area used for rotational grazing, etc."
                 }
             }
         )
