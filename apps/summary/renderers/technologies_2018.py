@@ -138,7 +138,7 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
 
         # Current land use: Add new question about mixed land use
         classification_data['partials']['landuse'] = {
-            'title': _('Current land use'),
+            'title': _('Land use'),
             'partials': {
                 'landuse': {
                     'list': self.raw_data.get('classification_landuse_current'),
@@ -147,20 +147,6 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
                     'text': self.raw_data.get('landuse_current_mixed'),
                 }
             },
-        }
-
-        # Add new section about initial land use
-        classification_data['partials']['landuse_initial'] = {
-            'title': _('Initial land use'),
-            'partials': {
-                'changed': self.raw_data.get('initial_landuse_changed'),
-                'landuse': {
-                    'list': self.raw_data.get('classification_landuse_initial'),
-                },
-                'mixed': {
-                    'text': self.raw_data.get('landuse_initial_mixed'),
-                }
-            }
         }
 
         # Remove questions about growing seasons (moved), initial land use

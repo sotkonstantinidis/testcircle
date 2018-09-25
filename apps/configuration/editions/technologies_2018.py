@@ -872,7 +872,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword=type_natural_keyword,
-            label='(Semi-)natural forests/ woodlands: Search type of forest',
+            label='(Semi-)natural forests/ woodlands: Specify type of forest',
             label_view='Type of (semi-)natural forest',
             values_list=[
                 ('natural_forest_1715', 'Boreal coniferous forest natural vegetation'),
@@ -906,7 +906,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword=type_plantation_keyword,
-            label='Tree plantation, afforestation: Search type of forest',
+            label='Tree plantation, afforestation: Specify type of forest',
             label_view='Type of tree plantation, afforestation',
             values_list=[
                 ('plantation_forest_1773', 'Boreal coniferous forest plantation'),
@@ -972,7 +972,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword=type_tree_keyword,
-            label='Search type of tree',
+            label='Specify type of tree',
             label_view='Type of tree',
             values_list=[
                 ('tree_type_1700', 'Acacia albida'),
@@ -1104,7 +1104,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_grazingland_animals',
-            label='Search animal type',
+            label='Specify animal type',
             label_view='Animal type',
             values_list=[
                 ('animals_50', 'Dairy Cattle'),
@@ -1134,7 +1134,7 @@ class Technologies(Edition):
             keyword=crop_livestock_keyword,
             translation={
                 'label': {
-                    'en': 'Is crop-livestock management practiced?'
+                    'en': 'Is integrated crop-livestock management practiced?'
                 }
             },
             question_type='bool'
@@ -1171,7 +1171,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_grazingland_products',
-            label='Search products and services',
+            label='Specify products and services for grazing land',
             label_view='Products and services',
             values_list=[
                 ('prod_service_meat', 'meat'),
@@ -1320,7 +1320,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_cropland_annual_cropping_crops',
-            label='Annual cropping - Select crops',
+            label='Annual cropping - Specify crops',
             values_list=[
                 ('annual_crops_453', 'Fibre crops - other'),
             ],
@@ -1380,7 +1380,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_cropland_perennial_cropping_crops',
-            label='Perennial (non-woody) cropping - Select crops',
+            label='Perennial (non-woody) cropping - Specify crops',
             values_list=[
                 ('perennial_crops_502', 'banana/plantain/abaca'),
                 ('perennial_crops_520', 'agave / sisal'),
@@ -1400,7 +1400,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_cropland_tree_shrub_cropping_crops',
-            label='Tree and shrub cropping - Select crops',
+            label='Tree and shrub cropping - Specify crops',
             values_list=[
                 ('tree_shrub_501', 'avocado'),
                 ('tree_shrub_503', 'citrus'),
@@ -2174,6 +2174,20 @@ class Technologies(Edition):
                 order_value=4
             ),
         )
+
+        # Also rename question about extensive grazing
+        self.update_translation(
+            update_pk=1238,
+            **{
+                "label": {
+                    "en": "Extensive grazing"
+                },
+                "helptext": {
+                    "en": "<strong>Ge: Extensive grazing</strong>: grazing on natural or semi-natural grasslands, grasslands with trees/ shrubs (savannah vegetation) or open woodlands for livestock and wildlife."
+                }
+            }
+        )
+
         return data
 
     def rename_tech_lu_grazingland_pastoralism(self, **data) -> dict:

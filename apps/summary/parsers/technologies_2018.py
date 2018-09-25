@@ -246,11 +246,13 @@ class Technology2018Parser(Technology2015Parser):
             sub_values_mapping = {
                 'lu_forest_natural': {
                     'type_origin': 'tech_lu_forest_natural',
+                    'type_origin_label': _('Management: '),
                     'keyword': 'tech_lu_forest_natural_type',
                     'other_keyword': 'tech_lu_forest_natural_type_other'
                 },
                 'lu_forest_plantation': {
                     'type_origin': 'tech_lu_forest_plantation',
+                    'type_origin_label': _('Varieties: '),
                     'keyword': 'tech_lu_forest_plantation_type',
                     'other_keyword': 'tech_lu_forest_plantation_type_other'
                 }
@@ -260,14 +262,6 @@ class Technology2018Parser(Technology2015Parser):
 
                 mapping = sub_values_mapping.get(value, {})
                 if mapping:
-                    # Management type or Type/origin
-                    type_origin = self._get_concatenated_values(
-                        question=question_dict.get(mapping['type_origin']),
-                        values=value_dict.get(mapping['type_origin']),
-                    )
-                    if type_origin:
-                        forest_sub_text += f' ({type_origin})'
-
                     sub_values = self._get_concatenated_values(
                         question=question_dict.get(mapping['keyword']),
                         values=value_dict.get(mapping['keyword'], []),
@@ -275,6 +269,15 @@ class Technology2018Parser(Technology2015Parser):
                     )
                     if sub_values:
                         forest_sub_text += f': {sub_values}'
+
+                    # Management type or Type/origin
+                    type_origin = self._get_concatenated_values(
+                        question=question_dict.get(mapping['type_origin']),
+                        values=value_dict.get(mapping['type_origin']),
+                    )
+                    if type_origin:
+                        forest_sub_text += f'. {mapping["type_origin_label"]}' \
+                                           f'{type_origin}'
 
                 forest_bullets.append(forest_sub_text)
 
