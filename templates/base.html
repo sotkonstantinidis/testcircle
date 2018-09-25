@@ -90,6 +90,18 @@
   </head>
   <body class="{% block bodyclass %}layout-wocat{% endblock %}">
 
+    {# Startfix #}
+    {% comment %}
+      After improving performance of foundation's tooltips
+      (https://github.com/CDE-UNIBE/qcat/commit/35b208c), the first tooltip of
+      each page was buggy and had a black box drawn over it. The quick and dirty
+      solution to this: Add a hidden empty tooltip at the top of each page.
+    {% endcomment %}
+    <div style="display:none;">
+      <span data-tooltip="" title=""></span>
+    </div>
+    {# Endfix #}
+
     <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
