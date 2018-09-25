@@ -430,7 +430,16 @@ class Technologies(Edition):
         qg_path = (
             'section_specifications', 'tech__4', 'tech__4__1', 'tech_qg_185')
         qg_data = self.find_in_data(path=qg_path, **data)
-        qg_data['questions'].insert(1, {'keyword': 'tech_specifications'})
+
+        # Show label as placeholder of text area
+        tech_specs = {
+            'keyword': 'tech_specifications',
+            'form_options': {
+                'label_position': 'placeholder',
+            }
+        }
+
+        qg_data['questions'].insert(1, tech_specs)
         # Adjust template
         qg_data['form_options'].update({
             'template': 'columns_custom',
