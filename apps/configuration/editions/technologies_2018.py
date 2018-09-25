@@ -28,6 +28,11 @@ class Technologies(Edition):
                 release_note=_('1.2: Removed "Address", "Phone" and "E-Mail" of "Key resource persons".')
             ),
             Operation(
+                transform_configuration=self.move_date_documentation,
+                transform_questionnaire=self.move_date_documentation_data,
+                release_note=_('1.3: Moved "Date of compilation" in the field to 7.1'),
+            ),
+            Operation(
                 transform_configuration=self.remove_subcategory_1_6,
                 release_note=''
             ),
@@ -186,7 +191,7 @@ class Technologies(Edition):
             ),
             Operation(
                 transform_configuration=self.add_question_tech_traditional_rights,
-                release_note='5.8: Added new question about traditional land use rights'
+                release_note=_('5.8: Added new question about traditional land use rights')
             ),
             Operation(
                 transform_configuration=self.various_translation_updates,
@@ -2082,6 +2087,63 @@ class Technologies(Edition):
         ]
         for question in delete_questions:
             data = self.update_data('tech_qg_184', question, None, **data)
+        return data
+
+    def move_date_documentation_data(self, **data) -> dict:
+
+        moved_date = None
+        if 'qg_accept_conditions' in data:
+            # Can only be 1 entry
+            moved_date = data['qg_accept_conditions'][0].get('date_documentation')
+            del data['qg_accept_conditions'][0]['date_documentation']
+
+        if moved_date:
+            data['tech_qg_250'] = [{'date_documentation': moved_date}]
+
+        return data
+
+    def move_date_documentation(self, **data) -> dict:
+
+        # Remove from 1.3
+        qg_path = (
+            'section_general_information', 'tech__1', 'tech__1__3',
+            'qg_accept_conditions')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] != 'date_documentation'
+        ]
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Add to 7.1 (create a new questiongroup)
+        qg_keyword = 'tech_qg_250'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        # Also create a new question (comments)
+        comments_key = 'tech_date_comments'
+        self.create_new_question(
+            keyword=comments_key,
+            translation=5004,
+            question_type='text'
+        )
+        subcat_path = ('section_specifications', 'tech__7', 'tech__7__1')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['questiongroups'] = subcat_data['questiongroups'] + [{
+            'keyword': qg_keyword,
+            'questions': [
+                {
+                    'keyword': 'date_documentation'
+                },
+                {
+                    'keyword': comments_key
+                }
+            ]
+        }]
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
         return data
 
     def add_option_user_resourceperson_type(self, **data) -> dict:
