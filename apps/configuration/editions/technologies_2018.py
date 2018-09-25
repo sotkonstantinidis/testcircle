@@ -46,6 +46,10 @@ class Technologies(Edition):
                 release_note=_('2.5: Added new question "Is/are the technology site(s) located in a permanently protected area?"')
             ),
             Operation(
+                transform_configuration=self.update_map_template,
+                release_note='',
+            ),
+            Operation(
                 transform_configuration=self.add_tech_lu_mixed,
                 transform_questionnaire=self.remove_tech_lu_mixed,
                 release_note=_('3.2: Added separate question about "Mixed land use".')
@@ -499,6 +503,16 @@ class Technologies(Edition):
         if 'tech_qg_161' in data:
             del data['tech_qg_161']
         return data
+
+    def update_map_template(self, **data) -> dict:
+        # Update the template used to render the map (do not show the label).
+        q_path = ('section_specifications', 'tech__2', 'tech__2__5',
+                  'qg_location_map', 'location_map')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options'] = {
+            'template': 'no_label'
+        }
+        return self.update_config_data(path=q_path, updated=q_data, **data)
 
     def add_tech_location_protected(self, **data) -> dict:
         qg_keyword = 'tech_qg_234'
