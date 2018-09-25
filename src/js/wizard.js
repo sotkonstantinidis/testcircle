@@ -684,6 +684,33 @@ $(function () {
             watchFormProgress();
         })
 
+        .on('keyup mouseup', '[data-number-input]', function() {
+            // For "number" input fields, add a hint if an invalid value is
+            // entered (which is possible depending on the browser).
+            var $t = $(this);
+
+            if (!this.checkValidity()) {
+                return toggleError($t, true);
+            }
+            var val = $t.val();
+            if (val === '') {
+                return toggleError($t, false);
+            }
+
+            var numberType = $t.data('number-input');
+            var hasError = false;
+            if (numberType === 'int') {
+                hasError = parseInt(val).toString() !== val;
+            } else if (numberType === 'float') {
+                hasError = parseFloat(val).toString() !== val;
+            }
+            return toggleError($t, hasError);
+
+            function toggleError(el, hasError) {
+                el.toggleClass('form-number-input-error', hasError);
+            }
+        })
+
         .on('change', '[data-custom-to-options]', function() {
             var $t = $(this);
             var customToOption = $t.data('custom-to-options').replace(/'/g, '"');
