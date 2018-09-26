@@ -407,12 +407,20 @@ class Technology2018Parser(Technology2015Parser):
                     except (IndexError, KeyError):
                         continue
 
-                    if selected_qg and selected_qg.keyword == 'tech_qg_21':
-                        child_text = self.get_agronomic_measures_picto_values(
-                            questiongroup=selected_qg,
-                            values=child_values,
-                            render_text=child_text,
-                        )
+                    if selected_qg:
+                        # Agronomic measures
+                        if selected_qg.keyword == 'tech_qg_21':
+                            child_text = self.get_agronomic_measures_picto_values(
+                                questiongroup=selected_qg,
+                                values=child_values,
+                                render_text=child_text,
+                            )
+
+                        # Other: Add text
+                        elif selected_qg.keyword == 'tech_qg_25':
+                            other = child_values.get('tech_measures_other')
+                            if other:
+                                child_text = f'{child_text} - {other}'
 
                 yield {
                     'url': value[1],
