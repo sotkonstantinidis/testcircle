@@ -154,3 +154,16 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
         del classification_data['partials']['water_supply']['partials']['text']
 
         return classification_data
+
+    def natural_environment(self):
+        data = super().natural_environment()
+
+        # Add information about whether water quality refers to ground or
+        # surface water
+        water_quality_ref_data = self.raw_data.get(
+            'natural_env_waterquality_ref')
+        if water_quality_ref_data:
+            ref_data = water_quality_ref_data[0]
+            data['partials']['water_quality']['referring'] = f"{ref_data['key']} {', '.join(ref_data['values'])}"
+
+        return data

@@ -206,8 +206,12 @@ class Technologies(Edition):
                 release_note=''
             ),
             Operation(
+                transform_configuration=self.add_question_water_quality_referring,
+                release_note=_('5.4: Added new question about water quality (referring to ground or surface water).')
+            ),
+            Operation(
                 transform_configuration=self.add_question_tech_traditional_rights,
-                release_note=_('5.8: Added new question about traditional land use rights')
+                release_note=_('5.8: Added new question about traditional land use rights.')
             ),
             Operation(
                 transform_configuration=self.various_translation_updates,
@@ -404,6 +408,67 @@ class Technologies(Edition):
             path=new_subcat_path, updated=new_subcat_data, **data)
 
         return data
+
+    def add_question_water_quality_referring(self, **data) -> dict:
+        q_keyword = 'tech_waterquality_referring'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Water quality refers to:'
+                }
+            },
+            question_type='radio',
+            values=[
+                self.create_new_value(
+                    keyword='tech_waterquality_ref_ground',
+                    translation={
+                        'label': {
+                            'en': 'ground water'
+                        }
+                    },
+                    order_value=1
+                ),
+                self.create_new_value(
+                    keyword='tech_waterquality_ref_surface',
+                    translation={
+                        'label': {
+                            'en': 'surface water'
+                        }
+                    },
+                    order_value=2
+                ),
+                self.create_new_value(
+                    keyword='tech_waterquality_ref_both',
+                    translation={
+                        'label': {
+                            'en': 'both ground and surface water'
+                        }
+                    },
+                    order_value=3
+                )
+            ],
+            configuration={
+                "summary": {
+                    "types": ["full"],
+                    "default": {
+                        "field_name": "natural_env_waterquality_ref",
+                    }
+                }
+            }
+        )
+
+        qg_path = (
+            'section_specifications', 'tech__5', 'tech__5__4', 'tech_qg_60')
+        qg_data = self.find_in_data(path=qg_path, **data)
+
+        qg_data['questions'] += [{
+            'keyword': q_keyword,
+            'view_options': {
+                'template': 'inline_6'
+            }
+        }]
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
 
     def add_question_tech_traditional_rights(self, **data) -> dict:
 
