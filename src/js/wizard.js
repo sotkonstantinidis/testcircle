@@ -702,7 +702,8 @@ $(function () {
             if (numberType === 'int') {
                 hasError = parseInt(val).toString() !== val;
             } else if (numberType === 'float') {
-                hasError = parseFloat(val).toString() !== val;
+                // Auto-sum has value fixed to 2 decimals ...
+                hasError = parseFloat(val).toString() !== val && parseFloat(val).toFixed(2).toString() !== val;
             }
             return toggleError($t, hasError);
 
