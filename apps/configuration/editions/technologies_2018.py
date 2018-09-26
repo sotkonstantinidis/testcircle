@@ -202,6 +202,10 @@ class Technologies(Edition):
                 release_note=''
             ),
             Operation(
+                transform_configuration=self.reformat_agroclimatic_zone,
+                release_note=''
+            ),
+            Operation(
                 transform_configuration=self.add_question_tech_traditional_rights,
                 release_note=_('5.8: Added new question about traditional land use rights')
             ),
@@ -2396,6 +2400,40 @@ class Technologies(Edition):
                 }
             }
         )
+        return data
+
+    def reformat_agroclimatic_zone(self, **data) -> dict:
+        qg_path = (
+            'section_specifications', 'tech__5', 'tech__5__1', 'tech_qg_55')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['form_options']['template'] = 'default'
+        qg_data['questions'][1]['form_options']['label_columns_class'] = 'top-margin'
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Also update translations
+        self.update_translation(
+            update_pk=2219,
+            **{
+                "label": {
+                    "en": "Agro-climatic zone"
+                },
+                "helptext": {
+                    "en": "<p>The length of growing period (LGP) is defined as the period when precipitation is more than half of the potential evapotranspiration (PET) and the temperature is higher than 6.5° C.</p><p>Tick max. 1 answer.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1073,
+            **{
+                "label": {
+                    "en": "Specifications/ comments on climate"
+                },
+                "helptext": {
+                    "en": "E.g. mean annual temperature"
+                }
+            }
+        )
+
         return data
 
     def various_translation_updates(self, **data) -> dict:
