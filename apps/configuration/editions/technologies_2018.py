@@ -210,6 +210,10 @@ class Technologies(Edition):
                 release_note=_('5.4: Added new question about water quality (referring to ground or surface water).')
             ),
             Operation(
+                transform_configuration=self.allow_more_options_age_land_users,
+                release_note=_('5.6: Allow selecting more options for question "Age of land users".')
+            ),
+            Operation(
                 transform_configuration=self.add_question_tech_traditional_rights,
                 release_note=_('5.8: Added new question about traditional land use rights.')
             ),
@@ -407,6 +411,19 @@ class Technologies(Edition):
         data = self.update_config_data(
             path=new_subcat_path, updated=new_subcat_data, **data)
 
+        return data
+
+    def allow_more_options_age_land_users(self, **data) -> dict:
+        q_path = (
+            'section_specifications', 'tech__5', 'tech__5__6', 'tech_qg_71',
+            'tech_age_landusers')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options'] = {
+            'field_options': {
+                'data-cb-max-choices': 4
+            }
+        }
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
         return data
 
     def add_question_water_quality_referring(self, **data) -> dict:
