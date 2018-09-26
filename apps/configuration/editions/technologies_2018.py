@@ -143,6 +143,10 @@ class Technologies(Edition):
                 release_note=_('3.6: Added a question to specify when selecting "other measures".')
             ),
             Operation(
+                transform_configuration=self.add_other_degradation_textfield,
+                release_note=_('3.7: Added a question to specify when selecting other degradation type.')
+            ),
+            Operation(
                 transform_configuration=self.do_nothing,
                 release_note=_('4: Updated numbering (4.2 was removed).')
             ),
@@ -1971,6 +1975,42 @@ class Technologies(Edition):
             ),
             order_value=6,
         )
+        return data
+
+    def add_other_degradation_textfield(self, **data) -> dict:
+        q_keyword = 'tech_degradation_other'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation=1018,
+            question_type='text'
+        )
+
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__7')
+
+        # Questiongroup exists already, but with stub question. Replace this
+        # question and add the condition.
+        qg_path = subcat_path + ('tech_qg_231', )
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [{
+            'keyword': q_keyword
+        }]
+        qg_data['form_options'] = {
+            'questiongroup_condition': 'tech_qg_231'
+        }
+        qg_data['view_options'] = {
+            'conditional_question': 'degradation_other'
+        }
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Add conditions
+        condition = "=='degradation_other'|tech_qg_231"
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['form_options']['questiongroup_conditions'] += [condition]
+        subcat_data['questiongroups'][0]['questions'][0]['form_options']['questiongroup_conditions'] += [
+            condition
+        ]
+        data = self.update_config_data(path=subcat_path, updated=subcat_data, **data)
+
         return data
 
     def add_other_measures_textfield(self, **data) -> dict:
