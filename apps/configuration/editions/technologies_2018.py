@@ -156,6 +156,10 @@ class Technologies(Edition):
                 release_note=_('4.1: Previous question "4.2 Technical specifications" is now integrated into "4.1 Technical drawing".')
             ),
             Operation(
+                transform_configuration=self.input_exchange_rate_change_template,
+                release_note=''
+            ),
+            Operation(
                 transform_configuration=self.remove_tech_est_type,
                 transform_questionnaire=self.delete_tech_est_type,
                 release_note=_('4.3 (previously 4.4): Removed "Type of measure" from Establishment activities.')
@@ -529,6 +533,15 @@ class Technologies(Edition):
     def delete_technical_specification(self, **data) -> dict:
         if 'tech_qg_161' in data:
             del data['tech_qg_161']
+        return data
+
+    def input_exchange_rate_change_template(self, **data) -> dict:
+        q_path = (
+            'section_specifications', 'tech__4', 'tech__4__3', 'tech_qg_164',
+            'tech_input_exchange_rate')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options']['template'] = 'currency_exchange_rate'
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
         return data
 
     def update_map_template(self, **data) -> dict:
