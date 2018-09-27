@@ -222,6 +222,10 @@ class Technologies(Edition):
                 release_note=_('5.9: Added new question for comments regarding "Access to services and infrastructure".')
             ),
             Operation(
+                transform_configuration=self.add_comment_field_onfield_impacts,
+                release_note=_('6.1: Added new question for comments about on-site impacts.')
+            ),
+            Operation(
                 transform_configuration=self.various_translation_updates,
                 release_note=''
             ),
@@ -490,6 +494,58 @@ class Technologies(Edition):
             }
         }]
         return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def add_comment_field_onfield_impacts(self, **data) -> dict:
+
+        subcat_path = ('section_specifications', 'tech__6', 'tech__6__1')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+
+        subcat_keyword = 'tech__6__1__comments'
+        qg_keyword = 'tech_qg_252'
+        q_keyword = 'tech_onsite_impacts_comments'
+        self.create_new_category(
+            keyword=subcat_keyword,
+            translation={
+                'label': {
+                    'en': 'Comments'
+                }
+            }
+        )
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        self.create_new_question(
+            keyword=q_keyword,
+            translation=5004,
+            question_type='text'
+        )
+
+        subcat_data['subcategories'] += [{
+            'keyword': subcat_keyword,
+            'form_options': {
+                'template': 'empty'
+            },
+            'view_options': {
+                'template': 'empty'
+            },
+            'questiongroups': [
+                {
+                    'keyword': qg_keyword,
+                    'questions': [
+                        {
+                            'keyword': q_keyword,
+                            'form_options': {
+                                'label_class': 'top-margin'
+                            },
+                        }
+                    ]
+                }
+            ]
+        }]
+
+        return self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
 
     def add_comment_field_access(self, **data) -> dict:
 
