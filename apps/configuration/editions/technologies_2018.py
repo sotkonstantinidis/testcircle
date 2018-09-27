@@ -218,6 +218,10 @@ class Technologies(Edition):
                 release_note=_('5.8: Added new question about traditional land use rights.')
             ),
             Operation(
+                transform_configuration=self.add_comment_field_access,
+                release_note=_('5.9: Added new question for comments regarding "Access to services and infrastructure".')
+            ),
+            Operation(
                 transform_configuration=self.various_translation_updates,
                 release_note=''
             ),
@@ -486,6 +490,42 @@ class Technologies(Edition):
             }
         }]
         return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def add_comment_field_access(self, **data) -> dict:
+
+        qg_keyword = 'tech_qg_251'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        k_keyword = 'tech_access_comments'
+        self.create_new_question(
+            keyword=k_keyword,
+            translation=5004,
+            question_type='text',
+            configuration={
+                "summary": {
+                    "types": ["full"],
+                    "default": {
+                        "field_name": "human_env_services_comments",
+                    }
+                }
+            }
+        )
+        subcat_path = ('section_specifications', 'tech__5', 'tech__5__9')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['questiongroups'] += [
+            {
+                'keyword': qg_keyword,
+                'questions': [
+                    {
+                        'keyword': k_keyword
+                    }
+                ]
+            }
+        ]
+        return self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
 
     def add_question_tech_traditional_rights(self, **data) -> dict:
 

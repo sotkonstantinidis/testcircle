@@ -167,3 +167,21 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
             data['partials']['water_quality']['referring'] = f"{ref_data['key']} {', '.join(ref_data['values'])}"
 
         return data
+
+    def human_environment(self):
+        data = super().human_environment()
+
+        # Overwrite template to show comments of 5.9 (access to services and
+        # infrastructure)
+        data['template_name'] = 'summary/tech_2018/block/human_environment.html'
+
+        # Add comments of 5.9
+        services_comments_data = self.raw_data.get('human_env_services_comments')
+        if services_comments_data:
+            comments = services_comments_data[0]
+            data['partials']['access']['comments'] = {
+                'title': comments['key'],
+                'text': comments['value'],
+            }
+
+        return data
