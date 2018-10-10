@@ -524,7 +524,11 @@ class Technologies(Edition):
         )
         self.create_new_question(
             keyword=q_keyword,
-            translation=5004,
+            translation={
+                'label': {
+                    'en': 'Specify assessment of on-site impacts (measurements)'
+                }
+            },
             question_type='text'
         )
 
@@ -3085,6 +3089,14 @@ class Technologies(Edition):
             **{
                 "label": {
                     "en": "Links to relevant online information"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1334,
+            **{
+                "label": {
+                    "en": "Specify assessment of off-site impacts (measurements)"
                 }
             }
         )
