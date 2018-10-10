@@ -258,9 +258,18 @@ class Edition:
                 translation_keys=configuration_editions, **translation)
         else:
             translation_obj = self.translation.objects.get(pk=translation)
-        value, __ = self.value.objects.get_or_create(
-            keyword=keyword, translation=translation_obj,
-            order_value=order_value, configuration=configuration)
+
+        try:
+            value = self.value.objects.get(keyword=keyword)
+            value.translation = translation_obj
+            value.order_value = order_value
+            value.configuration = configuration
+            value.save()
+        except ObjectDoesNotExist:
+            value = self.value.objects.create(
+                keyword=keyword, translation=translation_obj,
+                order_value=order_value, configuration=configuration)
+
         return value
 
     def create_new_values_list(self, values_list: list) -> list:
