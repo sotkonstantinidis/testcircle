@@ -20,17 +20,17 @@ class Technologies(Edition):
         return [
             Operation(
                 transform_configuration=self.add_option_user_resourceperson_type,
-                release_note=_('1.2: Added option "co-compiler" to "Key resource persons".')
+                release_note=_('1.2: A new option "co-compiler" was added to question "Key resource persons".')
             ),
             Operation(
                 transform_configuration=self.remove_person_address_questions,
                 transform_questionnaire=self.delete_person_address_data,
-                release_note=_('1.2: Removed "Address", "Phone" and "E-Mail" of "Key resource persons".')
+                release_note=_('1.2: The questions "Address", "Phone" and "E-Mail" of "Key resource persons" were removed.')
             ),
             Operation(
                 transform_configuration=self.move_date_documentation,
                 transform_questionnaire=self.move_date_documentation_data,
-                release_note=_('1.3: Moved "Date of compilation" in the field to 7.1'),
+                release_note=_('1.3: The question "Date of compilation in the field" was moved to 7.1.'),
             ),
             Operation(
                 transform_configuration=self.remove_subcategory_1_6,
@@ -39,16 +39,16 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.do_nothing,
                 # This happened in self.merge_subcategory_3_5_into_2_5 ...
-                release_note=_('2.5: Integrated questions about "Spread of the Technology" (previously in 3.5).')
+                release_note=_('2.5: The questions about "Spread of the Technology" (previously in 3.5) were integrated into 2.5.')
             ),
             Operation(
                 transform_configuration=self.do_nothing,
                 # This happened in self.merge_subcategory_3_5_into_2_5 ...
-                release_note=_('2.5: Added new question "If precise area is known, please specify".')
+                release_note=_('2.5: A new question "If precise area is known, please specify" was added.')
             ),
             Operation(
                 transform_configuration=self.add_tech_location_protected,
-                release_note=_('2.5: Added new question "Is/are the technology site(s) located in a permanently protected area?"')
+                release_note=_('2.5: A new question "Is/are the technology site(s) located in a permanently protected area?" was added.')
             ),
             Operation(
                 transform_configuration=self.update_map_template,
@@ -57,103 +57,103 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.add_tech_lu_mixed,
                 transform_questionnaire=self.remove_tech_lu_mixed,
-                release_note=_('3.2: Added separate question about "Mixed land use".')
+                release_note=_('3.2: A separate question about "Mixed land use" was added.')
             ),
             Operation(
                 transform_configuration=self.add_questions_tech_lu_cropland,
-                release_note=_('3.2: Added additional questions about crops, intercropping and crop rotation to land use type "Cropland".'),
+                release_note=_('3.2: New questions about crops, intercropping and crop rotation for land use type "Cropland" were added.'),
             ),
             Operation(
                 transform_configuration=self.remove_tech_lu_cropland_specify,
                 transform_questionnaire=self.delete_tech_lu_cropland_specify_data,
-                release_note=_('3.2: Removed text question "Main crops" of land use type "Cropland".')
+                release_note=_('3.2: The question "Main crops" of land use type "Cropland" was removed.')
             ),
             Operation(
                 transform_configuration=self.add_questions_tech_lu_grazingland,
-                release_note=_('3.2: Added additional questions about grazing land (animal type, crop-livestock management practices, products and services).')
+                release_note=_('3.2: New questions about grazing land (animal type, crop-livestock management practices, products and services) were added.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_lu_grazingland_specify,
                 transform_questionnaire=self.delete_tech_lu_grazingland_specify,
-                release_note=_('3.2: Removed text question "Main animal species and products" of land use type "Grazing land".')
+                release_note=_('3.2: The question "Main animal species and products" of land use type "Grazing land" was removed.')
             ),
             Operation(
                 transform_configuration=self.add_tech_livestock_population,
-                release_note=_('3.2: Added additional question "Livestock population" for land use type "Grazing land"')
+                release_note=_('3.2: A new question "Livestock population" for land use type "Grazing land" was added.')
             ),
             Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
-                release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
+                release_note=_('3.2: The option "semi-nomadism" of land use type "Grazing land" was renamed to "semi-nomadic pastoralism".')
             ),
             Operation(
                 transform_configuration=self.add_option_tech_lu_grazingland_transhumant,
-                release_note=_('3.2: Added option "transhumant pastoralism" to land use type "Grazing land".')
+                release_note=_('3.2: A new option "transhumant pastoralism" was added to land use type "Grazing land".')
             ),
             Operation(
                 transform_configuration=self.add_questions_tech_lu_woodlands,
-                release_note=_('3.2: Added optional questions about forest type and trees for land use type "Forest/ woodlands".')
+                release_note=_('3.2: New questions about forest type and trees for land use type "Forest/ woodlands" were added.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_lu_change,
                 transform_questionnaire=self.delete_tech_lu_change,
-                release_note=_('3.2: Removed text question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology". This information can now be entered in 3.3.')
+                release_note=_('3.2: The question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology" was removed. This information can now be entered in 3.3.')
             ),
             Operation(
                 transform_configuration=self.add_subcategory_initial_landuse,
-                release_note=_('3.3 (new): Added new subcategory about initial land use')
+                release_note=_('3.3 (new): A new subcategory about initial land use was added.')
             ),
             Operation(
                 transform_configuration=self.move_tech_growing_seasons,
                 transform_questionnaire=self.delete_tech_growing_seasons,
-                release_note=_('3.4 (previously 3.3): Moved question "Number of growing seasons per year" to 3.2 - land use type "Cropland". Data was only migrated automatically, if land use type "Cropland" was selected.')
+                release_note=_('3.4 (previously 3.3): The question "Number of growing seasons per year" was moved to 3.2 - land use type "Cropland". Data was migrated automatically only if land use type "Cropland" was selected.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_livestock_density,
                 transform_questionnaire=self.delete_tech_livestock_density,
-                release_note=_('3.4 (previously 3.3): Removed question "Livestock density (if relevant). Use "Comments" of "3.2 Current land use type(s)".')
+                release_note=_('3.4 (previously 3.3): The question "Livestock density (if relevant)" was removed. Use "Comments" of "3.2 Current land use type(s)".')
             ),
             Operation(
                 transform_configuration=self.merge_subcategory_3_5_into_2_5,
                 transform_questionnaire=self.delete_tech_spread_tech_comments,
-                release_note=_('3.5: Previous questions of "3.5 Spread of the Technology" were integrated into "2.5 Country/ region/ locations where the Technology has been applied and which are covered by this assessment".')
+                release_note=_('3.5: The previous questions of "3.5 Spread of the Technology" were integrated into "2.5 Country/ region/ locations where the Technology has been applied and which are covered by this assessment".')
             ),
             Operation(
                 transform_configuration=self.do_nothing,
                 # This happened in self.merge_subcategory_3_5_into_2_5 ...
-                release_note=_('3.5: Question "Comments" about "Spread of the Technology" (previously 3.5) was removed, its content needs to be merged with "Comments" of 2.5.')
+                release_note=_('3.5: The question "Comments" about "Spread of the Technology" (previously 3.5) was removed; its content needs to be merged with "Comments" of 2.5.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_agronomic_tillage,
-                release_note=_('3.6: Added new question "Differentiate tillage systems" when selecting agronomic measure "A3: Soil surface treatment".')
+                release_note=_('3.6: A new question "Differentiate tillage systems" was added when selecting agronomic measure "A3: Soil surface treatment".')
             ),
             Operation(
                 transform_configuration=self.add_option_a6_residue_management,
-                release_note=_('3.6: Added new option "A6: Residue Management" to "agronomic measures".')
+                release_note=_('3.6: A new option "A6: Residue Management" was added to "agronomic measures".')
             ),
             Operation(
                 transform_configuration=self.rename_option_a6_others,
-                release_note=_('3.6 Renamed option "A6: Others" of "agronomic measures" to "A7: Others".')
+                release_note=_('3.6 The option "A6: Others" of "agronomic measures" was renamed to "A7: Others".')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_residue_management,
-                release_note=_('3.6: Added new question "Specify residue management" when selecting agronomic measure "A6: residue management".')
+                release_note=_('3.6: A new question "Specify residue management" was added when selecting agronomic measure "A6: residue management".')
             ),
             Operation(
                 transform_configuration=self.add_other_measures_textfield,
-                release_note=_('3.6: Added a question to specify when selecting "other measures".')
+                release_note=_('3.6: A new question to specify was added when selecting "other measures".')
             ),
             Operation(
                 transform_configuration=self.add_other_degradation_textfield,
-                release_note=_('3.7: Added a question to specify when selecting other degradation type.')
+                release_note=_('3.7: A new question to specify was added when selecting other degradation type.')
             ),
             Operation(
                 transform_configuration=self.do_nothing,
-                release_note=_('4: Updated numbering (4.2 was removed).')
+                release_note=_('4: The numbering was updated (4.2 was removed).')
             ),
             Operation(
                 transform_configuration=self.move_technical_specification,
                 transform_questionnaire=self.delete_technical_specification,
-                release_note=_('4.1: Previous question "4.2 Technical specifications" is now integrated into "4.1 Technical drawing".')
+                release_note=_('4.1: The previous question "4.2 Technical specifications" was integrated into "4.1 Technical drawing".')
             ),
             Operation(
                 transform_configuration=self.input_exchange_rate_change_template,
@@ -162,20 +162,20 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.remove_tech_est_type,
                 transform_questionnaire=self.delete_tech_est_type,
-                release_note=_('4.3 (previously 4.4): Removed "Type of measure" from Establishment activities.')
+                release_note=_('4.3 (previously 4.4): The question "Type of measure" was removed from Establishment activities.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_input_est_total_costs_usd,
-                release_note=_('4.4 (previously 4.5): Added question "Total costs for establishment of the Technology in USD" (automatically calculated).')
+                release_note=_('4.4 (previously 4.5): A new question "Total costs for establishment of the Technology in USD" (automatically calculated) was added.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_maint_type,
                 transform_questionnaire=self.delete_tech_maint_type,
-                release_note=_('4.5 (previously 4.6): Removed "Type of measure" from Maintenance activities.')
+                release_note=_('4.5 (previously 4.6): The question "Type of measure" was removed from Maintenance activities.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_input_maint_total_costs_usd,
-                release_note=_('4.6 (previously 4.7): Added question "Total costs for maintenance of the Technology in USD" (automatically calculated).')
+                release_note=_('4.6 (previously 4.7): A new question "Total costs for maintenance of the Technology in USD" (automatically calculated) was added.')
             ),
             Operation(
                 transform_configuration=self.move_tech_input_est_total_estimation,
@@ -207,23 +207,23 @@ class Technologies(Edition):
             ),
             Operation(
                 transform_configuration=self.add_question_water_quality_referring,
-                release_note=_('5.4: Added new question about water quality (referring to ground or surface water).')
+                release_note=_('5.4: A new question about water quality (referring to ground or surface water) was added.')
             ),
             Operation(
                 transform_configuration=self.allow_more_options_age_land_users,
-                release_note=_('5.6: Allow selecting more options for question "Age of land users".')
+                release_note=_('5.6: More options for question "Age of land users" can be selected.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_traditional_rights,
-                release_note=_('5.8: Added new question about traditional land use rights.')
+                release_note=_('5.8: A new question about traditional land use rights was added.')
             ),
             Operation(
                 transform_configuration=self.add_comment_field_access,
-                release_note=_('5.9: Added new question for comments regarding "Access to services and infrastructure".')
+                release_note=_('5.9: A new question for comments regarding "Access to services and infrastructure" was added.')
             ),
             Operation(
                 transform_configuration=self.add_comment_field_onfield_impacts,
-                release_note=_('6.1: Added new question for comments about on-site impacts.')
+                release_note=_('6.1: A new question for comments about on-site impacts was added.')
             ),
             Operation(
                 transform_configuration=self.various_translation_updates,
