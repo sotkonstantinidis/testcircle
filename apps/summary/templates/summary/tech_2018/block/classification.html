@@ -14,14 +14,6 @@
     <p>
       {% include 'summary/partial/image_with_caption.html' with list_items=content.landuse.partials.landuse.list %}
     </p>
-    <h5>{{ content.landuse_initial.title }}</h5>
-    {{ content.landuse_initial.partials.changed.label }} {{ content.landuse_initial.partials.changed.bool|yesno|capfirst }}
-    {% if content.landuse_initial.partials.changed.bool is not False %}
-      {{ content.landuse_initial.partials.mixed.text }}
-      <p>
-        {% include 'summary/partial/image_with_caption.html' with list_items=content.landuse_initial.partials.landuse.list %}
-      </p>
-    {% endif %}
     <h5>{{ content.water_supply.title }}</h5>
     {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_supply.partials.list %}
   </div>

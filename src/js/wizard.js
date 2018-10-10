@@ -112,7 +112,7 @@ function updateAutoMultiplication() {
             }
             sum *= parseFloat(el.val());
         }
-        if (sum) {
+        if (!isNaN(sum)) {
             $(this).val(sum.toFixed(2));
         } else {
             $(this).val('');
@@ -682,6 +682,34 @@ $(function () {
         // Form progress upon input
         .on('change', 'fieldset.row div.row.single-item', function() {
             watchFormProgress();
+        })
+
+        .on('keyup mouseup', '[data-number-input]', function() {
+            // For "number" input fields, add a hint if an invalid value is
+            // entered (which is possible depending on the browser).
+            var $t = $(this);
+
+            if (!this.checkValidity()) {
+                return toggleError($t, true);
+            }
+            var val = $t.val();
+            if (val === '') {
+                return toggleError($t, false);
+            }
+
+            var numberType = $t.data('number-input');
+            var hasError = false;
+            if (numberType === 'int') {
+                hasError = parseInt(val).toString() !== val;
+            } else if (numberType === 'float') {
+                // Be more tolerant with integer or ".0" values.
+                hasError = parseFloat(val).toString() !== val && parseInt(val).toString() === val;
+            }
+            return toggleError($t, hasError);
+
+            function toggleError(el, hasError) {
+                el.toggleClass('form-number-input-error', hasError);
+            }
         })
 
         .on('change', '[data-custom-to-options]', function() {

@@ -389,6 +389,10 @@ class BaseSettings(Configuration):
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
     WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')
+    WOCAT_CONTACT_PAGE = values.Value(
+        environ_prefix='',
+        default='https://www.wocat.net/about/wocat-secretariat'
+    )
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

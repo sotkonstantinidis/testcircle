@@ -89,7 +89,7 @@
           {% trans "A SLM practice can be either an SLM Technology (a physical practice that controls land degradation and/or enhances productivity, consisting of one or several measures) or an SLM Approach (ways and means used to implement one or several SLM Technologies, including technical and material support, stakeholder engagement, and other)." %}
         </p>
         <p class="is-rhythmed-2">
-          {% blocktrans %}For further information please contact the <a href="https://wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" class="link">WOCAT Secretariat</a>.{% endblocktrans %}
+          {% blocktrans with url=WOCAT_CONTACT_PAGE %}For further information please contact the <a href="{{ url }}" target="_blank" class="link">WOCAT Secretariat</a>.{% endblocktrans %}
         </p>
       </div>
     </li>

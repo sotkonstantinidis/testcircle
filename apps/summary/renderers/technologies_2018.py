@@ -138,7 +138,7 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
 
         # Current land use: Add new question about mixed land use
         classification_data['partials']['landuse'] = {
-            'title': _('Current land use'),
+            'title': _('Land use'),
             'partials': {
                 'landuse': {
                     'list': self.raw_data.get('classification_landuse_current'),
@@ -149,22 +149,39 @@ class Technology2018FullSummaryRenderer(Technology2015FullSummaryRenderer):
             },
         }
 
-        # Add new section about initial land use
-        classification_data['partials']['landuse_initial'] = {
-            'title': _('Initial land use'),
-            'partials': {
-                'changed': self.raw_data.get('initial_landuse_changed'),
-                'landuse': {
-                    'list': self.raw_data.get('classification_landuse_initial'),
-                },
-                'mixed': {
-                    'text': self.raw_data.get('landuse_initial_mixed'),
-                }
-            }
-        }
-
         # Remove questions about growing seasons (moved), initial land use
         # (moved) and livestock density (deleted).
         del classification_data['partials']['water_supply']['partials']['text']
 
         return classification_data
+
+    def natural_environment(self):
+        data = super().natural_environment()
+
+        # Add information about whether water quality refers to ground or
+        # surface water
+        water_quality_ref_data = self.raw_data.get(
+            'natural_env_waterquality_ref')
+        if water_quality_ref_data:
+            ref_data = water_quality_ref_data[0]
+            data['partials']['water_quality']['referring'] = f"{ref_data['key']} {', '.join(ref_data['values'])}"
+
+        return data
+
+    def human_environment(self):
+        data = super().human_environment()
+
+        # Overwrite template to show comments of 5.9 (access to services and
+        # infrastructure)
+        data['template_name'] = 'summary/tech_2018/block/human_environment.html'
+
+        # Add comments of 5.9
+        services_comments_data = self.raw_data.get('human_env_services_comments')
+        if services_comments_data:
+            comments = services_comments_data[0]
+            data['partials']['access']['comments'] = {
+                'title': comments['key'],
+                'text': comments['value'],
+            }
+
+        return data

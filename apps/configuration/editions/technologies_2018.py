@@ -20,12 +20,17 @@ class Technologies(Edition):
         return [
             Operation(
                 transform_configuration=self.add_option_user_resourceperson_type,
-                release_note=_('1.2: Added option "co-compiler" to "Key resource persons".')
+                release_note=_('1.2: A new option "co-compiler" was added to question "Key resource persons".')
             ),
             Operation(
                 transform_configuration=self.remove_person_address_questions,
                 transform_questionnaire=self.delete_person_address_data,
-                release_note=_('1.2: Removed "Address", "Phone" and "E-Mail" of "Key resource persons".')
+                release_note=_('1.2: The questions "Address", "Phone" and "E-Mail" of "Key resource persons" were removed.')
+            ),
+            Operation(
+                transform_configuration=self.move_date_documentation,
+                transform_questionnaire=self.move_date_documentation_data,
+                release_note=_('1.3: The question "Date of compilation in the field" was moved to 7.1.'),
             ),
             Operation(
                 transform_configuration=self.remove_subcategory_1_6,
@@ -34,127 +39,143 @@ class Technologies(Edition):
             Operation(
                 transform_configuration=self.do_nothing,
                 # This happened in self.merge_subcategory_3_5_into_2_5 ...
-                release_note=_('2.5: Integrated questions about "Spread of the Technology" (previously in 3.5).')
+                release_note=_('2.5: The questions about "Spread of the Technology" (previously in 3.5) were integrated into 2.5.')
             ),
             Operation(
                 transform_configuration=self.do_nothing,
                 # This happened in self.merge_subcategory_3_5_into_2_5 ...
-                release_note=_('2.5: Added new question "If precise area is known, please specify".')
+                release_note=_('2.5: A new question "If precise area is known, please specify" was added.')
             ),
             Operation(
                 transform_configuration=self.add_tech_location_protected,
-                release_note=_('2.5: Added new question "Is/are the technology site(s) located in a permanently protected area?"')
+                release_note=_('2.5: A new question "Is/are the technology site(s) located in a permanently protected area?" was added.')
+            ),
+            Operation(
+                transform_configuration=self.update_map_template,
+                release_note='',
             ),
             Operation(
                 transform_configuration=self.add_tech_lu_mixed,
                 transform_questionnaire=self.remove_tech_lu_mixed,
-                release_note=_('3.2: Added separate question about "Mixed land use".')
+                release_note=_('3.2: A separate question about "Mixed land use" was added.')
             ),
             Operation(
                 transform_configuration=self.add_questions_tech_lu_cropland,
-                release_note=_('3.2: Added additional questions about crops, intercropping and crop rotation to land use type "Cropland".'),
+                release_note=_('3.2: New questions about crops, intercropping and crop rotation for land use type "Cropland" were added.'),
             ),
             Operation(
                 transform_configuration=self.remove_tech_lu_cropland_specify,
                 transform_questionnaire=self.delete_tech_lu_cropland_specify_data,
-                release_note=_('3.2: Removed text question "Main crops" of land use type "Cropland".')
+                release_note=_('3.2: The question "Main crops" of land use type "Cropland" was removed.')
             ),
             Operation(
                 transform_configuration=self.add_questions_tech_lu_grazingland,
-                release_note=_('3.2: Added additional questions about grazing land (animal type, crop-livestock management practices, products and services).')
+                release_note=_('3.2: New questions about grazing land (animal type, crop-livestock management practices, products and services) were added.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_lu_grazingland_specify,
                 transform_questionnaire=self.delete_tech_lu_grazingland_specify,
-                release_note=_('3.2: Removed text question "Main animal species and products" of land use type "Grazing land".')
+                release_note=_('3.2: The question "Main animal species and products" of land use type "Grazing land" was removed.')
             ),
             Operation(
                 transform_configuration=self.add_tech_livestock_population,
-                release_note=_('3.2: Added additional question "Livestock population" for land use type "Grazing land"')
+                release_note=_('3.2: A new question "Livestock population" for land use type "Grazing land" was added.')
             ),
             Operation(
                 transform_configuration=self.rename_tech_lu_grazingland_pastoralism,
-                release_note=_('3.2: Renamed option "semi-nomadism" of land use type "Grazing land" to "semi-nomadic pastoralism".')
+                release_note=_('3.2: The option "semi-nomadism" of land use type "Grazing land" was renamed to "semi-nomadic pastoralism".')
             ),
             Operation(
                 transform_configuration=self.add_option_tech_lu_grazingland_transhumant,
-                release_note=_('3.2: Added option "transhumant pastoralism" to land use type "Grazing land".')
+                release_note=_('3.2: A new option "transhumant pastoralism" was added to land use type "Grazing land".')
             ),
             Operation(
                 transform_configuration=self.add_questions_tech_lu_woodlands,
-                release_note=_('3.2: Added optional questions about forest type and trees for land use type "Forest/ woodlands".')
+                release_note=_('3.2: New questions about forest type and trees for land use type "Forest/ woodlands" were added.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_lu_change,
                 transform_questionnaire=self.delete_tech_lu_change,
-                release_note=_('3.2: Removed text question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology". This information can now be entered in 3.3.')
+                release_note=_('3.2: The question "If land use has changed due to the implementation of the Technology, indicate land use before implementation of the Technology" was removed. This information can now be entered in 3.3.')
             ),
             Operation(
                 transform_configuration=self.add_subcategory_initial_landuse,
-                release_note=_('3.3 (new): Added new subcategory about initial land use')
+                release_note=_('3.3 (new): A new subcategory about initial land use was added.')
             ),
             Operation(
                 transform_configuration=self.move_tech_growing_seasons,
                 transform_questionnaire=self.delete_tech_growing_seasons,
-                release_note=_('3.4 (previously 3.3): Moved question "Number of growing seasons per year" to 3.2 - land use type "Cropland". Data was only migrated automatically, if land use type "Cropland" was selected.')
+                release_note=_('3.4 (previously 3.3): The question "Number of growing seasons per year" was moved to 3.2 - land use type "Cropland". Data was migrated automatically only if land use type "Cropland" was selected.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_livestock_density,
                 transform_questionnaire=self.delete_tech_livestock_density,
-                release_note=_('3.4 (previously 3.3): Removed question "Livestock density (if relevant). Use "Comments" of "3.2 Current land use type(s)".')
+                release_note=_('3.4 (previously 3.3): The question "Livestock density (if relevant)" was removed. Use "Comments" of "3.2 Current land use type(s)".')
             ),
             Operation(
                 transform_configuration=self.merge_subcategory_3_5_into_2_5,
                 transform_questionnaire=self.delete_tech_spread_tech_comments,
-                release_note=_('3.5: Previous questions of "3.5 Spread of the Technology" were integrated into "2.5 Country/ region/ locations where the Technology has been applied and which are covered by this assessment".')
+                release_note=_('3.5: The previous questions of "3.5 Spread of the Technology" were integrated into "2.5 Country/ region/ locations where the Technology has been applied and which are covered by this assessment".')
             ),
             Operation(
                 transform_configuration=self.do_nothing,
                 # This happened in self.merge_subcategory_3_5_into_2_5 ...
-                release_note=_('3.5: Question "Comments" about "Spread of the Technology" (previously 3.5) was removed, its content needs to be merged with "Comments" of 2.5.')
+                release_note=_('3.5: The question "Comments" about "Spread of the Technology" (previously 3.5) was removed; its content needs to be merged with "Comments" of 2.5.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_agronomic_tillage,
-                release_note=_('3.6: Added new question "Differentiate tillage systems" when selecting agronomic measure "A3: Soil surface treatment".')
+                release_note=_('3.6: A new question "Differentiate tillage systems" was added when selecting agronomic measure "A3: Soil surface treatment".')
             ),
             Operation(
                 transform_configuration=self.add_option_a6_residue_management,
-                release_note=_('3.6: Added new option "A6: Residue Management" to "agronomic measures".')
+                release_note=_('3.6: A new option "A6: Residue Management" was added to "agronomic measures".')
             ),
             Operation(
                 transform_configuration=self.rename_option_a6_others,
-                release_note=_('3.6 Renamed option "A6: Others" of "agronomic measures" to "A7: Others".')
+                release_note=_('3.6 The option "A6: Others" of "agronomic measures" was renamed to "A7: Others".')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_residue_management,
-                release_note=_('3.6: Added new question "Specify residue management" when selecting agronomic measure "A6: residue management".')
+                release_note=_('3.6: A new question "Specify residue management" was added when selecting agronomic measure "A6: residue management".')
+            ),
+            Operation(
+                transform_configuration=self.add_other_measures_textfield,
+                release_note=_('3.6: A new question to specify was added when selecting "other measures".')
+            ),
+            Operation(
+                transform_configuration=self.add_other_degradation_textfield,
+                release_note=_('3.7: A new question to specify was added when selecting other degradation type.')
             ),
             Operation(
                 transform_configuration=self.do_nothing,
-                release_note=_('4: Updated numbering (4.2 was removed).')
+                release_note=_('4: The numbering was updated (4.2 was removed).')
             ),
             Operation(
                 transform_configuration=self.move_technical_specification,
                 transform_questionnaire=self.delete_technical_specification,
-                release_note=_('4.1: Previous question "4.2 Technical specifications" is now integrated into "4.1 Technical drawing".')
+                release_note=_('4.1: The previous question "4.2 Technical specifications" was integrated into "4.1 Technical drawing".')
+            ),
+            Operation(
+                transform_configuration=self.input_exchange_rate_change_template,
+                release_note=''
             ),
             Operation(
                 transform_configuration=self.remove_tech_est_type,
                 transform_questionnaire=self.delete_tech_est_type,
-                release_note=_('4.3 (previously 4.4): Removed "Type of measure" from Establishment activities.')
+                release_note=_('4.3 (previously 4.4): The question "Type of measure" was removed from Establishment activities.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_input_est_total_costs_usd,
-                release_note=_('4.4 (previously 4.5): Added question "Total costs for establishment of the Technology in USD" (automatically calculated).')
+                release_note=_('4.4 (previously 4.5): A new question "Total costs for establishment of the Technology in USD" (automatically calculated) was added.')
             ),
             Operation(
                 transform_configuration=self.remove_tech_maint_type,
                 transform_questionnaire=self.delete_tech_maint_type,
-                release_note=_('4.5 (previously 4.6): Removed "Type of measure" from Maintenance activities.')
+                release_note=_('4.5 (previously 4.6): The question "Type of measure" was removed from Maintenance activities.')
             ),
             Operation(
                 transform_configuration=self.add_question_tech_input_maint_total_costs_usd,
-                release_note=_('4.6 (previously 4.7): Added question "Total costs for maintenance of the Technology in USD" (automatically calculated).')
+                release_note=_('4.6 (previously 4.7): A new question "Total costs for maintenance of the Technology in USD" (automatically calculated) was added.')
             ),
             Operation(
                 transform_configuration=self.move_tech_input_est_total_estimation,
@@ -181,8 +202,36 @@ class Technologies(Edition):
                 release_note=''
             ),
             Operation(
+                transform_configuration=self.reformat_agroclimatic_zone,
+                release_note=''
+            ),
+            Operation(
+                transform_configuration=self.add_question_water_quality_referring,
+                release_note=_('5.4: A new question about water quality (referring to ground or surface water) was added.')
+            ),
+            Operation(
+                transform_configuration=self.allow_more_options_age_land_users,
+                release_note=_('5.6: More options for question "Age of land users" can be selected.')
+            ),
+            Operation(
                 transform_configuration=self.add_question_tech_traditional_rights,
-                release_note='5.8: Added new question about traditional land use rights'
+                release_note=_('5.8: A new question about traditional land use rights was added.')
+            ),
+            Operation(
+                transform_configuration=self.add_comment_field_access,
+                release_note=_('5.9: A new question for comments regarding "Access to services and infrastructure" was added.')
+            ),
+            Operation(
+                transform_configuration=self.add_comment_field_onfield_impacts,
+                release_note=_('6.1: A new question for comments about on-site impacts was added.')
+            ),
+            Operation(
+                transform_configuration=self.add_general_comments_field,
+                release_note=_('7.4 (new): A new question for general remarks about the questionnaire and feedback was added.')
+            ),
+            Operation(
+                transform_configuration=self.various_translation_updates,
+                release_note=''
             ),
         ]
 
@@ -337,6 +386,9 @@ class Technologies(Edition):
             translation={
                 'label': {
                     'en': 'If the Technology is evenly spread over an area, specify area covered (in km2)'
+                },
+                'helptext': {
+                    'en': '1 ha = 10’000m²; 1 km² = 100 ha'
                 }
             },
             question_type='float',
@@ -375,6 +427,172 @@ class Technologies(Edition):
             path=new_subcat_path, updated=new_subcat_data, **data)
 
         return data
+
+    def allow_more_options_age_land_users(self, **data) -> dict:
+        q_path = (
+            'section_specifications', 'tech__5', 'tech__5__6', 'tech_qg_71',
+            'tech_age_landusers')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options'] = {
+            'field_options': {
+                'data-cb-max-choices': 4
+            }
+        }
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
+        return data
+
+    def add_question_water_quality_referring(self, **data) -> dict:
+        q_keyword = 'tech_waterquality_referring'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Water quality refers to:'
+                }
+            },
+            question_type='radio',
+            values=[
+                self.create_new_value(
+                    keyword='tech_waterquality_ref_ground',
+                    translation={
+                        'label': {
+                            'en': 'ground water'
+                        }
+                    },
+                    order_value=1
+                ),
+                self.create_new_value(
+                    keyword='tech_waterquality_ref_surface',
+                    translation={
+                        'label': {
+                            'en': 'surface water'
+                        }
+                    },
+                    order_value=2
+                ),
+                self.create_new_value(
+                    keyword='tech_waterquality_ref_both',
+                    translation={
+                        'label': {
+                            'en': 'both ground and surface water'
+                        }
+                    },
+                    order_value=3
+                )
+            ],
+            configuration={
+                "summary": {
+                    "types": ["full"],
+                    "default": {
+                        "field_name": "natural_env_waterquality_ref",
+                    }
+                }
+            }
+        )
+
+        qg_path = (
+            'section_specifications', 'tech__5', 'tech__5__4', 'tech_qg_60')
+        qg_data = self.find_in_data(path=qg_path, **data)
+
+        qg_data['questions'] += [{
+            'keyword': q_keyword,
+            'view_options': {
+                'template': 'inline_6'
+            }
+        }]
+        return self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+    def add_comment_field_onfield_impacts(self, **data) -> dict:
+
+        subcat_path = ('section_specifications', 'tech__6', 'tech__6__1')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+
+        subcat_keyword = 'tech__6__1__comments'
+        qg_keyword = 'tech_qg_252'
+        q_keyword = 'tech_onsite_impacts_comments'
+        self.create_new_category(
+            keyword=subcat_keyword,
+            translation={
+                'label': {
+                    'en': 'Comments'
+                }
+            }
+        )
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'Specify assessment of on-site impacts (measurements)'
+                }
+            },
+            question_type='text'
+        )
+
+        subcat_data['subcategories'] += [{
+            'keyword': subcat_keyword,
+            'form_options': {
+                'template': 'empty'
+            },
+            'view_options': {
+                'template': 'empty'
+            },
+            'questiongroups': [
+                {
+                    'keyword': qg_keyword,
+                    'questions': [
+                        {
+                            'keyword': q_keyword,
+                            'form_options': {
+                                'label_class': 'top-margin'
+                            },
+                        }
+                    ]
+                }
+            ]
+        }]
+
+        return self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+    def add_comment_field_access(self, **data) -> dict:
+
+        qg_keyword = 'tech_qg_251'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        k_keyword = 'tech_access_comments'
+        self.create_new_question(
+            keyword=k_keyword,
+            translation=5004,
+            question_type='text',
+            configuration={
+                "summary": {
+                    "types": ["full"],
+                    "default": {
+                        "field_name": "human_env_services_comments",
+                    }
+                }
+            }
+        )
+        subcat_path = ('section_specifications', 'tech__5', 'tech__5__9')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['questiongroups'] += [
+            {
+                'keyword': qg_keyword,
+                'questions': [
+                    {
+                        'keyword': k_keyword
+                    }
+                ]
+            }
+        ]
+        return self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
 
     def add_question_tech_traditional_rights(self, **data) -> dict:
 
@@ -426,11 +644,21 @@ class Technologies(Edition):
         qg_path = (
             'section_specifications', 'tech__4', 'tech__4__1', 'tech_qg_185')
         qg_data = self.find_in_data(path=qg_path, **data)
-        qg_data['questions'].insert(1, {'keyword': 'tech_specifications'})
-        # Adjust template
+
+        # Show label as placeholder of text area
+        tech_specs = {
+            'keyword': 'tech_specifications',
+            'form_options': {
+                'label_position': 'placeholder',
+            }
+        }
+
+        qg_data['questions'].insert(1, tech_specs)
+        # Adjust template and update max_num
         qg_data['form_options'].update({
             'template': 'columns_custom',
-            'columns_custom': [['12'], ['12'], ['6', '6']]
+            'columns_custom': [['12'], ['12'], ['6', '6']],
+            'max_num': 10
         })
         data = self.update_config_data(path=qg_path, updated=qg_data, **data)
 
@@ -477,7 +705,7 @@ class Technologies(Edition):
                     "en": "Costs and inputs needed for establishment"
                 },
                 "helptext": {
-                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2 and to the activities listed in 4.3. Use the currency indicated in 4.2.</p>"
+                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2 and to the activities listed in 4.3. Use the currency indicated in 4.2.</p><p>Figures reflect the situation at the time of recording the data.</p>"
                 }
             }
         )
@@ -488,7 +716,7 @@ class Technologies(Edition):
                     "en": "Costs and inputs needed for maintenance/ recurrent activities (per year)"
                 },
                 "helptext": {
-                    "en": "<strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2, and to the activities listed in 4.5. Use the currency indicated in 4.2."
+                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2, and to the activities listed in 4.5. Use the currency indicated in 4.2.</p><p>Figures reflect the situation at the time of recording the data.</p>"
                 }
             }
         )
@@ -499,6 +727,25 @@ class Technologies(Edition):
         if 'tech_qg_161' in data:
             del data['tech_qg_161']
         return data
+
+    def input_exchange_rate_change_template(self, **data) -> dict:
+        q_path = (
+            'section_specifications', 'tech__4', 'tech__4__3', 'tech_qg_164',
+            'tech_input_exchange_rate')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options']['template'] = 'currency_exchange_rate'
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
+        return data
+
+    def update_map_template(self, **data) -> dict:
+        # Update the template used to render the map (do not show the label).
+        q_path = ('section_specifications', 'tech__2', 'tech__2__5',
+                  'qg_location_map', 'location_map')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options'] = {
+            'template': 'no_label'
+        }
+        return self.update_config_data(path=q_path, updated=q_data, **data)
 
     def add_tech_location_protected(self, **data) -> dict:
         qg_keyword = 'tech_qg_234'
@@ -872,28 +1119,28 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword=type_natural_keyword,
-            label='(Semi-)natural forests/ woodlands: Search type of forest',
+            label='(Semi-)natural forests/ woodlands: Specify type of forest',
             label_view='Type of (semi-)natural forest',
             values_list=[
-                ('natural_forest_1715', 'Boreal coniferous forest natural vegetation'),
-                ('natural_forest_1716', 'Boreal mountain systems natural vegetation'),
-                ('natural_forest_1717', 'Boreal tundra woodland natural vegetation'),
-                ('natural_forest_1750', 'Subtropical desert natural vegetation'),
-                ('natural_forest_1751', 'Subtropical dry forest natural vegetation'),
-                ('natural_forest_1752', 'Subtropical humid forest natural vegetation'),
-                ('natural_forest_1753', 'Subtropical mountain systems natural vegetation'),
-                ('natural_forest_1754', 'Subtropical steppe natural vegetation'),
-                ('natural_forest_1758', 'Temperate continental forest natural vegetation'),
-                ('natural_forest_1759', 'Temperate desert natural vegetation'),
-                ('natural_forest_1760', 'Temperate mountain systems natural vegetation'),
-                ('natural_forest_1761', 'Temperate oceanic forest natural vegetation'),
-                ('natural_forest_1762', 'Temperate steppe natural vegetation'),
-                ('natural_forest_1765', 'Tropical desert natural vegetation'),
-                ('natural_forest_1766', 'Tropical dry forest natural vegetation'),
-                ('natural_forest_1767', 'Tropical moist deciduous forest natural vegetation'),
-                ('natural_forest_1768', 'Tropical mountain systems natural vegetation'),
-                ('natural_forest_1769', 'Tropical rain forest natural vegetation'),
-                ('natural_forest_1770', 'Tropical shrubland natural vegetation'),
+                ('natural_forest_1715', 'boreal coniferous forest natural vegetation'),
+                ('natural_forest_1716', 'boreal mountain systems natural vegetation'),
+                ('natural_forest_1717', 'boreal tundra woodland natural vegetation'),
+                ('natural_forest_1750', 'subtropical desert natural vegetation'),
+                ('natural_forest_1751', 'subtropical dry forest natural vegetation'),
+                ('natural_forest_1752', 'subtropical humid forest natural vegetation'),
+                ('natural_forest_1753', 'subtropical mountain systems natural vegetation'),
+                ('natural_forest_1754', 'subtropical steppe natural vegetation'),
+                ('natural_forest_1758', 'temperate continental forest natural vegetation'),
+                ('natural_forest_1759', 'temperate desert natural vegetation'),
+                ('natural_forest_1760', 'temperate mountain systems natural vegetation'),
+                ('natural_forest_1761', 'temperate oceanic forest natural vegetation'),
+                ('natural_forest_1762', 'temperate steppe natural vegetation'),
+                ('natural_forest_1765', 'tropical desert natural vegetation'),
+                ('natural_forest_1766', 'tropical dry forest natural vegetation'),
+                ('natural_forest_1767', 'tropical moist deciduous forest natural vegetation'),
+                ('natural_forest_1768', 'tropical mountain systems natural vegetation'),
+                ('natural_forest_1769', 'tropical rain forest natural vegetation'),
+                ('natural_forest_1770', 'tropical shrubland natural vegetation'),
             ],
             other_label='If type of forest is not listed above, specify other type',
             conditional_value=None,
@@ -906,60 +1153,61 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword=type_plantation_keyword,
-            label='Tree plantation, afforestation: Search type of forest',
+            label='Tree plantation, afforestation: Specify type of forest',
             label_view='Type of tree plantation, afforestation',
             values_list=[
-                ('plantation_forest_1773', 'Boreal coniferous forest plantation'),
-                ('plantation_forest_1774', 'Boreal mountain systems plantation'),
-                ('plantation_forest_1775', 'Boreal tundra woodland plantation'),
-                ('plantation_forest_1776', 'Subtropical dry forest plantation'),
-                ('plantation_forest_1777', 'Subtropical dry forest plantation - Eucalyptus spp.'),
-                ('plantation_forest_1779', 'Subtropical dry forest plantation - broadleaf'),
-                ('plantation_forest_1780', 'Subtropical dry forest plantation - Pinus spp.'),
-                ('plantation_forest_1781', 'Subtropical dry forest plantation - Tectona grandis'),
-                ('plantation_forest_1782', 'Subtropical humid forest plantation - broadleaf'),
-                ('plantation_forest_1783', 'Subtropical humid forest plantation - Eucalyptus spp.'),
-                ('plantation_forest_1784', 'Subtropical humid forest plantation'),
-                ('plantation_forest_1786', 'Subtropical humid forest plantation - Pinus spp.'),
-                ('plantation_forest_1787', 'Subtropical humid forest plantation - Tectona grandis'),
-                ('plantation_forest_1788', 'Subtropical mountain systems plantation - broadleaf'),
-                ('plantation_forest_1789', 'Subtropical mountain systems plantation - Eucalyptus spp.'),
-                ('plantation_forest_1790', 'Subtropical mountain systems plantation'),
-                ('plantation_forest_1792', 'Subtropical mountain systems plantation - Pinus spp.'),
-                ('plantation_forest_1793', 'Subtropical mountain systems plantation - Tectona grandis'),
-                ('plantation_forest_1794', 'Subtropical steppe plantation'),
-                ('plantation_forest_1795', 'Subtropical steppe plantation - broadleaf'),
-                ('plantation_forest_1796', 'Subtropical steppe plantation - coniferous'),
-                ('plantation_forest_1797', 'Subtropical steppe plantation - Eucalyptus spp.'),
-                ('plantation_forest_1799', 'Subtropical steppe plantation - Pinus spp.'),
-                ('plantation_forest_1800', 'Subtropical steppe plantation - Tectona grandis'),
-                ('plantation_forest_1801', 'Temperate continental forest plantation'),
-                ('plantation_forest_1802', 'Temperate mountain systems plantation'),
-                ('plantation_forest_1803', 'Temperate oceanic forest plantation'),
-                ('plantation_forest_1804', 'Tropical dry forest plantation - broadleaf'),
-                ('plantation_forest_1805', 'Tropical dry forest plantation - Eucalyptus spp.'),
-                ('plantation_forest_1806', 'Tropical dry forest plantation'),
-                ('plantation_forest_1808', 'Tropical dry forest plantation - Pinus spp.'),
-                ('plantation_forest_1809', 'Tropical dry forest plantation - Tectona grandis'),
-                ('plantation_forest_1810', 'Tropical moist deciduous forest plantation - broadleaf'),
-                ('plantation_forest_1811', 'Tropical moist deciduous forest plantation - Eucalyptus spp.'),
-                ('plantation_forest_1812', 'Tropical moist deciduous forest plantation'),
-                ('plantation_forest_1814', 'Tropical moist deciduous forest plantation - Pinus spp.'),
-                ('plantation_forest_1815', 'Tropical moist deciduous forest plantation - Tectona grandis'),
-                ('plantation_forest_1816', 'Tropical mountain systems plantation - broadleaf'),
-                ('plantation_forest_1817', 'Tropical mountain systems plantation - Eucalyptus spp.'),
-                ('plantation_forest_1818', 'Tropical mountain systems plantation'),
-                ('plantation_forest_1820', 'Tropical mountain systems plantation - Pinus spp.'),
-                ('plantation_forest_1821', 'Tropical mountain systems plantation - Tectona grandis'),
-                ('plantation_forest_1822', 'Tropical rain forest plantation'),
-                ('plantation_forest_1823', 'Tropical rain forest plantation - broadleaf'),
-                ('plantation_forest_1824', 'Tropical rain forest plantation - Eucalyptus spp.'),
-                ('plantation_forest_1827', 'Tropical rain forest plantation - Pinus spp.'),
-                ('plantation_forest_1828', 'Tropical rain forest plantation - Tectona grandis'),
-                ('plantation_forest_1829', 'Tropical shrubland plantation'),
-                ('plantation_forest_1830', 'Tropical shrubland plantation - broadleaf'),
-                ('plantation_forest_1831', 'Tropical shrubland plantation - Eucalyptus spp.'),
-                ('plantation_forest_1833', 'Tropical shrubland plantation - Pinus spp.'),
+                ('plantation_forest_1773', 'boreal coniferous forest plantation'),
+                ('plantation_forest_1774', 'boreal mountain systems plantation'),
+                ('plantation_forest_1775', 'boreal tundra woodland plantation'),
+                ('plantation_forest_1776', 'subtropical dry forest plantation'),
+                ('plantation_forest_1777', 'subtropical dry forest plantation - Eucalyptus spp.'),
+                ('plantation_forest_1779', 'subtropical dry forest plantation - Broadleaf'),
+                ('plantation_forest_1780', 'subtropical dry forest plantation - Pinus spp.'),
+                ('plantation_forest_1781', 'subtropical dry forest plantation - Tectona grandis'),
+                ('plantation_forest_1782', 'subtropical humid forest plantation - broadleaf'),
+                ('plantation_forest_1783', 'subtropical humid forest plantation - Eucalyptus spp.'),
+                ('plantation_forest_1784', 'subtropical humid forest plantation'),
+                ('plantation_forest_1786', 'subtropical humid forest plantation - Pinus spp.'),
+                ('plantation_forest_1787', 'subtropical humid forest plantation - Tectona grandis'),
+                ('plantation_forest_1788', 'subtropical mountain systems plantation - broadleaf'),
+                ('plantation_forest_1789', 'subtropical mountain systems plantation - Eucalyptus spp.'),
+                ('plantation_forest_1790', 'subtropical mountain systems plantation'),
+                ('plantation_forest_1792', 'subtropical mountain systems plantation - Pinus spp.'),
+                ('plantation_forest_1793', 'subtropical mountain systems plantation - Tectona grandis'),
+                ('plantation_forest_1794', 'subtropical steppe plantation'),
+                ('plantation_forest_1795', 'subtropical steppe plantation - broadleaf'),
+                ('plantation_forest_1796', 'subtropical steppe plantation - coniferous'),
+                ('plantation_forest_1797', 'subtropical steppe plantation - Eucalyptus spp.'),
+                ('plantation_forest_1799', 'subtropical steppe plantation - Pinus spp.'),
+                ('plantation_forest_1800', 'subtropical steppe plantation - Tectona grandis'),
+                ('plantation_forest_1801', 'temperate continental forest plantation'),
+                ('plantation_forest_1802', 'temperate mountain systems plantation'),
+                ('plantation_forest_1803', 'temperate oceanic forest plantation'),
+                ('plantation_forest_steppe', 'temperate steppe plantation'),
+                ('plantation_forest_1804', 'tropical dry forest plantation - broadleaf'),
+                ('plantation_forest_1805', 'tropical dry forest plantation - Eucalyptus spp.'),
+                ('plantation_forest_1806', 'tropical dry forest plantation'),
+                ('plantation_forest_1808', 'tropical dry forest plantation - Pinus spp.'),
+                ('plantation_forest_1809', 'tropical dry forest plantation - Tectona grandis'),
+                ('plantation_forest_1810', 'tropical moist deciduous forest plantation - broadleaf'),
+                ('plantation_forest_1811', 'tropical moist deciduous forest plantation - Eucalyptus spp.'),
+                ('plantation_forest_1812', 'tropical moist deciduous forest plantation'),
+                ('plantation_forest_1814', 'tropical moist deciduous forest plantation - Pinus spp.'),
+                ('plantation_forest_1815', 'tropical moist deciduous forest plantation - Tectona grandis'),
+                ('plantation_forest_1816', 'tropical mountain systems plantation - broadleaf'),
+                ('plantation_forest_1817', 'tropical mountain systems plantation - Eucalyptus spp.'),
+                ('plantation_forest_1818', 'tropical mountain systems plantation'),
+                ('plantation_forest_1820', 'tropical mountain systems plantation - Pinus spp.'),
+                ('plantation_forest_1821', 'tropical mountain systems plantation - Tectona grandis'),
+                ('plantation_forest_1822', 'tropical rain forest plantation'),
+                ('plantation_forest_1823', 'tropical rain forest plantation - broadleaf'),
+                ('plantation_forest_1824', 'tropical rain forest plantation - Eucalyptus spp.'),
+                ('plantation_forest_1827', 'tropical rain forest plantation - Pinus spp.'),
+                ('plantation_forest_1828', 'tropical rain forest plantation - Tectona grandis'),
+                ('plantation_forest_1829', 'tropical shrubland plantation'),
+                ('plantation_forest_1830', 'tropical shrubland plantation - broadleaf'),
+                ('plantation_forest_1831', 'tropical shrubland plantation - Eucalyptus spp.'),
+                ('plantation_forest_1833', 'tropical shrubland plantation - Pinus spp.'),
             ],
             other_label='If type of forest is not listed above, specify other type',
             conditional_value=None,
@@ -972,7 +1220,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword=type_tree_keyword,
-            label='Search type of tree',
+            label='Specify type of tree',
             label_view='Type of tree',
             values_list=[
                 ('tree_type_1700', 'Acacia albida'),
@@ -1017,6 +1265,7 @@ class Technologies(Edition):
                 ('tree_type_1742', 'Pinus oocarpa'),
                 ('tree_type_1743', 'Pinus patula'),
                 ('tree_type_1744', 'Pinus radiata'),
+                ('tree_type_1745', 'Pinus species'),
                 ('tree_type_1747', 'Populus species'),
                 ('tree_type_1748', 'Sclerocarya birrea'),
                 ('tree_type_1749', 'Picea species (spruce)'),
@@ -1104,23 +1353,25 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_grazingland_animals',
-            label='Search animal type',
+            label='Specify animal type',
             label_view='Animal type',
             values_list=[
-                ('animals_50', 'Dairy Cattle'),
-                ('animals_51', 'Non-Dairy Beef Cattle'),
-                ('animals_52', 'Non-Dairy Working Cattle'),
-                ('animals_53', 'Buffalo'),
-                ('animals_54', 'Swine'),
-                ('animals_55', 'Goats'),
-                ('animals_56', 'Camels'),
-                ('animals_57', 'Horses'),
-                ('animals_58', 'Mules and Asses'),
-                ('animals_59', 'Sheep'),
-                ('animals_60', 'Poultry'),
-                ('animals_61', 'Rabbits and similar mammals'),
-                ('animals_wildlife_large', 'Wildlife – large herbivours'),
-                ('animals_wildlife_small', 'Wildlife – small herbivours'),
+                ('animals_50', 'cattle - dairy'),
+                ('animals_51', 'cattle - non-dairy beef'),
+                ('animals_52', 'cattle - non-dairy working'),
+                ('animals_53', 'buffalo'),
+                ('animals_54', 'swine'),
+                ('animals_55', 'goats'),
+                ('animals_56', 'camels'),
+                ('animals_57', 'horses'),
+                ('animals_58', 'mules and asses'),
+                ('animals_59', 'sheep'),
+                ('animals_60', 'poultry'),
+                ('animals_61', 'rabbits and similar mammals'),
+                ('animals_wildlife_large', 'wildlife - large herbivours'),
+                ('animals_wildlife_small', 'wildlife - small herbivours'),
+                ('animals_livestock_other_large', 'livestock - other large'),
+                ('animals_livestock_other_small', 'livestock - other small'),
             ],
             other_label='If animal type is not listed above, specify other animal',
             conditional_value=None,
@@ -1134,10 +1385,18 @@ class Technologies(Edition):
             keyword=crop_livestock_keyword,
             translation={
                 'label': {
-                    'en': 'Is crop-livestock management practiced?'
+                    'en': 'Is integrated crop-livestock management practiced?'
+                },
+                'helptext': {
+                    'en': '<strong>Integrated crop-livestock management</strong>: crops and livestock interact to create synergies, making optimal use of resources. The waste products of one component serve as a resource for the other (manure, fodder).'
                 }
             },
-            question_type='bool'
+            question_type='bool',
+            configuration={
+                'form_options': {
+                    'helptext_position': 'tooltip'
+                }
+            }
         )
         self.create_new_question(
             keyword=crop_livestock_specify_keyword,
@@ -1171,15 +1430,15 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_grazingland_products',
-            label='Search products and services',
+            label='Specify products and services for grazing land',
             label_view='Products and services',
             values_list=[
                 ('prod_service_meat', 'meat'),
                 ('prod_service_milk', 'milk'),
                 ('prod_service_eggs', 'eggs'),
                 ('prod_service_whool', 'whool'),
-                ('prod_service_skins', 'Skins / hides'),
-                ('prod_service_transport', 'Transport/  draught'),
+                ('prod_service_skins', 'skins/ hides'),
+                ('prod_service_transport', 'transport/  draught'),
             ],
             other_label='If product or service is not listed above, specify other product or service',
             conditional_value=None,
@@ -1320,9 +1579,47 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_cropland_annual_cropping_crops',
-            label='Annual cropping - Select crops',
+            label='Annual cropping - Specify crops',
             values_list=[
-                ('annual_crops_453', 'Fibre crops - other'),
+                ('annual_crops_422', 'cereals - barley'),
+                ('annual_crops_429', 'cereals - maize'),
+                ('annual_crops_430', 'cereals - millet'),
+                ('annual_crops_431', 'cereals - oats'),
+                ('annual_crops_452', 'cereals - other'),
+                ('annual_crops_468', 'cereals - quinoa or amaranth'),
+                ('annual_crops_436', 'cereals - rice (wetland)'),
+                ('annual_crops_437', 'cereals - rice (upland)'),
+                ('annual_crops_438', 'cereals - rye'),
+                ('annual_crops_439', 'cereals - sorghum'),
+                ('annual_crops_444', 'cereals - wheat (winter)'),
+                ('annual_crops_445', 'cereals - wheat (spring)'),
+                ('annual_crops_446', 'fibre crops - cotton'),
+                ('annual_crops_453', 'fibre crops - flax, hemp, other'),
+                ('annual_crops_flower', 'flower crops'),
+                ('annual_crops_421', 'fodder crops - alfalfa'),
+                ('annual_crops_425', 'fodder crops - clover'),
+                ('annual_crops_455', 'fodder crops - grasses'),
+                ('annual_crops_fodder_other', 'fodder crops - other'),
+                ('annual_crops_423', 'legumes and pulses - beans'),
+                ('annual_crops_457', 'legumes and pulses - other'),
+                ('annual_crops_434', 'legumes and pulses - peas'),
+                ('annual_crops_440', 'legumes and pulses - soya'),
+                ('annual_crops_medicinal', 'medicinal/ aromatic/ pesticidal plants and herbs'),
+                ('annual_crops_451', 'oilseed crops - castor'),
+                ('annual_crops_456', 'oilseed crops - groundnuts'),
+                ('annual_crops_464', 'oilseed crops -  sunflower, rapeseed, other'),
+                ('annual_crops_435', 'root/tuber crops - potatoes'),
+                ('annual_crops_424', 'root/tuber crops - cassava'),
+                ('annual_crops_443', 'root/tuber crops - sugar beet'),
+                ('annual_crops_467', 'root/tuber crops -  sweet potatoes, yams, taro/cocoyam, other'),
+                ('annual_crops_470', 'seed crops - sesame, poppy, mustard, other'),
+                ('annual_crops_473', 'tobacco'),
+                ('annual_crops_428', 'vegetables - jerusalem artichoke'),
+                ('annual_crops_vegetables_leafy', 'vegetables - leafy vegetables (salads, cabbage, spinach, other)'),
+                ('annual_crops_462', 'vegetables - melon, pumpkin, squash or gourd'),
+                ('annual_crops_463', 'vegetables - mushrooms and truffles'),
+                ('annual_crops_vegetables_other', 'vegetables - other'),
+                ('annual_crops_469', 'vegetables - root vegetables (carrots, onions, beet, other)'),
             ],
             other_label='If crop type is not listed above, specify other crop',
             conditional_value='lu_cropland_ca',
@@ -1380,16 +1677,16 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_cropland_perennial_cropping_crops',
-            label='Perennial (non-woody) cropping - Select crops',
+            label='Perennial (non-woody) cropping - Specify crops',
             values_list=[
                 ('perennial_crops_502', 'banana/plantain/abaca'),
                 ('perennial_crops_520', 'agave / sisal'),
                 ('perennial_crops_521', 'areca'),
                 ('perennial_crops_522', 'berries'),
-                ('perennial_crops_sugar_cane', 'Sugar cane'),
-                ('perennial_crops_pineapple', 'Pineapple'),
-                ('perennial_crops_flower_crops', 'Perennial flower crops'),
-                ('perennial_crops_medicinal', 'Perennial  medicinal, aromatic, pesticidal'),
+                ('perennial_crops_sugar_cane', 'sugar cane'),
+                ('perennial_crops_pineapple', 'pineapple'),
+                ('perennial_crops_flower_crops', 'flower crops - perennial'),
+                ('perennial_crops_medicinal', 'medicinal, aromatic, pesticidal plants - perennial'),
             ],
             other_label='If crop type is not listed above, specify other crop',
             conditional_value='lu_cropland_cp',
@@ -1400,7 +1697,7 @@ class Technologies(Edition):
         data = self._create_land_use_subquestions(
             qg_path=qg_path,
             keyword='tech_lu_cropland_tree_shrub_cropping_crops',
-            label='Tree and shrub cropping - Select crops',
+            label='Tree and shrub cropping - Specify crops',
             values_list=[
                 ('tree_shrub_501', 'avocado'),
                 ('tree_shrub_503', 'citrus'),
@@ -1431,8 +1728,7 @@ class Technologies(Edition):
                 ('tree_shrub_535', 'olive'),
                 ('tree_shrub_537', 'tallowtree'),
                 ('tree_shrub_540', 'tung'),
-                ('tree_shrub_fodder', 'Fodder trees'),
-
+                ('tree_shrub_fodder', 'fodder trees (Calliandra, Leucaena leucocephala, Prosopis, etc.)'),
             ],
             other_label='If crop type is not listed above, specify other crop',
             conditional_value='lu_cropland_ct',
@@ -1693,11 +1989,11 @@ class Technologies(Edition):
             # summary information.
             if qg['questions'][0]['keyword'] == 'tech_landuse_2018':
                 qg['questions'][0]['summary'] = {
-                    'types': ['full'], 
+                    'types': ['full'],
                     'default': {
                         'get_value': {
                             'name': 'get_landuse_2018_values'
-                        }, 
+                        },
                         'field_name': 'classification_landuse_initial'
                     }
                 }
@@ -1936,6 +2232,78 @@ class Technologies(Edition):
         )
         return data
 
+    def add_other_degradation_textfield(self, **data) -> dict:
+        q_keyword = 'tech_degradation_other'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation=1018,
+            question_type='text'
+        )
+
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__7')
+
+        # Questiongroup exists already, but with stub question. Replace this
+        # question and add the condition.
+        qg_path = subcat_path + ('tech_qg_231', )
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [{
+            'keyword': q_keyword
+        }]
+        qg_data['form_options'] = {
+            'questiongroup_condition': 'tech_qg_231'
+        }
+        qg_data['view_options'] = {
+            'conditional_question': 'degradation_other'
+        }
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Add conditions
+        condition = "=='degradation_other'|tech_qg_231"
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['form_options']['questiongroup_conditions'] += [condition]
+        subcat_data['questiongroups'][0]['questions'][0]['form_options']['questiongroup_conditions'] += [
+            condition
+        ]
+        data = self.update_config_data(path=subcat_path, updated=subcat_data, **data)
+
+        return data
+
+    def add_other_measures_textfield(self, **data) -> dict:
+        q_keyword = 'tech_measures_other'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation=1018,
+            question_type='text'
+        )
+
+        subcat_path = ('section_specifications', 'tech__3', 'tech__3__6')
+
+        # Questiongroup exists already, but with stub question. Replace this
+        # question and add the condition.
+        qg_path = subcat_path + ('tech_qg_25', )
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [{
+            'keyword': q_keyword
+        }]
+        qg_data['form_options'] = {
+            'questiongroup_condition': 'tech_qg_25'
+        }
+        qg_data['view_options'] = {
+            'conditional_question': 'tech_measures_indirect'
+        }
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Add conditions
+        condition = "=='tech_measures_indirect'|tech_qg_25"
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['form_options']['questiongroup_conditions'] += [condition]
+        subcat_data['questiongroups'][0]['questions'][0]['form_options']['questiongroup_conditions'] += [
+            condition
+        ]
+        data = self.update_config_data(path=subcat_path, updated=subcat_data, **data)
+
+        return data
+
     def add_question_tech_residue_management(self, **data) -> dict:
         # Create key and values
         q_keyword = 'tech_residue_management'
@@ -2056,6 +2424,63 @@ class Technologies(Edition):
             data = self.update_data('tech_qg_184', question, None, **data)
         return data
 
+    def move_date_documentation_data(self, **data) -> dict:
+
+        moved_date = None
+        if 'qg_accept_conditions' in data:
+            # Can only be 1 entry
+            moved_date = data['qg_accept_conditions'][0].get('date_documentation')
+            del data['qg_accept_conditions'][0]['date_documentation']
+
+        if moved_date:
+            data['tech_qg_250'] = [{'date_documentation': moved_date}]
+
+        return data
+
+    def move_date_documentation(self, **data) -> dict:
+
+        # Remove from 1.3
+        qg_path = (
+            'section_general_information', 'tech__1', 'tech__1__3',
+            'qg_accept_conditions')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['questions'] = [
+            q for q in qg_data['questions']
+            if q['keyword'] != 'date_documentation'
+        ]
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Add to 7.1 (create a new questiongroup)
+        qg_keyword = 'tech_qg_250'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        # Also create a new question (comments)
+        comments_key = 'tech_date_comments'
+        self.create_new_question(
+            keyword=comments_key,
+            translation=5004,
+            question_type='text'
+        )
+        subcat_path = ('section_specifications', 'tech__7', 'tech__7__1')
+        subcat_data = self.find_in_data(path=subcat_path, **data)
+        subcat_data['questiongroups'] = subcat_data['questiongroups'] + [{
+            'keyword': qg_keyword,
+            'questions': [
+                {
+                    'keyword': 'date_documentation'
+                },
+                {
+                    'keyword': comments_key
+                }
+            ]
+        }]
+        data = self.update_config_data(
+            path=subcat_path, updated=subcat_data, **data)
+
+        return data
+
     def add_option_user_resourceperson_type(self, **data) -> dict:
         self.add_new_value(
             question_keyword='user_resourceperson_type',
@@ -2169,11 +2594,28 @@ class Technologies(Edition):
                 translation={
                     'label': {
                         'en': 'Transhumant pastoralism'
+                    },
+                    'helptext': {
+                        'en': '<strong>Transhumant pastoralism/ transhumance</strong>: regular movements of herds between fixed areas in order to benefit from the seasonal variability of climates and pastures.'
                     }
                 },
                 order_value=4
             ),
         )
+
+        # Also rename question about extensive grazing
+        self.update_translation(
+            update_pk=1238,
+            **{
+                "label": {
+                    "en": "Extensive grazing"
+                },
+                "helptext": {
+                    "en": "<strong>Ge: Extensive grazing</strong>: grazing on natural or semi-natural grasslands, grasslands with trees/ shrubs (savannah vegetation) or open woodlands for livestock and wildlife."
+                }
+            }
+        )
+
         return data
 
     def rename_tech_lu_grazingland_pastoralism(self, **data) -> dict:
@@ -2184,7 +2626,7 @@ class Technologies(Edition):
                     'en': 'Semi-nomadic pastoralism'
                 },
                 'helptext': {
-                    'en': '<strong>Semi-nomadic pastoralism</strong>: animal owners have a permanent place of residence where supplementary cultivation is practiced. Herds are moved to distant grazing grounds.'
+                    'en': '<strong>Semi-nomadic pastoralism</strong>: animal owners have a permanent place of residence or without cultivation practiced. Herds are moved to distant grazing grounds.'
                 }
             }
         )
@@ -2199,6 +2641,507 @@ class Technologies(Edition):
                 }
             }
         )
+        return data
+
+    def reformat_agroclimatic_zone(self, **data) -> dict:
+        qg_path = (
+            'section_specifications', 'tech__5', 'tech__5__1', 'tech_qg_55')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['form_options']['template'] = 'default'
+        qg_data['questions'][1]['form_options']['label_columns_class'] = 'top-margin'
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        # Also update translations
+        self.update_translation(
+            update_pk=2219,
+            **{
+                "label": {
+                    "en": "Agro-climatic zone"
+                },
+                "helptext": {
+                    "en": "<p>The length of growing period (LGP) is defined as the period when precipitation is more than half of the potential evapotranspiration (PET) and the temperature is higher than 6.5° C.</p><p>Tick max. 1 answer.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1073,
+            **{
+                "label": {
+                    "en": "Specifications/ comments on climate"
+                },
+                "helptext": {
+                    "en": "E.g. mean annual temperature"
+                }
+            }
+        )
+
+        return data
+
+    def add_general_comments_field(self, **data) -> dict:
+
+        cat_path = ('section_specifications', 'tech__7')
+        cat_data = self.find_in_data(path=cat_path, **data)
+
+        subcat_keyword = 'tech__7__4'
+        self.create_new_category(
+            keyword=subcat_keyword,
+            translation={
+                'label': {
+                    'en': 'General comments'
+                }
+            }
+        )
+        qg_keyword = 'tech_qg_253'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        q_keyword = 'tech_general_comments'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'General comments'
+                },
+                'helptext': {
+                    'en': 'Feedback regarding the questionnaire, the database or general remarks.'
+                }
+            },
+            question_type='text'
+        )
+
+        cat_data['subcategories'] += [{
+            'keyword': subcat_keyword,
+            'form_options': {
+                'numbering': '7.4'
+            },
+            'questiongroups': [
+                {
+                    'keyword': qg_keyword,
+                    'questions': [
+                        {
+                            'keyword': q_keyword,
+                            'form_options': {
+                                'template': 'no_label'
+                            },
+                            'view_options': {
+                                'label_position': 'none'
+                            }
+                        }
+                    ]
+                }
+            ]
+        }]
+        return self.update_config_data(path=cat_path, updated=cat_data, **data)
+
+    def various_translation_updates(self, **data) -> dict:
+        self.update_translation(
+            update_pk=1939,
+            **{
+                "label": {
+                    "en": "per Technology area"
+                },
+                "helptext": {
+                    "en": "e.g. area of terraced cropland, area closed for natural regeneration, area used for rotational grazing, etc."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2786,
+            **{
+                "label": {
+                    "en": "Detailed description of the Technology"
+                },
+                "helptext": {
+                    "en": "<p>The detailed description should provide a concise but comprehensive picture of the Technology to outsiders. It should therefore address key questions such as:</p><ol><li>Where is the Technology applied (natural and human environment)?</li><li>What are the main characteristics/ elements of the Technology (including technical specifications)?</li><li>What are the purposes/ functions of the Technology?</li><li>What major activities/ inputs are needed to establish/ maintain the Technology?</li><li>What are the benefits/ impacts of the Technology?</li><li>What do land users like / dislike about the Technology?</ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents.</p><p>First, the land user(s) should describe the Technology without going into detail. The compiler then complements the description, integrating as much information as possible from the completed questionnaire.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2725,
+            **{
+                "label": {
+                    "en": "Photos of the Technology"
+                },
+                "helptext": {
+                    "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li><li>The first photo you upload will be set as title photo in the database and front page photo in the printable summary. The orientation should be landscape.</li><li>The second and third photos uploaded will appear on page 2 on the printable summary. These two photos will be cropped automatically to a square format.</li><li>For ideal display in the summary you can crop the photos (before uploading) as follows: Photo 1 should have a panorama format (height to width 1:2), while photos 2 and 3 should ideally be square (height to width 1:1).</li><li>You can upload further photos for display in the database, but not in the summary.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2802,
+            **{
+                "label": {
+                    "en": "Strengths/ advantages/ opportunities of the Technology"
+                },
+                "helptext": {
+                    "en": "Give a concluding statement about the Technology. One statement only per text field. Differentiate between the perspectives of land users and key resource persons."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2754,
+            **{
+                "label": {
+                    "en": "Reference to Questionnaire(s) on SLM Approaches (documented using WOCAT)"
+                },
+                "helptext": {
+                    "en": "To understand properly the implementation of the Technology, the associated SLM Approach must be described. Use the search field to find the SLM Approach in the database."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2806,
+            **{
+                "label": {
+                    "en": "Main purpose(s) of the Technology"
+                },
+                "helptext": {
+                    "en": "Tick max. 5 answers"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1543,
+            **{
+                "label": {
+                    "en": "Wg: gully erosion/ gullying"
+                },
+                "helptext": {
+                    "en": "<strong>Gully erosion/ gullying</strong>: Removal of soil along drainage lines by surface runoff, creating deep channels (more than 30 cm deep)"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1544,
+            **{
+                "label": {
+                    "en": "Wm: mass movements/ landslides"
+                },
+                "helptext": {
+                    "en": "<strong>Mass movements/ landslides</strong>: the downward falling or sliding of a mass of earth, debris, or rock on a slope (includes mudflows and rockfalls); also called landslip."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1545,
+            **{
+                "label": {
+                    "en": "Wr: riverbank erosion"
+                },
+                "helptext": {
+                    "en": "<strong>Riverbank erosion</strong>: the wearing away of the banks of a stream or river"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1546,
+            **{
+                "label": {
+                    "en": "Wc: coastal erosion"
+                },
+                "helptext": {
+                    "en": "<strong>Coastal erosion</strong>: Loss or displacement of land along the coastline due to the action of waves, currents or tides, leading to landward retreat of the shoreline"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1558,
+            **{
+                "label": {
+                    "en": "Ps: subsidence of organic soils, settling of soil"
+                },
+                "helptext": {
+                    "en": "<strong>Subsidence of organic soils, settling of soils</strong>: downward motion of soil surface, e.g. due to drainage of organic soils"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2726,
+            **{
+                "label": {
+                    "en": "Prevention, reduction, or restoration of land degradation"
+                },
+                "helptext": {
+                    "en": "Tick max. two answers. If you tick «not applicable», please tick no other answer."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2790,
+            **{
+                "label": {
+                    "en": "Technical drawing of the Technology"
+                },
+                "helptext": {
+                    "en": "<p>Please provide a comprehensive and detailed drawing (including dimensions) of the Technology and indicate technical specifications, measurements, spacing, gradient, etc. You can also provide several drawings showing (a) a temporal sequence of operations or (b) different elements or details of the Technology. Alternatively you can also provide one or several photographs with technical specifications drawn and/ or written onto the photograph(s). Include as much technical information as possible on the drawings (or photographs).</p><p>Keep the drawing simple and schematic. The technical drawing is crucial for understanding the Technology! Scan the drawing and upload the scan.</p><ul><li>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</li><li>Technical drawings should not be extreme landscape or portrait formats. Square format is ideal.</li><li>The first three uploaded technical drawings will appear in the summary</li><li>Technical drawings should contain no text in questionnaires that are being translated into other languages. In this case, the drawing should contain only symbols and/or numbers. Any text accompanying the drawing should be entered into the next field, where it can be translated.</li></ul><p><strong>Example</strong>: Technical drawing indicating technical specifications, dimensions, spacing<br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1247,
+            **{
+                "label": {
+                    "en": "If using a local area unit, indicate conversion factor to one hectare (e.g. 1 ha = 2.47 acres): 1 ha ="
+                },
+                "helptext": {
+                    "en": "Refer to area specified in 2.5<br>For conversions between local and metric units we recommend using an online unit converter, e.g. http://www.unitconverters.net/"
+                }
+            }
+        )
+        # Update configuration: show helptext as tooltip and change column size.
+        qg_path = ('section_specifications', 'tech__4', 'tech__4__3',
+                   'tech_qg_163')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['form_options']['columns_custom'] = [["4", "8"]]
+        for q_data in qg_data['questions']:
+            if q_data['keyword'] == 'tech_area_unit_conversion':
+                q_data['form_options'] = {
+                    'helptext_position': 'tooltip'
+                }
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        self.update_translation(
+            update_pk=1283,
+            **{
+                "label": {
+                    "en": "Specify dimensions of unit (if relevant)"
+                },
+                "helptext": {
+                    "en": "<strong>Example:</strong> stone lines: 250 m, dam: 20’000 m<sup>3</sup>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1317,
+            **{
+                "label": {
+                    "en": "If relevant, indicate exchange rate from USD to local currency (e.g. 1 USD = 79.9 Brazilian Real): 1 USD ="
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1039,
+            **{
+                "label": {
+                    "en": "Timing (season)"
+                },
+                "helptext": {
+                    "en": "<p><strong>Timing</strong>: Time during which activity is carried out, e.g. month or season, or \"after harvest of crops\", \"before onset of rains\", etc.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2355,
+            **{
+                "label": {
+                    "en": "Labour"
+                },
+                "helptext": {
+                    "en": "<strong>Labour</strong> includes total person-days, be they paid or unpaid (e.g. non-hired family labour). For “Costs per Unit” indicate daily wage for hired labour. If relevant, differentiate between skilled and unskilled labour."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1042,
+            **{
+                "label": {
+                    "en": "% of costs borne by land users"
+                },
+                "helptext": {
+                    "en": "<p>The percentage of costs that land users contribute. Specify for each input. E.g. If they receive fertilizer for free from a supporting agency, indicate fertilizer = 0%; if land users provide all labour force, without receiving any reward or subsidies, indicate labour = 100%.</p><p>For inputs which are fully paid or provided by external entities: always enter 0%</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2917,
+            **{
+                "label": {
+                    "en": "Natural and human environment"
+                },
+                "helptext": {
+                    "en": "<p>Give details of the natural (biophysical) conditions where the Technology is applied. Make specific reference to the sites where the documented Technology has been assessed and analysed. Tick one box per question only, except for annual rainfall, slope and soil parameters (see indications below). Use comment sections to specify your answers and provide additional information.</p><p><strong>Note:</strong> Some of the environmental conditions (e.g. slope angle, soil characteristics, water quality/ availability, etc.) may change as a result of the Technology! However, you are requested to <strong>describe the conditions as they were without any impact of sustainable land management!</strong></p><p>In exceptional cases, certain questions might not be relevant for the Technology. In such cases, skip the question but use the comment sections to explain why you are skipping it.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2717,
+            **{
+                "label": {
+                    "en": "Topography"
+                },
+                "helptext": {
+                    "en": "Tick max. 2 answers per question."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2718,
+            **{
+                "label": {
+                    "en": "Soils"
+                },
+                "helptext": {
+                    "en": "<p>The following parameters are based on FAO standards.</p><p>Tick max. 2 answers per question.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1098,
+            **{
+                "label": {
+                    "en": "Soil depth on average"
+                },
+                "helptext": {
+                    "en": "<strong>Soil depth</strong>: distance from top to parent material."
+                }
+            }
+        )
+        # Update Helptext positioning
+        q_path = ('section_specifications', 'tech__5', 'tech__5__3',
+                  'tech_qg_58', 'tech_soil_depth')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options'] = {
+            'helptext_position': 'tooltip'
+        }
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
+
+        self.update_translation(
+            update_pk=1709,
+            **{
+                "label": {
+                    "en": "mixed (subsistence/ commercial)"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2795,
+            **{
+                "label": {
+                    "en": "Average area of land used by land users applying the Technology"
+                },
+                "helptext": {
+                    "en": "Indicate the total area owned or leased by land users, including the land where no Technology is applied. Tick max. two answers."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2798,
+            **{
+                "label": {
+                    "en": "On-site impacts the Technology has shown"
+                },
+                "helptext": {
+                    "en": "<p>First, tick relevant impacts (tick boxes on the left). Then for each selected impact, tick the extent as follows.</p><ul><li><strong>-3</strong>: Very negative impact (- 50-100%)</li><li><strong>-2</strong>: Negative impact (- 20-50%)</li><li><strong>-1</strong>: Slightly negative impact (- 5-20%)</li><li><strong>0</strong>: Negligible impact</li><li><strong>1</strong>: Slightly positive impact (+5-20%)</li><li><strong>2</strong>: Positive impact (+20-50%)</li><li><strong>3</strong>: Very positive impact (+50-100%)</li></ul><p>Quantify impacts (if possible) and add comments / specifications.</p><p><strong>Caution</strong>: If you don’t tick the relevant impacts, your specifications (on the right hand side) will not be saved.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2244,
+            **{
+                "label": {
+                    "en": "production area"
+                },
+                "helptext": {
+                    "en": "Land under cultivation/ use"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2246,
+            **{
+                "label": {
+                    "en": "energy generation"
+                },
+                "helptext": {
+                    "en": "E.g. hydro, biogas"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1302,
+            **{
+                "label": {
+                    "en": "increase or decrease"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2799,
+            **{
+                "label": {
+                    "en": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes/ disasters (as perceived by land users)"
+                },
+                "helptext": {
+                    "en": "<p>Indicate gradual changes in climate and climate-related extremes as observed by land users in the last 10 years (trend). Note: for a more detailed assessment, fill in questionnaire module on climate change adaptation.</p><p>Tick all gradual changes in climate and climate-related extremes/ disasters to which the Technology is exposed</p><p>Source: Disaster Category Classification and Peril Terminology for Operational Purposes. CRED and Munich RE. 2009. Working Paper. Adapted by WOCAT.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1933,
+            **{
+                "label": {
+                    "en": "11-50%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1934,
+            **{
+                "label": {
+                    "en": "51-90%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1935,
+            **{
+                "label": {
+                    "en": "91-100%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1842,
+            **{
+                "label": {
+                    "en": "11-50%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1843,
+            **{
+                "label": {
+                    "en": "> 50%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1335,
+            **{
+                "label": {
+                    "en": "Of all those who have adopted the Technology, how many did so spontaneously, i.e. without receiving any material incentives/ payments?"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2805,
+            **{
+                "label": {
+                    "en": "Links to relevant online information"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1334,
+            **{
+                "label": {
+                    "en": "Specify assessment of off-site impacts (measurements)"
+                }
+            }
+        )
+
         return data
 
     def do_nothing(self, **data) -> dict:
