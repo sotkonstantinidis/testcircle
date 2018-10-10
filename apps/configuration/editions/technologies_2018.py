@@ -382,6 +382,9 @@ class Technologies(Edition):
             translation={
                 'label': {
                     'en': 'If the Technology is evenly spread over an area, specify area covered (in km2)'
+                },
+                'helptext': {
+                    'en': '1 ha = 10’000m²; 1 km² = 100 ha'
                 }
             },
             question_type='float',
@@ -694,7 +697,7 @@ class Technologies(Edition):
                     "en": "Costs and inputs needed for establishment"
                 },
                 "helptext": {
-                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2 and to the activities listed in 4.3. Use the currency indicated in 4.2.</p>"
+                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2 and to the activities listed in 4.3. Use the currency indicated in 4.2.</p><p>Figures reflect the situation at the time of recording the data.</p>"
                 }
             }
         )
@@ -705,7 +708,7 @@ class Technologies(Edition):
                     "en": "Costs and inputs needed for maintenance/ recurrent activities (per year)"
                 },
                 "helptext": {
-                    "en": "<strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2, and to the activities listed in 4.5. Use the currency indicated in 4.2."
+                    "en": "<p><strong>Note</strong>: Costs and inputs specified in this question should refer to the technology area/ technology unit defined in 4.2, and to the activities listed in 4.5. Use the currency indicated in 4.2.</p><p>Figures reflect the situation at the time of recording the data.</p>"
                 }
             }
         )
@@ -1371,9 +1374,17 @@ class Technologies(Edition):
             translation={
                 'label': {
                     'en': 'Is integrated crop-livestock management practiced?'
+                },
+                'helptext': {
+                    'en': '<strong>Integrated crop-livestock management</strong>: crops and livestock interact to create synergies, making optimal use of resources. The waste products of one component serve as a resource for the other (manure, fodder).'
                 }
             },
-            question_type='bool'
+            question_type='bool',
+            configuration={
+                'form_options': {
+                    'helptext_position': 'tooltip'
+                }
+            }
         )
         self.create_new_question(
             keyword=crop_livestock_specify_keyword,
@@ -2534,6 +2545,9 @@ class Technologies(Edition):
                 translation={
                     'label': {
                         'en': 'Transhumant pastoralism'
+                    },
+                    'helptext': {
+                        'en': '<strong>Transhumant pastoralism/ transhumance</strong>: regular movements of herds between fixed areas in order to benefit from the seasonal variability of climates and pastures.'
                     }
                 },
                 order_value=4
@@ -2563,7 +2577,7 @@ class Technologies(Edition):
                     'en': 'Semi-nomadic pastoralism'
                 },
                 'helptext': {
-                    'en': '<strong>Semi-nomadic pastoralism</strong>: animal owners have a permanent place of residence where supplementary cultivation is practiced. Herds are moved to distant grazing grounds.'
+                    'en': '<strong>Semi-nomadic pastoralism</strong>: animal owners have a permanent place of residence or without cultivation practiced. Herds are moved to distant grazing grounds.'
                 }
             }
         )
@@ -2626,6 +2640,394 @@ class Technologies(Edition):
                 }
             }
         )
+        self.update_translation(
+            update_pk=2786,
+            **{
+                "label": {
+                    "en": "Detailed description of the Technology"
+                },
+                "helptext": {
+                    "en": "<p>The detailed description should provide a concise but comprehensive picture of the Technology to outsiders. It should therefore address key questions such as:</p><ol><li>Where is the Technology applied (natural and human environment)?</li><li>What are the main characteristics/ elements of the Technology (including technical specifications)?</li><li>What are the purposes/ functions of the Technology?</li><li>What major activities/ inputs are needed to establish/ maintain the Technology?</li><li>What are the benefits/ impacts of the Technology?</li><li>What do land users like / dislike about the Technology?</ol><p>The description should ideally be 2,500-3,000 characters in length; the absolute maximum is 3,500 characters. Additional, more detailed descriptions may be uploaded to the database as separate documents.</p><p>First, the land user(s) should describe the Technology without going into detail. The compiler then complements the description, integrating as much information as possible from the completed questionnaire.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2725,
+            **{
+                "label": {
+                    "en": "Photos of the Technology"
+                },
+                "helptext": {
+                    "en": "<ul><li>Provide photos showing an overview and details of the Technology.</li><li>Provide at least two digital files (JPG, PNG, GIF), i.e. files from a digital camera, or scans from prints, negative films or slide films.</li><li>Maximum file size: 3 MB.</li><li>Photos should be of high quality/ high resolution and not manipulated or distorted.</li><li>An explanation (description) is required for each photo submitted! Photos should match the description given in 2.2 and help illustrate the technical drawing in 4.1.</li><li>Where appropriate, photos should depict the situation before and after or with and without SLM measures.</li><li>Good photos are crucial for understanding and illustrating the main features of the Technology.</li><li>The first photo you upload will be set as title photo in the database and front page photo in the printable summary. The orientation should be landscape.</li><li>The second and third photos uploaded will appear on page 2 on the printable summary. These two photos will be cropped automatically to a square format.</li><li>For ideal display in the summary you can crop the photos (before uploading) as follows: Photo 1 should have a panorama format (height to width 1:2), while photos 2 and 3 should ideally be square (height to width 1:1).</li><li>You can upload further photos for display in the database, but not in the summary.</li></ul><p><strong>Example:</strong></p><div class=\"row\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/smallmedium_QTKEN05_1.jpg\"><p class=\"form-example-legend\"><strong>Overview</strong>: Fanya juu terraces with grass strips on the risers developed into bench terraces (Photo: Machakos, Kenya)</p></div><div class=\"medium-6 columns\"><img src=\"/static/assets/img/mediumsmall_QaKEN01_2.jpg\"><p class=\"form-example-legend\"><strong>Detail</strong>: Fanya juu bund in a maize field after harvest: Napier grass on the upper part of the bund, and maize residues in the ditch below. (Photo: H.P. Liniger)</p></div></div>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2802,
+            **{
+                "label": {
+                    "en": "Strengths/ advantages/ opportunities of the Technology"
+                },
+                "helptext": {
+                    "en": "Give a concluding statement about the Technology. One statement only per text field. Differentiate between the perspectives of land users and key resource persons."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2754,
+            **{
+                "label": {
+                    "en": "Reference to Questionnaire(s) on SLM Approaches (documented using WOCAT)"
+                },
+                "helptext": {
+                    "en": "To understand properly the implementation of the Technology, the associated SLM Approach must be described. Use the search field to find the SLM Approach in the database."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2806,
+            **{
+                "label": {
+                    "en": "Main purpose(s) of the Technology"
+                },
+                "helptext": {
+                    "en": "Tick max. 5 answers"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1543,
+            **{
+                "label": {
+                    "en": "Wg: gully erosion/ gullying"
+                },
+                "helptext": {
+                    "en": "<strong>Gully erosion/ gullying</strong>: Removal of soil along drainage lines by surface runoff, creating deep channels (more than 30 cm deep)"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1544,
+            **{
+                "label": {
+                    "en": "Wm: mass movements/ landslides"
+                },
+                "helptext": {
+                    "en": "<strong>Mass movements/ landslides</strong>: the downward falling or sliding of a mass of earth, debris, or rock on a slope (includes mudflows and rockfalls); also called landslip."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1545,
+            **{
+                "label": {
+                    "en": "Wr: riverbank erosion"
+                },
+                "helptext": {
+                    "en": "<strong>Riverbank erosion</strong>: the wearing away of the banks of a stream or river"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1546,
+            **{
+                "label": {
+                    "en": "Wc: coastal erosion"
+                },
+                "helptext": {
+                    "en": "<strong>Coastal erosion</strong>: Loss or displacement of land along the coastline due to the action of waves, currents or tides, leading to landward retreat of the shoreline"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1558,
+            **{
+                "label": {
+                    "en": "Ps: subsidence of organic soils, settling of soil"
+                },
+                "helptext": {
+                    "en": "<strong>Subsidence of organic soils, settling of soils</strong>: downward motion of soil surface, e.g. due to drainage of organic soils"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2726,
+            **{
+                "label": {
+                    "en": "Prevention, reduction, or restoration of land degradation"
+                },
+                "helptext": {
+                    "en": "Tick max. two answers. If you tick «not applicable», please tick no other answer."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2790,
+            **{
+                "label": {
+                    "en": "Technical drawing of the Technology"
+                },
+                "helptext": {
+                    "en": "<p>Please provide a comprehensive and detailed drawing (including dimensions) of the Technology and indicate technical specifications, measurements, spacing, gradient, etc. You can also provide several drawings showing (a) a temporal sequence of operations or (b) different elements or details of the Technology. Alternatively you can also provide one or several photographs with technical specifications drawn and/ or written onto the photograph(s). Include as much technical information as possible on the drawings (or photographs).</p><p>Keep the drawing simple and schematic. The technical drawing is crucial for understanding the Technology! Scan the drawing and upload the scan.</p><ul><li>Supported file types: PDF, JPG, PNG, maximum file size: 3 MB.</li><li>Technical drawings should not be extreme landscape or portrait formats. Square format is ideal.</li><li>The first three uploaded technical drawings will appear in the summary</li><li>Technical drawings should contain no text in questionnaires that are being translated into other languages. In this case, the drawing should contain only symbols and/or numbers. Any text accompanying the drawing should be entered into the next field, where it can be translated.</li></ul><p><strong>Example</strong>: Technical drawing indicating technical specifications, dimensions, spacing<br><img src=\"/static/assets/img/qt_technical_drawing.jpg\"></img></p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1247,
+            **{
+                "label": {
+                    "en": "If using a local area unit, indicate conversion factor to one hectare (e.g. 1 ha = 2.47 acres): 1 ha ="
+                },
+                "helptext": {
+                    "en": "Refer to area specified in 2.5<br>For conversions between local and metric units we recommend using an online unit converter, e.g. http://www.unitconverters.net/"
+                }
+            }
+        )
+        # Update configuration: show helptext as tooltip and change column size.
+        qg_path = ('section_specifications', 'tech__4', 'tech__4__3',
+                   'tech_qg_163')
+        qg_data = self.find_in_data(path=qg_path, **data)
+        qg_data['form_options']['columns_custom'] = [["4", "8"]]
+        for q_data in qg_data['questions']:
+            if q_data['keyword'] == 'tech_area_unit_conversion':
+                q_data['form_options'] = {
+                    'helptext_position': 'tooltip'
+                }
+        data = self.update_config_data(path=qg_path, updated=qg_data, **data)
+
+        self.update_translation(
+            update_pk=1283,
+            **{
+                "label": {
+                    "en": "Specify dimensions of unit (if relevant)"
+                },
+                "helptext": {
+                    "en": "<strong>Example:</strong> stone lines: 250 m, dam: 20’000 m<sup>3</sup>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1317,
+            **{
+                "label": {
+                    "en": "If relevant, indicate exchange rate from USD to local currency (e.g. 1 USD = 79.9 Brazilian Real): 1 USD ="
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1039,
+            **{
+                "label": {
+                    "en": "Timing (season)"
+                },
+                "helptext": {
+                    "en": "<p><strong>Timing</strong>: Time during which activity is carried out, e.g. month or season, or \"after harvest of crops\", \"before onset of rains\", etc.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2355,
+            **{
+                "label": {
+                    "en": "Labour"
+                },
+                "helptext": {
+                    "en": "<strong>Labour</strong> includes total person-days, be they paid or unpaid (e.g. non-hired family labour). For “Costs per Unit” indicate daily wage for hired labour. If relevant, differentiate between skilled and unskilled labour."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1042,
+            **{
+                "label": {
+                    "en": "% of costs borne by land users"
+                },
+                "helptext": {
+                    "en": "<p>The percentage of costs that land users contribute. Specify for each input. E.g. If they receive fertilizer for free from a supporting agency, indicate fertilizer = 0%; if land users provide all labour force, without receiving any reward or subsidies, indicate labour = 100%.</p><p>For inputs which are fully paid or provided by external entities: always enter 0%</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2917,
+            **{
+                "label": {
+                    "en": "Natural and human environment"
+                },
+                "helptext": {
+                    "en": "<p>Give details of the natural (biophysical) conditions where the Technology is applied. Make specific reference to the sites where the documented Technology has been assessed and analysed. Tick one box per question only, except for annual rainfall, slope and soil parameters (see indications below). Use comment sections to specify your answers and provide additional information.</p><p><strong>Note:</strong> Some of the environmental conditions (e.g. slope angle, soil characteristics, water quality/ availability, etc.) may change as a result of the Technology! However, you are requested to <strong>describe the conditions as they were without any impact of sustainable land management!</strong></p><p>In exceptional cases, certain questions might not be relevant for the Technology. In such cases, skip the question but use the comment sections to explain why you are skipping it.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2717,
+            **{
+                "label": {
+                    "en": "Topography"
+                },
+                "helptext": {
+                    "en": "Tick max. 2 answers per question."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2718,
+            **{
+                "label": {
+                    "en": "Soils"
+                },
+                "helptext": {
+                    "en": "<p>The following parameters are based on FAO standards.</p><p>Tick max. 2 answers per question.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1098,
+            **{
+                "label": {
+                    "en": "Soil depth on average"
+                },
+                "helptext": {
+                    "en": "<strong>Soil depth</strong>: distance from top to parent material."
+                }
+            }
+        )
+        # Update Helptext positioning
+        q_path = ('section_specifications', 'tech__5', 'tech__5__3',
+                  'tech_qg_58', 'tech_soil_depth')
+        q_data = self.find_in_data(path=q_path, **data)
+        q_data['form_options'] = {
+            'helptext_position': 'tooltip'
+        }
+        data = self.update_config_data(path=q_path, updated=q_data, **data)
+
+        self.update_translation(
+            update_pk=1709,
+            **{
+                "label": {
+                    "en": "mixed (subsistence/ commercial)"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2795,
+            **{
+                "label": {
+                    "en": "Average area of land used by land users applying the Technology"
+                },
+                "helptext": {
+                    "en": "Indicate the total area owned or leased by land users, including the land where no Technology is applied. Tick max. two answers."
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2798,
+            **{
+                "label": {
+                    "en": "On-site impacts the Technology has shown"
+                },
+                "helptext": {
+                    "en": "<p>First, tick relevant impacts (tick boxes on the left). Then for each selected impact, tick the extent as follows.</p><ul><li><strong>-3</strong>: Very negative impact (- 50-100%)</li><li><strong>-2</strong>: Negative impact (- 20-50%)</li><li><strong>-1</strong>: Slightly negative impact (- 5-20%)</li><li><strong>0</strong>: Negligible impact</li><li><strong>1</strong>: Slightly positive impact (+5-20%)</li><li><strong>2</strong>: Positive impact (+20-50%)</li><li><strong>3</strong>: Very positive impact (+50-100%)</li></ul><p>Quantify impacts (if possible) and add comments / specifications.</p><p><strong>Caution</strong>: If you don’t tick the relevant impacts, your specifications (on the right hand side) will not be saved.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2244,
+            **{
+                "label": {
+                    "en": "production area"
+                },
+                "helptext": {
+                    "en": "Land under cultivation/ use"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2246,
+            **{
+                "label": {
+                    "en": "energy generation"
+                },
+                "helptext": {
+                    "en": "E.g. hydro, biogas"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1302,
+            **{
+                "label": {
+                    "en": "increase or decrease"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2799,
+            **{
+                "label": {
+                    "en": "Exposure and sensitivity of the Technology to gradual climate change and climate-related extremes/ disasters (as perceived by land users)"
+                },
+                "helptext": {
+                    "en": "<p>Indicate gradual changes in climate and climate-related extremes as observed by land users in the last 10 years (trend). Note: for a more detailed assessment, fill in questionnaire module on climate change adaptation.</p><p>Tick all gradual changes in climate and climate-related extremes/ disasters to which the Technology is exposed</p><p>Source: Disaster Category Classification and Peril Terminology for Operational Purposes. CRED and Munich RE. 2009. Working Paper. Adapted by WOCAT.</p>"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1933,
+            **{
+                "label": {
+                    "en": "11-50%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1934,
+            **{
+                "label": {
+                    "en": "51-90%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1935,
+            **{
+                "label": {
+                    "en": "91-100%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1842,
+            **{
+                "label": {
+                    "en": "11-50%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1843,
+            **{
+                "label": {
+                    "en": "> 50%"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=1335,
+            **{
+                "label": {
+                    "en": "Of all those who have adopted the Technology, how many did so spontaneously, i.e. without receiving any material incentives/ payments?"
+                }
+            }
+        )
+        self.update_translation(
+            update_pk=2805,
+            **{
+                "label": {
+                    "en": "Links to relevant online information"
+                }
+            }
+        )
+
         return data
 
     def do_nothing(self, **data) -> dict:

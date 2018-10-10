@@ -10,10 +10,10 @@
     {% include "form/errors.html" with errors=field.errors %}
   {% endblock %}
   <div class="row single-item">
-    <div class="small-6 columns">
+    <div class="small-8 columns">
       <label for="{{ field|id }}">{{ label }}</label>
     </div>
-    <div class="small-6 columns">
+    <div class="small-4 columns">
       <div class="form-currency-exchange-field">
          {% widget field %}
       </div>
