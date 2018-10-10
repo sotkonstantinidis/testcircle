@@ -130,6 +130,7 @@ class EditionsTest(TestCase):
         mock_choices.return_value = [('test_code', 'test_code'), ]
 
         edition = self.get_edition()
+        edition.value.objects.get.side_effect = ObjectDoesNotExist
 
         translation = {'label': 'bar'}
         edition.create_new_value(keyword='keyword', translation=translation)
@@ -143,7 +144,7 @@ class EditionsTest(TestCase):
         )
         # Creates value
         self.assertIn(
-            mock.call.get_or_create(
+            mock.call.create(
                 configuration=None, keyword='keyword', order_value=None,
                 translation=edition.translation.objects.get_or_create.return_value[0]),
             edition.value.objects.method_calls
@@ -154,6 +155,7 @@ class EditionsTest(TestCase):
         mock_choices.return_value = [('test_code', 'test_code'), ]
 
         edition = self.get_edition()
+        edition.value.objects.get.side_effect = ObjectDoesNotExist
 
         config = {'some': 'config'}
         edition.create_new_value(
@@ -167,7 +169,7 @@ class EditionsTest(TestCase):
         )
         # Creates value
         self.assertIn(
-            mock.call.get_or_create(
+            mock.call.create(
                 configuration=config, keyword='keyword', order_value=1,
                 translation=edition.translation.objects.get.return_value),
             edition.value.objects.method_calls
