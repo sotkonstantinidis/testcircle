@@ -112,7 +112,7 @@ function updateAutoMultiplication() {
             }
             sum *= parseFloat(el.val());
         }
-        if (sum) {
+        if (!isNaN(sum)) {
             $(this).val(sum.toFixed(2));
         } else {
             $(this).val('');
@@ -702,8 +702,8 @@ $(function () {
             if (numberType === 'int') {
                 hasError = parseInt(val).toString() !== val;
             } else if (numberType === 'float') {
-                // Auto-sum has value fixed to 2 decimals ...
-                hasError = parseFloat(val).toString() !== val && parseFloat(val).toFixed(2).toString() !== val;
+                // Be more tolerant with integer or ".0" values.
+                hasError = parseFloat(val).toString() !== val && parseInt(val).toString() === val;
             }
             return toggleError($t, hasError);
 
