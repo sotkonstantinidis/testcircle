@@ -226,6 +226,10 @@ class Technologies(Edition):
                 release_note=_('6.1: A new question for comments about on-site impacts was added.')
             ),
             Operation(
+                transform_configuration=self.add_general_comments_field,
+                release_note=_('7.4 (new): A new question for general remarks about the questionnaire and feedback was added.')
+            ),
+            Operation(
                 transform_configuration=self.various_translation_updates,
                 release_note=''
             ),
@@ -2627,6 +2631,63 @@ class Technologies(Edition):
         )
 
         return data
+
+    def add_general_comments_field(self, **data) -> dict:
+
+        cat_path = ('section_specifications', 'tech__7')
+        cat_data = self.find_in_data(path=cat_path, **data)
+
+        subcat_keyword = 'tech__7__4'
+        self.create_new_category(
+            keyword=subcat_keyword,
+            translation={
+                'label': {
+                    'en': 'General comments'
+                }
+            }
+        )
+        qg_keyword = 'tech_qg_253'
+        self.create_new_questiongroup(
+            keyword=qg_keyword,
+            translation=None
+        )
+        q_keyword = 'tech_general_comments'
+        self.create_new_question(
+            keyword=q_keyword,
+            translation={
+                'label': {
+                    'en': 'General comments'
+                },
+                'helptext': {
+                    'en': 'Feedback regarding the questionnaire, the database or general remarks.'
+                }
+            },
+            question_type='text'
+        )
+
+        cat_data['subcategories'] += [{
+            'keyword': subcat_keyword,
+            'form_options': {
+                'numbering': '7.4'
+            },
+            'questiongroups': [
+                {
+                    'keyword': qg_keyword,
+                    'questions': [
+                        {
+                            'keyword': q_keyword,
+                            'form_options': {
+                                'template': 'no_label'
+                            },
+                            'view_options': {
+                                'label_position': 'none'
+                            }
+                        }
+                    ]
+                }
+            ]
+        }]
+        return self.update_config_data(path=cat_path, updated=cat_data, **data)
 
     def various_translation_updates(self, **data) -> dict:
         self.update_translation(
