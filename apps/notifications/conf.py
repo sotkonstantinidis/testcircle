@@ -51,12 +51,6 @@ class NotificationsConf(AppConf):
         settings.QUESTIONNAIRE_LANDUSER: [],
         settings.QUESTIONNAIRE_RESOURCEPERSON: []
     }
-    # Verbs are only available in past tense ('submitted', 'reviewed', ...), but
-    # present is required for selected statuses.
-    QUESTIONNAIRE_NEXT_STATUS_TEXT = {
-        settings.QUESTIONNAIRE_SUBMITTED: _('review'),
-        settings.QUESTIONNAIRE_REVIEWED: _('publication'),
-    }
 
     # All actions that should be listed on 'my slm data' -> notifications.
     # Some actions are depending on the role (i.e. compilers see all edits).
