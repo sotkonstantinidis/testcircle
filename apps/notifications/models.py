@@ -476,6 +476,8 @@ class StatusUpdate(models.Model):
     )
     is_rejected = models.BooleanField(default=False)
     message = models.TextField()
+    previous_status = models.PositiveIntegerField(
+        choices=STATUSES, null=True, blank=True)
 
 
 class InformationUpdate(models.Model):

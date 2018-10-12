@@ -97,7 +97,8 @@ class ModerationTest(FunctionalTest):
             message='',
             questionnaire=Questionnaire.objects.latest('created'),
             sender='change_foo',
-            user=user_1
+            user=user_1,
+            previous_status=settings.QUESTIONNAIRE_DRAFT
         )
 
         # User 1 logs out and cannot see the questionnaire
