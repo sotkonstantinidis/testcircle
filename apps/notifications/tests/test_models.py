@@ -331,6 +331,13 @@ class LogTest(TestCase):
             }
         )
 
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_subject_submitted(self, mock_questionnaire_name):
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.status_log.questionnaire.status = settings.QUESTIONNAIRE_SUBMITTED
+        subject = self.status_log.mail_subject
+        assert subject == '[WOCAT] Questionnaire X: This practice has been submitted'
+
     @patch.object(Log, 'get_affected')
     @patch.object(Questionnaire, 'get_reviewers')
     def test_recipients_no_duplicates(self, mock_reviewers, mock_affected):

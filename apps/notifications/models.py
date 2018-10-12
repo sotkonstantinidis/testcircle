@@ -331,7 +331,18 @@ class Log(models.Model):
 
     @cached_property
     def mail_subject(self):
-        return '[WOCAT] {}'.format(self.subject)
+        subject = ''
+        if self.is_rejected:
+            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_SUBMITTED:
+                # Rejected from submitted
+                subject = _('This practice has been rejected and needs revision')
+            elif self.statusupdate.previous_status == settings.QUESTIONNAIRE_REVIEWED:
+                # Rejected from reviewed
+                subject = _('This practice has been rejected and needs revision')
+        elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
+            if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
+                subject = _('This practice has been submitted')
+        return f'[WOCAT] {self.questionnaire.get_name()}: {subject}'
 
     @cached_property
     def is_content_update(self) -> bool:
@@ -348,6 +359,12 @@ class Log(models.Model):
     @cached_property
     def is_workflow_status(self) -> bool:
         return self.statusupdate.status in settings.QUESTIONNAIRE_WORKFLOW_STEPS
+
+    @cached_property
+    def is_rejected(self) -> bool:
+        if not hasattr(self, 'statusupdate'):
+            return False
+        return self.statusupdate.is_rejected
 
     def get_mail_html(self, user: User) -> str:
         return 'email'
@@ -403,8 +420,17 @@ class Log(models.Model):
         return set(itertools.chain(
             self.subscribers.all(),
             self.get_reviewers(),
-            self.get_affected()
+            self.get_affected(),
+            self.get_rejected_users(),
         ))
+
+    def get_rejected_users(self):
+        if self.is_change_log and self.is_rejected:
+            return set(itertools.chain(
+                self.questionnaire.get_users_by_role(settings.QUESTIONNAIRE_COMPILER),
+                self.questionnaire.get_users_by_role(settings.QUESTIONNAIRE_EDITOR)
+            ))
+        return []
 
     def get_reviewers(self):
         check_properties = self.is_change_log and self.has_no_update and self.is_workflow_status
