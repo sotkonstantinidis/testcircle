@@ -295,7 +295,7 @@ class Log(models.Model):
         )
 
     @cached_property
-    def subject(self) -> str:
+    def notification_subject(self) -> str:
         """
         Fetch the subject from the related model depending on the action.
         """
@@ -349,19 +349,21 @@ class Log(models.Model):
     def is_workflow_status(self) -> bool:
         return self.statusupdate.status in settings.QUESTIONNAIRE_WORKFLOW_STEPS
 
-    def get_html(self, user: User, is_mail_context=False) -> str:
+    def get_mail_html(self, user: User) -> str:
+        return 'email'
+
+    def get_notification_html(self, user: User) -> str:
         """
         The text with links to questionnaire and catalyst, according to the
         type of the action. Use the integer as template name, as this value is
         fixed (opposed to the verbose name).
         """
         return render_to_string(
-            template_name='notifications/subject/{}.html'.format(self.action),
+            template_name='notifications/notification/{}.html'.format(self.action),
             context={
                 'log': self,
                 'user': user,
                 'base_url': settings.BASE_URL,
-                'is_mail_context': is_mail_context
             })
 
     def action_icon(self) -> str:
@@ -439,7 +441,7 @@ class Log(models.Model):
                 questionnaire=self.questionnaire.get_name()
             ),
             'name': recipient.get_display_name(),
-            'content': self.get_html(recipient, is_mail_context=True),
+            'content': self.get_mail_html(recipient),
             'subscription_url': '{base_url}{url}'.format(
                 base_url=settings.BASE_URL,
                 url=recipient.mailpreferences.get_signed_url()

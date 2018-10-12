@@ -18,14 +18,24 @@ Signals
 View
 ----
 * Heavily built for asynchronous calls. This is due to heavy queries.
-* JS is mostly in the file ```static/notifications/js/notificationActions.js```
+* JS is mostly in the file ``static/notifications/js/notificationActions.js``
 * Some logic for the filters depends on the get querystring.
 
 Logic
 -----
-* Most of the logic is in the ```ActionContextQuerySet```, so it is reusable.
-* The text for a notifications subject depends on its action and is based on
-  the template ```templates/notifications/subject/<action>.html```
+* Most of the logic is in the ``ActionContextQuerySet``, so it is reusable.
+* As content of the mails sent to users needs to be more context-specific (e.g.
+  different text when reviewing or publishing or different text when inviting
+  editor or reviewer), a split between notifications (as in the notification
+  list) and mails (as sent to users after certain actions) was made.
+
+Notifications
+-------------
+(as in the notification list)
+
+* The text for a notifications subject (the text appearing in the notification
+  list) depends on its action and is based on the template
+  ``templates/notifications/notification/<action>.html``
 
 Mails
 -----

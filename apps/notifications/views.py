@@ -61,8 +61,8 @@ class LogListView(LoginRequiredMixin, ListView):
             yield {
                 'id': log.id,
                 'created': log.created,
-                'subject': log.subject,
-                'text': log.get_html(user=self.request.user),
+                'subject': log.notification_subject,
+                'text': log.get_notification_html(user=self.request.user),
                 'action_icon': log.action_icon(),
                 'is_read': log.id in readlog_list,
                 'is_todo': False,

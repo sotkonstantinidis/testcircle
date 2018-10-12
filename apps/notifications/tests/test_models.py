@@ -320,15 +320,14 @@ class LogTest(TestCase):
     @patch('notifications.models.render_to_string')
     @patch.object(Questionnaire, 'get_name')
     @override_settings(BASE_URL='foo')
-    def test_get_html(self, mock_get_name, render_to_string):
-        self.status_log.get_html(self.catalyst)
+    def test_get_notification_html(self, mock_get_name, render_to_string):
+        self.status_log.get_notification_html(self.catalyst)
         render_to_string.assert_called_with(
-            template_name='notifications/subject/{}.html'.format(
+            template_name='notifications/notification/{}.html'.format(
                 settings.NOTIFICATIONS_CHANGE_STATUS
             ),
             context={
-                'log': self.status_log, 'user': self.catalyst,
-                'is_mail_context': False, 'base_url': 'foo'
+                'log': self.status_log, 'user': self.catalyst, 'base_url': 'foo'
             }
         )
 
