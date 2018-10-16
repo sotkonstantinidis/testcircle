@@ -1305,7 +1305,8 @@ class HandleReviewActionsTest(TestCase):
             roles=[], permissions=['assign_questionnaire'])
         self.obj.get_users_by_role.return_value = []
         remote_user_client.get_user_information.return_value = {
-            'username': 'user'
+            'username': 'user',
+            'email': 'new@email.com'
         }
         handle_review_actions(self.request, self.obj, 'sample')
         user = User.objects.get(pk=98)
@@ -1314,6 +1315,87 @@ class HandleReviewActionsTest(TestCase):
         mock_messages.success.assert_called_once_with(
             self.request,
             'Assigned users were successfully updated')
+
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_editor_new_id_duplicate_email(
+            self, mock_signal, mock_get_user_information, mock_messages):
+        # User with new ID but existing email. This should raise an error.
+        user = create_new_user(id=1, email='e@mail.com')
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '98',
+        }
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
+        self.obj.get_users_by_role.return_value = []
+        mock_get_user_information.return_value = {
+            'username': 'user',
+            'email': user.email,
+            'first_name': 'First',
+            'last_name': 'Last',
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'At least one of the assigned users could not be updated.'
+        )
+
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_editor_existing_id_duplicate_email(
+            self, mock_signal, mock_get_user_information, mock_messages):
+        # User with existing ID and existing email. This should NOT raise an
+        # error.
+        user = create_new_user(id=1, email='e@mail.com')
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '1',
+        }
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
+        self.obj.get_users_by_role.return_value = []
+        mock_get_user_information.return_value = {
+            'username': 'user',
+            'email': user.email,
+            'first_name': 'First',
+            'last_name': 'Last',
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        assert mock_messages.error.call_count == 0
+
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_editor_existing_id_new_email(
+            self, mock_signal, mock_get_user_information, mock_messages):
+        # User with existing ID but new email. This should NOT raise an error,
+        # but rather update the email address of the user.
+        user = create_new_user(id=1, email='e@mail.com')
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '1',
+        }
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
+        self.obj.get_users_by_role.return_value = []
+        mock_get_user_information.return_value = {
+            'username': 'user',
+            'email': 'new@mail.com',
+            'first_name': 'First',
+            'last_name': 'Last',
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        assert mock_messages.error.call_count == 0
+        assert User.objects.get(pk=1).email == 'new@mail.com'
 
     @patch('questionnaire.signals.change_member.send')
     def test_assign_removes_user(self, mock_change_member, mock_messages):
@@ -1430,7 +1512,8 @@ class HandleReviewActionsTestFixtures(TestCase):
             'compiler-id': '3',
         }
         remote_user_client.get_user_information.return_value = {
-            'username': 'user'
+            'username': 'user',
+            'email': new_compiler.email
         }
         self.assertEqual(
             questionnaire.get_users_by_role(settings.QUESTIONNAIRE_COMPILER),
@@ -1458,7 +1541,8 @@ class HandleReviewActionsTestFixtures(TestCase):
             'change-compiler-keep-editor': 'foo',
         }
         remote_user_client.get_user_information.return_value = {
-            'username': 'user'
+            'username': 'user',
+            'email': new_compiler.email
         }
         self.assertEqual(
             questionnaire.get_users_by_role(settings.QUESTIONNAIRE_COMPILER),
