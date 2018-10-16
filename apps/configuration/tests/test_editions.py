@@ -6,6 +6,7 @@ from qcat.tests import TestCase
 from configuration.models import Configuration, Key, Value, Translation, \
     Questiongroup, Category
 from ..editions.base import Edition, Operation
+from ..editions.technologies_2018 import Technologies as Technologies2018
 
 
 class EditionsTest(TestCase):
@@ -393,6 +394,46 @@ class EditionsTest(TestCase):
         for i in range(len(data['qg_1'])):
             data['qg_1'][i]['key_2'] = None
         self.assertDictEqual(updated, data)
+
+
+class EditionTechnologies2018Test(TestCase):
+
+    def get_edition(self):
+        return Technologies2018(
+            key=Key, value=Value, questiongroup=Questiongroup,
+            category=Category, configuration=Configuration,
+            translation=Translation
+        )
+
+    def test_move_date_documentation_data(self):
+        edition = self.get_edition()
+        moved_empty = edition.move_date_documentation_data(**{})
+        self.assertDictEqual(moved_empty, {})
+
+        moved_found = edition.move_date_documentation_data(**{
+            'qg_accept_conditions': [
+                {
+                    'date_documentation': 'date',
+                    'accept_conditions': True
+                }
+            ]
+        })
+        self.assertDictEqual(moved_found, {
+            'qg_accept_conditions': [{'accept_conditions': True}],
+            'tech_qg_250': [{'date_documentation': 'date'}]
+        })
+
+        # This used to cause an error ...
+        moved_partial_empty = edition.move_date_documentation_data(**{
+            'qg_accept_conditions': [
+                {
+                    'accept_conditions': True
+                }
+            ]
+        })
+        self.assertDictEqual(moved_partial_empty, {
+            'qg_accept_conditions': [{'accept_conditions': True}]
+        })
 
 
 class OperationTest(TestCase):
