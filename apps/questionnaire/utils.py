@@ -5,6 +5,7 @@ from uuid import UUID
 
 from django.apps import apps
 from django.contrib import messages
+from django.db import IntegrityError
 from django.db.models import Q
 from django.db.models.signals import pre_save
 from django.template.loader import render_to_string
@@ -1486,7 +1487,20 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             if not user_info:
                 user_error.append(user_id)
                 continue
-            user, created = User.objects.get_or_create(pk=user_id)
+
+            # Get or create the user. Handle the case where a user has an email
+            # address which is already in the database, but with a new ID.
+            # This is the case if a user was deleted and re-created in the
+            # remote WOCAT database, which in theory *should* not happen, but
+            # (as history showed) cannot be ruled out.
+            try:
+                user = User.objects.get(pk=user_id)
+            except User.DoesNotExist:
+                try:
+                    user = User.create_new(id=user_id, email=user_info['email'])
+                except IntegrityError:
+                    user_error.append(user_info)
+                    continue
             remote_user_client.update_user(user, user_info)
 
             # Add the user
@@ -1551,7 +1565,22 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             messages.error(
                 request,
                 'No user information found for user {}'.format(user_id))
-        new_compiler, created = User.objects.get_or_create(pk=user_id)
+            return
+
+        # Get or create the user. Handle the case where a user has an email
+        # address which is already in the database, but with a new ID.
+        # This is the case if a user was deleted and re-created in the
+        # remote WOCAT database, which in theory *should* not happen, but
+        # (as history showed) cannot be ruled out.
+        try:
+            new_compiler = User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            try:
+                new_compiler = User.create_new(id=user_id, email=user_info['email'])
+            except IntegrityError:
+                messages.error(
+                    request, 'A user with this email address exists already.')
+                return
         remote_user_client.update_user(new_compiler, user_info)
 
         role_compiler = settings.QUESTIONNAIRE_COMPILER
