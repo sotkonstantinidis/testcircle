@@ -1468,7 +1468,9 @@ class HandleReviewActionsTest(TestCase):
             self.request,
             'You can only choose one new compiler!')
 
-    def test_change_compiler_do_nothing_if_no_new_compiler(self, mock_messages):
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    def test_change_compiler_do_nothing_if_no_new_compiler(
+            self, mock_get_user_information, mock_messages):
         self.obj.status = 2
         self.request.POST = {
             'change-compiler': 'foo',
@@ -1480,6 +1482,12 @@ class HandleReviewActionsTest(TestCase):
         self.obj.get_roles_permissions.return_value = RolesPermissions(
             roles=[], permissions=['change_compiler'])
         self.obj.get_users_by_role.return_value = [user]
+        mock_get_user_information.return_value = {
+            'username': user.email,
+            'email': user.email,
+            'first_name': user.firstname,
+            'last_name': user.lastname,
+        }
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.info.assert_called_once_with(
             self.request,
