@@ -78,7 +78,7 @@ class NotificationsConf(AppConf):
 
     # All actions that should trigger an email
     EMAIL_PREFERENCES = [
-        CREATE, CHANGE_STATUS, ADD_MEMBER, REMOVE_MEMBER, FINISH_EDITING
+        CREATE, DELETE, CHANGE_STATUS, ADD_MEMBER, REMOVE_MEMBER, FINISH_EDITING
     ]
     # email subscriptions
     NO_MAILS = 'none'
