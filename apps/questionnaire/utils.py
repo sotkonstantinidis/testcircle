@@ -1719,11 +1719,33 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         )
 
     elif request.POST.get('delete'):
+        if 'delete_questionnaire' not in permissions:
+            messages.error(
+                request,
+                'You do not have permissions to delete this questionnaire!'
+            )
+            return
+
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             pre_save.disconnect(
                 prevent_updates_on_published_items, sender=Questionnaire)
         questionnaire_object.is_deleted = True
-        questionnaire_object.save()
+
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException as e:
+            # If the same user also has a lock, then release this lock.
+            if e.user == request.user:
+                Lock.objects.filter(
+                    user=request.user,
+                    questionnaire_code=questionnaire_object.code
+                ).update(
+                    is_finished=True
+                )
+                questionnaire_object.save()
+            else:
+                return
+
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             delete_questionnaires_from_es([questionnaire_object])
             pre_save.connect(
