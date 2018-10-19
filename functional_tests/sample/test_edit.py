@@ -78,8 +78,11 @@ def get_sample_5_5_options(testcase, index=0):
 class EditTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     def test_creation_date_does_not_change(self):
 
@@ -338,7 +341,10 @@ class EditTest(FunctionalTest):
 
 class CustomToOptionsTest(FunctionalTest):
 
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_custom_to_options(self):
         # Alice logs in
@@ -492,7 +498,10 @@ class CustomToOptionsTest(FunctionalTest):
 
 class LinkedChoicesTest(FunctionalTest):
 
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_linked_across_step(self):
         # Alice logs in
@@ -778,7 +787,10 @@ class LockTest(FunctionalTest):
     """
     Tests for questionnaire locking.
     """
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         super().setUp()
@@ -867,3 +879,57 @@ class LockTest(FunctionalTest):
         self.findManyBy('link_text', 'Edit this section')[0].click()
         interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
         self.findBy('xpath', '//*[text()[contains(.,"{}")]]'.format(interval))
+
+    def test_delete_with_lock(self):
+
+        # The editor logs in and starts editing, this creates a lock.
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': self.questionnaire.code}
+        detail_page.open(login=True, user=self.robin)
+        detail_page.edit_questionnaire()
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category('cat_1')
+
+        # The compiler logs in and wants to delete the questionnaire
+        detail_page.open(login=True, user=self.jay)
+        assert Questionnaire.objects.get(
+            code=self.questionnaire.code).is_deleted is False
+        assert detail_page.has_text(self.questionnaire.code)
+        detail_page.delete_questionnaire(check_success=False)
+
+        # He receives an error message, the questionnaire was not deleted.
+        assert detail_page.has_warning_message(
+            f'This questionnaire is locked for editing by '
+            f'{self.robin.get_display_name()}.')
+        assert detail_page.has_text(self.questionnaire.code)
+        assert Questionnaire.objects.get(
+            code=self.questionnaire.code).is_deleted is False
+
+        # After a while, the lock expires
+        Lock.objects.filter(
+            questionnaire_code=self.questionnaire.code
+        ).update(is_finished=True)
+
+        # Now the questionnaire can be deleted.
+        detail_page.delete_questionnaire(check_success=True)
+        assert Questionnaire.objects.get(
+            code=self.questionnaire.code).is_deleted is True
+
+    def test_delete_with_lock_by_own_user(self):
+
+        # The compiler (!) logs in and starts editing, this creates a lock.
+        detail_page = SampleDetailPage(self)
+        detail_page.route_kwargs = {'identifier': self.questionnaire.code}
+        detail_page.open(login=True, user=self.jay)
+        detail_page.edit_questionnaire()
+        edit_page = SampleEditPage(self)
+        edit_page.click_edit_category('cat_1')
+
+        # The compiler opens the detail page (= back without saving) and wants
+        # to delete the questionnaire while his own lock is still active. This
+        # works because his own lock is released when deleting the
+        # questionnaire.
+        detail_page.open()
+        detail_page.delete_questionnaire(check_success=True)
+        assert Questionnaire.objects.get(
+            code=self.questionnaire.code).is_deleted is True

@@ -20,7 +20,11 @@ from search.tests.test_index import create_temp_indices
 
 @pytest.mark.usefixtures('es')
 class QuestionnaireListViewTest(TestCase):
-    fixtures = ['global_key_values', 'sample', 'sample_questionnaires']
+    fixtures = [
+        'global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         create_temp_indices([('sample', '2015')])
@@ -171,7 +175,11 @@ class QuestionnaireDetailViewTest(TestCase):
     """
     Tests for v1
     """
-    fixtures = ['sample', 'sample_questionnaires']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         logging.disable(logging.CRITICAL)

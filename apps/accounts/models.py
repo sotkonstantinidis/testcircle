@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from configuration.models import Country, ValueUser
+from django.urls import reverse
+
 from .conf import settings
 
 
@@ -100,6 +102,12 @@ class User(AbstractBaseUser, PermissionsMixin):
             ``str``. The display name of the user.
         """
         return '{} {}'.format(self.firstname, self.lastname)
+
+    def get_absolute_url(self):
+        """
+        Detail view url of the user.
+        """
+        return reverse('user_details', kwargs={'pk': self.id})
 
     def get_questionnaires(self):
         """

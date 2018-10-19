@@ -23,17 +23,12 @@
   </tr>
   <tr>
     <td colspan="2" style="font-weight: 300; padding: 10px 5px;">
-      {% trans "Dear" %} {{ name }}
+      {% trans "Dear" %} <a href="{{ recipient_url }}" class="link">{{ recipient_name }}</a>
     </td>
   </tr>
   <tr>
     <td colspan="2" style="padding: 0 5px 10px 5px; font-weight: 300;">
       {{ content }}
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="padding: 0 5px 10px 5px; font-weight: 300;">
-      <a href="{{ questionnaire_url }}">{% trans "See questionnaire in full" %}</a>
     </td>
   </tr>
   <tr>

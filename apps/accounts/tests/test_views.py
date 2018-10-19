@@ -132,7 +132,11 @@ class LoginViewTest(TestCase):
 
 
 class ProfileViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()

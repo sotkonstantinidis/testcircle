@@ -10,8 +10,8 @@ from functional_tests.pages.samplemulti import SamplemultiNewPage, \
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json',
-        'samplemulti.json',
+        'global_key_values',
+        'samplemulti',
     ]
 
     def test_questionnaire_is_available(self):

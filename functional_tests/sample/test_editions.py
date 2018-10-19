@@ -20,14 +20,15 @@ class EditionTest(FunctionalTest):
     """
 
     fixtures = [
-        'groups_permissions.json',
-        'sample_global_key_values.json',
-        'sample.json',
-        'sample_questionnaire_status.json',
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaire_status',
     ]
 
     def setUp(self):
         super().setUp()
+        call_command('delete_caches')
         self.user = User.objects.get(pk=101)
         with mock.patch.object(
                 Configuration, 'CODE_CHOICES', new_callable=mock.PropertyMock) \

@@ -1220,6 +1220,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     """
     roles_permissions = questionnaire_object.get_roles_permissions(request.user)
     permissions = roles_permissions.permissions
+    previous_status = questionnaire_object.status
 
     if request.POST.get('submit'):
 
@@ -1257,7 +1258,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             user=request.user,
-            message=request.POST.get('message', '')
+            message=request.POST.get('message', ''),
+            previous_status=previous_status
         )
 
     elif request.POST.get('review'):
@@ -1303,7 +1305,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             user=request.user,
-            message=request.POST.get('message', '')
+            message=request.POST.get('message', ''),
+            previous_status=previous_status
         )
 
     elif request.POST.get('publish'):
@@ -1329,6 +1332,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             status=settings.QUESTIONNAIRE_PUBLIC
         )
         for previous_object in previously_public:
+            previous_object_previous_status = previous_object.status
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
             delete_questionnaires_from_es([previous_object])
@@ -1336,7 +1340,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
                 user=request.user,
-                message=_('New version was published')
+                message=_('New version was published'),
+                previous_status=previous_object_previous_status
             )
 
         # Update the status
@@ -1381,7 +1386,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             user=request.user,
-            message=request.POST.get('message', '')
+            message=request.POST.get('message', ''),
+            previous_status=previous_status
         )
 
     elif request.POST.get('reject'):
@@ -1436,7 +1442,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             questionnaire=questionnaire_object,
             user=request.user,
             is_rejected=True,
-            message=request.POST.get('reject-message', '')
+            message=request.POST.get('reject-message', ''),
+            previous_status=previous_status,
         )
 
         # Query the permissions again, if the user does not have
@@ -1736,15 +1743,38 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=new_version,
             user=request.user,
-            message=_('New version due to unccd flagging')
+            message=_('New version due to unccd flagging'),
+            previous_status=previous_status
         )
 
     elif request.POST.get('delete'):
+        if 'delete_questionnaire' not in permissions:
+            messages.error(
+                request,
+                'You do not have permissions to delete this questionnaire!'
+            )
+            return
+
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             pre_save.disconnect(
                 prevent_updates_on_published_items, sender=Questionnaire)
         questionnaire_object.is_deleted = True
-        questionnaire_object.save()
+
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException as e:
+            # If the same user also has a lock, then release this lock.
+            if e.user == request.user:
+                Lock.objects.filter(
+                    user=request.user,
+                    questionnaire_code=questionnaire_object.code
+                ).update(
+                    is_finished=True
+                )
+                questionnaire_object.save()
+            else:
+                return
+
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             delete_questionnaires_from_es([questionnaire_object])
             pre_save.connect(
@@ -1753,7 +1783,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         delete_questionnaire.send(
             sender=settings.NOTIFICATIONS_DELETE,
             questionnaire=questionnaire_object,
-            user=request.user
+            user=request.user,
+            previous_status=questionnaire_object.status
         )
         # Redirect to the overview of the user's questionnaires if there is no
         # other version of the questionnaire left to show.

@@ -22,8 +22,12 @@ from functional_tests.pages.samplemulti import SampleMultiDetailPage, \
 class LinkTests(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'samplemulti.json', 'sample_samplemulti_questionnaires.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_samplemulti_questionnaires',
+    ]
 
     """
     1

@@ -61,7 +61,9 @@ from accounts.tests.test_views import accounts_route_questionnaires
 
 class UserTest(FunctionalTest):
 
-    fixtures = ['groups_permissions.json']
+    fixtures = [
+        'groups_permissions',
+    ]
 
     def test_superusers(self):
 
@@ -152,8 +154,12 @@ class UserTest(FunctionalTest):
 class ModerationTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'sample_questionnaire_status.json', 'sample_user.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+        'sample_user',
+    ]
 
     def test_user_questionnaires(self):
 

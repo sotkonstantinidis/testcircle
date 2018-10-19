@@ -5,7 +5,9 @@ from qcat.tests import TestCase
 
 class InitialGroupsTest(TestCase):
 
-    fixtures = ['groups_permissions.json']
+    fixtures = [
+        'groups_permissions',
+    ]
 
     def test_all_groups_are_loaded(self):
         self.assertEqual(Group.objects.count(), 5)

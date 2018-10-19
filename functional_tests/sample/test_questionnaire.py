@@ -27,7 +27,10 @@ from functional_tests.pages.samplemulti import SampleMultiDetailPage, \
 @pytest.mark.usefixtures('es')
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     # def test_numbered_questiongroups(self):
     #
@@ -2517,8 +2520,11 @@ class QuestionnaireTestIndex(FunctionalTest):
     # Tests requiring an index
 
     fixtures = [
-        'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
-        'sample_samplemulti_questionnaires.json']
+        'sample_global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_samplemulti_questionnaires',
+    ]
 
     def setUp(self):
         super(QuestionnaireTestIndex, self).setUp()
@@ -2660,8 +2666,11 @@ class QuestionnaireTestIndex(FunctionalTest):
 class QuestionnaireLinkTest(FunctionalTest):
 
     fixtures = [
-        'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
-        'sample_samplemulti_questionnaires.json']
+        'sample_global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_samplemulti_questionnaires',
+    ]
 
     def test_add_questionnaire_link(self):
 
@@ -2996,8 +3005,12 @@ class QuestionnaireLinkTest(FunctionalTest):
 @pytest.mark.usefixtures('es')
 class QuestionnaireTestProjects(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'sample.json',
-                'sample_projects.json', 'sample_institutions.json']
+    fixtures = [
+        'global_key_values',
+        'sample',
+        'sample_projects',
+        'sample_institutions',
+    ]
 
     def test_select_project(self):
 

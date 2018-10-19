@@ -116,13 +116,26 @@ class ReviewMixin:
     LOC_BUTTON_CHANGE_COMPILER_PANEL = (
         By.XPATH, '//a[@data-toggle="review-change-compiler-panel" and '
                   'contains(@class, "expand")]')
+    LOC_BUTTON_ASSIGN_USER_PANEL = (
+        By.XPATH, '//a[contains(@class, "js-toggle-edit-assigned-users") and '
+                  'contains(@class, "expand")]')
     LOC_BUTTON_CHANGE_COMPILER = (By.ID, 'button-change-compiler')
+    LOC_BUTTON_CHANGE_USER = (By.ID, 'button-assign')
+    LOC_BUTTON_REMOVE_USER = (
+        By.XPATH, '//div[@id="review-new-user"]/div[contains(text(), '
+                  '"{user}")]/a')
+    LOC_BUTTON_FINISH_EDITING = (By.XPATH, '//a[@data-reveal-id="finish-editing"]')
+    LOC_BUTTON_FINISH_EDITING_CONFIRM = (By.ID, 'inform-compiler')
     LOC_BUTTON_CLOSE_EDITION_MODAL = (
         By.XPATH, '//a[contains(@class, "close-modal-new-edition")]')
     LOC_BUTTONS_EDIT_CATEGORIES = (
         By.XPATH, '//div[contains(@class, "tech-section-action")]/a')
     LOC_INPUT_NEW_COMPILER = (By.ID, 'review-change-compiler')
+    LOC_INPUT_NEW_USER = (By.ID, 'review-search-user')
     LOC_INPUT_KEEP_COMPILER_AS_EDITOR = (By.NAME, 'change-compiler-keep-editor')
+    LOC_INPUT_REVIEW_COMMENT = (By.NAME, 'message')
+    LOC_INPUT_REJECT_COMMENT = (By.NAME, 'reject-message')
+    LOC_INPUT_COMPILER_MESSAGE = (By.NAME, 'compiler_info_message')
     LOC_CHANGE_COMPILER_SELECTED = (
         By.XPATH,
         '//div[@id="review-new-compiler"]/div[contains(@class, "alert-box")]')
@@ -161,7 +174,9 @@ class ReviewMixin:
     TEXT_MESSAGE_USER_ALREADY_COMPILER = 'This user is already the compiler.'
     TEXT_NEW_EDITION_AVAILABLE = 'New edition of the questionnaire is available'
 
-    def do_review_action(self, action: str, check_success: bool=True):
+    def do_review_action(
+            self, action: str, check_success: bool=True, message: str='',
+            message_locator: tuple=None):
         btn_locator = self.format_locator(
             self.LOC_BUTTON_REVIEW_ACTION, action=action)
         self.get_el(btn_locator).click()
@@ -169,6 +184,10 @@ class ReviewMixin:
         confirm_locator = self.format_locator(
             self.LOC_BUTTON_REVIEW_CONFIRM, action=action)
         self.wait_for(confirm_locator)
+        if message:
+            if not message_locator:
+                message_locator = self.LOC_INPUT_REVIEW_COMMENT
+            self.get_el(message_locator).send_keys(message)
         self.get_el(confirm_locator).click()
         if check_success is True:
             assert self.has_success_message()
@@ -176,14 +195,35 @@ class ReviewMixin:
     def delete_questionnaire(self, check_success: bool=True):
         self.do_review_action('delete', check_success=check_success)
 
-    def submit_questionnaire(self, check_success: bool=True):
-        self.do_review_action('submit', check_success=check_success)
+    def submit_questionnaire(self, check_success: bool=True, message: str=''):
+        self.do_review_action(
+            'submit', check_success=check_success, message=message)
 
-    def review_questionnaire(self, check_success: bool=True):
-        self.do_review_action('review', check_success=check_success)
+    def review_questionnaire(self, check_success: bool=True, message: str=''):
+        self.do_review_action(
+            'review', check_success=check_success, message=message)
 
-    def publish_questionnaire(self, check_success: bool=True):
-        self.do_review_action('publish', check_success=check_success)
+    def publish_questionnaire(self, check_success: bool=True, message: str=''):
+        self.do_review_action(
+            'publish', check_success=check_success, message=message)
+
+    def reject_questionnaire(self, message: str, check_success: bool=True):
+        self.do_review_action(
+            'reject', check_success=check_success, message=message,
+            message_locator=self.LOC_INPUT_REJECT_COMMENT)
+
+    def finish_editing(self, check_success: bool=True, message: str=''):
+        self.get_el(self.LOC_BUTTON_FINISH_EDITING).click()
+        self.wait_for_modal()
+        self.wait_for(self.LOC_BUTTON_FINISH_EDITING_CONFIRM)
+        if message:
+            self.get_el(self.LOC_INPUT_COMPILER_MESSAGE).send_keys(message)
+        self.get_el(self.LOC_BUTTON_FINISH_EDITING_CONFIRM).click()
+        if check_success is True:
+            assert self.has_success_message()
+            # Important: Wait for the modal to be hidden again, otherwise async
+            # POST might not be finished yet.
+            self.wait_for_modal(visibility=False)
 
     def get_review_actions(self) -> list:
         return [el.text for el in self.get_els(self.LOC_BUTTONS_REVIEW_ACTIONS)]
@@ -191,12 +231,34 @@ class ReviewMixin:
     def open_change_compiler_panel(self):
         self.get_el(self.LOC_BUTTON_CHANGE_COMPILER_PANEL).click()
 
+    def open_assign_user_panel(self):
+        self.get_el(self.LOC_BUTTON_ASSIGN_USER_PANEL).click()
+
     def click_change_compiler(self):
         self.wait_for(self.LOC_BUTTON_CHANGE_COMPILER)
         self.get_el(self.LOC_BUTTON_CHANGE_COMPILER).click()
 
+    def click_update_users(self):
+        self.wait_for(self.LOC_BUTTON_CHANGE_USER)
+        self.get_el(self.LOC_BUTTON_CHANGE_USER).click()
+
+    def assign_user(self, user: str):
+        self.open_assign_user_panel()
+        self.get_el(self.LOC_INPUT_NEW_USER).send_keys(
+            user.split(' ')[0])
+        self.select_autocomplete(user)
+        self.click_update_users()
+
+    def remove_user(self, editor: str):
+        self.hide_notifications()
+        self.open_assign_user_panel()
+        self.get_el(self.format_locator(
+            self.LOC_BUTTON_REMOVE_USER, user=editor)).click()
+        self.click_update_users()
+
     def change_compiler(
             self, compiler: str, keep_as_editor: bool=False, submit: bool=True):
+        self.hide_notifications()
         self.open_change_compiler_panel()
         self.get_el(self.LOC_INPUT_NEW_COMPILER).send_keys(
             compiler.split(' ')[0])

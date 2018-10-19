@@ -75,9 +75,13 @@ class StatusLogTest(TestCase):
         instance = mock.MagicMock()
         instance.log = 'log'
         instance.questionnaire.status = 'status'
-        StatusLog.create(self=instance, is_rejected='is_rejected', message='bar')
+        StatusLog.create(
+            self=instance, is_rejected='is_rejected', message='bar',
+            previous_status=1
+        )
         mock_create.assert_called_once_with(
-            log='log', status='status', is_rejected='is_rejected', message='bar'
+            log='log', status='status', is_rejected='is_rejected',
+            message='bar', previous_status=1
         )
 
 
@@ -91,6 +95,7 @@ class MemberLogTest(TestCase):
         mock_create.assert_called_once_with(
             log='log', affected='user', role='role'
         )
+
 
 class InformationUpdateTest(TestCase):
 

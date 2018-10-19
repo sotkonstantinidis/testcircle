@@ -383,9 +383,9 @@ class BaseSettings(Configuration):
     GOOGLE_MAPS_JAVASCRIPT_API_KEY = values.Value(environ_prefix='')
 
     # Mail settings (notification mails)
-    DEFAULT_FROM_EMAIL = 'info@wocat.net'
-    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=False)
-    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=True)
+    DEFAULT_FROM_EMAIL = 'wocat@cde.unibe.ch'
+    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=True)
+    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=False)
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
     WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')
