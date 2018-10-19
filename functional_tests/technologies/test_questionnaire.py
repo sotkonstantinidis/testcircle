@@ -8,8 +8,8 @@ from functional_tests.pages.wocat import AddDataPage
 class QuestionnaireTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json',
-        'technologies.json',
+        'global_key_values',
+        'technologies',
     ]
 
     def test_questionnaire_is_available(self):

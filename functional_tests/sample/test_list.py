@@ -25,9 +25,14 @@ from functional_tests.pages.sample import SampleDetailPage, SampleEditPage, \
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'flags.json', 'sample.json', 'unccd.json',
-        'sample_questionnaires_5.json', 'sample_projects.json',
-        'sample_institutions.json']
+        'global_key_values',
+        'flags',
+        'sample',
+        'unccd',
+        'sample_questionnaires_5',
+        'sample_projects',
+        'sample_institutions',
+    ]
 
     def setUp(self):
         super(ListTest, self).setUp()
@@ -1242,8 +1247,12 @@ class ListTest(FunctionalTest):
 class ListTestLinks(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'samplemulti', 'sample_samplemulti_questionnaires.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_samplemulti_questionnaires',
+    ]
 
     """
     1
@@ -1381,8 +1390,11 @@ class ListTestLinks(FunctionalTest):
 class ListTestStatus(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     def setUp(self):
         super(ListTestStatus, self).setUp()

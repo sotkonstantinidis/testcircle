@@ -31,9 +31,9 @@ from functional_tests.pages.sample import SampleDetailPage, SampleListPage, \
 class ModerationTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json',
-        'sample_global_key_values.json',
-        'sample.json',
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
     ]
 
     def setUp(self):
@@ -144,11 +144,11 @@ class ModerationTest(FunctionalTest):
 class ModerationTestFixture(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json',
-        'sample_global_key_values.json',
-        'sample.json',
-        'sample_questionnaire_status.json',
-        'sample_user.json',
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+        'sample_user',
     ]
 
     def setUp(self):

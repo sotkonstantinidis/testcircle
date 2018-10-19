@@ -134,7 +134,10 @@ class GetMappingsTest(TestCase):
 @pytest.mark.usefixtures('es')
 class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 
-    fixtures = ['sample.json', 'sample_global_key_values.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         super().setUp()
@@ -309,7 +312,10 @@ class CreateOrUpdateIndexTest(ESIndexMixin, TestCase):
 @pytest.mark.usefixtures('es')
 class PutQuestionnaireDataTest(TestCase):
 
-    fixtures = ['sample.json', 'sample_global_key_values.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     @patch('search.index.bulk')
     @patch('search.index.es')

@@ -39,7 +39,10 @@ class QuestionnaireConfigurationTest(TestCase):
 class QuestionnaireConfigurationGetListDataTest(TestCase):
 
     fixtures = [
-        'global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+        'global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def test_returns_list(self):
         questionnaires = Questionnaire.objects.all()
@@ -55,7 +58,10 @@ class QuestionnaireConfigurationGetListDataTest(TestCase):
 
 class QuestionnaireConfigurationGeometryTest(TestCase):
 
-    fixtures = ['global_key_values', 'sample']
+    fixtures = [
+        'global_key_values',
+        'sample',
+    ]
 
     def test_get_questionnaire_geometry_returns_geometry(self):
         conf = QuestionnaireConfiguration('sample')
@@ -84,7 +90,10 @@ class QuestionnaireConfigurationReadConfigurationTest(TestCase):
 
 class QuestionnaireCategoryTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.configuration = Mock()
@@ -130,7 +139,10 @@ class QuestionnaireCategoryTest(TestCase):
 
 class QuestionnaireSubcategoryTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.category = Mock()
@@ -192,7 +204,10 @@ class QuestionnaireSubcategoryTest(TestCase):
 
 class QuestionnaireQuestiongroupTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.subcategory = Mock()
@@ -257,7 +272,10 @@ class QuestionnaireQuestiongroupTest(TestCase):
 
 class QuestionnaireQuestionTest(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.obj = Mock()

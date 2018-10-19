@@ -27,7 +27,9 @@ invalid_file = 'bower.json'  # Needs to exist but not valid file type
 
 class GenericFileUploadTest(TestCase):
 
-    fixtures = ['groups_permissions.json']
+    fixtures = [
+        'groups_permissions',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -128,7 +130,11 @@ class GenericFileServeTest(TestCase):
 
 class QuestionnaireLinkSearchViewTest(TestCase):
 
-    fixtures = ['global_key_values', 'technologies', 'approaches']
+    fixtures = [
+        'global_key_values',
+        'technologies',
+        'approaches',
+    ]
 
     def setUp(self):
         view = QuestionnaireLinkSearchView(configuration_code='approaches')
@@ -181,7 +187,11 @@ class QuestionnaireLinkSearchViewTest(TestCase):
 
 
 class QuestionnaireViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         view = QuestionnaireView(url_namespace='sample')
@@ -269,8 +279,11 @@ class QuestionnaireViewTest(TestCase):
 
 
 class QuestionnaireEditViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json',
-                'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         view = QuestionnaireEditView(url_namespace='sample')
@@ -319,7 +332,11 @@ class QuestionnaireEditViewTest(TestCase):
 
 
 class QuestionnaireStepViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()

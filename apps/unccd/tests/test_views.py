@@ -79,7 +79,10 @@ class QuestionnaireNewTest(TestCase):
 class QuestionnaireNewStepTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'unccd.json']
+        'groups_permissions',
+        'global_key_values',
+        'unccd',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -98,7 +101,11 @@ class QuestionnaireNewStepTest(TestCase):
 class QuestionnaireDetailsTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'unccd.json', 'unccd_questionnaires.json']
+        'groups_permissions',
+        'global_key_values',
+        'unccd',
+        'unccd_questionnaires',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()

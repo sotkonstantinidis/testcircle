@@ -170,8 +170,12 @@ class TechnologyParserTest(ParserTestMixin, TestCase):
     configs / children takes too much time. Also mocking would not result in
     more stable tests, as the exact structure of the config needed to be mocked.
     """
-    fixtures = ['global_key_values', 'technologies', 'approaches',
-                'complete_questionnaires']
+    fixtures = [
+        'global_key_values',
+        'technologies',
+        'approaches',
+        'complete_questionnaires',
+    ]
 
     def setUp(self):
         super().setUp()
@@ -258,8 +262,12 @@ class TechnologyParserTest(ParserTestMixin, TestCase):
 
 class ApproachParserTest(ParserTestMixin, TestCase):
 
-    fixtures = ['global_key_values', 'approaches', 'technologies',
-                'complete_questionnaires']
+    fixtures = [
+        'global_key_values',
+        'approaches',
+        'technologies',
+        'complete_questionnaires',
+    ]
 
     def setUp(self):
         super().setUp()

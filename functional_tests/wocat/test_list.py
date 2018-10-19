@@ -9,15 +9,15 @@ from search.tests.test_index import create_temp_indices
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'approaches.json',
-        'cca.json',
-        'global_key_values.json',
-        'technologies.json',
-        'unccd.json',
-        'watershed.json',
-        'wocat.json',
-        'technologies_questionnaires.json',
-        'unccd_questionnaires.json',
+        'global_key_values',
+        'approaches',
+        'cca',
+        'technologies',
+        'unccd',
+        'watershed',
+        'wocat',
+        'technologies_questionnaires',
+        'unccd_questionnaires',
     ]
 
     def setUp(self):

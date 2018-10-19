@@ -78,8 +78,11 @@ def get_sample_5_5_options(testcase, index=0):
 class EditTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     def test_creation_date_does_not_change(self):
 
@@ -338,7 +341,10 @@ class EditTest(FunctionalTest):
 
 class CustomToOptionsTest(FunctionalTest):
 
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_custom_to_options(self):
         # Alice logs in
@@ -492,7 +498,10 @@ class CustomToOptionsTest(FunctionalTest):
 
 class LinkedChoicesTest(FunctionalTest):
 
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_linked_across_step(self):
         # Alice logs in
@@ -778,7 +787,10 @@ class LockTest(FunctionalTest):
     """
     Tests for questionnaire locking.
     """
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         super().setUp()

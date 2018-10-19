@@ -12,8 +12,11 @@ logging.disable(logging.CRITICAL)
 
 class SummaryTest(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'sample.json',
-                'sample_questionnaires.json']
+    fixtures = [
+        'global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         super().setUp()

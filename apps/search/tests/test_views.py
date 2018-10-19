@@ -50,7 +50,10 @@ class AdminTest(TestCase):
 @patch('search.views.messages')
 class IndexTest(TestCase):
 
-    fixtures = ['sample', 'sample_global_key_values']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -139,7 +142,10 @@ class IndexTest(TestCase):
 @patch('search.views.messages')
 class UpdateTest(TestCase):
 
-    fixtures = ['sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()

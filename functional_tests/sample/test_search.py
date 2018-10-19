@@ -21,8 +21,12 @@ LIST_EMPTY_RESULTS_TEXT = 'No results found.'
 class SearchTest(FunctionalTest):
 
     fixtures = [
-        'sample_global_key_values.json', 'sample.json', 'samplemulti.json',
-        'wocat.json', 'sample_questionnaires_search.json']
+        'sample_global_key_values',
+        'sample',
+        'samplemulti',
+        'wocat',
+        'sample_questionnaires_search',
+    ]
 
     def setUp(self):
         super(SearchTest, self).setUp()
@@ -93,8 +97,10 @@ class SearchTest(FunctionalTest):
 class SearchTestAdmin(FunctionalTest):
 
     fixtures = [
-        'sample_global_key_values.json', 'sample.json',
-        'sample_questionnaires.json']
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()

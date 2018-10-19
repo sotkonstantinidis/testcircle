@@ -345,7 +345,9 @@ class TranslationModelTest(TestCase):
 
 class ValueUserTest(TestCase):
 
-    fixtures = ['global_key_values']
+    fixtures = [
+        'global_key_values',
+    ]
 
     def test_all_returns_all_countries(self):
         all = Country.all()

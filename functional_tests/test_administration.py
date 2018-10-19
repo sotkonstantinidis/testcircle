@@ -7,7 +7,9 @@ from accounts.tests.test_models import create_new_user
 
 class AdminTest(FunctionalTest):
 
-    fixtures = ['groups_permissions.json']
+    fixtures = [
+        'groups_permissions',
+    ]
 
     def setUp(self):
         super(AdminTest, self).setUp()

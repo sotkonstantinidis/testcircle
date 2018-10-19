@@ -53,8 +53,11 @@ def get_valid_questionnaire_content():
 
 class CleanQuestionnaireDataTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json',
-                'sample_projects.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_projects',
+    ]
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -486,7 +489,10 @@ class GetQuestiongroupDataFromTranslationFormTest(TestCase):
 
 class GetActiveFiltersTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -759,8 +765,11 @@ class GetQueryStatusFilter(TestCase):
 class QueryQuestionnairesTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     @patch('questionnaire.utils.get_query_status_filter')
     @patch('questionnaire.utils.Questionnaire')
@@ -902,7 +911,11 @@ class QueryQuestionnairesTest(TestCase):
 @override_settings(USE_CACHING=False)
 class GetListValuesTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'samplemulti.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'samplemulti',
+    ]
 
     def setUp(self):
         self.values_length = 15
@@ -1407,7 +1420,11 @@ class HandleReviewActionsTest(TestCase):
 @patch('questionnaire.utils.messages')
 class HandleReviewActionsTestFixtures(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -1480,8 +1497,13 @@ class HandleReviewActionsTestFixtures(TestCase):
 @patch('questionnaire.utils.messages')
 class UnccdFlagTest(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
-                'sample_questionnaires_5']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'unccd',
+        'sample_questionnaires_5',
+    ]
 
     def setUp(self):
         self.obj = Mock(spec=Questionnaire)
@@ -1563,8 +1585,13 @@ class UnccdFlagTest(TestCase):
 @patch('questionnaire.utils.messages')
 class UnccdUnflagTest(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
-                'sample_questionnaires_5']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'unccd',
+        'sample_questionnaires_5',
+    ]
 
     def setUp(self):
         self.obj = Mock(spec=Questionnaire)

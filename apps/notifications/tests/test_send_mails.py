@@ -25,7 +25,11 @@ class SendMailRecipientMixin(TestCase):
     sent mails.
     """
 
-    fixtures = ['groups_permissions', 'sample']
+    fixtures = [
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample'
+    ]
     # map user names to their permission-groups.
     user_groups_mapping = {
         'editor': None,

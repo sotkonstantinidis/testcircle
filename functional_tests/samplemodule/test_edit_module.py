@@ -12,8 +12,10 @@ route_add_module = 'sample:add_module'
 class EditModuleTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'samplemodule.json'
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'samplemodule',
     ]
 
     def test_edit_module(self):
@@ -138,12 +140,12 @@ class EditModuleTest(FunctionalTest):
 class EditModuleWithLink(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json',
-        'global_key_values.json',
-        'sample.json',
-        'samplemodule.json',
-        'samplemulti.json',
-        'sample_samplemulti_questionnaires.json'
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'samplemodule',
+        'samplemulti',
+        'sample_samplemulti_questionnaires',
     ]
 
     def test_edit_module_with_link(self):

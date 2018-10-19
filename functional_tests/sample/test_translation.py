@@ -11,8 +11,10 @@ from sample.tests.test_views import (
 class TranslationTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json']
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_enter_questionnaire_in_spanish_freetext(self):
 

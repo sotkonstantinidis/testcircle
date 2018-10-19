@@ -13,8 +13,11 @@ from sample.tests.test_views import route_questionnaire_new
 @pytest.mark.usefixtures('es')
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['groups_permissions.json', 'global_key_values.json',
-                'sample.json']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+    ]
 
     def test_add_points(self):
 
