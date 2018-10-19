@@ -103,7 +103,7 @@ class SendMailRecipientMixin(TestCase):
                 yield {
                     'log_id': str(log.id),
                     'recipient': user.email,
-                    'subject': str(log.mail_subject)
+                    'subject': str(log.get_mail_data(user)[1])
                 }
 
     @contextlib.contextmanager
@@ -123,7 +123,7 @@ class SendMailRecipientMixin(TestCase):
                 message = email_obj.message()
                 outbox.append({
                     'recipient': email_obj.recipients()[0],
-                    'subject': message['Subject'],
+                    'subject': message['Subject'].replace('\n', ''),
                     'log_id': message['qcat_log']
                 })
 
@@ -201,7 +201,7 @@ class SettingsMailTest(SendMailRecipientMixin):
             expected = [{
                 'log_id': str(logs[2].id),
                 'recipient': self.compiler_todo.email,
-                'subject': str(logs[2].mail_subject)
+                'subject': str(logs[2].get_mail_data(self.compiler_todo)[1])
             }]
             self.assert_only_expected(outbox, *expected)
         self.assert_no_unsent_logs(3)
@@ -304,7 +304,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
             expected.append({
                 'log_id': str(logs[2].id),
                 'recipient': self.reviewer_todo.email,
-                'subject': str(logs[2].mail_subject)
+                'subject': str(logs[2].get_mail_data(self.reviewer_todo)[1])
             })
             self.assert_only_expected(outbox, *expected)
         self.assert_no_unsent_logs(3)
@@ -354,7 +354,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 [{
                     'log_id': str(logs[2].id),
                     'recipient': self.publisher_todo.email,
-                    'subject': str(logs[2].mail_subject)
+                    'subject': str(logs[2].get_mail_data(self.publisher_todo)[1])
                 }]
             )
             self.assertEqual(len(outbox), 10)
@@ -387,7 +387,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 [{
                     'log_id': str(logs[2].id),
                     'recipient': self.reviewer_todo.email,
-                    'subject': str(logs[2].mail_subject)
+                    'subject': str(logs[2].get_mail_data(self.reviewer_todo)[1])
                 }]
             )
             self.assertEqual(len(outbox), 10)

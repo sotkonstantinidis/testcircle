@@ -330,21 +330,6 @@ class Log(models.Model):
         )
 
     @cached_property
-    def mail_subject(self):
-        subject = ''
-        if self.is_rejected:
-            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_SUBMITTED:
-                # Rejected from submitted
-                subject = _('This practice has been rejected and needs revision')
-            elif self.statusupdate.previous_status == settings.QUESTIONNAIRE_REVIEWED:
-                # Rejected from reviewed
-                subject = _('This practice has been rejected and needs revision')
-        elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
-            if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
-                subject = _('This practice has been submitted')
-        return f'[WOCAT] {self.questionnaire.get_name()}: {subject}'
-
-    @cached_property
     def is_content_update(self) -> bool:
         return self.action is settings.NOTIFICATIONS_EDIT_CONTENT
 
@@ -441,53 +426,153 @@ class Log(models.Model):
     def get_affected(self):
         return [self.memberupdate.affected] if hasattr(self, 'memberupdate') else []
 
+    def get_mail_context(self, recipient: User) -> dict:
+        # Prepare and return the context used to render both HTML and plain text
+        # mails.
+        compilers = self.questionnaire.get_users_by_role(
+            settings.QUESTIONNAIRE_COMPILER)
+        if compilers:
+            compiler = compilers[0]
+        else:
+            compiler = None
+
+        message = None
+        if hasattr(self, 'statusupdate'):
+            message = self.statusupdate.message
+        if hasattr(self, 'informationupdate'):
+            message = self.informationupdate.info
+
+        role = None
+        if hasattr(self, 'memberupdate'):
+            role = self.memberupdate.role
+
+        return {
+            'recipient_name': recipient.get_display_name(),
+            'recipient_url': recipient.get_absolute_url(),
+            'subscription_url': '{base_url}{url}'.format(
+                base_url=settings.BASE_URL,
+                url=recipient.mailpreferences.get_signed_url()
+            ),
+            'questionnaire': self.questionnaire,
+            'questionnaire_url': f'{settings.BASE_URL}{self.questionnaire.get_absolute_url()}',
+            'questionnaire_name': self.get_questionnaire_name_mail(),
+            'compiler': compiler,
+            'message': message,
+            'role': role,
+            'catalyst': self.catalyst,
+            'base_url': settings.BASE_URL,
+        }
+
+    def get_mail_data(self, recipient: User) -> tuple:
+        # Return a tuple with [0] context (with key "content" containing the
+        # dynamic parts of the mail) and [1] subject for the mail.
+        context = self.get_mail_context(recipient)
+
+        # Decide which subject and template to use for the mail. Not very nice,
+        # but it works ...
+        mail_keyword = None
+        if self.is_rejected:
+            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_SUBMITTED:
+                # Rejected from submitted
+                mail_keyword = 'rejected_submitted'
+            elif self.statusupdate.previous_status == settings.QUESTIONNAIRE_REVIEWED:
+                # Rejected from reviewed
+                mail_keyword = 'rejected_reviewed'
+        elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
+            if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
+                # Submitted a draft questionnaire
+                # subject = _('This practice has been submitted')
+                mail_keyword = 'submitted'
+            elif self.questionnaire.status == settings.QUESTIONNAIRE_REVIEWED:
+                # Reviewed a submitted questionnaire
+                mail_keyword = 'reviewed'
+            elif self.questionnaire.status == settings.QUESTIONNAIRE_PUBLIC:
+                # Published a reviewed questionnaire
+                mail_keyword = 'published'
+        elif self.action == settings.NOTIFICATIONS_DELETE:
+            mail_keyword = 'deleted'
+        elif self.action == settings.NOTIFICATIONS_ADD_MEMBER:
+            if self.memberupdate.role == 'compiler':
+                # Added a new compiler.
+                mail_keyword = 'compiler_added'
+                # Do not mention the compiler in this mail, as the compiler has
+                # just changed.
+                context.update({'compiler': None})
+            elif self.memberupdate.role == 'editor':
+                # Added a new editor
+                mail_keyword = 'editor_added'
+            elif self.memberupdate.role == 'reviewer':
+                # Added a new reviewer
+                mail_keyword = 'reviewer_added'
+            elif self.memberupdate.role == 'publisher':
+                # Added a new publisher
+                mail_keyword = 'publisher_added'
+        elif self.action == settings.NOTIFICATIONS_REMOVE_MEMBER:
+            if self.memberupdate.role == 'compiler':
+                # Removed a compiler
+                mail_keyword = 'compiler_removed'
+                # Do not mention the compiler in this mail, as the compiler has
+                # just changed.
+                context.update({'compiler': None})
+            elif self.memberupdate.role == 'editor':
+                # Removed an editor
+                mail_keyword = 'editor_removed'
+            elif self.memberupdate.role == 'reviewer':
+                # Removed a reviewer
+                mail_keyword = 'reviewer_removed'
+            elif self.memberupdate.role == 'publisher':
+                # Removed a publisher
+                mail_keyword = 'publisher_removed'
+        elif self.action == settings.NOTIFICATIONS_FINISH_EDITING:
+            # Editor has finished editing
+            mail_keyword = 'edited'
+
+        if mail_keyword:
+            content = render_to_string(
+                f'notifications/mail/partial/{mail_keyword}.html',
+                context=context
+            )
+            subject = settings.NOTIFICATIONS_MAIL_SUBJECTS[mail_keyword]
+        else:
+            content = ''
+            subject = ''
+
+        context.update({
+            'title': f'{self.get_questionnaire_name_mail()}: {subject}',
+            'content': content,
+        })
+
+        return context, f'[WOCAT] {self.questionnaire.get_name()}: {subject}'
+
     def compile_message_to(self, recipient: User) -> EmailMultiAlternatives:
+        context, subject = self.get_mail_data(recipient=recipient)
         message = EmailMultiAlternatives(
-            subject=self.mail_subject,
-            body=self.get_mail_template('plain_text.txt', recipient=recipient),
+            subject=subject,
+            body=self.get_mail_template('plain_text.txt', context=context),
             from_email=settings.DEFAULT_FROM_EMAIL,
             to=[recipient.email],
             headers={'qcat_log': self.id}
         )
         message.attach_alternative(
-            content=self.get_mail_template('html_text.html', recipient=recipient),
+            content=self.get_mail_template('html_text.html', context=context),
             mimetype='text/html'
         )
         return message
 
-    def get_mail_template(self, template_name: str, recipient: User) -> str:
+    @staticmethod
+    def get_mail_template(template_name: str, context: dict) -> str:
         return render_to_string(
             'notifications/mail/{}'.format(template_name),
-            context=self.get_mail_context(recipient)
+            context=context
         )
-
-    def get_mail_context(self, recipient: User) -> dict:
-        context = {
-            'title': '«{questionnaire}» was updated'.format(
-                questionnaire=self.questionnaire.get_name()
-            ),
-            'name': recipient.get_display_name(),
-            'content': self.get_mail_html(recipient),
-            'subscription_url': '{base_url}{url}'.format(
-                base_url=settings.BASE_URL,
-                url=recipient.mailpreferences.get_signed_url()
-            ),
-            'questionnaire_url': '{base_url}{url}'.format(
-                base_url=settings.BASE_URL,
-                url=self.questionnaire.get_absolute_url()
-            ),
-            'base_url': settings.BASE_URL
-        }
-        if self.is_publish_notification:
-            context['content'] += render_to_string(
-                'notifications/mail/publish_addendum.html'
-            )
-        return context
 
     @property
     def is_publish_notification(self):
         return self.action == settings.NOTIFICATIONS_CHANGE_STATUS and \
                self.statusupdate.status == settings.QUESTIONNAIRE_PUBLIC
+
+    def get_questionnaire_name_mail(self):
+        return f'«{self.questionnaire.get_name()}» ({self.questionnaire.code})'
 
 
 class StatusUpdate(models.Model):

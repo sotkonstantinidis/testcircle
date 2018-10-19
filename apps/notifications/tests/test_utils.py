@@ -96,6 +96,7 @@ class MemberLogTest(TestCase):
             log='log', affected='user', role='role'
         )
 
+
 class InformationUpdateTest(TestCase):
 
     @mock.patch('notifications.utils.InformationUpdate.objects.create')

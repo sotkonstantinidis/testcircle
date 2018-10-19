@@ -8,7 +8,7 @@ from model_mommy import mommy
 from qcat.tests import TestCase
 
 from notifications.models import ActionContextQuerySet, Log, StatusUpdate, \
-    ReadLog, ContentUpdate, MemberUpdate
+    ReadLog, ContentUpdate, MemberUpdate, InformationUpdate
 from questionnaire.models import Questionnaire, QuestionnaireMembership
 
 
@@ -310,6 +310,17 @@ class LogTest(TestCase):
             _model=MemberUpdate,
             log=self.member_log
         )
+        self.information_log = mommy.make(
+            _model=Log,
+            action=settings.NOTIFICATIONS_FINISH_EDITING
+        )
+        mommy.make(
+            _model=InformationUpdate,
+            log=self.information_log
+        )
+
+    def strip(self, input):
+        return input.replace('\n', ' ').replace('  ', '')
 
     def test_is_content_update(self):
         self.assertTrue(self.content_log.is_content_update)
@@ -332,11 +343,180 @@ class LogTest(TestCase):
         )
 
     @patch.object(Questionnaire, 'get_name')
-    def test_mail_subject_submitted(self, mock_questionnaire_name):
+    def test_mail_data_submitted(self, mock_questionnaire_name):
+        # Mail data when submitting a draft questionnaire.
         mock_questionnaire_name.return_value = 'Questionnaire X'
         self.status_log.questionnaire.status = settings.QUESTIONNAIRE_SUBMITTED
-        subject = self.status_log.mail_subject
+        context, subject = self.status_log.get_mail_data(recipient=self.catalyst)
         assert subject == '[WOCAT] Questionnaire X: This practice has been submitted'
+        content = self.strip(context['content'])
+        assert 'has been submitted' in content
+        assert self.status_log.statusupdate.message in content
+        assert self.status_log.get_questionnaire_name_mail() in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_data_reviewed(self, mock_questionnaire_name):
+        # Mail data when reviewing a submitted questionnaire.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.status_log.questionnaire.status = settings.QUESTIONNAIRE_REVIEWED
+        context, subject = self.status_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: This practice has been approved and is awaiting final review before it can be published'
+        content = self.strip(context['content'])
+        assert 'has been approved by the reviewer' in content
+        assert self.status_log.statusupdate.message in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_data_published(self, mock_questionnaire_name):
+        # Mail data when reviewing a submitted questionnaire.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.status_log.questionnaire.status = settings.QUESTIONNAIRE_PUBLIC
+        context, subject = self.status_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: Congratulations, this practice has been published!'
+        content = self.strip(context['content'])
+        assert 'has been published' in content
+        assert self.status_log.statusupdate.message in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_data_deleted(self, mock_questionnaire_name):
+        # Mail data when deleting a questionnaire.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.status_log.questionnaire.status = settings.QUESTIONNAIRE_PUBLIC
+        self.status_log.action = settings.NOTIFICATIONS_DELETE
+        context, subject = self.status_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: This practice has been deleted'
+        assert 'has been deleted' in context['content']
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_data_rejected_submitted(self, mock_questionnaire_name):
+        # Mail data when rejecting a *submitted* questionnaire.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.status_log.statusupdate.is_rejected = True
+        self.status_log.statusupdate.previous_status = settings.QUESTIONNAIRE_SUBMITTED
+        self.status_log.questionnaire.status = settings.QUESTIONNAIRE_DRAFT
+        context, subject = self.status_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: This practice has been rejected and needs revision'
+        content = self.strip(context['content'])
+        assert 'has been rejected' in content
+        assert 'If you are a reviewer' not in content
+        assert self.status_log.statusupdate.message in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_data_rejected_reviewed(self, mock_questionnaire_name):
+        # Mail data when rejecting a *reviewed* questionnaire.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.status_log.statusupdate.is_rejected = True
+        self.status_log.statusupdate.previous_status = settings.QUESTIONNAIRE_REVIEWED
+        self.status_log.questionnaire.status = settings.QUESTIONNAIRE_DRAFT
+        context, subject = self.status_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: This practice has been rejected and needs revision'
+        content = self.strip(context['content'])
+        assert 'has been rejected' in content
+        assert 'If you are a reviewer' in content
+        assert self.status_log.statusupdate.message in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_editor_added(self, mock_questionnaire_name):
+        # Mail data when adding a new editor.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'editor'
+        self.member_log.action = settings.NOTIFICATIONS_ADD_MEMBER
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You are an editor'
+        content = self.strip(context['content'])
+        assert 'You have been added as an editor of' in content
+        assert 'As an editor' in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_editor_removed(self, mock_questionnaire_name):
+        # Mail data when removing an editor.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'editor'
+        self.member_log.action = settings.NOTIFICATIONS_REMOVE_MEMBER
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You have been removed as an editor'
+        assert 'You have been removed as an editor of' in self.strip(context['content'])
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_reviewer_added(self, mock_questionnaire_name):
+        # Mail data when adding a new reviewer.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'reviewer'
+        self.member_log.action = settings.NOTIFICATIONS_ADD_MEMBER
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You are a reviewer'
+        content = self.strip(context['content'])
+        assert 'You have been added as a reviewer of' in content
+        assert 'Please review the SLM practice' in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_reviewer_removed(self, mock_questionnaire_name):
+        # Mail data when removing a reviewer.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'reviewer'
+        self.member_log.action = settings.NOTIFICATIONS_REMOVE_MEMBER
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You have been removed as a reviewer'
+        assert 'You have been removed as a reviewer of' in self.strip(context['content'])
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_publisher_added(self, mock_questionnaire_name):
+        # Mail data when adding a new publisher.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'publisher'
+        self.member_log.action = settings.NOTIFICATIONS_ADD_MEMBER
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You are a publisher'
+        content = self.strip(context['content'])
+        assert 'You have been added as a publisher of' in content
+        assert 'The SLM practice has been reviewed and approved' in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_publisher_removed(self, mock_questionnaire_name):
+        # Mail data when removing a publisher.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'publisher'
+        self.member_log.action = settings.NOTIFICATIONS_REMOVE_MEMBER
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You have been removed as a publisher'
+        assert 'You have been removed as a publisher of' in self.strip(context['content'])
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_compiler_added(self, mock_questionnaire_name):
+        # Mail data when adding a new compiler (replacing the old one).
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'compiler'
+        self.member_log.action = settings.NOTIFICATIONS_ADD_MEMBER
+        self.member_log.questionnaire.add_user(self.catalyst, 'compiler')
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You are a compiler'
+        content = self.strip(context['content'])
+        assert 'You have been added as a compiler of' in content
+        assert 'As a compiler' in content
+        assert 'compiled by' not in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_compiler_removed(self, mock_questionnaire_name):
+        # Mail data when removing a publisher.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.member_log.memberupdate.role = 'compiler'
+        self.member_log.action = settings.NOTIFICATIONS_REMOVE_MEMBER
+        self.member_log.questionnaire.add_user(self.catalyst, 'compiler')
+        context, subject = self.member_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: You have been removed as a compiler'
+        content = self.strip(context['content'])
+        assert 'You have been removed as a compiler of' in content
+        assert 'compiled by' not in content
+
+    @patch.object(Questionnaire, 'get_name')
+    def test_mail_edited(self, mock_questionnaire_name):
+        # Mail data when an editor has finished editing the questionnaire.
+        mock_questionnaire_name.return_value = 'Questionnaire X'
+        self.information_log.action = settings.NOTIFICATIONS_FINISH_EDITING
+        context, subject = self.information_log.get_mail_data(recipient=self.catalyst)
+        assert subject == '[WOCAT] Questionnaire X: This practice has been edited'
+        content = self.strip(context['content'])
+        assert 'has been edited' in content
+        assert self.information_log.informationupdate.info in content
 
     @patch.object(Log, 'get_affected')
     @patch.object(Questionnaire, 'get_reviewers')
@@ -400,10 +580,6 @@ class LogTest(TestCase):
         self.assertFalse(self.content_log.get_affected())
         self.assertFalse(self.status_log.get_affected())
         self.assertTrue(self.member_log.get_affected())
-
-
-class ReadLogTest(TestCase):
-    pass
 
 
 class MailPreferencesTest(TestCase):

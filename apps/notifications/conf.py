@@ -35,6 +35,24 @@ class NotificationsConf(AppConf):
         FINISH_EDITING: 'icon-edit-approve',
     }
 
+    MAIL_SUBJECTS = {
+        'edited': _('This practice has been edited'),
+        'submitted': _('This practice has been submitted'),
+        'reviewed': _('This practice has been approved and is awaiting final review before it can be published'),
+        'published': _('Congratulations, this practice has been published!'),
+        'deleted': _('This practice has been deleted'),
+        'rejected_submitted': _('This practice has been rejected and needs revision'),
+        'rejected_reviewed': _('This practice has been rejected and needs revision'),
+        'compiler_added': _('You are a compiler'),
+        'compiler_removed': _('You have been removed as a compiler'),
+        'editor_added': _('You are an editor'),
+        'editor_removed': _('You have been removed as an editor'),
+        'reviewer_added': _('You are a reviewer'),
+        'reviewer_removed': _('You have been removed as a reviewer'),
+        'publisher_added': _('You are a publisher'),
+        'publisher_removed': _('You have been removed as a publisher'),
+    }
+
     # Mapping of user permissions and allowed questionnaire statuses
     QUESTIONNAIRE_STATUS_PERMISSIONS = {
         'questionnaire.submit_questionnaire': settings.QUESTIONNAIRE_DRAFT,
