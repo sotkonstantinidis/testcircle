@@ -5,6 +5,6 @@ from configuration.models import Configuration, Translation, Value, Key, \
 
 def run():
     Sample(
-        key=Key, value=Value, questiongroup=Questiongroup, category=Category,
-        configuration=Configuration, translation=Translation
+        key=Key, value=Value, questiongroup=Questiongroup,
+        category=Category, configuration=Configuration, translation=Translation
     ).run_operations()

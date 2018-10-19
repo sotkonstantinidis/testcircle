@@ -2430,9 +2430,9 @@ class Technologies(Edition):
         if 'qg_accept_conditions' in data:
             # Can only be 1 entry
             moved_date = data['qg_accept_conditions'][0].get('date_documentation')
-            del data['qg_accept_conditions'][0]['date_documentation']
 
         if moved_date:
+            del data['qg_accept_conditions'][0]['date_documentation']
             data['tech_qg_250'] = [{'date_documentation': moved_date}]
 
         return data
