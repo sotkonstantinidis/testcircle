@@ -754,17 +754,27 @@ class ModerationTestFixture(FunctionalTest):
         QUESTIONNAIRE_COMPILER = 'compiler',
         QUESTIONNAIRE_EDITOR = 'editor'
     )
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('accounts.views.remote_user_client.search_users')
     @patch('questionnaire.signals.change_member.send')
-    def test_secretariat_can_assign_reviewer_2(self, mock_member_change):
+    def test_secretariat_can_assign_reviewer_2(
+            self, mock_member_change, mock_search_users, mock_user_information):
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         identifier = 'sample_3'
-        editor = 'Faz Taz'
-        old_compiler = 'Foo Bar'
-        old_compiler_id = 101
-        new_compiler_1 = 'test2 wocat'
-        new_compiler_1_id = 3034
-        new_compiler_2 = 'test3 wocat'
-        new_compiler_2_id = 3035
+        editor = User.objects.get(pk=102)
+        old_compiler = User.objects.get(pk=101)
+        new_compiler_1 = self.create_new_user(
+            email='new_compiler_1@foo.com',
+            last_name='wocat',
+            first_name='test2'
+        )
+        new_compiler_2 = self.create_new_user(
+            email='new_compiler_2@foo.com',
+            last_name='wocat',
+            first_name='test3'
+        )
 
         # User (publisher) opens the details of a public questionnaire
         detail_page = SampleDetailPage(self)
@@ -786,8 +796,8 @@ class ModerationTestFixture(FunctionalTest):
         assert detail_page.can_delete_questionnaire()
 
         # The compiler and the editors are correct.
-        assert detail_page.get_compiler() == old_compiler
-        assert detail_page.get_editors() == [editor]
+        assert detail_page.get_compiler() == old_compiler.get_display_name()
+        assert detail_page.get_editors() == [editor.get_display_name()]
 
         # User goes to the list view and sees the compiler there
         list_page = SampleListPage(self)
@@ -818,10 +828,13 @@ class ModerationTestFixture(FunctionalTest):
         detail_page.hide_notifications()
 
         # User selects a new compiler
-        detail_page.change_compiler(new_compiler_1, submit=False)
+        detail_page.change_compiler(
+            new_compiler_1.get_display_name(), submit=False
+        )
 
         # The new compiler is listed
-        assert detail_page.get_selected_compilers() == [new_compiler_1]
+        assert detail_page.get_selected_compilers() == [
+            new_compiler_1.get_display_name()]
 
         # User confirms and sees a success message
         detail_page.click_change_compiler()
@@ -834,21 +847,21 @@ class ModerationTestFixture(FunctionalTest):
             sender='delete_member',
             questionnaire=Questionnaire.objects.get(code=identifier),
             user=self.user_secretariat,
-            affected=User.objects.get(pk=old_compiler_id),
+            affected=old_compiler,
             role='compiler'
         )
         mock_member_change.assert_any_call(
             sender='add_member',
             questionnaire=Questionnaire.objects.get(code=identifier),
             user=self.user_secretariat,
-            affected=User.objects.get(pk=new_compiler_1_id),
+            affected=new_compiler_1,
             role='compiler'
         )
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details, editor did not change
-        assert detail_page.get_compiler() == new_compiler_1
-        assert detail_page.get_editors() == [editor]
+        assert detail_page.get_compiler() == new_compiler_1.get_display_name()
+        assert detail_page.get_editors() == [editor.get_display_name()]
 
         # In the list, the new compiler is visible
         list_page.open()
@@ -866,10 +879,13 @@ class ModerationTestFixture(FunctionalTest):
         # current compiler once again
         detail_page.open()
         detail_page.hide_notifications()
-        detail_page.change_compiler(new_compiler_1, submit=False)
+        detail_page.change_compiler(
+            new_compiler_1.get_display_name(), submit=False
+        )
 
         # The compiler is listed
-        assert detail_page.get_selected_compilers() == [new_compiler_1]
+        assert detail_page.get_selected_compilers() == [
+            new_compiler_1.get_display_name()]
 
         # User confirms and sees an error message
         detail_page.click_change_compiler()
@@ -881,8 +897,10 @@ class ModerationTestFixture(FunctionalTest):
 
         # User changes the compiler yet again.
         detail_page.hide_notifications()
-        detail_page.change_compiler(new_compiler_2, submit=False)
-        assert detail_page.get_selected_compilers() == [new_compiler_2]
+        detail_page.change_compiler(
+            new_compiler_2.get_display_name(), submit=False)
+        assert detail_page.get_selected_compilers() == [
+            new_compiler_2.get_display_name()]
 
         # User sees the search box is now disabled
         assert not detail_page.can_enter_new_compiler()
@@ -900,30 +918,30 @@ class ModerationTestFixture(FunctionalTest):
             sender='delete_member',
             questionnaire=Questionnaire.objects.get(code=identifier),
             user=self.user_secretariat,
-            affected=User.objects.get(pk=new_compiler_1_id),
+            affected=new_compiler_1,
             role='compiler'
         )
         mock_member_change.assert_any_call(
             sender='add_member',
             questionnaire=Questionnaire.objects.get(code=identifier),
             user=self.user_secretariat,
-            affected=User.objects.get(pk=new_compiler_2_id),
+            affected=new_compiler_2,
             role='compiler'
         )
         mock_member_change.assert_any_call(
             sender='add_member',
             questionnaire=Questionnaire.objects.get(code=identifier),
             user=self.user_secretariat,
-            affected=User.objects.get(pk=new_compiler_1_id),
+            affected=new_compiler_1,
             role='editor'
         )
         mock_member_change.reset_mock()
 
         # The new compiler is visible in the details
-        assert detail_page.get_compiler() == new_compiler_2
+        assert detail_page.get_compiler() == new_compiler_2.get_display_name()
 
         # The old compiler is now an editor
-        assert new_compiler_1 in detail_page.get_editors()
+        assert new_compiler_1.get_display_name() in detail_page.get_editors()
 
         list_page.open()
         list_results = [
