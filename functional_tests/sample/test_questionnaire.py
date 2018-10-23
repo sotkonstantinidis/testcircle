@@ -1389,6 +1389,11 @@ class QuestionnaireTest(FunctionalTest):
         self.findBy('xpath', f'//*[text()="{send_text}"]')
         self.click_edit_section('cat_2')
 
+        # She sees a warning that she is about to create a new translation
+        step_page = SampleStepPage(self)
+        assert step_page.has_translation_warning()
+        step_page.translation_warning_click_continue()
+
         value_13_5 = self.findBy('id', 'id_qg_10-0-key_13_1_5')
         # This time, she is seeing the translation field!
         key_24 = self.findBy('id', 'id_qg_18-0-translation_key_24')
@@ -1407,7 +1412,7 @@ class QuestionnaireTest(FunctionalTest):
 
         # She deselects value 13_5 once again and submits the form
         value_13_5.click()
-        self.submit_form_step()
+        step_page.submit_step(confirm_add_translation=True)
         self.findByNot('xpath', f'//*[text()="{send_text}"]')
 
         # Still in French, she goes to the step again

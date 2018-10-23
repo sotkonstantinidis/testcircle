@@ -1134,6 +1134,10 @@ class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
             view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
                                args=[self.identifier, self.kwargs['step']])
 
+        show_translation_warning = False
+        if self.has_object and get_language() not in self.object.translations:
+            show_translation_warning = True
+
         # questionnaire is locked one minute before the lock time is over. time
         # is expressed in milliseconds, as required for setInterval
         lock_interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
@@ -1149,7 +1153,8 @@ class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
             'edit_mode': self.edit_mode,
             'view_url': view_url,
             'toc_content': self.get_toc_content(),
-            'lock_interval': lock_interval
+            'lock_interval': lock_interval,
+            'show_translation_warning': show_translation_warning,
         })
         return ctx
 

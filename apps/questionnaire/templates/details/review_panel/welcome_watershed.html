@@ -10,7 +10,7 @@
     <p>{% trans "You are about to add data from the Questionnaire on Watershed." %}</p>
     <p>
       {% url 'wocat:help_questionnaire_introduction' as intro_url %}
-      {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}If this is the first time you are using the data entry form {{ start_tour_link }}please visit the help tour{{ end_link }} and <a href="{{ intro_url }}" class="link">read the introduction to the questionnaire{{ end_link }}.{% endblocktrans %}
+      {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}If this is the first time you are using the data entry form {{ start_tour_link }}please visit the help tour{{ end_link }} and <a href="{{ intro_url }}" class="link">read about the WOCAT documentation of SLM practices{{ end_link }}.{% endblocktrans %}
     </p>
     <p>
       {% blocktrans with start_link='<a href="https://wocat.net/library/media/41/" target="_blank" class="link">' endlink='</a>' %}A PDF version of the paper questionnaire can be {{ start_link }}downloaded here{{ end_link }}.{% endblocktrans %}

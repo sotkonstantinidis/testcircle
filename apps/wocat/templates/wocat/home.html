@@ -73,7 +73,7 @@
   <ul class="accordion" data-accordion>
     <li class="accordion-navigation accordion-about-wocat">
       <a href="#about-wocat">
-        {% trans "About the WOCAT SLM Database" %}<svg class="accordion-icon-closed icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-down"></use></svg><svg class="accordion-icon-opened icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-up"></use></svg>
+        {% trans "WOCAT Global SLM Database" %}<svg class="accordion-icon-closed icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-down"></use></svg><svg class="accordion-icon-opened icon-chevron is-inline-right"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-thin-up"></use></svg>
       </a>
       <div id="about-wocat" class="content">
         <p class="is-rhythmed-2">
@@ -88,8 +88,21 @@
         <p class="is-rhythmed-2">
           {% trans "A SLM practice can be either an SLM Technology (a physical practice that controls land degradation and/or enhances productivity, consisting of one or several measures) or an SLM Approach (ways and means used to implement one or several SLM Technologies, including technical and material support, stakeholder engagement, and other)." %}
         </p>
+        <div class="is-rhythmed-2">
+          <p>{% trans "Credits for the translation of the WOCAT Questionnaires and Database go to:" %}</p>
+          <ul>
+            <li>{% trans "<strong>Russian</strong>: Olga Andreeva (Associate Professor Moscow Lomonosov State University), Julia Johnson (Translator)" %}</li>
+            <li>{% trans "<strong>Spanish</strong>: Pedro Charles Alborno (Translator)" %}</li>
+            <li>{% trans "<strong>French</strong>: Barbara de Choudens (Translator)" %}</li>
+            <li>{% trans "<strong>Lao</strong>: National Agriculture and Forestry Institute (NAFRI) Lao PDR" %}</li>
+            <li>{% trans "<strong>Khmer</strong>: Royal University of Agriculture (RUA) Cambodia" %}</li>
+          </ul>
+        </div>
         <p class="is-rhythmed-2">
-          {% blocktrans with url=WOCAT_CONTACT_PAGE %}For further information please contact the <a href="{{ url }}" target="_blank" class="link">WOCAT Secretariat</a>.{% endblocktrans %}
+          {% trans 'Please contact the WOCAT Secretariat (<a href="mailto:wocat@cde.unibe.ch" class="link">wocat@cde.unibe.ch</a>) if you are interested in translating the Questionnaires or the Global SLM Database into another language or further information about WOCAT.' %}
+        </p>
+        <p class="is-rhythmed-2">
+          <a href="{% url 'wocat:help_questionnaire_introduction' %}" class="link">{% trans 'Read more about the WOCAT documentation of SLM practices.' %}</a>
         </p>
       </div>
     </li>

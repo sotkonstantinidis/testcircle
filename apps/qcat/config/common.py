@@ -98,6 +98,9 @@ class BaseSettings(Configuration):
     )
 
     # The first language is the default language.
+    # Important: If you add languages here, make sure to add a placeholder of
+    # the infographic in src/assets/img/infographics (make a copy of the English
+    # version)
     LANGUAGES = (
         ('en', _('English')),
         ('fr', _('French')),

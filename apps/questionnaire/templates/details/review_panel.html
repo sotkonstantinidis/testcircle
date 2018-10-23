@@ -20,7 +20,7 @@
         {% if review_config.roles %}
           <div>
             <h3>{% trans "Review status" %}</h3>
-              <p><a href="{% url 'wocat:help_review_process' %}" class="link">{% trans "Learn more about the review process." %}</a></p>
+              <p><a href="{% url 'wocat:help_questionnaire_introduction' %}" class="link">{% trans "Learn more about the WOCAT documentation of SLM practices." %}</a></p>
           </div>
           <div data-alert class="alert-box success" tabindex="0" aria-live="assertive" role="alertdialog">
             {% for role_code, role_name in review_config.roles %}
