@@ -64,6 +64,8 @@ class CountryFilter(admin.SimpleListFilter):
 
 @admin.register(Questionnaire)
 class QuestionnaireAdmin(admin.ModelAdmin):
+    actions = None
+    list_display_links = None
     list_display = [
         'id', 'code', 'get_name', 'status', 'updated', 'get_compilers', 'get_countries',
         'has_new_edition', 'edit_url'
