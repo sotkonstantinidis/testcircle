@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-10 08:56+0200\n"
-"PO-Revision-Date: 2018-08-09 05:56+0000\n"
+"POT-Creation-Date: 2018-10-23 11:20+0200\n"
+"PO-Revision-Date: 2018-10-23 09:18+0000\n"
 "Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
@@ -35,7 +35,7 @@ msgstr "លេខសំងាត់"
 msgid "Updated {} users"
 msgstr "បានធ្វើបច្ចុប្បន្នភាព​ {} អ្នកប្រើប្រាស់"
 
-#: apps/accounts/templates/details.html:14 templates/base.html:147
+#: apps/accounts/templates/details.html:14 templates/base.html:160
 msgid "User Details"
 msgstr "ព័ត៌មានលម្អិតអំពីអ្នកប្រើប្រាស់"
 
@@ -55,30 +55,36 @@ msgstr "គោត្តនាម៖"
 msgid "Email:"
 msgstr "អ៊ីម៉ែល៖"
 
-#: apps/accounts/templates/details.html:38
+#: apps/accounts/templates/details.html:34
+#, fuzzy
+#| msgid "Notifications"
+msgid "Notification preferences"
+msgstr "ការជូនដំណឹង"
+
+#: apps/accounts/templates/details.html:45
 msgid "UNCCD national focal point"
 msgstr "ជនបង្គោលថ្នាក់ជាតិ​របស់អនុសញ្ញាសហប្រជាជាតិប្រយុទ្ធប្រឆាំងនឹងរហោស្ថានកម្ម-UNCCD "
 
-#: apps/accounts/templates/details.html:41
+#: apps/accounts/templates/details.html:48
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
 #: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:54
-#: templates/base.html:256
+#: templates/base.html:269
 msgid "UNCCD"
 msgstr "អនុសញ្ញាសហប្រជាជាតិប្រយុទ្ធប្រឆាំងនឹងរហោស្ថានកម្ម"
 
-#: apps/accounts/templates/details.html:42
+#: apps/accounts/templates/details.html:49
 msgid "UNCCD focal point for country:"
 msgstr "ជនបង្គោល UNCCD សម្រាប់ប្រទេស៖"
 
-#: apps/accounts/templates/details.html:54
+#: apps/accounts/templates/details.html:61
 msgid "Public questionnaires"
 msgstr "កម្រងបញ្ជីសំណួរសាធារណៈ"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:995
-#: apps/questionnaire/tests/test_utils.py:1003
+#: apps/questionnaire/tests/test_utils.py:1008
+#: apps/questionnaire/tests/test_utils.py:1016
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
-#: templates/base.html:163
+#: templates/base.html:176
 msgid "Login"
 msgstr "ចុចចូល"
 
@@ -95,8 +101,8 @@ msgid "If you do not yet have a login, please visit "
 msgstr "ប្រសិនបើអ្នកមិនទាន់បានចុចចូលទេ​​ សូមចូលមើល"
 
 #: apps/accounts/templates/login.html:36 apps/accounts/templates/login.html:41
-#: apps/wocat/templates/wocat/base.html:6 templates/base.html:121
-#: templates/base.html:122 templates/base.html:316
+#: apps/wocat/templates/wocat/base.html:6 templates/base.html:134
+#: templates/base.html:135 templates/base.html:329
 msgid "WOCAT"
 msgstr "​ វ៉ូខេត "
 
@@ -126,7 +132,7 @@ msgstr "ទិនន្ន័យ​ SLM របស់ខ្ញុំ"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:9
-#: apps/wocat/templates/wocat/home.html:112 templates/base.html:182
+#: apps/wocat/templates/wocat/home.html:125 templates/base.html:195
 msgid "Add SLM data"
 msgstr "បន្ថែមទិនន្ន័យ SLM"
 
@@ -140,7 +146,7 @@ msgstr "ការបញ្ជាក់ទាំងអស់"
 
 #: apps/accounts/templates/questionnaires.html:33
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:84
 #: apps/technologies/templates/technologies/add_module.html:35
 #: apps/wocat/templates/wocat/partial/search.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:39
@@ -210,16 +216,16 @@ msgstr ""
 msgid "Climate Change Adaptation"
 msgstr "ការបន្សាំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
-#: apps/configuration/configuration.py:339 apps/questionnaire/admin.py:24
-#: apps/summary/renderers.py:548
+#: apps/configuration/configuration.py:347 apps/questionnaire/admin.py:24
+#: apps/summary/renderers/technologies_2015.py:24
 msgid "Yes"
 msgstr "បាទ/ចា៎"
 
-#: apps/configuration/configuration.py:339 apps/questionnaire/admin.py:25
+#: apps/configuration/configuration.py:347 apps/questionnaire/admin.py:25
 msgid "No"
 msgstr "ទេ"
 
-#: apps/configuration/configuration.py:2558
+#: apps/configuration/configuration.py:2599
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "មិនស្គាល់ឈ្មោះ"
@@ -14796,38 +14802,331 @@ msgctxt "watershed label"
 msgid "References and links "
 msgstr "ឯកសារយោង និងវេបសាយ"
 
-#: apps/configuration/editions/technologies_2018.py:18
-msgid "x.x: Rename label"
+#: apps/configuration/editions/technologies_2018.py:23
+msgid ""
+"1.2: A new option \"co-compiler\" was added to question \"Key resource "
+"persons\"."
 msgstr ""
 
-#: apps/configuration/editions/technologies_2018.py:22
-msgid "3.2: Added new question about initial land use"
+#: apps/configuration/editions/technologies_2018.py:28
+msgid ""
+"1.2: The questions \"Address\", \"Phone\" and \"E-Mail\" of \"Key resource "
+"persons\" were removed."
 msgstr ""
 
-#: apps/configuration/models.py:19 apps/questionnaire/models.py:63
+#: apps/configuration/editions/technologies_2018.py:33
+msgid ""
+"1.3: The question \"Date of compilation in the field\" was moved to 7.1."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:42
+msgid ""
+"2.5: The questions about \"Spread of the Technology\" (previously in 3.5) "
+"were integrated into 2.5."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:47
+msgid ""
+"2.5: A new question \"If precise area is known, please specify\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:51
+msgid ""
+"2.5: A new question \"Is/are the technology site(s) located in a permanently "
+"protected area?\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:60
+msgid "3.2: A separate question about \"Mixed land use\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:64
+msgid ""
+"3.2: New questions about crops, intercropping and crop rotation for land use "
+"type \"Cropland\" were added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:69
+msgid ""
+"3.2: The question \"Main crops\" of land use type \"Cropland\" was removed."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:73
+msgid ""
+"3.2: New questions about grazing land (animal type, crop-livestock "
+"management practices, products and services) were added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:78
+msgid ""
+"3.2: The question \"Main animal species and products\" of land use type "
+"\"Grazing land\" was removed."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:82
+msgid ""
+"3.2: A new question \"Livestock population\" for land use type \"Grazing land"
+"\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:86
+msgid ""
+"3.2: The option \"semi-nomadism\" of land use type \"Grazing land\" was "
+"renamed to \"semi-nomadic pastoralism\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:90
+msgid ""
+"3.2: A new option \"transhumant pastoralism\" was added to land use type "
+"\"Grazing land\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:94
+msgid ""
+"3.2: New questions about forest type and trees for land use type \"Forest/ "
+"woodlands\" were added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:99
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid ""
+#| "If land use has changed due to the implementation of the Technology, "
+#| "indicate land use before implementation of the Technology"
+msgid ""
+"3.2: The question \"If land use has changed due to the implementation of the "
+"Technology, indicate land use before implementation of the Technology\" was "
+"removed. This information can now be entered in 3.3."
+msgstr ""
+"ប្រសិនបើដីមានការប្រែប្រួលបន្ទាប់ពីការអនុវត្តបច្ចេកទេស "
+"សូមបញ្ជាក់ពីការប្រើប្រាស់ដីមុនពេលអនុវត្តន៍បច្ចេកទេស"
+
+#: apps/configuration/editions/technologies_2018.py:103
+msgid "3.3 (new): A new subcategory about initial land use was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:108
+msgid ""
+"3.4 (previously 3.3): The question \"Number of growing seasons per year\" "
+"was moved to 3.2 - land use type \"Cropland\". Data was migrated "
+"automatically only if land use type \"Cropland\" was selected."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:113
+msgid ""
+"3.4 (previously 3.3): The question \"Livestock density (if relevant)\" was "
+"removed. Use \"Comments\" of \"3.2 Current land use type(s)\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:118
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid ""
+#| "Country/ region/ locations where the Technology has been applied and "
+#| "which are covered by this assessment"
+msgid ""
+"3.5: The previous questions of \"3.5 Spread of the Technology\" were "
+"integrated into \"2.5 Country/ region/ locations where the Technology has "
+"been applied and which are covered by this assessment\"."
+msgstr ""
+"ប្រទេស/តំបន់/ទីតាំងកន្លែង ដែលបច្ចេកទេសត្រូវបានអនុវត្ត និងបានគ្រប់ដណ្តប់ដោយការវាយតម្លៃនេះ"
+
+#: apps/configuration/editions/technologies_2018.py:123
+msgid ""
+"3.5: The question \"Comments\" about \"Spread of the Technology"
+"\" (previously 3.5) was removed; its content needs to be merged with "
+"\"Comments\" of 2.5."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:127
+msgid ""
+"3.6: A new question \"Differentiate tillage systems\" was added when "
+"selecting agronomic measure \"A3: Soil surface treatment\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:131
+msgid ""
+"3.6: A new option \"A6: Residue Management\" was added to \"agronomic "
+"measures\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:135
+msgid ""
+"3.6 The option \"A6: Others\" of \"agronomic measures\" was renamed to \"A7: "
+"Others\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:139
+msgid ""
+"3.6: A new question \"Specify residue management\" was added when selecting "
+"agronomic measure \"A6: residue management\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:143
+msgid ""
+"3.6: A new question to specify was added when selecting \"other measures\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:147
+msgid ""
+"3.7: A new question to specify was added when selecting other degradation "
+"type."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:151
+msgid "4: The numbering was updated (4.2 was removed)."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:156
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Technical specifications (related to technical drawing)"
+msgid ""
+"4.1: The previous question \"4.2 Technical specifications\" was integrated "
+"into \"4.1 Technical drawing\"."
+msgstr "លក្ខណៈពិសេសនៃបច្ចេកទេស (ទាក់ទងនឺងគំនូរបច្ចេកទេស)"
+
+#: apps/configuration/editions/technologies_2018.py:165
+msgid ""
+"4.3 (previously 4.4): The question \"Type of measure\" was removed from "
+"Establishment activities."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:169
+msgid ""
+"4.4 (previously 4.5): A new question \"Total costs for establishment of the "
+"Technology in USD\" (automatically calculated) was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:174
+msgid ""
+"4.5 (previously 4.6): The question \"Type of measure\" was removed from "
+"Maintenance activities."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:178
+msgid ""
+"4.6 (previously 4.7): A new question \"Total costs for maintenance of the "
+"Technology in USD\" (automatically calculated) was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:210
+msgid ""
+"5.4: A new question about water quality (referring to ground or surface "
+"water) was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:214
+msgid "5.6: More options for question \"Age of land users\" can be selected."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:218
+msgid "5.8: A new question about traditional land use rights was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:222
+msgid ""
+"5.9: A new question for comments regarding \"Access to services and "
+"infrastructure\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:226
+msgid "6.1: A new question for comments about on-site impacts was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:230
+msgid ""
+"7.4 (new): A new question for general remarks about the questionnaire and "
+"feedback was added."
+msgstr ""
+
+#: apps/configuration/models.py:19 apps/questionnaire/models.py:64
 msgid "UNCCD Focal Point"
 msgstr "ជនបង្គោល UNCCD "
 
 #: apps/configuration/templates/configuration/edition_notes.html:6
+#: apps/configuration/templates/configuration/edition_notes.html:11
 msgid "Changes in the questionnaires structure"
 msgstr ""
 
-#: apps/configuration/templates/configuration/edition_notes.html:11
+#: apps/configuration/templates/configuration/edition_notes.html:13
 msgid "Rationale"
 msgstr ""
 
-#: apps/configuration/templates/configuration/edition_notes.html:13
+#: apps/configuration/templates/configuration/edition_notes.html:15
 msgid ""
 "\n"
-"      The structure of the questionnaire is updated periodically.\n"
-"      This reflects the continuous process of enhancing the data quality.\n"
-"      Questions may be altered (e.g. an open text answer is changed into a "
-"structured answer), added or deleted.\n"
-"      Existing data can be updated if the compiler of the questionnaire "
+"          The structure of the questionnaire is updated periodically.\n"
+"          This reflects the continuous process of enhancing the data "
+"quality.\n"
+"          Questions may be altered (e.g. an open text answer is changed into "
+"a structured answer), added or deleted.\n"
+"          Existing data can be updated if the compiler of the questionnaire "
 "starts editing a published case.\n"
-"      The specific changes are listed below.\n"
-"    "
+"          The specific changes are listed below.\n"
+"        "
 msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:24
+#: apps/configuration/templates/configuration/edition_notes.html:31
+#: apps/configuration/templates/configuration/edition_notes.html:38
+#, fuzzy
+#| msgctxt "technologies label_view"
+#| msgid "Name of the SLM Technology"
+msgid "How to update an SLM Technology"
+msgstr "ឈ្មោះនៃបច្ចេកទេស SLM"
+
+#: apps/configuration/templates/configuration/edition_notes.html:26
+msgid ""
+"\n"
+"          Create a new version of the Technology. This creates a new draft "
+"version of a submitted Technology. The original data is copied into the new "
+"version. You now need to enter or complement data for questions that were "
+"added or modified in the new edition of the questionnaire.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:34
+msgid ""
+"\n"
+"          During this process, you can still open and view the original data "
+"in the previous submitted and published version of your Technology. This "
+"allows you to cross-check the data and compare the two versions.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:41
+msgid ""
+"\n"
+"          When updating your Technology, please focus on the changes made in "
+"the new edition of the questionnaire, which are listed below.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:46
+msgid ""
+"\n"
+"          After you finish editing the data, your technology will be "
+"redirected through the WOCAT review process.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:51
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "          If you approve this %(questionnaire_type)s it will be published "
+#| "and available to public users.\n"
+#| "        "
+msgid ""
+"\n"
+"          Once this is completed, the new version of the Technology will be "
+"published and become visible to the public.\n"
+"        "
+msgstr ""
+"\n"
+"ប្រសិនបើអ្នកយល់ព្រមទៅលើលក្ខខណ្ឌនេះ %(questionnaire_type)s វានឹងត្រូវបោះពុម្ព "
+"និងអាចទាញយកមកប្រើបានទៅដល់អ្នកប្រប្រាស់ជាធារណៈ។"
 
 #: apps/configuration/views.py:65
 msgid "Built configuration caches."
@@ -14861,23 +15160,95 @@ msgstr "មាតិកាដែលបានកែសម្រួល"
 msgid "editor finished"
 msgstr "អ្នកកែសម្រួលបានបញ្ចប់"
 
-#: apps/notifications/conf.py:57
-msgid "review"
-msgstr "ពិនិត្យឡើងវិញ"
+#: apps/notifications/conf.py:39
+#, fuzzy
+#| msgid "This questionnaire can be edited."
+msgid "This practice has been edited"
+msgstr "កម្រងសំណួរទាំងនេះអាចត្រូវបានកែសម្រួល"
 
-#: apps/notifications/conf.py:58
-msgid "publication"
-msgstr "បោះផ្សាយ"
+#: apps/notifications/conf.py:40
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgid "This practice has been submitted"
+msgstr "សូមអបអរសាទរ ការអនុវត្តរបស់អ្នកត្រូវបានបោះពុម្ពហើយ!"
 
-#: apps/notifications/conf.py:77
+#: apps/notifications/conf.py:41
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "        This %(questionnaire_type)s is currently waiting for review "
+#| "before it can be published.\n"
+#| "      "
+msgid ""
+"This practice has been approved and is awaiting final review before it can "
+"be published"
+msgstr ""
+"\n"
+"កម្រងបញ្ចីសំនួរ%(questionnaire_type)sនេះ កំពុងស្ថិតក្នុងដំណាក់កាលរង់ចាំដើម្បីបោះពុម្ព។"
+
+#: apps/notifications/conf.py:42
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgid "Congratulations, this practice has been published!"
+msgstr "សូមអបអរសាទរ ការអនុវត្តរបស់អ្នកត្រូវបានបោះពុម្ពហើយ!"
+
+#: apps/notifications/conf.py:43
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgid "This practice has been deleted"
+msgstr "សូមអបអរសាទរ ការអនុវត្តរបស់អ្នកត្រូវបានបោះពុម្ពហើយ!"
+
+#: apps/notifications/conf.py:44 apps/notifications/conf.py:45
+msgid "This practice has been rejected and needs revision"
+msgstr ""
+
+#: apps/notifications/conf.py:46
+#, fuzzy
+#| msgid "Change compiler"
+msgid "You are a compiler"
+msgstr "ផ្លាស់ប្តូរអ្នកចងក្រង"
+
+#: apps/notifications/conf.py:47
+msgid "You have been removed as a compiler"
+msgstr ""
+
+#: apps/notifications/conf.py:48
+msgid "You are an editor"
+msgstr ""
+
+#: apps/notifications/conf.py:49
+msgid "You have been removed as an editor"
+msgstr ""
+
+#: apps/notifications/conf.py:50
+#, fuzzy
+#| msgid "Update reviewers"
+msgid "You are a reviewer"
+msgstr "កែតម្រូវអ្នកត្រួតពិនិត្យ"
+
+#: apps/notifications/conf.py:51
+msgid "You have been removed as a reviewer"
+msgstr ""
+
+#: apps/notifications/conf.py:52
+#, fuzzy
+#| msgid "Update publishers"
+msgid "You are a publisher"
+msgstr "កែសម្រួលឈ្មោះអ្នកបោះពុម្ព"
+
+#: apps/notifications/conf.py:53
+msgid "You have been removed as a publisher"
+msgstr ""
+
+#: apps/notifications/conf.py:89
 msgid "No emails at all"
 msgstr "មិនមាន អ៊ីម៉ែលទេ"
 
-#: apps/notifications/conf.py:78
+#: apps/notifications/conf.py:90
 msgid "Only emails that I need to work on"
 msgstr "សម្រាប់តែអ៊ីម៉ែលដែលខ្ញំត្រូវធ្វើការជាមួយប៉ុណ្ណោះ"
 
-#: apps/notifications/conf.py:79
+#: apps/notifications/conf.py:91
 msgid "All emails"
 msgstr "អ៊ីម៉ែលទាំអស់"
 
@@ -14910,7 +15281,7 @@ msgstr "ត្រូវបានកែសម្រួលដោយ៖ {}"
 msgid "{compiler} is finished editing"
 msgstr "{compiler} ត្រូវបានបញ្ចប់ការកែសម្រួល"
 
-#: apps/notifications/models.py:534
+#: apps/notifications/models.py:649
 msgid "Subscribed for following changes in the review status"
 msgstr "ចុះឈ្មោះដើម្បីតាមដានពីស្ថានភាពត្រួតពិនិត្យ"
 
@@ -14920,7 +15291,7 @@ msgstr "ចុះឈ្មោះដើម្បីតាមដានពីស្
 msgid "Created"
 msgstr "បង្កើតឡើង"
 
-#: apps/notifications/receivers.py:51
+#: apps/notifications/receivers.py:52
 #: apps/notifications/tests/test_receivers.py:67
 msgid "Deleted"
 msgstr "បានលុបចោល"
@@ -14974,11 +15345,6 @@ msgid "Dear"
 msgstr "ជាទីស្រាឡាញ់"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:36
-#: apps/notifications/templates/notifications/mail/plain_text.txt:6
-msgid "See questionnaire in full"
-msgstr "មើលបញ្ជីសំណួរទាំងមូល"
-
-#: apps/notifications/templates/notifications/mail/html_text.html:41
 #: apps/notifications/templates/notifications/mail/plain_text.txt:8
 msgid ""
 "This is an automated message, please don't reply. If you have any questions, "
@@ -14987,7 +15353,7 @@ msgstr ""
 "នេះគឺជាសារស្វ័យប្រត្តិ សូមកុំធ្វើការឆ្លើយតប។ ប្រសិនបើអ្នកមានសំណួរ "
 "សូមទាកទងទៅលេខាធិការដ្ឋានរបស់វ៉ូខេត។"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:46
+#: apps/notifications/templates/notifications/mail/html_text.html:41
 #: apps/notifications/templates/notifications/mail/plain_text.txt:11
 msgid ""
 "You're getting this message because your account on qcat.wocat.net is linked "
@@ -14996,23 +15362,416 @@ msgstr ""
 "អ្នកទទួលបានសារនេះ ដោយសារតែគណនីរបស់អ្នកនៅលើ qcat.wocat.net "
 "ត្រូវបានភ្ជាប់ទៅនឹងអាស័យដ្ឋាននេះ។"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:51
+#: apps/notifications/templates/notifications/mail/html_text.html:46
 #: apps/notifications/templates/notifications/mail/plain_text.txt:12
 msgid "Change subscription settings"
 msgstr "ផ្លាស់ប្តូរការកំណត់អំពីការចុះឈ្មោះ"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:58
+#: apps/notifications/templates/notifications/mail/html_text.html:53
 msgid "WOCAT Website"
 msgstr "វ៉េបសាយរបស់ វ៉ូខេត"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:62
+#: apps/notifications/templates/notifications/mail/html_text.html:57
 msgid "WOCAT SLM Database"
 msgstr "ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យ​​ SLM របស់​វ៉ូខេត"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:71
-#: templates/base.html:315
+#: apps/notifications/templates/notifications/mail/html_text.html:66
+#: templates/base.html:328
 msgid "Contact"
 msgstr "ទំនាក់ទំនង"
+
+#: apps/notifications/templates/notifications/mail/partial/compiler_added.html:5
+#, fuzzy
+#| msgid "Change compiler"
+msgctxt "You have been added as a compiler of [questionnaire]."
+msgid "a compiler"
+msgstr "ផ្លាស់ប្តូរអ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/compiler_added.html:8
+msgid ""
+"As a compiler, you can invite editors to work on the SLM practice and you "
+"can submit the practice for review."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/compiler_removed.html:5
+#, fuzzy
+#| msgid "Change compiler"
+msgctxt "You have been removed as a compiler of [questionnaire]."
+msgid "a compiler"
+msgstr "ផ្លាស់ប្តូរអ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/deleted.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been deleted from "
+"the Global SLM Database."
+msgid "The SLM practice"
+msgstr "ការអនុវត្ត SLM របស់ វ៉ូខេត"
+
+#: apps/notifications/templates/notifications/mail/partial/deleted.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been deleted from "
+"the Global SLM Database."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/deleted.html:11
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been deleted from "
+"the Global SLM Database."
+msgid "has been deleted from the Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been edited by "
+"[user]."
+msgid "The SLM practice"
+msgstr "ការអនុវត្ត SLM របស់ វ៉ូខេត"
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been edited by "
+"[user]."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:11
+#, fuzzy
+#| msgid "was edited by"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been edited by "
+"[user]."
+msgid "has been edited by"
+msgstr "កែសម្រួលដោយ"
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:18
+msgctxt ""
+"[user] left you a message related to the edit of this SLM practice: [message]"
+msgid "left you a message related to the edit of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:13
+msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
+msgid "You have been added as"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:14
+#, fuzzy
+#| msgid "Manage editors"
+msgctxt ""
+"You have been added as an editor of [questionnaire] compiled by [user]."
+msgid "an editor"
+msgstr "គ្រប់គ្រងអ្នកកែសម្រួល"
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:15
+msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
+msgid "of"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:18
+#, fuzzy
+#| msgid "Compiler"
+msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:24
+msgid ""
+"As an editor, you can edit the SLM practice in coordination with the "
+"compiler of the SLM practice. However, as an editor you cannot submit the "
+"SLM practice for review or invite other editors."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:13
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "You have been removed as"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:14
+#, fuzzy
+#| msgid "Manage editors"
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "an editor"
+msgstr "គ្រប់គ្រងអ្នកកែសម្រួល"
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:15
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "of"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:18
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:5
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid "Congratulations, the SLM practice"
+msgstr "សូមអបអរសាទរ ការអនុវត្តរបស់អ្នកត្រូវបានបោះពុម្ពហើយ!"
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:11
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid "has been published in the Global SLM Database by"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:13
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid ""
+"and can now be viewed by all WOCAT members in the Network and visitors of "
+"the database. Thank you for sharing the SLM practice."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:17
+msgid "You can find your SLM practice published under the following link:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:24
+msgctxt ""
+"[user] left you a message related to the publication of this SLM practice: "
+"[message]"
+msgid "left you a message related to the publication of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/publisher_added.html:5
+#, fuzzy
+#| msgid "Publisher"
+msgctxt ""
+"You have been added as a publisher of [questionnaire] compiled by [user]."
+msgid "a publisher"
+msgstr "អ្នកបោះពុម្ពផ្សាយ"
+
+#: apps/notifications/templates/notifications/mail/partial/publisher_added.html:8
+msgid ""
+"The SLM practice has been reviewed and approved. Please complete the final "
+"review of the SLM practice as soon as possible. If the SLM practice requires "
+"further revision please reject the SLM practice and send your written "
+"feedback to the compiler, editors, and reviewers of the SLM practice. If the "
+"quality of the SLM practice is good, please publish the SLM practice in the "
+"Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/publisher_removed.html:5
+#, fuzzy
+#| msgid "Publisher"
+msgctxt ""
+"You have been removed as a publisher of [questionnaire] compiled by [user]."
+msgid "a publisher"
+msgstr "អ្នកបោះពុម្ពផ្សាយ"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_reviewed.html:7
+msgid ""
+"If you are a reviewer, please review the revised SLM practice to enable the "
+"publisher to access the SLM practice as soon as it has been resubmitted. You "
+"will receive an e-mail informing you that the SLM practice has been "
+"submitted."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "The SLM practice"
+msgstr "ការអនុវត្ត SLM របស់ វ៉ូខេត"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:11
+#, fuzzy
+#| msgctxt "A questionnaire was rejected by..."
+#| msgid "rejected by"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "has been rejected by"
+msgstr "បដិសេធន៍ដោយ"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:13
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "and needs revision."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:16
+msgid ""
+"Please revise the SLM practice according to the written feedback from the "
+"reviewer and resubmit the SLM practice to the Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:23
+msgctxt ""
+"[user] left you a message related to the rejection of this SLM practice: "
+"[message]"
+msgid "left you a message related to the rejection of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "The SLM practice"
+msgstr "ការអនុវត្ត SLM របស់ វ៉ូខេត"
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:11
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "has been approved by the reviewer of the SLM practice"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:13
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "and needs a final review before it can be published."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:16
+msgid ""
+"If you are a publisher, please review the SLM practice as soon as possible "
+"and send your written feedback to the compiler, editors, and reviewers of "
+"the SLM practice. If the quality of the SLM practice is good, please publish "
+"the SLM practice."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:21
+msgctxt ""
+"[user] left you a message related to the review of this SLM practice: "
+"[message]"
+msgid "left you a message related to the review of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:5
+#, fuzzy
+#| msgid "Reviewer"
+msgctxt ""
+"You have been added as a reviewer of [questionnaire] compiled by [user]."
+msgid "a reviewer"
+msgstr "អ្នកត្រួតពិនិត្យ"
+
+#: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:8
+msgid ""
+"Please review the SLM practice as soon as possible and send your written "
+"feedback to the compiler and all the editors of the SLM practice. If the "
+"quality of the SLM practice is good, please approve it for final review "
+"before publishing."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewer_removed.html:5
+#, fuzzy
+#| msgid "Reviewer"
+msgctxt ""
+"You have been removed as a reviewer of [questionnaire] compiled by [user]."
+msgid "a reviewer"
+msgstr "អ្នកត្រួតពិនិត្យ"
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been submitted to "
+"the Global SLM Database."
+msgid "The SLM practice"
+msgstr "ការអនុវត្ត SLM របស់ វ៉ូខេត"
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been submitted to "
+"the Global SLM Database."
+msgid "compiled by"
+msgstr "អ្នកចងក្រង"
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:11
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been submitted to "
+"the Global SLM Database."
+msgid "has been submitted to the Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:15
+msgid ""
+"If you are a reviewer, please review the SLM practice as soon as possible, "
+"and send your written feedback to the compiler of the SLM practice. If the "
+"quality of the SLM practice is good, please approve it for final review "
+"before publishing. If you are a member of the WOCAT Secretariat, please "
+"review or add an external reviewer."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:21
+msgctxt ""
+"[user] left you a message related to the submission of this SLM practice: "
+"[message]"
+msgid "left you a message related to the submission of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/plain_text.txt:6
+msgid "See questionnaire in full"
+msgstr "មើលបញ្ជីសំណួរទាំងមូល"
 
 #: apps/notifications/templates/notifications/mail/plain_text.txt:13
 msgid "Visit qcat.wocat.net"
@@ -15029,6 +15788,57 @@ msgid ""
 msgstr ""
 "យើងសូមអញ្ជើញអ្នកចូលរួមពិភាក្សាករណីរបស់អ្នក​ និងបញ្ហាផ្សេងៗទៀតទាក់ទងនឹង SLM "
 "ឬឧបករណ៍របស់វ៉ូខេតនៅលើវេទិកា​ វ៉ូខេតពីឌារបស់យើង"
+
+#: apps/notifications/templates/notifications/notification/1.html:9
+msgid "was created by"
+msgstr "ត្រូវបានបង្កើតឡើងដោយ"
+
+#: apps/notifications/templates/notifications/notification/2.html:9
+msgid "was deleted by"
+msgstr "ត្រូវបានលុបចោលដោយ"
+
+#: apps/notifications/templates/notifications/notification/3.html:10
+msgctxt "New status of the questionnaire, e.g. 'published'"
+msgid "is now"
+msgstr "ឥលូវនេះ"
+
+#: apps/notifications/templates/notifications/notification/3.html:11
+msgctxt "A questionnaire was rejected by..."
+msgid "rejected by"
+msgstr "បដិសេធន៍ដោយ"
+
+#: apps/notifications/templates/notifications/notification/3.html:11
+msgctxt "A questionnaire was approved by..."
+msgid "approved by"
+msgstr "បានអនុម័តដោយ"
+
+#: apps/notifications/templates/notifications/notification/4.html:9
+msgid "has a new"
+msgstr "មានថ្មីមួយ"
+
+#: apps/notifications/templates/notifications/notification/4.html:10
+msgid "invited by"
+msgstr "អញ្ជើញដោយ"
+
+#: apps/notifications/templates/notifications/notification/5.html:9
+msgid "was detached of"
+msgstr "ត្រូវបានផ្តាច់ចេញ"
+
+#: apps/notifications/templates/notifications/notification/5.html:10
+msgid "role:"
+msgstr "តួនាទី៖"
+
+#: apps/notifications/templates/notifications/notification/5.html:10
+msgid "removed by"
+msgstr "ដកចេញដោយ"
+
+#: apps/notifications/templates/notifications/notification/6.html:9
+msgid "was edited by"
+msgstr "កែសម្រួលដោយ"
+
+#: apps/notifications/templates/notifications/notification/7.html:9
+msgid "editing has been finalized by"
+msgstr "ការកែសម្រួលត្រូវបានបញ្ចប់ដោយ"
 
 #: apps/notifications/templates/notifications/partial/list.html:7
 msgid "Date"
@@ -15090,15 +15900,14 @@ msgstr "អ្នកប្រហែលជាបន្តជាមួយជំហ
 msgid "No notifications."
 msgstr "គ្មានការជូនដំណឹង។"
 
-#: apps/notifications/templates/notifications/partial/message_modal.html:5
-#: apps/notifications/templates/notifications/partial/message_modal.html:14
+#: apps/notifications/templates/notifications/partial/message_modal.html:4
+msgid "Click to display message from"
+msgstr "​​​ចុចដើម្បីបង្ហាញសាចេញពី"
+
+#: apps/notifications/templates/notifications/partial/message_modal.html:8
 msgctxt "Jay wrote you a message"
 msgid "wrote"
 msgstr "បានសរសេរ"
-
-#: apps/notifications/templates/notifications/partial/message_modal.html:10
-msgid "Click to display message from"
-msgstr "​​​ចុចដើម្បីបង្ហាញសាចេញពី"
 
 #: apps/notifications/templates/notifications/preferences.html:16
 msgid "Your email preferences"
@@ -15107,57 +15916,6 @@ msgstr "អ៊ីម៉ែលរបស់អ្នក"
 #: apps/notifications/templates/notifications/preferences.html:21
 msgid "Save preferences"
 msgstr "រក្សាទុកការពេញចិត្ត"
-
-#: apps/notifications/templates/notifications/subject/1.html:9
-msgid "was created by"
-msgstr "ត្រូវបានបង្កើតឡើងដោយ"
-
-#: apps/notifications/templates/notifications/subject/2.html:9
-msgid "was deleted by"
-msgstr "ត្រូវបានលុបចោលដោយ"
-
-#: apps/notifications/templates/notifications/subject/3.html:10
-msgctxt "New status of the questionnaire, e.g. 'published'"
-msgid "is now"
-msgstr "ឥលូវនេះ"
-
-#: apps/notifications/templates/notifications/subject/3.html:11
-msgctxt "A questionnaire was rejected by..."
-msgid "rejected by"
-msgstr "បដិសេធន៍ដោយ"
-
-#: apps/notifications/templates/notifications/subject/3.html:11
-msgctxt "A questionnaire was approved by..."
-msgid "approved by"
-msgstr "បានអនុម័តដោយ"
-
-#: apps/notifications/templates/notifications/subject/4.html:9
-msgid "has a new"
-msgstr "មានថ្មីមួយ"
-
-#: apps/notifications/templates/notifications/subject/4.html:10
-msgid "invited by"
-msgstr "អញ្ជើញដោយ"
-
-#: apps/notifications/templates/notifications/subject/5.html:9
-msgid "was detached of"
-msgstr "ត្រូវបានផ្តាច់ចេញ"
-
-#: apps/notifications/templates/notifications/subject/5.html:10
-msgid "role:"
-msgstr "តួនាទី៖"
-
-#: apps/notifications/templates/notifications/subject/5.html:10
-msgid "removed by"
-msgstr "ដកចេញដោយ"
-
-#: apps/notifications/templates/notifications/subject/6.html:9
-msgid "was edited by"
-msgstr "កែសម្រួលដោយ"
-
-#: apps/notifications/templates/notifications/subject/7.html:9
-msgid "editing has been finalized by"
-msgstr "ការកែសម្រួលត្រូវបានបញ្ចប់ដោយ"
 
 #: apps/notifications/validators.py:11
 msgid "Invalid email status filters"
@@ -15172,47 +15930,47 @@ msgstr "{compiler}  ត្រូវបានជូនដំណឹងដោយដ
 msgid "Successfully saved changes."
 msgstr "ការផ្លាស់ប្តូរត្រូវបានរក្សាទុកដោយជោគជ័យ"
 
-#: apps/qcat/config/common.py:100
+#: apps/qcat/config/common.py:105
 msgid "English"
 msgstr "ភាសាអង់គ្លេស"
 
-#: apps/qcat/config/common.py:101
+#: apps/qcat/config/common.py:106
 msgid "French"
 msgstr "ភាសាបារាំង"
 
-#: apps/qcat/config/common.py:102
+#: apps/qcat/config/common.py:107
 msgid "Spanish"
 msgstr "ភាសាអេស្ប៉ាញ"
 
-#: apps/qcat/config/common.py:103
+#: apps/qcat/config/common.py:108
 msgid "Russian"
 msgstr "ភាសារុស្ស៊ី"
 
-#: apps/qcat/config/common.py:104
+#: apps/qcat/config/common.py:109
 msgid "Khmer"
 msgstr "ភាសាខ្មែរ"
 
-#: apps/qcat/config/common.py:105
+#: apps/qcat/config/common.py:110
 msgid "Lao"
 msgstr "ភាសាឡាវ"
 
-#: apps/qcat/config/common.py:106
+#: apps/qcat/config/common.py:111
 msgid "Arabic"
 msgstr "ភាសាអារ៉ាប់"
 
-#: apps/qcat/config/common.py:107
+#: apps/qcat/config/common.py:112
 msgid "Portuguese"
 msgstr "ភាសាព័រទុយហ្គាល់"
 
-#: apps/qcat/config/common.py:108
+#: apps/qcat/config/common.py:113
 msgid "Afrikaans"
 msgstr "ភាសាអាហ្រ្វិកា"
 
-#: apps/qcat/config/common.py:109
+#: apps/qcat/config/common.py:114
 msgid "Thai"
 msgstr ""
 
-#: apps/qcat/context_processors.py:154
+#: apps/qcat/context_processors.py:155
 msgid ""
 "Caution: Maintenance will start soon ({}), this page will then be "
 "unavailable for a couple of minutes.<br>If you are working on a "
@@ -15221,19 +15979,19 @@ msgstr ""
 "ប្រយ័ត្ន៖ ការជួសជុលនឹងចាប់ផ្តើមក្នុង ({}), ដូច្នេះទំព័រនេះនឹងមិនដំណើការក្នុងរយៈពេល២នាទី។"
 "<br>ប្រសិនបើអ្នកកំពុងតែធ្វើការជាមួយសំណួរ សូមធ្វើការរក្សាទុកការងាររបស់អ្នក!"
 
-#: apps/qcat/context_processors.py:161
+#: apps/qcat/context_processors.py:162
 msgid "Maintenance starts in {}"
 msgstr "ការជួសជុលចាប់ផ្តើមក្នុង {}"
 
-#: apps/qcat/templates/qcat/imprint.html:11 templates/base.html:311
+#: apps/qcat/templates/qcat/imprint.html:11 templates/base.html:324
 msgid "Imprint"
 msgstr ""
 
-#: apps/qcat/templates/qcat/imprint.html:15
+#: apps/qcat/templates/qcat/imprint.html:13
 msgid "Operation and Hosting"
 msgstr ""
 
-#: apps/qcat/templates/qcat/imprint.html:34
+#: apps/qcat/templates/qcat/imprint.html:27
 msgid "Content and Design"
 msgstr ""
 
@@ -15247,7 +16005,7 @@ msgstr ""
 "%(countries_count)s <br> ដោយអ្នកប្រើប្រាស់ចំនួន <br>%(compilers_count)s<br> នាក់។"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
-#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:138
+#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:151
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
@@ -15256,7 +16014,7 @@ msgid "SLM Technologies"
 msgstr "បច្ចេកទេស SLM"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:158
+#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:171
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
@@ -15302,8 +16060,8 @@ msgstr "ប្រទេស"
 msgid "Edition update available"
 msgstr ""
 
-#: apps/questionnaire/admin.py:80 apps/questionnaire/models.py:58
-#: apps/summary/renderers.py:315
+#: apps/questionnaire/admin.py:80 apps/questionnaire/models.py:59
+#: apps/summary/renderers/summary.py:314
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr "អ្នកចងក្រង"
@@ -15316,74 +16074,74 @@ msgstr "ទិន្នន័យ SLM ទាំងអស់"
 msgid "This questionnaire is locked for editing by {}"
 msgstr "កម្រងសំណួរនេះត្រូវបានរក្សាសិទ្ធិកែសម្រួលដោយ {}"
 
-#: apps/questionnaire/models.py:40
+#: apps/questionnaire/models.py:41
 #: apps/questionnaire/templates/details/review_panel.html:14
 msgid "Draft"
 msgstr "ពង្រាង"
 
-#: apps/questionnaire/models.py:41
+#: apps/questionnaire/models.py:42
 msgid "Submitted"
 msgstr "បានដាក់ជូន"
 
-#: apps/questionnaire/models.py:42
+#: apps/questionnaire/models.py:43
 msgid "Reviewed"
 msgstr "បានពិនិត្យឡើងវិញ"
 
-#: apps/questionnaire/models.py:43
+#: apps/questionnaire/models.py:44
 msgid "Public"
 msgstr "សាធារណៈ"
 
-#: apps/questionnaire/models.py:44
+#: apps/questionnaire/models.py:45
 msgid "Rejected"
 msgstr "បដិសេធន៍"
 
-#: apps/questionnaire/models.py:45
+#: apps/questionnaire/models.py:46
 msgid "Inactive"
 msgstr "អសកម្ម"
 
-#: apps/questionnaire/models.py:59
+#: apps/questionnaire/models.py:60
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:19
 msgid "Editor"
 msgstr "អ្នកកែសម្រួល"
 
-#: apps/questionnaire/models.py:60 apps/summary/renderers.py:320
+#: apps/questionnaire/models.py:61 apps/summary/renderers/summary.py:319
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:30
 msgid "Reviewer"
 msgstr "អ្នកត្រួតពិនិត្យ"
 
-#: apps/questionnaire/models.py:61
+#: apps/questionnaire/models.py:62
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:41
 msgid "Publisher"
 msgstr "អ្នកបោះពុម្ពផ្សាយ"
 
-#: apps/questionnaire/models.py:62
+#: apps/questionnaire/models.py:63
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:52
 msgid "WOCAT Secretariat"
 msgstr "លេខាធិការដ្ឋាន វ៉ូខេត"
 
-#: apps/questionnaire/models.py:65
+#: apps/questionnaire/models.py:66
 msgid "Land User"
 msgstr "អ្នកប្រើប្រាស់ដី"
 
-#: apps/questionnaire/models.py:66
+#: apps/questionnaire/models.py:67
 msgid "Key resource person"
 msgstr "បុគ្គលសំខាន់ៗ"
 
-#: apps/questionnaire/models.py:70
+#: apps/questionnaire/models.py:71
 msgid "UNCCD Best Practice"
 msgstr "ការអនុវត្តន៍ល្អបំផុតរបស់ UNCCD"
 
-#: apps/questionnaire/models.py:75
+#: apps/questionnaire/models.py:76
 msgid "Submitted as SLM best practice to UNCCD by the national focal point"
 msgstr ""
 "បានបញ្ជូនការអនុវត្តល្អៗទាក់ទងទៅនឹងការគ្រប់គ្រងដីប្រកបដោយចីរភាពទៅ UNCCD "
 "តាមរយៈជនបង្គោលថ្នាក់ជាតិ"
 
-#: apps/questionnaire/models.py:1007
+#: apps/questionnaire/models.py:1020
 msgid "This questionnaire can be edited."
 msgstr "កម្រងសំណួរទាំងនេះអាចត្រូវបានកែសម្រួល"
 
-#: apps/questionnaire/models.py:1009
+#: apps/questionnaire/models.py:1022
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr "កម្រងសំណួរនេះត្រូវបានរក្សាសិទ្ធិកែសម្រួលដោយ {user}។"
@@ -15504,7 +16262,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:214
+#: apps/wocat/templates/wocat/home.html:227
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "នឹងមកដល់ពេលឆាប់ៗ"
@@ -15561,7 +16319,7 @@ msgstr ""
 msgid "Export"
 msgstr "នាំចេញ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:116
+#: apps/questionnaire/templates/details/category/approaches_header.html:117
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:105
 #: apps/questionnaire/templates/details/category/technologies_header.html:117
 #: apps/questionnaire/templates/details/category/unccd_header.html:106
@@ -15570,67 +16328,67 @@ msgstr "នាំចេញ"
 msgid "See history"
 msgstr "មើលប្រវត្តិ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:121
+#: apps/questionnaire/templates/details/category/approaches_header.html:133
 #: apps/wocat/templates/wocat/partial/add.html:39
 msgid "SLM Approach"
 msgstr "វិធីសាស្ត្រផ្សព្វផ្សាយ SLM"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:126
+#: apps/questionnaire/templates/details/category/approaches_header.html:138
 #: apps/questionnaire/templates/details/category/cca_header.html:117
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:114
-#: apps/questionnaire/templates/details/category/technologies_header.html:133
+#: apps/questionnaire/templates/details/category/technologies_header.html:138
 #: apps/questionnaire/templates/details/category/unccd_header.html:116
 #: apps/questionnaire/templates/details/category/watershed_header.html:125
 #: apps/questionnaire/templates/details/category/with_metadata.html:124
 msgid "View sections"
 msgstr "ពិនិត្យមើលគ្រប់ផ្នែក"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:128
+#: apps/questionnaire/templates/details/category/approaches_header.html:140
 #: apps/questionnaire/templates/details/category/cca_header.html:119
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
-#: apps/questionnaire/templates/details/category/technologies_header.html:135
+#: apps/questionnaire/templates/details/category/technologies_header.html:140
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/watershed_header.html:127
 #: apps/questionnaire/templates/details/category/with_metadata.html:126
-#: apps/questionnaire/templates/questionnaire/details.html:71
+#: apps/questionnaire/templates/questionnaire/details.html:93
 msgid "Expand all"
 msgstr "ពង្រីកមើលទាំងអស់"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:129
+#: apps/questionnaire/templates/details/category/approaches_header.html:141
 #: apps/questionnaire/templates/details/category/cca_header.html:120
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:117
-#: apps/questionnaire/templates/details/category/technologies_header.html:136
+#: apps/questionnaire/templates/details/category/technologies_header.html:141
 #: apps/questionnaire/templates/details/category/unccd_header.html:119
 #: apps/questionnaire/templates/details/category/watershed_header.html:128
 #: apps/questionnaire/templates/details/category/with_metadata.html:127
-#: apps/questionnaire/templates/questionnaire/details.html:72
+#: apps/questionnaire/templates/questionnaire/details.html:94
 msgid "Collapse all"
 msgstr "បង្រួមទាំងអស់"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:134
+#: apps/questionnaire/templates/details/category/approaches_header.html:146
 #: apps/questionnaire/templates/details/category/cca_header.html:125
-#: apps/questionnaire/templates/details/category/technologies_header.html:141
+#: apps/questionnaire/templates/details/category/technologies_header.html:146
 #: apps/questionnaire/templates/details/category/unccd_header.html:124
 #: apps/questionnaire/templates/details/category/watershed_header.html:133
 msgid "Completeness:"
 msgstr "ភាពពេញលេញ៖"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:153
+#: apps/questionnaire/templates/details/category/approaches_header.html:165
 #: apps/questionnaire/templates/details/category/cca_header.html:144
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:136
-#: apps/questionnaire/templates/details/category/technologies_header.html:160
+#: apps/questionnaire/templates/details/category/technologies_header.html:165
 #: apps/questionnaire/templates/details/category/unccd_header.html:143
 #: apps/questionnaire/templates/details/category/watershed_header.html:152
 #: apps/questionnaire/templates/details/category/with_metadata.html:146
 msgid "Edit this section"
 msgstr "កែសម្រួលផ្នែកនេះ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:169
+#: apps/questionnaire/templates/details/category/approaches_header.html:181
 #: apps/questionnaire/templates/details/category/cca_header.html:160
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:150
-#: apps/questionnaire/templates/details/category/technologies_header.html:176
+#: apps/questionnaire/templates/details/category/technologies_header.html:181
 #: apps/questionnaire/templates/details/category/unccd_header.html:159
 #: apps/questionnaire/templates/details/category/watershed_header.html:168
 #: apps/questionnaire/templates/details/category/with_metadata.html:160
@@ -15654,7 +16412,7 @@ msgstr "បច្ចេកទេស"
 msgid "New SLM Technology"
 msgstr "បច្ចេកទេស SLM ថ្មី"
 
-#: apps/questionnaire/templates/details/category/technologies_header.html:128
+#: apps/questionnaire/templates/details/category/technologies_header.html:133
 #: apps/wocat/templates/wocat/partial/add.html:19
 msgid "SLM Technology"
 msgstr "បច្ចេកទេស SLM"
@@ -15683,7 +16441,7 @@ msgid "Map preview"
 msgstr "មើលផែនទី"
 
 #: apps/questionnaire/templates/details/field/wms_layer.html:5
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:76
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:81
 msgid "Loading ..."
 msgstr "កំពុងទាញយក"
 
@@ -15756,8 +16514,11 @@ msgid "Review status"
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel.html:23
-msgid "Learn more about the review process."
-msgstr "ស្វែងយល់បន្ថែមអំពីដំណើរការពិនិត្យ។"
+#, fuzzy
+#| msgid ""
+#| "A modular framework for the documentation and assessment of SLM practices"
+msgid "Learn more about the WOCAT documentation of SLM practices."
+msgstr "ក្របខ័ណ្ឌម៉ូឌុលសម្រាប់ការចងក្រងឯកសារ និងការវាយតម្លៃលើការអនុវត្ត SLM"
 
 #: apps/questionnaire/templates/details/review_panel.html:29
 #, python-format
@@ -15769,18 +16530,24 @@ msgid ""
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel.html:39
-msgid "New configuration edition available."
-msgstr ""
+#: apps/questionnaire/templates/questionnaire/details.html:16
+#, fuzzy
+#| msgid "Start editing the questionnaire."
+msgid "New edition of the questionnaire is available."
+msgstr "ចាប់ផ្តើមកែសម្រួលកម្រងបញ្ជីសំណួរ"
 
 #: apps/questionnaire/templates/details/review_panel.html:41
+#: apps/questionnaire/templates/questionnaire/details.html:18
 msgid "The structure of the questionnaire was updated:"
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel.html:41
+#: apps/questionnaire/templates/questionnaire/details.html:18
 msgid "see all details"
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel.html:42
+#: apps/questionnaire/templates/questionnaire/details.html:19
 msgid ""
 "Please start editing the questionnaire in order to update your case data."
 msgstr ""
@@ -15840,7 +16607,7 @@ msgstr "ស្រាវជ្រាវអ្នកប្រើប្រាស់
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:84
 #: apps/technologies/templates/technologies/add_module.html:36
 msgid "No results found"
 msgstr "មិនមានលទ្ធផល"
@@ -15848,7 +16615,7 @@ msgstr "មិនមានលទ្ធផល"
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:68
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:84
 #: apps/technologies/templates/technologies/add_module.html:37
 msgid "Too many results found, please narrow the search"
 msgstr "មានលទ្ធផលច្រើនពេក សូមធ្វើការបញ្ជាក់បន្ថែមដើម្បីស្វែងរក"
@@ -16137,7 +16904,7 @@ msgid ""
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:18
-#: apps/questionnaire/templates/details/review_panel/edit.html:35
+#: apps/questionnaire/templates/details/review_panel/edit.html:41
 msgid "Create new version"
 msgstr ""
 
@@ -16167,19 +16934,19 @@ msgid ""
 "        "
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:53
+#: apps/questionnaire/templates/details/review_panel/edit.html:65
 msgid "Flag as UNCCD best practice"
 msgstr "ទង់ជ័យជាការអនុវត្តល្អៗរបស់ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:57
+#: apps/questionnaire/templates/details/review_panel/edit.html:69
 msgid "Flag this questionnaire as a UNCCD best practice for this country."
 msgstr "ទង់ជ័យកម្រងបញ្ជីសំណួរនេះជាការអនុវត្តល្អនៅ UNCCD សម្រាប់ប្រទេសនេះ"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:60
+#: apps/questionnaire/templates/details/review_panel/edit.html:72
 msgid "Please confirm flagging as a UNCCD best practice."
 msgstr "សូមបញ្ជាក់ពីទង់ជ័យនៃការអនុវត្តល្អៗរបស់ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:61
+#: apps/questionnaire/templates/details/review_panel/edit.html:73
 msgid ""
 "By submitting, this questionnaire will be flagged as a UNCCD best practice "
 "for this country. Please note that due to the review process, it will take a "
@@ -16189,16 +16956,16 @@ msgstr ""
 "សូមគត់សម្គាល់ថាអាស្រ័យទៅលើដំណើរការពិនិត្យ "
 "វាត្រូវចំណាយពេលពីរបីថ្ងៃមុនពេលបង្ហាញជាសាធារណៈឱ្យគ្រប់គ្នាបានឃើញ។"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:62
-#: apps/questionnaire/templates/details/review_panel/edit.html:81
+#: apps/questionnaire/templates/details/review_panel/edit.html:74
+#: apps/questionnaire/templates/details/review_panel/edit.html:93
 msgid "Confirm"
 msgstr "បញ្ជាក់បន្ថែម"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:72
+#: apps/questionnaire/templates/details/review_panel/edit.html:84
 msgid "Unflag as UNCCD best practice"
 msgstr "មិនបានកំណត់ជាការអនុវត្តល្អនៅ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:76
+#: apps/questionnaire/templates/details/review_panel/edit.html:88
 msgid ""
 "This questionnaire is flagged as a UNCCD best practice for this country. As "
 "the UNCCD national focal point, you can remove this flag."
@@ -16206,11 +16973,11 @@ msgstr ""
 "កម្រងបញ្ជីសំណួរនេះត្រូវបានដាក់សញ្ញាជាការអនុត្តល្អនៅ UNCCD​ សម្រាប់ប្រទេសនេះ។ ជា "
 "ជនបង្គោលថ្នាក់ជាតិសម្រាប់ UNCCD អ្នកអាចដកទង់ជ័យ/សញ្ញានេះចេញបាន។"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:79
+#: apps/questionnaire/templates/details/review_panel/edit.html:91
 msgid "Please confirm unflagging as a UNCCD best practice."
 msgstr "សូមបញ្ជាក់ពីសញ្ញា ទង់ ជាការអនុវត្តល្អនៅក្នុង UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:80
+#: apps/questionnaire/templates/details/review_panel/edit.html:92
 msgid ""
 "By submitting, this questionnaire will be unflagged as UNCCD best practice "
 "for this country. Please note that due to the review process, it will take a "
@@ -16485,12 +17252,17 @@ msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:13
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:13
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "If this is the first time you are using the data entry form "
+#| "%(start_tour_link)splease visit the help tour%(end_link)s and <a href="
+#| "\"%(intro_url)s\" class=\"link\">read the introduction to the "
+#| "questionnaire%(end_link)s."
 msgid ""
 "If this is the first time you are using the data entry form "
 "%(start_tour_link)splease visit the help tour%(end_link)s and <a href="
-"\"%(intro_url)s\" class=\"link\">read the introduction to the questionnaire"
-"%(end_link)s."
+"\"%(intro_url)s\" class=\"link\">read about the WOCAT documentation of SLM "
+"practices%(end_link)s."
 msgstr ""
 "ប្រសិនបើនេះជាលើកដំបូងរបស់អ្នកក្នុងការប្រើទម្រងបញ្ចូលទិន្នន័យ %(start_tour_link)s សូមមើលជំនួយ "
 "%(end_link)s និង <a href=\"%(intro_url)s\" class=\"link"
@@ -16517,9 +17289,6 @@ msgstr "ចាប់ផ្តើមបញ្ចូលទិន្នន័យ"
 
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
-#: apps/wocat/templates/wocat/help/review_process.html:6
-#: apps/wocat/templates/wocat/help/review_process.html:14
-#: apps/wocat/templates/wocat/help/review_process.html:21
 msgid "Review process"
 msgstr "ដំណើរការត្រួតពិនិត្យ"
 
@@ -16560,61 +17329,118 @@ msgstr "សូមធ្វើទស្សនៈកិច្ច ហើយពន�
 msgid "other"
 msgstr "ផ្សេងៗ"
 
-#: apps/questionnaire/templates/form/category.html:52
+#: apps/questionnaire/templates/form/category.html:53
 msgid "Go Back without saving"
 msgstr "ត្រឡប់មកវិញដោយមិនបានចុចរក្សាទុក"
 
-#: apps/questionnaire/templates/form/category.html:65
+#: apps/questionnaire/templates/form/category.html:66
 msgid "Save and back"
 msgstr "រក្សាទុក ហើយត្រឡប់មកវិញ"
 
-#: apps/questionnaire/templates/form/category.html:70
+#: apps/questionnaire/templates/form/category.html:71
 msgid "Save and next"
 msgstr "រក្សាទុក ហើយបន្តទៅទៀត"
 
-#: apps/questionnaire/templates/form/category.html:77
-#: apps/questionnaire/templates/form/category.html:174
-#: apps/questionnaire/templates/questionnaire/details.html:286
+#: apps/questionnaire/templates/form/category.html:78
+#: apps/questionnaire/templates/form/category.html:228
+#: apps/questionnaire/templates/questionnaire/details.html:22
+#: apps/questionnaire/templates/questionnaire/details.html:308
 msgid "Close"
 msgstr "បិទ"
 
-#: apps/questionnaire/templates/form/category.html:89
+#: apps/questionnaire/templates/form/category.html:90
 msgid ""
 "There was a problem with your submission. Errors have been highlighted below."
 msgstr "មានបញ្ហាជាមួយការដាក់បញ្ជូនរបស់អ្នក។ បញ្ហាត្រូវបានគូសបញ្ជាក់ដូចខាងក្រោម៖"
 
-#: apps/questionnaire/templates/form/category.html:94
+#: apps/questionnaire/templates/form/category.html:95
 msgid "There is an old version with changes in this section."
 msgstr "មានកំណែចាស់មានការកែប្រែនៅក្នុងផ្នែកនេះ"
 
-#: apps/questionnaire/templates/form/category.html:94
+#: apps/questionnaire/templates/form/category.html:95
 msgid "View old version"
 msgstr "ពិនិត្យមើលកំណែចាស់ old version"
 
-#: apps/questionnaire/templates/form/category.html:111
+#: apps/questionnaire/templates/form/category.html:112
 msgid "Save and go to overview"
 msgstr "រក្សាទុក និងចូលទៅត្រួតពិនិត្យ"
 
-#: apps/questionnaire/templates/form/category.html:114
+#: apps/questionnaire/templates/form/category.html:115
 msgid "Save and go to next section"
 msgstr "រក្សាទុក ហើយចូលទៅកាន់ផ្នែកបន្ទាប់"
 
-#: apps/questionnaire/templates/form/category.html:175
-#: apps/questionnaire/templates/questionnaire/details.html:287
+#: apps/questionnaire/templates/form/category.html:127
+#: apps/questionnaire/templates/form/category.html:140
+#, fuzzy
+#| msgid "You are about to add data from the Questionnaire on Watershed."
+msgid "You are about to add a new translation."
+msgstr "អ្នករៀបនឹងបញ្ចូលទិន្នន័យពីកម្រងបញ្ជីសំណួរស្តីអំពី ទីជម្រាល"
+
+#: apps/questionnaire/templates/form/category.html:129
+#, fuzzy
+#| msgid "This questionnaire can be edited."
+msgctxt "This questionnaire is not yet translated to [language]"
+msgid "This questionnaire is not yet translated to"
+msgstr "កម្រងសំណួរទាំងនេះអាចត្រូវបានកែសម្រួល"
+
+#: apps/questionnaire/templates/form/category.html:130
+msgid ""
+"If you continue to edit this questionnaire, a new translation will be added. "
+"The content of the original language will be copied once into the text "
+"fields, allowing you to translate the content. From there on, text changes "
+"have to be done in all language versions. The checkboxes are linked across "
+"all translations, meaning they always change in all language versions."
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:131
+msgid ""
+"If you do not want to create a new translation, please go back and select a "
+"language in which this questionnaire is already translated."
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:134
+msgid "Go back"
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:135
+msgid "Add a new translation"
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:142
+msgctxt ""
+"Do you really want to create a new translation of this questionnaire in "
+msgid "Do you really want to create a new translation of this questionnaire in"
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:145
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "France"
+msgid "Cancel"
+msgstr "ប្រទេសបារាំង"
+
+#: apps/questionnaire/templates/form/category.html:146
+#, fuzzy
+#| msgid "Climate Change Adaptation"
+msgid "Create a new translation"
+msgstr "ការបន្សាំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
+
+#: apps/questionnaire/templates/form/category.html:229
+#: apps/questionnaire/templates/questionnaire/details.html:309
 msgid "Next"
 msgstr "បន្ទាប់"
 
-#: apps/questionnaire/templates/form/category.html:176
-#: apps/questionnaire/templates/questionnaire/details.html:288
+#: apps/questionnaire/templates/form/category.html:230
+#: apps/questionnaire/templates/questionnaire/details.html:310
 msgid "Back"
 msgstr "ត្រឡប់ក្រោយ"
 
-#: apps/questionnaire/templates/form/category.html:177
-#: apps/questionnaire/templates/questionnaire/details.html:289
+#: apps/questionnaire/templates/form/category.html:231
+#: apps/questionnaire/templates/questionnaire/details.html:311
 msgid "Done"
 msgstr "រួចរាល់ហើយ"
 
-#: apps/questionnaire/templates/form/category.html:182
+#: apps/questionnaire/templates/form/category.html:236
 msgid ""
 "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
 "tour explaining the functions on this page.</p>"
@@ -16622,12 +17448,12 @@ msgstr ""
 "<p>ស្វាគមន៍មកកាន់ផ្នែកជំនួយនៃទម្រង់បំពេញនេះ!។​</p><p>សូមចុច​\"បន្ទាប់\" "
 "ដើម្បីពិនិត្យមើលដោយពន្យល់ពីមុខងារនៅក្នុងទំព័រនេះ។"
 
-#: apps/questionnaire/templates/form/category.html:186
+#: apps/questionnaire/templates/form/category.html:240
 msgid ""
 "<p>The bar indicates the name of the section you are currently editing.</p>"
 msgstr "<p> របារបង្ហាញនូវឈ្មោះរបស់ផ្នែកដែលអ្នកកំពុងកែសម្រួលនាពេលបច្ចុប្បន្ននេះ។ </ p>"
 
-#: apps/questionnaire/templates/form/category.html:190
+#: apps/questionnaire/templates/form/category.html:244
 msgid ""
 "<p>Click \"Save and back\" to save your changes and go back to the overview "
 "to view them in the output.</p>"
@@ -16635,14 +17461,14 @@ msgstr ""
 "<p>ចុច \"រក្សាទុក ហើយត្រឡប់វិញ\" ដើម្បីរក្សាទុកការផ្លាស់ប្តូរបស់អ្នក "
 "ហើយត្រឡប់ទៅមើលឡើងវិញនៅក្នុងលទ្ធផល។</p>"
 
-#: apps/questionnaire/templates/form/category.html:194
+#: apps/questionnaire/templates/form/category.html:248
 msgid ""
 "<p>Click \"Save and next\" to save the current section and directly continue "
 "to the next section.</p>"
 msgstr ""
 "<p>ចុច \"រក្សាទុក ហើយបន្តទៅទៀត\" ដើម្បីរក្សាទុកផ្នែកបច្ចុប្បន្ន និងបន្តទៅផ្នែកបន្ទាប់ទៀត។</p>"
 
-#: apps/questionnaire/templates/form/category.html:198
+#: apps/questionnaire/templates/form/category.html:252
 msgid ""
 "<p>Both options \"save and back to overview\" and \"save and next section\" "
 "are also available on the bottom of the page.</p>"
@@ -16650,14 +17476,14 @@ msgstr ""
 "<p> ប៊ូតុងចុចទាំងពីរ \"រក្សាទុក និងត្រឡប់ទៅកន្លែងដើមវិញ\" និង \"រក្សាទុក និងទៅផ្នែកបន្ទាប់\" "
 "ក៏មាននៅផ្នែកខាងក្រោមនៃទំព័រ។</p>"
 
-#: apps/questionnaire/templates/form/category.html:203
+#: apps/questionnaire/templates/form/category.html:257
 msgid ""
 "<p>Use this link if you want to go back to the output without saving any "
 "changes.</p>"
 msgstr ""
 "<p> ប្រើបណ្តាញតភ្ជាប់នេះបើអ្នកចង់ត្រឡប់ទៅផ្នែកលទ្ធផលដោយមិនរក្សាទុកនូវរាល់ការផ្លាស់ប្តូរណាមួយ។</p>"
 
-#: apps/questionnaire/templates/form/category.html:207
+#: apps/questionnaire/templates/form/category.html:261
 msgid ""
 "<p>The progress bar indicates how many questions are already filled out.</p>"
 msgstr "<p> របារបង្ហាញពីដំណើរការនៃការបំពេញសំណួរផ្សេងៗ។ </p>"
@@ -16684,7 +17510,7 @@ msgstr "ជ្រើសរើសកាលបរិច្ឆេទ"
 #: apps/questionnaire/templates/form/questiongroup/default.html:60
 #: apps/questionnaire/templates/form/questiongroup/measure_other.html:64
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:56
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:154
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:159
 #: apps/questionnaire/templates/form/questiongroup/table1.html:44
 #: apps/questionnaire/templates/form/questiongroup/table1.html:58
 #: apps/questionnaire/templates/form/questiongroup/table4.html:46
@@ -16696,11 +17522,13 @@ msgstr "ដកចេញ"
 msgid "Edit focus point"
 msgstr "កែសម្រួវតែចំណុចសំខាន់"
 
-#: apps/questionnaire/templates/form/field/numberinput.html:7
-msgid "Enter a whole number"
-msgstr "បញ្ចូលលេខទាំងអស់"
+#: apps/questionnaire/templates/form/field/numberinput.html:8
+#, fuzzy
+#| msgid "Enter a number"
+msgid "Enter full number"
+msgstr "បញ្ចូលលេខមួយ"
 
-#: apps/questionnaire/templates/form/field/numberinput.html:7
+#: apps/questionnaire/templates/form/field/numberinput.html:8
 msgid "Enter a number"
 msgstr "បញ្ចូលលេខមួយ"
 
@@ -16766,7 +17594,7 @@ msgstr "រៀបចំដាក់លេខសំគាល់តាមលំដ
 #: apps/questionnaire/templates/form/questiongroup/default.html:73
 #: apps/questionnaire/templates/form/questiongroup/measure_other.html:73
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:67
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:164
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:169
 #: apps/questionnaire/templates/form/questiongroup/table.html:64
 #: apps/questionnaire/templates/form/questiongroup/table1.html:67
 #: apps/questionnaire/templates/form/questiongroup/table4.html:79
@@ -16790,7 +17618,9 @@ msgid ""
 "      </ul>\n"
 "      <p>Add points on the map by using one of the following methods:</p>\n"
 "      <ul>\n"
-"        <li>Set a point using the %(button_pin)s button</li>\n"
+"        <li>Set a point using the %(button_pin)s button. <strong>Caution</"
+"strong>: Avoid double-clicking. If you double-click, two points will be "
+"added.</li>\n"
 "        <li>Set a point based on GPS coordinates using the %(button_gps)s "
 "button</li>\n"
 "      </ul>\n"
@@ -16858,24 +17688,37 @@ msgstr ""
 msgid "Search for a village, city, etc."
 msgstr "ស្វែងរក ភូមិ ទីក្រុង ។ល។"
 
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:63
+msgid "Is the key resource person a registered or a non-registered WOCAT user?"
+msgstr ""
+
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:65
+msgid ""
+"WOCAT recommends that important key resource persons of this dataset should "
+"be <a href=\"https://www.wocat.net/accounts/signup/\" target=\"_blank"
+"\">registered</a> in the WOCAT database/ website. That way they remain "
+"contactable for inquiries. Their contact data will only be accessible to "
+"registered WOCAT users."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:70
 msgid "Search a registered WOCAT user by typing the name of the person."
 msgstr ""
 "ស្វែងរកកន្លែងសម្រាប់ធ្វើការចុះឈ្មោះជាសមាជិក វ៉ូខេត ដោយសរសេរឈ្មោះអ្នកដែលចង់ចូលជាសមាជិក។"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:65
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:70
 msgid "Registered User"
 msgstr "ចុះឈ្មោះសមាជិក"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:69
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Enter the details of a person not registered in the WOCAT database."
 msgstr "បញ្ចូលព័ត៌មានលម្អិតរបស់បុគ្គលម្នាក់ដែលមិនបានចុះឈ្មោះក្នុងប្រព័ន្ធទិន្នន័យ WOCAT។"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:69
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Non-registered User"
 msgstr "អ្នកដែលមិនទាន់ចុះឈ្មោះជាសមាជិក"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 msgid ""
 "<ul><li>You can search a registered WOCAT user by typing the name of the "
 "person.</li><li>If the person is not a registered WOCAT user, select the "
@@ -16885,7 +17728,7 @@ msgstr ""
 "li><li>ប្រសិនបើមិនបាចុះឈ្មោះនៅក្នុងគណនីរបស់ WOCAT សូមជ្រើសរើស \"Non-registered Person\" "
 "ខាងលើ។</li></ul>"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:78
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:83
 msgid "Search a registered WOCAT user"
 msgstr "ស្វែងរកឈ្មោះសមាជិករបស់ វ៉ូខេត"
 
@@ -16904,69 +17747,76 @@ msgid ""
 "the Questionnaire."
 msgstr "ទំនាក់ទំនងនៃវិធីសាស្ត្រផ្សព្វផ្សាយ SLM អាចត្រូវបានតភ្ជាប់ទៅផ្នែកចុងក្រោយនៃកម្រងបញ្ជីសំណួរ។"
 
+#: apps/questionnaire/templates/form/subcategory/tech_lu_2018.html:36
+#, fuzzy
+#| msgctxt "technologies label_view"
+#| msgid "Land use type"
+msgid "Land use type(s)"
+msgstr "ប្រភេទដីប្រើប្រាស់"
+
 #: apps/questionnaire/templates/pagination.html:24
 msgid "Total:"
 msgstr "សរុប៖"
 
-#: apps/questionnaire/templates/questionnaire/details.html:45
+#: apps/questionnaire/templates/questionnaire/details.html:67
 msgid "Photo"
 msgstr "រូបថត"
 
-#: apps/questionnaire/templates/questionnaire/details.html:59
-msgid "This is an outdated, inactive version of this case"
+#: apps/questionnaire/templates/questionnaire/details.html:81
+msgid "This is an outdated, inactive version of this case."
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:60
-msgid "go to the current one"
+#: apps/questionnaire/templates/questionnaire/details.html:82
+msgid "Go to the current version."
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:69
+#: apps/questionnaire/templates/questionnaire/details.html:91
 msgid "Links and modules"
 msgstr "ការតភ្ជាប់ និងម៉ូឌុល"
 
-#: apps/questionnaire/templates/questionnaire/details.html:79
+#: apps/questionnaire/templates/questionnaire/details.html:101
 msgid "Links"
 msgstr "ការតភ្ជាប់"
 
-#: apps/questionnaire/templates/questionnaire/details.html:88
+#: apps/questionnaire/templates/questionnaire/details.html:110
 msgid "No links"
 msgstr "គ្មានការតភ្ជាប់"
 
-#: apps/questionnaire/templates/questionnaire/details.html:95
+#: apps/questionnaire/templates/questionnaire/details.html:117
 msgid "Modules"
 msgstr "ម៉ូឌុល"
 
-#: apps/questionnaire/templates/questionnaire/details.html:104
+#: apps/questionnaire/templates/questionnaire/details.html:126
 msgid "No modules"
 msgstr "គ្មានម៉ូឌុល"
 
-#: apps/questionnaire/templates/questionnaire/details.html:112
+#: apps/questionnaire/templates/questionnaire/details.html:134
 msgid "Add a new module"
 msgstr "បន្ថែមម៉ូឌុលថ្មី"
 
-#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/questionnaire/templates/questionnaire/details.html:139
 #: apps/technologies/templates/technologies/add_module.html:28
 msgid "1. Select a Technology"
 msgstr "1. ជ្រើសរើសបច្ចេកទេសមួយ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:121
+#: apps/questionnaire/templates/questionnaire/details.html:143
 msgid "2. Select a module"
 msgstr "2. ជ្រើសរើសម៉ូឌុលមួយ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:124
+#: apps/questionnaire/templates/questionnaire/details.html:146
 msgid "Select a module which you would like to add to the Technology."
 msgstr "ជ្រើសរើសម៉ូឌុលមួយដើម្បីឱ្យអ្នកអាចបន្ថែមបច្ចេកទេសទៀតបាន។"
 
-#: apps/questionnaire/templates/questionnaire/details.html:132
+#: apps/questionnaire/templates/questionnaire/details.html:154
 msgid "3. Create the module"
 msgstr "3. បង្កើតម៉ូឌុល"
 
-#: apps/questionnaire/templates/questionnaire/details.html:134
+#: apps/questionnaire/templates/questionnaire/details.html:156
 #: apps/technologies/templates/technologies/add_module.html:70
 msgid "Create"
 msgstr "បង្កើត"
 
-#: apps/questionnaire/templates/questionnaire/details.html:293
+#: apps/questionnaire/templates/questionnaire/details.html:315
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
@@ -16974,19 +17824,19 @@ msgstr ""
 "<p>ស្វាគមន៍មកកាន់ផ្នែកជំនួយនៃទម្រង់កម្រងបញ្ជីសំណួរនេះ!។​</p><p>សូមចុច ​\"បន្ទាប់\" "
 "ដើម្បីពិនិត្យមើលដោយពន្យល់ពីមុខងារនៅក្នុងទំព័រនេះ។"
 
-#: apps/questionnaire/templates/questionnaire/details.html:296
+#: apps/questionnaire/templates/questionnaire/details.html:318
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
 msgstr "<p> នេះគឺជាទំព័រលទ្ធផលដែលអ្នកអាចមើលនូវរាល់ទិន្នន័យទាំងអស់ដែលអ្នកបានបញ្ចូល។ </p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:300
+#: apps/questionnaire/templates/questionnaire/details.html:322
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr "<p> ផ្នែកនីមួយៗ ឬទិន្នន័យដែលអ្នកបានបញ្ចូល គឺអាចមើលឃើញក្នុងលទ្ធផល។</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:305
+#: apps/questionnaire/templates/questionnaire/details.html:327
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -17005,8 +17855,8 @@ msgstr "មិនមានការពណ៌នាទេ។"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:50
 msgid ""
-"New edition of the configuration is available. Please edit your data to "
-"create an updated edition."
+"New edition of the questionnaire is available. Please edit your data to "
+"create an updated version."
 msgstr ""
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:63
@@ -17060,31 +17910,31 @@ msgstr "មិនដឹង"
 msgid "Language"
 msgstr "ភាសា"
 
-#: apps/questionnaire/utils.py:1224
+#: apps/questionnaire/utils.py:1256
 msgid "The questionnaire was successfully submitted."
 msgstr "កម្រងសំណួរបានផ្ញើដោយជោគជ័យ"
 
-#: apps/questionnaire/utils.py:1270
+#: apps/questionnaire/utils.py:1303
 msgid "The questionnaire was successfully reviewed."
 msgstr "កម្រងសំណួរបានពិនិត្យមើលឡើងវិញដោយជោគជ័យ"
 
-#: apps/questionnaire/utils.py:1308
+#: apps/questionnaire/utils.py:1343
 msgid "New version was published"
 msgstr "ការកែប្រែថ្មីត្រូវបានបោះពុម្ភ"
 
-#: apps/questionnaire/utils.py:1348
+#: apps/questionnaire/utils.py:1384
 msgid "The questionnaire was successfully set public."
 msgstr "កម្រងសំណួរបានបង្កើតឡើងជាសាធារណៈដោយជោគជ័យ"
 
-#: apps/questionnaire/utils.py:1402
+#: apps/questionnaire/utils.py:1439
 msgid "The questionnaire was successfully rejected."
 msgstr "កម្រងសំណួរបានបដិសេធចោលដោយជោគជ័យ"
 
-#: apps/questionnaire/utils.py:1492
+#: apps/questionnaire/utils.py:1543
 msgid "Assigned users were successfully updated"
 msgstr "បានធ្វើបច្ចុប្បន្នភាពអ្នកប្រើប្រាស់ដោយជោគជ័យ"
 
-#: apps/questionnaire/utils.py:1606
+#: apps/questionnaire/utils.py:1672
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -17093,11 +17943,11 @@ msgstr ""
 "ទង់មិនត្រូវបានបង្កើតឡើងដោយសារកំណែនៃកម្រងសំណួរនេះស្ថិតក្នុងដំណាក់កាលពិនិត្យមើលឡើងវិញ "
 "ហើយត្រូវបោះពុម្ភជាលើកដំបូង។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។"
 
-#: apps/questionnaire/utils.py:1628
+#: apps/questionnaire/utils.py:1694
 msgid "The flag was successfully set."
 msgstr "ទង់បានបង្កើតឡើងដោយជោគជ័យ"
 
-#: apps/questionnaire/utils.py:1652
+#: apps/questionnaire/utils.py:1718
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -17106,7 +17956,7 @@ msgstr ""
 "ទង់មិនត្រូវបានដកចេញដោយសារកំណែនៃកម្រងសំណួរនេះស្ថិតក្នុងដំណាក់កាលពិនិត្យមើលឡើងវិញ "
 "ហើយត្រូវបានបោះពុម្ភជាលើកដំបូង។ សូមព្យាយាមម្តងទៀតនៅពេលក្រោយ។"
 
-#: apps/questionnaire/utils.py:1673
+#: apps/questionnaire/utils.py:1739
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -17116,12 +17966,12 @@ msgstr ""
 "សូមកត់សំគាល់ថាទង់នេះបានបង្កើតឱ្យមានកំណែប្រែដែលអាចត្រូវបានពិនិត្យមើលឡើងវិញ។ នៅពេលនេះ "
 "អ្នកកំពុងមើលកំណែជាសាធារណៈដែលនៅតែបង្ហាញទង់។"
 
-#: apps/questionnaire/utils.py:1680
+#: apps/questionnaire/utils.py:1746
 msgid "New version due to unccd flagging"
 msgstr ""
 "កំណែថ្មីដោយមានការដាក់ទង់ជាតិរបស់អនុសញ្ញាសហប្រជាជាតិដើម្បីប្រយុទ្ធប្រឆាំងនឹងរហោស្ថានកម្ម UNCCD"
 
-#: apps/questionnaire/utils.py:1693
+#: apps/questionnaire/utils.py:1782
 msgid "The questionnaire was succesfully removed"
 msgstr "កម្រងសំណួរត្រូវបានដកចេញដោយជោគជ័យ"
 
@@ -17129,11 +17979,11 @@ msgstr "កម្រងសំណួរត្រូវបានដកចេញដ
 msgid "Data successfully saved."
 msgstr "កាលបរិច្ឆេទត្រូវបានរក្សាទុកដោយជោគជ័យ"
 
-#: apps/questionnaire/views.py:1141
+#: apps/questionnaire/views.py:1149
 msgid "QCAT Form"
 msgstr "ទម្រង់ QCAT"
 
-#: apps/questionnaire/views.py:1502
+#: apps/questionnaire/views.py:1512
 msgid "No or multiple files provided."
 msgstr "មិនមានឯកសារ ឬមានឯកសារច្រើនសម្រាប់ផ្តល់ឱ្យ។"
 
@@ -17141,93 +17991,336 @@ msgstr "មិនមានឯកសារ ឬមានឯកសារច្រ�
 msgid "Only data declared as public are visible."
 msgstr "មានតែទិន្នន័យដែលបានប្រកាសជាសាធារណៈ ទើបអាចមើលឃើញ។"
 
-#: apps/summary/parsers.py:548
-msgid " Answer: {}"
-msgstr " ចម្លើយ៖ {}"
-
-#: apps/summary/parsers.py:753
+#: apps/summary/parsers/approaches_2015.py:175
 msgid "Subsidies for specific inputs"
 msgstr "បដិភាគសម្រាប់ធាតុចូលជាក់លាក់"
 
-#: apps/summary/renderers.py:44
+#: apps/summary/parsers/technologies_2015.py:217
+msgid " Answer: {}"
+msgstr " ចម្លើយ៖ {}"
+
+#: apps/summary/parsers/technologies_2018.py:249
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Management"
+msgid "Management: "
+msgstr "ការគ្រប់គ្រង"
+
+#: apps/summary/parsers/technologies_2018.py:255
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Mixed varieties"
+msgid "Varieties: "
+msgstr "ពូជបញ្ចូលគ្នា"
+
+#: apps/summary/renderers/approaches_2015.py:23
+#: apps/summary/renderers/approaches_2015.py:38
+#: apps/summary/renderers/technologies_2015.py:41
+#: apps/summary/renderers/technologies_2015.py:56
+msgid "Location"
+msgstr "ទីតាំង"
+
+#: apps/summary/renderers/approaches_2015.py:26
+#: apps/summary/renderers/technologies_2015.py:44
+msgid "Description"
+msgstr "ការពណ៌នា"
+
+#: apps/summary/renderers/approaches_2015.py:43
+#: apps/summary/renderers/technologies_2015.py:65
+msgid "Geo-reference of selected sites"
+msgstr "ចំណុចយោងភូមិសាស្ត្រនៃទីតាំងជ្រើសរើស"
+
+#: apps/summary/renderers/approaches_2015.py:48
+msgid "Initiation date"
+msgstr "កាលបរិច្ឆេទចាប់ផ្តើម"
+
+#: apps/summary/renderers/approaches_2015.py:53
+msgid "Year of termination"
+msgstr "ឆ្នាំបញ្ចប់"
+
+#: apps/summary/renderers/approaches_2015.py:58
+msgid "Type of Approach"
+msgstr "ប្រភេទនៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:71
+msgid "Approach aims and enabling environment"
+msgstr "គោលបំណងនៃវិធីសាស្រ្តផ្សព្វផ្សាយនិងបរិស្ថានអំណោយផល"
+
+#: apps/summary/renderers/approaches_2015.py:74
+msgid "Main aims / objectives of the approach"
+msgstr "គោលបំណងនៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:79
+msgid ""
+"Conditions enabling the implementation of the Technology/ ies applied under "
+"the Approach"
+msgstr "លក្ខខណ្ឌអំណោយផលដល់ការអនុវត្តបចេ្ចកទេសដែលបានប្រើក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:83
+msgid ""
+"Conditions hindering the implementation of the Technology/ ies applied under "
+"the Approach"
+msgstr "លក្ខខណ្ឌរាងរាំងដល់ការអនុវត្តបចេ្ចកទេសដែលបានប្រើក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:99
+msgid "Participation and roles of stakeholders involved"
+msgstr "ការចូលរួមនិងតួរនាតីរបស់ភាគីពាក់ព័ន្ធដែលចូលរួម"
+
+#: apps/summary/renderers/approaches_2015.py:102
+msgid "Stakeholders involved in the Approach and their roles"
+msgstr "ភាគីពាក់ព័ន្ធដែលចូលរួមក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ​ និងតួរនាទីរបស់គាត់"
+
+#: apps/summary/renderers/approaches_2015.py:105
+msgid "Lead agency"
+msgstr "តួអង្គឈានមុខ៖ {}"
+
+#: apps/summary/renderers/approaches_2015.py:110
+#: apps/summary/renderers/approaches_2015.py:114
+msgid ""
+"Involvement of local land users/ local communities in the different phases "
+"of the Approach"
+msgstr "ការចូលរួមពីអ្នកប្រើប្រាស់ដីឬសហគមមូលដ្ឋាន​ក្នុងតំណាក់កាលផ្សេងគ្នានៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:122
+#: apps/summary/renderers/technologies_2015.py:180
+msgid "Author: {}"
+msgstr "អ្នកនិពន្ធ: {}"
+
+#: apps/summary/renderers/approaches_2015.py:123
+msgid "Flow chart"
+msgstr "គំនូសបំព្រួញ"
+
+#: apps/summary/renderers/approaches_2015.py:127
+msgid "Decision-making on the selection of SLM Technology"
+msgstr "ការសម្រេចចិត្តលើការជ្រើសរើសបច្ចេកទេស SLM"
+
+#: apps/summary/renderers/approaches_2015.py:130
+msgid "Decisions were taken by"
+msgstr "ការសម្រេចចិត្តត្រូវបានធ្វើដោយ"
+
+#: apps/summary/renderers/approaches_2015.py:137
+msgid "Decisions were made based on"
+msgstr "ការសម្រេចចិត្តត្រូវបានធ្វើដោយផ្អែកលើ៖"
+
+#: apps/summary/renderers/approaches_2015.py:151
+msgid "Technical support, capacity building, and knowledge management"
+msgstr "ការគាំទ្របច្ចេកទេស ការកសាងសមត្ថភាព និងការគ្រប់គ្រងចំណេះដឹង"
+
+#: apps/summary/renderers/approaches_2015.py:154
+msgid "The following activities or services have been part of the approach"
+msgstr "សកម្មភាព ឬសេវាកម្មខាងក្រោមបានប្រើជាផ្នែកនៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:164
+msgid "Capacity building/ training"
+msgstr "ការកសាងសមត្ថភាព/ ការបណ្តុះបណ្តាល"
+
+#: apps/summary/renderers/approaches_2015.py:167
+msgid "Training was provided to the following stakeholders"
+msgstr "ការបណ្តុះបណ្តាលបានផ្តល់ដល់អ្នកពាក់ព័ន្ធដូចខាងក្រោម"
+
+#: apps/summary/renderers/approaches_2015.py:174
+msgid "Form of training"
+msgstr "ទម្រង់នៃការបណ្តុះបណ្តាល"
+
+#: apps/summary/renderers/approaches_2015.py:182
+msgid "Subjects covered"
+msgstr "មុខវិទ្យាដែលបានបញ្ចូល"
+
+#: apps/summary/renderers/approaches_2015.py:187
+msgid "Advisory service"
+msgstr "សេវាកម្មប្រឹក្សា"
+
+#: apps/summary/renderers/approaches_2015.py:190
+msgid "Advisory service was provided"
+msgstr "សេវាកម្មប្រឹក្សាត្រូវបានផ្តល់ឱ្យ"
+
+#: apps/summary/renderers/approaches_2015.py:200
+msgid "Institution strengthening"
+msgstr "ការពង្រឹងស្ថាប័ន"
+
+#: apps/summary/renderers/approaches_2015.py:202
+msgid "Institutions have been strengthened / established"
+msgstr "ស្ថាប័នត្រូវបានព្រឹង/ បង្កើត"
+
+#: apps/summary/renderers/approaches_2015.py:206
+msgid "at the following level"
+msgstr "នៅកម្រិតដូចខាងក្រោម"
+
+#: apps/summary/renderers/approaches_2015.py:212
+msgid "Describe institution, roles and responsibilities, members, etc."
+msgstr "ពិពណនាស្ថាប័ន៖ តួនាទី និងការទទួលខុសត្រូវ សមាជិក ។ល។"
+
+#: apps/summary/renderers/approaches_2015.py:215
+msgid "Type of support"
+msgstr "ប្រភេទនៃការគាំទ្រ"
+
+#: apps/summary/renderers/approaches_2015.py:221
+msgid "Further details"
+msgstr "សេចក្តីលម្អិតបន្ថែមទៀត"
+
+#: apps/summary/renderers/approaches_2015.py:225
+msgid "Monitoring and evaluation"
+msgstr "ការត្រួតពិនិត្យ និងវាយតម្លៃ"
+
+#: apps/summary/renderers/approaches_2015.py:229
+msgid "Research"
+msgstr "ការស្រាវជ្រាវ"
+
+#: apps/summary/renderers/approaches_2015.py:230
+msgid "Research treated the following topics"
+msgstr "ការស្រាវជ្រាវពាក់ព័ន្ធនឹងប្រធានបទខាងក្រោម"
+
+#: apps/summary/renderers/approaches_2015.py:243
+msgid "Financing and external material support"
+msgstr "ការផ្តល់ថវិកា និងការគាំទ្រសម្ភារពីខាងក្រៅ"
+
+#: apps/summary/renderers/approaches_2015.py:246
+msgid "Annual budget in USD for the SLM component"
+msgstr "ថវិកាប្រចាំឆ្នាំគិតជាដុល្លាអាមេរិក​សម្រាប់ផ្នែក SLM"
+
+#: apps/summary/renderers/approaches_2015.py:249
+msgid "Precise annual budget: {}"
+msgstr "ថវិកាប្រចាំឆ្នាំជាក់លាក់៖ {}"
+
+#: apps/summary/renderers/approaches_2015.py:252
+msgid "The following services or incentives have been provided to land users"
+msgstr "សេវាកម្ម និងការលើកទឹកចិត្តខាងក្រោមត្រូវបានផ្តល់ដល់អ្នកប្រើប្រាស់ដី"
+
+#: apps/summary/renderers/approaches_2015.py:263
+msgid "Labour by land users was"
+msgstr "កំលាំងពលកម្មដោយអ្នកប្រើប្រាស់ដីគឺ"
+
+#: apps/summary/renderers/approaches_2015.py:267
+msgid "Financial/ material support provided to land users"
+msgstr "ការគាំទ្រថវិការ/​ សម្ភារដែលបានផ្តល់ដល់អ្នកប្រើប្រាស់ដី"
+
+#: apps/summary/renderers/approaches_2015.py:271
+msgid "Credit"
+msgstr "ឥណទាន"
+
+#: apps/summary/renderers/approaches_2015.py:273
+msgid "Conditions: {}"
+msgstr "លក្ខខណ្ឌ៖ {}"
+
+#: apps/summary/renderers/approaches_2015.py:276
+msgid "Credit providers: {}"
+msgstr "អ្នកផ្តល់ឥណទាន៖ {}"
+
+#: apps/summary/renderers/approaches_2015.py:279
+msgid "Credit receivers: {}"
+msgstr "អ្នកទទួលឥណទាន៖ {}"
+
+#: apps/summary/renderers/approaches_2015.py:285
+msgid "Other incentives or instruments"
+msgstr "ការលើកទឹកចិត្ត ឬឧបករណ៍ផ្សេងទៀត"
+
+#: apps/summary/renderers/approaches_2015.py:295
+msgid "Impact analysis and concluding statements"
+msgstr "ការវិភាគផលប៉ះពាល់ និងសេចក្តីសន្និដ្ឋាន"
+
+#: apps/summary/renderers/approaches_2015.py:298
+msgid "Impacts of the Approach"
+msgstr "ឥទ្ធិពលនៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:299
+msgid "Did the approach..."
+msgstr "ធ្វើនូវការផ្សព្វផ្សាយ..."
+
+#: apps/summary/renderers/approaches_2015.py:303
+msgid "Main motivation of land users to implement SLM"
+msgstr "ការជំរុញទឹកចិត្តសំខាន់បំផុតនៃអ្នកប្រើប្រាស់ដីក្នុងការអនុវត្ត SLM"
+
+#: apps/summary/renderers/approaches_2015.py:310
+msgid "Sustainability of Approach activities"
+msgstr "និរន្តរភាពនៃសកម្មភាពផ្សព្វផ្សាយ"
+
+#: apps/summary/renderers/approaches_2015.py:311
+msgid ""
+"Can the land users sustain what hat been implemented through the Approach "
+"(without external support)?"
+msgstr ""
+"តើអ្នកប្រើប្រាស់ដីអាចបន្តដោយនិរន្តរភាពនូវអ្វីដែលបានអនុវត្តតាមរយៈការផ្សព្វផ្សាយ "
+"(ដោយមិនមានការគាំទ្រពីខាងក្រៅ)?"
+
+#: apps/summary/renderers/summary.py:43
 msgid "n.a."
 msgstr ""
 
-#: apps/summary/renderers.py:238
+#: apps/summary/renderers/summary.py:237
 msgid "land user's view"
 msgstr "ទស្សនៈអ្នកប្រើប្រាស់ដី"
 
-#: apps/summary/renderers.py:239
+#: apps/summary/renderers/summary.py:238
 msgid "compiler’s or other key resource person’s view"
 msgstr "ទស្សនៈរបស់អ្នកចងក្រង ឬបុគ្គលសំខាន់ផ្សេងទៀត"
 
-#: apps/summary/renderers.py:272
+#: apps/summary/renderers/summary.py:271
 msgid "Conclusions and lessons learnt"
 msgstr "សេក្តីសន្និដ្ឋាន និងមេរៀនបទពិសោធន៍"
 
-#: apps/summary/renderers.py:275
+#: apps/summary/renderers/summary.py:274
 msgid "Strengths"
 msgstr "ភាពខ្លាំង"
 
-#: apps/summary/renderers.py:288
+#: apps/summary/renderers/summary.py:287
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "ចំណុចខ្សោយ/ គុណវិបត្តិ/ ហានិភ័យ​ "
 
-#: apps/summary/renderers.py:289
+#: apps/summary/renderers/summary.py:288
 msgid "how to overcome"
 msgstr "វិធីដោះស្រាយ"
 
-#: apps/summary/renderers.py:302
+#: apps/summary/renderers/summary.py:301
 msgid "References"
 msgstr "ឯកសារយោង "
 
-#: apps/summary/renderers.py:306
+#: apps/summary/renderers/summary.py:305
 msgid "Date of documentation"
 msgstr "កាលបរិច្ឆេទនៃការអនុវត្ត"
 
-#: apps/summary/renderers.py:310
+#: apps/summary/renderers/summary.py:309
 msgid "Last update"
 msgstr "កែតម្រូវចុងក្រោយ"
 
-#: apps/summary/renderers.py:325
+#: apps/summary/renderers/summary.py:324
 msgid "Resource persons"
 msgstr "បុគ្គលសំខាន់ៗ"
 
-#: apps/summary/renderers.py:330
+#: apps/summary/renderers/summary.py:329
 msgid "Full description in the WOCAT database"
 msgstr "ការពណ៌នាលម្អិតក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យរបស់វ៉ូខេត"
 
-#: apps/summary/renderers.py:335
+#: apps/summary/renderers/summary.py:334
 msgid "Linked SLM data"
 msgstr "ទិន្នន័យ SLM ភ្ជាប់ជាមួយ"
 
-#: apps/summary/renderers.py:340
+#: apps/summary/renderers/summary.py:339
 msgid "Key references"
 msgstr "ឯកសារយោងសំខាន់ៗ"
 
-#: apps/summary/renderers.py:345
+#: apps/summary/renderers/summary.py:344
 msgid "Links to relevant information which is available online"
 msgstr "ការភ្ជាប់ទៅកាន់ពត៌មានពាក់ព័ន្ធលើប្រព័ន្ធអនឡាញ"
 
-#: apps/summary/renderers.py:350
+#: apps/summary/renderers/summary.py:349
 msgid "Documentation was faciliated by"
 msgstr "ឯកសារនេះត្រូវបានសម្របសម្រួលដោយ"
 
-#: apps/summary/renderers.py:352
+#: apps/summary/renderers/summary.py:351
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:53
 msgid "Project"
 msgstr "គម្រោង"
 
-#: apps/summary/renderers.py:356
+#: apps/summary/renderers/summary.py:355
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:64
 msgid "Institution"
 msgstr "ស្ថាប័ន៖"
 
-#: apps/summary/renderers.py:445
+#: apps/summary/renderers/summary.py:444
 msgid "Video"
 msgstr "វីដេអូ"
 
-#: apps/summary/renderers.py:550
+#: apps/summary/renderers/technologies_2015.py:26
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
@@ -17235,360 +18328,347 @@ msgstr ""
 "បច្ចេកទេសនេះមានបញ្ហាជាមួយនឹងឱនភាពដី "
 "ដូចនេះវាមិនអាចត្រូវបានប្រកាស់ថាជាបច្ចេកទេសគ្រប់គ្រងដីប្រកបដោយចីរភាពទេ"
 
-#: apps/summary/renderers.py:568 apps/summary/renderers.py:583
-#: apps/summary/renderers.py:1118 apps/summary/renderers.py:1133
-msgid "Location"
-msgstr "ទីតាំង"
-
-#: apps/summary/renderers.py:571 apps/summary/renderers.py:1121
-msgid "Description"
-msgstr "ការពណ៌នា"
-
-#: apps/summary/renderers.py:589
+#: apps/summary/renderers/technologies_2015.py:62
 msgid "No. of Technology sites analysed"
 msgstr "ចំនួនទីកន្លែងបច្ចេកទេស ដែលវិភាគ"
 
-#: apps/summary/renderers.py:592 apps/summary/renderers.py:1138
-msgid "Geo-reference of selected sites"
-msgstr "ចំណុចយោងភូមិសាស្ត្រនៃទីតាំងជ្រើសរើស"
-
-#: apps/summary/renderers.py:597
+#: apps/summary/renderers/technologies_2015.py:70
 msgid "Spread of the Technology"
 msgstr "ការសាយភាយនៃបច្ចេកទេស"
 
-#: apps/summary/renderers.py:601
+#: apps/summary/renderers/technologies_2015.py:74
 msgid "Date of implementation"
 msgstr "កាលបរិច្ឆេទនៃការអនុវត្ត"
 
-#: apps/summary/renderers.py:608
+#: apps/summary/renderers/technologies_2015.py:81
 msgid "Type of introduction"
 msgstr "ប្រភេទនៃការណែនាំឱ្យអនុវត្តន៍៖"
 
-#: apps/summary/renderers.py:644
+#: apps/summary/renderers/technologies_2015.py:117
 msgid "Classification of the Technology"
 msgstr "ចំណាត់ថ្នាក់នៃបច្ចេកទេស"
 
-#: apps/summary/renderers.py:647
+#: apps/summary/renderers/technologies_2015.py:120
 msgid "Main purpose"
 msgstr "គោលបំណងចម្បងៗ"
 
-#: apps/summary/renderers.py:651
+#: apps/summary/renderers/technologies_2015.py:124
+#: apps/summary/renderers/technologies_2018.py:141
 msgid "Land use"
 msgstr "ការប្រើប្រាស់ដី"
 
-#: apps/summary/renderers.py:655
+#: apps/summary/renderers/technologies_2015.py:128
 msgid "Water supply"
 msgstr "ការផ្គត់ផ្គង់ទឹក"
 
-#: apps/summary/renderers.py:660
+#: apps/summary/renderers/technologies_2015.py:133
 msgid "Number of growing seasons per year"
 msgstr "ចំនួនរដូវដាំដុះក្នុងមួយឆ្នាំ"
 
-#: apps/summary/renderers.py:664
+#: apps/summary/renderers/technologies_2015.py:137
 msgid "Land use before implementation of the Technology"
 msgstr "ការប្រើប្រាស់ដីមុនពេលអនុវត្តបច្ចេកទេស"
 
-#: apps/summary/renderers.py:668
+#: apps/summary/renderers/technologies_2015.py:141
 msgid "Livestock density"
 msgstr "ដង់ស៊ីតេនៃសត្វចិញ្ចឹម"
 
-#: apps/summary/renderers.py:675
+#: apps/summary/renderers/technologies_2015.py:148
 msgid "Purpose related to land degradation"
 msgstr "គោលបំណងទាក់ទងនឹងឱនភាពដី"
 
-#: apps/summary/renderers.py:679
+#: apps/summary/renderers/technologies_2015.py:152
 msgid "Degradation addressed"
 msgstr "ប្រភេទឱនភាពដីដែលបានដោះស្រាយ"
 
-#: apps/summary/renderers.py:683
+#: apps/summary/renderers/technologies_2015.py:156
 msgid "SLM group"
 msgstr "ក្រុម SLM"
 
-#: apps/summary/renderers.py:687
+#: apps/summary/renderers/technologies_2015.py:160
 msgid "SLM measures"
 msgstr "វិធានការ SLM"
 
-#: apps/summary/renderers.py:707 apps/summary/renderers.py:1217
-msgid "Author: {}"
-msgstr "អ្នកនិពន្ធ: {}"
-
-#: apps/summary/renderers.py:722
+#: apps/summary/renderers/technologies_2015.py:195
+#: apps/summary/renderers/technologies_2018.py:49
 msgid "Technical drawing"
 msgstr "គំនូរបច្ចេកទេស"
 
-#: apps/summary/renderers.py:724
+#: apps/summary/renderers/technologies_2015.py:197
+#: apps/summary/renderers/technologies_2018.py:51
 msgid "Technical specifications"
 msgstr "លក្ខណៈបច្ចេកទេស"
 
-#: apps/summary/renderers.py:743
+#: apps/summary/renderers/technologies_2015.py:216
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr "ឯកត្តាបម្លែងទៅជាមួយហិកតា៖ ១​ ហិកតា =​ {}"
 
-#: apps/summary/renderers.py:744
+#: apps/summary/renderers/technologies_2015.py:217
 msgid " (size and area unit: <b>{}</b>{})"
 msgstr " (ទំហំ និងឯកត្តាផ្ទៃដី៖ <b>{}</b>{})"
 
-#: apps/summary/renderers.py:749
+#: apps/summary/renderers/technologies_2015.py:222
 msgid "unit: <b>{}</b>"
 msgstr "ឯកត្តា៖ <b>{}</b>"
 
-#: apps/summary/renderers.py:766 apps/summary/renderers.py:767
+#: apps/summary/renderers/technologies_2015.py:239
+#: apps/summary/renderers/technologies_2015.py:240
 msgid "n.a"
 msgstr "មិនមាន"
 
-#: apps/summary/renderers.py:771
+#: apps/summary/renderers/technologies_2015.py:244
 msgid "Establishment and maintenance: activities, inputs and costs"
 msgstr "ការបង្កើតនិងការថែទាំ៖​ សកម្មភាព ធាតុចូល និងថ្លៃដើម"
 
-#: apps/summary/renderers.py:774
+#: apps/summary/renderers/technologies_2015.py:247
 msgid "Calculation of inputs and costs"
 msgstr "ការគណនាធាតុចូល​ និងថ្លៃដើម"
 
-#: apps/summary/renderers.py:776
+#: apps/summary/renderers/technologies_2015.py:249
 msgid "Costs are calculated: {}"
 msgstr "ថ្លៃដើមត្រូវបានគណនា៖ {}"
 
-#: apps/summary/renderers.py:777
+#: apps/summary/renderers/technologies_2015.py:250
 msgid "Currency used for cost calculation: <b>{}</b>"
 msgstr "រូបិយប័ណ្ណសម្រាប់ការគណនាថ្លៃដើម៖ <b>{}</b>"
 
-#: apps/summary/renderers.py:778
+#: apps/summary/renderers/technologies_2015.py:251
 msgid "Exchange rate (to USD): 1 USD = {} {}"
 msgstr ""
 
-#: apps/summary/renderers.py:782
+#: apps/summary/renderers/technologies_2015.py:255
 msgid "Average wage cost of hired labour per day: {}"
 msgstr ""
 
-#: apps/summary/renderers.py:785
+#: apps/summary/renderers/technologies_2015.py:258
 msgid "Most important factors affecting the costs"
 msgstr "កត្តាសំខាន់បំផុតដែលមានឥទ្ធិពលលើថ្លៃដើម"
 
-#: apps/summary/renderers.py:788
+#: apps/summary/renderers/technologies_2015.py:261
 msgid "Establishment activities"
 msgstr "សកម្មភាពបង្កើតបច្ចេកទេស"
 
-#: apps/summary/renderers.py:792
+#: apps/summary/renderers/technologies_2015.py:265
 msgid "Establishment inputs and costs{}"
 msgstr "ធាតុចូល និងថ្លៃដើមសម្រាប់ការបង្កើតបច្ចេកទេស"
 
-#: apps/summary/renderers.py:797
+#: apps/summary/renderers/technologies_2015.py:270
 msgid "Total establishment costs (estimation)"
 msgstr "ថ្លៃបង្កើតបច្ចេកទេសសរុប (ប៉ាន់ស្មាន)"
 
-#: apps/summary/renderers.py:805
+#: apps/summary/renderers/technologies_2015.py:278
 msgid "Maintenance activities"
 msgstr "សកម្មភាពថែទាំ"
 
-#: apps/summary/renderers.py:809
+#: apps/summary/renderers/technologies_2015.py:282
 msgid "Maintenance inputs and costs{}"
 msgstr "ធាតុចូលនិងថ្លៃដើមសម្រាប់ការថែទាំ"
 
-#: apps/summary/renderers.py:814
+#: apps/summary/renderers/technologies_2015.py:287
 msgid "Total maintenance costs (estimation)"
 msgstr "ថ្លៃថែទាំបច្ចេកទេសសរុប (ប៉ាន់ស្មាន)"
 
-#: apps/summary/renderers.py:830
+#: apps/summary/renderers/technologies_2015.py:303
 msgid "Timing/ frequency"
 msgstr "ពេលវេលា/ ភាពញឹកញាប់"
 
-#: apps/summary/renderers.py:852
+#: apps/summary/renderers/technologies_2015.py:325
 msgid "Average annual rainfall in mm: {}"
 msgstr "បរិមាណទឹកភ្លៀងជាមធ្យមប្រចាំឆ្នាំគិតជា មម៖ {}"
 
-#: apps/summary/renderers.py:854
+#: apps/summary/renderers/technologies_2015.py:327
 msgid "Name of the meteorological station: {}"
 msgstr "ស្ថានីយឧតុនិយម៖​ {}"
 
-#: apps/summary/renderers.py:862
+#: apps/summary/renderers/technologies_2015.py:335
 msgid "Natural environment"
 msgstr "បរិស្ថានធម្មជាតិ"
 
-#: apps/summary/renderers.py:865
+#: apps/summary/renderers/technologies_2015.py:338
 msgid "Average annual rainfall"
 msgstr "បរិមាណទឹកភ្លៀងជាមធ្យមប្រចាំឆ្នាំ"
 
-#: apps/summary/renderers.py:869
+#: apps/summary/renderers/technologies_2015.py:342
 msgid "Agro-climatic zone"
 msgstr "តំបន់កសិអាកាសធាតុ"
 
-#: apps/summary/renderers.py:873
+#: apps/summary/renderers/technologies_2015.py:346
 msgid "Specifications on climate"
 msgstr "លក្ខណៈសម្គាល់នៃអាកាសធាតុ"
 
-#: apps/summary/renderers.py:877
+#: apps/summary/renderers/technologies_2015.py:350
 msgid "Slope"
 msgstr "ជម្រាល"
 
-#: apps/summary/renderers.py:881
+#: apps/summary/renderers/technologies_2015.py:354
 msgid "Landforms"
 msgstr "ទម្រង់ដី"
 
-#: apps/summary/renderers.py:885
+#: apps/summary/renderers/technologies_2015.py:358
 msgid "Altitude"
 msgstr "រយៈកម្ពស់ធៀបនឹងនីវ៉ូទឹកសមុទ្រ"
 
-#: apps/summary/renderers.py:889
+#: apps/summary/renderers/technologies_2015.py:362
 msgid "Technology is applied in"
 msgstr "បច្ចេកទេសត្រូវបានអនុវត្តនៅក្នុង"
 
-#: apps/summary/renderers.py:893
+#: apps/summary/renderers/technologies_2015.py:366
 msgid "Soil depth"
 msgstr "ជម្រៅដី"
 
-#: apps/summary/renderers.py:897
+#: apps/summary/renderers/technologies_2015.py:370
 msgid "Soil texture (topsoil)"
 msgstr "វាយនៈភាពដី (ដីស្រទាប់ខាងលើ)"
 
-#: apps/summary/renderers.py:901
+#: apps/summary/renderers/technologies_2015.py:374
 msgid "Soil texture (> 20 cm below surface)"
 msgstr "វាយនៈភាពដី  (>​ 20 សម ក្រោមស្រទាប់លើ)"
 
-#: apps/summary/renderers.py:905
+#: apps/summary/renderers/technologies_2015.py:378
 msgid "Topsoil organic matter content"
 msgstr "កម្រិតសារធាតុសរីរាង្គក្នុងដី​​ស្រទាប់លើ"
 
-#: apps/summary/renderers.py:909
+#: apps/summary/renderers/technologies_2015.py:382
 msgid "Groundwater table"
 msgstr "ដង្ហើមទឹកក្នុងដី"
 
-#: apps/summary/renderers.py:913
+#: apps/summary/renderers/technologies_2015.py:386
 msgid "Availability of surface water"
 msgstr "ភាពអាចរកបាននៃទឹកលើដី"
 
-#: apps/summary/renderers.py:917
+#: apps/summary/renderers/technologies_2015.py:390
 msgid "Water quality (untreated)"
 msgstr "គុណភាពទឹក (មិនបានធ្វើប្រព្រឹត្តិកម្ម)"
 
-#: apps/summary/renderers.py:921
+#: apps/summary/renderers/technologies_2015.py:394
 msgid "Occurrence of flooding"
 msgstr "ការកើតឡើងនៃទឹកជំនន់"
 
-#: apps/summary/renderers.py:925
+#: apps/summary/renderers/technologies_2015.py:398
 msgid "Is salinity a problem?"
 msgstr "តើមានបញ្ហាទឹកប្រៃហូរចូល​​ដែរឬទេ?"
 
-#: apps/summary/renderers.py:929
+#: apps/summary/renderers/technologies_2015.py:402
 msgid "Species diversity"
 msgstr "ភាពសំបូរបែបនៃប្រភេទសត្វ"
 
-#: apps/summary/renderers.py:933
+#: apps/summary/renderers/technologies_2015.py:406
 msgid "Habitat diversity"
 msgstr "ភាពសំបូរបែបនៃជម្រកធម្មជាតិ"
 
-#: apps/summary/renderers.py:942
+#: apps/summary/renderers/technologies_2015.py:415
 msgid "Characteristics of land users applying the Technology"
 msgstr "ចរិតលក្ខណៈរបស់អ្នកប្រើប្រាស់ដីដែលប្រើបច្ចេកទេស SLM"
 
-#: apps/summary/renderers.py:945
+#: apps/summary/renderers/technologies_2015.py:418
 msgid "Market orientation"
 msgstr "ទីផ្សារ"
 
-#: apps/summary/renderers.py:949
+#: apps/summary/renderers/technologies_2015.py:422
 msgid "Off-farm income"
 msgstr "ចំណូលក្រៅកសិដ្ឋាន"
 
-#: apps/summary/renderers.py:953
+#: apps/summary/renderers/technologies_2015.py:426
 msgid "Relative level of wealth"
 msgstr "កម្រិតជីវភាព"
 
-#: apps/summary/renderers.py:957
+#: apps/summary/renderers/technologies_2015.py:430
 msgid "Level of mechanization"
 msgstr "កម្រិតនៃការប្រើគ្រឿងយន្ត"
 
-#: apps/summary/renderers.py:961
+#: apps/summary/renderers/technologies_2015.py:434
 msgid "Sedentary or nomadic"
 msgstr "នៅមួយកន្លែង ឬពនេចរ"
 
-#: apps/summary/renderers.py:968
+#: apps/summary/renderers/technologies_2015.py:441
 msgid "Individuals or groups"
 msgstr "បុគ្គល ឬក្រុម"
 
-#: apps/summary/renderers.py:972
+#: apps/summary/renderers/technologies_2015.py:445
 msgid "Gender"
 msgstr "យេនឌ័រ"
 
-#: apps/summary/renderers.py:976
+#: apps/summary/renderers/technologies_2015.py:449
 msgid "Age"
 msgstr "អាយុ"
 
-#: apps/summary/renderers.py:980
+#: apps/summary/renderers/technologies_2015.py:453
 msgid "Area used per household"
 msgstr "ផ្ទៃដីប្រើប្រាស់ក្នុងមួយគ្រួសារ"
 
-#: apps/summary/renderers.py:984
+#: apps/summary/renderers/technologies_2015.py:457
 msgid "Scale"
 msgstr "មាត្រដ្ឋាន"
 
-#: apps/summary/renderers.py:988
+#: apps/summary/renderers/technologies_2015.py:461
 msgid "Land ownership"
 msgstr "ភាពជាម្ចាស់ដីធ្លី"
 
-#: apps/summary/renderers.py:995
+#: apps/summary/renderers/technologies_2015.py:468
 msgid "Land use rights"
 msgstr "សិទ្ធិប្រើប្រាស់ដី"
 
-#: apps/summary/renderers.py:1002
+#: apps/summary/renderers/technologies_2015.py:475
 msgid "Water use rights"
 msgstr "សិទ្ធិប្រើប្រាស់ទឹក"
 
-#: apps/summary/renderers.py:1009
+#: apps/summary/renderers/technologies_2015.py:482
 msgid "Access to services and infrastructure"
 msgstr "ប្រើប្រាស់សេវាកម្ម និងហេដ្ឋារចនាសម្ព័ន្ធ"
 
-#: apps/summary/renderers.py:1018
+#: apps/summary/renderers/technologies_2015.py:491
 msgid "Impacts"
 msgstr "ផលប៉ះពាល់"
 
-#: apps/summary/renderers.py:1021
+#: apps/summary/renderers/technologies_2015.py:494
 msgid "Socio-economic impacts"
 msgstr "ផលប៉ះពាល់សេដ្ឋកិច្ចសង្គម"
 
-#: apps/summary/renderers.py:1025
+#: apps/summary/renderers/technologies_2015.py:498
 msgid "Socio-cultural impacts"
 msgstr "ផលប៉ះពាល់វប្បធម៌សង្គម"
 
-#: apps/summary/renderers.py:1029
+#: apps/summary/renderers/technologies_2015.py:502
 msgid "Ecological impacts"
 msgstr "ផលប៉ះពាល់លើអេកូឡូស៊ី"
 
-#: apps/summary/renderers.py:1033
+#: apps/summary/renderers/technologies_2015.py:506
 msgid "Off-site impacts"
 msgstr "ផលប៉ះពាល់ក្នុងបរិវេណ"
 
-#: apps/summary/renderers.py:1042
+#: apps/summary/renderers/technologies_2015.py:515
 msgid "Cost-benefit analysis"
 msgstr "ការវិភាគថ្លៃដើម និងអត្ថប្រយោជន៍"
 
-#: apps/summary/renderers.py:1045
+#: apps/summary/renderers/technologies_2015.py:518
 msgid "Benefits compared with establishment costs"
 msgstr "អត្ថប្រយោជន៍បើប្រៀបធៀបនឹងថ្លៃដើមក្នុងការបង្កើតបច្ចេកទេស"
 
-#: apps/summary/renderers.py:1050
+#: apps/summary/renderers/technologies_2015.py:523
 msgid "Benefits compared with maintenance costs"
 msgstr "អត្ថប្រយោជន៍បើប្រៀបធៀបនឹងថ្លៃដើមក្នុងការថែទាំបច្ចេកទេស"
 
-#: apps/summary/renderers.py:1061
+#: apps/summary/renderers/technologies_2015.py:534
 msgid "Climate change"
 msgstr "ការប្រែប្រួលអាកាសធាតុ"
 
-#: apps/summary/renderers.py:1063
+#: apps/summary/renderers/technologies_2015.py:536
 msgid "Climate change/ extreme to which the Technology is exposed"
 msgstr "បញ្ហាអាកាសធាតុដែលប្រឈមដល់បច្ចេក​​ទេស"
 
-#: apps/summary/renderers.py:1064
+#: apps/summary/renderers/technologies_2015.py:537
 msgid "How the Technology copes with these changes/extremes"
 msgstr "លក្ខណៈឆ្លើយតបរបស់បច្ចេកទេសចំពោះបញ្ហាអាកាសធាតុ"
 
-#: apps/summary/renderers.py:1072
+#: apps/summary/renderers/technologies_2015.py:545
 msgid "Adoption and adaptation"
 msgstr "ការទទួលយក និងការបន្ស៊ាំ"
 
-#: apps/summary/renderers.py:1075
+#: apps/summary/renderers/technologies_2015.py:548
 msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "ភាគរយនៃអ្នកប្រើប្រាស់ដីនៅតំបន់ដែលបានទទួលយកបច្ចេកទេស"
 
-#: apps/summary/renderers.py:1079
+#: apps/summary/renderers/technologies_2015.py:552
 msgid ""
 "Of all those who have adopted the Technology, how many have done so without "
 "receiving material incentives?"
@@ -17596,224 +18676,25 @@ msgstr ""
 "ក្នុងចំណោមអ្នកទទួលយកបច្ចេកទេសនេះ តើមាន​ប៉ុន្មាន​ភាគរយ​ដែល​បាន​អនុវត្តន៍​ដោយ​មិន​បាន​ទទួលការលើក​ទឹកចិត្ត​"
 "ជាសម្ភារៈ?"
 
-#: apps/summary/renderers.py:1083
+#: apps/summary/renderers/technologies_2015.py:556
 msgid "Number of households and/ or area covered"
 msgstr "ចំនួនខ្នងផ្ទះ និង/ឬតំបន់ដែលគ្របដណ្តប់"
 
-#: apps/summary/renderers.py:1087
+#: apps/summary/renderers/technologies_2015.py:560
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
 msgstr "តើថ្មីៗនេះ បច្ចេកទេសនេះត្រូវបានកែតម្រូវ​ដើម្បី​បន្ស៊ាំ​ទៅនឹង​ស្ថាន​ភាព​ប្រែប្រួល​ដែរ​ឬទេ?"
 
-#: apps/summary/renderers.py:1091
+#: apps/summary/renderers/technologies_2015.py:564
 msgid "To which changing conditions?"
 msgstr "ចំពោះលក្ខខណ្ឌប្រែប្រួលណាមួយដែលត្រូវបានបន្ស៊ាំ?"
 
-#: apps/summary/renderers.py:1143
-msgid "Initiation date"
-msgstr "កាលបរិច្ឆេទចាប់ផ្តើម"
-
-#: apps/summary/renderers.py:1148
-msgid "Year of termination"
-msgstr "ឆ្នាំបញ្ចប់"
-
-#: apps/summary/renderers.py:1153
-msgid "Type of Approach"
-msgstr "ប្រភេទនៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1166
-msgid "Approach aims and enabling environment"
-msgstr "គោលបំណងនៃវិធីសាស្រ្តផ្សព្វផ្សាយនិងបរិស្ថានអំណោយផល"
-
-#: apps/summary/renderers.py:1169
-msgid "Main aims / objectives of the approach"
-msgstr "គោលបំណងនៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1174
-msgid ""
-"Conditions enabling the implementation of the Technology/ ies applied under "
-"the Approach"
-msgstr "លក្ខខណ្ឌអំណោយផលដល់ការអនុវត្តបចេ្ចកទេសដែលបានប្រើក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1178
-msgid ""
-"Conditions hindering the implementation of the Technology/ ies applied under "
-"the Approach"
-msgstr "លក្ខខណ្ឌរាងរាំងដល់ការអនុវត្តបចេ្ចកទេសដែលបានប្រើក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1194
-msgid "Participation and roles of stakeholders involved"
-msgstr "ការចូលរួមនិងតួរនាតីរបស់ភាគីពាក់ព័ន្ធដែលចូលរួម"
-
-#: apps/summary/renderers.py:1197
-msgid "Stakeholders involved in the Approach and their roles"
-msgstr "ភាគីពាក់ព័ន្ធដែលចូលរួមក្នុងវិធីសាស្រ្តផ្សព្វផ្សាយ​ និងតួរនាទីរបស់គាត់"
-
-#: apps/summary/renderers.py:1200
-msgid "Lead agency"
-msgstr "តួអង្គឈានមុខ៖ {}"
-
-#: apps/summary/renderers.py:1205 apps/summary/renderers.py:1209
-msgid ""
-"Involvement of local land users/ local communities in the different phases "
-"of the Approach"
-msgstr "ការចូលរួមពីអ្នកប្រើប្រាស់ដីឬសហគមមូលដ្ឋាន​ក្នុងតំណាក់កាលផ្សេងគ្នានៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1218
-msgid "Flow chart"
-msgstr "គំនូសបំព្រួញ"
-
-#: apps/summary/renderers.py:1222
-msgid "Decision-making on the selection of SLM Technology"
-msgstr "ការសម្រេចចិត្តលើការជ្រើសរើសបច្ចេកទេស SLM"
-
-#: apps/summary/renderers.py:1225
-msgid "Decisions were taken by"
-msgstr "ការសម្រេចចិត្តត្រូវបានធ្វើដោយ"
-
-#: apps/summary/renderers.py:1232
-msgid "Decisions were made based on"
-msgstr "ការសម្រេចចិត្តត្រូវបានធ្វើដោយផ្អែកលើ៖"
-
-#: apps/summary/renderers.py:1246
-msgid "Technical support, capacity building, and knowledge management"
-msgstr "ការគាំទ្របច្ចេកទេស ការកសាងសមត្ថភាព និងការគ្រប់គ្រងចំណេះដឹង"
-
-#: apps/summary/renderers.py:1249
-msgid "The following activities or services have been part of the approach"
-msgstr "សកម្មភាព ឬសេវាកម្មខាងក្រោមបានប្រើជាផ្នែកនៃវិធីសាស្ត្រផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1259
-msgid "Capacity building/ training"
-msgstr "ការកសាងសមត្ថភាព/ ការបណ្តុះបណ្តាល"
-
-#: apps/summary/renderers.py:1262
-msgid "Training was provided to the following stakeholders"
-msgstr "ការបណ្តុះបណ្តាលបានផ្តល់ដល់អ្នកពាក់ព័ន្ធដូចខាងក្រោម"
-
-#: apps/summary/renderers.py:1269
-msgid "Form of training"
-msgstr "ទម្រង់នៃការបណ្តុះបណ្តាល"
-
-#: apps/summary/renderers.py:1277
-msgid "Subjects covered"
-msgstr "មុខវិទ្យាដែលបានបញ្ចូល"
-
-#: apps/summary/renderers.py:1282
-msgid "Advisory service"
-msgstr "សេវាកម្មប្រឹក្សា"
-
-#: apps/summary/renderers.py:1285
-msgid "Advisory service was provided"
-msgstr "សេវាកម្មប្រឹក្សាត្រូវបានផ្តល់ឱ្យ"
-
-#: apps/summary/renderers.py:1295
-msgid "Institution strengthening"
-msgstr "ការពង្រឹងស្ថាប័ន"
-
-#: apps/summary/renderers.py:1297
-msgid "Institutions have been strengthened / established"
-msgstr "ស្ថាប័នត្រូវបានព្រឹង/ បង្កើត"
-
-#: apps/summary/renderers.py:1301
-msgid "at the following level"
-msgstr "នៅកម្រិតដូចខាងក្រោម"
-
-#: apps/summary/renderers.py:1307
-msgid "Describe institution, roles and responsibilities, members, etc."
-msgstr "ពិពណនាស្ថាប័ន៖ តួនាទី និងការទទួលខុសត្រូវ សមាជិក ។ល។"
-
-#: apps/summary/renderers.py:1310
-msgid "Type of support"
-msgstr "ប្រភេទនៃការគាំទ្រ"
-
-#: apps/summary/renderers.py:1316
-msgid "Further details"
-msgstr "សេចក្តីលម្អិតបន្ថែមទៀត"
-
-#: apps/summary/renderers.py:1320
-msgid "Monitoring and evaluation"
-msgstr "ការត្រួតពិនិត្យ និងវាយតម្លៃ"
-
-#: apps/summary/renderers.py:1324
-msgid "Research"
-msgstr "ការស្រាវជ្រាវ"
-
-#: apps/summary/renderers.py:1325
-msgid "Research treated the following topics"
-msgstr "ការស្រាវជ្រាវពាក់ព័ន្ធនឹងប្រធានបទខាងក្រោម"
-
-#: apps/summary/renderers.py:1338
-msgid "Financing and external material support"
-msgstr "ការផ្តល់ថវិកា និងការគាំទ្រសម្ភារពីខាងក្រៅ"
-
-#: apps/summary/renderers.py:1341
-msgid "Annual budget in USD for the SLM component"
-msgstr "ថវិកាប្រចាំឆ្នាំគិតជាដុល្លាអាមេរិក​សម្រាប់ផ្នែក SLM"
-
-#: apps/summary/renderers.py:1344
-msgid "Precise annual budget: {}"
-msgstr "ថវិកាប្រចាំឆ្នាំជាក់លាក់៖ {}"
-
-#: apps/summary/renderers.py:1347
-msgid "The following services or incentives have been provided to land users"
-msgstr "សេវាកម្ម និងការលើកទឹកចិត្តខាងក្រោមត្រូវបានផ្តល់ដល់អ្នកប្រើប្រាស់ដី"
-
-#: apps/summary/renderers.py:1358
-msgid "Labour by land users was"
-msgstr "កំលាំងពលកម្មដោយអ្នកប្រើប្រាស់ដីគឺ"
-
-#: apps/summary/renderers.py:1362
-msgid "Financial/ material support provided to land users"
-msgstr "ការគាំទ្រថវិការ/​ សម្ភារដែលបានផ្តល់ដល់អ្នកប្រើប្រាស់ដី"
-
-#: apps/summary/renderers.py:1366
-msgid "Credit"
-msgstr "ឥណទាន"
-
-#: apps/summary/renderers.py:1368
-msgid "Conditions: {}"
-msgstr "លក្ខខណ្ឌ៖ {}"
-
-#: apps/summary/renderers.py:1371
-msgid "Credit providers: {}"
-msgstr "អ្នកផ្តល់ឥណទាន៖ {}"
-
-#: apps/summary/renderers.py:1374
-msgid "Credit receivers: {}"
-msgstr "អ្នកទទួលឥណទាន៖ {}"
-
-#: apps/summary/renderers.py:1380
-msgid "Other incentives or instruments"
-msgstr "ការលើកទឹកចិត្ត ឬឧបករណ៍ផ្សេងទៀត"
-
-#: apps/summary/renderers.py:1390
-msgid "Impact analysis and concluding statements"
-msgstr "ការវិភាគផលប៉ះពាល់ និងសេចក្តីសន្និដ្ឋាន"
-
-#: apps/summary/renderers.py:1393
-msgid "Impacts of the Approach"
-msgstr "ឥទ្ធិពលនៃវិធីសាស្រ្តផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1394
-msgid "Did the approach..."
-msgstr "ធ្វើនូវការផ្សព្វផ្សាយ..."
-
-#: apps/summary/renderers.py:1398
-msgid "Main motivation of land users to implement SLM"
-msgstr "ការជំរុញទឹកចិត្តសំខាន់បំផុតនៃអ្នកប្រើប្រាស់ដីក្នុងការអនុវត្ត SLM"
-
-#: apps/summary/renderers.py:1405
-msgid "Sustainability of Approach activities"
-msgstr "និរន្តរភាពនៃសកម្មភាពផ្សព្វផ្សាយ"
-
-#: apps/summary/renderers.py:1406
-msgid ""
-"Can the land users sustain what hat been implemented through the Approach "
-"(without external support)?"
-msgstr ""
-"តើអ្នកប្រើប្រាស់ដីអាចបន្តដោយនិរន្តរភាពនូវអ្វីដែលបានអនុវត្តតាមរយៈការផ្សព្វផ្សាយ "
-"(ដោយមិនមានការគាំទ្រពីខាងក្រៅ)?"
+#: apps/summary/renderers/technologies_2018.py:127
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "at permanent centres"
+msgid "In a permanently protected area?"
+msgstr "នៅមជ្ឈមណ្ឌលជាអចិន្ត្រៃ"
 
 #: apps/summary/templates/summary/layout/base.html:11
 msgid "Summary"
@@ -17892,30 +18773,48 @@ msgid "WOCAT Watershed"
 msgstr "ទីជម្រាល វ៉ូខេត"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:6
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
 msgid "Introduction to the questionnaire"
 msgstr "ការណែនាំពីបញ្ចីសំណួរ"
 
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
+#, fuzzy
+#| msgid ""
+#| "A modular framework for the documentation and assessment of SLM practices"
+msgid "About the WOCAT documentation of SLM practices"
+msgstr "ក្របខ័ណ្ឌម៉ូឌុលសម្រាប់ការចងក្រងឯកសារ និងការវាយតម្លៃលើការអនុវត្ត SLM"
+
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:18
-msgid "Definitions"
-msgstr "និយមន័យ"
+msgid "Welcome to WOCAT!"
+msgstr ""
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:22
 msgid ""
-"<strong>Sustainable Land Management (SLM)</strong> in the context of WOCAT "
-"is defined as the use of land resources – including soils, water, "
-"vegetation, and animals – to produce goods and provide services to meet "
-"changing human needs, while simultaneously ensuring the long-term productive "
-"potential of these resources and the maintenance of their environmental "
-"functions."
+"WOCAT provides standardized, user-driven, open-access, globally-used tools "
+"and methods for the documentation and assessment of sustainable land "
+"management (SLM) practices. <strong>SLM</strong> in the context of WOCAT is "
+"defined as the sustainable use of land resources – including soils, water, "
+"vegetation, and animals. WOCAT focuses on efforts to prevent and reduce land "
+"degradation and restore degraded land through improved <strong>land "
+"management technologies</strong> and <strong>approaches to implement these</"
+"strong>. All practices may be considered, whether they are indigenous, newly "
+"introduced through projects, or recent innovations by land users. All "
+"information documented through WOCAT questionnaires is made available in the "
+"Global SLM Database and can be used to disseminate SLM knowledge and improve "
+"decision-making for further implementation and spreading of SLM practices."
 msgstr ""
-"<strong>ការគ្រប់គ្រងដីប្រកបដោយចីរភាព (SLM)</strong> ក្នុងបរិបទ វ៉ូខេត "
-"គឺជាការប្រើប្រាស់ធនធានរបស់ដី - រួមមាន ដី ទឹក រុក្ខជាតិ និងសត្វ - "
-"ដើម្បីបង្កើតផលិតផលនិងសេវាកម្មសម្រាប់បំពេញតម្រូវការមនុស្សដែលតែងតែផ្លាស់ប្តូរ "
-"ហើយនៅពេលដំណាលគ្នាធានាបាននូវសក្តានុពលផលិតភាពរយៈពេលវែងនៃធនធានទាំងនេះ "
-"និងថែរក្សាមុខងារបរិស្ថានរបស់វា។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:26
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:85
+msgid "Process of documentation and review of WOCAT data"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:30
+msgid ""
+"Are you going to document an SLM Technology or an SLM Approach – or both? "
+"And what is the difference between the two?"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:38
 msgid ""
 "An <strong>SLM Technology</strong> is a physical practice in the field that "
 "controls land degradation and/ or enhances productivity. A Technology "
@@ -17926,7 +18825,12 @@ msgstr ""
 "ពង្រីកផលិតកម្ម។ បច្ចេកទេសមួយរួមមានវិធានការមួយ ឬច្រើន ដូចជា ក្សត្រសាស្ត្រ រុក្ខជាតិ រចនាស័ម្ពន្ធ "
 "និងវិធានការនៃការគ្រប់គ្រង។"
 
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:30
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:41
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:53
+msgid "Example:"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:50
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement one or several SLM Technologies. It includes technical and "
@@ -17939,138 +18843,112 @@ msgstr ""
 "និងសម្ភារៈគាំទ្រ, ការចូលរួមនិងតួនាទីរបស់ភាគីពាក់ព័ន្ធផ្សេងគ្នា ។ល។ "
 "វិធីសាស្រ្តផ្សព្វផ្សាយមួយអាចផ្តោតទៅលើគម្រោង / កម្មវិធី ឬទៅនឹងសកម្មភាពផ្តួចផ្តើមដោយអ្នកប្រើដីខ្លួនឯង។"
 
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:34
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:61
 msgid ""
-"A modular framework for the documentation and assessment of SLM practices"
-msgstr "ក្របខ័ណ្ឌម៉ូឌុលសម្រាប់ការចងក្រងឯកសារ និងការវាយតម្លៃលើការអនុវត្ត SLM"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:38
-msgid ""
-"The ultimate goal of documenting and assessing land management practices is "
-"to share and spread valuable knowledge in land management, support evidence-"
-"based decision-making, and scale up identified good/ best practices. To "
-"achieve this, it is important to analyse field experiences and gain a better "
-"understanding of the reasons behind successful SLM practices, regardless of "
-"whether they were introduced by projects or whether they are found in "
-"traditional systems."
+"The two questionnaires together provide the full picture of an SLM practice. "
+"Ideally, you first fill in the questionnaires on SLM Technologies followed "
+"by the questionnaire on SLM Approaches. An Approach should always be linked "
+"to one or several Technologies. Optional thematic modules provide in-depth "
+"information on specific topics (such as <strong>Climate Change Adaptation, "
+"Carbon Benefits / Climate Change Mitigation, Watershed and Runoff, and "
+"Mapping Land Degradation and Conservation</strong>)."
 msgstr ""
-"គោលដៅចុងក្រោយនៃការចងក្រងឯកសារ និងការវាយតម្លៃការអនុវត្តការគ្រប់គ្រងដី គឺជាការចែករំលែក "
-"និងផ្សព្វផ្សាយចំណេះដឹងដ៏មានតម្លៃអំពីការគ្រប់គ្រងដី "
-"គាំទ្រដល់ការធ្វើការសម្រេចចិត្តដែលផ្អែកលើភស្តុតាងជាមូលដ្ឋាន "
-"និងពង្រីកបន្តនូវការអនុវត្តន៍ល្អៗដែលបានរកឃើញ។ ដើម្បីសម្រេចបានគោលដៅនេះ "
-"ចាំបាច់ត្រូវមានការវិភាគលើបទពិសោធន៍ជាក់ស្តែងនៅទីវាល "
-"និងការបង្កើនចំណេះដឹងឱ្យប្រសើរជាងមុនអំពីមូលហេតុនានានៅពីក្រោយភាពជោគជ័យក្នុងការអនុវត្តន៍ SLM "
-"ដោយមិនគិតថាតើការអនុវត្តទាំងនោះបានផ្តើមចេញពីការណែនាំរបស់គម្រោង "
-"ឬពីការរកឃើញដោយកសិករខ្លួនឯងផ្ទាល់តាមបែបប្រពៃណី។"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:42
-msgid ""
-"WOCAT focuses on efforts to prevent and reduce land degradation and restore "
-"degraded land through improved <strong>land management technologies and "
-"approaches to implement these</strong>. All practices may be considered, "
-"whether they are traditional or indigenous, newly introduced through "
-"projects or programmes, adopted and/ or adapted by land users, or recent "
-"innovations."
-msgstr ""
-"វ៉ូខេត ផ្តោតសំខាន់ទៅលើការខិតខំប្រឹងប្រែងដើម្បីការពារ "
-"និងកាត់បន្ថយឱនភាពដីនិងស្តារឡើងវិញនូវដីដែលបានសឹករេចរិល តាមរយៈធ្វើឱ្យប្រសើរឡើងនូវ <strong> "
-"បច្ចេកទេសគ្រប់គ្រងដី និងវិធីសាស្រ្តផ្សព្វផ្សាយចំពោះការអនុវត្តន៍បច្ចេកទេសទាំងនោះ</strong>។ "
-"រាល់ការអនវុត្តន៍ទាំងអស់ប្រហែលត្រូវបានចាត់ទុកជា៖​ កាអនុវត្តន៍តាមបែបប្រពៃណី តាមទំលាប់ "
-"ណែនាំដោយគម្រោងឬកម្មវិធីផ្សេងៗ ការទទួលយកនិង/ឬបន្សុំា ឬ ជាការរកឃើញថ្មី។"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:46
-msgid ""
-"The <strong>Core Questionnaire on SLM Technologies (QT)</strong> helps to "
-"describe and understand the land management practice by addressing the "
-"following questions: <strong>what</strong> are the specifications of the "
-"Technology, what are the inputs and costs, <strong>where</strong> is it used "
-"(natural and human environment), and what <strong>impact</strong> does it "
-"have?"
-msgstr ""
-"<strong>កម្រងសំណួរស្នូលស្តីពីបច្ចេកទេស SLM (QT)</strong> ជួយពណ៌នា "
-"និងស្វែងយល់ពីការអនុវត្តន៍ការគ្រប់គ្រងដី ដោយលើកឡើងនូវសំណួរដូចខាងក្រោម៖ តើ<strong>អ្វី</"
-"strong>ជាលក្ខណៈសម្គាល់នៃបច្ចេកទេស មានធាតុចូលអ្វីខ្លះ ចំណាយថ្លៃដើមប៉ុន្មាន<strong> "
-"នៅកន្លែងណា</strong>វាត្រូវបានអនុវត្តន៍ (បរិស្ថានធម្មជាតិ និងមនុស្ស)​ និងតើវាមាន "
-"<strong>ផលប៉ះពាល់</strong> អ្វីខ្លះ?"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:50
-msgid ""
-"The <strong>Core Questionnaire on SLM Approaches (QA)</strong> addresses the "
-"questions of <strong>how</strong> implementation was achieved (including "
-"capacity building, decision-making, technical and material support, change "
-"of legal framework and policies) and <strong>who</strong> achieved it "
-"(including all stakeholders involved and their roles). <strong>In the case "
-"of projects, WOCAT asks you to document only those components or activities "
-"of the project that are relevant to SLM.</strong>"
-msgstr ""
-"<strong>កម្រងបញ្ជីសំណួរស្នូលស្តីពីវិធីសាស្រ្តផ្សព្វផ្សាយនៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព (QA)</"
-"strong> ឆ្លើយសំណួរមួយចំនួន៖ តើការអនុវត្តន៍សម្រេចបានដោយ<strong>របៀបណា</strong>  (រួមមាន "
-"ការពង្រឹងសមត្ថភាព ការសម្រេចចិត្ត ការគាំទ្រផ្នែកសម្ភារៈ និងបច្ចេកទេស ការផ្លាស់ប្តូរក្របខណ្ឌច្បាប់ "
-"និងគោលនយោបាយ) និង តើ <strong>នរណា</strong> "
-"ជាអ្នកសម្រេចវាបាន(រួមមានភាគីពាក់ព័ន្ធទាំងអស់ដែលចូលរួមព្រមទាំងតួនាទីរបស់ពួកគេ)។ "
-"<strong>ក្នុងករណីគម្រោង  វ៉ូខេតសូមឱ្យអ្នកចងក្រងឯកសារតែសមាសភាព/"
-"ផ្នែកឬសកម្មភាពរបស់គម្រោងដែលពាក់ព័ន្ធទៅនឹងការគ្រប់គ្រងដីប្រកបដោយចីរភាពតែប៉ុណ្ណោះ។</strong>"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:54
-msgid ""
-"The Core questionnaires on SLM Technologies (QT core) and on SLM Approaches "
-"(QA core) contain the key questions on sustainable land management. They are "
-"the foundation of the WOCAT knowledge base. They are shorter and less time-"
-"consuming to fill in than the formerly used “basic” questionnaires."
-msgstr ""
-"កម្រងបញ្ជីសំណួរស្នូលស្តីពីបច្ចេកទេស SLM (QT) "
-"និងកម្រងបញ្ជីសំណួរស្នូលស្តីពីវិធីសាស្រ្តផ្សព្វផ្សាយការអនុវត្តបច្ចេកទេស SLM (QA) "
-"មានសំណួរគោលមួយចំនួនពាក់ព័ន្ធនឹងការគ្រប់គ្រងដីប្រកបដោយចីរភាព។ វាជាមូលដ្ឋានគ្រឹះនៃចំណេះដឹងរបស់ វ៉ូខេត។ "
-"កម្រងសំណួរនេះមានលក្ខណៈខ្លី "
-"ហើយចំណាយពេលតិចក្នុងការបំពេញបើប្រៀបធៀបទៅនឹងកម្រងបញ្ជីសំណួរដែលបានប្រើពីមុនមក។"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:58
-msgid ""
-"<strong>The WOCAT framework is flexible and open.</strong> It enables users "
-"to include specific topics, depending on their interests and needs, to "
-"expand the standardized WOCAT Core questionnaires. Development of the "
-"following <strong>modules</strong> has been completed or initiated: "
-"<strong>Climate change adaptation</strong> (QC), <strong>Climate Change "
-"Mitigation</strong>/ Carbon Benefits, <strong>Economics of SLM</strong> and "
-"<strong>Biodiversity</strong>. The realization of additional modules depends "
-"on the initiative of interested partners and the mobilization of resources. "
-"WOCAT is open for collaboration, joint projects, and further development of "
-"the knowledge base. All modules will be docked onto the core version of QT "
-"and QA."
-msgstr ""
-"<strong>ក្របខណ្ឌរបស់វ៉ូខេត មានលក្ខណៈបត់បែន ហើយបើកទូលាយ។</"
-"strong>វាជួយឱ្យអ្នកប្រើប្រាស់អាចបញ្ចូលនូវប្រធានបទជាក់លាក់អាស្រ័យទៅលើចំណង់ចំណូលចិត្តនិងតម្រូវការរបស់ពួកគេ "
-"ដើម្បីពង្រីកកម្រងបញ្ជីសំណួរស្នូលរបស់វ៉ូខេតប្រកបដោយស្តង់ដារ។ ការអភិវឌ្ឍន៍ <strong>ម៉ូឌុល</strong> "
-"ខាងក្រោមបានចាប់ផ្តើមឡើងនិងបញ្ចប់រួចរាល់៖​ <strong>ការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ</"
-"strong> (QC), <strong>ការកាត់បន្ថយការប្រែប្រួលអាកាសធាតុ</strong>/អត្ថប្រយោន៍នៃកាបូន "
-"<strong>សេដ្ឋកិច្ចនៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព</strong> និង <strong>ជីវចម្រុះ</strong>។ "
-"ការបង្កើតម៉ូឌុលបន្ថែមអាស្រ័យទៅលើចំណាប់អារម្មណ៍របស់ភាគីពាក់ព័ន្ធ និងការគៀងគរប្រភពធនធាន។ វ៉ូខេត "
-"បើកទូលាយចំពោះកិច្ចសហការ គម្រោងរួមគ្នា និងការអភិវឌ្ឍន៍បន្ថែមទៀតនូវមូលដ្ឋានចំណេះដឹង។ "
-"គ្រប់ម៉ូឌុលទាំងអស់នឹងបង្រួមឱ្យខ្លីបញ្ជូលទៅក្នុងកម្រងបញ្ជីសំណួរស្នូល QT និង QA ។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:62
-msgid ""
-"A further tool, the <strong>questionnaire on SLM Mapping (QM)</strong>, has "
-"been developed to analyse and depict the spatial distribution of SLM and "
-"land degradation processes, causes, and impacts."
-msgstr ""
-"ឧបករណ៍បន្ថែមមួយទៀត គឺ <strong>បញ្ចីសំណួរស្តីពីការធ្វើផែនទី (QM)</strong> "
-"ត្រូវបានបង្កើតឡើងដើម្បីវិភាគ និងបង្ហាញពីទីតាំង នៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព "
-"និងការវិវឌ្ឍនៃឱនភាពដី មូលហេតុ និងផលប៉ះពាល់។ "
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Sep"
+msgctxt "See [link]"
+msgid "See"
+msgstr "ខែកញ្ញា"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:66
-msgid ""
-"The questionnaires mentioned above complement each other. All information "
-"documented through WOCAT questionnaires is made available in an open-access "
-"<strong>online database</strong> and can be used to disseminate SLM "
-"knowledge and improve decision-making for further implementation and "
-"spreading of SLM practices."
+msgid "How to document and review WOCAT data"
 msgstr ""
-"កម្រងបញ្ជីសំណួរលើកឡើងខាងលើ​​ បំពេញបន្ថែមឱ្យគ្នាទៅវិញទៅមក។ "
-"រាល់ព័ត៌មានទាំងអស់ដែលត្រូវបានចងក្រងជាឯកសារតាមរយៈការប្រើកម្រងបញ្ជីសំណួររបស់ វ៉ូខេត "
-"អាចទាញយកបានដោយសេរីពី<strong>វេបសាយរបស់វ៉ូខេត </strong> "
-"នឹងអាចយកទៅផ្សព្វផ្សាយបន្តស្តីពីចំណេះដឹងនៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព "
-"និងធ្វើឱ្យប្រសើរឡើងនូវការសម្រេចចិត្តសម្រាប់ការអនុវត្តន៍និងការពង្រីកបន្ថែមទៀតលើការអនុវត្ត SLM។"
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:71
+msgid ""
+"Familiarize yourself with the paper questionnaire (download it at <a href="
+"\"https://www.wocat.net/en/global-slm-database/slm-practices-technologies-"
+"and-approaches\" class=\"link\" target=\"_blank\">https://www.wocat.net/en/"
+"global-slm-database/slm-practices-technologies-and-approaches</a>). Go "
+"through the questions and read the instructions below. Contact the WOCAT "
+"Secretariat if you have questions."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:72
+msgid ""
+"Start filling in the questionnaire based on your knowledge and existing "
+"documents. Please write clearly and legibly."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:73
+msgid ""
+"Identify land users and other key resource persons with in-depth knowledge "
+"of the SLM Technology/ Approach (ideally a team of specialists with "
+"different backgrounds and experience)."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:74
+msgid ""
+"Collect data in the field. Gather information through interviews with land "
+"user(s) and key resource persons. Take measurements and photos, and make "
+"technical drawings."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:75
+msgid ""
+"Enter the compiled information in the Global SLM Database. Go to <a href="
+"\"https://qcat.wocat.net\" class=\"link\">qcat.wocat.net</a> and create a "
+"new SLM Technology/ Approach data entry form. Type the data collected – "
+"section by section, and upload images and other digital files."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:76
+msgid ""
+"The Global SLM Database will guide you on how to edit and submit your data "
+"for review, making sure it is complete, clear, and comprehensible. You can "
+"invite editors (registered WOCAT users) to help you."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:79
+msgid ""
+"Note 1: fill in a separate questionnaire for each Technology and for each "
+"Approach."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:82
+msgid ""
+"Note 2: When creating translations, the content of the original language "
+"will be copied once into the text fields, allowing you to translate the "
+"content. From there on, text changes have to be done in all language "
+"versions. The checkboxes are linked across all translations, meaning they "
+"always change in all language versions."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:92
+#, fuzzy
+#| msgid "Review process"
+msgid "Review roles"
+msgstr "ដំណើរការត្រួតពិនិត្យ"
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:94
+msgid "SLM Technology / Approach"
+msgstr "បច្ចេកទេស SLM/ វិធីសាស្ត្រផ្សព្វផ្សាយ"
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:98
+msgid "Help us to improve WOCAT"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:102
+msgid ""
+"Thank you for contributing to the Global SLM Database with good quality data "
+"on SLM! WOCAT provides flexible and user-driven tools. Help us to improve "
+"the existing questionnaires and contribute to the development of new "
+"questionnaire modules on specific topics related to SLM. Send your inputs or "
+"feedback to: <a href=\"mailto:wocat@cde.unibe.ch\" class=\"link\">wocat@cde."
+"unibe.ch</a>"
+msgstr ""
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:13
 msgid ""
@@ -18129,18 +19007,6 @@ msgstr ""
 "លេខាធិការដ្ឋានរបស់វ៉ូខេត អាចពិនិត្យ និងបោះពុម្ព%(questionnaire_type)s។"
 "លេខាធិការដ្ឋានក៏អាចចាត់តាំងអ្នកត្រួតពិនិត្យ និងអ្នកបោះពុម្ពផងដែរ។"
 
-#: apps/wocat/templates/wocat/help/review_process.html:18
-msgid "Process"
-msgstr "ដំណើរការ"
-
-#: apps/wocat/templates/wocat/help/review_process.html:27
-msgid "Roles"
-msgstr "តួនាទី"
-
-#: apps/wocat/templates/wocat/help/review_process.html:29
-msgid "SLM Technology / Approach"
-msgstr "បច្ចេកទេស SLM/ វិធីសាស្ត្រផ្សព្វផ្សាយ"
-
 #: apps/wocat/templates/wocat/home.html:29
 #: apps/wocat/templates/wocat/home.html:37
 #: apps/wocat/templates/wocat/home.html:45
@@ -18171,8 +19037,10 @@ msgid "welcomes you to join!"
 msgstr "ស្វាគមន៍លោកអ្នកក្នុងការចូលរួម"
 
 #: apps/wocat/templates/wocat/home.html:76
-msgid "About the WOCAT SLM Database"
-msgstr "អំពីប្រព័ន្ធគ្រប់គ្រងទិន្នន័យរបស់វ៉ូខេត"
+#, fuzzy
+#| msgid "WOCAT SLM Database"
+msgid "WOCAT Global SLM Database"
+msgstr "ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យ​​ SLM របស់​វ៉ូខេត"
 
 #: apps/wocat/templates/wocat/home.html:80
 msgid ""
@@ -18227,22 +19095,57 @@ msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:92
 msgid ""
-"For further information please contact the <a href=\"https://wocat.net/about/"
-"organizational-structure-wocat-network/wocat-secretariat\" target=\"_blank\" "
-"class=\"link\">WOCAT Secretariat</a>."
+"Credits for the translation of the WOCAT Questionnaires and Database go to:"
 msgstr ""
-"ព័ត៌មានបន្ថែម សូមទាក់ទងទៅ<a href=\"https://www.wocat.net/en/about-wocat/contact."
-"html\" target=\"_blank\" class=\"link\">លេខាធិការដ្ឋានវ៉ូខេត</a>។"
 
-#: apps/wocat/templates/wocat/home.html:103
+#: apps/wocat/templates/wocat/home.html:94
+msgid ""
+"<strong>Russian</strong>: Olga Andreeva (Associate Professor Moscow "
+"Lomonosov State University), Julia Johnson (Translator)"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:95
+msgid "<strong>Spanish</strong>: Pedro Charles Alborno (Translator)"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:96
+msgid "<strong>French</strong>: Barbara de Choudens (Translator)"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:97
+msgid ""
+"<strong>Lao</strong>: National Agriculture and Forestry Institute (NAFRI) "
+"Lao PDR"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:98
+msgid "<strong>Khmer</strong>: Royal University of Agriculture (RUA) Cambodia"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:102
+msgid ""
+"Please contact the WOCAT Secretariat (<a href=\"mailto:wocat@cde.unibe.ch\" "
+"class=\"link\">wocat@cde.unibe.ch</a>) if you are interested in translating "
+"the Questionnaires or the Global SLM Database into another language or "
+"further information about WOCAT."
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:105
+#, fuzzy
+#| msgid ""
+#| "A modular framework for the documentation and assessment of SLM practices"
+msgid "Read more about the WOCAT documentation of SLM practices."
+msgstr "ក្របខ័ណ្ឌម៉ូឌុលសម្រាប់ការចងក្រងឯកសារ និងការវាយតម្លៃលើការអនុវត្ត SLM"
+
+#: apps/wocat/templates/wocat/home.html:116
 msgid "Information for UNCCD Parties"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:111
+#: apps/wocat/templates/wocat/home.html:124
 msgid "Search SLM data"
 msgstr "ស្វែងរកទិន្នន័យ SLM"
 
-#: apps/wocat/templates/wocat/home.html:139
+#: apps/wocat/templates/wocat/home.html:152
 #: apps/wocat/templates/wocat/partial/add.html:20
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
@@ -18253,18 +19156,18 @@ msgstr ""
 "<strong> បច្ចេកទេស SLM</strong> គឺជាការអនុវត្តការគ្រប់គ្រងដីដោយការពារមិនមានឱនភាពដី "
 "និងបង្កើនផលិតកម្ម និង/ឬ សេវាកម្មនៃប្រព័ន្ធអេកូឡូស៊ី។"
 
-#: apps/wocat/templates/wocat/home.html:140
-#: apps/wocat/templates/wocat/home.html:160
-#: apps/wocat/templates/wocat/home.html:176
-#: apps/wocat/templates/wocat/home.html:200
-#: apps/wocat/templates/wocat/home.html:215
-#: apps/wocat/templates/wocat/home.html:238
-#: apps/wocat/templates/wocat/home.html:261
-#: apps/wocat/templates/wocat/home.html:277
+#: apps/wocat/templates/wocat/home.html:153
+#: apps/wocat/templates/wocat/home.html:173
+#: apps/wocat/templates/wocat/home.html:189
+#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:228
+#: apps/wocat/templates/wocat/home.html:251
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:290
 msgid "View all"
 msgstr "ពិនិត្យមើលទាំងអស់"
 
-#: apps/wocat/templates/wocat/home.html:159
+#: apps/wocat/templates/wocat/home.html:172
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
@@ -18274,11 +19177,11 @@ msgstr ""
 "និងមធ្យោបាយនានាដែលត្រូវបានប្រើដើម្បីអនុវត្ត​បច្ចេកទេស SLM ដោយរាប់បញ្ចូលភាគីពាក់ព័ន្ធដែលចូលរួម "
 "ព្រមទាំងតួនាទីរបស់ពួកគេ។"
 
-#: apps/wocat/templates/wocat/home.html:173
+#: apps/wocat/templates/wocat/home.html:186
 msgid "UNCCD Prais Practices"
 msgstr "ការអនុវត្ត​ PRAIS នៃ​ UNCCD"
 
-#: apps/wocat/templates/wocat/home.html:174
+#: apps/wocat/templates/wocat/home.html:187
 msgid ""
 "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared "
 "through the UNCCD PRAIS system in the UNCCD reporting process."
@@ -18286,34 +19189,34 @@ msgstr ""
 "ការអនុវត្ត PRAIS នៃ UNCCD គឺជាការអនុវត្ត SLM ល្អៗដូចបានចែករំលែកតាមរយៈប្រព័ន្ធ PRAIS របស់ "
 "UNCCD នៅក្នុងដំណើរការរាយការណ៍នៃ UNCCD។"
 
-#: apps/wocat/templates/wocat/home.html:198
-#: apps/wocat/templates/wocat/home.html:212
+#: apps/wocat/templates/wocat/home.html:211
+#: apps/wocat/templates/wocat/home.html:225
 #: apps/wocat/templates/wocat/partial/add.html:63
 #: apps/wocat/templates/wocat/partial/add.html:77
 msgid "Watershed and Runoff"
 msgstr "ទីជម្រាល និងលំហូរ"
 
-#: apps/wocat/templates/wocat/home.html:199
-#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:212
+#: apps/wocat/templates/wocat/home.html:226
 #: apps/wocat/templates/wocat/partial/add.html:64
 #: apps/wocat/templates/wocat/partial/add.html:78
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
 msgstr "ផែនទីនៃការគ្រប់គ្រងដី និងវាយតម្លៃលំហូរទឹកពីទីជម្រាល។"
 
-#: apps/wocat/templates/wocat/home.html:235
+#: apps/wocat/templates/wocat/home.html:248
 #: apps/wocat/templates/wocat/partial/add.html:100
 msgid "Land Degradation / Conservation"
 msgstr "ឱនភាពដី/ ការអភិរក្ស"
 
-#: apps/wocat/templates/wocat/home.html:236
+#: apps/wocat/templates/wocat/home.html:249
 #: apps/wocat/templates/wocat/partial/add.html:101
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
 msgstr "ផែនទីគ្រប់គ្រងដី និងផលប៉ះពាល់ ដូចជា ភ្នាក់ងារបង្កឱនភាព និងអភិរក្ស។"
 
-#: apps/wocat/templates/wocat/home.html:237
+#: apps/wocat/templates/wocat/home.html:250
 #: apps/wocat/templates/wocat/partial/add.html:102
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -18322,15 +19225,15 @@ msgstr ""
 "ផែនទីថ្មីៗដែលមិនទាន់បានដាក់បញ្ចូលក្នុងទិន្នន័យមូលដ្ឋាន។ ផែនទីអាចត្រូវបានមើល "
 "ឬដាក់បញ្ចូលក្នុងទិន្នន័យមូលដ្ឋានចាស់ (QM)។ "
 
-#: apps/wocat/templates/wocat/home.html:258
-#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:271
+#: apps/wocat/templates/wocat/home.html:287
 #: apps/wocat/templates/wocat/partial/add.html:123
 #: apps/wocat/templates/wocat/partial/add.html:139
 msgid "CCA Module"
 msgstr "ម៉ូឌុលអំពីការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
-#: apps/wocat/templates/wocat/home.html:259
-#: apps/wocat/templates/wocat/home.html:275
+#: apps/wocat/templates/wocat/home.html:272
+#: apps/wocat/templates/wocat/home.html:288
 #: apps/wocat/templates/wocat/partial/add.html:124
 #: apps/wocat/templates/wocat/partial/add.html:140
 msgid ""
@@ -18342,12 +19245,12 @@ msgstr ""
 "ត្រូវបានបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុសន្សឹមៗ និងភាពធ្ងន់ធ្ងរទាក់ទងនឹងអាកាសធាតុ (គ្រោះធម្មជាតិ) "
 "ដែរឬទេ។"
 
-#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/home.html:289
 #: apps/wocat/templates/wocat/partial/add.html:141
 msgid "Modules will be added soon to the new database."
 msgstr "ម៉ូឌុលនឹងត្រូវបានបន្ថែមទៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យថ្មីក្នុងពេលឆាប់ៗនេះ"
 
-#: apps/wocat/templates/wocat/home.html:292
+#: apps/wocat/templates/wocat/home.html:305
 msgid "Key Numbers"
 msgstr "តួលេខសំខាន់ៗ៖"
 
@@ -18372,7 +19275,7 @@ msgstr ""
 "និងមធ្យោបាយនានាដែលត្រូវបានប្រើដើម្បីអនុវត្ត​បច្ចេកទេស SLM ដោយរាប់បញ្ចូលនូវភាគីពាក់ព័ន្ធដែលចូលរួម "
 "ព្រមទាំងតួនាទីរបស់ពួកគេ។"
 
-#: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:181
+#: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:194
 msgid "Search SLM Data"
 msgstr "ស្វែងរកទិន្នន័យ SLM"
 
@@ -18464,40 +19367,40 @@ msgstr ""
 msgid "WOCAT SLM practices"
 msgstr "ការអនុវត្ត SLM របស់ វ៉ូខេត"
 
-#: templates/404.html:20 templates/base.html:180
+#: templates/404.html:20 templates/base.html:193
 msgid "Home"
 msgstr "ទំព័រដើម"
 
-#: templates/base.html:105
+#: templates/base.html:118
 #, python-format
 msgid "Optimized for %(chrome)s and %(firefox)s."
 msgstr "អាចប្រើប្រាស់%(chrome)s និង %(firefox)sបាន។"
 
-#: templates/base.html:132
+#: templates/base.html:145
 msgid "Menu"
 msgstr "បញ្ជី"
 
-#: templates/base.html:138
+#: templates/base.html:151
 msgid "See your messages."
 msgstr "ឃើញសាររបស់អ្នក"
 
-#: templates/base.html:145 templates/base.html:183
+#: templates/base.html:158 templates/base.html:196
 msgid "My SLM Data"
 msgstr "ទិន្នន័យ SLM របស់ខ្ញុំ"
 
-#: templates/base.html:146
+#: templates/base.html:159
 msgid "Notifications"
 msgstr "ការជូនដំណឹង"
 
-#: templates/base.html:150
+#: templates/base.html:163
 msgid "Administration"
 msgstr "រដ្ឋបាល"
 
-#: templates/base.html:158
+#: templates/base.html:171
 msgid "Logout"
 msgstr "ចាកចេញ"
 
-#: templates/base.html:174
+#: templates/base.html:187
 msgid ""
 "Would you like to help us translate the SLM Database? Please contact the "
 "WOCAT Secretariat for more information."
@@ -18505,27 +19408,27 @@ msgstr ""
 "តើអ្នកជួយយើងបកប្រែទិន្នន័យមូលដ្ឋាន SLM បានទេ? សូមទំនាក់ទំនងលេខាធិការដ្ឋានរបស់ វ៉ូខេត "
 "សម្រាប់ព័ត៌មានបន្ថែម។"
 
-#: templates/base.html:245
+#: templates/base.html:258
 msgid "Maintenance announcement"
 msgstr "ការប្រកាស់អំពីការជួសជុល"
 
-#: templates/base.html:255
+#: templates/base.html:268
 msgid "Primary recommended database"
 msgstr "ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យដែលណែនាំឱ្យប្រើ"
 
-#: templates/base.html:306
+#: templates/base.html:319
 msgid "University of Berne"
 msgstr ""
 
-#: templates/base.html:312
+#: templates/base.html:325
 msgid "Privacy Policy"
 msgstr ""
 
-#: templates/base.html:313
+#: templates/base.html:326
 msgid "Terms of Agreement"
 msgstr ""
 
-#: templates/base.html:314
+#: templates/base.html:327
 msgid "About"
 msgstr "ស្តីអំពី"
 
@@ -18560,3 +19463,171 @@ msgid ""
 msgstr ""
 "ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យស្តីពីការអនុវត្ត  SLM (បច្ចេកទេស និងវិធីសាស្ត្រផ្សព្វផ្សាយ) "
 "មានការអនុវត្តល្អៗយ៉ាងច្រើនទូលំទូលាយមកពីបណ្តាប្រទេសទាំងអស់នៅលើពិភពលោក។"
+
+#~ msgid "review"
+#~ msgstr "ពិនិត្យឡើងវិញ"
+
+#~ msgid "publication"
+#~ msgstr "បោះផ្សាយ"
+
+#~ msgid "Learn more about the review process."
+#~ msgstr "ស្វែងយល់បន្ថែមអំពីដំណើរការពិនិត្យ។"
+
+#~ msgid "Enter a whole number"
+#~ msgstr "បញ្ចូលលេខទាំងអស់"
+
+#~ msgid "Definitions"
+#~ msgstr "និយមន័យ"
+
+#~ msgid ""
+#~ "<strong>Sustainable Land Management (SLM)</strong> in the context of "
+#~ "WOCAT is defined as the use of land resources – including soils, water, "
+#~ "vegetation, and animals – to produce goods and provide services to meet "
+#~ "changing human needs, while simultaneously ensuring the long-term "
+#~ "productive potential of these resources and the maintenance of their "
+#~ "environmental functions."
+#~ msgstr ""
+#~ "<strong>ការគ្រប់គ្រងដីប្រកបដោយចីរភាព (SLM)</strong> ក្នុងបរិបទ វ៉ូខេត "
+#~ "គឺជាការប្រើប្រាស់ធនធានរបស់ដី - រួមមាន ដី ទឹក រុក្ខជាតិ និងសត្វ - "
+#~ "ដើម្បីបង្កើតផលិតផលនិងសេវាកម្មសម្រាប់បំពេញតម្រូវការមនុស្សដែលតែងតែផ្លាស់ប្តូរ "
+#~ "ហើយនៅពេលដំណាលគ្នាធានាបាននូវសក្តានុពលផលិតភាពរយៈពេលវែងនៃធនធានទាំងនេះ "
+#~ "និងថែរក្សាមុខងារបរិស្ថានរបស់វា។"
+
+#~ msgid ""
+#~ "The ultimate goal of documenting and assessing land management practices "
+#~ "is to share and spread valuable knowledge in land management, support "
+#~ "evidence-based decision-making, and scale up identified good/ best "
+#~ "practices. To achieve this, it is important to analyse field experiences "
+#~ "and gain a better understanding of the reasons behind successful SLM "
+#~ "practices, regardless of whether they were introduced by projects or "
+#~ "whether they are found in traditional systems."
+#~ msgstr ""
+#~ "គោលដៅចុងក្រោយនៃការចងក្រងឯកសារ និងការវាយតម្លៃការអនុវត្តការគ្រប់គ្រងដី គឺជាការចែករំលែក "
+#~ "និងផ្សព្វផ្សាយចំណេះដឹងដ៏មានតម្លៃអំពីការគ្រប់គ្រងដី "
+#~ "គាំទ្រដល់ការធ្វើការសម្រេចចិត្តដែលផ្អែកលើភស្តុតាងជាមូលដ្ឋាន "
+#~ "និងពង្រីកបន្តនូវការអនុវត្តន៍ល្អៗដែលបានរកឃើញ។ ដើម្បីសម្រេចបានគោលដៅនេះ "
+#~ "ចាំបាច់ត្រូវមានការវិភាគលើបទពិសោធន៍ជាក់ស្តែងនៅទីវាល "
+#~ "និងការបង្កើនចំណេះដឹងឱ្យប្រសើរជាងមុនអំពីមូលហេតុនានានៅពីក្រោយភាពជោគជ័យក្នុងការអនុវត្តន៍ SLM "
+#~ "ដោយមិនគិតថាតើការអនុវត្តទាំងនោះបានផ្តើមចេញពីការណែនាំរបស់គម្រោង "
+#~ "ឬពីការរកឃើញដោយកសិករខ្លួនឯងផ្ទាល់តាមបែបប្រពៃណី។"
+
+#~ msgid ""
+#~ "WOCAT focuses on efforts to prevent and reduce land degradation and "
+#~ "restore degraded land through improved <strong>land management "
+#~ "technologies and approaches to implement these</strong>. All practices "
+#~ "may be considered, whether they are traditional or indigenous, newly "
+#~ "introduced through projects or programmes, adopted and/ or adapted by "
+#~ "land users, or recent innovations."
+#~ msgstr ""
+#~ "វ៉ូខេត ផ្តោតសំខាន់ទៅលើការខិតខំប្រឹងប្រែងដើម្បីការពារ "
+#~ "និងកាត់បន្ថយឱនភាពដីនិងស្តារឡើងវិញនូវដីដែលបានសឹករេចរិល តាមរយៈធ្វើឱ្យប្រសើរឡើងនូវ <strong> "
+#~ "បច្ចេកទេសគ្រប់គ្រងដី និងវិធីសាស្រ្តផ្សព្វផ្សាយចំពោះការអនុវត្តន៍បច្ចេកទេសទាំងនោះ</strong>។ "
+#~ "រាល់ការអនវុត្តន៍ទាំងអស់ប្រហែលត្រូវបានចាត់ទុកជា៖​ កាអនុវត្តន៍តាមបែបប្រពៃណី តាមទំលាប់ "
+#~ "ណែនាំដោយគម្រោងឬកម្មវិធីផ្សេងៗ ការទទួលយកនិង/ឬបន្សុំា ឬ ជាការរកឃើញថ្មី។"
+
+#~ msgid ""
+#~ "The <strong>Core Questionnaire on SLM Technologies (QT)</strong> helps to "
+#~ "describe and understand the land management practice by addressing the "
+#~ "following questions: <strong>what</strong> are the specifications of the "
+#~ "Technology, what are the inputs and costs, <strong>where</strong> is it "
+#~ "used (natural and human environment), and what <strong>impact</strong> "
+#~ "does it have?"
+#~ msgstr ""
+#~ "<strong>កម្រងសំណួរស្នូលស្តីពីបច្ចេកទេស SLM (QT)</strong> ជួយពណ៌នា "
+#~ "និងស្វែងយល់ពីការអនុវត្តន៍ការគ្រប់គ្រងដី ដោយលើកឡើងនូវសំណួរដូចខាងក្រោម៖ តើ<strong>អ្វី</"
+#~ "strong>ជាលក្ខណៈសម្គាល់នៃបច្ចេកទេស មានធាតុចូលអ្វីខ្លះ ចំណាយថ្លៃដើមប៉ុន្មាន<strong> "
+#~ "នៅកន្លែងណា</strong>វាត្រូវបានអនុវត្តន៍ (បរិស្ថានធម្មជាតិ និងមនុស្ស)​ និងតើវាមាន "
+#~ "<strong>ផលប៉ះពាល់</strong> អ្វីខ្លះ?"
+
+#~ msgid ""
+#~ "The <strong>Core Questionnaire on SLM Approaches (QA)</strong> addresses "
+#~ "the questions of <strong>how</strong> implementation was achieved "
+#~ "(including capacity building, decision-making, technical and material "
+#~ "support, change of legal framework and policies) and <strong>who</strong> "
+#~ "achieved it (including all stakeholders involved and their roles). "
+#~ "<strong>In the case of projects, WOCAT asks you to document only those "
+#~ "components or activities of the project that are relevant to SLM.</strong>"
+#~ msgstr ""
+#~ "<strong>កម្រងបញ្ជីសំណួរស្នូលស្តីពីវិធីសាស្រ្តផ្សព្វផ្សាយនៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព (QA)</"
+#~ "strong> ឆ្លើយសំណួរមួយចំនួន៖ តើការអនុវត្តន៍សម្រេចបានដោយ<strong>របៀបណា</strong>  "
+#~ "(រួមមាន ការពង្រឹងសមត្ថភាព ការសម្រេចចិត្ត ការគាំទ្រផ្នែកសម្ភារៈ និងបច្ចេកទេស "
+#~ "ការផ្លាស់ប្តូរក្របខណ្ឌច្បាប់ និងគោលនយោបាយ) និង តើ <strong>នរណា</strong> "
+#~ "ជាអ្នកសម្រេចវាបាន(រួមមានភាគីពាក់ព័ន្ធទាំងអស់ដែលចូលរួមព្រមទាំងតួនាទីរបស់ពួកគេ)។ "
+#~ "<strong>ក្នុងករណីគម្រោង  វ៉ូខេតសូមឱ្យអ្នកចងក្រងឯកសារតែសមាសភាព/"
+#~ "ផ្នែកឬសកម្មភាពរបស់គម្រោងដែលពាក់ព័ន្ធទៅនឹងការគ្រប់គ្រងដីប្រកបដោយចីរភាពតែប៉ុណ្ណោះ។</strong>"
+
+#~ msgid ""
+#~ "The Core questionnaires on SLM Technologies (QT core) and on SLM "
+#~ "Approaches (QA core) contain the key questions on sustainable land "
+#~ "management. They are the foundation of the WOCAT knowledge base. They are "
+#~ "shorter and less time-consuming to fill in than the formerly used “basic” "
+#~ "questionnaires."
+#~ msgstr ""
+#~ "កម្រងបញ្ជីសំណួរស្នូលស្តីពីបច្ចេកទេស SLM (QT) "
+#~ "និងកម្រងបញ្ជីសំណួរស្នូលស្តីពីវិធីសាស្រ្តផ្សព្វផ្សាយការអនុវត្តបច្ចេកទេស SLM (QA) "
+#~ "មានសំណួរគោលមួយចំនួនពាក់ព័ន្ធនឹងការគ្រប់គ្រងដីប្រកបដោយចីរភាព។ វាជាមូលដ្ឋានគ្រឹះនៃចំណេះដឹងរបស់ "
+#~ "វ៉ូខេត។ កម្រងសំណួរនេះមានលក្ខណៈខ្លី "
+#~ "ហើយចំណាយពេលតិចក្នុងការបំពេញបើប្រៀបធៀបទៅនឹងកម្រងបញ្ជីសំណួរដែលបានប្រើពីមុនមក។"
+
+#~ msgid ""
+#~ "<strong>The WOCAT framework is flexible and open.</strong> It enables "
+#~ "users to include specific topics, depending on their interests and needs, "
+#~ "to expand the standardized WOCAT Core questionnaires. Development of the "
+#~ "following <strong>modules</strong> has been completed or initiated: "
+#~ "<strong>Climate change adaptation</strong> (QC), <strong>Climate Change "
+#~ "Mitigation</strong>/ Carbon Benefits, <strong>Economics of SLM</strong> "
+#~ "and <strong>Biodiversity</strong>. The realization of additional modules "
+#~ "depends on the initiative of interested partners and the mobilization of "
+#~ "resources. WOCAT is open for collaboration, joint projects, and further "
+#~ "development of the knowledge base. All modules will be docked onto the "
+#~ "core version of QT and QA."
+#~ msgstr ""
+#~ "<strong>ក្របខណ្ឌរបស់វ៉ូខេត មានលក្ខណៈបត់បែន ហើយបើកទូលាយ។</"
+#~ "strong>វាជួយឱ្យអ្នកប្រើប្រាស់អាចបញ្ចូលនូវប្រធានបទជាក់លាក់អាស្រ័យទៅលើចំណង់ចំណូលចិត្តនិងតម្រូវការរបស់ពួកគេ "
+#~ "ដើម្បីពង្រីកកម្រងបញ្ជីសំណួរស្នូលរបស់វ៉ូខេតប្រកបដោយស្តង់ដារ។ ការអភិវឌ្ឍន៍ <strong>ម៉ូឌុល</strong> "
+#~ "ខាងក្រោមបានចាប់ផ្តើមឡើងនិងបញ្ចប់រួចរាល់៖​ <strong>ការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ</"
+#~ "strong> (QC), <strong>ការកាត់បន្ថយការប្រែប្រួលអាកាសធាតុ</strong>/អត្ថប្រយោន៍នៃកាបូន "
+#~ "<strong>សេដ្ឋកិច្ចនៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព</strong> និង <strong>ជីវចម្រុះ</"
+#~ "strong>។ ការបង្កើតម៉ូឌុលបន្ថែមអាស្រ័យទៅលើចំណាប់អារម្មណ៍របស់ភាគីពាក់ព័ន្ធ "
+#~ "និងការគៀងគរប្រភពធនធាន។ វ៉ូខេត បើកទូលាយចំពោះកិច្ចសហការ គម្រោងរួមគ្នា "
+#~ "និងការអភិវឌ្ឍន៍បន្ថែមទៀតនូវមូលដ្ឋានចំណេះដឹង។ "
+#~ "គ្រប់ម៉ូឌុលទាំងអស់នឹងបង្រួមឱ្យខ្លីបញ្ជូលទៅក្នុងកម្រងបញ្ជីសំណួរស្នូល QT និង QA ។"
+
+#~ msgid ""
+#~ "A further tool, the <strong>questionnaire on SLM Mapping (QM)</strong>, "
+#~ "has been developed to analyse and depict the spatial distribution of SLM "
+#~ "and land degradation processes, causes, and impacts."
+#~ msgstr ""
+#~ "ឧបករណ៍បន្ថែមមួយទៀត គឺ <strong>បញ្ចីសំណួរស្តីពីការធ្វើផែនទី (QM)</strong> "
+#~ "ត្រូវបានបង្កើតឡើងដើម្បីវិភាគ និងបង្ហាញពីទីតាំង នៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព "
+#~ "និងការវិវឌ្ឍនៃឱនភាពដី មូលហេតុ និងផលប៉ះពាល់។ "
+
+#~ msgid ""
+#~ "The questionnaires mentioned above complement each other. All information "
+#~ "documented through WOCAT questionnaires is made available in an open-"
+#~ "access <strong>online database</strong> and can be used to disseminate "
+#~ "SLM knowledge and improve decision-making for further implementation and "
+#~ "spreading of SLM practices."
+#~ msgstr ""
+#~ "កម្រងបញ្ជីសំណួរលើកឡើងខាងលើ​​ បំពេញបន្ថែមឱ្យគ្នាទៅវិញទៅមក។ "
+#~ "រាល់ព័ត៌មានទាំងអស់ដែលត្រូវបានចងក្រងជាឯកសារតាមរយៈការប្រើកម្រងបញ្ជីសំណួររបស់ វ៉ូខេត "
+#~ "អាចទាញយកបានដោយសេរីពី<strong>វេបសាយរបស់វ៉ូខេត </strong> "
+#~ "នឹងអាចយកទៅផ្សព្វផ្សាយបន្តស្តីពីចំណេះដឹងនៃការគ្រប់គ្រងដីប្រកបដោយចីរភាព "
+#~ "និងធ្វើឱ្យប្រសើរឡើងនូវការសម្រេចចិត្តសម្រាប់ការអនុវត្តន៍និងការពង្រីកបន្ថែមទៀតលើការអនុវត្ត SLM។"
+
+#~ msgid "Process"
+#~ msgstr "ដំណើរការ"
+
+#~ msgid "Roles"
+#~ msgstr "តួនាទី"
+
+#~ msgid "About the WOCAT SLM Database"
+#~ msgstr "អំពីប្រព័ន្ធគ្រប់គ្រងទិន្នន័យរបស់វ៉ូខេត"
+
+#~ msgid ""
+#~ "For further information please contact the <a href=\"https://wocat.net/"
+#~ "about/organizational-structure-wocat-network/wocat-secretariat\" target="
+#~ "\"_blank\" class=\"link\">WOCAT Secretariat</a>."
+#~ msgstr ""
+#~ "ព័ត៌មានបន្ថែម សូមទាក់ទងទៅ<a href=\"https://www.wocat.net/en/about-wocat/"
+#~ "contact.html\" target=\"_blank\" class=\"link\">លេខាធិការដ្ឋានវ៉ូខេត</a>។"
