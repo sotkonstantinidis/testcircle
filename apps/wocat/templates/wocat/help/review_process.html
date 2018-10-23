@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load staticfiles %}
 
-{% block title %}{% trans "Review process" %}{% endblock %}
+{% block title %}{% trans "Process of documentation and review of WOCAT data" %}{% endblock %}
 
 {% block content %}
 
@@ -18,7 +18,7 @@
         {% trans "Process" %}
       </h2>
       {% with small_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'.png' %}
-        <a class="th" role="button" aria-label="{% trans "Review process" %}" href="{% static large_url %}">
+        <a class="th" role="button" aria-label="{% trans "Process of documentation and review of WOCAT data" %}" href="{% static large_url %}">
           <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
         </a>
       {% endwith %}
