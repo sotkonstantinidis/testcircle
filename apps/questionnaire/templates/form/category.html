@@ -127,8 +127,8 @@
         <svg class="icon-lines is-inline"><use xlink:href="#icon-alert"></use></svg>{% trans "You are about to add a new translation." %}
       </h3>
       <p>{% trans "This questionnaire is not yet translated to" context "This questionnaire is not yet translated to [language]" %} {{ LANGUAGE_CODE|get_full_language_name }}.</p>
-      <p>{% trans "If you continue to edit this questionnaire, a new translation will be added. The original content will not be modified." %}</p>
-      <p>{% trans "If you want to edit existing content, please go back and select a language in which this questionnaire is already translated." %}</p>
+      <p>{% trans "If you continue to edit this questionnaire, a new translation will be added. The content of the original language will be copied once into the text fields, allowing you to translate the content. From there on, text changes have to be done in all language versions. The checkboxes are linked across all translations, meaning they always change in all language versions." %}</p>
+      <p>{% trans "If you do not want to create a new translation, please go back and select a language in which this questionnaire is already translated." %}</p>
       <div class="clearfix">
         <br>
         <a class="button left" id="modal-translation-warning-back" href="{{ overview_url }}">{% trans "Go back" %}</a>
@@ -148,7 +148,9 @@
     </div>
     {% addtoblock 'js' %}
       <script>
-          $(document).ready(function(){$('#modal-translation-warning').foundation('reveal', 'open')});
+          $(document).ready(function(){$('#modal-translation-warning').foundation('reveal', 'open', {
+              close_on_background_click: false
+          })});
           $('a.close-modal-translation-warning').on('click', function() {$('#modal-translation-warning').foundation('reveal', 'close')});
       </script>
     {% endaddtoblock %}
