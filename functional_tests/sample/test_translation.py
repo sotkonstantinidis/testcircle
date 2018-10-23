@@ -1,3 +1,4 @@
+import pytest
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
 
@@ -6,6 +7,8 @@ from functional_tests.base import FunctionalTest
 from sample.tests.test_views import (
     route_questionnaire_new,
 )
+
+from functional_tests.pages.sample import SampleNewPage, SampleStepPage
 
 
 class TranslationTest(FunctionalTest):
@@ -46,6 +49,11 @@ class TranslationTest(FunctionalTest):
 
         self.click_edit_section('cat_1')
 
+        # She sees a warning that she is about to create a new translation
+        step_page = SampleStepPage(self)
+        assert step_page.has_translation_warning()
+        step_page.translation_warning_click_continue()
+
         # She sees that the field already contains the original value
         text_field = self.findBy('name', 'qg_1-0-translation_key_1')
         self.assertEqual(
@@ -56,7 +64,7 @@ class TranslationTest(FunctionalTest):
         text_field.send_keys('Foo content in English')
 
         # She submits the step
-        self.submit_form_step()
+        step_page.submit_step(confirm_add_translation=True)
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in English")]]')
 
@@ -109,6 +117,11 @@ class TranslationTest(FunctionalTest):
         # She edits the first section
         self.click_edit_section('cat_1')
 
+        # She sees a warning that she is about to create a new translation
+        step_page = SampleStepPage(self)
+        assert step_page.has_translation_warning()
+        step_page.translation_warning_click_continue()
+
         # She sees that the field already contains the original value
         text_field = self.findBy('name', 'qg_1-0-translation_key_1')
         self.assertEqual(
@@ -119,7 +132,7 @@ class TranslationTest(FunctionalTest):
         text_field.send_keys('Foo content in Spanish')
 
         # She submits the step and sees the values were transmitted correctly.
-        self.submit_form_step()
+        step_page.submit_step(confirm_add_translation=True)
         self.findBy(
             'xpath', '//*[text()[contains(.,"Foo content in Spanish")]]')
 
@@ -127,3 +140,51 @@ class TranslationTest(FunctionalTest):
         translations = self.findManyBy(
             'xpath', '//ul[contains(@class, "tech-lang-list")]/li')
         self.assertEqual(len(translations), 2)
+
+    def test_show_warning_when_adding_new_translation(self):
+
+        user = self.create_new_user(email='user@foo.com')
+
+        new_page = SampleNewPage(self)
+        new_page.open(login=True, user=user)
+
+        # User sets the language to English and starts editing.
+        new_page.change_language('en')
+        new_page.click_edit_category('cat_1')
+
+        # User does not see a translation warning (no object yet)
+        step_page = SampleStepPage(self)
+        assert not step_page.has_translation_warning()
+
+        # User fills out a key and submits the step.
+        step_page.get_el(step_page.LOC_FORM_INPUT_KEY_1).send_keys('Foo')
+        step_page.submit_step()
+
+        # User opens another step and does not see a translation warning
+        new_page.click_edit_category('cat_1')
+        assert not step_page.has_translation_warning()
+        step_page.back_without_saving()
+
+        # User now changes the language to French and wants to edit again.
+        new_page.change_language('fr')
+        new_page.click_edit_category('cat_1')
+
+        # User sees a warning, telling him that he is about to add a new
+        # translation.
+        assert step_page.has_translation_warning()
+
+        # User decides to go back to the overview.
+        step_page.translation_warning_click_go_back()
+
+        # User again wants to edit in French
+        new_page.click_edit_category('cat_1')
+        assert step_page.has_translation_warning()
+
+        # This time, user continues and submits the step.
+        step_page.translation_warning_click_continue()
+        step_page.submit_step(confirm_add_translation=True)
+
+        # When he opens the step again (in French), no warning is displayed
+        # anymore.
+        new_page.click_edit_category('cat_1')
+        assert not step_page.has_translation_warning()
