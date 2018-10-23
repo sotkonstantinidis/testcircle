@@ -1,9 +1,12 @@
 import os
 import sys
 
+from accounts.models import User
 from django.conf import settings
+from django.contrib.auth.models import Group
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.test.utils import override_settings
 from pyvirtualdisplay import Display
 from selenium import webdriver
@@ -85,6 +88,25 @@ class FunctionalTest(StaticLiveServerTestCase):
                 os.makedirs(path)
             file = os.path.join(path, f'failed_{self.id()}.png')
             self.browser.save_screenshot(file)
+
+    def create_new_user(
+            self, email: str='a@b.com', last_name: str='foo',
+            first_name: str='bar', groups: list=None) -> User:
+        defaults = {
+            'firstname': first_name,
+            'lastname': last_name
+        }
+        user, __ = User.objects.get_or_create(email=email, defaults=defaults)
+
+        for group in groups or []:
+            # 1. Translators
+            # 2. Administrators
+            # 3. Reviewers
+            # 4. Publishers
+            # 5. WOCAT Secretariat
+            user.groups.add(Group.objects.get(name=group))
+
+        return user
 
     def findByNot(self, by, el):
         try:
@@ -549,6 +571,77 @@ class FunctionalTest(StaticLiveServerTestCase):
             pass
         self.browser.delete_cookie('fe_typo_user')
         self.browser.get(self.live_server_url + '/404_no_such_url/')
+
+    def get_mock_remote_user_client_search(self, name):
+        """
+        Simulate a response from the remote auth provider when searching for a
+        user. Searches in the local database instead and returns all users
+        matching the query (case insensitve search by first or last name).
+
+        Usually, you will want to use this in combination with
+        get_mock_remote_user_client_user_information (see below) to also
+        correctly update the user in the database (e.g. when changing compiler
+        or adding reviewer)
+
+        Usage in tests:
+        Patch the remote client's search_users function in the view and set this
+        function as side_effect. Similar with remote client's
+        get_user_information.
+
+        Example:
+            @patch('questionnaire.utils.remote_user_client.get_user_information')
+            @patch('accounts.views.remote_user_client.search_users')
+            def test_something(self, mock_search_users, mock_user_information):
+                mock_search_users.side_effect = self.get_mock_remote_user_client_search
+                mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
+                # ...
+        """
+        users = User.objects.filter(
+            Q(firstname__icontains=name) | Q(lastname__icontains=name))
+        return {
+            'success': True,
+            'users': [
+                self._mock_remote_client_user_details(user)
+                for user in users
+            ]
+        }
+
+    def get_mock_remote_user_client_user_information(self, user_id):
+        """
+        Simulate a response from the remote auth provider when retrieving the
+        user details needed to update the user. Searches in the local database
+        instead (lookup by ID).
+
+        Usually, you will want to use this in combination with
+        get_mock_remote_user_client_search (see above).
+
+        Usage in tests:
+        Patch the remote client's get_user_information function where it is used
+        (e.g. in questionnaire.utils when changing users of a questionnaire) and
+        set this function as side_effect. Similar with remote client's
+        search_users.
+
+        Example:
+            @patch('questionnaire.utils.remote_user_client.get_user_information')
+            @patch('accounts.views.remote_user_client.search_users')
+            def test_something(self, mock_search_users, mock_user_information):
+                mock_search_users.side_effect = self.get_mock_remote_user_client_search
+                mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
+                # ...
+        """
+        user = User.objects.get(pk=user_id)
+        return self._mock_remote_client_user_details(user)
+
+    def _mock_remote_client_user_details(self, user):
+        # Helper to format the user details similar to the remote client's
+        # reponse.
+        return {
+            'uid': user.pk,
+            'username': user.email,
+            'email': user.email,
+            'first_name': user.firstname,
+            'last_name': user.lastname,
+        }
 
     def dropImage(self, dropzone_id):
         self.browser.execute_script(

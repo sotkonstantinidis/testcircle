@@ -17,7 +17,10 @@ class NotificationsIntegrationTest(FunctionalTest):
     jay is a compiler
     robin is an editor
     """
-    fixtures = ['sample_global_key_values', 'sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         super().setUp()

@@ -56,7 +56,10 @@ def get_valid_metadata():
 
 class QuestionnaireModelTest(TestCase):
 
-    fixtures = ['sample.json', 'sample_global_key_values.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.user = create_new_user()

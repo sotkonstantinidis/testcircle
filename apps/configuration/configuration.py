@@ -194,6 +194,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         'cb_bool',
         'char',
         'checkbox',
+        'multi_select',
         'date',
         'file',
         'hidden',
@@ -326,9 +327,16 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.max_length = None
         self.num_rows = self.form_options.get('num_rows', 3)
 
-        self.filter_options = self.key_config.get('filter_options', {})
+        filter_options = self.key_config.get('filter_options', {})
+        if configuration.get('filter_options'):
+            filter_options.update(configuration.get('filter_options', {}))
+        self.filter_options = filter_options
 
-        self.summary = self.key_config.get('summary')
+        summary_config = self.key_config.get('summary', {})
+        if configuration.get('summary'):
+            summary_config.update(configuration.get('summary'))
+        self.summary = summary_config
+
         self.images = []
         self.choices = ()
         self.choices_helptexts = []
@@ -341,7 +349,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             self.choices = ((1, self.label),)
         elif self.field_type in [
                 'measure', 'checkbox', 'image_checkbox', 'select_type',
-                'select', 'radio', 'select_conditional_custom']:
+                'select', 'radio', 'select_conditional_custom', 'multi_select']:
             self.value_objects = self.configuration_object.values.all()
             if len(self.value_objects) == 0:
                 raise ConfigurationErrorNotInDatabase(
@@ -665,6 +673,12 @@ class QuestionnaireQuestion(BaseConfigurationObject):
             field = forms.MultipleChoiceField(
                 label=self.label, widget=widget, choices=self.choices,
                 required=self.required)
+        elif self.field_type in ['multi_select']:
+            widget = MultiSelect(attrs=attrs)
+            widget.options = field_options
+            field = forms.MultipleChoiceField(
+                label=self.label, widget=widget, choices=self.choices,
+                required=self.required)
         elif self.field_type == 'image_checkbox':
             # Make the image paths available to the widget
             widget = ImageCheckbox(attrs=attrs)
@@ -770,7 +784,9 @@ class QuestionnaireQuestion(BaseConfigurationObject):
         return formfields, templates, options
 
     def get_details(
-            self, data={}, measure_label=None, questionnaire_object=None):
+            self, data=None, measure_label=None, questionnaire_object=None):
+        if data is None:
+            data = {}
         MAX_MEASURE_LEVEL = 5
         template_values = self.view_options
         template_values.update({
@@ -792,7 +808,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'bool', 'measure', 'checkbox', 'image_checkbox',
                 'select_type', 'select', 'cb_bool', 'radio',
                 'select_conditional_questiongroup',
-                'select_conditional_custom']:
+                'select_conditional_custom', 'multi_select']:
             # Look up the labels for the predefined values
             if not isinstance(value, list):
                 value = [value]
@@ -851,7 +867,7 @@ class QuestionnaireQuestion(BaseConfigurationObject):
                 'value': values[0],
                 'level': level,
             })
-        elif self.field_type in ['checkbox', 'cb_bool', 'radio']:
+        elif self.field_type in ['checkbox', 'cb_bool', 'radio', 'multi_select']:
             # Keep only values which were selected.
             values = [v for v in values if v]
 
@@ -1146,7 +1162,7 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
 
     def get_form(
             self, post_data=None, initial_data=None, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[], initial_links=None,
+            edit_mode='edit', edited_questiongroups=None, initial_links=None,
             questionnaire_data=None):
         """
         Returns:
@@ -1154,6 +1170,8 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             more form fields representing a set of questions belonging
             together and which can possibly be repeated multiple times.
         """
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         form_template = 'form/questiongroup/{}.html'.format(
             self.form_options.get('template', 'default'))
         # todo: this is a workaround.
@@ -1289,7 +1307,9 @@ class QuestionnaireQuestiongroup(BaseConfigurationObject):
             questiongroups.append(rendered_questions)
         return questiongroups
 
-    def get_details(self, data=[], links=None, questionnaire_object=None):
+    def get_details(self, data=None, links=None, questionnaire_object=None):
+        if data is None:
+            data = []
         view_template = 'details/questiongroup/{}.html'.format(
             self.view_options.get('template', 'default'))
         questiongroups = self.get_rendered_questions(
@@ -1504,14 +1524,18 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         self.table_helptexts.append(question.helptext)
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[], initial_links=None):
+            self, post_data=None, initial_data=None, show_translation=False,
+            edit_mode='edit', edited_questiongroups=None, initial_links=None):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
             ``list``. A list of formsets of question groups, together
             forming a subcategory.
         """
+        if initial_data is None:
+            initial_data = {}
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         form_template = 'form/subcategory/{}.html'.format(
             self.form_options.get('template', 'default'))
         formsets = []
@@ -1582,7 +1606,7 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                 return True
         return False
 
-    def get_details(self, data={}, links=None, questionnaire_object=None):
+    def get_details(self, data=None, links=None, questionnaire_object=None):
         """
         Returns:
             ``string``. A rendered representation of the subcategory
@@ -1591,6 +1615,8 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
             ``bool``. A boolean indicating whether the subcategory and
             its questiongroups have some data in them or not.
         """
+        if data is None:
+            data = {}
         view_template = 'details/subcategory/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_questiongroups = []
@@ -1628,6 +1654,13 @@ class QuestionnaireSubcategory(BaseConfigurationObject):
                         for q in q_order:
                             if q not in qg:
                                 qg[q] = []
+
+                        # Remove data entries not in q_order anymore (e.g.
+                        # removed questions after edition update) to prevent
+                        # error when sorting below.
+                        for k in set(qg.keys()) - set(q_order):
+                            del qg[k]
+
                     sorted_questiongroup_data = [
                         sorted(qg.items(), key=lambda i: q_order.index(i[0]))
                         for qg in questiongroup_data]
@@ -1803,13 +1836,15 @@ class QuestionnaireCategory(BaseConfigurationObject):
         return qg
 
     def get_form(
-            self, post_data=None, initial_data={}, show_translation=False,
-            edit_mode='edit', edited_questiongroups=[], initial_links=None):
+            self, post_data=None, initial_data=None, show_translation=False,
+            edit_mode='edit', edited_questiongroups=None, initial_links=None):
         """
         Returns:
             ``dict``. A dict with configuration elements, namely ``label``.
             ``list``. A list of a list of subcategory formsets.
         """
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         subcategory_formsets = []
         for subcategory in self.subcategories:
             subcategory_formsets.append(
@@ -1869,10 +1904,16 @@ class QuestionnaireCategory(BaseConfigurationObject):
                 c.questiongroups or c.subcategories]
 
     def get_details(
-            self, data={}, permissions=[], edit_step_route='',
+            self, data=None, permissions=None, edit_step_route='',
             questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None,
+            edited_questiongroups=None, view_mode='view', links=None,
             review_config=None, user=None, completeness_percentage=0):
+        if data is None:
+            data = {}
+        if permissions is None:
+            permissions = []
+        if edited_questiongroups is None:
+            edited_questiongroups = []
         view_template = 'details/category/{}.html'.format(
             self.view_options.get('template', 'default'))
         rendered_subcategories = []
@@ -1947,7 +1988,7 @@ class QuestionnaireCategory(BaseConfigurationObject):
 
         history = []
         if questionnaire_object is not None:
-            history = questionnaire_object.get_previous_public_versions()
+            history = questionnaire_object.get_history_versions(user)
 
         return render_to_string(
             view_template, {
@@ -2101,9 +2142,9 @@ class QuestionnaireSection(BaseConfigurationObject):
         return complete, total
 
     def get_details(
-            self, data={}, permissions=[], review_config={},
+            self, data=None, permissions=None, review_config=None,
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None, user=None,
+            edited_questiongroups=None, view_mode='view', links=None, user=None,
             completeness_percentage=0):
 
         view_template = 'details/section/{}.html'.format(
@@ -2275,9 +2316,9 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         return complete, total
 
     def get_details(
-            self, data={}, permissions=[], review_config={},
+            self, data=None, permissions=None, review_config=None,
             edit_step_route='', questionnaire_object=None, csrf_token=None,
-            edited_questiongroups=[], view_mode='view', links=None, user=None,
+            edited_questiongroups=None, view_mode='view', links=None, user=None,
             completeness_percentage=0):
         rendered_sections = []
         for section in self.sections:
@@ -2387,7 +2428,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
         filter_keys = []
         for questiongroup in self.get_questiongroups():
             for question in questiongroup.questions:
-                if question.filter_options:
+                if question.filter_options and question.filter_options.get('order') is not None:
                     section = questiongroup.get_top_subcategory().parent_object
                     filter_keys.append(FilterKey(
                         path=f'{questiongroup.keyword}__{question.keyword}',
@@ -2804,6 +2845,18 @@ class MeasureSelectStacked(ConditionalMixin, forms.RadioSelect):
         ctx = super(MeasureSelectStacked, self).get_context_data()
         ctx.update({
             'options': self.options,
+        })
+        return ctx
+
+
+class MultiSelect(ConditionalMixin, forms.SelectMultiple):
+    template_name = 'form/field/select.html'
+
+    def get_context_data(self):
+        ctx = super(MultiSelect, self).get_context_data()
+        ctx.update({
+            'options': self.options,
+            'searchable': True,
         })
         return ctx
 

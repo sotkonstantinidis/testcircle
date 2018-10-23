@@ -23,17 +23,12 @@
   </tr>
   <tr>
     <td colspan="2" style="font-weight: 300; padding: 10px 5px;">
-      {% trans "Dear" %} {{ name }}
+      {% trans "Dear" %} <a href="{{ recipient_url }}" class="link">{{ recipient_name }}</a>
     </td>
   </tr>
   <tr>
     <td colspan="2" style="padding: 0 5px 10px 5px; font-weight: 300;">
       {{ content }}
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="padding: 0 5px 10px 5px; font-weight: 300;">
-      <a href="{{ questionnaire_url }}">{% trans "See questionnaire in full" %}</a>
     </td>
   </tr>
   <tr>
@@ -72,8 +67,8 @@
         WOCAT Secretariat<br>
         University of Bern<br>
         Centre for Development and Environment (CDE)<br>
-        Hallerstrasse 10<br>
-        CH - 3012 Berne<br>
+        Mittelstrasse 43<br>
+        CH - 3012 Bern<br>
         Switzerland<br>
         <br>
         Tel.: ++41 31 631 88 22 / ++41 31 631 54 38<br>

@@ -75,7 +75,7 @@ function watchFormProgress() {
     // While we're at it, also check if "other" checkboxes are to be ticked
     $('input.checkbox-other').each(function () {
         var $el = $(this);
-        if ($el.parent('label').find('input:text').val() != '') {
+        if ($el.parent('label').find('input:text').val() !== '') {
             $($el.prop('checked', true));
         }
         // Toggle readonly
@@ -96,7 +96,6 @@ function watchFormProgress() {
  * [data-auto-sum]. Such fields are currently used for the input tables.
  */
 function updateAutoMultiplication() {
-    var check_sum = false;
     $('[data-auto-multiplication]').each(function() {
 
         // Get the prefix of the current questiongroup
@@ -107,38 +106,66 @@ function updateAutoMultiplication() {
         var data_sum = $(this).data('auto-multiplication').split('|');
         for (var i in data_sum) {
             var el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-' + data_sum[i] + ']');
-            if (el.length == 0) {
+            if (el.length === 0) {
                 // Try to find with "original"
                 el = list_item.find('input[name=' + prefix_parts[0] + '-' + prefix_parts[1] + '-original_' + data_sum[i] + ']');
             }
             sum *= parseFloat(el.val());
         }
-        if (sum) {
+        if (!isNaN(sum)) {
             $(this).val(sum.toFixed(2));
         } else {
             $(this).val('');
         }
-        check_sum = true;
     });
-    if (check_sum) {
-        $('[data-auto-sum]').each(function() {
-            var identifier = $(this).data('auto-sum');
-            var sum = 0;
-            var has_value = false;
-            $('input[name$=' + identifier + ']').each(function() {
-                var x = parseFloat($(this).val());
-                if (x) {
-                    has_value = true;
-                    sum += x;
-                }
-            });
-            if (has_value) {
-                $(this).val(sum.toFixed(2));
-            } else {
-                $(this).val('');
+    $('[data-auto-sum]').each(function() {
+        var identifier = $(this).data('auto-sum');
+        var sum = 0;
+        var has_value = false;
+        $('input[name$=' + identifier + ']').each(function() {
+            var x = parseFloat($(this).val());
+            if (x) {
+                has_value = true;
+                sum += x;
             }
         });
+        if (has_value) {
+            $(this).val(sum.toFixed(2));
+        } else {
+            $(this).val('');
+        }
+    });
+    $('[data-local-currency-calculation]').each(function() {
+        doLocalCurrencyCalculation(this);
+    });
+}
+
+
+/**
+ * Calculate the sum of the local currency in USD based on the exchange rate.
+ *
+ * @param el: The input element in which the calculated sum will be written. Has
+ * to have a data-local-currency-calculation attribute containing
+ *   questiongroup_exchange_rate
+ *   key_exchange_rate
+ *   questiongroup_local_sum
+ *   key_local_sum
+ * separated with "|"
+ */
+function doLocalCurrencyCalculation(el) {
+    var $el = $(el);
+    var dataMultiParts = $el.data('local-currency-calculation').split('|');
+    var exchangeRate = $('input[name=' + dataMultiParts[0] + '-0-' + dataMultiParts[1] + ']').val();
+    var localSum = $('input[name=' + dataMultiParts[2] + '-0-' + dataMultiParts[3] + ']').val();
+    var sum = '';
+    if (localSum) {
+        if (!exchangeRate) {
+            // No exchange rate, use 1
+            exchangeRate = 1;
+        }
+        sum = (parseFloat(localSum) / parseFloat(exchangeRate)).toFixed(2);
     }
+    $el.val(sum);
 }
 
 /**
@@ -370,6 +397,7 @@ $('.select-link-id').each(function () {
  */
 function clearQuestiongroup(questiongroup) {
     questiongroup.find('input:text, textarea').val('').change();
+    questiongroup.find(':input[type="number"]').val('').change();
     questiongroup.find('input:radio').prop('checked', false).change();
     questiongroup.find('input:checkbox').prop('checked', false).change();
     questiongroup.find('select').prop('selectedIndex', 0).change();
@@ -656,6 +684,34 @@ $(function () {
             watchFormProgress();
         })
 
+        .on('keyup mouseup', '[data-number-input]', function() {
+            // For "number" input fields, add a hint if an invalid value is
+            // entered (which is possible depending on the browser).
+            var $t = $(this);
+
+            if (!this.checkValidity()) {
+                return toggleError($t, true);
+            }
+            var val = $t.val();
+            if (val === '') {
+                return toggleError($t, false);
+            }
+
+            var numberType = $t.data('number-input');
+            var hasError = false;
+            if (numberType === 'int') {
+                hasError = parseInt(val).toString() !== val;
+            } else if (numberType === 'float') {
+                // Be more tolerant with integer or ".0" values.
+                hasError = parseFloat(val).toString() !== val && parseInt(val).toString() === val;
+            }
+            return toggleError($t, hasError);
+
+            function toggleError(el, hasError) {
+                el.toggleClass('form-number-input-error', hasError);
+            }
+        })
+
         .on('change', '[data-custom-to-options]', function() {
             var $t = $(this);
             var customToOption = $t.data('custom-to-options').replace(/'/g, '"');
@@ -763,6 +819,13 @@ $(function () {
             $t.data('questiongroup-to-options-is-option', qgHasContent);
         })
 
+        .on('change', '[name$=input_national_currency]', function() {
+            updateCurrencies(this)
+        })
+        .on('change', '[name$=input_dollar]', function() {
+            updateCurrencies(this);
+        })
+
         .on('click', '.cb-toggle-questiongroup', function () {
             var container = $(this).data('container');
             if ($(this).prop('checked')) {
@@ -814,6 +877,8 @@ $(function () {
     }
     updateChosen();
 
+    // Initially update currencies
+    updateCurrencies();
 
     if ($.fn.datepicker) {
         var datepickerOptions = {
@@ -1122,6 +1187,25 @@ function updateUser(qg, user_id) {
             qg.find('.form-user-search-error').html('Error: ' + response.statusText).show();
         }
     });
+}
+
+/**
+ * Update the currency (displayed in the table header of the input table) based
+ * on user input.
+ */
+function updateCurrencies() {
+    var usd = $('[name$=input_dollar]');
+    if (!usd.length) return;
+    var national = $('[name$=input_national_currency][type=text]');
+    if (!national.length) return;
+    var currency = '-';
+    if (usd.is(':checked')) {
+        currency = usd.next('span').text();
+    }
+    if (national[0].value) {
+        currency = national[0].value;
+    }
+    $('.js-form-currency').html(currency);
 }
 
 

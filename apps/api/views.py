@@ -1,5 +1,6 @@
 import logging
 
+from configuration.models import Configuration
 from django.conf import settings
 from questionnaire.models import Questionnaire
 from rest_framework.permissions import IsAuthenticated
@@ -44,7 +45,17 @@ class APIRoot(APIView):
 
     def get(self, request, format=None):
         identifier = Questionnaire.with_status.public().first().code
+        configuration = Configuration.objects.latest('created')
         urls = {
+            'configuration': reverse(
+                'v2:api-configuration-structure',
+                kwargs={
+                    'code': configuration.code,
+                    'edition': configuration.edition
+                },
+                request=request,
+                format=format
+            ),
             'questionnaire list': reverse('v2:questionnaires-api-list',
                                       request=request, format=format),
             'questionnaire details': reverse(

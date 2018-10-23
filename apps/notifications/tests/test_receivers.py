@@ -55,7 +55,7 @@ class ReceiverTest(TestCase):
     def test_create_questionnaire_create(self):
         self._test_create_call(
             signal=create_questionnaire, log_type='StatusLog',
-            is_rejected=False, message=_('Created')
+            is_rejected=False, message=_('Created'), previous_status=None
         )
 
     def test_delete_questionnaire(self):
@@ -64,7 +64,7 @@ class ReceiverTest(TestCase):
     def test_delete_questionnaire_create(self):
         self._test_create_call(
             signal=delete_questionnaire, log_type='StatusLog',
-            is_rejected=False, message=_('Deleted')
+            is_rejected=False, message=_('Deleted'), previous_status=None
         )
 
     def test_change_status(self):
@@ -73,7 +73,7 @@ class ReceiverTest(TestCase):
     def test_change_status_create(self):
         self._test_create_call(
             signal=change_status, log_type='StatusLog',
-            is_rejected=False, message=''
+            is_rejected=False, message='', previous_status=None
         )
 
     def test_change_member(self):

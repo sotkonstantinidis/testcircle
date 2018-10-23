@@ -90,6 +90,18 @@
   </head>
   <body class="{% block bodyclass %}layout-wocat{% endblock %}">
 
+    {# Startfix #}
+    {% comment %}
+      After improving performance of foundation's tooltips
+      (https://github.com/CDE-UNIBE/qcat/commit/35b208c), the first tooltip of
+      each page was buggy and had a black box drawn over it. The quick and dirty
+      solution to this: Add a hidden empty tooltip at the top of each page.
+    {% endcomment %}
+    <div style="display:none;">
+      <span data-tooltip="" title=""></span>
+    </div>
+    {# Endfix #}
+
     <!--[if lt IE 9]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -170,7 +182,7 @@
                     <a href="{% change_lang lang.0 %}" data-language="{{ lang.0 }}">{% language lang.0 %}{{ lang.1 }}{% endlanguage %}</a>
                   </li>
                 {% endfor %}
-                <li class="lang-switcher-info"><a href="https://www.wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" data-tooltip="" title="{% trans "Would you like to help us translate the SLM Database? Please contact the WOCAT Secretariat for more information." %}"><svg class="icon-lines is-inline"><use xlink:href="#icon-info"></use></svg></a></li>
+                <li class="lang-switcher-info"><a href="{{ WOCAT_CONTACT_PAGE }}" target="_blank" data-tooltip="" title="{% trans "Would you like to help us translate the SLM Database? Please contact the WOCAT Secretariat for more information." %}"><svg class="icon-lines is-inline"><use xlink:href="#icon-info"></use></svg></a></li>
               </ul>
             </li>
           </ul>
@@ -250,8 +262,8 @@
       {% endif %}
       <footer class="row page-footer large-collapse" role="contentinfo">
         <div class="medium-4 columns text-left">
-          <a href="https://www.wocat.net/about/previous-next-wocat-network-history-and-achievements/unccd-recognition" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
-          <a href="http://www2.unccd.int/" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
+          <a href="https://www.wocat.net/en/global-slm-database/unccd-recognition" target="_blank" class="link">{% trans "Primary recommended database" %}</a><br>
+          <a href="https://www.unccd.int/" target="_blank"><img src="{% static 'assets/img/unccd_logo.svg' %}" alt="{% trans "UNCCD" %}" class="logo-unccd-footer"></a>
         </div>
         <div class="medium-8 columns supported-by-carousel-container">
           <div class="supported-by-carousel">
@@ -310,8 +322,8 @@
             <a href="{% url "privacy-policy" %}" class="link">{% trans "Privacy Policy" %}</a> |
             <a href="{% url "terms-of-agreement" %}" class="link">{% trans "Terms of Agreement" %}</a> |
             <a href="https://www.wocat.net/global-slm-database" target="_blank" class="link">{% trans "About" %}</a> |
-            <a href="https://www.wocat.net/about/organizational-structure-wocat-network/wocat-secretariat" target="_blank" class="link">{% trans "Contact" %}</a> |
-            &copy; {% now "Y" %} - <a href="http://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
+            <a href="{{ WOCAT_CONTACT_PAGE }}" target="_blank" class="link">{% trans "Contact" %}</a> |
+            &copy; {% now "Y" %} - <a href="https://www.wocat.net/" target="_blank" class="link">{% trans "WOCAT" %}</a>
           </div>
         </div>
       </footer>

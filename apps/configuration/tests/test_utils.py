@@ -44,7 +44,10 @@ class GetConfigurationQueryFilterTest(TestCase):
 @pytest.mark.usefixtures('es')
 class GetConfigurationIndexFilterTest(TestCase):
 
-    fixtures = ['sample']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.default_aliases = [f'{c}_*' for c in DEFAULT_WOCAT_CONFIGURATIONS]
@@ -91,7 +94,9 @@ class CreateNewCodeTest(TestCase):
 
 class GetChoicesFromModelTest(TestCase):
 
-    fixtures = ['sample_projects']
+    fixtures = [
+        'sample_projects',
+    ]
 
     def test_returns_empty_if_model_not_found(self):
         choices = get_choices_from_model('foo')

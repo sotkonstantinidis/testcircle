@@ -1,4 +1,3 @@
-import unittest
 from unittest.mock import patch, MagicMock, sentinel
 
 from configuration.cache import get_configuration
@@ -6,8 +5,9 @@ from configuration.configuration import QuestionnaireQuestion
 from qcat.tests import TestCase
 from questionnaire.models import Questionnaire
 from questionnaire.utils import get_questionnaire_data_in_single_language
-from summary.parsers import QuestionnaireParser, TechnologyParser, \
-    ApproachParser
+from summary.parsers.approaches_2015 import Approach2015Parser
+from summary.parsers.questionnaire import QuestionnaireParser
+from summary.parsers.technologies_2015 import Technology2015Parser
 
 
 class SummaryConfigurationTest(TestCase):
@@ -112,7 +112,7 @@ class SummaryConfigurationTest(TestCase):
             {'img_url': '', 'coordinates': []}
         )
 
-    @patch('summary.parsers.get_static_map_url')
+    @patch('summary.parsers.questionnaire.get_static_map_url')
     def test_get_map_values(self, mock_static_map):
         mock_static_map.return_value = sentinel.map_url
         obj = QuestionnaireParser(
@@ -170,8 +170,12 @@ class TechnologyParserTest(ParserTestMixin, TestCase):
     configs / children takes too much time. Also mocking would not result in
     more stable tests, as the exact structure of the config needed to be mocked.
     """
-    fixtures = ['global_key_values', 'technologies', 'approaches',
-                'complete_questionnaires']
+    fixtures = [
+        'global_key_values',
+        'technologies',
+        'approaches',
+        'complete_questionnaires',
+    ]
 
     def setUp(self):
         super().setUp()
@@ -180,7 +184,7 @@ class TechnologyParserTest(ParserTestMixin, TestCase):
         self.data = get_questionnaire_data_in_single_language(
             self.questionnaire.data, 'en'
         )
-        self.parser = TechnologyParser(
+        self.parser = Technology2015Parser(
             config=self.config,
             n_a='',
             questionnaire=self.questionnaire,
@@ -258,8 +262,12 @@ class TechnologyParserTest(ParserTestMixin, TestCase):
 
 class ApproachParserTest(ParserTestMixin, TestCase):
 
-    fixtures = ['global_key_values', 'approaches', 'technologies',
-                'complete_questionnaires']
+    fixtures = [
+        'global_key_values',
+        'approaches',
+        'technologies',
+        'complete_questionnaires',
+    ]
 
     def setUp(self):
         super().setUp()
@@ -268,7 +276,7 @@ class ApproachParserTest(ParserTestMixin, TestCase):
         self.data = get_questionnaire_data_in_single_language(
             self.questionnaire.data, 'en'
         )
-        self.parser = ApproachParser(
+        self.parser = Approach2015Parser(
             config=self.config,
             n_a='',
             questionnaire=self.questionnaire,

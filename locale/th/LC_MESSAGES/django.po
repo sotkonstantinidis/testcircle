@@ -6,13 +6,13 @@
 # Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2018
 # Nattakran Kitsawat <nattakran.kitsawat@gmail.com>, 2018
 # Panruthai Tangprasert <panruthai.tang@gmail.com>, 2018
-# Sarawut geoinfo <geoinfo.sale@gmail.com>, 2018
+# geoinfo admin <geoinfo.sale@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-10 08:56+0200\n"
-"PO-Revision-Date: 2018-08-10 02:02+0000\n"
+"POT-Creation-Date: 2018-10-23 11:20+0200\n"
+"PO-Revision-Date: 2018-10-23 09:18+0000\n"
 "Last-Translator: Nattakran Kitsawat <nattakran.kitsawat@gmail.com>\n"
 "Language-Team: Thai (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/th/)\n"
@@ -35,7 +35,7 @@ msgstr "รหัสผ่าน"
 msgid "Updated {} users"
 msgstr "อัพเดท {} ผู้ใช้งาน"
 
-#: apps/accounts/templates/details.html:14 templates/base.html:147
+#: apps/accounts/templates/details.html:14 templates/base.html:160
 msgid "User Details"
 msgstr "ข้อมูลผู้ใช้งาน"
 
@@ -55,30 +55,36 @@ msgstr "นามสกุล:"
 msgid "Email:"
 msgstr "อีเมล์"
 
-#: apps/accounts/templates/details.html:38
+#: apps/accounts/templates/details.html:34
+#, fuzzy
+#| msgid "Notifications"
+msgid "Notification preferences"
+msgstr "ข้อความแจ้งเตือน"
+
+#: apps/accounts/templates/details.html:45
 msgid "UNCCD national focal point"
 msgstr "จุดโฟกัสระดับชาติของ UNCCD"
 
-#: apps/accounts/templates/details.html:41
+#: apps/accounts/templates/details.html:48
 #: apps/questionnaire/templates/details/category/unccd_header.html:6
 #: apps/unccd/templates/unccd/base.html:6 apps/unccd/views.py:54
-#: templates/base.html:256
+#: templates/base.html:269
 msgid "UNCCD"
 msgstr "UNCCD"
 
-#: apps/accounts/templates/details.html:42
+#: apps/accounts/templates/details.html:49
 msgid "UNCCD focal point for country:"
 msgstr "จุดโฟกัสระดับประเทศของ UNCCD"
 
-#: apps/accounts/templates/details.html:54
+#: apps/accounts/templates/details.html:61
 msgid "Public questionnaires"
 msgstr "แบบสอบถามทั่วไป"
 
 #: apps/accounts/templates/login.html:10 apps/accounts/templates/login.html:24
-#: apps/questionnaire/tests/test_utils.py:995
-#: apps/questionnaire/tests/test_utils.py:1003
+#: apps/questionnaire/tests/test_utils.py:1008
+#: apps/questionnaire/tests/test_utils.py:1016
 #: apps/search/tests/test_utils.py:101 apps/search/tests/test_utils.py:106
-#: templates/base.html:163
+#: templates/base.html:176
 msgid "Login"
 msgstr "เข้าสู่ระบบ"
 
@@ -95,8 +101,8 @@ msgid "If you do not yet have a login, please visit "
 msgstr "หากคุณยังไม่ได้สมัครสมาชิก กรุณาเข้าไปที่"
 
 #: apps/accounts/templates/login.html:36 apps/accounts/templates/login.html:41
-#: apps/wocat/templates/wocat/base.html:6 templates/base.html:121
-#: templates/base.html:122 templates/base.html:316
+#: apps/wocat/templates/wocat/base.html:6 templates/base.html:134
+#: templates/base.html:135 templates/base.html:329
 msgid "WOCAT"
 msgstr "WOCAT"
 
@@ -126,7 +132,7 @@ msgstr "ข้อมูล SLM ของฉัน"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:9
-#: apps/wocat/templates/wocat/home.html:112 templates/base.html:182
+#: apps/wocat/templates/wocat/home.html:125 templates/base.html:195
 msgid "Add SLM data"
 msgstr "เพิ่มข้อมูล SLM"
 
@@ -140,7 +146,7 @@ msgstr "ข้อความแจ้งเตือนทั้งหมด"
 
 #: apps/accounts/templates/questionnaires.html:33
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:84
 #: apps/technologies/templates/technologies/add_module.html:35
 #: apps/wocat/templates/wocat/partial/search.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:39
@@ -211,16 +217,16 @@ msgstr ""
 msgid "Climate Change Adaptation"
 msgstr "การปรับตัวตามการเปลี่ยนแปลงของสภาพภูมิอากาศ"
 
-#: apps/configuration/configuration.py:339 apps/questionnaire/admin.py:24
-#: apps/summary/renderers.py:548
+#: apps/configuration/configuration.py:347 apps/questionnaire/admin.py:24
+#: apps/summary/renderers/technologies_2015.py:24
 msgid "Yes"
 msgstr "ใช่"
 
-#: apps/configuration/configuration.py:339 apps/questionnaire/admin.py:25
+#: apps/configuration/configuration.py:347 apps/questionnaire/admin.py:25
 msgid "No"
 msgstr "ไม่ใช่"
 
-#: apps/configuration/configuration.py:2558
+#: apps/configuration/configuration.py:2599
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "ไม่ระบุชื่อ"
@@ -6381,7 +6387,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3002
 msgctxt "unccd label"
 msgid "Please provide relevant information on the holder of the rights"
-msgstr ""
+msgstr "โปรดให้ข้อมูลที่เกี่ยวข้องกับผู้ถือครองสิทธิ"
 
 #: apps/configuration/configuration_translations.py:3003
 #: apps/configuration/configuration_translations.py:4703
@@ -6395,7 +6401,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3017
 msgctxt "unccd label"
 msgid "Specify"
-msgstr ""
+msgstr "ระบุ"
 
 #: apps/configuration/configuration_translations.py:3005
 #: apps/configuration/configuration_translations.py:4704
@@ -6420,7 +6426,7 @@ msgstr "เป้าหมายทางยุทธศาสตร์ใดท
 #: apps/configuration/configuration_translations.py:4706
 msgctxt "unccd label"
 msgid "Type of impact"
-msgstr ""
+msgstr "ประเภทของผลกระทบ"
 
 #: apps/configuration/configuration_translations.py:3009
 #: apps/configuration/configuration_translations.py:4707
@@ -6438,20 +6444,20 @@ msgstr "ระบุถ้าเทคโนโลยีเกี่ยวข้
 #: apps/configuration/configuration_translations.py:4708
 msgctxt "unccd label"
 msgid "Location"
-msgstr ""
+msgstr "สถานที่"
 
 #: apps/configuration/configuration_translations.py:3012
 #: apps/configuration/configuration_translations.py:4734
 msgctxt "unccd label"
 msgid "Short description of the best practice"
-msgstr ""
+msgstr "คำอธิบายแบบสั้น ๆ ของวิธีปฏิบัติที่ดีที่สุด"
 
 #: apps/configuration/configuration_translations.py:3013
 #: apps/configuration/configuration_translations.py:4709
 msgctxt "unccd label"
 msgid ""
 "Brief description of the natural environment within the specified location."
-msgstr ""
+msgstr "คำอธิบายแบบสรุปของสภาพแวดล้อมทางธรรมชาติในพื้นที่"
 
 #: apps/configuration/configuration_translations.py:3016
 #: apps/configuration/configuration_translations.py:4710
@@ -6505,12 +6511,12 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:4715
 msgctxt "unccd label"
 msgid "Brief description of main activities, by objective"
-msgstr ""
+msgstr "คำอธิบายแบบสรุปของกิจกรรมหลัก ตามวัตถุประสงค์"
 
 #: apps/configuration/configuration_translations.py:3025
 msgctxt "unccd label"
 msgid "Reporting Entity"
-msgstr ""
+msgstr "รายงานกิจการ"
 
 #: apps/configuration/configuration_translations.py:3026
 #: apps/configuration/configuration_translations.py:4716
@@ -6533,7 +6539,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3029
 msgctxt "unccd label"
 msgid "List the partners"
-msgstr ""
+msgstr "รายชื่อของหุ้นส่วน"
 
 #: apps/configuration/configuration_translations.py:3030
 #: apps/configuration/configuration_translations.py:4719
@@ -6552,7 +6558,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3032
 msgctxt "unccd label"
 msgid "List local stakeholders involved"
-msgstr ""
+msgstr "รายชื่อผู้มีส่วนได้ส่วนเสียท้องถิ่นที่เกี่ยวข้อง"
 
 #: apps/configuration/configuration_translations.py:3033
 #: apps/configuration/configuration_translations.py:4721
@@ -6630,7 +6636,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:3047
 msgctxt "unccd label"
 msgid "Where?"
-msgstr ""
+msgstr "ที่ไหน"
 
 #: apps/configuration/configuration_translations.py:3048
 #: apps/configuration/configuration_translations.py:4728
@@ -6982,7 +6988,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:4702
 msgctxt "unccd label"
 msgid "Property Rights"
-msgstr ""
+msgstr "สิทธิในทรัพย์สิน"
 
 #: apps/configuration/configuration_translations.py:4711
 msgctxt "unccd label"
@@ -7073,7 +7079,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5003
 msgctxt "watershed label"
 msgid "Name of the watershed"
-msgstr "ชื่อของลุ่มน้ำ"
+msgstr "ชื่อของพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:5004
 msgctxt "approaches label"
@@ -7217,7 +7223,7 @@ msgstr "ความคิดเห็น"
 #: apps/configuration/configuration_translations.py:5124
 msgctxt "watershed label"
 msgid "Region/ State/ Province"
-msgstr "จังหวัด"
+msgstr "ภูมิภาค/รัฐ/จังหวัด"
 
 #: apps/configuration/configuration_translations.py:5125
 msgctxt "approaches label"
@@ -7234,12 +7240,12 @@ msgctxt "watershed label"
 msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
-msgstr ""
+msgstr "ข้อมูลจำเพาะเพิ่มเติมของสถานที่ตั้ง (เช่น เขตเทศบาล เมือง เป็นต้น) ถ้าเกี่ยวข้อง "
 
 #: apps/configuration/configuration_translations.py:5128
 msgctxt "watershed label_view"
 msgid "Further specification of location"
-msgstr ""
+msgstr "ข้อมูลเฉพาะเพิ่มเติมของสถานที่ตั้ง"
 
 #: apps/configuration/configuration_translations.py:5129
 msgctxt "approaches label"
@@ -7279,7 +7285,7 @@ msgstr "รูปภาพ"
 #: apps/configuration/configuration_translations.py:5136
 msgctxt "watershed label"
 msgid "Caption, explanation of photo"
-msgstr "คำอธิบายรูปภาพ"
+msgstr "คำบรรยายใต้ภาพหรือคำอธิบาย"
 
 #: apps/configuration/configuration_translations.py:5137
 #: apps/configuration/configuration_translations.py:31011
@@ -7458,7 +7464,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5175
 msgctxt "watershed label"
 msgid "Phone no. 1"
-msgstr "เบอร์โทรศัพท์เบอร์ที่ 1"
+msgstr "หมายเลขโทรศัพท์ 1"
 
 #: apps/configuration/configuration_translations.py:5176
 msgctxt "approaches label"
@@ -7478,7 +7484,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5179
 msgctxt "watershed label"
 msgid "Phone no. 2 (mobile)"
-msgstr "เบอร์โทรศัพท์เบอร์ที่ 2 (โทรศัพท์มือถือ)"
+msgstr "หมายเลขโทรศัพท์ 2 (มือถือ)"
 
 #: apps/configuration/configuration_translations.py:5180
 msgctxt "approaches label"
@@ -7577,7 +7583,7 @@ msgctxt "watershed label"
 msgid ""
 "Strengths/ advantages/ opportunities in the land user’s / watershed user’s "
 "view"
-msgstr "จุดแข็ง ข้อได้เปรียบ และโอกาส ในทัศนคติของผู้ใช้ที่ดินหรือผู้ใช้ประโยชน์จากลุ่มน้ำ"
+msgstr "จุดแข็ง / ข้อได้เปรียบ / โอกาสในทัศนคติของผู้ใช้ที่ดินหรือผู้ใช้พื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:5196
 #: apps/configuration/configuration_translations.py:5206
@@ -7593,13 +7599,13 @@ msgid ""
 "interest), cooperatives, industrial companies (e.g. mining), government "
 "institutions (e.g. state forest), etc.</p>"
 msgstr ""
-"<p><strong>ผู้ใช้ที่ดิน</strong> คือบุคคลหรือบุคลากรที่ดำเนินการหรือบำรุงรักษาเทคโนโลยี "
-"คำว่าผู้ใช้ประโยชน์ที่ดินนี้อาจหมายถึงเกษตรกรรายย่อยหรือเกษตรกรรายใหญ่ กลุ่ม (เพศ  อายุ  "
-"สถานภาพ ความสนใจ) สหกรณ์ บริษัทอุตสาหกรรม (เช่นการทำเหมืองแร่ )องค์กรของรัฐ "
-"(เช่นป่าของรัฐ )เป็นต้น </p><p><strong>ผู้ใช้ลุ่มน้ำ </strong> "
-"คือบุคคลหรือบุคลากรที่ดำเนินการหรือบำรุงรักษากิจกรรมการจัดการลุ่มน้ำ ซึ่งประกอบไปด้วย "
-"เกษตรกรรายย่อยหรือเกษตรกรรายใหญ่ กลุ่ม (เพศ อายุ สถานภาพ ความสนใจ) สหกรณ์ บริษัท "
-"อุตสาหกรรม (เช่นการทำเหมืองแร่ )องค์กรของรัฐ (เช่นป่าของรัฐ )เป็นต้น </p>"
+"<p><strong>ผู้ใช้ที่ดิน</strong> บุคคลหรือองค์กรที่ดำเนินการหรือบำรุงรักษาสภาพเทคโนโลยี "
+"รวมถึงเกษตรกรรายย่อยหรือรายใหญ่ กลุ่มต่างๆ (เพศ อายุ สถานภาพ ผลประโยชน์) สหกรณ์ "
+"บริษัทด้านอุตสาหกรรม (การทำเหมืองแร่) องค์กรของรัฐ (ป่าของรัฐ) เป็นต้น </"
+"p><p><strong>ผู้ใช้พื้นที่ลุ่มน้ำ </strong> "
+"คือบุคคลหรือองค์กรที่ดำเนินการหรือบำรุงรักษากิจกรรมการจัดการพื้นที่ลุ่มน้ำ "
+"รวมถึงเกษตรกรรายย่อยหรือรายใหญ่ กลุ่มต่างๆ (เพศ อายุ สถานภาพ ผลประโยชน์) สหกรณ์ "
+"บริษัทด้านอุตสาหกรรม (การทำเหมืองแร่) องค์กรของรัฐ (ป่าของรัฐ) เป็นต้น </p>"
 
 #: apps/configuration/configuration_translations.py:5197
 msgctxt "approaches label"
@@ -7667,7 +7673,7 @@ msgstr ""
 msgctxt "watershed label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the land user’s / watershed user’s view"
-msgstr "จุดด้อย/ข้อเสีย/ความเสี่ยง ในทัศนคติของผู้ใช้ที่ดินหรือผู้ใช้ประโยชน์จากลุ่มน้ำ"
+msgstr "จุดอ่อน / ข้อเสียเปรียบ / ความเสี่ยง ในทัศนคติของผู้ใช้ที่ดินหรือผู้ใช้พื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:5207
 msgctxt "approaches label"
@@ -7684,7 +7690,7 @@ msgctxt "watershed label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
 "person’s view"
-msgstr "จุดด้อย/ข้อเสีย/ความเสี่ยง ในทัศนคติของผู้รวบรวมหรือวิทยากรคนอื่นๆ "
+msgstr "จุดอ่อน / ข้อเสียเปรียบ / ความเสี่ยงในทัศนคติของผู้รวบรวมหรือวิทยากรหลัก"
 
 #: apps/configuration/configuration_translations.py:5212
 msgctxt "approaches label"
@@ -7708,7 +7714,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5215
 msgctxt "watershed label"
 msgid "How can they be overcome?"
-msgstr ""
+msgstr "มีวิธีการแก้ไขได้อย่างไร"
 
 #: apps/configuration/configuration_translations.py:5216
 msgctxt "approaches label"
@@ -7799,7 +7805,7 @@ msgstr "ชื่อตามท้องถิ่น"
 #: apps/configuration/configuration_translations.py:5237
 msgctxt "watershed label"
 msgid "General remarks regarding photos"
-msgstr "คำอธิบายภาพ"
+msgstr "ข้อสังเกตทั่วไปเกี่ยวกับรูปภาพ "
 
 #: apps/configuration/configuration_translations.py:5238
 msgctxt "approaches label"
@@ -7819,7 +7825,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5241
 msgctxt "watershed label"
 msgid "Specify the key resource person"
-msgstr "ระบุรายชื่อวิทยากร"
+msgstr "ระบุวิทยากรหลัก"
 
 #: apps/configuration/configuration_translations.py:5242
 msgctxt "approaches label"
@@ -7865,7 +7871,8 @@ msgctxt "watershed label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
 "watershed (if relevant)"
-msgstr "ระบุชื่อโครงการที่สนับสนุนข้อมูลหรือการวิเคราะห์เกี่ยวกับลุ่มน้ำ (ถ้าเกี่ยวข้อง)"
+msgstr ""
+"ชื่อของโครงการซึ่งอำนวยความสะดวกในการทำเอกสารหรือการประเมินพื้นที่ลุ่มน้ำ (ถ้าเกี่ยวข้อง)"
 
 #: apps/configuration/configuration_translations.py:5254
 #: apps/configuration/configuration_translations.py:5255
@@ -7874,7 +7881,7 @@ msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
 msgstr ""
-"ถ้าหากไม่พบรายชื่อโครงการของท่านในรายการ กรุณาติดต่อเลขานุการของทาง WOCAT (wocat@cde."
+"หากไม่พบรายชื่อโครงการของท่านในรายการ กรุณาติดต่อเลขานุการของทาง WOCAT (wocat@cde."
 "unibe.ch)"
 
 #: apps/configuration/configuration_translations.py:5256
@@ -7961,8 +7968,7 @@ msgctxt "watershed label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
 "of the watershed (if relevant)"
-msgstr ""
-"ระบุชื่อสถาบัน (หรือหลายสถาบัน) ที่สนับสนุนข้อมูลหรือการวิเคราะห์เกี่ยวกับลุ่มน้ำ (ถ้าเกี่ยวข้อง)"
+msgstr "ชื่อขององค์กรซึ่งอำนวยความสะดวกในการทำเอกสารหรือการประเมินพื้นที่ลุ่มน้ำ (ถ้าเกี่ยวข้อง)"
 
 #: apps/configuration/configuration_translations.py:5278
 #: apps/configuration/configuration_translations.py:5279
@@ -7971,7 +7977,7 @@ msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
 msgstr ""
-"ถ้าหากไม่พบรายชื่อสถาบันของท่านในรายการ กรุณาติดต่อเลขานุการของทาง WOCAT (wocat@cde."
+"หากไม่พบรายชื่อองค์กรของท่านในรายการ กรุณาติดต่อเลขานุการของทาง WOCAT (wocat@cde."
 "unibe.ch)"
 
 #: apps/configuration/configuration_translations.py:5280
@@ -8047,7 +8053,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5296
 msgctxt "watershed label"
 msgid "Title, author, year, ISBN"
-msgstr "หัวข้อ, ผู้เขียน, ปี, หมายเลข ISBN"
+msgstr "ชื่อเรื่อง ผู้เขียน ปี ISBN"
 
 #: apps/configuration/configuration_translations.py:5297
 msgctxt "approaches label"
@@ -8067,7 +8073,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5300
 msgctxt "watershed label"
 msgid "Available from where? Costs?"
-msgstr "ช่องทางในการสืบค้น และ ราคา"
+msgstr "หาใช้ได้จากที่ไหน มีค่าใช้จ่ายหรือเปล่า"
 
 #: apps/configuration/configuration_translations.py:5301
 msgctxt "approaches label"
@@ -8087,7 +8093,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5304
 msgctxt "watershed label"
 msgid "Title/ description"
-msgstr "หัวข้อ / คำอธิบาย"
+msgstr "ชื่อเรื่องหรือคำอธิบาย"
 
 #: apps/configuration/configuration_translations.py:5305
 msgctxt "approaches label"
@@ -8127,7 +8133,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5312
 msgctxt "watershed label"
 msgid "When were the data compiled (in the field)?"
-msgstr "วันที่เก็บรวบรวมข้อมูล (ในภาคสนาม)"
+msgstr "วันที่เก็บรวบรวมข้อมูล (ภาคสนาม) "
 
 #: apps/configuration/configuration_translations.py:5313
 msgctxt "approaches label"
@@ -8159,7 +8165,7 @@ msgctxt "watershed label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
 "use of data documented through WOCAT"
-msgstr "ผู้เก็บรวบรวมและวิทยากรหลักยอมรับเงื่อนไขที่เกี่ยวกับการใช้ข้อมูลที่ถูกบันทึกผ่านทาง WOCAT"
+msgstr "ผู้รวบรวมและวิทยากรหลักยอมรับเงื่อนไขเกี่ยวกับการใช้ข้อมูลที่ถูกบันทึกผ่านทาง WOCAT"
 
 #: apps/configuration/configuration_translations.py:5318
 msgctxt "watershed helptext"
@@ -8228,7 +8234,7 @@ msgstr "ที่อยู่"
 #: apps/configuration/configuration_translations.py:5327
 msgctxt "watershed label"
 msgid "Center of the watershed"
-msgstr "จุดกึ่งกลางของลุ่มน้ำ"
+msgstr "จุดกึ่งกลางของพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:5328
 msgctxt "approaches label"
@@ -8274,7 +8280,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:31025
 msgctxt "watershed label"
 msgid "Further comments"
-msgstr "คำแนะนำเพิ่มเติม"
+msgstr "ให้รายละเอียดเพิ่มเติม"
 
 #: apps/configuration/configuration_translations.py:5335
 msgctxt "approaches label"
@@ -9769,7 +9775,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:5902
 msgctxt "watershed helptext"
 msgid "Specify the centre of the watershed."
-msgstr "โปรดระบุตำแหน่งกึ่งกลางของลุ่มน้ำ"
+msgstr "โปรดระบุตำแหน่งกึ่งกลางของพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:5903
 msgctxt "approaches helptext"
@@ -13602,6 +13608,10 @@ msgid ""
 "against the prevailing wind direction</li><li>are often spaced according to "
 "slope</li></ul>"
 msgstr ""
+"<strong>มาตรการอนุรักษ์ด้วยวิธีพืช </strong><li>การใช้ประโยชน์จากหญ้าที่มีอายุยืน ไม้พุ่ม "
+"หรือต้นไม้</li><li> ใช้ระยะเวลานาน</li><li> นำไปสู่การเปลี่ยนแปลงในหน้าตัดของพื้นที่ลาดชัน</"
+"li><li> ทำเป็นแนวไปตามแนวระดับหรือแนวต้านลม</li><li>วางระยะห่างตามพื้นที่ลาดชัน</"
+"li><ul>"
 
 #: apps/configuration/configuration_translations.py:29123
 msgctxt "cca label"
@@ -13909,7 +13919,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:29180
 msgctxt "cca label"
 msgid "land use/ water rights"
-msgstr ""
+msgstr "การใช้ที่ดิน / สิทธิในการใช้น้ำ"
 
 #: apps/configuration/configuration_translations.py:29181
 msgctxt "cca label"
@@ -14234,14 +14244,15 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:31001
 msgctxt "watershed label"
 msgid "By national standards, is the watershed considered"
-msgstr ""
+msgstr "พื้นที่ลุ่มน้ำได้รับการสนใจในระดับชาติหรือไม่"
 
 #: apps/configuration/configuration_translations.py:31002
 msgctxt "watershed label"
 msgid ""
 "Indicate if the described watershed is representative of a larger watershed, "
 "river basin, or region."
-msgstr "โปรดระบุถ้าลุ่มน้ำที่อธิบายมีความเกี่ยวข้องกับลุ่มน้ำขนาดใหญ่ พื้นที่ลุ่มน้ำ หรือ เขตการปกครอง"
+msgstr ""
+"โปรดระบุถ้าพื้นที่ลุ่มน้ำที่อธิบาย มีความเกี่ยวข้องกับพื้นที่ลุ่มน้ำขนาดใหญ่ ลุ่มน้ำ หรือ เขตการปกครอง"
 
 #: apps/configuration/configuration_translations.py:31003
 #: apps/configuration/configuration_translations.py:31018
@@ -14254,25 +14265,25 @@ msgstr "ถ้าใช่ โปรดระบุ"
 #: apps/configuration/configuration_translations.py:31004
 msgctxt "watershed label"
 msgid "Total watershed area in km²"
-msgstr "พื้นที่รวมในลุ่มน้ำ (ตารางกิโลเมตร)"
+msgstr "พื้นที่รวมของพื้นที่ลุ่มน้ำ (ตารางกิโลเมตร)"
 
 #: apps/configuration/configuration_translations.py:31005
 msgctxt "watershed label"
 msgid "If precise area is not known, indicate approximately."
-msgstr "ถ้าหากไม่สามารถระบุตำแหน่งที่แน่นอนได้ โปรดระบุคร่าวๆ"
+msgstr "ถ้าไม่สามารถระบุตำแหน่งที่แน่นอน  ให้ระบุคร่าว ๆ"
 
 #: apps/configuration/configuration_translations.py:31006
 #: apps/configuration/configuration_translations.py:32706
 msgctxt "watershed label"
 msgid ""
 "Key reason(s) for selecting this watershed for assessment and documentation"
-msgstr "เหตุผลหลักในการเลือกลุ่มน้ำนี้ในการศึกษาและอ้างอิง"
+msgstr "เหตุผลหลักในการเลือกพื้นที่ลุ่มน้ำนี้ในการศึกษาและจัดทำเอกสาร"
 
 #: apps/configuration/configuration_translations.py:31007
 #: apps/configuration/configuration_translations.py:32707
 msgctxt "watershed label"
 msgid "Description of the watershed"
-msgstr "อธิบายเกี่ยวกับลุ่มน้ำ"
+msgstr "อธิบายเกี่ยวกับพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:31008
 msgctxt "watershed helptext"
@@ -14292,14 +14303,16 @@ msgid ""
 "More detailed descriptions may be uploaded to the database as separate "
 "documents.</p>"
 msgstr ""
-"<p>การอธิบายแบบละเอียดควรจะทำให้บุคคลภายนอกมองเห็นภาพที่รวบรัดและครอบคลุมเนื้อหาของลุ่มน้ำและการจัดการได้หมด "
-"ดังนั้นควรนำเสนอคำถามต่างๆที่สำคัญเช่น<ol><li>ลุ่มน้ำอยู่ที่ไหน(สิ่งแวดล้อมทางธรรมชาติและสิ่งแวดล้อมของมนุษย์)</"
-"li> อะไรคือลักษณะหรือองค์ประกอบที่สำคัญของการจัดการลุ่มน้ำ "
-"<li><li>เทคโนโลยีสำคัญที่ใช้ในการจัดการ (เทคนิค สังคม หรือ องค์กร)</"
+"<p>การอธิบายแบบละเอียดควรทำให้เห็นภาพที่ชัดเจน "
+"และครอบคลุมภาพรวมของพื้นที่ลุ่มน้ำและการจัดการต่อบุคคลภายนอก "
+"ความแตกต่างหลักของชั้นคุณภาพลุ่มน้ำทั้ง 3 ชั้น ควรได้รับการเน้นย้ำ ดังนั้นควรนำเสนอคำถามต่างๆ "
+"ที่สำคัญ <ol><li>พื้นที่ลุ่มน้ำอยู่ที่ไหน (สิ่งแวดล้อมทางธรรมชาติและสิ่งแวดล้อมของมนุษย์)</li> "
+"ลักษณะหรือองค์ประกอบที่สำคัญของการจัดการพื้นที่ลุ่มน้ำ <li><li>เทคโนโลยีสำคัญที่ใช้ในการจัดการ "
+"(เทคนิค สังคม หรือ องค์กร)</"
 "li><li>ใครคือผู้ที่มีส่วนร่วมและหน้าที่ของพวกเขา<li><li>อะไรบ้างในด้านสภาพแวดล้อม สังคม "
 "วัฒนธรรม และ เศรษฐกิจ ที่มีผลกระทบต่อการจัดการพื้นที่ลุ่มน้ำ</li></ol></"
-"p><p>ความยาวของคำอธิบายควรมีอักขระอยู่ที่ 2,500-3,000 ตัว สูงสุดจริงๆคือ 3,500 ตัว "
-"รายละเอียดเพิ่มเติมของคำอธิบายอาจจะอัปโหลดเพิ่มเติมเข้าสู่ระบบในรูปแบบเอกสารแยกต่างหาก"
+"p><p>ความยาวของคำอธิบายควรมีอักขระอยู่ที่ 2,500-3,000 ตัว สูงสุด คือ 3,500 ตัว "
+"รายละเอียดเพิ่มเติมของคำอธิบาย โดยการอัพโหลดไฟล์เข้าฐานข้อมูลเป็นเอกสารแยกต่างหาก  "
 
 #: apps/configuration/configuration_translations.py:31009
 msgctxt "watershed label"
@@ -14321,13 +14334,15 @@ msgctxt "watershed label"
 msgid ""
 "Describe a scenario for improved watershed management based on different "
 "scenario runs in the offline app."
-msgstr "อธิบายการจำลองสถานการณ์เพื่อพัฒนาการจัดการลุ่มน้ำโดยอาศัยการจำลองหลายๆสถานการณ์ที่ดำเนินการในโปรแกรมออฟไลน์"
+msgstr ""
+"อธิบายการจำลองสถานการณ์เพื่อพัฒนาการจัดการลุ่มน้ำโดยอาศัยการจำลองหลาย ๆ "
+"วิธีที่ดำเนินการในโปรแกรมออฟไลน์"
 
 #: apps/configuration/configuration_translations.py:31016
 #: apps/configuration/configuration_translations.py:32715
 msgctxt "watershed label"
 msgid "Are there conflicts between upstream and downstream land users?"
-msgstr "มีความขัดแย้งระหว่างผู้ใช้ที่ดินบริเวณพื้นที่ต้นน้ำหรือพื้นที่ท้ายน้ำหรือไม่"
+msgstr "มีความขัดแย้งระหว่างผู้ใช้ที่ดินบริเวณพื้นที่ต้นน้ำหรือและพื้นที่ท้ายน้ำหรือไม่"
 
 #: apps/configuration/configuration_translations.py:31017
 msgctxt "watershed helptext"
@@ -14338,7 +14353,7 @@ msgstr "เช่น ผู้ใช้น้ำ ผู้ใช้ป่า"
 #: apps/configuration/configuration_translations.py:32716
 msgctxt "watershed label"
 msgid "Are there synergies between upstream and downstream land users?"
-msgstr "มีความร่วมมือระหว่างผู้ใช้ที่ดินบริเวณพื้นที่ต้นน้ำหรือพื้นที่ท้ายน้ำหรือไม่"
+msgstr "มีความร่วมมือระหว่างผู้ใช้ที่ดินบริเวณพื้นที่ต้นน้ำและพื้นที่ท้ายน้ำหรือไม่"
 
 #: apps/configuration/configuration_translations.py:31020
 msgctxt "watershed helptext"
@@ -14353,89 +14368,89 @@ msgstr "มีพึ่งพาอาศัยกันระหว่างผ
 #: apps/configuration/configuration_translations.py:31023
 msgctxt "watershed helptext"
 msgid "E.g. regulated water flow of rivers, groundwater recharge"
-msgstr "เช่น ควบคุมการไหลของน้ำหรือการผุดของน้ำใต้ดิน"
+msgstr "เช่น ควบคุมการไหลของน้ำหรือการซึมลงเติมน้ำในแหล่งน้ำบาดาล"
 
 #: apps/configuration/configuration_translations.py:31026
 msgctxt "watershed label"
 msgid "Are there any solutions?"
-msgstr ""
+msgstr "มีวิธีแก้ปัญหาใด ๆ หรือไม่"
 
 #: apps/configuration/configuration_translations.py:31027
 msgctxt "watershed label"
 msgid "Can they be maintained in future?"
-msgstr ""
+msgstr "สิ่งเหล่านี้สามารถบำรุงรักษาสภาพต่อไปในอนาคตได้หรือไม่"
 
 #: apps/configuration/configuration_translations.py:31028
 msgctxt "watershed label"
 msgid "Map layer ID"
-msgstr ""
+msgstr "ID ของชั้นข้อมูลของแผนที่"
 
 #: apps/configuration/configuration_translations.py:31501
 msgctxt "watershed label"
 msgid "micro-mini scale"
-msgstr ""
+msgstr "ขนาดเล็กมาก (micro -mini)"
 
 #: apps/configuration/configuration_translations.py:31502
 msgctxt "watershed label"
 msgid "small scale"
-msgstr ""
+msgstr "ขนาดเล็ก"
 
 #: apps/configuration/configuration_translations.py:31503
 msgctxt "watershed label"
 msgid "medium scale"
-msgstr ""
+msgstr "ขนาดกลาง"
 
 #: apps/configuration/configuration_translations.py:31504
 msgctxt "watershed label"
 msgid "large scale (macro)"
-msgstr ""
+msgstr "ขนาดใหญ่ (macro)"
 
 #: apps/configuration/configuration_translations.py:31505
 msgctxt "watershed label"
 msgid "1-10 km²"
-msgstr ""
+msgstr "1-10 ตร.กม."
 
 #: apps/configuration/configuration_translations.py:31506
 msgctxt "watershed label"
 msgid "10-100 km²"
-msgstr ""
+msgstr "10-100 ตร.กม."
 
 #: apps/configuration/configuration_translations.py:31507
 msgctxt "watershed label"
 msgid "100-1,000 km²"
-msgstr ""
+msgstr "100-1,000 ตร.กม."
 
 #: apps/configuration/configuration_translations.py:31508
 msgctxt "watershed label"
 msgid "1,000-10,000 km²"
-msgstr ""
+msgstr "1,000-10,000 ตร.กม."
 
 #: apps/configuration/configuration_translations.py:31509
 msgctxt "watershed label"
 msgid ">10,000 km²"
-msgstr ""
+msgstr "> 10,000 ตร.กม."
 
 #: apps/configuration/configuration_translations.py:32701
 msgctxt "watershed label"
 msgid "Brief identification of the watershed"
-msgstr ""
+msgstr "อธิบายคร่าว ๆ เกี่ยวกับพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:32702
 msgctxt "watershed label"
 msgid ""
 "Contact details of resource persons and institutions involved in the "
 "documentation"
-msgstr ""
+msgstr "รายละเอียดที่ติดต่อได้ของผู้รวบรวมและองค์กรที่เกี่ยวข้องในการจัดเตรียมทำเอกสาร"
 
 #: apps/configuration/configuration_translations.py:32703
 msgctxt "watershed label"
 msgid "Conditions regarding the use of data documented through WOCAT"
-msgstr ""
+msgstr "เงื่อนไขการใช้ข้อมูลที่ได้บันทึกผ่านทาง WOCAT"
 
 #: apps/configuration/configuration_translations.py:32704
 msgctxt "watershed label"
 msgid "Define the area of the watershed"
-msgstr ""
+msgstr "อธิบายบริเวณของพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:32705
 msgctxt "watershed label"
@@ -14443,11 +14458,12 @@ msgid ""
 "Coordinates in latitude and longitude at the outlet and / or centre of the "
 "watershed area"
 msgstr ""
+"จุดพิกัดในรูปแบบ ละติจูดและลองจิจูดของจุดออก (outlet) และ/หรือ จุดกึ่งกลางของพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:32708
 msgctxt "watershed label"
 msgid "Photos of the watershed"
-msgstr ""
+msgstr "รูปภาพของพื้นที่ลุ่มน้ำ"
 
 #: apps/configuration/configuration_translations.py:32709
 msgctxt "watershed helptext"
@@ -14469,6 +14485,21 @@ msgid ""
 "vegetative measures applied in Baqa Kushta watershed, Afghanistan (photo: S. "
 "Bhuchar, Helvetas)</p></div></div>"
 msgstr ""
+"<ul><li>จัดหารูปภาพต่างๆ มาแสดงให้เห็นถึงภาพรวมและรายละเอียดของพื้นที่ลุ่มน้ำ</li><li> "
+"ควรมีไฟล์ภาพอย่างน้อย 2 ไฟล์ที่เป็นแบบดิจิตอล (JPG PNG GIF) ได้แก่ "
+"ไฟล์ต่างๆจากกล้องดิจิตอลหรือสแกนจากสิ่งพิมพ์ ฟิล์มเนกาทีฟ หรือฟิล์มสไลด์</"
+"li><li>รองรับไฟล์ขนาดสูงสุดไม่เกิน 3 MB รูปภาพควรมีคุณภาพ ความละเอียดสูง "
+"และไม่มีการปรับแต่งหรือบิดเบือนจำเป็นต้องมีการอธิบาย (คำบรรยายใต้ภาพ) "
+"สำหรับแต่ละภาพที่ส่งมา<li></li><p><strong> ตัวอย่าง </strong></p><div class=\"row"
+"\"><div class=\"medium-6 columns\"><img src=\"/static/assets/img/watershed/"
+"watershed_example_1.jpg\"><p class=\"form-example-legend\">พื้นที่ลุ่มน้ำ Sourakhak "
+"อัฟกานิสถาน ถูกใช้ในด้านพลังงาน ปศุสัตว์ ทุ่งหญ้าเลี้ยงสัตว์ และ พืชเศรษฐกิจ (ภาพถ่าย: S. "
+"Bhuchar, Helvetas)</p></div><div class=\"medium-6 columns\"><img src=\"/"
+"static/assets/img/watershed/watershed_example_2.jpg\"><p class=\"form-"
+"example-legend\">มาตรการอนุรักษ์ด้วยโครงสร้าง (การขุดร่องสวน ฝายชะลอน้ำ การกักเก็บน้ำ) "
+"ร่วมกันกับการจัดการ (การจัดการการตัดหญ้าเลี้ยงสัตว์และพุ่มไม้) มาตรการอนุรักษ์ด้วยวิธีพืช "
+"ที่ถูกใช้ในพื้นที่ลุ่มน้ำ Baqa Kushta อัฟกานิสถาน (ภาพถ่าย: S. Bhuchar, Helvetas)</p></"
+"div></div>"
 
 #: apps/configuration/configuration_translations.py:32710
 msgctxt "watershed label"
@@ -14593,37 +14624,286 @@ msgctxt "watershed label"
 msgid "References and links "
 msgstr ""
 
-#: apps/configuration/editions/technologies_2018.py:18
-msgid "x.x: Rename label"
-msgstr "x.x: เปลี่ยนชื่อหัวข้อ"
+#: apps/configuration/editions/technologies_2018.py:23
+msgid ""
+"1.2: A new option \"co-compiler\" was added to question \"Key resource "
+"persons\"."
+msgstr ""
 
-#: apps/configuration/editions/technologies_2018.py:22
-msgid "3.2: Added new question about initial land use"
+#: apps/configuration/editions/technologies_2018.py:28
+msgid ""
+"1.2: The questions \"Address\", \"Phone\" and \"E-Mail\" of \"Key resource "
+"persons\" were removed."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:33
+msgid ""
+"1.3: The question \"Date of compilation in the field\" was moved to 7.1."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:42
+msgid ""
+"2.5: The questions about \"Spread of the Technology\" (previously in 3.5) "
+"were integrated into 2.5."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:47
+msgid ""
+"2.5: A new question \"If precise area is known, please specify\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:51
+msgid ""
+"2.5: A new question \"Is/are the technology site(s) located in a permanently "
+"protected area?\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:60
+#, fuzzy
+#| msgid "3.2: Added new question about initial land use"
+msgid "3.2: A separate question about \"Mixed land use\" was added."
 msgstr "3.2: เพิ่มคำถามใหม่เกี่ยวกับผู้ใช้ที่ดิน"
 
-#: apps/configuration/models.py:19 apps/questionnaire/models.py:63
+#: apps/configuration/editions/technologies_2018.py:64
+msgid ""
+"3.2: New questions about crops, intercropping and crop rotation for land use "
+"type \"Cropland\" were added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:69
+msgid ""
+"3.2: The question \"Main crops\" of land use type \"Cropland\" was removed."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:73
+msgid ""
+"3.2: New questions about grazing land (animal type, crop-livestock "
+"management practices, products and services) were added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:78
+msgid ""
+"3.2: The question \"Main animal species and products\" of land use type "
+"\"Grazing land\" was removed."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:82
+msgid ""
+"3.2: A new question \"Livestock population\" for land use type \"Grazing land"
+"\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:86
+msgid ""
+"3.2: The option \"semi-nomadism\" of land use type \"Grazing land\" was "
+"renamed to \"semi-nomadic pastoralism\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:90
+msgid ""
+"3.2: A new option \"transhumant pastoralism\" was added to land use type "
+"\"Grazing land\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:94
+msgid ""
+"3.2: New questions about forest type and trees for land use type \"Forest/ "
+"woodlands\" were added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:99
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid ""
+#| "If land use has changed due to the implementation of the Technology, "
+#| "indicate land use before implementation of the Technology"
+msgid ""
+"3.2: The question \"If land use has changed due to the implementation of the "
+"Technology, indicate land use before implementation of the Technology\" was "
+"removed. This information can now be entered in 3.3."
+msgstr ""
+"ถ้าการใช้ที่ดินมีการเปลี่ยนแปลงเนื่องมาจากการนำเทคโนโลยีไปปฏิบัติใช้ "
+"ให้ระบุการใช้ที่ดินก่อนนำเทคโนโลยีไปปฏิบัติใช้"
+
+#: apps/configuration/editions/technologies_2018.py:103
+#, fuzzy
+#| msgid "3.2: Added new question about initial land use"
+msgid "3.3 (new): A new subcategory about initial land use was added."
+msgstr "3.2: เพิ่มคำถามใหม่เกี่ยวกับผู้ใช้ที่ดิน"
+
+#: apps/configuration/editions/technologies_2018.py:108
+msgid ""
+"3.4 (previously 3.3): The question \"Number of growing seasons per year\" "
+"was moved to 3.2 - land use type \"Cropland\". Data was migrated "
+"automatically only if land use type \"Cropland\" was selected."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:113
+msgid ""
+"3.4 (previously 3.3): The question \"Livestock density (if relevant)\" was "
+"removed. Use \"Comments\" of \"3.2 Current land use type(s)\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:118
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid ""
+#| "Country/ region/ locations where the Technology has been applied and "
+#| "which are covered by this assessment"
+msgid ""
+"3.5: The previous questions of \"3.5 Spread of the Technology\" were "
+"integrated into \"2.5 Country/ region/ locations where the Technology has "
+"been applied and which are covered by this assessment\"."
+msgstr "ประเทศภูมิภาค หรือสถานที่ตั้งที่เทคโนโลยีได้นำไปใช้และได้รับการครอบคลุมโดยการประเมินนี้"
+
+#: apps/configuration/editions/technologies_2018.py:123
+msgid ""
+"3.5: The question \"Comments\" about \"Spread of the Technology"
+"\" (previously 3.5) was removed; its content needs to be merged with "
+"\"Comments\" of 2.5."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:127
+msgid ""
+"3.6: A new question \"Differentiate tillage systems\" was added when "
+"selecting agronomic measure \"A3: Soil surface treatment\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:131
+msgid ""
+"3.6: A new option \"A6: Residue Management\" was added to \"agronomic "
+"measures\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:135
+msgid ""
+"3.6 The option \"A6: Others\" of \"agronomic measures\" was renamed to \"A7: "
+"Others\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:139
+msgid ""
+"3.6: A new question \"Specify residue management\" was added when selecting "
+"agronomic measure \"A6: residue management\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:143
+msgid ""
+"3.6: A new question to specify was added when selecting \"other measures\"."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:147
+msgid ""
+"3.7: A new question to specify was added when selecting other degradation "
+"type."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:151
+msgid "4: The numbering was updated (4.2 was removed)."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:156
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Technical specifications (related to technical drawing)"
+msgid ""
+"4.1: The previous question \"4.2 Technical specifications\" was integrated "
+"into \"4.1 Technical drawing\"."
+msgstr "ข้อมูลจำเพาะด้านเทคนิค (แบบแปลนทางเทคนิคของเทคโนโลยี)"
+
+#: apps/configuration/editions/technologies_2018.py:165
+msgid ""
+"4.3 (previously 4.4): The question \"Type of measure\" was removed from "
+"Establishment activities."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:169
+msgid ""
+"4.4 (previously 4.5): A new question \"Total costs for establishment of the "
+"Technology in USD\" (automatically calculated) was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:174
+msgid ""
+"4.5 (previously 4.6): The question \"Type of measure\" was removed from "
+"Maintenance activities."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:178
+msgid ""
+"4.6 (previously 4.7): A new question \"Total costs for maintenance of the "
+"Technology in USD\" (automatically calculated) was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:210
+msgid ""
+"5.4: A new question about water quality (referring to ground or surface "
+"water) was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:214
+msgid "5.6: More options for question \"Age of land users\" can be selected."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:218
+#, fuzzy
+#| msgid "3.2: Added new question about initial land use"
+msgid "5.8: A new question about traditional land use rights was added."
+msgstr "3.2: เพิ่มคำถามใหม่เกี่ยวกับผู้ใช้ที่ดิน"
+
+#: apps/configuration/editions/technologies_2018.py:222
+msgid ""
+"5.9: A new question for comments regarding \"Access to services and "
+"infrastructure\" was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:226
+msgid "6.1: A new question for comments about on-site impacts was added."
+msgstr ""
+
+#: apps/configuration/editions/technologies_2018.py:230
+msgid ""
+"7.4 (new): A new question for general remarks about the questionnaire and "
+"feedback was added."
+msgstr ""
+
+#: apps/configuration/models.py:19 apps/questionnaire/models.py:64
 msgid "UNCCD Focal Point"
 msgstr "จุดโฟกัสของ UNCCD"
 
 #: apps/configuration/templates/configuration/edition_notes.html:6
+#: apps/configuration/templates/configuration/edition_notes.html:11
 msgid "Changes in the questionnaires structure"
 msgstr "เปลี่ยนโครงสร้างของแบบสอบถาม"
 
-#: apps/configuration/templates/configuration/edition_notes.html:11
+#: apps/configuration/templates/configuration/edition_notes.html:13
 msgid "Rationale"
 msgstr "ที่มาและความสำคัญ"
 
-#: apps/configuration/templates/configuration/edition_notes.html:13
+#: apps/configuration/templates/configuration/edition_notes.html:15
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "      The structure of the questionnaire is updated periodically.\n"
+#| "      This reflects the continuous process of enhancing the data "
+#| "quality.\n"
+#| "      Questions may be altered (e.g. an open text answer is changed into "
+#| "a structured answer), added or deleted.\n"
+#| "      Existing data can be updated if the compiler of the questionnaire "
+#| "starts editing a published case.\n"
+#| "      The specific changes are listed below.\n"
+#| "    "
 msgid ""
 "\n"
-"      The structure of the questionnaire is updated periodically.\n"
-"      This reflects the continuous process of enhancing the data quality.\n"
-"      Questions may be altered (e.g. an open text answer is changed into a "
-"structured answer), added or deleted.\n"
-"      Existing data can be updated if the compiler of the questionnaire "
+"          The structure of the questionnaire is updated periodically.\n"
+"          This reflects the continuous process of enhancing the data "
+"quality.\n"
+"          Questions may be altered (e.g. an open text answer is changed into "
+"a structured answer), added or deleted.\n"
+"          Existing data can be updated if the compiler of the questionnaire "
 "starts editing a published case.\n"
-"      The specific changes are listed below.\n"
-"    "
+"          The specific changes are listed below.\n"
+"        "
 msgstr ""
 "\n"
 "โครงสร้างของแบบสอบถามจะมีการอัพเดทเป็นช่วงๆ\n"
@@ -14632,6 +14912,66 @@ msgstr ""
 "หรือมีการเพิ่มหรือลบ\n"
 "ข้อมูลที่ปรากฎจะสามารถอัพเดทได้เมื่อผู้รวบรวมแบบสอบถามได้ทำการเริ่มแก้ไขเป็นสาธารณะ\n"
 "การเปลี่ยนแปลงแบบจำเพาะจะเป็นไปตามรายการข้างล่างดังนี้"
+
+#: apps/configuration/templates/configuration/edition_notes.html:24
+#: apps/configuration/templates/configuration/edition_notes.html:31
+#: apps/configuration/templates/configuration/edition_notes.html:38
+#, fuzzy
+#| msgctxt "technologies label_view"
+#| msgid "Name of the SLM Technology"
+msgid "How to update an SLM Technology"
+msgstr "ชื่อของเทคโนโลยี SLM"
+
+#: apps/configuration/templates/configuration/edition_notes.html:26
+msgid ""
+"\n"
+"          Create a new version of the Technology. This creates a new draft "
+"version of a submitted Technology. The original data is copied into the new "
+"version. You now need to enter or complement data for questions that were "
+"added or modified in the new edition of the questionnaire.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:34
+msgid ""
+"\n"
+"          During this process, you can still open and view the original data "
+"in the previous submitted and published version of your Technology. This "
+"allows you to cross-check the data and compare the two versions.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:41
+msgid ""
+"\n"
+"          When updating your Technology, please focus on the changes made in "
+"the new edition of the questionnaire, which are listed below.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:46
+msgid ""
+"\n"
+"          After you finish editing the data, your technology will be "
+"redirected through the WOCAT review process.\n"
+"        "
+msgstr ""
+
+#: apps/configuration/templates/configuration/edition_notes.html:51
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "          If you approve this %(questionnaire_type)s it will be published "
+#| "and available to public users.\n"
+#| "        "
+msgid ""
+"\n"
+"          Once this is completed, the new version of the Technology will be "
+"published and become visible to the public.\n"
+"        "
+msgstr ""
+"\n"
+"ถ้าหากคุณอนุมัติ %(questionnaire_type)s นี้ มันจะถูกเผยแพร่และเข้าถึงได้โดยผู้ใช้งานสาธารณะ"
 
 #: apps/configuration/views.py:65
 msgid "Built configuration caches."
@@ -14665,23 +15005,95 @@ msgstr "มีการแก้ไขเนื้อหา"
 msgid "editor finished"
 msgstr "จบการเรียบเรียงแล้ว"
 
-#: apps/notifications/conf.py:57
-msgid "review"
-msgstr "ตรวจสอบ"
+#: apps/notifications/conf.py:39
+#, fuzzy
+#| msgid "This questionnaire can be edited."
+msgid "This practice has been edited"
+msgstr "แบบสอบถามนี้สามารถแก้ไขได้"
 
-#: apps/notifications/conf.py:58
-msgid "publication"
-msgstr "การเผยแพร่"
+#: apps/notifications/conf.py:40
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgid "This practice has been submitted"
+msgstr "ยินดีด้วยการปฏิบัติของคุณได้รับการเผยแพร่แล้ว!!"
 
-#: apps/notifications/conf.py:77
+#: apps/notifications/conf.py:41
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "        This %(questionnaire_type)s is currently waiting for review "
+#| "before it can be published.\n"
+#| "      "
+msgid ""
+"This practice has been approved and is awaiting final review before it can "
+"be published"
+msgstr ""
+"\n"
+"%(questionnaire_type)s นี้ กำลังอยู่ในขั้นตอนการรอตรวจสอบก่อนที่จะสามารถเผยแพร่ได้"
+
+#: apps/notifications/conf.py:42
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgid "Congratulations, this practice has been published!"
+msgstr "ยินดีด้วยการปฏิบัติของคุณได้รับการเผยแพร่แล้ว!!"
+
+#: apps/notifications/conf.py:43
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgid "This practice has been deleted"
+msgstr "ยินดีด้วยการปฏิบัติของคุณได้รับการเผยแพร่แล้ว!!"
+
+#: apps/notifications/conf.py:44 apps/notifications/conf.py:45
+msgid "This practice has been rejected and needs revision"
+msgstr ""
+
+#: apps/notifications/conf.py:46
+#, fuzzy
+#| msgid "Change compiler"
+msgid "You are a compiler"
+msgstr "เปลี่ยนผู้รวบรวม"
+
+#: apps/notifications/conf.py:47
+msgid "You have been removed as a compiler"
+msgstr ""
+
+#: apps/notifications/conf.py:48
+msgid "You are an editor"
+msgstr ""
+
+#: apps/notifications/conf.py:49
+msgid "You have been removed as an editor"
+msgstr ""
+
+#: apps/notifications/conf.py:50
+#, fuzzy
+#| msgid "Update reviewers"
+msgid "You are a reviewer"
+msgstr "อัพเดทผู้ตรวจสอบ"
+
+#: apps/notifications/conf.py:51
+msgid "You have been removed as a reviewer"
+msgstr ""
+
+#: apps/notifications/conf.py:52
+#, fuzzy
+#| msgid "Update publishers"
+msgid "You are a publisher"
+msgstr "อัพเดทผู้เผยแพร่"
+
+#: apps/notifications/conf.py:53
+msgid "You have been removed as a publisher"
+msgstr ""
+
+#: apps/notifications/conf.py:89
 msgid "No emails at all"
 msgstr "ไม่มีอีเมล์สำหรับติดต่อ"
 
-#: apps/notifications/conf.py:78
+#: apps/notifications/conf.py:90
 msgid "Only emails that I need to work on"
 msgstr "เฉพาะอีเมล์ที่ฉันต้องการใช้ต่อ"
 
-#: apps/notifications/conf.py:79
+#: apps/notifications/conf.py:91
 msgid "All emails"
 msgstr "อีเมล์ทั้งหมด"
 
@@ -14714,7 +15126,7 @@ msgstr "ถูกแก้ไขโดย: {}"
 msgid "{compiler} is finished editing"
 msgstr "{compiler} ได้สิ้นสุดการแก้ไข"
 
-#: apps/notifications/models.py:534
+#: apps/notifications/models.py:649
 msgid "Subscribed for following changes in the review status"
 msgstr ""
 
@@ -14724,7 +15136,7 @@ msgstr ""
 msgid "Created"
 msgstr "สร้าง"
 
-#: apps/notifications/receivers.py:51
+#: apps/notifications/receivers.py:52
 #: apps/notifications/tests/test_receivers.py:67
 msgid "Deleted"
 msgstr "ลบ"
@@ -14778,11 +15190,6 @@ msgid "Dear"
 msgstr "ผู้ใช้บริการที่รัก"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:36
-#: apps/notifications/templates/notifications/mail/plain_text.txt:6
-msgid "See questionnaire in full"
-msgstr "ดูแบบสอบถามทั้งหมด"
-
-#: apps/notifications/templates/notifications/mail/html_text.html:41
 #: apps/notifications/templates/notifications/mail/plain_text.txt:8
 msgid ""
 "This is an automated message, please don't reply. If you have any questions, "
@@ -14790,30 +15197,422 @@ msgid ""
 msgstr ""
 "นี่คือข้อความอัตโนมัติ กรุณาไม่ต้องตอบกลับ  ถ้าคุณมีข้อสงสัยใดๆ กรุณาติดต่อเลขานุการของ WOCAT"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:46
+#: apps/notifications/templates/notifications/mail/html_text.html:41
 #: apps/notifications/templates/notifications/mail/plain_text.txt:11
 msgid ""
 "You're getting this message because your account on qcat.wocat.net is linked "
 "to this address."
 msgstr "คุณได้รับข้อความนี้เนื่องจากสมาชิกของคุณใน qcat.wocat.net ได้ถูกเชื่อมต่อในที่อยู่นี้"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:51
+#: apps/notifications/templates/notifications/mail/html_text.html:46
 #: apps/notifications/templates/notifications/mail/plain_text.txt:12
 msgid "Change subscription settings"
 msgstr "เปลี่ยนแปลงการตั้งค่าสมาชิก"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:58
+#: apps/notifications/templates/notifications/mail/html_text.html:53
 msgid "WOCAT Website"
 msgstr "เว็บไซต์ของ WOCAT"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:62
+#: apps/notifications/templates/notifications/mail/html_text.html:57
 msgid "WOCAT SLM Database"
 msgstr "ฐานข้อมูล SLM ของ WOCAT"
 
-#: apps/notifications/templates/notifications/mail/html_text.html:71
-#: templates/base.html:315
+#: apps/notifications/templates/notifications/mail/html_text.html:66
+#: templates/base.html:328
 msgid "Contact"
 msgstr "ติดต่อ"
+
+#: apps/notifications/templates/notifications/mail/partial/compiler_added.html:5
+#, fuzzy
+#| msgid "Change compiler"
+msgctxt "You have been added as a compiler of [questionnaire]."
+msgid "a compiler"
+msgstr "เปลี่ยนผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/compiler_added.html:8
+msgid ""
+"As a compiler, you can invite editors to work on the SLM practice and you "
+"can submit the practice for review."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/compiler_removed.html:5
+#, fuzzy
+#| msgid "Change compiler"
+msgctxt "You have been removed as a compiler of [questionnaire]."
+msgid "a compiler"
+msgstr "เปลี่ยนผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/deleted.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been deleted from "
+"the Global SLM Database."
+msgid "The SLM practice"
+msgstr "การปฏิบัติ SLM ของ WOCAT"
+
+#: apps/notifications/templates/notifications/mail/partial/deleted.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been deleted from "
+"the Global SLM Database."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/deleted.html:11
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been deleted from "
+"the Global SLM Database."
+msgid "has been deleted from the Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been edited by "
+"[user]."
+msgid "The SLM practice"
+msgstr "การปฏิบัติ SLM ของ WOCAT"
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been edited by "
+"[user]."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:11
+#, fuzzy
+#| msgid "was edited by"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been edited by "
+"[user]."
+msgid "has been edited by"
+msgstr "ถูกแก้ไขโดย"
+
+#: apps/notifications/templates/notifications/mail/partial/edited.html:18
+msgctxt ""
+"[user] left you a message related to the edit of this SLM practice: [message]"
+msgid "left you a message related to the edit of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:13
+msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
+msgid "You have been added as"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:14
+#, fuzzy
+#| msgid "Manage editors"
+msgctxt ""
+"You have been added as an editor of [questionnaire] compiled by [user]."
+msgid "an editor"
+msgstr "จัดการการแก้ไข"
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:15
+msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
+msgid "of"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:18
+#, fuzzy
+#| msgid "Compiler"
+msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/editor_added.html:24
+msgid ""
+"As an editor, you can edit the SLM practice in coordination with the "
+"compiler of the SLM practice. However, as an editor you cannot submit the "
+"SLM practice for review or invite other editors."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:13
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "You have been removed as"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:14
+#, fuzzy
+#| msgid "Manage editors"
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "an editor"
+msgstr "จัดการการแก้ไข"
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:15
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "of"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/editor_removed.html:18
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"You have been removed as [role] of [questionnaire] compiled by [user]."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:5
+#, fuzzy
+#| msgid "Congratulations your practice has been published!"
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid "Congratulations, the SLM practice"
+msgstr "ยินดีด้วยการปฏิบัติของคุณได้รับการเผยแพร่แล้ว!!"
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:11
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid "has been published in the Global SLM Database by"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:13
+msgctxt ""
+"Congratulations, the SLM practice [questionnaire] compiled by [user] has "
+"been published in the Global SLM Database by [user] and can now be viewed by "
+"all WOCAT members in the Network and visitors of the database. Thank you for "
+"sharing the SLM practice."
+msgid ""
+"and can now be viewed by all WOCAT members in the Network and visitors of "
+"the database. Thank you for sharing the SLM practice."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:17
+msgid "You can find your SLM practice published under the following link:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/published.html:24
+msgctxt ""
+"[user] left you a message related to the publication of this SLM practice: "
+"[message]"
+msgid "left you a message related to the publication of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/publisher_added.html:5
+#, fuzzy
+#| msgid "Publisher"
+msgctxt ""
+"You have been added as a publisher of [questionnaire] compiled by [user]."
+msgid "a publisher"
+msgstr "ผู้เผยแพร่"
+
+#: apps/notifications/templates/notifications/mail/partial/publisher_added.html:8
+msgid ""
+"The SLM practice has been reviewed and approved. Please complete the final "
+"review of the SLM practice as soon as possible. If the SLM practice requires "
+"further revision please reject the SLM practice and send your written "
+"feedback to the compiler, editors, and reviewers of the SLM practice. If the "
+"quality of the SLM practice is good, please publish the SLM practice in the "
+"Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/publisher_removed.html:5
+#, fuzzy
+#| msgid "Publisher"
+msgctxt ""
+"You have been removed as a publisher of [questionnaire] compiled by [user]."
+msgid "a publisher"
+msgstr "ผู้เผยแพร่"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_reviewed.html:7
+msgid ""
+"If you are a reviewer, please review the revised SLM practice to enable the "
+"publisher to access the SLM practice as soon as it has been resubmitted. You "
+"will receive an e-mail informing you that the SLM practice has been "
+"submitted."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "The SLM practice"
+msgstr "การปฏิบัติ SLM ของ WOCAT"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:11
+#, fuzzy
+#| msgid "was created by"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "has been rejected by"
+msgstr "ถูกสร้างโดย"
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:13
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been rejected by "
+"[user] and needs revision."
+msgid "and needs revision."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:16
+msgid ""
+"Please revise the SLM practice according to the written feedback from the "
+"reviewer and resubmit the SLM practice to the Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:23
+msgctxt ""
+"[user] left you a message related to the rejection of this SLM practice: "
+"[message]"
+msgid "left you a message related to the rejection of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "The SLM practice"
+msgstr "การปฏิบัติ SLM ของ WOCAT"
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:11
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "has been approved by the reviewer of the SLM practice"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:13
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been approved by the "
+"reviewer of the SLM practice [user] and needs a final review before it can "
+"be published."
+msgid "and needs a final review before it can be published."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:16
+msgid ""
+"If you are a publisher, please review the SLM practice as soon as possible "
+"and send your written feedback to the compiler, editors, and reviewers of "
+"the SLM practice. If the quality of the SLM practice is good, please publish "
+"the SLM practice."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewed.html:21
+msgctxt ""
+"[user] left you a message related to the review of this SLM practice: "
+"[message]"
+msgid "left you a message related to the review of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:5
+#, fuzzy
+#| msgid "Reviewer"
+msgctxt ""
+"You have been added as a reviewer of [questionnaire] compiled by [user]."
+msgid "a reviewer"
+msgstr "ผู้ตรวจสอบ"
+
+#: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:8
+msgid ""
+"Please review the SLM practice as soon as possible and send your written "
+"feedback to the compiler and all the editors of the SLM practice. If the "
+"quality of the SLM practice is good, please approve it for final review "
+"before publishing."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/reviewer_removed.html:5
+#, fuzzy
+#| msgid "Reviewer"
+msgctxt ""
+"You have been removed as a reviewer of [questionnaire] compiled by [user]."
+msgid "a reviewer"
+msgstr "ผู้ตรวจสอบ"
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:5
+#, fuzzy
+#| msgid "WOCAT SLM practices"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been submitted to "
+"the Global SLM Database."
+msgid "The SLM practice"
+msgstr "การปฏิบัติ SLM ของ WOCAT"
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:8
+#, fuzzy
+#| msgid "Compiler"
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been submitted to "
+"the Global SLM Database."
+msgid "compiled by"
+msgstr "ผู้รวบรวม"
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:11
+msgctxt ""
+"The SLM practice [questionnaire] compiled by [user] has been submitted to "
+"the Global SLM Database."
+msgid "has been submitted to the Global SLM Database."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:15
+msgid ""
+"If you are a reviewer, please review the SLM practice as soon as possible, "
+"and send your written feedback to the compiler of the SLM practice. If the "
+"quality of the SLM practice is good, please approve it for final review "
+"before publishing. If you are a member of the WOCAT Secretariat, please "
+"review or add an external reviewer."
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/partial/submitted.html:21
+msgctxt ""
+"[user] left you a message related to the submission of this SLM practice: "
+"[message]"
+msgid "left you a message related to the submission of this SLM practice:"
+msgstr ""
+
+#: apps/notifications/templates/notifications/mail/plain_text.txt:6
+msgid "See questionnaire in full"
+msgstr "ดูแบบสอบถามทั้งหมด"
 
 #: apps/notifications/templates/notifications/mail/plain_text.txt:13
 msgid "Visit qcat.wocat.net"
@@ -14830,6 +15629,57 @@ msgid ""
 msgstr ""
 "ทางเราขอเชิญคุณเพื่อทำการแลกเปลี่ยนเกี่ยวกับกรณีของคุณหรือประเด็นเกี่ยวกับ SLM หรือเครื่องมือของ "
 "WOCAT ผ่านทางแพลตฟอร์ม WOCATpedia"
+
+#: apps/notifications/templates/notifications/notification/1.html:9
+msgid "was created by"
+msgstr "ถูกสร้างโดย"
+
+#: apps/notifications/templates/notifications/notification/2.html:9
+msgid "was deleted by"
+msgstr "ถูกลบโดย"
+
+#: apps/notifications/templates/notifications/notification/3.html:10
+msgctxt "New status of the questionnaire, e.g. 'published'"
+msgid "is now"
+msgstr ""
+
+#: apps/notifications/templates/notifications/notification/3.html:11
+msgctxt "A questionnaire was rejected by..."
+msgid "rejected by"
+msgstr ""
+
+#: apps/notifications/templates/notifications/notification/3.html:11
+msgctxt "A questionnaire was approved by..."
+msgid "approved by"
+msgstr "อนุมัติโดย"
+
+#: apps/notifications/templates/notifications/notification/4.html:9
+msgid "has a new"
+msgstr "มีใหม่"
+
+#: apps/notifications/templates/notifications/notification/4.html:10
+msgid "invited by"
+msgstr "เชิญโดย"
+
+#: apps/notifications/templates/notifications/notification/5.html:9
+msgid "was detached of"
+msgstr "ถูกแยกออกมาจาก"
+
+#: apps/notifications/templates/notifications/notification/5.html:10
+msgid "role:"
+msgstr "บทบาท คือ"
+
+#: apps/notifications/templates/notifications/notification/5.html:10
+msgid "removed by"
+msgstr "ลบโดย"
+
+#: apps/notifications/templates/notifications/notification/6.html:9
+msgid "was edited by"
+msgstr "ถูกแก้ไขโดย"
+
+#: apps/notifications/templates/notifications/notification/7.html:9
+msgid "editing has been finalized by"
+msgstr "การแก้ไขถูกสรุปโดย"
 
 #: apps/notifications/templates/notifications/partial/list.html:7
 msgid "Date"
@@ -14891,15 +15741,14 @@ msgstr "คุณต้องดำเนินการต่อไปสู่
 msgid "No notifications."
 msgstr "ไม่มีข้อความแจ้งเตือน"
 
-#: apps/notifications/templates/notifications/partial/message_modal.html:5
-#: apps/notifications/templates/notifications/partial/message_modal.html:14
+#: apps/notifications/templates/notifications/partial/message_modal.html:4
+msgid "Click to display message from"
+msgstr "กดเพื่อแสดงข้อความจาก"
+
+#: apps/notifications/templates/notifications/partial/message_modal.html:8
 msgctxt "Jay wrote you a message"
 msgid "wrote"
 msgstr ""
-
-#: apps/notifications/templates/notifications/partial/message_modal.html:10
-msgid "Click to display message from"
-msgstr "กดเพื่อแสดงข้อความจาก"
 
 #: apps/notifications/templates/notifications/preferences.html:16
 msgid "Your email preferences"
@@ -14908,57 +15757,6 @@ msgstr "การตั้งค่าอีเมล์ของคุณ"
 #: apps/notifications/templates/notifications/preferences.html:21
 msgid "Save preferences"
 msgstr "บันทึกการตั้งค่า"
-
-#: apps/notifications/templates/notifications/subject/1.html:9
-msgid "was created by"
-msgstr "ถูกสร้างโดย"
-
-#: apps/notifications/templates/notifications/subject/2.html:9
-msgid "was deleted by"
-msgstr "ถูกลบโดย"
-
-#: apps/notifications/templates/notifications/subject/3.html:10
-msgctxt "New status of the questionnaire, e.g. 'published'"
-msgid "is now"
-msgstr ""
-
-#: apps/notifications/templates/notifications/subject/3.html:11
-msgctxt "A questionnaire was rejected by..."
-msgid "rejected by"
-msgstr ""
-
-#: apps/notifications/templates/notifications/subject/3.html:11
-msgctxt "A questionnaire was approved by..."
-msgid "approved by"
-msgstr "อนุมัติโดย"
-
-#: apps/notifications/templates/notifications/subject/4.html:9
-msgid "has a new"
-msgstr "มีใหม่"
-
-#: apps/notifications/templates/notifications/subject/4.html:10
-msgid "invited by"
-msgstr "เชิญโดย"
-
-#: apps/notifications/templates/notifications/subject/5.html:9
-msgid "was detached of"
-msgstr "ถูกแยกออกมาจาก"
-
-#: apps/notifications/templates/notifications/subject/5.html:10
-msgid "role:"
-msgstr "บทบาท คือ"
-
-#: apps/notifications/templates/notifications/subject/5.html:10
-msgid "removed by"
-msgstr "ลบโดย"
-
-#: apps/notifications/templates/notifications/subject/6.html:9
-msgid "was edited by"
-msgstr "ถูกแก้ไขโดย"
-
-#: apps/notifications/templates/notifications/subject/7.html:9
-msgid "editing has been finalized by"
-msgstr "การแก้ไขถูกสรุปโดย"
 
 #: apps/notifications/validators.py:11
 msgid "Invalid email status filters"
@@ -14973,47 +15771,47 @@ msgstr "{compiler} จะถูกแจ้งเกี่ยวกับคว�
 msgid "Successfully saved changes."
 msgstr "การบันทึกการเปลี่ยนแปลงสำเร็จ"
 
-#: apps/qcat/config/common.py:100
+#: apps/qcat/config/common.py:105
 msgid "English"
 msgstr "อังกฤษ"
 
-#: apps/qcat/config/common.py:101
+#: apps/qcat/config/common.py:106
 msgid "French"
 msgstr "ฝรั่งเศส"
 
-#: apps/qcat/config/common.py:102
+#: apps/qcat/config/common.py:107
 msgid "Spanish"
 msgstr "สเปน"
 
-#: apps/qcat/config/common.py:103
+#: apps/qcat/config/common.py:108
 msgid "Russian"
 msgstr "รัสเซีย"
 
-#: apps/qcat/config/common.py:104
+#: apps/qcat/config/common.py:109
 msgid "Khmer"
 msgstr "เขมร"
 
-#: apps/qcat/config/common.py:105
+#: apps/qcat/config/common.py:110
 msgid "Lao"
 msgstr "ลาว"
 
-#: apps/qcat/config/common.py:106
+#: apps/qcat/config/common.py:111
 msgid "Arabic"
 msgstr "อาหรับ"
 
-#: apps/qcat/config/common.py:107
+#: apps/qcat/config/common.py:112
 msgid "Portuguese"
 msgstr "โปรตุเกส"
 
-#: apps/qcat/config/common.py:108
+#: apps/qcat/config/common.py:113
 msgid "Afrikaans"
 msgstr "แอฟริกา"
 
-#: apps/qcat/config/common.py:109
+#: apps/qcat/config/common.py:114
 msgid "Thai"
 msgstr ""
 
-#: apps/qcat/context_processors.py:154
+#: apps/qcat/context_processors.py:155
 msgid ""
 "Caution: Maintenance will start soon ({}), this page will then be "
 "unavailable for a couple of minutes.<br>If you are working on a "
@@ -15022,19 +15820,19 @@ msgstr ""
 "โปรดทราบ การบำรุงรักษาจะเริ่มต้นในเร็วๆนี้ ({}) หน้าเว็บนี้จะไม่ได้สามารถใช้ได้ชั่วคราว "
 "<br>ถ้าหากคุณกำลังทำงานกับแบบสอบถาม กรุณาบันทึกงานของท่าน"
 
-#: apps/qcat/context_processors.py:161
+#: apps/qcat/context_processors.py:162
 msgid "Maintenance starts in {}"
 msgstr "การบำรุงรักษาจะเริ่มใน {}"
 
-#: apps/qcat/templates/qcat/imprint.html:11 templates/base.html:311
+#: apps/qcat/templates/qcat/imprint.html:11 templates/base.html:324
 msgid "Imprint"
 msgstr "ประทับ"
 
-#: apps/qcat/templates/qcat/imprint.html:15
+#: apps/qcat/templates/qcat/imprint.html:13
 msgid "Operation and Hosting"
 msgstr ""
 
-#: apps/qcat/templates/qcat/imprint.html:34
+#: apps/qcat/templates/qcat/imprint.html:27
 msgid "Content and Design"
 msgstr "เนื้อหาและการออกแบบ"
 
@@ -15048,7 +15846,7 @@ msgstr ""
 "%(countries_count)s<br> โดยผู้ใช้งาน %(compilers_count)s"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
-#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:138
+#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:151
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
@@ -15057,7 +15855,7 @@ msgid "SLM Technologies"
 msgstr "เทคโนโลยี SLM"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:158
+#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:171
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
@@ -15101,8 +15899,8 @@ msgstr "ประเทศ"
 msgid "Edition update available"
 msgstr ""
 
-#: apps/questionnaire/admin.py:80 apps/questionnaire/models.py:58
-#: apps/summary/renderers.py:315
+#: apps/questionnaire/admin.py:80 apps/questionnaire/models.py:59
+#: apps/summary/renderers/summary.py:314
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:10
 msgid "Compiler"
 msgstr "ผู้รวบรวม"
@@ -15115,72 +15913,72 @@ msgstr "ข้อมูล SLM ทั้งหมด"
 msgid "This questionnaire is locked for editing by {}"
 msgstr "แบบสอบถามนี้ถูกป้องกันจากการแก้ไขโดย {}"
 
-#: apps/questionnaire/models.py:40
+#: apps/questionnaire/models.py:41
 #: apps/questionnaire/templates/details/review_panel.html:14
 msgid "Draft"
 msgstr "ร่าง"
 
-#: apps/questionnaire/models.py:41
+#: apps/questionnaire/models.py:42
 msgid "Submitted"
 msgstr "ส่งแล้ว"
 
-#: apps/questionnaire/models.py:42
+#: apps/questionnaire/models.py:43
 msgid "Reviewed"
 msgstr "ตรวจสอบแล้ว"
 
-#: apps/questionnaire/models.py:43
+#: apps/questionnaire/models.py:44
 msgid "Public"
 msgstr "เผยแพร่"
 
-#: apps/questionnaire/models.py:44
+#: apps/questionnaire/models.py:45
 msgid "Rejected"
 msgstr "โดนปฏิเสธ"
 
-#: apps/questionnaire/models.py:45
+#: apps/questionnaire/models.py:46
 msgid "Inactive"
 msgstr "ไม่มีการใช้งาน"
 
-#: apps/questionnaire/models.py:59
+#: apps/questionnaire/models.py:60
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:19
 msgid "Editor"
 msgstr "ผู้เรียบเรียง"
 
-#: apps/questionnaire/models.py:60 apps/summary/renderers.py:320
+#: apps/questionnaire/models.py:61 apps/summary/renderers/summary.py:319
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:30
 msgid "Reviewer"
 msgstr "ผู้ตรวจสอบ"
 
-#: apps/questionnaire/models.py:61
+#: apps/questionnaire/models.py:62
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:41
 msgid "Publisher"
 msgstr "ผู้เผยแพร่"
 
-#: apps/questionnaire/models.py:62
+#: apps/questionnaire/models.py:63
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:52
 msgid "WOCAT Secretariat"
 msgstr "เลขานุการของ WOCAT"
 
-#: apps/questionnaire/models.py:65
+#: apps/questionnaire/models.py:66
 msgid "Land User"
 msgstr "ผู้ใช้ที่ดิน"
 
-#: apps/questionnaire/models.py:66
+#: apps/questionnaire/models.py:67
 msgid "Key resource person"
 msgstr "วิทยากรหลัก"
 
-#: apps/questionnaire/models.py:70
+#: apps/questionnaire/models.py:71
 msgid "UNCCD Best Practice"
 msgstr "การปฏิบัติที่ดีของ UNCCD"
 
-#: apps/questionnaire/models.py:75
+#: apps/questionnaire/models.py:76
 msgid "Submitted as SLM best practice to UNCCD by the national focal point"
 msgstr "ส่งในฐานะแนวปฏิบัติ SLM ที่ดี ไปสู่ UNCCD จุดโฟกัสของชาติ"
 
-#: apps/questionnaire/models.py:1007
+#: apps/questionnaire/models.py:1020
 msgid "This questionnaire can be edited."
 msgstr "แบบสอบถามนี้สามารถแก้ไขได้"
 
-#: apps/questionnaire/models.py:1009
+#: apps/questionnaire/models.py:1022
 #, python-brace-format
 msgid "This questionnaire is locked for editing by {user}."
 msgstr "แบบสอบถามนี้ถูกป้องกันจากการแก้ไขโดย {user}"
@@ -15301,7 +16099,7 @@ msgstr "ผู้ตรวจสอบ"
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:214
+#: apps/wocat/templates/wocat/home.html:227
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "จะมาเร็วๆนี้"
@@ -15358,7 +16156,7 @@ msgstr "บทสรุปทั้งหมด (ไม่มีการจั�
 msgid "Export"
 msgstr "นำออก"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:116
+#: apps/questionnaire/templates/details/category/approaches_header.html:117
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:105
 #: apps/questionnaire/templates/details/category/technologies_header.html:117
 #: apps/questionnaire/templates/details/category/unccd_header.html:106
@@ -15367,67 +16165,67 @@ msgstr "นำออก"
 msgid "See history"
 msgstr "ดูประวัติ"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:121
+#: apps/questionnaire/templates/details/category/approaches_header.html:133
 #: apps/wocat/templates/wocat/partial/add.html:39
 msgid "SLM Approach"
 msgstr "แนวทาง SLM"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:126
+#: apps/questionnaire/templates/details/category/approaches_header.html:138
 #: apps/questionnaire/templates/details/category/cca_header.html:117
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:114
-#: apps/questionnaire/templates/details/category/technologies_header.html:133
+#: apps/questionnaire/templates/details/category/technologies_header.html:138
 #: apps/questionnaire/templates/details/category/unccd_header.html:116
 #: apps/questionnaire/templates/details/category/watershed_header.html:125
 #: apps/questionnaire/templates/details/category/with_metadata.html:124
 msgid "View sections"
 msgstr "ดูส่วนย่อย"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:128
+#: apps/questionnaire/templates/details/category/approaches_header.html:140
 #: apps/questionnaire/templates/details/category/cca_header.html:119
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
-#: apps/questionnaire/templates/details/category/technologies_header.html:135
+#: apps/questionnaire/templates/details/category/technologies_header.html:140
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/watershed_header.html:127
 #: apps/questionnaire/templates/details/category/with_metadata.html:126
-#: apps/questionnaire/templates/questionnaire/details.html:71
+#: apps/questionnaire/templates/questionnaire/details.html:93
 msgid "Expand all"
 msgstr "ขยายทั้งหมด"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:129
+#: apps/questionnaire/templates/details/category/approaches_header.html:141
 #: apps/questionnaire/templates/details/category/cca_header.html:120
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:117
-#: apps/questionnaire/templates/details/category/technologies_header.html:136
+#: apps/questionnaire/templates/details/category/technologies_header.html:141
 #: apps/questionnaire/templates/details/category/unccd_header.html:119
 #: apps/questionnaire/templates/details/category/watershed_header.html:128
 #: apps/questionnaire/templates/details/category/with_metadata.html:127
-#: apps/questionnaire/templates/questionnaire/details.html:72
+#: apps/questionnaire/templates/questionnaire/details.html:94
 msgid "Collapse all"
 msgstr "ย่อทั้งหมด"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:134
+#: apps/questionnaire/templates/details/category/approaches_header.html:146
 #: apps/questionnaire/templates/details/category/cca_header.html:125
-#: apps/questionnaire/templates/details/category/technologies_header.html:141
+#: apps/questionnaire/templates/details/category/technologies_header.html:146
 #: apps/questionnaire/templates/details/category/unccd_header.html:124
 #: apps/questionnaire/templates/details/category/watershed_header.html:133
 msgid "Completeness:"
 msgstr "สมบูรณ์"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:153
+#: apps/questionnaire/templates/details/category/approaches_header.html:165
 #: apps/questionnaire/templates/details/category/cca_header.html:144
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:136
-#: apps/questionnaire/templates/details/category/technologies_header.html:160
+#: apps/questionnaire/templates/details/category/technologies_header.html:165
 #: apps/questionnaire/templates/details/category/unccd_header.html:143
 #: apps/questionnaire/templates/details/category/watershed_header.html:152
 #: apps/questionnaire/templates/details/category/with_metadata.html:146
 msgid "Edit this section"
 msgstr "แก้ไขในส่วนนี้"
 
-#: apps/questionnaire/templates/details/category/approaches_header.html:169
+#: apps/questionnaire/templates/details/category/approaches_header.html:181
 #: apps/questionnaire/templates/details/category/cca_header.html:160
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:150
-#: apps/questionnaire/templates/details/category/technologies_header.html:176
+#: apps/questionnaire/templates/details/category/technologies_header.html:181
 #: apps/questionnaire/templates/details/category/unccd_header.html:159
 #: apps/questionnaire/templates/details/category/watershed_header.html:168
 #: apps/questionnaire/templates/details/category/with_metadata.html:160
@@ -15451,7 +16249,7 @@ msgstr "เทคโนโลยี"
 msgid "New SLM Technology"
 msgstr "เทคโนโลยี SLM ใหม่"
 
-#: apps/questionnaire/templates/details/category/technologies_header.html:128
+#: apps/questionnaire/templates/details/category/technologies_header.html:133
 #: apps/wocat/templates/wocat/partial/add.html:19
 msgid "SLM Technology"
 msgstr "เทคโนโลยี SLM"
@@ -15480,7 +16278,7 @@ msgid "Map preview"
 msgstr "ตัวอย่างแผนที่"
 
 #: apps/questionnaire/templates/details/field/wms_layer.html:5
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:76
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:81
 msgid "Loading ..."
 msgstr "กำลังโหลด ..."
 
@@ -15553,8 +16351,11 @@ msgid "Review status"
 msgstr "ตรวจสอบสถานะ"
 
 #: apps/questionnaire/templates/details/review_panel.html:23
-msgid "Learn more about the review process."
-msgstr "เรียนรู้เพิ่มเติมเกี่ยวกับขั้นตอนการตรวจสอบ"
+#, fuzzy
+#| msgid ""
+#| "A modular framework for the documentation and assessment of SLM practices"
+msgid "Learn more about the WOCAT documentation of SLM practices."
+msgstr "โครงร่างงานที่เป็นโมดูลสำหรับการจัดทำเอกสารและการประเมินผลการปฏิบัติ SLM"
 
 #: apps/questionnaire/templates/details/review_panel.html:29
 #, python-format
@@ -15568,18 +16369,24 @@ msgstr ""
 "คุณเป็น <strong>%(role)s</strong> ของ%(questionnaire_type)s นี้"
 
 #: apps/questionnaire/templates/details/review_panel.html:39
-msgid "New configuration edition available."
-msgstr "โครงร่างฉบับใหม่พร้อมใช้แล้ว"
+#: apps/questionnaire/templates/questionnaire/details.html:16
+#, fuzzy
+#| msgid "Start editing the questionnaire."
+msgid "New edition of the questionnaire is available."
+msgstr "เริ่มแก้ไขแบบสอบถาม"
 
 #: apps/questionnaire/templates/details/review_panel.html:41
+#: apps/questionnaire/templates/questionnaire/details.html:18
 msgid "The structure of the questionnaire was updated:"
 msgstr "โครงสร้างของแบบสอบถามถูกอัพเดท"
 
 #: apps/questionnaire/templates/details/review_panel.html:41
+#: apps/questionnaire/templates/questionnaire/details.html:18
 msgid "see all details"
 msgstr "ดูรายละเอียดทั้งหมด"
 
 #: apps/questionnaire/templates/details/review_panel.html:42
+#: apps/questionnaire/templates/questionnaire/details.html:19
 msgid ""
 "Please start editing the questionnaire in order to update your case data."
 msgstr "กรุณาเริ่มต้นการแก้ไขแบบสอบถามเพื่อที่จะได้อัพเทดข้อมูลของคุณ"
@@ -15640,7 +16447,7 @@ msgstr "ค้นหาผู้ใช้งาน"
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:67
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:84
 #: apps/technologies/templates/technologies/add_module.html:36
 msgid "No results found"
 msgstr "ไม่พบผลลัพธ์"
@@ -15648,7 +16455,7 @@ msgstr "ไม่พบผลลัพธ์"
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:68
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:84
 #: apps/technologies/templates/technologies/add_module.html:37
 msgid "Too many results found, please narrow the search"
 msgstr "มีผลลัพธ์ที่พบมากเกินไป กรุณาค้นหาด้วยคำที่เฉพาะขึ้น"
@@ -15926,7 +16733,7 @@ msgid ""
 msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:18
-#: apps/questionnaire/templates/details/review_panel/edit.html:35
+#: apps/questionnaire/templates/details/review_panel/edit.html:41
 msgid "Create new version"
 msgstr ""
 
@@ -15956,19 +16763,19 @@ msgid ""
 "        "
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:53
+#: apps/questionnaire/templates/details/review_panel/edit.html:65
 msgid "Flag as UNCCD best practice"
 msgstr "ปักธงว่าเป็นการปฏิบัติที่ดีของ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:57
+#: apps/questionnaire/templates/details/review_panel/edit.html:69
 msgid "Flag this questionnaire as a UNCCD best practice for this country."
 msgstr "ปักธงแบบสอบถามนี้ว่าเป็นการปฏิบัติที่ดี UNCCD ของประเทศ"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:60
+#: apps/questionnaire/templates/details/review_panel/edit.html:72
 msgid "Please confirm flagging as a UNCCD best practice."
 msgstr "กรุณายืนยันการปักธงว่าเป็นการปฏิบัติที่ดีของ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:61
+#: apps/questionnaire/templates/details/review_panel/edit.html:73
 msgid ""
 "By submitting, this questionnaire will be flagged as a UNCCD best practice "
 "for this country. Please note that due to the review process, it will take a "
@@ -15977,16 +16784,16 @@ msgstr ""
 "โดยการส่ง แบบสอบถามนี้จะถูกปักธงว่าเป็นการปฏิบัติที่ดีของ UNCCD ของประเทศนี้ "
 "ข้อสังเกตคือเนื่องจากขั้นตอนการตรวจสอบ จะใช้เวลาหลายวันก่อนที่จะถูกเผยแพร่ให้เห็นได้"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:62
-#: apps/questionnaire/templates/details/review_panel/edit.html:81
+#: apps/questionnaire/templates/details/review_panel/edit.html:74
+#: apps/questionnaire/templates/details/review_panel/edit.html:93
 msgid "Confirm"
 msgstr "ยืนยัน"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:72
+#: apps/questionnaire/templates/details/review_panel/edit.html:84
 msgid "Unflag as UNCCD best practice"
 msgstr "ยกเลิกการปักธงว่าเป็นการปฏิบัติที่ดีของ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:76
+#: apps/questionnaire/templates/details/review_panel/edit.html:88
 msgid ""
 "This questionnaire is flagged as a UNCCD best practice for this country. As "
 "the UNCCD national focal point, you can remove this flag."
@@ -15994,11 +16801,11 @@ msgstr ""
 "แบบสอบถามนี้ถูกปักธงว่าเป็นการปฏิบัติที่ดีของ UNCCD ของประเทศนี้ หากเป็นจุดโฟกัสระดับชาติของ "
 "UNCCD คุณสามารถเอาการปักธงออกได้"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:79
+#: apps/questionnaire/templates/details/review_panel/edit.html:91
 msgid "Please confirm unflagging as a UNCCD best practice."
 msgstr "กรุณายืนยันการยกเลิกการปักธงว่าเป็นการปฏิบัติที่ดีของ UNCCD"
 
-#: apps/questionnaire/templates/details/review_panel/edit.html:80
+#: apps/questionnaire/templates/details/review_panel/edit.html:92
 msgid ""
 "By submitting, this questionnaire will be unflagged as UNCCD best practice "
 "for this country. Please note that due to the review process, it will take a "
@@ -16264,12 +17071,17 @@ msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:13
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:13
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "If this is the first time you are using the data entry form "
+#| "%(start_tour_link)splease visit the help tour%(end_link)s and <a href="
+#| "\"%(intro_url)s\" class=\"link\">read the introduction to the "
+#| "questionnaire%(end_link)s."
 msgid ""
 "If this is the first time you are using the data entry form "
 "%(start_tour_link)splease visit the help tour%(end_link)s and <a href="
-"\"%(intro_url)s\" class=\"link\">read the introduction to the questionnaire"
-"%(end_link)s."
+"\"%(intro_url)s\" class=\"link\">read about the WOCAT documentation of SLM "
+"practices%(end_link)s."
 msgstr ""
 "ถ้าหากนี่เป็นครั้งแรกที่ท่านใช้ฟอร์มสำหรับนำเข้าข้อมูลจาก %(start_tour_link)s "
 "กรุณาเข้าสู่ทัวร์แนะนำ %(end_link)s และ <a href=\"%(intro_url)s\" class=\"link\"> "
@@ -16298,9 +17110,6 @@ msgstr "เริ่มการนำเข้าข้อมูล"
 
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
-#: apps/wocat/templates/wocat/help/review_process.html:6
-#: apps/wocat/templates/wocat/help/review_process.html:14
-#: apps/wocat/templates/wocat/help/review_process.html:21
 msgid "Review process"
 msgstr "ขั้นตอนการตรวจสอบ"
 
@@ -16341,61 +17150,118 @@ msgstr "ทำการทัวร์เพื่อการอธิบาย
 msgid "other"
 msgstr "อื่น ๆ"
 
-#: apps/questionnaire/templates/form/category.html:52
+#: apps/questionnaire/templates/form/category.html:53
 msgid "Go Back without saving"
 msgstr "ย้อนกลับโดยไม่บันทึก"
 
-#: apps/questionnaire/templates/form/category.html:65
+#: apps/questionnaire/templates/form/category.html:66
 msgid "Save and back"
 msgstr "บันทึกและย้อนกลับ"
 
-#: apps/questionnaire/templates/form/category.html:70
+#: apps/questionnaire/templates/form/category.html:71
 msgid "Save and next"
 msgstr "บันทึกและไปต่อ"
 
-#: apps/questionnaire/templates/form/category.html:77
-#: apps/questionnaire/templates/form/category.html:174
-#: apps/questionnaire/templates/questionnaire/details.html:286
+#: apps/questionnaire/templates/form/category.html:78
+#: apps/questionnaire/templates/form/category.html:228
+#: apps/questionnaire/templates/questionnaire/details.html:22
+#: apps/questionnaire/templates/questionnaire/details.html:308
 msgid "Close"
 msgstr "ปิด"
 
-#: apps/questionnaire/templates/form/category.html:89
+#: apps/questionnaire/templates/form/category.html:90
 msgid ""
 "There was a problem with your submission. Errors have been highlighted below."
 msgstr "มีปัญหาบางอย่างเกี่ยวกับการส่งของคุณ ปัญหาที่พบจะถูกแสดงดังรายการข้างล่าง"
 
-#: apps/questionnaire/templates/form/category.html:94
+#: apps/questionnaire/templates/form/category.html:95
 msgid "There is an old version with changes in this section."
 msgstr "มีเวอร์ชั่นเก่าที่มีการเปลี่ยนแปลงอยู่ในส่วนย่อยนี้"
 
-#: apps/questionnaire/templates/form/category.html:94
+#: apps/questionnaire/templates/form/category.html:95
 msgid "View old version"
 msgstr "ดูเวอร์ชั่นเก่า"
 
-#: apps/questionnaire/templates/form/category.html:111
+#: apps/questionnaire/templates/form/category.html:112
 msgid "Save and go to overview"
 msgstr "บันทึกและไปสู่หน้าสรุป"
 
-#: apps/questionnaire/templates/form/category.html:114
+#: apps/questionnaire/templates/form/category.html:115
 msgid "Save and go to next section"
 msgstr "บันทึกและไปสู่ส่วนย่อยถัดไป"
 
-#: apps/questionnaire/templates/form/category.html:175
-#: apps/questionnaire/templates/questionnaire/details.html:287
+#: apps/questionnaire/templates/form/category.html:127
+#: apps/questionnaire/templates/form/category.html:140
+#, fuzzy
+#| msgid "You are about to add data from the Questionnaire on Watershed."
+msgid "You are about to add a new translation."
+msgstr "คุณกำลังจะเข้าสู่การเพิ่มข้อมูลจากแบบสอบถามของลุ่มน้ำ"
+
+#: apps/questionnaire/templates/form/category.html:129
+#, fuzzy
+#| msgid "This questionnaire can be edited."
+msgctxt "This questionnaire is not yet translated to [language]"
+msgid "This questionnaire is not yet translated to"
+msgstr "แบบสอบถามนี้สามารถแก้ไขได้"
+
+#: apps/questionnaire/templates/form/category.html:130
+msgid ""
+"If you continue to edit this questionnaire, a new translation will be added. "
+"The content of the original language will be copied once into the text "
+"fields, allowing you to translate the content. From there on, text changes "
+"have to be done in all language versions. The checkboxes are linked across "
+"all translations, meaning they always change in all language versions."
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:131
+msgid ""
+"If you do not want to create a new translation, please go back and select a "
+"language in which this questionnaire is already translated."
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:134
+msgid "Go back"
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:135
+msgid "Add a new translation"
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:142
+msgctxt ""
+"Do you really want to create a new translation of this questionnaire in "
+msgid "Do you really want to create a new translation of this questionnaire in"
+msgstr ""
+
+#: apps/questionnaire/templates/form/category.html:145
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "France"
+msgid "Cancel"
+msgstr "ฝรั่งเศส"
+
+#: apps/questionnaire/templates/form/category.html:146
+#, fuzzy
+#| msgid "Climate Change Adaptation"
+msgid "Create a new translation"
+msgstr "การปรับตัวตามการเปลี่ยนแปลงของสภาพภูมิอากาศ"
+
+#: apps/questionnaire/templates/form/category.html:229
+#: apps/questionnaire/templates/questionnaire/details.html:309
 msgid "Next"
 msgstr "ถัดไป"
 
-#: apps/questionnaire/templates/form/category.html:176
-#: apps/questionnaire/templates/questionnaire/details.html:288
+#: apps/questionnaire/templates/form/category.html:230
+#: apps/questionnaire/templates/questionnaire/details.html:310
 msgid "Back"
 msgstr "ย้อนกลับ"
 
-#: apps/questionnaire/templates/form/category.html:177
-#: apps/questionnaire/templates/questionnaire/details.html:289
+#: apps/questionnaire/templates/form/category.html:231
+#: apps/questionnaire/templates/questionnaire/details.html:311
 msgid "Done"
 msgstr "เสร็จสิ้น"
 
-#: apps/questionnaire/templates/form/category.html:182
+#: apps/questionnaire/templates/form/category.html:236
 msgid ""
 "<p>Welcome to the help section of the form!</p><p>Click \"Next\" to take a "
 "tour explaining the functions on this page.</p>"
@@ -16403,25 +17269,25 @@ msgstr ""
 "<p>ยินดีต้อนรับสู่ส่วนย่อยสำหรับความช่วยเหลือของแบบฟอร์ม</p><p>คลิก \"ถัดไป\" "
 "เพื่อเข้าสู่การทัวร์ที่อธิบายเกี่ยวกับการทำงานของหน้านี้</p>"
 
-#: apps/questionnaire/templates/form/category.html:186
+#: apps/questionnaire/templates/form/category.html:240
 msgid ""
 "<p>The bar indicates the name of the section you are currently editing.</p>"
 msgstr "<p>แถบแสดงถึงชื่อของส่วนย่อยที่คุณกำลังทำการแก้ไขอยู่</p>"
 
-#: apps/questionnaire/templates/form/category.html:190
+#: apps/questionnaire/templates/form/category.html:244
 msgid ""
 "<p>Click \"Save and back\" to save your changes and go back to the overview "
 "to view them in the output.</p>"
 msgstr ""
 "<p>กด \"บันทึกและย้อนกลับ\" เพื่อบันทึกการแก้ไขและกลับสู่ภาพรวมและดูการแก้ไขในผลลัพธ์</p>"
 
-#: apps/questionnaire/templates/form/category.html:194
+#: apps/questionnaire/templates/form/category.html:248
 msgid ""
 "<p>Click \"Save and next\" to save the current section and directly continue "
 "to the next section.</p>"
 msgstr "<p> คลิก \"บันทึกและถัดไป\" เพื่อบันทึกส่วนย่อยปัจจุบันและต่อไปสู่ส่วนย่อยถัดไป</p>"
 
-#: apps/questionnaire/templates/form/category.html:198
+#: apps/questionnaire/templates/form/category.html:252
 msgid ""
 "<p>Both options \"save and back to overview\" and \"save and next section\" "
 "are also available on the bottom of the page.</p>"
@@ -16429,13 +17295,13 @@ msgstr ""
 "<p>ทั้งทางเลือกในการ \"บันทึกและกลับสู่ภาพรวม\" และ \"บันทึกและไปสู่ส่วนย่อยถัดไป\" "
 "จะอยู่ในด้านล่างของหน้า </p>"
 
-#: apps/questionnaire/templates/form/category.html:203
+#: apps/questionnaire/templates/form/category.html:257
 msgid ""
 "<p>Use this link if you want to go back to the output without saving any "
 "changes.</p>"
 msgstr ""
 
-#: apps/questionnaire/templates/form/category.html:207
+#: apps/questionnaire/templates/form/category.html:261
 msgid ""
 "<p>The progress bar indicates how many questions are already filled out.</p>"
 msgstr "<p> แถบแสดงความก้าวหน้าแสดงถึงจำนวนคำถามที่ได้ทำการตอบไปแล้ว</p>"
@@ -16462,7 +17328,7 @@ msgstr "เลือกวันที่"
 #: apps/questionnaire/templates/form/questiongroup/default.html:60
 #: apps/questionnaire/templates/form/questiongroup/measure_other.html:64
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:56
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:154
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:159
 #: apps/questionnaire/templates/form/questiongroup/table1.html:44
 #: apps/questionnaire/templates/form/questiongroup/table1.html:58
 #: apps/questionnaire/templates/form/questiongroup/table4.html:46
@@ -16474,11 +17340,13 @@ msgstr "เอาออก"
 msgid "Edit focus point"
 msgstr "แก้ไขจุดสำคัญ"
 
-#: apps/questionnaire/templates/form/field/numberinput.html:7
-msgid "Enter a whole number"
-msgstr "ป้อนเลขจำนวนเต็ม"
+#: apps/questionnaire/templates/form/field/numberinput.html:8
+#, fuzzy
+#| msgid "Enter a number"
+msgid "Enter full number"
+msgstr "ป้อนตัวเลข"
 
-#: apps/questionnaire/templates/form/field/numberinput.html:7
+#: apps/questionnaire/templates/form/field/numberinput.html:8
 msgid "Enter a number"
 msgstr "ป้อนตัวเลข"
 
@@ -16544,7 +17412,7 @@ msgstr "ดึงลงและเลือกตัวเลขเพื่อ
 #: apps/questionnaire/templates/form/questiongroup/default.html:73
 #: apps/questionnaire/templates/form/questiongroup/measure_other.html:73
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:67
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:164
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:169
 #: apps/questionnaire/templates/form/questiongroup/table.html:64
 #: apps/questionnaire/templates/form/questiongroup/table1.html:67
 #: apps/questionnaire/templates/form/questiongroup/table4.html:79
@@ -16553,7 +17421,31 @@ msgid "Add More"
 msgstr "เพิ่มมากขึ้น"
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:24
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "      <p>Choose map layers, using the dropdown menus on top of the map "
+#| "image. You can overlay the selected map layers by moving the slider.</p>\n"
+#| "      <p>Zoom into your area / location by using one of the following "
+#| "methods:</p>\n"
+#| "      <ul>\n"
+#| "        <li>Use +/- buttons on the top left of the map</li>\n"
+#| "        <li>Use the mouse wheel</li>\n"
+#| "        <li>Search a location by entering a location name using the "
+#| "%(button_search)s button</li>\n"
+#| "      </ul>\n"
+#| "      <p>Add points on the map by using one of the following methods:</"
+#| "p>\n"
+#| "      <ul>\n"
+#| "        <li>Set a point using the %(button_pin)s button</li>\n"
+#| "        <li>Set a point based on GPS coordinates using the %(button_gps)s "
+#| "button</li>\n"
+#| "      </ul>\n"
+#| "      <p>Use the edit and delete buttons to move points, delete single "
+#| "points or delete all points from the map</p>\n"
+#| "      <p>Click on the “number” button to display a list of all points. "
+#| "Here you can also delete single points.</p>\n"
+#| "    "
 msgid ""
 "\n"
 "      <p>Choose map layers, using the dropdown menus on top of the map "
@@ -16568,7 +17460,9 @@ msgid ""
 "      </ul>\n"
 "      <p>Add points on the map by using one of the following methods:</p>\n"
 "      <ul>\n"
-"        <li>Set a point using the %(button_pin)s button</li>\n"
+"        <li>Set a point using the %(button_pin)s button. <strong>Caution</"
+"strong>: Avoid double-clicking. If you double-click, two points will be "
+"added.</li>\n"
 "        <li>Set a point based on GPS coordinates using the %(button_gps)s "
 "button</li>\n"
 "      </ul>\n"
@@ -16653,23 +17547,36 @@ msgstr ""
 msgid "Search for a village, city, etc."
 msgstr "ค้นหาหมู่บ้าน เมือง ฯลฯ"
 
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:63
+msgid "Is the key resource person a registered or a non-registered WOCAT user?"
+msgstr ""
+
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:65
+msgid ""
+"WOCAT recommends that important key resource persons of this dataset should "
+"be <a href=\"https://www.wocat.net/accounts/signup/\" target=\"_blank"
+"\">registered</a> in the WOCAT database/ website. That way they remain "
+"contactable for inquiries. Their contact data will only be accessible to "
+"registered WOCAT users."
+msgstr ""
+
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:70
 msgid "Search a registered WOCAT user by typing the name of the person."
 msgstr "ค้นหาสมาชิกลงทะเบียนของ WOCAT โดยพิมพ์ชื่อของบุคคลนั้น"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:65
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:70
 msgid "Registered User"
 msgstr "สมาชิกลงทะเบียน"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:69
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Enter the details of a person not registered in the WOCAT database."
 msgstr "ป้อนรายละเอียดเกี่ยวกับบุคคลที่ไม่ได้เป็นสมาชิกลงทะเบียนในฐานข้อมูลของ WOCAT"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:69
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Non-registered User"
 msgstr "สมาชิกที่ไม่ได้ลงทะเบียน"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:74
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:79
 msgid ""
 "<ul><li>You can search a registered WOCAT user by typing the name of the "
 "person.</li><li>If the person is not a registered WOCAT user, select the "
@@ -16679,7 +17586,7 @@ msgstr ""
 "li><li>ถ้าบุคคลนั้นไม่ได้เป็นสมาชิกลงทะเบียนของ WOCAT ให้กดที่ตัวเลือก \"สมาชิกที่ไม่ได้ลงทะเบียน"
 "\" ข้างบน</li></ul>"
 
-#: apps/questionnaire/templates/form/questiongroup/select_user.html:78
+#: apps/questionnaire/templates/form/questiongroup/select_user.html:83
 msgid "Search a registered WOCAT user"
 msgstr "ค้นหาสมาชิกลงทะเบียนของ WOCAT"
 
@@ -16699,69 +17606,76 @@ msgid ""
 msgstr ""
 "แนวทาง SLM ที่เกี่ยวข้องกันสามารถถูกอ้างอิงในส่วนย่อยที่แยกออกไปในส่วนสุดท้ายของแบบสอบถาม"
 
+#: apps/questionnaire/templates/form/subcategory/tech_lu_2018.html:36
+#, fuzzy
+#| msgctxt "technologies label_view"
+#| msgid "Land use type"
+msgid "Land use type(s)"
+msgstr "ประเภทของการใช้ที่ดิน"
+
 #: apps/questionnaire/templates/pagination.html:24
 msgid "Total:"
 msgstr "ทั้งหมด"
 
-#: apps/questionnaire/templates/questionnaire/details.html:45
+#: apps/questionnaire/templates/questionnaire/details.html:67
 msgid "Photo"
 msgstr "รูปภาพ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:59
-msgid "This is an outdated, inactive version of this case"
+#: apps/questionnaire/templates/questionnaire/details.html:81
+msgid "This is an outdated, inactive version of this case."
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:60
-msgid "go to the current one"
+#: apps/questionnaire/templates/questionnaire/details.html:82
+msgid "Go to the current version."
 msgstr ""
 
-#: apps/questionnaire/templates/questionnaire/details.html:69
+#: apps/questionnaire/templates/questionnaire/details.html:91
 msgid "Links and modules"
 msgstr "ลิงก์และโมดูล"
 
-#: apps/questionnaire/templates/questionnaire/details.html:79
+#: apps/questionnaire/templates/questionnaire/details.html:101
 msgid "Links"
 msgstr "ลิงก์"
 
-#: apps/questionnaire/templates/questionnaire/details.html:88
+#: apps/questionnaire/templates/questionnaire/details.html:110
 msgid "No links"
 msgstr "ไม่มีลิงก์"
 
-#: apps/questionnaire/templates/questionnaire/details.html:95
+#: apps/questionnaire/templates/questionnaire/details.html:117
 msgid "Modules"
 msgstr "โมดูล"
 
-#: apps/questionnaire/templates/questionnaire/details.html:104
+#: apps/questionnaire/templates/questionnaire/details.html:126
 msgid "No modules"
 msgstr "ไม่มีโมดูล"
 
-#: apps/questionnaire/templates/questionnaire/details.html:112
+#: apps/questionnaire/templates/questionnaire/details.html:134
 msgid "Add a new module"
 msgstr "เพิ่มโมดูลใหม่"
 
-#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/questionnaire/templates/questionnaire/details.html:139
 #: apps/technologies/templates/technologies/add_module.html:28
 msgid "1. Select a Technology"
 msgstr "1. เลือกเทคโนโลยี"
 
-#: apps/questionnaire/templates/questionnaire/details.html:121
+#: apps/questionnaire/templates/questionnaire/details.html:143
 msgid "2. Select a module"
 msgstr "2. เลือกโมดูล"
 
-#: apps/questionnaire/templates/questionnaire/details.html:124
+#: apps/questionnaire/templates/questionnaire/details.html:146
 msgid "Select a module which you would like to add to the Technology."
 msgstr "เลือกโมดูลที่คุณต้องการเพิ่มไปสู่เทคโนโลยี"
 
-#: apps/questionnaire/templates/questionnaire/details.html:132
+#: apps/questionnaire/templates/questionnaire/details.html:154
 msgid "3. Create the module"
 msgstr "3. สร้างโมดูล"
 
-#: apps/questionnaire/templates/questionnaire/details.html:134
+#: apps/questionnaire/templates/questionnaire/details.html:156
 #: apps/technologies/templates/technologies/add_module.html:70
 msgid "Create"
 msgstr "สร้าง"
 
-#: apps/questionnaire/templates/questionnaire/details.html:293
+#: apps/questionnaire/templates/questionnaire/details.html:315
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
@@ -16769,19 +17683,19 @@ msgstr ""
 "<p>ยินดีต้อนรับสู่ส่วนการช่วยเหลือกของแบบสอบถาม</p><p>คลิก \"ถัดไป\" "
 "เพื่อเริ่มต้นการทัวร์ที่จะอธิบายเกี่ยวกับการทำงานของหน้านี้"
 
-#: apps/questionnaire/templates/questionnaire/details.html:296
+#: apps/questionnaire/templates/questionnaire/details.html:318
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
 msgstr "<p>นี่คือหน้าผลลัพธ์ที่ที่คุณสามารถดูข้อมูลทั้งหมดที่คุณป้อนเข้าใบในแบบฟอร์มได้</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:300
+#: apps/questionnaire/templates/questionnaire/details.html:322
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr "<p>แต่ละส่วนย่อยยังสามารถดูได้ในผลลัพธ์ ข้อมูลต่างๆ ที่คุณป้อนเข้าไปจะแสดงบริเวณนี้</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:305
+#: apps/questionnaire/templates/questionnaire/details.html:327
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -16799,9 +17713,13 @@ msgid "No description available."
 msgstr "ไม่มีคำอธิบาย"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:50
+#, fuzzy
+#| msgid ""
+#| "New edition of the configuration is available. Please edit your data to "
+#| "create an updated edition."
 msgid ""
-"New edition of the configuration is available. Please edit your data to "
-"create an updated edition."
+"New edition of the questionnaire is available. Please edit your data to "
+"create an updated version."
 msgstr "โครงร่างฉบับใหม่มีมาแล้ว กรุณาแก้ไขข้อมูลของคุณเพื่อสร้างและอัพเดทฉบับใหม่"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:63
@@ -16855,31 +17773,31 @@ msgstr "ไม่ระบุ"
 msgid "Language"
 msgstr "ภาษา"
 
-#: apps/questionnaire/utils.py:1224
+#: apps/questionnaire/utils.py:1256
 msgid "The questionnaire was successfully submitted."
 msgstr "แบบสอบถามนี้ถูกส่งสมบูรณ์แล้ว"
 
-#: apps/questionnaire/utils.py:1270
+#: apps/questionnaire/utils.py:1303
 msgid "The questionnaire was successfully reviewed."
 msgstr "แบบสอบถามนี้ถูกตรวจสอบสมบูรณ์แล้ว"
 
-#: apps/questionnaire/utils.py:1308
+#: apps/questionnaire/utils.py:1343
 msgid "New version was published"
 msgstr "เวอร์ชั่นใหม่ถูกเผยแพร่แล้ว"
 
-#: apps/questionnaire/utils.py:1348
+#: apps/questionnaire/utils.py:1384
 msgid "The questionnaire was successfully set public."
 msgstr "แบบสอบถามถูกตั้งค่าให้เป็นสาธารณะสมบูรณ์แล้ว"
 
-#: apps/questionnaire/utils.py:1402
+#: apps/questionnaire/utils.py:1439
 msgid "The questionnaire was successfully rejected."
 msgstr "แบบสอบถามถูกปฏิเสธแล้ว"
 
-#: apps/questionnaire/utils.py:1492
+#: apps/questionnaire/utils.py:1543
 msgid "Assigned users were successfully updated"
 msgstr "ผู้ใช้งานที่ถูกมอบหมายได้รับการแก้ไขอย่างสมบูรณ์"
 
-#: apps/questionnaire/utils.py:1606
+#: apps/questionnaire/utils.py:1672
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -16888,11 +17806,11 @@ msgstr ""
 "การปักธงนี้ไม่สามารถทำได้เนื่องจากเวอร์ชั่นของแบบสอบถามยังอยู่ในระหว่างการตรวจสอบ "
 "และต้องทำการเผยแพร่ก่อน กรุณาลองใหม่อีกครั้งภายหลัง"
 
-#: apps/questionnaire/utils.py:1628
+#: apps/questionnaire/utils.py:1694
 msgid "The flag was successfully set."
 msgstr "การปักธงเสร็จสมบูรณ์"
 
-#: apps/questionnaire/utils.py:1652
+#: apps/questionnaire/utils.py:1718
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -16901,7 +17819,7 @@ msgstr ""
 "การปักธงนี้ไม่สามารถเอาออกได้เนื่องจากเวอร์ชั่นของแบบสอบถามยังอยู่ในระหว่างการตรวจสอบ "
 "และต้องทำการเผยแพร่ก่อน กรุณาลองใหม่อีกครั้งภายหลัง"
 
-#: apps/questionnaire/utils.py:1673
+#: apps/questionnaire/utils.py:1739
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -16910,11 +17828,11 @@ msgstr ""
 "การปักธงถูกเอาออกอย่างสมบูรณ์ ขอแนะนำว่ามันจะสร้างเวอร์ชั่นใหม่ที่จำเป็นจะต้องตรวจสอบ "
 "ในช่วงระหว่างนี้ คุณจะยังเห็นเวอร์ชั่นสาธารณะที่ยังแสดงการปักธงอยู่"
 
-#: apps/questionnaire/utils.py:1680
+#: apps/questionnaire/utils.py:1746
 msgid "New version due to unccd flagging"
 msgstr "เวอร์ชั่นใหม่เนื่องจากการปักธงของ UNCCD"
 
-#: apps/questionnaire/utils.py:1693
+#: apps/questionnaire/utils.py:1782
 msgid "The questionnaire was succesfully removed"
 msgstr "แบบสอบถามถูกนำออกแล้ว"
 
@@ -16922,11 +17840,11 @@ msgstr "แบบสอบถามถูกนำออกแล้ว"
 msgid "Data successfully saved."
 msgstr "ข้อมูลถูกบันทึกแล้ว"
 
-#: apps/questionnaire/views.py:1141
+#: apps/questionnaire/views.py:1149
 msgid "QCAT Form"
 msgstr "ฟอร์ม QCAT"
 
-#: apps/questionnaire/views.py:1502
+#: apps/questionnaire/views.py:1512
 msgid "No or multiple files provided."
 msgstr "ไม่มีหรือมีไฟล์หลายไฟล์ที่มีให้"
 
@@ -16934,93 +17852,336 @@ msgstr "ไม่มีหรือมีไฟล์หลายไฟล์ท
 msgid "Only data declared as public are visible."
 msgstr "มีเพียงแค่ข้อมูลที่ถูกเผยแพร่แบบสาธารณะที่สามารถมองเห็นได้"
 
-#: apps/summary/parsers.py:548
-msgid " Answer: {}"
-msgstr "คำตอบ: {}"
-
-#: apps/summary/parsers.py:753
+#: apps/summary/parsers/approaches_2015.py:175
 msgid "Subsidies for specific inputs"
 msgstr "เงินสนับสนุนสำหรับปัจจัยการผลิต"
 
-#: apps/summary/renderers.py:44
+#: apps/summary/parsers/technologies_2015.py:217
+msgid " Answer: {}"
+msgstr "คำตอบ: {}"
+
+#: apps/summary/parsers/technologies_2018.py:249
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Management"
+msgid "Management: "
+msgstr "ด้วยการจัดการ "
+
+#: apps/summary/parsers/technologies_2018.py:255
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Mixed varieties"
+msgid "Varieties: "
+msgstr "การปลูกหลายพันธุ์รวมกัน"
+
+#: apps/summary/renderers/approaches_2015.py:23
+#: apps/summary/renderers/approaches_2015.py:38
+#: apps/summary/renderers/technologies_2015.py:41
+#: apps/summary/renderers/technologies_2015.py:56
+msgid "Location"
+msgstr "สถานที่"
+
+#: apps/summary/renderers/approaches_2015.py:26
+#: apps/summary/renderers/technologies_2015.py:44
+msgid "Description"
+msgstr "คำอธิบาย"
+
+#: apps/summary/renderers/approaches_2015.py:43
+#: apps/summary/renderers/technologies_2015.py:65
+msgid "Geo-reference of selected sites"
+msgstr "ตำแหน่งทางภูมิศาสตร์ของสถานที่ที่ถูกเลือ"
+
+#: apps/summary/renderers/approaches_2015.py:48
+msgid "Initiation date"
+msgstr "วันที่ริเริ่ม"
+
+#: apps/summary/renderers/approaches_2015.py:53
+msgid "Year of termination"
+msgstr "ปีที่สิ้นสุด"
+
+#: apps/summary/renderers/approaches_2015.py:58
+msgid "Type of Approach"
+msgstr "ประเภทของแนวทาง"
+
+#: apps/summary/renderers/approaches_2015.py:71
+msgid "Approach aims and enabling environment"
+msgstr "แนวทางการดำเนินการและบรรยากาศการพัฒนาที่เอื้ออํานวย"
+
+#: apps/summary/renderers/approaches_2015.py:74
+msgid "Main aims / objectives of the approach"
+msgstr "เป้าหมายหรือวัตถุประสงค์หลักของแนวทาง"
+
+#: apps/summary/renderers/approaches_2015.py:79
+msgid ""
+"Conditions enabling the implementation of the Technology/ ies applied under "
+"the Approach"
+msgstr "เงื่อนไขที่เอื้ออำนวยต่อการนำเอาเทคโนโลยีภายใต้แนวทางนี้ไปปฏิบัติใช้"
+
+#: apps/summary/renderers/approaches_2015.py:83
+msgid ""
+"Conditions hindering the implementation of the Technology/ ies applied under "
+"the Approach"
+msgstr "เงื่อนไขที่เป็นอุปสรรคต่อการนำเอาเทคโนโลยีภายใต้แนวทางนี้ไปปฏิบัติใช้"
+
+#: apps/summary/renderers/approaches_2015.py:99
+msgid "Participation and roles of stakeholders involved"
+msgstr "การมีส่วนร่วมและบทบาทของผู้มีส่วนได้เสีย"
+
+#: apps/summary/renderers/approaches_2015.py:102
+msgid "Stakeholders involved in the Approach and their roles"
+msgstr "ผู้มีส่วนได้เสียที่เกี่ยวข้องในแนวทางนี้และบทบาท"
+
+#: apps/summary/renderers/approaches_2015.py:105
+msgid "Lead agency"
+msgstr "เอเจนซี่หลัก"
+
+#: apps/summary/renderers/approaches_2015.py:110
+#: apps/summary/renderers/approaches_2015.py:114
+msgid ""
+"Involvement of local land users/ local communities in the different phases "
+"of the Approach"
+msgstr "การเกี่ยวข้องของผู้ใช้ที่ดินระดับท้องถิ่นหรือชุมชนระดับท้องถิ่นในช่วงต่าง ๆ ของแนวทาง"
+
+#: apps/summary/renderers/approaches_2015.py:122
+#: apps/summary/renderers/technologies_2015.py:180
+msgid "Author: {}"
+msgstr "ผู้เขียน {}"
+
+#: apps/summary/renderers/approaches_2015.py:123
+msgid "Flow chart"
+msgstr "แผนผัง"
+
+#: apps/summary/renderers/approaches_2015.py:127
+msgid "Decision-making on the selection of SLM Technology"
+msgstr "การตัดสินใจในการเลือกใช้เทคโนโลยี SLM"
+
+#: apps/summary/renderers/approaches_2015.py:130
+msgid "Decisions were taken by"
+msgstr "การตัดสินใจถูกทำโดย"
+
+#: apps/summary/renderers/approaches_2015.py:137
+msgid "Decisions were made based on"
+msgstr "การตัดสินใจถูกตัดสินอยู่บนพื้นฐานของ"
+
+#: apps/summary/renderers/approaches_2015.py:151
+msgid "Technical support, capacity building, and knowledge management"
+msgstr "การสนับสนุนด้านเทคนิค การสร้างขีดความสามารถ และการจัดการด้านความรู้"
+
+#: apps/summary/renderers/approaches_2015.py:154
+msgid "The following activities or services have been part of the approach"
+msgstr "กิจกรรมหรือการบริการต่อจากนี้เป็นส่วนหนึ่งของแนวทาง"
+
+#: apps/summary/renderers/approaches_2015.py:164
+msgid "Capacity building/ training"
+msgstr "การสร้างสมรรถภาพหรือการอบรม"
+
+#: apps/summary/renderers/approaches_2015.py:167
+msgid "Training was provided to the following stakeholders"
+msgstr "การจัดอบรมถูกจัดขึ้นสำหรับผู้มีส่วนได้ส่วนเสียต่อไปนี้"
+
+#: apps/summary/renderers/approaches_2015.py:174
+msgid "Form of training"
+msgstr "รูปแบบของการอบรม"
+
+#: apps/summary/renderers/approaches_2015.py:182
+msgid "Subjects covered"
+msgstr "หัวข้อที่อบรม"
+
+#: apps/summary/renderers/approaches_2015.py:187
+msgid "Advisory service"
+msgstr "การบริการให้คำแนะนำ"
+
+#: apps/summary/renderers/approaches_2015.py:190
+msgid "Advisory service was provided"
+msgstr "การให้คำแนะนำถูกจัดขึ้น"
+
+#: apps/summary/renderers/approaches_2015.py:200
+msgid "Institution strengthening"
+msgstr "การสร้างความแข็งแกร่งให้กับองค์กร"
+
+#: apps/summary/renderers/approaches_2015.py:202
+msgid "Institutions have been strengthened / established"
+msgstr "องค์กรถูกทำให้แข็งแกร่งขึ้นหรือจัดตั้งขึ้น"
+
+#: apps/summary/renderers/approaches_2015.py:206
+msgid "at the following level"
+msgstr "ตามระดับต่อไปนี้"
+
+#: apps/summary/renderers/approaches_2015.py:212
+msgid "Describe institution, roles and responsibilities, members, etc."
+msgstr "อธิบายถึงสถาบัน บทบาทและความรับผิดชอบ สมาชิก เป็นต้น"
+
+#: apps/summary/renderers/approaches_2015.py:215
+msgid "Type of support"
+msgstr "ประเภทของการให้ความช่วยเหลือสนับสนุน"
+
+#: apps/summary/renderers/approaches_2015.py:221
+msgid "Further details"
+msgstr "รายละเอียดเพิ่มเติม"
+
+#: apps/summary/renderers/approaches_2015.py:225
+msgid "Monitoring and evaluation"
+msgstr "การติดตามตรวจสอบและประเมินผล"
+
+#: apps/summary/renderers/approaches_2015.py:229
+msgid "Research"
+msgstr "การวิจัย"
+
+#: apps/summary/renderers/approaches_2015.py:230
+msgid "Research treated the following topics"
+msgstr "การวิจัยกระทำกับหัวข้อต่อไปนี้"
+
+#: apps/summary/renderers/approaches_2015.py:243
+msgid "Financing and external material support"
+msgstr "การสนับสนุนด้านการเงินและวัสดุอุปกรณ์"
+
+#: apps/summary/renderers/approaches_2015.py:246
+msgid "Annual budget in USD for the SLM component"
+msgstr "งบประมาณประจำปีสำหรับองค์ประกอบ SLM เป็นจำนวนดอลลาร์สหรัฐ"
+
+#: apps/summary/renderers/approaches_2015.py:249
+msgid "Precise annual budget: {}"
+msgstr "งบประมาณประจำปีที่แน่นอน"
+
+#: apps/summary/renderers/approaches_2015.py:252
+msgid "The following services or incentives have been provided to land users"
+msgstr "การบริการหรือแรงจูงใจต่อจากนี้ได้ถูกจัดให้สำหรับผู้ใช้ที่ดิน"
+
+#: apps/summary/renderers/approaches_2015.py:263
+msgid "Labour by land users was"
+msgstr "แรงงานของผู้ใช้ที่ดินคือ"
+
+#: apps/summary/renderers/approaches_2015.py:267
+msgid "Financial/ material support provided to land users"
+msgstr "การสนับสนุนด้านการเงินและวัสดุอุปกรณ์ให้แก่ผู้ใช้ที่ดิน"
+
+#: apps/summary/renderers/approaches_2015.py:271
+msgid "Credit"
+msgstr "เครดิต"
+
+#: apps/summary/renderers/approaches_2015.py:273
+msgid "Conditions: {}"
+msgstr "ข้อกำหนด {}"
+
+#: apps/summary/renderers/approaches_2015.py:276
+msgid "Credit providers: {}"
+msgstr "ผู้ให้เครดิต {}"
+
+#: apps/summary/renderers/approaches_2015.py:279
+msgid "Credit receivers: {}"
+msgstr "ผู้รับเครดิต {}"
+
+#: apps/summary/renderers/approaches_2015.py:285
+msgid "Other incentives or instruments"
+msgstr "เเรงจูงใจหรือเครื่องมืออื่นๆ"
+
+#: apps/summary/renderers/approaches_2015.py:295
+msgid "Impact analysis and concluding statements"
+msgstr "ผลกระทบและสรุปคำบอกกล่าว"
+
+#: apps/summary/renderers/approaches_2015.py:298
+msgid "Impacts of the Approach"
+msgstr "ผลกระทบของแนวทาง"
+
+#: apps/summary/renderers/approaches_2015.py:299
+msgid "Did the approach..."
+msgstr "แนวทาง ... หรือไม่"
+
+#: apps/summary/renderers/approaches_2015.py:303
+msgid "Main motivation of land users to implement SLM"
+msgstr "แรงจูงใจหลักของผู้ใช้ที่ดินเพื่อที่จะนำ SLM ไปปฏิบัติใช้ "
+
+#: apps/summary/renderers/approaches_2015.py:310
+msgid "Sustainability of Approach activities"
+msgstr "ความยั่งยืนของกิจกรรมของแนวทาง"
+
+#: apps/summary/renderers/approaches_2015.py:311
+msgid ""
+"Can the land users sustain what hat been implemented through the Approach "
+"(without external support)?"
+msgstr ""
+"ผู้ใช้ปที่ดินสามารถทำให้สิ่งต่างๆ ที่ได้ปฏิบัติใช้โดยแนวทางนี้ยั่งยืนได้หรือไม่ "
+"(โดยไม่มีการสนับสนุนจากภายนอก)"
+
+#: apps/summary/renderers/summary.py:43
 msgid "n.a."
 msgstr ""
 
-#: apps/summary/renderers.py:238
+#: apps/summary/renderers/summary.py:237
 msgid "land user's view"
 msgstr "มุมมองของผู้ใช้ที่ดิน"
 
-#: apps/summary/renderers.py:239
+#: apps/summary/renderers/summary.py:238
 msgid "compiler’s or other key resource person’s view"
 msgstr "ทัศนคติของผู้รวบรวมหรือวิทยากรคนอื่นๆ"
 
-#: apps/summary/renderers.py:272
+#: apps/summary/renderers/summary.py:271
 msgid "Conclusions and lessons learnt"
 msgstr "บทสรุปหรือบทเรียนที่ได้รับ"
 
-#: apps/summary/renderers.py:275
+#: apps/summary/renderers/summary.py:274
 msgid "Strengths"
 msgstr "จุดแข็ง"
 
-#: apps/summary/renderers.py:288
+#: apps/summary/renderers/summary.py:287
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "จุดด้อย/ข้อเสีย/ความเสี่ยง"
 
-#: apps/summary/renderers.py:289
+#: apps/summary/renderers/summary.py:288
 msgid "how to overcome"
 msgstr "แก้ไขปัญหาได้อย่างไร"
 
-#: apps/summary/renderers.py:302
+#: apps/summary/renderers/summary.py:301
 msgid "References"
 msgstr "การอ้างอิง"
 
-#: apps/summary/renderers.py:306
+#: apps/summary/renderers/summary.py:305
 msgid "Date of documentation"
 msgstr "วันที่จัดทำเอกสาร"
 
-#: apps/summary/renderers.py:310
+#: apps/summary/renderers/summary.py:309
 msgid "Last update"
 msgstr "การอัพเดทล่าสุด"
 
-#: apps/summary/renderers.py:325
+#: apps/summary/renderers/summary.py:324
 msgid "Resource persons"
 msgstr "วิทยากร"
 
-#: apps/summary/renderers.py:330
+#: apps/summary/renderers/summary.py:329
 msgid "Full description in the WOCAT database"
 msgstr "คำอธิบายฉบับเต็มในฐานข้อมูล WOCAT"
 
-#: apps/summary/renderers.py:335
+#: apps/summary/renderers/summary.py:334
 msgid "Linked SLM data"
 msgstr "ข้อมูล SLM ที่ถูกอ้างอิง"
 
-#: apps/summary/renderers.py:340
+#: apps/summary/renderers/summary.py:339
 msgid "Key references"
 msgstr "การอ้งอิงหลัก"
 
-#: apps/summary/renderers.py:345
+#: apps/summary/renderers/summary.py:344
 msgid "Links to relevant information which is available online"
 msgstr "ลิงก์ข้อมูลที่เกี่ยวข้องที่มีอยู่ในออนไลน์"
 
-#: apps/summary/renderers.py:350
+#: apps/summary/renderers/summary.py:349
 msgid "Documentation was faciliated by"
 msgstr "การจัดทำเอกสารถูกทำโดย"
 
-#: apps/summary/renderers.py:352
+#: apps/summary/renderers/summary.py:351
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:53
 msgid "Project"
 msgstr "โครงการ"
 
-#: apps/summary/renderers.py:356
+#: apps/summary/renderers/summary.py:355
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:64
 msgid "Institution"
 msgstr "องค์กร"
 
-#: apps/summary/renderers.py:445
+#: apps/summary/renderers/summary.py:444
 msgid "Video"
 msgstr "วีดีโอ"
 
-#: apps/summary/renderers.py:550
+#: apps/summary/renderers/technologies_2015.py:26
 msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
@@ -17028,363 +18189,350 @@ msgstr ""
 "เทคโนโลยียังเป็นปัญหาเกี่ยวกับการเสื่อมโทรมของดิน "
 "ดังนั้นมันยังไม่ได้สามารถถูกยืนยันว่าเป็นเทคโนโลยีการจัดการดินที่ยั่งยืน"
 
-#: apps/summary/renderers.py:568 apps/summary/renderers.py:583
-#: apps/summary/renderers.py:1118 apps/summary/renderers.py:1133
-msgid "Location"
-msgstr "สถานที่"
-
-#: apps/summary/renderers.py:571 apps/summary/renderers.py:1121
-msgid "Description"
-msgstr "คำอธิบาย"
-
-#: apps/summary/renderers.py:589
+#: apps/summary/renderers/technologies_2015.py:62
 msgid "No. of Technology sites analysed"
 msgstr "ตำนวนการวิเคราะห์เทคโนโลยี"
 
-#: apps/summary/renderers.py:592 apps/summary/renderers.py:1138
-msgid "Geo-reference of selected sites"
-msgstr "ตำแหน่งทางภูมิศาสตร์ของสถานที่ที่ถูกเลือ"
-
-#: apps/summary/renderers.py:597
+#: apps/summary/renderers/technologies_2015.py:70
 msgid "Spread of the Technology"
 msgstr "การเผยแพร่ของเทคโนโลยี"
 
-#: apps/summary/renderers.py:601
+#: apps/summary/renderers/technologies_2015.py:74
 msgid "Date of implementation"
 msgstr "วันที่ในการดำเนินการ"
 
-#: apps/summary/renderers.py:608
+#: apps/summary/renderers/technologies_2015.py:81
 msgid "Type of introduction"
 msgstr "ประเภทของการแนะนำ"
 
-#: apps/summary/renderers.py:644
+#: apps/summary/renderers/technologies_2015.py:117
 msgid "Classification of the Technology"
 msgstr "การจำแนกประเภทเทคโนโลยี"
 
-#: apps/summary/renderers.py:647
+#: apps/summary/renderers/technologies_2015.py:120
 msgid "Main purpose"
 msgstr "จุดประสงค์หลัก"
 
-#: apps/summary/renderers.py:651
+#: apps/summary/renderers/technologies_2015.py:124
+#: apps/summary/renderers/technologies_2018.py:141
 msgid "Land use"
 msgstr "การใช้ที่ดิน"
 
-#: apps/summary/renderers.py:655
+#: apps/summary/renderers/technologies_2015.py:128
 msgid "Water supply"
 msgstr "การใช้น้ำ"
 
-#: apps/summary/renderers.py:660
+#: apps/summary/renderers/technologies_2015.py:133
 msgid "Number of growing seasons per year"
 msgstr "จำนวนของฤดูปลูกต่อปี"
 
-#: apps/summary/renderers.py:664
+#: apps/summary/renderers/technologies_2015.py:137
 msgid "Land use before implementation of the Technology"
 msgstr "การใช้ที่ดินก่อนการดำเนินการโดยเทคโนโลยี"
 
-#: apps/summary/renderers.py:668
+#: apps/summary/renderers/technologies_2015.py:141
 msgid "Livestock density"
 msgstr "ความหนาแน่นของปศุสัตว์"
 
-#: apps/summary/renderers.py:675
+#: apps/summary/renderers/technologies_2015.py:148
 msgid "Purpose related to land degradation"
 msgstr "ความมุ่งหมายที่เกี่ยวข้องกับการเสื่อมโทรมของที่ดิน"
 
-#: apps/summary/renderers.py:679
+#: apps/summary/renderers/technologies_2015.py:152
 msgid "Degradation addressed"
 msgstr "ที่อยู่ของการเสื่อมโทรม"
 
-#: apps/summary/renderers.py:683
+#: apps/summary/renderers/technologies_2015.py:156
 msgid "SLM group"
 msgstr "กลุ่ม SLM"
 
-#: apps/summary/renderers.py:687
+#: apps/summary/renderers/technologies_2015.py:160
 msgid "SLM measures"
 msgstr "มาตรการ SLM"
 
-#: apps/summary/renderers.py:707 apps/summary/renderers.py:1217
-msgid "Author: {}"
-msgstr "ผู้เขียน {}"
-
-#: apps/summary/renderers.py:722
+#: apps/summary/renderers/technologies_2015.py:195
+#: apps/summary/renderers/technologies_2018.py:49
 msgid "Technical drawing"
 msgstr "แบบแปลนทางเทคนิค"
 
-#: apps/summary/renderers.py:724
+#: apps/summary/renderers/technologies_2015.py:197
+#: apps/summary/renderers/technologies_2018.py:51
 msgid "Technical specifications"
 msgstr "ข้อมูลจำเพาะด้านเทคนิค"
 
-#: apps/summary/renderers.py:743
+#: apps/summary/renderers/technologies_2015.py:216
 msgid "; conversion factor to one hectare: <b>1 ha = {}</b>"
 msgstr "ตัวแปลงค่าจาก <b>1 เฮกตาร์ = {}</b>"
 
-#: apps/summary/renderers.py:744
+#: apps/summary/renderers/technologies_2015.py:217
 msgid " (size and area unit: <b>{}</b>{})"
 msgstr "(หน่วยของขนาดและพื้นที่: <b>{}</b>{})"
 
-#: apps/summary/renderers.py:749
+#: apps/summary/renderers/technologies_2015.py:222
 msgid "unit: <b>{}</b>"
 msgstr "หน่วย: <b>{}</b>"
 
-#: apps/summary/renderers.py:766 apps/summary/renderers.py:767
+#: apps/summary/renderers/technologies_2015.py:239
+#: apps/summary/renderers/technologies_2015.py:240
 msgid "n.a"
 msgstr "ไม่มีคำตอบ"
 
-#: apps/summary/renderers.py:771
+#: apps/summary/renderers/technologies_2015.py:244
 msgid "Establishment and maintenance: activities, inputs and costs"
 msgstr "การจัดตั้งและการบำรุงรักษา: กิจกรรม ปัจจัยและค่าใช้จ่าย"
 
-#: apps/summary/renderers.py:774
+#: apps/summary/renderers/technologies_2015.py:247
 msgid "Calculation of inputs and costs"
 msgstr "การคำนวนต้นทุนและค่าใช้จ่าย"
 
-#: apps/summary/renderers.py:776
+#: apps/summary/renderers/technologies_2015.py:249
 msgid "Costs are calculated: {}"
 msgstr "ค่าใช้จ่ายถูกคำนวน {}"
 
-#: apps/summary/renderers.py:777
+#: apps/summary/renderers/technologies_2015.py:250
 msgid "Currency used for cost calculation: <b>{}</b>"
 msgstr "สกุลเงินที่ใช้คำนวณค่าใช้จ่าย <b>{}</b>"
 
-#: apps/summary/renderers.py:778
+#: apps/summary/renderers/technologies_2015.py:251
 msgid "Exchange rate (to USD): 1 USD = {} {}"
 msgstr "อัตราแลกเปลี่ยน (ไปเป็นดอลลาร์สหรัฐ) คือ 1 ดอลลาร์สหรัฐ = {} {}"
 
-#: apps/summary/renderers.py:782
+#: apps/summary/renderers/technologies_2015.py:255
 msgid "Average wage cost of hired labour per day: {}"
 msgstr "ค่าจ้างเฉลี่ยในการจ้างแรงงานต่อวันคือ {}"
 
-#: apps/summary/renderers.py:785
+#: apps/summary/renderers/technologies_2015.py:258
 msgid "Most important factors affecting the costs"
 msgstr "ปัจจัยที่สำคัญที่สุดที่มีผลต่อค่าใช้จ่าย"
 
-#: apps/summary/renderers.py:788
+#: apps/summary/renderers/technologies_2015.py:261
 msgid "Establishment activities"
 msgstr "กิจกรรมเพื่อการจัดตั้ง"
 
-#: apps/summary/renderers.py:792
+#: apps/summary/renderers/technologies_2015.py:265
 msgid "Establishment inputs and costs{}"
 msgstr "ปัจจัยและค่าใช้จ่ายของการจัดตั้ง {}"
 
-#: apps/summary/renderers.py:797
+#: apps/summary/renderers/technologies_2015.py:270
 msgid "Total establishment costs (estimation)"
 msgstr "ค่าใช้จ่ายทั้งหมดของการจัดตั้ง (ประมาณ)"
 
-#: apps/summary/renderers.py:805
+#: apps/summary/renderers/technologies_2015.py:278
 msgid "Maintenance activities"
 msgstr "กิจกรรมสำหรับการบำรุงรักษา"
 
-#: apps/summary/renderers.py:809
+#: apps/summary/renderers/technologies_2015.py:282
 msgid "Maintenance inputs and costs{}"
 msgstr "ปัจจัยและค่าใช้จ่ายของการบำรุงรักษา {}"
 
-#: apps/summary/renderers.py:814
+#: apps/summary/renderers/technologies_2015.py:287
 msgid "Total maintenance costs (estimation)"
 msgstr "ค่าใช้จ่ายทั้งหมดของการบำรุงรักษา (ประมาณ)"
 
-#: apps/summary/renderers.py:830
+#: apps/summary/renderers/technologies_2015.py:303
 msgid "Timing/ frequency"
 msgstr "ช่วงระยะเวลา/ความถี่"
 
-#: apps/summary/renderers.py:852
+#: apps/summary/renderers/technologies_2015.py:325
 msgid "Average annual rainfall in mm: {}"
 msgstr "ปริมาณเฉลี่ยฝนรายปีในหน่วยมม. {}"
 
-#: apps/summary/renderers.py:854
+#: apps/summary/renderers/technologies_2015.py:327
 msgid "Name of the meteorological station: {}"
 msgstr "ชื่อสถานีอุตุนิยมวิทยา {}"
 
-#: apps/summary/renderers.py:862
+#: apps/summary/renderers/technologies_2015.py:335
 msgid "Natural environment"
 msgstr "สิ่งแวดล้อมทางธรรมชาติ"
 
-#: apps/summary/renderers.py:865
+#: apps/summary/renderers/technologies_2015.py:338
 msgid "Average annual rainfall"
 msgstr "ปริมาณน้ำฝนเฉลี่ยรายปี "
 
-#: apps/summary/renderers.py:869
+#: apps/summary/renderers/technologies_2015.py:342
 msgid "Agro-climatic zone"
 msgstr "เขตภูมิอากาศเกษตร"
 
-#: apps/summary/renderers.py:873
+#: apps/summary/renderers/technologies_2015.py:346
 msgid "Specifications on climate"
 msgstr "ข้อมูลจำเพาะเรื่องภูมิอากาศ"
 
-#: apps/summary/renderers.py:877
+#: apps/summary/renderers/technologies_2015.py:350
 msgid "Slope"
 msgstr "ความชัน"
 
-#: apps/summary/renderers.py:881
+#: apps/summary/renderers/technologies_2015.py:354
 msgid "Landforms"
 msgstr "ภูมิลักษณ์"
 
-#: apps/summary/renderers.py:885
+#: apps/summary/renderers/technologies_2015.py:358
 msgid "Altitude"
 msgstr "ความสูง"
 
-#: apps/summary/renderers.py:889
+#: apps/summary/renderers/technologies_2015.py:362
 msgid "Technology is applied in"
 msgstr "เทคโนโลยีถูกประยุกต์ใช้ใน"
 
-#: apps/summary/renderers.py:893
+#: apps/summary/renderers/technologies_2015.py:366
 msgid "Soil depth"
 msgstr "ความลึกของดิน"
 
-#: apps/summary/renderers.py:897
+#: apps/summary/renderers/technologies_2015.py:370
 msgid "Soil texture (topsoil)"
 msgstr "เนื้อดิน (ดินชั้นบน)"
 
-#: apps/summary/renderers.py:901
+#: apps/summary/renderers/technologies_2015.py:374
 msgid "Soil texture (> 20 cm below surface)"
 msgstr "เนื้อดิน (> 20 ซม. ต่ำกว่าพื้นผิว)"
 
-#: apps/summary/renderers.py:905
+#: apps/summary/renderers/technologies_2015.py:378
 msgid "Topsoil organic matter content"
 msgstr "สารอินทรียวัตถุในดิน"
 
-#: apps/summary/renderers.py:909
+#: apps/summary/renderers/technologies_2015.py:382
 msgid "Groundwater table"
 msgstr "น้ำบาดาล"
 
-#: apps/summary/renderers.py:913
+#: apps/summary/renderers/technologies_2015.py:386
 msgid "Availability of surface water"
 msgstr "ระดับน้ำบาดาลที่ผิวดิน"
 
-#: apps/summary/renderers.py:917
+#: apps/summary/renderers/technologies_2015.py:390
 msgid "Water quality (untreated)"
 msgstr "คุณภาพน้ำ (ยังไม่ได้รับการบำบัด)"
 
-#: apps/summary/renderers.py:921
+#: apps/summary/renderers/technologies_2015.py:394
 msgid "Occurrence of flooding"
 msgstr "การเกิดน้ำท่วม"
 
-#: apps/summary/renderers.py:925
+#: apps/summary/renderers/technologies_2015.py:398
 msgid "Is salinity a problem?"
 msgstr "ความเค็มของน้ำเป็นปัญหาหรือไม่"
 
-#: apps/summary/renderers.py:929
+#: apps/summary/renderers/technologies_2015.py:402
 msgid "Species diversity"
 msgstr "ความหลากหลายทางชนิดพันธุ์"
 
-#: apps/summary/renderers.py:933
+#: apps/summary/renderers/technologies_2015.py:406
 msgid "Habitat diversity"
 msgstr "ความหลากหลายของแหล่งที่อยู่"
 
-#: apps/summary/renderers.py:942
+#: apps/summary/renderers/technologies_2015.py:415
 msgid "Characteristics of land users applying the Technology"
 msgstr "ลักษณะเฉพาะของผู้ใช้ที่ดินที่ประยุกต์ใช้เทคโนโลยี"
 
-#: apps/summary/renderers.py:945
+#: apps/summary/renderers/technologies_2015.py:418
 msgid "Market orientation"
 msgstr "เป้าหมายทางการตลาด"
 
-#: apps/summary/renderers.py:949
+#: apps/summary/renderers/technologies_2015.py:422
 msgid "Off-farm income"
 msgstr "รายได้จากภายนอกฟาร์ม"
 
-#: apps/summary/renderers.py:953
+#: apps/summary/renderers/technologies_2015.py:426
 msgid "Relative level of wealth"
 msgstr "ระดับของความมั่งคั่งโดยเปรียบเทียบ"
 
-#: apps/summary/renderers.py:957
+#: apps/summary/renderers/technologies_2015.py:430
 msgid "Level of mechanization"
 msgstr "ระดับของการใช้เครื่องจักรกล"
 
-#: apps/summary/renderers.py:961
+#: apps/summary/renderers/technologies_2015.py:434
 msgid "Sedentary or nomadic"
 msgstr "อยู่กับที่หรือเร่ร่อน"
 
-#: apps/summary/renderers.py:968
+#: apps/summary/renderers/technologies_2015.py:441
 msgid "Individuals or groups"
 msgstr "เป็นรายบุคคลหรือกลุ่ม"
 
-#: apps/summary/renderers.py:972
+#: apps/summary/renderers/technologies_2015.py:445
 msgid "Gender"
 msgstr "เพศ"
 
-#: apps/summary/renderers.py:976
+#: apps/summary/renderers/technologies_2015.py:449
 msgid "Age"
 msgstr "อายุ"
 
-#: apps/summary/renderers.py:980
+#: apps/summary/renderers/technologies_2015.py:453
 msgid "Area used per household"
 msgstr "พื้นที่ที่ใช้ต่อครัวเรือน"
 
-#: apps/summary/renderers.py:984
+#: apps/summary/renderers/technologies_2015.py:457
 msgid "Scale"
 msgstr "ขนาด"
 
-#: apps/summary/renderers.py:988
+#: apps/summary/renderers/technologies_2015.py:461
 msgid "Land ownership"
 msgstr "กรรมสิทธิ์ในที่ดิน"
 
-#: apps/summary/renderers.py:995
+#: apps/summary/renderers/technologies_2015.py:468
 msgid "Land use rights"
 msgstr "สิทธิในการใช้ที่ดิน"
 
-#: apps/summary/renderers.py:1002
+#: apps/summary/renderers/technologies_2015.py:475
 msgid "Water use rights"
 msgstr "สิทธิในการใช้น้ำ"
 
-#: apps/summary/renderers.py:1009
+#: apps/summary/renderers/technologies_2015.py:482
 msgid "Access to services and infrastructure"
 msgstr "เข้าถึงการบริการและโครงสร้างพื้นฐาน"
 
-#: apps/summary/renderers.py:1018
+#: apps/summary/renderers/technologies_2015.py:491
 msgid "Impacts"
 msgstr "ผลกระทบ"
 
-#: apps/summary/renderers.py:1021
+#: apps/summary/renderers/technologies_2015.py:494
 msgid "Socio-economic impacts"
 msgstr "ผลกระทบทางด้านเศรษฐกิจและสังคม"
 
-#: apps/summary/renderers.py:1025
+#: apps/summary/renderers/technologies_2015.py:498
 msgid "Socio-cultural impacts"
 msgstr "ผลกระทบด้านสังคมและวัฒนธรรม"
 
-#: apps/summary/renderers.py:1029
+#: apps/summary/renderers/technologies_2015.py:502
 msgid "Ecological impacts"
 msgstr "ผลกระทบด้านนิเวศวิทยา"
 
-#: apps/summary/renderers.py:1033
+#: apps/summary/renderers/technologies_2015.py:506
 msgid "Off-site impacts"
 msgstr "ผลกระทบนอกพื้นที่ดำเนินการ"
 
-#: apps/summary/renderers.py:1042
+#: apps/summary/renderers/technologies_2015.py:515
 msgid "Cost-benefit analysis"
 msgstr "รายได้และค่าใช้จ่าย"
 
-#: apps/summary/renderers.py:1045
+#: apps/summary/renderers/technologies_2015.py:518
 msgid "Benefits compared with establishment costs"
 msgstr "ผลประโยชน์ที่ได้รับเปรียบเทียบกับค่าใช้จ่าย"
 
-#: apps/summary/renderers.py:1050
+#: apps/summary/renderers/technologies_2015.py:523
 msgid "Benefits compared with maintenance costs"
 msgstr "ผลประโยชน์ที่ได้รับเปรียบเทียบกับค่าใช้จ่ายในการบำรุงรักษา"
 
-#: apps/summary/renderers.py:1061
+#: apps/summary/renderers/technologies_2015.py:534
 msgid "Climate change"
 msgstr "การเปลี่ยนแปลงของสภาพภูมิอากาศ"
 
-#: apps/summary/renderers.py:1063
+#: apps/summary/renderers/technologies_2015.py:536
 msgid "Climate change/ extreme to which the Technology is exposed"
 msgstr ""
 "การเปลี่ยนแปลงสภาพภูมิอากาศที่ค่อยเป็นค่อยไป และสภาพรุนแรงของภูมิอากาศที่เทคโนโลยีได้เผชิญ"
 
-#: apps/summary/renderers.py:1064
+#: apps/summary/renderers/technologies_2015.py:537
 msgid "How the Technology copes with these changes/extremes"
 msgstr ""
 "การปรับตัวของเทคโนโลยีในเปลี่ยนแปลงของสภาพภูมิอากาศที่ค่อยเป็นค่อยไปและสภาพรุนแรงของภูมิอากาศ "
 "เป็นอย่างไร"
 
-#: apps/summary/renderers.py:1072
+#: apps/summary/renderers/technologies_2015.py:545
 msgid "Adoption and adaptation"
 msgstr "การน้อมเอาความรู้และการปรับใช้"
 
-#: apps/summary/renderers.py:1075
+#: apps/summary/renderers/technologies_2015.py:548
 msgid "Percentage of land users in the area who have adopted the Technology"
 msgstr "เปอร์เซ็นต์ของผู้ใช้ที่ดินในพื้นที่ที่นำเทคโนโลยีไปใช้"
 
-#: apps/summary/renderers.py:1079
+#: apps/summary/renderers/technologies_2015.py:552
 msgid ""
 "Of all those who have adopted the Technology, how many have done so without "
 "receiving material incentives?"
@@ -17392,224 +18540,25 @@ msgstr ""
 "จากทั้งหมดที่ได้รับเทคโนโลยีเข้ามามีจำนวนเท่าใดที่ทำแบบทันที "
 "โดยไม่ได้รับการจูงใจด้านวัสดุหรือการเงินใดๆ"
 
-#: apps/summary/renderers.py:1083
+#: apps/summary/renderers/technologies_2015.py:556
 msgid "Number of households and/ or area covered"
 msgstr "จำนวนหลังคาเรือนหรือขนาดพื้นที่รวมทั้งหมด"
 
-#: apps/summary/renderers.py:1087
+#: apps/summary/renderers/technologies_2015.py:560
 msgid ""
 "Has the Technology been modified recently to adapt to changing conditions?"
 msgstr "เทคโนโลยีได้รับการปรับเปลี่ยนเร็วๆ นี้เพื่อให้ปรับตัวเข้ากับสภาพที่กำลังเปลี่ยนแปลงหรือไม่"
 
-#: apps/summary/renderers.py:1091
+#: apps/summary/renderers/technologies_2015.py:564
 msgid "To which changing conditions?"
 msgstr "สภาพที่กำลังเปลี่ยนแปลงอันไหน"
 
-#: apps/summary/renderers.py:1143
-msgid "Initiation date"
-msgstr "วันที่ริเริ่ม"
-
-#: apps/summary/renderers.py:1148
-msgid "Year of termination"
-msgstr "ปีที่สิ้นสุด"
-
-#: apps/summary/renderers.py:1153
-msgid "Type of Approach"
-msgstr "ประเภทของแนวทาง"
-
-#: apps/summary/renderers.py:1166
-msgid "Approach aims and enabling environment"
-msgstr "แนวทางการดำเนินการและบรรยากาศการพัฒนาที่เอื้ออํานวย"
-
-#: apps/summary/renderers.py:1169
-msgid "Main aims / objectives of the approach"
-msgstr "เป้าหมายหรือวัตถุประสงค์หลักของแนวทาง"
-
-#: apps/summary/renderers.py:1174
-msgid ""
-"Conditions enabling the implementation of the Technology/ ies applied under "
-"the Approach"
-msgstr "เงื่อนไขที่เอื้ออำนวยต่อการนำเอาเทคโนโลยีภายใต้แนวทางนี้ไปปฏิบัติใช้"
-
-#: apps/summary/renderers.py:1178
-msgid ""
-"Conditions hindering the implementation of the Technology/ ies applied under "
-"the Approach"
-msgstr "เงื่อนไขที่เป็นอุปสรรคต่อการนำเอาเทคโนโลยีภายใต้แนวทางนี้ไปปฏิบัติใช้"
-
-#: apps/summary/renderers.py:1194
-msgid "Participation and roles of stakeholders involved"
-msgstr "การมีส่วนร่วมและบทบาทของผู้มีส่วนได้เสีย"
-
-#: apps/summary/renderers.py:1197
-msgid "Stakeholders involved in the Approach and their roles"
-msgstr "ผู้มีส่วนได้เสียที่เกี่ยวข้องในแนวทางนี้และบทบาท"
-
-#: apps/summary/renderers.py:1200
-msgid "Lead agency"
-msgstr "เอเจนซี่หลัก"
-
-#: apps/summary/renderers.py:1205 apps/summary/renderers.py:1209
-msgid ""
-"Involvement of local land users/ local communities in the different phases "
-"of the Approach"
-msgstr "การเกี่ยวข้องของผู้ใช้ที่ดินระดับท้องถิ่นหรือชุมชนระดับท้องถิ่นในช่วงต่าง ๆ ของแนวทาง"
-
-#: apps/summary/renderers.py:1218
-msgid "Flow chart"
-msgstr "แผนผัง"
-
-#: apps/summary/renderers.py:1222
-msgid "Decision-making on the selection of SLM Technology"
-msgstr "การตัดสินใจในการเลือกใช้เทคโนโลยี SLM"
-
-#: apps/summary/renderers.py:1225
-msgid "Decisions were taken by"
-msgstr "การตัดสินใจถูกทำโดย"
-
-#: apps/summary/renderers.py:1232
-msgid "Decisions were made based on"
-msgstr "การตัดสินใจถูกตัดสินอยู่บนพื้นฐานของ"
-
-#: apps/summary/renderers.py:1246
-msgid "Technical support, capacity building, and knowledge management"
-msgstr "การสนับสนุนด้านเทคนิค การสร้างขีดความสามารถ และการจัดการด้านความรู้"
-
-#: apps/summary/renderers.py:1249
-msgid "The following activities or services have been part of the approach"
-msgstr "กิจกรรมหรือการบริการต่อจากนี้เป็นส่วนหนึ่งของแนวทาง"
-
-#: apps/summary/renderers.py:1259
-msgid "Capacity building/ training"
-msgstr "การสร้างสมรรถภาพหรือการอบรม"
-
-#: apps/summary/renderers.py:1262
-msgid "Training was provided to the following stakeholders"
-msgstr "การจัดอบรมถูกจัดขึ้นสำหรับผู้มีส่วนได้ส่วนเสียต่อไปนี้"
-
-#: apps/summary/renderers.py:1269
-msgid "Form of training"
-msgstr "รูปแบบของการอบรม"
-
-#: apps/summary/renderers.py:1277
-msgid "Subjects covered"
-msgstr "หัวข้อที่อบรม"
-
-#: apps/summary/renderers.py:1282
-msgid "Advisory service"
-msgstr "การบริการให้คำแนะนำ"
-
-#: apps/summary/renderers.py:1285
-msgid "Advisory service was provided"
-msgstr "การให้คำแนะนำถูกจัดขึ้น"
-
-#: apps/summary/renderers.py:1295
-msgid "Institution strengthening"
-msgstr "การสร้างความแข็งแกร่งให้กับองค์กร"
-
-#: apps/summary/renderers.py:1297
-msgid "Institutions have been strengthened / established"
-msgstr "องค์กรถูกทำให้แข็งแกร่งขึ้นหรือจัดตั้งขึ้น"
-
-#: apps/summary/renderers.py:1301
-msgid "at the following level"
-msgstr "ตามระดับต่อไปนี้"
-
-#: apps/summary/renderers.py:1307
-msgid "Describe institution, roles and responsibilities, members, etc."
-msgstr "อธิบายถึงสถาบัน บทบาทและความรับผิดชอบ สมาชิก เป็นต้น"
-
-#: apps/summary/renderers.py:1310
-msgid "Type of support"
-msgstr "ประเภทของการให้ความช่วยเหลือสนับสนุน"
-
-#: apps/summary/renderers.py:1316
-msgid "Further details"
-msgstr "รายละเอียดเพิ่มเติม"
-
-#: apps/summary/renderers.py:1320
-msgid "Monitoring and evaluation"
-msgstr "การติดตามตรวจสอบและประเมินผล"
-
-#: apps/summary/renderers.py:1324
-msgid "Research"
-msgstr "การวิจัย"
-
-#: apps/summary/renderers.py:1325
-msgid "Research treated the following topics"
-msgstr "การวิจัยกระทำกับหัวข้อต่อไปนี้"
-
-#: apps/summary/renderers.py:1338
-msgid "Financing and external material support"
-msgstr "การสนับสนุนด้านการเงินและวัสดุอุปกรณ์"
-
-#: apps/summary/renderers.py:1341
-msgid "Annual budget in USD for the SLM component"
-msgstr "งบประมาณประจำปีสำหรับองค์ประกอบ SLM เป็นจำนวนดอลลาร์สหรัฐ"
-
-#: apps/summary/renderers.py:1344
-msgid "Precise annual budget: {}"
-msgstr "งบประมาณประจำปีที่แน่นอน"
-
-#: apps/summary/renderers.py:1347
-msgid "The following services or incentives have been provided to land users"
-msgstr "การบริการหรือแรงจูงใจต่อจากนี้ได้ถูกจัดให้สำหรับผู้ใช้ที่ดิน"
-
-#: apps/summary/renderers.py:1358
-msgid "Labour by land users was"
-msgstr "แรงงานของผู้ใช้ที่ดินคือ"
-
-#: apps/summary/renderers.py:1362
-msgid "Financial/ material support provided to land users"
-msgstr "การสนับสนุนด้านการเงินและวัสดุอุปกรณ์ให้แก่ผู้ใช้ที่ดิน"
-
-#: apps/summary/renderers.py:1366
-msgid "Credit"
-msgstr "เครดิต"
-
-#: apps/summary/renderers.py:1368
-msgid "Conditions: {}"
-msgstr "ข้อกำหนด {}"
-
-#: apps/summary/renderers.py:1371
-msgid "Credit providers: {}"
-msgstr "ผู้ให้เครดิต {}"
-
-#: apps/summary/renderers.py:1374
-msgid "Credit receivers: {}"
-msgstr "ผู้รับเครดิต {}"
-
-#: apps/summary/renderers.py:1380
-msgid "Other incentives or instruments"
-msgstr "เเรงจูงใจหรือเครื่องมืออื่นๆ"
-
-#: apps/summary/renderers.py:1390
-msgid "Impact analysis and concluding statements"
-msgstr "ผลกระทบและสรุปคำบอกกล่าว"
-
-#: apps/summary/renderers.py:1393
-msgid "Impacts of the Approach"
-msgstr "ผลกระทบของแนวทาง"
-
-#: apps/summary/renderers.py:1394
-msgid "Did the approach..."
-msgstr "แนวทาง ... หรือไม่"
-
-#: apps/summary/renderers.py:1398
-msgid "Main motivation of land users to implement SLM"
-msgstr "แรงจูงใจหลักของผู้ใช้ที่ดินเพื่อที่จะนำ SLM ไปปฏิบัติใช้ "
-
-#: apps/summary/renderers.py:1405
-msgid "Sustainability of Approach activities"
-msgstr "ความยั่งยืนของกิจกรรมของแนวทาง"
-
-#: apps/summary/renderers.py:1406
-msgid ""
-"Can the land users sustain what hat been implemented through the Approach "
-"(without external support)?"
-msgstr ""
-"ผู้ใช้ปที่ดินสามารถทำให้สิ่งต่างๆ ที่ได้ปฏิบัติใช้โดยแนวทางนี้ยั่งยืนได้หรือไม่ "
-"(โดยไม่มีการสนับสนุนจากภายนอก)"
+#: apps/summary/renderers/technologies_2018.py:127
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid "at permanent centres"
+msgid "In a permanently protected area?"
+msgstr "ที่ศูนย์ถาวร"
 
 #: apps/summary/templates/summary/layout/base.html:11
 msgid "Summary"
@@ -17686,29 +18635,48 @@ msgid "WOCAT Watershed"
 msgstr "ลุ่มน้ำ WOCAT"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:6
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
 msgid "Introduction to the questionnaire"
 msgstr "คำแนะนำของแบบสอบถาม"
 
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
+#, fuzzy
+#| msgid ""
+#| "A modular framework for the documentation and assessment of SLM practices"
+msgid "About the WOCAT documentation of SLM practices"
+msgstr "โครงร่างงานที่เป็นโมดูลสำหรับการจัดทำเอกสารและการประเมินผลการปฏิบัติ SLM"
+
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:18
-msgid "Definitions"
-msgstr "คำอธิบาย"
+msgid "Welcome to WOCAT!"
+msgstr ""
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:22
 msgid ""
-"<strong>Sustainable Land Management (SLM)</strong> in the context of WOCAT "
-"is defined as the use of land resources – including soils, water, "
-"vegetation, and animals – to produce goods and provide services to meet "
-"changing human needs, while simultaneously ensuring the long-term productive "
-"potential of these resources and the maintenance of their environmental "
-"functions."
+"WOCAT provides standardized, user-driven, open-access, globally-used tools "
+"and methods for the documentation and assessment of sustainable land "
+"management (SLM) practices. <strong>SLM</strong> in the context of WOCAT is "
+"defined as the sustainable use of land resources – including soils, water, "
+"vegetation, and animals. WOCAT focuses on efforts to prevent and reduce land "
+"degradation and restore degraded land through improved <strong>land "
+"management technologies</strong> and <strong>approaches to implement these</"
+"strong>. All practices may be considered, whether they are indigenous, newly "
+"introduced through projects, or recent innovations by land users. All "
+"information documented through WOCAT questionnaires is made available in the "
+"Global SLM Database and can be used to disseminate SLM knowledge and improve "
+"decision-making for further implementation and spreading of SLM practices."
 msgstr ""
-"<strong>การจัดการที่ดินอย่างยั่งยืน (SLM)</strong> ในบริบทของ WOCAT หมายถึง "
-"การใช้ทรัพยากรที่ดิน ได้แก่ ดิน น้ำ พืช และสัตว์ "
-"เพื่อผลิตสินค้าและจัดหาบริการมาให้ตรงตามความต้องการของมนุษย์ที่เปลี่ยนแปลงอยู่เสมอ "
-"ในขณะเดียวกันต้องมั่นใจว่าทรัพยากรเหล่านี้ต้องมีศักยภาพในการผลิตระยะยาวและมีการรักษาสภาพและบทบาทของสิ่งแวดล้อมได้ด้วย"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:26
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:85
+msgid "Process of documentation and review of WOCAT data"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:30
+msgid ""
+"Are you going to document an SLM Technology or an SLM Approach – or both? "
+"And what is the difference between the two?"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:38
 msgid ""
 "An <strong>SLM Technology</strong> is a physical practice in the field that "
 "controls land degradation and/ or enhances productivity. A Technology "
@@ -17721,7 +18689,12 @@ msgstr ""
 "โดยเทคโนโลยีหนึ่งอย่างนั้นประกอบไปด้วยหนึ่งมาตรการหรือหลายมาตรการ "
 "เช่นมาตรการด้านการปลูกพืช ด้านพืชพรรณ ด้านโครงสร้าง และด้านการจัดการ"
 
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:30
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:41
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:53
+msgid "Example:"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:50
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement one or several SLM Technologies. It includes technical and "
@@ -17734,134 +18707,112 @@ msgstr ""
 "การมีส่วนร่วมและบทบาทของผู้มีส่วนได้ส่วนเสีย แนวทางดังกล่าวอาจหมายรวมถึงโครงการ โปรแกรม "
 "หรือ กิจกรรมที่ริเริ่มโดยผู้ใช้ที่ดินเอง"
 
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:34
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:61
 msgid ""
-"A modular framework for the documentation and assessment of SLM practices"
-msgstr "โครงร่างงานที่เป็นโมดูลสำหรับการจัดทำเอกสารและการประเมินผลการปฏิบัติ SLM"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:38
-msgid ""
-"The ultimate goal of documenting and assessing land management practices is "
-"to share and spread valuable knowledge in land management, support evidence-"
-"based decision-making, and scale up identified good/ best practices. To "
-"achieve this, it is important to analyse field experiences and gain a better "
-"understanding of the reasons behind successful SLM practices, regardless of "
-"whether they were introduced by projects or whether they are found in "
-"traditional systems."
+"The two questionnaires together provide the full picture of an SLM practice. "
+"Ideally, you first fill in the questionnaires on SLM Technologies followed "
+"by the questionnaire on SLM Approaches. An Approach should always be linked "
+"to one or several Technologies. Optional thematic modules provide in-depth "
+"information on specific topics (such as <strong>Climate Change Adaptation, "
+"Carbon Benefits / Climate Change Mitigation, Watershed and Runoff, and "
+"Mapping Land Degradation and Conservation</strong>)."
 msgstr ""
-"เป้าหมายสุดท้ายของการจัดทำเอกสารและการประเมินผลปฏิบัติการจัดการที่ดิน "
-"คือการแบ่งปันและการเผยแพร่ความรู้ในการจัดการที่ดิน สนับสนุนการตัดสินใจที่มีหลักฐานอ้างอิง "
-"และการขยายการปฏิบัติที่ดีหรือดีที่สุดเพิ่มขึ้น "
-"เพื่อที่จะบรรลุเป้าหมายดังกล่าวจำเป็นต้องให้ความสำคัญกับการเก็บวิเคราะห์ภาคสนามอย่างละเอียดชัดเจน "
-"และทำความเข้าใจกับเหตุผลที่อยู่เบื้องหลังของการปฏิบัติ SLM ที่ประสบผลสำเร็จ "
-"โดยไม่คำนึงว่าได้รับการแนะนำเข้ามาโดยโครงการ หรือว่าพบในระบบแบบเดิมๆที่ทำกันอยู่"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:42
-msgid ""
-"WOCAT focuses on efforts to prevent and reduce land degradation and restore "
-"degraded land through improved <strong>land management technologies and "
-"approaches to implement these</strong>. All practices may be considered, "
-"whether they are traditional or indigenous, newly introduced through "
-"projects or programmes, adopted and/ or adapted by land users, or recent "
-"innovations."
-msgstr ""
-"WOCAT "
-"มุ่งไปในเรื่องความพยายามในการป้องกันและลดความเสื่อมโทรมโทรมของที่ดินและฟื้นฟูที่ดินที่เสื่อมโทรม "
-"<strong>โดยการใช้เทคโนโลยีการจัดการที่ดินและแนวทางที่ได้ปรับปรุงให้ดีแล้วไปปฏิบัติใช้</strong> "
-"การปฏิบัติทั้งหมดนั้นอาจรวมถึงประเพณีดั้งเดิมที่ทำกันหรือเป็นแบบพื้นเมืองหรือเพิ่งถูกแนะนำเข้ามาใหม่จากทางโครงการหรือโปรแกรม "
-"โดยรับเข้ามาและ/หรือได้รับการปรับโดยผู้ใช้ที่ดิน หรือเป็นนวัตกรรมล่าสุดก็ได้"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:46
-msgid ""
-"The <strong>Core Questionnaire on SLM Technologies (QT)</strong> helps to "
-"describe and understand the land management practice by addressing the "
-"following questions: <strong>what</strong> are the specifications of the "
-"Technology, what are the inputs and costs, <strong>where</strong> is it used "
-"(natural and human environment), and what <strong>impact</strong> does it "
-"have?"
-msgstr ""
-"<strong>แบบสอบถามหลักเรื่องเทคโนโลยี SLM (Core QT)</strong> "
-"ช่วยในการอธิบายและเข้าใจถึงการปฏิบัติการจัดการที่ดิน โดยนำเสนอประเด็นคำถามต่อไปนี้: "
-"ข้อมูลจำเพาะของเทคโนโลยีมี<strong>อะไรบ้าง</strong> ปัจจัยนำเข้าและค่าใช้จ่ายมีอะไรบ้าง "
-"นำไปใช้<strong>ที่ไหน</strong> มีการได้ใช้ (สิ่งแวดล้อมทางธรรมชาติและของมนุษย์) หรือไม่ "
-"และ<strong>มีผลกระทบ</strong>อะไรบ้าง"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:50
-msgid ""
-"The <strong>Core Questionnaire on SLM Approaches (QA)</strong> addresses the "
-"questions of <strong>how</strong> implementation was achieved (including "
-"capacity building, decision-making, technical and material support, change "
-"of legal framework and policies) and <strong>who</strong> achieved it "
-"(including all stakeholders involved and their roles). <strong>In the case "
-"of projects, WOCAT asks you to document only those components or activities "
-"of the project that are relevant to SLM.</strong>"
-msgstr ""
-"<strong>แบบสอบถามหลักเรื่องแนวทาง SLM (Core QA)</strong> "
-"ยกประเด็นคำถามถึงการบรรลุผลในการดำเนินการได้<strong>อย่างไร </"
-"strong>(รวมถึงการสร้างขีดความสามารถ การตัดสินใจ การสนับสนุนด้านเทคนิคและวัสดุอุปกรณ์ "
-"การเปลี่ยนกรอบและนโยบายด้านกฎหมาย) และผู้ที่ดำเนินการให้เป็นผลสำเร็จคือ<strong>ใคร</"
-"strong> (รวมถึงผู้มีส่วนได้ส่วนเสียที่เกี่ยวข้องทั้งหมดและบทบาทของบุคคลเหล่านั้น) "
-"<strong>ในโครงการนี้ WOCATขอให้บันทึกเฉพาะองค์ประกอบหรือกิจกรรมของโครงการที่เกี่ยวข้องกับ "
-"SLM เท่านั้น</strong>"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:54
-msgid ""
-"The Core questionnaires on SLM Technologies (QT core) and on SLM Approaches "
-"(QA core) contain the key questions on sustainable land management. They are "
-"the foundation of the WOCAT knowledge base. They are shorter and less time-"
-"consuming to fill in than the formerly used “basic” questionnaires."
-msgstr ""
-"แบบสอบถามหลักเรื่องเทคโนโลยี SLM(Core QT) และแบบสอบถามหลักเรื่องแนวทาง SLM (Core "
-"QA) ประกอบไปด้วยคำถามที่หาคำตอบเรื่องการจัดการที่ดินอย่างยั่งยืน "
-"ซึ่งเป็นพื้นฐานของฐานความรู้ด้านWOCAT "
-"โดยสั้นกว่าและใช้เวลาในการกรอกน้อยกว่าแบบสอบถามที่ใช้ก่อนหน้านี้"
-
-#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:58
-msgid ""
-"<strong>The WOCAT framework is flexible and open.</strong> It enables users "
-"to include specific topics, depending on their interests and needs, to "
-"expand the standardized WOCAT Core questionnaires. Development of the "
-"following <strong>modules</strong> has been completed or initiated: "
-"<strong>Climate change adaptation</strong> (QC), <strong>Climate Change "
-"Mitigation</strong>/ Carbon Benefits, <strong>Economics of SLM</strong> and "
-"<strong>Biodiversity</strong>. The realization of additional modules depends "
-"on the initiative of interested partners and the mobilization of resources. "
-"WOCAT is open for collaboration, joint projects, and further development of "
-"the knowledge base. All modules will be docked onto the core version of QT "
-"and QA."
-msgstr ""
-"<strong>กรอบการทำงานของ WOCAT มีความยืดหยุ่นและเปิดกว้าง</"
-"strong>ทำให้ผู้ใช้สามารถรวมรวมหัวข้อเฉพาะเจาะจงที่ตรงตามความสนใจและความต้องการของผู้ใช้ "
-"เพื่อที่จะขยายการใช้งานแบบสอบถามหลักของ WOCAT ที่เป็นมาตรฐานแล้ว "
-"การพัฒนาโมดูล<strong>ที่เสร็จสมบูรณ์หรือได้มีการริเริ่มไปแล้ว เช่น "
-"<strong>การปรับตัวให้เข้ากับการเปลี่ยนแปลงของสภาพภูมิอากาศ</strong>(QC) "
-"<strong>การบรรเทาผลจากการเปลี่ยนแปลงของสภาพภูมิอากาศหรือประโยชน์ที่ได้รับจาก<strong>คาร์บอนเศรษฐกิจของ "
-"SLM</strong> และความหลากหลายทางชีวภาพ "
-"<strong>การทำโมดูลเพิ่มเติมให้เกิดเป็นจริงขึ้นอยู่กับการริเริ่มของภาคส่วนที่มีส่วนได้ส่วนเสียและการระดมทรัพยากร "
-"โดย WOCAT เปิดรับความร่วมมือกัน โครงการร่วม และการพัฒนาฐานความรู้ โมดูลทั้งหมดเชื่อมโยงกับ "
-"Core QT และ Core QA"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:62
-msgid ""
-"A further tool, the <strong>questionnaire on SLM Mapping (QM)</strong>, has "
-"been developed to analyse and depict the spatial distribution of SLM and "
-"land degradation processes, causes, and impacts."
-msgstr ""
-"เครื่องมือเพิ่มเติมขึ้นมา คือ <strong>แบบสอบถามเรื่องการทำแผนที่สำหรับ SLM (QM)</strong> "
-"เพื่อใช้วิเคราะห์และแสดงการกระจายเชิงพื้นที่ของ SLM และกระบวนการ สาเหตุ "
-"ผลกระทบของความเสื่อมโทรมโทรมของที่ดิน"
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "Sweden"
+msgctxt "See [link]"
+msgid "See"
+msgstr "สวีเดน"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:66
-msgid ""
-"The questionnaires mentioned above complement each other. All information "
-"documented through WOCAT questionnaires is made available in an open-access "
-"<strong>online database</strong> and can be used to disseminate SLM "
-"knowledge and improve decision-making for further implementation and "
-"spreading of SLM practices."
+msgid "How to document and review WOCAT data"
 msgstr ""
-"แบบสอบถามดังกล่าวจะช่วยเสริมกันและกัน ข้อมูลทั้งหมดที่บันทึกลงในแบบสอบถามของ WOCAT "
-"อยู่ใน<strong>ฐานข้อมูลออนไลน์</strong>แบบเปิดที่เข้าถึงได้ และสามารถนำไปเผยแพร่ความรู้ "
-"และช่วยในการตัดสินใจสำหรับการปฏิบัติ SLM ต่อไป"
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:71
+msgid ""
+"Familiarize yourself with the paper questionnaire (download it at <a href="
+"\"https://www.wocat.net/en/global-slm-database/slm-practices-technologies-"
+"and-approaches\" class=\"link\" target=\"_blank\">https://www.wocat.net/en/"
+"global-slm-database/slm-practices-technologies-and-approaches</a>). Go "
+"through the questions and read the instructions below. Contact the WOCAT "
+"Secretariat if you have questions."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:72
+msgid ""
+"Start filling in the questionnaire based on your knowledge and existing "
+"documents. Please write clearly and legibly."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:73
+msgid ""
+"Identify land users and other key resource persons with in-depth knowledge "
+"of the SLM Technology/ Approach (ideally a team of specialists with "
+"different backgrounds and experience)."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:74
+msgid ""
+"Collect data in the field. Gather information through interviews with land "
+"user(s) and key resource persons. Take measurements and photos, and make "
+"technical drawings."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:75
+msgid ""
+"Enter the compiled information in the Global SLM Database. Go to <a href="
+"\"https://qcat.wocat.net\" class=\"link\">qcat.wocat.net</a> and create a "
+"new SLM Technology/ Approach data entry form. Type the data collected – "
+"section by section, and upload images and other digital files."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:76
+msgid ""
+"The Global SLM Database will guide you on how to edit and submit your data "
+"for review, making sure it is complete, clear, and comprehensible. You can "
+"invite editors (registered WOCAT users) to help you."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:79
+msgid ""
+"Note 1: fill in a separate questionnaire for each Technology and for each "
+"Approach."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:82
+msgid ""
+"Note 2: When creating translations, the content of the original language "
+"will be copied once into the text fields, allowing you to translate the "
+"content. From there on, text changes have to be done in all language "
+"versions. The checkboxes are linked across all translations, meaning they "
+"always change in all language versions."
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:92
+#, fuzzy
+#| msgid "Review process"
+msgid "Review roles"
+msgstr "ขั้นตอนการตรวจสอบ"
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:94
+msgid "SLM Technology / Approach"
+msgstr "เทคโนโลยีหรือแนวทาง SLM"
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:98
+msgid "Help us to improve WOCAT"
+msgstr ""
+
+#: apps/wocat/templates/wocat/help/questionnaire_introduction.html:102
+msgid ""
+"Thank you for contributing to the Global SLM Database with good quality data "
+"on SLM! WOCAT provides flexible and user-driven tools. Help us to improve "
+"the existing questionnaires and contribute to the development of new "
+"questionnaire modules on specific topics related to SLM. Send your inputs or "
+"feedback to: <a href=\"mailto:wocat@cde.unibe.ch\" class=\"link\">wocat@cde."
+"unibe.ch</a>"
+msgstr ""
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:13
 msgid ""
@@ -17921,18 +18872,6 @@ msgstr ""
 "เลขานุการ WOCAT สามารถตรวจสอบและเผยแพร่ %(questionnaire_type)s นี้ได้ "
 "เลขานุการยังสามารถมอบหมายงานให้แก่ผู้ตรวจสอบและผู้เผยแพร่ได้อีกด้วย"
 
-#: apps/wocat/templates/wocat/help/review_process.html:18
-msgid "Process"
-msgstr "ขั้นตอน"
-
-#: apps/wocat/templates/wocat/help/review_process.html:27
-msgid "Roles"
-msgstr "ตำแหน่ง"
-
-#: apps/wocat/templates/wocat/help/review_process.html:29
-msgid "SLM Technology / Approach"
-msgstr "เทคโนโลยีหรือแนวทาง SLM"
-
 #: apps/wocat/templates/wocat/home.html:29
 #: apps/wocat/templates/wocat/home.html:37
 #: apps/wocat/templates/wocat/home.html:45
@@ -17962,8 +18901,10 @@ msgid "welcomes you to join!"
 msgstr "ยินดีต้อนรับคุณที่มาเข้าร่วมกับเรา !!"
 
 #: apps/wocat/templates/wocat/home.html:76
-msgid "About the WOCAT SLM Database"
-msgstr "เกี่ยวกับฐานข้อมูล SLM ของ WOCAT"
+#, fuzzy
+#| msgid "WOCAT SLM Database"
+msgid "WOCAT Global SLM Database"
+msgstr "ฐานข้อมูล SLM ของ WOCAT"
 
 #: apps/wocat/templates/wocat/home.html:80
 msgid ""
@@ -18019,23 +18960,57 @@ msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:92
 msgid ""
-"For further information please contact the <a href=\"https://wocat.net/about/"
-"organizational-structure-wocat-network/wocat-secretariat\" target=\"_blank\" "
-"class=\"link\">WOCAT Secretariat</a>."
+"Credits for the translation of the WOCAT Questionnaires and Database go to:"
 msgstr ""
-"สำหรับข้อมูลเพิ่มเติม กรุณาติดต่อ <a href=\"https://wocat.net/about/organizational-"
-"structure-wocat-network/wocat-secretariat\" target=\"_blank\" class=\"link"
-"\">เลขานุการ WOCAT</a>"
 
-#: apps/wocat/templates/wocat/home.html:103
+#: apps/wocat/templates/wocat/home.html:94
+msgid ""
+"<strong>Russian</strong>: Olga Andreeva (Associate Professor Moscow "
+"Lomonosov State University), Julia Johnson (Translator)"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:95
+msgid "<strong>Spanish</strong>: Pedro Charles Alborno (Translator)"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:96
+msgid "<strong>French</strong>: Barbara de Choudens (Translator)"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:97
+msgid ""
+"<strong>Lao</strong>: National Agriculture and Forestry Institute (NAFRI) "
+"Lao PDR"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:98
+msgid "<strong>Khmer</strong>: Royal University of Agriculture (RUA) Cambodia"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:102
+msgid ""
+"Please contact the WOCAT Secretariat (<a href=\"mailto:wocat@cde.unibe.ch\" "
+"class=\"link\">wocat@cde.unibe.ch</a>) if you are interested in translating "
+"the Questionnaires or the Global SLM Database into another language or "
+"further information about WOCAT."
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:105
+#, fuzzy
+#| msgid ""
+#| "A modular framework for the documentation and assessment of SLM practices"
+msgid "Read more about the WOCAT documentation of SLM practices."
+msgstr "โครงร่างงานที่เป็นโมดูลสำหรับการจัดทำเอกสารและการประเมินผลการปฏิบัติ SLM"
+
+#: apps/wocat/templates/wocat/home.html:116
 msgid "Information for UNCCD Parties"
 msgstr "ข้อมูลสำหรับคณะ UNCCD"
 
-#: apps/wocat/templates/wocat/home.html:111
+#: apps/wocat/templates/wocat/home.html:124
 msgid "Search SLM data"
 msgstr "ค้นหาข้อมูล SLM"
 
-#: apps/wocat/templates/wocat/home.html:139
+#: apps/wocat/templates/wocat/home.html:152
 #: apps/wocat/templates/wocat/partial/add.html:20
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
@@ -18047,18 +19022,18 @@ msgstr ""
 "เป็นการปฏิบัติภาคสนามที่ควบคุมการเสื่อมโทรมของที่ดินและเพิ่มผลผลิต และ/"
 "หรือการบริการระบบนิเวศอื่น ๆ"
 
-#: apps/wocat/templates/wocat/home.html:140
-#: apps/wocat/templates/wocat/home.html:160
-#: apps/wocat/templates/wocat/home.html:176
-#: apps/wocat/templates/wocat/home.html:200
-#: apps/wocat/templates/wocat/home.html:215
-#: apps/wocat/templates/wocat/home.html:238
-#: apps/wocat/templates/wocat/home.html:261
-#: apps/wocat/templates/wocat/home.html:277
+#: apps/wocat/templates/wocat/home.html:153
+#: apps/wocat/templates/wocat/home.html:173
+#: apps/wocat/templates/wocat/home.html:189
+#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:228
+#: apps/wocat/templates/wocat/home.html:251
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:290
 msgid "View all"
 msgstr "ดูทั้งหมด"
 
-#: apps/wocat/templates/wocat/home.html:159
+#: apps/wocat/templates/wocat/home.html:172
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
@@ -18067,11 +19042,11 @@ msgstr ""
 "<strong>แนวทาง SLM</strong> หมายถึงวิธีการที่นำเอาเทคโนโลยีสำหรับ SLM "
 "หนึ่งอย่างหรือหลายอย่างไปปฏิบัติใช้ รวมถึงความเกี่ยวข้องและบทบาทของผู้มีส่วนได้เสียต่างๆ เป็นต้น "
 
-#: apps/wocat/templates/wocat/home.html:173
+#: apps/wocat/templates/wocat/home.html:186
 msgid "UNCCD Prais Practices"
 msgstr "การปฏิบัติของ UNCCD PRAIS"
 
-#: apps/wocat/templates/wocat/home.html:174
+#: apps/wocat/templates/wocat/home.html:187
 msgid ""
 "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared "
 "through the UNCCD PRAIS system in the UNCCD reporting process."
@@ -18079,27 +19054,27 @@ msgstr ""
 "การปฏิบัติ UNCCD PRAIS เป็นการปฏิบัติที่ดีใน SLM ซึ่งแต่ก่อนถูกเผยแพร่ในระบบ UNCCD PRAIS "
 "ในระบบของ UNCCD"
 
-#: apps/wocat/templates/wocat/home.html:198
-#: apps/wocat/templates/wocat/home.html:212
+#: apps/wocat/templates/wocat/home.html:211
+#: apps/wocat/templates/wocat/home.html:225
 #: apps/wocat/templates/wocat/partial/add.html:63
 #: apps/wocat/templates/wocat/partial/add.html:77
 msgid "Watershed and Runoff"
 msgstr "ลุ่มน้ำและน้ำไหลบ่า"
 
-#: apps/wocat/templates/wocat/home.html:199
-#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:212
+#: apps/wocat/templates/wocat/home.html:226
 #: apps/wocat/templates/wocat/partial/add.html:64
 #: apps/wocat/templates/wocat/partial/add.html:78
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
 msgstr "แผนที่การจัดการที่ดินและการประเมินปริมาณน้ำไหลบ่าและน้ำที่ไหลออกจากลุ่มน้ำ"
 
-#: apps/wocat/templates/wocat/home.html:235
+#: apps/wocat/templates/wocat/home.html:248
 #: apps/wocat/templates/wocat/partial/add.html:100
 msgid "Land Degradation / Conservation"
 msgstr "การเสื่อมโทรมของที่ดินและการดูแลรักษา"
 
-#: apps/wocat/templates/wocat/home.html:236
+#: apps/wocat/templates/wocat/home.html:249
 #: apps/wocat/templates/wocat/partial/add.html:101
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
@@ -18108,7 +19083,7 @@ msgstr ""
 "แผนที่การจัดการที่ดิน ความเสื่อมโทรมของที่ดิน การฟื้นฟูที่ดินเสื่อมโทรม รวมทั้ง ผู้ขับเคลื่อน บริเวณ "
 "และผลกระทบ"
 
-#: apps/wocat/templates/wocat/home.html:237
+#: apps/wocat/templates/wocat/home.html:250
 #: apps/wocat/templates/wocat/partial/add.html:102
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -18116,15 +19091,15 @@ msgid ""
 msgstr ""
 "แผนที่ยังไม่สามารถใช้ได้ในฐานข้อมูลใหม่ แผนที่สามารถมองเห็นหรือเพิ่มได้ในฐานข้อมูลเก่า (QM)"
 
-#: apps/wocat/templates/wocat/home.html:258
-#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:271
+#: apps/wocat/templates/wocat/home.html:287
 #: apps/wocat/templates/wocat/partial/add.html:123
 #: apps/wocat/templates/wocat/partial/add.html:139
 msgid "CCA Module"
 msgstr "โมดูล CCA"
 
-#: apps/wocat/templates/wocat/home.html:259
-#: apps/wocat/templates/wocat/home.html:275
+#: apps/wocat/templates/wocat/home.html:272
+#: apps/wocat/templates/wocat/home.html:288
 #: apps/wocat/templates/wocat/partial/add.html:124
 #: apps/wocat/templates/wocat/partial/add.html:140
 msgid ""
@@ -18135,12 +19110,12 @@ msgstr ""
 "เครื่องมือการปรับตัวตามการเปลี่ยนแปลงของสภาพภูมิอากาศประเมินว่า เทคโนโลยี SLM "
 "ได้ถูกประยุกต์ใช้ในการแก้ปัญหาการเปลี่ยนแปลงของสภาพภูมิอากาศและความผิดปกติที่เกี่ยวข้องกับสภาพอากาศหรือไม่"
 
-#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/home.html:289
 #: apps/wocat/templates/wocat/partial/add.html:141
 msgid "Modules will be added soon to the new database."
 msgstr "โมดูลจะถูกเพิ่มใหม่ไปสู่ฐานข้อมูลเร็ว ๆ นี้"
 
-#: apps/wocat/templates/wocat/home.html:292
+#: apps/wocat/templates/wocat/home.html:305
 msgid "Key Numbers"
 msgstr "ตัวเลขหลัก"
 
@@ -18164,7 +19139,7 @@ msgstr ""
 "<strong>แนวทาง SLM</strong> หมายถึงวิธีการที่นำเอาเทคโนโลยีสำหรับ SLM "
 "หนึ่งอย่างหรือหลายอย่างไปปฏิบัติใช้ รวมถึงความเกี่ยวข้องและบทบาทของผู้มีส่วนได้เสียต่างๆ เป็นต้น "
 
-#: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:181
+#: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:194
 msgid "Search SLM Data"
 msgstr "ค้นหาข้อมูล SLM"
 
@@ -18255,67 +19230,67 @@ msgstr ""
 msgid "WOCAT SLM practices"
 msgstr "การปฏิบัติ SLM ของ WOCAT"
 
-#: templates/404.html:20 templates/base.html:180
+#: templates/404.html:20 templates/base.html:193
 msgid "Home"
 msgstr "หน้าหลัก"
 
-#: templates/base.html:105
+#: templates/base.html:118
 #, python-format
 msgid "Optimized for %(chrome)s and %(firefox)s."
 msgstr "เหมาะสำหรับ %(chrome)s และ %(firefox)s"
 
-#: templates/base.html:132
+#: templates/base.html:145
 msgid "Menu"
 msgstr "เมนู"
 
-#: templates/base.html:138
+#: templates/base.html:151
 msgid "See your messages."
 msgstr "แสดงข้อความของคุณ"
 
-#: templates/base.html:145 templates/base.html:183
+#: templates/base.html:158 templates/base.html:196
 msgid "My SLM Data"
 msgstr "ข้อมูล SLM ของฉัน"
 
-#: templates/base.html:146
+#: templates/base.html:159
 msgid "Notifications"
 msgstr "ข้อความแจ้งเตือน"
 
-#: templates/base.html:150
+#: templates/base.html:163
 msgid "Administration"
 msgstr "ผู้ดูแล"
 
-#: templates/base.html:158
+#: templates/base.html:171
 msgid "Logout"
 msgstr "ออกจากระบบ"
 
-#: templates/base.html:174
+#: templates/base.html:187
 msgid ""
 "Would you like to help us translate the SLM Database? Please contact the "
 "WOCAT Secretariat for more information."
 msgstr ""
 "คุณต้องการช่วยพวกเราแปลฐานข้อมูล SLM หรือไม่ กรุณาติดต่อเลขานุการ WOCAT สำหรับข้อมูลเพิ่มเติม"
 
-#: templates/base.html:245
+#: templates/base.html:258
 msgid "Maintenance announcement"
 msgstr "การประกาศการบำรุงรักษา"
 
-#: templates/base.html:255
+#: templates/base.html:268
 msgid "Primary recommended database"
 msgstr "เป็นฐานข้อมูลปฐมภูมิที่ถูกแนะนำ"
 
-#: templates/base.html:306
+#: templates/base.html:319
 msgid "University of Berne"
 msgstr "University of Berne"
 
-#: templates/base.html:312
+#: templates/base.html:325
 msgid "Privacy Policy"
 msgstr "กฎความเป็นส่วนตัว"
 
-#: templates/base.html:313
+#: templates/base.html:326
 msgid "Terms of Agreement"
 msgstr "เงื่อนไขที่ต้องยอมรับ"
 
-#: templates/base.html:314
+#: templates/base.html:327
 msgid "About"
 msgstr "ประมาณ"
 
@@ -18350,3 +19325,174 @@ msgid ""
 msgstr ""
 "ฐานข้อมูลของ WOCAT ในส่วนของการปฏิบัติ SLM (เทคโนโลยีและแนวทาง) "
 "ประกอบไปด้วยแนวปฏิบัติการที่ดี จำนวนมากจากนานาประเทศ"
+
+#~ msgid "x.x: Rename label"
+#~ msgstr "x.x: เปลี่ยนชื่อหัวข้อ"
+
+#~ msgid "review"
+#~ msgstr "ตรวจสอบ"
+
+#~ msgid "publication"
+#~ msgstr "การเผยแพร่"
+
+#~ msgid "Learn more about the review process."
+#~ msgstr "เรียนรู้เพิ่มเติมเกี่ยวกับขั้นตอนการตรวจสอบ"
+
+#~ msgid "New configuration edition available."
+#~ msgstr "โครงร่างฉบับใหม่พร้อมใช้แล้ว"
+
+#~ msgid "Enter a whole number"
+#~ msgstr "ป้อนเลขจำนวนเต็ม"
+
+#~ msgid "Definitions"
+#~ msgstr "คำอธิบาย"
+
+#~ msgid ""
+#~ "<strong>Sustainable Land Management (SLM)</strong> in the context of "
+#~ "WOCAT is defined as the use of land resources – including soils, water, "
+#~ "vegetation, and animals – to produce goods and provide services to meet "
+#~ "changing human needs, while simultaneously ensuring the long-term "
+#~ "productive potential of these resources and the maintenance of their "
+#~ "environmental functions."
+#~ msgstr ""
+#~ "<strong>การจัดการที่ดินอย่างยั่งยืน (SLM)</strong> ในบริบทของ WOCAT หมายถึง "
+#~ "การใช้ทรัพยากรที่ดิน ได้แก่ ดิน น้ำ พืช และสัตว์ "
+#~ "เพื่อผลิตสินค้าและจัดหาบริการมาให้ตรงตามความต้องการของมนุษย์ที่เปลี่ยนแปลงอยู่เสมอ "
+#~ "ในขณะเดียวกันต้องมั่นใจว่าทรัพยากรเหล่านี้ต้องมีศักยภาพในการผลิตระยะยาวและมีการรักษาสภาพและบทบาทของสิ่งแวดล้อมได้ด้วย"
+
+#~ msgid ""
+#~ "The ultimate goal of documenting and assessing land management practices "
+#~ "is to share and spread valuable knowledge in land management, support "
+#~ "evidence-based decision-making, and scale up identified good/ best "
+#~ "practices. To achieve this, it is important to analyse field experiences "
+#~ "and gain a better understanding of the reasons behind successful SLM "
+#~ "practices, regardless of whether they were introduced by projects or "
+#~ "whether they are found in traditional systems."
+#~ msgstr ""
+#~ "เป้าหมายสุดท้ายของการจัดทำเอกสารและการประเมินผลปฏิบัติการจัดการที่ดิน "
+#~ "คือการแบ่งปันและการเผยแพร่ความรู้ในการจัดการที่ดิน สนับสนุนการตัดสินใจที่มีหลักฐานอ้างอิง "
+#~ "และการขยายการปฏิบัติที่ดีหรือดีที่สุดเพิ่มขึ้น "
+#~ "เพื่อที่จะบรรลุเป้าหมายดังกล่าวจำเป็นต้องให้ความสำคัญกับการเก็บวิเคราะห์ภาคสนามอย่างละเอียดชัดเจน "
+#~ "และทำความเข้าใจกับเหตุผลที่อยู่เบื้องหลังของการปฏิบัติ SLM ที่ประสบผลสำเร็จ "
+#~ "โดยไม่คำนึงว่าได้รับการแนะนำเข้ามาโดยโครงการ หรือว่าพบในระบบแบบเดิมๆที่ทำกันอยู่"
+
+#~ msgid ""
+#~ "WOCAT focuses on efforts to prevent and reduce land degradation and "
+#~ "restore degraded land through improved <strong>land management "
+#~ "technologies and approaches to implement these</strong>. All practices "
+#~ "may be considered, whether they are traditional or indigenous, newly "
+#~ "introduced through projects or programmes, adopted and/ or adapted by "
+#~ "land users, or recent innovations."
+#~ msgstr ""
+#~ "WOCAT "
+#~ "มุ่งไปในเรื่องความพยายามในการป้องกันและลดความเสื่อมโทรมโทรมของที่ดินและฟื้นฟูที่ดินที่เสื่อมโทรม "
+#~ "<strong>โดยการใช้เทคโนโลยีการจัดการที่ดินและแนวทางที่ได้ปรับปรุงให้ดีแล้วไปปฏิบัติใช้</"
+#~ "strong> "
+#~ "การปฏิบัติทั้งหมดนั้นอาจรวมถึงประเพณีดั้งเดิมที่ทำกันหรือเป็นแบบพื้นเมืองหรือเพิ่งถูกแนะนำเข้ามาใหม่จากทางโครงการหรือโปรแกรม "
+#~ "โดยรับเข้ามาและ/หรือได้รับการปรับโดยผู้ใช้ที่ดิน หรือเป็นนวัตกรรมล่าสุดก็ได้"
+
+#~ msgid ""
+#~ "The <strong>Core Questionnaire on SLM Technologies (QT)</strong> helps to "
+#~ "describe and understand the land management practice by addressing the "
+#~ "following questions: <strong>what</strong> are the specifications of the "
+#~ "Technology, what are the inputs and costs, <strong>where</strong> is it "
+#~ "used (natural and human environment), and what <strong>impact</strong> "
+#~ "does it have?"
+#~ msgstr ""
+#~ "<strong>แบบสอบถามหลักเรื่องเทคโนโลยี SLM (Core QT)</strong> "
+#~ "ช่วยในการอธิบายและเข้าใจถึงการปฏิบัติการจัดการที่ดิน โดยนำเสนอประเด็นคำถามต่อไปนี้: "
+#~ "ข้อมูลจำเพาะของเทคโนโลยีมี<strong>อะไรบ้าง</strong> "
+#~ "ปัจจัยนำเข้าและค่าใช้จ่ายมีอะไรบ้าง นำไปใช้<strong>ที่ไหน</strong> มีการได้ใช้ "
+#~ "(สิ่งแวดล้อมทางธรรมชาติและของมนุษย์) หรือไม่ และ<strong>มีผลกระทบ</strong>อะไรบ้าง"
+
+#~ msgid ""
+#~ "The <strong>Core Questionnaire on SLM Approaches (QA)</strong> addresses "
+#~ "the questions of <strong>how</strong> implementation was achieved "
+#~ "(including capacity building, decision-making, technical and material "
+#~ "support, change of legal framework and policies) and <strong>who</strong> "
+#~ "achieved it (including all stakeholders involved and their roles). "
+#~ "<strong>In the case of projects, WOCAT asks you to document only those "
+#~ "components or activities of the project that are relevant to SLM.</strong>"
+#~ msgstr ""
+#~ "<strong>แบบสอบถามหลักเรื่องแนวทาง SLM (Core QA)</strong> "
+#~ "ยกประเด็นคำถามถึงการบรรลุผลในการดำเนินการได้<strong>อย่างไร </"
+#~ "strong>(รวมถึงการสร้างขีดความสามารถ การตัดสินใจ การสนับสนุนด้านเทคนิคและวัสดุอุปกรณ์ "
+#~ "การเปลี่ยนกรอบและนโยบายด้านกฎหมาย) และผู้ที่ดำเนินการให้เป็นผลสำเร็จคือ<strong>ใคร</"
+#~ "strong> (รวมถึงผู้มีส่วนได้ส่วนเสียที่เกี่ยวข้องทั้งหมดและบทบาทของบุคคลเหล่านั้น) "
+#~ "<strong>ในโครงการนี้ "
+#~ "WOCATขอให้บันทึกเฉพาะองค์ประกอบหรือกิจกรรมของโครงการที่เกี่ยวข้องกับ SLM เท่านั้น</"
+#~ "strong>"
+
+#~ msgid ""
+#~ "The Core questionnaires on SLM Technologies (QT core) and on SLM "
+#~ "Approaches (QA core) contain the key questions on sustainable land "
+#~ "management. They are the foundation of the WOCAT knowledge base. They are "
+#~ "shorter and less time-consuming to fill in than the formerly used “basic” "
+#~ "questionnaires."
+#~ msgstr ""
+#~ "แบบสอบถามหลักเรื่องเทคโนโลยี SLM(Core QT) และแบบสอบถามหลักเรื่องแนวทาง SLM (Core "
+#~ "QA) ประกอบไปด้วยคำถามที่หาคำตอบเรื่องการจัดการที่ดินอย่างยั่งยืน "
+#~ "ซึ่งเป็นพื้นฐานของฐานความรู้ด้านWOCAT "
+#~ "โดยสั้นกว่าและใช้เวลาในการกรอกน้อยกว่าแบบสอบถามที่ใช้ก่อนหน้านี้"
+
+#~ msgid ""
+#~ "<strong>The WOCAT framework is flexible and open.</strong> It enables "
+#~ "users to include specific topics, depending on their interests and needs, "
+#~ "to expand the standardized WOCAT Core questionnaires. Development of the "
+#~ "following <strong>modules</strong> has been completed or initiated: "
+#~ "<strong>Climate change adaptation</strong> (QC), <strong>Climate Change "
+#~ "Mitigation</strong>/ Carbon Benefits, <strong>Economics of SLM</strong> "
+#~ "and <strong>Biodiversity</strong>. The realization of additional modules "
+#~ "depends on the initiative of interested partners and the mobilization of "
+#~ "resources. WOCAT is open for collaboration, joint projects, and further "
+#~ "development of the knowledge base. All modules will be docked onto the "
+#~ "core version of QT and QA."
+#~ msgstr ""
+#~ "<strong>กรอบการทำงานของ WOCAT มีความยืดหยุ่นและเปิดกว้าง</"
+#~ "strong>ทำให้ผู้ใช้สามารถรวมรวมหัวข้อเฉพาะเจาะจงที่ตรงตามความสนใจและความต้องการของผู้ใช้ "
+#~ "เพื่อที่จะขยายการใช้งานแบบสอบถามหลักของ WOCAT ที่เป็นมาตรฐานแล้ว "
+#~ "การพัฒนาโมดูล<strong>ที่เสร็จสมบูรณ์หรือได้มีการริเริ่มไปแล้ว เช่น "
+#~ "<strong>การปรับตัวให้เข้ากับการเปลี่ยนแปลงของสภาพภูมิอากาศ</strong>(QC) "
+#~ "<strong>การบรรเทาผลจากการเปลี่ยนแปลงของสภาพภูมิอากาศหรือประโยชน์ที่ได้รับจาก<strong>คาร์บอนเศรษฐกิจของ "
+#~ "SLM</strong> และความหลากหลายทางชีวภาพ "
+#~ "<strong>การทำโมดูลเพิ่มเติมให้เกิดเป็นจริงขึ้นอยู่กับการริเริ่มของภาคส่วนที่มีส่วนได้ส่วนเสียและการระดมทรัพยากร "
+#~ "โดย WOCAT เปิดรับความร่วมมือกัน โครงการร่วม และการพัฒนาฐานความรู้ "
+#~ "โมดูลทั้งหมดเชื่อมโยงกับ Core QT และ Core QA"
+
+#~ msgid ""
+#~ "A further tool, the <strong>questionnaire on SLM Mapping (QM)</strong>, "
+#~ "has been developed to analyse and depict the spatial distribution of SLM "
+#~ "and land degradation processes, causes, and impacts."
+#~ msgstr ""
+#~ "เครื่องมือเพิ่มเติมขึ้นมา คือ <strong>แบบสอบถามเรื่องการทำแผนที่สำหรับ SLM (QM)</"
+#~ "strong> เพื่อใช้วิเคราะห์และแสดงการกระจายเชิงพื้นที่ของ SLM และกระบวนการ สาเหตุ "
+#~ "ผลกระทบของความเสื่อมโทรมโทรมของที่ดิน"
+
+#~ msgid ""
+#~ "The questionnaires mentioned above complement each other. All information "
+#~ "documented through WOCAT questionnaires is made available in an open-"
+#~ "access <strong>online database</strong> and can be used to disseminate "
+#~ "SLM knowledge and improve decision-making for further implementation and "
+#~ "spreading of SLM practices."
+#~ msgstr ""
+#~ "แบบสอบถามดังกล่าวจะช่วยเสริมกันและกัน ข้อมูลทั้งหมดที่บันทึกลงในแบบสอบถามของ WOCAT "
+#~ "อยู่ใน<strong>ฐานข้อมูลออนไลน์</strong>แบบเปิดที่เข้าถึงได้ และสามารถนำไปเผยแพร่ความรู้ "
+#~ "และช่วยในการตัดสินใจสำหรับการปฏิบัติ SLM ต่อไป"
+
+#~ msgid "Process"
+#~ msgstr "ขั้นตอน"
+
+#~ msgid "Roles"
+#~ msgstr "ตำแหน่ง"
+
+#~ msgid "About the WOCAT SLM Database"
+#~ msgstr "เกี่ยวกับฐานข้อมูล SLM ของ WOCAT"
+
+#~ msgid ""
+#~ "For further information please contact the <a href=\"https://wocat.net/"
+#~ "about/organizational-structure-wocat-network/wocat-secretariat\" target="
+#~ "\"_blank\" class=\"link\">WOCAT Secretariat</a>."
+#~ msgstr ""
+#~ "สำหรับข้อมูลเพิ่มเติม กรุณาติดต่อ <a href=\"https://wocat.net/about/organizational-"
+#~ "structure-wocat-network/wocat-secretariat\" target=\"_blank\" class=\"link"
+#~ "\">เลขานุการ WOCAT</a>"

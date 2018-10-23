@@ -23,8 +23,11 @@ from sample.tests.test_views import route_questionnaire_new_step
 class UserTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     """
     status:
@@ -289,7 +292,10 @@ class UserTest(FunctionalTest):
 @pytest.mark.usefixtures('es')
 class UserTest2(FunctionalTest):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     id_user_kurt = 1560
 
@@ -880,8 +886,10 @@ class UserTest2(FunctionalTest):
 class UserTest3(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json']
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_user_questionnaires_no_duplicates(self):
 
@@ -938,7 +946,10 @@ class UserTest3(FunctionalTest):
 
 class UserDetailTest(FunctionalTest):
 
-    fixtures = ['global_key_values', 'sample']
+    fixtures = [
+        'global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         super().setUp()

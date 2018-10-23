@@ -1,9 +1,13 @@
 import copy
 
+from configuration.configuration import QuestionnaireConfiguration
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import F
 from django.template.loader import render_to_string
 
-from configuration.models import Configuration, Key, Value, Translation
+from configuration.models import Configuration, Key, Value, Translation, \
+    Questiongroup, Category
 
 
 class Edition:
@@ -31,19 +35,24 @@ class Edition:
     ]
 
     def __str__(self):
-        return f'{self.code}: {self.edition}'
+        return f'{self.code}: Edition {self.edition}'
 
     @property
     def operations(self):
         raise NotImplementedError('A list of operations is required.')
 
-    def __init__(self, key: Key, value: Value, configuration: Configuration, translation: Translation):
+    def __init__(
+            self, key: Key, value: Value, questiongroup: Questiongroup,
+            category: Category, configuration: Configuration,
+            translation: Translation):
         """
         Load operations, and validate the required instance variables.
 
         """
         self.key = key
         self.value = value
+        self.questiongroup = questiongroup
+        self.category = category
         self.configuration = configuration
         self.translation = translation
         self.validate_instance_variables()
@@ -84,14 +93,21 @@ class Edition:
     def save_object(self, **data) -> Configuration:
         """
         Create or update the configuration with the modified data.
-
         """
-        obj, _ = self.configuration.objects.get_or_create(
-            edition=self.edition,
-            code=self.code,
-            defaults={'data': data}
-        )
-        # @TODO: validate data before calling save
+        try:
+            obj = self.configuration.objects.get(
+                edition=self.edition, code=self.code)
+        except self.configuration.DoesNotExist:
+            obj = self.configuration(edition=self.edition, code=self.code)
+        obj.data = data
+
+        # Validate the data before saving.
+        questionnaire_configuration = QuestionnaireConfiguration(
+            keyword=self.code, configuration_object=obj)
+        if questionnaire_configuration.configuration_error:
+            raise Exception('Configuration error: %s' %
+                            questionnaire_configuration.configuration_error)
+        obj.save()
         return obj
 
     def get_release_notes(self):
@@ -99,7 +115,10 @@ class Edition:
             yield _operation.render()
 
     def update_questionnaire_data(self, **data) -> dict:
-        # Stub!
+        """
+        Gets called when creating a new version of a questionnaire in a new
+        edition. Calls each operation's "transform_questionnaire" method.
+        """
         for _operation in self.operations:
             data = _operation.update_questionnaire_data(**data)
         return data
@@ -150,17 +169,51 @@ class Edition:
         obj.data.update({self.translation_key: data})
         obj.save()
 
-    def create_new_translation(self, translation_type, **data) -> Translation:
+    def create_new_translation(
+            self, translation_type, translation_keys: list=None,
+            **data) -> Translation:
         """
         Create and return a new translation entry.
         """
-        return self.translation.objects.create(
-            translation_type=translation_type,
-            data={self.translation_key: data})
+        if translation_keys:
+            data = {t: data for t in translation_keys}
+        else:
+            data = {self.translation_key: data}
+        translation, __ = self.translation.objects.get_or_create(
+            translation_type=translation_type, data=data)
+        return translation
+
+    def create_new_category(
+            self, keyword: str, translation: dict or int or None) -> Category:
+        if isinstance(translation, dict):
+            translation_obj = self.create_new_translation(
+                translation_type='category', **translation)
+        elif isinstance(translation, int):
+            translation_obj = self.translation.objects.get(pk=translation)
+        else:
+            translation_obj = None
+        category, __ = self.category.objects.get_or_create(
+            keyword=keyword, translation=translation_obj)
+        return category
+
+    def create_new_questiongroup(
+            self, keyword: str, translation: dict or int or None) -> Questiongroup:
+        if isinstance(translation, dict):
+            translation_obj = self.create_new_translation(
+                translation_type='questiongroup', **translation)
+        elif isinstance(translation, int):
+            translation_obj = self.translation.objects.get(pk=translation)
+        else:
+            translation_obj = None
+        configuration = {}
+        questiongroup, __ = self.questiongroup.objects.get_or_create(
+            keyword=keyword, translation=translation_obj,
+            configuration=configuration)
+        return questiongroup
 
     def create_new_question(
             self, keyword: str, translation: dict or int, question_type: str,
-            values: list=None) -> Key:
+            values: list=None, configuration: dict=None) -> Key:
         """
         Create and return a new question (actually, in DB terms, a key), with a
         translation.
@@ -170,28 +223,92 @@ class Edition:
                 translation_type='key', **translation)
         else:
             translation_obj = self.translation.objects.get(pk=translation)
-        configuration_data = {'type': question_type}
-        key = self.key.objects.create(
-            keyword=keyword, translation=translation_obj,
-            configuration=configuration_data)
-        if values:
-            key.values.add(*values)
+        configuration_data = configuration if configuration is not None else {}
+        configuration_data.update({'type': question_type})
+
+        try:
+            key = self.key.objects.get(keyword=keyword)
+            key.translation = translation_obj
+            key.configuration = configuration_data
+            key.save()
+        except ObjectDoesNotExist:
+            key = self.key.objects.create(
+                keyword=keyword,
+                translation=translation_obj,
+                configuration=configuration_data
+            )
+
+        if values is not None:
+            existing_values = key.values.all()
+            for new_value in values:
+                if new_value not in existing_values:
+                    key.values.add(new_value)
+
         return key
 
     def create_new_value(
             self, keyword: str, translation: dict or int, order_value: int=None,
-            configuration: dict=None) -> Value:
+            configuration: dict=None, configuration_editions: list=None) -> Value:
         """
         Create and return a new value, with a translation.
         """
         if isinstance(translation, dict):
             translation_obj = self.create_new_translation(
-                translation_type='value', **translation)
+                translation_type='value',
+                translation_keys=configuration_editions, **translation)
         else:
             translation_obj = self.translation.objects.get(pk=translation)
-        return self.value.objects.create(
-            keyword=keyword, translation=translation_obj,
-            order_value=order_value, configuration=configuration)
+
+        try:
+            value = self.value.objects.get(keyword=keyword)
+            value.translation = translation_obj
+            value.order_value = order_value
+            value.configuration = configuration
+            value.save()
+        except ObjectDoesNotExist:
+            value = self.value.objects.create(
+                keyword=keyword, translation=translation_obj,
+                order_value=order_value, configuration=configuration)
+
+        return value
+
+    def create_new_values_list(self, values_list: list) -> list:
+        """Create and return a list of simple values."""
+        return [
+            self.create_new_value(
+                keyword=k,
+                translation={
+                    'label': {
+                        'en': l
+                    }
+                })
+            for k, l in values_list
+        ]
+
+    def add_new_value(
+            self, question_keyword: str, value: Value, order_value: int=None):
+        """
+        Add a new value to an existing question.
+        """
+        key = self.key.objects.get(keyword=question_keyword)
+        if order_value and not key.values.filter(pk=value.pk).exists():
+            # If order_value is provided and the value was not yet added to the
+            # question, update the ordering of the existing values.
+            key.values.filter(
+                order_value__gte=order_value
+            ).update(
+                order_value=F('order_value') + 1
+            )
+        key.values.add(value)
+
+    def get_value(self, keyword: str) -> Value:
+        return self.value.objects.get(keyword=keyword)
+
+    def get_question(self, keyword: str) -> Key:
+        return self.key.objects.get(keyword=keyword)
+
+    def get_questiongroup(self, keyword: str) -> Questiongroup:
+        return self.questiongroup.objects.get(keyword=keyword)
 
     def find_in_data(self, path: tuple, **data: dict) -> dict:
         """
@@ -241,7 +358,7 @@ class Edition:
                         path_keyword, self.hierarchy[hierarchy_level]))
         return data
 
-    def update_data(self, path: tuple, updated, level=0, **data):
+    def update_config_data(self, path: tuple, updated, level=0, **data):
         """
         Helper to update a portion of the nested configuration data dict.
         """
@@ -255,13 +372,29 @@ class Edition:
             if element['keyword'] != path[0]:
                 new_element = element
             elif len(path) > 1:
-                new_element = self.update_data(
+                new_element = self.update_config_data(
                     path=path[1:], updated=updated, level=level+1, **element)
             else:
                 new_element = updated
             new_data[current_hierarchy].append(new_element)
 
         return new_data
+
+    def update_data(self, qg_keyword, q_keyword, updated, **data: dict) -> dict:
+        """
+        Helper to update a question of the questionnaire data dict.
+        """
+        questiongroup_data = data.get(qg_keyword, [])
+        if not questiongroup_data:
+            return data
+
+        updated_questiongroup_data = []
+        for qg_data in questiongroup_data:
+            if q_keyword in qg_data:
+                qg_data[q_keyword] = updated
+            updated_questiongroup_data.append(qg_data)
+        data[qg_keyword] = updated_questiongroup_data
+        return data
 
 
 class Operation:

@@ -24,8 +24,11 @@ FilterParam = collections.namedtuple(
 class AdvancedSearchTest(TestCase):
 
     fixtures = [
-        'global_key_values.json', 'sample.json', 'samplemulti.json',
-        'sample_questionnaires_search.json']
+        'global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_questionnaires_search',
+    ]
 
     def setUp(self):
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
@@ -221,8 +224,11 @@ class AdvancedSearchTest(TestCase):
 class GetListValuesTest(TestCase):
 
     fixtures = [
-        'global_key_values.json', 'sample.json', 'samplemulti.json',
-        'sample_questionnaires_search.json']
+        'global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_questionnaires_search',
+    ]
 
     def setUp(self):
         create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])

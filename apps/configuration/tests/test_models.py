@@ -345,7 +345,9 @@ class TranslationModelTest(TestCase):
 
 class ValueUserTest(TestCase):
 
-    fixtures = ['global_key_values']
+    fixtures = [
+        'global_key_values',
+    ]
 
     def test_all_returns_all_countries(self):
         all = Country.all()
@@ -390,13 +392,13 @@ class ConfigurationTest(TestCase):
 
     def test_get_none_edition(self):
         with patch.object(Configuration, 'find_subclass') as find_mock:
-            find_mock.return_value = self.mock_edition({},{},{},{})
+            find_mock.return_value = self.mock_edition({}, {}, {}, {}, {}, {})
             config = Configuration(code='foo', edition='bar')
             self.assertIsNone(config.get_edition())
 
     def test_get_valid_edition(self):
         with patch.object(Configuration, 'find_subclass') as find_mock:
-            find_mock.return_value = self.mock_edition({},{},{},{})
+            find_mock.return_value = self.mock_edition({}, {}, {}, {}, {}, {})
             config = Configuration(code='technologies', edition='sub')
             self.assertEqual(config.get_edition(), find_mock.return_value)
 

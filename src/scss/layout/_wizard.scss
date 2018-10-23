@@ -211,6 +211,15 @@ select[disabled]+div.chosen-disabled {
   }
 }
 
+// No border/shadow around chosen search field
+ul.chosen-choices>li.search-field {
+  box-shadow: none;
+}
+.chosen-container .chosen-choices .search-field:only-child,
+.chosen-container .chosen-choices .search-field:only-child input {
+  width: 100% !important;
+}
+
 /* USER SEARCH */
 .form-user-tabs-content {
   margin-top: 1rem;
@@ -228,4 +237,12 @@ input[type=search].user-search-field {
 }
 .form-user-selected .alert-box {
   margin-bottom: 0;
+}
+
+.form-currency-exchange-field {
+  float: left;
+  margin-right: 0.5rem;
+}
+.form-currency-exchange-currency {
+  line-height: 2.25rem;
 }

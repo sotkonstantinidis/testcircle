@@ -64,7 +64,6 @@ branches:
   only:
     - develop
     - master
-    - feature/1782-new-configuration-poc
 
 integrations:
   notifications:

@@ -11,13 +11,23 @@ from samplemulti.tests.test_views import route_questionnaire_new as \
     route_questionnaire_list_samplemulti
 from search.tests.test_index import create_temp_indices
 
+from functional_tests.pages.questionnaire import QuestionnaireStepPage
+from functional_tests.pages.sample import SampleDetailPage, SampleEditPage, \
+    SampleStepPage
+from functional_tests.pages.samplemulti import SampleMultiDetailPage, \
+    SampleMultiEditPage, SampleMultiStepPage
+
 
 @pytest.mark.usefixtures('es')
 class LinkTests(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'samplemulti.json', 'sample_samplemulti_questionnaires.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'samplemulti',
+        'sample_samplemulti_questionnaires',
+    ]
 
     """
     1
@@ -51,179 +61,146 @@ class LinkTests(FunctionalTest):
 
     def test_do_not_show_deleted_links_in_form(self):
 
-        # Alice logs in
         user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        samplemulti_link = 'This is key 1a'
+        sample_link = 'This is the first key.'
 
-        # She goes to the SAMPLE questionnaire and sees the link
-        self.open_questionnaire_details('sample', identifier='sample_1')
-        self.findBy('xpath', '//a[contains(text(), "This is key 1a")]')
+        # User goes to the SAMPLE questionnaire and sees the link
+        detail_page_sample = SampleDetailPage(self)
+        detail_page_sample.route_kwargs = {'identifier': 'sample_1'}
+        detail_page_sample.open(login=True, user=user)
+        assert detail_page_sample.has_text(samplemulti_link)
 
-        # She starts editing the questionnaire
-        self.review_action('edit')
-        self.findBy('xpath', '//a[contains(text(), "This is key 1a")]')
+        # User starts editing the questionnaire
+        detail_page_sample.create_new_version()
+        edit_page = SampleEditPage(self)
+        assert edit_page.has_text(samplemulti_link)
 
-        # She opens the step with the link and sees the link is there
-        self.click_edit_section('cat_5')
-        links = self.findManyBy(
-            'xpath',
-            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
-        self.assertEqual(len(links), 1)
+        # User opens the step with the link and sees the link is there
+        edit_page.click_edit_category('cat_5')
+        step_page = QuestionnaireStepPage(self)
+        assert step_page.check_links([samplemulti_link])
 
-        # She opens the SAMPLEMULTI questionnaire
-        self.open_questionnaire_details(
-            'samplemulti', identifier='samplemulti_1')
+        # User opens the details page of the SAMPLEMULTI questionnaire
+        detail_page_multi = SampleMultiDetailPage(self)
+        detail_page_multi.route_kwargs = {'identifier': 'samplemulti_1'}
+        detail_page_multi.open()
+        assert detail_page_multi.has_text(sample_link)
 
-        # She deletes the questionnaire
-        self.review_action('delete')
+        # User deletes the questionnaire
+        detail_page_multi.delete_questionnaire()
 
-        # She goes back to the SAMPLE questionnaire
-        self.open_questionnaire_details('sample', identifier='sample_1')
+        # User opens the detail page of the SAMPLE questionnaire again. The link
+        # is not there anymore.
+        detail_page_sample.open()
+        assert not detail_page_sample.has_text(samplemulti_link)
 
-        # Now she does not see the link anymore
-        self.findByNot('xpath', '//a[contains(text(), "This is key 1a")]')
+        # The link is not on the edit page either
+        detail_page_sample.edit_questionnaire()
+        assert not detail_page_sample.has_text(samplemulti_link)
 
-        # In the edit view, it is not there either
-        self.review_action('edit')
-        self.findByNot('xpath', '//a[contains(text(), "This is key 1a")]')
+        # Also on the step edit page, no link
+        edit_page.click_edit_category('cat_5')
+        assert step_page.check_links([])
 
-        # She opens the step with the link and sees the link is NOT there
-        self.click_edit_section('cat_5')
-        links = self.findManyBy(
-            'xpath',
-            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
-        self.assertEqual(len(links), 0)
-
-        # She submits the form and sees there is no error
-        self.submit_form_step()
+        # The step can be submitted without an error
+        step_page.submit_step()
 
     def test_show_only_one_linked_version(self):
 
-        # Alice logs in
-        user = User.objects.get(pk=101)
-        self.doLogin(user=user)
+        sample_title = 'This is the first key.'
+        samplemulti_title = 'This is key 1a'
+        samplemulti_changed_text = ' (changed)'
+        samplemulti_title_changed = samplemulti_title + samplemulti_changed_text
 
+        # Alice logs in
         # She goes to the SAMPLE questionnaire and sees the link
-        self.open_questionnaire_details('sample', identifier='sample_1')
-        self.findBy(
-            'xpath', '//a[contains(text(), "This is key 1a")]',
-            wait=True).click()
+        user_1 = User.objects.get(pk=101)
+        sample_detail_page = SampleDetailPage(self)
+        sample_detail_page.route_kwargs = {'identifier': 'sample_1'}
+        sample_detail_page.open(login=True, user=user_1)
+        sample_detail_page.expand_details()
+
+        expected_samplemulti_links = [
+            {
+                'title': samplemulti_title,
+                'configuration': 'samplemulti',
+            }
+        ]
+        sample_detail_page.check_linked_questionnaires(
+            expected=expected_samplemulti_links)
 
         # She goes to the MULTISAMPLE questionnaire and sees the link
-        section_xpath = '//section[@id="mcat_1"]'
-        link_xpath = '//section[@id="links"]'
-        for xpath in [section_xpath, link_xpath]:
-            sample_links = self.findManyBy(
-                'xpath', '{}//article[contains(@class, "is-sample")]//a['
-                         'contains(text(), "This is the first key.")]'.format(
-                    xpath))
-            self.assertEqual(len(sample_links), 1)
-            self.findByNot('xpath', '{}//article[contains(@class, "is-sample")]//'
-                                 'span[contains(@class, "tech-status")]'.format(
-                xpath))
+        sample_detail_page.click_linked_questionnaire(index=0)
+
+        samplemulti_detail_page = SampleMultiDetailPage(self)
+        samplemulti_detail_page.expand_details()
+
+        expected_sample_links = [
+            {
+                'title': sample_title,
+                'configuration': 'sample',
+            }
+        ]
+        samplemulti_detail_page.check_linked_questionnaires(
+            expected=expected_sample_links)
 
         # She edits the MULTISAMPLE questionnaire and sees only one
         # version is linked (still the same)
-        self.review_action('edit')
-        self.findBy(
-            'xpath',
-            '//a[contains(text(), "Edit this section")][1]').click()
-        self.findBy('name', 'mqg_01-0-original_mkey_01').send_keys(
-            ' (changed)')
+        samplemulti_detail_page.create_new_version()
+        samplemulti_edit_page = SampleMultiEditPage(self)
+        samplemulti_edit_page.click_edit_category('mcat_1')
+
+        samplemulti_step_page = SampleMultiStepPage(self)
+        samplemulti_step_page.enter_text(
+            samplemulti_step_page.LOC_QUESTION_MQG01_MKEY01,
+            samplemulti_changed_text)
 
         # She submits the step
-        self.findBy('id', 'button-submit').click()
-        self.findBy('xpath', '//div[contains(@class, "success")]')
+        samplemulti_step_page.submit_step()
 
         # She sees that only one questionnaire is linked
-        self.toggle_all_sections()
-        section_xpath = '//section[@id="mcat_1"]'
-        link_xpath = '//section[@id="links"]'
-        for xpath in [section_xpath, link_xpath]:
-            sample_links = self.findManyBy(
-                'xpath', '{}//article[contains(@class, "is-sample")]//a['
-                         'contains(text(), "This is the first key.")]'.format(
-                    xpath))
-            self.assertEqual(len(sample_links), 1)
-            self.findByNot('xpath',
-                           '{}//article[contains(@class, "is-sample")]//'
-                           'span[contains(@class, "tech-status")]'.format(
-                               xpath))
+        samplemulti_edit_page.expand_details()
+        samplemulti_edit_page.check_linked_questionnaires(
+            expected=expected_sample_links)
 
         # She goes to the SAMPLE questionnaire and sees only one version
         # is linked (the pending one)
-        self.wait_for('xpath', '//a[contains(text(), "This is the first key.")]')
-        self.findBy(
-            'xpath', '//a[contains(text(), "This is the first key.")]').click()
+        samplemulti_edit_page.click_linked_questionnaire(index=0)
 
-        section_xpath = '//section[@id="cat_5"]'
-        link_xpath = '//section[@id="links"]'
-        for xpath in [section_xpath, link_xpath]:
-            samplemulti_links = self.findManyBy(
-                'xpath', '{}//article[contains(@class, "is-samplemulti")]//'
-                         'a[contains(text(), "This is key 1a (changed)")]'.format(
-                    xpath))
-            self.assertEqual(len(samplemulti_links), 1)
-            self.findBy(
-                'xpath',
-                '{}//article[contains(@class, "is-samplemulti")]//span['
-                'contains(@class, "tech-status") and contains('
-                '@class, "is-draft")]'.format(xpath))
+        expected_samplemulti_links_changed = [
+            {
+                'title': samplemulti_title_changed,
+                'configuration': 'samplemulti',
+            }
+        ]
+        sample_detail_page.check_linked_questionnaires(
+            expected=expected_samplemulti_links_changed)
 
-        url = self.browser.current_url
-
-        # She even opens the form and sees there is only one version
-        self.review_action('edit')
-        self.click_edit_section('cat_5')
-        links = self.findManyBy(
-            'xpath',
-            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box")]')
-        self.assertEqual(len(links), 1)
-        self.findBy(
-            'xpath',
-            '//fieldset[@id="subcat_5_3"]//div[contains(@class, "alert-box") '
-            'and contains(text(), " (changed)")]')
+        # She even creates a new version and opens the form and sees there is
+        # only one version
+        sample_detail_page.create_new_version()
+        sample_edit_page = SampleEditPage(self)
+        sample_edit_page.click_edit_category('cat_5')
+        sample_step_page = SampleStepPage(self)
+        sample_step_page.check_links([samplemulti_title_changed])
+        sample_step_page.back_without_saving()
 
         # She logs out and sees only one questionnaire is linked (the
         # active one)
-        self.doLogout()
-        self.browser.get(url)
-
-        # Don't ask why ...
-        self.doLogout()
-        self.browser.get(url)
-
-        section_xpath = '//section[@id="cat_5"]'
-        link_xpath = '//section[@id="links"]'
-        for xpath in [section_xpath, link_xpath]:
-            samplemulti_links = self.findManyBy(
-                'xpath', '{}//article[contains(@class, "is-samplemulti")]//'
-                         'a[contains(text(), "This is key 1a")]'.format(
-                    xpath))
-            self.assertEqual(len(samplemulti_links), 1)
-            self.findByNot(
-                'xpath',
-                '{}//article[contains(@class, "is-samplemulti")]//span['
-                'contains(@class, "tech-status")]'.format(xpath))
+        sample_detail_page.logout()
+        sample_detail_page.open()
+        sample_detail_page.expand_details()
+        sample_detail_page.check_linked_questionnaires(
+            expected=expected_samplemulti_links)
 
         # She logs in as a different user and sees only one version is
         # linked (the active one)
-        user = User.objects.get(pk=102)
-        self.doLogin(user=user)
-        self.browser.get(url)
-        self.toggle_all_sections()
-        section_xpath = '//section[@id="cat_5"]'
-        link_xpath = '//section[@id="links"]'
-        for xpath in [section_xpath, link_xpath]:
-            samplemulti_links = self.findManyBy(
-                'xpath', '{}//article[contains(@class, "is-samplemulti")]//'
-                         'a[contains(text(), "This is key 1a")]'.format(
-                    xpath))
-            self.assertEqual(len(samplemulti_links), 1)
-            self.findByNot(
-                'xpath',
-                '{}//article[contains(@class, "is-samplemulti")]//span['
-                'contains(@class, "tech-status")]'.format(xpath))
+        user_2 = User.objects.get(pk=102)
+        sample_detail_page.open(login=True, user=user_2)
+        sample_detail_page.expand_details()
+        sample_detail_page.check_linked_questionnaires(
+            expected=expected_samplemulti_links)
 
     def test_add_only_one_side_of_link_to_es_when_publishing(self):
 

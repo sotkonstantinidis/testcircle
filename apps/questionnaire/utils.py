@@ -35,8 +35,7 @@ from .signals import change_status, change_member, delete_questionnaire
 logger = logging.getLogger(__name__)
 
 
-def clean_questionnaire_data(
-        data, configuration, deep_clean=True, users=[], no_limit_check=False):
+def clean_questionnaire_data(data, configuration, no_limit_check=False):
     """
     Clean a questionnaire data dictionary so it can be saved to the
     database. This namely removes all empty values and parses measured
@@ -150,7 +149,7 @@ def clean_questionnaire_data(
                     # This is checked later.
                     pass
                 elif question.field_type in [
-                        'checkbox', 'image_checkbox', 'cb_bool']:
+                        'checkbox', 'image_checkbox', 'cb_bool', 'multi_select']:
                     if not isinstance(value, list):
                         errors.append(
                             'Value "{}" of key "{}" needs to be a list'.format(
@@ -256,7 +255,7 @@ def clean_questionnaire_data(
                     raise NotImplementedError(
                         'Field type "{}" needs to be checked properly'.format(
                             question.field_type))
-                if value or isinstance(value, (bool, int)):
+                if value or isinstance(value, (bool, int, float)):
                     cleaned_qg[key] = value
             if cleaned_qg:
                 if len(cleaned_qg) == 1 and '__order' in cleaned_qg:
@@ -730,6 +729,18 @@ def get_active_filters(
                     'questiongroup': filter_param,
                 })
 
+        if filter_param == 'edition':
+            for filter_value in filter_values:
+                active_filters.append({
+                    'type': '_edition',
+                    'key': filter_param,
+                    'key_label': 'Edition',  # No translation: only used in API
+                    'operator': None,
+                    'value': filter_value,
+                    'value_label': filter_value,
+                    'questiongroup': filter_param,
+                })
+
         if not filter_param.startswith('filter__'):
             continue
 
@@ -1004,7 +1015,7 @@ def get_query_status_filter(request):
     """
     status_filter = Q()
 
-    if request.user.is_authenticated():
+    if request.user and request.user.is_authenticated():
 
         permissions = request.user.get_all_permissions()
 
@@ -1065,7 +1076,7 @@ def get_query_status_filter(request):
 
 
 def get_list_values(
-        configuration_code=None, es_hits=[], questionnaire_objects=[],
+        configuration_code=None, es_hits=None, questionnaire_objects=None,
         with_links=True, status_filter=None):
     """
     Retrieves and prepares data to be used in a list representation.
@@ -1109,6 +1120,10 @@ def get_list_values(
         specified in the settings to appear in the list, some metadata
         is returned for each entry.
     """
+    if es_hits is None:
+        es_hits = []
+    if questionnaire_objects is None:
+        questionnaire_objects = []
     list_entries = []
 
     for result in es_hits:
@@ -1168,6 +1183,21 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     Handle review and form submission actions. Updates the Questionnaire
     object and adds a message.
 
+    Completely overloaded method, handling too many cases, depending on
+    request.POST values. The following cases are available:
+    * submit: Change status from draft to submitted
+    * review: Change status from submitted to reviewed
+    * publish: Change status from reviewed to published, also put data in ES
+    * reject: Change status from [submitted, reviewed] to draft
+    * assign: Update the members (editors, reviewers, publishers) of a
+        questionnaire
+    * change-compiler: Change the compiler of the questionnaire
+    * flag-unccd: Flag the questionnaire as one of UNCCD's cases
+    * unflag-unccd: Unflag the questionnaire from being a UNCCD case
+    * delete: Delete (set is_deleted) a questionnaire
+    * new-version: Create a new (draft) version of a public questionnaire
+
+
     * "draft" Questionnaires can be submitted, sets them "submitted".
 
     * "submitted" Questionnaires can be reviewed, sets them "reviewed".
@@ -1190,6 +1220,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
     """
     roles_permissions = questionnaire_object.get_roles_permissions(request.user)
     permissions = roles_permissions.permissions
+    previous_status = questionnaire_object.status
 
     if request.POST.get('submit'):
 
@@ -1227,7 +1258,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             user=request.user,
-            message=request.POST.get('message', '')
+            message=request.POST.get('message', ''),
+            previous_status=previous_status
         )
 
     elif request.POST.get('review'):
@@ -1273,7 +1305,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             user=request.user,
-            message=request.POST.get('message', '')
+            message=request.POST.get('message', ''),
+            previous_status=previous_status
         )
 
     elif request.POST.get('publish'):
@@ -1299,6 +1332,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             status=settings.QUESTIONNAIRE_PUBLIC
         )
         for previous_object in previously_public:
+            previous_object_previous_status = previous_object.status
             previous_object.status = settings.QUESTIONNAIRE_INACTIVE
             previous_object.save()
             delete_questionnaires_from_es([previous_object])
@@ -1306,7 +1340,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
                 sender=settings.NOTIFICATIONS_CHANGE_STATUS,
                 questionnaire=previous_object,
                 user=request.user,
-                message=_('New version was published')
+                message=_('New version was published'),
+                previous_status=previous_object_previous_status
             )
 
         # Update the status
@@ -1351,7 +1386,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=questionnaire_object,
             user=request.user,
-            message=request.POST.get('message', '')
+            message=request.POST.get('message', ''),
+            previous_status=previous_status
         )
 
     elif request.POST.get('reject'):
@@ -1406,7 +1442,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             questionnaire=questionnaire_object,
             user=request.user,
             is_rejected=True,
-            message=request.POST.get('reject-message', '')
+            message=request.POST.get('reject-message', ''),
+            previous_status=previous_status,
         )
 
         # Query the permissions again, if the user does not have
@@ -1706,15 +1743,38 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             sender=settings.NOTIFICATIONS_CHANGE_STATUS,
             questionnaire=new_version,
             user=request.user,
-            message=_('New version due to unccd flagging')
+            message=_('New version due to unccd flagging'),
+            previous_status=previous_status
         )
 
     elif request.POST.get('delete'):
+        if 'delete_questionnaire' not in permissions:
+            messages.error(
+                request,
+                'You do not have permissions to delete this questionnaire!'
+            )
+            return
+
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             pre_save.disconnect(
                 prevent_updates_on_published_items, sender=Questionnaire)
         questionnaire_object.is_deleted = True
-        questionnaire_object.save()
+
+        try:
+            questionnaire_object.save()
+        except QuestionnaireLockedException as e:
+            # If the same user also has a lock, then release this lock.
+            if e.user == request.user:
+                Lock.objects.filter(
+                    user=request.user,
+                    questionnaire_code=questionnaire_object.code
+                ).update(
+                    is_finished=True
+                )
+                questionnaire_object.save()
+            else:
+                return
+
         if questionnaire_object.status == settings.QUESTIONNAIRE_PUBLIC:
             delete_questionnaires_from_es([questionnaire_object])
             pre_save.connect(
@@ -1723,7 +1783,8 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
         delete_questionnaire.send(
             sender=settings.NOTIFICATIONS_DELETE,
             questionnaire=questionnaire_object,
-            user=request.user
+            user=request.user,
+            previous_status=questionnaire_object.status
         )
         # Redirect to the overview of the user's questionnaires if there is no
         # other version of the questionnaire left to show.

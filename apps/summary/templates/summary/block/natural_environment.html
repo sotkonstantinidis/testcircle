@@ -70,6 +70,9 @@
   <div class="small-3 columns">
       <h5>{{ content.water_quality.title }}</h5>
       {% include 'summary/partial/unordered_list.html' with class="highlights_list" list_items=content.water_quality.items %}
+      {% if content.water_quality.referring %}
+        <i>{{ content.water_quality.referring }}</i>
+      {% endif %}
   </div>
   <div class="small-3 columns">
       <h5>{{ content.salinity.title }}</h5>

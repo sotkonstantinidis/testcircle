@@ -29,7 +29,7 @@
           {# Address details of a non-registered user #}
           <div class="row">
             <div class="columns medium-6">
-              <p>{{ data.person_lastname }} {{ data.person_firstname }}</p>
+              <p>{{ data.person_lastname|default:'' }} {{ data.person_firstname|default:'' }}</p>
               {% if data.person_phone_1 or data.person_phone_2 %}
                 <p>{{ data.person_phone_1|default:"" }}{% if data.person_phone_1 and data.person_phone_2 %} / {% endif %}{{ data.person_phone_2|default:"" }}</p>
               {% endif %}
@@ -38,8 +38,8 @@
               {% endif %}
             </div>
             <div class="columns medium-6">
-              <p>{{ data.person_institution_name }}</p>
-              <p>{{ data.person_address }}</p>
+              {% if data.person_institution_name %}<p>{{ data.person_institution_name }}</p>{% endif %}
+              {% if data.person_address %}<p>{{ data.person_address }}</p>{% endif %}
               <p>{{ data.country.0 }}</p>
             </div>
           </div>

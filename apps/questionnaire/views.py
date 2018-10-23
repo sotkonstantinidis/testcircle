@@ -929,10 +929,11 @@ class QuestionnairePermaView(QuestionnaireView):
         return {}
 
     def get_object(self):
+        status_filter = get_query_status_filter(self.request)
+        # Inactive versions (previously active) are always visible
+        status_filter |= Q(status=settings.QUESTIONNAIRE_INACTIVE)
         return get_object_or_404(
-            Questionnaire.with_status.not_deleted().filter(
-                status__in=[settings.QUESTIONNAIRE_INACTIVE, settings.QUESTIONNAIRE_PUBLIC]
-            ),
+            Questionnaire.with_status.not_deleted().filter(status_filter),
             pk=self.kwargs['pk']
         )
 
@@ -947,7 +948,7 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     """
     Refactored function based view: generic_questionnaire_new
     """
-    http_method_names = ['get']
+    http_method_names = ['get', 'post']
     view_mode = 'edit'
 
     @method_decorator(ensure_csrf_cookie)
@@ -957,13 +958,16 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
     def get_object(self):
         return QuestionnaireRetrieveMixin.get_object(self)
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Create new questionnaire object in case new edition of configuration is
         available.
         """
         self.object = self.get_object()
-        if self.object and self.object.status is settings.QUESTIONNAIRE_PUBLIC:
+        is_create_request = request.POST.get('create_new_version')
+        is_public_questionnaire = self.object.status is settings.QUESTIONNAIRE_PUBLIC
+
+        if is_create_request and is_public_questionnaire:
             questionnaire_data = self.object.data
             inherited_data = self.get_inherited_data()
             questionnaire_data.update(inherited_data)
@@ -983,7 +987,7 @@ class QuestionnaireEditView(LoginRequiredMixin, QuestionnaireView):
             for linked_questionnaire in self.object.links.all():
                 new_questionnaire.add_link(linked_questionnaire)
 
-        return super().get(request, *args, **kwargs)
+        return HttpResponseRedirect(redirect_to=self.object.get_edit_url())
 
     def update_case_data_for_editions(self, **questionnaire_data):
         """
@@ -1130,6 +1134,10 @@ class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
             view_url = reverse('{}:questionnaire_view_step'.format(self.url_namespace),
                                args=[self.identifier, self.kwargs['step']])
 
+        show_translation_warning = False
+        if self.has_object and get_language() not in self.object.translations:
+            show_translation_warning = True
+
         # questionnaire is locked one minute before the lock time is over. time
         # is expressed in milliseconds, as required for setInterval
         lock_interval = (settings.QUESTIONNAIRE_LOCK_TIME - 1) * 60 * 1000
@@ -1145,7 +1153,8 @@ class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
             'edit_mode': self.edit_mode,
             'view_url': view_url,
             'toc_content': self.get_toc_content(),
-            'lock_interval': lock_interval
+            'lock_interval': lock_interval,
+            'show_translation_warning': show_translation_warning,
         })
         return ctx
 
@@ -1194,7 +1203,8 @@ class ESQuestionnaireQueryMixin:
         try:
             # Blank search returns all items within all indexes.
             es_search_results = advanced_search(
-                limit=self.page_size, offset=self.offset, **self.get_filter_params()
+                limit=self.page_size, offset=self.offset,
+                **self.get_filter_params()
             )
         except TransportError:
             # See https://redmine.cde.unibe.ch/issues/1093
@@ -1256,7 +1266,7 @@ class ESQuestionnaireQueryMixin:
                 query_string = active_filter.get('value', '')
             elif filter_type in [
                 'checkbox', 'image_checkbox', '_date', '_flag', 'select_type',
-                'select_model', 'radio', 'bool', '_lang']:
+                'select_model', 'radio', 'bool', '_lang', '_edition']:
                 filter_params.append(
                     FilterParam(
                         active_filter.get('questiongroup'),

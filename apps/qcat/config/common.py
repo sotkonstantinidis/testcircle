@@ -98,6 +98,9 @@ class BaseSettings(Configuration):
     )
 
     # The first language is the default language.
+    # Important: If you add languages here, make sure to add a placeholder of
+    # the infographic in src/assets/img/infographics (make a copy of the English
+    # version)
     LANGUAGES = (
         ('en', _('English')),
         ('fr', _('French')),
@@ -383,12 +386,16 @@ class BaseSettings(Configuration):
     GOOGLE_MAPS_JAVASCRIPT_API_KEY = values.Value(environ_prefix='')
 
     # Mail settings (notification mails)
-    DEFAULT_FROM_EMAIL = 'info@wocat.net'
-    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=False)
-    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=True)
+    DEFAULT_FROM_EMAIL = 'wocat@cde.unibe.ch'
+    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=True)
+    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=False)
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
     WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')
+    WOCAT_CONTACT_PAGE = values.Value(
+        environ_prefix='',
+        default='https://www.wocat.net/about/wocat-secretariat'
+    )
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

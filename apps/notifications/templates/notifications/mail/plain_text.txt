@@ -1,5 +1,5 @@
 {% load i18n %}
-{% trans "Dear" %} {{ name }}
+{% trans "Dear" %} {{ recipient_name }}
 
 {% spaceless %}{{ content|linebreaksbr|striptags }}{% endspaceless %}
 

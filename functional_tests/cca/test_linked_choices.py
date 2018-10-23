@@ -19,7 +19,9 @@ def get_cca_3_1_options(testcase):
 class LinkedChoicesTest(FunctionalTest):
 
     fixtures = [
-        'global_key_values.json', 'technologies.json', 'cca.json'
+        'global_key_values',
+        'technologies',
+        'cca',
     ]
 
     def test_linked_across_step(self):

@@ -25,7 +25,11 @@ class SendMailRecipientMixin(TestCase):
     sent mails.
     """
 
-    fixtures = ['groups_permissions', 'sample']
+    fixtures = [
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample'
+    ]
     # map user names to their permission-groups.
     user_groups_mapping = {
         'editor': None,
@@ -103,7 +107,7 @@ class SendMailRecipientMixin(TestCase):
                 yield {
                     'log_id': str(log.id),
                     'recipient': user.email,
-                    'subject': str(log.mail_subject)
+                    'subject': str(log.get_mail_data(user)[1])
                 }
 
     @contextlib.contextmanager
@@ -123,7 +127,7 @@ class SendMailRecipientMixin(TestCase):
                 message = email_obj.message()
                 outbox.append({
                     'recipient': email_obj.recipients()[0],
-                    'subject': message['Subject'],
+                    'subject': message['Subject'].replace('\n', ''),
                     'log_id': message['qcat_log']
                 })
 
@@ -134,6 +138,7 @@ class SettingsMailTest(SendMailRecipientMixin):
 
     @override_settings(DO_SEND_STAFF_ONLY=True)
     def test_do_send_staff_only(self):
+        previous_status = self.questionnaire.status
         self.questionnaire.status = settings.QUESTIONNAIRE_SUBMITTED
         self.questionnaire.save()
         # Set a staff user - only this one must receive mails.
@@ -146,7 +151,8 @@ class SettingsMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=compiler,
                 is_rejected=False,
-                message='submit'
+                message='submit',
+                previous_status=previous_status
             )
             logs.append(log)
 
@@ -158,6 +164,7 @@ class SettingsMailTest(SendMailRecipientMixin):
 
     @override_settings(DO_SEND_STAFF_ONLY=True)
     def test_do_send_all(self):
+        previous_status = self.questionnaire.status
         self.questionnaire.status = settings.QUESTIONNAIRE_SUBMITTED
         self.questionnaire.save()
         # no staff user set - send no mails!
@@ -168,7 +175,8 @@ class SettingsMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=compiler,
                 is_rejected=False,
-                message='submit'
+                message='submit',
+                previous_status=previous_status
             )
             logs.append(log)
 
@@ -187,7 +195,8 @@ class SettingsMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=reviewer,
                 is_rejected=True,
-                message='submit'
+                message='submit',
+                previous_status=settings.QUESTIONNAIRE_SUBMITTED
             )
             self.add_questionnairememberships('compiler', *self.compilers)
             logs.append(log)
@@ -196,7 +205,7 @@ class SettingsMailTest(SendMailRecipientMixin):
             expected = [{
                 'log_id': str(logs[2].id),
                 'recipient': self.compiler_todo.email,
-                'subject': str(logs[2].mail_subject)
+                'subject': str(logs[2].get_mail_data(self.compiler_todo)[1])
             }]
             self.assert_only_expected(outbox, *expected)
         self.assert_no_unsent_logs(3)
@@ -214,7 +223,8 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CREATE,
                 sender=compiler,
                 is_rejected=False,
-                message='created'
+                message='created',
+                previous_status=settings.QUESTIONNAIRE_SUBMITTED
             )
 
         with self.send_notification_mails() as outbox:
@@ -277,6 +287,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
         As 'todo' checks for questionnaire-uniqueness, only one 'todo' log is
         sent.
         """
+        previous_status = self.questionnaire.status
         self.questionnaire.status = settings.QUESTIONNAIRE_SUBMITTED
         self.questionnaire.save()
         logs = []
@@ -286,7 +297,8 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=compiler,
                 is_rejected=False,
-                message='submit'
+                message='submit',
+                previous_status=previous_status
             )
             logs.append(log)
 
@@ -296,7 +308,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
             expected.append({
                 'log_id': str(logs[2].id),
                 'recipient': self.reviewer_todo.email,
-                'subject': str(logs[2].mail_subject)
+                'subject': str(logs[2].get_mail_data(self.reviewer_todo)[1])
             })
             self.assert_only_expected(outbox, *expected)
         self.assert_no_unsent_logs(3)
@@ -309,7 +321,8 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=reviewer,
                 is_rejected=True,
-                message='submit'
+                message='submit',
+                previous_status=settings.QUESTIONNAIRE_SUBMITTED
             )
             self.add_questionnairememberships('compiler', *self.compilers)
             logs.append(log)
@@ -320,6 +333,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
         self.assert_no_unsent_logs(3)
 
     def test_questionnaire_review_accepted(self):
+        previous_status = self.questionnaire.status
         self.questionnaire.status = settings.QUESTIONNAIRE_REVIEWED
         self.questionnaire.save()
         self.add_questionnairememberships('compiler', *self.compilers)
@@ -331,7 +345,8 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=reviewer,
                 is_rejected=False,
-                message='review accepted'
+                message='review accepted',
+                previous_status=previous_status
             )
             logs.append(log)
 
@@ -343,7 +358,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 [{
                     'log_id': str(logs[2].id),
                     'recipient': self.publisher_todo.email,
-                    'subject': str(logs[2].mail_subject)
+                    'subject': str(logs[2].get_mail_data(self.publisher_todo)[1])
                 }]
             )
             self.assertEqual(len(outbox), 10)
@@ -351,6 +366,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
         self.assert_no_unsent_logs(3)
 
     def test_questionnaire_publication_rejected(self):
+        previous_status = self.questionnaire.status
         self.questionnaire.status = settings.QUESTIONNAIRE_SUBMITTED
         self.questionnaire.save()
         self.add_questionnairememberships('compiler', *self.compilers)
@@ -362,7 +378,8 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=reviewer,
                 is_rejected=True,
-                message='review rejected'
+                message='review rejected',
+                previous_status=previous_status
             )
             logs.append(log)
 
@@ -374,7 +391,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 [{
                     'log_id': str(logs[2].id),
                     'recipient': self.reviewer_todo.email,
-                    'subject': str(logs[2].mail_subject)
+                    'subject': str(logs[2].get_mail_data(self.reviewer_todo)[1])
                 }]
             )
             self.assertEqual(len(outbox), 10)
@@ -384,6 +401,7 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
 
     @patch('notifications.models.render_to_string')
     def test_questionnaire_publication_accepted(self, mock_render_to_string):
+        previous_status = self.questionnaire.status
         self.questionnaire.status = settings.QUESTIONNAIRE_PUBLIC
         self.questionnaire.save()
         self.add_questionnairememberships('reviewer', *self.compilers)
@@ -396,7 +414,8 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 action=settings.NOTIFICATIONS_CHANGE_STATUS,
                 sender=publisher,
                 is_rejected=False,
-                message='review accepted'
+                message='review accepted',
+                previous_status=previous_status
             )
             logs.append(log)
 

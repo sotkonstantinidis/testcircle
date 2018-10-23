@@ -13,7 +13,10 @@ from .test_models import get_valid_questionnaire
         ('en', 'English'), ('es', 'Spanish'), ('fr', 'French')))
 class SerializerTest(TestCase):
 
-    fixtures = ['sample.json', 'sample_global_key_values.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.questionnaire = get_valid_questionnaire()

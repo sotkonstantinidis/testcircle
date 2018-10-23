@@ -93,6 +93,29 @@ def get_by_index(items, index):
         return None
 
 
+@register.simple_tag
+def conditional_questiongroups(formsets: list, conditions: str, value: str) -> list:
+    """
+    Return a list of questiongroup formsets based on a list of conditions (as
+    string) and a value used to check against the conditions.
+
+    Args:
+        formsets: List of formset tuples [0] configuration dict and [1] formset
+        conditions: List of conditions, as string.
+        value: The condition to check.
+
+    Returns:
+        List of tuples with [0] configuration dict and [1] formset
+    """
+    qg_keywords = []
+    for condition in conditions.split(','):
+        cond, qg = condition.split('|')
+        if f"=='{value}'" == cond:
+            qg_keywords.append(qg)
+
+    return [f for f in formsets if f[0]['keyword'] in qg_keywords]
+
+
 @register.filter
 def get_by_keyword(dictionary, key):
     """
