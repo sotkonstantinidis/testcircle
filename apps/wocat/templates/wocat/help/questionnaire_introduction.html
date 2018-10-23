@@ -11,7 +11,7 @@
     <section class="small-12 columns">
 
       <h1 class="help-title">
-        {% trans "Introduction" %}
+        {% trans "About the WOCAT documentation of SLM practices" %}
       </h1>
 
       <h2 class="is-group">
@@ -76,19 +76,23 @@
           <li>{% trans 'The Global SLM Database will guide you on how to edit and submit your data for review, making sure it is complete, clear, and comprehensible. You can invite editors (registered WOCAT users) to help you.' %}</li>
         </ol>
         <p>
-          {% trans "Note: fill in a separate questionnaire for each Technology and for each Approach." %}
+          {% trans "Note 1: fill in a separate questionnaire for each Technology and for each Approach." %}
         </p>
+        <p>
+          {% trans "Note 2: When creating translations, the content of the original language will be copied once into the text fields, allowing you to translate the content. From there on, text changes have to be done in all language versions. The checkboxes are linked across all translations, meaning they always change in all language versions." %}</p>
         <br>
         {% with small_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'_small.png' large_url='assets/img/infographics/review_process_'|add:request.LANGUAGE_CODE|add:'.png' %}
           <a class="th" role="button" aria-label="{% trans "Process of documentation and review of WOCAT data" %}" href="{% static large_url %}">
             <img data-interchange="[{% static small_url %}, (default)], [{% static large_url %}, (large)]">
           </a>
         {% endwith %}
-
-        <p>
-          <a href="{% url 'wocat:help_review_process' %}" class="link">{% trans "Learn more about the process of documentation and review of WOCAT data." %}</a>
-        </p>
       </div>
+
+      <h2 class="is-group">
+        {% trans "Review roles" %}
+      </h2>
+      {% trans 'SLM Technology / Approach' as questionnaire_type %}
+      {% include 'wocat/help/questionnaire_roles.html' with questionnaire_type=questionnaire_type %}
 
       <h2 class="is-group">
         {% trans "Help us to improve WOCAT" %}
