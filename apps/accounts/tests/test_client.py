@@ -1,7 +1,5 @@
 from unittest.mock import patch, MagicMock, PropertyMock
 
-from requests.exceptions import BaseHTTPError
-
 from qcat.tests import TestCase
 from .test_models import create_new_user
 from ..client import WocatWebsiteUserClient
@@ -48,8 +46,8 @@ class TestClient(TestCase):
         )
 
     @patch('requests.post')
-    def test_search_users(self, mock_request_post):
-
+    @patch.object(WocatWebsiteUserClient, '_get')
+    def test_search_users(self, mock_get, mock_request_post):
         request_post = MagicMock()
         request_post.status_code = 200
         request_post.ok = PropertyMock(return_value=True)

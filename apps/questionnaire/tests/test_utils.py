@@ -1410,8 +1410,14 @@ class HandleReviewActionsTest(TestCase):
         assert mock_messages.error.call_count == 0
         assert User.objects.get(pk=1).email == 'new@mail.com'
 
+    @patch('questionnaire.utils.remote_user_client')
     @patch('questionnaire.signals.change_member.send')
-    def test_assign_removes_user(self, mock_change_member, mock_messages):
+    def test_assign_removes_user(
+            self, mock_change_member, mock_remote_client, mock_messages):
+        mock_remote_client.get_user_information.return_value = {
+            'uid': 98,
+            'email': 'foo@bar.com',
+        }
         self.obj.status = 2
         self.request.POST = {
             'assign': 'foo',

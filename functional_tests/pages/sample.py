@@ -44,7 +44,10 @@ class SampleStepPage(QuestionnaireStepPage):
     LOC_FORM_INPUT_KEY_68 = (By.NAME, 'qg_12-0-original_key_68')
     LOC_FORM_INPUT_SAMPLEMULTI_LINK_ID = (
         By.NAME, 'qg_33__samplemulti-0-link_id')  # cat_5
+    LOC_FORM_INPUT_USER_ID = (By.NAME, 'qg_31-0-key_39')  # cat_0
 
+    def get_selected_user_id(self):
+        return self.get_value(self.get_el(self.LOC_FORM_INPUT_USER_ID))
 
 class SampleEditPage(Sample2015Mixin, EditMixin, QcatPage):
     route_name = 'sample:questionnaire_edit'

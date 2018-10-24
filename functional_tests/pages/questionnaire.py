@@ -1,3 +1,4 @@
+from accounts.models import User
 from selenium.webdriver.common.by import By
 
 from functional_tests.pages.base import QcatPage
@@ -22,6 +23,18 @@ class QuestionnaireStepPage(QcatPage):
         By.XPATH, '(//div[contains(@class, "link-search") and not(contains('
                   '@style, "display: none;"))])[1]/input[contains(@class, '
                   '"link-search-field")]')
+    LOC_INPUT_SEARCH_USER = (
+        By.XPATH,
+        '(//input[contains(@class, "user-search-field")])[{index}]')  # 1-based!
+    LOC_RADIO_SEARCH_USER = (
+        By.XPATH, '//input[@name="form-user-radio" and @value="search"]')
+    LOC_LOADING_SEARCH_USER = (By.CLASS_NAME, 'form-user-search-loading')
+    LOC_DISPLAY_SEARCH_USER = (
+        By.XPATH,
+        '//div[contains(@class, "alert-box") and contains(text(), "{name}")]')
+    LOC_REMOVE_SEARCH_USER = (
+        By.XPATH,
+        '//div[contains(@class, "alert-box") and contains(text(), "{name}")]/a')
     LOC_BUTTON_BACK_WITHOUT_SAVING = (
         By.XPATH, '//a[@class="wizard-header-back"]')
     LOC_MODAL_TRANSLATION_WARNING = (By.ID, 'modal-translation-warning')
@@ -77,6 +90,27 @@ class QuestionnaireStepPage(QcatPage):
             ).click()
         self.get_el(self.LOC_INPUT_SEARCH_LINK).send_keys(link_name)
         self.select_autocomplete(link_name)
+
+    def get_user_search_field(self, index: int=1):
+        return self.get_el(
+            self.format_locator(self.LOC_INPUT_SEARCH_USER, index=index))
+
+    def has_selected_user(self, user: User):
+        return self.exists_el(
+            self.format_locator(
+                self.LOC_DISPLAY_SEARCH_USER, name=user.get_display_name()))
+
+    def select_user(self, user: User, index: int=1):
+        search_field = self.get_user_search_field(index=index)
+        search_field.send_keys(user.firstname)
+        self.select_autocomplete(user.get_display_name())
+        self.wait_for(self.LOC_LOADING_SEARCH_USER, visibility=False)
+
+    def remove_selected_user(self, user: User):
+        self.get_el(
+            self.format_locator(
+                self.LOC_REMOVE_SEARCH_USER, name=user.get_display_name())
+        ).click()
 
     def has_translation_warning(self):
         return self.exists_el(self.LOC_MODAL_TRANSLATION_WARNING)
