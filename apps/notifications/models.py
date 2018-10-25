@@ -1,10 +1,8 @@
-import contextlib
 import functools
 import itertools
 import logging
 import operator
 
-from django.contrib.postgres.fields import JSONField
 from django.core import signing
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -351,9 +349,6 @@ class Log(models.Model):
             return False
         return self.statusupdate.is_rejected
 
-    def get_mail_html(self, user: User) -> str:
-        return 'email'
-
     def get_notification_html(self, user: User) -> str:
         """
         The text with links to questionnaire and catalyst, according to the
@@ -538,7 +533,6 @@ class Log(models.Model):
         elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
             if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
                 # Submitted a draft questionnaire
-                # subject = _('This practice has been submitted')
                 mail_keyword = 'submitted'
             elif self.questionnaire.status == settings.QUESTIONNAIRE_REVIEWED:
                 # Reviewed a submitted questionnaire
