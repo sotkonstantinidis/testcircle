@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, User
 from django.core.mail.backends.locmem import EmailBackend
 from django.core.management import call_command
+from django.db import OperationalError
 from django.test import override_settings
 
 from model_mommy import mommy
@@ -430,3 +431,52 @@ class PublicationWorkflowMailTest(SendMailRecipientMixin):
                 'notifications/mail/publish_addendum.html'
             )
         self.assert_no_unsent_logs(3)
+
+
+@override_settings(DO_SEND_EMAILS=False)
+@patch('notifications.management.commands.send_notification_mails.logger')
+class SendNotificationMailsTest(TestCase):
+
+    def check_calls_contain(self, expected, log_calls):
+        for i, e in enumerate(expected):
+            assert e in log_calls[i][0][0]
+
+    def test_log_empty(self, mock_logger):
+        call_command('send_notification_mails')
+
+        log_calls = mock_logger.info.call_args_list
+        assert len(log_calls) == 2
+        self.check_calls_contain([
+            'start processing 0 logs',
+            'finished processing logs',
+        ], log_calls)
+
+    def test_log_processed(self, mock_logger):
+        log_1 = mommy.make(
+            _model=Log,
+        )
+        call_command('send_notification_mails')
+
+        log_calls = mock_logger.info.call_args_list
+        assert len(log_calls) == 3
+        self.check_calls_contain([
+            'start processing 1 logs',
+            f'sent log {log_1.id}',
+            'finished processing logs',
+        ], log_calls)
+
+    @patch.object(Log, 'send_mails')
+    def test_log_blocked(self, mock_send_mails, mock_logger):
+        mock_send_mails.side_effect = OperationalError
+        mommy.make(
+            _model=Log,
+        )
+        call_command('send_notification_mails')
+
+        log_calls = mock_logger.info.call_args_list
+        assert len(log_calls) == 3
+        self.check_calls_contain([
+            'start processing 1 logs',
+            f'could not process logs',
+            'canceled processing logs',
+        ], log_calls)
