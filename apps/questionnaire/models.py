@@ -784,6 +784,11 @@ class Questionnaire(models.Model):
                 users.append(user)
         return users
 
+    def get_users_by_roles(self, roles: list) -> list:
+        for role, user in self.get_users():
+            if role in roles:
+                yield user
+
     def get_users_for_next_publish_step(self):
         if self.status in settings.QUESTIONNAIRE_WORKFLOW_STEPS:
             role = settings.QUESTIONNAIRE_PUBLICATION_ROLES[self.status]

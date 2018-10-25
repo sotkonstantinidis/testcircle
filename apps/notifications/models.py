@@ -400,10 +400,60 @@ class Log(models.Model):
                 log.save(update_fields=['was_processed'])
                 activate(original_locale)
 
+    def get_assigned_users(self):
+        """
+        Get users linked (assigned) to the questionnaire who will be notified.
+        """
+        if self.action in [
+            settings.NOTIFICATIONS_ADD_MEMBER,
+            settings.NOTIFICATIONS_REMOVE_MEMBER,
+        ]:
+            # When adding or removing member, do not notify any assigned users.
+            return []
+        elif self.is_rejected:
+            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_SUBMITTED:
+                # If rejected from submitted, notify compiler and assigned editors
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                ])
+            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_REVIEWED:
+                # If rejected from reviewed, notify compiler, assigned editors
+                # and assigned reviewers.
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                    'reviewer',
+                ])
+        elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
+            if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
+                # If submitted, notify assigned reviewers.
+                # return self.questionnaire.get_users_by_role('reviewer')
+                return self.questionnaire.get_users_by_roles([
+                    'reviewer',
+                ])
+            if self.questionnaire.status == settings.QUESTIONNAIRE_REVIEWED:
+                # If reviewed, notify compiler, assigned editors and assigned
+                # publishers.
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                    'publisher',
+                ])
+            if self.questionnaire.status == settings.QUESTIONNAIRE_PUBLIC:
+                # If published, notify compiler, assigned editors and assigned
+                # reviewers.
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                    'reviewer',
+                ])
+        return self.subscribers.all()
+
     @cached_property
     def recipients(self):
         return set(itertools.chain(
-            self.subscribers.all(),
+            self.get_assigned_users(),
             self.get_reviewers(),
             self.get_affected(),
             self.get_rejected_users(),
