@@ -468,9 +468,16 @@ class Log(models.Model):
         return []
 
     def get_reviewers(self):
-        check_properties = self.is_change_log and self.has_no_update and self.is_workflow_status
+        """
+        Get the reviewers which have to be notified by mail. As discussed on
+        October 25 2018, this is always the wocat mailbox user who will be
+        notified if a questionnaire changes its status or if it was deleted.
+        """
+        check_properties = self.is_change_log or self.action == settings.NOTIFICATIONS_DELETE
         if check_properties:
-            return self.questionnaire.get_users_for_next_publish_step()
+            wocat_user = self.questionnaire.get_wocat_mailbox_user()
+            if wocat_user:
+                return [wocat_user]
         return []
 
     def get_affected(self):

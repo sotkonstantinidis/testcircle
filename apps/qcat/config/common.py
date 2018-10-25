@@ -396,6 +396,7 @@ class BaseSettings(Configuration):
         environ_prefix='',
         default='https://www.wocat.net/about/wocat-secretariat'
     )
+    WOCAT_MAILBOX_USER_ID = values.IntegerValue(environ_prefix='')
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

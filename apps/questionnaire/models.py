@@ -789,6 +789,16 @@ class Questionnaire(models.Model):
             if role in roles:
                 yield user
 
+    @staticmethod
+    def get_wocat_mailbox_user():
+        """
+        Return the WOCAT Mailbox User with the ID set in the settings.
+        """
+        try:
+            return User.objects.get(pk=settings.WOCAT_MAILBOX_USER_ID)
+        except User.DoesNotExist:
+            return None
+
     def get_users_for_next_publish_step(self):
         if self.status in settings.QUESTIONNAIRE_WORKFLOW_STEPS:
             role = settings.QUESTIONNAIRE_PUBLICATION_ROLES[self.status]
