@@ -519,7 +519,7 @@ class LogTest(TestCase):
         assert self.information_log.informationupdate.info in content
 
     @patch.object(Log, 'get_affected')
-    @patch.object(Questionnaire, 'get_reviewers')
+    @patch.object(Log, 'get_reviewers')
     def test_recipients_no_duplicates(self, mock_reviewers, mock_affected):
         mock_affected.return_value = [self.catalyst]
         mock_reviewers.return_value = [self.catalyst, mommy.make(get_user_model())]
@@ -549,11 +549,11 @@ class LogTest(TestCase):
         )
         return log
 
-    @patch.object(Questionnaire, 'get_users_for_next_publish_step')
-    def test_get_reviewers(self, mock_get_users):
+    @patch.object(Questionnaire, 'get_wocat_mailbox_user')
+    def test_get_reviewers(self, mock_get_wocat_user):
         log = self.get_review_log()
         log.get_reviewers()
-        mock_get_users.assert_called_once()
+        mock_get_wocat_user.assert_called_once()
 
     @patch.object(Questionnaire, 'get_users_for_next_publish_step')
     def test_get_reviewers_change_log(self, mock_get_users):

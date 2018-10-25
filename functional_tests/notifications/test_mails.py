@@ -11,9 +11,14 @@ from questionnaire.models import Questionnaire
 from functional_tests.base import FunctionalTest
 from functional_tests.pages.sample import SampleDetailPage
 
+WOCAT_MAILBOX_USER_ID = 999
 
-@override_settings(DO_SEND_EMAILS=True)
-@override_settings(DO_SEND_STAFF_ONLY=False)
+
+@override_settings(
+    DO_SEND_EMAILS=True,
+    DO_SEND_STAFF_ONLY=False,
+    WOCAT_MAILBOX_USER_ID=WOCAT_MAILBOX_USER_ID
+)
 @patch('notifications.models.EmailMultiAlternatives')
 class MailsTest(FunctionalTest):
     fixtures = [
@@ -190,17 +195,36 @@ class MailsTest(FunctionalTest):
             firstname='Compiler',
             email='compiler@foo.com'
         )
-        self.user_reviewer = mommy.make(
+        self.user_editor_assigned = mommy.make(
+            _model=get_user_model(),
+            firstname='Editor',
+            lastname='Assigned',
+            email='editor_assigned@foo.com'
+        )
+        self.user_reviewer_group = mommy.make(
             _model=get_user_model(),
             firstname='Reviewer',
-            email='reviewer@foo.com',
+            lastname='Group',
+            email='reviewer_group@foo.com',
             groups=[reviewer_group]
         )
-        self.user_publisher = mommy.make(
+        self.user_reviewer_assigned = mommy.make(
+            _model=get_user_model(),
+            firstname='Reviewer',
+            lastname='Assigned',
+            email='reviewer_assigned@foo.com'
+        )
+        self.user_publisher_group = mommy.make(
             _model=get_user_model(),
             firstname='Publisher',
             email='publisher@foo.com',
             groups=[publisher_group]
+        )
+        self.user_publisher_assigned = mommy.make(
+            _model=get_user_model(),
+            firstname='Publisher',
+            lastname='Assigned',
+            email='publisher_assigned@foo.com'
         )
         self.user_secretariat = mommy.make(
             _model=get_user_model(),
@@ -208,49 +232,38 @@ class MailsTest(FunctionalTest):
             email='secretariat@foo.com',
             groups=[secretariat_group]
         )
+        self.user_wocat_mailbox = mommy.make(
+            _model=get_user_model(),
+            id=WOCAT_MAILBOX_USER_ID,
+            firstname='WOCAT',
+            lastname='Mailbox',
+            email='wocat@foo.com',
+        )
 
     def set_questionnaires(self):
         # Set the questionnaires used for testing.
-        self.questionnaire_draft = mommy.make(
-            _model=Questionnaire,
-            data={},
-            code='sample_1',
-            status=settings.QUESTIONNAIRE_DRAFT,
-            configuration=Configuration.objects.filter(code='sample').first()
-        )
-        self.questionnaire_draft.add_user(self.user_compiler, 'compiler')
-
-        self.questionnaire_submitted = mommy.make(
-            _model=Questionnaire,
-            data={},
-            code='sample_2',
-            status=settings.QUESTIONNAIRE_SUBMITTED,
-            configuration=Configuration.objects.filter(code='sample').first()
-        )
-        self.questionnaire_submitted.add_user(self.user_compiler, 'compiler')
-
-        self.questionnaire_reviewed = mommy.make(
-            _model=Questionnaire,
-            data={},
-            code='sample_3',
-            status=settings.QUESTIONNAIRE_REVIEWED,
-            configuration=Configuration.objects.filter(code='sample').first()
-        )
-        self.questionnaire_reviewed.add_user(self.user_compiler, 'compiler')
-
-    @staticmethod
-    def get_mock_remote_user_details(user):
-        # Simulate a response from the remote auth provider retrieving the user
-        # details. You can use this mocked response for both user search (part
-        # of "remote_user_client.search_users") and user information
-        # ("remote_user_client.get_user_information")
-        return {
-            'uid': user.id,
-            'email': user.email,
-            'username': user.email,
-            'first_name': user.firstname,
-            'last_name': user.lastname
-        }
+        for status_code, status_name, code in [
+            # Status_name will be used to set the attribute, e.g.:
+            # self.questionnaire_draft
+            (settings.QUESTIONNAIRE_DRAFT, 'draft', 'sample_1'),
+            (settings.QUESTIONNAIRE_SUBMITTED, 'submitted', 'sample_2'),
+            (settings.QUESTIONNAIRE_REVIEWED, 'reviewed', 'sample_3'),
+        ]:
+            questionnaire = mommy.make(
+                _model=Questionnaire,
+                data={},
+                code=code,
+                status=status_code,
+                configuration=Configuration.objects.filter(code='sample').first()
+            )
+            for user, role in [
+                (self.user_compiler, 'compiler'),
+                (self.user_editor_assigned, 'editor'),
+                (self.user_reviewer_assigned, 'reviewer'),
+                (self.user_publisher_assigned, 'publisher'),
+            ]:
+                questionnaire.add_user(user, role)
+            setattr(self, f'questionnaire_{status_name}', questionnaire)
 
     def check_mails(self, mock_mail: Mock, expected_mails: list):
         # Check that mocked mails sent match the expected mails. Mocked and
@@ -324,21 +337,34 @@ class MailsTest(FunctionalTest):
 
         self.check_mails(mock_mail, [
             {
-                'to': self.user_reviewer,
+                'to': self.user_reviewer_assigned,
                 'mail': 'submitted'
-            }
+            },
+            {
+                'to': self.user_wocat_mailbox,
+                'mail': 'submitted'
+            },
         ])
 
-        mail_body_plain = mock_mail.call_args_list[0][1]['body']
-        mail_body_html = mock_mail.return_value.attach_alternative\
-            .call_args_list[0][1]['content']
+        # In order to always access the same mail, do some ordering first
+        mock_mail_call_args = [call[1] for call in mock_mail.call_args_list]
+        mock_alt_mail_call_args = [
+            call[1] for call
+            in mock_mail.return_value.attach_alternative.call_args_list]
+        merged_calls = zip(mock_mail_call_args, mock_alt_mail_call_args)
+        sorted_calls = sorted(
+            merged_calls, key=lambda c: (c[0]['to'], c[0]['subject']))
+        sorted_mock_mail_calls, sorted_mock_alt_mail_calls = zip(
+            *sorted_calls)
+        mail_body_plain = sorted_mock_mail_calls[1]['body']
+        mail_body_html = sorted_mock_alt_mail_calls[1]['content']
 
         for mail_body in [mail_body_plain, mail_body_html]:
             assert self.questionnaire_draft.get_absolute_url() in mail_body
-            assert self.user_reviewer.get_display_name() in mail_body
+            assert self.user_wocat_mailbox.get_display_name() in mail_body
             assert self.user_compiler.get_display_name() in mail_body
             assert str(settings.BASE_URL) in mail_body
-            assert str(self.user_reviewer.mailpreferences.get_signed_url()) in \
+            assert str(self.user_wocat_mailbox.mailpreferences.get_signed_url()) in \
                    mail_body
 
     def test_mails_submit_message(self, mock_mail):
@@ -355,33 +381,15 @@ class MailsTest(FunctionalTest):
 
         self.check_mails(mock_mail, [
             {
-                'to': self.user_reviewer,
+                'to': self.user_wocat_mailbox,
+                'mail': 'submitted',
+                'message': submit_message
+            },
+            {
+                'to': self.user_reviewer_assigned,
                 'mail': 'submitted',
                 'message': submit_message
             }
-        ])
-
-    def test_mails_submit_assigned_reviewer(self, mock_mail):
-        # Submitting a draft questionnnaire also sends an email to assigned
-        # reviewers.
-        self.questionnaire_draft.add_user(self.user_bob, 'reviewer')
-
-        detail_page = SampleDetailPage(self)
-        detail_page.route_kwargs = {'identifier': self.questionnaire_draft.code}
-        detail_page.open(login=True, user=self.user_compiler)
-        detail_page.submit_questionnaire()
-
-        call_command('send_notification_mails')
-
-        self.check_mails(mock_mail, [
-            {
-                'to': self.user_bob,
-                'mail': 'submitted'
-            },
-            {
-                'to': self.user_reviewer,
-                'mail': 'submitted'
-            },
         ])
 
     def test_mails_review(self, mock_mail):
@@ -391,7 +399,7 @@ class MailsTest(FunctionalTest):
         detail_page.route_kwargs = {
             'identifier': self.questionnaire_submitted.code
         }
-        detail_page.open(login=True, user=self.user_reviewer)
+        detail_page.open(login=True, user=self.user_reviewer_group)
         detail_page.review_questionnaire()
 
         call_command('send_notification_mails')
@@ -402,7 +410,15 @@ class MailsTest(FunctionalTest):
                 'mail': 'reviewed'
             },
             {
-                'to': self.user_publisher,
+                'to': self.user_editor_assigned,
+                'mail': 'reviewed'
+            },
+            {
+                'to': self.user_publisher_assigned,
+                'mail': 'reviewed',
+            },
+            {
+                'to': self.user_wocat_mailbox,
                 'mail': 'reviewed'
             },
         ])
@@ -415,7 +431,7 @@ class MailsTest(FunctionalTest):
         detail_page.route_kwargs = {
             'identifier': self.questionnaire_submitted.code
         }
-        detail_page.open(login=True, user=self.user_reviewer)
+        detail_page.open(login=True, user=self.user_reviewer_group)
         detail_page.review_questionnaire(message=review_message)
 
         call_command('send_notification_mails')
@@ -427,43 +443,19 @@ class MailsTest(FunctionalTest):
                 'message': review_message
             },
             {
-                'to': self.user_publisher,
+                'to': self.user_editor_assigned,
                 'mail': 'reviewed',
                 'message': review_message
             },
-        ])
-
-    def test_mails_review_assigned_users(self, mock_mail):
-        # Reviewing a submitted questionnaire also sends an email to assigned
-        # publishers and editors
-        self.questionnaire_submitted.add_user(self.user_alice, 'editor')
-        self.questionnaire_submitted.add_user(self.user_bob, 'publisher')
-
-        detail_page = SampleDetailPage(self)
-        detail_page.route_kwargs = {
-            'identifier': self.questionnaire_submitted.code
-        }
-        detail_page.open(login=True, user=self.user_reviewer)
-        detail_page.review_questionnaire()
-
-        call_command('send_notification_mails')
-
-        self.check_mails(mock_mail, [
             {
-                'to': self.user_compiler,
-                'mail': 'reviewed'
+                'to': self.user_publisher_assigned,
+                'mail': 'reviewed',
+                'message': review_message
             },
             {
-                'to': self.user_publisher,
-                'mail': 'reviewed'
-            },
-            {
-                'to': self.user_alice,
-                'mail': 'reviewed'
-            },
-            {
-                'to': self.user_bob,
-                'mail': 'reviewed'
+                'to': self.user_wocat_mailbox,
+                'mail': 'reviewed',
+                'message': review_message
             },
         ])
 
@@ -473,7 +465,7 @@ class MailsTest(FunctionalTest):
         detail_page.route_kwargs = {
             'identifier': self.questionnaire_reviewed.code
         }
-        detail_page.open(login=True, user=self.user_publisher)
+        detail_page.open(login=True, user=self.user_publisher_group)
         detail_page.publish_questionnaire()
 
         call_command('send_notification_mails')
@@ -482,7 +474,19 @@ class MailsTest(FunctionalTest):
             {
                 'to': self.user_compiler,
                 'mail': 'published'
-            }
+            },
+            {
+                'to': self.user_editor_assigned,
+                'mail': 'published'
+            },
+            {
+                'to': self.user_reviewer_assigned,
+                'mail': 'published'
+            },
+            {
+                'to': self.user_wocat_mailbox,
+                'mail': 'published'
+            },
         ])
 
     def test_mails_publish_message(self, mock_mail):
@@ -493,7 +497,7 @@ class MailsTest(FunctionalTest):
         detail_page.route_kwargs = {
             'identifier': self.questionnaire_reviewed.code
         }
-        detail_page.open(login=True, user=self.user_publisher)
+        detail_page.open(login=True, user=self.user_publisher_group)
         detail_page.publish_questionnaire(message=publish_message)
 
         call_command('send_notification_mails')
@@ -503,36 +507,21 @@ class MailsTest(FunctionalTest):
                 'to': self.user_compiler,
                 'mail': 'published',
                 'message': publish_message,
-            }
-        ])
-
-    def test_mails_publish_assigned_users(self, mock_mail):
-        # Publishing a reviewed questionnaire sends an email to assigned
-        # reviewers and editors.
-        self.questionnaire_reviewed.add_user(self.user_alice, 'editor')
-        self.questionnaire_reviewed.add_user(self.user_bob, 'reviewer')
-
-        detail_page = SampleDetailPage(self)
-        detail_page.route_kwargs = {
-            'identifier': self.questionnaire_reviewed.code
-        }
-        detail_page.open(login=True, user=self.user_publisher)
-        detail_page.publish_questionnaire()
-
-        call_command('send_notification_mails')
-
-        self.check_mails(mock_mail, [
-            {
-                'to': self.user_compiler,
-                'mail': 'published'
             },
             {
-                'to': self.user_bob,
-                'mail': 'published'
+                'to': self.user_editor_assigned,
+                'mail': 'published',
+                'message': publish_message,
             },
             {
-                'to': self.user_alice,
-                'mail': 'published'
+                'to': self.user_reviewer_assigned,
+                'mail': 'published',
+                'message': publish_message,
+            },
+            {
+                'to': self.user_wocat_mailbox,
+                'mail': 'published',
+                'message': publish_message,
             },
         ])
 
@@ -551,40 +540,21 @@ class MailsTest(FunctionalTest):
             {
                 'to': self.user_compiler,
                 'mail': 'deleted'
-            }
-        ])
-
-    def test_mails_delete_assigned_users(self, mock_mail):
-        # Deleting a questionnaire sends an email to assigned editors, reviewers
-        # and publishers.
-        self.questionnaire_reviewed.add_user(self.user_alice, 'editor')
-        self.questionnaire_reviewed.add_user(self.user_bob, 'reviewer')
-        self.questionnaire_reviewed.add_user(self.user_chris, 'publisher')
-
-        detail_page = SampleDetailPage(self)
-        detail_page.route_kwargs = {
-            'identifier': self.questionnaire_reviewed.code
-        }
-        detail_page.open(login=True, user=self.user_secretariat)
-        detail_page.delete_questionnaire()
-
-        call_command('send_notification_mails')
-
-        self.check_mails(mock_mail, [
+            },
             {
-                'to': self.user_compiler,
+                'to': self.user_editor_assigned,
                 'mail': 'deleted'
             },
             {
-                'to': self.user_alice,
+                'to': self.user_reviewer_assigned,
                 'mail': 'deleted'
             },
             {
-                'to': self.user_bob,
+                'to': self.user_publisher_assigned,
                 'mail': 'deleted'
             },
             {
-                'to': self.user_chris,
+                'to': self.user_wocat_mailbox,
                 'mail': 'deleted'
             },
         ])
@@ -638,12 +608,8 @@ class MailsTest(FunctionalTest):
     def test_mails_editor_added(
             self, mock_user_information, mock_search_users, mock_mail):
         # Inviting an editor sends a mail to this editor.
-        mock_search_users.return_value = {
-            'success': True,
-            'users': [self.get_mock_remote_user_details(self.user_bob)]
-        }
-        mock_user_information.return_value = self.get_mock_remote_user_details(
-            self.user_bob)
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         detail_page = SampleDetailPage(self)
         detail_page.route_kwargs = {'identifier': self.questionnaire_draft.code}
@@ -682,12 +648,8 @@ class MailsTest(FunctionalTest):
     def test_mails_reviewer_added(
             self, mock_user_information, mock_search_users, mock_mail):
         # Inviting a reviewer sends a mail to this reviewer and to the compiler.
-        mock_search_users.return_value = {
-            "success": True,
-            'users': [self.get_mock_remote_user_details(self.user_bob)]
-        }
-        mock_user_information.return_value = self.get_mock_remote_user_details(
-            self.user_bob)
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         detail_page = SampleDetailPage(self)
         detail_page.route_kwargs = {
@@ -699,10 +661,6 @@ class MailsTest(FunctionalTest):
         call_command('send_notification_mails')
 
         self.check_mails(mock_mail, [
-            {
-                'to': self.user_compiler,
-                'mail': 'reviewer_added'
-            },
             {
                 'to': self.user_bob,
                 'mail': 'reviewer_added'
@@ -725,10 +683,6 @@ class MailsTest(FunctionalTest):
 
         self.check_mails(mock_mail, [
             {
-                'to': self.user_compiler,
-                'mail': 'reviewer_removed'
-            },
-            {
                 'to': self.user_bob,
                 'mail': 'reviewer_removed'
             },
@@ -740,12 +694,8 @@ class MailsTest(FunctionalTest):
             self, mock_user_information, mock_search_users, mock_mail):
         # Inviting a publisher sends a mail to this publisher and to the
         # compiler.
-        mock_search_users.return_value = {
-            "success": True,
-            'users': [self.get_mock_remote_user_details(self.user_bob)]
-        }
-        mock_user_information.return_value = self.get_mock_remote_user_details(
-            self.user_bob)
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         detail_page = SampleDetailPage(self)
         detail_page.route_kwargs = {
@@ -757,10 +707,6 @@ class MailsTest(FunctionalTest):
         call_command('send_notification_mails')
 
         self.check_mails(mock_mail, [
-            {
-                'to': self.user_compiler,
-                'mail': 'publisher_added'
-            },
             {
                 'to': self.user_bob,
                 'mail': 'publisher_added'
@@ -783,10 +729,6 @@ class MailsTest(FunctionalTest):
 
         self.check_mails(mock_mail, [
             {
-                'to': self.user_compiler,
-                'mail': 'publisher_removed'
-            },
-            {
                 'to': self.user_bob,
                 'mail': 'publisher_removed'
             },
@@ -798,12 +740,8 @@ class MailsTest(FunctionalTest):
             self, mock_user_information, mock_search_users, mock_mail):
         # Changing the compiler sends a mail to the previous compiler and to the
         # new one.
-        mock_search_users.return_value = {
-            "success": True,
-            'users': [self.get_mock_remote_user_details(self.user_bob)]
-        }
-        mock_user_information.return_value = self.get_mock_remote_user_details(
-            self.user_bob)
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         detail_page = SampleDetailPage(self)
         detail_page.route_kwargs = {'identifier': self.questionnaire_draft.code}
@@ -831,12 +769,8 @@ class MailsTest(FunctionalTest):
         # Changing the compiler sends a mail to the previous compiler and to the
         # new one. If the previous compiler is now an editor, another mail is
         # sent (also to the new compiler).
-        mock_search_users.return_value = {
-            "success": True,
-            'users': [self.get_mock_remote_user_details(self.user_bob)]
-        }
-        mock_user_information.return_value = self.get_mock_remote_user_details(
-            self.user_bob)
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         detail_page = SampleDetailPage(self)
         detail_page.route_kwargs = {'identifier': self.questionnaire_draft.code}
@@ -859,10 +793,6 @@ class MailsTest(FunctionalTest):
                 'to': self.user_compiler,
                 'mail': 'editor_added'
             },
-            {
-                'to': self.user_bob,
-                'mail': 'editor_added'
-            },
         ])
 
     def test_mails_rejected_submitted(self, mock_mail):
@@ -873,31 +803,7 @@ class MailsTest(FunctionalTest):
         detail_page.route_kwargs = {
             'identifier': self.questionnaire_submitted.code
         }
-        detail_page.open(login=True, user=self.user_reviewer)
-        detail_page.reject_questionnaire(reject_message)
-
-        call_command('send_notification_mails')
-
-        self.check_mails(mock_mail, [
-            {
-                'to': self.user_compiler,
-                'mail': 'rejected_submitted',
-                'message': reject_message,
-            },
-        ])
-
-    def test_mails_rejected_submitted_assigned_users(self, mock_mail):
-        # Rejecting a submitted questionnaire sends an email to the compiler and
-        # to all assigned users.
-        reject_message = 'Rejected because it is incomplete.'
-        self.questionnaire_submitted.add_user(self.user_alice, 'editor')
-        self.questionnaire_submitted.add_user(self.user_bob, 'reviewer')
-
-        detail_page = SampleDetailPage(self)
-        detail_page.route_kwargs = {
-            'identifier': self.questionnaire_submitted.code
-        }
-        detail_page.open(login=True, user=self.user_reviewer)
+        detail_page.open(login=True, user=self.user_reviewer_group)
         detail_page.reject_questionnaire(reject_message)
 
         call_command('send_notification_mails')
@@ -909,12 +815,12 @@ class MailsTest(FunctionalTest):
                 'message': reject_message,
             },
             {
-                'to': self.user_alice,
+                'to': self.user_editor_assigned,
                 'mail': 'rejected_submitted',
                 'message': reject_message,
             },
             {
-                'to': self.user_bob,
+                'to': self.user_wocat_mailbox,
                 'mail': 'rejected_submitted',
                 'message': reject_message,
             },
@@ -928,32 +834,7 @@ class MailsTest(FunctionalTest):
         detail_page.route_kwargs = {
             'identifier': self.questionnaire_reviewed.code
         }
-        detail_page.open(login=True, user=self.user_publisher)
-        detail_page.reject_questionnaire(reject_message)
-
-        call_command('send_notification_mails')
-
-        self.check_mails(mock_mail, [
-            {
-                'to': self.user_compiler,
-                'mail': 'rejected_reviewed',
-                'message': reject_message,
-            },
-        ])
-
-    def test_mails_rejected_reviewed_assigned_users(self, mock_mail):
-        # Rejecting a reviewed questionnaire sends an email to the compiler and
-        # to all assigned users.
-        reject_message = 'Rejected because it is incomplete.'
-        self.questionnaire_reviewed.add_user(self.user_alice, 'editor')
-        self.questionnaire_reviewed.add_user(self.user_bob, 'reviewer')
-        self.questionnaire_reviewed.add_user(self.user_chris, 'publisher')
-
-        detail_page = SampleDetailPage(self)
-        detail_page.route_kwargs = {
-            'identifier': self.questionnaire_reviewed.code
-        }
-        detail_page.open(login=True, user=self.user_publisher)
+        detail_page.open(login=True, user=self.user_publisher_group)
         detail_page.reject_questionnaire(reject_message)
 
         call_command('send_notification_mails')
@@ -965,17 +846,17 @@ class MailsTest(FunctionalTest):
                 'message': reject_message,
             },
             {
-                'to': self.user_alice,
+                'to': self.user_editor_assigned,
                 'mail': 'rejected_reviewed',
                 'message': reject_message,
             },
             {
-                'to': self.user_bob,
+                'to': self.user_reviewer_assigned,
                 'mail': 'rejected_reviewed',
                 'message': reject_message,
             },
             {
-                'to': self.user_chris,
+                'to': self.user_wocat_mailbox,
                 'mail': 'rejected_reviewed',
                 'message': reject_message,
             },
