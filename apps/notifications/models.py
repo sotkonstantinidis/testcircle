@@ -448,7 +448,7 @@ class Log(models.Model):
 
         return {
             'recipient_name': recipient.get_display_name(),
-            'recipient_url': recipient.get_absolute_url(),
+            'recipient_url': f'{settings.BASE_URL}{recipient.get_absolute_url()}',
             'subscription_url': '{base_url}{url}'.format(
                 base_url=settings.BASE_URL,
                 url=recipient.mailpreferences.get_signed_url()
