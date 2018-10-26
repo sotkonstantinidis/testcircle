@@ -566,10 +566,31 @@ class ModerationTestFixture(FunctionalTest):
         NOTIFICATIONS_ADD_MEMBER='add_member',
         NOTIFICATIONS_REMOVE_MEMBER='delete_member'
     )
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('accounts.views.remote_user_client.search_users')
     @patch('questionnaire.signals.change_member.send')
-    def test_secretariat_can_assign_reviewer(self, mock_member_change):
+    def test_secretariat_can_assign_reviewer(
+            self, mock_member_change, mock_search_users, mock_user_information):
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         identifier = 'sample_2'
+
+        user_alice = self.create_new_user(
+            email='alice@foo.com',
+            last_name='Alice',
+            first_name='Cooper'
+        )
+        user_bob = self.create_new_user(
+            email='bob@foo.com',
+            last_name='Bob',
+            first_name='Tables'
+        )
+        user_chris = self.create_new_user(
+            email='chris@foo.com',
+            last_name='Chris',
+            first_name='Cornell'
+        )
 
         # A user logs in
         self.doLogin(user=self.user_editor)
@@ -622,12 +643,13 @@ class ModerationTestFixture(FunctionalTest):
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 0)
 
-        self.findBy('id', 'review-search-user').send_keys('kurt')
+        self.findBy('id', 'review-search-user').send_keys(user_alice.firstname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
             'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Kurt Gerber"]'
+            f'//li[@class="ui-menu-item"]//strong[text()="'
+            f'{user_alice.get_display_name()}"]'
         ).click()
 
         selected_users = self.findManyBy(
@@ -635,20 +657,21 @@ class ModerationTestFixture(FunctionalTest):
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 1)
 
-        self.findBy('id', 'review-search-user').send_keys('vonlanthen')
+        self.findBy('id', 'review-search-user').send_keys(user_bob.lastname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
             'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Lukas Vonlanthen"]'
+            f'//li[@class="ui-menu-item"]//strong[text()="'
+            f'{user_bob.get_display_name()}"]'
         ).click()
 
         selected_users = self.findManyBy(
             'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
                      '"alert-box")]')
         self.assertEqual(len(selected_users), 2)
-        self.assertTrue('Kurt Gerber' in selected_users[0].text)
-        self.assertTrue('Lukas Vonlanthen' in selected_users[1].text)
+        self.assertTrue(user_alice.get_display_name() in selected_users[0].text)
+        self.assertTrue(user_bob.get_display_name() in selected_users[1].text)
 
         # She updates the users
         btn = self.findBy('id', 'button-assign')
@@ -662,7 +685,7 @@ class ModerationTestFixture(FunctionalTest):
             sender='add_member',
             questionnaire=Questionnaire.objects.get(code=identifier),
             user=self.user_secretariat,
-            affected=User.objects.get(email='lukas.vonlanthen@cde.unibe.ch'),
+            affected=User.objects.get(email=user_bob.email),
             role='reviewer'
         )
         mock_member_change.reset_mock()
@@ -673,7 +696,8 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(assigned_users), 2)
         users = [self.get_text_excluding_children(user).strip() for user in
                  assigned_users]
-        self.assertEqual(sorted(users), ['Kurt Gerber', 'Lukas Vonlanthen'])
+        self.assertEqual(sorted(users), [
+            user_alice.get_display_name(), user_bob.get_display_name()])
         self.assertNotEqual(users[0], users[1])
 
         # She edits the users again
@@ -686,13 +710,15 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(selected_users), 2)
         users = [self.get_text_excluding_children(user).strip() for user in
                  selected_users]
-        self.assertEqual(sorted(users), ['Kurt Gerber', 'Lukas Vonlanthen'])
+        self.assertEqual(sorted(users), [
+            user_alice.get_display_name(), user_bob.get_display_name()])
         self.assertNotEqual(users[0], users[1])
 
         # She removes one of the user
         remove_button = self.findBy(
             'xpath', '//div[@id="review-new-user"]/div[contains(@class, '
-                     '"alert-box") and contains(text(), "Kurt Gerber")]/a'
+                     f'"alert-box") and contains(text(), "'
+                     f'{user_alice.get_display_name()}")]/a'
         )
         delete_user = re.findall('\d+', remove_button.get_attribute('onclick'))
 
@@ -706,12 +732,13 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(selected_users), 1)
 
         # She adds another user
-        self.findBy('id', 'review-search-user').send_keys('sebastian')
+        self.findBy('id', 'review-search-user').send_keys(user_chris.firstname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
             'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Sebastian Manger"]'
+            f'//li[@class="ui-menu-item"]//strong[text()="'
+            f'{user_chris.get_display_name()}"]'
         ).click()
 
         selected_users = self.findManyBy(
@@ -720,7 +747,8 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(selected_users), 2)
         users = [self.get_text_excluding_children(user).strip() for user in
                  selected_users]
-        self.assertEqual(sorted(users), ['Lukas Vonlanthen', 'Sebastian Manger'])
+        self.assertEqual(sorted(users), [
+            user_chris.get_display_name(), user_bob.get_display_name()])
         self.assertNotEqual(users[0], users[1])
 
         # She updates the users
@@ -735,7 +763,8 @@ class ModerationTestFixture(FunctionalTest):
         self.assertEqual(len(assigned_users), 2)
         users = [self.get_text_excluding_children(user).strip() for user in
                  assigned_users]
-        self.assertEqual(sorted(users), ['Lukas Vonlanthen', 'Sebastian Manger'])
+        self.assertEqual(sorted(users), [
+            user_chris.get_display_name(), user_bob.get_display_name()])
         self.assertNotEqual(users[0], users[1])
 
         # Users are deleted after submitting the page

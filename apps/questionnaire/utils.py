@@ -1415,7 +1415,11 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
             return
 
         # Attach the reviewer to the questionnaire if he is not already
-        questionnaire_object.add_user(request.user, 'reviewer')
+        if questionnaire_object.status == settings.QUESTIONNAIRE_SUBMITTED:
+            user_role = 'reviewer'
+        else:
+            user_role = 'publisher'
+        questionnaire_object.add_user(request.user, user_role)
 
         # Update the status
         questionnaire_object.status = settings.QUESTIONNAIRE_DRAFT
