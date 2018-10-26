@@ -30,7 +30,10 @@ class SearchTest(FunctionalTest):
 
     def setUp(self):
         super(SearchTest, self).setUp()
-        create_temp_indices([('sample', '2015'), ('samplemulti', '2015')])
+        create_temp_indices([
+            ('sample', '2015'),
+            ('samplemulti', '2015'),
+        ])
 
     @patch('questionnaire.views.get_configuration_index_filter')
     def test_search_home(self, mock_get_configuration_index_filter):
@@ -104,6 +107,9 @@ class SearchTestAdmin(FunctionalTest):
 
     def setUp(self):
         super(SearchTestAdmin, self).setUp()
+        create_temp_indices([
+            ('sample', '2015')
+        ])
         user = create_new_user()
         user.is_superuser = True
         user.save()
@@ -119,6 +125,9 @@ class SearchTestAdmin(FunctionalTest):
         self.clickUserMenu(self.user)
         navbar = self.findBy('class_name', 'top-bar')
         navbar.find_element_by_link_text('Search Index Administration').click()
+
+        # First, delete the sample index.
+        self.findBy('xpath', '//a[contains(@href, "/delete/sample/")]').click()
 
         # She sees that the active configurations are listed, all of
         # them having no index
@@ -155,16 +164,5 @@ class SearchTestAdmin(FunctionalTest):
                 '//tbody/tr[1]/td/span/strong[@class="text-ok"]').text,
             '2 / 2')
 
-        # She decides to delete all indices
-        self.findBy('xpath', '//a[@href="/en/search/delete/"]').click()
-
-        # She sees that all indices were deleted
-        self.findBy('xpath', '//div[contains(@class, "success")]')
-        self.findBy(
-            'xpath',
-            '//tbody/tr[1]/td[text()="sample 2015"]')
-        self.assertEqual(
-            self.findBy(
-                'xpath',
-                '//tbody/tr[1]/td/span/strong[@class="text-warning"]').text,
-            'No Index!')
+        # Do not delete all indices, as this will also delete the currently
+        # active ones.

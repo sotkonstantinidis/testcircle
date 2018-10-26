@@ -1,10 +1,8 @@
-import contextlib
 import functools
 import itertools
 import logging
 import operator
 
-from django.contrib.postgres.fields import JSONField
 from django.core import signing
 from django.core.mail import EmailMultiAlternatives
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -351,9 +349,6 @@ class Log(models.Model):
             return False
         return self.statusupdate.is_rejected
 
-    def get_mail_html(self, user: User) -> str:
-        return 'email'
-
     def get_notification_html(self, user: User) -> str:
         """
         The text with links to questionnaire and catalyst, according to the
@@ -400,10 +395,60 @@ class Log(models.Model):
                 log.save(update_fields=['was_processed'])
                 activate(original_locale)
 
+    def get_assigned_users(self):
+        """
+        Get users linked (assigned) to the questionnaire who will be notified.
+        """
+        if self.action in [
+            settings.NOTIFICATIONS_ADD_MEMBER,
+            settings.NOTIFICATIONS_REMOVE_MEMBER,
+        ]:
+            # When adding or removing member, do not notify any assigned users.
+            return []
+        elif self.is_rejected:
+            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_SUBMITTED:
+                # If rejected from submitted, notify compiler and assigned editors
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                ])
+            if self.statusupdate.previous_status == settings.QUESTIONNAIRE_REVIEWED:
+                # If rejected from reviewed, notify compiler, assigned editors
+                # and assigned reviewers.
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                    'reviewer',
+                ])
+        elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
+            if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
+                # If submitted, notify assigned reviewers.
+                # return self.questionnaire.get_users_by_role('reviewer')
+                return self.questionnaire.get_users_by_roles([
+                    'reviewer',
+                ])
+            if self.questionnaire.status == settings.QUESTIONNAIRE_REVIEWED:
+                # If reviewed, notify compiler, assigned editors and assigned
+                # publishers.
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                    'publisher',
+                ])
+            if self.questionnaire.status == settings.QUESTIONNAIRE_PUBLIC:
+                # If published, notify compiler, assigned editors and assigned
+                # reviewers.
+                return self.questionnaire.get_users_by_roles([
+                    'compiler',
+                    'editor',
+                    'reviewer',
+                ])
+        return self.subscribers.all()
+
     @cached_property
     def recipients(self):
         return set(itertools.chain(
-            self.subscribers.all(),
+            self.get_assigned_users(),
             self.get_reviewers(),
             self.get_affected(),
             self.get_rejected_users(),
@@ -418,9 +463,16 @@ class Log(models.Model):
         return []
 
     def get_reviewers(self):
-        check_properties = self.is_change_log and self.has_no_update and self.is_workflow_status
+        """
+        Get the reviewers which have to be notified by mail. As discussed on
+        October 25 2018, this is always the wocat mailbox user who will be
+        notified if a questionnaire changes its status or if it was deleted.
+        """
+        check_properties = self.is_change_log or self.action == settings.NOTIFICATIONS_DELETE
         if check_properties:
-            return self.questionnaire.get_users_for_next_publish_step()
+            wocat_user = self.questionnaire.get_wocat_mailbox_user()
+            if wocat_user:
+                return [wocat_user]
         return []
 
     def get_affected(self):
@@ -448,7 +500,7 @@ class Log(models.Model):
 
         return {
             'recipient_name': recipient.get_display_name(),
-            'recipient_url': recipient.get_absolute_url(),
+            'recipient_url': f'{settings.BASE_URL}{recipient.get_absolute_url()}',
             'subscription_url': '{base_url}{url}'.format(
                 base_url=settings.BASE_URL,
                 url=recipient.mailpreferences.get_signed_url()
@@ -481,7 +533,6 @@ class Log(models.Model):
         elif self.action == settings.NOTIFICATIONS_CHANGE_STATUS:
             if self.questionnaire.status == settings.QUESTIONNAIRE_SUBMITTED:
                 # Submitted a draft questionnaire
-                # subject = _('This practice has been submitted')
                 mail_keyword = 'submitted'
             elif self.questionnaire.status == settings.QUESTIONNAIRE_REVIEWED:
                 # Reviewed a submitted questionnaire
