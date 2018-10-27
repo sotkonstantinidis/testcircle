@@ -1821,24 +1821,29 @@ class Technologies(Edition):
 
         moved_questions = {}
         for qg_data in data.get('tech_qg_19', []):
-            old_data = {}
+            remaining_data = {}
             for key, value in qg_data.items():
                 if key in [
                     'tech_growing_seasons', 'tech_growing_seasons_specify'
                 ]:
                     moved_questions[key] = value
                 else:
-                    old_data[key] = value
-            if old_data:
-                data['tech_qg_19'] = [old_data]
+                    remaining_data[key] = value
+            if remaining_data:
+                data['tech_qg_19'] = [remaining_data]
+            else:
+                del data['tech_qg_19']
 
         if moved_questions:
             # Only move data if the corresponding conditional value
             # (tech_lu_cropland of tech_qg_9.tech_landuse_2018) is selected.
             # Otherwise, do not move the data (as this would block the form from
             # being submitted)
-            cond_question_values = data.get('tech_qg_9', [{}])[0].get(
-                'tech_landuse_2018', [])
+            cond_question_values = []
+            cond_question_values_qg = data.get('tech_qg_9')
+            if cond_question_values_qg and len(cond_question_values_qg) > 0:
+                cond_question_values = cond_question_values_qg[0].get(
+                    'tech_landuse_2018', [])
             if 'tech_lu_cropland' in cond_question_values:
                 new_data = data.get('tech_qg_10', [{}])
                 new_data[0].update(moved_questions)
