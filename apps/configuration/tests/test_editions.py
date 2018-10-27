@@ -435,6 +435,153 @@ class EditionTechnologies2018Test(TestCase):
             'qg_accept_conditions': [{'accept_conditions': True}]
         })
 
+    def test_delete_tech_groqing_seasons(self):
+        edition = self.get_edition()
+        delete_empty = edition.delete_tech_growing_seasons(**{})
+        self.assertDictEqual(delete_empty, {})
+
+        # Condition not met, no other values in tech_qg_19 (all should be deleted)
+        deleted = edition.delete_tech_growing_seasons(**{
+            'tech_qg_19': [
+                {
+                    'tech_growing_seasons': 'foo',
+                    'tech_growing_seasons_specify': 'bar',
+                }
+            ]
+        })
+        self.assertDictEqual(deleted, {})
+
+        # Condition not met, other values in tech_qg_19 should remain
+        deleted = edition.delete_tech_growing_seasons(**{
+            'tech_qg_19': [
+                {
+                    'tech_growing_seasons': 'foo',
+                    'tech_growing_seasons_specify': 'bar',
+                    'other_key': 'faz'
+                }
+            ],
+            'tech_qg_9': [
+                {
+                    'tech_landuse_2018': [
+                        'something_else'
+                    ]
+                }
+            ]
+        })
+        self.assertDictEqual(deleted, {
+            'tech_qg_19': [
+                {
+                    'other_key': 'faz'
+                }
+            ],
+            'tech_qg_9': [
+                {
+                    'tech_landuse_2018': [
+                        'something_else'
+                    ]
+                }
+            ]
+        })
+
+        # Condition met, no other values in tech_qg_19 (all should be moved)
+        moved_found_condition = edition.delete_tech_growing_seasons(**{
+            'tech_qg_19': [
+                {
+                    'tech_growing_seasons': 'foo',
+                    'tech_growing_seasons_specify': 'bar',
+                }
+            ],
+            'tech_qg_9': [
+                {
+                    'tech_landuse_2018': [
+                        'tech_lu_cropland',  # Data is only moved if this question is available
+                        'something_else',
+                    ]
+                }
+            ]
+        })
+        self.assertDictEqual(moved_found_condition, {
+            'tech_qg_10': [
+                {
+                    'tech_growing_seasons': 'foo',
+                    'tech_growing_seasons_specify': 'bar'
+                }
+            ],
+            'tech_qg_9': [
+                {
+                    'tech_landuse_2018': [
+                        'tech_lu_cropland',
+                        'something_else'
+                    ]
+                }
+            ]
+        })
+
+        # Condition met, tech_qg_19 has other value (which should stay)
+        moved_found_condition_other = edition.delete_tech_growing_seasons(**{
+            'tech_qg_19': [
+                {
+                    'tech_growing_seasons': 'foo',
+                    'tech_growing_seasons_specify': 'bar',
+                    'other_key': 'faz'
+                }
+            ],
+            'tech_qg_9': [
+                {
+                    'tech_landuse_2018': [
+                        'tech_lu_cropland',  # Data is only moved if this question is available
+                        'something_else',
+                    ]
+                }
+            ]
+        })
+        self.assertDictEqual(moved_found_condition_other, {
+            'tech_qg_10': [
+                {
+                    'tech_growing_seasons': 'foo',
+                    'tech_growing_seasons_specify': 'bar'
+                }
+            ],
+            'tech_qg_19': [
+                {
+                    'other_key': 'faz'
+                }
+            ],
+            'tech_qg_9': [
+                {
+                    'tech_landuse_2018': [
+                        'tech_lu_cropland',
+                        'something_else'
+                    ]
+                }
+            ]
+        })
+
+        foo = edition.delete_tech_growing_seasons(**{
+            "tech_qg_19": [
+                {
+                    "tech_growing_seasons": "growing_season_1"
+                }
+            ],
+            "tech_qg_20": [
+                {
+                    "tech_slm_group": [
+                        "tech_slm_group_drainage"
+                    ]
+                }
+            ],
+            "tech_qg_9": []
+        })
+        self.assertDictEqual(foo, {
+            "tech_qg_20": [
+                {
+                    "tech_slm_group": [
+                        "tech_slm_group_drainage"
+                    ]
+                }
+            ],
+            "tech_qg_9": []
+        })
 
 class OperationTest(TestCase):
 
