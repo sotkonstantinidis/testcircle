@@ -655,6 +655,12 @@ class QuestionnaireView(QuestionnaireRetrieveMixin, StepsMixin, InheritedDataMix
         """
         self.object = self.get_object()
 
+        # The edit view is not available for public questionnaires. Redirect to
+        # details URL instead.
+        if self.view_mode == 'edit' and self.has_object \
+                and self.object.status == settings.QUESTIONNAIRE_PUBLIC:
+            return HttpResponseRedirect(self.object.get_absolute_url())
+
         questionnaire_data = self.questionnaire_data
         if self.has_object:
             inherited_data = self.get_inherited_data()
@@ -1043,6 +1049,13 @@ class QuestionnaireStepView(LoginRequiredMixin, QuestionnaireRetrieveMixin,
                 )
             except QuestionnaireLockedException:
                 return HttpResponseRedirect(self.object.get_absolute_url())
+
+            # Public questionnaires should never be edited. If this URL is
+            # called manually on a public questionnaire, redirect to its detail
+            # page.
+            if self.object.status == settings.QUESTIONNAIRE_PUBLIC:
+                return HttpResponseRedirect(self.object.get_absolute_url())
+
         return self.render_to_response(context=self.get_context_data())
 
     def post(self, request, *args, **kwargs):
