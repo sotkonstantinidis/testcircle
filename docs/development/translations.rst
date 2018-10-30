@@ -45,6 +45,14 @@ Workflow
   * The user is asked if the new files should be uploaded to Transifex.
 
 
+Recipe
+------
+
+* (evtl.: backup translations from Transifex): https://www.transifex.com/university-of-bern-cde/qcat/website/
+* Activate virtual environment
+* ``python manage.py makemessages -fp``
+* Release develop branch on master
+
 Todo
 ----
 
