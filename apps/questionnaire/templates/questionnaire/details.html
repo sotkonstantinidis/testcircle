@@ -31,6 +31,29 @@
     {% endaddtoblock %}
   {% endif %}
 
+  {# As requested in October 2018, show a modal that there is a new edition when starting to enter a new Technology. #}
+  {% if review_config.review_status == 0 and review_config.data_type == 'technologies' %}
+    <div id="modal-technologies-edition-2018-note" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
+      <h3 class="alert-box-title">
+        <svg class="icon-lines is-inline"><use xlink:href="#icon-alert"></use></svg>{% trans "WOCAT Technology Questionnaire has been updated" %}
+      </h3>
+      <p>{% trans 'Please note that the WOCAT Technology Questionnaire has been updated in October 2018 (Edition 2018). For more information see <a href="https://www.wocat.net/library/media/15/" class="link" target="_blank">https://www.wocat.net/library/media/15/</a>.' %}</p>
+      <div class="text-right">
+        <a class="close-modal-technologies-edition-2018-note button">
+          {% trans "Close" %}
+        </a>
+      </div>
+    </div>
+    {% addtoblock 'js' %}
+      <script>
+          $(document).ready(function(){$('#modal-technologies-edition-2018-note').foundation('reveal', 'open', {
+              close_on_background_click: false
+          })});
+          $('a.close-modal-technologies-edition-2018-note').on('click', function() {$('#modal-technologies-edition-2018-note').foundation('reveal', 'close')});
+      </script>
+    {% endaddtoblock %}
+  {% endif %}
+
   {% if 'assign_questionnaire' in permissions or 'change_compiler' in permissions %}
     {% addtoblock 'js' %}
       <script src="{% static 'js/jquery-ui.min.js' %}"></script>

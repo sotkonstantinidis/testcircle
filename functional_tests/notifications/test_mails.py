@@ -625,8 +625,14 @@ class MailsTest(FunctionalTest):
             }
         ])
 
-    def test_mails_editor_removed(self, mock_mail):
+    @patch('accounts.views.remote_user_client.search_users')
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    def test_mails_editor_removed(
+            self, mock_user_information, mock_search_users, mock_mail):
         # Removing an editor sends a mail to the removed editor.
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
+
         self.questionnaire_draft.add_user(self.user_bob, 'editor')
 
         detail_page = SampleDetailPage(self)
@@ -667,9 +673,15 @@ class MailsTest(FunctionalTest):
             },
         ])
 
-    def test_mails_reviewer_removed(self, mock_mail):
+    @patch('accounts.views.remote_user_client.search_users')
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    def test_mails_reviewer_removed(
+            self, mock_user_information, mock_search_users, mock_mail):
         # Removing a reviewer sends a mail to the removed reviewer and to the
         # compiler.
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
+
         self.questionnaire_submitted.add_user(self.user_bob, 'reviewer')
 
         detail_page = SampleDetailPage(self)
@@ -713,9 +725,15 @@ class MailsTest(FunctionalTest):
             },
         ])
 
-    def test_mails_publisher_removed(self, mock_mail):
+    @patch('accounts.views.remote_user_client.search_users')
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    def test_mails_publisher_removed(
+            self, mock_user_information, mock_search_users, mock_mail):
         # Removing a publisher sends a mail to the removed publisher and to the
         # compiler.
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
+
         self.questionnaire_reviewed.add_user(self.user_bob, 'publisher')
 
         detail_page = SampleDetailPage(self)
