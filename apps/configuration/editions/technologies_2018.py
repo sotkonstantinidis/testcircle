@@ -2824,7 +2824,7 @@ class Technologies(Edition):
                     "en": "Wm: mass movements/ landslides"
                 },
                 "helptext": {
-                    "en": "<strong>Mass movements/ landslides</strong>: the downward falling or sliding of a mass of earth, debris, or rock on a slope (includes mudflows and rockfalls); also called landslip."
+                    "en": "<strong>Mass movements/ landslides</strong>: the downward falling or sliding of a mass of earth, debris, or rock on a slope (includes mudflows and rockfalls); also called landslip."
                 }
             }
         )

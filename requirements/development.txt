@@ -9,7 +9,7 @@ django-eml-email-backend==0.1
 flake8==3.5.0
 # Fabric 1.10.2 -- Fabric has no Python3 support yet.
 Fabric3==1.14.post1
-pycrypto==2.6.1
+# pycrypto==2.6.1
 pytest==3.6.3
 pytest-cov==2.5.1
 pytest-django==3.3.2

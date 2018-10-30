@@ -49,6 +49,7 @@ class SampleStepPage(QuestionnaireStepPage):
     def get_selected_user_id(self):
         return self.get_value(self.get_el(self.LOC_FORM_INPUT_USER_ID))
 
+
 class SampleEditPage(Sample2015Mixin, EditMixin, QcatPage):
     route_name = 'sample:questionnaire_edit'
 

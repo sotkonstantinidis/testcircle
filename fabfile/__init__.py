@@ -168,7 +168,11 @@ def _update_static_files():
 
 def _update_database():
     _manage_py('migrate --noinput')
-    _manage_py('load_qcat_data')
+    # As of October 2018, do not load the initial data (namely global keys and
+    # values) after every deploy. Editions (Technologies 2018) for example adds
+    # a new value to key "user_resourceperson_type". Loading the
+    # global_key_values fixture removes this value again, which is not desired.
+    # _manage_py('load_qcat_data')
 
 
 def _has_config_update_tag():

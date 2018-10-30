@@ -2,7 +2,7 @@
 # Basic Requirements
 #################################################################
 
-django==1.11.13
+django==1.11.16
 psycopg2-binary==2.7.4
 django-cookie-law==2.0.1
 django-pgjson==0.3.1  # legacy
@@ -14,7 +14,7 @@ django-imagekit==4.0.2
 easy-thumbnails==2.5
 Pillow==5.1.0
 python-magic==0.4.15
-requests==2.18.4
+requests==2.20.0
 elasticsearch==6.2.0
 djangorestframework==3.8.2
 django-rest-swagger==2.2.0

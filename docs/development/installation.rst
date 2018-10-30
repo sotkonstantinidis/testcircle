@@ -22,8 +22,55 @@ distributed version control system.
 
 .. _Git: http://git-scm.com/
 
+
+Quick Setup
+^^^^^^^^^^^
+
+Create a virtual environment and get the code::
+
+    mkvirtualenv --python=/usr/bin/python3.6 -a . qcat
+    git clone https://github.com/CDE-UNIBE/qcat.git .
+
+Add the ``apps`` folder to your virtalenv::
+
+    add2virtualenv apps/
+
+Switch to the branch you would like to work on::
+
+    git checkout develop
+
+Set necessary env variables:
+
+* ``envs/DJANGO_SETTINGS_MODULE``
+* ``envs/DJANGO_CONFIGURATION``
+* ``envs/DJANGO_SECRET_KEY``
+* ``envs/DATABASE_URL``
+
+Install requirements::
+    pip install -r requirements/development.txt
+
+Run migrations and check if server is running::
+
+    python manage.py migrate
+    python manage.py runserver
+
+Build frontend stuff::
+
+    grunt build:deploy
+
+For testing purposes, also set the following env variables:
+
+* ``envs/TESTING_CHROMEDRIVER_PATH``
+* ``envs/NEXT_MAINTENANCE``
+* ``envs/GOOGLE_MAPS_JAVASCRIPT_API_KEY``
+
+Run the tests::
+
+    pytest
+
+
 Docker
-^^^
+^^^^^^
 
 Use the provided docker-compose file to create the environment. `Docker`_ and docker-compose
 must be installed on your system.
