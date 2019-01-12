@@ -4,15 +4,18 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /code
 WORKDIR /code
 
-# Django-gis packages and dependencies for static assets
+# Django-gis packages
 RUN apt-get update && apt-get install -y \
+    curl \
     binutils \
     libproj-dev \
     gdal-bin \
-    nodejs \
-    nodejs-legacy \
-    npm \
     libmemcached-dev
+
+# Dependencies for static assets
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN apt-get install -y nodejs \
+    build-essential
 
 ADD requirements/* /code/
 RUN pip install -r development.txt
