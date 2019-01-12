@@ -10,7 +10,7 @@
     <p>{% trans "You are about to add data from the Core Questionnaire on SLM Technologies (QT) / Approaches (QA)." %}</p>
     <p>
       {% url 'wocat:help_questionnaire_introduction' as intro_url %}
-      {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}If this is the first time you are using the data entry form {{ start_tour_link }}please visit the help tour{{ end_link }} and <a href="{{ intro_url }}" class="link">read the introduction to the questionnaire{{ end_link }}.{% endblocktrans %}
+      {% blocktrans with start_tour_link="<a class='link' href='#' onclick='return startIntro();'>" end_link="</a>" %}If this is the first time you are using the data entry form {{ start_tour_link }}please visit the help tour{{ end_link }} and <a href="{{ intro_url }}" class="link">read about the WOCAT documentation of SLM practices{{ end_link }}.{% endblocktrans %}
     </p>
     <p>
     {% if review_config.data_type == 'approaches' %}

@@ -26,7 +26,6 @@
 .tech-item-content {
   position: relative;
   flex-grow: 1;
-  position: relative;
   padding: rem-calc(18 12 42 24);
 }
 
@@ -306,6 +305,7 @@ a:hover .tech-icon {
   }
 
   @media #{$medium-up} {
+    height: 80vh;
     margin-bottom: rem-calc(-180);
   }
 
@@ -833,4 +833,14 @@ div.inline-linked-questionnaires article {
 
 .tech-output-columns .video-additional-info h5:not(:first-of-type) {
   margin-top: rem-calc(8);
+}
+
+
+ul.details-history-dropdown {
+  &.is-technologies li.active {
+    background-color: rgba($color-tech, 0.3);
+  }
+  &.is-approaches li.active {
+    background-color: rgba($color-approach, 0.3);
+  }
 }

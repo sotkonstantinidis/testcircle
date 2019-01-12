@@ -14,7 +14,10 @@ from configuration.views import BuildAllCachesView, delete_caches, EditionNotesV
 
 class CacheTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
     locmem = {'default': {'BACKEND': 'django.core.cache.backends.locmem.'
                                      'LocMemCache'}}
 

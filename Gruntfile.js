@@ -117,7 +117,8 @@ module.exports = function(grunt) {
           'bower_components/foundation/js/foundation/foundation.reveal.js',
           // 'bower_components/foundation/js/foundation/foundation.slider.js',
           'bower_components/foundation/js/foundation/foundation.tab.js',
-          'bower_components/foundation/js/foundation/foundation.tooltip.js',
+          // 'bower_components/foundation/js/foundation/foundation.tooltip.js',
+          'src/js/foundation/foundation.tooltip.js',  // Use customized version of foundation tooltips.
           'bower_components/foundation/js/foundation/foundation.topbar.js'
         ],
         dest: 'src/js/foundation.js',

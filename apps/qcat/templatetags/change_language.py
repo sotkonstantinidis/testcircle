@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.template import Library
 from django.core.urlresolvers import resolve, reverse, Resolver404
 from django.utils.translation import activate, get_language
@@ -27,3 +28,11 @@ def change_lang(context, lang=None, *args, **kwargs):
         activate(cur_language)
 
     return "%s" % url
+
+
+@register.filter
+def get_full_language_name(locale: str) -> str:
+    """
+    Return the full name of a language by its locale.
+    """
+    return dict(settings.LANGUAGES).get(locale, locale)

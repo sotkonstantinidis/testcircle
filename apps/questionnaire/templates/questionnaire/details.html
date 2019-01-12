@@ -9,6 +9,51 @@
 
 {% block content %}
 
+  {# If a new edition is available (only for compilers), show a modal. #}
+  {% if review_config.has_new_configuration_edition %}
+    <div id="modal-new-edition" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
+      <h3 class="alert-box-title">
+        <svg class="icon-lines is-inline"><use xlink:href="#icon-alert"></use></svg>{% trans "New edition of the questionnaire is available." %}
+      </h3>
+      <p>{% trans "The structure of the questionnaire was updated:" %} <a href="{% url 'configuration:release_notes' %}">{% trans "see all details" %}</a>.</p>
+      <p>{% trans "Please start editing the questionnaire in order to update your case data." %}</p>
+      <div class="text-right">
+        <a class="close-modal-new-edition button">
+          {% trans "Close" %}
+        </a>
+      </div>
+    </div>
+    {% addtoblock 'js' %}
+      <script>
+          $(document).ready(function(){$('#modal-new-edition').foundation('reveal', 'open')});
+          $('a.close-modal-new-edition').on('click', function() {$('#modal-new-edition').foundation('reveal', 'close')});
+      </script>
+    {% endaddtoblock %}
+  {% endif %}
+
+  {# As requested in October 2018, show a modal that there is a new edition when starting to enter a new Technology. #}
+  {% if review_config.review_status == 0 and review_config.data_type == 'technologies' %}
+    <div id="modal-technologies-edition-2018-note" class="reveal-modal" data-reveal aria-hidden="true" role="dialog">
+      <h3 class="alert-box-title">
+        <svg class="icon-lines is-inline"><use xlink:href="#icon-alert"></use></svg>{% trans "WOCAT Technology Questionnaire has been updated" %}
+      </h3>
+      <p>{% trans 'Please note that the WOCAT Technology Questionnaire has been updated in October 2018 (Edition 2018). For more information see <a href="https://www.wocat.net/library/media/15/" class="link" target="_blank">https://www.wocat.net/library/media/15/</a>.' %}</p>
+      <div class="text-right">
+        <a class="close-modal-technologies-edition-2018-note button">
+          {% trans "Close" %}
+        </a>
+      </div>
+    </div>
+    {% addtoblock 'js' %}
+      <script>
+          $(document).ready(function(){$('#modal-technologies-edition-2018-note').foundation('reveal', 'open', {
+              close_on_background_click: false
+          })});
+          $('a.close-modal-technologies-edition-2018-note').on('click', function() {$('#modal-technologies-edition-2018-note').foundation('reveal', 'close')});
+      </script>
+    {% endaddtoblock %}
+  {% endif %}
+
   {% if 'assign_questionnaire' in permissions or 'change_compiler' in permissions %}
     {% addtoblock 'js' %}
       <script src="{% static 'js/jquery-ui.min.js' %}"></script>
@@ -55,8 +100,8 @@
       {% if is_inactive_version %}
         <section class="row">
           <div class="medium-12 columns tech-section-header alert-inactive">
-            {% trans "This is an outdated, inactive version of this case" %},
-            <a href="{{ current_url }}">{% trans "go to the current one" %}</a>
+            {% trans "This is an outdated, inactive version of this case." %}
+            <a href="{{ current_url }}">{% trans "Go to the current version." %}</a>
           </div>
         </section>
       {% endif %}

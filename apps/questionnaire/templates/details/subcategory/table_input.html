@@ -49,7 +49,7 @@
           {% elif questiongroup.qg_keyword in table_grouping.1 %}
             {% for qg in questiongroup.data_labelled %}
               <tr>
-                <td colspan="5" class="text-right">{{ table_headers|last }}</td>
+                <td colspan="5" class="text-right">{{ qg.0.0 }}</td>
                 {% for k, values in qg %}
                 <td>
                   {% for v in values %}

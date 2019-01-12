@@ -53,8 +53,11 @@ def get_valid_questionnaire_content():
 
 class CleanQuestionnaireDataTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json',
-                'sample_projects.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_projects',
+    ]
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -486,7 +489,10 @@ class GetQuestiongroupDataFromTranslationFormTest(TestCase):
 
 class GetActiveFiltersTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.conf = QuestionnaireConfiguration('sample')
@@ -759,8 +765,11 @@ class GetQueryStatusFilter(TestCase):
 class QueryQuestionnairesTest(TestCase):
 
     fixtures = [
-        'groups_permissions.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     @patch('questionnaire.utils.get_query_status_filter')
     @patch('questionnaire.utils.Questionnaire')
@@ -902,7 +911,11 @@ class QueryQuestionnairesTest(TestCase):
 @override_settings(USE_CACHING=False)
 class GetListValuesTest(TestCase):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'samplemulti.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'samplemulti',
+    ]
 
     def setUp(self):
         self.values_length = 15
@@ -1305,7 +1318,8 @@ class HandleReviewActionsTest(TestCase):
             roles=[], permissions=['assign_questionnaire'])
         self.obj.get_users_by_role.return_value = []
         remote_user_client.get_user_information.return_value = {
-            'username': 'user'
+            'username': 'user',
+            'email': 'new@email.com'
         }
         handle_review_actions(self.request, self.obj, 'sample')
         user = User.objects.get(pk=98)
@@ -1315,8 +1329,95 @@ class HandleReviewActionsTest(TestCase):
             self.request,
             'Assigned users were successfully updated')
 
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
     @patch('questionnaire.signals.change_member.send')
-    def test_assign_removes_user(self, mock_change_member, mock_messages):
+    def test_assign_editor_new_id_duplicate_email(
+            self, mock_signal, mock_get_user_information, mock_messages):
+        # User with new ID but existing email. This should raise an error.
+        user = create_new_user(id=1, email='e@mail.com')
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '98',
+        }
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
+        self.obj.get_users_by_role.return_value = []
+        mock_get_user_information.return_value = {
+            'username': 'user',
+            'email': user.email,
+            'first_name': 'First',
+            'last_name': 'Last',
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        mock_messages.error.assert_called_once_with(
+            self.request,
+            'At least one of the assigned users could not be updated.'
+        )
+
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_editor_existing_id_duplicate_email(
+            self, mock_signal, mock_get_user_information, mock_messages):
+        # User with existing ID and existing email. This should NOT raise an
+        # error.
+        user = create_new_user(id=1, email='e@mail.com')
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '1',
+        }
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
+        self.obj.get_users_by_role.return_value = []
+        mock_get_user_information.return_value = {
+            'username': 'user',
+            'email': user.email,
+            'first_name': 'First',
+            'last_name': 'Last',
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        assert mock_messages.error.call_count == 0
+
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_editor_existing_id_new_email(
+            self, mock_signal, mock_get_user_information, mock_messages):
+        # User with existing ID but new email. This should NOT raise an error,
+        # but rather update the email address of the user.
+        user = create_new_user(id=1, email='e@mail.com')
+        self.obj.status = 2
+        self.request.POST = {
+            'assign': 'foo',
+            'user-id': '1',
+        }
+        RolesPermissions = namedtuple(
+            'RolesPermissions', ['roles', 'permissions'])
+        self.obj.get_roles_permissions.return_value = RolesPermissions(
+            roles=[], permissions=['assign_questionnaire'])
+        self.obj.get_users_by_role.return_value = []
+        mock_get_user_information.return_value = {
+            'username': 'user',
+            'email': 'new@mail.com',
+            'first_name': 'First',
+            'last_name': 'Last',
+        }
+        handle_review_actions(self.request, self.obj, 'sample')
+        assert mock_messages.error.call_count == 0
+        assert User.objects.get(pk=1).email == 'new@mail.com'
+
+    @patch('questionnaire.utils.remote_user_client')
+    @patch('questionnaire.signals.change_member.send')
+    def test_assign_removes_user(
+            self, mock_change_member, mock_remote_client, mock_messages):
+        mock_remote_client.get_user_information.return_value = {
+            'uid': 98,
+            'email': 'foo@bar.com',
+        }
         self.obj.status = 2
         self.request.POST = {
             'assign': 'foo',
@@ -1386,7 +1487,9 @@ class HandleReviewActionsTest(TestCase):
             self.request,
             'You can only choose one new compiler!')
 
-    def test_change_compiler_do_nothing_if_no_new_compiler(self, mock_messages):
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    def test_change_compiler_do_nothing_if_no_new_compiler(
+            self, mock_get_user_information, mock_messages):
         self.obj.status = 2
         self.request.POST = {
             'change-compiler': 'foo',
@@ -1398,6 +1501,12 @@ class HandleReviewActionsTest(TestCase):
         self.obj.get_roles_permissions.return_value = RolesPermissions(
             roles=[], permissions=['change_compiler'])
         self.obj.get_users_by_role.return_value = [user]
+        mock_get_user_information.return_value = {
+            'username': user.email,
+            'email': user.email,
+            'first_name': user.firstname,
+            'last_name': user.lastname,
+        }
         handle_review_actions(self.request, self.obj, 'sample')
         mock_messages.info.assert_called_once_with(
             self.request,
@@ -1407,7 +1516,11 @@ class HandleReviewActionsTest(TestCase):
 @patch('questionnaire.utils.messages')
 class HandleReviewActionsTestFixtures(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -1430,7 +1543,8 @@ class HandleReviewActionsTestFixtures(TestCase):
             'compiler-id': '3',
         }
         remote_user_client.get_user_information.return_value = {
-            'username': 'user'
+            'username': 'user',
+            'email': new_compiler.email
         }
         self.assertEqual(
             questionnaire.get_users_by_role(settings.QUESTIONNAIRE_COMPILER),
@@ -1458,7 +1572,8 @@ class HandleReviewActionsTestFixtures(TestCase):
             'change-compiler-keep-editor': 'foo',
         }
         remote_user_client.get_user_information.return_value = {
-            'username': 'user'
+            'username': 'user',
+            'email': new_compiler.email
         }
         self.assertEqual(
             questionnaire.get_users_by_role(settings.QUESTIONNAIRE_COMPILER),
@@ -1480,8 +1595,13 @@ class HandleReviewActionsTestFixtures(TestCase):
 @patch('questionnaire.utils.messages')
 class UnccdFlagTest(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
-                'sample_questionnaires_5']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'unccd',
+        'sample_questionnaires_5',
+    ]
 
     def setUp(self):
         self.obj = Mock(spec=Questionnaire)
@@ -1563,8 +1683,13 @@ class UnccdFlagTest(TestCase):
 @patch('questionnaire.utils.messages')
 class UnccdUnflagTest(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'sample', 'unccd',
-                'sample_questionnaires_5']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'unccd',
+        'sample_questionnaires_5',
+    ]
 
     def setUp(self):
         self.obj = Mock(spec=Questionnaire)

@@ -1,7 +1,6 @@
 import json
 
 from configuration.cache import get_cached_configuration
-from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core.urlresolvers import reverse
 from django.http import Http404
@@ -28,7 +27,9 @@ invalid_file = 'bower.json'  # Needs to exist but not valid file type
 
 class GenericFileUploadTest(TestCase):
 
-    fixtures = ['groups_permissions.json']
+    fixtures = [
+        'groups_permissions',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -129,7 +130,11 @@ class GenericFileServeTest(TestCase):
 
 class QuestionnaireLinkSearchViewTest(TestCase):
 
-    fixtures = ['global_key_values', 'technologies', 'approaches']
+    fixtures = [
+        'global_key_values',
+        'technologies',
+        'approaches',
+    ]
 
     def setUp(self):
         view = QuestionnaireLinkSearchView(configuration_code='approaches')
@@ -182,7 +187,11 @@ class QuestionnaireLinkSearchViewTest(TestCase):
 
 
 class QuestionnaireViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         view = QuestionnaireView(url_namespace='sample')
@@ -270,8 +279,11 @@ class QuestionnaireViewTest(TestCase):
 
 
 class QuestionnaireEditViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json',
-                'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         view = QuestionnaireEditView(url_namespace='sample')
@@ -293,11 +305,12 @@ class QuestionnaireEditViewTest(TestCase):
         self.assertEquals(view.get_object(), {})
 
     def test_create_new_version(self):
+        self.request.POST = {'create_new_version': True}
         view = self.setup_view(self.view, self.request, identifier='sample_1')
         with patch.object(QuestionnaireConfiguration, 'has_new_edition'):
             with patch.object(view, 'update_case_data_for_editions') as mock_update:
                 try:
-                    view.get(request=self.request)
+                    view.post(request=self.request)
                 except Exception:  # catch all, as we only want to check if the method is called.
                     pass
                 mock_update.assert_called_once()
@@ -319,7 +332,11 @@ class QuestionnaireEditViewTest(TestCase):
 
 
 class QuestionnaireStepViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()

@@ -1,19 +1,21 @@
+from unittest.mock import patch
+
 import pytest
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core.urlresolvers import reverse
-from django.test.utils import override_settings
 
 from model_mommy import mommy
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from unittest.mock import patch
 
 from accounts.models import User
 from accounts.tests.test_models import create_new_user
 from functional_tests.base import FunctionalTest
+from functional_tests.pages.sample import SampleStepPage, SampleNewPage, \
+    SampleEditPage
 from functional_tests.sample.test_search import LIST_EMPTY_RESULTS_TEXT
 from questionnaire.tests.test_models import get_valid_questionnaire
 from questionnaire.models import Questionnaire
@@ -23,8 +25,11 @@ from sample.tests.test_views import route_questionnaire_new_step
 class UserTest(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'global_key_values.json', 'sample.json',
-        'sample_questionnaire_status.json']
+        'groups_permissions',
+        'global_key_values',
+        'sample',
+        'sample_questionnaire_status',
+    ]
 
     """
     status:
@@ -289,153 +294,134 @@ class UserTest(FunctionalTest):
 @pytest.mark.usefixtures('es')
 class UserTest2(FunctionalTest):
 
-    fixtures = ['sample_global_key_values.json', 'sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
-    id_user_kurt = 1560
+    def setUp(self):
+        super().setUp()
 
-    def test_add_user(self):
+        self.user_alice = mommy.make(
+            _model=get_user_model(),
+            firstname='Alice',
+            lastname='Cooper'
+        )
+        self.user_bob = mommy.make(
+            _model=get_user_model(),
+            firstname='Bob',
+            lastname='Tables'
+        )
+        self.user_chris = mommy.make(
+            _model=get_user_model(),
+            firstname='Chris',
+            lastname='Cornell'
+        )
 
-        # Alice logs in
-        self.doLogin()
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('accounts.views.remote_user_client.search_users')
+    def test_add_user(self, mock_search_users, mock_user_information):
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
-        # She goes to a step of the questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_0'}))
-        self.rearrangeFormHeader()
+        # User logs in and goes to the questionnaire step where he can add a
+        # user.
+        new_page = SampleNewPage(self)
+        new_page.open(login=True, user=self.user_alice)
+        new_page.click_edit_category('cat_0')
 
-        # She does not see a field to search for users
-        search_user = self.findBy(
-            'xpath', '//input[contains(@class, "user-search-field")]')
-        self.assertFalse(search_user.is_displayed())
+        # The field to search a user is not visible.
+        step_page = SampleStepPage(self)
+        search_field = step_page.get_user_search_field(index=1)
+        assert not search_field.is_displayed()
 
-        # She clicks on the radio to search fo an existing user
-        search_radio = self.findBy(
-            'xpath', '//input[@name="form-user-radio" and @value="search"]')
-        search_radio.click()
+        # She clicks the radio to search for an existing user
+        step_page.get_el(step_page.LOC_RADIO_SEARCH_USER).click()
+
+        # Now the search field is visible
+        assert search_field.is_displayed()
 
         # There is no loading indicator
-        loading_indicator = self.findBy(
-            'xpath', '//div[contains(@class, "form-user-search-loading")][1]')
-        self.assertFalse(loading_indicator.is_displayed())
+        loading_indicator = step_page.get_el(step_page.LOC_LOADING_SEARCH_USER)
+        assert not loading_indicator.is_displayed()
 
         # She enters a name and sees a search is conducted
-        search_user.send_keys('kurt')
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
-
-        # She clicks a result
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Kurt Gerber"]'
-        ).click()
+        search_field.send_keys(self.user_bob.firstname)
+        step_page.select_autocomplete(self.user_bob.get_display_name())
 
         # She sees a loading indicator while the user is updated in the DB
-        self.assertTrue(loading_indicator.is_displayed())
+        assert loading_indicator.is_displayed()
 
         # She waits until the loading indicator disappears
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located((
-                By.CLASS_NAME, "form-user-search-loading")))
+        step_page.wait_for(step_page.LOC_LOADING_SEARCH_USER, visibility=False)
 
         # She sees that the search field is not visible anymore
-        self.assertFalse(search_user.is_displayed())
+        assert not search_field.is_displayed()
 
         # She sees that a field with the name was added
-        self.findBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Kurt Gerber")]')
+        assert step_page.has_selected_user(self.user_bob)
 
-        # She sees that a hidden field with the id was added
-        self.findBy(
-            'xpath', f'//input[@id="id_qg_31-0-key_39" and @value="{self.id_user_kurt}"]')
+        # She sees that the user ID was added to the hidden field
+        assert step_page.get_selected_user_id() == str(self.user_bob.pk)
 
         # She removes the user
-        self.findBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Kurt Gerber")]/a').click()
+        step_page.remove_selected_user(self.user_bob)
 
         # The user is removed and the search box is visible again
-        self.findByNot(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Kurt Gerber")]')
-        self.assertTrue(search_user.is_displayed())
+        assert not step_page.has_selected_user(self.user_bob)
+        assert search_field.is_displayed()
 
         # She hidden field does not contain the ID anymore
-        self.findByNot(
-            'xpath', f'//input[@id="id_qg_31-0-key_39" and @value="{self.id_user_kurt}"]')
+        assert step_page.get_selected_user_id() == ''
 
         # She selects the user again
-        search_user.send_keys('kurt')
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Kurt Gerber"]'
-        ).click()
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located((
-                By.CLASS_NAME, "form-user-search-loading")))
+        step_page.select_user(self.user_bob)
 
         # She submits the step
-        self.submit_form_step()
+        step_page.submit_step()
 
         # She sees the name is in the overview
-        self.checkOnPage('Kurt Gerber')
+        edit_page = SampleEditPage(self)
+        assert edit_page.has_text(self.user_bob.get_display_name())
 
         # She goes back to the form
-        self.click_edit_section('cat_0')
+        edit_page.click_edit_category('cat_0')
 
         # She sees the user is selected, loading and search fields are
         # not visible
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located((
-                By.CLASS_NAME, "form-user-search-loading")))
-
-        self.findBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Kurt Gerber")]')
-        self.findBy(
-            'xpath', f'//input[@id="id_qg_31-0-key_39" and @value="{self.id_user_kurt}"]')
+        step_page.wait_for(step_page.LOC_LOADING_SEARCH_USER, visibility=False)
+        assert step_page.has_selected_user(self.user_bob)
+        assert step_page.get_selected_user_id() == str(self.user_bob.pk)
 
         # She removes the user and selects another one
-        self.findBy(
-            'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Kurt Gerber")]/a').click()
-
-        self.findBy(
-            'xpath', '//input[contains(@class, "user-search-field")]'
-            '[1]').send_keys('lukas')
-        WebDriverWait(self.browser, 10).until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
-        self.findBy(
-            'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Lukas Vonlanthen"]'
-        ).click()
-        WebDriverWait(self.browser, 10).until(
-            EC.invisibility_of_element_located((
-                By.CLASS_NAME, "form-user-search-loading")))
+        step_page.remove_selected_user(self.user_bob)
+        step_page.select_user(self.user_chris)
 
         # She submits the step
-        self.submit_form_step()
-        self.checkOnPage('Lukas Vonlanthen')
+        step_page.submit_step()
+        assert edit_page.has_text(self.user_chris.get_display_name())
 
         # She submits the entire questionnaire and sees the name is there
-        self.review_action('submit')
-        self.checkOnPage('Lukas Vonlanthen')
+        edit_page.submit_questionnaire()
+        assert edit_page.has_text(self.user_chris.get_display_name())
 
         # She checks the database to make sure the user was added.
         questionnaire = Questionnaire.objects.first()
-        questionnaire_users = questionnaire.get_users()
-        self.assertEqual(len(questionnaire_users), 2)
-        for user_tuple in questionnaire_users:
-            self.assertIn(user_tuple[0], ['compiler', 'landuser'])
-            self.assertIn(user_tuple[1].id, [1, 2365])
+        questionnaire_users = sorted(
+            questionnaire.get_users(), key=lambda u: (u[0], u[1].pk))
+        assert questionnaire_users == [
+            ('compiler', self.user_alice),
+            ('landuser', self.user_chris)
+        ]
 
-    def test_add_new_person(self):
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('accounts.views.remote_user_client.search_users')
+    def test_add_new_person(self, mock_search_users, mock_user_information):
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         # Alice logs in
-        self.doLogin()
+        self.doLogin(user=self.user_alice)
 
         # She goes to a step of the questionnaire
         self.browser.get(self.live_server_url + reverse(
@@ -507,12 +493,13 @@ class UserTest2(FunctionalTest):
         # person once again
         search_radio.click()
         search_user.clear()
-        search_user.send_keys('lukas')
+        search_user.send_keys(self.user_bob.firstname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
             'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Lukas Vonlanthen"]'
+            f'//li[@class="ui-menu-item"]//strong[text()="'
+            f'{self.user_bob.get_display_name()}"]'
         ).click()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located((
@@ -521,7 +508,7 @@ class UserTest2(FunctionalTest):
         # She sees that the user was selected
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Lukas Vonlanthen")]')
+            f'"{self.user_bob.get_display_name()}")]')
 
         # She sees that the text she entered in the textfield above is still
         # there
@@ -542,14 +529,14 @@ class UserTest2(FunctionalTest):
         search_radio.click()
         self.findByNot(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Lukas Vonlanthen")]')
+            f'"{self.user_bob.get_display_name()}")]')
 
         # She submits the step
         self.submit_form_step()
 
         # She sees the new person was submitted correctly
         self.checkOnPage('Other New Person')
-        self.findByNot('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
+        self.findByNot('xpath', f'//*[contains(text(), "{self.user_bob.get_display_name()}")]')
 
         # She goes back to the form
         self.click_edit_section('cat_0')
@@ -569,7 +556,7 @@ class UserTest2(FunctionalTest):
         search_radio.click()
         self.findByNot(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Lukas Vonlanthen")]')
+            f'"{self.user_bob.get_display_name()}")]')
         loading_indicator = self.findBy(
             'xpath', '//div[contains(@class, "form-user-search-loading")][1]')
         self.assertFalse(loading_indicator.is_displayed())
@@ -589,21 +576,23 @@ class UserTest2(FunctionalTest):
 
         # She checks the database to make sure no additional user was added.
         questionnaire = Questionnaire.objects.first()
-        questionnaire_users = questionnaire.get_users()
-        self.assertEqual(len(questionnaire_users), 1)
-        self.assertEqual(questionnaire_users[0][0], 'compiler')
-        self.assertEqual(questionnaire_users[0][1].id, 1)
+        questionnaire_users = sorted(
+            questionnaire.get_users(), key=lambda u: (u[0], u[1].pk))
+        assert questionnaire_users == [
+            ('compiler', self.user_alice),
+        ]
 
-    def test_add_multiple_users_persons(self):
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('accounts.views.remote_user_client.search_users')
+    def test_add_multiple_users_persons(
+            self, mock_search_users, mock_user_information):
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
-        # Alice logs in
-        self.doLogin()
-
-        # She goes to a step of the questionnaire
-        self.browser.get(self.live_server_url + reverse(
-            route_questionnaire_new_step,
-            kwargs={'identifier': 'new', 'step': 'cat_0'}))
-        self.rearrangeFormHeader()
+        # Alice logs in and goes to a step of the questionnaire
+        new_page = SampleNewPage(self)
+        new_page.open(login=True, user=self.user_alice)
+        new_page.click_edit_category('cat_0')
 
         # She does not see a field to search for users
         search_user = self.findBy(
@@ -629,12 +618,13 @@ class UserTest2(FunctionalTest):
         self.assertFalse(loading_indicator.is_displayed())
 
         # She enters a first user by search
-        search_user.send_keys('kurt')
+        search_user.send_keys(self.user_bob.firstname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
             'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Kurt Gerber"]'
+            f'//li[@class="ui-menu-item"]//strong[text()="'
+            f'{self.user_bob.get_display_name()}"]'
         ).click()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located((
@@ -712,15 +702,16 @@ class UserTest2(FunctionalTest):
         self.assertFalse(loading_indicator.is_displayed())
 
         # She enters a first user by search
-        search_user_3.send_keys('lukas')
+        search_user_3.send_keys(self.user_chris.firstname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((
                 By.XPATH, '//ul[contains(@class, "ui-autocomplete")][3]/li['
                 'contains(@class, "ui-menu-item")]')))
         self.findBy(
             'xpath',
-            '//ul[contains(@class, "ui-autocomplete")][3]/li[contains(@class, '
-            '"ui-menu-item")]//strong[text()="Lukas Vonlanthen"]'
+            f'//ul[contains(@class, "ui-autocomplete")][3]/li[contains(@class, '
+            f'"ui-menu-item")]//strong[text()="'
+            f'{self.user_chris.get_display_name()}"]'
         ).click()
 
         WebDriverWait(self.browser, 10).until(
@@ -732,9 +723,9 @@ class UserTest2(FunctionalTest):
         self.submit_form_step()
 
         # She sees all the values are in the overview
-        self.checkOnPage('Kurt Gerber')
+        self.checkOnPage(self.user_bob.get_display_name())
         self.checkOnPage('Some Person')
-        self.checkOnPage('Lukas Vonlanthen')
+        self.checkOnPage(self.user_chris.get_display_name())
 
         # She goes back to the form
         self.click_edit_section('cat_0')
@@ -749,7 +740,7 @@ class UserTest2(FunctionalTest):
                 By.XPATH, '{}//div[contains(@class, "form-user-selected")]/div['
                 'contains(@class, "secondary")]'.format(qg_1_xpath))))
         self.assertEqual(self.findBy(
-            'id', 'id_qg_31-0-key_39').get_attribute('value'), str(self.id_user_kurt))
+            'id', 'id_qg_31-0-key_39').get_attribute('value'), str(self.user_bob.pk))
         self.assertEqual(self.findBy(
             'id', 'id_qg_31-0-original_key_41').get_attribute('value'), '')
 
@@ -774,7 +765,7 @@ class UserTest2(FunctionalTest):
                 'contains(@class, "secondary")]'.format(qg_3_xpath))))
         self.assertEqual(
             self.findBy('id', 'id_qg_31-2-key_39').get_attribute(
-                'value'), '2365')
+                'value'), str(self.user_chris.pk))
         self.assertEqual(self.findBy(
             'id', 'id_qg_31-2-original_key_41').get_attribute('value'), '')
 
@@ -782,30 +773,36 @@ class UserTest2(FunctionalTest):
         self.submit_form_step()
 
         # She sees all the values are in the overview
-        self.checkOnPage('Kurt Gerber')
+        self.checkOnPage(self.user_bob.get_display_name())
         self.checkOnPage('Some Person')
-        self.checkOnPage('Lukas Vonlanthen')
+        self.checkOnPage(self.user_chris.get_display_name())
 
         # She submits the entire questionnaire
         self.review_action('submit')
 
         # She sees all the values are in the overview
-        self.checkOnPage('Kurt Gerber')
+        self.checkOnPage(self.user_bob.get_display_name())
         self.checkOnPage('Some Person')
-        self.checkOnPage('Lukas Vonlanthen')
+        self.checkOnPage(self.user_chris.get_display_name())
 
         # She checks the database and sees that 2 users were added
         questionnaire = Questionnaire.objects.first()
-        questionnaire_users = questionnaire.get_users()
-        self.assertEqual(len(questionnaire_users), 3)
-        for user_tuple in questionnaire_users:
-            self.assertIn(user_tuple[0], ['compiler', 'landuser'])
-            self.assertIn(user_tuple[1].id, [1, self.id_user_kurt, 2365])
+        questionnaire_users = sorted(
+            questionnaire.get_users(), key=lambda u: (u[0], u[1].pk))
+        assert questionnaire_users == [
+            ('compiler', self.user_alice),
+            ('landuser', self.user_bob),
+            ('landuser', self.user_chris),
+        ]
 
-    def test_remove_user(self):
+    @patch('questionnaire.utils.remote_user_client.get_user_information')
+    @patch('accounts.views.remote_user_client.search_users')
+    def test_remove_user(self, mock_search_users, mock_user_information):
+        mock_search_users.side_effect = self.get_mock_remote_user_client_search
+        mock_user_information.side_effect = self.get_mock_remote_user_client_user_information
 
         # Alice logs in
-        self.doLogin()
+        self.doLogin(user=self.user_alice)
 
         # She creates a new Questionnaire with a user attached.
         self.browser.get(self.live_server_url + reverse(
@@ -824,12 +821,13 @@ class UserTest2(FunctionalTest):
         search_radio.click()
 
         # She enters a first user by search
-        search_user.send_keys('lukas')
+        search_user.send_keys(self.user_bob.firstname)
         WebDriverWait(self.browser, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "ui-menu-item")))
         self.findBy(
             'xpath',
-            '//li[@class="ui-menu-item"]//strong[text()="Lukas Vonlanthen"]'
+            f'//li[@class="ui-menu-item"]//strong[text()="'
+            f'{self.user_bob.get_display_name()}"]'
         ).click()
         WebDriverWait(self.browser, 10).until(
             EC.invisibility_of_element_located((
@@ -844,7 +842,7 @@ class UserTest2(FunctionalTest):
         self.submit_form_step()
 
         self.findBy('xpath', '//*[contains(text(), "Foo")]')
-        self.findBy('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
+        self.findBy('xpath', f'//*[contains(text(), "{self.user_bob.get_display_name()}")]')
 
         # Alice edits the questionnaire again
         self.click_edit_section('cat_0')
@@ -853,35 +851,36 @@ class UserTest2(FunctionalTest):
         # step
         self.findBy(
             'xpath', '//div[contains(@class, "alert-box") and contains(text(),'
-            '"Lukas Vonlanthen")]/a').click()
+            f'"{self.user_bob.get_display_name()}")]/a').click()
 
         self.submit_form_step()
 
         # She sees that the user is not listed anymore
-        self.findByNot('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
+        self.findByNot('xpath', f'//*[contains(text(), "{self.user_bob.get_display_name()}")]')
 
         # She submits the entire questionnaire and sees that the user is
         # not listed anymore.
         self.review_action('submit')
-        self.findByNot('xpath', '//*[contains(text(), "Lukas Vonlanthen")]')
+        self.findByNot('xpath', f'//*[contains(text(), "{self.user_bob.get_display_name()}")]')
 
         # Also in the database, the user is not connected to the
         # questionnaire anymore.
         questionnaire = Questionnaire.objects.first()
-        questionnaire_users = questionnaire.get_users()
-
-        self.assertEqual(len(questionnaire_users), 1)
-        for user_tuple in questionnaire_users:
-            self.assertIn(user_tuple[0], ['compiler'])
-            self.assertIn(user_tuple[1].id, [1])
+        questionnaire_users = sorted(
+            questionnaire.get_users(), key=lambda u: (u[0], u[1].pk))
+        assert questionnaire_users == [
+            ('compiler', self.user_alice),
+        ]
 
 
 @pytest.mark.usefixtures('es')
 class UserTest3(FunctionalTest):
 
     fixtures = [
-        'groups_permissions.json', 'sample_global_key_values.json',
-        'sample.json']
+        'groups_permissions',
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_user_questionnaires_no_duplicates(self):
 
@@ -938,7 +937,10 @@ class UserTest3(FunctionalTest):
 
 class UserDetailTest(FunctionalTest):
 
-    fixtures = ['global_key_values', 'sample']
+    fixtures = [
+        'global_key_values',
+        'sample',
+    ]
 
     def setUp(self):
         super().setUp()
@@ -950,7 +952,8 @@ class UserDetailTest(FunctionalTest):
             'user_details', kwargs={'pk': self.detail_view_user.id}
         )
 
-    def test_user_detail_basic(self):
+    @patch('accounts.views.remote_user_client')
+    def test_user_detail_basic(self, mock_remote_client):
         # Jay opens the users detail page
         self.browser.get(self.url)
 
@@ -982,7 +985,8 @@ class UserDetailTest(FunctionalTest):
             self.detail_view_user.email)
         )
 
-    def test_user_details_full(self):
+    @patch('accounts.views.remote_user_client')
+    def test_user_details_full(self, mock_remote_client):
         # The detail user is now a unccd focal point and hast two public
         # questionnaires
         public = get_valid_questionnaire(user=self.detail_view_user)

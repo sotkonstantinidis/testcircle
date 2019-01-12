@@ -16,7 +16,9 @@ def create_new_user(id=1, email='a@b.com', lastname='foo', firstname='bar'):
 
 
 class UserModelTestWithFixtures(TestCase):
-    fixtures = ['groups_permissions.json']
+    fixtures = [
+        'groups_permissions',
+    ]
 
     def test_administrator_is_staff(self):
         user = create_new_user()
@@ -96,7 +98,10 @@ class UserModelTest(TestCase):
 
 class UserModelTestFixtures(TestCase):
 
-    fixtures = ['sample.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+    ]
 
     def test_get_questionnaires_returns_tuples(self):
         from questionnaire.tests.test_models import get_valid_questionnaire
@@ -113,7 +118,10 @@ class UserModelTestFixtures(TestCase):
 
 class UserModelTestFixturesValues(TestCase):
 
-    fixtures = ['groups_permissions', 'global_key_values']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+    ]
 
     def test_update_adds_unccd_countries(self):
         user = User.create_new(id=1, email='a@b.com', lastname='Foo')

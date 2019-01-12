@@ -47,7 +47,7 @@
       {% if item.status.0 and item.status.0 == 'public' and item.has_new_configuration_edition and request.user|is_in_compilers_list:item.compilers %}
         <ul class="left sub-nav-square">
           <li>
-            <a href="{% url 'configuration:release_notes' %}" class="is-alert" title="{% trans "New edition of the configuration is available. Please edit your data to create an updated edition." %}" data-tooltip="">
+            <a href="{% url 'configuration:release_notes' %}" class="is-alert" title="{% trans "New edition of the questionnaire is available. Please edit your data to create an updated version." %}" data-tooltip="">
               <svg class="icon-lines is-inline"><use xlink:href="#icon-alert"></use></svg>
             </a>
           </li>

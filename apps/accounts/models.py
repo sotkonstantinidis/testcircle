@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from configuration.models import Country, ValueUser
+from django.urls import reverse
+
 from .conf import settings
 
 
@@ -101,6 +103,12 @@ class User(AbstractBaseUser, PermissionsMixin):
         """
         return '{} {}'.format(self.firstname, self.lastname)
 
+    def get_absolute_url(self):
+        """
+        Detail view url of the user.
+        """
+        return reverse('user_details', kwargs={'pk': self.id})
+
     def get_questionnaires(self):
         """
         Helper function to return the questionnaires of a user along
@@ -157,7 +165,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return user
 
     def update(
-            self, email=None, lastname='', firstname='', usergroups=[]):
+            self, email=None, lastname='', firstname='', usergroups=None):
         """
         Handles the one-way synchronization of the user database by
         updating the values.
@@ -169,6 +177,8 @@ class User(AbstractBaseUser, PermissionsMixin):
             usergroups: A list of dicts representing the usergroups as provided
               by the remote service.
         """
+        if usergroups is None:
+            usergroups = []
         if (email is None and lastname == self.lastname and
                 firstname == self.firstname):
             return

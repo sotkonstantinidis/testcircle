@@ -98,6 +98,13 @@ def get_es_query(
                 }
             })
 
+        elif filter_param.type == '_edition':
+            es_queries.append({
+                'terms': {
+                    'serializer_edition': [filter_param.values]
+                }
+            })
+
     if query_string:
         es_queries.append({
             'multi_match': {

@@ -27,7 +27,14 @@
         {% if request.user.is_authenticated %}
           <div class="row">
             <div class="small-4 medium-3 large-2 columns"><p>{% trans "Email:" %}</p></div>
-            <div class="small-8 medium-9 large-10 columns"><p>{{ detail_user.email }}</p></div>
+            <div class="small-8 medium-9 large-10 columns">
+              <p>
+                {{ detail_user.email }}
+                {% if request.user == detail_user %}
+                  (<a href="{% url 'notification_preferences' %}">{% trans "Notification preferences" %}</a>)
+                {% endif %}
+              </p>
+            </div>
           </div>
         {% endif %}
       </div>

@@ -60,7 +60,12 @@
               {% endif %}
             {% endfor %}
 
-            <label class="input-multiline top-margin">
+            <label class="top-margin">{% trans "Is the key resource person a registered or a non-registered WOCAT user?" %}</label>
+
+            {% trans 'WOCAT recommends that important key resource persons of this dataset should be <a href="https://www.wocat.net/accounts/signup/" target="_blank">registered</a> in the WOCAT database/ website. That way they remain contactable for inquiries. Their contact data will only be accessible to registered WOCAT users.' as msg %}
+            {% include "form/helptext.html" with helptext=msg %}
+
+            <label class="input-multiline">
               <input type="radio" name="form-user-radio" class="form-user-radio" value="search">
               <span class="has-tip" title="{% trans "Search a registered WOCAT user by typing the name of the person." %}" aria-haspopup="true" data-tooltip="">{% trans "Registered User" %}<svg class="icon-information is-inline right"><use xlink:href="#icon-information"></svg></span>
             </label>

@@ -38,6 +38,7 @@ class BaseSettings(Configuration):
         'django.contrib.humanize',
         'compressor',
         'cookielaw',
+        'corsheaders',
         'django_extensions',
         'django_filters',
         'easy_thumbnails',
@@ -73,6 +74,7 @@ class BaseSettings(Configuration):
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'django.middleware.locale.LocaleMiddleware',
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -96,6 +98,9 @@ class BaseSettings(Configuration):
     )
 
     # The first language is the default language.
+    # Important: If you add languages here, make sure to add a placeholder of
+    # the infographic in src/assets/img/infographics (make a copy of the English
+    # version)
     LANGUAGES = (
         ('en', _('English')),
         ('fr', _('French')),
@@ -106,12 +111,14 @@ class BaseSettings(Configuration):
         ('ar', _('Arabic')),
         ('pt', _('Portuguese')),
         ('af', _('Afrikaans')),
+        ('th', _('Thai')),
     )
     # languages with extraordinarily long words that need 'forced' line breaks
     # to remain consistent in the box-layout.
     WORD_WRAP_LANGUAGES = [
         'km',
         'lo',
+        'th',
     ]
 
     TIME_ZONE = 'Europe/Zurich'
@@ -294,6 +301,8 @@ class BaseSettings(Configuration):
     }
     API_PAGE_SIZE = values.IntegerValue(default=25, environ_prefix='')
 
+    CORS_ORIGIN_WHITELIST = values.ListValue(environ_prefix='', default=[])
+
     DATABASES = values.DatabaseURLValue(environ_required=True)
 
     ALLOWED_HOSTS = values.ListValue(default=['localhost', '127.0.0.1'])
@@ -377,12 +386,17 @@ class BaseSettings(Configuration):
     GOOGLE_MAPS_JAVASCRIPT_API_KEY = values.Value(environ_prefix='')
 
     # Mail settings (notification mails)
-    DEFAULT_FROM_EMAIL = 'info@wocat.net'
-    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=False)
-    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=True)
+    DEFAULT_FROM_EMAIL = 'wocat@cde.unibe.ch'
+    DO_SEND_EMAILS = values.BooleanValue(environ_prefix='', default=True)
+    DO_SEND_STAFF_ONLY = values.BooleanValue(environ_prefix='', default=False)
 
     WOCAT_IMPORT_DATABASE_URL = values.Value(environ_prefix='')
     WOCAT_IMPORT_DATABASE_URL_LOCAL = values.Value(environ_prefix='')
+    WOCAT_CONTACT_PAGE = values.Value(
+        environ_prefix='',
+        default='https://www.wocat.net/about/wocat-secretariat'
+    )
+    WOCAT_MAILBOX_USER_ID = values.IntegerValue(environ_prefix='')
 
     # TODO: Temporary test of UNCCD flagging.
     TEMP_UNCCD_TEST = values.ListValue(environ_prefix='')

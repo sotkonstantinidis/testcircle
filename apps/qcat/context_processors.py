@@ -31,7 +31,8 @@ def template_settings(request):
         'PIWIK_URL',
         'PIWIK_SITE_ID',
         'WARN_HEADER',
-        'WORD_WRAP_LANGUAGES'
+        'WOCAT_CONTACT_PAGE',
+        'WORD_WRAP_LANGUAGES',
     ]
     return {
         **maintenance_announcement.overlay,

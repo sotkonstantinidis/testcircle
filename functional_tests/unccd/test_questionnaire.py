@@ -17,7 +17,10 @@ from sample.tests.test_views import route_questionnaire_details, \
 @unittest.skip("Disabling this until further info about UNCCD flagging")
 class QuestionnaireTest(FunctionalTest):
 
-    fixtures = ['global_key_values.json', 'unccd.json']
+    fixtures = [
+        'global_key_values',
+        'unccd',
+    ]
 
     def test_questionnaire_is_available(self):
 
@@ -52,8 +55,15 @@ class QuestionnaireTest(FunctionalTest):
 @unittest.skip("Disabling this until further info about UNCCD flagging")
 class FlaggingTest(FunctionalTest):
 
-    fixtures = ['groups_permissions', 'global_key_values', 'flags', 'sample',
-                'unccd', 'wocat', 'sample_questionnaires_5']
+    fixtures = [
+        'groups_permissions',
+        'global_key_values',
+        'flags',
+        'sample',
+        'unccd',
+        'wocat',
+        'sample_questionnaires_5',
+    ]
 
     def setUp(self):
         super(FlaggingTest, self).setUp()

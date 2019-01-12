@@ -80,7 +80,7 @@ class Configuration(models.Model):
         Get the Edition class of the current configuration
         """
         # See glob pattern: https://pymotw.com/3/glob/
-        for module in self.EDITION_ROOT.glob('[!base][!__init__]*.py'):
+        for module in self.EDITION_ROOT.glob('*[!base][!__init__].py'):
             subclass = self.find_subclass(module)
             if subclass and subclass.code == self.code and str(subclass.edition) == self.edition:
                 return subclass
@@ -95,7 +95,8 @@ class Configuration(models.Model):
 
         # https://docs.python.org/3/library/importlib.html#importing-a-source-file-directly
         spec = importlib.util.spec_from_file_location(
-            name='configuration.editions', location=str(module), submodule_search_locations=[]
+            name='configuration.editions', location=str(module),
+            submodule_search_locations=[]
         )
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
@@ -108,7 +109,10 @@ class Configuration(models.Model):
                 is_subclass = issubclass(klass, Edition)
                 if is_not_base and is_subclass:
                     # Don't pass references to actual models, as they are not used.
-                    return klass(key={}, value={}, configuration={}, translation={})
+                    return klass(
+                        key={}, value={}, questiongroup={}, category={},
+                        configuration={}, translation={}
+                    )
 
 
 class Translation(models.Model):

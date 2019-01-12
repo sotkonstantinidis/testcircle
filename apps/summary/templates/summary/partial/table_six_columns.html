@@ -30,4 +30,11 @@
 		<td width="10%" class="text-right"><b>{{ list_items.total.value }}</b></td>
 		<td width="10%" class="text-right"><b></b></td>
 	</tr>
+  {% if list_items.total_usd %}
+    <tr>
+      <td width="40%" colspan="4"><i>{{ list_items.total_usd.label }}</i></td>
+      <td width="10%" class="text-right"><i>{{ list_items.total_usd.value }}</i></td>
+      <td width="10%" class="text-right"></td>
+    </tr>
+  {% endif %}
 </table>

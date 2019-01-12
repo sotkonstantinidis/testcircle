@@ -52,8 +52,10 @@ class LoginViewTest(TestCase):
         return view
 
     @patch('accounts.views.logger')
-    def test_form_invalid_credentials(self, mock_logger):
+    @patch('accounts.authentication.remote_user_client')
+    def test_form_invalid_credentials(self, mock_remote_client, mock_logger):
         """Invalid data must return a form with errors"""
+        mock_remote_client.remote_login.return_value = None
         response = self.client.post(
             path=reverse('login'),
             data=self.invalid_login_credentials
@@ -132,7 +134,11 @@ class LoginViewTest(TestCase):
 
 
 class ProfileViewTest(TestCase):
-    fixtures = ['sample_global_key_values.json', 'sample.json', 'sample_questionnaires.json']
+    fixtures = [
+        'sample_global_key_values',
+        'sample',
+        'sample_questionnaires',
+    ]
 
     def setUp(self):
         self.factory = RequestFactory()

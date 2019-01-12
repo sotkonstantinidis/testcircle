@@ -18,8 +18,8 @@ def create_status_notification(sender: int, questionnaire: Questionnaire, user: 
         action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=kwargs.get('is_rejected', False),
-        message=kwargs.get('message', '')
-
+        message=kwargs.get('message', ''),
+        previous_status=kwargs.get('previous_status')
     )
 
 
@@ -38,7 +38,8 @@ def create_questionnaire(sender: int, questionnaire: Questionnaire, user: User, 
         action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=False,
-        message=_('Created')
+        message=_('Created'),
+        previous_status=None
     )
 
 
@@ -48,7 +49,8 @@ def delete_questionnaire(sender: int, questionnaire: Questionnaire, user: User, 
         action=sender, sender=user, questionnaire=questionnaire, **kwargs
     ).create(
         is_rejected=False,
-        message=_('Deleted')
+        message=_('Deleted'),
+        previous_status=kwargs.get('previous_status')
     )
 
 

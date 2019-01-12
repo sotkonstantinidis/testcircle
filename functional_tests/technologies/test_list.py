@@ -10,15 +10,15 @@ from search.tests.test_index import create_temp_indices
 class ListTest(FunctionalTest):
 
     fixtures = [
-        'approaches.json',
-        'cca.json',
-        'global_key_values.json',
-        'technologies.json',
-        'unccd.json',
-        'watershed.json',
-        'wocat.json',
-        'technologies_questionnaires.json',
-        'unccd_questionnaires.json',
+        'global_key_values',
+        'approaches',
+        'cca',
+        'technologies',
+        'unccd',
+        'watershed',
+        'wocat',
+        'technologies_questionnaires',
+        'unccd_questionnaires',
     ]
 
     def setUp(self):
@@ -41,20 +41,20 @@ class ListTest(FunctionalTest):
 
         expected_results = [
             {
-                'title': 'UNCCD practice 2',
-                'description': 'This is the description of the second UNCCD practice.',
-            },
-            {
-                'title': 'UNCCD practice 1',
-                'description': 'This is the description of the first UNCCD practice.',
-            },
-            {
                 'title': 'WOCAT Tech 2 en español',
                 'description': 'Descripción 2 en español',
             },
             {
                 'title': 'WOCAT Technology 1',
                 'description': 'This is the definition of the first WOCAT Technology.',
+            },
+            {
+                'title': 'UNCCD practice 2',
+                'description': 'This is the description of the second UNCCD practice.',
+            },
+            {
+                'title': 'UNCCD practice 1',
+                'description': 'This is the description of the first UNCCD practice.',
             },
         ]
         page.check_list_results(expected_results)
@@ -148,3 +148,61 @@ class ListTest(FunctionalTest):
         api_page = ApiV2ListPage(self)
         api_page.open(query_dict=query_dict)
         api_page.check_list_results(expected_results)
+
+
+@pytest.mark.usefixtures('es')
+class ListTestEditions(FunctionalTest):
+
+    fixtures = [
+        'global_key_values',
+        'approaches',
+        'cca',
+        'technologies',
+        'technologies_2018',
+        'unccd',
+        'watershed',
+        'wocat',
+        'technologies_questionnaires',
+        'technologies_2018_questionnaires',
+        'unccd_questionnaires',
+    ]
+
+    def setUp(self):
+        super().setUp()
+        create_temp_indices([
+            ('technologies', '2015'),
+            ('technologies', '2018'),
+        ])
+
+    def test_filter_edition_in_api(self):
+        expected_results_2018 = [
+            {
+                'title': 'WOCAT Technology 2018',
+            },
+        ]
+        expected_results_2015 = [
+            {
+                'title': 'WOCAT Tech 2 en español',
+            },
+            {
+                'title': 'WOCAT Technology 1',
+            },
+        ]
+
+        api_page = ApiV2ListPage(self)
+
+        # Filtering edition 2018
+        query_dict = {'type': 'technologies', 'edition': '2018'}
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(expected_results_2018)
+
+        # Filtering edition 2015
+        query_dict = {'type': 'technologies', 'edition': '2015'}
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(expected_results_2015)
+
+        # No edition filter (showing all)
+        query_dict = {'type': 'technologies'}
+        api_page.open(query_dict=query_dict)
+        api_page.check_list_results(
+            expected_results_2015 + expected_results_2018)
