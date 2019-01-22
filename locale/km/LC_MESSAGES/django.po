@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# BE GECHKIM <gechkim@gmail.com>, 2016-2017
+# BE GECHKIM <gechkim@gmail.com>, 2016-2017,2019
 # Chea Navin <chea_navin@yahoo.com>, 2016-2017
 # Sok Pheak <sopheakstar14@gmail.com>, 2016-2017
 # Sophea Tim <stim3993@gmail.com>, 2016-2018
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 14:44+0100\n"
-"PO-Revision-Date: 2018-11-15 12:15+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-01-22 16:00+0100\n"
+"PO-Revision-Date: 2019-01-22 14:54+0000\n"
+"Last-Translator: BE GECHKIM <gechkim@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
 "Language: km\n"
@@ -57,7 +57,7 @@ msgstr "អ៊ីម៉ែល៖"
 
 #: apps/accounts/templates/details.html:34
 msgid "Notification preferences"
-msgstr ""
+msgstr "កំណត់សម្គាល់់ផ្សេងៗ"
 
 #: apps/accounts/templates/details.html:45
 msgid "UNCCD national focal point"
@@ -189,7 +189,7 @@ msgstr "វិធីសាស្ត្រផ្សព្វផ្សាយ"
 
 #: apps/cca/templates/cca/base.html:6
 msgid "SLM Climate Change Adaptation"
-msgstr "SLM សម្រាប់ការបន្សាំុទៅនឹងការប្រែប្រួលអាកាសធាតុ"
+msgstr "SLM សម្រាប់ការបន្ស៊ាំទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/cca/templates/cca/partial/select_module.html:12
 #: apps/samplemodule/templates/samplemodule/partial/select_module.html:12
@@ -246,7 +246,7 @@ msgstr "គោលបំណងនៃបច្ចេកទេស​ (ទស្ស�
 #: apps/configuration/configuration_translations.py:1008
 msgctxt "technologies label_filter"
 msgid "Main purpose of the Technology"
-msgstr ""
+msgstr "គោលបំណងចម្បង/សំខាន់នៃបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:1009
 #: apps/configuration/configuration_translations.py:1010
@@ -317,7 +317,7 @@ msgid ""
 "carrying: hay, leguminous species, silage etc.) not including fodder crops "
 "such as maize, cereals. These are classified as annual crops (see above)."
 msgstr ""
-"<​strong>Gi ដីវាលស្មៅតូចៗ/ ផលិតកម្មចំណី៖ </strong>បង្កើន ឬដាំដំណាំចំណីសត្វសម្រាប់ការចិញ្ចឹមសត្វ "
+"<strong>Gi ដីវាលស្មៅតូចៗ/ ផលិតកម្មចំណី៖ </strong>បង្កើន ឬដាំដំណាំចំណីសត្វសម្រាប់ការចិញ្ចឹមសត្វ "
 "(សម្រាប់កាត់ និងជញ្ជូន៖ ចំប៉ើង ពពួកសណ្តែក ប្រភេទរុក្ខជាតិចំណីផ្សេងៗ…) មិនរួមបញ្ចូលដំណាំចំណីដូចជា ពោត "
 "គ្រាប់ធុញ្ញជាតិ។ ប្រភេទដំណាំទាំងនេះចាត់ថ្នាក់ជាប្រភេទដំណាំប្រចាំឆ្នាំ (មើលនៅខាងលើ)។  "
 
@@ -397,7 +397,7 @@ msgstr "លក្ខណៈពិសេសនៃបច្ចេកទេស (ទ�
 #: apps/configuration/configuration_translations.py:1050
 msgctxt "technologies_2018 label"
 msgid "Technical specifications (related to technical drawing)"
-msgstr ""
+msgstr "បច្ចេកទេសជាក់លាក់ (ទាក់ទងនឹងគំនូសបច្ចេកទេស)"
 
 #: apps/configuration/configuration_translations.py:1051
 msgctxt "technologies_2018 helptext"
@@ -412,6 +412,13 @@ msgid ""
 "material used</li><li>Species used</li><li>Quantity/ density of plants (per "
 "ha)</li></ul>"
 msgstr ""
+"<p>សង្ខេបពីបច្ចេកទេសឱ្យច្បាស់លាស់ ឧ.​ ៖ </p><ul><li>ទំហំ (កម្ពស់, ជម្រៅ, ទទឹង, បណ្តោយ) "
+"នៃរចនាសម្ព័ន្ធ ឬសមាសធាតុនៃសារពើរុក្ខជាតិ </li><li>ចន្លោះរវាងរចនាសម្ព័ន្ធ "
+"ឬវិធានការសារពើរុក្ខជាតិ</li><li>រចនាសម្ព័ន្ធចន្លោះបញ្ឈរ ឬវិធានការសារពើរុក្ខជាតិ</"
+"li><li>ជម្រាលមុំ (មុន និងក្រោយការអនុវត្តបច្ចេកទេស)</li><li>ទម្រង់នៃកម្រិតជម្រាលផ្នែកចំហៀង</"
+"li><li>សមត្ថភាពនៃទំនប់ ស្រះទឹក​។ល។ </li><li>កន្លែងស្តុកទឹក និងអត្ថប្រយោជន៍នៃទំនប់ទឹក ស្រះទឹក "
+"ប្រព័ន្ធស្តុកទុកទឹកផ្សេងៗទៀត</li><li>សម្ភារៈប្រើក្នុងការសាងសង់</li><li>ប្រភេទដែលត្រូវបានប្រើ</"
+"li><li>បរិមាណ/ ចំនួនដំណាំ (ក្នុងមួយហិកតា)</li></ul>"
 
 #: apps/configuration/configuration_translations.py:1052
 #: apps/configuration/configuration_translations.py:1053
@@ -449,7 +456,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1060
 msgctxt "technologies_2018 label"
 msgid "Timing (season)"
-msgstr ""
+msgstr "រយៈពេល​ (រដូវកាល)"
 
 #: apps/configuration/configuration_translations.py:1061
 msgctxt "technologies_2018 helptext"
@@ -458,6 +465,8 @@ msgid ""
 "month or season, or \"after harvest of crops\", \"before onset of rains\", "
 "etc.</p>"
 msgstr ""
+"<p><strong>រយៈពេល</strong>៖​ រយៈពេលនៃសកម្មភាពដែលអនុវត្ត ឧ. ខែ ឬ រដូវកាលដាំដុះ ឬ “ "
+"បន្ទាប់ពីប្រមូលផលដំណាំ ”  “​ មុនពេលចាប់ផ្តើមភ្លៀង​ ” ។ល។</p>"
 
 #: apps/configuration/configuration_translations.py:1062
 #: apps/configuration/configuration_translations.py:1063
@@ -483,7 +492,7 @@ msgstr "%% នៃថ្លៃដើមដែលចំណាយដោយអ្ន
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "%% of costs borne by land users"
-msgstr ""
+msgstr "%%នៃការចំណាយដោយអ្នកប្រើប្រាស់ដី"
 
 #: apps/configuration/configuration_translations.py:1070
 #: apps/configuration/configuration_translations.py:1071
@@ -496,6 +505,11 @@ msgid ""
 "receiving any reward or subsidies, indicate labour = 100%%.</p><p>For inputs "
 "which are fully paid or provided by external entities: always enter 0%%</p>"
 msgstr ""
+"<p>ភាគរយនៃការចំណាយរបស់អ្នកប្រើប្រាស់ដី ដោយបញ្ជាក់តម្លៃនៃធាតុចូលនីមួយៗ។ ឧ. "
+"ប្រសិនបើអ្នកប្រើប្រាស់ដីទទួលបានជីដោយមិនគិតថ្លៃពីក្រុមជំនួយណាមួយ នោះត្រូវបង្ហាញថា ជី = ០​%% "
+"ប្រសិនបើអ្នកប្រើប្រាស់ដីប្រើកម្លាំងពលកម្មខ្លួនឯងទាំងស្រុង ដោយមិនមានទទួលបានរង្វាន់ ឬបដិភាគ "
+"នោះត្រូវបង្ហាញថា កម្លាំងពលកម្ម = 100%%។</p><p>ធាតុចូលដែលបានចំណាយទាំងស្រុងដោយភាគីខាងក្រៅ "
+"ត្រូវបង្ហាញ/ដាក់លេខ 0 %%</p>"
 
 #: apps/configuration/configuration_translations.py:1072
 msgctxt "technologies label"
@@ -510,7 +524,7 @@ msgstr "បរិមាណទឹកភ្លៀងប្រចាំឆ្នា
 #: apps/configuration/configuration_translations.py:1074
 msgctxt "technologies label_filter"
 msgid "Annual rainfall"
-msgstr ""
+msgstr "បរិមាណទឹកភ្លៀងប្រចាំឆ្នាំ"
 
 #: apps/configuration/configuration_translations.py:1075
 msgctxt "technologies label"
@@ -667,12 +681,12 @@ msgstr "ឧ. ចំណាត់ថ្នាក់អាកាសធាតុត�
 #: apps/configuration/configuration_translations.py:1103
 msgctxt "technologies_2018 label"
 msgid "Specifications/ comments on climate"
-msgstr ""
+msgstr "លក្ខណៈពិសេស/ មតិយោបល់លើអាកាសធាតុ"
 
 #: apps/configuration/configuration_translations.py:1104
 msgctxt "technologies_2018 helptext"
 msgid "E.g. mean annual temperature"
-msgstr ""
+msgstr "ឧ.​​ សីតុណ្ហភាពជាមធ្យមប្រចាំឆ្នាំ"
 
 #: apps/configuration/configuration_translations.py:1105
 msgctxt "technologies label"
@@ -924,12 +938,12 @@ msgstr "ជម្រៅដីជាមធ្យម"
 #: apps/configuration/configuration_translations.py:1168
 msgctxt "technologies_2018 label"
 msgid "Soil depth on average"
-msgstr ""
+msgstr "ជម្រៅដីជាមធ្យម"
 
 #: apps/configuration/configuration_translations.py:1169
 msgctxt "technologies_2018 helptext"
 msgid "<strong>Soil depth</strong>: distance from top to parent material."
-msgstr ""
+msgstr "<strong>ជម្រៅដី</strong>៖ ប្រវែង/កម្ពស់ពីដីខាងលើទៅដល់សិលាមេ។"
 
 #: apps/configuration/configuration_translations.py:1170
 #: apps/configuration/configuration_translations.py:2266
@@ -1135,7 +1149,7 @@ msgstr "ឯកជន ឬក្រុម"
 #: apps/configuration/configuration_translations.py:1220
 msgctxt "technologies_2018 label"
 msgid "Individuals or groups"
-msgstr ""
+msgstr "បុគ្គល ឬក្រុម"
 
 #: apps/configuration/configuration_translations.py:1221
 msgctxt "technologies_2018 helptext"
@@ -1143,6 +1157,7 @@ msgid ""
 "Indicate if land users apply the technology as individuals or as members of "
 "a specific group/ company."
 msgstr ""
+"សូមបញ្ជាក់បន្ថែមថាអ្នកប្រើប្រាស់ដីអនុវត្តបច្ចេកទេសជាលក្ខណៈបុគ្គល ឬជាសមាជិកនៃក្រុម/ក្រុមហ៊ុនណាមួយ។"
 
 #: apps/configuration/configuration_translations.py:1222
 #: apps/configuration/configuration_translations.py:5177
@@ -1494,7 +1509,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1349
 msgctxt "technologies_2018 label"
 msgid "Extensive grazing"
-msgstr ""
+msgstr "វាលស្មៅធំៗ"
 
 #: apps/configuration/configuration_translations.py:1350
 msgctxt "technologies_2018 helptext"
@@ -1503,6 +1518,9 @@ msgid ""
 "grasslands, grasslands with trees/ shrubs (savannah vegetation) or open "
 "woodlands for livestock and wildlife."
 msgstr ""
+"<strong>Ge: វាលស្មៅធំៗ</strong>៖ វាលស្មៅធម្មជាតិ ឬពាក់កណ្តាលធម្មជាតិ "
+"វាលស្មៅដែលលាយជាមួយដើមឈើធំ/ ដើមឈើតូចៗ (រុក្ខជាតិ savannah) "
+"ឬដីព្រៃដែលអាចប្រើប្រាស់សម្រាប់ចិញ្ចឹមសត្វ និងសត្វព្រៃ។"
 
 #: apps/configuration/configuration_translations.py:1351
 msgctxt "technologies label"
@@ -1522,7 +1540,7 @@ msgstr ""
 msgctxt "technologies_2018 label"
 msgid ""
 "Tree plantation, afforestation: Specify origin and composition of species"
-msgstr ""
+msgstr "ការដាំដើមឈើ ការដាំដើមឈើឡើងវិញ៖ បញ្ជាក់ពីប្រភេទក្នុងតំបន់ និងប្រភេទលុប"
 
 #: apps/configuration/configuration_translations.py:1354
 msgctxt "technologies label"
@@ -1551,6 +1569,7 @@ msgid ""
 "If using a local area unit, indicate conversion factor to one hectare (e.g. "
 "1 ha = 2.47 acres): 1 ha ="
 msgstr ""
+"បើសិនប្រើឯកតាតាមតំបន់ សូមបញ្ជាក់តម្លៃបម្លែងវាទៅជាហិកតា (ឧ. 1 ហិកតា = 2.47 អា)៖ 1 ហិកតា =​​"
 
 #: apps/configuration/configuration_translations.py:1361
 msgctxt "technologies_2018 helptext"
@@ -1559,6 +1578,8 @@ msgid ""
 "units we recommend using an online unit converter, e.g. http://www."
 "unitconverters.net/"
 msgstr ""
+"ផ្តោតទៅលើតំបន់ដែលបានបញ្ជាក់ក្នុងចំណុច 2.5 <br>សម្រាប់ការបម្លែងឯកតាតាមតំបន់ទៅម៉ែត្រ "
+"គួរតែប្រើឧបករណ៍បម្លែងតាមបណ្តាញអ៊ិនធឺណែត ឧ. http://www.unitconverters.net/"
 
 #: apps/configuration/configuration_translations.py:1362
 msgctxt "technologies label"
@@ -1713,12 +1734,13 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1398
 msgctxt "technologies_2018 label"
 msgid "Specify dimensions of unit (if relevant)"
-msgstr ""
+msgstr "បញ្ជាក់ពីទំហំនៃឯកតា (បើពាក់ព័ន្ធ)"
 
 #: apps/configuration/configuration_translations.py:1399
 msgctxt "technologies_2018 helptext"
 msgid "<strong>Example:</strong> stone lines: 250 m, dam: 20’000 m<sup>3</sup>"
 msgstr ""
+"<strong>ឧទាហរណ៍៖ </strong>រៀបថ្មជាបន្ទាត់៖ 250 ម៉ែត្រ, ទំនប់៖ 20’000 ម៉ែត្រ<sup>3</sup>"
 
 #: apps/configuration/configuration_translations.py:1400
 msgctxt "technologies label"
@@ -1846,7 +1868,7 @@ msgstr "ប្រភេទនៃការប្រែប្រួលអាកា
 #: apps/configuration/configuration_translations.py:1424
 msgctxt "technologies_2018 label"
 msgid "increase or decrease"
-msgstr ""
+msgstr "កើនឡើង ឬថយចុះ"
 
 #: apps/configuration/configuration_translations.py:1425
 msgctxt "technologies label"
@@ -1923,7 +1945,7 @@ msgstr "ប្រសិនបើបច្ចេកទេសត្រូវបា
 #: apps/configuration/configuration_translations.py:1435
 msgctxt "technologies_2018 label"
 msgid "If precise area is not known, indicate approximate area covered"
-msgstr ""
+msgstr "ប្រសិនបើមិនច្បាស់ពីទំហំផ្ទៃដី សូមធ្វើការប៉ាន់ប្រម៉ាណ"
 
 #: apps/configuration/configuration_translations.py:1436
 msgctxt "technologies label"
@@ -1969,6 +1991,8 @@ msgid ""
 "If relevant, indicate exchange rate from USD to local currency (e.g. 1 USD = "
 "79.9 Brazilian Real): 1 USD ="
 msgstr ""
+"បើពាក់ព័ន្ធសូមកំណត់អត្រាប្តូរប្រាក់ពីដុល្លាទៅរូបិយប័ណ្ណតំបន់ (ឧ.​​ 1 ដុល្លារ​ = 79.9 "
+"រៀលនៃរូបិយប័ណ្ណប្រេស៊ីល) ៖ 1 ដុល្លារ ="
 
 #: apps/configuration/configuration_translations.py:1444
 msgctxt "technologies label"
@@ -1992,6 +2016,8 @@ msgid ""
 "If you are unable to break down the costs in the table above, give an "
 "estimation of the total costs of establishing the Technology"
 msgstr ""
+"ប្រសិនបើមិនអាចបំបែកតម្លៃដើមក្នុងតារាងខាងក្រោមទេ "
+"សូមផ្តល់នូវតម្លៃប៉ាន់ស្មានសរុបក្នុងការបង្កើតបច្ចេកទេសនោះ"
 
 #: apps/configuration/configuration_translations.py:1447
 #: apps/configuration/configuration_translations.py:1448
@@ -2019,6 +2045,8 @@ msgid ""
 "If you are unable to break down the costs in the table above, give an "
 "estimation of the total costs of maintaining the Technology"
 msgstr ""
+"ប្រសិនបើមិនអាចបំបែកតម្លៃដើមក្នុងតារាងខាងក្រោមទេ "
+"សូមផ្តល់នូវតម្លៃប៉ាន់ស្មានសរុបក្នុងការថែទាំបច្ចេកទេសនោះ"
 
 #: apps/configuration/configuration_translations.py:1451
 msgctxt "technologies label"
@@ -2091,7 +2119,7 @@ msgstr "បញ្ជាក់បន្ថែមការវាយតម្លៃ
 #: apps/configuration/configuration_translations.py:1466
 msgctxt "technologies_2018 label"
 msgid "Specify assessment of off-site impacts (measurements)"
-msgstr ""
+msgstr "វាយតម្លៃផលប៉ះពាល់ក្រៅបរិវេណអនុវត្តបច្ចេកទេស (វាស់វែង)"
 
 #: apps/configuration/configuration_translations.py:1467
 msgctxt "technologies label"
@@ -2108,6 +2136,8 @@ msgid ""
 "Of all those who have adopted the Technology, how many did so spontaneously, "
 "i.e. without receiving any material incentives/ payments?"
 msgstr ""
+"ក្នុងចំណោមគ្រួសារទាំងអស់ដែលបានអនុវត្តបច្ចេកទេស តើមានប៉ុន្មាន​គ្រួសារ​ដែល​ចង់​ធ្វើ​ដោយ​ខ្លួន​ឯង ដោយមិន​ទទួល​"
+"បាន​សម្ភារៈ​លើក​​ទឹកចិត្ត/​ប្រាក់ឧបត្ថម្ភ?​"
 
 #: apps/configuration/configuration_translations.py:1469
 msgctxt "technologies label"
@@ -2142,7 +2172,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1474
 msgctxt "technologies_2018 label"
 msgid "(Semi-)natural forests/ woodlands: Specify management type"
-msgstr ""
+msgstr "ព្រៃ (ពាក់កណ្តាល)​ ធម្មជាតិ /​ ដីព្រៃ៖ បញ្ជាក់ប្រភេទនៃការគ្រប់គ្រង"
 
 #: apps/configuration/configuration_translations.py:1495
 msgctxt "technologies label"
@@ -2276,7 +2306,7 @@ msgstr "<strong>Mf:កសិរុក្ខកម្ម</strong>៖ ដីដា
 #: apps/configuration/configuration_translations.py:1521
 msgctxt "technologies_2018 label"
 msgid "Agroforestry"
-msgstr ""
+msgstr "កសិរុក្ខកម្ម"
 
 #: apps/configuration/configuration_translations.py:1522
 msgctxt "technologies_2018 helptext"
@@ -2284,6 +2314,8 @@ msgid ""
 "<strong>Mf: Agroforestry</strong>: cropland and trees.<br>Select \"Cropland"
 "\" and \"Forest/ woodlands\" below and fill out the relevant sections."
 msgstr ""
+"<strong>Mf: កសិរុក្ខកម្ម</strong>៖ ដីដាំដំណាំ និងដើមឈើ។ <br>ជ្រើសរើស \" ដីដាំដំណាំ \" និង "
+"\" ព្រៃឈើ / ដីព្រៃ \" ខាងក្រោម និងបំពេញផ្នែកដែលជាប់ទាក់ទង។"
 
 #: apps/configuration/configuration_translations.py:1523
 msgctxt "technologies label"
@@ -2302,7 +2334,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1525
 msgctxt "technologies_2018 label"
 msgid "Agro-pastoralism (incl. integrated crop-livestock)"
-msgstr ""
+msgstr "Agro-pastoralism ( រួមបញ្ចូលទាំងដំណាំ និងចិញ្ចឹមសត្វ)"
 
 #: apps/configuration/configuration_translations.py:1526
 msgctxt "technologies_2018 helptext"
@@ -2311,6 +2343,9 @@ msgid ""
 "seasonal change between crops and livestock).<br>Select \"Cropland\" and "
 "\"Grazing land\" below and fill out the relevant sections."
 msgstr ""
+"<strong>Mp: Agro-pastoralism</strong>៖ ដីដាំដំណាំ និងចិញ្ចឹមសត្វ "
+"(រួមទាំងការផ្លាស់ប្តូរគ្នារវាងដំណាំ និងការចិញ្ចឹមសត្វតាមរដូវកាល)។ <br>ជ្រើសរើស \" ដីដាំដំណាំ \" "
+"និង \" ដីចិញ្ចឹមសត្វ \" ខាងក្រោម និងបំពេញផ្នែកដែលទាក់ទង។"
 
 #: apps/configuration/configuration_translations.py:1527
 msgctxt "technologies label"
@@ -2329,7 +2364,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1529
 msgctxt "technologies_2018 label"
 msgid "Agro-silvopastoralism"
-msgstr ""
+msgstr "Agro-silvopastoralism"
 
 #: apps/configuration/configuration_translations.py:1530
 msgctxt "technologies_2018 helptext"
@@ -2339,6 +2374,9 @@ msgid ""
 "\", \"Grazing land\" and \"Forest/ woodlands\" below and fill out the "
 "relevant sections."
 msgstr ""
+"<strong>Ma: Agro-silvopastoralism</strong>៖ ដីដាំដំណាំ ចិញ្ចឹមសត្វ និងដើមឈើ "
+"(រួមទាំងការផ្លាស់ប្តូរគ្នារវាងដំណាំ និងការចិញ្ចឹមសត្វតាមរដូវកាល)។<br>ជ្រើសរើស \" ដីដាំដំណាំ \" "
+"\" ដីចិញ្ចឹមសត្វ \" និង \" ដីព្រៃឈើ / ដីព្រៃ \" ខាងក្រោម​ និងបំពេញផ្នែកដែលជាប់ទាក់ទង។"
 
 #: apps/configuration/configuration_translations.py:1531
 msgctxt "technologies label"
@@ -2353,7 +2391,7 @@ msgstr "<strong>Ms: ដីព្រៃឈើ និងដីចិញ្ចឹ�
 #: apps/configuration/configuration_translations.py:1533
 msgctxt "technologies_2018 label"
 msgid "Silvo-pastoralism"
-msgstr ""
+msgstr "Silvo-pastoralism"
 
 #: apps/configuration/configuration_translations.py:1534
 msgctxt "technologies_2018 helptext"
@@ -2362,6 +2400,8 @@ msgid ""
 "\"Grazing land\" and \"Forest/ woodlands\" below and fill out the relevant "
 "sections."
 msgstr ""
+"<strong>Ms: Silvo-pastoralism</strong>៖ ព្រៃឈើ និងដីចិញ្ចឹមសត្វ។ <br>ជ្រើសរើស \" "
+"ដីចិញ្ចឹមសត្វ \" និង \" ព្រៃឈើ / ដីព្រៃ \" ខាងក្រោម និងបំពេញផ្នែកដែលជាប់ទាក់ទង។"
 
 #: apps/configuration/configuration_translations.py:1535
 msgctxt "technologies label"
@@ -2371,7 +2411,7 @@ msgstr "A6៖  ផ្សេងៗ"
 #: apps/configuration/configuration_translations.py:1536
 msgctxt "technologies_2018 label"
 msgid "A7: Others"
-msgstr ""
+msgstr "A7: ផ្សេងៗ"
 
 #: apps/configuration/configuration_translations.py:1537
 msgctxt "technologies label"
@@ -2673,7 +2713,7 @@ msgstr "Wg: ការកកើតឡើងនូវកំទេចកំទី�
 #: apps/configuration/configuration_translations.py:1587
 msgctxt "technologies_2018 label"
 msgid "Wg: gully erosion/ gullying"
-msgstr ""
+msgstr "Wg: gully erosion/ gullying"
 
 #: apps/configuration/configuration_translations.py:1588
 msgctxt "technologies_2018 helptext"
@@ -2681,6 +2721,8 @@ msgid ""
 "<strong>Gully erosion/ gullying</strong>: Removal of soil along drainage "
 "lines by surface runoff, creating deep channels (more than 30 cm deep)"
 msgstr ""
+"<strong>Gully erosion/ gullying</strong>៖ "
+"សំណឹកដែលបណ្តាលពីរំហូរទឹកផ្ទៃខាងលើដោយបង្កើតជាចង្អូរដែលជ្រៅ (អាចជ្រៅជាង 30 សង់ទីម៉ែត្រ)"
 
 #: apps/configuration/configuration_translations.py:1589
 msgctxt "technologies label"
@@ -2690,7 +2732,7 @@ msgstr "Wm: ការបាក់ដី"
 #: apps/configuration/configuration_translations.py:1590
 msgctxt "technologies_2018 label"
 msgid "Wm: mass movements/ landslides"
-msgstr ""
+msgstr "Wm: ការបាក់ដី"
 
 #: apps/configuration/configuration_translations.py:1591
 msgctxt "technologies_2018 helptext"
@@ -2699,6 +2741,8 @@ msgid ""
 "of a mass of earth, debris, or rock on a slope (includes mudflows and "
 "rockfalls); also called landslip."
 msgstr ""
+"<strong>ការបាក់ដី</strong>៖ ការធ្លាក់ចុះ ឬរអិលនៃដី កំទេចកំទី ឬថ្មពីទីជម្រាល (រួមបញ្ចូលរំហូរភក់ "
+"និងថ្ម) ក៏អាចហៅម្យ៉ាងទៀតថា Landslip។"
 
 #: apps/configuration/configuration_translations.py:1592
 msgctxt "technologies label"
@@ -2708,14 +2752,14 @@ msgstr "Wr: សំណឹកដីច្រាំងទន្លេ"
 #: apps/configuration/configuration_translations.py:1593
 msgctxt "technologies_2018 label"
 msgid "Wr: riverbank erosion"
-msgstr ""
+msgstr "Wr: ការបាក់ច្រាំងទន្លេ"
 
 #: apps/configuration/configuration_translations.py:1594
 msgctxt "technologies_2018 helptext"
 msgid ""
 "<strong>Riverbank erosion</strong>: the wearing away of the banks of a "
 "stream or river"
-msgstr ""
+msgstr "<strong>ការបាក់ច្រាំងទន្លេ</strong>៖ ការហូរច្រោះ ឬការខូចខាតនៃច្រាំងស្ទឹង ឬទន្លេ"
 
 #: apps/configuration/configuration_translations.py:1595
 msgctxt "technologies label"
@@ -2725,7 +2769,7 @@ msgstr "Wc: ការហូរច្រោះឆ្នេរខ្សាច់"
 #: apps/configuration/configuration_translations.py:1596
 msgctxt "technologies_2018 label"
 msgid "Wc: coastal erosion"
-msgstr ""
+msgstr "Wc: ការហូរច្រោះតាមតំបន់ឆ្នេរ"
 
 #: apps/configuration/configuration_translations.py:1597
 msgctxt "technologies_2018 helptext"
@@ -2734,6 +2778,8 @@ msgid ""
 "coastline due to the action of waves, currents or tides, leading to landward "
 "retreat of the shoreline"
 msgstr ""
+"<strong>ការហូរច្រោះតាមតំបន់ឆ្នេរ</strong>៖ ការបាត់បង់ដីតាមបណ្តោយឆ្នេរដោយសាររលក ជំនោរ "
+"ដែលបណ្តាលឱ្យមានផលប៉ះពាល់ដល់ឆ្នេរសមុទ្រ"
 
 #: apps/configuration/configuration_translations.py:1598
 msgctxt "technologies label"
@@ -2883,7 +2929,7 @@ msgstr "Ps: ការស្រុតចុះនូវសារធាតុស�
 #: apps/configuration/configuration_translations.py:1621
 msgctxt "technologies_2018 label"
 msgid "Ps: subsidence of organic soils, settling of soil"
-msgstr ""
+msgstr "Ps: ការស្រុតចុះនូវសារធាតុសរីរាង្គនៃដី ការពន្លិចដី"
 
 #: apps/configuration/configuration_translations.py:1622
 msgctxt "technologies_2018 helptext"
@@ -2891,6 +2937,8 @@ msgid ""
 "<strong>Subsidence of organic soils, settling of soils</strong>: downward "
 "motion of soil surface, e.g. due to drainage of organic soils"
 msgstr ""
+"<strong>ការស្រុតចុះនូវសារធាតុសរីរាង្គនៃដី ការពន្លិចដី</strong>៖ "
+"ការហូរច្រោះទៅទីទាបនៃផ្ទៃដីខាងលើ ឧ. បណ្តាលមកពីការហូរនៃសារធាតុសរីរាង្គរបស់ដី"
 
 #: apps/configuration/configuration_translations.py:1623
 msgctxt "technologies label"
@@ -3685,7 +3733,7 @@ msgstr "ពាក់កណ្តាលពាណិជ្ជកម្ម (ផ្�
 #: apps/configuration/configuration_translations.py:1759
 msgctxt "technologies_2018 label"
 msgid "mixed (subsistence/ commercial)"
-msgstr ""
+msgstr "ពាក់កណ្តាលពាណិជ្ជកម្ម (ផ្គត់ផ្គង់ខ្លួនឯង/ ពាណិជ្ជកម្ម)"
 
 #: apps/configuration/configuration_translations.py:1760
 msgctxt "technologies label"
@@ -3976,7 +4024,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1812
 msgctxt "technologies_2018 label"
 msgid "Semi-nomadic pastoralism"
-msgstr ""
+msgstr "ពាក់កណ្តាលពនេចរ"
 
 #: apps/configuration/configuration_translations.py:1813
 msgctxt "technologies_2018 helptext"
@@ -3985,6 +4033,8 @@ msgid ""
 "place of residence or without cultivation practiced. Herds are moved to "
 "distant grazing grounds."
 msgstr ""
+"<strong>ពាក់កណ្តាលពនេចរ</strong>៖ អ្នកចិញ្ចឹមសត្វមានទីលំនៅអចិន្ត្រៃយ៍ផ្ទាល់ខ្លួន "
+"ឬមិនមានអនុវត្តការដាំដំណាំ។ ហ្វូងសត្វចិញ្ចឹមត្រូវបានផ្លាស់ទីទៅវាលស្មៅឆ្ងាយៗ។"
 
 #: apps/configuration/configuration_translations.py:1814
 msgctxt "technologies label"
@@ -4583,7 +4633,7 @@ msgstr "10-50%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "11-50%%"
-msgstr ""
+msgstr "11-50%%"
 
 #: apps/configuration/configuration_translations.py:1904
 #, python-format
@@ -4595,7 +4645,7 @@ msgstr "ច្រើនជាង 50%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "> 50%%"
-msgstr ""
+msgstr "> 50%%"
 
 #: apps/configuration/configuration_translations.py:1906
 msgctxt "technologies label"
@@ -5027,7 +5077,7 @@ msgstr "ដុល្លារអាមេរិក"
 #: apps/configuration/configuration_translations.py:1972
 msgctxt "technologies_2018 label"
 msgid "USD"
-msgstr ""
+msgstr "ដុល្លារ"
 
 #: apps/configuration/configuration_translations.py:1973
 msgctxt "technologies label"
@@ -5176,7 +5226,7 @@ msgstr "50-90%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "51-90%%"
-msgstr ""
+msgstr "51-90%%"
 
 #: apps/configuration/configuration_translations.py:2006
 #, python-format
@@ -5188,7 +5238,7 @@ msgstr "90-100%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "91-100%%"
-msgstr ""
+msgstr "91-100%%"
 
 #: apps/configuration/configuration_translations.py:2008
 msgctxt "technologies label"
@@ -5218,7 +5268,7 @@ msgstr " ឧ. 24 acres"
 #: apps/configuration/configuration_translations.py:2013
 msgctxt "technologies_2018 label"
 msgid "per Technology area"
-msgstr ""
+msgstr "ក្នុងតំបន់អនុវត្តបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2014
 msgctxt "technologies_2018 helptext"
@@ -5226,6 +5276,7 @@ msgid ""
 "e.g. area of terraced cropland, area closed for natural regeneration, area "
 "used for rotational grazing, etc."
 msgstr ""
+"ឧ. តំបន់ដាំដំណាំជាថ្នាក់ៗ តំបន់ដែលនៅជិតដីព្រៃដុះឡើងវិញដោយធម្មជាតិ តំបន់ប្រើសម្រាប់ដាំស្មៅបង្វិល ។ល។"
 
 #: apps/configuration/configuration_translations.py:2206
 #: apps/configuration/configuration_translations.py:2207
@@ -5254,7 +5305,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2221
 msgctxt "technologies_2018 label"
 msgid "Agro-climatic zone"
-msgstr ""
+msgstr "តំបន់កសិអាកាសធាតុ"
 
 #: apps/configuration/configuration_translations.py:2222
 msgctxt "technologies_2018 helptext"
@@ -5282,12 +5333,12 @@ msgstr "ដីដាំដុះថ្មី"
 #: apps/configuration/configuration_translations.py:2246
 msgctxt "technologies_2018 label"
 msgid "production area"
-msgstr ""
+msgstr "ផ្ទៃដីផលិតកម្ម"
 
 #: apps/configuration/configuration_translations.py:2247
 msgctxt "technologies_2018 helptext"
 msgid "Land under cultivation/ use"
-msgstr ""
+msgstr "ផ្ទៃដីដាំដុះ/ប្រើប្រាស់សម្រាប់ដាំដុះ"
 
 #: apps/configuration/configuration_translations.py:2249
 msgctxt "technologies label"
@@ -5302,12 +5353,12 @@ msgstr "ឧ. វារីអគ្គិសនី ជីវៈ"
 #: apps/configuration/configuration_translations.py:2251
 msgctxt "technologies_2018 label"
 msgid "energy generation"
-msgstr ""
+msgstr "ការបង្កើតថាមពល "
 
 #: apps/configuration/configuration_translations.py:2252
 msgctxt "technologies_2018 helptext"
 msgid "E.g. hydro, biogas"
-msgstr ""
+msgstr "ឧ. វារីអគ្គិសនី ជីវៈឧស្ម័ន"
 
 #: apps/configuration/configuration_translations.py:2268
 msgctxt "technologies label"
@@ -5631,7 +5682,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2378
 msgctxt "technologies_2018 label"
 msgid "Labour"
-msgstr ""
+msgstr "កម្លាំងពលកម្ម"
 
 #: apps/configuration/configuration_translations.py:2379
 #: apps/configuration/configuration_translations.py:2380
@@ -5840,12 +5891,12 @@ msgstr "សណ្ឋានដី"
 #: apps/configuration/configuration_translations.py:2719
 msgctxt "technologies_2018 label"
 msgid "Topography"
-msgstr ""
+msgstr "សណ្ឋានដី"
 
 #: apps/configuration/configuration_translations.py:2720
 msgctxt "technologies_2018 helptext"
 msgid "Tick max. 2 answers per question."
-msgstr ""
+msgstr "គូសបានច្រើនបំផុត 2 ចម្លើយក្នុងមួយសំណួរ"
 
 #: apps/configuration/configuration_translations.py:2721
 msgctxt "technologies label"
@@ -5860,7 +5911,7 @@ msgstr "<p>ច្រើនបំផុត 2 ចម្លើយក្នុងម
 #: apps/configuration/configuration_translations.py:2723
 msgctxt "technologies_2018 label"
 msgid "Soils"
-msgstr ""
+msgstr "ដី"
 
 #: apps/configuration/configuration_translations.py:2724
 msgctxt "technologies_2018 helptext"
@@ -5938,7 +5989,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2730
 msgctxt "technologies_2018 label"
 msgid "Photos of the Technology"
-msgstr ""
+msgstr "រូបភាពនៃបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:2731
 msgctxt "technologies_2018 helptext"
@@ -5986,7 +6037,7 @@ msgstr "គូសបានច្រើនបំផុត 2 ចម្លើយ"
 #: apps/configuration/configuration_translations.py:2734
 msgctxt "technologies_2018 label"
 msgid "Prevention, reduction, or restoration of land degradation"
-msgstr ""
+msgstr "ការពារ កាត់បន្ថយ ឬស្តារឡើងវិញនៃឱនភាពដី"
 
 #: apps/configuration/configuration_translations.py:2735
 msgctxt "technologies_2018 helptext"
@@ -15904,7 +15955,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:33013
 msgctxt "technologies_2018 label"
 msgid "(Semi-)natural forests/ woodlands"
-msgstr ""
+msgstr "ព្រៃ (ពាក់កណ្តាល)​ ធម្មជាតិ /​ ដីព្រៃ"
 
 #: apps/configuration/configuration_translations.py:33014
 msgctxt "technologies_2018 helptext"
