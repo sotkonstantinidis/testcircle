@@ -1,4 +1,5 @@
 import pytest
+from django.test import override_settings
 
 from functional_tests.base import FunctionalTest
 from functional_tests.pages.api import ApiV2ListPage
@@ -206,3 +207,20 @@ class ListTestEditions(FunctionalTest):
         api_page.open(query_dict=query_dict)
         api_page.check_list_results(
             expected_results_2015 + expected_results_2018)
+
+    @override_settings(FILTER_EDITIONS={'technologies': '2015'})
+    def test_filter_specific_edition_2015(self):
+        list_page = ListPage(self)
+        list_page.open()
+
+        self.open_advanced_filter('technologies')
+        self.add_advanced_filter(
+            'tech_qg_9__tech_landuse', 'tech_lu_grazingland')
+
+        assert list_page.count_list_results() == 1
+        expected_results = [
+            {
+                'title': 'WOCAT Technology 1',
+            },
+        ]
+        list_page.check_list_results(expected_results)

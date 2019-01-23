@@ -41,6 +41,13 @@
           {
             "country": "country_CHE"
           }
+        ],
+        "tech_qg_9": [
+          {
+            "tech_landuse": [
+              "tech_lu_grazingland"
+            ]
+          }
         ]
       },
       "code": "tech_1",
