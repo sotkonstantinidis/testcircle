@@ -1198,9 +1198,13 @@ class ESQuestionnaireQueryMixin:
         # Fallback configuration: wocat
         if not is_valid_configuration:
             self.configuration_code = 'wocat'
-        self.configuration = get_configuration(
+
+        # Use a specific edition if specified or use the latest by default.
+        edition = settings.FILTER_EDITIONS.get(
             self.configuration_code,
-            Configuration.latest_by_code(self.configuration_code).edition)
+            Configuration.latest_by_code(self.configuration_code).edition
+        )
+        self.configuration = get_configuration(self.configuration_code, edition)
 
         self.search_configuration_codes = get_configuration_index_filter(
             self.configuration_code

@@ -327,6 +327,13 @@ class BaseSettings(Configuration):
     )
     AUTH_COOKIE_NAME = values.Value(default='fe_typo_user', environ_prefix='')
 
+    # Specify specific editions to be used in the filter. If not specified,
+    # always the latest edition of a configuration is used. Specify specific
+    # editions as a dict in the env.
+    # Example to use edition 2015 to filter Technologies:
+    # {"technologies": "2015"}
+    FILTER_EDITIONS = values.DictValue(default={}, environ_prefix='')
+
     # https://raw.githubusercontent.com/SeleniumHQ/selenium/master/py/CHANGES
     # for the latest supported firefox version.
     TESTING_FIREFOX_PATH = values.Value(environ_prefix='')
