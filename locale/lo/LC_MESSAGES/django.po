@@ -5,7 +5,7 @@
 # Translators:
 # anousit namsena <anousithaha@gmail.com>, 2017
 # Bounthanom Bouahom <bounthanom.b@gmail.com>, 2017
-# Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2017
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2017
 # Pasalath Khounsy <pasalathkh@gmail.com>, 2017
 # phonesyli phanvongsa <kangphanvongsa@gmail.com>, 2018-2019
 # Stephanie Jaquet <stephanie.jaquet@cde.unibe.ch>, 2017-2018
@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-22 16:00+0100\n"
-"PO-Revision-Date: 2019-01-22 14:54+0000\n"
+"POT-Creation-Date: 2019-03-10 21:55+0100\n"
+"PO-Revision-Date: 2019-03-10 20:51+0000\n"
 "Last-Translator: phonesyli phanvongsa <kangphanvongsa@gmail.com>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/lo/)\n"
@@ -60,7 +60,7 @@ msgstr "ທີ່ຢູ່ ອີເມວ"
 
 #: apps/accounts/templates/details.html:34
 msgid "Notification preferences"
-msgstr ""
+msgstr "ການແຈ້ງເຕືອນ ທີ່ສຳຄັນ"
 
 #: apps/accounts/templates/details.html:45
 msgid "UNCCD national focal point"
@@ -498,7 +498,7 @@ msgstr "%% ຂອງຕົ້ນທຶນທັງໝົດ ທີ່ຜູ້�
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "%% of costs borne by land users"
-msgstr ""
+msgstr "%%ຂອງຄ່າໃຊ້ຈ່າຍ ທີ່ເກັີດຈາກບັນດາຜູ້ນຳໃຊ້ທີ່ດິນ"
 
 #: apps/configuration/configuration_translations.py:1070
 #: apps/configuration/configuration_translations.py:1071
@@ -691,7 +691,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1104
 msgctxt "technologies_2018 helptext"
 msgid "E.g. mean annual temperature"
-msgstr ""
+msgstr "ອຸນຫະພູມສະເລ່ຍປະຈຳປີ"
 
 #: apps/configuration/configuration_translations.py:1105
 msgctxt "technologies label"
@@ -1155,14 +1155,14 @@ msgstr "ບຸກຄົນ ຫຼື ກຸ່ມ"
 #: apps/configuration/configuration_translations.py:1220
 msgctxt "technologies_2018 label"
 msgid "Individuals or groups"
-msgstr ""
+msgstr "ຫຼາຍບຸກຄົນ ລື ຫຼາຍກຸ່ມ"
 
 #: apps/configuration/configuration_translations.py:1221
 msgctxt "technologies_2018 helptext"
 msgid ""
 "Indicate if land users apply the technology as individuals or as members of "
 "a specific group/ company."
-msgstr ""
+msgstr "ລະບຸວ່າ ຖ້າຜູ້ນຳໃຊ້ດິນ ໃຊ້ເຕັກໂນໂລຢີ ເປັນບຸກຄົນ ຫຼື ເປັນສະມາຊິກຂອງກຸ່ມ / ບໍລິສັດສະເພາະໃດຫນຶ່ງ"
 
 #: apps/configuration/configuration_translations.py:1222
 #: apps/configuration/configuration_translations.py:5177
@@ -1583,6 +1583,8 @@ msgid ""
 "units we recommend using an online unit converter, e.g. http://www."
 "unitconverters.net/"
 msgstr ""
+"ໝາຍເຖິງ ພື້ນທີ່ສະເພາະ ທີ່ລະບຸໄວ້ໃນຂໍ້ 2.5 ສໍາລັບການປ່ຽນ ລະຫວ່າງ ຫົວຫນ່ວຍທ້ອງຖິ່ນ ແລະ "
+"ຕົວຊີ້ວັດທີ່ພວກເຮົາແນະນໍາ ໃຫ້ໃຊ້ຕົວປ່ຽນ ຫົວໜ່ວຍອອນໄລ໌, ເຊັ່ນ: http://www.unitconverters.net/"
 
 #: apps/configuration/configuration_translations.py:1362
 msgctxt "technologies label"
@@ -1738,7 +1740,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1398
 msgctxt "technologies_2018 label"
 msgid "Specify dimensions of unit (if relevant)"
-msgstr ""
+msgstr "ກໍານົດຂະຫນາດຂອງຫົວນ໋ວຍ (ຖ້າກ່ຽວຂ້ອງ)"
 
 #: apps/configuration/configuration_translations.py:1399
 msgctxt "technologies_2018 helptext"
@@ -1994,6 +1996,8 @@ msgid ""
 "If relevant, indicate exchange rate from USD to local currency (e.g. 1 USD = "
 "79.9 Brazilian Real): 1 USD ="
 msgstr ""
+"ຖ້າກ່ຽວຂ້ອງ, ໃຫ້ລະບຸອັດຕາແລກປ່ຽນຈາກ USD ເປັນສະກຸນເງິນທ້ອງຖິ່ນ (ເຊັ່ນ: 1 USD = 79.9 "
+"Brazilian Real): 1 USD ="
 
 #: apps/configuration/configuration_translations.py:1444
 msgctxt "technologies label"
@@ -2018,6 +2022,8 @@ msgid ""
 "If you are unable to break down the costs in the table above, give an "
 "estimation of the total costs of establishing the Technology"
 msgstr ""
+"ຖ້າທ່ານບໍ່ສາມາດ ໄຈ້ແຍກຄ່າໃຊ້ຈ່າຍໃນຕາຕະລາງຂ້າງເທິງ, ໃຫ້ຄາດຄະເນຂອງຄ່າໃຊ້ຈ່າຍທັງຫມົດ "
+"ຂອງການສ້າງເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:1447
 #: apps/configuration/configuration_translations.py:1448
@@ -2046,6 +2052,8 @@ msgid ""
 "If you are unable to break down the costs in the table above, give an "
 "estimation of the total costs of maintaining the Technology"
 msgstr ""
+"ຖ້າທ່ານບໍ່ສາມາດ ໄຈ້ແຍກຄ່າໃຊ້ຈ່າຍໃນຕາຕະລາງຂ້າງເທິງ, ໃຫ້ຄາດຄະເນຂອງຄ່າໃຊ້ຈ່າຍທັງຫມົດ "
+"ຂອງການບຳລຸງຮັກສາ ເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:1451
 msgctxt "technologies label"
@@ -2118,7 +2126,7 @@ msgstr "ຄໍາເຫັນກ່ຽວກັບ ການປະເມີນ �
 #: apps/configuration/configuration_translations.py:1466
 msgctxt "technologies_2018 label"
 msgid "Specify assessment of off-site impacts (measurements)"
-msgstr ""
+msgstr "ກໍານົດ ການປະເມີນ ຜົນກະທົບທາງນອກ (ການວັດແທກ)"
 
 #: apps/configuration/configuration_translations.py:1467
 msgctxt "technologies label"
@@ -2135,6 +2143,8 @@ msgid ""
 "Of all those who have adopted the Technology, how many did so spontaneously, "
 "i.e. without receiving any material incentives/ payments?"
 msgstr ""
+"ທັງໝົດນັ້ນ ແມ່ນໃຜ ໄດ້ປັບຕົວເຂົ້າ ໃນການນໍາໃຊ້ ເຕັກໂນໂລຢີ, ມີຈັກຄົນ ທີ່ສາມາດເຮັດເອງໄດ້, ຕົວຢ່າງ, "
+"ປາດສະຈາກ ການຊ່ວຍເຫຼືອ ທາງດ້ານອຸປະກອນ / ການຈ່າຍເປັນເງິນ?"
 
 #: apps/configuration/configuration_translations.py:1469
 msgctxt "technologies label"
@@ -2169,7 +2179,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1474
 msgctxt "technologies_2018 label"
 msgid "(Semi-)natural forests/ woodlands: Specify management type"
-msgstr ""
+msgstr "(ເຄີ່ງ) ປ່າທໍາມະຊາດ / ປ່າປູກ: ລະບຸປະເພດການຄຸ້ມຄອງ"
 
 #: apps/configuration/configuration_translations.py:1495
 msgctxt "technologies label"
@@ -2311,6 +2321,8 @@ msgid ""
 "<strong>Mf: Agroforestry</strong>: cropland and trees.<br>Select \"Cropland"
 "\" and \"Forest/ woodlands\" below and fill out the relevant sections."
 msgstr ""
+"<strong>Ma: ກະສິກຳ-ປ່າໄມ້ ແບບປະສົມປະສານ</strong>: ດິນປູກຝັງ ແລະ ດິນປູກຕົ້ນໄມ້ <br>ເລືອກ "
+"\"ດິນປູກຝັງ\", \"ທີ່ດິນປ່າປູກ ແລະ \"ປ່າ/ທີ່ດີນປ່າແປນ\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1523
 msgctxt "technologies label"
@@ -2329,7 +2341,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1525
 msgctxt "technologies_2018 label"
 msgid "Agro-pastoralism (incl. integrated crop-livestock)"
-msgstr ""
+msgstr "ກະສິກໍາແບບປະສົມປະສານ (ລວມທັງ ການລ້ຽງສັດ-ປຸກຝັງ)"
 
 #: apps/configuration/configuration_translations.py:1526
 msgctxt "technologies_2018 helptext"
@@ -2338,6 +2350,9 @@ msgid ""
 "seasonal change between crops and livestock).<br>Select \"Cropland\" and "
 "\"Grazing land\" below and fill out the relevant sections."
 msgstr ""
+"<strong>Mp: ກະສິກຳແບບປະສົມປະສານ</strong>: ທີ່ດິນປູກຝັງ, ທີ່ດິນທົ່ງຫຍ້າ (ລວມທັງ "
+"ການປ່ຽນແປງຕາມລະດູ ລະຫວ່າງການປູກພືດ ແລະ ລ້ຽງສັດ)<br>ເລືອກ \"ທີ່ດິນປູກຝັງ\"ແລະ \" ທີ່ດິນທົ່ງຫຍ້າ"
+"\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1527
 msgctxt "technologies label"
@@ -2356,7 +2371,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1529
 msgctxt "technologies_2018 label"
 msgid "Agro-silvopastoralism"
-msgstr ""
+msgstr "ກະສິກຳປະສົມປະສານ"
 
 #: apps/configuration/configuration_translations.py:1530
 msgctxt "technologies_2018 helptext"
@@ -2383,7 +2398,7 @@ msgstr "<strong>Ms: ປ່າໄມ້-ທົ່ງຫຍ້າ</strong>: ທີ
 #: apps/configuration/configuration_translations.py:1533
 msgctxt "technologies_2018 label"
 msgid "Silvo-pastoralism"
-msgstr ""
+msgstr "ກະສິກຳປະສົມປະສານ"
 
 #: apps/configuration/configuration_translations.py:1534
 msgctxt "technologies_2018 helptext"
@@ -2392,6 +2407,8 @@ msgid ""
 "\"Grazing land\" and \"Forest/ woodlands\" below and fill out the relevant "
 "sections."
 msgstr ""
+"<strong>Mp: ກະສິກຳແບບປະສົມປະສານ</strong>: <br>ເລືອກ \"ທີ່ດິນທົ່ງຫຍ້າ\"ແລະ \" ປ່າໄມ້/"
+"ປ່າແປນ\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1535
 msgctxt "technologies label"
@@ -2401,7 +2418,7 @@ msgstr "A6: ອື່ນໆ"
 #: apps/configuration/configuration_translations.py:1536
 msgctxt "technologies_2018 label"
 msgid "A7: Others"
-msgstr ""
+msgstr "A7: ອື່ນໆ"
 
 #: apps/configuration/configuration_translations.py:1537
 msgctxt "technologies label"
@@ -2708,7 +2725,7 @@ msgstr "Wg: ການເຊາະເຈື່ອນຮ່ອງນ້ຳ / ຫ�
 #: apps/configuration/configuration_translations.py:1587
 msgctxt "technologies_2018 label"
 msgid "Wg: gully erosion/ gullying"
-msgstr ""
+msgstr "Wg:ການເຊາະເຈື່ອນຕາມຫ້ວຍ/ຮ່ອງນ້ຳ"
 
 #: apps/configuration/configuration_translations.py:1588
 msgctxt "technologies_2018 helptext"
@@ -2727,7 +2744,7 @@ msgstr "Wm: ການເຄື່ອນຍ້າຍອິນຊີວັດຖ�
 #: apps/configuration/configuration_translations.py:1590
 msgctxt "technologies_2018 label"
 msgid "Wm: mass movements/ landslides"
-msgstr ""
+msgstr "Wm: ການເຄື່ອນຍ້າຍຂອງມວນດິນ/ດິນຖະລົ່ມ"
 
 #: apps/configuration/configuration_translations.py:1591
 msgctxt "technologies_2018 helptext"
@@ -2748,7 +2765,7 @@ msgstr "Wr: ແຄມຕາຝັ່ງເຈື່ອນ"
 #: apps/configuration/configuration_translations.py:1593
 msgctxt "technologies_2018 label"
 msgid "Wr: riverbank erosion"
-msgstr ""
+msgstr "Wr:ແຄມແມ່ນ້ຳເຊາະເຈື່ອນ"
 
 #: apps/configuration/configuration_translations.py:1594
 msgctxt "technologies_2018 helptext"
@@ -2765,7 +2782,7 @@ msgstr "Wc: ຊາຍຝັ່ງທະເລເຈື່ອນ "
 #: apps/configuration/configuration_translations.py:1596
 msgctxt "technologies_2018 label"
 msgid "Wc: coastal erosion"
-msgstr ""
+msgstr "Wc: ຊາຍຝັ່ງທະເລເຊາະເຈື່ອນ"
 
 #: apps/configuration/configuration_translations.py:1597
 msgctxt "technologies_2018 helptext"
@@ -2774,6 +2791,8 @@ msgid ""
 "coastline due to the action of waves, currents or tides, leading to landward "
 "retreat of the shoreline"
 msgstr ""
+"<strong>ຊາຍຝັ່ງທະເລເຈື່ອນ</strong>:ການສູນເສຍ ຫຼື ການເຄື່ອນຍ້າຍຂອງ ດິນລຽບຊາຍຝັ່ງ "
+"ເນື່ອງຈາກການກະແທກ ຂອງຄື້ນ, ນ້ຳຂື້ນ ຫຼື ນ້ໍາລົງ, ນໍາໄປສູ່ ການຖອຍຄືນສູ່ທະເລ"
 
 #: apps/configuration/configuration_translations.py:1598
 msgctxt "technologies label"
@@ -2929,7 +2948,7 @@ msgstr "Ps: ຊຸດຂອງດິນອົງຄະທາດ, ການຕັ
 #: apps/configuration/configuration_translations.py:1621
 msgctxt "technologies_2018 label"
 msgid "Ps: subsidence of organic soils, settling of soil"
-msgstr ""
+msgstr "Ps:ການຊຸດໂຊມຂອງອິນຊີວັດຖຸ/ການເຄື່ອນຍ້າຍຊອງດິນ"
 
 #: apps/configuration/configuration_translations.py:1622
 msgctxt "technologies_2018 helptext"
@@ -3738,7 +3757,7 @@ msgstr "ປະສົມ (ກຸ້ມຕົນເອງ  / ເປັນສິນ
 #: apps/configuration/configuration_translations.py:1759
 msgctxt "technologies_2018 label"
 msgid "mixed (subsistence/ commercial)"
-msgstr ""
+msgstr "ປະສົມປົນເປ( ກຸ້ມຕົນເອງ/ເປັນສິນຄ້າ)"
 
 #: apps/configuration/configuration_translations.py:1760
 msgctxt "technologies label"
@@ -4030,7 +4049,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1812
 msgctxt "technologies_2018 label"
 msgid "Semi-nomadic pastoralism"
-msgstr ""
+msgstr "ການລ້ຽງສັດແບບເຄີ່ງປ່ອຍ"
 
 #: apps/configuration/configuration_translations.py:1813
 msgctxt "technologies_2018 helptext"
@@ -4639,7 +4658,7 @@ msgstr "10-50%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "11-50%%"
-msgstr ""
+msgstr "11-50%%"
 
 #: apps/configuration/configuration_translations.py:1904
 #, python-format
@@ -4651,7 +4670,7 @@ msgstr "ຫຼາຍກ່ວາ 50 %%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "> 50%%"
-msgstr ""
+msgstr ">50%%"
 
 #: apps/configuration/configuration_translations.py:1906
 msgctxt "technologies label"
@@ -5086,7 +5105,7 @@ msgstr "ໂດລາສະຫະລັດ"
 #: apps/configuration/configuration_translations.py:1972
 msgctxt "technologies_2018 label"
 msgid "USD"
-msgstr ""
+msgstr "USA"
 
 #: apps/configuration/configuration_translations.py:1973
 msgctxt "technologies label"
@@ -5235,7 +5254,7 @@ msgstr "50-90%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "51-90%%"
-msgstr ""
+msgstr "51-90%%"
 
 #: apps/configuration/configuration_translations.py:2006
 #, python-format
@@ -5247,7 +5266,7 @@ msgstr "90-100%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "91-100%%"
-msgstr ""
+msgstr "91-100%%"
 
 #: apps/configuration/configuration_translations.py:2008
 msgctxt "technologies label"
@@ -5277,7 +5296,7 @@ msgstr "ຕົວຢ່າງ, 24 ເອເຄີ"
 #: apps/configuration/configuration_translations.py:2013
 msgctxt "technologies_2018 label"
 msgid "per Technology area"
-msgstr ""
+msgstr "ຕໍ່ເນື້ອທີ່ເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:2014
 msgctxt "technologies_2018 helptext"
@@ -5285,6 +5304,8 @@ msgid ""
 "e.g. area of terraced cropland, area closed for natural regeneration, area "
 "used for rotational grazing, etc."
 msgstr ""
+"ຕົວຢ່າງ: ພື້ນທີ່ປູກຝັງ ທີ່ເປັນພັກ, ພື້ນທີ່ທີ່ຕິດກັບ ການຟື້ນຟູທໍາມະຊາດ, ພື້ນທີ່ ທີ່ໃຊ້ ທົ່ງຫຍ້າລ້ຽງສັດຫມຸນວຽນ, "
+"ແລະອື່ນໆ"
 
 #: apps/configuration/configuration_translations.py:2206
 #: apps/configuration/configuration_translations.py:2207
@@ -5313,7 +5334,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2221
 msgctxt "technologies_2018 label"
 msgid "Agro-climatic zone"
-msgstr ""
+msgstr "ເຂດພູມອາກາດ ກະສິກຳ"
 
 #: apps/configuration/configuration_translations.py:2222
 msgctxt "technologies_2018 helptext"
@@ -5322,6 +5343,8 @@ msgid ""
 "precipitation is more than half of the potential evapotranspiration (PET) "
 "and the temperature is higher than 6.5° C.</p><p>Tick max. 1 answer.</p>"
 msgstr ""
+"<p>ໄລຍະເວລາ ຂອງການເຕີບໂຕ (LGP) ແມ່ນໄດ້ກໍານົດ ເອົາຊ່ວງໄລຍະຝົນຕົກ ຫຼາຍກວ່າເຄິ່ງ ການລະເຫີຍອາຍ "
+"(PET) ແລະ ອຸນຫະພູມສູງກວ່າ 6.5° C.</p><p>ເລືອກໄດ້ຫຼາຍສຸດ 1 ຄຳຕອບ</p>"
 
 #: apps/configuration/configuration_translations.py:2233
 msgctxt "technologies label"
@@ -5341,12 +5364,12 @@ msgstr "ທີ່ດິນໃໝ່ ໃນການປູກຝັງ / ກາ�
 #: apps/configuration/configuration_translations.py:2246
 msgctxt "technologies_2018 label"
 msgid "production area"
-msgstr ""
+msgstr "ພື້ນທີ່ການຜະລິດ"
 
 #: apps/configuration/configuration_translations.py:2247
 msgctxt "technologies_2018 helptext"
 msgid "Land under cultivation/ use"
-msgstr ""
+msgstr "ທີ່ດິນພາຍໃຕ້ ການປູກຝັງ/ນຳໃຊ້"
 
 #: apps/configuration/configuration_translations.py:2249
 msgctxt "technologies label"
@@ -5361,12 +5384,12 @@ msgstr "ຕົວຢ່າງ: ນໍ້າ, ຊີວະພາບ"
 #: apps/configuration/configuration_translations.py:2251
 msgctxt "technologies_2018 label"
 msgid "energy generation"
-msgstr ""
+msgstr "ການກຳເນີດພະລັງງານ"
 
 #: apps/configuration/configuration_translations.py:2252
 msgctxt "technologies_2018 helptext"
 msgid "E.g. hydro, biogas"
-msgstr ""
+msgstr "ຕົວຢ່າງ: ນ້ຳ, ແກັດຊີວະພາບ"
 
 #: apps/configuration/configuration_translations.py:2268
 msgctxt "technologies label"
@@ -5692,7 +5715,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2378
 msgctxt "technologies_2018 label"
 msgid "Labour"
-msgstr ""
+msgstr "ແຮງງານ"
 
 #: apps/configuration/configuration_translations.py:2379
 #: apps/configuration/configuration_translations.py:2380
@@ -5703,6 +5726,9 @@ msgid ""
 "hired labour. If relevant, differentiate between skilled and unskilled "
 "labour."
 msgstr ""
+"<strong>ແຮງງານ</strong>ປະກອບດ້ວຍ ມູນຄ່າທັງໝົດຂອງວັນງານເຮັດວຽກ, ທີ່ໄດ້ຈ່າຍ ຫຼື ບໍ່ໄດ້ຈ່າຍ "
+"(ຕົວຢ່າງ,ການປະກອບສ່ວນແຮງງານຂອງສະມາຊິກໃນຄອບຄອບເອງ). ສຳລັບ “ມູນຄ່າໃຊ້ຈ່າຍຕໍ່ຫົວໜ່ວຍ” ໃຫ້ລະບຸ "
+"ຄ່າແຮງງານທີ່ໄດ້ຈ້າງ ປະຈຳວັນ. ຖ້າຫາກກ່ຽວຂ້ອງ, ຄວາມແຕກຕ່າງລະຫວ່າງ ແຮງງານທີ່ມີສີມື ແລະ ບໍ່ມີສີມື."
 
 #: apps/configuration/configuration_translations.py:2381
 #: apps/configuration/configuration_translations.py:2382
@@ -5905,12 +5931,12 @@ msgstr "ພູມິປະເທດ"
 #: apps/configuration/configuration_translations.py:2719
 msgctxt "technologies_2018 label"
 msgid "Topography"
-msgstr ""
+msgstr "ພູມມີປະເທດ"
 
 #: apps/configuration/configuration_translations.py:2720
 msgctxt "technologies_2018 helptext"
 msgid "Tick max. 2 answers per question."
-msgstr ""
+msgstr "ເລືອກໄດ້ ຫຼາຍສຸດ 2 ຄຳຕອບ ຕໍ່ ຄຳຖາມ"
 
 #: apps/configuration/configuration_translations.py:2721
 msgctxt "technologies label"
@@ -5925,7 +5951,7 @@ msgstr "<p> ສູງສຸດ 2 ຄໍາຕອບຕໍ່ຄໍາຖາມ. 
 #: apps/configuration/configuration_translations.py:2723
 msgctxt "technologies_2018 label"
 msgid "Soils"
-msgstr ""
+msgstr "ດິນ"
 
 #: apps/configuration/configuration_translations.py:2724
 msgctxt "technologies_2018 helptext"
@@ -5933,6 +5959,8 @@ msgid ""
 "<p>The following parameters are based on FAO standards.</p><p>Tick max. 2 "
 "answers per question.</p>"
 msgstr ""
+"<p>ຕົວກໍານົດການດັ່ງຕໍ່ໄປນີ້ ແມ່ນ ອີງໃສ່ມາດຕະຖານຂອງ ອົງການອາຫານໂລກ</p><p>ເລືອກໄດ້ ຫຼາຍສຸດ 2 "
+"ຄຳຕອບ ຕໍ່ ຄຳຖາມ</p>"
 
 #: apps/configuration/configuration_translations.py:2725
 #: apps/configuration/configuration_translations.py:2738
@@ -6003,7 +6031,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2730
 msgctxt "technologies_2018 label"
 msgid "Photos of the Technology"
-msgstr ""
+msgstr "ຮູບຂອງເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:2731
 msgctxt "technologies_2018 helptext"
@@ -6051,14 +6079,14 @@ msgstr "ເລືອກເອົາ 2 ຄໍາຕອບ"
 #: apps/configuration/configuration_translations.py:2734
 msgctxt "technologies_2018 label"
 msgid "Prevention, reduction, or restoration of land degradation"
-msgstr ""
+msgstr "ການປ້ອງກັນ, ການຫຼຸດລົງ, ຫຼື ການຟື້ນຟູທີ່ດິນເຊື່ອມໂຊມ"
 
 #: apps/configuration/configuration_translations.py:2735
 msgctxt "technologies_2018 helptext"
 msgid ""
 "Tick max. two answers. If you tick «not applicable», please tick no other "
 "answer."
-msgstr ""
+msgstr "ເລືອກໄດ້ ຫຼາຍສຸດ ສອງຄໍາຕອບ. ຖ້າທ່ານຫມາຍ \"ບໍ່ສາມາດນໍາໃຊ້ໄດ້\", ກະລຸນາບໍ່ເລືອກຄໍາຕອບອື່ນ."
 
 #: apps/configuration/configuration_translations.py:2736
 msgctxt "technologies label"
@@ -6466,7 +6494,7 @@ msgstr "ຂໍ້ມູນເພີ່ມເຕີມກ່ຽວກັບກາ
 #: apps/configuration/configuration_translations.py:2798
 msgctxt "technologies_2018 label"
 msgid "Water supply"
-msgstr ""
+msgstr "ການສະໜອງນ້ຳ"
 
 #: apps/configuration/configuration_translations.py:2799
 msgctxt "technologies label"
@@ -6598,7 +6626,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2809
 msgctxt "technologies_2018 label"
 msgid "Costs and inputs needed for establishment"
-msgstr ""
+msgstr "ຕົ້ນທຶນ ແລະ ປັດໄຈນຳເຂົ້າທີ່ຈໍາເປັນໃນຈັດສ້າງ"
 
 #: apps/configuration/configuration_translations.py:2810
 msgctxt "technologies_2018 helptext"
@@ -15490,1196 +15518,735 @@ msgctxt "watershed label"
 msgid "References and links "
 msgstr "ເອກະສານແລະການເຊື່ອມຕໍ່"
 
-#: apps/configuration/configuration_translations.py:32910
+#: apps/configuration/configuration_translations.py:32909
 msgctxt "cca label"
 msgid "co-compiler"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:32911
+#: apps/configuration/configuration_translations.py:32910
 msgctxt "watershed label"
 msgid "co-compiler"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:32912
+#: apps/configuration/configuration_translations.py:32911
 msgctxt "approaches label"
 msgid "co-compiler"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:32913
+#: apps/configuration/configuration_translations.py:32912
 msgctxt "technologies label"
+msgid "co-compiler"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32913
+msgctxt "technologies_2018 label"
 msgid "co-compiler"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:32914
 msgctxt "technologies_2018 label"
-msgid "co-compiler"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32915
-msgctxt "technologies_2018 label"
 msgid "Is/are the technology site(s) located in a permanently protected area?"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:32916
+#: apps/configuration/configuration_translations.py:32915
 msgctxt "technologies_2018 helptext"
 msgid "I.e. national reserve/ national park"
-msgstr ""
+msgstr "ເຊັ່ນ ເຂດສະຫງວນແຫ່ງຊາດ/ສວນສາທາລະນ ແຫ່ງຊາດ"
 
+#: apps/configuration/configuration_translations.py:32916
 #: apps/configuration/configuration_translations.py:32917
-#: apps/configuration/configuration_translations.py:32918
-#: apps/configuration/configuration_translations.py:32983
+#: apps/configuration/configuration_translations.py:33035
 msgctxt "technologies_2018 label"
 msgid "If yes, specify"
-msgstr ""
+msgstr "ຖ້າແມ່ນ, ໃຫ້ລະບຸແຈ້ງ"
 
-#: apps/configuration/configuration_translations.py:32919
+#: apps/configuration/configuration_translations.py:32918
 msgctxt "technologies_2018 label"
 msgid "Select land use type"
-msgstr ""
+msgstr "ເລືອກປະເພດ ການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:32920
+#: apps/configuration/configuration_translations.py:32919
 msgctxt "technologies_2018 label_view"
 msgid "Land use type"
-msgstr ""
+msgstr "ປະເພດ ການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:32921
-msgctxt "technologies_2018 label"
-msgid "Specify mixed land use (crops/ grazing/ trees)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32922
-#: apps/configuration/configuration_translations.py:32923
-#: apps/configuration/configuration_translations.py:32924
-msgctxt "technologies_2018 label"
-msgid "If crop type is not listed above, specify other crop"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32925
-msgctxt "technologies_2018 label"
-msgid "Continuous wheat/barley/oats/upland rice"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32926
-msgctxt "technologies_2018 label"
-msgid "Fallow - wheat/barley/oats/upland rice"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32927
-msgctxt "technologies_2018 label"
-msgid "Continuous maize/sorghum/millet"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32928
-msgctxt "technologies_2018 label"
-msgid "Fallow - maize/sorghum/millet"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32929
-msgctxt "technologies_2018 label"
-msgid "Maize/sorghum/millet legume"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32930
-msgctxt "technologies_2018 label"
-msgid "Maize/sorghum/millet intercropped with legume"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32931
-msgctxt "technologies_2018 label"
-msgid "Fallow - maize/sorghum/millet intercropped with legume"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32932
-msgctxt "technologies_2018 label"
-msgid "Continuous wetland rice"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32933
-msgctxt "technologies_2018 label"
-msgid "Wetland rice - wheat"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32934
-msgctxt "technologies_2018 label"
-msgid "Continuous vegetables"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32935
-msgctxt "technologies_2018 label"
-msgid "Vegetables - wheat/barley/oat/upland rice"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32936
-msgctxt "technologies_2018 label"
-msgid "Continuous cotton/tobacco"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32937
-msgctxt "technologies_2018 label"
-msgid "Vegetable - cotton/tobacco"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32938
-msgctxt "technologies_2018 label"
-msgid "Continuous root crop"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32939
-msgctxt "technologies_2018 label"
-msgid "Cassava/potato/manioc - vegetable"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32940
-msgctxt "technologies_2018 label"
-msgid "Cassava/potato/manioc - wheat/barley/oat"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32941
-msgctxt "technologies_2018 label"
-msgid "Cassava/potato/manioc - maize/sorghum/millet"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32942
-msgctxt "technologies_2018 label"
-msgid "Hay"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32943
-msgctxt "technologies_2018 label"
-msgid "Wheat or similar rotation with hay/pasture"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32944
-msgctxt "technologies_2018 label"
-msgid "Maize or similar rotation with hay/pasture"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32945
-msgctxt "technologies_2018 label"
-msgid "banana/plantain/abaca"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32946
-msgctxt "technologies_2018 label"
-msgid "agave / sisal"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32947
-msgctxt "technologies_2018 label"
-msgid "areca"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32948
-msgctxt "technologies_2018 label"
-msgid "berries"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32949
-msgctxt "technologies_2018 label"
-msgid "avocado"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32950
-msgctxt "technologies_2018 label"
-msgid "citrus"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32951
-msgctxt "technologies_2018 label"
-msgid "cacao"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32952
-msgctxt "technologies_2018 label"
-msgid "coconut (fruit, coir, leaves, etc.)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32953
-msgctxt "technologies_2018 label"
-msgid "coffee, open grown"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32954
-msgctxt "technologies_2018 label"
-msgid "coffee, shade grown"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32955
-msgctxt "technologies_2018 label"
-msgid "dates"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32956
-msgctxt "technologies_2018 label"
-msgid "mango, mangosteen, guava"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32957
-msgctxt "technologies_2018 label"
-msgid "oil palm"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32958
-msgctxt "technologies_2018 label"
-msgid "papaya"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32959
-msgctxt "technologies_2018 label"
-msgid "pome fruits (apples, pears, quinces, etc.)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32960
-msgctxt "technologies_2018 label"
-msgid "rubber"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32961
-msgctxt "technologies_2018 label"
-msgid "stone fruits (peach, apricot, cherry, plum, etc)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32962
-msgctxt "technologies_2018 label"
-msgid "tea"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32963
-msgctxt "technologies_2018 label"
-msgid "tree nuts (brazil nuts, pistachio, walnuts, almonds, etc.)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32964
-msgctxt "technologies_2018 label"
-msgid "wolfberries"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32965
-msgctxt "technologies_2018 label"
-msgid "carob"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32966
-msgctxt "technologies_2018 label"
-msgid "cashew"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32967
-msgctxt "technologies_2018 label"
-msgid "cinnamon"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32968
-msgctxt "technologies_2018 label"
-msgid "figs"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32969
-msgctxt "technologies_2018 label"
-msgid "fruits, other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32970
-msgctxt "technologies_2018 label"
-msgid "grapes"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32971
-msgctxt "technologies_2018 label"
-msgid "gums"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32972
-msgctxt "technologies_2018 label"
-msgid "jojoba"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32973
-msgctxt "technologies_2018 label"
-msgid "kapok"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32974
-msgctxt "technologies_2018 label"
-msgid "karite (sheanut)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32975
-msgctxt "technologies_2018 label"
-msgid "olive"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32976
-msgctxt "technologies_2018 label"
-msgid "tallowtree"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32977
-msgctxt "technologies_2018 label"
-msgid "tung"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32980
-msgctxt "technologies_2018 label"
-msgid "Is intercropping practiced?"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32981
-msgctxt "technologies_2018 label"
-msgid "If yes, specify which crops are intercropped"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32982
-msgctxt "technologies_2018 label"
-msgid "Is crop rotation practiced?"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32984
-msgctxt "technologies_2018 helptext"
-msgid "E.g. sequence of crops, fallow periods, green manuring"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:32999
-msgctxt "technologies_2018 label"
-msgid "If animal type is not listed above, specify other animal"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33001
-msgctxt "technologies_2018 label"
-msgid "meat"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33002
-msgctxt "technologies_2018 label"
-msgid "milk"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33003
-msgctxt "technologies_2018 label"
-msgid "eggs"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33004
-msgctxt "technologies_2018 label"
-msgid "whool"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33008
-msgctxt "technologies_2018 label"
-msgid ""
-"If product or service is not listed above, specify other product or service"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33009
-msgctxt "technologies_2018 label"
-msgid "Species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33010
-msgctxt "technologies_2018 label"
-msgid "Count"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33011
-msgctxt "technologies_2018 label"
-msgid "Livestock population"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33013
-msgctxt "technologies_2018 label"
-msgid "(Semi-)natural forests/ woodlands"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33014
-msgctxt "technologies_2018 helptext"
-msgid ""
-"<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of "
-"indigenous trees, not planted by man"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33015
-msgctxt "technologies_2018 label"
-msgid "Tree plantation, afforestation"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33016
-msgctxt "technologies_2018 helptext"
-msgid ""
-"<strong>Fp: Plantations, afforestations:</strong>: forest stands established "
-"by planting or/ and seeding in the process of afforestation or reforestation"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33036
-#: apps/configuration/configuration_translations.py:33037
-msgctxt "technologies_2018 label"
-msgid "If type of forest is not listed above, specify other type"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33089
-msgctxt "technologies_2018 label"
-msgid "Acacia albida"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33090
-msgctxt "technologies_2018 label"
-msgid "Acacia auriculiformis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33091
-msgctxt "technologies_2018 label"
-msgid "Acacia mearnsii"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33092
-msgctxt "technologies_2018 label"
-msgid "Acacia mellifera"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33093
-msgctxt "technologies_2018 label"
-msgid "Acacia nilotica"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33094
-msgctxt "technologies_2018 label"
-msgid "Acacia senegal"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33095
-msgctxt "technologies_2018 label"
-msgid "Acacia seyal"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33096
-msgctxt "technologies_2018 label"
-msgid "Acacia species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33097
-msgctxt "technologies_2018 label"
-msgid "Acacia tortilis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33098
-msgctxt "technologies_2018 label"
-msgid "Ailanthus excelsa"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33099
-msgctxt "technologies_2018 label"
-msgid "Ailanthus species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33100
-msgctxt "technologies_2018 label"
-msgid "Araucaria angustifolia"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33101
-msgctxt "technologies_2018 label"
-msgid "Araucaria cunninghamii"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33102
-msgctxt "technologies_2018 label"
-msgid "Balanites aegyptiaca"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33103
-msgctxt "technologies_2018 label"
-msgid "Bamboo bamboo"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33104
-msgctxt "technologies_2018 label"
-msgid "Casuarina equisetifolia"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33105
-msgctxt "technologies_2018 label"
-msgid "Casuarina junghuhniana"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33106
-msgctxt "technologies_2018 label"
-msgid "Cordia alliadora"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33107
-msgctxt "technologies_2018 label"
-msgid "Cupressus lusitanica"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33108
-msgctxt "technologies_2018 label"
-msgid "Cupressus species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33109
-msgctxt "technologies_2018 label"
-msgid "Dalbergia sissoo"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33110
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus camaldulensis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33111
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus deglupta"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33112
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus globulus"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33113
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus grandis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33114
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus robusta"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33115
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus saligna"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33116
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33117
-msgctxt "technologies_2018 label"
-msgid "Eucalyptus urophylla"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33118
-msgctxt "technologies_2018 label"
-msgid "Abies species (fir)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33119
-msgctxt "technologies_2018 label"
-msgid "Gmelina arborea"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33120
-msgctxt "technologies_2018 label"
-msgid "Hevea brasiliensis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33121
-msgctxt "technologies_2018 label"
-msgid "Khaya species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33122
-msgctxt "technologies_2018 label"
-msgid "Larix species (larch)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33123
-msgctxt "technologies_2018 label"
-msgid "Leucaena leucocephala"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33124
-msgctxt "technologies_2018 label"
-msgid "Mimosa scabrella"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33125
-msgctxt "technologies_2018 label"
-msgid "Pinus species (pine)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33126
-msgctxt "technologies_2018 label"
-msgid "Pinus caribaea v. caribaea"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33127
-msgctxt "technologies_2018 label"
-msgid "Pinus caribaea v. hondurensis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33128
-msgctxt "technologies_2018 label"
-msgid "Pinus oocarpa"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33129
-msgctxt "technologies_2018 label"
-msgid "Pinus patula"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33130
-msgctxt "technologies_2018 label"
-msgid "Pinus radiata"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33131
-msgctxt "technologies_2018 label"
-msgid "Populus species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33132
-msgctxt "technologies_2018 label"
-msgid "Sclerocarya birrea"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33133
-msgctxt "technologies_2018 label"
-msgid "Picea species (spruce)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33134
-msgctxt "technologies_2018 label"
-msgid "Swietenia macrophylla"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33135
-msgctxt "technologies_2018 label"
-msgid "Tectona grandis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33136
-msgctxt "technologies_2018 label"
-msgid "Tectona species"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33137
-msgctxt "technologies_2018 label"
-msgid "Terminalia ivorensis"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33138
-msgctxt "technologies_2018 label"
-msgid "Terminalia superba"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33139
-msgctxt "technologies_2018 label"
-msgid "Xylia xylocapa"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33140
-msgctxt "technologies_2018 label"
-msgid "Ziziphus mauritiana"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33141
-msgctxt "technologies_2018 label"
-msgid "Azadirachta indica"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33142
-msgctxt "technologies_2018 label"
-msgid "Grevillea robusta"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33144
-msgctxt "technologies_2018 label"
-msgid "If type of tree is not listed above, specify other type"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33145
-msgctxt "technologies_2018 label"
-msgid "deciduous"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33146
-msgctxt "technologies_2018 label"
-msgid "mixed deciduous/ evergreen"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33147
-msgctxt "technologies_2018 label"
-msgid "evergreen"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33148
-msgctxt "technologies_2018 label"
-msgid "Are the trees specified above deciduous or evergreen?"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33149
-#: apps/configuration/configuration_translations.py:33153
-msgctxt "technologies_2018 label"
-msgid "Has land use changed due to the implementation of the Technology?"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33150
-msgctxt "technologies_2018 helptext"
-msgid "This section is not relevant for traditional systems"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33151
-msgctxt "technologies_2018 label"
-msgid ""
-"Yes (Please fill out the questions below with regard to the land use before "
-"implementation of the Technology)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33152
-msgctxt "technologies_2018 label"
-msgid "No (Continue with question 3.4)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33154
-msgctxt "technologies_2018 label"
-msgid "A 3.1: No tillage"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33155
-#, python-format
-msgctxt "technologies_2018 label"
-msgid "A 3.2: Reduced tillage (> 30%% soil cover)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33156
-#, python-format
-msgctxt "technologies_2018 label"
-msgid "A 3.3: Full tillage (< 30%% soil cover)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33157
-msgctxt "technologies_2018 label"
-msgid "A3: Differentiate tillage systems"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33158
-msgctxt "technologies_2018 label"
-msgid "A6: Residue management"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33159
-msgctxt "technologies_2018 label"
-msgid "A 6.1: burned"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33160
-msgctxt "technologies_2018 label"
-msgid "A 6.2: grazed"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33161
-msgctxt "technologies_2018 label"
-msgid "A 6.3: collected"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33162
-msgctxt "technologies_2018 label"
-msgid "A 6.4: retained"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33163
-msgctxt "technologies_2018 label"
-msgid "A6: Specify residue management"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33164
-msgctxt "technologies_2018 label"
-msgid "Total costs for establishment of the Technology in USD"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33165
-msgctxt "technologies_2018 label"
-msgid "Total costs for maintenance of the Technology in USD"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33166
-msgctxt "technologies_2018 label"
-msgid "Are land use rights based on a traditional legal system?"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33167
-msgctxt "technologies_2018 label"
-msgid "Specify"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33168
+#: apps/configuration/configuration_translations.py:32920
 msgctxt "technologies_2018 label"
 msgid "Is land use mixed within the same land unit (e.g. agroforestry)?"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33169
+#: apps/configuration/configuration_translations.py:32921
 msgctxt "technologies_2018 helptext"
 msgid ""
 "A mixture of crops, grazing and trees within the same land unit, e.g. "
 "agroforestry, agro-silvopastoralism."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33170
+#: apps/configuration/configuration_translations.py:32922
 msgctxt "technologies_2018 label_view"
 msgid "Land use mixed within the same land unit:"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33171
+#: apps/configuration/configuration_translations.py:32923
+msgctxt "technologies_2018 label"
+msgid "Specify mixed land use (crops/ grazing/ trees)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32924
+msgctxt "technologies_2018 label"
+msgid "cereals - barley"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32925
+msgctxt "technologies_2018 label"
+msgid "cereals - maize"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32926
+msgctxt "technologies_2018 label"
+msgid "cereals - millet"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32927
+msgctxt "technologies_2018 label"
+msgid "cereals - oats"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32928
+msgctxt "technologies_2018 label"
+msgid "cereals - other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32929
+msgctxt "technologies_2018 label"
+msgid "cereals - quinoa or amaranth"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32930
+msgctxt "technologies_2018 label"
+msgid "cereals - rice (wetland)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32931
+msgctxt "technologies_2018 label"
+msgid "cereals - rice (upland)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32932
+msgctxt "technologies_2018 label"
+msgid "cereals - rye"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32933
+msgctxt "technologies_2018 label"
+msgid "cereals - sorghum"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32934
+msgctxt "technologies_2018 label"
+msgid "cereals - wheat (winter)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32935
+msgctxt "technologies_2018 label"
+msgid "cereals - wheat (spring)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32936
+msgctxt "technologies_2018 label"
+msgid "fibre crops - cotton"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32937
+msgctxt "technologies_2018 label"
+msgid "fibre crops - flax, hemp, other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32938
+msgctxt "technologies_2018 label"
+msgid "flower crops"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32939
+msgctxt "technologies_2018 label"
+msgid "fodder crops - alfalfa"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32940
+msgctxt "technologies_2018 label"
+msgid "fodder crops - clover"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32941
+msgctxt "technologies_2018 label"
+msgid "fodder crops - grasses"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32942
+msgctxt "technologies_2018 label"
+msgid "fodder crops - other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32943
+msgctxt "technologies_2018 label"
+msgid "legumes and pulses - beans"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32944
+msgctxt "technologies_2018 label"
+msgid "legumes and pulses - other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32945
+msgctxt "technologies_2018 label"
+msgid "legumes and pulses - peas"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32946
+msgctxt "technologies_2018 label"
+msgid "legumes and pulses - soya"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32947
+msgctxt "technologies_2018 label"
+msgid "medicinal/ aromatic/ pesticidal plants and herbs"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32948
+msgctxt "technologies_2018 label"
+msgid "oilseed crops - castor"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32949
+msgctxt "technologies_2018 label"
+msgid "oilseed crops - groundnuts"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32950
+msgctxt "technologies_2018 label"
+msgid "oilseed crops -  sunflower, rapeseed, other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32951
+msgctxt "technologies_2018 label"
+msgid "root/tuber crops - potatoes"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32952
+msgctxt "technologies_2018 label"
+msgid "root/tuber crops - cassava"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32953
+msgctxt "technologies_2018 label"
+msgid "root/tuber crops - sugar beet"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32954
+msgctxt "technologies_2018 label"
+msgid "root/tuber crops -  sweet potatoes, yams, taro/cocoyam, other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32955
+msgctxt "technologies_2018 label"
+msgid "seed crops - sesame, poppy, mustard, other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32956
+msgctxt "technologies_2018 label"
+msgid "tobacco"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32957
+msgctxt "technologies_2018 label"
+msgid "vegetables - jerusalem artichoke"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32958
+msgctxt "technologies_2018 label"
+msgid "vegetables - leafy vegetables (salads, cabbage, spinach, other)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32959
+msgctxt "technologies_2018 label"
+msgid "vegetables - melon, pumpkin, squash or gourd"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32960
+msgctxt "technologies_2018 label"
+msgid "vegetables - mushrooms and truffles"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32961
+msgctxt "technologies_2018 label"
+msgid "vegetables - other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32962
+msgctxt "technologies_2018 label"
+msgid "vegetables - root vegetables (carrots, onions, beet, other)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32963
+msgctxt "technologies_2018 label"
+msgid "Annual cropping - Specify crops"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32964
+msgctxt "technologies_2018 label_view"
+msgid "Annual cropping - Specify crops"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32965
+#: apps/configuration/configuration_translations.py:32966
+#: apps/configuration/configuration_translations.py:32967
+msgctxt "technologies_2018 label"
+msgid "If crop type is not listed above, specify other crop"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32968
+msgctxt "technologies_2018 label"
+msgid "Continuous wheat/barley/oats/upland rice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32969
+msgctxt "technologies_2018 label"
+msgid "Fallow - wheat/barley/oats/upland rice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32970
+msgctxt "technologies_2018 label"
+msgid "Continuous maize/sorghum/millet"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32971
+msgctxt "technologies_2018 label"
+msgid "Fallow - maize/sorghum/millet"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32972
+msgctxt "technologies_2018 label"
+msgid "Maize/sorghum/millet legume"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32973
+msgctxt "technologies_2018 label"
+msgid "Maize/sorghum/millet intercropped with legume"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32974
+msgctxt "technologies_2018 label"
+msgid "Fallow - maize/sorghum/millet intercropped with legume"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32975
+msgctxt "technologies_2018 label"
+msgid "Continuous wetland rice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32976
+msgctxt "technologies_2018 label"
+msgid "Wetland rice - wheat"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32977
+msgctxt "technologies_2018 label"
+msgid "Continuous vegetables"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32978
+msgctxt "technologies_2018 label"
+msgid "Vegetables - wheat/barley/oat/upland rice"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32979
+msgctxt "technologies_2018 label"
+msgid "Continuous cotton/tobacco"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32980
+msgctxt "technologies_2018 label"
+msgid "Vegetable - cotton/tobacco"
+msgstr "ຜັກ-ຜ້າຝ້າຍ/ຢາສູບ"
+
+#: apps/configuration/configuration_translations.py:32981
+msgctxt "technologies_2018 label"
+msgid "Continuous root crop"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32982
+msgctxt "technologies_2018 label"
+msgid "Cassava/potato/manioc - vegetable"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32983
+msgctxt "technologies_2018 label"
+msgid "Cassava/potato/manioc - wheat/barley/oat"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32984
+msgctxt "technologies_2018 label"
+msgid "Cassava/potato/manioc - maize/sorghum/millet"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32985
+msgctxt "technologies_2018 label"
+msgid "Hay"
+msgstr "ຫ້ຍາແຫ້ງ"
+
+#: apps/configuration/configuration_translations.py:32986
+msgctxt "technologies_2018 label"
+msgid "Wheat or similar rotation with hay/pasture"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32987
+msgctxt "technologies_2018 label"
+msgid "Maize or similar rotation with hay/pasture"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:32988
 msgctxt "technologies_2018 label"
 msgid ""
 "If data will be linked to CBP (simple assessment), specify annual cropping "
 "system"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33172
+#: apps/configuration/configuration_translations.py:32989
 msgctxt "technologies_2018 label_view"
 msgid "Annual cropping system"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33178
+#: apps/configuration/configuration_translations.py:32990
 msgctxt "technologies_2018 label"
-msgid "cereals - barley"
+msgid "banana/plantain/abaca"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33179
+#: apps/configuration/configuration_translations.py:32991
 msgctxt "technologies_2018 label"
-msgid "cereals - maize"
+msgid "agave / sisal"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33180
+#: apps/configuration/configuration_translations.py:32992
 msgctxt "technologies_2018 label"
-msgid "cereals - millet"
+msgid "areca"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33181
+#: apps/configuration/configuration_translations.py:32993
 msgctxt "technologies_2018 label"
-msgid "cereals - oats"
+msgid "berries"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33182
-msgctxt "technologies_2018 label"
-msgid "cereals - other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33183
-msgctxt "technologies_2018 label"
-msgid "cereals - quinoa or amaranth"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33184
-msgctxt "technologies_2018 label"
-msgid "cereals - rice (wetland)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33185
-msgctxt "technologies_2018 label"
-msgid "cereals - rice (upland)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33186
-msgctxt "technologies_2018 label"
-msgid "cereals - rye"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33187
-msgctxt "technologies_2018 label"
-msgid "cereals - sorghum"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33188
-msgctxt "technologies_2018 label"
-msgid "cereals - wheat (winter)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33189
-msgctxt "technologies_2018 label"
-msgid "cereals - wheat (spring)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33190
-msgctxt "technologies_2018 label"
-msgid "fibre crops - cotton"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33191
-msgctxt "technologies_2018 label"
-msgid "fibre crops - flax, hemp, other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33192
-msgctxt "technologies_2018 label"
-msgid "flower crops"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33193
-msgctxt "technologies_2018 label"
-msgid "fodder crops - alfalfa"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33194
-msgctxt "technologies_2018 label"
-msgid "fodder crops - clover"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33195
-msgctxt "technologies_2018 label"
-msgid "fodder crops - grasses"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33196
-msgctxt "technologies_2018 label"
-msgid "fodder crops - other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33197
-msgctxt "technologies_2018 label"
-msgid "legumes and pulses - beans"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33198
-msgctxt "technologies_2018 label"
-msgid "legumes and pulses - other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33199
-msgctxt "technologies_2018 label"
-msgid "legumes and pulses - peas"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33200
-msgctxt "technologies_2018 label"
-msgid "legumes and pulses - soya"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33201
-msgctxt "technologies_2018 label"
-msgid "medicinal/ aromatic/ pesticidal plants and herbs"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33202
-msgctxt "technologies_2018 label"
-msgid "oilseed crops - castor"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33203
-msgctxt "technologies_2018 label"
-msgid "oilseed crops - groundnuts"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33204
-msgctxt "technologies_2018 label"
-msgid "oilseed crops -  sunflower, rapeseed, other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33205
-msgctxt "technologies_2018 label"
-msgid "root/tuber crops - potatoes"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33206
-msgctxt "technologies_2018 label"
-msgid "root/tuber crops - cassava"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33207
-msgctxt "technologies_2018 label"
-msgid "root/tuber crops - sugar beet"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33208
-msgctxt "technologies_2018 label"
-msgid "root/tuber crops -  sweet potatoes, yams, taro/cocoyam, other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33209
-msgctxt "technologies_2018 label"
-msgid "seed crops - sesame, poppy, mustard, other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33210
-msgctxt "technologies_2018 label"
-msgid "tobacco"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33211
-msgctxt "technologies_2018 label"
-msgid "vegetables - jerusalem artichoke"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33212
-msgctxt "technologies_2018 label"
-msgid "vegetables - leafy vegetables (salads, cabbage, spinach, other)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33213
-msgctxt "technologies_2018 label"
-msgid "vegetables - melon, pumpkin, squash or gourd"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33214
-msgctxt "technologies_2018 label"
-msgid "vegetables - mushrooms and truffles"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33215
-msgctxt "technologies_2018 label"
-msgid "vegetables - other"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33216
-msgctxt "technologies_2018 label"
-msgid "vegetables - root vegetables (carrots, onions, beet, other)"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33217
-msgctxt "technologies_2018 label"
-msgid "Annual cropping - Specify crops"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33218
-msgctxt "technologies_2018 label_view"
-msgid "Annual cropping - Specify crops"
-msgstr ""
-
-#: apps/configuration/configuration_translations.py:33219
+#: apps/configuration/configuration_translations.py:32994
 msgctxt "technologies_2018 label"
 msgid "sugar cane"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33220
+#: apps/configuration/configuration_translations.py:32995
 msgctxt "technologies_2018 label"
 msgid "pineapple"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33221
+#: apps/configuration/configuration_translations.py:32996
 msgctxt "technologies_2018 label"
 msgid "flower crops - perennial"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33222
+#: apps/configuration/configuration_translations.py:32997
 msgctxt "technologies_2018 label"
 msgid "medicinal, aromatic, pesticidal plants - perennial"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33223
+#: apps/configuration/configuration_translations.py:32998
 msgctxt "technologies_2018 label"
 msgid "Perennial (non-woody) cropping - Specify crops"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33224
+#: apps/configuration/configuration_translations.py:32999
 msgctxt "technologies_2018 label_view"
 msgid "Perennial (non-woody) cropping - Specify crops"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33225
+#: apps/configuration/configuration_translations.py:33000
+msgctxt "technologies_2018 label"
+msgid "avocado"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33001
+msgctxt "technologies_2018 label"
+msgid "citrus"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33002
+msgctxt "technologies_2018 label"
+msgid "cacao"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33003
+msgctxt "technologies_2018 label"
+msgid "coconut (fruit, coir, leaves, etc.)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33004
+msgctxt "technologies_2018 label"
+msgid "coffee, open grown"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33005
+msgctxt "technologies_2018 label"
+msgid "coffee, shade grown"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33006
+msgctxt "technologies_2018 label"
+msgid "dates"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33007
+msgctxt "technologies_2018 label"
+msgid "mango, mangosteen, guava"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33008
+msgctxt "technologies_2018 label"
+msgid "oil palm"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33009
+msgctxt "technologies_2018 label"
+msgid "papaya"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33010
+msgctxt "technologies_2018 label"
+msgid "pome fruits (apples, pears, quinces, etc.)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33011
+msgctxt "technologies_2018 label"
+msgid "rubber"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33012
+msgctxt "technologies_2018 label"
+msgid "stone fruits (peach, apricot, cherry, plum, etc)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33013
+msgctxt "technologies_2018 label"
+msgid "tea"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33014
+msgctxt "technologies_2018 label"
+msgid "tree nuts (brazil nuts, pistachio, walnuts, almonds, etc.)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33015
+msgctxt "technologies_2018 label"
+msgid "wolfberries"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33016
+msgctxt "technologies_2018 label"
+msgid "carob"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33017
+msgctxt "technologies_2018 label"
+msgid "cashew"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33018
+msgctxt "technologies_2018 label"
+msgid "cinnamon"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33019
+msgctxt "technologies_2018 label"
+msgid "figs"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33020
+msgctxt "technologies_2018 label"
+msgid "fruits, other"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33021
+msgctxt "technologies_2018 label"
+msgid "grapes"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33022
+msgctxt "technologies_2018 label"
+msgid "gums"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33023
+msgctxt "technologies_2018 label"
+msgid "jojoba"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33024
+msgctxt "technologies_2018 label"
+msgid "kapok"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33025
+msgctxt "technologies_2018 label"
+msgid "karite (sheanut)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33026
+msgctxt "technologies_2018 label"
+msgid "olive"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33027
+msgctxt "technologies_2018 label"
+msgid "tallowtree"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33028
+msgctxt "technologies_2018 label"
+msgid "tung"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33029
 msgctxt "technologies_2018 label"
 msgid "fodder trees (Calliandra, Leucaena leucocephala, Prosopis, etc.)"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33226
+#: apps/configuration/configuration_translations.py:33030
 msgctxt "technologies_2018 label"
 msgid "Tree and shrub cropping - Specify crops"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33227
+#: apps/configuration/configuration_translations.py:33031
 msgctxt "technologies_2018 label_view"
 msgid "Tree and shrub cropping - Specify crops"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33228
+#: apps/configuration/configuration_translations.py:33032
+msgctxt "technologies_2018 label"
+msgid "Is intercropping practiced?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33033
+msgctxt "technologies_2018 label"
+msgid "If yes, specify which crops are intercropped"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33034
+msgctxt "technologies_2018 label"
+msgid "Is crop rotation practiced?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33036
+msgctxt "technologies_2018 helptext"
+msgid "E.g. sequence of crops, fallow periods, green manuring"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33037
 msgctxt "technologies_2018 label"
 msgid "cattle - dairy"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33229
+#: apps/configuration/configuration_translations.py:33038
 msgctxt "technologies_2018 label"
 msgid "cattle - non-dairy beef"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33230
+#: apps/configuration/configuration_translations.py:33039
 msgctxt "technologies_2018 label"
 msgid "cattle - non-dairy working"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33231
+#: apps/configuration/configuration_translations.py:33040
 msgctxt "technologies_2018 label"
 msgid "buffalo"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33232
+#: apps/configuration/configuration_translations.py:33041
 msgctxt "technologies_2018 label"
 msgid "swine"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33233
+#: apps/configuration/configuration_translations.py:33042
 msgctxt "technologies_2018 label"
 msgid "goats"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33234
+#: apps/configuration/configuration_translations.py:33043
 msgctxt "technologies_2018 label"
 msgid "camels"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33235
+#: apps/configuration/configuration_translations.py:33044
 msgctxt "technologies_2018 label"
 msgid "horses"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33236
+#: apps/configuration/configuration_translations.py:33045
 msgctxt "technologies_2018 label"
 msgid "mules and asses"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33237
+#: apps/configuration/configuration_translations.py:33046
 msgctxt "technologies_2018 label"
 msgid "sheep"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33238
+#: apps/configuration/configuration_translations.py:33047
 msgctxt "technologies_2018 label"
 msgid "poultry"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33239
+#: apps/configuration/configuration_translations.py:33048
 msgctxt "technologies_2018 label"
 msgid "rabbits and similar mammals"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33240
+#: apps/configuration/configuration_translations.py:33049
 msgctxt "technologies_2018 label"
 msgid "wildlife - large herbivours"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33241
+#: apps/configuration/configuration_translations.py:33050
 msgctxt "technologies_2018 label"
 msgid "wildlife - small herbivours"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33242
+#: apps/configuration/configuration_translations.py:33051
 msgctxt "technologies_2018 label"
 msgid "livestock - other large"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33243
+#: apps/configuration/configuration_translations.py:33052
 msgctxt "technologies_2018 label"
 msgid "livestock - other small"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33244
+#: apps/configuration/configuration_translations.py:33053
 msgctxt "technologies_2018 label"
 msgid "Specify animal type"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33245
+#: apps/configuration/configuration_translations.py:33054
 msgctxt "technologies_2018 label_view"
 msgid "Animal type"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33246
+#: apps/configuration/configuration_translations.py:33055
+msgctxt "technologies_2018 label"
+msgid "If animal type is not listed above, specify other animal"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33056
 msgctxt "technologies_2018 label"
 msgid "Is integrated crop-livestock management practiced?"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33247
+#: apps/configuration/configuration_translations.py:33057
 msgctxt "technologies_2018 helptext"
 msgid ""
 "<strong>Integrated crop-livestock management</strong>: crops and livestock "
@@ -16687,32 +16254,73 @@ msgid ""
 "products of one component serve as a resource for the other (manure, fodder)."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33248
+#: apps/configuration/configuration_translations.py:33058
+msgctxt "technologies_2018 label"
+msgid "meat"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33059
+msgctxt "technologies_2018 label"
+msgid "milk"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33060
+msgctxt "technologies_2018 label"
+msgid "eggs"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33061
+msgctxt "technologies_2018 label"
+msgid "whool"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33062
 msgctxt "technologies_2018 label"
 msgid "skins/ hides"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33249
+#: apps/configuration/configuration_translations.py:33063
 msgctxt "technologies_2018 label"
 msgid "transport/  draught"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33250
+#: apps/configuration/configuration_translations.py:33064
 msgctxt "technologies_2018 label"
 msgid "Specify products and services for grazing land"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33251
+#: apps/configuration/configuration_translations.py:33065
 msgctxt "technologies_2018 label_view"
 msgid "Products and services"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33252
+#: apps/configuration/configuration_translations.py:33066
+msgctxt "technologies_2018 label"
+msgid ""
+"If product or service is not listed above, specify other product or service"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33067
+msgctxt "technologies_2018 label"
+msgid "Species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33068
+msgctxt "technologies_2018 label"
+msgid "Count"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33069
+msgctxt "technologies_2018 label"
+msgid "Livestock population"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33070
 msgctxt "technologies_2018 label"
 msgid "Transhumant pastoralism"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33253
+#: apps/configuration/configuration_translations.py:33071
 msgctxt "technologies_2018 helptext"
 msgid ""
 "<strong>Transhumant pastoralism/ transhumance</strong>: regular movements of "
@@ -16720,445 +16328,865 @@ msgid ""
 "of climates and pastures."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33254
+#: apps/configuration/configuration_translations.py:33072
+msgctxt "technologies_2018 label"
+msgid "(Semi-)natural forests/ woodlands"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33073
+msgctxt "technologies_2018 helptext"
+msgid ""
+"<strong>Fn: Natural or semi-natural</strong>: forests mainly composed of "
+"indigenous trees, not planted by man"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33074
+msgctxt "technologies_2018 label"
+msgid "Tree plantation, afforestation"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33075
+msgctxt "technologies_2018 helptext"
+msgid ""
+"<strong>Fp: Plantations, afforestations:</strong>: forest stands established "
+"by planting or/ and seeding in the process of afforestation or reforestation"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33076
 msgctxt "technologies_2018 label"
 msgid "boreal coniferous forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33255
+#: apps/configuration/configuration_translations.py:33077
 msgctxt "technologies_2018 label"
 msgid "boreal mountain systems natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33256
+#: apps/configuration/configuration_translations.py:33078
 msgctxt "technologies_2018 label"
 msgid "boreal tundra woodland natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33257
+#: apps/configuration/configuration_translations.py:33079
 msgctxt "technologies_2018 label"
 msgid "subtropical desert natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33258
+#: apps/configuration/configuration_translations.py:33080
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33259
+#: apps/configuration/configuration_translations.py:33081
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33260
+#: apps/configuration/configuration_translations.py:33082
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33261
+#: apps/configuration/configuration_translations.py:33083
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33262
+#: apps/configuration/configuration_translations.py:33084
 msgctxt "technologies_2018 label"
 msgid "temperate continental forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33263
+#: apps/configuration/configuration_translations.py:33085
 msgctxt "technologies_2018 label"
 msgid "temperate desert natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33264
+#: apps/configuration/configuration_translations.py:33086
 msgctxt "technologies_2018 label"
 msgid "temperate mountain systems natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33265
+#: apps/configuration/configuration_translations.py:33087
 msgctxt "technologies_2018 label"
 msgid "temperate oceanic forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33266
+#: apps/configuration/configuration_translations.py:33088
 msgctxt "technologies_2018 label"
 msgid "temperate steppe natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33267
+#: apps/configuration/configuration_translations.py:33089
 msgctxt "technologies_2018 label"
 msgid "tropical desert natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33268
+#: apps/configuration/configuration_translations.py:33090
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33269
+#: apps/configuration/configuration_translations.py:33091
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33270
+#: apps/configuration/configuration_translations.py:33092
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33271
+#: apps/configuration/configuration_translations.py:33093
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33272
+#: apps/configuration/configuration_translations.py:33094
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland natural vegetation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33273
+#: apps/configuration/configuration_translations.py:33095
 msgctxt "technologies_2018 label"
 msgid "(Semi-)natural forests/ woodlands: Specify type of forest"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33274
+#: apps/configuration/configuration_translations.py:33096
 msgctxt "technologies_2018 label_view"
 msgid "Type of (semi-)natural forest"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33275
+#: apps/configuration/configuration_translations.py:33097
+#: apps/configuration/configuration_translations.py:33098
+msgctxt "technologies_2018 label"
+msgid "If type of forest is not listed above, specify other type"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33099
 msgctxt "technologies_2018 label"
 msgid "boreal coniferous forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33276
+#: apps/configuration/configuration_translations.py:33100
 msgctxt "technologies_2018 label"
 msgid "boreal mountain systems plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33277
+#: apps/configuration/configuration_translations.py:33101
 msgctxt "technologies_2018 label"
 msgid "boreal tundra woodland plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33278
+#: apps/configuration/configuration_translations.py:33102
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33279
+#: apps/configuration/configuration_translations.py:33103
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33280
+#: apps/configuration/configuration_translations.py:33104
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33281
+#: apps/configuration/configuration_translations.py:33105
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33282
+#: apps/configuration/configuration_translations.py:33106
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33283
+#: apps/configuration/configuration_translations.py:33107
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33284
+#: apps/configuration/configuration_translations.py:33108
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33285
+#: apps/configuration/configuration_translations.py:33109
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33286
+#: apps/configuration/configuration_translations.py:33110
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33287
+#: apps/configuration/configuration_translations.py:33111
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33288
+#: apps/configuration/configuration_translations.py:33112
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33289
+#: apps/configuration/configuration_translations.py:33113
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33290
+#: apps/configuration/configuration_translations.py:33114
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33291
+#: apps/configuration/configuration_translations.py:33115
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33292
+#: apps/configuration/configuration_translations.py:33116
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33293
+#: apps/configuration/configuration_translations.py:33117
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33294
+#: apps/configuration/configuration_translations.py:33118
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33295
+#: apps/configuration/configuration_translations.py:33119
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - coniferous"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33296
+#: apps/configuration/configuration_translations.py:33120
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33297
+#: apps/configuration/configuration_translations.py:33121
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33298
+#: apps/configuration/configuration_translations.py:33122
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33299
+#: apps/configuration/configuration_translations.py:33123
 msgctxt "technologies_2018 label"
 msgid "temperate continental forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33300
+#: apps/configuration/configuration_translations.py:33124
 msgctxt "technologies_2018 label"
 msgid "temperate mountain systems plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33301
+#: apps/configuration/configuration_translations.py:33125
 msgctxt "technologies_2018 label"
 msgid "temperate oceanic forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33302
+#: apps/configuration/configuration_translations.py:33126
 msgctxt "technologies_2018 label"
 msgid "temperate steppe plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33303
+#: apps/configuration/configuration_translations.py:33127
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33304
+#: apps/configuration/configuration_translations.py:33128
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33305
+#: apps/configuration/configuration_translations.py:33129
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33306
+#: apps/configuration/configuration_translations.py:33130
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33307
+#: apps/configuration/configuration_translations.py:33131
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33308
+#: apps/configuration/configuration_translations.py:33132
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33309
+#: apps/configuration/configuration_translations.py:33133
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33310
+#: apps/configuration/configuration_translations.py:33134
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33311
+#: apps/configuration/configuration_translations.py:33135
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33312
+#: apps/configuration/configuration_translations.py:33136
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33313
+#: apps/configuration/configuration_translations.py:33137
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33314
+#: apps/configuration/configuration_translations.py:33138
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33315
+#: apps/configuration/configuration_translations.py:33139
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33316
+#: apps/configuration/configuration_translations.py:33140
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33317
+#: apps/configuration/configuration_translations.py:33141
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33318
+#: apps/configuration/configuration_translations.py:33142
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33319
+#: apps/configuration/configuration_translations.py:33143
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33320
+#: apps/configuration/configuration_translations.py:33144
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33321
+#: apps/configuration/configuration_translations.py:33145
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33322
+#: apps/configuration/configuration_translations.py:33146
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - Tectona grandis"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33323
+#: apps/configuration/configuration_translations.py:33147
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33324
+#: apps/configuration/configuration_translations.py:33148
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation - broadleaf"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33325
+#: apps/configuration/configuration_translations.py:33149
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation - Eucalyptus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33326
+#: apps/configuration/configuration_translations.py:33150
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation - Pinus spp."
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33327
+#: apps/configuration/configuration_translations.py:33151
 msgctxt "technologies_2018 label"
 msgid "Tree plantation, afforestation: Specify type of forest"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33328
+#: apps/configuration/configuration_translations.py:33152
 msgctxt "technologies_2018 label_view"
 msgid "Type of tree plantation, afforestation"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33329
+#: apps/configuration/configuration_translations.py:33153
+msgctxt "technologies_2018 label"
+msgid "Acacia albida"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33154
+msgctxt "technologies_2018 label"
+msgid "Acacia auriculiformis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33155
+msgctxt "technologies_2018 label"
+msgid "Acacia mearnsii"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33156
+msgctxt "technologies_2018 label"
+msgid "Acacia mellifera"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33157
+msgctxt "technologies_2018 label"
+msgid "Acacia nilotica"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33158
+msgctxt "technologies_2018 label"
+msgid "Acacia senegal"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33159
+msgctxt "technologies_2018 label"
+msgid "Acacia seyal"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33160
+msgctxt "technologies_2018 label"
+msgid "Acacia species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33161
+msgctxt "technologies_2018 label"
+msgid "Acacia tortilis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33162
+msgctxt "technologies_2018 label"
+msgid "Ailanthus excelsa"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33163
+msgctxt "technologies_2018 label"
+msgid "Ailanthus species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33164
+msgctxt "technologies_2018 label"
+msgid "Araucaria angustifolia"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33165
+msgctxt "technologies_2018 label"
+msgid "Araucaria cunninghamii"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33166
+msgctxt "technologies_2018 label"
+msgid "Balanites aegyptiaca"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33167
+msgctxt "technologies_2018 label"
+msgid "Bamboo bamboo"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33168
+msgctxt "technologies_2018 label"
+msgid "Casuarina equisetifolia"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33169
+msgctxt "technologies_2018 label"
+msgid "Casuarina junghuhniana"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33170
+msgctxt "technologies_2018 label"
+msgid "Cordia alliadora"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33171
+msgctxt "technologies_2018 label"
+msgid "Cupressus lusitanica"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33172
+msgctxt "technologies_2018 label"
+msgid "Cupressus species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33173
+msgctxt "technologies_2018 label"
+msgid "Dalbergia sissoo"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33174
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus camaldulensis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33175
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus deglupta"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33176
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus globulus"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33177
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus grandis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33178
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus robusta"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33179
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus saligna"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33180
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33181
+msgctxt "technologies_2018 label"
+msgid "Eucalyptus urophylla"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33182
+msgctxt "technologies_2018 label"
+msgid "Abies species (fir)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33183
+msgctxt "technologies_2018 label"
+msgid "Gmelina arborea"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33184
+msgctxt "technologies_2018 label"
+msgid "Hevea brasiliensis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33185
+msgctxt "technologies_2018 label"
+msgid "Khaya species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33186
+msgctxt "technologies_2018 label"
+msgid "Larix species (larch)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33187
+msgctxt "technologies_2018 label"
+msgid "Leucaena leucocephala"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33188
+msgctxt "technologies_2018 label"
+msgid "Mimosa scabrella"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33189
+msgctxt "technologies_2018 label"
+msgid "Pinus species (pine)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33190
+msgctxt "technologies_2018 label"
+msgid "Pinus caribaea v. caribaea"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33191
+msgctxt "technologies_2018 label"
+msgid "Pinus caribaea v. hondurensis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33192
+msgctxt "technologies_2018 label"
+msgid "Pinus oocarpa"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33193
+msgctxt "technologies_2018 label"
+msgid "Pinus patula"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33194
+msgctxt "technologies_2018 label"
+msgid "Pinus radiata"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33195
 msgctxt "technologies_2018 label"
 msgid "Pinus species"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33330
+#: apps/configuration/configuration_translations.py:33196
+msgctxt "technologies_2018 label"
+msgid "Populus species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33197
+msgctxt "technologies_2018 label"
+msgid "Sclerocarya birrea"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33198
+msgctxt "technologies_2018 label"
+msgid "Picea species (spruce)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33199
+msgctxt "technologies_2018 label"
+msgid "Swietenia macrophylla"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33200
+msgctxt "technologies_2018 label"
+msgid "Tectona grandis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33201
+msgctxt "technologies_2018 label"
+msgid "Tectona species"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33202
+msgctxt "technologies_2018 label"
+msgid "Terminalia ivorensis"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33203
+msgctxt "technologies_2018 label"
+msgid "Terminalia superba"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33204
+msgctxt "technologies_2018 label"
+msgid "Xylia xylocapa"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33205
+msgctxt "technologies_2018 label"
+msgid "Ziziphus mauritiana"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33206
+msgctxt "technologies_2018 label"
+msgid "Azadirachta indica"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33207
+msgctxt "technologies_2018 label"
+msgid "Grevillea robusta"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33208
 msgctxt "technologies_2018 label"
 msgid "Specify type of tree"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33331
+#: apps/configuration/configuration_translations.py:33209
 msgctxt "technologies_2018 label_view"
 msgid "Type of tree"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33332
+#: apps/configuration/configuration_translations.py:33210
+msgctxt "technologies_2018 label"
+msgid "If type of tree is not listed above, specify other type"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33211
+msgctxt "technologies_2018 label"
+msgid "deciduous"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33212
+msgctxt "technologies_2018 label"
+msgid "mixed deciduous/ evergreen"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33213
+msgctxt "technologies_2018 label"
+msgid "evergreen"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33214
+msgctxt "technologies_2018 label"
+msgid "Are the trees specified above deciduous or evergreen?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33215
+#: apps/configuration/configuration_translations.py:33219
+msgctxt "technologies_2018 label"
+msgid "Has land use changed due to the implementation of the Technology?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33216
+msgctxt "technologies_2018 helptext"
+msgid "This section is not relevant for traditional systems"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33217
+msgctxt "technologies_2018 label"
+msgid ""
+"Yes (Please fill out the questions below with regard to the land use before "
+"implementation of the Technology)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33218
+msgctxt "technologies_2018 label"
+msgid "No (Continue with question 3.4)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33220
 msgctxt "technologies_2018 label"
 msgid ""
 "If the Technology is evenly spread over an area, specify area covered (in "
 "km2)"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33333
+#: apps/configuration/configuration_translations.py:33221
 msgctxt "technologies_2018 helptext"
 msgid "1 ha = 10’000m²; 1 km² = 100 ha"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33334
+#: apps/configuration/configuration_translations.py:33222
+msgctxt "technologies_2018 label"
+msgid "A 3.1: No tillage"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33223
+#, python-format
+msgctxt "technologies_2018 label"
+msgid "A 3.2: Reduced tillage (> 30%% soil cover)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33224
+#, python-format
+msgctxt "technologies_2018 label"
+msgid "A 3.3: Full tillage (< 30%% soil cover)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33225
+msgctxt "technologies_2018 label"
+msgid "A3: Differentiate tillage systems"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33226
+msgctxt "technologies_2018 label"
+msgid "A6: Residue management"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33227
+msgctxt "technologies_2018 label"
+msgid "A 6.1: burned"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33228
+msgctxt "technologies_2018 label"
+msgid "A 6.2: grazed"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33229
+msgctxt "technologies_2018 label"
+msgid "A 6.3: collected"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33230
+msgctxt "technologies_2018 label"
+msgid "A 6.4: retained"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33231
+msgctxt "technologies_2018 label"
+msgid "A6: Specify residue management"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33232
+msgctxt "technologies_2018 label"
+msgid "Total costs for establishment of the Technology in USD"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33233
+msgctxt "technologies_2018 label"
+msgid "Total costs for maintenance of the Technology in USD"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33234
 msgctxt "technologies_2018 label"
 msgid "ground water"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33335
+#: apps/configuration/configuration_translations.py:33235
 msgctxt "technologies_2018 label"
 msgid "surface water"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33336
+#: apps/configuration/configuration_translations.py:33236
 msgctxt "technologies_2018 label"
 msgid "both ground and surface water"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33337
+#: apps/configuration/configuration_translations.py:33237
 msgctxt "technologies_2018 label"
 msgid "Water quality refers to:"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33338
+#: apps/configuration/configuration_translations.py:33238
+msgctxt "technologies_2018 label"
+msgid "Are land use rights based on a traditional legal system?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33239
+msgctxt "technologies_2018 label"
+msgid "Specify"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:33240
 msgctxt "technologies_2018 label"
 msgid "Comments"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33339
+#: apps/configuration/configuration_translations.py:33241
 msgctxt "technologies_2018 label"
 msgid "Specify assessment of on-site impacts (measurements)"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33340
-#: apps/configuration/configuration_translations.py:33341
+#: apps/configuration/configuration_translations.py:33242
+#: apps/configuration/configuration_translations.py:33243
 msgctxt "technologies_2018 label"
 msgid "General comments"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:33342
+#: apps/configuration/configuration_translations.py:33244
 msgctxt "technologies_2018 helptext"
 msgid "Feedback regarding the questionnaire, the database or general remarks."
 msgstr ""
@@ -19409,8 +19437,14 @@ msgid ""
 "practices%(end_link)s."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:17
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:19
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
+msgid ""
+"Please make sure that you have selected the correct language. You can change "
+"the language in the top right corner of this page."
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:16
 #, python-format
 msgid ""
@@ -19418,22 +19452,22 @@ msgid ""
 "%(end_link)s."
 msgstr "ແບບສອບຖາມທີ່ເປັນຟາຍ PDF ສາມາດເປັນ %(start_link)s ດາວໂຫຼດບ່ອນນີ້%(end_link)s."
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:29
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:25
 msgid "Take a tour"
 msgstr "​ເຂົ້າຢ້ຽມຊົມເບີ່ງ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:31
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:26
 msgid "Start data entry"
 msgstr "ມື້ເລີ່ມຕົ້ນປ້ອນຂໍ້ມູນ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:37
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
 msgid "Review process"
 msgstr "ຂະບວນການທົບທວນຄືນ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:43
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:44
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:39
 msgid "Click the image for a larger version of it."
 msgstr "ກົດທີ່ຮູບພາບເພື່ອຕ້ອງການຂະຫຍາຍຮູບພາຍໃຫ້ໃຫຍ່."
@@ -20122,7 +20156,7 @@ msgstr "ຂໍ້ມູນບັນທຶກສໍາເລັດ."
 msgid "QCAT Form"
 msgstr "ແບ​ບ​ຟອມ QCAT"
 
-#: apps/questionnaire/views.py:1525
+#: apps/questionnaire/views.py:1529
 msgid "No or multiple files provided."
 msgstr "ມີ ຫຼື ບໍ່ມີໄຟລ໌ເອກກະສານ ທີ່ຫຼາກຫຼາຍສະໜອງໃຫ້."
 
