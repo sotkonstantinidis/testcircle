@@ -6,16 +6,19 @@
 # Deborah Niggli <deborah.niggli@cde.unibe.ch>, 2017
 # Farrukh Nazarmavloev <fnazarmavloev@unccd.int>, 2016
 # Isabelle Providoli <isabelle.providoli@cde.unibe.ch>, 2016
-# Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2016
+# Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2016
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2016
 # Pedro Albornoz <pedrotraducciones@gmail.com>, 2016-2018
 # Sebastian Manger <s.manger@gmx.ch>, 2016
+# WOCAT WOCAT <wocat@cde.unibe.ch>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 14:44+0100\n"
-"PO-Revision-Date: 2018-11-15 12:15+0000\n"
-"Last-Translator: Pedro Albornoz <pedrotraducciones@gmail.com>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:27+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/es/)\n"
 "Language: es\n"
@@ -19230,26 +19233,30 @@ msgid "Russian"
 msgstr "Ruso"
 
 #: apps/qcat/config/common.py:109
+msgid "Chinese"
+msgstr "Chino"
+
+#: apps/qcat/config/common.py:110
 msgid "Khmer"
 msgstr "Khmer"
 
-#: apps/qcat/config/common.py:110
+#: apps/qcat/config/common.py:111
 msgid "Lao"
 msgstr "Lao"
 
-#: apps/qcat/config/common.py:111
+#: apps/qcat/config/common.py:112
 msgid "Arabic"
 msgstr "Árabe"
 
-#: apps/qcat/config/common.py:112
+#: apps/qcat/config/common.py:113
 msgid "Portuguese"
 msgstr "Portugués"
 
-#: apps/qcat/config/common.py:113
+#: apps/qcat/config/common.py:114
 msgid "Afrikaans"
 msgstr "Afrikaans"
 
-#: apps/qcat/config/common.py:114
+#: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr "Tailandés"
 
@@ -20597,8 +20604,16 @@ msgstr ""
 "\"%(intro_url)s\" class=\"link\">lea sobre la documentación WOCAT de "
 "prácticas MST%(end_link)s."
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:17
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:19
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
+msgid ""
+"Please make sure that you have selected the correct language. You can change "
+"the language in the top right corner of this page."
+msgstr ""
+"Por favor, asegúrese de que ha seleccionado el idioma correcto. Usted puede "
+"cambiar el idioma en la esquina superior derecha de esta página"
+
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:16
 #, python-format
 msgid ""
@@ -20608,22 +20623,22 @@ msgstr ""
 "Se puede descargar una versión en PDF del documento impreso "
 "%(start_link)saquí%(end_link)s."
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:29
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:25
 msgid "Take a tour"
 msgstr "Haga el recorrido"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:31
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:26
 msgid "Start data entry"
 msgstr "Comience a ingresar datos"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:37
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
 msgid "Review process"
 msgstr "Proceso de revisión"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:43
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:44
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:39
 msgid "Click the image for a larger version of it."
 msgstr "Haga clic en la imagen para tener una versión más grande de ella. "
@@ -21381,7 +21396,7 @@ msgstr "Los datos se guardaron con éxito"
 msgid "QCAT Form"
 msgstr "Formulario QCAT"
 
-#: apps/questionnaire/views.py:1525
+#: apps/questionnaire/views.py:1529
 msgid "No or multiple files provided."
 msgstr "No se proporcionaron archivos o se proporcionaron múltiples archivos."
 

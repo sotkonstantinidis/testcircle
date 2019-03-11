@@ -4,7 +4,8 @@
 #
 # Translators:
 # geoinfo admin <geoinfo.sale@gmail.com>, 2018
-# Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2018
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2018
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2018
 # Nattakran Kitsawat <nattakran.kitsawat@gmail.com>, 2018
 # Panruthai Tangprasert <panruthai.tang@gmail.com>, 2018
 # geoinfo admin <geoinfo.sale@gmail.com>, 2018
@@ -12,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 14:44+0100\n"
-"PO-Revision-Date: 2018-11-15 12:15+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:23+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Thai (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/th/)\n"
 "Language: th\n"
@@ -18045,26 +18046,30 @@ msgid "Russian"
 msgstr "รัสเซีย"
 
 #: apps/qcat/config/common.py:109
+msgid "Chinese"
+msgstr ""
+
+#: apps/qcat/config/common.py:110
 msgid "Khmer"
 msgstr "เขมร"
 
-#: apps/qcat/config/common.py:110
+#: apps/qcat/config/common.py:111
 msgid "Lao"
 msgstr "ลาว"
 
-#: apps/qcat/config/common.py:111
+#: apps/qcat/config/common.py:112
 msgid "Arabic"
 msgstr "อาหรับ"
 
-#: apps/qcat/config/common.py:112
+#: apps/qcat/config/common.py:113
 msgid "Portuguese"
 msgstr "โปรตุเกส"
 
-#: apps/qcat/config/common.py:113
+#: apps/qcat/config/common.py:114
 msgid "Afrikaans"
 msgstr "แอฟริกา"
 
-#: apps/qcat/config/common.py:114
+#: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr ""
 
@@ -19331,8 +19336,14 @@ msgid ""
 "practices%(end_link)s."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:17
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:19
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
+msgid ""
+"Please make sure that you have selected the correct language. You can change "
+"the language in the top right corner of this page."
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:16
 #, python-format
 msgid ""
@@ -19342,22 +19353,22 @@ msgstr ""
 "แบบสอบถามฉบับกระดาษในรูปแบบของ PDF สามารถ %(start_link)s ดาวน์โหลดตรงนี้ "
 "%(end_link)s"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:29
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:25
 msgid "Take a tour"
 msgstr "เริ่มต้นการทัวร์"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:31
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:26
 msgid "Start data entry"
 msgstr "เริ่มการนำเข้าข้อมูล"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:37
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
 msgid "Review process"
 msgstr "ขั้นตอนการตรวจสอบ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:43
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:44
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:39
 msgid "Click the image for a larger version of it."
 msgstr "คลิกที่รูปภาพเพื่อแสดงภาพขนาดใหญ่ขึ้น"
@@ -20043,7 +20054,7 @@ msgstr "ข้อมูลถูกบันทึกแล้ว"
 msgid "QCAT Form"
 msgstr "ฟอร์ม QCAT"
 
-#: apps/questionnaire/views.py:1525
+#: apps/questionnaire/views.py:1529
 msgid "No or multiple files provided."
 msgstr "ไม่มีหรือมีไฟล์หลายไฟล์ที่มีให้"
 

@@ -5,17 +5,19 @@
 # Translators:
 # anousit namsena <anousithaha@gmail.com>, 2017
 # Bounthanom Bouahom <bounthanom.b@gmail.com>, 2017
-# Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2017
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2017
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2017
 # Pasalath Khounsy <pasalathkh@gmail.com>, 2017
-# Stephanie Jaquet <stephanie.jaquet@cde.unibe.ch>, 2017
+# phonesyli phanvongsa <kangphanvongsa@gmail.com>, 2018-2019
+# Stephanie Jaquet <stephanie.jaquet@cde.unibe.ch>, 2017-2018
 # vanita somsanith <vanita_somsanith69@yahoo.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 14:44+0100\n"
-"PO-Revision-Date: 2018-11-15 12:15+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:23+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/lo/)\n"
 "Language: lo\n"
@@ -59,7 +61,7 @@ msgstr "ທີ່ຢູ່ ອີເມວ"
 
 #: apps/accounts/templates/details.html:34
 msgid "Notification preferences"
-msgstr ""
+msgstr "ການແຈ້ງເຕືອນ ທີ່ສຳຄັນ"
 
 #: apps/accounts/templates/details.html:45
 msgid "UNCCD national focal point"
@@ -401,7 +403,7 @@ msgstr "ຄຸນລັກສະນະ ຂອງເຕັກນິກ (ທີ່
 #: apps/configuration/configuration_translations.py:1050
 msgctxt "technologies_2018 label"
 msgid "Technical specifications (related to technical drawing)"
-msgstr ""
+msgstr "ຄຸນລັກສະນະ ຂອງເຕັກນິກ (ທີ່ກ່ຽວຂ້ອງ ກັບການແຕ້ມແຜນວາດ ທາງດ້ານເຕັກນີກ) "
 
 #: apps/configuration/configuration_translations.py:1051
 msgctxt "technologies_2018 helptext"
@@ -416,6 +418,13 @@ msgid ""
 "material used</li><li>Species used</li><li>Quantity/ density of plants (per "
 "ha)</li></ul>"
 msgstr ""
+"<p>ສັງລວມ ລັກສະນະສະເພາະ ຂອງເຕັກນິກ ຕົວຢ່າງ,</p><ul><li>ມິຕິ (ສູູງ, ເລິກ, ກວ້າງ, ຄວາມຍາວ) "
+"ທາງດ້ານໂຄງສ້າງ ແລະ ພຶດພັນ:</li><li>ຊ່ອງວ່າງລະຫວ່າງມາດຕະການໂຄງສ້າງ ຫຼື ພືດ / ພືດພັນ</"
+"li><li>ມາດຕະການໂຄງສ້າງທາງລວມຂວາງ ຫຼື ພືດພັນ</li><li>ຄວາມຄ້ອຍຊັນ (ກ່ອນ ແລະ "
+"ຫຼັງການຈັດຕັ້ງປະຕິບັດເຕັກໂນໂລຢີ)<li><li>ຄວາມລາດຊັນຂອງໂຄງສ້າງ</"
+"li><li>ຄວາມອາດສາມາດຂອງຝາຍ, ໜອງ ແລະ ອື່ນໆ</li><li>ເນື້ອທີ່ອ່າງນໍ້າ ແລະ ບ່ອນທີ່ໄດ້ຮັບຜົນປະ "
+"ໂຫຍດຈາກຝາຍ, ໜອງ ແລະ ລະບົບການເກັບກັກນໍ້າຕ່າງໆ</li><li>ວັດສະດຸໃນການກໍ່ສ້າງ</"
+"li><li>ຊະນິດພັນທີ່ໃຊ້</li><li>ປະລິມານ / ຄວາມໝາແໜ້ນຂອງພືດພັນ (ຕໍ່ເຮັກຕາ)</li><ul>"
 
 #: apps/configuration/configuration_translations.py:1052
 #: apps/configuration/configuration_translations.py:1053
@@ -453,7 +462,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1060
 msgctxt "technologies_2018 label"
 msgid "Timing (season)"
-msgstr ""
+msgstr "Timing (season)"
 
 #: apps/configuration/configuration_translations.py:1061
 msgctxt "technologies_2018 helptext"
@@ -462,6 +471,9 @@ msgid ""
 "month or season, or \"after harvest of crops\", \"before onset of rains\", "
 "etc.</p>"
 msgstr ""
+"<p><strong>Timing</strong>: Time during which activity is carried out, e.g. "
+"month or season, or \"after harvest of crops\", \"before onset of rains\", "
+"etc.</p>"
 
 #: apps/configuration/configuration_translations.py:1062
 #: apps/configuration/configuration_translations.py:1063
@@ -487,7 +499,7 @@ msgstr "%% ຂອງຕົ້ນທຶນທັງໝົດ ທີ່ຜູ້�
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "%% of costs borne by land users"
-msgstr ""
+msgstr "%%ຂອງຄ່າໃຊ້ຈ່າຍ ທີ່ເກັີດຈາກບັນດາຜູ້ນຳໃຊ້ທີ່ດິນ"
 
 #: apps/configuration/configuration_translations.py:1070
 #: apps/configuration/configuration_translations.py:1071
@@ -500,6 +512,10 @@ msgid ""
 "receiving any reward or subsidies, indicate labour = 100%%.</p><p>For inputs "
 "which are fully paid or provided by external entities: always enter 0%%</p>"
 msgstr ""
+"<p>ອັດຕາສ່ວນ ເປີເຊັນຂອງຄ່າໃຊ້ຈ່າຍ ທີ່ຜູ້ນຳໃຊ້ທີ່ດິນ ປະກອບສ່ວນ. ລະບຸແຈ່ສິ່ງທີ່ນຳເຂົ້າມາ.​ ຕົວຢ່າງ: "
+"ຖ້າຜູ້ນຳໃຂ້ທີ່ດິນໄດ້ຮັບປຸ່ຍຟີ ຈາກໜ່ວຍງານຊ່ວຍເຫຼືອ, ໃຫ້ລະບຸວ່າ ປຸ່ຍ = 0 %%; ຖ້າຫາກ ຜູ້ນຳໃຊ້ທີ່ດິນ "
+"ຈັດຫາກຳລັງແຮງງານ ທັງໝົດ, ໂດຍບໍ່ໄດ້ຮັບເງີນທົດແທນ ຫຼື ເງິນອຸດໜຸນໃດໆ, ໃຫ້ລະບຸວ່າ ແຮງງານ = 100 %%."
+"</p><p>ສຳລັບປັດໃຈການຜະລິດທີ່ຈ່າຍເຕັມສ່ວນ ຫຼື ຈັດຫາໂດຍໜ່ວຍງານພາຍນອກ: ແມ່ນໃສ່ 0%%</p>"
 
 #: apps/configuration/configuration_translations.py:1072
 msgctxt "technologies label"
@@ -676,7 +692,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1104
 msgctxt "technologies_2018 helptext"
 msgid "E.g. mean annual temperature"
-msgstr ""
+msgstr "ອຸນຫະພູມສະເລ່ຍປະຈຳປີ"
 
 #: apps/configuration/configuration_translations.py:1105
 msgctxt "technologies label"
@@ -928,12 +944,12 @@ msgstr "ຄວາມເລິກ ຂອງດິນສະເລ່ຍ"
 #: apps/configuration/configuration_translations.py:1168
 msgctxt "technologies_2018 label"
 msgid "Soil depth on average"
-msgstr ""
+msgstr "ຄວາມເລຶກຂອງດິນ ໂດຍສະເລ່ຍ"
 
 #: apps/configuration/configuration_translations.py:1169
 msgctxt "technologies_2018 helptext"
 msgid "<strong>Soil depth</strong>: distance from top to parent material."
-msgstr ""
+msgstr "<strong>ຄວາມເລິກຂອງດິນ</strong>: ໄລຍະຫ່າງ ຈາກຊັ້ນໜ້າດີນ ເຖີງ  ຊັ້ນຫີນ"
 
 #: apps/configuration/configuration_translations.py:1170
 #: apps/configuration/configuration_translations.py:2266
@@ -1140,14 +1156,14 @@ msgstr "ບຸກຄົນ ຫຼື ກຸ່ມ"
 #: apps/configuration/configuration_translations.py:1220
 msgctxt "technologies_2018 label"
 msgid "Individuals or groups"
-msgstr ""
+msgstr "ຫຼາຍບຸກຄົນ ລື ຫຼາຍກຸ່ມ"
 
 #: apps/configuration/configuration_translations.py:1221
 msgctxt "technologies_2018 helptext"
 msgid ""
 "Indicate if land users apply the technology as individuals or as members of "
 "a specific group/ company."
-msgstr ""
+msgstr "ລະບຸວ່າ ຖ້າຜູ້ນຳໃຊ້ດິນ ໃຊ້ເຕັກໂນໂລຢີ ເປັນບຸກຄົນ ຫຼື ເປັນສະມາຊິກຂອງກຸ່ມ / ບໍລິສັດສະເພາະໃດຫນຶ່ງ"
 
 #: apps/configuration/configuration_translations.py:1222
 #: apps/configuration/configuration_translations.py:5177
@@ -1500,7 +1516,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1349
 msgctxt "technologies_2018 label"
 msgid "Extensive grazing"
-msgstr ""
+msgstr "ການລ້ຽງສັດແບບປ່ອຍ ຕາມທຳມະຊາດ"
 
 #: apps/configuration/configuration_translations.py:1350
 msgctxt "technologies_2018 helptext"
@@ -1509,6 +1525,9 @@ msgid ""
 "grasslands, grasslands with trees/ shrubs (savannah vegetation) or open "
 "woodlands for livestock and wildlife."
 msgstr ""
+"<strong>Ge: ການລ້ຽງສັດແບບປ່ອຍ ຕາມທຳມະຊາດ</strong>: ລ້ຽງຕາມທົ່ງຫຍ້າທຳມະຊາດ ຫຼືີ "
+"ເຄີ່ງທຳມະຊາດ ເຄີ່ງທີ່ດິນປູກຫຍ້າ, ທີ່ດິນປູກຫຍ້າ ທີ່ມີຕົ້ນໄມ້/ຟຸ່ມໄມ້ ( ພືດໄມ້ຟຸ່ມ) ຫຼື ພື້ນທີ່ປ່າເປີດແປນ "
+"ສຳລັບສັດລ້ຽງ ແລະ ສັດປ່າ."
 
 #: apps/configuration/configuration_translations.py:1351
 msgctxt "technologies label"
@@ -1526,7 +1545,7 @@ msgstr "<strong>Fp: ປ່າປູກ, ປ່າຟື້ນຟູ</strong>: �
 msgctxt "technologies_2018 label"
 msgid ""
 "Tree plantation, afforestation: Specify origin and composition of species"
-msgstr ""
+msgstr "ການປູກຕົ້ນໄມ້, ປູກປ່າ: ລະບຸ ຕົ້ນກຳເນີດ ແລະ ອົງປະກອບ ຂອງສາຍພັນ"
 
 #: apps/configuration/configuration_translations.py:1354
 msgctxt "technologies label"
@@ -1555,6 +1574,8 @@ msgid ""
 "If using a local area unit, indicate conversion factor to one hectare (e.g. "
 "1 ha = 2.47 acres): 1 ha ="
 msgstr ""
+"ຖ້ານໍາໃຊ້ຫົວໜ່ວຍ ເນື້ອທີ່ຕາມທ້ອງຖິ່ນ, ໃຫ້ປ່ຽບເປັນ 1 ເຮັກຕາ (ຕົວຢ່າງ: 1 ເຮັກຕາ = 4 ໄລ່ ): 1 ເຮັກຕາ "
+"= "
 
 #: apps/configuration/configuration_translations.py:1361
 msgctxt "technologies_2018 helptext"
@@ -1563,6 +1584,8 @@ msgid ""
 "units we recommend using an online unit converter, e.g. http://www."
 "unitconverters.net/"
 msgstr ""
+"ໝາຍເຖິງ ພື້ນທີ່ສະເພາະ ທີ່ລະບຸໄວ້ໃນຂໍ້ 2.5 ສໍາລັບການປ່ຽນ ລະຫວ່າງ ຫົວຫນ່ວຍທ້ອງຖິ່ນ ແລະ "
+"ຕົວຊີ້ວັດທີ່ພວກເຮົາແນະນໍາ ໃຫ້ໃຊ້ຕົວປ່ຽນ ຫົວໜ່ວຍອອນໄລ໌, ເຊັ່ນ: http://www.unitconverters.net/"
 
 #: apps/configuration/configuration_translations.py:1362
 msgctxt "technologies label"
@@ -1718,7 +1741,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1398
 msgctxt "technologies_2018 label"
 msgid "Specify dimensions of unit (if relevant)"
-msgstr ""
+msgstr "ກໍານົດຂະຫນາດຂອງຫົວນ໋ວຍ (ຖ້າກ່ຽວຂ້ອງ)"
 
 #: apps/configuration/configuration_translations.py:1399
 msgctxt "technologies_2018 helptext"
@@ -1850,7 +1873,7 @@ msgstr "ຮູບແບບ ການປ່ຽນແປງດິນຟ້າອ�
 #: apps/configuration/configuration_translations.py:1424
 msgctxt "technologies_2018 label"
 msgid "increase or decrease"
-msgstr ""
+msgstr "ເພີ່ມຂື້ນ ຫຼື ຫຼຸດລົງ"
 
 #: apps/configuration/configuration_translations.py:1425
 msgctxt "technologies label"
@@ -1926,7 +1949,7 @@ msgstr "ຖ້າຫາກວ່າ ເຕັກໂນໂລຢີ ໄດ້ແ�
 #: apps/configuration/configuration_translations.py:1435
 msgctxt "technologies_2018 label"
 msgid "If precise area is not known, indicate approximate area covered"
-msgstr ""
+msgstr "ຖ້າຫາກບໍ່ຮູ້ເນື້ອທີ່ທີ່ແນ່ນອນ, ໃຫ້ລະບຸ ເນື້ອທີ່ໂດຍປະມານ ທີ່ໃກ້ຄຽງ"
 
 #: apps/configuration/configuration_translations.py:1436
 msgctxt "technologies label"
@@ -1974,6 +1997,8 @@ msgid ""
 "If relevant, indicate exchange rate from USD to local currency (e.g. 1 USD = "
 "79.9 Brazilian Real): 1 USD ="
 msgstr ""
+"ຖ້າກ່ຽວຂ້ອງ, ໃຫ້ລະບຸອັດຕາແລກປ່ຽນຈາກ USD ເປັນສະກຸນເງິນທ້ອງຖິ່ນ (ເຊັ່ນ: 1 USD = 79.9 "
+"Brazilian Real): 1 USD ="
 
 #: apps/configuration/configuration_translations.py:1444
 msgctxt "technologies label"
@@ -1998,6 +2023,8 @@ msgid ""
 "If you are unable to break down the costs in the table above, give an "
 "estimation of the total costs of establishing the Technology"
 msgstr ""
+"ຖ້າທ່ານບໍ່ສາມາດ ໄຈ້ແຍກຄ່າໃຊ້ຈ່າຍໃນຕາຕະລາງຂ້າງເທິງ, ໃຫ້ຄາດຄະເນຂອງຄ່າໃຊ້ຈ່າຍທັງຫມົດ "
+"ຂອງການສ້າງເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:1447
 #: apps/configuration/configuration_translations.py:1448
@@ -2026,6 +2053,8 @@ msgid ""
 "If you are unable to break down the costs in the table above, give an "
 "estimation of the total costs of maintaining the Technology"
 msgstr ""
+"ຖ້າທ່ານບໍ່ສາມາດ ໄຈ້ແຍກຄ່າໃຊ້ຈ່າຍໃນຕາຕະລາງຂ້າງເທິງ, ໃຫ້ຄາດຄະເນຂອງຄ່າໃຊ້ຈ່າຍທັງຫມົດ "
+"ຂອງການບຳລຸງຮັກສາ ເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:1451
 msgctxt "technologies label"
@@ -2098,7 +2127,7 @@ msgstr "ຄໍາເຫັນກ່ຽວກັບ ການປະເມີນ �
 #: apps/configuration/configuration_translations.py:1466
 msgctxt "technologies_2018 label"
 msgid "Specify assessment of off-site impacts (measurements)"
-msgstr ""
+msgstr "ກໍານົດ ການປະເມີນ ຜົນກະທົບທາງນອກ (ການວັດແທກ)"
 
 #: apps/configuration/configuration_translations.py:1467
 msgctxt "technologies label"
@@ -2115,6 +2144,8 @@ msgid ""
 "Of all those who have adopted the Technology, how many did so spontaneously, "
 "i.e. without receiving any material incentives/ payments?"
 msgstr ""
+"ທັງໝົດນັ້ນ ແມ່ນໃຜ ໄດ້ປັບຕົວເຂົ້າ ໃນການນໍາໃຊ້ ເຕັກໂນໂລຢີ, ມີຈັກຄົນ ທີ່ສາມາດເຮັດເອງໄດ້, ຕົວຢ່າງ, "
+"ປາດສະຈາກ ການຊ່ວຍເຫຼືອ ທາງດ້ານອຸປະກອນ / ການຈ່າຍເປັນເງິນ?"
 
 #: apps/configuration/configuration_translations.py:1469
 msgctxt "technologies label"
@@ -2149,7 +2180,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1474
 msgctxt "technologies_2018 label"
 msgid "(Semi-)natural forests/ woodlands: Specify management type"
-msgstr ""
+msgstr "(ເຄີ່ງ) ປ່າທໍາມະຊາດ / ປ່າປູກ: ລະບຸປະເພດການຄຸ້ມຄອງ"
 
 #: apps/configuration/configuration_translations.py:1495
 msgctxt "technologies label"
@@ -2291,6 +2322,8 @@ msgid ""
 "<strong>Mf: Agroforestry</strong>: cropland and trees.<br>Select \"Cropland"
 "\" and \"Forest/ woodlands\" below and fill out the relevant sections."
 msgstr ""
+"<strong>Ma: ກະສິກຳ-ປ່າໄມ້ ແບບປະສົມປະສານ</strong>: ດິນປູກຝັງ ແລະ ດິນປູກຕົ້ນໄມ້ <br>ເລືອກ "
+"\"ດິນປູກຝັງ\", \"ທີ່ດິນປ່າປູກ ແລະ \"ປ່າ/ທີ່ດີນປ່າແປນ\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1523
 msgctxt "technologies label"
@@ -2309,7 +2342,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1525
 msgctxt "technologies_2018 label"
 msgid "Agro-pastoralism (incl. integrated crop-livestock)"
-msgstr ""
+msgstr "ກະສິກໍາແບບປະສົມປະສານ (ລວມທັງ ການລ້ຽງສັດ-ປຸກຝັງ)"
 
 #: apps/configuration/configuration_translations.py:1526
 msgctxt "technologies_2018 helptext"
@@ -2318,6 +2351,9 @@ msgid ""
 "seasonal change between crops and livestock).<br>Select \"Cropland\" and "
 "\"Grazing land\" below and fill out the relevant sections."
 msgstr ""
+"<strong>Mp: ກະສິກຳແບບປະສົມປະສານ</strong>: ທີ່ດິນປູກຝັງ, ທີ່ດິນທົ່ງຫຍ້າ (ລວມທັງ "
+"ການປ່ຽນແປງຕາມລະດູ ລະຫວ່າງການປູກພືດ ແລະ ລ້ຽງສັດ)<br>ເລືອກ \"ທີ່ດິນປູກຝັງ\"ແລະ \" ທີ່ດິນທົ່ງຫຍ້າ"
+"\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1527
 msgctxt "technologies label"
@@ -2336,7 +2372,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1529
 msgctxt "technologies_2018 label"
 msgid "Agro-silvopastoralism"
-msgstr ""
+msgstr "ກະສິກຳປະສົມປະສານ"
 
 #: apps/configuration/configuration_translations.py:1530
 msgctxt "technologies_2018 helptext"
@@ -2346,6 +2382,9 @@ msgid ""
 "\", \"Grazing land\" and \"Forest/ woodlands\" below and fill out the "
 "relevant sections."
 msgstr ""
+"<strong>Ma: ກະສິກຳ-ປ່າໄມ້-ທົ່ງຫຍ້າ</strong>: ດິນປູກຝັງ, ທີ່ດິນທົ່ງຫຍ້າ ແລະ ທີ່ດິນປູກຕົ້ນໄມ້ "
+"(ລວມທັງການປ່ຽນແປງຕາມລະດູ ລະຫວ່າງການປູກພືດ ແລະ ລ້ຽງສັດ)<br>ເລືອກ \"ທີ່ດິນປູກຝັງ\", "
+"\"ທີ່ດິນທົ່ງຫຍ້າ\" ແລະ \"ປ່າ/ທີ່ດີນປ່າແປນ\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1531
 msgctxt "technologies label"
@@ -2360,7 +2399,7 @@ msgstr "<strong>Ms: ປ່າໄມ້-ທົ່ງຫຍ້າ</strong>: ທີ
 #: apps/configuration/configuration_translations.py:1533
 msgctxt "technologies_2018 label"
 msgid "Silvo-pastoralism"
-msgstr ""
+msgstr "ກະສິກຳປະສົມປະສານ"
 
 #: apps/configuration/configuration_translations.py:1534
 msgctxt "technologies_2018 helptext"
@@ -2369,6 +2408,8 @@ msgid ""
 "\"Grazing land\" and \"Forest/ woodlands\" below and fill out the relevant "
 "sections."
 msgstr ""
+"<strong>Mp: ກະສິກຳແບບປະສົມປະສານ</strong>: <br>ເລືອກ \"ທີ່ດິນທົ່ງຫຍ້າ\"ແລະ \" ປ່າໄມ້/"
+"ປ່າແປນ\" ທາງລຸ່ມ ແລະ ເຕື່ມໃສ່ພາກສ່ວນທີ່ກ່ຽວຂ້ອງ."
 
 #: apps/configuration/configuration_translations.py:1535
 msgctxt "technologies label"
@@ -2378,7 +2419,7 @@ msgstr "A6: ອື່ນໆ"
 #: apps/configuration/configuration_translations.py:1536
 msgctxt "technologies_2018 label"
 msgid "A7: Others"
-msgstr ""
+msgstr "A7: ອື່ນໆ"
 
 #: apps/configuration/configuration_translations.py:1537
 msgctxt "technologies label"
@@ -2685,7 +2726,7 @@ msgstr "Wg: ການເຊາະເຈື່ອນຮ່ອງນ້ຳ / ຫ�
 #: apps/configuration/configuration_translations.py:1587
 msgctxt "technologies_2018 label"
 msgid "Wg: gully erosion/ gullying"
-msgstr ""
+msgstr "Wg:ການເຊາະເຈື່ອນຕາມຫ້ວຍ/ຮ່ອງນ້ຳ"
 
 #: apps/configuration/configuration_translations.py:1588
 msgctxt "technologies_2018 helptext"
@@ -2693,6 +2734,8 @@ msgid ""
 "<strong>Gully erosion/ gullying</strong>: Removal of soil along drainage "
 "lines by surface runoff, creating deep channels (more than 30 cm deep)"
 msgstr ""
+"<strong>ການເຈື່ອນຕາມແຄມຫ້ວຍ/ເຈື່ອນຮ້າຍແຮງ</strong>: ມີການເຄື່ອນຍ້າຍຂອງດິນ "
+"ໂດຍການໄຫຼຂອງຊັ້ນໜ້າດິນ ທີ່ຖືກລະບາຍມາຕາມສາຍນ້ຳ, ເຮັດໃຫ້ເກີດເປັນຮ່ອງເລີກ ( ເລີກກ່ວາ 30 ຊັງຕີແມັດ )"
 
 #: apps/configuration/configuration_translations.py:1589
 msgctxt "technologies label"
@@ -2702,7 +2745,7 @@ msgstr "Wm: ການເຄື່ອນຍ້າຍອິນຊີວັດຖ�
 #: apps/configuration/configuration_translations.py:1590
 msgctxt "technologies_2018 label"
 msgid "Wm: mass movements/ landslides"
-msgstr ""
+msgstr "Wm: ການເຄື່ອນຍ້າຍຂອງມວນດິນ/ດິນຖະລົ່ມ"
 
 #: apps/configuration/configuration_translations.py:1591
 msgctxt "technologies_2018 helptext"
@@ -2711,6 +2754,9 @@ msgid ""
 "of a mass of earth, debris, or rock on a slope (includes mudflows and "
 "rockfalls); also called landslip."
 msgstr ""
+"<strong>ການເຄື່ອນໄຫວຂອງມວນດິນ/ແຜ່ນດິນຖະລົ່ມ</strong>: ການຕົກລົງ ຫຼື ເລື່ອນລົງ ສູ່ເບື້ອງລຸ່ມ "
+"ຂອງມວນດິນ, ເສດຊາກ ຫຼື ໂງ່ນຫີນ ຢູ່ບ່ອນຄ້ອຍ ( ລວມທັງ ການໄຫຼຂອງຕົມ ແລະ ໂງ່ນຫີນຕົກ); ກໍ່ເອີ້ນວ່າ "
+"ດິນຖະລົ່ມ"
 
 #: apps/configuration/configuration_translations.py:1592
 msgctxt "technologies label"
@@ -2720,14 +2766,14 @@ msgstr "Wr: ແຄມຕາຝັ່ງເຈື່ອນ"
 #: apps/configuration/configuration_translations.py:1593
 msgctxt "technologies_2018 label"
 msgid "Wr: riverbank erosion"
-msgstr ""
+msgstr "Wr:ແຄມແມ່ນ້ຳເຊາະເຈື່ອນ"
 
 #: apps/configuration/configuration_translations.py:1594
 msgctxt "technologies_2018 helptext"
 msgid ""
 "<strong>Riverbank erosion</strong>: the wearing away of the banks of a "
 "stream or river"
-msgstr ""
+msgstr "<strong>ແຄມຕາຝັ່ງເຈື່ອນ</strong>: ການຫຼຸ້ຍຫ້ຽນ ຂອງຕາຝັ່ງ ຕາມແຄມຫ້ວບ ຫຼື ແມ່ນ້ຳ"
 
 #: apps/configuration/configuration_translations.py:1595
 msgctxt "technologies label"
@@ -2737,7 +2783,7 @@ msgstr "Wc: ຊາຍຝັ່ງທະເລເຈື່ອນ "
 #: apps/configuration/configuration_translations.py:1596
 msgctxt "technologies_2018 label"
 msgid "Wc: coastal erosion"
-msgstr ""
+msgstr "Wc: ຊາຍຝັ່ງທະເລເຊາະເຈື່ອນ"
 
 #: apps/configuration/configuration_translations.py:1597
 msgctxt "technologies_2018 helptext"
@@ -2746,6 +2792,8 @@ msgid ""
 "coastline due to the action of waves, currents or tides, leading to landward "
 "retreat of the shoreline"
 msgstr ""
+"<strong>ຊາຍຝັ່ງທະເລເຈື່ອນ</strong>:ການສູນເສຍ ຫຼື ການເຄື່ອນຍ້າຍຂອງ ດິນລຽບຊາຍຝັ່ງ "
+"ເນື່ອງຈາກການກະແທກ ຂອງຄື້ນ, ນ້ຳຂື້ນ ຫຼື ນ້ໍາລົງ, ນໍາໄປສູ່ ການຖອຍຄືນສູ່ທະເລ"
 
 #: apps/configuration/configuration_translations.py:1598
 msgctxt "technologies label"
@@ -2882,7 +2930,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1618
 msgctxt "technologies label"
 msgid "Pw: waterlogging"
-msgstr "ການຂັງນໍ້າ"
+msgstr "ນ້ຳຂັງ"
 
 #: apps/configuration/configuration_translations.py:1619
 msgctxt "technologies helptext"
@@ -2901,7 +2949,7 @@ msgstr "Ps: ຊຸດຂອງດິນອົງຄະທາດ, ການຕັ
 #: apps/configuration/configuration_translations.py:1621
 msgctxt "technologies_2018 label"
 msgid "Ps: subsidence of organic soils, settling of soil"
-msgstr ""
+msgstr "Ps:ການຊຸດໂຊມຂອງອິນຊີວັດຖຸ/ການເຄື່ອນຍ້າຍຊອງດິນ"
 
 #: apps/configuration/configuration_translations.py:1622
 msgctxt "technologies_2018 helptext"
@@ -2909,6 +2957,8 @@ msgid ""
 "<strong>Subsidence of organic soils, settling of soils</strong>: downward "
 "motion of soil surface, e.g. due to drainage of organic soils"
 msgstr ""
+"<strong>ການຊຸດໂຊມ ຂອງດິນອິນຊີ, ການຢຸບຂອງດິນ</strong>ແຜ່ນໜ້າດິນເຄື່ອນທີ່ລົງລຸ່ມ, ຕົວຢ່າງ "
+"ເນື່ອງຈາກ ການລະບາຍດິນອິນຊີ"
 
 #: apps/configuration/configuration_translations.py:1623
 msgctxt "technologies label"
@@ -3708,7 +3758,7 @@ msgstr "ປະສົມ (ກຸ້ມຕົນເອງ  / ເປັນສິນ
 #: apps/configuration/configuration_translations.py:1759
 msgctxt "technologies_2018 label"
 msgid "mixed (subsistence/ commercial)"
-msgstr ""
+msgstr "ປະສົມປົນເປ( ກຸ້ມຕົນເອງ/ເປັນສິນຄ້າ)"
 
 #: apps/configuration/configuration_translations.py:1760
 msgctxt "technologies label"
@@ -4000,7 +4050,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1812
 msgctxt "technologies_2018 label"
 msgid "Semi-nomadic pastoralism"
-msgstr ""
+msgstr "ການລ້ຽງສັດແບບເຄີ່ງປ່ອຍ"
 
 #: apps/configuration/configuration_translations.py:1813
 msgctxt "technologies_2018 helptext"
@@ -4609,7 +4659,7 @@ msgstr "10-50%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "11-50%%"
-msgstr ""
+msgstr "11-50%%"
 
 #: apps/configuration/configuration_translations.py:1904
 #, python-format
@@ -4621,7 +4671,7 @@ msgstr "ຫຼາຍກ່ວາ 50 %%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "> 50%%"
-msgstr ""
+msgstr ">50%%"
 
 #: apps/configuration/configuration_translations.py:1906
 msgctxt "technologies label"
@@ -5056,7 +5106,7 @@ msgstr "ໂດລາສະຫະລັດ"
 #: apps/configuration/configuration_translations.py:1972
 msgctxt "technologies_2018 label"
 msgid "USD"
-msgstr ""
+msgstr "USA"
 
 #: apps/configuration/configuration_translations.py:1973
 msgctxt "technologies label"
@@ -5205,7 +5255,7 @@ msgstr "50-90%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "51-90%%"
-msgstr ""
+msgstr "51-90%%"
 
 #: apps/configuration/configuration_translations.py:2006
 #, python-format
@@ -5217,7 +5267,7 @@ msgstr "90-100%%"
 #, python-format
 msgctxt "technologies_2018 label"
 msgid "91-100%%"
-msgstr ""
+msgstr "91-100%%"
 
 #: apps/configuration/configuration_translations.py:2008
 msgctxt "technologies label"
@@ -5247,7 +5297,7 @@ msgstr "ຕົວຢ່າງ, 24 ເອເຄີ"
 #: apps/configuration/configuration_translations.py:2013
 msgctxt "technologies_2018 label"
 msgid "per Technology area"
-msgstr ""
+msgstr "ຕໍ່ເນື້ອທີ່ເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:2014
 msgctxt "technologies_2018 helptext"
@@ -5255,6 +5305,8 @@ msgid ""
 "e.g. area of terraced cropland, area closed for natural regeneration, area "
 "used for rotational grazing, etc."
 msgstr ""
+"ຕົວຢ່າງ: ພື້ນທີ່ປູກຝັງ ທີ່ເປັນພັກ, ພື້ນທີ່ທີ່ຕິດກັບ ການຟື້ນຟູທໍາມະຊາດ, ພື້ນທີ່ ທີ່ໃຊ້ ທົ່ງຫຍ້າລ້ຽງສັດຫມຸນວຽນ, "
+"ແລະອື່ນໆ"
 
 #: apps/configuration/configuration_translations.py:2206
 #: apps/configuration/configuration_translations.py:2207
@@ -5283,7 +5335,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2221
 msgctxt "technologies_2018 label"
 msgid "Agro-climatic zone"
-msgstr ""
+msgstr "ເຂດພູມອາກາດ ກະສິກຳ"
 
 #: apps/configuration/configuration_translations.py:2222
 msgctxt "technologies_2018 helptext"
@@ -5292,6 +5344,8 @@ msgid ""
 "precipitation is more than half of the potential evapotranspiration (PET) "
 "and the temperature is higher than 6.5° C.</p><p>Tick max. 1 answer.</p>"
 msgstr ""
+"<p>ໄລຍະເວລາ ຂອງການເຕີບໂຕ (LGP) ແມ່ນໄດ້ກໍານົດ ເອົາຊ່ວງໄລຍະຝົນຕົກ ຫຼາຍກວ່າເຄິ່ງ ການລະເຫີຍອາຍ "
+"(PET) ແລະ ອຸນຫະພູມສູງກວ່າ 6.5° C.</p><p>ເລືອກໄດ້ຫຼາຍສຸດ 1 ຄຳຕອບ</p>"
 
 #: apps/configuration/configuration_translations.py:2233
 msgctxt "technologies label"
@@ -5311,12 +5365,12 @@ msgstr "ທີ່ດິນໃໝ່ ໃນການປູກຝັງ / ກາ�
 #: apps/configuration/configuration_translations.py:2246
 msgctxt "technologies_2018 label"
 msgid "production area"
-msgstr ""
+msgstr "ພື້ນທີ່ການຜະລິດ"
 
 #: apps/configuration/configuration_translations.py:2247
 msgctxt "technologies_2018 helptext"
 msgid "Land under cultivation/ use"
-msgstr ""
+msgstr "ທີ່ດິນພາຍໃຕ້ ການປູກຝັງ/ນຳໃຊ້"
 
 #: apps/configuration/configuration_translations.py:2249
 msgctxt "technologies label"
@@ -5331,12 +5385,12 @@ msgstr "ຕົວຢ່າງ: ນໍ້າ, ຊີວະພາບ"
 #: apps/configuration/configuration_translations.py:2251
 msgctxt "technologies_2018 label"
 msgid "energy generation"
-msgstr ""
+msgstr "ການກຳເນີດພະລັງງານ"
 
 #: apps/configuration/configuration_translations.py:2252
 msgctxt "technologies_2018 helptext"
 msgid "E.g. hydro, biogas"
-msgstr ""
+msgstr "ຕົວຢ່າງ: ນ້ຳ, ແກັດຊີວະພາບ"
 
 #: apps/configuration/configuration_translations.py:2268
 msgctxt "technologies label"
@@ -5662,7 +5716,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2378
 msgctxt "technologies_2018 label"
 msgid "Labour"
-msgstr ""
+msgstr "ແຮງງານ"
 
 #: apps/configuration/configuration_translations.py:2379
 #: apps/configuration/configuration_translations.py:2380
@@ -5673,6 +5727,9 @@ msgid ""
 "hired labour. If relevant, differentiate between skilled and unskilled "
 "labour."
 msgstr ""
+"<strong>ແຮງງານ</strong>ປະກອບດ້ວຍ ມູນຄ່າທັງໝົດຂອງວັນງານເຮັດວຽກ, ທີ່ໄດ້ຈ່າຍ ຫຼື ບໍ່ໄດ້ຈ່າຍ "
+"(ຕົວຢ່າງ,ການປະກອບສ່ວນແຮງງານຂອງສະມາຊິກໃນຄອບຄອບເອງ). ສຳລັບ “ມູນຄ່າໃຊ້ຈ່າຍຕໍ່ຫົວໜ່ວຍ” ໃຫ້ລະບຸ "
+"ຄ່າແຮງງານທີ່ໄດ້ຈ້າງ ປະຈຳວັນ. ຖ້າຫາກກ່ຽວຂ້ອງ, ຄວາມແຕກຕ່າງລະຫວ່າງ ແຮງງານທີ່ມີສີມື ແລະ ບໍ່ມີສີມື."
 
 #: apps/configuration/configuration_translations.py:2381
 #: apps/configuration/configuration_translations.py:2382
@@ -5875,12 +5932,12 @@ msgstr "ພູມິປະເທດ"
 #: apps/configuration/configuration_translations.py:2719
 msgctxt "technologies_2018 label"
 msgid "Topography"
-msgstr ""
+msgstr "ພູມມີປະເທດ"
 
 #: apps/configuration/configuration_translations.py:2720
 msgctxt "technologies_2018 helptext"
 msgid "Tick max. 2 answers per question."
-msgstr ""
+msgstr "ເລືອກໄດ້ ຫຼາຍສຸດ 2 ຄຳຕອບ ຕໍ່ ຄຳຖາມ"
 
 #: apps/configuration/configuration_translations.py:2721
 msgctxt "technologies label"
@@ -5895,7 +5952,7 @@ msgstr "<p> ສູງສຸດ 2 ຄໍາຕອບຕໍ່ຄໍາຖາມ. 
 #: apps/configuration/configuration_translations.py:2723
 msgctxt "technologies_2018 label"
 msgid "Soils"
-msgstr ""
+msgstr "ດິນ"
 
 #: apps/configuration/configuration_translations.py:2724
 msgctxt "technologies_2018 helptext"
@@ -5903,6 +5960,8 @@ msgid ""
 "<p>The following parameters are based on FAO standards.</p><p>Tick max. 2 "
 "answers per question.</p>"
 msgstr ""
+"<p>ຕົວກໍານົດການດັ່ງຕໍ່ໄປນີ້ ແມ່ນ ອີງໃສ່ມາດຕະຖານຂອງ ອົງການອາຫານໂລກ</p><p>ເລືອກໄດ້ ຫຼາຍສຸດ 2 "
+"ຄຳຕອບ ຕໍ່ ຄຳຖາມ</p>"
 
 #: apps/configuration/configuration_translations.py:2725
 #: apps/configuration/configuration_translations.py:2738
@@ -5973,7 +6032,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2730
 msgctxt "technologies_2018 label"
 msgid "Photos of the Technology"
-msgstr ""
+msgstr "ຮູບຂອງເຕັກໂນໂລຢີ"
 
 #: apps/configuration/configuration_translations.py:2731
 msgctxt "technologies_2018 helptext"
@@ -6021,14 +6080,14 @@ msgstr "ເລືອກເອົາ 2 ຄໍາຕອບ"
 #: apps/configuration/configuration_translations.py:2734
 msgctxt "technologies_2018 label"
 msgid "Prevention, reduction, or restoration of land degradation"
-msgstr ""
+msgstr "ການປ້ອງກັນ, ການຫຼຸດລົງ, ຫຼື ການຟື້ນຟູທີ່ດິນເຊື່ອມໂຊມ"
 
 #: apps/configuration/configuration_translations.py:2735
 msgctxt "technologies_2018 helptext"
 msgid ""
 "Tick max. two answers. If you tick «not applicable», please tick no other "
 "answer."
-msgstr ""
+msgstr "ເລືອກໄດ້ ຫຼາຍສຸດ ສອງຄໍາຕອບ. ຖ້າທ່ານຫມາຍ \"ບໍ່ສາມາດນໍາໃຊ້ໄດ້\", ກະລຸນາບໍ່ເລືອກຄໍາຕອບອື່ນ."
 
 #: apps/configuration/configuration_translations.py:2736
 msgctxt "technologies label"
@@ -6436,7 +6495,7 @@ msgstr "ຂໍ້ມູນເພີ່ມເຕີມກ່ຽວກັບກາ
 #: apps/configuration/configuration_translations.py:2798
 msgctxt "technologies_2018 label"
 msgid "Water supply"
-msgstr ""
+msgstr "ການສະໜອງນ້ຳ"
 
 #: apps/configuration/configuration_translations.py:2799
 msgctxt "technologies label"
@@ -6568,7 +6627,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2809
 msgctxt "technologies_2018 label"
 msgid "Costs and inputs needed for establishment"
-msgstr ""
+msgstr "ຕົ້ນທຶນ ແລະ ປັດໄຈນຳເຂົ້າທີ່ຈໍາເປັນໃນຈັດສ້າງ"
 
 #: apps/configuration/configuration_translations.py:2810
 msgctxt "technologies_2018 helptext"
@@ -15493,24 +15552,24 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:32916
 msgctxt "technologies_2018 helptext"
 msgid "I.e. national reserve/ national park"
-msgstr ""
+msgstr "ເຊັ່ນ ເຂດສະຫງວນແຫ່ງຊາດ/ສວນສາທາລະນ ແຫ່ງຊາດ"
 
 #: apps/configuration/configuration_translations.py:32917
 #: apps/configuration/configuration_translations.py:32918
 #: apps/configuration/configuration_translations.py:32983
 msgctxt "technologies_2018 label"
 msgid "If yes, specify"
-msgstr ""
+msgstr "ຖ້າແມ່ນ, ໃຫ້ລະບຸແຈ້ງ"
 
 #: apps/configuration/configuration_translations.py:32919
 msgctxt "technologies_2018 label"
 msgid "Select land use type"
-msgstr ""
+msgstr "ເລືອກປະເພດ ການນໍາໃຊ້ທີ່ດິນ"
 
 #: apps/configuration/configuration_translations.py:32920
 msgctxt "technologies_2018 label_view"
 msgid "Land use type"
-msgstr ""
+msgstr "ປະເພດ ການນໍາໃຊ້ທີ່ດິນ"
 
 #: apps/configuration/configuration_translations.py:32921
 msgctxt "technologies_2018 label"
@@ -15587,7 +15646,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:32937
 msgctxt "technologies_2018 label"
 msgid "Vegetable - cotton/tobacco"
-msgstr ""
+msgstr "ຜັກ-ຜ້າຝ້າຍ/ຢາສູບ"
 
 #: apps/configuration/configuration_translations.py:32938
 msgctxt "technologies_2018 label"
@@ -15612,7 +15671,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:32942
 msgctxt "technologies_2018 label"
 msgid "Hay"
-msgstr ""
+msgstr "ຫ້ຍາແຫ້ງ"
 
 #: apps/configuration/configuration_translations.py:32943
 msgctxt "technologies_2018 label"
@@ -18178,26 +18237,30 @@ msgid "Russian"
 msgstr "​ພາ​ສາ​ຮັດ​ເຊຍ"
 
 #: apps/qcat/config/common.py:109
+msgid "Chinese"
+msgstr ""
+
+#: apps/qcat/config/common.py:110
 msgid "Khmer"
 msgstr "​ພາ​ສາ​ຂະ​ແມ"
 
-#: apps/qcat/config/common.py:110
+#: apps/qcat/config/common.py:111
 msgid "Lao"
 msgstr "ພາສາລາວ"
 
-#: apps/qcat/config/common.py:111
+#: apps/qcat/config/common.py:112
 msgid "Arabic"
 msgstr "​ພາ​ສາ​ອາ​ລາ​ບິກ"
 
-#: apps/qcat/config/common.py:112
+#: apps/qcat/config/common.py:113
 msgid "Portuguese"
 msgstr "ພາ​ສາປອກຕຸຍການ"
 
-#: apps/qcat/config/common.py:113
+#: apps/qcat/config/common.py:114
 msgid "Afrikaans"
 msgstr "ອະຟຮິກັນ"
 
-#: apps/qcat/config/common.py:114
+#: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr ""
 
@@ -19379,8 +19442,14 @@ msgid ""
 "practices%(end_link)s."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:17
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:19
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
+msgid ""
+"Please make sure that you have selected the correct language. You can change "
+"the language in the top right corner of this page."
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:16
 #, python-format
 msgid ""
@@ -19388,22 +19457,22 @@ msgid ""
 "%(end_link)s."
 msgstr "ແບບສອບຖາມທີ່ເປັນຟາຍ PDF ສາມາດເປັນ %(start_link)s ດາວໂຫຼດບ່ອນນີ້%(end_link)s."
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:29
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:25
 msgid "Take a tour"
 msgstr "​ເຂົ້າຢ້ຽມຊົມເບີ່ງ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:31
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:26
 msgid "Start data entry"
 msgstr "ມື້ເລີ່ມຕົ້ນປ້ອນຂໍ້ມູນ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:37
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
 msgid "Review process"
 msgstr "ຂະບວນການທົບທວນຄືນ"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:43
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:44
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:39
 msgid "Click the image for a larger version of it."
 msgstr "ກົດທີ່ຮູບພາບເພື່ອຕ້ອງການຂະຫຍາຍຮູບພາຍໃຫ້ໃຫຍ່."
@@ -20092,7 +20161,7 @@ msgstr "ຂໍ້ມູນບັນທຶກສໍາເລັດ."
 msgid "QCAT Form"
 msgstr "ແບ​ບ​ຟອມ QCAT"
 
-#: apps/questionnaire/views.py:1525
+#: apps/questionnaire/views.py:1529
 msgid "No or multiple files provided."
 msgstr "ມີ ຫຼື ບໍ່ມີໄຟລ໌ເອກກະສານ ທີ່ຫຼາກຫຼາຍສະໜອງໃຫ້."
 

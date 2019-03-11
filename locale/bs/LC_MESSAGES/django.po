@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 14:44+0100\n"
-"PO-Revision-Date: 2018-11-15 12:15+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:23+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Bosnian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/bs/)\n"
 "Language: bs\n"
@@ -17230,26 +17230,30 @@ msgid "Russian"
 msgstr ""
 
 #: apps/qcat/config/common.py:109
-msgid "Khmer"
+msgid "Chinese"
 msgstr ""
 
 #: apps/qcat/config/common.py:110
-msgid "Lao"
+msgid "Khmer"
 msgstr ""
 
 #: apps/qcat/config/common.py:111
-msgid "Arabic"
+msgid "Lao"
 msgstr ""
 
 #: apps/qcat/config/common.py:112
-msgid "Portuguese"
+msgid "Arabic"
 msgstr ""
 
 #: apps/qcat/config/common.py:113
-msgid "Afrikaans"
+msgid "Portuguese"
 msgstr ""
 
 #: apps/qcat/config/common.py:114
+msgid "Afrikaans"
+msgstr ""
+
+#: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr ""
 
@@ -18407,8 +18411,14 @@ msgid ""
 "practices%(end_link)s."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:17
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:19
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
+msgid ""
+"Please make sure that you have selected the correct language. You can change "
+"the language in the top right corner of this page."
+msgstr ""
+
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:16
 #, python-format
 msgid ""
@@ -18416,22 +18426,22 @@ msgid ""
 "%(end_link)s."
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:29
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:25
 msgid "Take a tour"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:31
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:26
 msgid "Start data entry"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:37
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
 msgid "Review process"
 msgstr ""
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:43
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:44
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:39
 msgid "Click the image for a larger version of it."
 msgstr ""
@@ -19091,7 +19101,7 @@ msgstr ""
 msgid "QCAT Form"
 msgstr ""
 
-#: apps/questionnaire/views.py:1525
+#: apps/questionnaire/views.py:1529
 msgid "No or multiple files provided."
 msgstr ""
 

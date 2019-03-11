@@ -7,16 +7,17 @@
 # DE CHOUDENS BARBARA <barbara.dc@dimensionsud.com>, 2016-2017
 # Farrukh Nazarmavloev <fnazarmavloev@unccd.int>, 2016
 # Isabelle Providoli <isabelle.providoli@cde.unibe.ch>, 2016
-# Lukas Vonlanthen <lukas.vonlanthen@cde.unibe.ch>, 2016-2018
+# Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
+# Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2016-2018
 # Sebastian Manger <s.manger@gmx.ch>, 2016-2017
-# WOCAT WOCAT <wocat@cde.unibe.ch>, 2018
+# WOCAT WOCAT <wocat@cde.unibe.ch>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-15 14:44+0100\n"
-"PO-Revision-Date: 2018-11-15 12:15+0000\n"
-"Last-Translator: WOCAT WOCAT <wocat@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:25+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -2519,7 +2520,7 @@ msgstr "A6: Autres"
 #: apps/configuration/configuration_translations.py:1536
 msgctxt "technologies_2018 label"
 msgid "A7: Others"
-msgstr "Autres"
+msgstr "A7: Autres"
 
 #: apps/configuration/configuration_translations.py:1537
 msgctxt "technologies label"
@@ -17344,7 +17345,7 @@ msgctxt "technologies_2018 label"
 msgid "Are land use rights based on a traditional legal system?"
 msgstr ""
 "Est-ce que les droits d'utilisation des terres sont fondés sur un système "
-"juridique traditionnel ?"
+"juridique traditionnel?"
 
 #: apps/configuration/configuration_translations.py:33167
 msgctxt "technologies_2018 label"
@@ -18978,7 +18979,7 @@ msgstr "Vous avez été ajouté en tant que"
 msgctxt ""
 "You have been added as an editor of [questionnaire] compiled by [user]."
 msgid "an editor"
-msgstr "rédacteur"
+msgstr "un rédacteur"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_added.html:15
 msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
@@ -19011,7 +19012,7 @@ msgstr "Votre rôle de ... a été retiré"
 msgctxt ""
 "You have been removed as [role] of [questionnaire] compiled by [user]."
 msgid "an editor"
-msgstr "rédacteur"
+msgstr "un rédacteur"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_removed.html:15
 msgctxt ""
@@ -19083,7 +19084,7 @@ msgstr ""
 msgctxt ""
 "You have been added as a publisher of [questionnaire] compiled by [user]."
 msgid "a publisher"
-msgstr "éditeur"
+msgstr "un éditeur"
 
 #: apps/notifications/templates/notifications/mail/partial/publisher_added.html:8
 msgid ""
@@ -19106,7 +19107,7 @@ msgstr ""
 msgctxt ""
 "You have been removed as a publisher of [questionnaire] compiled by [user]."
 msgid "a publisher"
-msgstr "éditeur"
+msgstr "un éditeur"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_reviewed.html:7
 msgid ""
@@ -19221,7 +19222,7 @@ msgstr ""
 msgctxt ""
 "You have been added as a reviewer of [questionnaire] compiled by [user]."
 msgid "a reviewer"
-msgstr "examinateur"
+msgstr "un examinateur"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:8
 msgid ""
@@ -19240,7 +19241,7 @@ msgstr ""
 msgctxt ""
 "You have been removed as a reviewer of [questionnaire] compiled by [user]."
 msgid "a reviewer"
-msgstr "examinateur"
+msgstr "un examinateur"
 
 #: apps/notifications/templates/notifications/mail/partial/submitted.html:5
 msgctxt ""
@@ -19467,26 +19468,30 @@ msgid "Russian"
 msgstr "Russe"
 
 #: apps/qcat/config/common.py:109
+msgid "Chinese"
+msgstr "Chinois"
+
+#: apps/qcat/config/common.py:110
 msgid "Khmer"
 msgstr "Khmer"
 
-#: apps/qcat/config/common.py:110
+#: apps/qcat/config/common.py:111
 msgid "Lao"
 msgstr "Laotien"
 
-#: apps/qcat/config/common.py:111
+#: apps/qcat/config/common.py:112
 msgid "Arabic"
 msgstr "arabe"
 
-#: apps/qcat/config/common.py:112
+#: apps/qcat/config/common.py:113
 msgid "Portuguese"
 msgstr "portugais"
 
-#: apps/qcat/config/common.py:113
+#: apps/qcat/config/common.py:114
 msgid "Afrikaans"
 msgstr "Afrikaans"
 
-#: apps/qcat/config/common.py:114
+#: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr "thai"
 
@@ -20815,8 +20820,16 @@ msgstr ""
 "href=\"%(intro_url)s\" class=\"link\"> en vous renseignant sur la "
 "documentation des pratiques de GDT en WOCAT%(end_link)s. "
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:17
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:19
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
+msgid ""
+"Please make sure that you have selected the correct language. You can change "
+"the language in the top right corner of this page."
+msgstr ""
+"Veuillez vous assurer que vous avez sélectionné la langue correcte. Vous "
+"pouvez changer la langue dans le coin supérieur droit de cette page."
+
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:16
 #, python-format
 msgid ""
@@ -20826,22 +20839,22 @@ msgstr ""
 "Une version PDF du questionnaire papier peut être %(start_link)stéléchargée "
 "ici%(end_link)s."
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:29
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:25
 msgid "Take a tour"
 msgstr "Visiter et essayer"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:30
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:31
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:26
 msgid "Start data entry"
 msgstr "Démarrer la saisie des données"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:36
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:37
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:32
 msgid "Review process"
 msgstr "Processus d'examen"
 
-#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:43
+#: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:44
 #: apps/questionnaire/templates/details/review_panel/welcome_watershed.html:39
 msgid "Click the image for a larger version of it."
 msgstr "Cliquez sur l'image pour l'agrandir."
@@ -21611,7 +21624,7 @@ msgstr "Données sauvegardées avec succès."
 msgid "QCAT Form"
 msgstr "Formulaire QCAT"
 
-#: apps/questionnaire/views.py:1525
+#: apps/questionnaire/views.py:1529
 msgid "No or multiple files provided."
 msgstr "Non ou plusieurs fichiers fournis."
 
