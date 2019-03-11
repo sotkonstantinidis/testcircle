@@ -5,15 +5,16 @@
 # Translators:
 # Farrukh Nazarmavloev <fnazarmavloev@unccd.int>, 2016
 # Julia Johnson <yukuleshova@gmail.com>, 2016-2017
+# Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
 # Sebastian Manger <s.manger@gmx.ch>, 2017
 # Ольга Андреева <andreevala@yandex.ru>, 2016-2018
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 10:42+0100\n"
-"PO-Revision-Date: 2019-03-11 09:40+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@gmail.com>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:27+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Russian (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/ru/)\n"
 "Language: ru\n"
@@ -19267,11 +19268,8 @@ msgid "Russian"
 msgstr "Русский"
 
 #: apps/qcat/config/common.py:109
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "China"
 msgid "Chinese"
-msgstr "Китай"
+msgstr "китайский"
 
 #: apps/qcat/config/common.py:110
 msgid "Khmer"

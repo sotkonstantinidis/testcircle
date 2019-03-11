@@ -3,15 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
 # Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2018-2019
 # 王黎黎 <lili1986wawa@163.com>, 2018-2019
 msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 10:42+0100\n"
-"PO-Revision-Date: 2019-03-11 09:40+0000\n"
-"Last-Translator: Lukas Vonlanthen <lukas.vonlanthen@gmail.com>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:24+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Chinese (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/zh/)\n"
 "Language: zh\n"
@@ -18051,11 +18052,8 @@ msgid "Russian"
 msgstr "俄语"
 
 #: apps/qcat/config/common.py:109
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "China"
 msgid "Chinese"
-msgstr "中国"
+msgstr "中文"
 
 #: apps/qcat/config/common.py:110
 msgid "Khmer"

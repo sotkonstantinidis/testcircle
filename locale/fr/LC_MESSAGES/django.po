@@ -7,6 +7,7 @@
 # DE CHOUDENS BARBARA <barbara.dc@dimensionsud.com>, 2016-2017
 # Farrukh Nazarmavloev <fnazarmavloev@unccd.int>, 2016
 # Isabelle Providoli <isabelle.providoli@cde.unibe.ch>, 2016
+# Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
 # Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2016-2018
 # Sebastian Manger <s.manger@gmx.ch>, 2016-2017
 # WOCAT WOCAT <wocat@cde.unibe.ch>, 2018-2019
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 10:42+0100\n"
-"PO-Revision-Date: 2019-03-11 09:40+0000\n"
-"Last-Translator: WOCAT WOCAT <wocat@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:25+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -19467,11 +19468,8 @@ msgid "Russian"
 msgstr "Russe"
 
 #: apps/qcat/config/common.py:109
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "China"
 msgid "Chinese"
-msgstr "Chine"
+msgstr "Chinois"
 
 #: apps/qcat/config/common.py:110
 msgid "Khmer"

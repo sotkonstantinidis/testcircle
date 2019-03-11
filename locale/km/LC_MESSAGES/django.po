@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 10:42+0100\n"
-"PO-Revision-Date: 2019-03-11 09:40+0000\n"
-"Last-Translator: BE GECHKIM <gechkim@gmail.com>\n"
+"POT-Creation-Date: 2019-03-11 13:29+0100\n"
+"PO-Revision-Date: 2019-03-11 12:23+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
 "Language: km\n"
@@ -17377,28 +17377,30 @@ msgstr ""
 #: apps/configuration/editions/technologies_2018.py:47
 msgid ""
 "2.5: A new question \"If precise area is known, please specify\" was added."
-msgstr "2.5: សំណួរថ្មី \"ប្រសិនបើដឹងច្បាស់ពីតំបន់ សូមបញ្ជាក់\" ត្រូវបានបន្ថែម។"
+msgstr "2.5: សំណួរថ្មីត្រូវបានដាក់បញ្ចូល \"ប្រសិនបើដឹងច្បាស់ពីតំបន់ សូមបញ្ជាក់\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:51
 msgid ""
 "2.5: A new question \"Is/are the technology site(s) located in a permanently "
 "protected area?\" was added."
 msgstr ""
+"2.5: សំណួរថ្មីត្រូវបានដាក់បញ្ចូល \"តើទីតាំងបច្ចេកទេសស្ថិតនៅតំបន់ការពារអចិន្ត្រៃយ៍ដែររឺទេ? \" "
 
 #: apps/configuration/editions/technologies_2018.py:60
 msgid "3.2: A separate question about \"Mixed land use\" was added."
-msgstr ""
+msgstr "3.2: សំណួរផ្សេងទៀតនៃ \"ការប្រើប្រាស់ដីចម្រុះ\" ត្រូវបានដាក់បញ្ចូល។"
 
 #: apps/configuration/editions/technologies_2018.py:64
 msgid ""
 "3.2: New questions about crops, intercropping and crop rotation for land use "
 "type \"Cropland\" were added."
 msgstr ""
+"3.2: សំណួរថ្មីអំពីដំណាំត្រូវបានដាក់បញ្ចូល ដូចជាដំណាំចន្លោះ និងវិលជុំសម្រាប់ប្រភេទដីប្រើប្រាស់ \"ដីដាំដំណាំ\" "
 
 #: apps/configuration/editions/technologies_2018.py:69
 msgid ""
 "3.2: The question \"Main crops\" of land use type \"Cropland\" was removed."
-msgstr ""
+msgstr "3.2: ចំណុច \"ដំណាំចម្បងៗ\" នៃប្រភេទដីប្រើប្រាស់ \"ដីដាំដំណាំ\" ត្រូវបានដកចេញ។"
 
 #: apps/configuration/editions/technologies_2018.py:73
 msgid ""
@@ -18397,11 +18399,8 @@ msgid "Russian"
 msgstr "ភាសារុស្ស៊ី"
 
 #: apps/qcat/config/common.py:109
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "China"
 msgid "Chinese"
-msgstr "ប្រទេសចិន"
+msgstr ""
 
 #: apps/qcat/config/common.py:110
 msgid "Khmer"
