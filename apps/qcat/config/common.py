@@ -106,6 +106,7 @@ class BaseSettings(Configuration):
         ('fr', _('French')),
         ('es', _('Spanish')),
         ('ru', _('Russian')),
+        ('zh', _('Chinese')),
         ('km', _('Khmer')),
         ('lo', _('Lao')),
         ('ar', _('Arabic')),
