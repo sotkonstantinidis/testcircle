@@ -11755,6 +11755,23 @@
       "data": {
         "technologies": {
           "label": {
+            "en": "Videos of the Technology"
+          },
+          "helptext": {
+            "en": "If video files presenting the Technology are available, upload them to a public platform and indicate a link and a short description for each file in the table below."
+          }
+        }
+      }
+    },
+    "model": "configuration.translation",
+    "pk": 2807
+  },
+  {
+    "fields": {
+      "translation_type": "category",
+      "data": {
+        "technologies": {
+          "label": {
             "en": "General information"
           }
         }
@@ -22705,7 +22722,7 @@
   {
     "fields": {
       "keyword": "tech__2__4",
-      "translation": 2787
+      "translation": 2807
     },
     "model": "configuration.category",
     "pk": 1061
