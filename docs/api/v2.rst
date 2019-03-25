@@ -156,7 +156,7 @@ Filtering
 .. _filtering:
 
 Filters can be passed as `query string`_ to the GET request.
-As an example, ``?type=technology`` will list technologies only (full URL: https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology).
+As an example, ``?type=technologies`` will list technologies only (full URL: https://qcat.wocat.net/en/api/v2/questionnaires/?type=technologies).
 
 .. hint::
     The query string for filtering on the API is the same as the one used on the default QCAT search
@@ -169,7 +169,7 @@ Example URLs using the filters:
 
 * Get all Technologies::
 
-    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technologies
 
 * Get all Approaches in Nepal::
 
@@ -181,7 +181,7 @@ Example URLs using the filters:
 
 * Get only Technologies which are available in edition 2015::
 
-    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technology&edition=2015
+    https://qcat.wocat.net/en/api/v2/questionnaires/?type=technologies&edition=2015
 
 
 Example request with Postman
