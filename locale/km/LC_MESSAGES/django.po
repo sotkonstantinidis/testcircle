@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 13:29+0100\n"
-"PO-Revision-Date: 2019-03-11 12:23+0000\n"
-"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
+"POT-Creation-Date: 2019-05-14 21:14+0200\n"
+"PO-Revision-Date: 2019-05-14 19:12+0000\n"
+"Last-Translator: BE GECHKIM <gechkim@gmail.com>\n"
 "Language-Team: Khmer (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/km/)\n"
 "Language: km\n"
@@ -130,7 +130,7 @@ msgstr "ទិនន្ន័យ​ SLM របស់ខ្ញុំ"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:9
-#: apps/wocat/templates/wocat/home.html:125 templates/base.html:195
+#: apps/wocat/templates/wocat/home.html:127 templates/base.html:195
 msgid "Add SLM data"
 msgstr "បន្ថែមទិនន្ន័យ SLM"
 
@@ -347,7 +347,7 @@ msgstr "សូមបញ្ជាក់"
 #: apps/configuration/configuration_translations.py:1355
 msgctxt "technologies label"
 msgid "Remarks"
-msgstr "គំណត់សម្គាល់"
+msgstr "កំណត់សម្គាល់"
 
 #: apps/configuration/configuration_translations.py:1044
 msgctxt "technologies label"
@@ -376,7 +376,7 @@ msgstr "វិធានការ SLM"
 #: apps/configuration/configuration_translations.py:1047
 msgctxt "technologies label"
 msgid "Select degradation type"
-msgstr "ជ្រើសរើសប្រភេទឳនភាពដី"
+msgstr "ជ្រើសរើសប្រភេទនៃការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1048
 #: apps/configuration/configuration_translations.py:1489
@@ -387,7 +387,7 @@ msgstr "ជ្រើសរើសប្រភេទឳនភាពដី"
 #: apps/configuration/configuration_translations.py:1494
 msgctxt "technologies label_view"
 msgid "Degradation type"
-msgstr "ប្រភេទនៃឱនភាពដី"
+msgstr "ប្រភេទនៃការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1049
 msgctxt "technologies label"
@@ -918,7 +918,7 @@ msgstr "ប្រសើរជាងមុន"
 #: apps/configuration/configuration_translations.py:1164
 msgctxt "technologies label"
 msgid "Comments and further specifications on topography"
-msgstr "ពណ៌នា និងបញ្ចាក់ពីបន្ថែមអំពីសណ្ឋានដី "
+msgstr "មតិយោបល់ និងបញ្ចាក់បន្ថែមអំពីសណ្ឋានដី "
 
 #: apps/configuration/configuration_translations.py:1165
 msgctxt "technologies helptext"
@@ -1112,7 +1112,7 @@ msgstr "ប្រើស្តង់ដាតំបន់ជំនួសស្ត
 #: apps/configuration/configuration_translations.py:2273
 msgctxt "technologies label"
 msgid "SLM/ land degradation knowledge"
-msgstr "ចំណេះដឹង SLM / ឱនភាពដី "
+msgstr "ចំណេះដឹង SLM / ការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1211
 #: apps/configuration/configuration_translations.py:2274
@@ -1780,7 +1780,7 @@ msgid ""
 "occurrence of heavy rains, length of dry periods"
 msgstr ""
 "លក្ខណៈពិសេសផ្សេងទៀត / មតិយោបល់លើរដូវកាលភ្លៀងធ្លាក់ (ឧ. មូសុង, ភ្លៀងធ្លាក់រដូវរងា / រដូវក្តៅ) "
-"ចំនួន / រយៈពេល / ខែនៃរដូវវស្សា ភ្លៀងធ្លាក់ខ្លាំងកើតឡើង អំឡុងពេលរាំងស្ងួត"
+"ចំនួន / រយៈពេល / ខែនៃរដូវវស្សា ភ្លៀងធ្លាក់ខ្លាំងកើតឡើង រយៈពេលរាំងស្ងួត"
 
 #: apps/configuration/configuration_translations.py:1407
 msgctxt "technologies label"
@@ -1890,7 +1890,7 @@ msgid ""
 "degradation, so that it cannot be declared a sustainable land management "
 "technology?"
 msgstr ""
-"តើបច្ចេកទេសដែលបានពណ៌នានេះមានបញ្ហាដែលផ្តោតលើឱនភាពដី, "
+"តើបច្ចេកទេសដែលបានពណ៌នានេះមានបញ្ហាដែលផ្តោតលើការធា្លក់ចុះគុណភាពដី, "
 "បើដូច្នេះវាមិនអាចត្រូវបានប្រកាសថាជាបច្ចេកទេសនៃការគ្រប់គ្រងប្រកបដោយចីរភាពទេ?"
 
 #: apps/configuration/configuration_translations.py:1428
@@ -1933,7 +1933,7 @@ msgstr "ដង់ស៊ីតេនៃសត្វចិញ្ចឹម (បើ�
 #: apps/configuration/configuration_translations.py:1433
 msgctxt "technologies label"
 msgid "Specify the spread of the Technology"
-msgstr "បញ្ជាក់ពីការសាយភាយបច្ចេកទេស"
+msgstr "បញ្ជាក់ពីការសាយភាយនៃបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:1434
 msgctxt "technologies label"
@@ -1950,12 +1950,12 @@ msgstr "ប្រសិនបើមិនច្បាស់ពីទំហំផ
 #: apps/configuration/configuration_translations.py:1436
 msgctxt "technologies label"
 msgid "Specify the goal of the Technology with regard to land degradation"
-msgstr "បញ្ជាក់ពីគោលដៅរបស់បច្ចេកទេស ដែលផ្តោតទៅលើឱនភាពដី"
+msgstr "បញ្ជាក់ពីគោលដៅរបស់បច្ចេកទេស ដែលផ្តោតទៅការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1437
 msgctxt "technologies label_filter"
 msgid "Goal of the Technology with regard to land degradation"
-msgstr "បញ្ជាក់ពីគោលដៅរបស់បច្ចេកទេស ដែលផ្តោតទៅលើឱនភាពដី"
+msgstr "បញ្ជាក់ពីគោលដៅរបស់បច្ចេកទេស ដែលផ្តោតទៅលើការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1438
 msgctxt "technologies label"
@@ -2158,7 +2158,7 @@ msgstr "ប្រភេទសត្វ និងផលិតផលចម្ប�
 #: apps/configuration/configuration_translations.py:1472
 msgctxt "technologies label"
 msgid "(Semi-)natural forests/ woodlands"
-msgstr "(ពាក់កណ្តាល)ព្រៃធម្មជាតិ/ ធម្មជាតិ"
+msgstr "ព្រៃ (ពាក់កណ្តាល) ធម្មជាតិ/ ដីព្រៃ"
 
 #: apps/configuration/configuration_translations.py:1473
 msgctxt "technologies helptext"
@@ -2492,7 +2492,7 @@ msgstr "V2: ស្មៅនិងរុក្ខជាតិៗដែលដុ�
 msgctxt "technologies helptext"
 msgid ""
 "Examples: grass strips along the contour, vegetation strips along riverbanks"
-msgstr "ឧ. ការដាំស្មៅតាមរង្វង់ភ្នំ សារពើ រុក្ខជាតិតាមភ្លឺជុំវិញច្រាំងទន្លេ"
+msgstr "ឧ. ការដាំស្មៅតាមរង្វង់ភ្នំ សារពើរុក្ខជាតិតាមភ្លឺជុំវិញច្រាំងទន្លេ"
 
 #: apps/configuration/configuration_translations.py:1551
 msgctxt "technologies label"
@@ -2784,7 +2784,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1598
 msgctxt "technologies label"
 msgid "Wo: offsite degradation effects"
-msgstr "Wo: ផលប៉ះពាល់នៃការសិករិចរិលដីកន្លែងឆ្ងាយ"
+msgstr "Wo: ផលប៉ះពាល់នៃការធា្លក់ចុះគុណភាពកន្លែងឆ្ងាយ"
 
 #: apps/configuration/configuration_translations.py:1599
 msgctxt "technologies helptext"
@@ -2793,8 +2793,8 @@ msgid ""
 "downstream flooding, siltation of reservoirs and waterways, and pollution of "
 "water bodies with eroded sediments"
 msgstr ""
-"<strong> ផលប៉ះពាល់នៃការសិករិចរិលដីកន្លែងឆ្ងាយ៖</strong>  ការរងកករ ការជន់លិចផ្នែកខាងក្រោម "
-"កំណកល្បាប់ភក់ក្នុងអាងទឹក និងផ្លូវទឹក ការបំពុលខ្សែទឹកជាមួយការហូរច្រោះកករ"
+"<strong> ផលប៉ះពាល់នៃការធា្លក់ចុះគុណភាពកន្លែងឆ្ងាយ៖</strong>  ការរងកករ "
+"ការជន់លិចផ្នែកខាងក្រោម កំណកល្បាប់ភក់ក្នុងអាងទឹក និងផ្លូវទឹក ការបំពុលខ្សែទឹកជាមួយការហូរច្រោះកករ"
 
 #: apps/configuration/configuration_translations.py:1600
 msgctxt "technologies label"
@@ -2820,7 +2820,7 @@ msgstr "<strong> អតិផរណា និង ការទម្លាក់�
 #: apps/configuration/configuration_translations.py:1604
 msgctxt "technologies label"
 msgid "Eo: offsite degradation effects"
-msgstr "Eo: ឥទ្ធិពលនៃការសិករិចរិល"
+msgstr "Eo: ផលប៉ះពាល់នៃការធា្លក់ចុះគុណភាព"
 
 #: apps/configuration/configuration_translations.py:1605
 msgctxt "technologies helptext"
@@ -2828,7 +2828,7 @@ msgid ""
 "<strong>Offsite degradation effects:</strong> covering of the terrain with "
 "windborne sand particles from distant sources (\"overblowing\")"
 msgstr ""
-"<strong>ឥទ្ធិពលនៃការសិករិចរិល៖</strong> គ្របដណ្តប់លក្ខណៈសណ្ដានដី ជាមួយ windborne "
+"<strong>ផលប៉ះពាល់នៃការធា្លក់ចុះគុណភាព៖</strong> គ្របដណ្តប់លក្ខណៈសណ្ដានដី ជាមួយ windborne "
 "ខ្សាច់ល្អិតៗមកពីប្រភពឆ្ងាយ (\"overblowing\")"
 
 #: apps/configuration/configuration_translations.py:1606
@@ -3409,7 +3409,7 @@ msgstr "ការបាត់បង់រូបសាស្ត្រនៃដី
 #: apps/configuration/configuration_translations.py:1697
 msgctxt "technologies label"
 msgid "biological degradation"
-msgstr "ការចុះខ្សោយជីវសាស្ត្រនៃដី"
+msgstr "ការធា្លក់ចុះជីវសាស្ត្រនៃដី"
 
 #: apps/configuration/configuration_translations.py:1698
 msgctxt "technologies label"
@@ -3978,7 +3978,7 @@ msgstr "ដំណាំ, ចំណីសត្វ, ឈើ/ជាតិសរស�
 #: apps/configuration/configuration_translations.py:1804
 msgctxt "technologies label"
 msgid "reduce, prevent, restore land degradation"
-msgstr "កាត់បន្ថយ, បង្ការ, ស្តារឡើងវិញនូវឱនភាពដី "
+msgstr "កាត់បន្ថយ, បង្ការ, ស្តារឡើងវិញនូវការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1805
 msgctxt "technologies helptext"
@@ -4135,7 +4135,7 @@ msgstr "ការពារពីគ្រោះធម្មជាតិ"
 #: apps/configuration/configuration_translations.py:1830
 msgctxt "technologies label"
 msgid "Settlements, buildings"
-msgstr "ដីលំនៅស្ថាន អាគារ"
+msgstr "ដីលំនៅស្ថាន អគារ"
 
 #: apps/configuration/configuration_translations.py:1831
 msgctxt "technologies label"
@@ -4205,7 +4205,7 @@ msgid ""
 "commonly planted around the edges of fields on farms."
 msgstr ""
 "<strong>របាំងខ្យល់៖</strong> ឬដាំដើមឈើធ្វើជារបង គឺជាការដាំពពួកឈើធំៗ ឬតូចៗ ដើម្បីទប់ស្កាត់ "
-"និងការពារពីការសឹករិចរិលនៃដី។ ជាធម្មតាត្រូវបានដាំជារបងជុំវិញដីកសិដ្ឋាន។"
+"និងការពារពីការសឹករេចរិលនៃដី។ ជាធម្មតាត្រូវបានដាំជារបងជុំវិញដីកសិដ្ឋាន។"
 
 #: apps/configuration/configuration_translations.py:1841
 msgctxt "technologies label"
@@ -4994,7 +4994,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:1961
 msgctxt "technologies label"
 msgid "prevent land degradation"
-msgstr "ការការពារឱនភាពដី"
+msgstr "ការការពារការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1962
 msgctxt "technologies helptext"
@@ -5003,13 +5003,14 @@ msgid ""
 "place on land that may be prone to land degradation. They maintain natural "
 "resources and their environmental and productive functions."
 msgstr ""
-"<strong>ការការពារ៖</strong>ការអនុវត្តការគ្រប់គ្រងដីបានល្អដែលនាំទៅរកការកាត់បន្ថយឱនភាពដី។ "
+"<strong>ការការពារ៖</"
+"strong>ការអនុវត្តការគ្រប់គ្រងដីបានល្អដែលនាំទៅរកការកាត់បន្ថយការធា្លក់ចុះគុណភាពដី។ "
 "វាថែរក្សានូវធនធានធម្មជាតិ និងបរិស្ថានជុំវិញរបស់វា ក៏ដូចជា  ផលិតភាពដី។"
 
 #: apps/configuration/configuration_translations.py:1963
 msgctxt "technologies label"
 msgid "reduce land degradation"
-msgstr "កាត់បន្ថយឱនភាពដី"
+msgstr "ការកាត់បន្ថយការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1964
 msgctxt "technologies helptext"
@@ -5019,8 +5020,9 @@ msgid ""
 "resources and their functions. Impacts tend to be noticeable in the short to "
 "medium term."
 msgstr ""
-"<strong>ការកាត់បន្ថយ៖</strong> កិច្ចអន្តរាគមន៍ដើម្បីកាត់បន្ថយការសិករិចរិលដែលកំពុងបន្តនិង / "
-"ឬបញ្ឈប់ការរិចរិលបន្ថែមទៀត។ ការធ្វើឱ្យប្រសើរឡើងនូវធនធាន ធម្មជាតិនិងមុខងារ។ "
+"<strong>ការកាត់បន្ថយ៖</strong> "
+"កិច្ចអន្តរាគមន៍ដើម្បីកាត់បន្ថយការធា្លក់ចុះគុណភាពដីដែលកំពុងបន្តនិង / ឬបញ្ឈប់ការធា្លក់ចុះបន្ថែមទៀត។ "
+"ការធ្វើឱ្យប្រសើរឡើងនូវធនធាន ធម្មជាតិនិងមុខងារ។ "
 "ផលប៉ះពាល់មានទំនោរទៅជាកំណត់សម្គាល់នៅក្នុងរយៈពេលខ្លីទៅរយៈពេលមធ្យម។"
 
 #: apps/configuration/configuration_translations.py:1965
@@ -5036,14 +5038,14 @@ msgid ""
 "possible, and land has become practically unproductive. Here, longer-term "
 "and more costly investments are needed to show any impact."
 msgstr ""
-"<strong>ការជួសជុល/ ស្តារឡើងវិញ</strong> ត្រូវការនៅពេលដែលដីបានសឹករិចរិលឱ្យមានវិសាលភាព "
+"<strong>ការជួសជុល/ ស្តារឡើងវិញ</strong> ត្រូវការនៅពេលដែលដីបានសឹករេចរិលឱ្យមានវិសាលភាព "
 "ក្នុងការប្រើប្រាស់ដីគឺមិនស្ថិតស្ថេរយូរទៀតទេ និងដីទាំងនោះនឹងក្លាយជាដីខ្សោះជីជាតិ។ "
 "រយៈពេលវែងនិងការវិនិយោគដែលមានតម្លៃថ្លៃបន្ថែមទៀតដើម្បីបង្ហាញពីផលប៉ះពាល់ណាមួយឡើយ។"
 
 #: apps/configuration/configuration_translations.py:1967
 msgctxt "technologies label"
 msgid "adapt to land degradation"
-msgstr "ការបន្ស៊ាំទៅនឹងឱនភាពដី"
+msgstr "ការបន្ស៊ាំទៅនឹងការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:1968
 msgctxt "technologies helptext"
@@ -5056,7 +5058,8 @@ msgid ""
 msgstr ""
 "<strong> បន្ស៊ាំ៖</strong>  ត្រូវបានអនុវត្តនៅពេលដែលដីត្រូវបានធ្វើអោយប្រសើរឡើងវិញ ឬ "
 "ត្រូវបានស្តារឡើងវិញដោយអាចទទួលយកបាន ឬ ត្រូវការនូវធនធានបន្ថែមពីអ្នកប្រើប្រាស់ដី។ មានន័យថា "
-"ឱនភាពដី “ត្រូវបានទទួលយក” ប៉ុន្តែ ការគ្រប់គ្រងដីត្រូវបានបន្ស៊ាំសមស្របទៅនឹងឱនភាពដី (ឧ. "
+"ការធា្លក់ចុះគុណភាពដី “ត្រូវបានទទួលយក” ប៉ុន្តែ "
+"ការគ្រប់គ្រងដីត្រូវបានបន្ស៊ាំសមស្របទៅនឹងការធា្លក់ចុះគុណភាពដី (ឧ. "
 "ការបន្ស៊ាំទៅនឹងភាពប្រៃនៃដីតាមរយៈណែនាំអំពីរុក្ខជាតិដែលធន់នឹងភាពប្រៃនៃដី)។"
 
 #: apps/configuration/configuration_translations.py:1969
@@ -5248,7 +5251,7 @@ msgstr "ចរាចរណ៍៖ ផ្លូវថ្នល់ ផ្លូវ�
 #: apps/configuration/configuration_translations.py:2009
 msgctxt "technologies label"
 msgid "Energy: pipelines, power lines"
-msgstr "ខ្សែបណ្តាញថាមពល៖ បំពង់ហ្គាស, បណ្តាញខ្សែអគ្គិសនី"
+msgstr "ខ្សែបណ្តាញថាមពល៖ បំពង់ហ្គាស បណ្តាញខ្សែអគ្គិសនី"
 
 #: apps/configuration/configuration_translations.py:2010
 msgctxt "technologies label"
@@ -6057,7 +6060,7 @@ msgstr ""
 #: apps/configuration/configuration_translations.py:2732
 msgctxt "technologies label"
 msgid "Prevention, reduction, or restoration of land degradation"
-msgstr "ការពារ កាត់បន្ថយ ឬស្តារឡើងវិញនៃឱនភាពដី"
+msgstr "ការពារ កាត់បន្ថយ ឬស្តារឡើងវិញនៃការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:2733
 msgctxt "technologies helptext"
@@ -6067,14 +6070,14 @@ msgstr "គូសបានច្រើនបំផុត 2 ចម្លើយ"
 #: apps/configuration/configuration_translations.py:2734
 msgctxt "technologies_2018 label"
 msgid "Prevention, reduction, or restoration of land degradation"
-msgstr "ការពារ កាត់បន្ថយ ឬស្តារឡើងវិញនៃឱនភាពដី"
+msgstr "ការពារ កាត់បន្ថយ ឬស្តារឡើងវិញនៃការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:2735
 msgctxt "technologies_2018 helptext"
 msgid ""
 "Tick max. two answers. If you tick «not applicable», please tick no other "
 "answer."
-msgstr "គូសចម្លើយច្រើនបំផុត 2 ។ ប្រសិនបើអ្នកគូសថា «មិនទាក់ទង» សូមគូសថាគ្មានចម្លើយផ្សេងទេ។"
+msgstr "គូសចម្លើយច្រើនបំផុត 2 ចម្លើយ។ ប្រសិនបើអ្នកគូសថា «មិនទាក់ទង» សូមគូសថាគ្មានចម្លើយផ្សេងទេ។"
 
 #: apps/configuration/configuration_translations.py:2736
 msgctxt "technologies label"
@@ -6509,7 +6512,7 @@ msgstr "ការផ្គត់ផ្គង់ទឹក"
 #: apps/configuration/configuration_translations.py:2799
 msgctxt "technologies label"
 msgid "Main types of land degradation addressed by the Technology"
-msgstr "កំណត់ប្រភេទនៃឱនភាពដីសំខាន់ៗដែលបច្ចេកទេសនេះបានដោះស្រាយ"
+msgstr "កំណត់ប្រភេទនៃការធា្លក់ចុះគុណភាពដីសំខាន់ៗដែលបច្ចេកទេសនេះបានដោះស្រាយ"
 
 #: apps/configuration/configuration_translations.py:2800
 msgctxt "technologies helptext"
@@ -6518,8 +6521,8 @@ msgid ""
 "including soils, water, vegetation, and animals.</p><p>Use the degradation "
 "types and subcategories listed below</p>"
 msgstr ""
-"<p><strong>ការសិករិចរិលដី៖</strong> ប្រភពនៃការសិករិចរិល រួមមាន ដី ទឹក រុក្ខជាតិ និងសត្វ។</"
-"p><p>សូមប្រើប្រាស់ប្រភេទការសិតរិចរិលដី និងបញ្ជីក្រុមរងរបស់វាដូចខាងក្រោម</p> "
+"<p><strong>ការធា្លក់ចុះគុណភាពដី៖</strong> ប្រភពនៃការធា្លក់ចុះគុណភាពដី រួមមាន ដី ទឹក រុក្ខជាតិ "
+"និងសត្វ។</p><p>សូមប្រើប្រាស់ប្រភេទនៃការធា្លក់ចុះគុណភាពដី និងបញ្ជីក្រុមរងរបស់វាដូចខាងក្រោម</p> "
 
 #: apps/configuration/configuration_translations.py:2801
 msgctxt "technologies label"
@@ -6934,8 +6937,8 @@ msgid ""
 "text field. Differentiate between the perspectives of land users and key "
 "resource persons."
 msgstr ""
-"សូមផ្តល់សេចក្តីសន្និដ្ឋានអំពីបច្ចេកទេស។ សន្និដ្ឋានតែមួយក្នុងមួយផ្នែក "
-"និងខុសគ្នារវាងគោលគំនិតអ្នកប្រើប្រាស់ដី និងបុក្គលសំខាន់ៗ។"
+"សូមផ្តល់សេចក្តីសន្និដ្ឋានអំពីបច្ចេកទេស។ សន្និដ្ឋានតែមួយក្នុងប្រអប់អត្ថបទមួយ "
+"និងខុសគ្នារវាងគោលគំនិតអ្នកប្រើប្រាស់ដី និងបុគ្គលសំខាន់ៗ។"
 
 #: apps/configuration/configuration_translations.py:2839
 msgctxt "technologies label"
@@ -7018,16 +7021,17 @@ msgid ""
 "field surveys, etc.), although the Technology might be applied or be "
 "applicable in a wider area.</p>"
 msgstr ""
-"បច្ចេកទេសការគ្រប់គ្រងដីប្រកបដោយចីរភាព គឺជាការអនុវត្តន៍រូបវ័ន្តនៅទីវាលដែលគ្រប់គ្រងឱនភាពដី និង/"
-"បង្កើនផលិតភាព។ បច្ចេកទេសមួយរួមមានការវាស់វែងមួយ ឬច្រើនដូចជា ក្សេត្រសាស្ត្រ រុក្ខជាតិ "
-"រចនាសម្ព័ន្ធ និងការវាស់វែងការគ្រប់គ្រង។</p><p> បច្ចេកទេស "
-"SLMតែមួយនេះគួរតែគ្របដណ្តប់សំណុំដូចគ្នាដូចជា ស្ថានភាពធម្មជាតិ (លក្ខណៈជីវសាស្ត្រ) និងមនុស្ស "
-"(សេដ្ឋកិច្ចសង្គម)។ ទាំងនេះមានន័យថាបច្ចេកទេសមិនត្រូវបានអនុវត្តក្នុងភាពខុសប្លែកគ្នានោះទេ "
+"<p><strong>បច្ចេកទេសការគ្រប់គ្រងដីប្រកបដោយចីរភាព SLM </"
+"strong>គឺជាការអនុវត្តន៍នៅទីវាលដែលគ្រប់គ្រងការធ្លាក់ចុះគុណភាពដី និង/បង្កើនផលិតភាព។ "
+"បច្ចេកទេសមួយរួមមានការវាស់វែងមួយ ឬច្រើនដូចជា ក្សេត្រសាស្ត្រ រុក្ខជាតិ រចនាសម្ព័ន្ធ "
+"និងការវាស់វែងការគ្រប់គ្រង។</p><p>បច្ចេកទេស SLM តែមួយនេះគួរតែគ្របដណ្តប់សំណុំដូចគ្នាដូចជា "
+"ស្ថានភាពធម្មជាតិ (លក្ខណៈជីវសាស្ត្រ) និងមនុស្ស (សេដ្ឋកិច្ចសង្គម)។ "
+"ទាំងនេះមានន័យថាបច្ចេកទេសមិនត្រូវបានអនុវត្តក្នុងភាពខុសប្លែកគ្នានោះទេ "
 "ក៏ដូចជាភាពខុសគ្នាលើលក្ខណៈអាកាសធាតុ ឬតំបន់ ឬចំណាត់ថ្នាក់ជម្រាល "
-"ឬភាពខុសគ្នានៃការរៀបចំកម្មសិទ្ធដីផងដែរ។ បច្ចេកទេសមួយប្រហែលជាមានមួយ ឬច្រើន <strong> "
-"វិធានការ SLM </strong> (ក្សេត្រសាស្ត្រ សារពើរុក្ខជាតិ រចនាសម្ព័ន្ធ "
-"និងការវាស់វែងការគ្រប់គ្រង) ឧ. ការរៀបចំដីជាថ្នាក់ៗនៅជម្រាលភ្នំដែលមានស្មៅជាភ្លឺ "
-"និងការភ្ជួរវណ្ឌជារង្វង់។ </p><p><strong>ព័ត៌មានជាក់លាក់</strong>៖ "
+"ឬភាពខុសគ្នានៃការរៀបចំកម្មសិទ្ធដីផងដែរ។ បច្ចេកទេសមួយប្រហែលជាមានមួយ ឬច្រើន <strong>វិធានការ "
+"SLM </strong> (ក្សេត្រសាស្ត្រ សារពើរុក្ខជាតិ រចនាសម្ព័ន្ធ និងការវាស់វែងការគ្រប់គ្រង) ឧ. "
+"ការរៀបចំដីជាថ្នាក់ៗនៅជម្រាលភ្នំដែលមានស្មៅជាភ្លឺ និងការភ្ជួរវណ្ឌជារង្វង់។</p><p><strong> "
+"ព័ត៌មានជាក់លាក់</strong>៖ "
 "ព័ត៌មានដែលផ្តល់ឳ្យក្នុងកម្រងសំណួរនេះគួរតែច្បាស់លាស់ពីកន្លែងដែលត្រូវបានគេវាយតម្លៃ / "
 "វិភាគអំឡុងពេលចងក្រងឯកសារបច្ចេកទេស (ឧ. តាមរយៈការសម្ភាសន៍ជាមួយអ្នកប្រើប្រាស់ដី សម្ភាសន៍នៅទីវាល "
 "។ល។) បើទោះបីជាបច្ចេកទេសនេះអាចត្រូវបានអនុវត្តឬអាចអនុវត្តក្នុងតំបន់ធំមួយ។</p>"
@@ -7184,7 +7188,7 @@ msgstr "សូមបញ្ជាក់"
 msgctxt "unccd label"
 msgid ""
 "Contribution to Desertification, land degradation and drought (DLDD) measures"
-msgstr "វិធានការក្នុងការួមចំណែកទប់ស្កាត់រហោស្ថានកម្ម ការសិករេចរិលនៃដី និងគ្រោះរាំងស្ងួត​​ (DLDD)"
+msgstr "វិធានការក្នុងការួមចំណែកទប់ស្កាត់រហោស្ថានកម្ម ការធា្លក់ចុះគុណភាពដី និងគ្រោះរាំងស្ងួត​​ (DLDD)"
 
 #: apps/configuration/configuration_translations.py:3006
 #: apps/configuration/configuration_translations.py:4705
@@ -7280,7 +7284,7 @@ msgstr "កំណត់បញ្ហាចំបងៗដែលបានដោះ
 msgctxt "unccd label"
 msgid ""
 "Outline specific land degradation problems addressed by the best practice"
-msgstr "ចំណុចសំខាន់ៗជាក់លាក់នៃបញ្ហាឱនភាពដីដែលត្រូវបានដោះស្រាយតាមរយៈការអនុត្តន៍ដែលល្អ"
+msgstr "ចំណុចសំខាន់ៗជាក់លាក់នៃបញ្ហាការធា្លក់ចុះគុណភាពដីដែលត្រូវបានដោះស្រាយតាមរយៈការអនុត្តន៍ដែលល្អ"
 
 #: apps/configuration/configuration_translations.py:3023
 #: apps/configuration/configuration_translations.py:4714
@@ -8678,7 +8682,9 @@ msgctxt "cca helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​លេខាធិការដ្ឋានរបស់ វ៉ូខេត​  (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5256
 #: apps/configuration/configuration_translations.py:5257
@@ -8706,7 +8712,9 @@ msgctxt "watershed helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ ​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5264
 #: apps/configuration/configuration_translations.py:5265
@@ -8722,7 +8730,9 @@ msgctxt "approaches helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ ​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5268
 #: apps/configuration/configuration_translations.py:5269
@@ -8744,7 +8754,9 @@ msgctxt "technologies helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះគម្រោងរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ ​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5274
 #: apps/configuration/configuration_translations.py:5275
@@ -8768,7 +8780,9 @@ msgctxt "cca helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ ​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5280
 #: apps/configuration/configuration_translations.py:5281
@@ -8797,7 +8811,9 @@ msgctxt "watershed helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ ​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5288
 #: apps/configuration/configuration_translations.py:5289
@@ -8814,7 +8830,9 @@ msgctxt "approaches helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ ​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5292
 #: apps/configuration/configuration_translations.py:5293
@@ -8836,7 +8854,9 @@ msgctxt "technologies helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
-msgstr "បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅ​ (wocat@cde.unibe.ch)។"
+msgstr ""
+"បើមិនមានឈ្មោះអង្គភាពរបស់អ្នកនៅឡើយ សូមទំនាក់ទំនងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត​ (wocat@cde."
+"unibe.ch)។"
 
 #: apps/configuration/configuration_translations.py:5298
 #: apps/configuration/configuration_translations.py:5299
@@ -8978,7 +8998,7 @@ msgid ""
 msgstr ""
 "<strong>សម្គាល់</strong>៖ "
 "ប្រសិនបើអ្នកមិនយល់ស្របតាមលក្ខខណ្ឌនានាទាក់ទងទៅនឹងការប្រើប្រាស់ទិន្នន័យដែលចងក្រងតាមរយៈ វ៉ូខេត "
-"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។ "
+"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ លេខាធិការដ្ឋានរបស់ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។ "
 
 #: apps/configuration/configuration_translations.py:5325
 msgctxt "watershed label"
@@ -8999,7 +9019,7 @@ msgid ""
 msgstr ""
 "<strong>សម្គាល់</strong>៖ "
 "ប្រសិនបើអ្នកមិនយល់ស្របតាមលក្ខខណ្ឌនានាទាក់ទងទៅនឹងការប្រើប្រាស់ទិន្នន័យដែលចងក្រងតាមរយៈ វ៉ូខេត "
-"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។"
+"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ លេខាធិការដ្ឋានរបស់ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។"
 
 #: apps/configuration/configuration_translations.py:5327
 msgctxt "approaches label"
@@ -9020,7 +9040,7 @@ msgid ""
 msgstr ""
 "<strong>សម្គាល់</strong>៖ "
 "ប្រសិនបើអ្នកមិនយល់ស្របតាមលក្ខខណ្ឌនានាទាក់ទងទៅនឹងការប្រើប្រាស់ទិន្នន័យដែលចងក្រងតាមរយៈ វ៉ូខេត "
-"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។ "
+"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ លេខាធិការដ្ឋានរបស់ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។ "
 
 #: apps/configuration/configuration_translations.py:5329
 msgctxt "technologies label"
@@ -9040,7 +9060,7 @@ msgid ""
 msgstr ""
 "<strong>សម្គាល់</strong>៖ "
 "ប្រសិនបើអ្នកមិនយល់ស្របតាមលក្ខខណ្ឌនានាទាក់ទងទៅនឹងការប្រើប្រាស់ទិន្នន័យដែលចងក្រងតាមរយៈ វ៉ូខេត "
-"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។"
+"ទិន្នន័យរបស់អ្នកនឹងមិនត្រូវបានទទួលដោយ លេខាធិការដ្ឋានរបស់ វ៉ូខេត និងមិនអាចបោះពុម្ពផ្សាយបានឡើយ។"
 
 #: apps/configuration/configuration_translations.py:5331
 msgctxt "cca label"
@@ -12006,7 +12026,7 @@ msgstr "បច្ចេកវិទ្យា"
 #: apps/configuration/configuration_translations.py:7615
 msgctxt "approaches label"
 msgid "reduced land degradation"
-msgstr "កាត់បន្ថយឱនភាពដី"
+msgstr "ការកាត់បន្ថយការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:7616
 msgctxt "approaches label"
@@ -12540,7 +12560,7 @@ msgid ""
 "only those components or activities of the project that are relevant to SLM."
 "</strong></p>"
 msgstr ""
-"<p><strong>វិធីសាស្ត្រផ្សព្វផ្សាយការគ្រប់គ្រងដីប្រកបដោយចីរភាព</strong> "
+"<p><strong>វិធីសាស្ត្រផ្សព្វផ្សាយការគ្រប់គ្រងដីប្រកបដោយចីរភាព SLM </strong> "
 "(តទៅនេះសំដៅលើវិធីសាស្ត្រផ្សព្វផ្សាយ) សំដៅដល់របៀប និងមធ្យោបាយ "
 "ដែលត្រូវបានប្រើប្រាស់ក្នុងការអនុវត្តន៍បច្ចេកទេស ក្នុងការគ្រប់គ្រងដីប្រកបដោយចីរភាព។ "
 "រាប់បញ្ចូលទាំងការគាំទ្រផ្នែកសម្ភារៈ និងបច្ចេកទេស ការចូលរួម និងតួនាទីរបស់ភាគីពាក់ព័ន្ធផ្សេងៗគ្នា។ល។ "
@@ -12728,7 +12748,7 @@ msgstr "ភាពរួស (ហានិភ័យ និងសត្តានុ
 #: apps/configuration/configuration_translations.py:23100
 msgctxt "cca label"
 msgid "Land degradation types and related sensitivity of the Technology"
-msgstr "ប្រភេទឱនភាពដី និងភាពទប់ទល់នៃបច្ចេកទេស"
+msgstr "ប្រភេទនៃការធា្លក់ចុះគុណភាពដី និងភាពទប់ទល់នៃបច្ចេកទេស"
 
 #: apps/configuration/configuration_translations.py:23101
 msgctxt "cca helptext"
@@ -12767,21 +12787,21 @@ msgstr ""
 "ឧទាហរណ៍ៈ ការបន្ថែមទឹកដោយសារព្យុះដោយមិនអាចជ្រាបបាន ហើយវាធ្វើ​ឱ្យមានសំណឹក ឬបាក់ដី។ "
 "ឥទ្ធិពលអំណោយផល មានន័យថាបច្ចេកទេសបានទទួលអត្ថប្រយោជន៍ពីការប្រែប្រួល ឧទាហរណ៍៖ "
 "គេអាចរក្សាទុកទឹកបន្ថែមទៀត ហើយដូចនេះមានទឹកច្រើនសម្រាប់ទឹកក្រោមដី។ "
-"វាក៏មានសារៈសំខាន់ផងដែរដើម្បីបញ្ជាក់ដំណើរការឱនភាពដីនៅទីកន្លែងដែលមានសក្តានុពល គឺនៅចំណុចណឺត "
-"វាមានន័យថាបច្ចេកទេសបានទប់ទល់ក្នុងការជ្រាបទឹក។</p><p> នៅពេលដែលកំណត់ភាពផ្លាស់ប្តូរ "
+"វាក៏មានសារៈសំខាន់ផងដែរដើម្បីបញ្ជាក់ពីដំណើរការនៃការធា្លក់ចុះគុណភាពដីនៅទីកន្លែងដែលមានសក្តានុពល "
+"គឺនៅចំណុចណឺត វាមានន័យថាបច្ចេកទេសបានទប់ទល់ក្នុងការជ្រាបទឹក។</p><p> នៅពេលដែលកំណត់ភាពផ្លាស់ប្តូរ "
 "ជាញឹកញាប់គឺប្រៀបធៀបជាមួយបច្ចេកទេសដែលមិនប្រឆាំជាមួយបច្ចេកទេសផ្សេងទៀតដែលមានការប្រែប្រួលអាកាសធាតុបន្តិចបន្តួច​ "
 "និងអាកាសធាតុទាក់ទងទៅនឹងព្រឹត្តិការណ៍អាកាសធាតុ(គ្រោះមហន្តរាយ)។ </"
 "p><p>បញ្ជីរាយនាមការប្រែប្រួលអាកាសធាតុតិចតួច "
 "ឬគ្រោះអាកាសធាតុទាក់ទងទៅនឹងគ្រោះមហន្តរាយដែលបច្ចេកទេសបានទទួល(សំដៅទៅលើសំណួរ 2.2)។ បន្ទាប់មក​ "
-"បញ្ជីរាយនាមប្រភេទឱនភាពដីនីមួយៗ/អនុចំណាត់ថ្នាក់ដែលដោះស្រាយដោយបច្ចេកទេស​(សំណួរ 3.7 ឬ QT Core)​ "
-"ព្រមទាំងការវាយតម្លៃសារឡើងវិញនៃភាពផ្លាស់ប្តូរ-sensitivity "
+"បញ្ជីរាយនាមប្រភេទនៃការធា្លក់ចុះគុណភាពដីនីមួយៗ/អនុចំណាត់ថ្នាក់ដែលដោះស្រាយដោយបច្ចេកទេស​(សំណួរ 3.7 "
+"ឬ QT Core)​ ព្រមទាំងការវាយតម្លៃសារឡើងវិញនៃភាពផ្លាស់ប្តូរ-sensitivity "
 "នៃបច្ចេកទេសនៅក្នុងរូបភាពនៃការប្រែប្រួលអាកាសធាតុក្នុងទម្រង់ផ្សេងៗគ្នា "
 "និងអាកាសធាតុទាក់ទងទៅនឹងគ្រោះអាកាសធាតុ​(គ្រោះមហន្តរាយ)​(តារាង 1)។ "
 "ការវាយតម្លៃសារឡើងវិញនូវភាពផ្លាស់ប្តូរ នៃបច្ចេកទេសចំពោះឱនភាពដីនីមួយៗដាច់ដោយឡែកពីគ្នា។</"
 "p><p>បន្ទាប់មកសាកល្បងធ្វើសារដើមវិញចំពោះការប្រែប្រួលអាកាសធាតុតិចតួច "
 "ឬទាក់ទងតៅនឹងគ្រោះអាកាសធាតុ ដែលបច្ចេកទេសត្រូវប្រើ(បញ្ជីក្នុងសំណួរ 2.2)។</p><p> "
-"ប្រសិនមានប្រភេទឱនភាពដីបន្ថែមទៀត(មិនមាននៅក្នុងបញ្ជី QT Core 3.7) "
-"ដែលទើបតែកើតមានថ្មីៗនេះ(មានផលប៉ះពាល់ដល់បច្ចេកទេស) នៅក្រោមឥទ្ធិពលការប្រែប្រួលអាកាសធាតុ "
+"ប្រសិនមានប្រភេទនៃការធា្លក់ចុះគុណភាពដីបន្ថែមទៀត (មិនមាននៅក្នុងបញ្ជី QT Core 3.7) "
+"ដែលទើបតែកើតមានថ្មីៗនេះ (មានផលប៉ះពាល់ដល់បច្ចេកទេស) នៅក្រោមឥទ្ធិពលការប្រែប្រួលអាកាសធាតុ "
 "និងអាកាសធាតុទាក់ទងទៅនឹងគ្រោះអាកាសធាតុ(គ្រោះមហន្តរាយ) សូមដាក់វាក្នុងបញ្ជី "
 "ព្រមទាំងវាយតម្លៃវាផងដែរ (តារាង 2)។ វាយតម្លៃភាពផ្លាស់ប្តូរ "
 "នៃបច្ចេកទេសសម្រាប់ប្រភេទឱនភាពដីដាច់ដោយឡែកពីគ្នា។</p>"
@@ -13350,7 +13370,8 @@ msgstr ""
 msgctxt "cca label"
 msgid "Table 1: Reassessment of land degradation types listed in QT Core 3.7"
 msgstr ""
-"តារាង 1៖ តារាងវាយតម្លៃប្រភេទនៃឱនភាពដីឡើងវិញនៅក្នុងកម្រងបញ្ជីសំណួរបច្ចេកទេសស្នូលនូវចំណុច 3.7"
+"តារាង 1៖ "
+"តារាងវាយតម្លៃប្រភេទនៃការធា្លក់ចុះគុណភាពដីឡើងវិញនៅក្នុងកម្រងបញ្ជីសំណួរបច្ចេកទេសស្នូលនូវចំណុច 3.7"
 
 #: apps/configuration/configuration_translations.py:27050
 msgctxt "cca helptext"
@@ -13358,13 +13379,13 @@ msgid ""
 "Please check in QT Core question number 3.7 which land degradation types "
 "have been selected and list only those in the second column."
 msgstr ""
-"សូមពិនិត្យក្នុងបញ្ជី​សំណួរ QT Core ត្រង់សំណួរ 3.7 ដែលប្រភេទឳនភាពដីត្រូវបានជ្រើសរើស "
+"សូមពិនិត្យក្នុងបញ្ជី​សំណួរ QT Core ត្រង់សំណួរ 3.7 ដែលប្រភេទនៃការធា្លក់ចុះគុណភាពដីត្រូវបានជ្រើសរើស "
 "ហើយរាយតែឈ្មោះដែលមានក្នុងជួរទីពីរ។"
 
 #: apps/configuration/configuration_translations.py:27051
 msgctxt "cca label"
 msgid "Table 2: Assessment of newly occurring land degradation types"
-msgstr "តារាង 2៖ វាយតម្លៃប្រភេទនៃឱនភាពដីដែលទើបតែកើតឡើង"
+msgstr "តារាង 2៖ វាយតម្លៃប្រភេទនៃការធា្លក់ចុះគុណភាពដីដែលទើបតែកើតឡើង"
 
 #: apps/configuration/configuration_translations.py:27124
 msgctxt "cca label"
@@ -13749,7 +13770,7 @@ msgstr "មតិយោបល់/បញ្ជាក់"
 #: apps/configuration/configuration_translations.py:28027
 msgctxt "cca label"
 msgid "Land degradation type addressed by the Technology listed in QT Core 3.7"
-msgstr "ប្រភេទឱនភាពដីដែលបានរាយនៅក្នុងកម្រងបញ្ជីសំណួរស្នូលនៃបច្ចេកទេសចំណុច 3.7"
+msgstr "ប្រភេទនៃការធា្លក់ចុះគុណភាពដីដែលបានរាយនៅក្នុងកម្រងបញ្ជីសំណួរស្នូលនៃបច្ចេកទេសចំណុច 3.7"
 
 #: apps/configuration/configuration_translations.py:28028
 msgctxt "cca helptext"
@@ -13758,13 +13779,13 @@ msgid ""
 "climate-related extreme. The same change/ extreme may have several land "
 "degradation types."
 msgstr ""
-"រាយប្រភេទឱនភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ ការប្រែប្រួលខុសគ្នា/ ខ្លាំង "
-"ប្រហែលមានប្រភេទនៃឱនភាពដីកើតឡើងផ្សេងគ្នា។"
+"រាយប្រភេទនៃការធា្លក់ចុះគុណភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ "
+"ការប្រែប្រួលខុសគ្នា/ ខ្លាំង ប្រហែលមានប្រភេទនៃការធា្លក់ចុះគុណភាពដីកើតឡើងផ្សេងគ្នា។"
 
 #: apps/configuration/configuration_translations.py:28029
 msgctxt "cca label"
 msgid "Sensitivity of the Technology to land degradation type"
-msgstr "ភាពបត់បែននៃបច្ចេកទេសទៅលើប្រភេទនៃឳនភាពដី"
+msgstr "ភាពបត់បែននៃបច្ចេកទេសទៅលើប្រភេទនៃការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:28030
 msgctxt "cca label"
@@ -13777,7 +13798,8 @@ msgid ""
 "Land degradation type newly occurring due to gradual climate change/ climate-"
 "related extreme (disaster)"
 msgstr ""
-"ប្រភេទនៃឱនភាពដីដែលកើតឡើងទៅតាមការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ (គ្រោះមហន្តរាយ)"
+"ប្រភេទនៃការធា្លក់ចុះគុណភាពដីដែលកើតឡើងទៅតាមការប្រែប្រួលអាកាសធាតុ និងគ្រោះអាកាសធាតុ "
+"(គ្រោះមហន្តរាយ)"
 
 #: apps/configuration/configuration_translations.py:28032
 msgctxt "cca helptext"
@@ -13785,8 +13807,8 @@ msgid ""
 "List one land degradation type per gradual climate change/ climate-related "
 "extreme. The same change/ extreme may have several land degradation types."
 msgstr ""
-"រាយប្រភេទនៃឱនភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ ការប្រែប្រួលខុសគ្នា/ ខ្លាំង "
-"ប្រហែលមានប្រភេទនៃឱនភាពដីកើតឡើងផ្សេងគ្នា។"
+"រាយប្រភេទនៃការធា្លក់ចុះគុណភាពដីទៅតាមការប្រែប្រួលអាកាសធាតុ/ គ្រោះអាកាសធាតុ។ "
+"ការប្រែប្រួលខុសគ្នា/ ខ្លាំង ប្រហែលមានប្រភេទនៃការធា្លក់ចុះគុណភាពដីកើតឡើងផ្សេងគ្នា។"
 
 #: apps/configuration/configuration_translations.py:28033
 #: apps/configuration/configuration_translations.py:28034
@@ -14395,7 +14417,7 @@ msgstr "Wc: ការហួរច្រោះឆ្នេរខ្សាច់"
 #: apps/configuration/configuration_translations.py:29080
 msgctxt "cca label"
 msgid "Wo: offsite degradation effects"
-msgstr "Wo: ផលប៉ះពាល់ការសឹករិករិលដីកន្លែងឆ្ងាយ"
+msgstr "Wo: ផលប៉ះពាល់នៃការធា្លក់ចុះគុណភាពដីកន្លែងឆ្ងាយ"
 
 #: apps/configuration/configuration_translations.py:29081
 msgctxt "cca label"
@@ -14410,7 +14432,7 @@ msgstr "Ed: អតិផរណា និង ការទម្លាក់"
 #: apps/configuration/configuration_translations.py:29083
 msgctxt "cca label"
 msgid "Eo: offsite degradation effects"
-msgstr "Eo: ឥទ្ធិពលនៃការសិករិចរិល"
+msgstr "Eo: ផលប៉ះពាល់នៃការធា្លក់ចុះគុណភាពដីកន្លែងឆ្ងាយ"
 
 #: apps/configuration/configuration_translations.py:29084
 msgctxt "cca label"
@@ -14960,7 +14982,7 @@ msgstr "ស្ថាប័នជាតិ"
 #: apps/configuration/configuration_translations.py:29185
 msgctxt "cca label"
 msgid "SLM/ land degradation knowledge"
-msgstr "ចំណេះដឹង SLM / ឱនភាពដី"
+msgstr "ចំណេះដឹង SLM / ការធា្លក់ចុះគុណភាពដី"
 
 #: apps/configuration/configuration_translations.py:29186
 msgctxt "cca label"
@@ -15699,7 +15721,7 @@ msgstr "តើបច្ចេកទេស (មួយ ឬច្រើន) ទា�
 #: apps/configuration/configuration_translations.py:32916
 msgctxt "technologies_2018 helptext"
 msgid "I.e. national reserve/ national park"
-msgstr "ឧទាហរណ៍៖ តំបន់អភិរក្សជាតិ / ឧទ្យានជាតិ"
+msgstr "ឧ. តំបន់អភិរក្សជាតិ / ឧទ្យានជាតិ"
 
 #: apps/configuration/configuration_translations.py:32917
 #: apps/configuration/configuration_translations.py:32918
@@ -15923,7 +15945,7 @@ msgstr "តែ"
 #: apps/configuration/configuration_translations.py:32963
 msgctxt "technologies_2018 label"
 msgid "tree nuts (brazil nuts, pistachio, walnuts, almonds, etc.)"
-msgstr ""
+msgstr "ដើមឈើយកគ្រាប់ (brazil nuts, pistachio, walnuts, almonds, etc.)"
 
 #: apps/configuration/configuration_translations.py:32964
 msgctxt "technologies_2018 label"
@@ -16038,7 +16060,7 @@ msgstr "ស៊ុត"
 #: apps/configuration/configuration_translations.py:33004
 msgctxt "technologies_2018 label"
 msgid "whool"
-msgstr ""
+msgstr "រោមសត្វ"
 
 #: apps/configuration/configuration_translations.py:33008
 msgctxt "technologies_2018 label"
@@ -16054,7 +16076,7 @@ msgstr "ប្រភេទពូជ"
 #: apps/configuration/configuration_translations.py:33010
 msgctxt "technologies_2018 label"
 msgid "Count"
-msgstr ""
+msgstr "ចំនួន"
 
 #: apps/configuration/configuration_translations.py:33011
 msgctxt "technologies_2018 label"
@@ -16269,102 +16291,102 @@ msgstr "Larix species (larch)"
 #: apps/configuration/configuration_translations.py:33123
 msgctxt "technologies_2018 label"
 msgid "Leucaena leucocephala"
-msgstr ""
+msgstr "Leucaena leucocephala"
 
 #: apps/configuration/configuration_translations.py:33124
 msgctxt "technologies_2018 label"
 msgid "Mimosa scabrella"
-msgstr ""
+msgstr "Mimosa scabrella"
 
 #: apps/configuration/configuration_translations.py:33125
 msgctxt "technologies_2018 label"
 msgid "Pinus species (pine)"
-msgstr ""
+msgstr "Pinus species (pine)"
 
 #: apps/configuration/configuration_translations.py:33126
 msgctxt "technologies_2018 label"
 msgid "Pinus caribaea v. caribaea"
-msgstr ""
+msgstr "Pinus caribaea v. caribaea"
 
 #: apps/configuration/configuration_translations.py:33127
 msgctxt "technologies_2018 label"
 msgid "Pinus caribaea v. hondurensis"
-msgstr ""
+msgstr "Pinus caribaea v. hondurensis"
 
 #: apps/configuration/configuration_translations.py:33128
 msgctxt "technologies_2018 label"
 msgid "Pinus oocarpa"
-msgstr ""
+msgstr "Pinus oocarpa"
 
 #: apps/configuration/configuration_translations.py:33129
 msgctxt "technologies_2018 label"
 msgid "Pinus patula"
-msgstr ""
+msgstr "Pinus patula"
 
 #: apps/configuration/configuration_translations.py:33130
 msgctxt "technologies_2018 label"
 msgid "Pinus radiata"
-msgstr ""
+msgstr "Pinus radiata"
 
 #: apps/configuration/configuration_translations.py:33131
 msgctxt "technologies_2018 label"
 msgid "Populus species"
-msgstr ""
+msgstr "Populus species"
 
 #: apps/configuration/configuration_translations.py:33132
 msgctxt "technologies_2018 label"
 msgid "Sclerocarya birrea"
-msgstr ""
+msgstr "Sclerocarya birrea"
 
 #: apps/configuration/configuration_translations.py:33133
 msgctxt "technologies_2018 label"
 msgid "Picea species (spruce)"
-msgstr ""
+msgstr "Picea species (spruce)"
 
 #: apps/configuration/configuration_translations.py:33134
 msgctxt "technologies_2018 label"
 msgid "Swietenia macrophylla"
-msgstr ""
+msgstr "Swietenia macrophylla"
 
 #: apps/configuration/configuration_translations.py:33135
 msgctxt "technologies_2018 label"
 msgid "Tectona grandis"
-msgstr ""
+msgstr "Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33136
 msgctxt "technologies_2018 label"
 msgid "Tectona species"
-msgstr ""
+msgstr "Tectona species"
 
 #: apps/configuration/configuration_translations.py:33137
 msgctxt "technologies_2018 label"
 msgid "Terminalia ivorensis"
-msgstr ""
+msgstr "Terminalia ivorensis"
 
 #: apps/configuration/configuration_translations.py:33138
 msgctxt "technologies_2018 label"
 msgid "Terminalia superba"
-msgstr ""
+msgstr "Terminalia superba"
 
 #: apps/configuration/configuration_translations.py:33139
 msgctxt "technologies_2018 label"
 msgid "Xylia xylocapa"
-msgstr ""
+msgstr "Xylia xylocapa"
 
 #: apps/configuration/configuration_translations.py:33140
 msgctxt "technologies_2018 label"
 msgid "Ziziphus mauritiana"
-msgstr ""
+msgstr "Ziziphus mauritiana"
 
 #: apps/configuration/configuration_translations.py:33141
 msgctxt "technologies_2018 label"
 msgid "Azadirachta indica"
-msgstr ""
+msgstr "Azadirachta indica"
 
 #: apps/configuration/configuration_translations.py:33142
 msgctxt "technologies_2018 label"
 msgid "Grevillea robusta"
-msgstr ""
+msgstr "Grevillea robusta"
 
 #: apps/configuration/configuration_translations.py:33144
 msgctxt "technologies_2018 label"
@@ -16489,7 +16511,7 @@ msgstr "សូមបញ្ជាក់"
 #: apps/configuration/configuration_translations.py:33168
 msgctxt "technologies_2018 label"
 msgid "Is land use mixed within the same land unit (e.g. agroforestry)?"
-msgstr "តើដីប្រើប្រាស់ចម្រុះនេះ គឺស្ថិតលើដីតែមួយ (ឧ.​ បញ្ចូលកសិរុក្ខកម្ម)?"
+msgstr "តើដីប្រើប្រាស់ចម្រុះនេះ គឺស្ថិតលើដីតែមួយ (ឧ.​ កសិរុក្ខកម្ម)?"
 
 #: apps/configuration/configuration_translations.py:33169
 msgctxt "technologies_2018 helptext"
@@ -16498,7 +16520,7 @@ msgid ""
 "agroforestry, agro-silvopastoralism."
 msgstr ""
 "ភាពចម្រុះនៃដំណាំ វាលស្មៅចិញ្ចឹមសត្វ និងដើមឈើនៅលើដីតែមួយ ឧ. កសិរុក្ខកម្ម "
-"ការដាំដំណាំជាមួយការចិញ្ចឹមសត្វ និងឈើ"
+"ការដាំដំណាំជាមួយការចិញ្ចឹមសត្វ និងឈើ។"
 
 #: apps/configuration/configuration_translations.py:33170
 msgctxt "technologies_2018 label_view"
@@ -16685,7 +16707,7 @@ msgstr "ថ្នាំជក់"
 #: apps/configuration/configuration_translations.py:33211
 msgctxt "technologies_2018 label"
 msgid "vegetables - jerusalem artichoke"
-msgstr ""
+msgstr "ដំណាំ - jerusalem artichoke"
 
 #: apps/configuration/configuration_translations.py:33212
 msgctxt "technologies_2018 label"
@@ -16755,7 +16777,7 @@ msgstr "ដំណាំរយៈពេលវែង (មិនមែនឈើ)  -
 #: apps/configuration/configuration_translations.py:33225
 msgctxt "technologies_2018 label"
 msgid "fodder trees (Calliandra, Leucaena leucocephala, Prosopis, etc.)"
-msgstr ""
+msgstr "ដំណាំចំណី (Calliandra, Leucaena leucocephala, Prosopis, etc.)"
 
 #: apps/configuration/configuration_translations.py:33226
 msgctxt "technologies_2018 label"
@@ -16810,7 +16832,7 @@ msgstr "សត្វសេះ"
 #: apps/configuration/configuration_translations.py:33236
 msgctxt "technologies_2018 label"
 msgid "mules and asses"
-msgstr ""
+msgstr "សត្វលា"
 
 #: apps/configuration/configuration_translations.py:33237
 msgctxt "technologies_2018 label"
@@ -16896,7 +16918,7 @@ msgstr "ផលិតផល និងសេវាកម្ម"
 #: apps/configuration/configuration_translations.py:33252
 msgctxt "technologies_2018 label"
 msgid "Transhumant pastoralism"
-msgstr ""
+msgstr "Transhumant pastoralism"
 
 #: apps/configuration/configuration_translations.py:33253
 msgctxt "technologies_2018 helptext"
@@ -16905,101 +16927,104 @@ msgid ""
 "herds between fixed areas in order to benefit from the seasonal variability "
 "of climates and pastures."
 msgstr ""
+"<strong>Transhumant pastoralism/ transhumance</strong>៖ "
+"ការផ្លាស់ប្តូរហ្វូងសត្វជាទៀងទាត់រវាងតំបន់ជាក់លាក់មួយទៅតំបន់ជាក់លាក់មួយទៀតដើម្បីទទួលបានអត្ថប្រយោជន៍ពីការប្រែប្រួលនៃអាកាសធាតុ "
+"និងវាលស្មៅ។"
 
 #: apps/configuration/configuration_translations.py:33254
 msgctxt "technologies_2018 label"
 msgid "boreal coniferous forest natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិក្នុងព្រៃធម្មជាតិ boreal coniferous "
 
 #: apps/configuration/configuration_translations.py:33255
 msgctxt "technologies_2018 label"
 msgid "boreal mountain systems natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៅប្រព័ន្ធភ្នំ boreal ធម្មជាតិ"
 
 #: apps/configuration/configuration_translations.py:33256
 msgctxt "technologies_2018 label"
 msgid "boreal tundra woodland natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៅតំបន់ដីព្រៃធម្មជាតិទុនដ្រា boreal "
 
 #: apps/configuration/configuration_translations.py:33257
 msgctxt "technologies_2018 label"
 msgid "subtropical desert natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិធម្មជាតិនៅវាលខ្សាច់តំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33258
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃព្រៃស្ងួតធម្មជាតិតំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33259
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃព្រៃសើមធម្មជាតិតំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33260
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃប្រព័ន្ធភ្នំធម្មជាតិតំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33261
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃព្រៃធម្មជាតិ steppe នៅតំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33262
 msgctxt "technologies_2018 label"
 msgid "temperate continental forest natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃព្រៃធម្មជាតិ temperate continental "
 
 #: apps/configuration/configuration_translations.py:33263
 msgctxt "technologies_2018 label"
 msgid "temperate desert natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃតំបន់វាលខ្សាច់ធម្មជាតិ temperate"
 
 #: apps/configuration/configuration_translations.py:33264
 msgctxt "technologies_2018 label"
 msgid "temperate mountain systems natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៅប្រព័ន្ធភ្នំធម្មជាតិ temperate"
 
 #: apps/configuration/configuration_translations.py:33265
 msgctxt "technologies_2018 label"
 msgid "temperate oceanic forest natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃព្រៃធម្មជាតិតំបន់ temperate oceanic"
 
 #: apps/configuration/configuration_translations.py:33266
 msgctxt "technologies_2018 label"
 msgid "temperate steppe natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃតំបន់ធម្មជាតិ temperate steppe"
 
 #: apps/configuration/configuration_translations.py:33267
 msgctxt "technologies_2018 label"
 msgid "tropical desert natural vegetation"
-msgstr "សារពើភ័ណ្ឌរុក្ខជាតិធម្មជាតិនៅវាលខ្សាច់ត្រូពិច"
+msgstr "សារពើរុក្ខជាតិនៅវាលខ្សាច់ធម្មជាតិតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33268
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest natural vegetation"
-msgstr "សារពើភ័ណ្ឌរុក្ខជាតិធម្មជាតិនៅព្រៃស្ងួតត្រូពិច"
+msgstr "សារពើរុក្ខជាតិនៅព្រៃស្ងួតធម្មជាតិតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33269
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest natural vegetation"
-msgstr "សារពើភ័ណ្ឌរុក្ខជាតិធម្មជាតិនៅព្រៃល្បោះសើមត្រូពិច"
+msgstr "សារពើរុក្ខជាតិនៅព្រៃល្បោះសើមធម្មជាតិតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33270
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems natural vegetation"
-msgstr "សារពើភ័ណ្ឌរុក្ខជាតិធម្មជាតិនៅតាមប្រព័ន្ធភ្នំត្រូពិច"
+msgstr "សារពើរុក្ខជាតិនៅតាមប្រព័ន្ធភ្នំធម្មជាតិតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33271
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest natural vegetation"
-msgstr "សារពើភ័ណ្ឌរុក្ខជាតិធម្មជាតិនៅព្រៃរងទឹកភ្លៀងត្រូពិច"
+msgstr "សារពើរុក្ខជាតិនៅព្រៃរងទឹកភ្លៀងធម្មជាតិតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33272
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland natural vegetation"
-msgstr ""
+msgstr "សារពើរុក្ខជាតិនៃព្រៃគុម្ពោតធម្មជាតិតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33273
 msgctxt "technologies_2018 label"
@@ -17014,262 +17039,262 @@ msgstr "ប្រភេទព្រៃ (ពាក់កណ្តាល) ធម�
 #: apps/configuration/configuration_translations.py:33275
 msgctxt "technologies_2018 label"
 msgid "boreal coniferous forest plantation"
-msgstr ""
+msgstr "ព្រៃដាំនៅតំបន់ boreal coniferous"
 
 #: apps/configuration/configuration_translations.py:33276
 msgctxt "technologies_2018 label"
 msgid "boreal mountain systems plantation"
-msgstr ""
+msgstr "ព្រៃដាំនៅប្រព័ន្ធភ្នំ boreal"
 
 #: apps/configuration/configuration_translations.py:33277
 msgctxt "technologies_2018 label"
 msgid "boreal tundra woodland plantation"
-msgstr ""
+msgstr "ដីព្រៃដាំតំបន់ទុនដ្រា boreal"
 
 #: apps/configuration/configuration_translations.py:33278
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation"
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33279
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ពាក់កណ្តាលត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33280
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Broadleaf"
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ពាក់កណ្តាលត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33281
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ពាក់កណ្តាលត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33282
 msgctxt "technologies_2018 label"
 msgid "subtropical dry forest plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ពាក់កណ្តាលត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33283
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃសើមដាំតំបន់ពាក់កណ្តាលត្រូពិច - ឈើស្លឹកធំ "
 
 #: apps/configuration/configuration_translations.py:33284
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃសើមដាំតំបន់ពាក់កណ្តាលត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33285
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation"
-msgstr ""
+msgstr "ព្រៃសើមដាំតំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33286
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃសើមដាំតំបន់ពាក់កណ្តាលត្រូពិច - Pinus spp"
 
 #: apps/configuration/configuration_translations.py:33287
 msgctxt "technologies_2018 label"
 msgid "subtropical humid forest plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃសើមដាំតំបន់ពាក់កណ្តាលត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33288
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំពាក់កណ្តាលត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33289
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំពាក់កណ្តាលត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33290
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation"
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33291
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំពាក់កណ្តាលត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33292
 msgctxt "technologies_2018 label"
 msgid "subtropical mountain systems plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំពាក់កណ្តាលត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33293
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation"
-msgstr ""
+msgstr "ព្រៃដាំ steppe តំបន់ពាក់កណ្តាលត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33294
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃដាំ steppe តំបន់ពាក់កណ្តាលត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33295
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - coniferous"
-msgstr ""
+msgstr "ព្រៃដាំ steppe តំបន់ពាក់កណ្តាលត្រូពិច - coniferous"
 
 #: apps/configuration/configuration_translations.py:33296
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃដាំ steppe តំបន់ពាក់កណ្តាលត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33297
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃដាំ steppe តំបន់ពាក់កណ្តាលត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33298
 msgctxt "technologies_2018 label"
 msgid "subtropical steppe plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃដាំ steppe តំបន់ពាក់កណ្តាលត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33299
 msgctxt "technologies_2018 label"
 msgid "temperate continental forest plantation"
-msgstr ""
+msgstr "ព្រៃដាំ temperate continental"
 
 #: apps/configuration/configuration_translations.py:33300
 msgctxt "technologies_2018 label"
 msgid "temperate mountain systems plantation"
-msgstr ""
+msgstr "ព្រៃដាំប្រព័ន្ធភ្នំ temperate"
 
 #: apps/configuration/configuration_translations.py:33301
 msgctxt "technologies_2018 label"
 msgid "temperate oceanic forest plantation"
-msgstr ""
+msgstr "ព្រៃដាំ temperate oceanic"
 
 #: apps/configuration/configuration_translations.py:33302
 msgctxt "technologies_2018 label"
 msgid "temperate steppe plantation"
-msgstr ""
+msgstr "ព្រៃដាំ temperate steppe "
 
 #: apps/configuration/configuration_translations.py:33303
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33304
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33305
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation"
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33306
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33307
 msgctxt "technologies_2018 label"
 msgid "tropical dry forest plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃស្ងួតដាំតំបន់ត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33308
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃល្បោះសើមដាំតំបន់ត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33309
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃល្បោះសើមដាំតំបន់ត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33310
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation"
-msgstr ""
+msgstr "ព្រៃល្បោះសើមដាំតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33311
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃល្បោះសើមដាំតំបន់ត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33312
 msgctxt "technologies_2018 label"
 msgid "tropical moist deciduous forest plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃល្បោះសើមដាំតំបន់ត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33313
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំត្រូពិច​ - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33314
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33315
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation"
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33316
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33317
 msgctxt "technologies_2018 label"
 msgid "tropical mountain systems plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃដាំតំបន់ភ្នំត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33318
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation"
-msgstr "ការដាំព្រៃរងទឹកភ្លៀងត្រូពិច"
+msgstr "ព្រៃដាំរងទឹកភ្លៀងតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33319
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃដាំរងទឹកភ្លៀងតំបន់ត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33320
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃដាំរងទឹកភ្លៀងតំបន់ត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33321
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃដាំរងទឹកភ្លៀងតំបន់ត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33322
 msgctxt "technologies_2018 label"
 msgid "tropical rain forest plantation - Tectona grandis"
-msgstr ""
+msgstr "ព្រៃដាំរងទឹកភ្លៀងតំបន់ត្រូពិច - Tectona grandis"
 
 #: apps/configuration/configuration_translations.py:33323
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation"
-msgstr ""
+msgstr "ព្រៃគម្ពោតដាំតំបន់ត្រូពិច"
 
 #: apps/configuration/configuration_translations.py:33324
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation - broadleaf"
-msgstr ""
+msgstr "ព្រៃគម្ពោតដាំតំបន់ត្រូពិច - ឈើស្លឹកធំ"
 
 #: apps/configuration/configuration_translations.py:33325
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation - Eucalyptus spp."
-msgstr ""
+msgstr "ព្រៃគម្ពោតដាំតំបន់ត្រូពិច - Eucalyptus spp."
 
 #: apps/configuration/configuration_translations.py:33326
 msgctxt "technologies_2018 label"
 msgid "tropical shrubland plantation - Pinus spp."
-msgstr ""
+msgstr "ព្រៃគម្ពោតដាំតំបន់ត្រូពិច - Pinus spp."
 
 #: apps/configuration/configuration_translations.py:33327
 msgctxt "technologies_2018 label"
@@ -17284,7 +17309,7 @@ msgstr "ប្រភេទដើមឈើដែលដាំនៅកន្លែ
 #: apps/configuration/configuration_translations.py:33329
 msgctxt "technologies_2018 label"
 msgid "Pinus species"
-msgstr ""
+msgstr "Pinus species"
 
 #: apps/configuration/configuration_translations.py:33330
 msgctxt "technologies_2018 label"
@@ -17407,36 +17432,45 @@ msgid ""
 "3.2: New questions about grazing land (animal type, crop-livestock "
 "management practices, products and services) were added."
 msgstr ""
+"3.2: សំណួរថ្មីអំពីដីវាលស្មៅចិញ្ចឹមសត្វត្រូវបានដាក់បញ្ចូល (ប្រភេទសត្វ ការអនុវត្តការគ្រប់គ្រងដោយដាំដំណាំ "
+"និងចិញ្ចឹមសត្វ ផលិតផល និងសេវាកម្ម) ។"
 
 #: apps/configuration/editions/technologies_2018.py:78
 msgid ""
 "3.2: The question \"Main animal species and products\" of land use type "
 "\"Grazing land\" was removed."
 msgstr ""
+"3.2: សំណួរអំពី \"ប្រភេទសត្វចម្បងៗ និងផលិតផល\" នៃប្រភេទដីប្រើប្រាស់ \"ដីវាលស្មៅចិញ្ចឹមសត្វ\" "
+"ត្រូវបានដកចេញ។"
 
 #: apps/configuration/editions/technologies_2018.py:82
 msgid ""
 "3.2: A new question \"Livestock population\" for land use type \"Grazing land"
 "\" was added."
 msgstr ""
+"3.2: សំណួរថ្មីត្រូវបានដាក់បញ្ចូល \"ចំនួនសត្វចិញ្ចឹម\" នៃប្រភេទដីប្រើប្រាស់ \"ដីវាលស្មៅចិញ្ចឹមសត្វ\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:86
 msgid ""
 "3.2: The option \"semi-nomadism\" of land use type \"Grazing land\" was "
 "renamed to \"semi-nomadic pastoralism\"."
 msgstr ""
+"3.2: ជម្រើសនៃ \"ពាក់កណ្តាលពនេចរ\" នៃប្រភេទដីប្រើប្រាស់ \"ដីវាលស្មៅចិញ្ចឹមសត្វ\" "
+"ត្រូវបានប្តូរឈ្មោះទៅជា \"ការចិញ្ចឹមសត្វពាក់កណ្តាលពនេចរ\""
 
 #: apps/configuration/editions/technologies_2018.py:90
 msgid ""
 "3.2: A new option \"transhumant pastoralism\" was added to land use type "
 "\"Grazing land\"."
 msgstr ""
+"3.2: ជម្រើសថ្មី \"ការចិញ្ចឹមសត្វដោយប្តូរទីតាំងតាមរដូវកាលជាក់លាក់\" "
+"ត្រូវបានដាក់បញ្ចូលក្នុងប្រភេទដីប្រើប្រាស់ \"ដីវាលស្មៅចិញ្ចឹមសត្វ\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:94
 msgid ""
 "3.2: New questions about forest type and trees for land use type \"Forest/ "
 "woodlands\" were added."
-msgstr ""
+msgstr "3.2: សំណួរថ្មីនៃប្រភេទព្រៃ និងឈើត្រូវបានដាក់បញ្ចូលក្នុងប្រភេទដីប្រើប្រាស់ \"ដីព្រៃ\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:99
 msgid ""
@@ -17444,10 +17478,13 @@ msgid ""
 "Technology, indicate land use before implementation of the Technology\" was "
 "removed. This information can now be entered in 3.3."
 msgstr ""
+"3.2: សំណួរ \"ប្រសិនបើដីមានការប្រែប្រួលបន្ទាប់ពីការអនុវត្តបច្ចេកទេស "
+"សូមបញ្ជាក់ពីការប្រើប្រាស់ដីមុនពេលអនុវត្តន៍បច្ចេកទេស\" ត្រូវបានដកចេញ។ ព័ត៌មាននេះអាចបញ្ចូលក្នុងសំណួរ "
+"3.3 ។"
 
 #: apps/configuration/editions/technologies_2018.py:103
 msgid "3.3 (new): A new subcategory about initial land use was added."
-msgstr ""
+msgstr "3.3 (ថ្មី): ក្រុមរងថ្មីនៃការប្រើប្រាស់ដីដំបូងត្រូវបានដាក់បញ្ចូល។"
 
 #: apps/configuration/editions/technologies_2018.py:108
 msgid ""
@@ -17455,12 +17492,17 @@ msgid ""
 "was moved to 3.2 - land use type \"Cropland\". Data was migrated "
 "automatically only if land use type \"Cropland\" was selected."
 msgstr ""
+"3.4 (ពីមុននៅសំណួរ 3.3): សំណួរ \"ចំនួនសារដែលដាំដំណាំក្នុងមួយឆ្នាំ\" ត្រូវបានប្តូរទៅសំណួរ 3.2 - "
+"ប្រភេទដីប្រើប្រាស់ \"ដីដាំដំណាំ\"។ ទិន្នន័យនឹងត្រូវបានប្តូរដោយស្វ័យប្រវត្តិប្រសិនបើប្រភេទដី \"ដីដាំដំណាំ\" "
+"ត្រូវបានជ្រើសរើស។"
 
 #: apps/configuration/editions/technologies_2018.py:113
 msgid ""
 "3.4 (previously 3.3): The question \"Livestock density (if relevant)\" was "
 "removed. Use \"Comments\" of \"3.2 Current land use type(s)\"."
 msgstr ""
+"3.4 (ពីមុននៅសំណួរ 3.3): សំណួរ \"ដង់ស៊ីតេ/ចំនួនសត្វចិញ្ចឹម (បើទាក់ទង)\" ត្រូវបានដកចេញ។ ប្រើ "
+"\"មតិយោបល់\" នៃសំណួរ \"3.2 ប្រភេទដីប្រើប្រាស់បច្ចុប្បន្ន\"។"
 
 #: apps/configuration/editions/technologies_2018.py:118
 msgid ""
@@ -17468,6 +17510,8 @@ msgid ""
 "integrated into \"2.5 Country/ region/ locations where the Technology has "
 "been applied and which are covered by this assessment\"."
 msgstr ""
+"3.5: សំណួរពីមុននៃ \"3.5 ការសាយភាយនៃបច្ចេកទេស\" ត្រូវបានដាក់បញ្ចូលទៅក្នុងសំណួរ \"2.5 ប្រទេស/ "
+"តំបន់/ទីតាំងដែលបច្ចេកទេសត្រូវបានអនុវត្តន៍ និងស្ថិតក្រោមការវាយតម្លៃនេះ\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:123
 msgid ""
@@ -17475,105 +17519,125 @@ msgid ""
 "\" (previously 3.5) was removed; its content needs to be merged with "
 "\"Comments\" of 2.5."
 msgstr ""
+"3.5: សំណួរ \"មតិយោបល់\" នៃ \"ការសាយភាយបច្ចេកទេស\" (ពីមុននៅសំណួរ 3.5) ត្រូវបានដកចេញ "
+"ហើយមាតិការរបស់វាត្រូវបានបញ្ចូលជាមួយ \"មតិយោបល់\" នៃសំណួរ 2.5 ។"
 
 #: apps/configuration/editions/technologies_2018.py:127
 msgid ""
 "3.6: A new question \"Differentiate tillage systems\" was added when "
 "selecting agronomic measure \"A3: Soil surface treatment\"."
 msgstr ""
+"3.6: សំណួរថ្មី \"ប្រព័ន្ធភ្ជួររាស់ខុសៗគ្នា\" "
+"ត្រូវបានដាក់បញ្ចូលនៅពេលដែលជ្រើសរើសវិធានការក្សេត្រសាស្ត្រ \"A3: ការរក្សាស្រទាប់ដីខាងលើ\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:131
 msgid ""
 "3.6: A new option \"A6: Residue Management\" was added to \"agronomic "
 "measures\"."
 msgstr ""
+"3.6: ជម្រើសថ្មី \"A6: ការគ្រប់គ្រងកាកសំណល់\" ត្រូវបានដាក់បញ្ចូលទៅក្នុង \"វិធានការក្សេត្រសាស្ត្រ"
+"\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:135
 msgid ""
 "3.6 The option \"A6: Others\" of \"agronomic measures\" was renamed to \"A7: "
 "Others\"."
 msgstr ""
+"3.6 ជម្រើស \"A6: ផ្សេងៗ\" នៃ \"វិធានការក្សេត្រសាស្ត្រ\" ត្រូវបានប្តូរទៅជា \"A7: ផ្សេងៗ\" "
+"។"
 
 #: apps/configuration/editions/technologies_2018.py:139
 msgid ""
 "3.6: A new question \"Specify residue management\" was added when selecting "
 "agronomic measure \"A6: residue management\"."
 msgstr ""
+"3.6: សំណួរថ្មី \"បញ្ជាក់ពីការគ្រប់គ្រងកាកសំណល់\" "
+"ត្រូវបានដាក់បញ្ចូលនៅពេលជ្រើសរើសវិធានការក្សេត្រសាស្ត្រ \"A6: ការគ្រប់គ្រងកាកសំណល់\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:143
 msgid ""
 "3.6: A new question to specify was added when selecting \"other measures\"."
 msgstr ""
+"3.6: សំណួរថ្មីដែលត្រូវបញ្ជាក់បន្ថែមត្រូវបានដាក់បញ្ចូលនៅពេលដែលជ្រើសរើស \"វិធានការផ្សេងៗ\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:147
 msgid ""
 "3.7: A new question to specify was added when selecting other degradation "
 "type."
 msgstr ""
+"3.7: សំណួរថ្មីដែលត្រូវបញ្ជាក់បន្ថែមត្រូវបានដាក់បញ្ចូលនៅពេលដែលជ្រើសរើសប្រភេទនៃការធា្លក់ចុះគុណភាពដី។"
 
 #: apps/configuration/editions/technologies_2018.py:151
 msgid "4: The numbering was updated (4.2 was removed)."
-msgstr ""
+msgstr "4: តម្លៃលេខត្រូវបានកែសម្រួល (4.2 ត្រូវបានដកចេញ)។"
 
 #: apps/configuration/editions/technologies_2018.py:156
 msgid ""
 "4.1: The previous question \"4.2 Technical specifications\" was integrated "
 "into \"4.1 Technical drawing\"."
 msgstr ""
+"4.1: សំណួរពីមុននៅ \"4.2 លក្ខណៈពិសេសនៃបច្ចេកទេស\" ត្រូវបានដាក់បញ្ចូលទៅក្នុងសំណួរ \"4.1 "
+"គំនូរបច្ចេកទេស\" ។"
 
 #: apps/configuration/editions/technologies_2018.py:165
 msgid ""
 "4.3 (previously 4.4): The question \"Type of measure\" was removed from "
 "Establishment activities."
-msgstr ""
+msgstr "4.3 (ពីមុននៅសំណួរ 4.4): សំណួរ \"ប្រភេទវិធានការ\" ត្រូវបានដកចេញពីសកម្មភាពបង្កើត។"
 
 #: apps/configuration/editions/technologies_2018.py:169
 msgid ""
 "4.4 (previously 4.5): A new question \"Total costs for establishment of the "
 "Technology in USD\" (automatically calculated) was added."
 msgstr ""
+"4.4 (ពីមុននៅ 4.5): សំណួរថ្មី \"ថ្លៃដើមសរុបក្នុងការបង្កើតបច្ចេកទេសគិតជាដុល្លារ"
+"\" (ត្រូវបានគណនាដោយស្វ័យប្រវត្តិ) ត្រូវបានដាក់បញ្ចូល។ "
 
 #: apps/configuration/editions/technologies_2018.py:174
 msgid ""
 "4.5 (previously 4.6): The question \"Type of measure\" was removed from "
 "Maintenance activities."
-msgstr ""
+msgstr "4.5 (ពីមុននៅ 4.6): សំណួរ \"ប្រភេទវិធានការ\" ត្រូវបានដកចេញពីសកម្មភាពថែទាំ។"
 
 #: apps/configuration/editions/technologies_2018.py:178
 msgid ""
 "4.6 (previously 4.7): A new question \"Total costs for maintenance of the "
 "Technology in USD\" (automatically calculated) was added."
 msgstr ""
+"4.6 (ពីមុននៅ 4.7): សំណួរថ្មី \"ថ្លៃដើមសរុបសម្រាប់ការថែទាំដំណាំតាមបច្ចេកទេសគិតជាដុល្លារ"
+"\"  (ត្រូវបានគណនាដោយស្វ័យប្រវត្តិ) ត្រូវបានដាក់បញ្ចូល។ "
 
 #: apps/configuration/editions/technologies_2018.py:210
 msgid ""
 "5.4: A new question about water quality (referring to ground or surface "
 "water) was added."
-msgstr ""
+msgstr "5.4: សំណួរថ្មីអំពីគុណភាពទឹកត្រូវបានដាក់បន្ថែម (សំដៅលើទឹកក្រោមដី ឬលើផ្ទៃដី)។"
 
 #: apps/configuration/editions/technologies_2018.py:214
 msgid "5.6: More options for question \"Age of land users\" can be selected."
-msgstr ""
+msgstr "5.6: ជម្រើសច្រើនទៀតសម្រាប់សំណួរ \"អាយុនៃអ្នកប្រើប្រាស់ដី\" អាចជ្រើសរើសបាន។"
 
 #: apps/configuration/editions/technologies_2018.py:218
 msgid "5.8: A new question about traditional land use rights was added."
-msgstr ""
+msgstr "5.8: សំណួរថ្មីអំពីកម្មសិទ្ធប្រើប្រាស់ដីបែបបុរាណត្រូវបានដាក់បញ្ចូល។"
 
 #: apps/configuration/editions/technologies_2018.py:222
 msgid ""
 "5.9: A new question for comments regarding \"Access to services and "
 "infrastructure\" was added."
 msgstr ""
+"5.9: សំណួរនៅចំណុចមតិយោបល់ទាក់ទងទៅនឹង \"ការប្រើប្រាស់សេវាកម្ម និងហេដ្ឋារចនាសម្ព័ន្ធ\"​ "
+"ត្រូវបានដាក់បញ្ចូល។"
 
 #: apps/configuration/editions/technologies_2018.py:226
 msgid "6.1: A new question for comments about on-site impacts was added."
-msgstr ""
+msgstr "6.1: សំណួរថ្មីនៅចំណុចមតិយោបល់អំពីផលប៉ះពាល់ក្នុងបរិវេណអនុវត្តបច្ចេកទេសត្រូវបានដាក់បញ្ចូល។"
 
 #: apps/configuration/editions/technologies_2018.py:230
 msgid ""
 "7.4 (new): A new question for general remarks about the questionnaire and "
 "feedback was added."
-msgstr ""
+msgstr "7.4 (ថ្មី): សំណួរថ្មីសម្រាប់កំណត់សម្គាល់ទូទៅអំពីកម្រងសំណួរ និងមតិឆ្លុះបញ្ចាំងត្រូវបានដាក់បញ្ចូល។"
 
 #: apps/configuration/models.py:19 apps/questionnaire/models.py:64
 msgid "UNCCD Focal Point"
@@ -17582,11 +17646,11 @@ msgstr "ជនបង្គោល UNCCD "
 #: apps/configuration/templates/configuration/edition_notes.html:6
 #: apps/configuration/templates/configuration/edition_notes.html:11
 msgid "Changes in the questionnaires structure"
-msgstr ""
+msgstr "ការកែសម្រួលទម្រង់កម្រងបញ្ជីសំណួរជាថ្មី"
 
 #: apps/configuration/templates/configuration/edition_notes.html:13
 msgid "Rationale"
-msgstr ""
+msgstr "មូលហេតុ"
 
 #: apps/configuration/templates/configuration/edition_notes.html:15
 msgid ""
@@ -17601,12 +17665,19 @@ msgid ""
 "          The specific changes are listed below.\n"
 "        "
 msgstr ""
+"\n"
+"ទម្រង់នៃកម្រងបញ្ជីសំណួរត្រូវបានកែសម្រួលជាទៀងទាត់។\n"
+"ការធ្វើបែបនេះដើម្បីបន្តកែលម្អគុណភាពនៃទិន្នន័យ។\n"
+"សំណួរអាចត្រូវបានផ្លាស់ប្តូរ (ឧ. ចម្លើយបើក គឺត្រូវបានប្តូរទៅជាទម្រង់ចម្លើយផ្សេងទៀត) ដាក់បញ្ចូល "
+"ឬដកចេញ។\n"
+"ទិន្នន័យដែលបានបញ្ចូលអាចផ្លាស់ប្តូរប្រសិនបើអ្នកចងក្រងចាប់ផ្តើមចូលទៅកែសម្រួលនៅពេលដែលបានបោះពុម្ពរួច។\n"
+"ការផ្លាស់ប្តូរជាក់លាក់ត្រូវបានបង្ហាញខាងក្រោម។"
 
 #: apps/configuration/templates/configuration/edition_notes.html:24
 #: apps/configuration/templates/configuration/edition_notes.html:31
 #: apps/configuration/templates/configuration/edition_notes.html:38
 msgid "How to update an SLM Technology"
-msgstr ""
+msgstr "តើធ្វើដូចម្តេចដើម្បីកែសម្រួលបច្ចេកទេស​ SLM មួយបាន"
 
 #: apps/configuration/templates/configuration/edition_notes.html:26
 msgid ""
@@ -17617,6 +17688,11 @@ msgid ""
 "added or modified in the new edition of the questionnaire.\n"
 "        "
 msgstr ""
+"\n"
+"បង្កើតទម្រង់ថ្មីនៃបច្ចេកទេស។ "
+"នេះគឺជាការបង្កើតសេចក្តីព្រាងនៃទម្រង់ថ្មីរបស់បច្ចេកទេសដែលបានដាក់ស្នើ។​ ទិន្នន័យដើម "
+"គឺត្រូវបានចំលងទៅក្នុងទម្រង់ថ្មី។ អ្នកនឹងត្រូវចូលទៅបំពេញទិន្នន័យនៅក្នុងបញ្ជីសំណួរដែលត្រូវបានដាក់បន្ថែម "
+"ឬកែសម្រួលក្នុងកម្រងបញ្ជីសំណួរបោះពុម្ពថ្មី។"
 
 #: apps/configuration/templates/configuration/edition_notes.html:34
 msgid ""
@@ -17626,6 +17702,10 @@ msgid ""
 "allows you to cross-check the data and compare the two versions.\n"
 "        "
 msgstr ""
+"\n"
+"អំឡុងពេលនេះ អ្នកនៅតែអាចបើកមើលបាន និងពិនិត្យទិន្នន័យដើមមុនពេលដាក់ស្នើបោះពុម្ព "
+"និងក្រោយពេលបោះពុម្ពបច្ចេកទេសរបស់អ្នក។​ ដំណើរការនេះ គឺជួយឱ្យអ្នកត្រួតពិនិត្យទិន្នន័យ "
+"និងប្រៀបធៀបទម្រង់ទាំងពីរ។"
 
 #: apps/configuration/templates/configuration/edition_notes.html:41
 msgid ""
@@ -17634,6 +17714,9 @@ msgid ""
 "the new edition of the questionnaire, which are listed below.\n"
 "        "
 msgstr ""
+"\n"
+"ពេលដែលកែសម្រួលបច្ចេកទេសរបស់អ្នក សូមផ្តោតសំខាន់លើការចំណុចដែលបានផ្លាស់ប្តូរនៃកម្រងបញ្ជីសំណួរ "
+"ដូចនៅខាងក្រោមនេះ។"
 
 #: apps/configuration/templates/configuration/edition_notes.html:46
 msgid ""
@@ -17642,6 +17725,9 @@ msgid ""
 "redirected through the WOCAT review process.\n"
 "        "
 msgstr ""
+"\n"
+"បន្ទាប់ពីអ្នកកែសម្រួលទិន្នន័យរួចរាល់ បច្ចេកទេសរបស់អ្នកនឹងត្រូវបានចូលទៅកាន់ដំណាក់កាលត្រួតពិនិត្យរបស់ "
+"WOCAT តែម្តង។"
 
 #: apps/configuration/templates/configuration/edition_notes.html:51
 msgid ""
@@ -17650,6 +17736,9 @@ msgid ""
 "published and become visible to the public.\n"
 "        "
 msgstr ""
+"\n"
+"នៅពេលដែលដំណើរការត្រូវបានបញ្ចប់ ទម្រង់ថ្មីនៃបច្ចេកទេសក៏នឹងត្រូវបានបោះពុម្ព "
+"ហើយអាចមើលឃើញជាសាធារណៈ។"
 
 #: apps/configuration/views.py:65
 msgid "Built configuration caches."
@@ -17685,61 +17774,61 @@ msgstr "អ្នកកែសម្រួលបានបញ្ចប់"
 
 #: apps/notifications/conf.py:39
 msgid "This practice has been edited"
-msgstr ""
+msgstr "ការអនុវត្តនេះត្រូវបានកែសម្រួល"
 
 #: apps/notifications/conf.py:40
 msgid "This practice has been submitted"
-msgstr ""
+msgstr "ការអនុវត្តនេះត្រូវបានដាក់ស្នើបោះពុម្ព"
 
 #: apps/notifications/conf.py:41
 msgid ""
 "This practice has been approved and is awaiting final review before it can "
 "be published"
-msgstr ""
+msgstr "ការអនុវត្តនេះត្រូវបានអនុម័ត និងរងចាំការត្រួតពិនិត្យចុងក្រោយមុនពេលបោះពុម្ព"
 
 #: apps/notifications/conf.py:42
 msgid "Congratulations, this practice has been published!"
-msgstr ""
+msgstr "អបអរសាទរ បច្ចេកទេសនេះត្រូវបានបោះពុម្ពជាសាធារណៈ!"
 
 #: apps/notifications/conf.py:43
 msgid "This practice has been deleted"
-msgstr ""
+msgstr "ការអនុវត្តនេះត្រូវបានលុបចោល"
 
 #: apps/notifications/conf.py:44 apps/notifications/conf.py:45
 msgid "This practice has been rejected and needs revision"
-msgstr ""
+msgstr "បច្ចេកទេសនេះត្រូវបានបដិសេធចេញ និងតម្រូវឱ្យកែសម្រួលឡើងវិញ"
 
 #: apps/notifications/conf.py:46
 msgid "You are a compiler"
-msgstr ""
+msgstr "អ្នក គឺជាអ្នកចងក្រង"
 
 #: apps/notifications/conf.py:47
 msgid "You have been removed as a compiler"
-msgstr ""
+msgstr "អ្នកត្រូវបានដកចេញពីតួនាទីជាអ្នកចងក្រង"
 
 #: apps/notifications/conf.py:48
 msgid "You are an editor"
-msgstr ""
+msgstr "អ្នក គឺជាអ្នកកែសម្រួល"
 
 #: apps/notifications/conf.py:49
 msgid "You have been removed as an editor"
-msgstr ""
+msgstr "អ្នកត្រូវបានដកចេញពីតួនាទីជាអ្នកកែសម្រួល"
 
 #: apps/notifications/conf.py:50
 msgid "You are a reviewer"
-msgstr ""
+msgstr "អ្នក គឺជាអ្នកត្រួតពិនិត្យ"
 
 #: apps/notifications/conf.py:51
 msgid "You have been removed as a reviewer"
-msgstr ""
+msgstr "អ្នកត្រូវបានដកចេញពីតួនាទីជាអ្នកត្រួតពិនិត្យ"
 
 #: apps/notifications/conf.py:52
 msgid "You are a publisher"
-msgstr ""
+msgstr "អ្នក គឺជាអ្នកបោះពុម្ព"
 
 #: apps/notifications/conf.py:53
 msgid "You have been removed as a publisher"
-msgstr ""
+msgstr "អ្នកត្រូវបានដកចេញពីតួនាទីជាអ្នកបោះពុម្ព"
 
 #: apps/notifications/conf.py:89
 msgid "No emails at all"
@@ -17852,7 +17941,7 @@ msgid ""
 "please contact the WOCAT secretariat."
 msgstr ""
 "នេះគឺជាសារស្វ័យប្រត្តិ សូមកុំធ្វើការឆ្លើយតប។ ប្រសិនបើអ្នកមានសំណួរ "
-"សូមទាកទងទៅលេខាធិការដ្ឋានរបស់វ៉ូខេត។"
+"សូមទាក់ទងទៅលេខាធិការដ្ឋានរបស់វ៉ូខេត។"
 
 #: apps/notifications/templates/notifications/mail/html_text.html:41
 #: apps/notifications/templates/notifications/mail/plain_text.txt:11
@@ -17884,87 +17973,89 @@ msgstr "ទំនាក់ទំនង"
 #: apps/notifications/templates/notifications/mail/partial/compiler_added.html:5
 msgctxt "You have been added as a compiler of [questionnaire]."
 msgid "a compiler"
-msgstr ""
+msgstr "អ្នកចងក្រង"
 
 #: apps/notifications/templates/notifications/mail/partial/compiler_added.html:8
 msgid ""
 "As a compiler, you can invite editors to work on the SLM practice and you "
 "can submit the practice for review."
 msgstr ""
+"ក្នុងនាមជាអ្នកចងក្រង គឺអាចអញ្ជើញអ្នកកែសម្រួលដើម្បីកែសម្រួលការអនុវត្តបច្ចេកទេស  SLM "
+"និងអាចដាក់ស្នើការអនុវត្តសម្រាប់ការត្រួតពិនិត្យ។"
 
 #: apps/notifications/templates/notifications/mail/partial/compiler_removed.html:5
 msgctxt "You have been removed as a compiler of [questionnaire]."
 msgid "a compiler"
-msgstr ""
+msgstr "អ្នកចងក្រង"
 
 #: apps/notifications/templates/notifications/mail/partial/deleted.html:5
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been deleted from "
 "the Global SLM Database."
 msgid "The SLM practice"
-msgstr ""
+msgstr "ការអនុវត្តបច្ចេកទេស SLM"
 
 #: apps/notifications/templates/notifications/mail/partial/deleted.html:8
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been deleted from "
 "the Global SLM Database."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/deleted.html:11
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been deleted from "
 "the Global SLM Database."
 msgid "has been deleted from the Global SLM Database."
-msgstr ""
+msgstr "ត្រូវបានលុបចេញពីប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកល"
 
 #: apps/notifications/templates/notifications/mail/partial/edited.html:5
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been edited by "
 "[user]."
 msgid "The SLM practice"
-msgstr ""
+msgstr "ការអនុវត្តបច្ចេកទេស SLM"
 
 #: apps/notifications/templates/notifications/mail/partial/edited.html:8
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been edited by "
 "[user]."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/edited.html:11
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been edited by "
 "[user]."
 msgid "has been edited by"
-msgstr ""
+msgstr "ត្រូវបានកែសម្រួលដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/edited.html:18
 msgctxt ""
 "[user] left you a message related to the edit of this SLM practice: [message]"
 msgid "left you a message related to the edit of this SLM practice:"
-msgstr ""
+msgstr "អ្នកនឹងបានទទួលសារពីការកែសម្រួលនៃការអនុវត្តបច្ចេកទេស SLM នេះ"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_added.html:13
 msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
 msgid "You have been added as"
-msgstr ""
+msgstr "អ្នកត្រូវបានដាក់បញ្ចូលជា"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_added.html:14
 msgctxt ""
 "You have been added as an editor of [questionnaire] compiled by [user]."
 msgid "an editor"
-msgstr ""
+msgstr "អ្នកកែសម្រួល"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_added.html:15
 msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
 msgid "of"
-msgstr ""
+msgstr "នៃ"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_added.html:18
 msgctxt "You have been added as [role] of [questionnaire] compiled by [user]."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_added.html:24
 msgid ""
@@ -17972,30 +18063,34 @@ msgid ""
 "compiler of the SLM practice. However, as an editor you cannot submit the "
 "SLM practice for review or invite other editors."
 msgstr ""
+"ក្នុងនាមជាអ្នកកែសម្រួល គឺអ្នកអាចកែសម្រួល និងសម្របសម្រួលការអនុវត្តបច្ចេកទេស  SLM "
+"ជាមួយអ្នកចងក្រងបច្ចេកទេស។ ទោះបីជាយ៉ាងណា "
+"ក្នុងនាមជាអ្នកកែសម្រួលអ្នកមិនអាចដាក់បញ្ជូនការអនុវត្តបច្ចេកទេស SLM សម្រាប់ការត្រួតពិនិត្យ "
+"ឬអញ្ជើញអ្នកកែសម្រួលផ្សេងបានទេ។"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_removed.html:13
 msgctxt ""
 "You have been removed as [role] of [questionnaire] compiled by [user]."
 msgid "You have been removed as"
-msgstr ""
+msgstr "អ្នកត្រូវបានដកចេញពីតួនាទីជា"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_removed.html:14
 msgctxt ""
 "You have been removed as [role] of [questionnaire] compiled by [user]."
 msgid "an editor"
-msgstr ""
+msgstr "អ្នកកែសម្រួល"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_removed.html:15
 msgctxt ""
 "You have been removed as [role] of [questionnaire] compiled by [user]."
 msgid "of"
-msgstr ""
+msgstr "នៃ"
 
 #: apps/notifications/templates/notifications/mail/partial/editor_removed.html:18
 msgctxt ""
 "You have been removed as [role] of [questionnaire] compiled by [user]."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/published.html:5
 msgctxt ""
@@ -18004,7 +18099,7 @@ msgctxt ""
 "all WOCAT members in the Network and visitors of the database. Thank you for "
 "sharing the SLM practice."
 msgid "Congratulations, the SLM practice"
-msgstr ""
+msgstr "អបអរសាទរ ការអនុវត្តបច្ចេកទេស SLM "
 
 #: apps/notifications/templates/notifications/mail/partial/published.html:8
 msgctxt ""
@@ -18013,7 +18108,7 @@ msgctxt ""
 "all WOCAT members in the Network and visitors of the database. Thank you for "
 "sharing the SLM practice."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/published.html:11
 msgctxt ""
@@ -18022,7 +18117,7 @@ msgctxt ""
 "all WOCAT members in the Network and visitors of the database. Thank you for "
 "sharing the SLM practice."
 msgid "has been published in the Global SLM Database by"
-msgstr ""
+msgstr "ត្រូវបានបោះពុម្ពនៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកលដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/published.html:13
 msgctxt ""
@@ -18034,23 +18129,26 @@ msgid ""
 "and can now be viewed by all WOCAT members in the Network and visitors of "
 "the database. Thank you for sharing the SLM practice."
 msgstr ""
+"និង អាចចូលមើលដោយសមាជិក  WOCAT ទាំងអស់ ជាបណ្តាញ និងភ្ញៀវនៃមូលដ្ឋានទិន្នន័យ។ "
+"អរគុណសម្រាប់ការចែករំលែកការអនុវត្តបច្ចេកទេស SLM ។"
 
 #: apps/notifications/templates/notifications/mail/partial/published.html:17
 msgid "You can find your SLM practice published under the following link:"
 msgstr ""
+"អ្នកអាចស្វែងរកការអនុវត្តបច្ចេកទេស SLM របស់អ្នកដែលបានបោះពុម្ពរួចតាមរយៈតំណភ្ជាប់ខាងក្រោម៖"
 
 #: apps/notifications/templates/notifications/mail/partial/published.html:24
 msgctxt ""
 "[user] left you a message related to the publication of this SLM practice: "
 "[message]"
 msgid "left you a message related to the publication of this SLM practice:"
-msgstr ""
+msgstr "អ្នកនឹងបានទទួលសារពីការបោះពុម្ពការអនុវត្តបច្ចេកទេស SLM នេះ៖"
 
 #: apps/notifications/templates/notifications/mail/partial/publisher_added.html:5
 msgctxt ""
 "You have been added as a publisher of [questionnaire] compiled by [user]."
 msgid "a publisher"
-msgstr ""
+msgstr "អ្នកបោះពុម្ព"
 
 #: apps/notifications/templates/notifications/mail/partial/publisher_added.html:8
 msgid ""
@@ -18061,12 +18159,18 @@ msgid ""
 "quality of the SLM practice is good, please publish the SLM practice in the "
 "Global SLM Database."
 msgstr ""
+"ការអនុវត្តបច្ចេកទេស SLM ត្រូវបានត្រួតពិនិត្យ និងអនុម័ត។ "
+"សូមបំពេញការត្រួតពិនិត្យចុងក្រោយនៃបច្ចេកទេសអោយបានលឿនតាមតែអាចធ្វើទៅបាន។ "
+"ប្រសិនបើការអនុវត្តបច្ចេកទេសតម្រូវអោយមានការកែប្រែ សូមបដិសេធន៍បច្ចេកទេសនោះ "
+"និងផ្ញើរមតិយោបល់របស់អ្នកទៅកាន់អ្នកចងក្រង អ្នកកែសម្រួល និងអ្នកត្រួតពិនិត្យការបច្ចេកទេស SLM ។ "
+"ប្រសិនបើគុណភាពនៃបច្ចេកទេស SLM ល្អ សូមបោះពុម្ពការអនុវត្តបច្ចេកទេស SLM "
+"នោះទៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកល។ "
 
 #: apps/notifications/templates/notifications/mail/partial/publisher_removed.html:5
 msgctxt ""
 "You have been removed as a publisher of [questionnaire] compiled by [user]."
 msgid "a publisher"
-msgstr ""
+msgstr "អ្នកបោះពុម្ព"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_reviewed.html:7
 msgid ""
@@ -18075,47 +18179,53 @@ msgid ""
 "will receive an e-mail informing you that the SLM practice has been "
 "submitted."
 msgstr ""
+"ប្រសិនបើអ្នកជាអ្នកត្រួតពិនិត្យ សូមត្រួតពិនិត្យការអនុវត្តបច្ចេកទេស SLM "
+"ដែលបានកែលម្អដើម្បីដំណើរការបោះពុម្ពផ្សាយអោយបច្ចេកទេស SLM "
+"អាចទាញយកប្រើប្រាស់អោយបានកាន់តែលឿនតាមដែលបានដាក់បញ្ជូនម្តងទៀត។ "
+"អ្នកនឹងទទួលបានអ៊ីម៉ែលមួយដែលជូនដំណឹងអ្នកថាការអនុវត្តបច្ចេកទេស SLM ត្រូវបានដាក់បញ្ជូន។​"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:5
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been rejected by "
 "[user] and needs revision."
 msgid "The SLM practice"
-msgstr ""
+msgstr "ការអនុវត្តបច្ចេកទេស SLM "
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:8
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been rejected by "
 "[user] and needs revision."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:11
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been rejected by "
 "[user] and needs revision."
 msgid "has been rejected by"
-msgstr ""
+msgstr "ត្រូវបានបដិសេធន៍ដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:13
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been rejected by "
 "[user] and needs revision."
 msgid "and needs revision."
-msgstr ""
+msgstr "និងតម្រូវអោយធ្វើការកែប្រែ"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:16
 msgid ""
 "Please revise the SLM practice according to the written feedback from the "
 "reviewer and resubmit the SLM practice to the Global SLM Database."
 msgstr ""
+"សូមកែលម្អការអនុវត្តបច្ចេកទេស SLM ទៅតាមមតិយោបល់ពីអ្នកត្រួតពិនិត្យ "
+"និងដាក់បញ្ជូនបច្ចេកទេសម្តងទៀតទៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកល។"
 
 #: apps/notifications/templates/notifications/mail/partial/rejected_submitted.html:23
 msgctxt ""
 "[user] left you a message related to the rejection of this SLM practice: "
 "[message]"
 msgid "left you a message related to the rejection of this SLM practice:"
-msgstr ""
+msgstr "អ្នកនឹងបានទទួលសារពីការបដិសេធន៍ការអនុវត្តបច្ចេកទេស SLM នេះ៖"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewed.html:5
 msgctxt ""
@@ -18123,7 +18233,7 @@ msgctxt ""
 "reviewer of the SLM practice [user] and needs a final review before it can "
 "be published."
 msgid "The SLM practice"
-msgstr ""
+msgstr "ការអនុវត្តបច្ចេកទេស SLM"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewed.html:8
 msgctxt ""
@@ -18131,7 +18241,7 @@ msgctxt ""
 "reviewer of the SLM practice [user] and needs a final review before it can "
 "be published."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewed.html:11
 msgctxt ""
@@ -18139,7 +18249,7 @@ msgctxt ""
 "reviewer of the SLM practice [user] and needs a final review before it can "
 "be published."
 msgid "has been approved by the reviewer of the SLM practice"
-msgstr ""
+msgstr "ត្រូវបានអនុម័តដោយអ្នកត្រួតពិនិត្យនៃការអនុវត្តបច្ចេកទេស SLM "
 
 #: apps/notifications/templates/notifications/mail/partial/reviewed.html:13
 msgctxt ""
@@ -18147,7 +18257,7 @@ msgctxt ""
 "reviewer of the SLM practice [user] and needs a final review before it can "
 "be published."
 msgid "and needs a final review before it can be published."
-msgstr ""
+msgstr "និងតម្រូវអោយធ្វើការត្រួតពិនិត្យចុងក្រោយមុនពេលដែលអាចបោះពុម្ព។"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewed.html:16
 msgid ""
@@ -18156,19 +18266,23 @@ msgid ""
 "the SLM practice. If the quality of the SLM practice is good, please publish "
 "the SLM practice."
 msgstr ""
+"ប្រសិនបើអ្នកជាអ្នកបោះពុម្ព សូមត្រួតពិនិត្យការអនុវត្តបច្ចេកទេស "
+"SLM អោយកាន់តែលឿនតាមដែលអាចធ្វើទៅបាន និងផ្ញើរមតិយោបល់របស់អ្នកទៅកាន់អ្នកចងក្រង អ្នកកែសម្រួល "
+"និងអ្នកត្រួតពិនិត្យបច្ចេកទេស SLM ។ ប្រសិនបើគុណភាពនៃការអនុវត្តបច្ចេកទេសល្អ "
+"សូមបោះពុម្ពបច្ចេកទេសនោះ។"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewed.html:21
 msgctxt ""
 "[user] left you a message related to the review of this SLM practice: "
 "[message]"
 msgid "left you a message related to the review of this SLM practice:"
-msgstr ""
+msgstr "អ្នកនឹងទទួលបានសារពីការត្រួតពិនិត្យការអនុវត្តបច្ចេកទេស SLM ៖"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:5
 msgctxt ""
 "You have been added as a reviewer of [questionnaire] compiled by [user]."
 msgid "a reviewer"
-msgstr ""
+msgstr "អ្នកត្រួតពិនិត្យ"
 
 #: apps/notifications/templates/notifications/mail/partial/reviewer_added.html:8
 msgid ""
@@ -18177,33 +18291,37 @@ msgid ""
 "quality of the SLM practice is good, please approve it for final review "
 "before publishing."
 msgstr ""
+"សូមត្រួតពិនិត្យការអនុវត្តបច្ចេកទេស SLM អោយកាន់តែលឿនតាមដែលអាចធ្វើទៅបាន "
+"និងផ្ញើមតិយោបល់របស់អ្នកទៅអ្នកចងក្រង និងអ្នកកែសម្រួលទាំងអស់នៃការអនុវត្តបច្ចេកទេស SLM ។ "
+"ប្រសិនបើគុណភាពនៃការអនុវត្តបច្ចេកទេស SLM ល្អ "
+"សូមអនុម័តអោយទៅជាការត្រួតពិនិត្យចុងក្រោយមុនពេលបោះពុម្ព។ "
 
 #: apps/notifications/templates/notifications/mail/partial/reviewer_removed.html:5
 msgctxt ""
 "You have been removed as a reviewer of [questionnaire] compiled by [user]."
 msgid "a reviewer"
-msgstr ""
+msgstr "អ្នកត្រួតពិនិត្យ"
 
 #: apps/notifications/templates/notifications/mail/partial/submitted.html:5
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been submitted to "
 "the Global SLM Database."
 msgid "The SLM practice"
-msgstr ""
+msgstr "ការអនុវត្តបច្ចេកទេស SLM"
 
 #: apps/notifications/templates/notifications/mail/partial/submitted.html:8
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been submitted to "
 "the Global SLM Database."
 msgid "compiled by"
-msgstr ""
+msgstr "ចងក្រងដោយ"
 
 #: apps/notifications/templates/notifications/mail/partial/submitted.html:11
 msgctxt ""
 "The SLM practice [questionnaire] compiled by [user] has been submitted to "
 "the Global SLM Database."
 msgid "has been submitted to the Global SLM Database."
-msgstr ""
+msgstr "ត្រូវបានដាក់បញ្ជូនទៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកល។"
 
 #: apps/notifications/templates/notifications/mail/partial/submitted.html:15
 msgid ""
@@ -18213,13 +18331,18 @@ msgid ""
 "before publishing. If you are a member of the WOCAT Secretariat, please "
 "review or add an external reviewer."
 msgstr ""
+"ប្រសិនបើអ្នកជាអ្នកត្រួតពិនិត្យ សូមត្រួតពិនិត្យការអនុវត្តបច្ចេកទេស SLM "
+"អោយកាន់តែលឿនតាមដែលអាចធ្វើទៅបាន និងផ្ញើមតិយោបល់របស់អ្នកទៅកាន់អ្នកចងក្រងបច្ចេកទេស SLM ។ "
+"ប្រសិនបើគុណភាពនៃការអនុវត្តបច្ចេកទេស SLM ល្អ "
+"សូមអនុម័តអោយទៅជាការត្រួតពិនិត្យចុងក្រោយមុនពេលបោះពុម្ព។ ប្រសិនបើអ្នកជាសមាជិក វ៉ូខេត សូមត្រួតពិនិត្យ ឬ "
+"បន្ថែមអ្នកត្រួតពិនិត្យខាងក្រៅម្នាក់ទៀត។ "
 
 #: apps/notifications/templates/notifications/mail/partial/submitted.html:21
 msgctxt ""
 "[user] left you a message related to the submission of this SLM practice: "
 "[message]"
 msgid "left you a message related to the submission of this SLM practice:"
-msgstr ""
+msgstr "អ្នកនឹងទទួលបានសារពីការដាក់បញ្ជូនការអនុវត្តបច្ចេកទេស SLM នេះ៖"
 
 #: apps/notifications/templates/notifications/mail/plain_text.txt:6
 msgid "See questionnaire in full"
@@ -18400,7 +18523,7 @@ msgstr "ភាសារុស្ស៊ី"
 
 #: apps/qcat/config/common.py:109
 msgid "Chinese"
-msgstr ""
+msgstr "ចិន"
 
 #: apps/qcat/config/common.py:110
 msgid "Khmer"
@@ -18424,7 +18547,7 @@ msgstr "ភាសាអាហ្រ្វិកា"
 
 #: apps/qcat/config/common.py:115
 msgid "Thai"
-msgstr ""
+msgstr "ថៃ"
 
 #: apps/qcat/context_processors.py:155
 msgid ""
@@ -18441,15 +18564,15 @@ msgstr "ការជួសជុលចាប់ផ្តើមក្នុង {}
 
 #: apps/qcat/templates/qcat/imprint.html:11 templates/base.html:324
 msgid "Imprint"
-msgstr ""
+msgstr "បោះពុម្ព"
 
 #: apps/qcat/templates/qcat/imprint.html:13
 msgid "Operation and Hosting"
-msgstr ""
+msgstr "ប្រតិបត្តិការ និងបង្ហោះ"
 
 #: apps/qcat/templates/qcat/imprint.html:27
 msgid "Content and Design"
-msgstr ""
+msgstr "មាតិកានិងការរចនា"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:9
 #, python-format
@@ -18461,7 +18584,7 @@ msgstr ""
 "%(countries_count)s <br> ដោយអ្នកប្រើប្រាស់ចំនួន <br>%(compilers_count)s<br> នាក់។"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
-#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:151
+#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:153
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
@@ -18470,7 +18593,7 @@ msgid "SLM Technologies"
 msgstr "បច្ចេកទេស SLM"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:171
+#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:173
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
@@ -18505,7 +18628,7 @@ msgstr ""
 
 #: apps/questionnaire/admin.py:19
 msgid "Edition update required"
-msgstr ""
+msgstr "តម្រូវអោយធ្វើបច្ចុប្បន្នភាព"
 
 #: apps/questionnaire/admin.py:49 apps/questionnaire/admin.py:86
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:42
@@ -18514,7 +18637,7 @@ msgstr "ប្រទេស"
 
 #: apps/questionnaire/admin.py:78
 msgid "Edition update available"
-msgstr ""
+msgstr "អាចធ្វើបច្ចុប្បន្នភាពបាន"
 
 #: apps/questionnaire/admin.py:82 apps/questionnaire/models.py:59
 #: apps/summary/renderers/summary.py:314
@@ -18687,7 +18810,7 @@ msgstr "អ្នកកែសម្រួល៖"
 #: apps/questionnaire/templates/details/category/watershed_header.html:49
 #: apps/questionnaire/templates/details/category/with_metadata.html:45
 msgid "Reviewers:"
-msgstr ""
+msgstr "អ្នកត្រួតពិនិត្យច្រើនទៀត៖"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:49
 #: apps/questionnaire/templates/details/category/cca_header.html:46
@@ -18696,7 +18819,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/watershed_header.html:49
 #: apps/questionnaire/templates/details/category/with_metadata.html:45
 msgid "Reviewer:"
-msgstr ""
+msgstr "អ្នកត្រួតពិនិត្យ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:92
 #: apps/questionnaire/templates/details/category/approaches_header.html:107
@@ -18718,7 +18841,7 @@ msgstr ""
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:227
+#: apps/wocat/templates/wocat/home.html:229
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "នឹងមកដល់ពេលឆាប់ៗ"
@@ -18763,7 +18886,7 @@ msgstr "សេចក្តីសង្ខេបពេញលេញទម្រង
 #: apps/questionnaire/templates/details/category/approaches_header.html:104
 #: apps/questionnaire/templates/details/category/technologies_header.html:104
 msgid "Full summary (unformatted)"
-msgstr ""
+msgstr "សេចក្តីសង្ខេបពេញលេញ (មិនមានទម្រង់ជាក់លាក់)"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:109
 #: apps/questionnaire/templates/details/category/cca_header.html:104
@@ -18967,11 +19090,11 @@ msgstr "បោះពុម្ពផ្សាយ"
 
 #: apps/questionnaire/templates/details/review_panel.html:22
 msgid "Review status"
-msgstr ""
+msgstr "ស្ថានភាពត្រួតពិនិត្យ"
 
 #: apps/questionnaire/templates/details/review_panel.html:23
 msgid "Learn more about the WOCAT documentation of SLM practices."
-msgstr ""
+msgstr "ស្វែងយល់បន្ថែមអំពីឯកសារនៃការអនុវត្តបច្ចេកទេស SLM របស់ វ៉ូខេត។"
 
 #: apps/questionnaire/templates/details/review_panel.html:29
 #, python-format
@@ -18981,27 +19104,29 @@ msgid ""
 "%(questionnaire_type)s.\n"
 "                "
 msgstr ""
+"\n"
+"អ្នក គឺជា <strong>%(role)s</strong>នៃ%(questionnaire_type)s។"
 
 #: apps/questionnaire/templates/details/review_panel.html:39
 #: apps/questionnaire/templates/questionnaire/details.html:16
 msgid "New edition of the questionnaire is available."
-msgstr ""
+msgstr "កម្រងបញ្ជីសំណួរថ្មី គឺអាចទាញយកមកប្រើប្រាស់បានហើយ។"
 
 #: apps/questionnaire/templates/details/review_panel.html:41
 #: apps/questionnaire/templates/questionnaire/details.html:18
 msgid "The structure of the questionnaire was updated:"
-msgstr ""
+msgstr "ទម្រង់នៃកម្រងបញ្ជីសំណួរត្រូវបានធ្វើបច្ចុប្បន្នភាព៖"
 
 #: apps/questionnaire/templates/details/review_panel.html:41
 #: apps/questionnaire/templates/questionnaire/details.html:18
 msgid "see all details"
-msgstr ""
+msgstr "មើលព័ត៌មានលម្អិតទាំងអស់"
 
 #: apps/questionnaire/templates/details/review_panel.html:42
 #: apps/questionnaire/templates/questionnaire/details.html:19
 msgid ""
 "Please start editing the questionnaire in order to update your case data."
-msgstr ""
+msgstr "សូមចាប់ផ្តើមធ្វើការកែសម្រួលកម្រងបញ្ជីសំណួរដើម្បីធ្វើបច្ចុប្បន្នភាពទិន្នន័យរបស់អ្នក។​"
 
 #: apps/questionnaire/templates/details/review_panel/_assign_user.html:20
 #, python-format
@@ -19353,11 +19478,16 @@ msgid ""
 "to public users.\n"
 "      "
 msgstr ""
+"\n"
+"ប្រសិនបើអ្នកចង់ធ្វើការកែប្រែទិន្នន័យដែលបានបោះពុម្ពរួច"
+"%(questionnaire_type)sអ្នកអាចបង្កើតទម្រង់ថ្មីនៃបញ្ចីសំណួរ%(questionnaire_type)s។ "
+"ទម្រង់ថ្មីនៃបញ្ជីសំណួរនៅតែបន្តមើលឃើញជាសាធារណៈរហូតដល់ទម្រង់ថ្មីត្រូវបានបោះពុម្ព។ "
+"ទម្រង់ចាស់នឹងនៅតែរក្សាទុក និងនៅតែអាចទាញមកប្រើប្រាស់ជាសាធារណៈដដែល។"
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:18
 #: apps/questionnaire/templates/details/review_panel/edit.html:41
 msgid "Create new version"
-msgstr ""
+msgstr "បង្កើតទម្រង់ថ្មី"
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:23
 #, python-format
@@ -19373,7 +19503,7 @@ msgstr ""
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:29
 msgid "Confirm creation of a new version."
-msgstr ""
+msgstr "ការបញ្ជាក់ពីការបង្កើតទម្រង់ថ្មី"
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:31
 #, python-format
@@ -19384,6 +19514,10 @@ msgid ""
 "edited by you and all editors.\n"
 "        "
 msgstr ""
+"\n"
+"ប្រសិនបើអ្នកដាក់បញ្ជូនទម្រង់ថ្មីនៃប្រភេទបញ្ជីសំណួរ %(questionnaire_type)s "
+"ទម្រង់ថ្មីនៃបញ្ជីសំណួរស្ថិតក្នុងទម្រង់ជា \"សេចក្តីព្រាង\" នឹងត្រូវបានបង្កើតឡើង។ "
+"វានឹងអាចកែសម្រួលដោយអ្នក និងអ្នកកែសម្រួលទាំងអស់់។"
 
 #: apps/questionnaire/templates/details/review_panel/edit.html:65
 msgid "Flag as UNCCD best practice"
@@ -19640,7 +19774,7 @@ msgid ""
 msgstr ""
 "\n"
 "ប្រសិនបើអ្នកយល់ព្រមទៅលើលក្ខខណ្ឌនេះ%(questionnaire_type)s អ្នកបោះពុម្ភនឹងបានកត់សម្គាល់ "
-"បន្ទាប់ពីអ្នកបោះពុម្ភបានឯកភាពចុងក្រោយនៅប្រភេទសំណួរ %(questionnaire_type)s "
+"បន្ទាប់ពីអ្នកបោះពុម្ពបានឯកភាពចុងក្រោយនៅប្រភេទសំណួរ %(questionnaire_type)s "
 "នឹងត្រូវបានបោះពុម្ភនឹងចេញផ្សាយដល់អ្នកប្រើប្រាស់ជាធារណៈ។"
 
 #: apps/questionnaire/templates/details/review_panel/review.html:67
@@ -19710,12 +19844,17 @@ msgid ""
 "\"%(intro_url)s\" class=\"link\">read about the WOCAT documentation of SLM "
 "practices%(end_link)s."
 msgstr ""
+"ប្រសិនបើអ្នកប្រើប្រាស់ទម្រង់បញ្ចូលទិន្នន័យជាលើកដំបូង%(start_tour_link)sសូមចូលទៅមើលជំនួយ"
+"%(end_link)s និង<a href=\"%(intro_url)s\" class=\"link"
+"\">អានឯកសារនៃការអនុវត្តបច្ចេកទេស SLM របស់ វ៉ូខេត %(end_link)s។"
 
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:15
 msgid ""
 "Please make sure that you have selected the correct language. You can change "
 "the language in the top right corner of this page."
 msgstr ""
+"សូមប្រាដកថាអ្នកជ្រើសរើសភាសាដែលត្រឹមត្រូវ។ "
+"អ្នកអាចផ្លាស់ប្តូរភាសានៅជ្រុងខាងស្តាំនៃផ្នែកខាងលើនៃទំព័រ។"
 
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:18
 #: apps/questionnaire/templates/details/review_panel/welcome_qtqa.html:20
@@ -19822,12 +19961,12 @@ msgstr "រក្សាទុក ហើយចូលទៅកាន់ផ្ន�
 #: apps/questionnaire/templates/form/category.html:127
 #: apps/questionnaire/templates/form/category.html:140
 msgid "You are about to add a new translation."
-msgstr ""
+msgstr "អ្នកត្រូវបន្ថែមការបកប្រែថ្មី"
 
 #: apps/questionnaire/templates/form/category.html:129
 msgctxt "This questionnaire is not yet translated to [language]"
 msgid "This questionnaire is not yet translated to"
-msgstr ""
+msgstr "កម្រងបញ្ជីសំណួរនេះមិនទាន់បានបកប្រែជា"
 
 #: apps/questionnaire/templates/form/category.html:130
 msgid ""
@@ -19837,34 +19976,40 @@ msgid ""
 "have to be done in all language versions. The checkboxes are linked across "
 "all translations, meaning they always change in all language versions."
 msgstr ""
+"ប្រសិនបើអ្នកបន្តការកែសម្រួលបញ្ជីសំណួរនេះ ការបកប្រែថ្មីនឹងត្រូវដាក់បញ្ចូលបន្ថែម។ "
+"មាតិកានៃភាសាដើមនឹងត្រូវចំលងចូលទៅក្នុងប្រអប់អត្ថបទ ដែលអនុញ្ញាតអោយអ្នកបកប្រែមាតិកានោះ។ "
+"ចាប់ផ្តើមពីពេលនោះមក អត្ថបទត្រូវតែបន្តផ្លាស់ប្តូររហូតដល់ពេញលេញគ្រប់ភាសាទាំងអស់។ ប្រអប់គូសគ្រីស "
+"គឺភ្ជាប់ទៅគ្រប់ការបកប្រែទាំងអស់ មានន័យថាវាតែងតែផ្លាស់ប្តូរជាគ្រប់ភាសា។"
 
 #: apps/questionnaire/templates/form/category.html:131
 msgid ""
 "If you do not want to create a new translation, please go back and select a "
 "language in which this questionnaire is already translated."
 msgstr ""
+"ប្រសិនបើអ្នកមិនចង់បង្កើតការបកប្រែថ្មី សូមធ្វើការត្រឡប់ក្រោយ "
+"និងជ្រើសរើសភាសានៃបញ្ជីសំណួរដែលបានបកប្រែរួច។​"
 
 #: apps/questionnaire/templates/form/category.html:134
 msgid "Go back"
-msgstr ""
+msgstr "ត្រឡប់ក្រោយ"
 
 #: apps/questionnaire/templates/form/category.html:135
 msgid "Add a new translation"
-msgstr ""
+msgstr "បន្ថែមការបកប្រែ"
 
 #: apps/questionnaire/templates/form/category.html:142
 msgctxt ""
 "Do you really want to create a new translation of this questionnaire in "
 msgid "Do you really want to create a new translation of this questionnaire in"
-msgstr ""
+msgstr "តើអ្នកពិតជាចង់បង្កើតការបកប្រែថ្មីនៃបញ្ជីសំណួរនេះក្នុង"
 
 #: apps/questionnaire/templates/form/category.html:145
 msgid "Cancel"
-msgstr ""
+msgstr "បោះបង់"
 
 #: apps/questionnaire/templates/form/category.html:146
 msgid "Create a new translation"
-msgstr ""
+msgstr "បង្កើតការបកប្រែថ្មី"
 
 #: apps/questionnaire/templates/form/category.html:229
 #: apps/questionnaire/templates/questionnaire/details.html:332
@@ -19965,7 +20110,7 @@ msgstr "កែសម្រួវតែចំណុចសំខាន់"
 
 #: apps/questionnaire/templates/form/field/numberinput.html:8
 msgid "Enter full number"
-msgstr ""
+msgstr "បញ្ចូលលេខពេញ"
 
 #: apps/questionnaire/templates/form/field/numberinput.html:8
 msgid "Enter a number"
@@ -20069,6 +20214,23 @@ msgid ""
 "you can also delete single points.</p>\n"
 "    "
 msgstr ""
+"\n"
+"    <p>ជ្រើសរើសស្រទាប់ផែនទីដោយប្រើប្រអប់មីនុយនៅខាងលើនៃរូបភាពផែនទី។ "
+"អ្នកអាចដាក់ស្រទាប់ផែនទីត្រួតគ្នាដោយរំកិលផ្ទាំងបិតបើក</p>\n"
+"<p>ពង្រីកទៅកាន់តំបន់/ទីតាំងរបស់អ្នកដោយប្រើវិធីសាស្ត្រមួយខាងក្រោម៖</p>\n"
+"<ul>\n"
+"<li>ប្រើប៊ូតុង +/- នៅខាងឆ្វេងផ្នែកខាងលើនៃផែនទី</li>\n"
+"<li>ប្រើកង់រំកិលនៃម៉ៅ</li>\n"
+"<li>ស្វែងរកទីតាំងដោយបញ្ចូលឈ្មោះតំបន់ដោយប្រើប៊ូតុង %(button_search)s</li>\n"
+"</ul>\n"
+"<p>បន្ថែមចំណុចនៅលើផែនទីដោយប្រើវិធីសាស្រ្តខាងក្រោម៖</p>\n"
+"<ul>\n"
+"ដាក់ចំណុចដោយប្រើប៊ូតុង%(button_pin)s ។<strong>ប្រុងប្រយ័ត្ន</strong>៖ ជៀសវាងការចុច ២ដង។ "
+"ប្រសិនបើអ្នកចុច ២ដង ចំណុចចំនួន ២ត្រូវបានដាក់បញ្ចូល។<li>\n"
+"<li>ដាក់ចំណុចផ្អែកលើកូអរដោនេ​ GPS ដោយប្រើប៊ូតុង %(button_gps)s</li>\n"
+"</ul>\n"
+"<p>ប្រើប៊ូតុងកែសម្រួល និងលុបចោលដើម្បីផ្លាស់ប្តូរចំណុច លុបចោលចំណុចតែមួយ ឬចំណុចទាំងអស់នៅលើផែនទី</p>\n"
+"<p>ចុចលើប៊ូតុង “លេខ” ដើម្បីបង្ហាញបញ្ជីចំណុចទាំងអស់។ នៅទីនេះអ្នកអាចលុបចោលចំណុចម្តងមួយៗក៏បាន។</p>"
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:54
 msgid "Add a point by clicking on the map"
@@ -20109,8 +20271,8 @@ msgid ""
 "degrees."
 msgstr ""
 "សូមបញ្ចូលតម្លៃលេខនិយាមការក្នុងផ្នែកខាងក្រោម។  និយាមការត្រូវតែជាចំនួនដឺក្រេទស្សភាគ ដែលមានទម្រង់  "
-"\"រយៈទទឺង, រយៈបណ្តោយ\", ឧទាហរណ៍៖ 46.9526, 7.4352។ "
-"ចូរប្រើការភ្ជាប់វេបសាយខាងក្រោមបំឡែងពី ដឺក្រេ  មីនុត និងសឺហ្គុង ឱ្យទៅជាដឺក្រេទស្សភាគ។"
+"\"រយៈទទឹង, រយៈបណ្តោយ\", ឧទាហរណ៍៖ 46.9526, 7.4352។ "
+"សូមប្រើការភ្ជាប់វេបសាយខាងក្រោមបំឡែងពី ដឺក្រេ  មីនុត និងសឺហ្គុង ឱ្យទៅជាដឺក្រេទស្សភាគ។"
 
 #: apps/questionnaire/templates/form/questiongroup/map.html:112
 msgid "Coordinates:"
@@ -20129,7 +20291,7 @@ msgstr "ស្វែងរក ភូមិ ទីក្រុង ។ល។"
 
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:63
 msgid "Is the key resource person a registered or a non-registered WOCAT user?"
-msgstr ""
+msgstr "តើបុគ្គលសំខាន់ៗ គឺជាអ្នកដែលចុះឈ្មោះ ឬមិនទាន់ចុះឈ្មោះជាសមាជិកប្រើប្រាស់ វ៉ូខេត?"
 
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:65
 msgid ""
@@ -20139,6 +20301,10 @@ msgid ""
 "contactable for inquiries. Their contact data will only be accessible to "
 "registered WOCAT users."
 msgstr ""
+"វ៉ូខេត ផ្តល់យោបល់ថាបុគ្គលសំខាន់ៗ គឺគួរតែជា<a href=\"https://www.wocat.net/accounts/"
+"signup/\" target=\"_blank\">អ្នកចុះឈ្មោះរួច</a>នៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យរបស់ វ៉ូខេត/"
+"វេបសាយ។ វិធីសាស្ត្រនេះដើម្បីទាក់ទងពួកគាត់ក្នុងការសាកសួរ។ "
+"ទិន្នន័យទំនាក់ទំនងពួកគាត់នឹងអាចទាញយកបានតែអ្នកដែលបានចុះឈ្មោះជាអ្នកប្រើប្រាស់ វ៉ូខេត តែប៉ុណ្ណោះ។​"
 
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:70
 msgid "Search a registered WOCAT user by typing the name of the person."
@@ -20147,7 +20313,7 @@ msgstr ""
 
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:70
 msgid "Registered User"
-msgstr "ចុះឈ្មោះសមាជិក"
+msgstr "អ្នកដែលបានចុះឈ្មោះសមាជិកហើយ"
 
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:74
 msgid "Enter the details of a person not registered in the WOCAT database."
@@ -20188,7 +20354,7 @@ msgstr "ទំនាក់ទំនងនៃវិធីសាស្ត្រផ
 
 #: apps/questionnaire/templates/form/subcategory/tech_lu_2018.html:36
 msgid "Land use type(s)"
-msgstr ""
+msgstr "ប្រភេទដីប្រើប្រាស់ (ច្រើន)"
 
 #: apps/questionnaire/templates/pagination.html:24
 msgid "Total:"
@@ -20196,7 +20362,7 @@ msgstr "សរុប៖"
 
 #: apps/questionnaire/templates/questionnaire/details.html:38
 msgid "WOCAT Technology Questionnaire has been updated"
-msgstr ""
+msgstr "កម្រងបញ្ជីសំណួរបច្ចេកទេស វ៉ូខេត ត្រូវបានធ្វើបច្ចុប្បន្នភាព"
 
 #: apps/questionnaire/templates/questionnaire/details.html:40
 msgid ""
@@ -20205,6 +20371,10 @@ msgid ""
 "wocat.net/library/media/15/\" class=\"link\" target=\"_blank\">https://www."
 "wocat.net/library/media/15/</a>."
 msgstr ""
+"សូមចំណាំថាកម្រងបញ្ជីសំណួរ វ៉ូខេត ត្រូវបានធ្វើបច្ចុប្បន្នភាពនៅខែ តុលា ឆ្នាំ ២០១៨ (កែសម្រួល ២០១៨)។ "
+"សម្រាប់ព័ត៍មានបន្ថែមអាចចូលមើលបាន<a href=\"https://www.wocat.net/library/media/15/"
+"\" class=\"link\" target=\"_blank\">https://www.wocat.net/library/media/15/</"
+"a>។"
 
 #: apps/questionnaire/templates/questionnaire/details.html:90
 msgid "Photo"
@@ -20212,11 +20382,11 @@ msgstr "រូបថត"
 
 #: apps/questionnaire/templates/questionnaire/details.html:104
 msgid "This is an outdated, inactive version of this case."
-msgstr ""
+msgstr "ទម្រង់នេះគឺហួសសម័យ ជាទម្រង់ដែលអសកម្ម។"
 
 #: apps/questionnaire/templates/questionnaire/details.html:105
 msgid "Go to the current version."
-msgstr ""
+msgstr "ទៅកាន់ទម្រង់បច្ចុប្បន្ន"
 
 #: apps/questionnaire/templates/questionnaire/details.html:114
 msgid "Links and modules"
@@ -20306,6 +20476,8 @@ msgid ""
 "New edition of the questionnaire is available. Please edit your data to "
 "create an updated version."
 msgstr ""
+"កំណែទម្រង់ថ្មីរបស់បញ្ជីសំណួរ គឺអាចទាញយកមកប្រើប្រាស់បានហើយ។ "
+"សូមកែសម្រួលទិន្នន័យរបស់អ្នកដើម្បីបង្កើតទម្រង់ដែលបានធ្វើបច្ចុប្បន្នភាពរួច។"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:63
 msgid "This SLM practice is also available in:"
@@ -20315,15 +20487,15 @@ msgstr "ការអនុវត្ត SLM នេះក៏មាននៅក្�
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:94
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:100
 msgid "This case is linked to SLM Approaches"
-msgstr ""
+msgstr "ករណីនេះត្រូវបានភ្ជាប់ទៅកាន់វិធីសាស្ត្រផ្សព្វផ្សាយ SLM "
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:82
 msgid "This case is linked to SLM Technologies"
-msgstr ""
+msgstr "ករណីនេះត្រូវបានភ្ជាប់ទៅកាន់បច្ចេកទេស SLM"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:88
 msgid "This case has a CCA module"
-msgstr ""
+msgstr "ករណីនេះ គឺមានម៉ូឌុលការបន្ស៊ាំការប្រែប្រួលអាកាសធាតុ"
 
 #: apps/questionnaire/templates/questionnaire/partial/select_modules.html:14
 msgid "No modules found."
@@ -20449,11 +20621,11 @@ msgstr " ចម្លើយ៖ {}"
 
 #: apps/summary/parsers/technologies_2018.py:249
 msgid "Management: "
-msgstr ""
+msgstr "ការគ្រប់គ្រង៖"
 
 #: apps/summary/parsers/technologies_2018.py:255
 msgid "Varieties: "
-msgstr ""
+msgstr "ពូជ៖"
 
 #: apps/summary/renderers/approaches_2015.py:23
 #: apps/summary/renderers/approaches_2015.py:38
@@ -20686,7 +20858,7 @@ msgstr ""
 
 #: apps/summary/renderers/summary.py:43
 msgid "n.a."
-msgstr ""
+msgstr "មិនមាន"
 
 #: apps/summary/renderers/summary.py:237
 msgid "land user's view"
@@ -20767,7 +20939,7 @@ msgid ""
 "This technology is problematic with regard to land degradation, so it cannot "
 "be declared a sustainable land management technology"
 msgstr ""
-"បច្ចេកទេសនេះមានបញ្ហាជាមួយនឹងឱនភាពដី "
+"បច្ចេកទេសនេះមានបញ្ហាជាមួយនឹងការធា្លក់ចុះគុណភាពដី "
 "ដូចនេះវាមិនអាចត្រូវបានប្រកាស់ថាជាបច្ចេកទេសគ្រប់គ្រងដីប្រកបដោយចីរភាពទេ"
 
 #: apps/summary/renderers/technologies_2015.py:62
@@ -20817,11 +20989,11 @@ msgstr "ដង់ស៊ីតេនៃសត្វចិញ្ចឹម"
 
 #: apps/summary/renderers/technologies_2015.py:148
 msgid "Purpose related to land degradation"
-msgstr "គោលបំណងទាក់ទងនឹងឱនភាពដី"
+msgstr "គោលបំណងទាក់ទងនឹងការធា្លក់ចុះគុណភាពដី"
 
 #: apps/summary/renderers/technologies_2015.py:152
 msgid "Degradation addressed"
-msgstr "ប្រភេទឱនភាពដីដែលបានដោះស្រាយ"
+msgstr "ប្រភេទនៃការធា្លក់ចុះគុណភាពដីដែលបានដោះស្រាយ"
 
 #: apps/summary/renderers/technologies_2015.py:156
 msgid "SLM group"
@@ -20876,11 +21048,11 @@ msgstr "រូបិយប័ណ្ណសម្រាប់ការគណនា
 
 #: apps/summary/renderers/technologies_2015.py:251
 msgid "Exchange rate (to USD): 1 USD = {} {}"
-msgstr ""
+msgstr "អត្រាប្តូរប្រាក់ (ទៅជាដុល្លារអាមេរិក)៖ 1 USD = {} {}"
 
 #: apps/summary/renderers/technologies_2015.py:255
 msgid "Average wage cost of hired labour per day: {}"
-msgstr ""
+msgstr "ថ្លៃឈ្នួលជាមធ្យមក្នុង ១ ថ្ងៃ៖  {}"
 
 #: apps/summary/renderers/technologies_2015.py:258
 msgid "Most important factors affecting the costs"
@@ -20964,7 +21136,7 @@ msgstr "វាយនៈភាពដី (ដីស្រទាប់ខាងល�
 
 #: apps/summary/renderers/technologies_2015.py:374
 msgid "Soil texture (> 20 cm below surface)"
-msgstr "វាយនៈភាពដី  (>​ 20 សម ក្រោមស្រទាប់លើ)"
+msgstr "វាយនភាពដី  (>​ 20 សម ក្រោមស្រទាប់លើ)"
 
 #: apps/summary/renderers/technologies_2015.py:378
 msgid "Topsoil organic matter content"
@@ -21133,7 +21305,7 @@ msgstr "ចំពោះលក្ខខណ្ឌប្រែប្រួលណា
 
 #: apps/summary/renderers/technologies_2018.py:127
 msgid "In a permanently protected area?"
-msgstr ""
+msgstr "តើស្ថិតក្នុងតំបន់ការពារអចិន្ត្រៃយ៍?"
 
 #: apps/summary/templates/summary/layout/base.html:11
 msgid "Summary"
@@ -21217,11 +21389,11 @@ msgstr "ការណែនាំពីបញ្ចីសំណួរ"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:14
 msgid "About the WOCAT documentation of SLM practices"
-msgstr ""
+msgstr "អំពីឯកសាររបស់ វ៉ូខេត នៃការអនុវត្តបច្ចេកទេស SLM"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:18
 msgid "Welcome to WOCAT!"
-msgstr ""
+msgstr "វ៉ូខេត សូមស្វាគមន៍!"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:22
 msgid ""
@@ -21238,17 +21410,31 @@ msgid ""
 "Global SLM Database and can be used to disseminate SLM knowledge and improve "
 "decision-making for further implementation and spreading of SLM practices."
 msgstr ""
+"វ៉ូខេត ផ្តល់ជូនស្តង់ដារ ចលករជំនួយដល់អ្នកប្រើប្រាស់ អាចចូលប្រើប្រាស់ជាសាធារណៈ វិធីសាស្ត្រ "
+"និងឧបករណ៍ប្រើប្រាស់ជាសកលសម្រាប់ចងក្រង និងវាយតម្លៃលើការអនុវត្តការគ្រប់គ្រងដីប្រកបដោយចីរភាព "
+"(SLM) ។ <strong>SLM</strong>ក្នងបរិបទរបស់ វ៉ូខេត ត្រូវបានកំណត់ថាជាការប្រើប្រាស់ធនធានដី "
+"រួមបញ្ចូលទាំង ដី ទឹក រុក្ខជាតិ និងសត្វវ។ វ៉ូខេត ផ្តោតទៅលើការខិតខំប្រឹងប្រែងក្នុងការបង្ការ "
+"និងកាត់បន្ថយការធ្លាក់ចុះគុណភាពដី និងកែលម្អគុណភាពដីឡើងវិញតាមរយៈ<strong>បច្ចេកទេសការគ្រប់គ្រងដី</"
+"strong> និង<strong>វិធីសាស្រ្តផ្សព្វផ្សាយសម្រាប់ការអនុវត្តន៍បច្ចេកទេសទាំងនោះ</strong>។​​  "
+"រាល់ការអនុវត្តន៍ទាំងអស់អាច​ត្រូវបានពិចារណាថា តើវាជាលក្ខណៈប្រពៃណី ឬត្រូវបានណែនាំឱ្យ​អនុវត្តន៍ថ្មីៗ​"
+"តាមរយៈ​គម្រោង​ ឬជាការច្នៃប្រឌិតថ្មីរបស់អ្នកប្រើប្រាស់ដី។ រាល់ព័ត៌មានទាំងអស់​ដែលត្រូវបានចងក្រង​ជាឯកសារ​"
+"តាមរយៈ​ការប្រើ​កម្រង​បញ្ជី​សំណួររបស់​ វ៉ូខេត អាចទាញយកបានពីប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស "
+"SLM ជាសកល និងអាចយក​ទៅ​ផ្សព្វផ្សាយបន្តស្តីពី​ចំណេះដឹង​​ការគ្រប់គ្រងដីប្រកបដោយចីរភាព "
+"និងធ្វើឱ្យប្រសើរឡើងនូវការសចក្តីសម្រេចចិត្តសម្រាប់​ការអនុវត្តន៍​ និងការ​ពង្រីក​បន្ថែម​ទៀតស្តីពីការ​គ្រប់គ្រង​​​​"
+"ដីប្រកប​ដោយចីរភាព។ "
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:26
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:85
 msgid "Process of documentation and review of WOCAT data"
-msgstr ""
+msgstr "ដំណើរការនៃការចងក្រង និងត្រួតពិនិត្យទិន្នន័យរបស់ វ៉ូខេត"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:30
 msgid ""
 "Are you going to document an SLM Technology or an SLM Approach – or both? "
 "And what is the difference between the two?"
 msgstr ""
+"តើអ្នកនឹងចងក្រងឯកសារបច្ចេកទេស SLM ឬវិធីសាស្រ្តផ្សព្វផ្សាយ SLM – ឬទាំង ២? ហើយអ្វី "
+"គឺជាភាពខុសគ្នារវាងឯកសារទាំង ២ នេះ?"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:38
 msgid ""
@@ -21257,14 +21443,14 @@ msgid ""
 "consists of one or several measures, such as agronomic, vegetative, "
 "structural, and management measures."
 msgstr ""
-"<strong> បច្ចេកទេស SLM </strong> គឺជាការអនុវត្តនៅទីវាលដែលគ្រប់គ្រងឱនភាពដី និង/ឬ "
-"ពង្រីកផលិតកម្ម។ បច្ចេកទេសមួយរួមមានវិធានការមួយ ឬច្រើន ដូចជា ក្សត្រសាស្ត្រ រុក្ខជាតិ រចនាស័ម្ពន្ធ "
+"<strong> បច្ចេកទេស SLM </strong> គឺជាការអនុវត្តនៅទីវាលដែលគ្រប់គ្រងការធា្លក់ចុះគុណភាពដី និង/"
+"ឬ ពង្រីកផលិតកម្ម។ បច្ចេកទេសមួយរួមមានវិធានការមួយ ឬច្រើន ដូចជា ក្សត្រសាស្ត្រ រុក្ខជាតិ រចនាស័ម្ពន្ធ "
 "និងវិធានការនៃការគ្រប់គ្រង។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:41
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:53
 msgid "Example:"
-msgstr ""
+msgstr "ឧទាហរណ៍៖"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:50
 msgid ""
@@ -21289,15 +21475,21 @@ msgid ""
 "Carbon Benefits / Climate Change Mitigation, Watershed and Runoff, and "
 "Mapping Land Degradation and Conservation</strong>)."
 msgstr ""
+"កម្រងបញ្ជីសំណួរទាំង ២ បញ្ចូលគ្នាផ្តល់ជារូបភាពដ៏ពេញលេញមួយនៃការអនុវត្តបច្ចេកទេស SLM ។ ជាមតិយោបល់ "
+"ដំបូងអ្នកគួរបំពេញក្នុងកម្រងបញ្ជីសំណួរនៃបច្ចេកទេស SLM បន្ទាប់មកវិធីសាស្ត្រផ្សព្វផ្សាយ SLM ។ "
+"វិធីសាស្ត្រផ្សព្វផ្សាយមួយគួរតែភ្ជាប់ទៅមួយ ឬច្រើនបច្ចេកទេស។ ម៉ូឌុលជម្រើសប្រធានបទដែលផ្តល់ព័ត៍មានលំអិត "
+"និងជាក់លាក់ពីប្រធានបទ (ដូចជា <strong>ការបន្ស៊ាំនឹងការប្រែប្រួលអាកាសធាតុ អត្ថប្រយោជន៍កាបូន / "
+"ការកាត់បន្ថយការប្រែប្រួលអាកាសធាតុ ទីជម្រាលនិងការហូរច្រោះ "
+"និងការធ្វើផែនទីការធ្លាក់ចុះគុណភាពដីនិងអភិរក្ស</strong>)។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:62
 msgctxt "See [link]"
 msgid "See"
-msgstr ""
+msgstr "សូមមើល"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:66
 msgid "How to document and review WOCAT data"
-msgstr ""
+msgstr "របៀបនៃការចងក្រង និងត្រួតពិនិត្យទិន្នន័យ វ៉ូខេត"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:71
 msgid ""
@@ -21308,12 +21500,19 @@ msgid ""
 "through the questions and read the instructions below. Contact the WOCAT "
 "Secretariat if you have questions."
 msgstr ""
+"បន្ស៊ាំខ្លួនអ្នកជាមួយកម្រងបញ្ជីសំណួរ (ទាញយកនៅ<a href=\"https://www.wocat.net/en/global-"
+"slm-database/slm-practices-technologies-and-approaches\" class=\"link\" "
+"target=\"_blank\">https://www.wocat.net/en/global-slm-database/slm-practices-"
+"technologies-and-approaches</a>) ។​ ចូលទៅមើលកម្រងបញ្ជីសំណួរ និងអានការណែនាំខាងក្រោម។ "
+"សូមទាក់ទងទៅលេខាធិការដ្ឋានរបស់ វ៉ូខេត ប្រសិនបើអ្នកមានសំណួរ។ "
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:72
 msgid ""
 "Start filling in the questionnaire based on your knowledge and existing "
 "documents. Please write clearly and legibly."
 msgstr ""
+"ចាប់ផ្តើមបំពេញបញ្ជីសំណួរផ្អែកលើចំណេះដឹងរបស់អ្នក និងឯកសារដែលមាន។ សូមសរសេរអោយបានច្បាស់លាស់ "
+"និងអាចយល់បាន។​"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:73
 msgid ""
@@ -21321,6 +21520,8 @@ msgid ""
 "of the SLM Technology/ Approach (ideally a team of specialists with "
 "different backgrounds and experience)."
 msgstr ""
+"កំណត់អ្នកប្រើប្រាស់ដី និងបុគ្គលសំខាន់ៗផ្សេងទៀតដែលមានចំណេះដឹងជ្រៅជ្រះនៃបច្ចេកទេស / "
+"វិធីសាស្ត្រផ្សព្វផ្សាយ SLM  (ជាមតិយោបល់ គួរតែជាក្រុមអ្នកជំនាញដែលមានចំណេះដឹង និងបទពិសោធន៍ខុសៗគ្នា)។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:74
 msgid ""
@@ -21328,6 +21529,8 @@ msgid ""
 "user(s) and key resource persons. Take measurements and photos, and make "
 "technical drawings."
 msgstr ""
+"ប្រមូលទិន្នន័យនៅទីវាល និងព័ត៍មានតាមរយៈការសម្ភាសជាមួយអ្នកប្រើប្រាស់ដីម្នាក់ (ច្រើននាក់) "
+"និងបុគ្គលសំខាន់ៗ។​ ធ្វើការវាស់វែង និងថតរូបភាព និងគូរគំនូរបច្ចេកទេស។ "
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:75
 msgid ""
@@ -21336,6 +21539,10 @@ msgid ""
 "new SLM Technology/ Approach data entry form. Type the data collected – "
 "section by section, and upload images and other digital files."
 msgstr ""
+"បញ្ចូលព័ត៍មានដែលបានចងក្រងនៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកល។ "
+"សូមចូលទៅកាន់<a href=\"https://qcat.wocat.net\" class=\"link\">qcat.wocat.net</"
+"a>និងបង្កើតទម្រង់ទិន្នន័យបច្ចេកទេស/ វិធីសាស្ត្រផ្សព្វផ្សាយ SLM ថ្មី។ បញ្ចូលទិន្នន័យដែលបានចងក្រង –"
+" ផ្នែកដោយផ្នែក និងបញ្ចូលរូបភាព និងជាទម្រង់ឌីជីថលផ្សេងៗ។ "
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:76
 msgid ""
@@ -21343,12 +21550,16 @@ msgid ""
 "for review, making sure it is complete, clear, and comprehensible. You can "
 "invite editors (registered WOCAT users) to help you."
 msgstr ""
+"ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM  ជាសកលនឹងណែនាំអ្នកពីរបៀបកែសម្រួល "
+"និងដាក់បញ្ជូនទិន្នន័យរបស់អ្នកសម្រាប់ត្រួតពិនិត្យតែត្រូវប្រាកដថាវាពេញលេញ ច្បាស់លាស់ និងអាចយល់បាន។ "
+"អ្នកអាចអញ្ជើញអ្នកត្រួតពិនិត្យ (ដែលបានចុះឈ្មោះរួចជាអ្នកប្រើប្រាស់ WOCAT "
+"ទស្សនៈពិភពលោកស្តីពីវិធីសាស្ត្រ និងបច្ចេកទេសអភិរក្ស)​ ដើម្បីជួយអ្នក។ "
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:79
 msgid ""
 "Note 1: fill in a separate questionnaire for each Technology and for each "
 "Approach."
-msgstr ""
+msgstr "ចំណាំ ១៖​ សូមបំពេញបញ្ជីសំណួរដាច់ដោយឡែកពីគ្នានៃបច្ចេកទេស និងវិធីសាស្ត្រផ្សព្វផ្សាយនីមួយៗ។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:82
 msgid ""
@@ -21358,10 +21569,13 @@ msgid ""
 "versions. The checkboxes are linked across all translations, meaning they "
 "always change in all language versions."
 msgstr ""
+"ចំណាំ ២៖ នៅពេលដែលធ្វើការបកប្រែ "
+"មាតិកានៃភាសាដើមនឹងចំលងទៅក្នុងប្រអប់អត្ថបទដែលអនុញ្ញាតអោយអ្នកធ្វើការបកប្រែ។ ប្រអប់គូសគ្រីស "
+"គឺភ្ជាប់ទៅគ្រប់ការបកប្រែទាំងអស់ មានន័យថាវាតែងតែផ្លាស់ប្តូរជាគ្រប់ភាសា។"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:92
 msgid "Review roles"
-msgstr ""
+msgstr "តួនាទីនៃការត្រួតពិនិត្យ"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:94
 msgid "SLM Technology / Approach"
@@ -21369,7 +21583,7 @@ msgstr "បច្ចេកទេស SLM/ វិធីសាស្ត្រផ្
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:98
 msgid "Help us to improve WOCAT"
-msgstr ""
+msgstr "សូមជួយពួកយើងដើម្បីកែលម្អ វ៉ូខេត"
 
 #: apps/wocat/templates/wocat/help/questionnaire_introduction.html:102
 msgid ""
@@ -21380,6 +21594,12 @@ msgid ""
 "feedback to: <a href=\"mailto:wocat@cde.unibe.ch\" class=\"link\">wocat@cde."
 "unibe.ch</a>"
 msgstr ""
+"អរគុណសម្រាប់ការរួមចំណែកក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាមួយទិន្នន័យ SLM "
+"ដែលមានគុណភាព! វ៉ូខេត ផ្តល់ភាពបត់បែន និងឧបករណ៍ជំនួយដល់អ្នកប្រើប្រាស់។ "
+"សូមជួយពួកយើងដើម្បីកែលម្អកម្រងបញ្ជីសំណួរដែលមាន "
+"និងរួមចំណែកអភិវឌ្ឍន៍ម៉ូឌុលកម្រងបញ្ជីសំណួរថ្មីដែលមានប្រធានបទជាក់លាក់ទាក់ទងនឹងបច្ចេកទេស SLM ។ "
+"សូមផ្ញើធាតុចូល ឬមតិយោបល់ទៅកាន់៖ <a href=\"mailto:wocat@cde.unibe.ch\" class=\"link"
+"\">wocat@cde.unibe.ch</a>"
 
 #: apps/wocat/templates/wocat/help/questionnaire_roles.html:13
 msgid ""
@@ -21469,7 +21689,7 @@ msgstr "ស្វាគមន៍លោកអ្នកក្នុងការច
 
 #: apps/wocat/templates/wocat/home.html:76
 msgid "WOCAT Global SLM Database"
-msgstr ""
+msgstr "ប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM របស់ វ៉ូខេត"
 
 #: apps/wocat/templates/wocat/home.html:80
 msgid ""
@@ -21507,7 +21727,7 @@ msgstr ""
 "និងផ្សព្វផ្សាយចំណេះដឹងដ៏មានតម្លៃអំពីការគ្រប់គ្រងដី "
 "គាំទ្រដល់ការធ្វើការសម្រេចចិត្តដែលផ្អែកលើភស្តុតាងជាមូលដ្ឋាន "
 "និងពង្រីកបន្តនូវការអនុវត្តន៍ល្អៗដែលបានរកឃើញ ដែលជាលទ្ធគឺចូលរួមចំណេកការពារនិងកាត់បន្ថយឱនភាពដី "
-"និងស្តារឡើងវិញនូវដីដែលមានឳនភាពរួចទៅហើយ។"
+"និងស្តារឡើងវិញនូវដីដែលមានការធា្លក់ចុះគុណភាពរួចទៅហើយ។"
 
 #: apps/wocat/templates/wocat/home.html:89
 msgid ""
@@ -21518,60 +21738,83 @@ msgid ""
 "stakeholder engagement, and other)."
 msgstr ""
 "ការអនុវត្តការគ្រប់គ្រងដីប្រកបដោយចីរភាព អាចជាបច្ចេកទេស SLM (ការអនុវត្តបែបរូបវ័ន្ត​ដែល​គ្រប់គ្រង​"
-"ឱនភាព​ដី និង/ឬបង្កើនផលិតភាព ដែលរួមបញ្ចូលនូវវិធានការមួយឬច្រើន) ឬ វិធីសាស្រ្តផ្សព្វផ្សាយលើ SLM "
-"(របៀប ឬមធ្យោបាយដែលត្រូវបានប្រើប្រាស់ក្នុងការអនុវត្តបច្ចេកទេស SLM មួយ ឬច្រើន "
-"រាប់បញ្ចូលទាំងការគាំទ្រផ្នែកសម្ភារ និងបច្ចេកទេស ការចូលរួមរបស់ភាគីពាក់ព័ន្ធ និងផ្សេងៗទៀត)។"
+"ការធា្លក់ចុះគុណភាពដី និង/ឬបង្កើនផលិតភាព ដែលរួមបញ្ចូលនូវវិធានការមួយឬច្រើន) ឬ "
+"វិធីសាស្រ្តផ្សព្វផ្សាយលើ SLM (របៀប ឬមធ្យោបាយដែលត្រូវបានប្រើប្រាស់ក្នុងការអនុវត្តបច្ចេកទេស SLM "
+"មួយ ឬច្រើន រាប់បញ្ចូលទាំងការគាំទ្រផ្នែកសម្ភារ និងបច្ចេកទេស ការចូលរួមរបស់ភាគីពាក់ព័ន្ធ "
+"និងផ្សេងៗទៀត)។"
 
 #: apps/wocat/templates/wocat/home.html:92
 msgid ""
 "Credits for the translation of the WOCAT Questionnaires and Database go to:"
-msgstr ""
+msgstr "ឥណទានសម្រាប់ការបកប្រែកម្រងបញ្ជីសំណួររបស់ វ៉ូខេត និងទិន្នន័យសូមចូលទៅ៖"
 
 #: apps/wocat/templates/wocat/home.html:94
 msgid ""
 "<strong>Russian</strong>: Olga Andreeva (Associate Professor Moscow "
 "Lomonosov State University), Julia Johnson (Translator)"
 msgstr ""
+"<strong>ជនជាតិរុស្ស៊ី</strong>៖ Olga Andreeva (សាស្ត្រារងនៃសាកលវិទ្យាល័យ Moscow "
+"Lomonosov State) Julia Johnson (អ្នកបកប្រែ)"
 
 #: apps/wocat/templates/wocat/home.html:95
 msgid "<strong>Spanish</strong>: Pedro Charles Alborno (Translator)"
-msgstr ""
+msgstr "<strong>ជនជាតិអេស្បា៉ញ</strong>៖ Pedro Charles Alborno (អ្នកបកប្រែ)"
 
 #: apps/wocat/templates/wocat/home.html:96
 msgid "<strong>French</strong>: Barbara de Choudens (Translator)"
-msgstr ""
+msgstr "<strong>ជនជាតិបារាំង</strong>៖ Barbara de Choudens (អ្នកបកប្រែ)"
 
 #: apps/wocat/templates/wocat/home.html:97
 msgid ""
 "<strong>Lao</strong>: National Agriculture and Forestry Institute (NAFRI) "
 "Lao PDR"
 msgstr ""
+"<strong>ឡាវ</strong>៖ វិទ្យាស្ថានកសិកម្ម និងព្រៃឈើជាតិ (NAFRI) "
+"សាធារណរដ្ឋប្រជាធិបតេយ្យប្រជាមានិតឡាវ"
 
 #: apps/wocat/templates/wocat/home.html:98
 msgid "<strong>Khmer</strong>: Royal University of Agriculture (RUA) Cambodia"
+msgstr "<strong>ខ្មែរ</strong>៖ សកលវិទ្យាល័យភូមិន្ទកសិកម្ម (RUA) កម្ពុជា"
+
+#: apps/wocat/templates/wocat/home.html:99
+msgid ""
+"<strong>Chinese</strong>: Mr. Sun Guoji, Director General of Department of "
+"Combating Desertification, National Forestry and Grassland Administration, "
+"China"
 msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:102
+#: apps/wocat/templates/wocat/home.html:100
+msgid ""
+"<strong>Thai</strong>: Dr. Bunjirtluk Jintaridth and Mr. Kamchai "
+"Kanjanatanaseth, Land Development Department (LDD), Ministry of Agriculture "
+"and Cooperatives, Thailand; Dr. Pitayakon Limtong, Soil and Fertilizer "
+"Society of Thailand"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:104
 msgid ""
 "Please contact the WOCAT Secretariat (<a href=\"mailto:wocat@cde.unibe.ch\" "
 "class=\"link\">wocat@cde.unibe.ch</a>) if you are interested in translating "
 "the Questionnaires or the Global SLM Database into another language or "
 "further information about WOCAT."
 msgstr ""
+"សូមទាក់ទងលេខាធិការដ្ឋាន វ៉ូខេត (<a href=\"mailto:wocat@cde.unibe.ch\" class=\"link"
+"\">wocat@cde.unibe.ch</a>) ប្រសិនបើអ្នកចាប់អារម្មណ៍លើការបកប្រែបញ្ជីសំណួរ "
+"ឬប្រព័ន្ធគ្រប់គ្រងទិន្នន័យមូលដ្ឋាននៃបច្ចេកទេស SLM ជាសកលទៅជាភាសាផ្សេង ឬព័ត៍មានបន្ថែមរបស់ វ៉ូខេត។"
 
-#: apps/wocat/templates/wocat/home.html:105
+#: apps/wocat/templates/wocat/home.html:107
 msgid "Read more about the WOCAT documentation of SLM practices."
-msgstr ""
+msgstr "សូមអានបន្ថែមអំពីឯកសារនៃការអនុវត្តបច្ចេកទេស SLM របស់ វ៉ូខេត"
 
-#: apps/wocat/templates/wocat/home.html:116
+#: apps/wocat/templates/wocat/home.html:118
 msgid "Information for UNCCD Parties"
-msgstr ""
+msgstr "ព័ត៍មាននៃបណ្តាភាគីអនុសញ្ញាសហប្រជាជាតិប្រយុទ្ធប្រឆាំងនឹងរហោស្ថានកម្ម"
 
-#: apps/wocat/templates/wocat/home.html:124
+#: apps/wocat/templates/wocat/home.html:126
 msgid "Search SLM data"
 msgstr "ស្វែងរកទិន្នន័យ SLM"
 
-#: apps/wocat/templates/wocat/home.html:152
+#: apps/wocat/templates/wocat/home.html:154
 #: apps/wocat/templates/wocat/partial/add.html:20
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
@@ -21579,21 +21822,22 @@ msgid ""
 "controls land degradation and enhances productivity and/ or other ecosystem "
 "services."
 msgstr ""
-"<strong> បច្ចេកទេស SLM</strong> គឺជាការអនុវត្តការគ្រប់គ្រងដីដោយការពារមិនមានឱនភាពដី "
-"និងបង្កើនផលិតកម្ម និង/ឬ សេវាកម្មនៃប្រព័ន្ធអេកូឡូស៊ី។"
+"<strong> បច្ចេកទេស SLM</strong> "
+"គឺជាការអនុវត្តការគ្រប់គ្រងដីដោយការពារមិនមានការធា្លក់ចុះគុណភាពដី និងបង្កើនផលិតកម្ម និង/ឬ "
+"សេវាកម្មនៃប្រព័ន្ធអេកូឡូស៊ី។"
 
-#: apps/wocat/templates/wocat/home.html:153
-#: apps/wocat/templates/wocat/home.html:173
-#: apps/wocat/templates/wocat/home.html:189
-#: apps/wocat/templates/wocat/home.html:213
-#: apps/wocat/templates/wocat/home.html:228
-#: apps/wocat/templates/wocat/home.html:251
-#: apps/wocat/templates/wocat/home.html:274
-#: apps/wocat/templates/wocat/home.html:290
+#: apps/wocat/templates/wocat/home.html:155
+#: apps/wocat/templates/wocat/home.html:175
+#: apps/wocat/templates/wocat/home.html:191
+#: apps/wocat/templates/wocat/home.html:215
+#: apps/wocat/templates/wocat/home.html:230
+#: apps/wocat/templates/wocat/home.html:253
+#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/home.html:292
 msgid "View all"
 msgstr "ពិនិត្យមើលទាំងអស់"
 
-#: apps/wocat/templates/wocat/home.html:172
+#: apps/wocat/templates/wocat/home.html:174
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
@@ -21603,11 +21847,11 @@ msgstr ""
 "និងមធ្យោបាយនានាដែលត្រូវបានប្រើដើម្បីអនុវត្ត​បច្ចេកទេស SLM ដោយរាប់បញ្ចូលភាគីពាក់ព័ន្ធដែលចូលរួម "
 "ព្រមទាំងតួនាទីរបស់ពួកគេ។"
 
-#: apps/wocat/templates/wocat/home.html:186
+#: apps/wocat/templates/wocat/home.html:188
 msgid "UNCCD Prais Practices"
 msgstr "ការអនុវត្ត​ PRAIS នៃ​ UNCCD"
 
-#: apps/wocat/templates/wocat/home.html:187
+#: apps/wocat/templates/wocat/home.html:189
 msgid ""
 "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared "
 "through the UNCCD PRAIS system in the UNCCD reporting process."
@@ -21615,34 +21859,34 @@ msgstr ""
 "ការអនុវត្ត PRAIS នៃ UNCCD គឺជាការអនុវត្ត SLM ល្អៗដូចបានចែករំលែកតាមរយៈប្រព័ន្ធ PRAIS របស់ "
 "UNCCD នៅក្នុងដំណើរការរាយការណ៍នៃ UNCCD។"
 
-#: apps/wocat/templates/wocat/home.html:211
-#: apps/wocat/templates/wocat/home.html:225
+#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:227
 #: apps/wocat/templates/wocat/partial/add.html:63
 #: apps/wocat/templates/wocat/partial/add.html:77
 msgid "Watershed and Runoff"
 msgstr "ទីជម្រាល និងលំហូរ"
 
-#: apps/wocat/templates/wocat/home.html:212
-#: apps/wocat/templates/wocat/home.html:226
+#: apps/wocat/templates/wocat/home.html:214
+#: apps/wocat/templates/wocat/home.html:228
 #: apps/wocat/templates/wocat/partial/add.html:64
 #: apps/wocat/templates/wocat/partial/add.html:78
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
 msgstr "ផែនទីនៃការគ្រប់គ្រងដី និងវាយតម្លៃលំហូរទឹកពីទីជម្រាល។"
 
-#: apps/wocat/templates/wocat/home.html:248
+#: apps/wocat/templates/wocat/home.html:250
 #: apps/wocat/templates/wocat/partial/add.html:100
 msgid "Land Degradation / Conservation"
-msgstr "ឱនភាពដី/ ការអភិរក្ស"
+msgstr "ការធា្លក់ចុះគុណភាពដី/ ការអភិរក្ស"
 
-#: apps/wocat/templates/wocat/home.html:249
+#: apps/wocat/templates/wocat/home.html:251
 #: apps/wocat/templates/wocat/partial/add.html:101
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
-msgstr "ផែនទីគ្រប់គ្រងដី និងផលប៉ះពាល់ ដូចជា ភ្នាក់ងារបង្កឱនភាព និងអភិរក្ស។"
+msgstr "ផែនទីគ្រប់គ្រងដី និងផលប៉ះពាល់ ដូចជា ភ្នាក់ងារបង្កការធា្លក់ចុះគុណភាព និងអភិរក្ស។"
 
-#: apps/wocat/templates/wocat/home.html:250
+#: apps/wocat/templates/wocat/home.html:252
 #: apps/wocat/templates/wocat/partial/add.html:102
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -21651,15 +21895,15 @@ msgstr ""
 "ផែនទីថ្មីៗដែលមិនទាន់បានដាក់បញ្ចូលក្នុងទិន្នន័យមូលដ្ឋាន។ ផែនទីអាចត្រូវបានមើល "
 "ឬដាក់បញ្ចូលក្នុងទិន្នន័យមូលដ្ឋានចាស់ (QM)។ "
 
-#: apps/wocat/templates/wocat/home.html:271
-#: apps/wocat/templates/wocat/home.html:287
+#: apps/wocat/templates/wocat/home.html:273
+#: apps/wocat/templates/wocat/home.html:289
 #: apps/wocat/templates/wocat/partial/add.html:123
 #: apps/wocat/templates/wocat/partial/add.html:139
 msgid "CCA Module"
 msgstr "ម៉ូឌុលអំពីការបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុ"
 
-#: apps/wocat/templates/wocat/home.html:272
-#: apps/wocat/templates/wocat/home.html:288
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:290
 #: apps/wocat/templates/wocat/partial/add.html:124
 #: apps/wocat/templates/wocat/partial/add.html:140
 msgid ""
@@ -21671,12 +21915,12 @@ msgstr ""
 "ត្រូវបានបន្សុំាទៅនឹងការប្រែប្រួលអាកាសធាតុសន្សឹមៗ និងភាពធ្ងន់ធ្ងរទាក់ទងនឹងអាកាសធាតុ (គ្រោះធម្មជាតិ) "
 "ដែរឬទេ។"
 
-#: apps/wocat/templates/wocat/home.html:289
+#: apps/wocat/templates/wocat/home.html:291
 #: apps/wocat/templates/wocat/partial/add.html:141
 msgid "Modules will be added soon to the new database."
 msgstr "ម៉ូឌុលនឹងត្រូវបានបន្ថែមទៅក្នុងប្រព័ន្ធគ្រប់គ្រងទិន្នន័យថ្មីក្នុងពេលឆាប់ៗនេះ"
 
-#: apps/wocat/templates/wocat/home.html:305
+#: apps/wocat/templates/wocat/home.html:307
 msgid "Key Numbers"
 msgstr "តួលេខសំខាន់ៗ៖"
 
@@ -21751,15 +21995,15 @@ msgstr "លទ្ធផលស្វែងរករបស់អ្នក"
 
 #: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:23
 msgid "Add Filter"
-msgstr ""
+msgstr "បន្ថែមការស្វែងរក"
 
 #: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:35
 msgid "Add or edit filters"
-msgstr ""
+msgstr "បន្ថែម ឬកែសម្រួលការស្វែងរក"
 
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:16
 msgid "Advanced filter for"
-msgstr ""
+msgstr "ការស្វែងរករហ័សសម្រាប់"
 
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:43
 msgid "Select or type a country name"
@@ -21771,11 +22015,11 @@ msgstr "សូមជ្រើសរើស ឬឈ្មោះគម្រោង"
 
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:65
 msgid "Select or type a name"
-msgstr ""
+msgstr "ជ្រើសរើស ឬសរសេរឈ្មោះ"
 
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:76
 msgid "Select or type a language name"
-msgstr ""
+msgstr "ជ្រើសរើស ឬសរសេរប្រភេទភាសា"
 
 #: templates/404.html:11
 msgid "404 - Not found"
@@ -21844,15 +22088,15 @@ msgstr "ប្រព័ន្ធគ្រប់គ្រងទិន្នន័
 
 #: templates/base.html:319
 msgid "University of Berne"
-msgstr ""
+msgstr "សាកលវិទ្យាល័យប៊ែន"
 
 #: templates/base.html:325
 msgid "Privacy Policy"
-msgstr ""
+msgstr "គោលការណ៍ឯកជន"
 
 #: templates/base.html:326
 msgid "Terms of Agreement"
-msgstr ""
+msgstr "លក្ខខណ្ឌនៃកិច្ចព្រមព្រៀង"
 
 #: templates/base.html:327
 msgid "About"
@@ -21860,15 +22104,15 @@ msgstr "ស្តីអំពី"
 
 #: templates/cookielaw/banner.html:5
 msgid "COOKIE_INFO_HEADER"
-msgstr ""
+msgstr "COOKIE_INFO_HEADER"
 
 #: templates/cookielaw/banner.html:7
 msgid "COOKIE_INFO_PARA"
-msgstr ""
+msgstr "COOKIE_INFO_PARA"
 
 #: templates/cookielaw/banner.html:9
 msgid "COOKIE_INFO_OK"
-msgstr ""
+msgstr "COOKIE_INFO_OK"
 
 #: templates/home.html:5
 msgid "QCAT"

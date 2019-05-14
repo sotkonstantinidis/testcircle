@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 13:29+0100\n"
-"PO-Revision-Date: 2019-03-11 12:25+0000\n"
+"POT-Creation-Date: 2019-05-14 21:14+0200\n"
+"PO-Revision-Date: 2019-05-14 19:12+0000\n"
 "Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -134,7 +134,7 @@ msgstr "Mes données de GDT"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:9
-#: apps/wocat/templates/wocat/home.html:125 templates/base.html:195
+#: apps/wocat/templates/wocat/home.html:127 templates/base.html:195
 msgid "Add SLM data"
 msgstr "Ajouter des données de GDT"
 
@@ -19531,7 +19531,7 @@ msgstr ""
 "%(countries_count)s pays,<br> par %(compilers_count)s compilateurs."
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
-#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:151
+#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:153
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
@@ -19540,7 +19540,7 @@ msgid "SLM Technologies"
 msgstr "Technologies de GDT"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:171
+#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:173
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
@@ -19790,7 +19790,7 @@ msgstr "Examinateur:"
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:227
+#: apps/wocat/templates/wocat/home.html:229
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "Patienter"
@@ -22858,7 +22858,22 @@ msgstr ""
 msgid "<strong>Khmer</strong>: Royal University of Agriculture (RUA) Cambodia"
 msgstr "<strong>khmer</strong>: l'Université Agricole Royale (RUA) au Cambodge"
 
-#: apps/wocat/templates/wocat/home.html:102
+#: apps/wocat/templates/wocat/home.html:99
+msgid ""
+"<strong>Chinese</strong>: Mr. Sun Guoji, Director General of Department of "
+"Combating Desertification, National Forestry and Grassland Administration, "
+"China"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:100
+msgid ""
+"<strong>Thai</strong>: Dr. Bunjirtluk Jintaridth and Mr. Kamchai "
+"Kanjanatanaseth, Land Development Department (LDD), Ministry of Agriculture "
+"and Cooperatives, Thailand; Dr. Pitayakon Limtong, Soil and Fertilizer "
+"Society of Thailand"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:104
 msgid ""
 "Please contact the WOCAT Secretariat (<a href=\"mailto:wocat@cde.unibe.ch\" "
 "class=\"link\">wocat@cde.unibe.ch</a>) if you are interested in translating "
@@ -22870,21 +22885,21 @@ msgstr ""
 "traduire les Questionnaires de la Base de données Mondiale de GDT en une "
 "autre langue, ou si vous souhaitez obtenir plus de renseignements sur WOCAT."
 
-#: apps/wocat/templates/wocat/home.html:105
+#: apps/wocat/templates/wocat/home.html:107
 msgid "Read more about the WOCAT documentation of SLM practices."
 msgstr "En savoir plus sur la documentation des pratiques de GDT en WOCAT."
 
-#: apps/wocat/templates/wocat/home.html:116
+#: apps/wocat/templates/wocat/home.html:118
 msgid "Information for UNCCD Parties"
 msgstr ""
 "Renseignements pour les Parties à la Convention des Nations Unies sur la "
 "lutte contre la désertification (UNCCD) "
 
-#: apps/wocat/templates/wocat/home.html:124
+#: apps/wocat/templates/wocat/home.html:126
 msgid "Search SLM data"
 msgstr "Rechercher des données de GDT"
 
-#: apps/wocat/templates/wocat/home.html:152
+#: apps/wocat/templates/wocat/home.html:154
 #: apps/wocat/templates/wocat/partial/add.html:20
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
@@ -22896,18 +22911,18 @@ msgstr ""
 "terres qui contrôle la dégradation des sols et améliore la productivité et/"
 "ou d'autres services écosystémiques."
 
-#: apps/wocat/templates/wocat/home.html:153
-#: apps/wocat/templates/wocat/home.html:173
-#: apps/wocat/templates/wocat/home.html:189
-#: apps/wocat/templates/wocat/home.html:213
-#: apps/wocat/templates/wocat/home.html:228
-#: apps/wocat/templates/wocat/home.html:251
-#: apps/wocat/templates/wocat/home.html:274
-#: apps/wocat/templates/wocat/home.html:290
+#: apps/wocat/templates/wocat/home.html:155
+#: apps/wocat/templates/wocat/home.html:175
+#: apps/wocat/templates/wocat/home.html:191
+#: apps/wocat/templates/wocat/home.html:215
+#: apps/wocat/templates/wocat/home.html:230
+#: apps/wocat/templates/wocat/home.html:253
+#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/home.html:292
 msgid "View all"
 msgstr "Voir tout"
 
-#: apps/wocat/templates/wocat/home.html:172
+#: apps/wocat/templates/wocat/home.html:174
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
@@ -22917,11 +22932,11 @@ msgstr ""
 "employés pour mettre en œuvre une Technologie de GDT, y compris les parties "
 "prenantes et leurs rôles."
 
-#: apps/wocat/templates/wocat/home.html:186
+#: apps/wocat/templates/wocat/home.html:188
 msgid "UNCCD Prais Practices"
 msgstr "Pratiques du portail PRAIS de l'UNCCD"
 
-#: apps/wocat/templates/wocat/home.html:187
+#: apps/wocat/templates/wocat/home.html:189
 msgid ""
 "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared "
 "through the UNCCD PRAIS system in the UNCCD reporting process."
@@ -22930,15 +22945,15 @@ msgstr ""
 "qui a été auparavant partagée comme telle, au sein du portail PRAIS, dans le "
 "cadre du processus d'établissement des rapports prévu par l'UNCCD."
 
-#: apps/wocat/templates/wocat/home.html:211
-#: apps/wocat/templates/wocat/home.html:225
+#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:227
 #: apps/wocat/templates/wocat/partial/add.html:63
 #: apps/wocat/templates/wocat/partial/add.html:77
 msgid "Watershed and Runoff"
 msgstr "Bassin versant et Ruissellement"
 
-#: apps/wocat/templates/wocat/home.html:212
-#: apps/wocat/templates/wocat/home.html:226
+#: apps/wocat/templates/wocat/home.html:214
+#: apps/wocat/templates/wocat/home.html:228
 #: apps/wocat/templates/wocat/partial/add.html:64
 #: apps/wocat/templates/wocat/partial/add.html:78
 msgid ""
@@ -22947,12 +22962,12 @@ msgstr ""
 "Cartographie de la gestion des terres et évaluation du ruissellement et de "
 "l'écoulement issus d'un bassin versant "
 
-#: apps/wocat/templates/wocat/home.html:248
+#: apps/wocat/templates/wocat/home.html:250
 #: apps/wocat/templates/wocat/partial/add.html:100
 msgid "Land Degradation / Conservation"
 msgstr "Dégradation / Conservation des terres "
 
-#: apps/wocat/templates/wocat/home.html:249
+#: apps/wocat/templates/wocat/home.html:251
 #: apps/wocat/templates/wocat/partial/add.html:101
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
@@ -22961,7 +22976,7 @@ msgstr ""
 "Cartographie de la gestion, de la dégradation et de la conservation des "
 "terres incluant les facteurs d'influence, l'état des terres et les impacts."
 
-#: apps/wocat/templates/wocat/home.html:250
+#: apps/wocat/templates/wocat/home.html:252
 #: apps/wocat/templates/wocat/partial/add.html:102
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -22971,15 +22986,15 @@ msgstr ""
 "de données. Elles peuvent être consultées ou ajoutées dans l'ancienne base "
 "de données (QM)."
 
-#: apps/wocat/templates/wocat/home.html:271
-#: apps/wocat/templates/wocat/home.html:287
+#: apps/wocat/templates/wocat/home.html:273
+#: apps/wocat/templates/wocat/home.html:289
 #: apps/wocat/templates/wocat/partial/add.html:123
 #: apps/wocat/templates/wocat/partial/add.html:139
 msgid "CCA Module"
 msgstr "Module ACC"
 
-#: apps/wocat/templates/wocat/home.html:272
-#: apps/wocat/templates/wocat/home.html:288
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:290
 #: apps/wocat/templates/wocat/partial/add.html:124
 #: apps/wocat/templates/wocat/partial/add.html:140
 msgid ""
@@ -22991,12 +23006,12 @@ msgstr ""
 "GDT spécifique est adaptée aux changements climatiques graduels et aux "
 "événements extrêmes (catastrophes naturelles) liés au climat."
 
-#: apps/wocat/templates/wocat/home.html:289
+#: apps/wocat/templates/wocat/home.html:291
 #: apps/wocat/templates/wocat/partial/add.html:141
 msgid "Modules will be added soon to the new database."
 msgstr "Les modules arriveront prochainement dans la nouvelle base de données."
 
-#: apps/wocat/templates/wocat/home.html:305
+#: apps/wocat/templates/wocat/home.html:307
 msgid "Key Numbers"
 msgstr "Numéros clés"
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-11 13:29+0100\n"
-"PO-Revision-Date: 2019-03-11 12:24+0000\n"
+"POT-Creation-Date: 2019-05-14 21:14+0200\n"
+"PO-Revision-Date: 2019-05-14 19:12+0000\n"
 "Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Chinese (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/zh/)\n"
@@ -129,7 +129,7 @@ msgstr "我的SLM数据"
 
 #: apps/accounts/templates/questionnaires.html:15
 #: apps/wocat/templates/wocat/add.html:9
-#: apps/wocat/templates/wocat/home.html:125 templates/base.html:195
+#: apps/wocat/templates/wocat/home.html:127 templates/base.html:195
 msgid "Add SLM data"
 msgstr "添加SLM数据"
 
@@ -18114,7 +18114,7 @@ msgstr ""
 "<br> 由%(compilers_count)s 个用户。"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:12
-#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:151
+#: apps/questionnaire/conf.py:77 apps/wocat/templates/wocat/home.html:153
 #: apps/wocat/templates/wocat/partial/search.html:16
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:19
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:20
@@ -18123,7 +18123,7 @@ msgid "SLM Technologies"
 msgstr "SLM 技术"
 
 #: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:13
-#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:171
+#: apps/questionnaire/conf.py:78 apps/wocat/templates/wocat/home.html:173
 #: apps/wocat/templates/wocat/partial/search.html:17
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:22
@@ -18367,7 +18367,7 @@ msgstr "审查者："
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:227
+#: apps/wocat/templates/wocat/home.html:229
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "即将到来"
@@ -21248,7 +21248,22 @@ msgstr "<strong>老挝语</strong>：老挝国家农林研究所（NAFRI）"
 msgid "<strong>Khmer</strong>: Royal University of Agriculture (RUA) Cambodia"
 msgstr "<strong>高棉语</strong>：柬埔寨皇家农业大学（RUA）"
 
-#: apps/wocat/templates/wocat/home.html:102
+#: apps/wocat/templates/wocat/home.html:99
+msgid ""
+"<strong>Chinese</strong>: Mr. Sun Guoji, Director General of Department of "
+"Combating Desertification, National Forestry and Grassland Administration, "
+"China"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:100
+msgid ""
+"<strong>Thai</strong>: Dr. Bunjirtluk Jintaridth and Mr. Kamchai "
+"Kanjanatanaseth, Land Development Department (LDD), Ministry of Agriculture "
+"and Cooperatives, Thailand; Dr. Pitayakon Limtong, Soil and Fertilizer "
+"Society of Thailand"
+msgstr ""
+
+#: apps/wocat/templates/wocat/home.html:104
 msgid ""
 "Please contact the WOCAT Secretariat (<a href=\"mailto:wocat@cde.unibe.ch\" "
 "class=\"link\">wocat@cde.unibe.ch</a>) if you are interested in translating "
@@ -21259,19 +21274,19 @@ msgstr ""
 "信息，请联系WOCAT秘书处（<a href=\"mailto:wocat@cde.unibe.ch\" class=\"link"
 "\">wocat@cde.unibe.ch</a>）。"
 
-#: apps/wocat/templates/wocat/home.html:105
+#: apps/wocat/templates/wocat/home.html:107
 msgid "Read more about the WOCAT documentation of SLM practices."
 msgstr "阅读更多关于SLM实践的WOCAT文档。"
 
-#: apps/wocat/templates/wocat/home.html:116
+#: apps/wocat/templates/wocat/home.html:118
 msgid "Information for UNCCD Parties"
 msgstr "《联合国防治荒漠化公约》缔约方信息"
 
-#: apps/wocat/templates/wocat/home.html:124
+#: apps/wocat/templates/wocat/home.html:126
 msgid "Search SLM data"
 msgstr "搜索SLM数据"
 
-#: apps/wocat/templates/wocat/home.html:152
+#: apps/wocat/templates/wocat/home.html:154
 #: apps/wocat/templates/wocat/partial/add.html:20
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:18
 msgid ""
@@ -21282,18 +21297,18 @@ msgstr ""
 "一项 <strong>SLM 技术</strong> 是控制土地退化和提高生产力和/或其他生态系统服"
 "务的土地管理实践。"
 
-#: apps/wocat/templates/wocat/home.html:153
-#: apps/wocat/templates/wocat/home.html:173
-#: apps/wocat/templates/wocat/home.html:189
-#: apps/wocat/templates/wocat/home.html:213
-#: apps/wocat/templates/wocat/home.html:228
-#: apps/wocat/templates/wocat/home.html:251
-#: apps/wocat/templates/wocat/home.html:274
-#: apps/wocat/templates/wocat/home.html:290
+#: apps/wocat/templates/wocat/home.html:155
+#: apps/wocat/templates/wocat/home.html:175
+#: apps/wocat/templates/wocat/home.html:191
+#: apps/wocat/templates/wocat/home.html:215
+#: apps/wocat/templates/wocat/home.html:230
+#: apps/wocat/templates/wocat/home.html:253
+#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/home.html:292
 msgid "View all"
 msgstr "查看所有"
 
-#: apps/wocat/templates/wocat/home.html:172
+#: apps/wocat/templates/wocat/home.html:174
 msgid ""
 "An <strong>SLM Approach</strong> defines the ways and means used to "
 "implement an SLM Technology, including the stakeholders involved and their "
@@ -21302,11 +21317,11 @@ msgstr ""
 "一项 <strong>SLM 方法</strong> 定义了用于实现SLM技术的方法，包括涉及的利益相"
 "关者及其角色。"
 
-#: apps/wocat/templates/wocat/home.html:186
+#: apps/wocat/templates/wocat/home.html:188
 msgid "UNCCD Prais Practices"
 msgstr "UNCCD Prais 实践"
 
-#: apps/wocat/templates/wocat/home.html:187
+#: apps/wocat/templates/wocat/home.html:189
 msgid ""
 "A UNCCD PRAIS Practice is a best practice in SLM, as previously shared "
 "through the UNCCD PRAIS system in the UNCCD reporting process."
@@ -21314,34 +21329,34 @@ msgstr ""
 "UNCCD PRAIS实践是SLM的最佳实践，正如以前在UNCCD报告过程中通过UNCCD PRAIS系统"
 "所分享的实践。"
 
-#: apps/wocat/templates/wocat/home.html:211
-#: apps/wocat/templates/wocat/home.html:225
+#: apps/wocat/templates/wocat/home.html:213
+#: apps/wocat/templates/wocat/home.html:227
 #: apps/wocat/templates/wocat/partial/add.html:63
 #: apps/wocat/templates/wocat/partial/add.html:77
 msgid "Watershed and Runoff"
 msgstr "流域和径流"
 
-#: apps/wocat/templates/wocat/home.html:212
-#: apps/wocat/templates/wocat/home.html:226
+#: apps/wocat/templates/wocat/home.html:214
+#: apps/wocat/templates/wocat/home.html:228
 #: apps/wocat/templates/wocat/partial/add.html:64
 #: apps/wocat/templates/wocat/partial/add.html:78
 msgid ""
 "Mapping land management and assessing runoff and outflow from a watershed."
 msgstr "绘制土地管理图，评估流域的径流和流出。"
 
-#: apps/wocat/templates/wocat/home.html:248
+#: apps/wocat/templates/wocat/home.html:250
 #: apps/wocat/templates/wocat/partial/add.html:100
 msgid "Land Degradation / Conservation"
 msgstr "土地退化/保护"
 
-#: apps/wocat/templates/wocat/home.html:249
+#: apps/wocat/templates/wocat/home.html:251
 #: apps/wocat/templates/wocat/partial/add.html:101
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
 msgstr "绘制土地管理、退化和保护的地图，包括驱动因素、状态和影响。"
 
-#: apps/wocat/templates/wocat/home.html:250
+#: apps/wocat/templates/wocat/home.html:252
 #: apps/wocat/templates/wocat/partial/add.html:102
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
@@ -21349,15 +21364,15 @@ msgid ""
 msgstr ""
 "在新的数据库中，地图目前还不可用。可以在旧数据库（QM）中查看或添加地图。"
 
-#: apps/wocat/templates/wocat/home.html:271
-#: apps/wocat/templates/wocat/home.html:287
+#: apps/wocat/templates/wocat/home.html:273
+#: apps/wocat/templates/wocat/home.html:289
 #: apps/wocat/templates/wocat/partial/add.html:123
 #: apps/wocat/templates/wocat/partial/add.html:139
 msgid "CCA Module"
 msgstr "CCA模块"
 
-#: apps/wocat/templates/wocat/home.html:272
-#: apps/wocat/templates/wocat/home.html:288
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/home.html:290
 #: apps/wocat/templates/wocat/partial/add.html:124
 #: apps/wocat/templates/wocat/partial/add.html:140
 msgid ""
@@ -21368,12 +21383,12 @@ msgstr ""
 "气候变化适应工具评估了特定的SLM技术是否适应渐变气候和与气候相关的极端情况（自"
 "然灾害）。"
 
-#: apps/wocat/templates/wocat/home.html:289
+#: apps/wocat/templates/wocat/home.html:291
 #: apps/wocat/templates/wocat/partial/add.html:141
 msgid "Modules will be added soon to the new database."
 msgstr "模块将很快添加到新数据库中。"
 
-#: apps/wocat/templates/wocat/home.html:305
+#: apps/wocat/templates/wocat/home.html:307
 msgid "Key Numbers"
 msgstr "检索数字"
 
