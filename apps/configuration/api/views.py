@@ -51,8 +51,8 @@ class ConfigurationView(PermissionMixin, LogUserMixin, GenericAPIView):
     """
 
     def get(self, request) -> Response:
-        flat = request.GET.get('flat', True)
-        configurations_obj = Configuration.objects.filter()
+        flat = request.GET.get('flat', False)
+        configurations_obj = Configuration.objects.all()
 
         if not configurations_obj:
             # No configurations were found
