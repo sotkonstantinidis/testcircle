@@ -18,6 +18,14 @@ urlpatterns = [
         configuration_views.ConfigurationStructureView.as_view(),
         name='api-configuration-structure',
     ),
+    url(r'^configuration/$',
+        configuration_views.ConfigurationView.as_view(),
+        name='configuration-api-list',
+    ),
+    url(r'^configuration/(?P<code>[^/]+)/$',
+        configuration_views.ConfigurationEditionView.as_view(),
+        name='configuration-edition-api-list',
+    ),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
