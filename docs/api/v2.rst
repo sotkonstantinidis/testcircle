@@ -20,6 +20,108 @@ request. Please contact the Wocat secretariat if you want to access the API, sta
 your activated Wocat account (required) and the purpose of your API requests.
 An authentication token will then be created for your account.
 
+Available Configurations
+-------------------------
+Return the available Configurations in QCAT.
+
+Endpoint: ``/api/v2/configuration/``
+
+Allowed method: ``GET``
+
+Request headers:
+    ``Authorization``: Your authorization token for the QCAT API. Specified in
+    the format ``Token AUTH_TOKEN``
+
+    ``Accept``: Optionally specify the format of the response. Available formats
+    are JSON (``application/json``), XML (``application/xml``) and
+    CSV (``text/csv``). Default: ``application/json``
+
+Optional Get parameters: ``flat``: If present, the structure will be a flat list
+of questions.
+
+Example request with curl
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Request::
+
+    curl -X GET -H 'Authorization: Token 0e03f8061c83e58d1595c3b21ddce9712233cb4e' -H 'Accept: application/json' https://qcat.wocat.net/en/api/v2/configuration/
+
+Response::
+
+    {
+        "configurations": [
+            [
+                "approaches"
+            ],
+            [
+                "cca"
+            ],
+            [
+                "technologies"
+            ],
+            [
+                "unccd"
+            ],
+            [
+                "watershed"
+            ],
+            [
+                "wocat"
+            ]
+        ]
+    }
+
+
+
+.. hint::
+    If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
+
+Available Editions for a Configuration
+--------------------------------------
+Return the available Editions for a Configuration in QCAT.
+
+Endpoint: ``/api/v2/configuration/{code}/``
+
+Allowed method: ``GET``
+
+Request headers:
+    ``Authorization``: Your authorization token for the QCAT API. Specified in
+    the format ``Token AUTH_TOKEN``
+
+    ``Accept``: Optionally specify the format of the response. Available formats
+    are JSON (``application/json``), XML (``application/xml``) and
+    CSV (``text/csv``). Default: ``application/json``
+
+Optional Get parameters: ``flat``: If present, the structure will be a flat list
+of questions.
+
+Example request with curl
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Request::
+
+    curl -X GET -H 'Authorization: Token 0e03f8061c83e58d1595c3b21ddce9712233cb4e' -H 'Accept: application/json' https://qcat.wocat.net/en/api/v2/configuration/technologies
+
+Response::
+
+    {
+        "editions": [
+            [
+                "2015"
+            ],
+            [
+                "2018"
+            ]
+        ]
+    }
+
+
+
+.. hint::
+    If the response of your request is in binary format (e.g. weird characters shown on the screen), add the parameter `-\\-compressed` to the curl command.
+
+
 Structure of configuration
 --------------------------
 Return the structure of the configuration of a questionnaire. Contains

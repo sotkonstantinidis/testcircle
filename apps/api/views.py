@@ -40,8 +40,8 @@ class APIRoot(APIView):
 
     [doc]: https://qcat.readthedocs.io/en/latest/api/docs.html
     """
-    http_method_names = ('get', )
-    renderer_classes = (BrowsableAPIRenderer, JSONRenderer, )
+    http_method_names = ('get',)
+    renderer_classes = (BrowsableAPIRenderer, JSONRenderer,)
 
     def get(self, request, format=None):
         identifier = Questionnaire.with_status.public().first().code
@@ -56,12 +56,37 @@ class APIRoot(APIView):
                 request=request,
                 format=format
             ),
-            'questionnaire list': reverse('v2:questionnaires-api-list',
-                                      request=request, format=format),
+            'configuration list': reverse(
+                'v2:configuration-api-list',
+                request=request,
+                format=format
+            ),
+            'configuration edition list': reverse(
+                'v2:configuration-edition-api-list',
+                kwargs={
+                    'code': configuration.code,
+                },
+                request=request,
+                format=format
+            ),
+            'questionnaire list': reverse(
+                'v2:questionnaires-api-list',
+                request=request,
+                format=format
+            ),
             'questionnaire details': reverse(
-                'v2:questionnaires-api-detail', kwargs={'identifier': identifier},
-                request=request, format=format),
-            'documentation': reverse('api-docs', request=request, format=format),
+                'v2:questionnaires-api-detail',
+                kwargs={
+                    'identifier': identifier
+                },
+                request=request,
+                format=format
+            ),
+            'documentation': reverse(
+                'api-docs',
+                request=request,
+                format=format
+            ),
         }
         return Response(urls)
 
@@ -91,6 +116,7 @@ class LogUserMixin:
     be created.
 
     """
+
     # deactivated after issues during testing from skbp.
     # throttle_classes = (UserRateThrottle, )
 
@@ -112,8 +138,8 @@ class PermissionMixin:
     Default permissions for all API views.
 
     """
-    authentication_classes = (NoteTokenAuthentication, )
-    permission_classes = (IsAuthenticated, )
+    authentication_classes = (NoteTokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
     def get_permissions(self):
         """
