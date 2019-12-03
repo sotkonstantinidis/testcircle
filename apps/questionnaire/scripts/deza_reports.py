@@ -50,8 +50,8 @@ class ReportStatus:
 
     def get_published(self):
         return Questionnaire.with_status.public().filter(
-            created__gte=self.report_start,
-            created__lte=self.report_end,
+            updated__gte=self.report_start,
+            updated__lte=self.report_end,
             code__startswith=self.configuration_type
         ).exclude(
             status__in=[
