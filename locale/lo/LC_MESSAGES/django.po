@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-25 13:07+0100\n"
-"PO-Revision-Date: 2019-09-10 08:26+0000\n"
-"Last-Translator: phonesyli phanvongsa <kangphanvongsa@gmail.com>\n"
+"POT-Creation-Date: 2020-01-23 22:05+0100\n"
+"PO-Revision-Date: 2020-01-23 21:03+0000\n"
+"Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/lo/)\n"
 "Language: lo\n"
@@ -17328,28 +17328,19 @@ msgid "Feedback regarding the questionnaire, the database or general remarks."
 msgstr "ຄຳແນະນຳກ່ຽວກັບແບບສອບຖາມ, ຖານຂໍ້ມູນ ຫລື ຂໍສັງເກດທົ່ວໄປ."
 
 #: apps/configuration/configuration_translations.py:33344
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "cereals - oats"
 msgctxt "technologies_2018 label"
 msgid "cereals - buckwheat"
-msgstr "ທັນຍາພືດ-ເຂົ້າໂອດ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33345
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "legumes and pulses - beans"
 msgctxt "technologies_2018 label"
 msgid "legumes and pulses - lentils"
-msgstr "ພືດຕະກູນຖົ່ວ ແລະ ຖົ່ວປະເພດອື່ນໆ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33346
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "root/tuber crops -  sweet potatoes, yams, taro/cocoyam, other"
 msgctxt "technologies_2018 label"
 msgid "root/tuber crops - yams, taro/cocoyam, other"
-msgstr "ການປູກພືດໃຫ້ຮາກ / ຫົວ-ມັນດ້າງ, ເຜືອກ. ອື່ນໆ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33347
 msgctxt "technologies_2018 label"
@@ -17362,12 +17353,9 @@ msgid "herbs, chili, capsicum"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33349
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "fodder crops - clover"
 msgctxt "technologies_2018 label"
 msgid "fodder crops - legumes, clover"
-msgstr "ພທດອາຫານສັດ- ປະເພດດອກ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33350
 msgctxt "technologies_2018 label"
@@ -17390,12 +17378,9 @@ msgid "cork oak"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33354
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "Nicaragua"
 msgctxt "technologies_2018 label"
 msgid "caragana"
-msgstr "ນິກາຣາກວາ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33355
 msgctxt "technologies_2018 label"
@@ -17403,12 +17388,9 @@ msgid "argan"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33356
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "cattle - non-dairy beef"
 msgctxt "technologies_2018 label"
 msgid "cattle - dairy and beef (e.g. zebu)"
-msgstr "ສັດໃຫ່ຍ-ງົວພັນຊີ້ນ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33357
 msgctxt "technologies_2018 label"
@@ -17431,12 +17413,9 @@ msgid "economic security, investment prestige"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33361
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "tropical shrubland plantation"
 msgctxt "technologies_2018 label"
 msgid "subtropical shrubland plantation"
-msgstr "ການປູກໄມ້ ຢູ່ເຂດປ່າເລົ່າເຂດຮ້ອນ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33362
 msgctxt "technologies_2018 label"
@@ -17444,36 +17423,24 @@ msgid "Acer species (e.g. maple)"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33363
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Pinus species"
 msgctxt "technologies_2018 label"
 msgid "Cedrus species"
-msgstr "ສາຍພັນໝາກກໍ່"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33364
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Pinus species"
 msgctxt "technologies_2018 label"
 msgid "Erythrina species"
-msgstr "ສາຍພັນໝາກກໍ່"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33365
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Acacia species"
 msgctxt "technologies_2018 label"
 msgid "Salix species"
-msgstr "ສາຍພັນຕົ້ນກະຖິນ"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33366
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Eucalyptus species"
 msgctxt "technologies_2018 label"
 msgid "Haloxylon species"
-msgstr "ສາຍພັນຕົ້ນວິກ"
+msgstr ""
 
 #: apps/configuration/editions/technologies_2018.py:23
 msgid ""
@@ -18656,6 +18623,10 @@ msgstr "ອະຟຮິກັນ"
 #: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr "ຄົນໄທ"
+
+#: apps/qcat/config/common.py:116
+msgid "Mongolian"
+msgstr ""
 
 #: apps/qcat/context_processors.py:155
 msgid ""
