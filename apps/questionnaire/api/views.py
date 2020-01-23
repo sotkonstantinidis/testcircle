@@ -101,10 +101,7 @@ class QuestionnaireAPIMixin(PermissionMixin, LogUserMixin, GenericAPIView):
         for item in items:
             yield {
                 'name': item.get('name'),
-                'created': item.get('created'),
                 'updated': item.get('updated'),
-                'compiler': item.get('compilers')[0]['name'],
-                'reviewer': [reviewers['name'] for reviewers in item.get('reviewers')],
                 'code': item.get('code'),
                 'edition': item.get('serializer_edition'),
                 'url': reverse(
