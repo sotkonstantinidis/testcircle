@@ -113,6 +113,7 @@ class BaseSettings(Configuration):
         ('pt', _('Portuguese')),
         ('af', _('Afrikaans')),
         ('th', _('Thai')),
+        ('mn', _('Mongolian')),
     )
     # languages with extraordinarily long words that need 'forced' line breaks
     # to remain consistent in the box-layout.

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-25 13:07+0100\n"
-"PO-Revision-Date: 2019-05-14 19:12+0000\n"
+"POT-Creation-Date: 2020-01-23 22:05+0100\n"
+"PO-Revision-Date: 2020-01-23 21:03+0000\n"
 "Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Portuguese (http://www.transifex.com/university-of-bern-cde/"
 "qcat/language/pt/)\n"
@@ -16431,12 +16431,9 @@ msgid "Erythrina species"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33365
-#, fuzzy
-#| msgctxt "technologies label"
-#| msgid "beneficial species"
 msgctxt "technologies_2018 label"
 msgid "Salix species"
-msgstr "Espécies benéficas "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33366
 msgctxt "technologies_2018 label"
@@ -17516,6 +17513,10 @@ msgstr ""
 
 #: apps/qcat/config/common.py:115
 msgid "Thai"
+msgstr ""
+
+#: apps/qcat/config/common.py:116
+msgid "Mongolian"
 msgstr ""
 
 #: apps/qcat/context_processors.py:155

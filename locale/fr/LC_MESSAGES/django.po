@@ -8,6 +8,7 @@
 # Farrukh Nazarmavloev <fnazarmavloev@unccd.int>, 2016
 # Isabelle Providoli <isabelle.providoli@cde.unibe.ch>, 2016
 # Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
+# Kurt Gerber <kurt.gerber@cde.unibe.ch>, 2019
 # Lukas Vonlanthen <lukas.vonlanthen@gmail.com>, 2016-2018
 # Sebastian Manger <s.manger@gmx.ch>, 2016-2017
 # WOCAT WOCAT <wocat@cde.unibe.ch>, 2018-2019
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-25 13:07+0100\n"
-"PO-Revision-Date: 2019-05-14 19:12+0000\n"
+"POT-Creation-Date: 2020-01-23 22:05+0100\n"
+"PO-Revision-Date: 2020-01-23 21:03+0000\n"
 "Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: French (http://www.transifex.com/university-of-bern-cde/qcat/"
 "language/fr/)\n"
@@ -18245,30 +18246,19 @@ msgstr ""
 "général."
 
 #: apps/configuration/configuration_translations.py:33344
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "cereals - oats"
 msgctxt "technologies_2018 label"
 msgid "cereals - buckwheat"
-msgstr "céréales - avoine"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33345
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "legumes and pulses - beans"
 msgctxt "technologies_2018 label"
 msgid "legumes and pulses - lentils"
-msgstr "légumineuses et légumes secs - fèves"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33346
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "root/tuber crops -  sweet potatoes, yams, taro/cocoyam, other"
 msgctxt "technologies_2018 label"
 msgid "root/tuber crops - yams, taro/cocoyam, other"
 msgstr ""
-"plantes à racines et à tubercules - patates douces, igname, taro, colocase, "
-"autres"
 
 #: apps/configuration/configuration_translations.py:33347
 msgctxt "technologies_2018 label"
@@ -18281,12 +18271,9 @@ msgid "herbs, chili, capsicum"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33349
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "fodder crops - clover"
 msgctxt "technologies_2018 label"
 msgid "fodder crops - legumes, clover"
-msgstr "cultures fourragères - trèfle"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33350
 msgctxt "technologies_2018 label"
@@ -18309,12 +18296,9 @@ msgid "cork oak"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33354
-#, fuzzy
-#| msgctxt "wocat label"
-#| msgid "Nicaragua"
 msgctxt "technologies_2018 label"
 msgid "caragana"
-msgstr "Nicaragua"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33355
 msgctxt "technologies_2018 label"
@@ -18322,12 +18306,9 @@ msgid "argan"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33356
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "cattle - non-dairy beef"
 msgctxt "technologies_2018 label"
 msgid "cattle - dairy and beef (e.g. zebu)"
-msgstr "bétail - bovins à viande"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33357
 msgctxt "technologies_2018 label"
@@ -18350,52 +18331,34 @@ msgid "economic security, investment prestige"
 msgstr ""
 
 #: apps/configuration/configuration_translations.py:33361
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "tropical shrubland plantation"
 msgctxt "technologies_2018 label"
 msgid "subtropical shrubland plantation"
-msgstr "plantations de formations arbustives tropicales"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33362
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Picea species (spruce)"
 msgctxt "technologies_2018 label"
 msgid "Acer species (e.g. maple)"
-msgstr "Espèces de Picea (épicéa, épinette) "
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33363
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Cupressus species"
 msgctxt "technologies_2018 label"
 msgid "Cedrus species"
-msgstr "Espèces de Cupressus (cyprès)"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33364
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Tectona species"
 msgctxt "technologies_2018 label"
 msgid "Erythrina species"
-msgstr "Espèces de Tectona (teck)"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33365
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Acacia species"
 msgctxt "technologies_2018 label"
 msgid "Salix species"
-msgstr "Espèces d’Acacia"
+msgstr ""
 
 #: apps/configuration/configuration_translations.py:33366
-#, fuzzy
-#| msgctxt "technologies_2018 label"
-#| msgid "Khaya species"
 msgctxt "technologies_2018 label"
 msgid "Haloxylon species"
-msgstr "Espèces de Khaya (acajou) "
+msgstr ""
 
 #: apps/configuration/editions/technologies_2018.py:23
 msgid ""
@@ -19656,6 +19619,10 @@ msgstr "Afrikaans"
 #: apps/qcat/config/common.py:115
 msgid "Thai"
 msgstr "thai"
+
+#: apps/qcat/config/common.py:116
+msgid "Mongolian"
+msgstr ""
 
 #: apps/qcat/context_processors.py:155
 msgid ""
