@@ -184,7 +184,11 @@ def _has_config_update_tag():
 
 
 def _reload_configuration_fixtures():
-    _manage_py('loaddata wocat technologies approaches cca watershed')
+    _manage_py('loaddata wocat technologies approaches cca watershed cbp')
+    # # Load the configuration data for Technology Edition 2018
+    # _manage_py('loaddata technologies_2018')
+    # # Run the Technology Edition 2018 Update Script
+    # _manage_py('runscript technologies_2018')
 
 
 def _delete_caches():

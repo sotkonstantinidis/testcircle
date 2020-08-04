@@ -28,6 +28,7 @@ class Configuration(models.Model):
     CODE_CHOICES = [
         ('approaches', 'approaches'),
         ('cca', 'cca'),
+        ('cbp', 'cbp'),
         ('technologies', 'technologies'),
         ('unccd', 'unccd'),
         ('watershed', 'watershed'),

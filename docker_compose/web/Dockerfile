@@ -13,9 +13,14 @@ RUN apt-get update && apt-get install -y \
     libmemcached-dev
 
 # Dependencies for static assets
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 RUN apt-get install -y nodejs \
     build-essential
+
+# Install wkhtmltopdf binary for summary pdf
+RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+RUN tar xvf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz
+RUN mv wkhtmltox/bin/wkhtmlto* /usr/bin
 
 ADD requirements/* /code/
 RUN pip install -r development.txt

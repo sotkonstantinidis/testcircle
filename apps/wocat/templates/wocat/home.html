@@ -195,42 +195,27 @@
           </div>
         </div>
         <div class="row is-flex card-row">
-          {# Watershed / Watershed and Runoff #}
+          {# Carbon Benefits Project / CBP #}
           <div class="small-12 medium-4 columns">
             <div class="card">
-              {% if IS_ACTIVE_FEATURE_WATERSHED %}
-              <a href="{% url 'wocat:questionnaire_list' %}?type=watershed">
+              <a href="https://banr.nrel.colostate.edu/CBP/" target="_blank">
                 <div class="card-image-holder">
-                  <img class="card-image" src="{% static 'assets/img/card_watershed.jpg' %}">
+                  <img class="card-image" src="{% static 'assets/img/card_cbp.png' %}" title="Click to Visit the CBP Tools Page" alt="Click to Visit the CBP Tools Page">
                   <span class="card-image-overlay-container">
-                    <div class="card-image-overlay is-watershed">
-                      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>
+                    <div class="card-image-overlay is-cbp">
+                      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cbp"></use></svg>
                     </div>
                   </span>
                 </div>
               </a>
               <div class="card-well">
-                <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
-                <p class="card-desc">{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
-                <a href="{% url 'wocat:questionnaire_list' %}?type=watershed" class="button large expand">{% trans "View all" %}</a>
-              </div>
-              {% else %}
-              <div class="card-image-holder">
-                <img class="card-image" src="{% static 'assets/img/card_watershed.jpg' %}">
-                <span class="card-image-overlay-container">
-                  <div class="card-image-overlay is-watershed">
-                    <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>
-                  </div>
-                </span>
-              </div>
-              <div class="card-well">
-                <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
-                <p class="card-desc">{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
-                <a href="#" class="button large expand disabled" title="{% trans "Coming soon" %}" aria-haspopup="true" data-tooltip="">
-                  {% trans "View all" %}<svg class="icon-information is-inline right no-pointer-events"><use xlink:href="#icon-information"></svg>
+                <h2 class="card-title">{% trans "Carbon Benefits Project" %} (CBP)</h2>
+                <p class="card-desc">{% trans "Tools for assessing the carbon benefits and greenhouse gas emissions of an SLM Technology." %}</p>
+<!--                <a href="https://banr.nrel.colostate.edu/CBP/" class="button large expand">{% trans "Visit CBP Tools Page" %}</a>-->
+                <a href="{% url 'wocat:questionnaire_list' %}?type=cbp" class="button large expand">
+                  {% trans "View all" %}
                 </a>
               </div>
-              {% endif %}
             </div>
           </div>
           {# Maps / Land Degradation/Conservation #}
@@ -279,7 +264,7 @@
               {% else %}
                 <div class="card-image-holder">
                   <img class="card-image" src="{% static 'assets/img/card_modules.jpg' %}">
-                  <span class="card-image-overlay-container">
+                  <span class="card-image-overlay-container">manger
                     <div class="card-image-overlay is-climate">
                       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-climate"></use></svg>
                     </div>

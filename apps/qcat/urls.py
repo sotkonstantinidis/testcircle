@@ -49,6 +49,7 @@ urlpatterns += i18n_patterns(
     url(r'^wocat/approaches/', include('approaches.urls',
         namespace='approaches')),
     url(r'^wocat/cca/', include('cca.urls', namespace='cca')),
+    url(r'^wocat/cbp/', include('cbp.urls', namespace='cbp')),
     url(r'^wocat/technologies/', include('technologies.urls',
         namespace='technologies')),
     url(r'^wocat/watershed/', include(

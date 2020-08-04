@@ -68,6 +68,7 @@ class BaseSettings(Configuration):
         'watershed',
         'wocat',
         'cca',
+        'cbp',
     )
 
     MIDDLEWARE_CLASSES = (

@@ -2500,6 +2500,7 @@ class QuestionnaireConfiguration(BaseConfigurationObject):
             mapping = {
                 'approaches': 'app_definition',
                 'cca': 'tech_definition',
+                'cbp': 'tech_definition',
                 'sample': 'key_5',
                 'samplemodule': 'modkey_01',
                 'samplemulti': 'mkey_01',

@@ -185,6 +185,9 @@
   &.is-cca {
     background-color: rgba($color-cca, 0.8);
   }
+  &.is-cbp {
+    background-color: rgba($color-cbp, 0.8);
+  }
   &.is-maps,
   &.is-map {
     background-color: rgba($color-approach, 0.8);
@@ -451,6 +454,17 @@ a:hover .tech-icon {
     &:focus {
       box-shadow: 0 0 0 $button-shadow-effect $color-blue-dark;
     }
+  }
+}
+.is-cbp .tech-output-actions {
+    background-color: rgba($color-cbp, 0.8);
+    .button {
+        background-color: $color-violet-dark;
+        box-shadow: 0 0 0 0 $color-violet-dark;
+        &:hover,
+        &:focus {
+          box-shadow: 0 0 0 $button-shadow-effect $color-violet-dark;
+        }
   }
 }
 .is-unccd .tech-output-actions {
