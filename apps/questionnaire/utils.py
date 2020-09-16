@@ -2126,7 +2126,7 @@ def handle_review_actions(request, questionnaire_object, configuration_code):
 
 def compare_questionnaire_data(data_1, data_2):
     """
-    Compare two questionnaire data dictionaires and return the keywords
+    Compare two questionnaire data dictionaries and return the keywords
     of the questiongroups which are not identical.
 
     Args:
@@ -2143,18 +2143,38 @@ def compare_questionnaire_data(data_1, data_2):
         data_1 = {}
     if data_2 is None:
         data_2 = {}
+
+    # Checking for keyword differences (addition/removal)
     qg_keywords_1 = list(data_1.keys())
     qg_keywords_2 = list(data_2.keys())
-    different_qg_keywords = list(set(qg_keywords_1).symmetric_difference(
-        qg_keywords_2))
+    different_qg_keywords = list(set(qg_keywords_1).symmetric_difference(qg_keywords_2))
 
-    # Compare the questiongroups appearing in both
-    for qg_keyword, qg_data_1 in data_1.items():
-        if qg_keyword in different_qg_keywords:
-            continue
-        pairs = zip(qg_data_1, data_2[qg_keyword])
-        if any(x != y for x, y in pairs):
-            different_qg_keywords.append(qg_keyword)
+    # Dict's differ in keywords, return
+    if len(different_qg_keywords) > 0:
+        return different_qg_keywords
+
+    # Check if dict's differ overall
+    if data_1 != data_2:
+
+        # Compare the questiongroups to identify differences
+        for qg_keyword, qg_data_1 in data_1.items():
+
+            # Keyword already exists, skip
+            if qg_keyword in different_qg_keywords:
+                continue
+
+            # Second dict's data
+            qg_data_2 = data_2[qg_keyword]
+
+            # Check values were added/removed for this keyword
+            if len(qg_data_1) != len(qg_data_2):
+                different_qg_keywords.append(qg_keyword)
+                continue
+
+            # Check updated values for this keyword
+            pairs = zip(qg_data_1, qg_data_2)
+            if any(x != y for x, y in pairs):
+                different_qg_keywords.append(qg_keyword)
 
     return different_qg_keywords
 
