@@ -22,6 +22,11 @@ from configuration.models import Configuration
 from .models import EditRequestLog
 from .models import RequestLog
 
+from datetime import timedelta
+from datetime import datetime
+import datetime as dtime
+import pytz
+
 
 logger = logging.getLogger(__name__)
 
@@ -267,6 +272,19 @@ class ObtainAuthToken(APIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
         token, created = AppToken.objects.get_or_create(user=user)
+
+        # Existing token's are checked for expiry and re-issued
+        if not created:
+
+            # This is required for the time comparison
+            utc_now = datetime.now(dtime.timezone.utc)
+            utc_now = utc_now.replace(tzinfo=pytz.utc)
+
+            # Check if the token has been used in the last 24 hours
+            # - if not, delete the token and re-issue a new token
+            if token.updated < utc_now - timedelta(hours=24):
+                token.delete()
+                token, created = AppToken.objects.get_or_create(user=user)
 
         # Log this request, LogEditAPIMixin doesn't work as the user is not known
         try:
