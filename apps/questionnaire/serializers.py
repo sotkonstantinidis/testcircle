@@ -33,7 +33,7 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         fields = ('code', 'compilers', 'created',
                   'editors', 'links', 'list_data', 'name', 'original_locale', 'reviewers',
                   'serializer_config', 'serializer_edition', 'status', 'translations', 'updated',
-                  'url', 'flags', )
+                  'url', 'flags',)
 
     def __init__(self, instance=None, data=empty, **kwargs):
         """
@@ -45,8 +45,9 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
         be accessed on the actual configuration object.
 
         If a model instance is serialized, the 'instance' kwarg is passed.
-        If an elasticsearch result is deserialized, the 'data' kwar is passed.
+        If an elasticsearch result is deserialized, the 'data' kwarg is passed.
         """
+
         if instance:
             self.config = instance.configuration_object
 
@@ -112,3 +113,15 @@ class QuestionnaireSerializer(serializers.ModelSerializer):
             return prepare_list_values(
                 data=self.validated_data, config=self.config, **kwargs
             )
+
+
+class QuestionnaireInputSerializer(serializers.ModelSerializer):
+    """
+    Primarily used for POST requests for validating the Questionnaire with given configuration.
+    """
+
+    data = serializers.JSONField(binary=False, required=True)
+
+    class Meta:
+        model = Questionnaire
+        fields = ['data']

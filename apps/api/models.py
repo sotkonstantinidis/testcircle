@@ -2,12 +2,14 @@ import contextlib
 import logging
 import random
 
+
 import requests
 from django.conf import settings
 from django.db import models
 
 from requests.exceptions import RequestException
 from rest_framework.authtoken.models import Token
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -65,3 +67,32 @@ class NoteToken(Token):
     @property
     def requests_from_user(self):
         return self.user.requestlog_set.count()
+
+
+class AppToken(Token):
+    """
+    Custom APP token model
+    """
+
+    key = models.CharField(_("Key"), max_length=40, primary_key=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, related_name='app_token',
+        on_delete=models.CASCADE, verbose_name=_("User")
+    )
+    created = models.DateTimeField(_("Created"), auto_now_add=True)
+    updated = models.DateTimeField(_("Updated"), auto_now_add=True)
+
+
+class EditRequestLog(models.Model):
+    """
+    Simple model to log requests to the Create/Edit Questionnaires & Image Upload API endpoints.
+    """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    access = models.DateTimeField(auto_now_add=True)
+    resource = models.CharField(max_length=100)
+
+    class Meta:
+        ordering = ['access']
+
+    def __str__(self):
+        return u"{}: {}".format(self.user, self.resource)
