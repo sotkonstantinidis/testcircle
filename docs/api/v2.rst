@@ -413,8 +413,15 @@ Example request with Postman
 
 Obtain Application Token
 ------------------------
-Return the user's application token. This application token is used for authorizing all
-POST endpoints and GET endpoints `Fetch Questionnaire Data` and .
+Return the user's application token. This application token is used for authorizing the following endpoints:
+GET
+`Fetch Questionnaire Data` and,
+`List of User's Questionnaires`
+
+POST
+`Create a New Questionnaire`,
+`Upload an Image` and,
+`Edit Existing Questionnaire`
 
 Endpoint: ``/api/v2/auth/login/``
 
