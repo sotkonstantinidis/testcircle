@@ -64,7 +64,7 @@ class FactsTeaserView(TemplateView):
     def date_from(self):
         return timezone.now() - timedelta(days=self.start_date_offset_days)
 
-    @method_decorator(cache_page(60 * 60))
+    # @method_decorator(cache_page(60 * 60))
     def dispatch(self, request, *args, **kwargs):
         """
         This page will take some time to load - cache it.
