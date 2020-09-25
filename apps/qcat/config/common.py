@@ -384,7 +384,7 @@ class BaseSettings(Configuration):
     # Settings for piwik integration. Tracking happens in the frontend
     # (base template) and backend (API)
     PIWIK_SITE_ID = values.IntegerValue(environ_prefix='', default=None)
-    PIWIK_URL = values.Value(environ_prefix='', default='https://piwik.wocat.net/')
+    PIWIK_URL = values.Value(environ_prefix='', default='https://webstats.wocat.net/')
     PIWIK_AUTH_TOKEN = values.Value(environ_prefix='')
     PIWIK_API_VERSION = values.IntegerValue(environ_prefix='', default=1)
 
