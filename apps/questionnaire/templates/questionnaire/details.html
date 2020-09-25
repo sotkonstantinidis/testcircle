@@ -130,7 +130,7 @@
             <h2>{% trans "Links" %}</h2>
           </div>
         </div>
-        <div class="output tech-links-content {% if not modules.items or not links.items %} hide {% endif %}" id="links-content">
+        <div class="output tech-links-content {% if modules.items or links.items %} {% else %} hide {% endif %}" id="links-content">
           {% for configuration, list_values in links.items %}
             {% for list_entry in list_values %}
               {% include "questionnaire/partial/list_item.html" with item=list_entry %}
@@ -146,7 +146,7 @@
             <h2>{% trans "Modules" %}</h2>
           </div>
         </div>
-        <div class="output tech-links-content {% if not modules.items or not links.items %} hide {% endif %}" id="modules-content">
+        <div class="output tech-links-content {% if modules.items or links.items %} {% else %} hide {% endif %}" id="modules-content">
           {% for configuration, list_values in modules.items %}
             {% for list_entry in list_values %}
               {% include "questionnaire/partial/list_item.html" with item=list_entry %}
