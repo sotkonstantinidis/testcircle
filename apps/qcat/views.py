@@ -73,9 +73,10 @@ class FactsTeaserView(TemplateView):
 
     @property
     def piwik_api_url(self) -> str:
-        return '{base_url}/?module=API&idSite={site_id}&' \
+        # .rstrip('/piwik.php')
+        return '{base_url}?module=API&idSite={site_id}&' \
                'token_auth={auth_token}&format=JSON'.format(
-            base_url=settings.PIWIK_URL.rstrip('/piwik.php'),
+            base_url=settings.PIWIK_URL,
             site_id=settings.PIWIK_SITE_ID,
             auth_token=settings.PIWIK_AUTH_TOKEN
         )
@@ -130,19 +131,19 @@ class FactsTeaserView(TemplateView):
             try:
                 query = requests.get(url)
             except RequestException as e:
-                self.log_piwik_error(url, e)
+                self.log_piwik_error(url, str(e))
                 return {}
             try:
                 json_data = query.json()
             except AttributeError as e:
-                self.log_piwik_error(url, e)
+                self.log_piwik_error(url, str(e))
                 return {}
             if isinstance(json_data, dict) and json_data.get('result') == 'error':
                 self.log_piwik_error(url)
                 return {}
             return json_data
 
-        countries_url = '{piwik_api}&method=UserCountry.getCountry&' \
+        countries_url = '{piwik_api}&method=UserCountry.getNumberOfDistinctCountries&' \
                         'period=range&date={start_date},{end_date}&' \
                         'filter_limit={filter_limit}'\
             .format(
@@ -163,8 +164,10 @@ class FactsTeaserView(TemplateView):
             )
 
         return {
-            'piwik_countries': len(piwik_query(countries_url)),
-            'piwik_visits': piwik_query(visits_url).get('value', 0)
+            'piwik_countries': piwik_query(countries_url).get('value', 0),
+            'piwik_visits': piwik_query(visits_url).get('value', 0),
+            'piwik_url': settings.PIWIK_URL,
+            'piwik_id': settings.PIWIK_SITE_ID,
         }
 
     def get_context_data(self, **kwargs) -> dict:
