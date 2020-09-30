@@ -111,10 +111,17 @@
 
       <div class="row tech-section-group">
         <h2 class="tech-section-group-title left">{% trans "Links and modules" %}</h2>
+        {% if modules.items or links.items %}
+        <a href="#" class="link right js-expand-all-sections" data-is-collapsed="false" data-selector=".tech-links-content">
+          <span class="js-is-expanded hide">{% trans "Expand all" %}</span>
+          <span class="js-is-collapsed">{% trans "Collapse all" %}</span>
+        </a>
+        {% else %}
         <a href="#" class="link right js-expand-all-sections" data-is-collapsed="true" data-selector=".tech-links-content">
           <span class="js-is-expanded">{% trans "Expand all" %}</span>
           <span class="js-is-collapsed hide">{% trans "Collapse all" %}</span>
         </a>
+        {% endif %}
       </div>
 
       <section id="links" class="row tech-section">
@@ -123,7 +130,7 @@
             <h2>{% trans "Links" %}</h2>
           </div>
         </div>
-        <div class="output hide tech-links-content" id="links-content">
+        <div class="output tech-links-content {% if modules.items or links.items %} {% else %} hide {% endif %}" id="links-content">
           {% for configuration, list_values in links.items %}
             {% for list_entry in list_values %}
               {% include "questionnaire/partial/list_item.html" with item=list_entry %}
@@ -139,7 +146,7 @@
             <h2>{% trans "Modules" %}</h2>
           </div>
         </div>
-        <div class="output hide tech-links-content" id="modules-content">
+        <div class="output tech-links-content {% if modules.items or links.items %} {% else %} hide {% endif %}" id="modules-content">
           {% for configuration, list_values in modules.items %}
             {% for list_entry in list_values %}
               {% include "questionnaire/partial/list_item.html" with item=list_entry %}

@@ -88,10 +88,10 @@
   <div class="row tech-output-actions">
     <svg class="icon right"><use xlink:href="#icon-technology" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
 {#    <a href="#" class="button{% if not metadata.code %} disabled{% endif %}">#}
-    <a href="#" class="button disabled" title="{% trans "Coming soon" %}" data-tooltip="">
-      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>
-      {% trans "View full content" %}
-    </a>
+<!--    <a href="#" class="button disabled" title="{% trans "Coming soon" %}" data-tooltip="">-->
+<!--      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>-->
+<!--      {% trans "View full content" %}-->
+<!--    </a>-->
     <button href="#" class="button dropdown{% if questionnaire_object.status == 6 or not questionnaire_object.id %} disabled{% endif %}" data-dropdown="tech-details-print" aria-controls="tech-details-print" aria-expanded="false">
       <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-print"></use></svg>
       {% trans "Print summary" %}
@@ -103,13 +103,13 @@
         <li><a {% if not questionnaire_object.id %}disabled="disabled"{% else %}href="{% url 'questionnaire_summary' questionnaire_object.id %}?as=doc"{% endif %} target="_blank">{% trans "Full summary (unformatted)" %}</a></li>
       </ul>
 {#    <button href="#" class="button dropdown{% if not metadata.code %} disabled{% endif %}" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">#}
-    <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">
-      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-export"></use></svg>
-      {% trans "Export" %}
-    </button>
-    <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">
-      <li><a href="#">PDF</a></li>
-    </ul>
+<!--    <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">-->
+<!--      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-export"></use></svg>-->
+<!--      {% trans "Export" %}-->
+<!--    </button>-->
+<!--    <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">-->
+<!--      <li><a href="#">PDF</a></li>-->
+<!--    </ul>-->
     {% if history %}
       <button href="#" class="button dropdown" data-dropdown="tech-details-history" aria-controls="tech-details-history" aria-expanded="false">
         <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use></svg>
