@@ -45,42 +45,64 @@
   {# UNCCD #}
 </div>
 <div class="row is-flex card-row" data-equalizer>
-  {# Watershed / Watershed and Runoff #}
+<!--  {# Watershed / Watershed and Runoff #}-->
+<!--  <div class="small-12 medium-4 columns">-->
+<!--    <div class="card">-->
+<!--      {% if IS_ACTIVE_FEATURE_WATERSHED %}-->
+<!--      <a href="{% url 'watershed:questionnaire_new' %}">-->
+<!--        <div class="card-image-holder">-->
+<!--          <img class="card-image" src="{% static 'assets/img/card_watershed.jpg' %}">-->
+<!--          <span class="card-image-overlay-container">-->
+<!--            <div class="card-image-overlay is-watershed">-->
+<!--              <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>-->
+<!--            </div>-->
+<!--          </span>-->
+<!--        </div>-->
+<!--      </a>-->
+<!--      <div class="card-well">-->
+<!--        <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>-->
+<!--        <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>-->
+<!--        <a href="{% url 'watershed:questionnaire_new' %}" class="button large expand">{% trans "Add" %}</a>-->
+<!--      </div>-->
+<!--      {% else %}-->
+<!--      <div class="card-image-holder">-->
+<!--        <img class="card-image" src="{% static 'assets/img/card_watershed.jpg' %}">-->
+<!--        <span class="card-image-overlay-container">-->
+<!--          <div class="card-image-overlay is-watershed">-->
+<!--            <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>-->
+<!--          </div>-->
+<!--        </span>-->
+<!--      </div>-->
+<!--      <div class="card-well">-->
+<!--        <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>-->
+<!--        <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>-->
+<!--        <a href="#" class="button large expand disabled" title="{% trans "Coming soon" %}" aria-haspopup="true" data-tooltip="">-->
+<!--          {% trans "Add" %}<svg class="icon-information is-inline right no-pointer-events"><use xlink:href="#icon-information"></svg>-->
+<!--        </a>-->
+<!--      </div>-->
+<!--      {% endif %}-->
+<!--    </div>-->
+<!--  </div>-->
+  {# Carbon Benefits Project / CBP #}
   <div class="small-12 medium-4 columns">
     <div class="card">
-      {% if IS_ACTIVE_FEATURE_WATERSHED %}
-      <a href="{% url 'watershed:questionnaire_new' %}">
+      <a href="https://banr.nrel.colostate.edu/CBP/" target="_blank">
         <div class="card-image-holder">
-          <img class="card-image" src="{% static 'assets/img/card_watershed.jpg' %}">
+          <img class="card-image" src="{% static 'assets/img/card_cbp.png' %}">
           <span class="card-image-overlay-container">
-            <div class="card-image-overlay is-watershed">
-              <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>
+            <div class="card-image-overlay is-cbp">
+              <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-cbp"></use></svg>
             </div>
           </span>
         </div>
       </a>
       <div class="card-well">
-        <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
-        <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
-        <a href="{% url 'watershed:questionnaire_new' %}" class="button large expand">{% trans "Add" %}</a>
-      </div>
-      {% else %}
-      <div class="card-image-holder">
-        <img class="card-image" src="{% static 'assets/img/card_watershed.jpg' %}">
-        <span class="card-image-overlay-container">
-          <div class="card-image-overlay is-watershed">
-            <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>
-          </div>
-        </span>
-      </div>
-      <div class="card-well">
-        <h2 class="card-title">{% trans "Watershed and Runoff" %}</h2>
-        <p class="card-desc" data-equalizer-watch>{% trans "Mapping land management and assessing runoff and outflow from a watershed." %}</p>
-        <a href="#" class="button large expand disabled" title="{% trans "Coming soon" %}" aria-haspopup="true" data-tooltip="">
-          {% trans "Add" %}<svg class="icon-information is-inline right no-pointer-events"><use xlink:href="#icon-information"></svg>
+        <h2 class="card-title">{% trans "Carbon Benefits Project" %} (CBP)</h2>
+        <p class="card-desc">{% trans "Tools for assessing the carbon benefits and greenhouse gas emissions of an SLM Technology." %}</p>
+        <a href="{% url 'technologies:add_module' %}" class="button large expand">
+          {% trans "Add" %}
         </a>
       </div>
-      {% endif %}
     </div>
   </div>
   {# Maps / Land Degradation/Conservation #}

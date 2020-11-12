@@ -79,13 +79,19 @@
                   {% endif %}
                 </a>
               {% elif link_configuration == 'technologies' %}
-                <a href="{{ item.url }}#links" class="is-technologies" title="{% trans "This case is linked to SLM Technologies" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-technology"></use></svg>
+                <a href="{{ item.url }}#links" class="is-tech" title="{% trans "This case is linked to SLM Technologies" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-technology"></use></svg>
                   {% if links|length > 1 %}
                     <span class="number">{{ links|length }}</span>
                   {% endif %}
                 </a>
               {% elif link_configuration == 'cca' %}
                 <a href="{{ item.url }}#modules" class="is-cca" title="{% trans "This case has a CCA module" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-climate"></use></svg>
+                  {% if links|length > 1 %}
+                    <span class="number">{{ links|length }}</span>
+                  {% endif %}
+                </a>
+              {% elif link_configuration == 'cbp' %}
+                <a href="{{ item.url }}#modules" class="is-cbp" title="{% trans "This case has a CBP module" %}" data-tooltip=""><svg class="icon"><use xlink:href="#icon-cbp"></use></svg>
                   {% if links|length > 1 %}
                     <span class="number">{{ links|length }}</span>
                   {% endif %}

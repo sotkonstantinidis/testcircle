@@ -2,8 +2,8 @@
 
   <header class="tech-output-header row">
 
-    <div class="tech-type is-cca">
-      <span>{% trans "CCA" %}</span>
+    <div class="tech-type is-cbp">
+      <span>{% trans "CBP" %}</span>
     </div>
 
     {% for flag in metadata.flags %}
@@ -13,7 +13,7 @@
       <span class="tech-status label is-{{ metadata.status.0 }}">{% trans metadata.status.1 %}</span>
     {% endif %}
 
-    <h1 class="tech-output-title">{% trans "Climate Change Adaptation Module" %}</h1>
+    <h1 class="tech-output-title">{% trans "Carbon Benefits Project (CBP) Summary Module" %}</h1>
     <span class="is-light">{% trans "Technology: " %}{{ raw_data.name|default:'-' }}{% if raw_data.name_local %} ({{ raw_data.name_local }}){% endif %}</span>
 
     <ul class="tech-infos">
@@ -62,7 +62,7 @@
           {% for translation in metadata.translations %}
             <li>
               {% language translation %}
-                <a href="{% url 'cca:questionnaire_details' metadata.code %}" class="is-cca">{{ translation }}</a>
+                <a href="{% url 'cbp:questionnaire_details' metadata.code %}" class="is-cbp">{{ translation }}</a>
               {% endlanguage %}
             </li>
           {% endfor %}
@@ -82,7 +82,7 @@
   </header>
 
   <div class="row tech-output-actions">
-    <svg class="icon right"><use xlink:href="#icon-climate" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
+    <svg class="icon right"><use xlink:href="#icon-cbp" xmlns:xlink="http://www.w3.org/1999/xlink"/></svg>
 {#    <a href="#" class="button{% if not metadata.code %} disabled{% endif %}">#}
 <!--    <a href="#" class="button disabled" title="{% trans "Coming soon" %}" data-tooltip="">-->
 <!--      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-view"></use></svg>-->
@@ -101,14 +101,14 @@
 <!--    <button href="#" class="button dropdown disabled" title="{% trans "Coming soon" %}" data-tooltip="" data-dropdown="tech-details-export" aria-controls="tech-details-export" aria-expanded="false">-->
 <!--      <svg class="icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-export"></use></svg>-->
 <!--      {% trans "Export" %}-->
-<!--    </button>-->
+    </button>
 <!--    <ul id="tech-details-export" data-dropdown-content class="f-dropdown" aria-hidden="true">-->
 <!--      <li><a href="#">PDF</a></li>-->
 <!--    </ul>-->
   </div>
 
   {% if review_config %}
-    {% trans "Climate Change Adaptation Module" as questionnaire_type %}
+    {% trans "Carbon Benefits Project (CBP) Summary Module" as questionnaire_type %}
     {% include 'details/review_panel.html' with review_config=review_config questionnaire_type=questionnaire_type %}
   {% endif %}
 

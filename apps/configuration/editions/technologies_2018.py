@@ -13,7 +13,7 @@ class Technologies(Edition):
     edition = 2018
 
     all_configuration_editions = [
-        'technologies_2018', 'technologies', 'approaches', 'cca', 'watershed']
+        'technologies_2018', 'technologies', 'approaches', 'cca', 'watershed', 'cbp']
 
     @property
     def operations(self):
@@ -238,6 +238,11 @@ class Technologies(Edition):
                 release_note=_(
                     'Update October 2019: Question 3.2: New Annual crops, Perennial crops, Tree/shrub crops, animal type, crop-livestock management practices, products and services, New forest plantation types, tree types and new species for "Livestock population" were added.'),
             ),
+            Operation(
+                transform_configuration=self.add_CBP_module_translations,
+                release_note=_(
+                    'Update October 2020: Add new CBP module and related translations.'),
+            )
         ]
 
     def add_question_tech_input_maint_total_costs_usd(self, **data) -> dict:
@@ -3233,6 +3238,191 @@ class Technologies(Edition):
         ]
 
         return data
+
+    def add_CBP_module_translations(self, **data) -> dict:
+
+        # Add the CBP module to the Technology 2018 configuration
+        new_module = 'cbp'
+        data = self.add_new_module(updated=new_module, **data)
+
+        # Translations for Technology name & Country
+        self.append_translation(
+            update_pk=5001,
+            **{
+                "cbp": {
+                    "label": {"en": "Name"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5046,
+            **{
+                "cbp": {
+                    "label": {"en": "Locally used name"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5002,
+            **{
+                "cbp": {
+                    "label": {"en": "Country"}
+                }
+            }
+        )
+
+        # Translations for key resource person(s)
+        self.append_translation(
+            update_pk=5014,
+            **{
+                "cbp": {
+                    "label": {"en": "User ID"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5029,
+            **{
+                "cbp": {
+                    "label": {"en": "Other (specify)"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5052,
+            **{
+                "cbp": {
+                    "label": {"en": "Specify the key resource person"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5772,
+            **{
+                "cbp": {
+                    "label": {"en": "SLM specialist"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5773,
+            **{
+                "cbp": {
+                    "label": {"en": "land user"}
+                }
+            }
+        )
+
+        # Translations for registered/non-registered user fields
+        self.append_translation(
+            update_pk=5016,
+            **{
+                "cbp": {
+                    "label": {"en": "Lastname"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5017,
+            **{
+                "cbp": {
+                    "label": {"en": "First name(s)"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5018,
+            **{
+                "cbp": {
+                    "label": {"en": "Gender"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5019,
+            **{
+                "cbp": {
+                    "label": {"en": "Name of Institution"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5024,
+            **{
+                "cbp": {
+                    "label": {"en": "Phone no. 1"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5025,
+            **{
+                "cbp": {
+                    "label": {"en": "Phone no. 2"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5026,
+            **{
+                "cbp": {
+                    "label": {"en": "E-mail 1"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5027,
+            **{
+                "cbp": {
+                    "label": {"en": "E-mail 2"}
+                }
+            }
+        )
+
+        # Translation for projects and institutions for CBP module
+        self.append_translation(
+            update_pk=5053,
+            **{
+                "cbp": {
+                    "label": {
+                        "en": "Name of project which facilitated the documentation/ evaluation of the Carbon Benefits Project (CBP) Assessment (if relevant)"
+                    },
+                    "helptext": {
+                        "en": "If your project is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)."
+                    }
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5054,
+            **{
+                "cbp": {
+                    "label": {"en": "Name of the institution(s) which facilitated the documentation/ evaluation of the Carbon Benefits Project (CBP) Assessment (if relevant)"},
+                    "helptext": { "en": "If your institution is not listed in the dropdown, please contact the WOCAT secretariat (wocat@cde.unibe.ch)." }
+                }
+            }
+        )
+
+        # Translations for documented date and data sharing agreements
+        self.append_translation(
+            update_pk=5061,
+            **{
+                "cbp": {
+                    "label": {"en": "When was the Carbon Benefits Project (CBP) Assessment compiled?"}
+                }
+            }
+        )
+        self.append_translation(
+            update_pk=5062,
+            **{
+                "cbp": {
+                    "label": {"en": "The compiler and key resource person(s) accept the conditions regarding the use of data documented through WOCAT"},
+                    "helptext": {"en": "<strong>Note</strong>: If you do not accept the conditions regarding the use of data documented through WOCAT your data will not be accepted by the WOCAT secretariat and it will not be published."}}
+            }
+        )
+
+        return data
+
 
     def do_nothing(self, **data) -> dict:
         return data

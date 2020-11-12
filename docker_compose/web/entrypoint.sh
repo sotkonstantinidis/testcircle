@@ -18,8 +18,14 @@ if [ "$1" = 'build' ]; then
 
     # prepare database and data
     python manage.py migrate --noinput
-    python manage.py load_qcat_data
-    python manage.py loaddata technologies approaches cca watershed
+    #python manage.py load_qcat_data
+    python manage.py loaddata technologies approaches cca watershed cbp
+
+    # # Load technologies 2018 edition
+    # #  - Must be run only first time, subsequent loads cause conflicts
+    #python manage.py loaddata technologies_2018
+    # # Update technologies 2018 edition
+    python manage.py runscript technologies_2018
 
     # create static assets
     npm install
@@ -30,6 +36,7 @@ if [ "$1" = 'build' ]; then
     # refresh elasticsearch
     echo "Create and populate Elasticsearch indexes"
     python manage.py rebuild_es_indexes
+
 else
     exec "$@"
 fi

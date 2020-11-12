@@ -622,12 +622,20 @@ $(function () {
                 $el = $(this);
                 var keyword = $el.data('other-radio');
                 var list_item = $el.closest('.list-item');
-                if ($el.is(':checked')) {
-                    // Deselect all other radio buttons of the group
-                    list_item.find('input[data-has-other="' + keyword + '"]:radio')
-                        .attr('checked', false).attr('previousvalue', false);
+                var other_radio = list_item.find('[data-has-other=' + keyword + ']:radio');
+
+                if (other_radio.is(':disabled')) {
+                    // - If prior Radio is disabled, prevent check of the Other radio
+                    if ($el.is(':checked')) {
+                        $el.attr('checked', false).attr('previousvalue', false);
+                    }
                 } else {
-                    $el.closest('label').find('.radio-other-field').find('input').val('');
+                    if ($el.is(':checked')) {
+                        // Deselect all other radio buttons of the group
+                        other_radio.attr('checked', false).attr('previousvalue', false);
+                    } else {
+                        $el.closest('label').find('.radio-other-field').find('input').val('');
+                    }
                 }
             }
             $(this).trigger('change');
