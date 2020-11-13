@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-23 22:05+0100\n"
+"POT-Creation-Date: 2020-11-13 15:52+0100\n"
 "PO-Revision-Date: 2020-01-23 21:03+0000\n"
 "Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Lao (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -149,7 +149,7 @@ msgstr "ການແຈ້ງເຕືອນທັງໝົດ"
 #: apps/accounts/templates/questionnaires.html:33
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:84
-#: apps/technologies/templates/technologies/add_module.html:35
+#: apps/technologies/templates/technologies/add_module.html:36
 #: apps/wocat/templates/wocat/partial/search.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:39
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:28
@@ -177,6 +177,45 @@ msgstr "ເບິ່ງຜົນ ການຊອກຄົ້ນທັງໝົ�
 msgid "Welcome {}"
 msgstr "ຍິນດີຕ້ອນຮັບ {}"
 
+#: apps/api/models.py:77
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "Kenya"
+msgid "Key"
+msgstr "ເຄັນຢາ"
+
+#: apps/api/models.py:80
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "User ID"
+msgid "User"
+msgstr "ລະຫັດຜູ້ຊົມໃຊ້"
+
+#: apps/api/models.py:82 apps/notifications/receivers.py:41
+#: apps/notifications/tests/test_receivers.py:58
+#: apps/questionnaire/utils.py:1014
+msgid "Created"
+msgstr "​ສ້າງ"
+
+#: apps/api/models.py:83 apps/questionnaire/utils.py:1016
+msgid "Updated"
+msgstr "​ອັບ​ເດດ​ແລ້ວ"
+
+#: apps/api/serializers.py:18
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "Tokelau"
+msgid "Token"
+msgstr "ໂຕເກລາ"
+
+#: apps/api/serializers.py:34
+msgid "Unable to log in with provided credentials."
+msgstr ""
+
+#: apps/api/serializers.py:37
+msgid "Must include \"email\" and \"password\"."
+msgstr ""
+
 #: apps/approaches/templates/approaches/base.html:6
 msgid "WOCAT SLM Approaches"
 msgstr "ວິທີທາງ ໃນການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ ຂອງ WOCAT"
@@ -191,14 +230,31 @@ msgstr "ວິທີທາງ"
 msgid "Approaches"
 msgstr "ວິທີທາງ"
 
-#: apps/cca/templates/cca/base.html:6
-msgid "SLM Climate Change Adaptation"
-msgstr "ການປັບຕົວ ຕໍ່ການປ່ຽນແປງ ດິນຟ້າອາກາດ ເພື່ອການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ "
+#: apps/cbp/templates/cbp/base.html:6
+#: apps/cbp/templates/cbp/questionnaire/partial/link.html:16
+#: apps/cbp/views.py:15
+msgid "Carbon Benefits Project (CBP) Summary"
+msgstr ""
 
+#: apps/cbp/templates/cbp/partial/select_module.html:12
 #: apps/cca/templates/cca/partial/select_module.html:12
 #: apps/samplemodule/templates/samplemodule/partial/select_module.html:12
 msgid "This module exists already."
 msgstr "ໂມດູນນີ້ ມີຢູ່ແລ້ວ"
+
+#: apps/cbp/templates/cbp/partial/select_module.html:18
+#: apps/questionnaire/templates/details/category/cbp_header.html:16
+#: apps/questionnaire/templates/details/category/cbp_header.html:112
+msgid "Carbon Benefits Project (CBP) Summary Module"
+msgstr ""
+
+#: apps/cbp/templates/cbp/partial/select_module.html:19
+msgid "Summary PDF from the Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+
+#: apps/cca/templates/cca/base.html:6
+msgid "SLM Climate Change Adaptation"
+msgstr "ການປັບຕົວ ຕໍ່ການປ່ຽນແປງ ດິນຟ້າອາກາດ ເພື່ອການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ "
 
 #: apps/cca/templates/cca/partial/select_module.html:18
 #: apps/questionnaire/templates/details/category/cca_header.html:16
@@ -228,7 +284,7 @@ msgstr "ແມ່ນ"
 msgid "No"
 msgstr "ບໍ່ແມ່ນ"
 
-#: apps/configuration/configuration.py:2599
+#: apps/configuration/configuration.py:2600
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "ບໍ່ຮູ້ຊື່"
@@ -267,7 +323,7 @@ msgstr "ຈຸດປະສົງຫຼັກ (ຫຼາຍ) ຂອງເຕັ�
 #: apps/configuration/configuration_translations.py:1020
 #: apps/configuration/configuration_translations.py:1021
 #: apps/configuration/configuration_translations.py:1022
-#: apps/configuration/configuration_translations.py:5237
+#: apps/configuration/configuration_translations.py:5249
 msgctxt "technologies label"
 msgid "other (specify)"
 msgstr "ອື່ນໆ (ລະບຸແຈ້ງ)"
@@ -1166,7 +1222,7 @@ msgid ""
 msgstr "ລະບຸວ່າ ຖ້າຜູ້ນຳໃຊ້ດິນ ໃຊ້ເຕັກໂນໂລຢີ ເປັນບຸກຄົນ ຫຼື ເປັນສະມາຊິກຂອງກຸ່ມ / ບໍລິສັດສະເພາະໃດຫນຶ່ງ"
 
 #: apps/configuration/configuration_translations.py:1222
-#: apps/configuration/configuration_translations.py:5177
+#: apps/configuration/configuration_translations.py:5182
 msgctxt "technologies label"
 msgid "Gender"
 msgstr "ເພດ"
@@ -1623,8 +1679,8 @@ msgid "Author"
 msgstr "ຜູ້ຂຽນ"
 
 #: apps/configuration/configuration_translations.py:1371
-#: apps/configuration/configuration_translations.py:5152
-#: apps/configuration/configuration_translations.py:5229
+#: apps/configuration/configuration_translations.py:5154
+#: apps/configuration/configuration_translations.py:5241
 msgctxt "technologies label"
 msgid "Date"
 msgstr "ວັນທີ"
@@ -5811,7 +5867,7 @@ msgstr ""
 "ກະລຸນາລະບຸໃສ່ຫ້ອງຄໍາຄິດເຫັນ ແລະ ລະບຸວ່າເພີ່ມຂື້ນ ໄປໃນທາງດ້ານບວກ ຫຼື ທາງດ້ານລົບ"
 
 #: apps/configuration/configuration_translations.py:2701
-#: apps/configuration/configuration_translations.py:5143
+#: apps/configuration/configuration_translations.py:5145
 msgctxt "technologies label"
 msgid "Image"
 msgstr "ຮູບພາບ"
@@ -6313,8 +6369,6 @@ msgid "Other climate-related extremes (disasters)"
 msgstr "ອາກາດ ທີ່ກ່ຽວພັນກັບຄວາມຮຸນແຮງອື່ນໆ (ໄພພິບັດທາງທໍາມະຊາດ)"
 
 #: apps/configuration/configuration_translations.py:2773
-#: apps/configuration/configuration_translations.py:5102
-#: apps/configuration/configuration_translations.py:5103
 #: apps/configuration/configuration_translations.py:5104
 #: apps/configuration/configuration_translations.py:5105
 #: apps/configuration/configuration_translations.py:5106
@@ -6343,6 +6397,8 @@ msgstr "ອາກາດ ທີ່ກ່ຽວພັນກັບຄວາມຮ�
 #: apps/configuration/configuration_translations.py:5129
 #: apps/configuration/configuration_translations.py:5130
 #: apps/configuration/configuration_translations.py:5131
+#: apps/configuration/configuration_translations.py:5132
+#: apps/configuration/configuration_translations.py:5133
 msgctxt "technologies label"
 msgid "Comments"
 msgstr "ຄວາມຄິດເຫັນ"
@@ -7926,37 +7982,50 @@ msgid "Name"
 msgstr "ຊື່"
 
 #: apps/configuration/configuration_translations.py:5006
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Name"
+msgctxt "cbp label"
+msgid "Name"
+msgstr "ຊື່"
+
+#: apps/configuration/configuration_translations.py:5007
 msgctxt "cca label"
 msgid "Country"
 msgstr "ປະເທດ"
 
-#: apps/configuration/configuration_translations.py:5007
+#: apps/configuration/configuration_translations.py:5008
 msgctxt "unccd label"
 msgid "Country"
 msgstr "ປະເທດ"
 
-#: apps/configuration/configuration_translations.py:5008
+#: apps/configuration/configuration_translations.py:5009
 msgctxt "wocat label"
 msgid "Country"
 msgstr "ປະເທດ"
 
-#: apps/configuration/configuration_translations.py:5009
+#: apps/configuration/configuration_translations.py:5010
 msgctxt "watershed label"
 msgid "Country"
 msgstr "ປະເທດ"
 
-#: apps/configuration/configuration_translations.py:5010
+#: apps/configuration/configuration_translations.py:5011
 msgctxt "approaches label"
 msgid "Country"
 msgstr "ປະເທດ"
 
-#: apps/configuration/configuration_translations.py:5011
+#: apps/configuration/configuration_translations.py:5012
 msgctxt "technologies label"
 msgid "Country"
 msgstr "ປະເທດ"
 
-#: apps/configuration/configuration_translations.py:5012
 #: apps/configuration/configuration_translations.py:5013
+#, fuzzy
+#| msgid "Country"
+msgctxt "cbp label"
+msgid "Country"
+msgstr "​ປະ​ເທດ"
+
 #: apps/configuration/configuration_translations.py:5014
 #: apps/configuration/configuration_translations.py:5015
 #: apps/configuration/configuration_translations.py:5016
@@ -7985,6 +8054,8 @@ msgstr "ປະເທດ"
 #: apps/configuration/configuration_translations.py:5039
 #: apps/configuration/configuration_translations.py:5040
 #: apps/configuration/configuration_translations.py:5041
+#: apps/configuration/configuration_translations.py:5042
+#: apps/configuration/configuration_translations.py:5043
 #: apps/configuration/configuration_translations.py:22240
 #: apps/configuration/configuration_translations.py:24860
 #: apps/configuration/configuration_translations.py:28087
@@ -7992,8 +8063,6 @@ msgctxt "cca label"
 msgid "Comments"
 msgstr "ຄວາມຄິດເຫັນ"
 
-#: apps/configuration/configuration_translations.py:5042
-#: apps/configuration/configuration_translations.py:5043
 #: apps/configuration/configuration_translations.py:5044
 #: apps/configuration/configuration_translations.py:5045
 #: apps/configuration/configuration_translations.py:5046
@@ -8022,12 +8091,12 @@ msgstr "ຄວາມຄິດເຫັນ"
 #: apps/configuration/configuration_translations.py:5069
 #: apps/configuration/configuration_translations.py:5070
 #: apps/configuration/configuration_translations.py:5071
+#: apps/configuration/configuration_translations.py:5072
+#: apps/configuration/configuration_translations.py:5073
 msgctxt "unccd label"
 msgid "Comments"
 msgstr "ຄວາມຄິດເຫັນ"
 
-#: apps/configuration/configuration_translations.py:5072
-#: apps/configuration/configuration_translations.py:5073
 #: apps/configuration/configuration_translations.py:5074
 #: apps/configuration/configuration_translations.py:5075
 #: apps/configuration/configuration_translations.py:5076
@@ -8056,337 +8125,410 @@ msgstr "ຄວາມຄິດເຫັນ"
 #: apps/configuration/configuration_translations.py:5099
 #: apps/configuration/configuration_translations.py:5100
 #: apps/configuration/configuration_translations.py:5101
+#: apps/configuration/configuration_translations.py:5102
+#: apps/configuration/configuration_translations.py:5103
 msgctxt "approaches label"
 msgid "Comments"
 msgstr "ຄວາມຄິດເຫັນ"
 
-#: apps/configuration/configuration_translations.py:5132
-msgctxt "watershed label"
-msgid "Region/ State/ Province"
-msgstr "ພາກພື້ນ / ລັດ / ແຂວງ"
-
-#: apps/configuration/configuration_translations.py:5133
-msgctxt "approaches label"
-msgid "Region/ State/ Province"
-msgstr "ພາກພື້ນ / ລັດ / ແຂວງ"
-
 #: apps/configuration/configuration_translations.py:5134
-msgctxt "technologies label"
+msgctxt "watershed label"
 msgid "Region/ State/ Province"
 msgstr "ພາກພື້ນ / ລັດ / ແຂວງ"
 
 #: apps/configuration/configuration_translations.py:5135
-msgctxt "watershed label"
-msgid ""
-"Further specification of location (e.g. municipality, town, etc.), if "
-"relevant"
-msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່ (ເຊັ່ນ: ເທດສະບານ, ເມືອງ, ແລະອື່ນໆ), ຖ້າຫາກວ່າກ່ຽວຂ້ອງ"
+msgctxt "approaches label"
+msgid "Region/ State/ Province"
+msgstr "ພາກພື້ນ / ລັດ / ແຂວງ"
 
 #: apps/configuration/configuration_translations.py:5136
-msgctxt "watershed label_view"
-msgid "Further specification of location"
-msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່"
+msgctxt "technologies label"
+msgid "Region/ State/ Province"
+msgstr "ພາກພື້ນ / ລັດ / ແຂວງ"
 
 #: apps/configuration/configuration_translations.py:5137
-msgctxt "approaches label"
+msgctxt "watershed label"
 msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
 msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່ (ເຊັ່ນ: ເທດສະບານ, ເມືອງ, ແລະອື່ນໆ), ຖ້າຫາກວ່າກ່ຽວຂ້ອງ"
 
 #: apps/configuration/configuration_translations.py:5138
-msgctxt "approaches label_view"
+msgctxt "watershed label_view"
 msgid "Further specification of location"
 msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່"
 
 #: apps/configuration/configuration_translations.py:5139
-msgctxt "technologies label"
+msgctxt "approaches label"
 msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
 msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່ (ເຊັ່ນ: ເທດສະບານ, ເມືອງ, ແລະອື່ນໆ), ຖ້າຫາກວ່າກ່ຽວຂ້ອງ"
 
 #: apps/configuration/configuration_translations.py:5140
-msgctxt "technologies label_view"
+msgctxt "approaches label_view"
 msgid "Further specification of location"
 msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່"
 
 #: apps/configuration/configuration_translations.py:5141
+msgctxt "technologies label"
+msgid ""
+"Further specification of location (e.g. municipality, town, etc.), if "
+"relevant"
+msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່ (ເຊັ່ນ: ເທດສະບານ, ເມືອງ, ແລະອື່ນໆ), ຖ້າຫາກວ່າກ່ຽວຂ້ອງ"
+
+#: apps/configuration/configuration_translations.py:5142
+msgctxt "technologies label_view"
+msgid "Further specification of location"
+msgstr "ຂໍ້ມູນເພີ່ມເຕີມຂອງສະຖານທີ່"
+
+#: apps/configuration/configuration_translations.py:5143
 msgctxt "watershed label"
 msgid "Image"
 msgstr "ຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5142
+#: apps/configuration/configuration_translations.py:5144
 #: apps/configuration/configuration_translations.py:8703
 msgctxt "approaches label"
 msgid "Image"
 msgstr "ຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5144
+#: apps/configuration/configuration_translations.py:5146
 msgctxt "watershed label"
 msgid "Caption, explanation of photo"
 msgstr "ຫົວຂໍ້ ຄໍາອະທິບາຍ ຂອງຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5145
+#: apps/configuration/configuration_translations.py:5147
 #: apps/configuration/configuration_translations.py:31011
 msgctxt "watershed helptext"
 msgid "Write one sentence."
 msgstr "ຂຽນໜຶ່ງປະໂຫຍກ."
 
-#: apps/configuration/configuration_translations.py:5146
+#: apps/configuration/configuration_translations.py:5148
 msgctxt "approaches label"
 msgid "Caption, explanation of photo"
 msgstr "ຫົວຂໍ້, ຄໍາອະທິບາຍຂອງຮູບ"
 
-#: apps/configuration/configuration_translations.py:5147
+#: apps/configuration/configuration_translations.py:5149
 msgctxt "approaches helptext"
 msgid "Write one sentence."
 msgstr "ຂຽນໜຶ່ງປະໂຫຍກ."
 
-#: apps/configuration/configuration_translations.py:5148
+#: apps/configuration/configuration_translations.py:5150
 msgctxt "technologies label"
 msgid "Caption, explanation of photo"
 msgstr "ຫົວຂໍ້ ຄໍາອະທິບາຍຂອງຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5149
+#: apps/configuration/configuration_translations.py:5151
 msgctxt "technologies helptext"
 msgid "Write one sentence."
 msgstr "ຂຽນໜຶ່ງປະໂຫຍກ."
 
-#: apps/configuration/configuration_translations.py:5150
+#: apps/configuration/configuration_translations.py:5152
 #: apps/configuration/configuration_translations.py:31012
 msgctxt "watershed label"
 msgid "Date"
 msgstr "ວັນທີ"
 
-#: apps/configuration/configuration_translations.py:5151
-#: apps/configuration/configuration_translations.py:5228
+#: apps/configuration/configuration_translations.py:5153
+#: apps/configuration/configuration_translations.py:5240
 msgctxt "approaches label"
 msgid "Date"
 msgstr "ວັນທີ"
 
-#: apps/configuration/configuration_translations.py:5153
-#: apps/configuration/configuration_translations.py:5154
+#: apps/configuration/configuration_translations.py:5155
+#: apps/configuration/configuration_translations.py:5156
 msgctxt "watershed label"
 msgid "Name of photographer"
 msgstr "ຊື່ຂອງຜຸ້ຖ່າຍຮູບ"
 
-#: apps/configuration/configuration_translations.py:5155
-#: apps/configuration/configuration_translations.py:5156
+#: apps/configuration/configuration_translations.py:5157
+#: apps/configuration/configuration_translations.py:5158
 msgctxt "approaches label"
 msgid "Name of photographer"
 msgstr "ໍຊື່ຂອງຜູ້ຖ່າຍຮູບ"
 
-#: apps/configuration/configuration_translations.py:5157
-#: apps/configuration/configuration_translations.py:5158
+#: apps/configuration/configuration_translations.py:5159
+#: apps/configuration/configuration_translations.py:5160
 msgctxt "technologies label"
 msgid "Name of photographer"
 msgstr "ໍຊື່ຂອງຜຸ້ຖ່າຍຮູບ"
 
-#: apps/configuration/configuration_translations.py:5159
+#: apps/configuration/configuration_translations.py:5161
 msgctxt "cca label"
 msgid "User ID"
 msgstr "ລະຫັດຜູ້ຊົມໃຊ້"
 
-#: apps/configuration/configuration_translations.py:5160
+#: apps/configuration/configuration_translations.py:5162
 msgctxt "watershed label"
 msgid "User ID"
 msgstr "ລະຫັດຜູ້ຊົມໃຊ້"
 
-#: apps/configuration/configuration_translations.py:5161
+#: apps/configuration/configuration_translations.py:5163
 msgctxt "approaches label"
 msgid "User ID"
 msgstr "ລະຫັດຜູ້ຊົມໃຊ້"
 
-#: apps/configuration/configuration_translations.py:5162
+#: apps/configuration/configuration_translations.py:5164
 msgctxt "technologies label"
 msgid "User ID"
 msgstr "ລະຫັດຜູ້ຊົມໃຊ້"
 
-#: apps/configuration/configuration_translations.py:5163
+#: apps/configuration/configuration_translations.py:5165
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "User ID"
+msgctxt "cbp label"
+msgid "User ID"
+msgstr "ລະຫັດຜູ້ຊົມໃຊ້"
+
+#: apps/configuration/configuration_translations.py:5166
 #: apps/configuration/configuration_translations.py:31013
 msgctxt "watershed label"
 msgid "Location"
 msgstr "ສະຖານທີ່"
 
-#: apps/configuration/configuration_translations.py:5164
-#: apps/configuration/configuration_translations.py:5238
+#: apps/configuration/configuration_translations.py:5167
+#: apps/configuration/configuration_translations.py:5250
 msgctxt "approaches label"
 msgid "Location"
 msgstr "ສະຖານທີ່"
 
-#: apps/configuration/configuration_translations.py:5165
-#: apps/configuration/configuration_translations.py:5239
+#: apps/configuration/configuration_translations.py:5168
+#: apps/configuration/configuration_translations.py:5251
 msgctxt "technologies label"
 msgid "Location"
 msgstr "ສະຖານທີ່"
 
-#: apps/configuration/configuration_translations.py:5166
+#: apps/configuration/configuration_translations.py:5169
 msgctxt "cca label"
 msgid "Lastname"
 msgstr "ນາມ​ສະ​ກຸນ"
 
-#: apps/configuration/configuration_translations.py:5167
+#: apps/configuration/configuration_translations.py:5170
 msgctxt "watershed label"
 msgid "Lastname / surname"
 msgstr "ນາມສະກຸນ"
 
-#: apps/configuration/configuration_translations.py:5168
+#: apps/configuration/configuration_translations.py:5171
 msgctxt "approaches label"
 msgid "Last name"
 msgstr "ນາມ​ສະ​ກຸນ"
 
-#: apps/configuration/configuration_translations.py:5169
+#: apps/configuration/configuration_translations.py:5172
 msgctxt "technologies label"
 msgid "Lastname / surname"
 msgstr "ນາມສະກຸນ"
 
-#: apps/configuration/configuration_translations.py:5170
+#: apps/configuration/configuration_translations.py:5173
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Lastname"
+msgctxt "cbp label"
+msgid "Lastname"
+msgstr "ນາມ​ສະ​ກຸນ"
+
+#: apps/configuration/configuration_translations.py:5174
 msgctxt "cca label"
 msgid "First name(s)"
 msgstr "ຊື່ແທ້ ()"
 
-#: apps/configuration/configuration_translations.py:5171
+#: apps/configuration/configuration_translations.py:5175
 msgctxt "watershed label"
 msgid "First name(s)"
 msgstr "ຊື່ແທ້ ()"
 
-#: apps/configuration/configuration_translations.py:5172
+#: apps/configuration/configuration_translations.py:5176
 msgctxt "approaches label"
 msgid "First name(s)"
 msgstr "ຊື່ແທ້ ()"
 
-#: apps/configuration/configuration_translations.py:5173
+#: apps/configuration/configuration_translations.py:5177
 msgctxt "technologies label"
 msgid "First name(s)"
 msgstr "ຊື່ແທ້ ()"
 
-#: apps/configuration/configuration_translations.py:5174
-msgctxt "cca label"
-msgid "Gender"
-msgstr "ເພດ"
-
-#: apps/configuration/configuration_translations.py:5175
-msgctxt "watershed label"
-msgid "Gender"
-msgstr "ເພດ"
-
-#: apps/configuration/configuration_translations.py:5176
-msgctxt "approaches label"
-msgid "Gender"
-msgstr "ເພດ"
-
 #: apps/configuration/configuration_translations.py:5178
-msgctxt "cca label"
-msgid "Name of institution"
-msgstr "ຊື່ຂອງຫ້ອງການ / ອົງການຈັດຕັ້ງ"
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "First name(s)"
+msgctxt "cbp label"
+msgid "First name(s)"
+msgstr "ຊື່ແທ້ ()"
 
 #: apps/configuration/configuration_translations.py:5179
+msgctxt "cca label"
+msgid "Gender"
+msgstr "ເພດ"
+
+#: apps/configuration/configuration_translations.py:5180
+msgctxt "watershed label"
+msgid "Gender"
+msgstr "ເພດ"
+
+#: apps/configuration/configuration_translations.py:5181
+msgctxt "approaches label"
+msgid "Gender"
+msgstr "ເພດ"
+
+#: apps/configuration/configuration_translations.py:5183
+#, fuzzy
+#| msgid "Gender"
+msgctxt "cbp label"
+msgid "Gender"
+msgstr "ເພດ"
+
+#: apps/configuration/configuration_translations.py:5184
+msgctxt "cca label"
+msgid "Name of institution"
+msgstr "ຊື່ຂອງຫ້ອງການ / ອົງການຈັດຕັ້ງ"
+
+#: apps/configuration/configuration_translations.py:5185
 msgctxt "watershed label"
 msgid "Name of institution"
 msgstr "ຊື່ຂອງຫ້ອງການ / ອົງການຈັດຕັ້ງ"
 
-#: apps/configuration/configuration_translations.py:5180
+#: apps/configuration/configuration_translations.py:5186
 msgctxt "approaches label"
 msgid "Name of institution"
 msgstr "ຊື່ຂອງຫ້ອງການ / ອົງການຈັດຕັ້ງ"
 
-#: apps/configuration/configuration_translations.py:5181
+#: apps/configuration/configuration_translations.py:5187
 msgctxt "technologies label"
 msgid "Name of institution"
 msgstr "ຊື່ສະຖາບັນ"
 
-#: apps/configuration/configuration_translations.py:5182
-msgctxt "cca label"
-msgid "Phone no. 1"
-msgstr "ເບີໂທລະສັບ ທີ່1"
-
-#: apps/configuration/configuration_translations.py:5183
-msgctxt "watershed label"
-msgid "Phone no. 1"
-msgstr "ເບີໂທລະສັບ ທີ່1"
-
-#: apps/configuration/configuration_translations.py:5184
-msgctxt "approaches label"
-msgid "Phone no. 1"
-msgstr "ເບີໂທລະສັບ ທີ່1"
-
-#: apps/configuration/configuration_translations.py:5185
-msgctxt "technologies label"
-msgid "Phone no. 1"
-msgstr "ເບີໂທລະສັບ ທີ່1"
-
-#: apps/configuration/configuration_translations.py:5186
-msgctxt "cca label"
-msgid "Phone no. 2 (mobile)"
-msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
-
-#: apps/configuration/configuration_translations.py:5187
-msgctxt "watershed label"
-msgid "Phone no. 2 (mobile)"
-msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
-
 #: apps/configuration/configuration_translations.py:5188
-msgctxt "approaches label"
-msgid "Phone no. 2 (mobile)"
-msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Name of institution"
+msgctxt "cbp label"
+msgid "Name of Institution"
+msgstr "ຊື່ຂອງຫ້ອງການ / ອົງການຈັດຕັ້ງ"
 
 #: apps/configuration/configuration_translations.py:5189
-msgctxt "technologies label"
-msgid "Phone no. 2 (mobile)"
-msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
+msgctxt "cca label"
+msgid "Phone no. 1"
+msgstr "ເບີໂທລະສັບ ທີ່1"
 
 #: apps/configuration/configuration_translations.py:5190
-msgctxt "cca label"
-msgid "E-mail 1"
-msgstr "ອີເມວ1"
+msgctxt "watershed label"
+msgid "Phone no. 1"
+msgstr "ເບີໂທລະສັບ ທີ່1"
 
 #: apps/configuration/configuration_translations.py:5191
-msgctxt "watershed label"
-msgid "E-mail 1"
-msgstr "ອີເມວ1"
+msgctxt "approaches label"
+msgid "Phone no. 1"
+msgstr "ເບີໂທລະສັບ ທີ່1"
 
 #: apps/configuration/configuration_translations.py:5192
-msgctxt "approaches label"
-msgid "E-mail 1"
-msgstr "ອີເມວ1"
+msgctxt "technologies label"
+msgid "Phone no. 1"
+msgstr "ເບີໂທລະສັບ ທີ່1"
 
 #: apps/configuration/configuration_translations.py:5193
-msgctxt "technologies label"
-msgid "E-mail 1"
-msgstr "ອີເມວ1"
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Phone no. 1"
+msgctxt "cbp label"
+msgid "Phone no. 1"
+msgstr "ເບີໂທລະສັບ ທີ່1"
 
 #: apps/configuration/configuration_translations.py:5194
 msgctxt "cca label"
+msgid "Phone no. 2 (mobile)"
+msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
+
+#: apps/configuration/configuration_translations.py:5195
+msgctxt "watershed label"
+msgid "Phone no. 2 (mobile)"
+msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
+
+#: apps/configuration/configuration_translations.py:5196
+msgctxt "approaches label"
+msgid "Phone no. 2 (mobile)"
+msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
+
+#: apps/configuration/configuration_translations.py:5197
+msgctxt "technologies label"
+msgid "Phone no. 2 (mobile)"
+msgstr "ເບີໂທລະສັບ ທີ່2 (ມືຖື)"
+
+#: apps/configuration/configuration_translations.py:5198
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Phone no. 1"
+msgctxt "cbp label"
+msgid "Phone no. 2"
+msgstr "ເບີໂທລະສັບ ທີ່1"
+
+#: apps/configuration/configuration_translations.py:5199
+msgctxt "cca label"
+msgid "E-mail 1"
+msgstr "ອີເມວ1"
+
+#: apps/configuration/configuration_translations.py:5200
+msgctxt "watershed label"
+msgid "E-mail 1"
+msgstr "ອີເມວ1"
+
+#: apps/configuration/configuration_translations.py:5201
+msgctxt "approaches label"
+msgid "E-mail 1"
+msgstr "ອີເມວ1"
+
+#: apps/configuration/configuration_translations.py:5202
+msgctxt "technologies label"
+msgid "E-mail 1"
+msgstr "ອີເມວ1"
+
+#: apps/configuration/configuration_translations.py:5203
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "E-mail 1"
+msgctxt "cbp label"
+msgid "E-mail 1"
+msgstr "ອີເມວ1"
+
+#: apps/configuration/configuration_translations.py:5204
+msgctxt "cca label"
 msgid "E-mail 2"
 msgstr "ອີເມວ2"
 
-#: apps/configuration/configuration_translations.py:5195
+#: apps/configuration/configuration_translations.py:5205
 msgctxt "watershed label"
 msgid "E-mail 2"
 msgstr "ອີເມວ2"
 
-#: apps/configuration/configuration_translations.py:5196
+#: apps/configuration/configuration_translations.py:5206
 msgctxt "approaches label"
 msgid "E-mail 2"
 msgstr "ອີເມວ2"
 
-#: apps/configuration/configuration_translations.py:5197
+#: apps/configuration/configuration_translations.py:5207
 msgctxt "technologies label"
 msgid "E-mail 2"
 msgstr "ອີເມວ2"
 
-#: apps/configuration/configuration_translations.py:5198
+#: apps/configuration/configuration_translations.py:5208
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "E-mail 2"
+msgctxt "cbp label"
+msgid "E-mail 2"
+msgstr "ອີເມວ2"
+
+#: apps/configuration/configuration_translations.py:5209
 msgctxt "cca label"
 msgid "Other (specify)"
 msgstr "ອື່ນໆ (ລະບຸ)"
 
-#: apps/configuration/configuration_translations.py:5199
+#: apps/configuration/configuration_translations.py:5210
 msgctxt "watershed label"
 msgid "Other (specify)"
 msgstr "ອື່ນໆ (ລະບຸ)"
 
-#: apps/configuration/configuration_translations.py:5200
+#: apps/configuration/configuration_translations.py:5211
 #: apps/configuration/configuration_translations.py:7005
 #: apps/configuration/configuration_translations.py:7006
 #: apps/configuration/configuration_translations.py:7007
@@ -8408,25 +8550,33 @@ msgctxt "approaches label"
 msgid "Other (specify)"
 msgstr "ອື່ນໆ (ລະບຸ)"
 
-#: apps/configuration/configuration_translations.py:5201
+#: apps/configuration/configuration_translations.py:5212
 msgctxt "technologies label"
 msgid "Other (specify)"
 msgstr "ອື່ນໆ (ລະບຸ)"
 
-#: apps/configuration/configuration_translations.py:5202
+#: apps/configuration/configuration_translations.py:5213
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Other (specify)"
+msgctxt "cbp label"
+msgid "Other (specify)"
+msgstr "ອື່ນໆ (ລະບຸ)"
+
+#: apps/configuration/configuration_translations.py:5214
 msgctxt "cca label"
 msgid "Strengths/ advantages/ opportunities of the technology"
 msgstr "ຈຸດແຂງ / ຂໍ້ດີ / ໂອກາດຂອງເຕັກໂນໂລຢີ"
 
-#: apps/configuration/configuration_translations.py:5203
+#: apps/configuration/configuration_translations.py:5215
 msgctxt "watershed label"
 msgid ""
 "Strengths/ advantages/ opportunities in the land user’s / watershed user’s "
 "view"
 msgstr "ຈຸດແຂງ /ຂໍ້ດີ / ໂອກາດໃນມຸມມອງຂອງຜູ້ນໍາໃຊ້ທີ່ດິນ / ໃນມຸມມອງຂອງຜູ້ນໍາໃຊ້ນໍ້າ"
 
-#: apps/configuration/configuration_translations.py:5204
-#: apps/configuration/configuration_translations.py:5214
+#: apps/configuration/configuration_translations.py:5216
+#: apps/configuration/configuration_translations.py:5226
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Land user</strong>: the person/ entity who implements/ maintains "
@@ -8447,13 +8597,13 @@ msgstr ""
 "ສິ່ງທີ່ສົນໃຈ), ສະຫະກອນ, ອຸດສາຫະກໍາ ບໍລິສັດ (ຕົວຢ່າງ: ຂຸດຄົ້ນບໍ່ແຮ່), ສະຖາບັນ ຂອງລັດຖະບານ (ຕົວຢ່າງ: "
 "ປ່າໄມ້ຂອງລັດ) ແລະອື່ນໆ.</p>"
 
-#: apps/configuration/configuration_translations.py:5205
+#: apps/configuration/configuration_translations.py:5217
 msgctxt "approaches label"
 msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgstr "ຈຸດແຂງ / ຂໍ້ດີ / ໂອກາດໃນການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5206
-#: apps/configuration/configuration_translations.py:5216
+#: apps/configuration/configuration_translations.py:5218
+#: apps/configuration/configuration_translations.py:5228
 msgctxt "approaches helptext"
 msgid ""
 "<strong>Land user</strong>: the person/ entity who implements/ maintains the "
@@ -8466,13 +8616,13 @@ msgstr ""
 "ສະຫະກອນ, ບໍລິສັດອຸດສາຫະກໍາ (ຕົວຢ່າງ: ຂຸດຄົ້ນບໍ່ແຮ່), ສະຖາບັນຂອງລັດຖະບານ (ຕົວຢ່າງ: ປ່າໄມ້ຂອງລັດ) "
 "ແລະ ອື່ນໆ"
 
-#: apps/configuration/configuration_translations.py:5207
+#: apps/configuration/configuration_translations.py:5219
 msgctxt "technologies label"
 msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgstr "ຈຸດແຂງ / ຂໍ້ດີ / ໂອກາດໃນການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5208
-#: apps/configuration/configuration_translations.py:5218
+#: apps/configuration/configuration_translations.py:5220
+#: apps/configuration/configuration_translations.py:5230
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Land user</strong>: the person/ entity who implements/ maintains the "
@@ -8484,125 +8634,125 @@ msgstr ""
 "ຂະໜາດນ້ອຍ / ຂະໜາດໃຫຍ່, ກຸ່ມ (ເພດ, ອາຍຸ, ສະຖານະພາບ, ມີຄວາມສົນໃຈ), ສະຫະກອນ, ບໍລິສັດ "
 "ອຸດສາຫະກໍາ (ຕົວຢ່າງ: ຂຸດຄົ້ນບໍ່ແຮ່), ສະຖາບັນ ຂອງລັດຖະບານ (ຕົວຢ່າງ: ປ່າໄມ້ຂອງລັດ) ແລະ ອື່ນໆ"
 
-#: apps/configuration/configuration_translations.py:5209
+#: apps/configuration/configuration_translations.py:5221
 msgctxt "watershed label"
 msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
 "person’s view"
 msgstr "ຈຸດແຂງ ຫຼື ຂໍ້ດີ ຫຼື ໂອກາດ ໃນມຸມມອງຂອງ ຜູ້ສັງລວມຂໍ້ມູນ ຫຼື ຜູ້ຕອບແບບສອບຖາມ"
 
-#: apps/configuration/configuration_translations.py:5210
+#: apps/configuration/configuration_translations.py:5222
 msgctxt "approaches label"
 msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
 "person’s view"
 msgstr "ຈຸດແຂງ / ຈຸດດີ / ໂອກາດ ຈາກທັດສະນະຂອງຜູ້ປ້ອນຂໍ້ມູນ ຫຼື ບຸກຄົນສຳຄັນ"
 
-#: apps/configuration/configuration_translations.py:5211
+#: apps/configuration/configuration_translations.py:5223
 msgctxt "technologies label"
 msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
 "person’s view"
 msgstr "ຈຸດແຂງ / ຈຸດດີ / ໂອກາດ ຈາກທັດສະນະຂອງຜູ້ປ້ອນຂໍ້ມູນ ຫຼື ບຸກຄົນສຳຄັນ"
 
-#: apps/configuration/configuration_translations.py:5212
+#: apps/configuration/configuration_translations.py:5224
 msgctxt "cca label"
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "ຈຸດອ່ອນ / ຂໍ້ເສຍ / ຄວາມສ່ຽງ"
 
-#: apps/configuration/configuration_translations.py:5213
+#: apps/configuration/configuration_translations.py:5225
 msgctxt "watershed label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the land user’s / watershed user’s view"
 msgstr "ຈຸດອ່ອນ / ຂໍ້ເສຍ / ຄວາມສ່ຽງໃນມຸມມອງຂອງຜູ້ນໍາໃຊ້ທີ່ດິນ / ໃນມຸມມອງຂອງຜູ້ນໍາໃຊ້ນໍ້າ"
 
-#: apps/configuration/configuration_translations.py:5215
+#: apps/configuration/configuration_translations.py:5227
 msgctxt "approaches label"
 msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
 msgstr "ຈຸດອ່ອນ / ຂໍ້ເສຍ / ຄວາມສ່ຽງໃນມູມມອງຂອງຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5217
+#: apps/configuration/configuration_translations.py:5229
 msgctxt "technologies label"
 msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
 msgstr "ຈຸດອ່ອນ / ຂໍ້ເສຍ / ຄວາມສ່ຽງໃນມຸມມອງຂອງຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5219
+#: apps/configuration/configuration_translations.py:5231
 msgctxt "watershed label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
 "person’s view"
 msgstr "ຈຸດອ່ອນ / ຂໍ້ບົກຜ່ອງ / ຄວາມສ່ຽງ ຈາກທັດສະນະຂອງຜູ້ປ້ອນຂໍ້ມູນ ຫຼື ບຸກຄົນສຳຄັນ"
 
-#: apps/configuration/configuration_translations.py:5220
+#: apps/configuration/configuration_translations.py:5232
 msgctxt "approaches label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
 "person’s view"
 msgstr "ຈຸດອ່ອນ ຫຼື ຂໍ້ເສຍ ຫຼື ຄວາມສ່ຽງ ໃນມຸມມອງຂອງ ຜູ້ສັງລວມຂໍ້ມູນ ຫຼື ບັນດາຜູ້ຕອບແບບສອບຖາມ"
 
-#: apps/configuration/configuration_translations.py:5221
+#: apps/configuration/configuration_translations.py:5233
 msgctxt "technologies label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
 "person’s view"
 msgstr "ຈຸດອ່ອນ/ຂໍ້ບົກຜ່ອງ/ຄວາມສ່ຽງ ຈາກທັດສະນະຂອງຜູ້ປ້ອນຂໍ້ມູນ ຫຼື ບຸກຄົນສຳຄັນ"
 
-#: apps/configuration/configuration_translations.py:5222
+#: apps/configuration/configuration_translations.py:5234
 msgctxt "cca label"
 msgid "How can they be overcome?"
 msgstr "ມີວິທີການແກ້ໄຂຄືແນວໃດ?"
 
-#: apps/configuration/configuration_translations.py:5223
+#: apps/configuration/configuration_translations.py:5235
 msgctxt "watershed label"
 msgid "How can they be overcome?"
 msgstr "ມີວິທີການແກ້ໄຂຄືແນວໃດ?"
 
-#: apps/configuration/configuration_translations.py:5224
+#: apps/configuration/configuration_translations.py:5236
 msgctxt "approaches label"
 msgid "How can they be overcome?"
 msgstr "ມີວິທີການແກ້ໄຂຄືແນວໃດ?"
 
-#: apps/configuration/configuration_translations.py:5225
+#: apps/configuration/configuration_translations.py:5237
 msgctxt "technologies label"
 msgid "How can they be overcome?"
 msgstr "ມີວິທີການແກ້ໄຂຄືແນວໃດ?"
 
-#: apps/configuration/configuration_translations.py:5226
+#: apps/configuration/configuration_translations.py:5238
 msgctxt "approaches label"
 msgid "Comments, short description"
 msgstr "ຄວາມຄິດເຫັນ, ຄໍາອະທິບາຍຫຍໍ້"
 
-#: apps/configuration/configuration_translations.py:5227
+#: apps/configuration/configuration_translations.py:5239
 msgctxt "technologies label"
 msgid "Comments, short description"
 msgstr "ຄວາມຄິດເຫັນ, ຄໍາອະທິບາຍຫຍໍ້"
 
-#: apps/configuration/configuration_translations.py:5230
+#: apps/configuration/configuration_translations.py:5242
 msgctxt "approaches label"
 msgid "Name of videographer"
 msgstr "ຊື່ຂອງຜູ້ຖ່າຍວີດີໂອ"
 
-#: apps/configuration/configuration_translations.py:5231
+#: apps/configuration/configuration_translations.py:5243
 msgctxt "technologies label"
 msgid "Name of videographer"
 msgstr "ຊື່ຂອງຜູ້ຖ່າຍວີດີໂອ"
 
-#: apps/configuration/configuration_translations.py:5232
+#: apps/configuration/configuration_translations.py:5244
 msgctxt "cca label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr "ວິທີການ / ແຫຼ່ງທີ່ມາຂອງຂໍ້ມູນຂ່າວສານທີ່ນໍາໃຊ້ ມາຈາກໃສ?"
 
-#: apps/configuration/configuration_translations.py:5233
+#: apps/configuration/configuration_translations.py:5245
 msgctxt "approaches label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr "ວິທີການ / ແຫຼ່ງທີ່ມາຂອງຂໍ້ມູນຂ່າວສານທີ່ນໍາໃຊ້ ມາຈາກໃສ?"
 
-#: apps/configuration/configuration_translations.py:5234
+#: apps/configuration/configuration_translations.py:5246
 msgctxt "technologies label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr "ແມ່ນເຄື່ອງມືໂຕໃດ / ແຫຼ່ງຂໍ້ມູນຂ່າວສານ ໂຕໃດທີ່ໄດ້ນໍາໃຊ້?"
 
-#: apps/configuration/configuration_translations.py:5235
+#: apps/configuration/configuration_translations.py:5247
 #: apps/configuration/configuration_translations.py:28005
 #: apps/configuration/configuration_translations.py:28006
 #: apps/configuration/configuration_translations.py:28007
@@ -8612,74 +8762,90 @@ msgctxt "cca label"
 msgid "other (specify)"
 msgstr "ອື່ນໆ (ລະບຸ)"
 
-#: apps/configuration/configuration_translations.py:5236
+#: apps/configuration/configuration_translations.py:5248
 #: apps/configuration/configuration_translations.py:7175
 msgctxt "approaches label"
 msgid "other (specify)"
 msgstr "ອື່ນໆ (ລະບຸ)"
 
-#: apps/configuration/configuration_translations.py:5240
+#: apps/configuration/configuration_translations.py:5252
 msgctxt "cca label"
 msgid "Locally used name"
 msgstr "ຊື່ໃນພາສາທ້ອງຖິ່ນ"
 
-#: apps/configuration/configuration_translations.py:5241
+#: apps/configuration/configuration_translations.py:5253
 msgctxt "unccd label"
 msgid "Local name"
 msgstr "ຊື່ທ້ອງຖິ່ນ"
 
-#: apps/configuration/configuration_translations.py:5242
+#: apps/configuration/configuration_translations.py:5254
 msgctxt "watershed label"
 msgid "Locally used name"
 msgstr "ຊື່ທີ່ໃຊ້ຢູ່ໃນທ້ອງຖິ່ນ"
 
-#: apps/configuration/configuration_translations.py:5243
+#: apps/configuration/configuration_translations.py:5255
 msgctxt "approaches label"
 msgid "Locally used name"
 msgstr "ຊື່ໃນພາສາທ້ອງຖິ່ນ"
 
-#: apps/configuration/configuration_translations.py:5244
+#: apps/configuration/configuration_translations.py:5256
 msgctxt "technologies label"
 msgid "Locally used name"
 msgstr "ຊື່ໃນພາສາທ້ອງຖິ່ນ"
 
-#: apps/configuration/configuration_translations.py:5245
+#: apps/configuration/configuration_translations.py:5257
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Locally used name"
+msgctxt "cbp label"
+msgid "Locally used name"
+msgstr "ຊື່ໃນພາສາທ້ອງຖິ່ນ"
+
+#: apps/configuration/configuration_translations.py:5258
 msgctxt "watershed label"
 msgid "General remarks regarding photos"
 msgstr "ຂໍ້ສັງເກດໂດຍທົ່ວໄປກ່ຽວກັບການຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5246
+#: apps/configuration/configuration_translations.py:5259
 msgctxt "approaches label"
 msgid "General remarks regarding photos"
 msgstr "ຂໍ້ສັງເກດໂດຍທົ່ວໄປກ່ຽວກັບການຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5247
+#: apps/configuration/configuration_translations.py:5260
 msgctxt "technologies label"
 msgid "General remarks regarding photos"
 msgstr "ຂໍ້ສັງເກດທົ່ວໄປທີ່ກ່ຽວກັບຮູບພາບ"
 
-#: apps/configuration/configuration_translations.py:5248
+#: apps/configuration/configuration_translations.py:5261
 msgctxt "cca label"
 msgid "Specify the key resource person"
 msgstr "ໃຫ້ບອກແຈ້ງ ເຖິງບຸກຄົນທີ່ສຳຄັນ "
 
-#: apps/configuration/configuration_translations.py:5249
+#: apps/configuration/configuration_translations.py:5262
 msgctxt "watershed label"
 msgid "Specify the key resource person"
 msgstr "ໃຫ້ບອກແຈ້ງ ເຖິງບຸກຄົນທີ່ສຳຄັນ "
 
-#: apps/configuration/configuration_translations.py:5250
+#: apps/configuration/configuration_translations.py:5263
 msgctxt "approaches label"
 msgid "Specify the key resource person"
 msgstr "ບອກເຖິງ ຜູ້ທີ່ຕອບແບບສອບຖາມ "
 
-#: apps/configuration/configuration_translations.py:5251
+#: apps/configuration/configuration_translations.py:5264
 msgctxt "technologies label"
 msgid "Specify the key resource person"
 msgstr "ໃຫ້ບອກແຈ້ງ ເຖິງບຸກຄົນທີ່ສຳຄັນ "
 
-#: apps/configuration/configuration_translations.py:5252
-#: apps/configuration/configuration_translations.py:5253
+#: apps/configuration/configuration_translations.py:5265
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Specify the key resource person"
+msgctxt "cbp label"
+msgid "Specify the key resource person"
+msgstr "ໃຫ້ບອກແຈ້ງ ເຖິງບຸກຄົນທີ່ສຳຄັນ "
+
+#: apps/configuration/configuration_translations.py:5266
+#: apps/configuration/configuration_translations.py:5267
 msgctxt "cca label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
@@ -8688,8 +8854,8 @@ msgstr ""
 "ຊື່ໂຄງການ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ / ປະເມີນ ເຕັກໂນໂລຢີ  "
 "ໃນການປັບຕົວຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5254
-#: apps/configuration/configuration_translations.py:5255
+#: apps/configuration/configuration_translations.py:5268
+#: apps/configuration/configuration_translations.py:5269
 msgctxt "cca helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -8698,29 +8864,29 @@ msgstr ""
 "ຖ້າຫາກໂຄງການ ແມ່ນບໍ່ໄດ້ຢູ່ໃນລາຍຊື່ດັ່ງລຸ່ມນີ້ ແມ່ນໃຫ້ຕິດຕໍ່ກັບຫາທາງກອງເລຂາ WOCAT (wocat@cde.unibe."
 "ch)."
 
-#: apps/configuration/configuration_translations.py:5256
-#: apps/configuration/configuration_translations.py:5257
+#: apps/configuration/configuration_translations.py:5270
+#: apps/configuration/configuration_translations.py:5271
 msgctxt "wocat label"
 msgid "Name of project which facilitated the documentation/ evaluation"
 msgstr ""
 "ຊື່ຂອງໂຄງການ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ ຫຼື ປະເມີນດ້ານແນວທາງ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5258
-#: apps/configuration/configuration_translations.py:5259
+#: apps/configuration/configuration_translations.py:5272
+#: apps/configuration/configuration_translations.py:5273
 msgctxt "wocat label_filter"
 msgid "Project"
 msgstr "​ໂຄງ​ການ"
 
-#: apps/configuration/configuration_translations.py:5260
-#: apps/configuration/configuration_translations.py:5261
+#: apps/configuration/configuration_translations.py:5274
+#: apps/configuration/configuration_translations.py:5275
 msgctxt "watershed label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
 "watershed (if relevant)"
 msgstr "ຊື່ໂຄງການ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ/ປະເມີນອ່າງເກັບນໍ້າ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5262
-#: apps/configuration/configuration_translations.py:5263
+#: apps/configuration/configuration_translations.py:5276
+#: apps/configuration/configuration_translations.py:5277
 msgctxt "watershed helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -8729,8 +8895,8 @@ msgstr ""
 "ຖ້າຫາກໂຄງການ ແມ່ນບໍ່ໄດ້ຢູ່ໃນລາຍຊື່ດັ່ງລຸ່ມນີ້ ແມ່ນໃຫ້ຕິດຕໍ່ກັບຫາທາງກອງເລຂາ WOCAT (wocat@cde.unibe."
 "ch)."
 
-#: apps/configuration/configuration_translations.py:5264
-#: apps/configuration/configuration_translations.py:5265
+#: apps/configuration/configuration_translations.py:5278
+#: apps/configuration/configuration_translations.py:5279
 msgctxt "approaches label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
@@ -8738,8 +8904,8 @@ msgid ""
 msgstr ""
 "ຊື່ຂອງໂຄງການ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ ຫຼື ປະເມີນດ້ານແນວທາງ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5266
-#: apps/configuration/configuration_translations.py:5267
+#: apps/configuration/configuration_translations.py:5280
+#: apps/configuration/configuration_translations.py:5281
 msgctxt "approaches helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -8748,22 +8914,22 @@ msgstr ""
 "ຖ້າຫາກ ຊື່ໂຄງການຂອງທ່ານ ບໍ່ໄດ້ລະບຸໄວ້ໃນລາຍການທີ່ມີໃຫ້ເລືອກໃນລາຍການຂ້າງລຸ່ມນີ້  ແມ່ນໃຫ້ ຕິດຕໍ່ພົວພັນ ກັບ "
 "ກອງເລຂາ WOCAT (wocat@cde.unibe.ch)"
 
-#: apps/configuration/configuration_translations.py:5268
-#: apps/configuration/configuration_translations.py:5269
+#: apps/configuration/configuration_translations.py:5282
+#: apps/configuration/configuration_translations.py:5283
 msgctxt "approaches label_filter"
 msgid "Project"
 msgstr "​ໂຄງ​ການ"
 
-#: apps/configuration/configuration_translations.py:5270
-#: apps/configuration/configuration_translations.py:5271
+#: apps/configuration/configuration_translations.py:5284
+#: apps/configuration/configuration_translations.py:5285
 msgctxt "technologies label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
 "Technology (if relevant)"
 msgstr "ຊື່ໂຄງການ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ/ປະເມີນ ເຕັກໂນໂລຢີ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5272
-#: apps/configuration/configuration_translations.py:5273
+#: apps/configuration/configuration_translations.py:5286
+#: apps/configuration/configuration_translations.py:5287
 msgctxt "technologies helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -8772,14 +8938,42 @@ msgstr ""
 "ຖ້າຫາກໂຄງການ ແມ່ນບໍ່ໄດ້ຢູ່ໃນລາຍຊື່ດັ່ງລຸ່ມນີ້ ແມ່ນໃຫ້ຕິດຕໍ່ກັບຫາທາງກອງເລຂາ WOCAT (wocat@cde.unibe."
 "ch)."
 
-#: apps/configuration/configuration_translations.py:5274
-#: apps/configuration/configuration_translations.py:5275
+#: apps/configuration/configuration_translations.py:5288
+#: apps/configuration/configuration_translations.py:5289
 msgctxt "technologies label_filter"
 msgid "Project"
 msgstr "​ໂຄງ​ການ"
 
-#: apps/configuration/configuration_translations.py:5276
-#: apps/configuration/configuration_translations.py:5277
+#: apps/configuration/configuration_translations.py:5290
+#: apps/configuration/configuration_translations.py:5291
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid ""
+#| "Name of project which facilitated the documentation/ evaluation of the "
+#| "watershed (if relevant)"
+msgctxt "cbp label"
+msgid ""
+"Name of project which facilitated the documentation/ evaluation of the "
+"Carbon Benefits Project (CBP) Assessment (if relevant)"
+msgstr "ຊື່ໂຄງການ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ/ປະເມີນອ່າງເກັບນໍ້າ (ຖ້າກ່ຽວຂ້ອງ)"
+
+#: apps/configuration/configuration_translations.py:5292
+#: apps/configuration/configuration_translations.py:5293
+#, fuzzy
+#| msgctxt "cca helptext"
+#| msgid ""
+#| "If your project is not listed in the dropdown, please contact the WOCAT "
+#| "secretariat (wocat@cde.unibe.ch)."
+msgctxt "cbp helptext"
+msgid ""
+"If your project is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"ຖ້າຫາກໂຄງການ ແມ່ນບໍ່ໄດ້ຢູ່ໃນລາຍຊື່ດັ່ງລຸ່ມນີ້ ແມ່ນໃຫ້ຕິດຕໍ່ກັບຫາທາງກອງເລຂາ WOCAT (wocat@cde.unibe."
+"ch)."
+
+#: apps/configuration/configuration_translations.py:5294
+#: apps/configuration/configuration_translations.py:5295
 msgctxt "cca label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
@@ -8788,8 +8982,8 @@ msgstr ""
 "ຊື່ສະຖາບັນ  (ຫຼາຍສະຖາບັນ) ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະ ສານ / ປະເມີນ ເຕັກໂນໂລຢີ "
 "ໃນການປັບຕົວຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ​ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5278
-#: apps/configuration/configuration_translations.py:5279
+#: apps/configuration/configuration_translations.py:5296
+#: apps/configuration/configuration_translations.py:5297
 msgctxt "cca helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
@@ -8798,21 +8992,21 @@ msgstr ""
 "ຖ້າຫາກຊື່ໂຄງການ ບໍ່ໄດ້ລະບຸໄວ້ໃນລາຍການທີ່ກ່າວມາ ແມ່ນໃຫ້ຕິດຕໍ່ພົວພັນກັບກອງເລຂາ WOCAT (wocat@cde."
 "unibe.ch)"
 
-#: apps/configuration/configuration_translations.py:5280
-#: apps/configuration/configuration_translations.py:5281
+#: apps/configuration/configuration_translations.py:5298
+#: apps/configuration/configuration_translations.py:5299
 msgctxt "wocat label"
 msgid "Name of the institution which facilitated the documentation/ evaluation"
 msgstr ""
 "ຊື່ຂອງ ສະຖາບັນການຈັດຕັ້ງ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ ຫຼື ປະເມີນແນວທາງ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5282
-#: apps/configuration/configuration_translations.py:5283
+#: apps/configuration/configuration_translations.py:5300
+#: apps/configuration/configuration_translations.py:5301
 msgctxt "wocat label_filter"
 msgid "Institution"
 msgstr "ສະຖາບັນ"
 
-#: apps/configuration/configuration_translations.py:5284
-#: apps/configuration/configuration_translations.py:5285
+#: apps/configuration/configuration_translations.py:5302
+#: apps/configuration/configuration_translations.py:5303
 msgctxt "watershed label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
@@ -8820,8 +9014,8 @@ msgid ""
 msgstr ""
 "ຊື່ສະຖາບັນ (ຫຼາຍສະຖາບັນ) ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ/ປະເມີນອ່າງເກັບນໍ້າ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5286
-#: apps/configuration/configuration_translations.py:5287
+#: apps/configuration/configuration_translations.py:5304
+#: apps/configuration/configuration_translations.py:5305
 msgctxt "watershed helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
@@ -8830,8 +9024,8 @@ msgstr ""
 "ຖ້າຫາກຊື່ໂຄງການ ບໍ່ໄດ້ລະບຸໄວ້ໃນລາຍການທີ່ກ່າວມາ ແມ່ນໃຫ້ຕິດຕໍ່ພົວພັນກັບກອງເລຂາ WOCAT (wocat@cde."
 "unibe.ch)"
 
-#: apps/configuration/configuration_translations.py:5288
-#: apps/configuration/configuration_translations.py:5289
+#: apps/configuration/configuration_translations.py:5306
+#: apps/configuration/configuration_translations.py:5307
 msgctxt "approaches label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
@@ -8839,8 +9033,8 @@ msgid ""
 msgstr ""
 "ຊື່ຂອງ ສະຖາບັນການຈັດຕັ້ງ ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ ຫຼື ປະເມີນແນວທາງ (ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5290
-#: apps/configuration/configuration_translations.py:5291
+#: apps/configuration/configuration_translations.py:5308
+#: apps/configuration/configuration_translations.py:5309
 msgctxt "approaches helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
@@ -8849,14 +9043,14 @@ msgstr ""
 "ຖ້າຫາກຊື່ໂຄງການ ບໍ່ໄດ້ລະບຸໄວ້ໃນລາຍການທີ່ກ່າວມາ ແມ່ນໃຫ້ຕິດຕໍ່ພົວພັນກັບກອງເລຂາ WOCAT (wocat@cde."
 "unibe.ch)"
 
-#: apps/configuration/configuration_translations.py:5292
-#: apps/configuration/configuration_translations.py:5293
+#: apps/configuration/configuration_translations.py:5310
+#: apps/configuration/configuration_translations.py:5311
 msgctxt "approaches label_filter"
 msgid "Institution"
 msgstr "ສະຖາບັນ"
 
-#: apps/configuration/configuration_translations.py:5294
-#: apps/configuration/configuration_translations.py:5295
+#: apps/configuration/configuration_translations.py:5312
+#: apps/configuration/configuration_translations.py:5313
 msgctxt "technologies label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
@@ -8865,8 +9059,8 @@ msgstr ""
 "ຊື່ສະຖາບັນ (ຫຼາຍສະຖາບັນ) ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ / ປະເມີນ ເຕັກໂນໂລຢີ "
 "(ຖ້າກ່ຽວຂ້ອງ)"
 
-#: apps/configuration/configuration_translations.py:5296
-#: apps/configuration/configuration_translations.py:5297
+#: apps/configuration/configuration_translations.py:5314
+#: apps/configuration/configuration_translations.py:5315
 msgctxt "technologies helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
@@ -8875,128 +9069,162 @@ msgstr ""
 "ຖ້າຫາກຊື່ໂຄງການ ບໍ່ໄດ້ລະບູໄວ້ໃນລາຍການທີ່ກ່າວມາ ແມ່ນໃຫ້ຕິດຕໍ່ພົວພັນກັບກອງເລຂາ WOCAT (wocat@cde."
 "unibe.ch)"
 
-#: apps/configuration/configuration_translations.py:5298
-#: apps/configuration/configuration_translations.py:5299
+#: apps/configuration/configuration_translations.py:5316
+#: apps/configuration/configuration_translations.py:5317
 msgctxt "technologies label_filter"
 msgid "Institution"
 msgstr "ສະຖາບັນ"
 
-#: apps/configuration/configuration_translations.py:5300
-msgctxt "cca label"
-msgid "Specify (e.g. number of informants)"
-msgstr "ລະບຸ  (ຕົວຢ່າງ: ຈໍານວນຂໍ້ມູນ)"
-
-#: apps/configuration/configuration_translations.py:5301
-msgctxt "approaches label"
-msgid "Specify (e.g. number of informants)"
-msgstr "ລະບຸ  (ຕົວຢ່າງ: ຈໍານວນຂໍ້ມູນ)"
-
-#: apps/configuration/configuration_translations.py:5302
-msgctxt "technologies label"
-msgid "Specify (e.g. number of informants)"
-msgstr "ລະບຸ  (ຕົວຢ່າງ: ຈໍານວນຂໍ້ມູນ)"
-
-#: apps/configuration/configuration_translations.py:5303
-msgctxt "cca label"
-msgid "Title, author, year, ISBN"
-msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
-
-#: apps/configuration/configuration_translations.py:5304
-msgctxt "watershed label"
-msgid "Title, author, year, ISBN"
-msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
-
-#: apps/configuration/configuration_translations.py:5305
-msgctxt "approaches label"
-msgid "Title, author, year, ISBN"
-msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
-
-#: apps/configuration/configuration_translations.py:5306
-msgctxt "technologies label"
-msgid "Title, author, year, ISBN"
-msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
-
-#: apps/configuration/configuration_translations.py:5307
-msgctxt "cca label"
-msgid "Available from where? Costs?"
-msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
-
-#: apps/configuration/configuration_translations.py:5308
-msgctxt "watershed label"
-msgid "Available from where? Costs?"
-msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
-
-#: apps/configuration/configuration_translations.py:5309
-msgctxt "approaches label"
-msgid "Available from where? Costs?"
-msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
-
-#: apps/configuration/configuration_translations.py:5310
-msgctxt "technologies label"
-msgid "Available from where? Costs?"
-msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
-
-#: apps/configuration/configuration_translations.py:5311
-msgctxt "cca label"
-msgid "Title/ description"
-msgstr "ຫົວຂໍ້ / ພັນລະນາ"
-
-#: apps/configuration/configuration_translations.py:5312
-msgctxt "watershed label"
-msgid "Title/ description"
-msgstr "ຫົວຂໍ້ / ພັນລະນາ"
-
-#: apps/configuration/configuration_translations.py:5313
-msgctxt "approaches label"
-msgid "Title/ description"
-msgstr "ຫົວຂໍ້ / ພັນລະນາ"
-
-#: apps/configuration/configuration_translations.py:5314
-msgctxt "technologies label"
-msgid "Title/ description"
-msgstr "ຫົວຂໍ້ / ພັນລະນາ"
-
-#: apps/configuration/configuration_translations.py:5315
-msgctxt "cca label"
-msgid "URL"
-msgstr "URL"
-
-#: apps/configuration/configuration_translations.py:5316
-msgctxt "watershed label"
-msgid "URL"
-msgstr "URL"
-
-#: apps/configuration/configuration_translations.py:5317
-msgctxt "approaches label"
-msgid "URL"
-msgstr "URL"
-
 #: apps/configuration/configuration_translations.py:5318
-msgctxt "technologies label"
-msgid "URL"
-msgstr "URL"
-
 #: apps/configuration/configuration_translations.py:5319
-msgctxt "cca label"
-msgid "When were the data compiled (in the field)?"
-msgstr "ເມື່ອໃດທີ່ໄດ້ສັງລວມຂໍ້ມູນ (ຢູ່ພາກສະໜາມ)?"
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid ""
+#| "Name of the institution(s) which facilitated the documentation/ "
+#| "evaluation of the watershed (if relevant)"
+msgctxt "cbp label"
+msgid ""
+"Name of the institution(s) which facilitated the documentation/ evaluation "
+"of the Carbon Benefits Project (CBP) Assessment (if relevant)"
+msgstr ""
+"ຊື່ສະຖາບັນ (ຫຼາຍສະຖາບັນ) ທີ່ອໍານວຍຄວາມສະດວກ ໃນການສ້າງເອກກະສານ/ປະເມີນອ່າງເກັບນໍ້າ (ຖ້າກ່ຽວຂ້ອງ)"
 
 #: apps/configuration/configuration_translations.py:5320
+#: apps/configuration/configuration_translations.py:5321
+#, fuzzy
+#| msgctxt "cca helptext"
+#| msgid ""
+#| "If your institution is not listed in the dropdown, please contact the "
+#| "WOCAT secretariat (wocat@cde.unibe.ch)."
+msgctxt "cbp helptext"
+msgid ""
+"If your institution is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"ຖ້າຫາກຊື່ໂຄງການ ບໍ່ໄດ້ລະບຸໄວ້ໃນລາຍການທີ່ກ່າວມາ ແມ່ນໃຫ້ຕິດຕໍ່ພົວພັນກັບກອງເລຂາ WOCAT (wocat@cde."
+"unibe.ch)"
+
+#: apps/configuration/configuration_translations.py:5322
+msgctxt "cca label"
+msgid "Specify (e.g. number of informants)"
+msgstr "ລະບຸ  (ຕົວຢ່າງ: ຈໍານວນຂໍ້ມູນ)"
+
+#: apps/configuration/configuration_translations.py:5323
+msgctxt "approaches label"
+msgid "Specify (e.g. number of informants)"
+msgstr "ລະບຸ  (ຕົວຢ່າງ: ຈໍານວນຂໍ້ມູນ)"
+
+#: apps/configuration/configuration_translations.py:5324
+msgctxt "technologies label"
+msgid "Specify (e.g. number of informants)"
+msgstr "ລະບຸ  (ຕົວຢ່າງ: ຈໍານວນຂໍ້ມູນ)"
+
+#: apps/configuration/configuration_translations.py:5325
+msgctxt "cca label"
+msgid "Title, author, year, ISBN"
+msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
+
+#: apps/configuration/configuration_translations.py:5326
+msgctxt "watershed label"
+msgid "Title, author, year, ISBN"
+msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
+
+#: apps/configuration/configuration_translations.py:5327
+msgctxt "approaches label"
+msgid "Title, author, year, ISBN"
+msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
+
+#: apps/configuration/configuration_translations.py:5328
+msgctxt "technologies label"
+msgid "Title, author, year, ISBN"
+msgstr "ຫົວຂໍ້, ຜູ້ຂຽນ, ປີ, ISBN"
+
+#: apps/configuration/configuration_translations.py:5329
+msgctxt "cca label"
+msgid "Available from where? Costs?"
+msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
+
+#: apps/configuration/configuration_translations.py:5330
+msgctxt "watershed label"
+msgid "Available from where? Costs?"
+msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
+
+#: apps/configuration/configuration_translations.py:5331
+msgctxt "approaches label"
+msgid "Available from where? Costs?"
+msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
+
+#: apps/configuration/configuration_translations.py:5332
+msgctxt "technologies label"
+msgid "Available from where? Costs?"
+msgstr "ມີຢູ່ໃສ?ມູນຄ່າເທົ່າໃດ?"
+
+#: apps/configuration/configuration_translations.py:5333
+msgctxt "cca label"
+msgid "Title/ description"
+msgstr "ຫົວຂໍ້ / ພັນລະນາ"
+
+#: apps/configuration/configuration_translations.py:5334
+msgctxt "watershed label"
+msgid "Title/ description"
+msgstr "ຫົວຂໍ້ / ພັນລະນາ"
+
+#: apps/configuration/configuration_translations.py:5335
+msgctxt "approaches label"
+msgid "Title/ description"
+msgstr "ຫົວຂໍ້ / ພັນລະນາ"
+
+#: apps/configuration/configuration_translations.py:5336
+msgctxt "technologies label"
+msgid "Title/ description"
+msgstr "ຫົວຂໍ້ / ພັນລະນາ"
+
+#: apps/configuration/configuration_translations.py:5337
+msgctxt "cca label"
+msgid "URL"
+msgstr "URL"
+
+#: apps/configuration/configuration_translations.py:5338
+msgctxt "watershed label"
+msgid "URL"
+msgstr "URL"
+
+#: apps/configuration/configuration_translations.py:5339
+msgctxt "approaches label"
+msgid "URL"
+msgstr "URL"
+
+#: apps/configuration/configuration_translations.py:5340
+msgctxt "technologies label"
+msgid "URL"
+msgstr "URL"
+
+#: apps/configuration/configuration_translations.py:5341
+msgctxt "cca label"
+msgid "When were the data compiled (in the field)?"
+msgstr "ເມື່ອໃດທີ່ໄດ້ສັງລວມຂໍ້ມູນ (ຢູ່ພາກສະໜາມ)?"
+
+#: apps/configuration/configuration_translations.py:5342
 msgctxt "watershed label"
 msgid "When were the data compiled (in the field)?"
 msgstr "ເມື່ອໃດທີ່ໄດ້ສັງລວມຂໍ້ມູນ (ຢູ່ພາກສະໜາມ)?"
 
-#: apps/configuration/configuration_translations.py:5321
+#: apps/configuration/configuration_translations.py:5343
 msgctxt "approaches label"
 msgid "When were the data compiled (in the field)?"
 msgstr "ເມື່ອໃດທີ່ໄດ້ສັງລວມຂໍ້ມູນ (ຢູ່ພາກສະໜາມ)?"
 
-#: apps/configuration/configuration_translations.py:5322
+#: apps/configuration/configuration_translations.py:5344
 msgctxt "technologies label"
 msgid "When were the data compiled (in the field)?"
 msgstr "ເມື່ອໃດທີ່ໄດ້ສັງລວມຂໍ້ມູນ (ຢູ່ພາກສະໜາມ)?"
 
-#: apps/configuration/configuration_translations.py:5323
+#: apps/configuration/configuration_translations.py:5345
+msgctxt "cbp label"
+msgid "When was the Carbon Benefits Project (CBP) Assessment compiled?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5346
 msgctxt "cca label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9005,7 +9233,7 @@ msgstr ""
 "ຜູ້ປ້ອນຂໍ້ມູນ ແລະ ບຸກຄົນສຳຄັນ ທີ່ໃຫ້ຂໍ້ມູນ (ຫຼາຍ) ຍິນຍອມ ຕາມເງື່ອນໄຂ "
 "ໃນການນຳໃຊ້ຂໍ້ມູນເພື່ອສ້າງເປັນເອກກະສານຂອງ WOCAT"
 
-#: apps/configuration/configuration_translations.py:5324
+#: apps/configuration/configuration_translations.py:5347
 msgctxt "cca helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9015,7 +9243,7 @@ msgstr ""
 "<strong>ໝາຍເຫດ</strong>:ຖ້າຫາກທ່ານບໍ່ຍອມຮັບເງື່ອນໄຂ ໃນການນຳໃຊ້ຂໍ້ມູນ ໂດຍຜ່ານ WOCAT "
 "ທາງກອງເລຂາ WOCAT ແມ່ນຈະບໍ່ເຫັນຂໍ້ມູນຂອງທ່ານ ແລະ ຂໍ້ມູນຂອງທ່ານ ກໍ່ຈະບໍ່ສາມາດເຜີຍແຜ່ໄດ້."
 
-#: apps/configuration/configuration_translations.py:5325
+#: apps/configuration/configuration_translations.py:5348
 msgctxt "watershed label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9024,7 +9252,7 @@ msgstr ""
 "ຜູ້ປ້ອນຂໍ້ມູນ ແລະ ບຸກຄົນສຳຄັນ ທີ່ໃຫ້ຂໍ້ມູນ (ຫຼາຍ) ຍິນຍອມ ຕາມເງື່ອນໄຂ ໃນການນຳໃຊ້ຂໍ້ມູນ "
 "ເພື່ອສ້າງເປັນເອກກະສານຂອງ WOCAT"
 
-#: apps/configuration/configuration_translations.py:5326
+#: apps/configuration/configuration_translations.py:5349
 msgctxt "watershed helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9034,7 +9262,7 @@ msgstr ""
 "<strong>ໝາຍເຫດ</strong>:ຖ້າຫາກທ່ານບໍ່ຍອມຮັບເງື່ອນໄຂ ໃນການນຳໃຊ້ຂໍ້ມູນ ໂດຍຜ່ານ WOCAT "
 "ທາງກອງເລຂາ WOCAT ແມ່ນຈະບໍ່ເຫັນຂໍ້ມູນຂອງທ່ານ ແລະ ຂໍ້ມູນຂອງທ່ານ ກໍ່ຈະບໍ່ສາມາດເຜີຍແຜ່ໄດ້."
 
-#: apps/configuration/configuration_translations.py:5327
+#: apps/configuration/configuration_translations.py:5350
 msgctxt "approaches label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9043,7 +9271,7 @@ msgstr ""
 "ຜູ້ສັງລວມ ແລະ ບັນດາຜູ້ຕອບແບບສອບຖາມ ຍອມຮັບໃນເງື່ອນໄຂ ການນໍາໃຊ້ຂໍ້ມູນເອກະສານ ທີ່ສ້າງຂື້ນ ໂດຍຜ່ານ "
 "ອົງການ WOCAT"
 
-#: apps/configuration/configuration_translations.py:5328
+#: apps/configuration/configuration_translations.py:5351
 msgctxt "approaches helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9053,7 +9281,7 @@ msgstr ""
 "<strong>ຂໍ້ສັງເກດ</strong>: ຖ້າທ່ານບໍ່ຍອມຮັບໃນເງື່ອນໄຂ ໃນການນໍາໃຊ້ຂໍ້ມູນເອກກະສານ ທີ່ສ້າງຂື້ນ "
 "ໂດຍຜ່ານ ອົງການ WOCAT ຂໍ້ມູນຂອງທ່ານກໍ່ຈະບໍ່ຖືກຍອມຮັບ ຈາກ ກອງເລຂາ WOCAT ແລະ ກໍ່ຈະບໍ່ຖືກເຜີຍແຜ່."
 
-#: apps/configuration/configuration_translations.py:5329
+#: apps/configuration/configuration_translations.py:5352
 msgctxt "technologies label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9062,7 +9290,7 @@ msgstr ""
 "ຜູ້ປ້ອນຂໍ້ມູນ ແລະ ບຸກຄົນສຳຄັນ ທີ່ໃຫ້ຂໍ້ມູນ (ຫຼາຍ) ຍິນຍອມ ຕາມເງື່ອນໄຂ ໃນການນຳໃຊ້ຂໍ້ມູນ "
 "ເພື່ອສ້າງເປັນເອກກະສານຂອງ WOCAT"
 
-#: apps/configuration/configuration_translations.py:5330
+#: apps/configuration/configuration_translations.py:5353
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9072,47 +9300,77 @@ msgstr ""
 "<strong>ໝາຍເຫດ</strong>:ຖ້າຫາກທ່ານບໍ່ຍອມຮັບເງື່ອນໄຂ ໃນການນຳໃຊ້ຂໍ້ມູນ ໂດຍຜ່ານ WOCAT "
 "ທາງກອງເລຂາ WOCAT ແມ່ນຈະບໍ່ເຫັນຂໍ້ມູນຂອງທ່ານ ແລະ ຂໍ້ມູນຂອງທ່ານ ກໍ່ຈະບໍ່ສາມາດເຜີຍແຜ່ໄດ້."
 
-#: apps/configuration/configuration_translations.py:5331
+#: apps/configuration/configuration_translations.py:5354
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid ""
+#| "The compiler and key resource person(s) accept the conditions regarding "
+#| "the use of data documented through WOCAT"
+msgctxt "cbp label"
+msgid ""
+"The compiler and key resource person(s) accept the conditions regarding the "
+"use of data documented through WOCAT"
+msgstr ""
+"ຜູ້ປ້ອນຂໍ້ມູນ ແລະ ບຸກຄົນສຳຄັນ ທີ່ໃຫ້ຂໍ້ມູນ (ຫຼາຍ) ຍິນຍອມ ຕາມເງື່ອນໄຂ "
+"ໃນການນຳໃຊ້ຂໍ້ມູນເພື່ອສ້າງເປັນເອກກະສານຂອງ WOCAT"
+
+#: apps/configuration/configuration_translations.py:5355
+#, fuzzy
+#| msgctxt "cca helptext"
+#| msgid ""
+#| "<strong>Note</strong>: If you do not accept the conditions regarding the "
+#| "use of data documented through WOCAT your data will not be accepted by "
+#| "the WOCAT secretariat and it will not be published."
+msgctxt "cbp helptext"
+msgid ""
+"<strong>Note</strong>: If you do not accept the conditions regarding the use "
+"of data documented through WOCAT your data will not be accepted by the WOCAT "
+"secretariat and it will not be published."
+msgstr ""
+"<strong>ໝາຍເຫດ</strong>:ຖ້າຫາກທ່ານບໍ່ຍອມຮັບເງື່ອນໄຂ ໃນການນຳໃຊ້ຂໍ້ມູນ ໂດຍຜ່ານ WOCAT "
+"ທາງກອງເລຂາ WOCAT ແມ່ນຈະບໍ່ເຫັນຂໍ້ມູນຂອງທ່ານ ແລະ ຂໍ້ມູນຂອງທ່ານ ກໍ່ຈະບໍ່ສາມາດເຜີຍແຜ່ໄດ້."
+
+#: apps/configuration/configuration_translations.py:5356
 msgctxt "cca label"
 msgid "Address"
 msgstr "ທີ່ຢູ່"
 
-#: apps/configuration/configuration_translations.py:5332
+#: apps/configuration/configuration_translations.py:5357
 msgctxt "watershed label"
 msgid "Address"
 msgstr "ທີ່ຢູ່"
 
-#: apps/configuration/configuration_translations.py:5333
+#: apps/configuration/configuration_translations.py:5358
 msgctxt "approaches label"
 msgid "Address"
 msgstr "ທີ່ຢູ່"
 
-#: apps/configuration/configuration_translations.py:5334
+#: apps/configuration/configuration_translations.py:5359
 msgctxt "technologies label"
 msgid "Address"
 msgstr "ທີ່ຢູ່"
 
-#: apps/configuration/configuration_translations.py:5335
+#: apps/configuration/configuration_translations.py:5360
 msgctxt "watershed label"
 msgid "Center of the watershed"
 msgstr "ຈຸດສູນກາງຂອງອ່າງນໍ້າ"
 
-#: apps/configuration/configuration_translations.py:5336
+#: apps/configuration/configuration_translations.py:5361
 msgctxt "approaches label"
 msgid "Map"
 msgstr "ແຜນທີ່"
 
-#: apps/configuration/configuration_translations.py:5337
+#: apps/configuration/configuration_translations.py:5362
 msgctxt "technologies label"
 msgid "Map"
 msgstr "ແຜນທີ່"
 
-#: apps/configuration/configuration_translations.py:5338
+#: apps/configuration/configuration_translations.py:5363
 msgctxt "approaches label"
 msgid "Vimeo ID"
 msgstr "ລະຫັດວີດີໂອ Vimeo"
 
-#: apps/configuration/configuration_translations.py:5339
+#: apps/configuration/configuration_translations.py:5364
 msgctxt "approaches helptext"
 msgid ""
 "Indicate only the ID of the Vimeo video. The ID contains only numbers and "
@@ -9122,12 +9380,12 @@ msgstr ""
 "ກໍານົດເອົາພຽງແຕ່ລະຫັດຂອງ Vimeo ວິດີໂອ. ຊຶ່ງລະຫັດປະກອບດ້ວຍຈໍານວນຕົວເລກ ແລະ ສາມາດພົບເຫັນໃນ "
 "URL ຂອງວີດີໂອ, ຕົວຢ່າງ, https://vimeo.com/<strong><u>97415985</u></strong>."
 
-#: apps/configuration/configuration_translations.py:5340
+#: apps/configuration/configuration_translations.py:5365
 msgctxt "technologies label"
 msgid "Vimeo ID"
 msgstr "ລະຫັດວີດີໂອ Vimeo"
 
-#: apps/configuration/configuration_translations.py:5341
+#: apps/configuration/configuration_translations.py:5366
 msgctxt "technologies helptext"
 msgid ""
 "Indicate only the ID of the Vimeo video. The ID contains only numbers and "
@@ -9137,18 +9395,18 @@ msgstr ""
 "ກໍານົດເອົາພຽງແຕ່ລະຫັດຂອງ Vimeo ວິດີໂອ. ຊຶ່ງລະຫັດປະກອບດ້ວຍຈໍານວນຕົວເລກ ແລະ ສາມາດພົບເຫັນໃນ "
 "URL ຂອງວີດີໂອ, ຕົວຢ່າງ, https://vimeo.com/<strong><u>97415985</u></strong>."
 
-#: apps/configuration/configuration_translations.py:5342
+#: apps/configuration/configuration_translations.py:5367
 #: apps/configuration/configuration_translations.py:31025
 msgctxt "watershed label"
 msgid "Further comments"
 msgstr "ຄວາມຄິດເຫັນເພີ່ມຕື່ມ"
 
-#: apps/configuration/configuration_translations.py:5343
+#: apps/configuration/configuration_translations.py:5368
 msgctxt "approaches label"
 msgid "Further comments"
 msgstr "ຄວາມຄິດເຫັນເພີ່ມຕື່ມ"
 
-#: apps/configuration/configuration_translations.py:5344
+#: apps/configuration/configuration_translations.py:5369
 msgctxt "technologies label"
 msgid "Further comments"
 msgstr "ຄວາມຄິດເຫັນເພີ່ມຕື່ມ"
@@ -10579,11 +10837,19 @@ msgid "SLM specialist"
 msgstr "ຜຸ້ຊ່ຽວຊານ ດ້ານການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ"
 
 #: apps/configuration/configuration_translations.py:5793
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "SLM specialist"
+msgctxt "cbp label"
+msgid "SLM specialist"
+msgstr "ຜູ້ຊ່ຽວຊານ ດ້ານການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ"
+
+#: apps/configuration/configuration_translations.py:5794
 msgctxt "cca label"
 msgid "land user"
 msgstr "ຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5794
+#: apps/configuration/configuration_translations.py:5795
 msgctxt "cca helptext"
 msgid ""
 "the person/ entity who implements/ maintains the Technology. The term land "
@@ -10595,17 +10861,17 @@ msgstr ""
 "- ຊາວກະສິກອນຂະໜາດໃຫຍ່, ກຸ່ມຄົນ (ເພດ, ອາຍຸ, ສະຖານະພາບ, ຄວາມສົນໃຈ), ສະຫະກອນ,​ ບໍລິສັດ "
 "ອຸດສະຫະກໍາ (ຕົວຢ່າງ, ບໍ່ແຮ່), ສະຖາບັນ ການຈັດຕັ້ງຂອງ ລັດຖະບານ (ຕົວຢ່າງ, ປ່າໄມ້ລັດ) ແລະ ອື່ນໆ."
 
-#: apps/configuration/configuration_translations.py:5795
+#: apps/configuration/configuration_translations.py:5796
 msgctxt "watershed label"
 msgid "land user"
 msgstr "ຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5796
+#: apps/configuration/configuration_translations.py:5797
 msgctxt "approaches label"
 msgid "land user"
 msgstr "ຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5797
+#: apps/configuration/configuration_translations.py:5798
 msgctxt "approaches helptext"
 msgid ""
 "the person/ entity who implements/ maintains the Technology/ Technologies "
@@ -10618,12 +10884,12 @@ msgstr ""
 "- ຊາວກະສິກອນຂະໜາດໃຫຍ່, ກຸ່ມຄົນ (ເພດ, ອາຍຸ, ສະຖານະພາບ, ຄວາມສົນໃຈ), ສະຫະກອນ,​ "
 "ບໍລິສັດອຸດສະຫະກໍາ (ຕົວຢ່າງ, ບໍ່ແຮ່), ສະຖາບັນ ການຈັດຕັ້ງຂອງ ລັດຖະບານ (ຕົວຢ່າງ, ປ່າໄມ້ລັດ) ແລະ ອື່ນໆ."
 
-#: apps/configuration/configuration_translations.py:5798
+#: apps/configuration/configuration_translations.py:5799
 msgctxt "technologies label"
 msgid "land user"
 msgstr "ຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:5799
+#: apps/configuration/configuration_translations.py:5800
 msgctxt "technologies helptext"
 msgid ""
 "the person/ entity who implements/ maintains the Technology. The term land "
@@ -10634,6 +10900,14 @@ msgstr ""
 "ບຸກຄົນ ຜູ້ທີ່ຈັດຕັ້ງປະຕິບັດ / ບໍາລຸງຮັກສາ ເຕັກໂນໂລຢີ. ໃນຄໍາສັບຂອງຜູ້ນໍາໃຊ້ທີ່ດິນ ໝາຍເຖິງ ບຸກຄົນຂະໜາດນ້ອຍ-"
 "ຊາວກະສິກອນຂະໜາດໃຫຍ່, ກຸ່ມຄົນ (ເພດ, ອາຍຸ, ສະຖານະພາບ, ຄວາມສົນໃຈ), ສະຫະກອນ,​ ບໍລິສັດ "
 "ອຸດສະຫະກໍາ (ຕົວຢ່າງ, ບໍ່ແຮ່), ສະຖາບັນ ການຈັດຕັ້ງຂອງ ລັດຖະບານ (ຕົວຢ່າງ, ປ່າໄມ້ລັດ) ແລະ ອື່ນໆ."
+
+#: apps/configuration/configuration_translations.py:5801
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "land user"
+msgctxt "cbp label"
+msgid "land user"
+msgstr "ຜູ້ນໍາໃຊ້ທີ່ດິນ"
 
 #: apps/configuration/configuration_translations.py:5902
 msgctxt "watershed helptext"
@@ -15643,186 +15917,161 @@ msgctxt "watershed label"
 msgid "References and links "
 msgstr "ເອກະສານແລະການເຊື່ອມຕໍ່"
 
-#: apps/configuration/configuration_translations.py:32910
-msgctxt "cca label"
-msgid "co-compiler"
-msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
-
 #: apps/configuration/configuration_translations.py:32911
-msgctxt "watershed label"
-msgid "co-compiler"
-msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
-
-#: apps/configuration/configuration_translations.py:32912
-msgctxt "approaches label"
-msgid "co-compiler"
-msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
-
-#: apps/configuration/configuration_translations.py:32913
-msgctxt "technologies label"
-msgid "co-compiler"
-msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
-
-#: apps/configuration/configuration_translations.py:32914
-msgctxt "technologies_2018 label"
-msgid "co-compiler"
-msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
-
-#: apps/configuration/configuration_translations.py:32915
 msgctxt "technologies_2018 label"
 msgid "Is/are the technology site(s) located in a permanently protected area?"
 msgstr "ສ່ວນຫຼາຍສະຖານທີ່ຕັ້ງຂອງເຕັກໂນໂລຢີ ແມ່ນ ຢູ່ໃນເຂດພື້ນທີ່ສະຫງວນບໍ?"
 
-#: apps/configuration/configuration_translations.py:32916
+#: apps/configuration/configuration_translations.py:32912
 msgctxt "technologies_2018 helptext"
 msgid "I.e. national reserve/ national park"
 msgstr "ເຊັ່ນ ເຂດສະຫງວນແຫ່ງຊາດ/ສວນສາທາລະນ ແຫ່ງຊາດ"
 
-#: apps/configuration/configuration_translations.py:32917
-#: apps/configuration/configuration_translations.py:32918
+#: apps/configuration/configuration_translations.py:32913
+#: apps/configuration/configuration_translations.py:32914
 #: apps/configuration/configuration_translations.py:32983
 msgctxt "technologies_2018 label"
 msgid "If yes, specify"
 msgstr "ຖ້າແມ່ນ, ໃຫ້ລະບຸແຈ້ງ"
 
-#: apps/configuration/configuration_translations.py:32919
+#: apps/configuration/configuration_translations.py:32915
 msgctxt "technologies_2018 label"
 msgid "Select land use type"
 msgstr "ເລືອກປະເພດ ການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:32920
+#: apps/configuration/configuration_translations.py:32916
 msgctxt "technologies_2018 label_view"
 msgid "Land use type"
 msgstr "ປະເພດ ການນໍາໃຊ້ທີ່ດິນ"
 
-#: apps/configuration/configuration_translations.py:32921
+#: apps/configuration/configuration_translations.py:32917
 msgctxt "technologies_2018 label"
 msgid "Specify mixed land use (crops/ grazing/ trees)"
 msgstr "ລະບຸການນຳໃຊ້ທີ່ດິນແບບປະສົມ (ຜົນລະປູກ / ທົ່ງຫຍ້າລ້ຽງສັດ / ຕົ້ນໄມ້)"
 
-#: apps/configuration/configuration_translations.py:32922
-#: apps/configuration/configuration_translations.py:32923
-#: apps/configuration/configuration_translations.py:32924
+#: apps/configuration/configuration_translations.py:32918
+#: apps/configuration/configuration_translations.py:32919
+#: apps/configuration/configuration_translations.py:32920
 msgctxt "technologies_2018 label"
 msgid "If crop type is not listed above, specify other crop"
 msgstr "ຖ້າປະເພດພືດບໍ່ໄດ້ຖືກລະບຸຢູ່ຂ້າງເທິງ, ໃຫ້ລະບຸພືດອື່ນ"
 
-#: apps/configuration/configuration_translations.py:32925
+#: apps/configuration/configuration_translations.py:32921
 msgctxt "technologies_2018 label"
 msgid "Continuous wheat/barley/oats/upland rice"
 msgstr "ສືບຕໍ່ປູກ ເຂົ້າສາລີ / ເຂົ້າບາເລ / ເຂົ້າໂອດ / ເຂົ້າໄຮ່"
 
-#: apps/configuration/configuration_translations.py:32926
+#: apps/configuration/configuration_translations.py:32922
 msgctxt "technologies_2018 label"
 msgid "Fallow - wheat/barley/oats/upland rice"
 msgstr "ປ່ອຍປະລະເລີຍ - ເຂົ້າສາລີ / ເຂົ້າບາເລ / ເຂົ້າໂອດ / ເຂົ້າໄຮ່"
 
-#: apps/configuration/configuration_translations.py:32927
+#: apps/configuration/configuration_translations.py:32923
 msgctxt "technologies_2018 label"
 msgid "Continuous maize/sorghum/millet"
 msgstr "ສືບຕໍ່ປູກ ສາລີ/ພືດປະເພດຖົ່ວ/ພືດປະເພດເມັດ"
 
-#: apps/configuration/configuration_translations.py:32928
+#: apps/configuration/configuration_translations.py:32924
 msgctxt "technologies_2018 label"
 msgid "Fallow - maize/sorghum/millet"
 msgstr "ປ່ອຍປະລະເລີຍ ສາລີ/ພືດປະເພດເຂົ້າ/ພືດປະເພດເມັດ"
 
-#: apps/configuration/configuration_translations.py:32929
+#: apps/configuration/configuration_translations.py:32925
 msgctxt "technologies_2018 label"
 msgid "Maize/sorghum/millet legume"
 msgstr "ສາລີ/ປະເພດເຂົ້າ/ພືດປະເພດຖົ່ວ"
 
-#: apps/configuration/configuration_translations.py:32930
+#: apps/configuration/configuration_translations.py:32926
 msgctxt "technologies_2018 label"
 msgid "Maize/sorghum/millet intercropped with legume"
 msgstr "ສາລີ/ພືດປະເພດເຂົ້າ/ພືດປະເພດເມັດ ປະສົມປະສານ ກັບ ຖົ່ວ"
 
-#: apps/configuration/configuration_translations.py:32931
+#: apps/configuration/configuration_translations.py:32927
 msgctxt "technologies_2018 label"
 msgid "Fallow - maize/sorghum/millet intercropped with legume"
 msgstr "ປ່ອຍປະລະເລີຍ ສາລີ/ພືດປະເພດເຂົ້າ/ພືດປະເພດເມັດ ປະສົມປະສານ ກັບ ຖົ່ວ"
 
-#: apps/configuration/configuration_translations.py:32932
+#: apps/configuration/configuration_translations.py:32928
 msgctxt "technologies_2018 label"
 msgid "Continuous wetland rice"
 msgstr "ສືບຕໍ່ ປູກເຂົ້ານາ"
 
-#: apps/configuration/configuration_translations.py:32933
+#: apps/configuration/configuration_translations.py:32929
 msgctxt "technologies_2018 label"
 msgid "Wetland rice - wheat"
 msgstr "ເຂົ້ານາ-ເຂົ້າສາລີ"
 
-#: apps/configuration/configuration_translations.py:32934
+#: apps/configuration/configuration_translations.py:32930
 msgctxt "technologies_2018 label"
 msgid "Continuous vegetables"
 msgstr "ສືບຕໍ່ປູກພືດຜັກ"
 
-#: apps/configuration/configuration_translations.py:32935
+#: apps/configuration/configuration_translations.py:32931
 msgctxt "technologies_2018 label"
 msgid "Vegetables - wheat/barley/oat/upland rice"
 msgstr "ພືດຜັກ-ເຂົ້າສາລາ/ເຂົ້າບາເລ/ເຂົ້າໂອດ/ເຂົ້າໄຮ່"
 
-#: apps/configuration/configuration_translations.py:32936
+#: apps/configuration/configuration_translations.py:32932
 msgctxt "technologies_2018 label"
 msgid "Continuous cotton/tobacco"
 msgstr "ສືບຕໍ່ປູກ ຕົ້ນຝ້າຍ/ຕົ້ນຢາສູບ"
 
-#: apps/configuration/configuration_translations.py:32937
+#: apps/configuration/configuration_translations.py:32933
 msgctxt "technologies_2018 label"
 msgid "Vegetable - cotton/tobacco"
 msgstr "ຜັກ-ຜ້າຝ້າຍ/ຢາສູບ"
 
-#: apps/configuration/configuration_translations.py:32938
+#: apps/configuration/configuration_translations.py:32934
 msgctxt "technologies_2018 label"
 msgid "Continuous root crop"
 msgstr "ສືບຕໍ່ປູກ ພືດປະເພດຫົວ"
 
-#: apps/configuration/configuration_translations.py:32939
+#: apps/configuration/configuration_translations.py:32935
 msgctxt "technologies_2018 label"
 msgid "Cassava/potato/manioc - vegetable"
 msgstr "ມັນຕົ້ນ/ມັນຝຮັ່ງ/ມັນຕົ້ນ-ຜັກ"
 
-#: apps/configuration/configuration_translations.py:32940
+#: apps/configuration/configuration_translations.py:32936
 msgctxt "technologies_2018 label"
 msgid "Cassava/potato/manioc - wheat/barley/oat"
 msgstr "ມັນຕົ້ນ/ມັນຝຮັ່ງ/ມັນຕົ້ນ-ເຂົ້າສາລີ/ເຂົ້າບາເລ້/ເຂົ້າໂອດ"
 
-#: apps/configuration/configuration_translations.py:32941
+#: apps/configuration/configuration_translations.py:32937
 msgctxt "technologies_2018 label"
 msgid "Cassava/potato/manioc - maize/sorghum/millet"
 msgstr "ມັນຕົ້ນ/ມັນຝຮັ່ງ/ມັນຕົ້ນ-ສາລີ/ປະເພດເຂົ້າ/ພືດປະເພດເມັດ"
 
-#: apps/configuration/configuration_translations.py:32942
+#: apps/configuration/configuration_translations.py:32938
 msgctxt "technologies_2018 label"
 msgid "Hay"
 msgstr "ຫ້ຍາແຫ້ງ"
 
-#: apps/configuration/configuration_translations.py:32943
+#: apps/configuration/configuration_translations.py:32939
 msgctxt "technologies_2018 label"
 msgid "Wheat or similar rotation with hay/pasture"
 msgstr "ເຂົ້າສາລີ ຫຼື ພືດຫມູນວຽນຄ້າຍຄືກັນກັບ ຫຍ້າ / ທົ່ງຫຍ້າລ້ຽງສັດ"
 
-#: apps/configuration/configuration_translations.py:32944
+#: apps/configuration/configuration_translations.py:32940
 msgctxt "technologies_2018 label"
 msgid "Maize or similar rotation with hay/pasture"
 msgstr "ສາລີ ຫຼື ພືດຫມູນວຽນຄ້າຍຄືກັນກັບ ຫຍ້າ / ທົ່ງຫຍ້າລ້ຽງສັດ"
 
-#: apps/configuration/configuration_translations.py:32945
+#: apps/configuration/configuration_translations.py:32941
 msgctxt "technologies_2018 label"
 msgid "banana/plantain/abaca"
 msgstr "ກ້ວຍ/ກວ້ຍຂຽວ/ໄຍຕົ້ນກ້ວຍ"
 
-#: apps/configuration/configuration_translations.py:32946
+#: apps/configuration/configuration_translations.py:32942
 msgctxt "technologies_2018 label"
 msgid "agave / sisal"
 msgstr ""
 
-#: apps/configuration/configuration_translations.py:32947
+#: apps/configuration/configuration_translations.py:32943
 msgctxt "technologies_2018 label"
 msgid "areca"
 msgstr "ຕົ້ນໝາກ"
 
-#: apps/configuration/configuration_translations.py:32948
+#: apps/configuration/configuration_translations.py:32944
 msgctxt "technologies_2018 label"
 msgid "berries"
 msgstr "ໝາກເບີລີ"
@@ -17442,6 +17691,125 @@ msgctxt "technologies_2018 label"
 msgid "Haloxylon species"
 msgstr ""
 
+#: apps/configuration/configuration_translations.py:41000
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "General information"
+msgctxt "cbp label"
+msgid "General information"
+msgstr "ຂໍ້​ມູນ​ທົ່ວ​ໄປ"
+
+#: apps/configuration/configuration_translations.py:41100
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid ""
+#| "Name of the SLM Technology (hereafter referred to as the Technology) as "
+#| "per Core Questionnaire on SLM Technologies Question QT Core 1.1"
+msgctxt "cbp label"
+msgid ""
+"Name of the SLM Technology (hereafter referred to as the Technology) as per "
+"Core Questionnaire on SLM Technologies Question QT Core 1.1"
+msgstr ""
+"ຊື່ຂອງເຕັກໂນໂລຢີການຄຸ້ມຄອງການນຳໃຊ້ທີ່ດິນແບບຍືນຍົງ  (ຕໍ່ໄປນີ້ຈະເອີ້ນວ່າເຕັກໂນໂລຢີ) "
+"ຕາມຫຼັກແບບສອບຖາມເຕັກໂນໂລຢີການຄຸ້ມຄອງການນຳໃຊ້ທີ່ດິນແບບຍືນຍົງ ຄໍາຖາມ QT Core 1.1"
+
+#: apps/configuration/configuration_translations.py:41101
+#, fuzzy
+#| msgctxt "technologies label_view"
+#| msgid "Name of the SLM Technology"
+msgctxt "cbp label_view"
+msgid "Name of the SLM Technology"
+msgstr "ຊື່ ເຕັກໂນໂລຢີ ຂອງການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ"
+
+#: apps/configuration/configuration_translations.py:41200
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid ""
+#| "Contact details of resource persons and institutions involved in the "
+#| "assessment and documentation of the Approach"
+msgctxt "cbp label"
+msgid ""
+"Contact details of resource persons and institutions involved in the "
+"assessment and documentation of the Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+"ລາຍລະອຽດ ການຕິດຕໍ່ ຂອງບຸກຄົນທີ່ຊັບພະຍາກອນ ແລະ ສະຖາບັນ ການມີສ່ວນຮ່ວມ ໃນການປະເມີນຜົນ   ແລະ "
+"ເອກະສານ ຂອງວິທີທາງ"
+
+#: apps/configuration/configuration_translations.py:41300
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Conditions regarding the use of data documented through WOCAT"
+msgctxt "cbp label"
+msgid "Conditions regarding the use of data documented through WOCAT"
+msgstr ""
+"ເງື່ອນໄຂ ກ່ຽວກັບ ການນໍາໃຊ້ຂໍ້ມູນເອກະສານ ທີ່ສ້າງຂື້ນ ໂດຍຜ່ານ ອົງການພາບລວມຂອງໂລກ ທາງດ້ານແນວທາງ "
+"ແລະ ເຕັກໂນໂລຢີ ຂອງການອານຸລັກ ທໍາມະຊາດ (WOCAT)"
+
+#: apps/configuration/configuration_translations.py:42000
+msgctxt "cbp label"
+msgid "Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42100
+msgctxt "cbp label"
+msgid "Summary PDF from Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42101
+msgctxt "cbp helptext"
+msgid ""
+"<p>Once you have completed the Carbon Benefits Project (CBP) Assessment for "
+"your Technology, generate the Summary PDF and add it to this module.</"
+"p><p>Supported file type: PDF, maximum file size: 3 MB.</p><p><br><a href="
+"\"https://banr.colostate.edu/CBP/\" target=\"_blank\">Visit the CBP tools "
+"page to start a Carbon Benefits Assessment.</a></p>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42110
+msgctxt "cbp label"
+msgid "Carbon Benefits Project (CBP) Summary PDF"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42115
+msgctxt "cbp label"
+msgid ""
+"Assessment Results Description (related to Carbon Benefits Project (CBP) "
+"Summary PDF)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:47001
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Key resource person(s)"
+msgctxt "cbp label"
+msgid "Key resource person(s)"
+msgstr "ບັນດາຜູ້ຕອບແບບສອບຖາມທີ່ສໍາຄັນ ()"
+
+#: apps/configuration/configuration_translations.py:47002
+#, fuzzy
+#| msgctxt "technologies helptext"
+#| msgid ""
+#| "Person(s) who provided most of the information documented in this "
+#| "questionnaire. These can be land users, SLM specialists (e.g. technical "
+#| "advisers, researchers), or any other persons."
+msgctxt "cbp helptext"
+msgid ""
+"Person(s) who provided most of the information documented in this "
+"questionnaire. These can be land users, SLM specialists (e.g. technical "
+"advisers, researchers), or any other persons."
+msgstr ""
+"ຄົນ (ຫຼາຍ) ຜູ້ທີ່ສະໜອງເອກກະສານຂໍ້ມູນຂ່າວສານ ໃນແບບສອບຖາມນີ້. ຊຶ່ງສາມາດເປັນຜູ້ນໍາໃຊ້ທີ່ດິນ, ຫຼື "
+"ຊ່ຽວຊານສະເພາະດ້ານໃນການຄຸ້ມຄອງທີ່ດິນ ແບບຍົນຍົງ (ຕົວຢາງ, ການໃຫ້ຄໍາປຶກສາທາງດ້ານເຕັກນິກ, "
+"ນັກຄົ້ນຄວ້າ) ຫຼື ບຸກຄົນອື່ນໆ."
+
+#: apps/configuration/configuration_translations.py:47003
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "co-compiler"
+msgctxt "cbp label"
+msgid "co-compiler"
+msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
+
 #: apps/configuration/editions/technologies_2018.py:23
 msgid ""
 "1.2: A new option \"co-compiler\" was added to question \"Key resource "
@@ -17715,6 +18083,10 @@ msgid ""
 "\"Livestock population\" were added."
 msgstr ""
 
+#: apps/configuration/editions/technologies_2018.py:244
+msgid "Update October 2020: Add new CBP module and related translations."
+msgstr ""
+
 #: apps/configuration/models.py:19 apps/questionnaire/models.py:64
 msgid "UNCCD Focal Point"
 msgstr "ຈຸດ​ທີ່​ເນັ້ນ UNCCD "
@@ -17947,12 +18319,6 @@ msgstr "{compiler} ການແກ້ໄຂທີ່ສໍາເລັດ"
 #: apps/notifications/models.py:700
 msgid "Subscribed for following changes in the review status"
 msgstr "ການບັນຍາຍ ສະຖານະພາບ ຂອງການປ່ຽນແປງ"
-
-#: apps/notifications/receivers.py:41
-#: apps/notifications/tests/test_receivers.py:58
-#: apps/questionnaire/utils.py:688
-msgid "Created"
-msgstr "​ສ້າງ"
 
 #: apps/notifications/receivers.py:52
 #: apps/notifications/tests/test_receivers.py:67
@@ -18580,51 +18946,51 @@ msgstr "{compiler} ໄດ້ແຈ້ງໃຫ້ຊາບກ່ຽວກັບ�
 msgid "Successfully saved changes."
 msgstr "ສໍາເລັດ ການບັນທຶກຂໍ້ມູນ"
 
-#: apps/qcat/config/common.py:105
+#: apps/qcat/config/common.py:106
 msgid "English"
 msgstr "ພາສາອັງກິດ"
 
-#: apps/qcat/config/common.py:106
+#: apps/qcat/config/common.py:107
 msgid "French"
 msgstr "​ພາ​ສາ​ຝ​ຣັ່ງ"
 
-#: apps/qcat/config/common.py:107
+#: apps/qcat/config/common.py:108
 msgid "Spanish"
 msgstr "​ພາ​ສາ​ສະ​ເປ​ນ"
 
-#: apps/qcat/config/common.py:108
+#: apps/qcat/config/common.py:109
 msgid "Russian"
 msgstr "​ພາ​ສາ​ຮັດ​ເຊຍ"
 
-#: apps/qcat/config/common.py:109
+#: apps/qcat/config/common.py:110
 msgid "Chinese"
 msgstr "ຄົນຈີນ"
 
-#: apps/qcat/config/common.py:110
+#: apps/qcat/config/common.py:111
 msgid "Khmer"
 msgstr "​ພາ​ສາ​ຂະ​ແມ"
 
-#: apps/qcat/config/common.py:111
+#: apps/qcat/config/common.py:112
 msgid "Lao"
 msgstr "ພາສາລາວ"
 
-#: apps/qcat/config/common.py:112
+#: apps/qcat/config/common.py:113
 msgid "Arabic"
 msgstr "​ພາ​ສາ​ອາ​ລາ​ບິກ"
 
-#: apps/qcat/config/common.py:113
+#: apps/qcat/config/common.py:114
 msgid "Portuguese"
 msgstr "ພາ​ສາປອກຕຸຍການ"
 
-#: apps/qcat/config/common.py:114
+#: apps/qcat/config/common.py:115
 msgid "Afrikaans"
 msgstr "ອະຟຮິກັນ"
 
-#: apps/qcat/config/common.py:115
+#: apps/qcat/config/common.py:116
 msgid "Thai"
 msgstr "ຄົນໄທ"
 
-#: apps/qcat/config/common.py:116
+#: apps/qcat/config/common.py:117
 msgid "Mongolian"
 msgstr ""
 
@@ -18695,7 +19061,8 @@ msgid ""
 "%(questionnaires_count)s new practices drafted in the past %(days)s days."
 msgstr "%(questionnaires_count)sສະບບັຮ່າງ ການຈັດຕັ້ງປະຕິບັດ ໃນເມື່ອກ່ອນ%(days)sມື້."
 
-#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:26
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:29
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:36
 #, python-format
 msgid ""
 "%(visits_count)s visits from %(countries_count)s different countries since "
@@ -18807,7 +19174,7 @@ msgstr "ແບບສອບຖາມນີ້ແມ່ນຖືກ​ລ໋ອກ
 msgid "Published questionnaires must not be updated."
 msgstr "​ແບບສອບຖາມສຳ​ລັບການຈັດພິມຈະຕ້ອງບໍ່ໄດ້​ມີການປັບປຸງ"
 
-#: apps/questionnaire/serializers.py:61
+#: apps/questionnaire/serializers.py:62
 msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "ບໍ່ສາມາດຈັດລໍາດັບ​ແບບສອບຖາມໄດ້ ໂດຍບໍ່ມີການຕັ້ງຄ່າທີ່ຖືກຕ້ອງ."
 
@@ -18820,6 +19187,7 @@ msgid "New SLM Approach"
 msgstr "ແນວທາງໃໝ່ໃນການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ "
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:24
+#: apps/questionnaire/templates/details/category/cbp_header.html:21
 #: apps/questionnaire/templates/details/category/cca_header.html:21
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:20
 #: apps/questionnaire/templates/details/category/technologies_header.html:24
@@ -18830,6 +19198,7 @@ msgid "Creation:"
 msgstr "​ການ​ສ້າງ:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:29
+#: apps/questionnaire/templates/details/category/cbp_header.html:26
 #: apps/questionnaire/templates/details/category/cca_header.html:26
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:25
 #: apps/questionnaire/templates/details/category/technologies_header.html:29
@@ -18840,6 +19209,7 @@ msgid "Update:"
 msgstr "​ປັບ​ປູງ:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:33
+#: apps/questionnaire/templates/details/category/cbp_header.html:30
 #: apps/questionnaire/templates/details/category/cca_header.html:30
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:29
 #: apps/questionnaire/templates/details/category/technologies_header.html:33
@@ -18851,6 +19221,7 @@ msgid "Compilers:"
 msgstr "ຜູ້ສັງລວມຂໍ້ມູນ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:33
+#: apps/questionnaire/templates/details/category/cbp_header.html:30
 #: apps/questionnaire/templates/details/category/cca_header.html:30
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:29
 #: apps/questionnaire/templates/details/category/technologies_header.html:33
@@ -18862,6 +19233,7 @@ msgid "Compiler:"
 msgstr "ຜູ້ສັງລວມຂໍ້ມູນ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:41
+#: apps/questionnaire/templates/details/category/cbp_header.html:38
 #: apps/questionnaire/templates/details/category/cca_header.html:38
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:37
 #: apps/questionnaire/templates/details/category/technologies_header.html:41
@@ -18872,6 +19244,7 @@ msgid "Editors:"
 msgstr "​ບັນ​ນາ​ທິ​ການ:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:41
+#: apps/questionnaire/templates/details/category/cbp_header.html:38
 #: apps/questionnaire/templates/details/category/cca_header.html:38
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:37
 #: apps/questionnaire/templates/details/category/technologies_header.html:41
@@ -18882,6 +19255,7 @@ msgid "Editor:"
 msgstr "ບັນ​ນາ​ທິ​ການ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:49
+#: apps/questionnaire/templates/details/category/cbp_header.html:46
 #: apps/questionnaire/templates/details/category/cca_header.html:46
 #: apps/questionnaire/templates/details/category/technologies_header.html:49
 #: apps/questionnaire/templates/details/category/unccd_header.html:46
@@ -18891,6 +19265,7 @@ msgid "Reviewers:"
 msgstr "ຜູ້ທົບທວນຄືນ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:49
+#: apps/questionnaire/templates/details/category/cbp_header.html:46
 #: apps/questionnaire/templates/details/category/cca_header.html:46
 #: apps/questionnaire/templates/details/category/technologies_header.html:49
 #: apps/questionnaire/templates/details/category/unccd_header.html:46
@@ -18901,6 +19276,9 @@ msgstr "ຜູ້ທົບທວນຄືນ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:92
 #: apps/questionnaire/templates/details/category/approaches_header.html:107
+#: apps/questionnaire/templates/details/category/cbp_header.html:88
+#: apps/questionnaire/templates/details/category/cbp_header.html:93
+#: apps/questionnaire/templates/details/category/cbp_header.html:102
 #: apps/questionnaire/templates/details/category/cca_header.html:88
 #: apps/questionnaire/templates/details/category/cca_header.html:93
 #: apps/questionnaire/templates/details/category/cca_header.html:102
@@ -18919,12 +19297,12 @@ msgstr "ຜູ້ທົບທວນຄືນ"
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:229
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "ກຳ​ລັງ​ມາ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:94
+#: apps/questionnaire/templates/details/category/cbp_header.html:90
 #: apps/questionnaire/templates/details/category/cca_header.html:90
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:84
 #: apps/questionnaire/templates/details/category/technologies_header.html:94
@@ -18935,6 +19313,7 @@ msgid "View full content"
 msgstr "ເບິ່ງເນື້ອໃນ​ທັງ​ໝົດ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:98
+#: apps/questionnaire/templates/details/category/cbp_header.html:95
 #: apps/questionnaire/templates/details/category/cca_header.html:95
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:89
 #: apps/questionnaire/templates/details/category/technologies_header.html:98
@@ -18967,6 +19346,7 @@ msgid "Full summary (unformatted)"
 msgstr "ບົດສະຫຼຸບ ສະບັບເຕັມ (ບໍ່ມີແບບຟອມ)"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:109
+#: apps/questionnaire/templates/details/category/cbp_header.html:104
 #: apps/questionnaire/templates/details/category/cca_header.html:104
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
 #: apps/questionnaire/templates/details/category/technologies_header.html:109
@@ -18991,6 +19371,7 @@ msgid "SLM Approach"
 msgstr "ແນວທາງໃນການຈັດການຄຸ້ມຄອງດິນແບບຍືນຍົງ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:138
+#: apps/questionnaire/templates/details/category/cbp_header.html:117
 #: apps/questionnaire/templates/details/category/cca_header.html:117
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:114
 #: apps/questionnaire/templates/details/category/technologies_header.html:138
@@ -19001,28 +19382,33 @@ msgid "View sections"
 msgstr "ເບິ່ງພາກສ່ວນ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:140
+#: apps/questionnaire/templates/details/category/cbp_header.html:119
 #: apps/questionnaire/templates/details/category/cca_header.html:119
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
 #: apps/questionnaire/templates/details/category/technologies_header.html:140
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/watershed_header.html:127
 #: apps/questionnaire/templates/details/category/with_metadata.html:126
-#: apps/questionnaire/templates/questionnaire/details.html:116
+#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/questionnaire/templates/questionnaire/details.html:122
 msgid "Expand all"
 msgstr "ຂະຫຍາຍທັງໝົດ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:141
+#: apps/questionnaire/templates/details/category/cbp_header.html:120
 #: apps/questionnaire/templates/details/category/cca_header.html:120
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:117
 #: apps/questionnaire/templates/details/category/technologies_header.html:141
 #: apps/questionnaire/templates/details/category/unccd_header.html:119
 #: apps/questionnaire/templates/details/category/watershed_header.html:128
 #: apps/questionnaire/templates/details/category/with_metadata.html:127
-#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/questionnaire/templates/questionnaire/details.html:118
+#: apps/questionnaire/templates/questionnaire/details.html:123
 msgid "Collapse all"
 msgstr "ຍຸບທັງໝົດ"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:146
+#: apps/questionnaire/templates/details/category/cbp_header.html:125
 #: apps/questionnaire/templates/details/category/cca_header.html:125
 #: apps/questionnaire/templates/details/category/technologies_header.html:146
 #: apps/questionnaire/templates/details/category/unccd_header.html:124
@@ -19031,6 +19417,7 @@ msgid "Completeness:"
 msgstr "ຄວາມສົມບູນ:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:165
+#: apps/questionnaire/templates/details/category/cbp_header.html:144
 #: apps/questionnaire/templates/details/category/cca_header.html:144
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:136
@@ -19042,6 +19429,7 @@ msgid "Edit this section"
 msgstr "ແກ້​ໄຂ​​ບ່ອນ​ນີ້"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:181
+#: apps/questionnaire/templates/details/category/cbp_header.html:160
 #: apps/questionnaire/templates/details/category/cca_header.html:160
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:150
@@ -19052,13 +19440,18 @@ msgstr "ແກ້​ໄຂ​​ບ່ອນ​ນີ້"
 msgid "Empty section"
 msgstr "ຊ່ອງຫວ່າງ"
 
-#: apps/questionnaire/templates/details/category/cca_header.html:6
-msgid "CCA"
-msgstr "CCA"
+#: apps/questionnaire/templates/details/category/cbp_header.html:6
+msgid "CBP"
+msgstr ""
 
+#: apps/questionnaire/templates/details/category/cbp_header.html:17
 #: apps/questionnaire/templates/details/category/cca_header.html:17
 msgid "Technology: "
 msgstr "ເຕັກໂນໂລຢີ:"
+
+#: apps/questionnaire/templates/details/category/cca_header.html:6
+msgid "CCA"
+msgstr "CCA"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
 #: apps/technologies/views.py:15 apps/wocat/templates/wocat/partial/top.html:14
@@ -19261,7 +19654,7 @@ msgstr "​ຄົ້​ນ​ຫາ​ຜູ້​ໃຊ້"
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:84
-#: apps/technologies/templates/technologies/add_module.html:36
+#: apps/technologies/templates/technologies/add_module.html:37
 msgid "No results found"
 msgstr "ບໍ່ພົບ​ຂໍ້ມູນການ​ຄົ້ນ​ຫາ"
 
@@ -19269,7 +19662,7 @@ msgstr "ບໍ່ພົບ​ຂໍ້ມູນການ​ຄົ້ນ​ຫາ
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:84
-#: apps/technologies/templates/technologies/add_module.html:37
+#: apps/technologies/templates/technologies/add_module.html:38
 msgid "Too many results found, please narrow the search"
 msgstr "ຜົນການຄົ້ນຫາຈໍານວນຫຼາຍເກີນໄປທີ່ພົບເຫັນ, ກະລຸນາເຮັດການຄົ້ນຫາທີ່"
 
@@ -19985,7 +20378,7 @@ msgstr "​ບັນ​ທຶກ ແລະ ໄປ​ຕໍ່"
 #: apps/questionnaire/templates/form/category.html:228
 #: apps/questionnaire/templates/questionnaire/details.html:22
 #: apps/questionnaire/templates/questionnaire/details.html:43
-#: apps/questionnaire/templates/questionnaire/details.html:331
+#: apps/questionnaire/templates/questionnaire/details.html:338
 msgid "Close"
 msgstr "ປິດ"
 
@@ -20061,17 +20454,17 @@ msgid "Create a new translation"
 msgstr "ສ້າງຄຳແປໃໝ່"
 
 #: apps/questionnaire/templates/form/category.html:229
-#: apps/questionnaire/templates/questionnaire/details.html:332
+#: apps/questionnaire/templates/questionnaire/details.html:339
 msgid "Next"
 msgstr "​ຕໍ່​ໄປ"
 
 #: apps/questionnaire/templates/form/category.html:230
-#: apps/questionnaire/templates/questionnaire/details.html:333
+#: apps/questionnaire/templates/questionnaire/details.html:340
 msgid "Back"
 msgstr "ກັບຄືນ"
 
 #: apps/questionnaire/templates/form/category.html:231
-#: apps/questionnaire/templates/questionnaire/details.html:334
+#: apps/questionnaire/templates/questionnaire/details.html:341
 msgid "Done"
 msgstr "ສໍາເລັດ"
 
@@ -20442,49 +20835,49 @@ msgstr "ໄປທີ່ສະບັບປະຈຸບັນ."
 msgid "Links and modules"
 msgstr "ຂໍ້ມູນການເຊື່ອມຕໍ່ ແລະ ເນື້ອໃນ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:124
+#: apps/questionnaire/templates/questionnaire/details.html:131
 msgid "Links"
 msgstr "ການເຊື່ອມຕໍ່"
 
-#: apps/questionnaire/templates/questionnaire/details.html:133
+#: apps/questionnaire/templates/questionnaire/details.html:140
 msgid "No links"
 msgstr "​ບໍ່​ມີ​ຂໍ້ມູນການເຊື່ອມຕໍ່"
 
-#: apps/questionnaire/templates/questionnaire/details.html:140
+#: apps/questionnaire/templates/questionnaire/details.html:147
 msgid "Modules"
 msgstr "ເນື້ອໃນ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:149
+#: apps/questionnaire/templates/questionnaire/details.html:156
 msgid "No modules"
 msgstr "​ບໍ່​ມີ​ເນື້ອໃນ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:157
+#: apps/questionnaire/templates/questionnaire/details.html:164
 msgid "Add a new module"
 msgstr "​ເພີ່ມ​ເນື້ອໃນ​ໃໝ່"
 
-#: apps/questionnaire/templates/questionnaire/details.html:162
-#: apps/technologies/templates/technologies/add_module.html:28
+#: apps/questionnaire/templates/questionnaire/details.html:169
+#: apps/technologies/templates/technologies/add_module.html:29
 msgid "1. Select a Technology"
 msgstr "1. ເລືອກ​ເຕັກ​ໂນ​ໂລ​ຢີ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:166
+#: apps/questionnaire/templates/questionnaire/details.html:173
 msgid "2. Select a module"
 msgstr "2. ເລືອກ​ເນື້ອໃນ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:169
+#: apps/questionnaire/templates/questionnaire/details.html:176
 msgid "Select a module which you would like to add to the Technology."
 msgstr "ເລືອກເນື້ອໃນທີ່ທ່ານຕ້ອງການທີ່ຈະເພີ່ມເຕັກໂນໂລຢີ."
 
-#: apps/questionnaire/templates/questionnaire/details.html:177
+#: apps/questionnaire/templates/questionnaire/details.html:184
 msgid "3. Create the module"
 msgstr "​3. ສ້າງ​ເນື້ອໃນ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:179
-#: apps/technologies/templates/technologies/add_module.html:70
+#: apps/questionnaire/templates/questionnaire/details.html:186
+#: apps/technologies/templates/technologies/add_module.html:71
 msgid "Create"
 msgstr "​ສ້າງ"
 
-#: apps/questionnaire/templates/questionnaire/details.html:338
+#: apps/questionnaire/templates/questionnaire/details.html:345
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
@@ -20492,19 +20885,19 @@ msgstr ""
 "<p> ຍິນດີຕ້ອນຮັບກັບພາກການຊ່ວຍເຫຼືອຂອງແບບສອບຖາມ! </p> <p> ກົດ \"ຕໍ່ໄປ\" "
 "ຈະມີການອະທິບາຍການເຮັດວຽກໃນໜ້ານີ້. </p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:341
+#: apps/questionnaire/templates/questionnaire/details.html:348
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
 msgstr "<p> ນີ້ຄືໜ້າສົ່ງອອກທີ່ທ່ານສາມາດເບິ່ງຂໍ້ມູນທັງໝົດທ່ານໄດ້ປ້ອນຂໍ້ມູນໃນຮູບແບບ.</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:345
+#: apps/questionnaire/templates/questionnaire/details.html:352
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
 msgstr "<p> ແຕ່ລະພາກສ່ວນແມ່ນຍັງສັງເກດເຫັນໃນຜົນຜະລິດໄດ້, ຂໍ້ມູນທີ່ທ່ານປ້ອນຈະປາກົດທີ່ນີ້. </p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:350
+#: apps/questionnaire/templates/questionnaire/details.html:357
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -20532,8 +20925,8 @@ msgid "This SLM practice is also available in:"
 msgstr "ການຈັດຕັ້ງປະຕິບັດ ວຽກງານ ການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງນີ້ ສາມາດເຂົ້າເບິ່ງໄດ້ໃນ:"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:76
-#: apps/questionnaire/templates/questionnaire/partial/list_item.html:94
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:100
+#: apps/questionnaire/templates/questionnaire/partial/list_item.html:106
 msgid "This case is linked to SLM Approaches"
 msgstr "ກໍລະນີນີ້ ແມ່ນ ເຊື່ອມໂຍງກັບວິທີການຂອງ ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ"
 
@@ -20543,6 +20936,12 @@ msgstr "ກໍລະນີນີ້ ແມ່ນ ເຊື່ອມໂຍງກ�
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:88
 msgid "This case has a CCA module"
+msgstr "ກໍລະນີນີ້ ມີໂມດູນ CCA"
+
+#: apps/questionnaire/templates/questionnaire/partial/list_item.html:94
+#, fuzzy
+#| msgid "This case has a CCA module"
+msgid "This case has a CBP module"
 msgstr "ກໍລະນີນີ້ ມີໂມດູນ CCA"
 
 #: apps/questionnaire/templates/questionnaire/partial/select_modules.html:14
@@ -20557,52 +20956,48 @@ msgstr "ປະເພດເອກະສານສະໜັບສະໜູນ"
 msgid "File is too big"
 msgstr "ເອກະສານແມ່ນຂະໜາດໃຫຍ່ເກີນໄປ"
 
-#: apps/questionnaire/utils.py:654
+#: apps/questionnaire/utils.py:980
 msgid "SLM Data"
 msgstr "ຂໍ້ມູນ ການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງຂອງຂ້ອຍ"
 
-#: apps/questionnaire/utils.py:667
+#: apps/questionnaire/utils.py:993
 msgid "Search Terms"
 msgstr "ເງື່ອນໄຂການຄົ້ນຫາ"
 
-#: apps/questionnaire/utils.py:690
-msgid "Updated"
-msgstr "​ອັບ​ເດດ​ແລ້ວ"
-
-#: apps/questionnaire/utils.py:708
+#: apps/questionnaire/utils.py:1034
 msgid "Unknown"
 msgstr "ບໍ່​ຮູ້​ຈັກ"
 
-#: apps/questionnaire/utils.py:724
+#: apps/questionnaire/utils.py:1050
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:75
 msgid "Language"
 msgstr "​ພາ​ສາ"
 
-#: apps/questionnaire/utils.py:1256
+#: apps/questionnaire/utils.py:1582
 msgid "The questionnaire was successfully submitted."
 msgstr "ແບບ​ສອ​ບ​ຖາມ​ສົ່ງ​ສຳ​ເລັດ."
 
-#: apps/questionnaire/utils.py:1303
+#: apps/questionnaire/utils.py:1629
 msgid "The questionnaire was successfully reviewed."
 msgstr "​ແບບ​ສອ​ບ​ຖາມ​ແມ່ນ​ໄດ້​ຖືກ​ທົບ​ທວນ​ຄືນ."
 
-#: apps/questionnaire/utils.py:1343
+#: apps/questionnaire/utils.py:1669
 msgid "New version was published"
 msgstr "ສະບັບປັບປຸງໃໝ່ແມ່ນ​ໄດ້​ຖືກ​ຕີ​ພິມ"
 
-#: apps/questionnaire/utils.py:1384
+#: apps/questionnaire/utils.py:1710
 msgid "The questionnaire was successfully set public."
 msgstr "ແບບສອບຖາມແມ່ນໄດ້ຕັ້ງ​ເປັນ​ສາ​ທາ​ລະ​ນະສຳ​ເລັດ."
 
-#: apps/questionnaire/utils.py:1443
+#: apps/questionnaire/utils.py:1769
 msgid "The questionnaire was successfully rejected."
 msgstr "ແບບສອບຖາມໄດ້ປະຕິເສດສໍາເລັດ."
 
-#: apps/questionnaire/utils.py:1547
+#: apps/questionnaire/utils.py:1873
 msgid "Assigned users were successfully updated"
 msgstr "ຜູ້ຊົມໃຊ້ໄດ້ຮັບມອບໝາຍການປັບປຸງສໍາເລັດ"
 
-#: apps/questionnaire/utils.py:1676
+#: apps/questionnaire/utils.py:2002
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -20611,11 +21006,11 @@ msgstr ""
 "ປ້າຍບໍ່ສາມາດໄດ້ຮັບການກໍານົດໄວ້ເນື່ອງຈາກວ່າສະບັບຂອງແບບສອບຖາມນີ້ແມ່ນຢູ່ໃນຂະບວນການທົບທວນຄືນ ແລະ "
 "ຕ້ອງໄດ້ຮັບການຈັດພີມມາຄັ້ງທໍາອິດ. ກະລຸນາລອງ​ໃຫມ່​ອິກ​ຄັ້ງ."
 
-#: apps/questionnaire/utils.py:1698
+#: apps/questionnaire/utils.py:2024
 msgid "The flag was successfully set."
 msgstr "​ປ້າຍ​ແມ່​ນ​ຖືກ​ຕິດ​ຕັ້ງແລ້ວ."
 
-#: apps/questionnaire/utils.py:1722
+#: apps/questionnaire/utils.py:2048
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -20624,7 +21019,7 @@ msgstr ""
 "ປ້າຍບໍ່ສາມາດໄດ້ຮັບການລືບອອກເນື່ອງຈາກວ່າສະບັບຂອງແບບສອບຖາມນີ້ແມ່ນຢູ່ໃນຂະບວນການທົບທວນຄືນ ແລະ "
 "ຕ້ອງໄດ້ຮັບການຈັດພີມມາຄັ້ງທໍາອິດ. ກະລຸນາພະຍາຍາມອີກຄັ້ງ."
 
-#: apps/questionnaire/utils.py:1743
+#: apps/questionnaire/utils.py:2069
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -20633,11 +21028,11 @@ msgstr ""
 "ປ້າຍໄດ້ລືບອອກຢ່າງສໍາເລັດຜົນ. ກະລຸນາສັງເກດວ່າການສ້າງຕັ້ງສະບັບໃໝ່ນີ້ທີ່ຕ້ອງໄດ້ຮັບການທົບທວນຄືນ. "
 "ໃນເວລານີ້, ທ່ານກໍາລັງເບິ່ງການສະບັບສາທາລະນະທີ່ຍັງສະແດງໃຫ້ເຫັນປ້າຍ."
 
-#: apps/questionnaire/utils.py:1750
+#: apps/questionnaire/utils.py:2076
 msgid "New version due to unccd flagging"
 msgstr "ສະບັບລ່າສຸດ ຂອງການໃສ່ເຄື່ອງໝາຍ  unccd"
 
-#: apps/questionnaire/utils.py:1786
+#: apps/questionnaire/utils.py:2112
 msgid "The questionnaire was succesfully removed"
 msgstr "ແບບສອບຖາມໄດ້ລືບອອກສໍາເລັດແລ້ວ"
 
@@ -21360,12 +21755,19 @@ msgid "Wocat SLM"
 msgstr "ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ ຂອງ WOCAT"
 
 #: apps/technologies/templates/technologies/add_module.html:15
-msgid "Add CCA Module"
+#, fuzzy
+#| msgid "Add CCA Module"
+msgid "Add CCA or CBP Module"
 msgstr "ເພີ່ມໂມດູນ ການປັບຕົວຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ"
 
 #: apps/technologies/templates/technologies/add_module.html:18
+#, fuzzy
+#| msgid ""
+#| "You can add a CCA Module to an existing SLM Technology. If the SLM "
+#| "Technology is not included in the WOCAT SLM Technology database yet, "
+#| "please first add it."
 msgid ""
-"You can add a CCA Module to an existing SLM Technology. If the SLM "
+"You can add a CCA or CBP Module to an existing SLM Technology. If the SLM "
 "Technology is not included in the WOCAT SLM Technology database yet, please "
 "first add it."
 msgstr ""
@@ -21373,20 +21775,24 @@ msgstr ""
 "ຖ້າຫາກເຕັກໂນໂລຢີດັ່ງກ່າວ ບໍ່ໄດ້ລວມເອົາເຕັກໂນໂລຢີ ການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ ໃນຖານຂໍ້ມູນຂອງ WOCAT "
 "ເທື່ອ, ກ່ອນອື່ນໝົດແມ່ນໃຫ້ເພີ່ມເຂົ້າໃໝ່."
 
-#: apps/technologies/templates/technologies/add_module.html:19
+#: apps/technologies/templates/technologies/add_module.html:20
 msgid "Add new SLM Technology."
 msgstr "​ເພີ່ມ​ເຕັກ​ໂນ​ໂລ​ຢີ ໃນການຄຸ້ມຄອງທີ່ດິນແບບຍືນຍົງ ອັນໃໝ່"
 
-#: apps/technologies/templates/technologies/add_module.html:31
+#: apps/technologies/templates/technologies/add_module.html:32
 msgid "Search and select a Technology to which you would like to add a module."
 msgstr "ຄົ້ນຫາ ແລະ ເລືອກເຕັກໂນໂລຢີທີ່ທ່ານຕ້ອງການທີ່ຈະເພີ່ມເນື້ອໃນ."
 
-#: apps/technologies/templates/technologies/add_module.html:54
-msgid "2. Select CCA Module"
-msgstr "2. ເລືອກໂມດູນ ການປັບຕົວຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ"
+#: apps/technologies/templates/technologies/add_module.html:55
+#, fuzzy
+#| msgid "2. Select a module"
+msgid "2. Select a Module"
+msgstr "2. ເລືອກ​ເນື້ອໃນ"
 
-#: apps/technologies/templates/technologies/add_module.html:68
-msgid "3. Create CCA Module"
+#: apps/technologies/templates/technologies/add_module.html:69
+#, fuzzy
+#| msgid "3. Create CCA Module"
+msgid "3. Create Module"
 msgstr "3. ສ້າງ ໂມດູນ ການປັບຕົວຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ"
 
 #: apps/technologies/templates/technologies/base.html:6
@@ -21848,11 +22254,10 @@ msgstr ""
 #: apps/wocat/templates/wocat/home.html:155
 #: apps/wocat/templates/wocat/home.html:175
 #: apps/wocat/templates/wocat/home.html:191
-#: apps/wocat/templates/wocat/home.html:215
-#: apps/wocat/templates/wocat/home.html:230
-#: apps/wocat/templates/wocat/home.html:253
-#: apps/wocat/templates/wocat/home.html:276
-#: apps/wocat/templates/wocat/home.html:292
+#: apps/wocat/templates/wocat/home.html:216
+#: apps/wocat/templates/wocat/home.html:238
+#: apps/wocat/templates/wocat/home.html:261
+#: apps/wocat/templates/wocat/home.html:277
 msgid "View all"
 msgstr "ເບິ່ງ​ທັງ​ໝົດ"
 
@@ -21878,36 +22283,37 @@ msgstr ""
 "ການຈັດຕັ້ງປະຕິບັດ ກິດຈະກໍາ ຂອງ UNCCD PRAIS ຖືເປັນການຈັດຕັ້ງ ປະຕິບັດ ວຽກງານ ການຄຸ້ມຄອງ "
 "ທີ່ດິນແບບຍືນຍົງອັນໜື່ງ ຄືດັ່ງທີ່ໄດ້ສະເໜີ ໃນບົດລາຍງານ ຂອງອົງການ UNCCD"
 
+#: apps/wocat/templates/wocat/home.html:212
+#: apps/wocat/templates/wocat/partial/add.html:100
+msgid "Carbon Benefits Project"
+msgstr ""
+
 #: apps/wocat/templates/wocat/home.html:213
-#: apps/wocat/templates/wocat/home.html:227
-#: apps/wocat/templates/wocat/partial/add.html:63
-#: apps/wocat/templates/wocat/partial/add.html:77
-msgid "Watershed and Runoff"
-msgstr "​ອ່າງເກັບນໍ້າ​ ແລະ ນ້ຳ​ໄຫຼຂອງນ້ຳ"
+#: apps/wocat/templates/wocat/partial/add.html:101
+msgid ""
+"Tools for assessing the carbon benefits and greenhouse gas emissions of an "
+"SLM Technology."
+msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:214
-#: apps/wocat/templates/wocat/home.html:228
-#: apps/wocat/templates/wocat/partial/add.html:64
-#: apps/wocat/templates/wocat/partial/add.html:78
-msgid ""
-"Mapping land management and assessing runoff and outflow from a watershed."
-msgstr "ການສ້າງແຜນທີ່ ຄຸ້ມຄອງທີ່ດິນ ແລະ ການປະເມີນ ການໄຫຼຂອງນໍ້າ ໃນອ່າງເກັບນ້ຳ."
+msgid "Visit CBP Tools Page"
+msgstr ""
 
-#: apps/wocat/templates/wocat/home.html:250
-#: apps/wocat/templates/wocat/partial/add.html:100
+#: apps/wocat/templates/wocat/home.html:235
+#: apps/wocat/templates/wocat/partial/add.html:122
 msgid "Land Degradation / Conservation"
 msgstr "ການເຊື່ອມໂຊມຂອງດິນ / ການອະນຸລັກ"
 
-#: apps/wocat/templates/wocat/home.html:251
-#: apps/wocat/templates/wocat/partial/add.html:101
+#: apps/wocat/templates/wocat/home.html:236
+#: apps/wocat/templates/wocat/partial/add.html:123
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
 msgstr ""
 "ການສ້າງແຜນທີ່ ຄຸ້ມຄອງທີ່ດິນ, ການເຊື່ອມໂຊມຂອງດິນ ແລະ ການອະນຸລັກ ລວມທັງປັດໃຈ ແລະ ຜົນກະທົບ."
 
-#: apps/wocat/templates/wocat/home.html:252
-#: apps/wocat/templates/wocat/partial/add.html:102
+#: apps/wocat/templates/wocat/home.html:237
+#: apps/wocat/templates/wocat/partial/add.html:124
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
 "or added in the old database (QM)."
@@ -21915,17 +22321,17 @@ msgstr ""
 "ປະຈຸບັນ ແຜນທີ່ ຍັງບໍ່ທັນມີຢູ່ໃນຖານຂໍ້ມູນໃໝ່ເທື່ອ ແຕ່ທ່ານສາມາດ ເຂົ້າໄປເບີ່ງ ແຜນທີ່ ຫຼື ເພີ່ມແຜນທີ່ "
 "ເຂົ້າໄປໃນຖານຂໍ້ມູນເກົ່າ (QM)."
 
-#: apps/wocat/templates/wocat/home.html:273
-#: apps/wocat/templates/wocat/home.html:289
-#: apps/wocat/templates/wocat/partial/add.html:123
-#: apps/wocat/templates/wocat/partial/add.html:139
+#: apps/wocat/templates/wocat/home.html:258
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/partial/add.html:145
+#: apps/wocat/templates/wocat/partial/add.html:161
 msgid "CCA Module"
 msgstr "ໂມດູນ ການປັບຕົວ ຕໍ່ການປ່ຽນແປງ ດິນຟ້າອາກາດ"
 
-#: apps/wocat/templates/wocat/home.html:274
-#: apps/wocat/templates/wocat/home.html:290
-#: apps/wocat/templates/wocat/partial/add.html:124
-#: apps/wocat/templates/wocat/partial/add.html:140
+#: apps/wocat/templates/wocat/home.html:259
+#: apps/wocat/templates/wocat/home.html:275
+#: apps/wocat/templates/wocat/partial/add.html:146
+#: apps/wocat/templates/wocat/partial/add.html:162
 msgid ""
 "The climate change adaptation tool assesses whether a specific SLM "
 "Technology is adapted to gradual climate changes and climate-related "
@@ -21934,12 +22340,12 @@ msgstr ""
 "ເຄື່ອງມືປະເມີນຜົນ ໃນການປັບຕົວຕໍ່ການປ່ຽນແປງ ສະພາບອາກາດ ທີ່ສະແດງໃຫ້ເຫັນເຖິງ ການນໍາໃຊ້ ເຕັກໂນໂລຢີ "
 "ການຈັດການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ ສາມາດປັບຕົວ ຕໍ່ການປ່ຽນແປງ ສະພາບອາກາດ (ໄພພິບັດ ທາງທໍາມະຊາດ) "
 
-#: apps/wocat/templates/wocat/home.html:291
-#: apps/wocat/templates/wocat/partial/add.html:141
+#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/partial/add.html:163
 msgid "Modules will be added soon to the new database."
 msgstr "ຈະໄດ້ມີການເພີ່ມ ເນື້ອໃນເຂົ້າ ໃນຖານຂໍ້ມູນໄວໆນີ້."
 
-#: apps/wocat/templates/wocat/home.html:307
+#: apps/wocat/templates/wocat/home.html:292
 msgid "Key Numbers"
 msgstr "ຈໍານວນທີ່ສໍາຄັນ"
 
@@ -21948,8 +22354,9 @@ msgstr "ຈໍານວນທີ່ສໍາຄັນ"
 #: apps/wocat/templates/wocat/partial/add.html:65
 #: apps/wocat/templates/wocat/partial/add.html:80
 #: apps/wocat/templates/wocat/partial/add.html:103
-#: apps/wocat/templates/wocat/partial/add.html:126
-#: apps/wocat/templates/wocat/partial/add.html:142
+#: apps/wocat/templates/wocat/partial/add.html:125
+#: apps/wocat/templates/wocat/partial/add.html:148
+#: apps/wocat/templates/wocat/partial/add.html:164
 msgid "Add"
 msgstr "​ເພີ່ມ"
 
@@ -21963,6 +22370,17 @@ msgstr ""
 "ວິທີທາງ <strong> ວິທີທາງ ໃນການຄຸ້ມຄອງ ນຳໃຊ້ທີ່ດິນແບບຍືນຍົງ </strong> ໄດ້ກໍານົດ ວິທີການ "
 "ທີ່ໝາຍເຖິງ ການຈັດຕັ້ງ ປະຕິບັດເຕັກໂນໂລຢີ ການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ, ລວມທັງ ພາກສ່ວນກ່ຽວຂ້ອງ ແລະ "
 "ບົດບາດ ການມີສ່ວນຮ່ວມຂອງເຂົາເຈົ້າ."
+
+#: apps/wocat/templates/wocat/partial/add.html:63
+#: apps/wocat/templates/wocat/partial/add.html:77
+msgid "Watershed and Runoff"
+msgstr "​ອ່າງເກັບນໍ້າ​ ແລະ ນ້ຳ​ໄຫຼຂອງນ້ຳ"
+
+#: apps/wocat/templates/wocat/partial/add.html:64
+#: apps/wocat/templates/wocat/partial/add.html:78
+msgid ""
+"Mapping land management and assessing runoff and outflow from a watershed."
+msgstr "ການສ້າງແຜນທີ່ ຄຸ້ມຄອງທີ່ດິນ ແລະ ການປະເມີນ ການໄຫຼຂອງນໍ້າ ໃນອ່າງເກັບນ້ຳ."
 
 #: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:194
 msgid "Search SLM Data"
@@ -22150,3 +22568,22 @@ msgid ""
 msgstr ""
 "ຖານຂໍ້ມູນ ຂອງ WOCAT ກ່ຽວກັບ ການຈັດຕັ້ງປະຕິບັດ ວຽກງານ ການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ (ເຕັກໂນໂລຢີ ແລະ "
 "ວິທີທາງ) ທີ່ລວບລວມເອົາຫຼາຍໆ ການຈັດຕັ້ງປະຕິບັດ ວຽກງານ ການຄຸ້ມຄອງ ທີ່ດິນແບບຍືນຍົງ ທີ່ດີ ທີ່ມີ ຢູ່ໃນທົ່ວໂລກ."
+
+#~ msgctxt "watershed label"
+#~ msgid "co-compiler"
+#~ msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
+
+#~ msgctxt "approaches label"
+#~ msgid "co-compiler"
+#~ msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
+
+#~ msgctxt "technologies label"
+#~ msgid "co-compiler"
+#~ msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
+
+#~ msgctxt "technologies_2018 label"
+#~ msgid "co-compiler"
+#~ msgstr "ຜູ້ລຽບລຽງຮ່ວມ"
+
+#~ msgid "2. Select CCA Module"
+#~ msgstr "2. ເລືອກໂມດູນ ການປັບຕົວຕໍ່ການປ່ຽນແປງດິນຟ້າອາກາດ"
