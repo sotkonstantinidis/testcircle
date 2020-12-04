@@ -49,6 +49,7 @@ class Command(BaseCommand):
         # str.startswith(key)
         'approaches ': ['Approaches', '2015'],
         'cca ': ['CCA', '2015'],
+        'cbp ': ['CBP', '2015'],
         'technologies ': ['Technologies', '2015'],
         'technologies_2018': ['Technologies', '2018'],
         'unccd ': ['UNCCD', '2015'],

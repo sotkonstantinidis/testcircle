@@ -33,6 +33,7 @@ class Edition:
         'questiongroups',
         'questions'
     ]
+    hierarchy_modules = 'modules'
 
     def __str__(self):
         return f'{self.code}: Edition {self.edition}'
@@ -343,6 +344,9 @@ class Edition:
                 }
               ]
             }
+          ],
+          "modules": [
+            "cca"
           ]
         }
         """
@@ -356,6 +360,7 @@ class Edition:
                 raise KeyError(
                     'No element with keyword %s found in list of %s' % (
                         path_keyword, self.hierarchy[hierarchy_level]))
+
         return data
 
     def update_config_data(self, path: tuple, updated, level=0, **data):
@@ -395,6 +400,30 @@ class Edition:
             updated_questiongroup_data.append(qg_data)
         data[qg_keyword] = updated_questiongroup_data
         return data
+
+    def add_new_module(self, updated, **data: dict) -> dict:
+        """
+        Helper to add a module to the configuration
+        """
+        # Modules data is fetched
+        module_data = data.get(self.hierarchy_modules, [])
+        if not module_data:
+            return data
+
+        # New module is appended
+        module_data.append(updated)
+
+        # Questionnaire configuration is updated with new module and returned
+        data[self.hierarchy_modules] = module_data
+        return data
+
+    def append_translation(self, update_pk: int, **data):
+        """
+        Helper to append texts (for choices, checkboxes, labels, etc.).
+        """
+        obj = self.translation.objects.get(pk=update_pk)
+        obj.data.update(data)
+        obj.save()
 
 
 class Operation:

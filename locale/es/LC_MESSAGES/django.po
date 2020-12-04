@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qcat\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-23 22:05+0100\n"
+"POT-Creation-Date: 2020-11-13 15:52+0100\n"
 "PO-Revision-Date: 2020-01-23 21:03+0000\n"
 "Last-Translator: Kurt Gerber <kurt.gerber@cde.unibe.ch>\n"
 "Language-Team: Spanish (http://www.transifex.com/university-of-bern-cde/qcat/"
@@ -151,7 +151,7 @@ msgstr "Todas las notificaciones"
 #: apps/accounts/templates/questionnaires.html:33
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:47
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:84
-#: apps/technologies/templates/technologies/add_module.html:35
+#: apps/technologies/templates/technologies/add_module.html:36
 #: apps/wocat/templates/wocat/partial/search.html:22
 #: apps/wocat/templates/wocat/questionnaire/partial/advanced_filter.html:39
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter.html:28
@@ -179,6 +179,45 @@ msgstr "Ver todos los resultados..."
 msgid "Welcome {}"
 msgstr "Bienvenido {}"
 
+#: apps/api/models.py:77
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "Kenya"
+msgid "Key"
+msgstr "Kenia"
+
+#: apps/api/models.py:80
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "User ID"
+msgid "User"
+msgstr "Identificación de usuario"
+
+#: apps/api/models.py:82 apps/notifications/receivers.py:41
+#: apps/notifications/tests/test_receivers.py:58
+#: apps/questionnaire/utils.py:1014
+msgid "Created"
+msgstr "Creado"
+
+#: apps/api/models.py:83 apps/questionnaire/utils.py:1016
+msgid "Updated"
+msgstr "Actualizado"
+
+#: apps/api/serializers.py:18
+#, fuzzy
+#| msgctxt "wocat label"
+#| msgid "Tokelau"
+msgid "Token"
+msgstr "Tokelau"
+
+#: apps/api/serializers.py:34
+msgid "Unable to log in with provided credentials."
+msgstr ""
+
+#: apps/api/serializers.py:37
+msgid "Must include \"email\" and \"password\"."
+msgstr ""
+
 #: apps/approaches/templates/approaches/base.html:6
 msgid "WOCAT SLM Approaches"
 msgstr "Enfoques MST WOCAT"
@@ -193,14 +232,31 @@ msgstr "Enfoque"
 msgid "Approaches"
 msgstr "Enfoques"
 
-#: apps/cca/templates/cca/base.html:6
-msgid "SLM Climate Change Adaptation"
-msgstr "Adaptación al Cambio Climático MST"
+#: apps/cbp/templates/cbp/base.html:6
+#: apps/cbp/templates/cbp/questionnaire/partial/link.html:16
+#: apps/cbp/views.py:15
+msgid "Carbon Benefits Project (CBP) Summary"
+msgstr ""
 
+#: apps/cbp/templates/cbp/partial/select_module.html:12
 #: apps/cca/templates/cca/partial/select_module.html:12
 #: apps/samplemodule/templates/samplemodule/partial/select_module.html:12
 msgid "This module exists already."
 msgstr "Este módulo ya existe."
+
+#: apps/cbp/templates/cbp/partial/select_module.html:18
+#: apps/questionnaire/templates/details/category/cbp_header.html:16
+#: apps/questionnaire/templates/details/category/cbp_header.html:112
+msgid "Carbon Benefits Project (CBP) Summary Module"
+msgstr ""
+
+#: apps/cbp/templates/cbp/partial/select_module.html:19
+msgid "Summary PDF from the Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+
+#: apps/cca/templates/cca/base.html:6
+msgid "SLM Climate Change Adaptation"
+msgstr "Adaptación al Cambio Climático MST"
 
 #: apps/cca/templates/cca/partial/select_module.html:18
 #: apps/questionnaire/templates/details/category/cca_header.html:16
@@ -230,7 +286,7 @@ msgstr "Sí"
 msgid "No"
 msgstr "No"
 
-#: apps/configuration/configuration.py:2599
+#: apps/configuration/configuration.py:2600
 #: apps/questionnaire/templates/details/category/unccd_header.html:16
 msgid "Unknown name"
 msgstr "Nombre desconocido"
@@ -271,7 +327,7 @@ msgstr "Propósito(s) principal(es) de la Tecnología MST"
 #: apps/configuration/configuration_translations.py:1020
 #: apps/configuration/configuration_translations.py:1021
 #: apps/configuration/configuration_translations.py:1022
-#: apps/configuration/configuration_translations.py:5237
+#: apps/configuration/configuration_translations.py:5249
 msgctxt "technologies label"
 msgid "other (specify)"
 msgstr "otros (especifique)"
@@ -1191,7 +1247,7 @@ msgstr ""
 "o miembros de un grupo/ compañía específico."
 
 #: apps/configuration/configuration_translations.py:1222
-#: apps/configuration/configuration_translations.py:5177
+#: apps/configuration/configuration_translations.py:5182
 msgctxt "technologies label"
 msgid "Gender"
 msgstr "Género"
@@ -1665,8 +1721,8 @@ msgid "Author"
 msgstr "Autor"
 
 #: apps/configuration/configuration_translations.py:1371
-#: apps/configuration/configuration_translations.py:5152
-#: apps/configuration/configuration_translations.py:5229
+#: apps/configuration/configuration_translations.py:5154
+#: apps/configuration/configuration_translations.py:5241
 msgctxt "technologies label"
 msgid "Date"
 msgstr "Fecha"
@@ -6028,7 +6084,7 @@ msgstr ""
 "comentarios e indique si un incremento es positivo o negativo. "
 
 #: apps/configuration/configuration_translations.py:2701
-#: apps/configuration/configuration_translations.py:5143
+#: apps/configuration/configuration_translations.py:5145
 msgctxt "technologies label"
 msgid "Image"
 msgstr "Imagen"
@@ -6560,8 +6616,6 @@ msgid "Other climate-related extremes (disasters)"
 msgstr "Otros extremos (desastres) relacionados al clima"
 
 #: apps/configuration/configuration_translations.py:2773
-#: apps/configuration/configuration_translations.py:5102
-#: apps/configuration/configuration_translations.py:5103
 #: apps/configuration/configuration_translations.py:5104
 #: apps/configuration/configuration_translations.py:5105
 #: apps/configuration/configuration_translations.py:5106
@@ -6590,6 +6644,8 @@ msgstr "Otros extremos (desastres) relacionados al clima"
 #: apps/configuration/configuration_translations.py:5129
 #: apps/configuration/configuration_translations.py:5130
 #: apps/configuration/configuration_translations.py:5131
+#: apps/configuration/configuration_translations.py:5132
+#: apps/configuration/configuration_translations.py:5133
 msgctxt "technologies label"
 msgid "Comments"
 msgstr "Comentarios"
@@ -8300,37 +8356,50 @@ msgid "Name"
 msgstr "Nombre"
 
 #: apps/configuration/configuration_translations.py:5006
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Name"
+msgctxt "cbp label"
+msgid "Name"
+msgstr "Nombre"
+
+#: apps/configuration/configuration_translations.py:5007
 msgctxt "cca label"
 msgid "Country"
 msgstr "País"
 
-#: apps/configuration/configuration_translations.py:5007
+#: apps/configuration/configuration_translations.py:5008
 msgctxt "unccd label"
 msgid "Country"
 msgstr "País"
 
-#: apps/configuration/configuration_translations.py:5008
+#: apps/configuration/configuration_translations.py:5009
 msgctxt "wocat label"
 msgid "Country"
 msgstr "Pais"
 
-#: apps/configuration/configuration_translations.py:5009
+#: apps/configuration/configuration_translations.py:5010
 msgctxt "watershed label"
 msgid "Country"
 msgstr "País"
 
-#: apps/configuration/configuration_translations.py:5010
+#: apps/configuration/configuration_translations.py:5011
 msgctxt "approaches label"
 msgid "Country"
 msgstr "País"
 
-#: apps/configuration/configuration_translations.py:5011
+#: apps/configuration/configuration_translations.py:5012
 msgctxt "technologies label"
 msgid "Country"
 msgstr "País"
 
-#: apps/configuration/configuration_translations.py:5012
 #: apps/configuration/configuration_translations.py:5013
+#, fuzzy
+#| msgid "Country"
+msgctxt "cbp label"
+msgid "Country"
+msgstr "País"
+
 #: apps/configuration/configuration_translations.py:5014
 #: apps/configuration/configuration_translations.py:5015
 #: apps/configuration/configuration_translations.py:5016
@@ -8359,6 +8428,8 @@ msgstr "País"
 #: apps/configuration/configuration_translations.py:5039
 #: apps/configuration/configuration_translations.py:5040
 #: apps/configuration/configuration_translations.py:5041
+#: apps/configuration/configuration_translations.py:5042
+#: apps/configuration/configuration_translations.py:5043
 #: apps/configuration/configuration_translations.py:22240
 #: apps/configuration/configuration_translations.py:24860
 #: apps/configuration/configuration_translations.py:28087
@@ -8366,8 +8437,6 @@ msgctxt "cca label"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: apps/configuration/configuration_translations.py:5042
-#: apps/configuration/configuration_translations.py:5043
 #: apps/configuration/configuration_translations.py:5044
 #: apps/configuration/configuration_translations.py:5045
 #: apps/configuration/configuration_translations.py:5046
@@ -8396,12 +8465,12 @@ msgstr "Comentarios"
 #: apps/configuration/configuration_translations.py:5069
 #: apps/configuration/configuration_translations.py:5070
 #: apps/configuration/configuration_translations.py:5071
+#: apps/configuration/configuration_translations.py:5072
+#: apps/configuration/configuration_translations.py:5073
 msgctxt "unccd label"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: apps/configuration/configuration_translations.py:5072
-#: apps/configuration/configuration_translations.py:5073
 #: apps/configuration/configuration_translations.py:5074
 #: apps/configuration/configuration_translations.py:5075
 #: apps/configuration/configuration_translations.py:5076
@@ -8430,40 +8499,29 @@ msgstr "Comentarios"
 #: apps/configuration/configuration_translations.py:5099
 #: apps/configuration/configuration_translations.py:5100
 #: apps/configuration/configuration_translations.py:5101
+#: apps/configuration/configuration_translations.py:5102
+#: apps/configuration/configuration_translations.py:5103
 msgctxt "approaches label"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: apps/configuration/configuration_translations.py:5132
-msgctxt "watershed label"
-msgid "Region/ State/ Province"
-msgstr "Región/ Estado/ Provincia"
-
-#: apps/configuration/configuration_translations.py:5133
-msgctxt "approaches label"
-msgid "Region/ State/ Province"
-msgstr "Región/ Estado/ Provincia"
-
 #: apps/configuration/configuration_translations.py:5134
-msgctxt "technologies label"
+msgctxt "watershed label"
 msgid "Region/ State/ Province"
 msgstr "Región/ Estado/ Provincia"
 
 #: apps/configuration/configuration_translations.py:5135
-msgctxt "watershed label"
-msgid ""
-"Further specification of location (e.g. municipality, town, etc.), if "
-"relevant"
-msgstr ""
-"Especifique más el lugar (por ej. municipio, pueblo, etc.) si fuese relevante"
+msgctxt "approaches label"
+msgid "Region/ State/ Province"
+msgstr "Región/ Estado/ Provincia"
 
 #: apps/configuration/configuration_translations.py:5136
-msgctxt "watershed label_view"
-msgid "Further specification of location"
-msgstr "Especifique más el lugar "
+msgctxt "technologies label"
+msgid "Region/ State/ Province"
+msgstr "Región/ Estado/ Provincia"
 
 #: apps/configuration/configuration_translations.py:5137
-msgctxt "approaches label"
+msgctxt "watershed label"
 msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
 "relevant"
@@ -8471,11 +8529,24 @@ msgstr ""
 "Especifique más el lugar (por ej. municipio, pueblo, etc.) si fuese relevante"
 
 #: apps/configuration/configuration_translations.py:5138
-msgctxt "approaches label_view"
+msgctxt "watershed label_view"
 msgid "Further specification of location"
 msgstr "Especifique más el lugar "
 
 #: apps/configuration/configuration_translations.py:5139
+msgctxt "approaches label"
+msgid ""
+"Further specification of location (e.g. municipality, town, etc.), if "
+"relevant"
+msgstr ""
+"Especifique más el lugar (por ej. municipio, pueblo, etc.) si fuese relevante"
+
+#: apps/configuration/configuration_translations.py:5140
+msgctxt "approaches label_view"
+msgid "Further specification of location"
+msgstr "Especifique más el lugar "
+
+#: apps/configuration/configuration_translations.py:5141
 msgctxt "technologies label"
 msgid ""
 "Further specification of location (e.g. municipality, town, etc.), if "
@@ -8484,287 +8555,358 @@ msgstr ""
 "Especifique más el lugar (por ej. municipio, pueblo, etc.), si fuese "
 "relevante"
 
-#: apps/configuration/configuration_translations.py:5140
+#: apps/configuration/configuration_translations.py:5142
 msgctxt "technologies label_view"
 msgid "Further specification of location"
 msgstr "Especifique más el lugar "
 
-#: apps/configuration/configuration_translations.py:5141
+#: apps/configuration/configuration_translations.py:5143
 msgctxt "watershed label"
 msgid "Image"
 msgstr "Imagen"
 
-#: apps/configuration/configuration_translations.py:5142
+#: apps/configuration/configuration_translations.py:5144
 #: apps/configuration/configuration_translations.py:8703
 msgctxt "approaches label"
 msgid "Image"
 msgstr "Imagen"
 
-#: apps/configuration/configuration_translations.py:5144
+#: apps/configuration/configuration_translations.py:5146
 msgctxt "watershed label"
 msgid "Caption, explanation of photo"
 msgstr "Leyenda, explicación de la foto"
 
-#: apps/configuration/configuration_translations.py:5145
+#: apps/configuration/configuration_translations.py:5147
 #: apps/configuration/configuration_translations.py:31011
 msgctxt "watershed helptext"
 msgid "Write one sentence."
 msgstr "Escriba una oración."
 
-#: apps/configuration/configuration_translations.py:5146
+#: apps/configuration/configuration_translations.py:5148
 msgctxt "approaches label"
 msgid "Caption, explanation of photo"
 msgstr "Leyenda"
 
-#: apps/configuration/configuration_translations.py:5147
+#: apps/configuration/configuration_translations.py:5149
 msgctxt "approaches helptext"
 msgid "Write one sentence."
 msgstr "Escriba una oración."
 
-#: apps/configuration/configuration_translations.py:5148
+#: apps/configuration/configuration_translations.py:5150
 msgctxt "technologies label"
 msgid "Caption, explanation of photo"
 msgstr "Leyendas"
 
-#: apps/configuration/configuration_translations.py:5149
+#: apps/configuration/configuration_translations.py:5151
 msgctxt "technologies helptext"
 msgid "Write one sentence."
 msgstr "Escriba una oración."
 
-#: apps/configuration/configuration_translations.py:5150
+#: apps/configuration/configuration_translations.py:5152
 #: apps/configuration/configuration_translations.py:31012
 msgctxt "watershed label"
 msgid "Date"
 msgstr "Fecha"
 
-#: apps/configuration/configuration_translations.py:5151
-#: apps/configuration/configuration_translations.py:5228
+#: apps/configuration/configuration_translations.py:5153
+#: apps/configuration/configuration_translations.py:5240
 msgctxt "approaches label"
 msgid "Date"
 msgstr "Fecha"
 
-#: apps/configuration/configuration_translations.py:5153
-#: apps/configuration/configuration_translations.py:5154
-msgctxt "watershed label"
-msgid "Name of photographer"
-msgstr "Nombre del fotógrafo"
-
 #: apps/configuration/configuration_translations.py:5155
 #: apps/configuration/configuration_translations.py:5156
-msgctxt "approaches label"
+msgctxt "watershed label"
 msgid "Name of photographer"
 msgstr "Nombre del fotógrafo"
 
 #: apps/configuration/configuration_translations.py:5157
 #: apps/configuration/configuration_translations.py:5158
-msgctxt "technologies label"
+msgctxt "approaches label"
 msgid "Name of photographer"
 msgstr "Nombre del fotógrafo"
 
 #: apps/configuration/configuration_translations.py:5159
+#: apps/configuration/configuration_translations.py:5160
+msgctxt "technologies label"
+msgid "Name of photographer"
+msgstr "Nombre del fotógrafo"
+
+#: apps/configuration/configuration_translations.py:5161
 msgctxt "cca label"
 msgid "User ID"
 msgstr "Identificación de usuario"
 
-#: apps/configuration/configuration_translations.py:5160
+#: apps/configuration/configuration_translations.py:5162
 msgctxt "watershed label"
 msgid "User ID"
 msgstr "Identificación de usuario"
 
-#: apps/configuration/configuration_translations.py:5161
+#: apps/configuration/configuration_translations.py:5163
 msgctxt "approaches label"
 msgid "User ID"
 msgstr "Identificación de usuario"
 
-#: apps/configuration/configuration_translations.py:5162
+#: apps/configuration/configuration_translations.py:5164
 msgctxt "technologies label"
 msgid "User ID"
 msgstr "Identificación de usuario"
 
-#: apps/configuration/configuration_translations.py:5163
+#: apps/configuration/configuration_translations.py:5165
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "User ID"
+msgctxt "cbp label"
+msgid "User ID"
+msgstr "Identificación de usuario"
+
+#: apps/configuration/configuration_translations.py:5166
 #: apps/configuration/configuration_translations.py:31013
 msgctxt "watershed label"
 msgid "Location"
 msgstr "Lugar"
 
-#: apps/configuration/configuration_translations.py:5164
-#: apps/configuration/configuration_translations.py:5238
+#: apps/configuration/configuration_translations.py:5167
+#: apps/configuration/configuration_translations.py:5250
 msgctxt "approaches label"
 msgid "Location"
 msgstr "Lugar"
 
-#: apps/configuration/configuration_translations.py:5165
-#: apps/configuration/configuration_translations.py:5239
+#: apps/configuration/configuration_translations.py:5168
+#: apps/configuration/configuration_translations.py:5251
 msgctxt "technologies label"
 msgid "Location"
 msgstr "Lugar"
 
-#: apps/configuration/configuration_translations.py:5166
+#: apps/configuration/configuration_translations.py:5169
 msgctxt "cca label"
 msgid "Lastname"
 msgstr "Apellido"
 
-#: apps/configuration/configuration_translations.py:5167
+#: apps/configuration/configuration_translations.py:5170
 msgctxt "watershed label"
 msgid "Lastname / surname"
 msgstr "Apellido"
 
-#: apps/configuration/configuration_translations.py:5168
+#: apps/configuration/configuration_translations.py:5171
 msgctxt "approaches label"
 msgid "Last name"
 msgstr "Apellido"
 
-#: apps/configuration/configuration_translations.py:5169
+#: apps/configuration/configuration_translations.py:5172
 msgctxt "technologies label"
 msgid "Lastname / surname"
 msgstr "Apellido"
 
-#: apps/configuration/configuration_translations.py:5170
+#: apps/configuration/configuration_translations.py:5173
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Lastname"
+msgctxt "cbp label"
+msgid "Lastname"
+msgstr "Apellido"
+
+#: apps/configuration/configuration_translations.py:5174
 msgctxt "cca label"
 msgid "First name(s)"
 msgstr " Nombre(s)"
 
-#: apps/configuration/configuration_translations.py:5171
+#: apps/configuration/configuration_translations.py:5175
 msgctxt "watershed label"
 msgid "First name(s)"
 msgstr " Nombre(s)"
 
-#: apps/configuration/configuration_translations.py:5172
+#: apps/configuration/configuration_translations.py:5176
 msgctxt "approaches label"
 msgid "First name(s)"
 msgstr " Nombre(s)"
 
-#: apps/configuration/configuration_translations.py:5173
+#: apps/configuration/configuration_translations.py:5177
 msgctxt "technologies label"
 msgid "First name(s)"
 msgstr "Nombre(s)"
 
-#: apps/configuration/configuration_translations.py:5174
-msgctxt "cca label"
-msgid "Gender"
-msgstr "Género"
-
-#: apps/configuration/configuration_translations.py:5175
-msgctxt "watershed label"
-msgid "Gender"
-msgstr "Género"
-
-#: apps/configuration/configuration_translations.py:5176
-msgctxt "approaches label"
-msgid "Gender"
-msgstr "Género"
-
 #: apps/configuration/configuration_translations.py:5178
-msgctxt "cca label"
-msgid "Name of institution"
-msgstr "Nombre de la institución"
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "First name(s)"
+msgctxt "cbp label"
+msgid "First name(s)"
+msgstr " Nombre(s)"
 
 #: apps/configuration/configuration_translations.py:5179
-msgctxt "watershed label"
-msgid "Name of institution"
-msgstr "Nombre de la institución"
+msgctxt "cca label"
+msgid "Gender"
+msgstr "Género"
 
 #: apps/configuration/configuration_translations.py:5180
-msgctxt "approaches label"
-msgid "Name of institution"
-msgstr "Nombre de la institución"
+msgctxt "watershed label"
+msgid "Gender"
+msgstr "Género"
 
 #: apps/configuration/configuration_translations.py:5181
+msgctxt "approaches label"
+msgid "Gender"
+msgstr "Género"
+
+#: apps/configuration/configuration_translations.py:5183
+#, fuzzy
+#| msgid "Gender"
+msgctxt "cbp label"
+msgid "Gender"
+msgstr "Género"
+
+#: apps/configuration/configuration_translations.py:5184
+msgctxt "cca label"
+msgid "Name of institution"
+msgstr "Nombre de la institución"
+
+#: apps/configuration/configuration_translations.py:5185
+msgctxt "watershed label"
+msgid "Name of institution"
+msgstr "Nombre de la institución"
+
+#: apps/configuration/configuration_translations.py:5186
+msgctxt "approaches label"
+msgid "Name of institution"
+msgstr "Nombre de la institución"
+
+#: apps/configuration/configuration_translations.py:5187
 msgctxt "technologies label"
 msgid "Name of institution"
 msgstr "Nombre de la institución"
 
-#: apps/configuration/configuration_translations.py:5182
-msgctxt "cca label"
-msgid "Phone no. 1"
-msgstr "Número de teléfono 1"
-
-#: apps/configuration/configuration_translations.py:5183
-msgctxt "watershed label"
-msgid "Phone no. 1"
-msgstr "Número de teléfono 1"
-
-#: apps/configuration/configuration_translations.py:5184
-msgctxt "approaches label"
-msgid "Phone no. 1"
-msgstr "Número de teléfono 1"
-
-#: apps/configuration/configuration_translations.py:5185
-msgctxt "technologies label"
-msgid "Phone no. 1"
-msgstr "Número de teléfono 1"
-
-#: apps/configuration/configuration_translations.py:5186
-msgctxt "cca label"
-msgid "Phone no. 2 (mobile)"
-msgstr "Número de teléfono 2 (móvil)"
-
-#: apps/configuration/configuration_translations.py:5187
-msgctxt "watershed label"
-msgid "Phone no. 2 (mobile)"
-msgstr "Número de teléfono 2 (móvil)"
-
 #: apps/configuration/configuration_translations.py:5188
-msgctxt "approaches label"
-msgid "Phone no. 2 (mobile)"
-msgstr "Número de teléfono 2 (móvil)"
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Name of institution"
+msgctxt "cbp label"
+msgid "Name of Institution"
+msgstr "Nombre de la institución"
 
 #: apps/configuration/configuration_translations.py:5189
-msgctxt "technologies label"
-msgid "Phone no. 2 (mobile)"
-msgstr "Número de teléfono 2 (móvil)"
+msgctxt "cca label"
+msgid "Phone no. 1"
+msgstr "Número de teléfono 1"
 
 #: apps/configuration/configuration_translations.py:5190
-msgctxt "cca label"
-msgid "E-mail 1"
-msgstr "Dirección de correo electrónico 1"
+msgctxt "watershed label"
+msgid "Phone no. 1"
+msgstr "Número de teléfono 1"
 
 #: apps/configuration/configuration_translations.py:5191
-msgctxt "watershed label"
-msgid "E-mail 1"
-msgstr "Dirección de correo electrónico 1"
+msgctxt "approaches label"
+msgid "Phone no. 1"
+msgstr "Número de teléfono 1"
 
 #: apps/configuration/configuration_translations.py:5192
-msgctxt "approaches label"
-msgid "E-mail 1"
-msgstr "Dirección de correo electrónico 1"
+msgctxt "technologies label"
+msgid "Phone no. 1"
+msgstr "Número de teléfono 1"
 
 #: apps/configuration/configuration_translations.py:5193
-msgctxt "technologies label"
-msgid "E-mail 1"
-msgstr "Dirección de correo electrónico 1"
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Phone no. 1"
+msgctxt "cbp label"
+msgid "Phone no. 1"
+msgstr "Número de teléfono 1"
 
 #: apps/configuration/configuration_translations.py:5194
 msgctxt "cca label"
+msgid "Phone no. 2 (mobile)"
+msgstr "Número de teléfono 2 (móvil)"
+
+#: apps/configuration/configuration_translations.py:5195
+msgctxt "watershed label"
+msgid "Phone no. 2 (mobile)"
+msgstr "Número de teléfono 2 (móvil)"
+
+#: apps/configuration/configuration_translations.py:5196
+msgctxt "approaches label"
+msgid "Phone no. 2 (mobile)"
+msgstr "Número de teléfono 2 (móvil)"
+
+#: apps/configuration/configuration_translations.py:5197
+msgctxt "technologies label"
+msgid "Phone no. 2 (mobile)"
+msgstr "Número de teléfono 2 (móvil)"
+
+#: apps/configuration/configuration_translations.py:5198
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Phone no. 1"
+msgctxt "cbp label"
+msgid "Phone no. 2"
+msgstr "Número de teléfono 1"
+
+#: apps/configuration/configuration_translations.py:5199
+msgctxt "cca label"
+msgid "E-mail 1"
+msgstr "Dirección de correo electrónico 1"
+
+#: apps/configuration/configuration_translations.py:5200
+msgctxt "watershed label"
+msgid "E-mail 1"
+msgstr "Dirección de correo electrónico 1"
+
+#: apps/configuration/configuration_translations.py:5201
+msgctxt "approaches label"
+msgid "E-mail 1"
+msgstr "Dirección de correo electrónico 1"
+
+#: apps/configuration/configuration_translations.py:5202
+msgctxt "technologies label"
+msgid "E-mail 1"
+msgstr "Dirección de correo electrónico 1"
+
+#: apps/configuration/configuration_translations.py:5203
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "E-mail 1"
+msgctxt "cbp label"
+msgid "E-mail 1"
+msgstr "Dirección de correo electrónico 1"
+
+#: apps/configuration/configuration_translations.py:5204
+msgctxt "cca label"
 msgid "E-mail 2"
 msgstr "Dirección de correo electrónico 2"
 
-#: apps/configuration/configuration_translations.py:5195
+#: apps/configuration/configuration_translations.py:5205
 msgctxt "watershed label"
 msgid "E-mail 2"
 msgstr "Dirección de correo electrónico 2"
 
-#: apps/configuration/configuration_translations.py:5196
+#: apps/configuration/configuration_translations.py:5206
 msgctxt "approaches label"
 msgid "E-mail 2"
 msgstr "Dirección de correo electrónico 2"
 
-#: apps/configuration/configuration_translations.py:5197
+#: apps/configuration/configuration_translations.py:5207
 msgctxt "technologies label"
 msgid "E-mail 2"
 msgstr "Dirección de correo electrónico 2"
 
-#: apps/configuration/configuration_translations.py:5198
+#: apps/configuration/configuration_translations.py:5208
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "E-mail 2"
+msgctxt "cbp label"
+msgid "E-mail 2"
+msgstr "Dirección de correo electrónico 2"
+
+#: apps/configuration/configuration_translations.py:5209
 msgctxt "cca label"
 msgid "Other (specify)"
 msgstr "Otro (especifique)"
 
-#: apps/configuration/configuration_translations.py:5199
+#: apps/configuration/configuration_translations.py:5210
 msgctxt "watershed label"
 msgid "Other (specify)"
 msgstr "Otro (especifique)"
 
-#: apps/configuration/configuration_translations.py:5200
+#: apps/configuration/configuration_translations.py:5211
 #: apps/configuration/configuration_translations.py:7005
 #: apps/configuration/configuration_translations.py:7006
 #: apps/configuration/configuration_translations.py:7007
@@ -8786,17 +8928,25 @@ msgctxt "approaches label"
 msgid "Other (specify)"
 msgstr "Otro (especifique)"
 
-#: apps/configuration/configuration_translations.py:5201
+#: apps/configuration/configuration_translations.py:5212
 msgctxt "technologies label"
 msgid "Other (specify)"
 msgstr "Otro (especifique)"
 
-#: apps/configuration/configuration_translations.py:5202
+#: apps/configuration/configuration_translations.py:5213
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Other (specify)"
+msgctxt "cbp label"
+msgid "Other (specify)"
+msgstr "Otro (especifique)"
+
+#: apps/configuration/configuration_translations.py:5214
 msgctxt "cca label"
 msgid "Strengths/ advantages/ opportunities of the technology"
 msgstr "Fuerzas/ ventajas/ oportunidades de la Tecnología "
 
-#: apps/configuration/configuration_translations.py:5203
+#: apps/configuration/configuration_translations.py:5215
 msgctxt "watershed label"
 msgid ""
 "Strengths/ advantages/ opportunities in the land user’s / watershed user’s "
@@ -8805,8 +8955,8 @@ msgstr ""
 "Fuerzas/ ventajas/ oportunidades desde la perspectiva del usuario de la "
 "tierra / cuenca hidrográfica"
 
-#: apps/configuration/configuration_translations.py:5204
-#: apps/configuration/configuration_translations.py:5214
+#: apps/configuration/configuration_translations.py:5216
+#: apps/configuration/configuration_translations.py:5226
 msgctxt "watershed helptext"
 msgid ""
 "<p><strong>Land user</strong>: the person/ entity who implements/ maintains "
@@ -8830,15 +8980,15 @@ msgstr ""
 "(género, edad, estatus, interés), cooperativas, empresas industriales (por "
 "ej. minería), instituciones gubernamentales (por ej. bosques estatales), etc."
 
-#: apps/configuration/configuration_translations.py:5205
+#: apps/configuration/configuration_translations.py:5217
 msgctxt "approaches label"
 msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgstr ""
 "Fuerzas/ ventajas/ oportunidades desde la perspectiva del usuario de la "
 "tierra"
 
-#: apps/configuration/configuration_translations.py:5206
-#: apps/configuration/configuration_translations.py:5216
+#: apps/configuration/configuration_translations.py:5218
+#: apps/configuration/configuration_translations.py:5228
 msgctxt "approaches helptext"
 msgid ""
 "<strong>Land user</strong>: the person/ entity who implements/ maintains the "
@@ -8852,15 +9002,15 @@ msgstr ""
 "estatus, interés), cooperativas, empresas industriales (por ej. minería), "
 "instituciones gubernamentales (por ej. bosques estatales), etc."
 
-#: apps/configuration/configuration_translations.py:5207
+#: apps/configuration/configuration_translations.py:5219
 msgctxt "technologies label"
 msgid "Strengths/ advantages/ opportunities in the land user’s view"
 msgstr ""
 "Fuerzas/ ventajas/ oportunidades desde la perspectiva del usuario de la "
 "tierra"
 
-#: apps/configuration/configuration_translations.py:5208
-#: apps/configuration/configuration_translations.py:5218
+#: apps/configuration/configuration_translations.py:5220
+#: apps/configuration/configuration_translations.py:5230
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Land user</strong>: the person/ entity who implements/ maintains the "
@@ -8874,7 +9024,7 @@ msgstr ""
 "estatus, interés), cooperativas, empresas industriales (por ej. minería), "
 "instituciones gubernamentales (por ej. bosques estatales), etc."
 
-#: apps/configuration/configuration_translations.py:5209
+#: apps/configuration/configuration_translations.py:5221
 msgctxt "watershed label"
 msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
@@ -8883,7 +9033,7 @@ msgstr ""
 "Fuerzas/ ventajas/ oportunidades desde la perspectiva del compilador o de "
 "otra persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5210
+#: apps/configuration/configuration_translations.py:5222
 msgctxt "approaches label"
 msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
@@ -8892,7 +9042,7 @@ msgstr ""
 "Fuerzas/ ventajas/ oportunidades desde la perspectiva del compilador o de "
 "otra persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5211
+#: apps/configuration/configuration_translations.py:5223
 msgctxt "technologies label"
 msgid ""
 "Strengths/ advantages/ opportunities in the compiler’s or other key resource "
@@ -8901,12 +9051,12 @@ msgstr ""
 "Fuerzas/ ventajas/ oportunidades desde la perspectiva del compilador o de "
 "otra persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5212
+#: apps/configuration/configuration_translations.py:5224
 msgctxt "cca label"
 msgid "Weaknesses/ disadvantages/ risks"
 msgstr "Debilidades/ desventajas/ riesgos"
 
-#: apps/configuration/configuration_translations.py:5213
+#: apps/configuration/configuration_translations.py:5225
 msgctxt "watershed label"
 msgid ""
 "Weaknesses/ disadvantages/ risks in the land user’s / watershed user’s view"
@@ -8914,103 +9064,103 @@ msgstr ""
 "Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
 "tierra / de la cuenca hidrográfica"
 
-#: apps/configuration/configuration_translations.py:5215
-msgctxt "approaches label"
-msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
-msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
-"tierra"
-
-#: apps/configuration/configuration_translations.py:5217
-msgctxt "technologies label"
-msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
-msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
-"tierra"
-
-#: apps/configuration/configuration_translations.py:5219
-msgctxt "watershed label"
-msgid ""
-"Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
-"person’s view"
-msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
-"otra persona de referencia clave"
-
-#: apps/configuration/configuration_translations.py:5220
-msgctxt "approaches label"
-msgid ""
-"Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
-"person’s view"
-msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
-"otra persona de referencia clave"
-
-#: apps/configuration/configuration_translations.py:5221
-msgctxt "technologies label"
-msgid ""
-"Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
-"person’s view"
-msgstr ""
-"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
-"otra persona de referencia clave"
-
-#: apps/configuration/configuration_translations.py:5222
-msgctxt "cca label"
-msgid "How can they be overcome?"
-msgstr "¿Cómo sobreponerse a ellas?"
-
-#: apps/configuration/configuration_translations.py:5223
-msgctxt "watershed label"
-msgid "How can they be overcome?"
-msgstr "¿Cómo sobreponerse a ellas?"
-
-#: apps/configuration/configuration_translations.py:5224
-msgctxt "approaches label"
-msgid "How can they be overcome?"
-msgstr "¿Cómo sobreponerse a ellas?"
-
-#: apps/configuration/configuration_translations.py:5225
-msgctxt "technologies label"
-msgid "How can they be overcome?"
-msgstr "¿Cómo sobreponerse a ellas?"
-
-#: apps/configuration/configuration_translations.py:5226
-msgctxt "approaches label"
-msgid "Comments, short description"
-msgstr "Comentarios, descripción breve"
-
 #: apps/configuration/configuration_translations.py:5227
-msgctxt "technologies label"
-msgid "Comments, short description"
-msgstr "Comentarios, descripción breve"
-
-#: apps/configuration/configuration_translations.py:5230
 msgctxt "approaches label"
-msgid "Name of videographer"
-msgstr "Nombre del videógrafo"
+msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
+msgstr ""
+"Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
+"tierra"
+
+#: apps/configuration/configuration_translations.py:5229
+msgctxt "technologies label"
+msgid "Weaknesses/ disadvantages/ risks in the land user’s view"
+msgstr ""
+"Debilidades/ desventajas/ riesgos desde la perspectiva del usuario de la "
+"tierra"
 
 #: apps/configuration/configuration_translations.py:5231
+msgctxt "watershed label"
+msgid ""
+"Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
+"person’s view"
+msgstr ""
+"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
+"otra persona de referencia clave"
+
+#: apps/configuration/configuration_translations.py:5232
+msgctxt "approaches label"
+msgid ""
+"Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
+"person’s view"
+msgstr ""
+"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
+"otra persona de referencia clave"
+
+#: apps/configuration/configuration_translations.py:5233
+msgctxt "technologies label"
+msgid ""
+"Weaknesses/ disadvantages/ risks in the compiler’s or other key resource "
+"person’s view"
+msgstr ""
+"Debilidades/ desventajas/ riesgos desde la perspectiva del compilador o de "
+"otra persona de referencia clave"
+
+#: apps/configuration/configuration_translations.py:5234
+msgctxt "cca label"
+msgid "How can they be overcome?"
+msgstr "¿Cómo sobreponerse a ellas?"
+
+#: apps/configuration/configuration_translations.py:5235
+msgctxt "watershed label"
+msgid "How can they be overcome?"
+msgstr "¿Cómo sobreponerse a ellas?"
+
+#: apps/configuration/configuration_translations.py:5236
+msgctxt "approaches label"
+msgid "How can they be overcome?"
+msgstr "¿Cómo sobreponerse a ellas?"
+
+#: apps/configuration/configuration_translations.py:5237
+msgctxt "technologies label"
+msgid "How can they be overcome?"
+msgstr "¿Cómo sobreponerse a ellas?"
+
+#: apps/configuration/configuration_translations.py:5238
+msgctxt "approaches label"
+msgid "Comments, short description"
+msgstr "Comentarios, descripción breve"
+
+#: apps/configuration/configuration_translations.py:5239
+msgctxt "technologies label"
+msgid "Comments, short description"
+msgstr "Comentarios, descripción breve"
+
+#: apps/configuration/configuration_translations.py:5242
+msgctxt "approaches label"
+msgid "Name of videographer"
+msgstr "Nombre del videógrafo"
+
+#: apps/configuration/configuration_translations.py:5243
 msgctxt "technologies label"
 msgid "Name of videographer"
 msgstr "Nombre del videógrafo"
 
-#: apps/configuration/configuration_translations.py:5232
+#: apps/configuration/configuration_translations.py:5244
 msgctxt "cca label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr "¿Cuál de los siguientes métodos/ fuentes de información se usaron? "
 
-#: apps/configuration/configuration_translations.py:5233
+#: apps/configuration/configuration_translations.py:5245
 msgctxt "approaches label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr "¿Cuál de los siguientes métodos/ fuentes de información se usaron? "
 
-#: apps/configuration/configuration_translations.py:5234
+#: apps/configuration/configuration_translations.py:5246
 msgctxt "technologies label"
 msgid "Which of the following methods/ sources of information were used?"
 msgstr "¿Cuál de los siguientes métodos/ fuentes de información se usaron? "
 
-#: apps/configuration/configuration_translations.py:5235
+#: apps/configuration/configuration_translations.py:5247
 #: apps/configuration/configuration_translations.py:28005
 #: apps/configuration/configuration_translations.py:28006
 #: apps/configuration/configuration_translations.py:28007
@@ -9020,74 +9170,90 @@ msgctxt "cca label"
 msgid "other (specify)"
 msgstr "otros (especifique)"
 
-#: apps/configuration/configuration_translations.py:5236
+#: apps/configuration/configuration_translations.py:5248
 #: apps/configuration/configuration_translations.py:7175
 msgctxt "approaches label"
 msgid "other (specify)"
 msgstr "otros (especifique)"
 
-#: apps/configuration/configuration_translations.py:5240
+#: apps/configuration/configuration_translations.py:5252
 msgctxt "cca label"
 msgid "Locally used name"
 msgstr "Nombre local utilizado"
 
-#: apps/configuration/configuration_translations.py:5241
+#: apps/configuration/configuration_translations.py:5253
 msgctxt "unccd label"
 msgid "Local name"
 msgstr "Nombre local "
 
-#: apps/configuration/configuration_translations.py:5242
+#: apps/configuration/configuration_translations.py:5254
 msgctxt "watershed label"
 msgid "Locally used name"
 msgstr "Nombre local utilizado"
 
-#: apps/configuration/configuration_translations.py:5243
+#: apps/configuration/configuration_translations.py:5255
 msgctxt "approaches label"
 msgid "Locally used name"
 msgstr "Nombre local utilizado"
 
-#: apps/configuration/configuration_translations.py:5244
+#: apps/configuration/configuration_translations.py:5256
 msgctxt "technologies label"
 msgid "Locally used name"
 msgstr "Nombre local utilizado"
 
-#: apps/configuration/configuration_translations.py:5245
+#: apps/configuration/configuration_translations.py:5257
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Locally used name"
+msgctxt "cbp label"
+msgid "Locally used name"
+msgstr "Nombre local utilizado"
+
+#: apps/configuration/configuration_translations.py:5258
 msgctxt "watershed label"
 msgid "General remarks regarding photos"
 msgstr "Comentarios generales sobre las fotos"
 
-#: apps/configuration/configuration_translations.py:5246
+#: apps/configuration/configuration_translations.py:5259
 msgctxt "approaches label"
 msgid "General remarks regarding photos"
 msgstr "Comentarios generales sobre las fotos"
 
-#: apps/configuration/configuration_translations.py:5247
+#: apps/configuration/configuration_translations.py:5260
 msgctxt "technologies label"
 msgid "General remarks regarding photos"
 msgstr "Comentarios generales sobre las fotos"
 
-#: apps/configuration/configuration_translations.py:5248
+#: apps/configuration/configuration_translations.py:5261
 msgctxt "cca label"
 msgid "Specify the key resource person"
 msgstr "Identifique a la persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5249
+#: apps/configuration/configuration_translations.py:5262
 msgctxt "watershed label"
 msgid "Specify the key resource person"
 msgstr "Identifique a la persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5250
+#: apps/configuration/configuration_translations.py:5263
 msgctxt "approaches label"
 msgid "Specify the key resource person"
 msgstr "Identifique a la persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5251
+#: apps/configuration/configuration_translations.py:5264
 msgctxt "technologies label"
 msgid "Specify the key resource person"
 msgstr "Identifique a la persona de referencia clave"
 
-#: apps/configuration/configuration_translations.py:5252
-#: apps/configuration/configuration_translations.py:5253
+#: apps/configuration/configuration_translations.py:5265
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "Specify the key resource person"
+msgctxt "cbp label"
+msgid "Specify the key resource person"
+msgstr "Identifique a la persona de referencia clave"
+
+#: apps/configuration/configuration_translations.py:5266
+#: apps/configuration/configuration_translations.py:5267
 msgctxt "cca label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
@@ -9096,8 +9262,8 @@ msgstr ""
 "Nombre del proyecto que facilitó la documentación/ evaluación de la "
 "adaptación de la Tecnología al cambio climático (si fuera relevante)"
 
-#: apps/configuration/configuration_translations.py:5254
-#: apps/configuration/configuration_translations.py:5255
+#: apps/configuration/configuration_translations.py:5268
+#: apps/configuration/configuration_translations.py:5269
 msgctxt "cca helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -9106,22 +9272,22 @@ msgstr ""
 "Si su proyecto no se halla listado en el menú desplegable, por favor "
 "contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
 
-#: apps/configuration/configuration_translations.py:5256
-#: apps/configuration/configuration_translations.py:5257
+#: apps/configuration/configuration_translations.py:5270
+#: apps/configuration/configuration_translations.py:5271
 msgctxt "wocat label"
 msgid "Name of project which facilitated the documentation/ evaluation"
 msgstr ""
 "Nombre del proyecto que facilitó la documentación/ evaluación del Enfoque "
 "(si fuera relevante)"
 
-#: apps/configuration/configuration_translations.py:5258
-#: apps/configuration/configuration_translations.py:5259
+#: apps/configuration/configuration_translations.py:5272
+#: apps/configuration/configuration_translations.py:5273
 msgctxt "wocat label_filter"
 msgid "Project"
 msgstr "Proyecto"
 
-#: apps/configuration/configuration_translations.py:5260
-#: apps/configuration/configuration_translations.py:5261
+#: apps/configuration/configuration_translations.py:5274
+#: apps/configuration/configuration_translations.py:5275
 msgctxt "watershed label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
@@ -9130,8 +9296,8 @@ msgstr ""
 "Nombre del proyecto que facilitó la documentación/ evaluación de la "
 "Tecnología (si fuera relevante)"
 
-#: apps/configuration/configuration_translations.py:5262
-#: apps/configuration/configuration_translations.py:5263
+#: apps/configuration/configuration_translations.py:5276
+#: apps/configuration/configuration_translations.py:5277
 msgctxt "watershed helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -9140,8 +9306,8 @@ msgstr ""
 "Si su proyecto no se halla listado en el menú desplegable, por favor "
 "contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
 
-#: apps/configuration/configuration_translations.py:5264
-#: apps/configuration/configuration_translations.py:5265
+#: apps/configuration/configuration_translations.py:5278
+#: apps/configuration/configuration_translations.py:5279
 msgctxt "approaches label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
@@ -9150,8 +9316,8 @@ msgstr ""
 "Nombre del proyecto que facilitó la documentación/ evaluación del Enfoque "
 "(si fuera relevante)"
 
-#: apps/configuration/configuration_translations.py:5266
-#: apps/configuration/configuration_translations.py:5267
+#: apps/configuration/configuration_translations.py:5280
+#: apps/configuration/configuration_translations.py:5281
 msgctxt "approaches helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -9160,14 +9326,14 @@ msgstr ""
 "Si su proyecto no se halla listado en el menú desplegable, por favor "
 "contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
 
-#: apps/configuration/configuration_translations.py:5268
-#: apps/configuration/configuration_translations.py:5269
+#: apps/configuration/configuration_translations.py:5282
+#: apps/configuration/configuration_translations.py:5283
 msgctxt "approaches label_filter"
 msgid "Project"
 msgstr "Proyecto"
 
-#: apps/configuration/configuration_translations.py:5270
-#: apps/configuration/configuration_translations.py:5271
+#: apps/configuration/configuration_translations.py:5284
+#: apps/configuration/configuration_translations.py:5285
 msgctxt "technologies label"
 msgid ""
 "Name of project which facilitated the documentation/ evaluation of the "
@@ -9176,8 +9342,8 @@ msgstr ""
 "Nombre del proyecto que financió la documentación/ evaluación de la "
 "Tecnología (si fuera relevante)"
 
-#: apps/configuration/configuration_translations.py:5272
-#: apps/configuration/configuration_translations.py:5273
+#: apps/configuration/configuration_translations.py:5286
+#: apps/configuration/configuration_translations.py:5287
 msgctxt "technologies helptext"
 msgid ""
 "If your project is not listed in the dropdown, please contact the WOCAT "
@@ -9186,14 +9352,44 @@ msgstr ""
 "Si su proyecto no se halla listado en el menú desplegable, por favor "
 "contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
 
-#: apps/configuration/configuration_translations.py:5274
-#: apps/configuration/configuration_translations.py:5275
+#: apps/configuration/configuration_translations.py:5288
+#: apps/configuration/configuration_translations.py:5289
 msgctxt "technologies label_filter"
 msgid "Project"
 msgstr "Proyecto"
 
-#: apps/configuration/configuration_translations.py:5276
-#: apps/configuration/configuration_translations.py:5277
+#: apps/configuration/configuration_translations.py:5290
+#: apps/configuration/configuration_translations.py:5291
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid ""
+#| "Name of project which facilitated the documentation/ evaluation of the "
+#| "watershed (if relevant)"
+msgctxt "cbp label"
+msgid ""
+"Name of project which facilitated the documentation/ evaluation of the "
+"Carbon Benefits Project (CBP) Assessment (if relevant)"
+msgstr ""
+"Nombre del proyecto que facilitó la documentación/ evaluación de la "
+"Tecnología (si fuera relevante)"
+
+#: apps/configuration/configuration_translations.py:5292
+#: apps/configuration/configuration_translations.py:5293
+#, fuzzy
+#| msgctxt "cca helptext"
+#| msgid ""
+#| "If your project is not listed in the dropdown, please contact the WOCAT "
+#| "secretariat (wocat@cde.unibe.ch)."
+msgctxt "cbp helptext"
+msgid ""
+"If your project is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"Si su proyecto no se halla listado en el menú desplegable, por favor "
+"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
+
+#: apps/configuration/configuration_translations.py:5294
+#: apps/configuration/configuration_translations.py:5295
 msgctxt "cca label"
 msgid ""
 "Name of the institution(s) which facilitated the documentation/ evaluation "
@@ -9202,89 +9398,9 @@ msgstr ""
 "Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
 "de la adaptación de la Tecnología al cambio climático (si fuera relevante)"
 
-#: apps/configuration/configuration_translations.py:5278
-#: apps/configuration/configuration_translations.py:5279
-msgctxt "cca helptext"
-msgid ""
-"If your institution is not listed in the dropdown, please contact the WOCAT "
-"secretariat (wocat@cde.unibe.ch)."
-msgstr ""
-"Si su institución no se halla listada en el menú desplegable, por favor "
-"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
-
-#: apps/configuration/configuration_translations.py:5280
-#: apps/configuration/configuration_translations.py:5281
-msgctxt "wocat label"
-msgid "Name of the institution which facilitated the documentation/ evaluation"
-msgstr ""
-"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
-"del Enfoque si fuera relevante)"
-
-#: apps/configuration/configuration_translations.py:5282
-#: apps/configuration/configuration_translations.py:5283
-msgctxt "wocat label_filter"
-msgid "Institution"
-msgstr "Institución"
-
-#: apps/configuration/configuration_translations.py:5284
-#: apps/configuration/configuration_translations.py:5285
-msgctxt "watershed label"
-msgid ""
-"Name of the institution(s) which facilitated the documentation/ evaluation "
-"of the watershed (if relevant)"
-msgstr ""
-"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
-"de la cuenca  hidrográfica (si fuera relevante)"
-
-#: apps/configuration/configuration_translations.py:5286
-#: apps/configuration/configuration_translations.py:5287
-msgctxt "watershed helptext"
-msgid ""
-"If your institution is not listed in the dropdown, please contact the WOCAT "
-"secretariat (wocat@cde.unibe.ch)."
-msgstr ""
-"Si su institución no se halla listada en el menú desplegable, por favor "
-"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
-
-#: apps/configuration/configuration_translations.py:5288
-#: apps/configuration/configuration_translations.py:5289
-msgctxt "approaches label"
-msgid ""
-"Name of the institution(s) which facilitated the documentation/ evaluation "
-"of the Approach (if relevant)"
-msgstr ""
-"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
-"del Enfoque si fuera relevante)"
-
-#: apps/configuration/configuration_translations.py:5290
-#: apps/configuration/configuration_translations.py:5291
-msgctxt "approaches helptext"
-msgid ""
-"If your institution is not listed in the dropdown, please contact the WOCAT "
-"secretariat (wocat@cde.unibe.ch)."
-msgstr ""
-"Si su institución no se halla listada en el menú desplegable, por favor "
-"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
-
-#: apps/configuration/configuration_translations.py:5292
-#: apps/configuration/configuration_translations.py:5293
-msgctxt "approaches label_filter"
-msgid "Institution"
-msgstr "Institución "
-
-#: apps/configuration/configuration_translations.py:5294
-#: apps/configuration/configuration_translations.py:5295
-msgctxt "technologies label"
-msgid ""
-"Name of the institution(s) which facilitated the documentation/ evaluation "
-"of the Technology (if relevant)"
-msgstr ""
-"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
-"de la Tecnología (si fuera relevante)"
-
 #: apps/configuration/configuration_translations.py:5296
 #: apps/configuration/configuration_translations.py:5297
-msgctxt "technologies helptext"
+msgctxt "cca helptext"
 msgid ""
 "If your institution is not listed in the dropdown, please contact the WOCAT "
 "secretariat (wocat@cde.unibe.ch)."
@@ -9294,126 +9410,241 @@ msgstr ""
 
 #: apps/configuration/configuration_translations.py:5298
 #: apps/configuration/configuration_translations.py:5299
+msgctxt "wocat label"
+msgid "Name of the institution which facilitated the documentation/ evaluation"
+msgstr ""
+"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
+"del Enfoque si fuera relevante)"
+
+#: apps/configuration/configuration_translations.py:5300
+#: apps/configuration/configuration_translations.py:5301
+msgctxt "wocat label_filter"
+msgid "Institution"
+msgstr "Institución"
+
+#: apps/configuration/configuration_translations.py:5302
+#: apps/configuration/configuration_translations.py:5303
+msgctxt "watershed label"
+msgid ""
+"Name of the institution(s) which facilitated the documentation/ evaluation "
+"of the watershed (if relevant)"
+msgstr ""
+"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
+"de la cuenca  hidrográfica (si fuera relevante)"
+
+#: apps/configuration/configuration_translations.py:5304
+#: apps/configuration/configuration_translations.py:5305
+msgctxt "watershed helptext"
+msgid ""
+"If your institution is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"Si su institución no se halla listada en el menú desplegable, por favor "
+"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
+
+#: apps/configuration/configuration_translations.py:5306
+#: apps/configuration/configuration_translations.py:5307
+msgctxt "approaches label"
+msgid ""
+"Name of the institution(s) which facilitated the documentation/ evaluation "
+"of the Approach (if relevant)"
+msgstr ""
+"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
+"del Enfoque si fuera relevante)"
+
+#: apps/configuration/configuration_translations.py:5308
+#: apps/configuration/configuration_translations.py:5309
+msgctxt "approaches helptext"
+msgid ""
+"If your institution is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"Si su institución no se halla listada en el menú desplegable, por favor "
+"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
+
+#: apps/configuration/configuration_translations.py:5310
+#: apps/configuration/configuration_translations.py:5311
+msgctxt "approaches label_filter"
+msgid "Institution"
+msgstr "Institución "
+
+#: apps/configuration/configuration_translations.py:5312
+#: apps/configuration/configuration_translations.py:5313
+msgctxt "technologies label"
+msgid ""
+"Name of the institution(s) which facilitated the documentation/ evaluation "
+"of the Technology (if relevant)"
+msgstr ""
+"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
+"de la Tecnología (si fuera relevante)"
+
+#: apps/configuration/configuration_translations.py:5314
+#: apps/configuration/configuration_translations.py:5315
+msgctxt "technologies helptext"
+msgid ""
+"If your institution is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"Si su institución no se halla listada en el menú desplegable, por favor "
+"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
+
+#: apps/configuration/configuration_translations.py:5316
+#: apps/configuration/configuration_translations.py:5317
 msgctxt "technologies label_filter"
 msgid "Institution"
 msgstr "Institución"
 
-#: apps/configuration/configuration_translations.py:5300
+#: apps/configuration/configuration_translations.py:5318
+#: apps/configuration/configuration_translations.py:5319
+#, fuzzy
+#| msgctxt "watershed label"
+#| msgid ""
+#| "Name of the institution(s) which facilitated the documentation/ "
+#| "evaluation of the watershed (if relevant)"
+msgctxt "cbp label"
+msgid ""
+"Name of the institution(s) which facilitated the documentation/ evaluation "
+"of the Carbon Benefits Project (CBP) Assessment (if relevant)"
+msgstr ""
+"Nombre de la(s) institución(es) que facilitaron la documentación/ evaluación "
+"de la cuenca  hidrográfica (si fuera relevante)"
+
+#: apps/configuration/configuration_translations.py:5320
+#: apps/configuration/configuration_translations.py:5321
+#, fuzzy
+#| msgctxt "cca helptext"
+#| msgid ""
+#| "If your institution is not listed in the dropdown, please contact the "
+#| "WOCAT secretariat (wocat@cde.unibe.ch)."
+msgctxt "cbp helptext"
+msgid ""
+"If your institution is not listed in the dropdown, please contact the WOCAT "
+"secretariat (wocat@cde.unibe.ch)."
+msgstr ""
+"Si su institución no se halla listada en el menú desplegable, por favor "
+"contáctese con la secretaría de WOCAT (wocat@cde.unibe.ch)."
+
+#: apps/configuration/configuration_translations.py:5322
 msgctxt "cca label"
 msgid "Specify (e.g. number of informants)"
 msgstr "Especifique (ej. número de informantes)"
 
-#: apps/configuration/configuration_translations.py:5301
+#: apps/configuration/configuration_translations.py:5323
 msgctxt "approaches label"
 msgid "Specify (e.g. number of informants)"
 msgstr "Especifique (ej. número de informantes, documentos)"
 
-#: apps/configuration/configuration_translations.py:5302
+#: apps/configuration/configuration_translations.py:5324
 msgctxt "technologies label"
 msgid "Specify (e.g. number of informants)"
 msgstr "Especifique (ej. número de informantes)"
 
-#: apps/configuration/configuration_translations.py:5303
+#: apps/configuration/configuration_translations.py:5325
 msgctxt "cca label"
 msgid "Title, author, year, ISBN"
 msgstr "Título, autor, año, ISBN"
 
-#: apps/configuration/configuration_translations.py:5304
+#: apps/configuration/configuration_translations.py:5326
 msgctxt "watershed label"
 msgid "Title, author, year, ISBN"
 msgstr "Título, autor, año, ISBN"
 
-#: apps/configuration/configuration_translations.py:5305
+#: apps/configuration/configuration_translations.py:5327
 msgctxt "approaches label"
 msgid "Title, author, year, ISBN"
 msgstr "Título, autor, año, ISBN"
 
-#: apps/configuration/configuration_translations.py:5306
+#: apps/configuration/configuration_translations.py:5328
 msgctxt "technologies label"
 msgid "Title, author, year, ISBN"
 msgstr "Título, autor, año, ISBN"
 
-#: apps/configuration/configuration_translations.py:5307
+#: apps/configuration/configuration_translations.py:5329
 msgctxt "cca label"
 msgid "Available from where? Costs?"
 msgstr "¿Dónde se halla disponible? ¿Costo?"
 
-#: apps/configuration/configuration_translations.py:5308
+#: apps/configuration/configuration_translations.py:5330
 msgctxt "watershed label"
 msgid "Available from where? Costs?"
 msgstr "¿Dónde se halla disponible? ¿Costo?"
 
-#: apps/configuration/configuration_translations.py:5309
+#: apps/configuration/configuration_translations.py:5331
 msgctxt "approaches label"
 msgid "Available from where? Costs?"
 msgstr "¿Dónde se halla disponible? ¿Costo?"
 
-#: apps/configuration/configuration_translations.py:5310
+#: apps/configuration/configuration_translations.py:5332
 msgctxt "technologies label"
 msgid "Available from where? Costs?"
 msgstr "¿Dónde se halla disponible? ¿Costo?"
 
-#: apps/configuration/configuration_translations.py:5311
+#: apps/configuration/configuration_translations.py:5333
 msgctxt "cca label"
 msgid "Title/ description"
 msgstr "Título/ descripción"
 
-#: apps/configuration/configuration_translations.py:5312
+#: apps/configuration/configuration_translations.py:5334
 msgctxt "watershed label"
 msgid "Title/ description"
 msgstr "Título/ descripción"
 
-#: apps/configuration/configuration_translations.py:5313
+#: apps/configuration/configuration_translations.py:5335
 msgctxt "approaches label"
 msgid "Title/ description"
 msgstr "Título/ descripción"
 
-#: apps/configuration/configuration_translations.py:5314
+#: apps/configuration/configuration_translations.py:5336
 msgctxt "technologies label"
 msgid "Title/ description"
 msgstr "Título/ descripción"
 
-#: apps/configuration/configuration_translations.py:5315
+#: apps/configuration/configuration_translations.py:5337
 msgctxt "cca label"
 msgid "URL"
 msgstr "URL"
 
-#: apps/configuration/configuration_translations.py:5316
+#: apps/configuration/configuration_translations.py:5338
 msgctxt "watershed label"
 msgid "URL"
 msgstr "URL"
 
-#: apps/configuration/configuration_translations.py:5317
+#: apps/configuration/configuration_translations.py:5339
 msgctxt "approaches label"
 msgid "URL"
 msgstr "URL"
 
-#: apps/configuration/configuration_translations.py:5318
+#: apps/configuration/configuration_translations.py:5340
 msgctxt "technologies label"
 msgid "URL"
 msgstr "URL"
 
-#: apps/configuration/configuration_translations.py:5319
+#: apps/configuration/configuration_translations.py:5341
 msgctxt "cca label"
 msgid "When were the data compiled (in the field)?"
 msgstr "¿Cuándo se compilaron los datos (en el campo)?"
 
-#: apps/configuration/configuration_translations.py:5320
+#: apps/configuration/configuration_translations.py:5342
 msgctxt "watershed label"
 msgid "When were the data compiled (in the field)?"
 msgstr "¿Cuándo se compilaron los datos (en el campo)?"
 
-#: apps/configuration/configuration_translations.py:5321
+#: apps/configuration/configuration_translations.py:5343
 msgctxt "approaches label"
 msgid "When were the data compiled (in the field)?"
 msgstr "¿Cuándo se compilaron los datos (en el campo)?"
 
-#: apps/configuration/configuration_translations.py:5322
+#: apps/configuration/configuration_translations.py:5344
 msgctxt "technologies label"
 msgid "When were the data compiled (in the field)?"
 msgstr "¿Cuándo se compilaron los datos (en el campo)?"
 
-#: apps/configuration/configuration_translations.py:5323
+#: apps/configuration/configuration_translations.py:5345
+msgctxt "cbp label"
+msgid "When was the Carbon Benefits Project (CBP) Assessment compiled?"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:5346
 msgctxt "cca label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9422,7 +9653,7 @@ msgstr ""
 "El compilador y la/s persona(s) de referencia claves aceptan las condiciones "
 "acerca del uso de los datos documentados mediante WOCAT "
 
-#: apps/configuration/configuration_translations.py:5324
+#: apps/configuration/configuration_translations.py:5347
 msgctxt "cca helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9433,7 +9664,7 @@ msgstr ""
 "datos documentados mediante WOCAT sus datos no serán aceptados por la "
 "secretaría de WOCAT y estos no se publicarán."
 
-#: apps/configuration/configuration_translations.py:5325
+#: apps/configuration/configuration_translations.py:5348
 msgctxt "watershed label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9442,7 +9673,7 @@ msgstr ""
 "El compilador y la/s persona(s) de referencia claves aceptan las condiciones "
 "acerca del uso de los datos documentados mediante WOCAT "
 
-#: apps/configuration/configuration_translations.py:5326
+#: apps/configuration/configuration_translations.py:5349
 msgctxt "watershed helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9453,7 +9684,7 @@ msgstr ""
 "datos documentados mediante WOCAT sus datos no serán aceptados por la "
 "secretaría de WOCAT y estos no se publicarán."
 
-#: apps/configuration/configuration_translations.py:5327
+#: apps/configuration/configuration_translations.py:5350
 msgctxt "approaches label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9462,7 +9693,7 @@ msgstr ""
 "El compilador y la/s persona(s) de referencia claves aceptan las condiciones "
 "acerca del uso de los datos documentados mediante WOCAT "
 
-#: apps/configuration/configuration_translations.py:5328
+#: apps/configuration/configuration_translations.py:5351
 msgctxt "approaches helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9473,7 +9704,7 @@ msgstr ""
 "datos documentados mediante WOCAT sus datos no serán aceptados por la "
 "secretaría de WOCAT y estos no se publicarán."
 
-#: apps/configuration/configuration_translations.py:5329
+#: apps/configuration/configuration_translations.py:5352
 msgctxt "technologies label"
 msgid ""
 "The compiler and key resource person(s) accept the conditions regarding the "
@@ -9482,7 +9713,7 @@ msgstr ""
 "El compilador y la/s persona(s) de referencia claves aceptan las condiciones "
 "acerca del uso de los datos documentados mediante WOCAT"
 
-#: apps/configuration/configuration_translations.py:5330
+#: apps/configuration/configuration_translations.py:5353
 msgctxt "technologies helptext"
 msgid ""
 "<strong>Note</strong>: If you do not accept the conditions regarding the use "
@@ -9493,47 +9724,78 @@ msgstr ""
 "datos documentados mediante WOCAT sus datos no serán aceptados por la "
 "secretaría de WOCAT y estos no publicarán"
 
-#: apps/configuration/configuration_translations.py:5331
+#: apps/configuration/configuration_translations.py:5354
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid ""
+#| "The compiler and key resource person(s) accept the conditions regarding "
+#| "the use of data documented through WOCAT"
+msgctxt "cbp label"
+msgid ""
+"The compiler and key resource person(s) accept the conditions regarding the "
+"use of data documented through WOCAT"
+msgstr ""
+"El compilador y la/s persona(s) de referencia claves aceptan las condiciones "
+"acerca del uso de los datos documentados mediante WOCAT "
+
+#: apps/configuration/configuration_translations.py:5355
+#, fuzzy
+#| msgctxt "cca helptext"
+#| msgid ""
+#| "<strong>Note</strong>: If you do not accept the conditions regarding the "
+#| "use of data documented through WOCAT your data will not be accepted by "
+#| "the WOCAT secretariat and it will not be published."
+msgctxt "cbp helptext"
+msgid ""
+"<strong>Note</strong>: If you do not accept the conditions regarding the use "
+"of data documented through WOCAT your data will not be accepted by the WOCAT "
+"secretariat and it will not be published."
+msgstr ""
+"<strong>Nota</strong>: Si no acepta las condiciones referidas al uso de "
+"datos documentados mediante WOCAT sus datos no serán aceptados por la "
+"secretaría de WOCAT y estos no se publicarán."
+
+#: apps/configuration/configuration_translations.py:5356
 msgctxt "cca label"
 msgid "Address"
 msgstr "Dirección"
 
-#: apps/configuration/configuration_translations.py:5332
+#: apps/configuration/configuration_translations.py:5357
 msgctxt "watershed label"
 msgid "Address"
 msgstr "Dirección"
 
-#: apps/configuration/configuration_translations.py:5333
+#: apps/configuration/configuration_translations.py:5358
 msgctxt "approaches label"
 msgid "Address"
 msgstr "Dirección"
 
-#: apps/configuration/configuration_translations.py:5334
+#: apps/configuration/configuration_translations.py:5359
 msgctxt "technologies label"
 msgid "Address"
 msgstr "Dirección"
 
-#: apps/configuration/configuration_translations.py:5335
+#: apps/configuration/configuration_translations.py:5360
 msgctxt "watershed label"
 msgid "Center of the watershed"
 msgstr "Centro de la cuenca"
 
-#: apps/configuration/configuration_translations.py:5336
+#: apps/configuration/configuration_translations.py:5361
 msgctxt "approaches label"
 msgid "Map"
 msgstr "Mapa"
 
-#: apps/configuration/configuration_translations.py:5337
+#: apps/configuration/configuration_translations.py:5362
 msgctxt "technologies label"
 msgid "Map"
 msgstr "Mapa"
 
-#: apps/configuration/configuration_translations.py:5338
+#: apps/configuration/configuration_translations.py:5363
 msgctxt "approaches label"
 msgid "Vimeo ID"
 msgstr "Vimeo ID"
 
-#: apps/configuration/configuration_translations.py:5339
+#: apps/configuration/configuration_translations.py:5364
 msgctxt "approaches helptext"
 msgid ""
 "Indicate only the ID of the Vimeo video. The ID contains only numbers and "
@@ -9544,12 +9806,12 @@ msgstr ""
 "números y se puede hallar en la dirección URL del video, por ej., https://"
 "vimeo.com/<strong><u>97415985</u></strong>."
 
-#: apps/configuration/configuration_translations.py:5340
+#: apps/configuration/configuration_translations.py:5365
 msgctxt "technologies label"
 msgid "Vimeo ID"
 msgstr "Vimeo ID"
 
-#: apps/configuration/configuration_translations.py:5341
+#: apps/configuration/configuration_translations.py:5366
 msgctxt "technologies helptext"
 msgid ""
 "Indicate only the ID of the Vimeo video. The ID contains only numbers and "
@@ -9560,18 +9822,18 @@ msgstr ""
 "números y se puede hallar en la dirección URL del video, por ej., https://"
 "vimeo.com/<strong><u>97415985</u></strong>."
 
-#: apps/configuration/configuration_translations.py:5342
+#: apps/configuration/configuration_translations.py:5367
 #: apps/configuration/configuration_translations.py:31025
 msgctxt "watershed label"
 msgid "Further comments"
 msgstr "Comentarios adicionales"
 
-#: apps/configuration/configuration_translations.py:5343
+#: apps/configuration/configuration_translations.py:5368
 msgctxt "approaches label"
 msgid "Further comments"
 msgstr "Comentarios adicionales"
 
-#: apps/configuration/configuration_translations.py:5344
+#: apps/configuration/configuration_translations.py:5369
 msgctxt "technologies label"
 msgid "Further comments"
 msgstr "Comentarios adicionales"
@@ -11002,11 +11264,19 @@ msgid "SLM specialist"
 msgstr "Especialista MST"
 
 #: apps/configuration/configuration_translations.py:5793
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "SLM specialist"
+msgctxt "cbp label"
+msgid "SLM specialist"
+msgstr "Especialista MST"
+
+#: apps/configuration/configuration_translations.py:5794
 msgctxt "cca label"
 msgid "land user"
 msgstr "usuario de la tierra"
 
-#: apps/configuration/configuration_translations.py:5794
+#: apps/configuration/configuration_translations.py:5795
 msgctxt "cca helptext"
 msgid ""
 "the person/ entity who implements/ maintains the Technology. The term land "
@@ -11020,17 +11290,17 @@ msgstr ""
 "industriales (por ej. minería), instituciones gubernamentales (por ej. "
 "bosques estatales), etc."
 
-#: apps/configuration/configuration_translations.py:5795
+#: apps/configuration/configuration_translations.py:5796
 msgctxt "watershed label"
 msgid "land user"
 msgstr "usuario de la tierra"
 
-#: apps/configuration/configuration_translations.py:5796
+#: apps/configuration/configuration_translations.py:5797
 msgctxt "approaches label"
 msgid "land user"
 msgstr "Usuario de la tierra"
 
-#: apps/configuration/configuration_translations.py:5797
+#: apps/configuration/configuration_translations.py:5798
 msgctxt "approaches helptext"
 msgid ""
 "the person/ entity who implements/ maintains the Technology/ Technologies "
@@ -11045,12 +11315,12 @@ msgstr ""
 "interés), cooperativas, empresas industriales (por ej. minería), "
 "instituciones gubernamentales (por ej. bosques estatales), etc."
 
-#: apps/configuration/configuration_translations.py:5798
+#: apps/configuration/configuration_translations.py:5799
 msgctxt "technologies label"
 msgid "land user"
 msgstr "usuario de la tierra"
 
-#: apps/configuration/configuration_translations.py:5799
+#: apps/configuration/configuration_translations.py:5800
 msgctxt "technologies helptext"
 msgid ""
 "the person/ entity who implements/ maintains the Technology. The term land "
@@ -11063,6 +11333,14 @@ msgstr ""
 "gran escala (género, edad, estatus, interés), cooperativas, empresas "
 "industriales (por ej. minería), instituciones gubernamentales (por ej. "
 "bosques estatales), etc."
+
+#: apps/configuration/configuration_translations.py:5801
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "land user"
+msgctxt "cbp label"
+msgid "land user"
+msgstr "usuario de la tierra"
 
 #: apps/configuration/configuration_translations.py:5902
 msgctxt "watershed helptext"
@@ -16331,189 +16609,164 @@ msgctxt "watershed label"
 msgid "References and links "
 msgstr " Referencias y vínculos"
 
-#: apps/configuration/configuration_translations.py:32910
-msgctxt "cca label"
-msgid "co-compiler"
-msgstr "co-compilador"
-
 #: apps/configuration/configuration_translations.py:32911
-msgctxt "watershed label"
-msgid "co-compiler"
-msgstr "co-compilador"
-
-#: apps/configuration/configuration_translations.py:32912
-msgctxt "approaches label"
-msgid "co-compiler"
-msgstr "co-compilador"
-
-#: apps/configuration/configuration_translations.py:32913
-msgctxt "technologies label"
-msgid "co-compiler"
-msgstr "co-compilador"
-
-#: apps/configuration/configuration_translations.py:32914
-msgctxt "technologies_2018 label"
-msgid "co-compiler"
-msgstr "co-compilador"
-
-#: apps/configuration/configuration_translations.py:32915
 msgctxt "technologies_2018 label"
 msgid "Is/are the technology site(s) located in a permanently protected area?"
 msgstr ""
 "¿El/los sitio(s) de la Tecnología se ubica(n) en un área de protección "
 "permanente?"
 
-#: apps/configuration/configuration_translations.py:32916
+#: apps/configuration/configuration_translations.py:32912
 msgctxt "technologies_2018 helptext"
 msgid "I.e. national reserve/ national park"
 msgstr "ej. Reserva nacional/ parque nacional"
 
-#: apps/configuration/configuration_translations.py:32917
-#: apps/configuration/configuration_translations.py:32918
+#: apps/configuration/configuration_translations.py:32913
+#: apps/configuration/configuration_translations.py:32914
 #: apps/configuration/configuration_translations.py:32983
 msgctxt "technologies_2018 label"
 msgid "If yes, specify"
 msgstr "Si fuera el caso, especifique "
 
-#: apps/configuration/configuration_translations.py:32919
+#: apps/configuration/configuration_translations.py:32915
 msgctxt "technologies_2018 label"
 msgid "Select land use type"
 msgstr "Seleccione tipo de uso de la tierra"
 
-#: apps/configuration/configuration_translations.py:32920
+#: apps/configuration/configuration_translations.py:32916
 msgctxt "technologies_2018 label_view"
 msgid "Land use type"
 msgstr "Tipo de uso de la tierra"
 
-#: apps/configuration/configuration_translations.py:32921
+#: apps/configuration/configuration_translations.py:32917
 msgctxt "technologies_2018 label"
 msgid "Specify mixed land use (crops/ grazing/ trees)"
 msgstr "Especifique el uso combinado de tierras (cultivos/ pastoreo/ árboles)"
 
-#: apps/configuration/configuration_translations.py:32922
-#: apps/configuration/configuration_translations.py:32923
-#: apps/configuration/configuration_translations.py:32924
+#: apps/configuration/configuration_translations.py:32918
+#: apps/configuration/configuration_translations.py:32919
+#: apps/configuration/configuration_translations.py:32920
 msgctxt "technologies_2018 label"
 msgid "If crop type is not listed above, specify other crop"
 msgstr ""
 "Si el tipo de cultivo no se halla listado arriba, especifique otro cultivo"
 
-#: apps/configuration/configuration_translations.py:32925
+#: apps/configuration/configuration_translations.py:32921
 msgctxt "technologies_2018 label"
 msgid "Continuous wheat/barley/oats/upland rice"
 msgstr "Trigo/cebada/avena/arroz de tierra alta de producción continua"
 
-#: apps/configuration/configuration_translations.py:32926
+#: apps/configuration/configuration_translations.py:32922
 msgctxt "technologies_2018 label"
 msgid "Fallow - wheat/barley/oats/upland rice"
 msgstr "Barbecho - trigo/cebada/avena/arroz de tierra alta"
 
-#: apps/configuration/configuration_translations.py:32927
+#: apps/configuration/configuration_translations.py:32923
 msgctxt "technologies_2018 label"
 msgid "Continuous maize/sorghum/millet"
 msgstr "Maíz/sorgo/mijo de producción continua"
 
-#: apps/configuration/configuration_translations.py:32928
+#: apps/configuration/configuration_translations.py:32924
 msgctxt "technologies_2018 label"
 msgid "Fallow - maize/sorghum/millet"
 msgstr "Barbecho - maíz/sorgo/mijo "
 
-#: apps/configuration/configuration_translations.py:32929
+#: apps/configuration/configuration_translations.py:32925
 msgctxt "technologies_2018 label"
 msgid "Maize/sorghum/millet legume"
 msgstr "Maíz/sorgo/ mijo legumbre"
 
-#: apps/configuration/configuration_translations.py:32930
+#: apps/configuration/configuration_translations.py:32926
 msgctxt "technologies_2018 label"
 msgid "Maize/sorghum/millet intercropped with legume"
 msgstr "Maíz/sorgo/ mijo en intercultivo con legumbres"
 
-#: apps/configuration/configuration_translations.py:32931
+#: apps/configuration/configuration_translations.py:32927
 msgctxt "technologies_2018 label"
 msgid "Fallow - maize/sorghum/millet intercropped with legume"
 msgstr "Barbecho - maíz/sorgo/mijo en intercultivo con legumbre"
 
-#: apps/configuration/configuration_translations.py:32932
+#: apps/configuration/configuration_translations.py:32928
 msgctxt "technologies_2018 label"
 msgid "Continuous wetland rice"
 msgstr "Arroz de humedal de producción continua"
 
-#: apps/configuration/configuration_translations.py:32933
+#: apps/configuration/configuration_translations.py:32929
 msgctxt "technologies_2018 label"
 msgid "Wetland rice - wheat"
 msgstr "arroz de humedal - trigo"
 
-#: apps/configuration/configuration_translations.py:32934
+#: apps/configuration/configuration_translations.py:32930
 msgctxt "technologies_2018 label"
 msgid "Continuous vegetables"
 msgstr "Vegetales de producción continua"
 
-#: apps/configuration/configuration_translations.py:32935
+#: apps/configuration/configuration_translations.py:32931
 msgctxt "technologies_2018 label"
 msgid "Vegetables - wheat/barley/oat/upland rice"
 msgstr "Vegetales - trigo/cebada/avena/arroz de tierras altas"
 
-#: apps/configuration/configuration_translations.py:32936
+#: apps/configuration/configuration_translations.py:32932
 msgctxt "technologies_2018 label"
 msgid "Continuous cotton/tobacco"
 msgstr "Algodón/tabaco de producción continua "
 
-#: apps/configuration/configuration_translations.py:32937
+#: apps/configuration/configuration_translations.py:32933
 msgctxt "technologies_2018 label"
 msgid "Vegetable - cotton/tobacco"
 msgstr "Veg etal - algodón/tabaco"
 
-#: apps/configuration/configuration_translations.py:32938
+#: apps/configuration/configuration_translations.py:32934
 msgctxt "technologies_2018 label"
 msgid "Continuous root crop"
 msgstr "Cultivos de raíces de producción continua "
 
-#: apps/configuration/configuration_translations.py:32939
+#: apps/configuration/configuration_translations.py:32935
 msgctxt "technologies_2018 label"
 msgid "Cassava/potato/manioc - vegetable"
 msgstr "Mandioca/patata/yuca - vegetal"
 
-#: apps/configuration/configuration_translations.py:32940
+#: apps/configuration/configuration_translations.py:32936
 msgctxt "technologies_2018 label"
 msgid "Cassava/potato/manioc - wheat/barley/oat"
 msgstr "Mandioca/patata/yuca - trigo/cebada/avena"
 
-#: apps/configuration/configuration_translations.py:32941
+#: apps/configuration/configuration_translations.py:32937
 msgctxt "technologies_2018 label"
 msgid "Cassava/potato/manioc - maize/sorghum/millet"
 msgstr "Mandioca/patata/yuca - maíz/sorgo/mijo"
 
-#: apps/configuration/configuration_translations.py:32942
+#: apps/configuration/configuration_translations.py:32938
 msgctxt "technologies_2018 label"
 msgid "Hay"
 msgstr "Heno"
 
-#: apps/configuration/configuration_translations.py:32943
+#: apps/configuration/configuration_translations.py:32939
 msgctxt "technologies_2018 label"
 msgid "Wheat or similar rotation with hay/pasture"
 msgstr "Trigo o rotación similar con heno/pastizal"
 
-#: apps/configuration/configuration_translations.py:32944
+#: apps/configuration/configuration_translations.py:32940
 msgctxt "technologies_2018 label"
 msgid "Maize or similar rotation with hay/pasture"
 msgstr "Maíz o rotación similar con heno/pastizal"
 
-#: apps/configuration/configuration_translations.py:32945
+#: apps/configuration/configuration_translations.py:32941
 msgctxt "technologies_2018 label"
 msgid "banana/plantain/abaca"
 msgstr "banana/plátano/abacá"
 
-#: apps/configuration/configuration_translations.py:32946
+#: apps/configuration/configuration_translations.py:32942
 msgctxt "technologies_2018 label"
 msgid "agave / sisal"
 msgstr "ágave/ sisal"
 
-#: apps/configuration/configuration_translations.py:32947
+#: apps/configuration/configuration_translations.py:32943
 msgctxt "technologies_2018 label"
 msgid "areca"
 msgstr "areca"
 
-#: apps/configuration/configuration_translations.py:32948
+#: apps/configuration/configuration_translations.py:32944
 msgctxt "technologies_2018 label"
 msgid "berries"
 msgstr "bayas"
@@ -18157,6 +18410,124 @@ msgctxt "technologies_2018 label"
 msgid "Haloxylon species"
 msgstr ""
 
+#: apps/configuration/configuration_translations.py:41000
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "General information"
+msgctxt "cbp label"
+msgid "General information"
+msgstr "Información general"
+
+#: apps/configuration/configuration_translations.py:41100
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid ""
+#| "Name of the SLM Technology (hereafter referred to as the Technology) as "
+#| "per Core Questionnaire on SLM Technologies Question QT Core 1.1"
+msgctxt "cbp label"
+msgid ""
+"Name of the SLM Technology (hereafter referred to as the Technology) as per "
+"Core Questionnaire on SLM Technologies Question QT Core 1.1"
+msgstr ""
+"Nombre de la Tecnología MST (de aquí en adelante, se denominará la "
+"Tecnología) de acuerdo al Cuestionario Core de Tecnologías MST Pregunta QT "
+"Core 1.1"
+
+#: apps/configuration/configuration_translations.py:41101
+#, fuzzy
+#| msgctxt "technologies label_view"
+#| msgid "Name of the SLM Technology"
+msgctxt "cbp label_view"
+msgid "Name of the SLM Technology"
+msgstr "Nombre de la Tecnología MST"
+
+#: apps/configuration/configuration_translations.py:41200
+#, fuzzy
+#| msgctxt "approaches label"
+#| msgid ""
+#| "Contact details of resource persons and institutions involved in the "
+#| "assessment and documentation of the Approach"
+msgctxt "cbp label"
+msgid ""
+"Contact details of resource persons and institutions involved in the "
+"assessment and documentation of the Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+"Detalles de contacto de las personas de referencia e instituciones "
+"involucradas en la evaluación y la documentación del Enfoque"
+
+#: apps/configuration/configuration_translations.py:41300
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Conditions regarding the use of data documented through WOCAT"
+msgctxt "cbp label"
+msgid "Conditions regarding the use of data documented through WOCAT"
+msgstr "Condiciones referidas al uso de datos documentados mediante WOCAT"
+
+#: apps/configuration/configuration_translations.py:42000
+msgctxt "cbp label"
+msgid "Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42100
+msgctxt "cbp label"
+msgid "Summary PDF from Carbon Benefits Project (CBP) Assessment"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42101
+msgctxt "cbp helptext"
+msgid ""
+"<p>Once you have completed the Carbon Benefits Project (CBP) Assessment for "
+"your Technology, generate the Summary PDF and add it to this module.</"
+"p><p>Supported file type: PDF, maximum file size: 3 MB.</p><p><br><a href="
+"\"https://banr.colostate.edu/CBP/\" target=\"_blank\">Visit the CBP tools "
+"page to start a Carbon Benefits Assessment.</a></p>"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42110
+msgctxt "cbp label"
+msgid "Carbon Benefits Project (CBP) Summary PDF"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:42115
+msgctxt "cbp label"
+msgid ""
+"Assessment Results Description (related to Carbon Benefits Project (CBP) "
+"Summary PDF)"
+msgstr ""
+
+#: apps/configuration/configuration_translations.py:47001
+#, fuzzy
+#| msgctxt "technologies label"
+#| msgid "Key resource person(s)"
+msgctxt "cbp label"
+msgid "Key resource person(s)"
+msgstr "Persona(s) de referencia clave"
+
+#: apps/configuration/configuration_translations.py:47002
+#, fuzzy
+#| msgctxt "technologies helptext"
+#| msgid ""
+#| "Person(s) who provided most of the information documented in this "
+#| "questionnaire. These can be land users, SLM specialists (e.g. technical "
+#| "advisers, researchers), or any other persons."
+msgctxt "cbp helptext"
+msgid ""
+"Person(s) who provided most of the information documented in this "
+"questionnaire. These can be land users, SLM specialists (e.g. technical "
+"advisers, researchers), or any other persons."
+msgstr ""
+"Persona(s) que proporcionaron la mayoría de la información documen tada en "
+"este cuestionario. Estas pueden ser usuarios de tierras, especialistas MST "
+"(ej. asesores técnicos, investigadores) o cualquier otra persona."
+
+#: apps/configuration/configuration_translations.py:47003
+#, fuzzy
+#| msgctxt "cca label"
+#| msgid "co-compiler"
+msgctxt "cbp label"
+msgid "co-compiler"
+msgstr "co-compilador"
+
 #: apps/configuration/editions/technologies_2018.py:23
 msgid ""
 "1.2: A new option \"co-compiler\" was added to question \"Key resource "
@@ -18466,6 +18837,10 @@ msgid ""
 "\"Livestock population\" were added."
 msgstr ""
 
+#: apps/configuration/editions/technologies_2018.py:244
+msgid "Update October 2020: Add new CBP module and related translations."
+msgstr ""
+
 #: apps/configuration/models.py:19 apps/questionnaire/models.py:64
 msgid "UNCCD Focal Point"
 msgstr "Punto focal CLD"
@@ -18707,12 +19082,6 @@ msgstr "{compiler} concluyó la edición"
 #: apps/notifications/models.py:700
 msgid "Subscribed for following changes in the review status"
 msgstr "Suscrito para los cambios siguientes en el estado de revisión"
-
-#: apps/notifications/receivers.py:41
-#: apps/notifications/tests/test_receivers.py:58
-#: apps/questionnaire/utils.py:688
-msgid "Created"
-msgstr "Creado"
 
 #: apps/notifications/receivers.py:52
 #: apps/notifications/tests/test_receivers.py:67
@@ -19341,51 +19710,51 @@ msgstr "{compiler} fue informado de su progreso."
 msgid "Successfully saved changes."
 msgstr "Los datos se guardaron con éxito."
 
-#: apps/qcat/config/common.py:105
+#: apps/qcat/config/common.py:106
 msgid "English"
 msgstr "Inglés"
 
-#: apps/qcat/config/common.py:106
+#: apps/qcat/config/common.py:107
 msgid "French"
 msgstr "Francés"
 
-#: apps/qcat/config/common.py:107
+#: apps/qcat/config/common.py:108
 msgid "Spanish"
 msgstr "Español"
 
-#: apps/qcat/config/common.py:108
+#: apps/qcat/config/common.py:109
 msgid "Russian"
 msgstr "Ruso"
 
-#: apps/qcat/config/common.py:109
+#: apps/qcat/config/common.py:110
 msgid "Chinese"
 msgstr "Chino"
 
-#: apps/qcat/config/common.py:110
+#: apps/qcat/config/common.py:111
 msgid "Khmer"
 msgstr "Khmer"
 
-#: apps/qcat/config/common.py:111
+#: apps/qcat/config/common.py:112
 msgid "Lao"
 msgstr "Lao"
 
-#: apps/qcat/config/common.py:112
+#: apps/qcat/config/common.py:113
 msgid "Arabic"
 msgstr "Árabe"
 
-#: apps/qcat/config/common.py:113
+#: apps/qcat/config/common.py:114
 msgid "Portuguese"
 msgstr "Portugués"
 
-#: apps/qcat/config/common.py:114
+#: apps/qcat/config/common.py:115
 msgid "Afrikaans"
 msgstr "Afrikaans"
 
-#: apps/qcat/config/common.py:115
+#: apps/qcat/config/common.py:116
 msgid "Thai"
 msgstr "Tailandés"
 
-#: apps/qcat/config/common.py:116
+#: apps/qcat/config/common.py:117
 msgid "Mongolian"
 msgstr ""
 
@@ -19458,7 +19827,8 @@ msgstr ""
 "%(questionnaires_count)s nuevas prácticas redactadas en los últimos %(days)s "
 "días."
 
-#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:26
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:29
+#: apps/qcat/templates/qcat/templates/fact_sheet_teaser.html:36
 #, python-format
 msgid ""
 "%(visits_count)s visits from %(countries_count)s different countries since "
@@ -19568,7 +19938,7 @@ msgstr "Las ediciones de este cuestionario se hallan bloqueadas por {user}."
 msgid "Published questionnaires must not be updated."
 msgstr "Los cuestionarios publicados no deben ser actualizados"
 
-#: apps/questionnaire/serializers.py:61
+#: apps/questionnaire/serializers.py:62
 msgid "Can't serialize questionnaire without a valid configuration."
 msgstr "No se puede serializar el cuestionario sin una configuración válida"
 
@@ -19581,6 +19951,7 @@ msgid "New SLM Approach"
 msgstr "Nuevo Enfoque MST"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:24
+#: apps/questionnaire/templates/details/category/cbp_header.html:21
 #: apps/questionnaire/templates/details/category/cca_header.html:21
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:20
 #: apps/questionnaire/templates/details/category/technologies_header.html:24
@@ -19591,6 +19962,7 @@ msgid "Creation:"
 msgstr "Creación:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:29
+#: apps/questionnaire/templates/details/category/cbp_header.html:26
 #: apps/questionnaire/templates/details/category/cca_header.html:26
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:25
 #: apps/questionnaire/templates/details/category/technologies_header.html:29
@@ -19601,6 +19973,7 @@ msgid "Update:"
 msgstr "Actualización:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:33
+#: apps/questionnaire/templates/details/category/cbp_header.html:30
 #: apps/questionnaire/templates/details/category/cca_header.html:30
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:29
 #: apps/questionnaire/templates/details/category/technologies_header.html:33
@@ -19612,6 +19985,7 @@ msgid "Compilers:"
 msgstr "Compiladores:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:33
+#: apps/questionnaire/templates/details/category/cbp_header.html:30
 #: apps/questionnaire/templates/details/category/cca_header.html:30
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:29
 #: apps/questionnaire/templates/details/category/technologies_header.html:33
@@ -19623,6 +19997,7 @@ msgid "Compiler:"
 msgstr "Compilador:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:41
+#: apps/questionnaire/templates/details/category/cbp_header.html:38
 #: apps/questionnaire/templates/details/category/cca_header.html:38
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:37
 #: apps/questionnaire/templates/details/category/technologies_header.html:41
@@ -19633,6 +20008,7 @@ msgid "Editors:"
 msgstr "Editores:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:41
+#: apps/questionnaire/templates/details/category/cbp_header.html:38
 #: apps/questionnaire/templates/details/category/cca_header.html:38
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:37
 #: apps/questionnaire/templates/details/category/technologies_header.html:41
@@ -19643,6 +20019,7 @@ msgid "Editor:"
 msgstr "Editor:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:49
+#: apps/questionnaire/templates/details/category/cbp_header.html:46
 #: apps/questionnaire/templates/details/category/cca_header.html:46
 #: apps/questionnaire/templates/details/category/technologies_header.html:49
 #: apps/questionnaire/templates/details/category/unccd_header.html:46
@@ -19652,6 +20029,7 @@ msgid "Reviewers:"
 msgstr "Revisores:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:49
+#: apps/questionnaire/templates/details/category/cbp_header.html:46
 #: apps/questionnaire/templates/details/category/cca_header.html:46
 #: apps/questionnaire/templates/details/category/technologies_header.html:49
 #: apps/questionnaire/templates/details/category/unccd_header.html:46
@@ -19662,6 +20040,9 @@ msgstr "Revisor:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:92
 #: apps/questionnaire/templates/details/category/approaches_header.html:107
+#: apps/questionnaire/templates/details/category/cbp_header.html:88
+#: apps/questionnaire/templates/details/category/cbp_header.html:93
+#: apps/questionnaire/templates/details/category/cbp_header.html:102
 #: apps/questionnaire/templates/details/category/cca_header.html:88
 #: apps/questionnaire/templates/details/category/cca_header.html:93
 #: apps/questionnaire/templates/details/category/cca_header.html:102
@@ -19680,12 +20061,12 @@ msgstr "Revisor:"
 #: apps/questionnaire/templates/details/category/with_metadata.html:95
 #: apps/questionnaire/templates/details/category/with_metadata.html:104
 #: apps/questionnaire/templates/form/subcategory/comingsoon.html:7
-#: apps/wocat/templates/wocat/home.html:229
 #: apps/wocat/templates/wocat/partial/add.html:79
 msgid "Coming soon"
 msgstr "Próximamente"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:94
+#: apps/questionnaire/templates/details/category/cbp_header.html:90
 #: apps/questionnaire/templates/details/category/cca_header.html:90
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:84
 #: apps/questionnaire/templates/details/category/technologies_header.html:94
@@ -19696,6 +20077,7 @@ msgid "View full content"
 msgstr "Vea todo el contenido"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:98
+#: apps/questionnaire/templates/details/category/cbp_header.html:95
 #: apps/questionnaire/templates/details/category/cca_header.html:95
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:89
 #: apps/questionnaire/templates/details/category/technologies_header.html:98
@@ -19728,6 +20110,7 @@ msgid "Full summary (unformatted)"
 msgstr "Resumen completo (sin formato)"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:109
+#: apps/questionnaire/templates/details/category/cbp_header.html:104
 #: apps/questionnaire/templates/details/category/cca_header.html:104
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:98
 #: apps/questionnaire/templates/details/category/technologies_header.html:109
@@ -19752,6 +20135,7 @@ msgid "SLM Approach"
 msgstr "Enfoque MST"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:138
+#: apps/questionnaire/templates/details/category/cbp_header.html:117
 #: apps/questionnaire/templates/details/category/cca_header.html:117
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:114
 #: apps/questionnaire/templates/details/category/technologies_header.html:138
@@ -19762,28 +20146,33 @@ msgid "View sections"
 msgstr "Visualizar secciones"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:140
+#: apps/questionnaire/templates/details/category/cbp_header.html:119
 #: apps/questionnaire/templates/details/category/cca_header.html:119
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:116
 #: apps/questionnaire/templates/details/category/technologies_header.html:140
 #: apps/questionnaire/templates/details/category/unccd_header.html:118
 #: apps/questionnaire/templates/details/category/watershed_header.html:127
 #: apps/questionnaire/templates/details/category/with_metadata.html:126
-#: apps/questionnaire/templates/questionnaire/details.html:116
+#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/questionnaire/templates/questionnaire/details.html:122
 msgid "Expand all"
 msgstr "Expandir todo"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:141
+#: apps/questionnaire/templates/details/category/cbp_header.html:120
 #: apps/questionnaire/templates/details/category/cca_header.html:120
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:117
 #: apps/questionnaire/templates/details/category/technologies_header.html:141
 #: apps/questionnaire/templates/details/category/unccd_header.html:119
 #: apps/questionnaire/templates/details/category/watershed_header.html:128
 #: apps/questionnaire/templates/details/category/with_metadata.html:127
-#: apps/questionnaire/templates/questionnaire/details.html:117
+#: apps/questionnaire/templates/questionnaire/details.html:118
+#: apps/questionnaire/templates/questionnaire/details.html:123
 msgid "Collapse all"
 msgstr "Colapsar todos"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:146
+#: apps/questionnaire/templates/details/category/cbp_header.html:125
 #: apps/questionnaire/templates/details/category/cca_header.html:125
 #: apps/questionnaire/templates/details/category/technologies_header.html:146
 #: apps/questionnaire/templates/details/category/unccd_header.html:124
@@ -19792,6 +20181,7 @@ msgid "Completeness:"
 msgstr "Completado:"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:165
+#: apps/questionnaire/templates/details/category/cbp_header.html:144
 #: apps/questionnaire/templates/details/category/cca_header.html:144
 #: apps/questionnaire/templates/details/category/default.html:19
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:136
@@ -19803,6 +20193,7 @@ msgid "Edit this section"
 msgstr "Editar esta sección"
 
 #: apps/questionnaire/templates/details/category/approaches_header.html:181
+#: apps/questionnaire/templates/details/category/cbp_header.html:160
 #: apps/questionnaire/templates/details/category/cca_header.html:160
 #: apps/questionnaire/templates/details/category/default.html:32
 #: apps/questionnaire/templates/details/category/samplemodule_header.html:150
@@ -19813,13 +20204,18 @@ msgstr "Editar esta sección"
 msgid "Empty section"
 msgstr "Sección vacía"
 
-#: apps/questionnaire/templates/details/category/cca_header.html:6
-msgid "CCA"
-msgstr "CCA"
+#: apps/questionnaire/templates/details/category/cbp_header.html:6
+msgid "CBP"
+msgstr ""
 
+#: apps/questionnaire/templates/details/category/cbp_header.html:17
 #: apps/questionnaire/templates/details/category/cca_header.html:17
 msgid "Technology: "
 msgstr "Tecnología:"
+
+#: apps/questionnaire/templates/details/category/cca_header.html:6
+msgid "CCA"
+msgstr "CCA"
 
 #: apps/questionnaire/templates/details/category/technologies_header.html:6
 #: apps/technologies/views.py:15 apps/wocat/templates/wocat/partial/top.html:14
@@ -20033,7 +20429,7 @@ msgstr "Buscar usuario"
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:35
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:48
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:84
-#: apps/technologies/templates/technologies/add_module.html:36
+#: apps/technologies/templates/technologies/add_module.html:37
 msgid "No results found"
 msgstr "No hay resultados"
 
@@ -20041,7 +20437,7 @@ msgstr "No hay resultados"
 #: apps/questionnaire/templates/details/review_panel/_change_compiler.html:36
 #: apps/questionnaire/templates/form/questiongroup/select_link.html:49
 #: apps/questionnaire/templates/form/questiongroup/select_user.html:84
-#: apps/technologies/templates/technologies/add_module.html:37
+#: apps/technologies/templates/technologies/add_module.html:38
 msgid "Too many results found, please narrow the search"
 msgstr "Se hallaron demasiados resultados, por favor delimite su búsqueda"
 
@@ -20822,7 +21218,7 @@ msgstr "Guardar y continuar"
 #: apps/questionnaire/templates/form/category.html:228
 #: apps/questionnaire/templates/questionnaire/details.html:22
 #: apps/questionnaire/templates/questionnaire/details.html:43
-#: apps/questionnaire/templates/questionnaire/details.html:331
+#: apps/questionnaire/templates/questionnaire/details.html:338
 msgid "Close"
 msgstr "Cerrar"
 
@@ -20906,17 +21302,17 @@ msgid "Create a new translation"
 msgstr "Crear una traducción nueva"
 
 #: apps/questionnaire/templates/form/category.html:229
-#: apps/questionnaire/templates/questionnaire/details.html:332
+#: apps/questionnaire/templates/questionnaire/details.html:339
 msgid "Next"
 msgstr "Siguiente"
 
 #: apps/questionnaire/templates/form/category.html:230
-#: apps/questionnaire/templates/questionnaire/details.html:333
+#: apps/questionnaire/templates/questionnaire/details.html:340
 msgid "Back"
 msgstr "Retroceder"
 
 #: apps/questionnaire/templates/form/category.html:231
-#: apps/questionnaire/templates/questionnaire/details.html:334
+#: apps/questionnaire/templates/questionnaire/details.html:341
 msgid "Done"
 msgstr "Finalizado"
 
@@ -21307,49 +21703,49 @@ msgstr "Ir a la versión actual."
 msgid "Links and modules"
 msgstr "Vínculos y módulos"
 
-#: apps/questionnaire/templates/questionnaire/details.html:124
+#: apps/questionnaire/templates/questionnaire/details.html:131
 msgid "Links"
 msgstr "Vínculos"
 
-#: apps/questionnaire/templates/questionnaire/details.html:133
+#: apps/questionnaire/templates/questionnaire/details.html:140
 msgid "No links"
 msgstr "No hay vínculos"
 
-#: apps/questionnaire/templates/questionnaire/details.html:140
+#: apps/questionnaire/templates/questionnaire/details.html:147
 msgid "Modules"
 msgstr "Módulos"
 
-#: apps/questionnaire/templates/questionnaire/details.html:149
+#: apps/questionnaire/templates/questionnaire/details.html:156
 msgid "No modules"
 msgstr "No se hallaron módulos."
 
-#: apps/questionnaire/templates/questionnaire/details.html:157
+#: apps/questionnaire/templates/questionnaire/details.html:164
 msgid "Add a new module"
 msgstr "Agregue Módulo MST"
 
-#: apps/questionnaire/templates/questionnaire/details.html:162
-#: apps/technologies/templates/technologies/add_module.html:28
+#: apps/questionnaire/templates/questionnaire/details.html:169
+#: apps/technologies/templates/technologies/add_module.html:29
 msgid "1. Select a Technology"
 msgstr "1. Elija una Tecnología"
 
-#: apps/questionnaire/templates/questionnaire/details.html:166
+#: apps/questionnaire/templates/questionnaire/details.html:173
 msgid "2. Select a module"
 msgstr "2. Elija un módulo"
 
-#: apps/questionnaire/templates/questionnaire/details.html:169
+#: apps/questionnaire/templates/questionnaire/details.html:176
 msgid "Select a module which you would like to add to the Technology."
 msgstr "Seleccione un módulo que quiera agregar a la Tecnología"
 
-#: apps/questionnaire/templates/questionnaire/details.html:177
+#: apps/questionnaire/templates/questionnaire/details.html:184
 msgid "3. Create the module"
 msgstr "3. Cree el módulo"
 
-#: apps/questionnaire/templates/questionnaire/details.html:179
-#: apps/technologies/templates/technologies/add_module.html:70
+#: apps/questionnaire/templates/questionnaire/details.html:186
+#: apps/technologies/templates/technologies/add_module.html:71
 msgid "Create"
 msgstr "Crear"
 
-#: apps/questionnaire/templates/questionnaire/details.html:338
+#: apps/questionnaire/templates/questionnaire/details.html:345
 msgid ""
 "<p>Welcome to the help section of the Questionnaire!</p><p>Click \"Next\" to "
 "take a tour explaining the functions on this page.</p>"
@@ -21358,7 +21754,7 @@ msgstr ""
 "\"Siguiente\" para hacer un recorrido en el que se explican las funciones de "
 "esta página.</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:341
+#: apps/questionnaire/templates/questionnaire/details.html:348
 msgid ""
 "<p>This is the output page where you can see all the data you entered in the "
 "form.</p>"
@@ -21366,7 +21762,7 @@ msgstr ""
 "<p>Esta es la página de resultados donde usted puede ver todos los datos que "
 "ingresó en el formulario.</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:345
+#: apps/questionnaire/templates/questionnaire/details.html:352
 msgid ""
 "<p>Each section is also visible in the output, any data you enter will "
 "appear here.</p>"
@@ -21374,7 +21770,7 @@ msgstr ""
 "<p>Cada sección también se halla visible en los resultados; cualquier dato "
 "que ingrese aparecerá aquí.</p>"
 
-#: apps/questionnaire/templates/questionnaire/details.html:350
+#: apps/questionnaire/templates/questionnaire/details.html:357
 msgid ""
 "<p>Click on the button to edit a section and enter your data.</p><p>The "
 "numbers indicate how many questions are already filled out in this section.</"
@@ -21405,8 +21801,8 @@ msgid "This SLM practice is also available in:"
 msgstr "Esta práctica MST también se halla disponible en:"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:76
-#: apps/questionnaire/templates/questionnaire/partial/list_item.html:94
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:100
+#: apps/questionnaire/templates/questionnaire/partial/list_item.html:106
 msgid "This case is linked to SLM Approaches"
 msgstr "Este caso está vinculado a Enfoques MST"
 
@@ -21416,6 +21812,12 @@ msgstr "Este caso se vincula con Tecnologías MST"
 
 #: apps/questionnaire/templates/questionnaire/partial/list_item.html:88
 msgid "This case has a CCA module"
+msgstr "Este caso tiene un módulo CCA"
+
+#: apps/questionnaire/templates/questionnaire/partial/list_item.html:94
+#, fuzzy
+#| msgid "This case has a CCA module"
+msgid "This case has a CBP module"
 msgstr "Este caso tiene un módulo CCA"
 
 #: apps/questionnaire/templates/questionnaire/partial/select_modules.html:14
@@ -21430,52 +21832,48 @@ msgstr "Tipo de archivo no soportado"
 msgid "File is too big"
 msgstr "El archivo es demasiado grande"
 
-#: apps/questionnaire/utils.py:654
+#: apps/questionnaire/utils.py:980
 msgid "SLM Data"
 msgstr "Mis Datos MST"
 
-#: apps/questionnaire/utils.py:667
+#: apps/questionnaire/utils.py:993
 msgid "Search Terms"
 msgstr "Buscar términos"
 
-#: apps/questionnaire/utils.py:690
-msgid "Updated"
-msgstr "Actualizado"
-
-#: apps/questionnaire/utils.py:708
+#: apps/questionnaire/utils.py:1034
 msgid "Unknown"
 msgstr "No se sabe"
 
-#: apps/questionnaire/utils.py:724
+#: apps/questionnaire/utils.py:1050
 #: apps/wocat/templates/wocat/questionnaire/partial/basic_filter_fields.html:75
 msgid "Language"
 msgstr "Idioma"
 
-#: apps/questionnaire/utils.py:1256
+#: apps/questionnaire/utils.py:1582
 msgid "The questionnaire was successfully submitted."
 msgstr "El cuestionario fue enviado exitosamente."
 
-#: apps/questionnaire/utils.py:1303
+#: apps/questionnaire/utils.py:1629
 msgid "The questionnaire was successfully reviewed."
 msgstr "El cuestionario fue revisado exitosamente."
 
-#: apps/questionnaire/utils.py:1343
+#: apps/questionnaire/utils.py:1669
 msgid "New version was published"
 msgstr "Se publicó una nueva versión"
 
-#: apps/questionnaire/utils.py:1384
+#: apps/questionnaire/utils.py:1710
 msgid "The questionnaire was successfully set public."
 msgstr "El cuestionario fue publicado exitosamente."
 
-#: apps/questionnaire/utils.py:1443
+#: apps/questionnaire/utils.py:1769
 msgid "The questionnaire was successfully rejected."
 msgstr "El cuestionario fue rechazado exitosamente."
 
-#: apps/questionnaire/utils.py:1547
+#: apps/questionnaire/utils.py:1873
 msgid "Assigned users were successfully updated"
 msgstr "Los usuarios asignados se actualizaron con éxito"
 
-#: apps/questionnaire/utils.py:1676
+#: apps/questionnaire/utils.py:2002
 msgid ""
 "The flag could not be set because a version of this questionnaire is already "
 "in the review process and needs to be published first. Please try again "
@@ -21485,11 +21883,11 @@ msgstr ""
 "el proceso de revisión y debe publicarse primero. Por favor, inténtelo más "
 "tarde. "
 
-#: apps/questionnaire/utils.py:1698
+#: apps/questionnaire/utils.py:2024
 msgid "The flag was successfully set."
 msgstr "Se marcó correctamente."
 
-#: apps/questionnaire/utils.py:1722
+#: apps/questionnaire/utils.py:2048
 msgid ""
 "The flag could not be removed because a version of this questionnaire is "
 "already in the review process and needs to be published first. Please try "
@@ -21499,7 +21897,7 @@ msgstr ""
 "se halla en el proceso de revisión y debe publicarse primero. Por favor, "
 "inténtelo más tarde. "
 
-#: apps/questionnaire/utils.py:1743
+#: apps/questionnaire/utils.py:2069
 msgid ""
 "The flag was successfully removed. Please note that this created a new "
 "version which needs to be reviewed. In the meantime, you are seeing the "
@@ -21509,11 +21907,11 @@ msgstr ""
 "una versión nueva que requiere revisión. Mientras tanto, usted está viendo "
 "la versión pública que aún muestra la marca. "
 
-#: apps/questionnaire/utils.py:1750
+#: apps/questionnaire/utils.py:2076
 msgid "New version due to unccd flagging"
 msgstr "Nueva versión debido a que se agrego marca unccd"
 
-#: apps/questionnaire/utils.py:1786
+#: apps/questionnaire/utils.py:2112
 msgid "The questionnaire was succesfully removed"
 msgstr "El cuestionario fue eliminado exitosamente"
 
@@ -22252,12 +22650,19 @@ msgid "Wocat SLM"
 msgstr "MST Wocat"
 
 #: apps/technologies/templates/technologies/add_module.html:15
-msgid "Add CCA Module"
+#, fuzzy
+#| msgid "Add CCA Module"
+msgid "Add CCA or CBP Module"
 msgstr "Agregue Módulo CCA"
 
 #: apps/technologies/templates/technologies/add_module.html:18
+#, fuzzy
+#| msgid ""
+#| "You can add a CCA Module to an existing SLM Technology. If the SLM "
+#| "Technology is not included in the WOCAT SLM Technology database yet, "
+#| "please first add it."
 msgid ""
-"You can add a CCA Module to an existing SLM Technology. If the SLM "
+"You can add a CCA or CBP Module to an existing SLM Technology. If the SLM "
 "Technology is not included in the WOCAT SLM Technology database yet, please "
 "first add it."
 msgstr ""
@@ -22265,21 +22670,25 @@ msgstr ""
 "Tecnología MST todavía no se halla incluida en la base de datos MST WOCAT, "
 "por favor agréguela primero."
 
-#: apps/technologies/templates/technologies/add_module.html:19
+#: apps/technologies/templates/technologies/add_module.html:20
 msgid "Add new SLM Technology."
 msgstr "Agregar una nueva tecnología MST."
 
-#: apps/technologies/templates/technologies/add_module.html:31
+#: apps/technologies/templates/technologies/add_module.html:32
 msgid "Search and select a Technology to which you would like to add a module."
 msgstr ""
 "Busque y seleccione una Tecnología a la que le gustaría agregar un módulo."
 
-#: apps/technologies/templates/technologies/add_module.html:54
-msgid "2. Select CCA Module"
-msgstr "2. Elija un módulo CCA"
+#: apps/technologies/templates/technologies/add_module.html:55
+#, fuzzy
+#| msgid "2. Select a module"
+msgid "2. Select a Module"
+msgstr "2. Elija un módulo"
 
-#: apps/technologies/templates/technologies/add_module.html:68
-msgid "3. Create CCA Module"
+#: apps/technologies/templates/technologies/add_module.html:69
+#, fuzzy
+#| msgid "3. Create CCA Module"
+msgid "3. Create Module"
 msgstr "3. Cree módulo CCA"
 
 #: apps/technologies/templates/technologies/base.html:6
@@ -22796,11 +23205,10 @@ msgstr ""
 #: apps/wocat/templates/wocat/home.html:155
 #: apps/wocat/templates/wocat/home.html:175
 #: apps/wocat/templates/wocat/home.html:191
-#: apps/wocat/templates/wocat/home.html:215
-#: apps/wocat/templates/wocat/home.html:230
-#: apps/wocat/templates/wocat/home.html:253
-#: apps/wocat/templates/wocat/home.html:276
-#: apps/wocat/templates/wocat/home.html:292
+#: apps/wocat/templates/wocat/home.html:216
+#: apps/wocat/templates/wocat/home.html:238
+#: apps/wocat/templates/wocat/home.html:261
+#: apps/wocat/templates/wocat/home.html:277
 msgid "View all"
 msgstr "Visualizar todo"
 
@@ -22827,30 +23235,29 @@ msgstr ""
 "tal como fue compartida antes a través del sistema UNCCD PRAIS en el proceso "
 "de informe UNCCD."
 
+#: apps/wocat/templates/wocat/home.html:212
+#: apps/wocat/templates/wocat/partial/add.html:100
+msgid "Carbon Benefits Project"
+msgstr ""
+
 #: apps/wocat/templates/wocat/home.html:213
-#: apps/wocat/templates/wocat/home.html:227
-#: apps/wocat/templates/wocat/partial/add.html:63
-#: apps/wocat/templates/wocat/partial/add.html:77
-msgid "Watershed and Runoff"
-msgstr "Cuenca y escurrimiento "
+#: apps/wocat/templates/wocat/partial/add.html:101
+msgid ""
+"Tools for assessing the carbon benefits and greenhouse gas emissions of an "
+"SLM Technology."
+msgstr ""
 
 #: apps/wocat/templates/wocat/home.html:214
-#: apps/wocat/templates/wocat/home.html:228
-#: apps/wocat/templates/wocat/partial/add.html:64
-#: apps/wocat/templates/wocat/partial/add.html:78
-msgid ""
-"Mapping land management and assessing runoff and outflow from a watershed."
+msgid "Visit CBP Tools Page"
 msgstr ""
-"Mapeo del manejo de tierras y evaluación del escurrimiento y fugas de una "
-"cuenca."
 
-#: apps/wocat/templates/wocat/home.html:250
-#: apps/wocat/templates/wocat/partial/add.html:100
+#: apps/wocat/templates/wocat/home.html:235
+#: apps/wocat/templates/wocat/partial/add.html:122
 msgid "Land Degradation / Conservation"
 msgstr "Degradación/ Conservación de tierras"
 
-#: apps/wocat/templates/wocat/home.html:251
-#: apps/wocat/templates/wocat/partial/add.html:101
+#: apps/wocat/templates/wocat/home.html:236
+#: apps/wocat/templates/wocat/partial/add.html:123
 msgid ""
 "Mapping land management, degradation and conservation including driver, "
 "state and impacts."
@@ -22858,8 +23265,8 @@ msgstr ""
 "Mapeo de manejo, degradación y conservación de ríos, incluyendo impulsores, "
 "estado e impactos."
 
-#: apps/wocat/templates/wocat/home.html:252
-#: apps/wocat/templates/wocat/partial/add.html:102
+#: apps/wocat/templates/wocat/home.html:237
+#: apps/wocat/templates/wocat/partial/add.html:124
 msgid ""
 "Maps are currently not yet available in the new database. Maps can be viewed "
 "or added in the old database (QM)."
@@ -22868,17 +23275,17 @@ msgstr ""
 "datos. Se pueden visualizar o agregar los mapas en la antigua base de datos "
 "(QM).  "
 
-#: apps/wocat/templates/wocat/home.html:273
-#: apps/wocat/templates/wocat/home.html:289
-#: apps/wocat/templates/wocat/partial/add.html:123
-#: apps/wocat/templates/wocat/partial/add.html:139
+#: apps/wocat/templates/wocat/home.html:258
+#: apps/wocat/templates/wocat/home.html:274
+#: apps/wocat/templates/wocat/partial/add.html:145
+#: apps/wocat/templates/wocat/partial/add.html:161
 msgid "CCA Module"
 msgstr "Módulo CCA"
 
-#: apps/wocat/templates/wocat/home.html:274
-#: apps/wocat/templates/wocat/home.html:290
-#: apps/wocat/templates/wocat/partial/add.html:124
-#: apps/wocat/templates/wocat/partial/add.html:140
+#: apps/wocat/templates/wocat/home.html:259
+#: apps/wocat/templates/wocat/home.html:275
+#: apps/wocat/templates/wocat/partial/add.html:146
+#: apps/wocat/templates/wocat/partial/add.html:162
 msgid ""
 "The climate change adaptation tool assesses whether a specific SLM "
 "Technology is adapted to gradual climate changes and climate-related "
@@ -22888,12 +23295,12 @@ msgstr ""
 "MST está adaptada a los cambios climáticos graduales y a los extremos "
 "relacionados al clima (desastres naturales)."
 
-#: apps/wocat/templates/wocat/home.html:291
-#: apps/wocat/templates/wocat/partial/add.html:141
+#: apps/wocat/templates/wocat/home.html:276
+#: apps/wocat/templates/wocat/partial/add.html:163
 msgid "Modules will be added soon to the new database."
 msgstr "Pronto se agregarán módulos a la nueva base de datos."
 
-#: apps/wocat/templates/wocat/home.html:307
+#: apps/wocat/templates/wocat/home.html:292
 msgid "Key Numbers"
 msgstr "Números claves"
 
@@ -22902,8 +23309,9 @@ msgstr "Números claves"
 #: apps/wocat/templates/wocat/partial/add.html:65
 #: apps/wocat/templates/wocat/partial/add.html:80
 #: apps/wocat/templates/wocat/partial/add.html:103
-#: apps/wocat/templates/wocat/partial/add.html:126
-#: apps/wocat/templates/wocat/partial/add.html:142
+#: apps/wocat/templates/wocat/partial/add.html:125
+#: apps/wocat/templates/wocat/partial/add.html:148
+#: apps/wocat/templates/wocat/partial/add.html:164
 msgid "Add"
 msgstr "Agregar"
 
@@ -22917,6 +23325,19 @@ msgstr ""
 "Un <strong>Enfoque MST</strong> define las maneras y medios usados para "
 "implementar una Tecnología MST, e incluye a las partes interesadas "
 "involucradas y sus roles."
+
+#: apps/wocat/templates/wocat/partial/add.html:63
+#: apps/wocat/templates/wocat/partial/add.html:77
+msgid "Watershed and Runoff"
+msgstr "Cuenca y escurrimiento "
+
+#: apps/wocat/templates/wocat/partial/add.html:64
+#: apps/wocat/templates/wocat/partial/add.html:78
+msgid ""
+"Mapping land management and assessing runoff and outflow from a watershed."
+msgstr ""
+"Mapeo del manejo de tierras y evaluación del escurrimiento y fugas de una "
+"cuenca."
 
 #: apps/wocat/templates/wocat/partial/search.html:11 templates/base.html:194
 msgid "Search SLM Data"
@@ -23106,3 +23527,22 @@ msgid ""
 msgstr ""
 "La base de datos WOCAT de prácticas MST (Tecnologías y Enfoques) contiene "
 "una gran cantidad de buenas prácticas de todo el mundo. "
+
+#~ msgctxt "watershed label"
+#~ msgid "co-compiler"
+#~ msgstr "co-compilador"
+
+#~ msgctxt "approaches label"
+#~ msgid "co-compiler"
+#~ msgstr "co-compilador"
+
+#~ msgctxt "technologies label"
+#~ msgid "co-compiler"
+#~ msgstr "co-compilador"
+
+#~ msgctxt "technologies_2018 label"
+#~ msgid "co-compiler"
+#~ msgstr "co-compilador"
+
+#~ msgid "2. Select CCA Module"
+#~ msgstr "2. Elija un módulo CCA"
